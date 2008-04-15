@@ -866,7 +866,7 @@ GetFieldHandlePtr SimpleStageBase::getHandlePreRenderCallbacks (void) const
 
 EditFieldHandlePtr SimpleStageBase::editHandlePreRenderCallbacks(void)
 {
-    MFRenderFunctorCallback::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -880,7 +880,7 @@ GetFieldHandlePtr SimpleStageBase::getHandlePostRenderCallbacks (void) const
 
 EditFieldHandlePtr SimpleStageBase::editHandlePostRenderCallbacks(void)
 {
-    MFRenderFunctorCallback::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }

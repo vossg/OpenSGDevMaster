@@ -1270,7 +1270,7 @@ GetFieldHandlePtr ViewportBase::getHandleParent          (void) const
 
 EditFieldHandlePtr ViewportBase::editHandleParent         (void)
 {
-    SFParentFieldContainerPtr::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -1469,11 +1469,11 @@ DataType FieldTraits<ViewportPtr>::_type("ViewportPtr", "AttachmentContainerPtr"
 
 OSG_FIELDTRAITS_GETTYPE(ViewportPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ViewportPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ViewportPtr, 
                            0);
 
@@ -1483,7 +1483,7 @@ DataType &FieldTraits< ViewportPtr, 1 >::getType(void)
 }
 
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       ViewportPtr,       
                       UnrecordedRefCountPolicy,  
                       1);

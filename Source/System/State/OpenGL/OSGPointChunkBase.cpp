@@ -1163,11 +1163,11 @@ DataType FieldTraits<PointChunkPtr>::_type("PointChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(PointChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            PointChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            PointChunkPtr, 
                            0);
 

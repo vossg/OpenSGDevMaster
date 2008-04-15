@@ -58,8 +58,8 @@
 #include "OSGWindowCarbonDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<CarbonWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCarbonFieldSingle */
 
-typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                RecordedRefCountPolicy  > SFRecCarbonWindowPtr;
-typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecCarbonWindowPtr;
-typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                WeakRefCountPolicy      > SFWeakCarbonWindowPtr;
-typedef FieldContainerPtrSField<CarbonWindowPtr,
-                                NoRefCountPolicy        > SFUncountedCarbonWindowPtr;
+typedef PointerSField<CarbonWindowPtr,
+                      RecordedRefCountPolicy  > SFRecCarbonWindowPtr;
+typedef PointerSField<CarbonWindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecCarbonWindowPtr;
+typedef PointerSField<CarbonWindowPtr,
+                      WeakRefCountPolicy      > SFWeakCarbonWindowPtr;
+typedef PointerSField<CarbonWindowPtr,
+                      NoRefCountPolicy        > SFUncountedCarbonWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCarbonFieldMulti */
 
-typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                RecordedRefCountPolicy  > MFRecCarbonWindowPtr;
-typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecCarbonWindowPtr;
-typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                WeakRefCountPolicy      > MFWeakCarbonWindowPtr;
-typedef FieldContainerPtrMField<CarbonWindowPtr,
-                                NoRefCountPolicy        > MFUncountedCarbonWindowPtr;
+typedef PointerMField<CarbonWindowPtr,
+                      RecordedRefCountPolicy  > MFRecCarbonWindowPtr;
+typedef PointerMField<CarbonWindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecCarbonWindowPtr;
+typedef PointerMField<CarbonWindowPtr,
+                      WeakRefCountPolicy      > MFWeakCarbonWindowPtr;
+typedef PointerMField<CarbonWindowPtr,
+                      NoRefCountPolicy        > MFUncountedCarbonWindowPtr;
 #endif
 
 

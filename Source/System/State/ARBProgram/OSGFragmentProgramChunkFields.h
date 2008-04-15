@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
-                                RecordedRefCountPolicy  > SFRecFragmentProgramChunkPtr;
-typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecFragmentProgramChunkPtr;
-typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
-                                WeakRefCountPolicy      > SFWeakFragmentProgramChunkPtr;
-typedef FieldContainerPtrSField<FragmentProgramChunkPtr,
-                                NoRefCountPolicy        > SFUncountedFragmentProgramChunkPtr;
+typedef PointerSField<FragmentProgramChunkPtr,
+                      RecordedRefCountPolicy  > SFRecFragmentProgramChunkPtr;
+typedef PointerSField<FragmentProgramChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecFragmentProgramChunkPtr;
+typedef PointerSField<FragmentProgramChunkPtr,
+                      WeakRefCountPolicy      > SFWeakFragmentProgramChunkPtr;
+typedef PointerSField<FragmentProgramChunkPtr,
+                      NoRefCountPolicy        > SFUncountedFragmentProgramChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
-                                RecordedRefCountPolicy  > MFRecFragmentProgramChunkPtr;
-typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecFragmentProgramChunkPtr;
-typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
-                                WeakRefCountPolicy      > MFWeakFragmentProgramChunkPtr;
-typedef FieldContainerPtrMField<FragmentProgramChunkPtr,
-                                NoRefCountPolicy        > MFUncountedFragmentProgramChunkPtr;
+typedef PointerMField<FragmentProgramChunkPtr,
+                      RecordedRefCountPolicy  > MFRecFragmentProgramChunkPtr;
+typedef PointerMField<FragmentProgramChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecFragmentProgramChunkPtr;
+typedef PointerMField<FragmentProgramChunkPtr,
+                      WeakRefCountPolicy      > MFWeakFragmentProgramChunkPtr;
+typedef PointerMField<FragmentProgramChunkPtr,
+                      NoRefCountPolicy        > MFUncountedFragmentProgramChunkPtr;
 #endif
 
 

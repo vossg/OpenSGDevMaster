@@ -489,11 +489,11 @@ DataType FieldTraits<GrabForegroundPtr>::_type("GrabForegroundPtr", "ForegroundP
 
 OSG_FIELDTRAITS_GETTYPE(GrabForegroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GrabForegroundPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GrabForegroundPtr, 
                            0);
 

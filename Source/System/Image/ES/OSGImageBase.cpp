@@ -1517,7 +1517,7 @@ GetFieldHandlePtr ImageBase::getHandleParents         (void) const
 
 EditFieldHandlePtr ImageBase::editHandleParents        (void)
 {
-    MFUnrecParentFieldContainerPtr::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -2014,11 +2014,11 @@ DataType FieldTraits<ImagePtr>::_type("ImagePtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ImagePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ImagePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ImagePtr, 
                            0);
 

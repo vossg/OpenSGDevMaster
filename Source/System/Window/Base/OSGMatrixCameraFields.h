@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<MatrixCameraPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<MatrixCameraPtr,
-                                RecordedRefCountPolicy  > SFRecMatrixCameraPtr;
-typedef FieldContainerPtrSField<MatrixCameraPtr,
-                                UnrecordedRefCountPolicy> SFUnrecMatrixCameraPtr;
-typedef FieldContainerPtrSField<MatrixCameraPtr,
-                                WeakRefCountPolicy      > SFWeakMatrixCameraPtr;
-typedef FieldContainerPtrSField<MatrixCameraPtr,
-                                NoRefCountPolicy        > SFUncountedMatrixCameraPtr;
+typedef PointerSField<MatrixCameraPtr,
+                      RecordedRefCountPolicy  > SFRecMatrixCameraPtr;
+typedef PointerSField<MatrixCameraPtr,
+                      UnrecordedRefCountPolicy> SFUnrecMatrixCameraPtr;
+typedef PointerSField<MatrixCameraPtr,
+                      WeakRefCountPolicy      > SFWeakMatrixCameraPtr;
+typedef PointerSField<MatrixCameraPtr,
+                      NoRefCountPolicy        > SFUncountedMatrixCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<MatrixCameraPtr,
-                                RecordedRefCountPolicy  > MFRecMatrixCameraPtr;
-typedef FieldContainerPtrMField<MatrixCameraPtr,
-                                UnrecordedRefCountPolicy> MFUnrecMatrixCameraPtr;
-typedef FieldContainerPtrMField<MatrixCameraPtr,
-                                WeakRefCountPolicy      > MFWeakMatrixCameraPtr;
-typedef FieldContainerPtrMField<MatrixCameraPtr,
-                                NoRefCountPolicy        > MFUncountedMatrixCameraPtr;
+typedef PointerMField<MatrixCameraPtr,
+                      RecordedRefCountPolicy  > MFRecMatrixCameraPtr;
+typedef PointerMField<MatrixCameraPtr,
+                      UnrecordedRefCountPolicy> MFUnrecMatrixCameraPtr;
+typedef PointerMField<MatrixCameraPtr,
+                      WeakRefCountPolicy      > MFWeakMatrixCameraPtr;
+typedef PointerMField<MatrixCameraPtr,
+                      NoRefCountPolicy        > MFUncountedMatrixCameraPtr;
 #endif
 
 

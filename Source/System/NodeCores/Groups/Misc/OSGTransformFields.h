@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<TransformPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<TransformPtr,
-                                RecordedRefCountPolicy  > SFRecTransformPtr;
-typedef FieldContainerPtrSField<TransformPtr,
-                                UnrecordedRefCountPolicy> SFUnrecTransformPtr;
-typedef FieldContainerPtrSField<TransformPtr,
-                                WeakRefCountPolicy      > SFWeakTransformPtr;
-typedef FieldContainerPtrSField<TransformPtr,
-                                NoRefCountPolicy        > SFUncountedTransformPtr;
+typedef PointerSField<TransformPtr,
+                      RecordedRefCountPolicy  > SFRecTransformPtr;
+typedef PointerSField<TransformPtr,
+                      UnrecordedRefCountPolicy> SFUnrecTransformPtr;
+typedef PointerSField<TransformPtr,
+                      WeakRefCountPolicy      > SFWeakTransformPtr;
+typedef PointerSField<TransformPtr,
+                      NoRefCountPolicy        > SFUncountedTransformPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<TransformPtr,
-                                RecordedRefCountPolicy  > MFRecTransformPtr;
-typedef FieldContainerPtrMField<TransformPtr,
-                                UnrecordedRefCountPolicy> MFUnrecTransformPtr;
-typedef FieldContainerPtrMField<TransformPtr,
-                                WeakRefCountPolicy      > MFWeakTransformPtr;
-typedef FieldContainerPtrMField<TransformPtr,
-                                NoRefCountPolicy        > MFUncountedTransformPtr;
+typedef PointerMField<TransformPtr,
+                      RecordedRefCountPolicy  > MFRecTransformPtr;
+typedef PointerMField<TransformPtr,
+                      UnrecordedRefCountPolicy> MFUnrecTransformPtr;
+typedef PointerMField<TransformPtr,
+                      WeakRefCountPolicy      > MFWeakTransformPtr;
+typedef PointerMField<TransformPtr,
+                      NoRefCountPolicy        > MFUncountedTransformPtr;
 #endif
 
 

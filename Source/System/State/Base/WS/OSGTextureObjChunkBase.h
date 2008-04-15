@@ -229,7 +229,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecFieldContainerChildImagePtr *getSFImage           (void) const;
+            const SFUnrecChildImagePtr *getSFImage           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFInternalFormat  (void);
@@ -637,7 +637,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecFieldContainerChildImagePtr _sfImage;
+    SFUnrecChildImagePtr _sfImage;
     SFGLenum          _sfInternalFormat;
     SFGLenum          _sfExternalFormat;
     SFBool            _sfScale;

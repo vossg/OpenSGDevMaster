@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<DynamicStateGeneratorPtr, 0>::getMName<NoRefCountPolicy
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                RecordedRefCountPolicy  > SFRecDynamicStateGeneratorPtr;
-typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                UnrecordedRefCountPolicy> SFUnrecDynamicStateGeneratorPtr;
-typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                WeakRefCountPolicy      > SFWeakDynamicStateGeneratorPtr;
-typedef FieldContainerPtrSField<DynamicStateGeneratorPtr,
-                                NoRefCountPolicy        > SFUncountedDynamicStateGeneratorPtr;
+typedef PointerSField<DynamicStateGeneratorPtr,
+                      RecordedRefCountPolicy  > SFRecDynamicStateGeneratorPtr;
+typedef PointerSField<DynamicStateGeneratorPtr,
+                      UnrecordedRefCountPolicy> SFUnrecDynamicStateGeneratorPtr;
+typedef PointerSField<DynamicStateGeneratorPtr,
+                      WeakRefCountPolicy      > SFWeakDynamicStateGeneratorPtr;
+typedef PointerSField<DynamicStateGeneratorPtr,
+                      NoRefCountPolicy        > SFUncountedDynamicStateGeneratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                RecordedRefCountPolicy  > MFRecDynamicStateGeneratorPtr;
-typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                UnrecordedRefCountPolicy> MFUnrecDynamicStateGeneratorPtr;
-typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                WeakRefCountPolicy      > MFWeakDynamicStateGeneratorPtr;
-typedef FieldContainerPtrMField<DynamicStateGeneratorPtr,
-                                NoRefCountPolicy        > MFUncountedDynamicStateGeneratorPtr;
+typedef PointerMField<DynamicStateGeneratorPtr,
+                      RecordedRefCountPolicy  > MFRecDynamicStateGeneratorPtr;
+typedef PointerMField<DynamicStateGeneratorPtr,
+                      UnrecordedRefCountPolicy> MFUnrecDynamicStateGeneratorPtr;
+typedef PointerMField<DynamicStateGeneratorPtr,
+                      WeakRefCountPolicy      > MFWeakDynamicStateGeneratorPtr;
+typedef PointerMField<DynamicStateGeneratorPtr,
+                      NoRefCountPolicy        > MFUncountedDynamicStateGeneratorPtr;
 #endif
 
 

@@ -1912,7 +1912,7 @@ DataType FieldTraits<SkyBackgroundPtr>::_type("SkyBackgroundPtr", "BackgroundPtr
 OSG_FIELDTRAITS_GETTYPE(SkyBackgroundPtr)
 
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            SkyBackgroundPtr, 
                            0);
 

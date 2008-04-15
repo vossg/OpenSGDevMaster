@@ -782,11 +782,11 @@ DataType FieldTraits<SimpleTexturedMaterialPtr>::_type("SimpleTexturedMaterialPt
 
 OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterialPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            SimpleTexturedMaterialPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            SimpleTexturedMaterialPtr, 
                            0);
 

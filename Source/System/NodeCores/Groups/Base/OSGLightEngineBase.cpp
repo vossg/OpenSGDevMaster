@@ -299,11 +299,11 @@ DataType FieldTraits<LightEnginePtr>::_type("LightEnginePtr", "AttachmentContain
 
 OSG_FIELDTRAITS_GETTYPE(LightEnginePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            LightEnginePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            LightEnginePtr, 
                            0);
 

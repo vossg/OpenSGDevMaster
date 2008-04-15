@@ -125,11 +125,11 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecFieldContainerChildShaderParameterPtr *getMFParameters      (void) const;
+            const MFUnrecChildShaderParameterPtr *getMFParameters      (void) const;
 
 
                   ShaderParameterPtrConst getParameters     (const UInt32 index) const;
-            const MFUnrecFieldContainerChildShaderParameterPtr &getParameters     (void) const;
+            const MFUnrecChildShaderParameterPtr &getParameters     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,7 +148,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*! \{                                                                 */
 
     void addParameter              (ShaderParameterPtrConstArg value   );
-    void assignParameters           (const MFUnrecFieldContainerChildShaderParameterPtr &value);
+    void assignParameters           (const MFUnrecChildShaderParameterPtr &value);
     void insertParameter      (UInt32                uiIndex,
                                              ShaderParameterPtrConstArg value   );
     void replaceParameter  (UInt32                uiIndex,
@@ -186,7 +186,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecFieldContainerChildShaderParameterPtr _mfParameters;
+    MFUnrecChildShaderParameterPtr _mfParameters;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

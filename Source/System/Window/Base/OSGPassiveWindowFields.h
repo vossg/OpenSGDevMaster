@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<PassiveWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                RecordedRefCountPolicy  > SFRecPassiveWindowPtr;
-typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecPassiveWindowPtr;
-typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                WeakRefCountPolicy      > SFWeakPassiveWindowPtr;
-typedef FieldContainerPtrSField<PassiveWindowPtr,
-                                NoRefCountPolicy        > SFUncountedPassiveWindowPtr;
+typedef PointerSField<PassiveWindowPtr,
+                      RecordedRefCountPolicy  > SFRecPassiveWindowPtr;
+typedef PointerSField<PassiveWindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecPassiveWindowPtr;
+typedef PointerSField<PassiveWindowPtr,
+                      WeakRefCountPolicy      > SFWeakPassiveWindowPtr;
+typedef PointerSField<PassiveWindowPtr,
+                      NoRefCountPolicy        > SFUncountedPassiveWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                RecordedRefCountPolicy  > MFRecPassiveWindowPtr;
-typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecPassiveWindowPtr;
-typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                WeakRefCountPolicy      > MFWeakPassiveWindowPtr;
-typedef FieldContainerPtrMField<PassiveWindowPtr,
-                                NoRefCountPolicy        > MFUncountedPassiveWindowPtr;
+typedef PointerMField<PassiveWindowPtr,
+                      RecordedRefCountPolicy  > MFRecPassiveWindowPtr;
+typedef PointerMField<PassiveWindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecPassiveWindowPtr;
+typedef PointerMField<PassiveWindowPtr,
+                      WeakRefCountPolicy      > MFWeakPassiveWindowPtr;
+typedef PointerMField<PassiveWindowPtr,
+                      NoRefCountPolicy        > MFUncountedPassiveWindowPtr;
 #endif
 
 

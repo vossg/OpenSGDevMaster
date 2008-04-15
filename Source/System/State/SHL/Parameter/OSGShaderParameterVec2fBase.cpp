@@ -395,11 +395,11 @@ DataType FieldTraits<ShaderParameterVec2fPtr>::_type("ShaderParameterVec2fPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec2fPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ShaderParameterVec2fPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ShaderParameterVec2fPtr, 
                            0);
 

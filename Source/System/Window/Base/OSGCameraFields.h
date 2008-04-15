@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<CameraPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<CameraPtr,
-                                RecordedRefCountPolicy  > SFRecCameraPtr;
-typedef FieldContainerPtrSField<CameraPtr,
-                                UnrecordedRefCountPolicy> SFUnrecCameraPtr;
-typedef FieldContainerPtrSField<CameraPtr,
-                                WeakRefCountPolicy      > SFWeakCameraPtr;
-typedef FieldContainerPtrSField<CameraPtr,
-                                NoRefCountPolicy        > SFUncountedCameraPtr;
+typedef PointerSField<CameraPtr,
+                      RecordedRefCountPolicy  > SFRecCameraPtr;
+typedef PointerSField<CameraPtr,
+                      UnrecordedRefCountPolicy> SFUnrecCameraPtr;
+typedef PointerSField<CameraPtr,
+                      WeakRefCountPolicy      > SFWeakCameraPtr;
+typedef PointerSField<CameraPtr,
+                      NoRefCountPolicy        > SFUncountedCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<CameraPtr,
-                                RecordedRefCountPolicy  > MFRecCameraPtr;
-typedef FieldContainerPtrMField<CameraPtr,
-                                UnrecordedRefCountPolicy> MFUnrecCameraPtr;
-typedef FieldContainerPtrMField<CameraPtr,
-                                WeakRefCountPolicy      > MFWeakCameraPtr;
-typedef FieldContainerPtrMField<CameraPtr,
-                                NoRefCountPolicy        > MFUncountedCameraPtr;
+typedef PointerMField<CameraPtr,
+                      RecordedRefCountPolicy  > MFRecCameraPtr;
+typedef PointerMField<CameraPtr,
+                      UnrecordedRefCountPolicy> MFUnrecCameraPtr;
+typedef PointerMField<CameraPtr,
+                      WeakRefCountPolicy      > MFWeakCameraPtr;
+typedef PointerMField<CameraPtr,
+                      NoRefCountPolicy        > MFUncountedCameraPtr;
 #endif
 
 

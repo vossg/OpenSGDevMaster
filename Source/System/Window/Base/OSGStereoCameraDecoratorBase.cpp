@@ -395,11 +395,11 @@ DataType FieldTraits<StereoCameraDecoratorPtr>::_type("StereoCameraDecoratorPtr"
 
 OSG_FIELDTRAITS_GETTYPE(StereoCameraDecoratorPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            StereoCameraDecoratorPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            StereoCameraDecoratorPtr, 
                            0);
 

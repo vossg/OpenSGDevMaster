@@ -58,8 +58,8 @@
 #include "OSGContribVTKDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldSingle */
 
-typedef FieldContainerPtrSField<VTKMapperPtr,
-                                RecordedRefCountPolicy  > SFRecVTKMapperPtr;
-typedef FieldContainerPtrSField<VTKMapperPtr,
-                                UnrecordedRefCountPolicy> SFUnrecVTKMapperPtr;
-typedef FieldContainerPtrSField<VTKMapperPtr,
-                                WeakRefCountPolicy      > SFWeakVTKMapperPtr;
-typedef FieldContainerPtrSField<VTKMapperPtr,
-                                NoRefCountPolicy        > SFUncountedVTKMapperPtr;
+typedef PointerSField<VTKMapperPtr,
+                      RecordedRefCountPolicy  > SFRecVTKMapperPtr;
+typedef PointerSField<VTKMapperPtr,
+                      UnrecordedRefCountPolicy> SFUnrecVTKMapperPtr;
+typedef PointerSField<VTKMapperPtr,
+                      WeakRefCountPolicy      > SFWeakVTKMapperPtr;
+typedef PointerSField<VTKMapperPtr,
+                      NoRefCountPolicy        > SFUncountedVTKMapperPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldMulti */
 
-typedef FieldContainerPtrMField<VTKMapperPtr,
-                                RecordedRefCountPolicy  > MFRecVTKMapperPtr;
-typedef FieldContainerPtrMField<VTKMapperPtr,
-                                UnrecordedRefCountPolicy> MFUnrecVTKMapperPtr;
-typedef FieldContainerPtrMField<VTKMapperPtr,
-                                WeakRefCountPolicy      > MFWeakVTKMapperPtr;
-typedef FieldContainerPtrMField<VTKMapperPtr,
-                                NoRefCountPolicy        > MFUncountedVTKMapperPtr;
+typedef PointerMField<VTKMapperPtr,
+                      RecordedRefCountPolicy  > MFRecVTKMapperPtr;
+typedef PointerMField<VTKMapperPtr,
+                      UnrecordedRefCountPolicy> MFUnrecVTKMapperPtr;
+typedef PointerMField<VTKMapperPtr,
+                      WeakRefCountPolicy      > MFWeakVTKMapperPtr;
+typedef PointerMField<VTKMapperPtr,
+                      NoRefCountPolicy        > MFUncountedVTKMapperPtr;
 #endif
 
 

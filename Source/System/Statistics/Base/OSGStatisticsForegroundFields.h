@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                RecordedRefCountPolicy  > SFRecStatisticsForegroundPtr;
-typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                UnrecordedRefCountPolicy> SFUnrecStatisticsForegroundPtr;
-typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                WeakRefCountPolicy      > SFWeakStatisticsForegroundPtr;
-typedef FieldContainerPtrSField<StatisticsForegroundPtr,
-                                NoRefCountPolicy        > SFUncountedStatisticsForegroundPtr;
+typedef PointerSField<StatisticsForegroundPtr,
+                      RecordedRefCountPolicy  > SFRecStatisticsForegroundPtr;
+typedef PointerSField<StatisticsForegroundPtr,
+                      UnrecordedRefCountPolicy> SFUnrecStatisticsForegroundPtr;
+typedef PointerSField<StatisticsForegroundPtr,
+                      WeakRefCountPolicy      > SFWeakStatisticsForegroundPtr;
+typedef PointerSField<StatisticsForegroundPtr,
+                      NoRefCountPolicy        > SFUncountedStatisticsForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                RecordedRefCountPolicy  > MFRecStatisticsForegroundPtr;
-typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                UnrecordedRefCountPolicy> MFUnrecStatisticsForegroundPtr;
-typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                WeakRefCountPolicy      > MFWeakStatisticsForegroundPtr;
-typedef FieldContainerPtrMField<StatisticsForegroundPtr,
-                                NoRefCountPolicy        > MFUncountedStatisticsForegroundPtr;
+typedef PointerMField<StatisticsForegroundPtr,
+                      RecordedRefCountPolicy  > MFRecStatisticsForegroundPtr;
+typedef PointerMField<StatisticsForegroundPtr,
+                      UnrecordedRefCountPolicy> MFUnrecStatisticsForegroundPtr;
+typedef PointerMField<StatisticsForegroundPtr,
+                      WeakRefCountPolicy      > MFWeakStatisticsForegroundPtr;
+typedef PointerMField<StatisticsForegroundPtr,
+                      NoRefCountPolicy        > MFUncountedStatisticsForegroundPtr;
 #endif
 
 

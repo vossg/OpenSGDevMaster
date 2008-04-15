@@ -1396,11 +1396,11 @@ DataType FieldTraits<ClusterWindowPtr>::_type("ClusterWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ClusterWindowPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ClusterWindowPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ClusterWindowPtr, 
                            0);
 

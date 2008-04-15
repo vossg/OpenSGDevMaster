@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ShaderChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                RecordedRefCountPolicy  > SFRecShaderChunkPtr;
-typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecShaderChunkPtr;
-typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                WeakRefCountPolicy      > SFWeakShaderChunkPtr;
-typedef FieldContainerPtrSField<ShaderChunkPtr,
-                                NoRefCountPolicy        > SFUncountedShaderChunkPtr;
+typedef PointerSField<ShaderChunkPtr,
+                      RecordedRefCountPolicy  > SFRecShaderChunkPtr;
+typedef PointerSField<ShaderChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecShaderChunkPtr;
+typedef PointerSField<ShaderChunkPtr,
+                      WeakRefCountPolicy      > SFWeakShaderChunkPtr;
+typedef PointerSField<ShaderChunkPtr,
+                      NoRefCountPolicy        > SFUncountedShaderChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                RecordedRefCountPolicy  > MFRecShaderChunkPtr;
-typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecShaderChunkPtr;
-typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                WeakRefCountPolicy      > MFWeakShaderChunkPtr;
-typedef FieldContainerPtrMField<ShaderChunkPtr,
-                                NoRefCountPolicy        > MFUncountedShaderChunkPtr;
+typedef PointerMField<ShaderChunkPtr,
+                      RecordedRefCountPolicy  > MFRecShaderChunkPtr;
+typedef PointerMField<ShaderChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecShaderChunkPtr;
+typedef PointerMField<ShaderChunkPtr,
+                      WeakRefCountPolicy      > MFWeakShaderChunkPtr;
+typedef PointerMField<ShaderChunkPtr,
+                      NoRefCountPolicy        > MFUncountedShaderChunkPtr;
 #endif
 
 

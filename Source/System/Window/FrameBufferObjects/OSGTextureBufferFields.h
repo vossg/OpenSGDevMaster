@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<TextureBufferPtr,
-                                RecordedRefCountPolicy  > SFRecTextureBufferPtr;
-typedef FieldContainerPtrSField<TextureBufferPtr,
-                                UnrecordedRefCountPolicy> SFUnrecTextureBufferPtr;
-typedef FieldContainerPtrSField<TextureBufferPtr,
-                                WeakRefCountPolicy      > SFWeakTextureBufferPtr;
-typedef FieldContainerPtrSField<TextureBufferPtr,
-                                NoRefCountPolicy        > SFUncountedTextureBufferPtr;
+typedef PointerSField<TextureBufferPtr,
+                      RecordedRefCountPolicy  > SFRecTextureBufferPtr;
+typedef PointerSField<TextureBufferPtr,
+                      UnrecordedRefCountPolicy> SFUnrecTextureBufferPtr;
+typedef PointerSField<TextureBufferPtr,
+                      WeakRefCountPolicy      > SFWeakTextureBufferPtr;
+typedef PointerSField<TextureBufferPtr,
+                      NoRefCountPolicy        > SFUncountedTextureBufferPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<TextureBufferPtr,
-                                RecordedRefCountPolicy  > MFRecTextureBufferPtr;
-typedef FieldContainerPtrMField<TextureBufferPtr,
-                                UnrecordedRefCountPolicy> MFUnrecTextureBufferPtr;
-typedef FieldContainerPtrMField<TextureBufferPtr,
-                                WeakRefCountPolicy      > MFWeakTextureBufferPtr;
-typedef FieldContainerPtrMField<TextureBufferPtr,
-                                NoRefCountPolicy        > MFUncountedTextureBufferPtr;
+typedef PointerMField<TextureBufferPtr,
+                      RecordedRefCountPolicy  > MFRecTextureBufferPtr;
+typedef PointerMField<TextureBufferPtr,
+                      UnrecordedRefCountPolicy> MFUnrecTextureBufferPtr;
+typedef PointerMField<TextureBufferPtr,
+                      WeakRefCountPolicy      > MFWeakTextureBufferPtr;
+typedef PointerMField<TextureBufferPtr,
+                      NoRefCountPolicy        > MFUncountedTextureBufferPtr;
 #endif
 
 

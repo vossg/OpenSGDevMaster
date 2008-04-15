@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<FileGrabForegroundPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                RecordedRefCountPolicy  > SFRecFileGrabForegroundPtr;
-typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                UnrecordedRefCountPolicy> SFUnrecFileGrabForegroundPtr;
-typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                WeakRefCountPolicy      > SFWeakFileGrabForegroundPtr;
-typedef FieldContainerPtrSField<FileGrabForegroundPtr,
-                                NoRefCountPolicy        > SFUncountedFileGrabForegroundPtr;
+typedef PointerSField<FileGrabForegroundPtr,
+                      RecordedRefCountPolicy  > SFRecFileGrabForegroundPtr;
+typedef PointerSField<FileGrabForegroundPtr,
+                      UnrecordedRefCountPolicy> SFUnrecFileGrabForegroundPtr;
+typedef PointerSField<FileGrabForegroundPtr,
+                      WeakRefCountPolicy      > SFWeakFileGrabForegroundPtr;
+typedef PointerSField<FileGrabForegroundPtr,
+                      NoRefCountPolicy        > SFUncountedFileGrabForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                RecordedRefCountPolicy  > MFRecFileGrabForegroundPtr;
-typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                UnrecordedRefCountPolicy> MFUnrecFileGrabForegroundPtr;
-typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                WeakRefCountPolicy      > MFWeakFileGrabForegroundPtr;
-typedef FieldContainerPtrMField<FileGrabForegroundPtr,
-                                NoRefCountPolicy        > MFUncountedFileGrabForegroundPtr;
+typedef PointerMField<FileGrabForegroundPtr,
+                      RecordedRefCountPolicy  > MFRecFileGrabForegroundPtr;
+typedef PointerMField<FileGrabForegroundPtr,
+                      UnrecordedRefCountPolicy> MFUnrecFileGrabForegroundPtr;
+typedef PointerMField<FileGrabForegroundPtr,
+                      WeakRefCountPolicy      > MFWeakFileGrabForegroundPtr;
+typedef PointerMField<FileGrabForegroundPtr,
+                      NoRefCountPolicy        > MFUncountedFileGrabForegroundPtr;
 #endif
 
 

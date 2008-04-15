@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StateChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StateChunkPtr,
-                                RecordedRefCountPolicy  > SFRecStateChunkPtr;
-typedef FieldContainerPtrSField<StateChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecStateChunkPtr;
-typedef FieldContainerPtrSField<StateChunkPtr,
-                                WeakRefCountPolicy      > SFWeakStateChunkPtr;
-typedef FieldContainerPtrSField<StateChunkPtr,
-                                NoRefCountPolicy        > SFUncountedStateChunkPtr;
+typedef PointerSField<StateChunkPtr,
+                      RecordedRefCountPolicy  > SFRecStateChunkPtr;
+typedef PointerSField<StateChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecStateChunkPtr;
+typedef PointerSField<StateChunkPtr,
+                      WeakRefCountPolicy      > SFWeakStateChunkPtr;
+typedef PointerSField<StateChunkPtr,
+                      NoRefCountPolicy        > SFUncountedStateChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StateChunkPtr,
-                                RecordedRefCountPolicy  > MFRecStateChunkPtr;
-typedef FieldContainerPtrMField<StateChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecStateChunkPtr;
-typedef FieldContainerPtrMField<StateChunkPtr,
-                                WeakRefCountPolicy      > MFWeakStateChunkPtr;
-typedef FieldContainerPtrMField<StateChunkPtr,
-                                NoRefCountPolicy        > MFUncountedStateChunkPtr;
+typedef PointerMField<StateChunkPtr,
+                      RecordedRefCountPolicy  > MFRecStateChunkPtr;
+typedef PointerMField<StateChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecStateChunkPtr;
+typedef PointerMField<StateChunkPtr,
+                      WeakRefCountPolicy      > MFWeakStateChunkPtr;
+typedef PointerMField<StateChunkPtr,
+                      NoRefCountPolicy        > MFUncountedStateChunkPtr;
 #endif
 
 

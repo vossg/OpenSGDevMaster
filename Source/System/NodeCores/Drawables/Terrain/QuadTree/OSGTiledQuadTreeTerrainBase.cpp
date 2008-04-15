@@ -1719,11 +1719,11 @@ DataType FieldTraits<TiledQuadTreeTerrainPtr>::_type("TiledQuadTreeTerrainPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrainPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TiledQuadTreeTerrainPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TiledQuadTreeTerrainPtr, 
                            0);
 

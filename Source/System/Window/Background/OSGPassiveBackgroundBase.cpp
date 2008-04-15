@@ -307,7 +307,7 @@ DataType FieldTraits<PassiveBackgroundPtr>::_type("PassiveBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(PassiveBackgroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            PassiveBackgroundPtr, 
                            0);
 

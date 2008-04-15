@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<BackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<BackgroundPtr,
-                                RecordedRefCountPolicy  > SFRecBackgroundPtr;
-typedef FieldContainerPtrSField<BackgroundPtr,
-                                UnrecordedRefCountPolicy> SFUnrecBackgroundPtr;
-typedef FieldContainerPtrSField<BackgroundPtr,
-                                WeakRefCountPolicy      > SFWeakBackgroundPtr;
-typedef FieldContainerPtrSField<BackgroundPtr,
-                                NoRefCountPolicy        > SFUncountedBackgroundPtr;
+typedef PointerSField<BackgroundPtr,
+                      RecordedRefCountPolicy  > SFRecBackgroundPtr;
+typedef PointerSField<BackgroundPtr,
+                      UnrecordedRefCountPolicy> SFUnrecBackgroundPtr;
+typedef PointerSField<BackgroundPtr,
+                      WeakRefCountPolicy      > SFWeakBackgroundPtr;
+typedef PointerSField<BackgroundPtr,
+                      NoRefCountPolicy        > SFUncountedBackgroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<BackgroundPtr,
-                                RecordedRefCountPolicy  > MFRecBackgroundPtr;
-typedef FieldContainerPtrMField<BackgroundPtr,
-                                UnrecordedRefCountPolicy> MFUnrecBackgroundPtr;
-typedef FieldContainerPtrMField<BackgroundPtr,
-                                WeakRefCountPolicy      > MFWeakBackgroundPtr;
-typedef FieldContainerPtrMField<BackgroundPtr,
-                                NoRefCountPolicy        > MFUncountedBackgroundPtr;
+typedef PointerMField<BackgroundPtr,
+                      RecordedRefCountPolicy  > MFRecBackgroundPtr;
+typedef PointerMField<BackgroundPtr,
+                      UnrecordedRefCountPolicy> MFUnrecBackgroundPtr;
+typedef PointerMField<BackgroundPtr,
+                      WeakRefCountPolicy      > MFWeakBackgroundPtr;
+typedef PointerMField<BackgroundPtr,
+                      NoRefCountPolicy        > MFUncountedBackgroundPtr;
 #endif
 
 

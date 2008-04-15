@@ -510,7 +510,7 @@ DataType FieldTraits<GradientBackgroundPtr>::_type("GradientBackgroundPtr", "Bac
 OSG_FIELDTRAITS_GETTYPE(GradientBackgroundPtr)
 
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GradientBackgroundPtr, 
                            0);
 

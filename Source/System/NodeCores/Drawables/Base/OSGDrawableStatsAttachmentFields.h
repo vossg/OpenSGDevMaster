@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<DrawableStatsAttachmentPtr, 0>::getMName<NoRefCountPoli
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                RecordedRefCountPolicy  > SFRecDrawableStatsAttachmentPtr;
-typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                UnrecordedRefCountPolicy> SFUnrecDrawableStatsAttachmentPtr;
-typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                WeakRefCountPolicy      > SFWeakDrawableStatsAttachmentPtr;
-typedef FieldContainerPtrSField<DrawableStatsAttachmentPtr,
-                                NoRefCountPolicy        > SFUncountedDrawableStatsAttachmentPtr;
+typedef PointerSField<DrawableStatsAttachmentPtr,
+                      RecordedRefCountPolicy  > SFRecDrawableStatsAttachmentPtr;
+typedef PointerSField<DrawableStatsAttachmentPtr,
+                      UnrecordedRefCountPolicy> SFUnrecDrawableStatsAttachmentPtr;
+typedef PointerSField<DrawableStatsAttachmentPtr,
+                      WeakRefCountPolicy      > SFWeakDrawableStatsAttachmentPtr;
+typedef PointerSField<DrawableStatsAttachmentPtr,
+                      NoRefCountPolicy        > SFUncountedDrawableStatsAttachmentPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                RecordedRefCountPolicy  > MFRecDrawableStatsAttachmentPtr;
-typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                UnrecordedRefCountPolicy> MFUnrecDrawableStatsAttachmentPtr;
-typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                WeakRefCountPolicy      > MFWeakDrawableStatsAttachmentPtr;
-typedef FieldContainerPtrMField<DrawableStatsAttachmentPtr,
-                                NoRefCountPolicy        > MFUncountedDrawableStatsAttachmentPtr;
+typedef PointerMField<DrawableStatsAttachmentPtr,
+                      RecordedRefCountPolicy  > MFRecDrawableStatsAttachmentPtr;
+typedef PointerMField<DrawableStatsAttachmentPtr,
+                      UnrecordedRefCountPolicy> MFUnrecDrawableStatsAttachmentPtr;
+typedef PointerMField<DrawableStatsAttachmentPtr,
+                      WeakRefCountPolicy      > MFWeakDrawableStatsAttachmentPtr;
+typedef PointerMField<DrawableStatsAttachmentPtr,
+                      NoRefCountPolicy        > MFUncountedDrawableStatsAttachmentPtr;
 #endif
 
 

@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<DepthChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<DepthChunkPtr,
-                                RecordedRefCountPolicy  > SFRecDepthChunkPtr;
-typedef FieldContainerPtrSField<DepthChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecDepthChunkPtr;
-typedef FieldContainerPtrSField<DepthChunkPtr,
-                                WeakRefCountPolicy      > SFWeakDepthChunkPtr;
-typedef FieldContainerPtrSField<DepthChunkPtr,
-                                NoRefCountPolicy        > SFUncountedDepthChunkPtr;
+typedef PointerSField<DepthChunkPtr,
+                      RecordedRefCountPolicy  > SFRecDepthChunkPtr;
+typedef PointerSField<DepthChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecDepthChunkPtr;
+typedef PointerSField<DepthChunkPtr,
+                      WeakRefCountPolicy      > SFWeakDepthChunkPtr;
+typedef PointerSField<DepthChunkPtr,
+                      NoRefCountPolicy        > SFUncountedDepthChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<DepthChunkPtr,
-                                RecordedRefCountPolicy  > MFRecDepthChunkPtr;
-typedef FieldContainerPtrMField<DepthChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecDepthChunkPtr;
-typedef FieldContainerPtrMField<DepthChunkPtr,
-                                WeakRefCountPolicy      > MFWeakDepthChunkPtr;
-typedef FieldContainerPtrMField<DepthChunkPtr,
-                                NoRefCountPolicy        > MFUncountedDepthChunkPtr;
+typedef PointerMField<DepthChunkPtr,
+                      RecordedRefCountPolicy  > MFRecDepthChunkPtr;
+typedef PointerMField<DepthChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecDepthChunkPtr;
+typedef PointerMField<DepthChunkPtr,
+                      WeakRefCountPolicy      > MFWeakDepthChunkPtr;
+typedef PointerMField<DepthChunkPtr,
+                      NoRefCountPolicy        > MFUncountedDepthChunkPtr;
 #endif
 
 

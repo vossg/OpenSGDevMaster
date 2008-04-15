@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<NoRefCountPolic
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
-                                RecordedRefCountPolicy  > SFRecRegisterCombinersChunkPtr;
-typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecRegisterCombinersChunkPtr;
-typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
-                                WeakRefCountPolicy      > SFWeakRegisterCombinersChunkPtr;
-typedef FieldContainerPtrSField<RegisterCombinersChunkPtr,
-                                NoRefCountPolicy        > SFUncountedRegisterCombinersChunkPtr;
+typedef PointerSField<RegisterCombinersChunkPtr,
+                      RecordedRefCountPolicy  > SFRecRegisterCombinersChunkPtr;
+typedef PointerSField<RegisterCombinersChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecRegisterCombinersChunkPtr;
+typedef PointerSField<RegisterCombinersChunkPtr,
+                      WeakRefCountPolicy      > SFWeakRegisterCombinersChunkPtr;
+typedef PointerSField<RegisterCombinersChunkPtr,
+                      NoRefCountPolicy        > SFUncountedRegisterCombinersChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
-                                RecordedRefCountPolicy  > MFRecRegisterCombinersChunkPtr;
-typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecRegisterCombinersChunkPtr;
-typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
-                                WeakRefCountPolicy      > MFWeakRegisterCombinersChunkPtr;
-typedef FieldContainerPtrMField<RegisterCombinersChunkPtr,
-                                NoRefCountPolicy        > MFUncountedRegisterCombinersChunkPtr;
+typedef PointerMField<RegisterCombinersChunkPtr,
+                      RecordedRefCountPolicy  > MFRecRegisterCombinersChunkPtr;
+typedef PointerMField<RegisterCombinersChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecRegisterCombinersChunkPtr;
+typedef PointerMField<RegisterCombinersChunkPtr,
+                      WeakRefCountPolicy      > MFWeakRegisterCombinersChunkPtr;
+typedef PointerMField<RegisterCombinersChunkPtr,
+                      NoRefCountPolicy        > MFUncountedRegisterCombinersChunkPtr;
 #endif
 
 

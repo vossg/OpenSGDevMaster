@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<BillboardPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<BillboardPtr,
-                                RecordedRefCountPolicy  > SFRecBillboardPtr;
-typedef FieldContainerPtrSField<BillboardPtr,
-                                UnrecordedRefCountPolicy> SFUnrecBillboardPtr;
-typedef FieldContainerPtrSField<BillboardPtr,
-                                WeakRefCountPolicy      > SFWeakBillboardPtr;
-typedef FieldContainerPtrSField<BillboardPtr,
-                                NoRefCountPolicy        > SFUncountedBillboardPtr;
+typedef PointerSField<BillboardPtr,
+                      RecordedRefCountPolicy  > SFRecBillboardPtr;
+typedef PointerSField<BillboardPtr,
+                      UnrecordedRefCountPolicy> SFUnrecBillboardPtr;
+typedef PointerSField<BillboardPtr,
+                      WeakRefCountPolicy      > SFWeakBillboardPtr;
+typedef PointerSField<BillboardPtr,
+                      NoRefCountPolicy        > SFUncountedBillboardPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<BillboardPtr,
-                                RecordedRefCountPolicy  > MFRecBillboardPtr;
-typedef FieldContainerPtrMField<BillboardPtr,
-                                UnrecordedRefCountPolicy> MFUnrecBillboardPtr;
-typedef FieldContainerPtrMField<BillboardPtr,
-                                WeakRefCountPolicy      > MFWeakBillboardPtr;
-typedef FieldContainerPtrMField<BillboardPtr,
-                                NoRefCountPolicy        > MFUncountedBillboardPtr;
+typedef PointerMField<BillboardPtr,
+                      RecordedRefCountPolicy  > MFRecBillboardPtr;
+typedef PointerMField<BillboardPtr,
+                      UnrecordedRefCountPolicy> MFUnrecBillboardPtr;
+typedef PointerMField<BillboardPtr,
+                      WeakRefCountPolicy      > MFWeakBillboardPtr;
+typedef PointerMField<BillboardPtr,
+                      NoRefCountPolicy        > MFUncountedBillboardPtr;
 #endif
 
 

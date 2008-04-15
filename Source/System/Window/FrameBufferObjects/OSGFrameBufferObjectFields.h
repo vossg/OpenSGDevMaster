@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                RecordedRefCountPolicy  > SFRecFrameBufferObjectPtr;
-typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                UnrecordedRefCountPolicy> SFUnrecFrameBufferObjectPtr;
-typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                WeakRefCountPolicy      > SFWeakFrameBufferObjectPtr;
-typedef FieldContainerPtrSField<FrameBufferObjectPtr,
-                                NoRefCountPolicy        > SFUncountedFrameBufferObjectPtr;
+typedef PointerSField<FrameBufferObjectPtr,
+                      RecordedRefCountPolicy  > SFRecFrameBufferObjectPtr;
+typedef PointerSField<FrameBufferObjectPtr,
+                      UnrecordedRefCountPolicy> SFUnrecFrameBufferObjectPtr;
+typedef PointerSField<FrameBufferObjectPtr,
+                      WeakRefCountPolicy      > SFWeakFrameBufferObjectPtr;
+typedef PointerSField<FrameBufferObjectPtr,
+                      NoRefCountPolicy        > SFUncountedFrameBufferObjectPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                RecordedRefCountPolicy  > MFRecFrameBufferObjectPtr;
-typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                UnrecordedRefCountPolicy> MFUnrecFrameBufferObjectPtr;
-typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                WeakRefCountPolicy      > MFWeakFrameBufferObjectPtr;
-typedef FieldContainerPtrMField<FrameBufferObjectPtr,
-                                NoRefCountPolicy        > MFUncountedFrameBufferObjectPtr;
+typedef PointerMField<FrameBufferObjectPtr,
+                      RecordedRefCountPolicy  > MFRecFrameBufferObjectPtr;
+typedef PointerMField<FrameBufferObjectPtr,
+                      UnrecordedRefCountPolicy> MFUnrecFrameBufferObjectPtr;
+typedef PointerMField<FrameBufferObjectPtr,
+                      WeakRefCountPolicy      > MFWeakFrameBufferObjectPtr;
+typedef PointerMField<FrameBufferObjectPtr,
+                      NoRefCountPolicy        > MFUncountedFrameBufferObjectPtr;
 #endif
 
 

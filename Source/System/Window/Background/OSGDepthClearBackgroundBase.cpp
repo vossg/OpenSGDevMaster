@@ -309,7 +309,7 @@ DataType FieldTraits<DepthClearBackgroundPtr>::_type("DepthClearBackgroundPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(DepthClearBackgroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            DepthClearBackgroundPtr, 
                            0);
 

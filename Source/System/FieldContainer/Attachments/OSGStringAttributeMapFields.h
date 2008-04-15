@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -139,14 +139,14 @@ const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                RecordedRefCountPolicy  > SFRecStringAttributeMapPtr;
-typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                UnrecordedRefCountPolicy> SFUnrecStringAttributeMapPtr;
-typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                WeakRefCountPolicy      > SFWeakStringAttributeMapPtr;
-typedef FieldContainerPtrSField<StringAttributeMapPtr,
-                                NoRefCountPolicy        > SFUncountedStringAttributeMapPtr;
+typedef PointerSField<StringAttributeMapPtr,
+                      RecordedRefCountPolicy  > SFRecStringAttributeMapPtr;
+typedef PointerSField<StringAttributeMapPtr,
+                      UnrecordedRefCountPolicy> SFUnrecStringAttributeMapPtr;
+typedef PointerSField<StringAttributeMapPtr,
+                      WeakRefCountPolicy      > SFWeakStringAttributeMapPtr;
+typedef PointerSField<StringAttributeMapPtr,
+                      NoRefCountPolicy        > SFUncountedStringAttributeMapPtr;
 #endif
 
 

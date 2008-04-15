@@ -248,7 +248,7 @@ ViewportPtrConst WindowBase::getPort(const UInt32 index) const
 
 //! Get the Window::_mfPort field.
 inline
-const MFUnrecFieldContainerChildViewportPtr &WindowBase::getPort(void) const
+const MFUnrecChildViewportPtr &WindowBase::getPort(void) const
 {
     return _mfPort;
 }

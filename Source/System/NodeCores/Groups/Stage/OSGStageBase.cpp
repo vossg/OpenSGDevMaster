@@ -485,11 +485,11 @@ DataType FieldTraits<StagePtr>::_type("StagePtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StagePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            StagePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            StagePtr, 
                            0);
 

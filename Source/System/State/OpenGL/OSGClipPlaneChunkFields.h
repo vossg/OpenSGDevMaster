@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                RecordedRefCountPolicy  > SFRecClipPlaneChunkPtr;
-typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecClipPlaneChunkPtr;
-typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                WeakRefCountPolicy      > SFWeakClipPlaneChunkPtr;
-typedef FieldContainerPtrSField<ClipPlaneChunkPtr,
-                                NoRefCountPolicy        > SFUncountedClipPlaneChunkPtr;
+typedef PointerSField<ClipPlaneChunkPtr,
+                      RecordedRefCountPolicy  > SFRecClipPlaneChunkPtr;
+typedef PointerSField<ClipPlaneChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecClipPlaneChunkPtr;
+typedef PointerSField<ClipPlaneChunkPtr,
+                      WeakRefCountPolicy      > SFWeakClipPlaneChunkPtr;
+typedef PointerSField<ClipPlaneChunkPtr,
+                      NoRefCountPolicy        > SFUncountedClipPlaneChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                RecordedRefCountPolicy  > MFRecClipPlaneChunkPtr;
-typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecClipPlaneChunkPtr;
-typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                WeakRefCountPolicy      > MFWeakClipPlaneChunkPtr;
-typedef FieldContainerPtrMField<ClipPlaneChunkPtr,
-                                NoRefCountPolicy        > MFUncountedClipPlaneChunkPtr;
+typedef PointerMField<ClipPlaneChunkPtr,
+                      RecordedRefCountPolicy  > MFRecClipPlaneChunkPtr;
+typedef PointerMField<ClipPlaneChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecClipPlaneChunkPtr;
+typedef PointerMField<ClipPlaneChunkPtr,
+                      WeakRefCountPolicy      > MFWeakClipPlaneChunkPtr;
+typedef PointerMField<ClipPlaneChunkPtr,
+                      NoRefCountPolicy        > MFUncountedClipPlaneChunkPtr;
 #endif
 
 

@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<PointChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<PointChunkPtr,
-                                RecordedRefCountPolicy  > SFRecPointChunkPtr;
-typedef FieldContainerPtrSField<PointChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecPointChunkPtr;
-typedef FieldContainerPtrSField<PointChunkPtr,
-                                WeakRefCountPolicy      > SFWeakPointChunkPtr;
-typedef FieldContainerPtrSField<PointChunkPtr,
-                                NoRefCountPolicy        > SFUncountedPointChunkPtr;
+typedef PointerSField<PointChunkPtr,
+                      RecordedRefCountPolicy  > SFRecPointChunkPtr;
+typedef PointerSField<PointChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecPointChunkPtr;
+typedef PointerSField<PointChunkPtr,
+                      WeakRefCountPolicy      > SFWeakPointChunkPtr;
+typedef PointerSField<PointChunkPtr,
+                      NoRefCountPolicy        > SFUncountedPointChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<PointChunkPtr,
-                                RecordedRefCountPolicy  > MFRecPointChunkPtr;
-typedef FieldContainerPtrMField<PointChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecPointChunkPtr;
-typedef FieldContainerPtrMField<PointChunkPtr,
-                                WeakRefCountPolicy      > MFWeakPointChunkPtr;
-typedef FieldContainerPtrMField<PointChunkPtr,
-                                NoRefCountPolicy        > MFUncountedPointChunkPtr;
+typedef PointerMField<PointChunkPtr,
+                      RecordedRefCountPolicy  > MFRecPointChunkPtr;
+typedef PointerMField<PointChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecPointChunkPtr;
+typedef PointerMField<PointChunkPtr,
+                      WeakRefCountPolicy      > MFWeakPointChunkPtr;
+typedef PointerMField<PointChunkPtr,
+                      NoRefCountPolicy        > MFUncountedPointChunkPtr;
 #endif
 
 

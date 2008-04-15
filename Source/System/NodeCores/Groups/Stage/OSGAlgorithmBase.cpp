@@ -210,11 +210,11 @@ DataType FieldTraits<AlgorithmPtr>::_type("AlgorithmPtr", "FieldContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(AlgorithmPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            AlgorithmPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            AlgorithmPtr, 
                            0);
 

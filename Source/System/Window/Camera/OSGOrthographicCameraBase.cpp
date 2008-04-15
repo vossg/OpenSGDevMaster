@@ -473,11 +473,11 @@ DataType FieldTraits<OrthographicCameraPtr>::_type("OrthographicCameraPtr", "Cam
 
 OSG_FIELDTRAITS_GETTYPE(OrthographicCameraPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            OrthographicCameraPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            OrthographicCameraPtr, 
                            0);
 

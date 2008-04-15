@@ -842,11 +842,11 @@ DataType FieldTraits<MatrixCameraDecoratorPtr>::_type("MatrixCameraDecoratorPtr"
 
 OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecoratorPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            MatrixCameraDecoratorPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            MatrixCameraDecoratorPtr, 
                            0);
 

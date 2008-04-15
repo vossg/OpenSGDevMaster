@@ -896,7 +896,7 @@ DataType FieldTraits<TextureBackgroundPtr>::_type("TextureBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(TextureBackgroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TextureBackgroundPtr, 
                            0);
 

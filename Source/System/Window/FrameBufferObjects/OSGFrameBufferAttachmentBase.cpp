@@ -378,11 +378,11 @@ DataType FieldTraits<FrameBufferAttachmentPtr>::_type("FrameBufferAttachmentPtr"
 
 OSG_FIELDTRAITS_GETTYPE(FrameBufferAttachmentPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FrameBufferAttachmentPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FrameBufferAttachmentPtr, 
                            0);
 

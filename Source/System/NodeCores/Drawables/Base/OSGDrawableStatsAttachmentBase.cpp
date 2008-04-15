@@ -912,11 +912,11 @@ DataType FieldTraits<DrawableStatsAttachmentPtr>::_type("DrawableStatsAttachment
 
 OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachmentPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            DrawableStatsAttachmentPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            DrawableStatsAttachmentPtr, 
                            0);
 

@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<VertexProgramChunkPtr,
-                                RecordedRefCountPolicy  > SFRecVertexProgramChunkPtr;
-typedef FieldContainerPtrSField<VertexProgramChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecVertexProgramChunkPtr;
-typedef FieldContainerPtrSField<VertexProgramChunkPtr,
-                                WeakRefCountPolicy      > SFWeakVertexProgramChunkPtr;
-typedef FieldContainerPtrSField<VertexProgramChunkPtr,
-                                NoRefCountPolicy        > SFUncountedVertexProgramChunkPtr;
+typedef PointerSField<VertexProgramChunkPtr,
+                      RecordedRefCountPolicy  > SFRecVertexProgramChunkPtr;
+typedef PointerSField<VertexProgramChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecVertexProgramChunkPtr;
+typedef PointerSField<VertexProgramChunkPtr,
+                      WeakRefCountPolicy      > SFWeakVertexProgramChunkPtr;
+typedef PointerSField<VertexProgramChunkPtr,
+                      NoRefCountPolicy        > SFUncountedVertexProgramChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<VertexProgramChunkPtr,
-                                RecordedRefCountPolicy  > MFRecVertexProgramChunkPtr;
-typedef FieldContainerPtrMField<VertexProgramChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecVertexProgramChunkPtr;
-typedef FieldContainerPtrMField<VertexProgramChunkPtr,
-                                WeakRefCountPolicy      > MFWeakVertexProgramChunkPtr;
-typedef FieldContainerPtrMField<VertexProgramChunkPtr,
-                                NoRefCountPolicy        > MFUncountedVertexProgramChunkPtr;
+typedef PointerMField<VertexProgramChunkPtr,
+                      RecordedRefCountPolicy  > MFRecVertexProgramChunkPtr;
+typedef PointerMField<VertexProgramChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecVertexProgramChunkPtr;
+typedef PointerMField<VertexProgramChunkPtr,
+                      WeakRefCountPolicy      > MFWeakVertexProgramChunkPtr;
+typedef PointerMField<VertexProgramChunkPtr,
+                      NoRefCountPolicy        > MFUncountedVertexProgramChunkPtr;
 #endif
 
 

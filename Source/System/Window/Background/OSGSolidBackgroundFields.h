@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -139,14 +139,14 @@ const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                RecordedRefCountPolicy  > SFRecSolidBackgroundPtr;
-typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                UnrecordedRefCountPolicy> SFUnrecSolidBackgroundPtr;
-typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                WeakRefCountPolicy      > SFWeakSolidBackgroundPtr;
-typedef FieldContainerPtrSField<SolidBackgroundPtr,
-                                NoRefCountPolicy        > SFUncountedSolidBackgroundPtr;
+typedef PointerSField<SolidBackgroundPtr,
+                      RecordedRefCountPolicy  > SFRecSolidBackgroundPtr;
+typedef PointerSField<SolidBackgroundPtr,
+                      UnrecordedRefCountPolicy> SFUnrecSolidBackgroundPtr;
+typedef PointerSField<SolidBackgroundPtr,
+                      WeakRefCountPolicy      > SFWeakSolidBackgroundPtr;
+typedef PointerSField<SolidBackgroundPtr,
+                      NoRefCountPolicy        > SFUncountedSolidBackgroundPtr;
 #endif
 
 

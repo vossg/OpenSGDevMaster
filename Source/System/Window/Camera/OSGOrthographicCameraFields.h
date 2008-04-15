@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                RecordedRefCountPolicy  > SFRecOrthographicCameraPtr;
-typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                UnrecordedRefCountPolicy> SFUnrecOrthographicCameraPtr;
-typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                WeakRefCountPolicy      > SFWeakOrthographicCameraPtr;
-typedef FieldContainerPtrSField<OrthographicCameraPtr,
-                                NoRefCountPolicy        > SFUncountedOrthographicCameraPtr;
+typedef PointerSField<OrthographicCameraPtr,
+                      RecordedRefCountPolicy  > SFRecOrthographicCameraPtr;
+typedef PointerSField<OrthographicCameraPtr,
+                      UnrecordedRefCountPolicy> SFUnrecOrthographicCameraPtr;
+typedef PointerSField<OrthographicCameraPtr,
+                      WeakRefCountPolicy      > SFWeakOrthographicCameraPtr;
+typedef PointerSField<OrthographicCameraPtr,
+                      NoRefCountPolicy        > SFUncountedOrthographicCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                RecordedRefCountPolicy  > MFRecOrthographicCameraPtr;
-typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                UnrecordedRefCountPolicy> MFUnrecOrthographicCameraPtr;
-typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                WeakRefCountPolicy      > MFWeakOrthographicCameraPtr;
-typedef FieldContainerPtrMField<OrthographicCameraPtr,
-                                NoRefCountPolicy        > MFUncountedOrthographicCameraPtr;
+typedef PointerMField<OrthographicCameraPtr,
+                      RecordedRefCountPolicy  > MFRecOrthographicCameraPtr;
+typedef PointerMField<OrthographicCameraPtr,
+                      UnrecordedRefCountPolicy> MFUnrecOrthographicCameraPtr;
+typedef PointerMField<OrthographicCameraPtr,
+                      WeakRefCountPolicy      > MFWeakOrthographicCameraPtr;
+typedef PointerMField<OrthographicCameraPtr,
+                      NoRefCountPolicy        > MFUncountedOrthographicCameraPtr;
 #endif
 
 

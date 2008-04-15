@@ -482,11 +482,11 @@ DataType FieldTraits<InlinePtr>::_type("InlinePtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(InlinePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            InlinePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            InlinePtr, 
                            0);
 

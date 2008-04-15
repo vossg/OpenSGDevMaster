@@ -1238,11 +1238,11 @@ DataType FieldTraits<LightChunkPtr>::_type("LightChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(LightChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            LightChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            LightChunkPtr, 
                            0);
 

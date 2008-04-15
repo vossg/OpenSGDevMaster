@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FCDPtrTestFCPtr,
-                                RecordedRefCountPolicy  > SFRecFCDPtrTestFCPtr;
-typedef FieldContainerPtrSField<FCDPtrTestFCPtr,
-                                UnrecordedRefCountPolicy> SFUnrecFCDPtrTestFCPtr;
-typedef FieldContainerPtrSField<FCDPtrTestFCPtr,
-                                WeakRefCountPolicy      > SFWeakFCDPtrTestFCPtr;
-typedef FieldContainerPtrSField<FCDPtrTestFCPtr,
-                                NoRefCountPolicy        > SFUncountedFCDPtrTestFCPtr;
+typedef PointerSField<FCDPtrTestFCPtr,
+                      RecordedRefCountPolicy  > SFRecFCDPtrTestFCPtr;
+typedef PointerSField<FCDPtrTestFCPtr,
+                      UnrecordedRefCountPolicy> SFUnrecFCDPtrTestFCPtr;
+typedef PointerSField<FCDPtrTestFCPtr,
+                      WeakRefCountPolicy      > SFWeakFCDPtrTestFCPtr;
+typedef PointerSField<FCDPtrTestFCPtr,
+                      NoRefCountPolicy        > SFUncountedFCDPtrTestFCPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FCDPtrTestFCPtr,
-                                RecordedRefCountPolicy  > MFRecFCDPtrTestFCPtr;
-typedef FieldContainerPtrMField<FCDPtrTestFCPtr,
-                                UnrecordedRefCountPolicy> MFUnrecFCDPtrTestFCPtr;
-typedef FieldContainerPtrMField<FCDPtrTestFCPtr,
-                                WeakRefCountPolicy      > MFWeakFCDPtrTestFCPtr;
-typedef FieldContainerPtrMField<FCDPtrTestFCPtr,
-                                NoRefCountPolicy        > MFUncountedFCDPtrTestFCPtr;
+typedef PointerMField<FCDPtrTestFCPtr,
+                      RecordedRefCountPolicy  > MFRecFCDPtrTestFCPtr;
+typedef PointerMField<FCDPtrTestFCPtr,
+                      UnrecordedRefCountPolicy> MFUnrecFCDPtrTestFCPtr;
+typedef PointerMField<FCDPtrTestFCPtr,
+                      WeakRefCountPolicy      > MFWeakFCDPtrTestFCPtr;
+typedef PointerMField<FCDPtrTestFCPtr,
+                      NoRefCountPolicy        > MFUncountedFCDPtrTestFCPtr;
 #endif
 
 

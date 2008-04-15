@@ -58,8 +58,8 @@
 #include "OSGClusterDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldSingle */
 
-typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                RecordedRefCountPolicy  > SFRecClusterWindowPtr;
-typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecClusterWindowPtr;
-typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                WeakRefCountPolicy      > SFWeakClusterWindowPtr;
-typedef FieldContainerPtrSField<ClusterWindowPtr,
-                                NoRefCountPolicy        > SFUncountedClusterWindowPtr;
+typedef PointerSField<ClusterWindowPtr,
+                      RecordedRefCountPolicy  > SFRecClusterWindowPtr;
+typedef PointerSField<ClusterWindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecClusterWindowPtr;
+typedef PointerSField<ClusterWindowPtr,
+                      WeakRefCountPolicy      > SFWeakClusterWindowPtr;
+typedef PointerSField<ClusterWindowPtr,
+                      NoRefCountPolicy        > SFUncountedClusterWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
 
-typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                RecordedRefCountPolicy  > MFRecClusterWindowPtr;
-typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecClusterWindowPtr;
-typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                WeakRefCountPolicy      > MFWeakClusterWindowPtr;
-typedef FieldContainerPtrMField<ClusterWindowPtr,
-                                NoRefCountPolicy        > MFUncountedClusterWindowPtr;
+typedef PointerMField<ClusterWindowPtr,
+                      RecordedRefCountPolicy  > MFRecClusterWindowPtr;
+typedef PointerMField<ClusterWindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecClusterWindowPtr;
+typedef PointerMField<ClusterWindowPtr,
+                      WeakRefCountPolicy      > MFWeakClusterWindowPtr;
+typedef PointerMField<ClusterWindowPtr,
+                      NoRefCountPolicy        > MFUncountedClusterWindowPtr;
 #endif
 
 

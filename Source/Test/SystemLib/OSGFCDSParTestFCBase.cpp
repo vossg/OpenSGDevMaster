@@ -403,7 +403,7 @@ GetFieldHandlePtr FCDSParTestFCBase::getHandleParent          (void) const
 
 EditFieldHandlePtr FCDSParTestFCBase::editHandleParent         (void)
 {
-    SFParentFieldContainerPtr::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -451,11 +451,11 @@ DataType FieldTraits<FCDSParTestFCPtr>::_type("FCDSParTestFCPtr", "AttachmentCon
 
 OSG_FIELDTRAITS_GETTYPE(FCDSParTestFCPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FCDSParTestFCPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FCDSParTestFCPtr, 
                            0);
 
@@ -465,13 +465,13 @@ DataType &FieldTraits< FCDSParTestFCPtr, 1 >::getType(void)
 }
 
 
-OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       FCDSParTestFCPtr,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       FCDSParTestFCPtr,       
                       UnrecordedRefCountPolicy,  
                       1);

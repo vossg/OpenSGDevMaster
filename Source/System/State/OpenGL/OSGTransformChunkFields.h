@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<TransformChunkPtr,
-                                RecordedRefCountPolicy  > SFRecTransformChunkPtr;
-typedef FieldContainerPtrSField<TransformChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecTransformChunkPtr;
-typedef FieldContainerPtrSField<TransformChunkPtr,
-                                WeakRefCountPolicy      > SFWeakTransformChunkPtr;
-typedef FieldContainerPtrSField<TransformChunkPtr,
-                                NoRefCountPolicy        > SFUncountedTransformChunkPtr;
+typedef PointerSField<TransformChunkPtr,
+                      RecordedRefCountPolicy  > SFRecTransformChunkPtr;
+typedef PointerSField<TransformChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecTransformChunkPtr;
+typedef PointerSField<TransformChunkPtr,
+                      WeakRefCountPolicy      > SFWeakTransformChunkPtr;
+typedef PointerSField<TransformChunkPtr,
+                      NoRefCountPolicy        > SFUncountedTransformChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<TransformChunkPtr,
-                                RecordedRefCountPolicy  > MFRecTransformChunkPtr;
-typedef FieldContainerPtrMField<TransformChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecTransformChunkPtr;
-typedef FieldContainerPtrMField<TransformChunkPtr,
-                                WeakRefCountPolicy      > MFWeakTransformChunkPtr;
-typedef FieldContainerPtrMField<TransformChunkPtr,
-                                NoRefCountPolicy        > MFUncountedTransformChunkPtr;
+typedef PointerMField<TransformChunkPtr,
+                      RecordedRefCountPolicy  > MFRecTransformChunkPtr;
+typedef PointerMField<TransformChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecTransformChunkPtr;
+typedef PointerMField<TransformChunkPtr,
+                      WeakRefCountPolicy      > MFWeakTransformChunkPtr;
+typedef PointerMField<TransformChunkPtr,
+                      NoRefCountPolicy        > MFUncountedTransformChunkPtr;
 #endif
 
 

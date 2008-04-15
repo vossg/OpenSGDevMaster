@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<GroupPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<GroupPtr,
-                                RecordedRefCountPolicy  > SFRecGroupPtr;
-typedef FieldContainerPtrSField<GroupPtr,
-                                UnrecordedRefCountPolicy> SFUnrecGroupPtr;
-typedef FieldContainerPtrSField<GroupPtr,
-                                WeakRefCountPolicy      > SFWeakGroupPtr;
-typedef FieldContainerPtrSField<GroupPtr,
-                                NoRefCountPolicy        > SFUncountedGroupPtr;
+typedef PointerSField<GroupPtr,
+                      RecordedRefCountPolicy  > SFRecGroupPtr;
+typedef PointerSField<GroupPtr,
+                      UnrecordedRefCountPolicy> SFUnrecGroupPtr;
+typedef PointerSField<GroupPtr,
+                      WeakRefCountPolicy      > SFWeakGroupPtr;
+typedef PointerSField<GroupPtr,
+                      NoRefCountPolicy        > SFUncountedGroupPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<GroupPtr,
-                                RecordedRefCountPolicy  > MFRecGroupPtr;
-typedef FieldContainerPtrMField<GroupPtr,
-                                UnrecordedRefCountPolicy> MFUnrecGroupPtr;
-typedef FieldContainerPtrMField<GroupPtr,
-                                WeakRefCountPolicy      > MFWeakGroupPtr;
-typedef FieldContainerPtrMField<GroupPtr,
-                                NoRefCountPolicy        > MFUncountedGroupPtr;
+typedef PointerMField<GroupPtr,
+                      RecordedRefCountPolicy  > MFRecGroupPtr;
+typedef PointerMField<GroupPtr,
+                      UnrecordedRefCountPolicy> MFUnrecGroupPtr;
+typedef PointerMField<GroupPtr,
+                      WeakRefCountPolicy      > MFWeakGroupPtr;
+typedef PointerMField<GroupPtr,
+                      NoRefCountPolicy        > MFUncountedGroupPtr;
 #endif
 
 

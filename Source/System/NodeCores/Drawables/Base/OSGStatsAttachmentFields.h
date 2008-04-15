@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<NoRefCountPolicy>(void
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                RecordedRefCountPolicy  > SFRecStatsAttachmentPtr;
-typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                UnrecordedRefCountPolicy> SFUnrecStatsAttachmentPtr;
-typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                WeakRefCountPolicy      > SFWeakStatsAttachmentPtr;
-typedef FieldContainerPtrSField<StatsAttachmentPtr,
-                                NoRefCountPolicy        > SFUncountedStatsAttachmentPtr;
+typedef PointerSField<StatsAttachmentPtr,
+                      RecordedRefCountPolicy  > SFRecStatsAttachmentPtr;
+typedef PointerSField<StatsAttachmentPtr,
+                      UnrecordedRefCountPolicy> SFUnrecStatsAttachmentPtr;
+typedef PointerSField<StatsAttachmentPtr,
+                      WeakRefCountPolicy      > SFWeakStatsAttachmentPtr;
+typedef PointerSField<StatsAttachmentPtr,
+                      NoRefCountPolicy        > SFUncountedStatsAttachmentPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                RecordedRefCountPolicy  > MFRecStatsAttachmentPtr;
-typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                UnrecordedRefCountPolicy> MFUnrecStatsAttachmentPtr;
-typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                WeakRefCountPolicy      > MFWeakStatsAttachmentPtr;
-typedef FieldContainerPtrMField<StatsAttachmentPtr,
-                                NoRefCountPolicy        > MFUncountedStatsAttachmentPtr;
+typedef PointerMField<StatsAttachmentPtr,
+                      RecordedRefCountPolicy  > MFRecStatsAttachmentPtr;
+typedef PointerMField<StatsAttachmentPtr,
+                      UnrecordedRefCountPolicy> MFUnrecStatsAttachmentPtr;
+typedef PointerMField<StatsAttachmentPtr,
+                      WeakRefCountPolicy      > MFWeakStatsAttachmentPtr;
+typedef PointerMField<StatsAttachmentPtr,
+                      NoRefCountPolicy        > MFUncountedStatsAttachmentPtr;
 #endif
 
 

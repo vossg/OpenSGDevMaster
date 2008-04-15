@@ -585,11 +585,11 @@ DataType FieldTraits<FileGrabForegroundPtr>::_type("FileGrabForegroundPtr", "Gra
 
 OSG_FIELDTRAITS_GETTYPE(FileGrabForegroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FileGrabForegroundPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FileGrabForegroundPtr, 
                            0);
 

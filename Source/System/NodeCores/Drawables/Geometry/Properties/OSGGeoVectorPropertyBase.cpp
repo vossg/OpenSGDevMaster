@@ -218,11 +218,11 @@ DataType FieldTraits<GeoVectorPropertyPtr>::_type("GeoVectorPropertyPtr", "GeoPr
 
 OSG_FIELDTRAITS_GETTYPE(GeoVectorPropertyPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoVectorPropertyPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoVectorPropertyPtr, 
                            0);
 
@@ -232,13 +232,13 @@ DataType &FieldTraits< GeoVectorPropertyPtr, 1 >::getType(void)
 }
 
 
-OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoVectorPropertyPtr,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoVectorPropertyPtr,       
                       UnrecordedRefCountPolicy,  
                       1);

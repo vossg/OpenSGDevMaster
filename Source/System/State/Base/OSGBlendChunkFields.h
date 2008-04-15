@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<BlendChunkPtr,
-                                RecordedRefCountPolicy  > SFRecBlendChunkPtr;
-typedef FieldContainerPtrSField<BlendChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecBlendChunkPtr;
-typedef FieldContainerPtrSField<BlendChunkPtr,
-                                WeakRefCountPolicy      > SFWeakBlendChunkPtr;
-typedef FieldContainerPtrSField<BlendChunkPtr,
-                                NoRefCountPolicy        > SFUncountedBlendChunkPtr;
+typedef PointerSField<BlendChunkPtr,
+                      RecordedRefCountPolicy  > SFRecBlendChunkPtr;
+typedef PointerSField<BlendChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecBlendChunkPtr;
+typedef PointerSField<BlendChunkPtr,
+                      WeakRefCountPolicy      > SFWeakBlendChunkPtr;
+typedef PointerSField<BlendChunkPtr,
+                      NoRefCountPolicy        > SFUncountedBlendChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<BlendChunkPtr,
-                                RecordedRefCountPolicy  > MFRecBlendChunkPtr;
-typedef FieldContainerPtrMField<BlendChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecBlendChunkPtr;
-typedef FieldContainerPtrMField<BlendChunkPtr,
-                                WeakRefCountPolicy      > MFWeakBlendChunkPtr;
-typedef FieldContainerPtrMField<BlendChunkPtr,
-                                NoRefCountPolicy        > MFUncountedBlendChunkPtr;
+typedef PointerMField<BlendChunkPtr,
+                      RecordedRefCountPolicy  > MFRecBlendChunkPtr;
+typedef PointerMField<BlendChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecBlendChunkPtr;
+typedef PointerMField<BlendChunkPtr,
+                      WeakRefCountPolicy      > MFWeakBlendChunkPtr;
+typedef PointerMField<BlendChunkPtr,
+                      NoRefCountPolicy        > MFUncountedBlendChunkPtr;
 #endif
 
 

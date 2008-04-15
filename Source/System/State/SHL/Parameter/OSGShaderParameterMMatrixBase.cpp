@@ -404,11 +404,11 @@ DataType FieldTraits<ShaderParameterMMatrixPtr>::_type("ShaderParameterMMatrixPt
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterMMatrixPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ShaderParameterMMatrixPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ShaderParameterMMatrixPtr, 
                            0);
 

@@ -4851,11 +4851,11 @@ DataType FieldTraits<TextureObjChunkPtr>::_type("TextureObjChunkPtr", "TextureBa
 
 OSG_FIELDTRAITS_GETTYPE(TextureObjChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TextureObjChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TextureObjChunkPtr, 
                            0);
 

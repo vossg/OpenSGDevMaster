@@ -218,11 +218,11 @@ DataType FieldTraits<GeoIntegralPropertyPtr>::_type("GeoIntegralPropertyPtr", "G
 
 OSG_FIELDTRAITS_GETTYPE(GeoIntegralPropertyPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoIntegralPropertyPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoIntegralPropertyPtr, 
                            0);
 
@@ -232,13 +232,13 @@ DataType &FieldTraits< GeoIntegralPropertyPtr, 1 >::getType(void)
 }
 
 
-OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoIntegralPropertyPtr,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoIntegralPropertyPtr,       
                       UnrecordedRefCountPolicy,  
                       1);

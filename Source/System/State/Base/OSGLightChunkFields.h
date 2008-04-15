@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<LightChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<LightChunkPtr,
-                                RecordedRefCountPolicy  > SFRecLightChunkPtr;
-typedef FieldContainerPtrSField<LightChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecLightChunkPtr;
-typedef FieldContainerPtrSField<LightChunkPtr,
-                                WeakRefCountPolicy      > SFWeakLightChunkPtr;
-typedef FieldContainerPtrSField<LightChunkPtr,
-                                NoRefCountPolicy        > SFUncountedLightChunkPtr;
+typedef PointerSField<LightChunkPtr,
+                      RecordedRefCountPolicy  > SFRecLightChunkPtr;
+typedef PointerSField<LightChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecLightChunkPtr;
+typedef PointerSField<LightChunkPtr,
+                      WeakRefCountPolicy      > SFWeakLightChunkPtr;
+typedef PointerSField<LightChunkPtr,
+                      NoRefCountPolicy        > SFUncountedLightChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<LightChunkPtr,
-                                RecordedRefCountPolicy  > MFRecLightChunkPtr;
-typedef FieldContainerPtrMField<LightChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecLightChunkPtr;
-typedef FieldContainerPtrMField<LightChunkPtr,
-                                WeakRefCountPolicy      > MFWeakLightChunkPtr;
-typedef FieldContainerPtrMField<LightChunkPtr,
-                                NoRefCountPolicy        > MFUncountedLightChunkPtr;
+typedef PointerMField<LightChunkPtr,
+                      RecordedRefCountPolicy  > MFRecLightChunkPtr;
+typedef PointerMField<LightChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecLightChunkPtr;
+typedef PointerMField<LightChunkPtr,
+                      WeakRefCountPolicy      > MFWeakLightChunkPtr;
+typedef PointerMField<LightChunkPtr,
+                      NoRefCountPolicy        > MFUncountedLightChunkPtr;
 #endif
 
 

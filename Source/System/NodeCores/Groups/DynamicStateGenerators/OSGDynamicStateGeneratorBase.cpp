@@ -404,11 +404,11 @@ DataType FieldTraits<DynamicStateGeneratorPtr>::_type("DynamicStateGeneratorPtr"
 
 OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            DynamicStateGeneratorPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            DynamicStateGeneratorPtr, 
                            0);
 

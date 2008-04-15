@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<TexGenChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                RecordedRefCountPolicy  > SFRecTexGenChunkPtr;
-typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecTexGenChunkPtr;
-typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                WeakRefCountPolicy      > SFWeakTexGenChunkPtr;
-typedef FieldContainerPtrSField<TexGenChunkPtr,
-                                NoRefCountPolicy        > SFUncountedTexGenChunkPtr;
+typedef PointerSField<TexGenChunkPtr,
+                      RecordedRefCountPolicy  > SFRecTexGenChunkPtr;
+typedef PointerSField<TexGenChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecTexGenChunkPtr;
+typedef PointerSField<TexGenChunkPtr,
+                      WeakRefCountPolicy      > SFWeakTexGenChunkPtr;
+typedef PointerSField<TexGenChunkPtr,
+                      NoRefCountPolicy        > SFUncountedTexGenChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                RecordedRefCountPolicy  > MFRecTexGenChunkPtr;
-typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecTexGenChunkPtr;
-typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                WeakRefCountPolicy      > MFWeakTexGenChunkPtr;
-typedef FieldContainerPtrMField<TexGenChunkPtr,
-                                NoRefCountPolicy        > MFUncountedTexGenChunkPtr;
+typedef PointerMField<TexGenChunkPtr,
+                      RecordedRefCountPolicy  > MFRecTexGenChunkPtr;
+typedef PointerMField<TexGenChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecTexGenChunkPtr;
+typedef PointerMField<TexGenChunkPtr,
+                      WeakRefCountPolicy      > MFWeakTexGenChunkPtr;
+typedef PointerMField<TexGenChunkPtr,
+                      NoRefCountPolicy        > MFUncountedTexGenChunkPtr;
 #endif
 
 

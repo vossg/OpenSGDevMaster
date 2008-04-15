@@ -302,11 +302,11 @@ DataType FieldTraits<MaterialDrawablePtr>::_type("MaterialDrawablePtr", "Drawabl
 
 OSG_FIELDTRAITS_GETTYPE(MaterialDrawablePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            MaterialDrawablePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            MaterialDrawablePtr, 
                            0);
 

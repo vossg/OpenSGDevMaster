@@ -395,11 +395,11 @@ DataType FieldTraits<GLUTWindowPtr>::_type("GLUTWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(GLUTWindowPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GLUTWindowPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GLUTWindowPtr, 
                            0);
 

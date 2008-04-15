@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<PolygonForegroundPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                RecordedRefCountPolicy  > SFRecPolygonForegroundPtr;
-typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                UnrecordedRefCountPolicy> SFUnrecPolygonForegroundPtr;
-typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                WeakRefCountPolicy      > SFWeakPolygonForegroundPtr;
-typedef FieldContainerPtrSField<PolygonForegroundPtr,
-                                NoRefCountPolicy        > SFUncountedPolygonForegroundPtr;
+typedef PointerSField<PolygonForegroundPtr,
+                      RecordedRefCountPolicy  > SFRecPolygonForegroundPtr;
+typedef PointerSField<PolygonForegroundPtr,
+                      UnrecordedRefCountPolicy> SFUnrecPolygonForegroundPtr;
+typedef PointerSField<PolygonForegroundPtr,
+                      WeakRefCountPolicy      > SFWeakPolygonForegroundPtr;
+typedef PointerSField<PolygonForegroundPtr,
+                      NoRefCountPolicy        > SFUncountedPolygonForegroundPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                RecordedRefCountPolicy  > MFRecPolygonForegroundPtr;
-typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                UnrecordedRefCountPolicy> MFUnrecPolygonForegroundPtr;
-typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                WeakRefCountPolicy      > MFWeakPolygonForegroundPtr;
-typedef FieldContainerPtrMField<PolygonForegroundPtr,
-                                NoRefCountPolicy        > MFUncountedPolygonForegroundPtr;
+typedef PointerMField<PolygonForegroundPtr,
+                      RecordedRefCountPolicy  > MFRecPolygonForegroundPtr;
+typedef PointerMField<PolygonForegroundPtr,
+                      UnrecordedRefCountPolicy> MFUnrecPolygonForegroundPtr;
+typedef PointerMField<PolygonForegroundPtr,
+                      WeakRefCountPolicy      > MFWeakPolygonForegroundPtr;
+typedef PointerMField<PolygonForegroundPtr,
+                      NoRefCountPolicy        > MFUncountedPolygonForegroundPtr;
 #endif
 
 

@@ -394,11 +394,11 @@ DataType FieldTraits<OffCenterPerspectiveCameraPtr>::_type("OffCenterPerspective
 
 OSG_FIELDTRAITS_GETTYPE(OffCenterPerspectiveCameraPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            OffCenterPerspectiveCameraPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            OffCenterPerspectiveCameraPtr, 
                            0);
 

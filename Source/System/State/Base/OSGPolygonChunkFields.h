@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<PolygonChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                RecordedRefCountPolicy  > SFRecPolygonChunkPtr;
-typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecPolygonChunkPtr;
-typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                WeakRefCountPolicy      > SFWeakPolygonChunkPtr;
-typedef FieldContainerPtrSField<PolygonChunkPtr,
-                                NoRefCountPolicy        > SFUncountedPolygonChunkPtr;
+typedef PointerSField<PolygonChunkPtr,
+                      RecordedRefCountPolicy  > SFRecPolygonChunkPtr;
+typedef PointerSField<PolygonChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecPolygonChunkPtr;
+typedef PointerSField<PolygonChunkPtr,
+                      WeakRefCountPolicy      > SFWeakPolygonChunkPtr;
+typedef PointerSField<PolygonChunkPtr,
+                      NoRefCountPolicy        > SFUncountedPolygonChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                RecordedRefCountPolicy  > MFRecPolygonChunkPtr;
-typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecPolygonChunkPtr;
-typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                WeakRefCountPolicy      > MFWeakPolygonChunkPtr;
-typedef FieldContainerPtrMField<PolygonChunkPtr,
-                                NoRefCountPolicy        > MFUncountedPolygonChunkPtr;
+typedef PointerMField<PolygonChunkPtr,
+                      RecordedRefCountPolicy  > MFRecPolygonChunkPtr;
+typedef PointerMField<PolygonChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecPolygonChunkPtr;
+typedef PointerMField<PolygonChunkPtr,
+                      WeakRefCountPolicy      > MFWeakPolygonChunkPtr;
+typedef PointerMField<PolygonChunkPtr,
+                      NoRefCountPolicy        > MFUncountedPolygonChunkPtr;
 #endif
 
 

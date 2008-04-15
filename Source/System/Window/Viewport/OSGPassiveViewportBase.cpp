@@ -304,11 +304,11 @@ DataType FieldTraits<PassiveViewportPtr>::_type("PassiveViewportPtr", "ViewportP
 
 OSG_FIELDTRAITS_GETTYPE(PassiveViewportPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            PassiveViewportPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            PassiveViewportPtr, 
                            0);
 

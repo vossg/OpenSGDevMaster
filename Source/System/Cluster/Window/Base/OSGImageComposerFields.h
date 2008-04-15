@@ -58,8 +58,8 @@
 #include "OSGClusterDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ImageComposerPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldSingle */
 
-typedef FieldContainerPtrSField<ImageComposerPtr,
-                                RecordedRefCountPolicy  > SFRecImageComposerPtr;
-typedef FieldContainerPtrSField<ImageComposerPtr,
-                                UnrecordedRefCountPolicy> SFUnrecImageComposerPtr;
-typedef FieldContainerPtrSField<ImageComposerPtr,
-                                WeakRefCountPolicy      > SFWeakImageComposerPtr;
-typedef FieldContainerPtrSField<ImageComposerPtr,
-                                NoRefCountPolicy        > SFUncountedImageComposerPtr;
+typedef PointerSField<ImageComposerPtr,
+                      RecordedRefCountPolicy  > SFRecImageComposerPtr;
+typedef PointerSField<ImageComposerPtr,
+                      UnrecordedRefCountPolicy> SFUnrecImageComposerPtr;
+typedef PointerSField<ImageComposerPtr,
+                      WeakRefCountPolicy      > SFWeakImageComposerPtr;
+typedef PointerSField<ImageComposerPtr,
+                      NoRefCountPolicy        > SFUncountedImageComposerPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
 
-typedef FieldContainerPtrMField<ImageComposerPtr,
-                                RecordedRefCountPolicy  > MFRecImageComposerPtr;
-typedef FieldContainerPtrMField<ImageComposerPtr,
-                                UnrecordedRefCountPolicy> MFUnrecImageComposerPtr;
-typedef FieldContainerPtrMField<ImageComposerPtr,
-                                WeakRefCountPolicy      > MFWeakImageComposerPtr;
-typedef FieldContainerPtrMField<ImageComposerPtr,
-                                NoRefCountPolicy        > MFUncountedImageComposerPtr;
+typedef PointerMField<ImageComposerPtr,
+                      RecordedRefCountPolicy  > MFRecImageComposerPtr;
+typedef PointerMField<ImageComposerPtr,
+                      UnrecordedRefCountPolicy> MFUnrecImageComposerPtr;
+typedef PointerMField<ImageComposerPtr,
+                      WeakRefCountPolicy      > MFWeakImageComposerPtr;
+typedef PointerMField<ImageComposerPtr,
+                      NoRefCountPolicy        > MFUncountedImageComposerPtr;
 #endif
 
 

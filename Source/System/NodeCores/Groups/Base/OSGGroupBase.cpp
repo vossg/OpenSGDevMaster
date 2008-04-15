@@ -311,11 +311,11 @@ DataType FieldTraits<GroupPtr>::_type("GroupPtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(GroupPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GroupPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GroupPtr, 
                            0);
 

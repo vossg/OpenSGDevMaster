@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -140,14 +140,14 @@ const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                RecordedRefCountPolicy  > MFRecGradientBackgroundPtr;
-typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                UnrecordedRefCountPolicy> MFUnrecGradientBackgroundPtr;
-typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                WeakRefCountPolicy      > MFWeakGradientBackgroundPtr;
-typedef FieldContainerPtrMField<GradientBackgroundPtr,
-                                NoRefCountPolicy        > MFUncountedGradientBackgroundPtr;
+typedef PointerMField<GradientBackgroundPtr,
+                      RecordedRefCountPolicy  > MFRecGradientBackgroundPtr;
+typedef PointerMField<GradientBackgroundPtr,
+                      UnrecordedRefCountPolicy> MFUnrecGradientBackgroundPtr;
+typedef PointerMField<GradientBackgroundPtr,
+                      WeakRefCountPolicy      > MFWeakGradientBackgroundPtr;
+typedef PointerMField<GradientBackgroundPtr,
+                      NoRefCountPolicy        > MFUncountedGradientBackgroundPtr;
 #endif
 
 

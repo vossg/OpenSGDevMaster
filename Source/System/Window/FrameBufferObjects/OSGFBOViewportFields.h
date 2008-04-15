@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FBOViewportPtr,
-                                RecordedRefCountPolicy  > SFRecFBOViewportPtr;
-typedef FieldContainerPtrSField<FBOViewportPtr,
-                                UnrecordedRefCountPolicy> SFUnrecFBOViewportPtr;
-typedef FieldContainerPtrSField<FBOViewportPtr,
-                                WeakRefCountPolicy      > SFWeakFBOViewportPtr;
-typedef FieldContainerPtrSField<FBOViewportPtr,
-                                NoRefCountPolicy        > SFUncountedFBOViewportPtr;
+typedef PointerSField<FBOViewportPtr,
+                      RecordedRefCountPolicy  > SFRecFBOViewportPtr;
+typedef PointerSField<FBOViewportPtr,
+                      UnrecordedRefCountPolicy> SFUnrecFBOViewportPtr;
+typedef PointerSField<FBOViewportPtr,
+                      WeakRefCountPolicy      > SFWeakFBOViewportPtr;
+typedef PointerSField<FBOViewportPtr,
+                      NoRefCountPolicy        > SFUncountedFBOViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FBOViewportPtr,
-                                RecordedRefCountPolicy  > MFRecFBOViewportPtr;
-typedef FieldContainerPtrMField<FBOViewportPtr,
-                                UnrecordedRefCountPolicy> MFUnrecFBOViewportPtr;
-typedef FieldContainerPtrMField<FBOViewportPtr,
-                                WeakRefCountPolicy      > MFWeakFBOViewportPtr;
-typedef FieldContainerPtrMField<FBOViewportPtr,
-                                NoRefCountPolicy        > MFUncountedFBOViewportPtr;
+typedef PointerMField<FBOViewportPtr,
+                      RecordedRefCountPolicy  > MFRecFBOViewportPtr;
+typedef PointerMField<FBOViewportPtr,
+                      UnrecordedRefCountPolicy> MFUnrecFBOViewportPtr;
+typedef PointerMField<FBOViewportPtr,
+                      WeakRefCountPolicy      > MFWeakFBOViewportPtr;
+typedef PointerMField<FBOViewportPtr,
+                      NoRefCountPolicy        > MFUncountedFBOViewportPtr;
 #endif
 
 

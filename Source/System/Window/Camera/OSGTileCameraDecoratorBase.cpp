@@ -824,11 +824,11 @@ DataType FieldTraits<TileCameraDecoratorPtr>::_type("TileCameraDecoratorPtr", "C
 
 OSG_FIELDTRAITS_GETTYPE(TileCameraDecoratorPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TileCameraDecoratorPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TileCameraDecoratorPtr, 
                            0);
 

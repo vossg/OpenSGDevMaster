@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<InlinePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<InlinePtr,
-                                RecordedRefCountPolicy  > SFRecInlinePtr;
-typedef FieldContainerPtrSField<InlinePtr,
-                                UnrecordedRefCountPolicy> SFUnrecInlinePtr;
-typedef FieldContainerPtrSField<InlinePtr,
-                                WeakRefCountPolicy      > SFWeakInlinePtr;
-typedef FieldContainerPtrSField<InlinePtr,
-                                NoRefCountPolicy        > SFUncountedInlinePtr;
+typedef PointerSField<InlinePtr,
+                      RecordedRefCountPolicy  > SFRecInlinePtr;
+typedef PointerSField<InlinePtr,
+                      UnrecordedRefCountPolicy> SFUnrecInlinePtr;
+typedef PointerSField<InlinePtr,
+                      WeakRefCountPolicy      > SFWeakInlinePtr;
+typedef PointerSField<InlinePtr,
+                      NoRefCountPolicy        > SFUncountedInlinePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<InlinePtr,
-                                RecordedRefCountPolicy  > MFRecInlinePtr;
-typedef FieldContainerPtrMField<InlinePtr,
-                                UnrecordedRefCountPolicy> MFUnrecInlinePtr;
-typedef FieldContainerPtrMField<InlinePtr,
-                                WeakRefCountPolicy      > MFWeakInlinePtr;
-typedef FieldContainerPtrMField<InlinePtr,
-                                NoRefCountPolicy        > MFUncountedInlinePtr;
+typedef PointerMField<InlinePtr,
+                      RecordedRefCountPolicy  > MFRecInlinePtr;
+typedef PointerMField<InlinePtr,
+                      UnrecordedRefCountPolicy> MFUnrecInlinePtr;
+typedef PointerMField<InlinePtr,
+                      WeakRefCountPolicy      > MFWeakInlinePtr;
+typedef PointerMField<InlinePtr,
+                      NoRefCountPolicy        > MFUncountedInlinePtr;
 #endif
 
 

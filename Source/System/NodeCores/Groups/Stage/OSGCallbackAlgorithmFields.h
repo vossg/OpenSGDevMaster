@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                RecordedRefCountPolicy  > SFRecCallbackAlgorithmPtr;
-typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                UnrecordedRefCountPolicy> SFUnrecCallbackAlgorithmPtr;
-typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                WeakRefCountPolicy      > SFWeakCallbackAlgorithmPtr;
-typedef FieldContainerPtrSField<CallbackAlgorithmPtr,
-                                NoRefCountPolicy        > SFUncountedCallbackAlgorithmPtr;
+typedef PointerSField<CallbackAlgorithmPtr,
+                      RecordedRefCountPolicy  > SFRecCallbackAlgorithmPtr;
+typedef PointerSField<CallbackAlgorithmPtr,
+                      UnrecordedRefCountPolicy> SFUnrecCallbackAlgorithmPtr;
+typedef PointerSField<CallbackAlgorithmPtr,
+                      WeakRefCountPolicy      > SFWeakCallbackAlgorithmPtr;
+typedef PointerSField<CallbackAlgorithmPtr,
+                      NoRefCountPolicy        > SFUncountedCallbackAlgorithmPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                RecordedRefCountPolicy  > MFRecCallbackAlgorithmPtr;
-typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                UnrecordedRefCountPolicy> MFUnrecCallbackAlgorithmPtr;
-typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                WeakRefCountPolicy      > MFWeakCallbackAlgorithmPtr;
-typedef FieldContainerPtrMField<CallbackAlgorithmPtr,
-                                NoRefCountPolicy        > MFUncountedCallbackAlgorithmPtr;
+typedef PointerMField<CallbackAlgorithmPtr,
+                      RecordedRefCountPolicy  > MFRecCallbackAlgorithmPtr;
+typedef PointerMField<CallbackAlgorithmPtr,
+                      UnrecordedRefCountPolicy> MFUnrecCallbackAlgorithmPtr;
+typedef PointerMField<CallbackAlgorithmPtr,
+                      WeakRefCountPolicy      > MFWeakCallbackAlgorithmPtr;
+typedef PointerMField<CallbackAlgorithmPtr,
+                      NoRefCountPolicy        > MFUncountedCallbackAlgorithmPtr;
 #endif
 
 

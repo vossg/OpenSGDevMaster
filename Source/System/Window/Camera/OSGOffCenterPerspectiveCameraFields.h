@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<NoRefCountP
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                RecordedRefCountPolicy  > SFRecOffCenterPerspectiveCameraPtr;
-typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                UnrecordedRefCountPolicy> SFUnrecOffCenterPerspectiveCameraPtr;
-typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                WeakRefCountPolicy      > SFWeakOffCenterPerspectiveCameraPtr;
-typedef FieldContainerPtrSField<OffCenterPerspectiveCameraPtr,
-                                NoRefCountPolicy        > SFUncountedOffCenterPerspectiveCameraPtr;
+typedef PointerSField<OffCenterPerspectiveCameraPtr,
+                      RecordedRefCountPolicy  > SFRecOffCenterPerspectiveCameraPtr;
+typedef PointerSField<OffCenterPerspectiveCameraPtr,
+                      UnrecordedRefCountPolicy> SFUnrecOffCenterPerspectiveCameraPtr;
+typedef PointerSField<OffCenterPerspectiveCameraPtr,
+                      WeakRefCountPolicy      > SFWeakOffCenterPerspectiveCameraPtr;
+typedef PointerSField<OffCenterPerspectiveCameraPtr,
+                      NoRefCountPolicy        > SFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                RecordedRefCountPolicy  > MFRecOffCenterPerspectiveCameraPtr;
-typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                UnrecordedRefCountPolicy> MFUnrecOffCenterPerspectiveCameraPtr;
-typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                WeakRefCountPolicy      > MFWeakOffCenterPerspectiveCameraPtr;
-typedef FieldContainerPtrMField<OffCenterPerspectiveCameraPtr,
-                                NoRefCountPolicy        > MFUncountedOffCenterPerspectiveCameraPtr;
+typedef PointerMField<OffCenterPerspectiveCameraPtr,
+                      RecordedRefCountPolicy  > MFRecOffCenterPerspectiveCameraPtr;
+typedef PointerMField<OffCenterPerspectiveCameraPtr,
+                      UnrecordedRefCountPolicy> MFUnrecOffCenterPerspectiveCameraPtr;
+typedef PointerMField<OffCenterPerspectiveCameraPtr,
+                      WeakRefCountPolicy      > MFWeakOffCenterPerspectiveCameraPtr;
+typedef PointerMField<OffCenterPerspectiveCameraPtr,
+                      NoRefCountPolicy        > MFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 
 

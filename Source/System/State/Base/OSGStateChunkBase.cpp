@@ -308,11 +308,11 @@ DataType FieldTraits<StateChunkPtr>::_type("StateChunkPtr", "FieldContainerAttac
 
 OSG_FIELDTRAITS_GETTYPE(StateChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            StateChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            StateChunkPtr, 
                            0);
 

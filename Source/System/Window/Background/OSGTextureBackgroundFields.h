@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -139,14 +139,14 @@ const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<TextureBackgroundPtr,
-                                RecordedRefCountPolicy  > SFRecTextureBackgroundPtr;
-typedef FieldContainerPtrSField<TextureBackgroundPtr,
-                                UnrecordedRefCountPolicy> SFUnrecTextureBackgroundPtr;
-typedef FieldContainerPtrSField<TextureBackgroundPtr,
-                                WeakRefCountPolicy      > SFWeakTextureBackgroundPtr;
-typedef FieldContainerPtrSField<TextureBackgroundPtr,
-                                NoRefCountPolicy        > SFUncountedTextureBackgroundPtr;
+typedef PointerSField<TextureBackgroundPtr,
+                      RecordedRefCountPolicy  > SFRecTextureBackgroundPtr;
+typedef PointerSField<TextureBackgroundPtr,
+                      UnrecordedRefCountPolicy> SFUnrecTextureBackgroundPtr;
+typedef PointerSField<TextureBackgroundPtr,
+                      WeakRefCountPolicy      > SFWeakTextureBackgroundPtr;
+typedef PointerSField<TextureBackgroundPtr,
+                      NoRefCountPolicy        > SFUncountedTextureBackgroundPtr;
 #endif
 
 

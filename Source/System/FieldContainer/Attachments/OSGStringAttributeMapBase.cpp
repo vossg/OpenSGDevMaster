@@ -493,7 +493,7 @@ DataType FieldTraits<StringAttributeMapPtr>::_type("StringAttributeMapPtr", "Fie
 
 OSG_FIELDTRAITS_GETTYPE(StringAttributeMapPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            StringAttributeMapPtr, 
                            0);
 

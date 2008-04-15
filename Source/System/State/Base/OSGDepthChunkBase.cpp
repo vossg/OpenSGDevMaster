@@ -738,11 +738,11 @@ DataType FieldTraits<DepthChunkPtr>::_type("DepthChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(DepthChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            DepthChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            DepthChunkPtr, 
                            0);
 

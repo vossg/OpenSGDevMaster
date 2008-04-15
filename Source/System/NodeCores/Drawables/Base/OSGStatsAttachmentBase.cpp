@@ -209,11 +209,11 @@ DataType FieldTraits<StatsAttachmentPtr>::_type("StatsAttachmentPtr", "FieldCont
 
 OSG_FIELDTRAITS_GETTYPE(StatsAttachmentPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            StatsAttachmentPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            StatsAttachmentPtr, 
                            0);
 

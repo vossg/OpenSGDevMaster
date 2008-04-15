@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<MaterialGroupPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                RecordedRefCountPolicy  > SFRecMaterialGroupPtr;
-typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                UnrecordedRefCountPolicy> SFUnrecMaterialGroupPtr;
-typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                WeakRefCountPolicy      > SFWeakMaterialGroupPtr;
-typedef FieldContainerPtrSField<MaterialGroupPtr,
-                                NoRefCountPolicy        > SFUncountedMaterialGroupPtr;
+typedef PointerSField<MaterialGroupPtr,
+                      RecordedRefCountPolicy  > SFRecMaterialGroupPtr;
+typedef PointerSField<MaterialGroupPtr,
+                      UnrecordedRefCountPolicy> SFUnrecMaterialGroupPtr;
+typedef PointerSField<MaterialGroupPtr,
+                      WeakRefCountPolicy      > SFWeakMaterialGroupPtr;
+typedef PointerSField<MaterialGroupPtr,
+                      NoRefCountPolicy        > SFUncountedMaterialGroupPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                RecordedRefCountPolicy  > MFRecMaterialGroupPtr;
-typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                UnrecordedRefCountPolicy> MFUnrecMaterialGroupPtr;
-typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                WeakRefCountPolicy      > MFWeakMaterialGroupPtr;
-typedef FieldContainerPtrMField<MaterialGroupPtr,
-                                NoRefCountPolicy        > MFUncountedMaterialGroupPtr;
+typedef PointerMField<MaterialGroupPtr,
+                      RecordedRefCountPolicy  > MFRecMaterialGroupPtr;
+typedef PointerMField<MaterialGroupPtr,
+                      UnrecordedRefCountPolicy> MFUnrecMaterialGroupPtr;
+typedef PointerMField<MaterialGroupPtr,
+                      WeakRefCountPolicy      > MFWeakMaterialGroupPtr;
+typedef PointerMField<MaterialGroupPtr,
+                      NoRefCountPolicy        > MFUncountedMaterialGroupPtr;
 #endif
 
 

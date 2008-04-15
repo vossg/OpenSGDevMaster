@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<SimpleShadowMapEnginePtr, 0>::getMName<NoRefCountPolicy
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                RecordedRefCountPolicy  > SFRecSimpleShadowMapEnginePtr;
-typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                UnrecordedRefCountPolicy> SFUnrecSimpleShadowMapEnginePtr;
-typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                WeakRefCountPolicy      > SFWeakSimpleShadowMapEnginePtr;
-typedef FieldContainerPtrSField<SimpleShadowMapEnginePtr,
-                                NoRefCountPolicy        > SFUncountedSimpleShadowMapEnginePtr;
+typedef PointerSField<SimpleShadowMapEnginePtr,
+                      RecordedRefCountPolicy  > SFRecSimpleShadowMapEnginePtr;
+typedef PointerSField<SimpleShadowMapEnginePtr,
+                      UnrecordedRefCountPolicy> SFUnrecSimpleShadowMapEnginePtr;
+typedef PointerSField<SimpleShadowMapEnginePtr,
+                      WeakRefCountPolicy      > SFWeakSimpleShadowMapEnginePtr;
+typedef PointerSField<SimpleShadowMapEnginePtr,
+                      NoRefCountPolicy        > SFUncountedSimpleShadowMapEnginePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                RecordedRefCountPolicy  > MFRecSimpleShadowMapEnginePtr;
-typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                UnrecordedRefCountPolicy> MFUnrecSimpleShadowMapEnginePtr;
-typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                WeakRefCountPolicy      > MFWeakSimpleShadowMapEnginePtr;
-typedef FieldContainerPtrMField<SimpleShadowMapEnginePtr,
-                                NoRefCountPolicy        > MFUncountedSimpleShadowMapEnginePtr;
+typedef PointerMField<SimpleShadowMapEnginePtr,
+                      RecordedRefCountPolicy  > MFRecSimpleShadowMapEnginePtr;
+typedef PointerMField<SimpleShadowMapEnginePtr,
+                      UnrecordedRefCountPolicy> MFUnrecSimpleShadowMapEnginePtr;
+typedef PointerMField<SimpleShadowMapEnginePtr,
+                      WeakRefCountPolicy      > MFWeakSimpleShadowMapEnginePtr;
+typedef PointerMField<SimpleShadowMapEnginePtr,
+                      NoRefCountPolicy        > MFUncountedSimpleShadowMapEnginePtr;
 #endif
 
 

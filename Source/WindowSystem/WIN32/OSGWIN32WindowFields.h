@@ -58,8 +58,8 @@
 #include "OSGWindowWIN32Def.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<WIN32WindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowWIN32FieldSingle */
 
-typedef FieldContainerPtrSField<WIN32WindowPtr,
-                                RecordedRefCountPolicy  > SFRecWIN32WindowPtr;
-typedef FieldContainerPtrSField<WIN32WindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecWIN32WindowPtr;
-typedef FieldContainerPtrSField<WIN32WindowPtr,
-                                WeakRefCountPolicy      > SFWeakWIN32WindowPtr;
-typedef FieldContainerPtrSField<WIN32WindowPtr,
-                                NoRefCountPolicy        > SFUncountedWIN32WindowPtr;
+typedef PointerSField<WIN32WindowPtr,
+                      RecordedRefCountPolicy  > SFRecWIN32WindowPtr;
+typedef PointerSField<WIN32WindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecWIN32WindowPtr;
+typedef PointerSField<WIN32WindowPtr,
+                      WeakRefCountPolicy      > SFWeakWIN32WindowPtr;
+typedef PointerSField<WIN32WindowPtr,
+                      NoRefCountPolicy        > SFUncountedWIN32WindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowWIN32FieldMulti */
 
-typedef FieldContainerPtrMField<WIN32WindowPtr,
-                                RecordedRefCountPolicy  > MFRecWIN32WindowPtr;
-typedef FieldContainerPtrMField<WIN32WindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecWIN32WindowPtr;
-typedef FieldContainerPtrMField<WIN32WindowPtr,
-                                WeakRefCountPolicy      > MFWeakWIN32WindowPtr;
-typedef FieldContainerPtrMField<WIN32WindowPtr,
-                                NoRefCountPolicy        > MFUncountedWIN32WindowPtr;
+typedef PointerMField<WIN32WindowPtr,
+                      RecordedRefCountPolicy  > MFRecWIN32WindowPtr;
+typedef PointerMField<WIN32WindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecWIN32WindowPtr;
+typedef PointerMField<WIN32WindowPtr,
+                      WeakRefCountPolicy      > MFWeakWIN32WindowPtr;
+typedef PointerMField<WIN32WindowPtr,
+                      NoRefCountPolicy        > MFUncountedWIN32WindowPtr;
 #endif
 
 

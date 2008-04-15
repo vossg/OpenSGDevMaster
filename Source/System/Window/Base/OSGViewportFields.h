@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -191,49 +191,49 @@ struct FieldTraits<ViewportPtr, 1> :
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecFieldContainerChildViewportPtr"; 
+    return "SFRecChildViewportPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecFieldContainerChildViewportPtr"; 
+    return "SFUnrecChildViewportPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakFieldContainerChildViewportPtr"; 
+    return "SFWeakChildViewportPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdFieldContainerChildViewportPtr"; 
+    return "SFUnrefdChildViewportPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecFieldContainerChildViewportPtr"; 
+    return "MFRecChildViewportPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecFieldContainerChildViewportPtr"; 
+    return "MFUnrecChildViewportPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakFieldContainerChildViewportPtr"; 
+    return "MFWeakChildViewportPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ViewportPtr, 1>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdFieldContainerChildViewportPtr"; 
+    return "MFUnrefdChildViewportPtr"; 
 }
 
 
@@ -243,39 +243,36 @@ const Char8 *FieldTraits<ViewportPtr, 1>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ViewportPtr,
-                                RecordedRefCountPolicy  > SFRecViewportPtr;
-typedef FieldContainerPtrSField<ViewportPtr,
-                                UnrecordedRefCountPolicy> SFUnrecViewportPtr;
-typedef FieldContainerPtrSField<ViewportPtr,
-                                WeakRefCountPolicy      > SFWeakViewportPtr;
-typedef FieldContainerPtrSField<ViewportPtr,
-                                NoRefCountPolicy        > SFUncountedViewportPtr;
+typedef PointerSField<ViewportPtr,
+                      RecordedRefCountPolicy  > SFRecViewportPtr;
+typedef PointerSField<ViewportPtr,
+                      UnrecordedRefCountPolicy> SFUnrecViewportPtr;
+typedef PointerSField<ViewportPtr,
+                      WeakRefCountPolicy      > SFWeakViewportPtr;
+typedef PointerSField<ViewportPtr,
+                      NoRefCountPolicy        > SFUncountedViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ViewportPtr,
-                                RecordedRefCountPolicy  > MFRecViewportPtr;
-typedef FieldContainerPtrMField<ViewportPtr,
-                                UnrecordedRefCountPolicy> MFUnrecViewportPtr;
-typedef FieldContainerPtrMField<ViewportPtr,
-                                WeakRefCountPolicy      > MFWeakViewportPtr;
-typedef FieldContainerPtrMField<ViewportPtr,
-                                NoRefCountPolicy        > MFUncountedViewportPtr;
+typedef PointerMField<ViewportPtr,
+                      RecordedRefCountPolicy  > MFRecViewportPtr;
+typedef PointerMField<ViewportPtr,
+                      UnrecordedRefCountPolicy> MFUnrecViewportPtr;
+typedef PointerMField<ViewportPtr,
+                      WeakRefCountPolicy      > MFWeakViewportPtr;
+typedef PointerMField<ViewportPtr,
+                      NoRefCountPolicy        > MFUncountedViewportPtr;
 #endif
 
 
 
-typedef FieldContainerPtrChildMField<
+typedef ChildPointerMField<
           ViewportPtr, 
           UnrecordedRefCountPolicy,
-          1                  > MFUnrecFieldContainerChildViewportPtr;
-
-typedef MFUnrecFieldContainerChildViewportPtr
-    MFUnrecChildViewportPtr;
+          1                      > MFUnrecChildViewportPtr;
 
 OSG_END_NAMESPACE
 

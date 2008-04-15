@@ -58,8 +58,8 @@
 #include "OSGDrawableDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -191,49 +191,49 @@ struct FieldTraits<GeoVectorPropertyPtr, 1> :
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecFieldContainerChildGeoVectorPropertyPtr"; 
+    return "SFRecChildGeoVectorPropertyPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecFieldContainerChildGeoVectorPropertyPtr"; 
+    return "SFUnrecChildGeoVectorPropertyPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakFieldContainerChildGeoVectorPropertyPtr"; 
+    return "SFWeakChildGeoVectorPropertyPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdFieldContainerChildGeoVectorPropertyPtr"; 
+    return "SFUnrefdChildGeoVectorPropertyPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecFieldContainerChildGeoVectorPropertyPtr"; 
+    return "MFRecChildGeoVectorPropertyPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecFieldContainerChildGeoVectorPropertyPtr"; 
+    return "MFUnrecChildGeoVectorPropertyPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakFieldContainerChildGeoVectorPropertyPtr"; 
+    return "MFWeakChildGeoVectorPropertyPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdFieldContainerChildGeoVectorPropertyPtr"; 
+    return "MFUnrefdChildGeoVectorPropertyPtr"; 
 }
 
 
@@ -243,48 +243,42 @@ const Char8 *FieldTraits<GeoVectorPropertyPtr, 1>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<GeoVectorPropertyPtr,
-                                RecordedRefCountPolicy  > SFRecGeoVectorPropertyPtr;
-typedef FieldContainerPtrSField<GeoVectorPropertyPtr,
-                                UnrecordedRefCountPolicy> SFUnrecGeoVectorPropertyPtr;
-typedef FieldContainerPtrSField<GeoVectorPropertyPtr,
-                                WeakRefCountPolicy      > SFWeakGeoVectorPropertyPtr;
-typedef FieldContainerPtrSField<GeoVectorPropertyPtr,
-                                NoRefCountPolicy        > SFUncountedGeoVectorPropertyPtr;
+typedef PointerSField<GeoVectorPropertyPtr,
+                      RecordedRefCountPolicy  > SFRecGeoVectorPropertyPtr;
+typedef PointerSField<GeoVectorPropertyPtr,
+                      UnrecordedRefCountPolicy> SFUnrecGeoVectorPropertyPtr;
+typedef PointerSField<GeoVectorPropertyPtr,
+                      WeakRefCountPolicy      > SFWeakGeoVectorPropertyPtr;
+typedef PointerSField<GeoVectorPropertyPtr,
+                      NoRefCountPolicy        > SFUncountedGeoVectorPropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<GeoVectorPropertyPtr,
-                                RecordedRefCountPolicy  > MFRecGeoVectorPropertyPtr;
-typedef FieldContainerPtrMField<GeoVectorPropertyPtr,
-                                UnrecordedRefCountPolicy> MFUnrecGeoVectorPropertyPtr;
-typedef FieldContainerPtrMField<GeoVectorPropertyPtr,
-                                WeakRefCountPolicy      > MFWeakGeoVectorPropertyPtr;
-typedef FieldContainerPtrMField<GeoVectorPropertyPtr,
-                                NoRefCountPolicy        > MFUncountedGeoVectorPropertyPtr;
+typedef PointerMField<GeoVectorPropertyPtr,
+                      RecordedRefCountPolicy  > MFRecGeoVectorPropertyPtr;
+typedef PointerMField<GeoVectorPropertyPtr,
+                      UnrecordedRefCountPolicy> MFUnrecGeoVectorPropertyPtr;
+typedef PointerMField<GeoVectorPropertyPtr,
+                      WeakRefCountPolicy      > MFWeakGeoVectorPropertyPtr;
+typedef PointerMField<GeoVectorPropertyPtr,
+                      NoRefCountPolicy        > MFUncountedGeoVectorPropertyPtr;
 #endif
 
 
 
-typedef FieldContainerPtrChildSField<
+typedef ChildPointerSField<
           GeoVectorPropertyPtr, 
           UnrecordedRefCountPolicy,
-          1                  > SFUnrecFieldContainerChildGeoVectorPropertyPtr;
-
-typedef SFUnrecFieldContainerChildGeoVectorPropertyPtr 
-    SFUnrecChildGeoVectorPropertyPtr;
+          1                       > SFUnrecChildGeoVectorPropertyPtr;
 
 
-typedef FieldContainerPtrChildMField<
+typedef ChildPointerMField<
           GeoVectorPropertyPtr, 
           UnrecordedRefCountPolicy,
-          1                  > MFUnrecFieldContainerChildGeoVectorPropertyPtr;
-
-typedef MFUnrecFieldContainerChildGeoVectorPropertyPtr
-    MFUnrecChildGeoVectorPropertyPtr;
+          1                      > MFUnrecChildGeoVectorPropertyPtr;
 
 OSG_END_NAMESPACE
 

@@ -395,7 +395,7 @@ GetFieldHandlePtr ShaderParameterBase::getHandleParents         (void) const
 
 EditFieldHandlePtr ShaderParameterBase::editHandleParents        (void)
 {
-    MFParentFieldContainerPtr::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -432,11 +432,11 @@ DataType FieldTraits<ShaderParameterPtr>::_type("ShaderParameterPtr", "Attachmen
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ShaderParameterPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ShaderParameterPtr, 
                            0);
 
@@ -446,7 +446,7 @@ DataType &FieldTraits< ShaderParameterPtr, 1 >::getType(void)
 }
 
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       ShaderParameterPtr,       
                       UnrecordedRefCountPolicy,  
                       1);

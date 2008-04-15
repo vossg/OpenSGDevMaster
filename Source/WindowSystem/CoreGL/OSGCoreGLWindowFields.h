@@ -58,8 +58,8 @@
 #include "OSGWindowCoreGLDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<CoreGLWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCoreGLFieldSingle */
 
-typedef FieldContainerPtrSField<CoreGLWindowPtr,
-                                RecordedRefCountPolicy  > SFRecCoreGLWindowPtr;
-typedef FieldContainerPtrSField<CoreGLWindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecCoreGLWindowPtr;
-typedef FieldContainerPtrSField<CoreGLWindowPtr,
-                                WeakRefCountPolicy      > SFWeakCoreGLWindowPtr;
-typedef FieldContainerPtrSField<CoreGLWindowPtr,
-                                NoRefCountPolicy        > SFUncountedCoreGLWindowPtr;
+typedef PointerSField<CoreGLWindowPtr,
+                      RecordedRefCountPolicy  > SFRecCoreGLWindowPtr;
+typedef PointerSField<CoreGLWindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecCoreGLWindowPtr;
+typedef PointerSField<CoreGLWindowPtr,
+                      WeakRefCountPolicy      > SFWeakCoreGLWindowPtr;
+typedef PointerSField<CoreGLWindowPtr,
+                      NoRefCountPolicy        > SFUncountedCoreGLWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCoreGLFieldMulti */
 
-typedef FieldContainerPtrMField<CoreGLWindowPtr,
-                                RecordedRefCountPolicy  > MFRecCoreGLWindowPtr;
-typedef FieldContainerPtrMField<CoreGLWindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecCoreGLWindowPtr;
-typedef FieldContainerPtrMField<CoreGLWindowPtr,
-                                WeakRefCountPolicy      > MFWeakCoreGLWindowPtr;
-typedef FieldContainerPtrMField<CoreGLWindowPtr,
-                                NoRefCountPolicy        > MFUncountedCoreGLWindowPtr;
+typedef PointerMField<CoreGLWindowPtr,
+                      RecordedRefCountPolicy  > MFRecCoreGLWindowPtr;
+typedef PointerMField<CoreGLWindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecCoreGLWindowPtr;
+typedef PointerMField<CoreGLWindowPtr,
+                      WeakRefCountPolicy      > MFWeakCoreGLWindowPtr;
+typedef PointerMField<CoreGLWindowPtr,
+                      NoRefCountPolicy        > MFUncountedCoreGLWindowPtr;
 #endif
 
 

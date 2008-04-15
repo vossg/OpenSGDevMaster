@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<NoRefCountPolicy>(
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                RecordedRefCountPolicy  > SFRecColorBufferViewportPtr;
-typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                UnrecordedRefCountPolicy> SFUnrecColorBufferViewportPtr;
-typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                WeakRefCountPolicy      > SFWeakColorBufferViewportPtr;
-typedef FieldContainerPtrSField<ColorBufferViewportPtr,
-                                NoRefCountPolicy        > SFUncountedColorBufferViewportPtr;
+typedef PointerSField<ColorBufferViewportPtr,
+                      RecordedRefCountPolicy  > SFRecColorBufferViewportPtr;
+typedef PointerSField<ColorBufferViewportPtr,
+                      UnrecordedRefCountPolicy> SFUnrecColorBufferViewportPtr;
+typedef PointerSField<ColorBufferViewportPtr,
+                      WeakRefCountPolicy      > SFWeakColorBufferViewportPtr;
+typedef PointerSField<ColorBufferViewportPtr,
+                      NoRefCountPolicy        > SFUncountedColorBufferViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                RecordedRefCountPolicy  > MFRecColorBufferViewportPtr;
-typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                UnrecordedRefCountPolicy> MFUnrecColorBufferViewportPtr;
-typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                WeakRefCountPolicy      > MFWeakColorBufferViewportPtr;
-typedef FieldContainerPtrMField<ColorBufferViewportPtr,
-                                NoRefCountPolicy        > MFUncountedColorBufferViewportPtr;
+typedef PointerMField<ColorBufferViewportPtr,
+                      RecordedRefCountPolicy  > MFRecColorBufferViewportPtr;
+typedef PointerMField<ColorBufferViewportPtr,
+                      UnrecordedRefCountPolicy> MFUnrecColorBufferViewportPtr;
+typedef PointerMField<ColorBufferViewportPtr,
+                      WeakRefCountPolicy      > MFWeakColorBufferViewportPtr;
+typedef PointerMField<ColorBufferViewportPtr,
+                      NoRefCountPolicy        > MFUncountedColorBufferViewportPtr;
 #endif
 
 

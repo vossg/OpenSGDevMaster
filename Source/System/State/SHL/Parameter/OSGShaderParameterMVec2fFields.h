@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ShaderParameterMVec2fPtr, 0>::getMName<NoRefCountPolicy
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
-                                RecordedRefCountPolicy  > SFRecShaderParameterMVec2fPtr;
-typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
-                                UnrecordedRefCountPolicy> SFUnrecShaderParameterMVec2fPtr;
-typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
-                                WeakRefCountPolicy      > SFWeakShaderParameterMVec2fPtr;
-typedef FieldContainerPtrSField<ShaderParameterMVec2fPtr,
-                                NoRefCountPolicy        > SFUncountedShaderParameterMVec2fPtr;
+typedef PointerSField<ShaderParameterMVec2fPtr,
+                      RecordedRefCountPolicy  > SFRecShaderParameterMVec2fPtr;
+typedef PointerSField<ShaderParameterMVec2fPtr,
+                      UnrecordedRefCountPolicy> SFUnrecShaderParameterMVec2fPtr;
+typedef PointerSField<ShaderParameterMVec2fPtr,
+                      WeakRefCountPolicy      > SFWeakShaderParameterMVec2fPtr;
+typedef PointerSField<ShaderParameterMVec2fPtr,
+                      NoRefCountPolicy        > SFUncountedShaderParameterMVec2fPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
-                                RecordedRefCountPolicy  > MFRecShaderParameterMVec2fPtr;
-typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
-                                UnrecordedRefCountPolicy> MFUnrecShaderParameterMVec2fPtr;
-typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
-                                WeakRefCountPolicy      > MFWeakShaderParameterMVec2fPtr;
-typedef FieldContainerPtrMField<ShaderParameterMVec2fPtr,
-                                NoRefCountPolicy        > MFUncountedShaderParameterMVec2fPtr;
+typedef PointerMField<ShaderParameterMVec2fPtr,
+                      RecordedRefCountPolicy  > MFRecShaderParameterMVec2fPtr;
+typedef PointerMField<ShaderParameterMVec2fPtr,
+                      UnrecordedRefCountPolicy> MFUnrecShaderParameterMVec2fPtr;
+typedef PointerMField<ShaderParameterMVec2fPtr,
+                      WeakRefCountPolicy      > MFWeakShaderParameterMVec2fPtr;
+typedef PointerMField<ShaderParameterMVec2fPtr,
+                      NoRefCountPolicy        > MFUncountedShaderParameterMVec2fPtr;
 #endif
 
 

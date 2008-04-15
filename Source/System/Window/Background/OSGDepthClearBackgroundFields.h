@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -139,14 +139,14 @@ const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                RecordedRefCountPolicy  > SFRecDepthClearBackgroundPtr;
-typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                UnrecordedRefCountPolicy> SFUnrecDepthClearBackgroundPtr;
-typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                WeakRefCountPolicy      > SFWeakDepthClearBackgroundPtr;
-typedef FieldContainerPtrSField<DepthClearBackgroundPtr,
-                                NoRefCountPolicy        > SFUncountedDepthClearBackgroundPtr;
+typedef PointerSField<DepthClearBackgroundPtr,
+                      RecordedRefCountPolicy  > SFRecDepthClearBackgroundPtr;
+typedef PointerSField<DepthClearBackgroundPtr,
+                      UnrecordedRefCountPolicy> SFUnrecDepthClearBackgroundPtr;
+typedef PointerSField<DepthClearBackgroundPtr,
+                      WeakRefCountPolicy      > SFWeakDepthClearBackgroundPtr;
+typedef PointerSField<DepthClearBackgroundPtr,
+                      NoRefCountPolicy        > SFUncountedDepthClearBackgroundPtr;
 #endif
 
 

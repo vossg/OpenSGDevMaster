@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -191,49 +191,49 @@ struct FieldTraits<FCDSParTestFCPtr, 1> :
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecFieldContainerChildFCDSParTestFCPtr"; 
+    return "SFRecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecFieldContainerChildFCDSParTestFCPtr"; 
+    return "SFUnrecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakFieldContainerChildFCDSParTestFCPtr"; 
+    return "SFWeakChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdFieldContainerChildFCDSParTestFCPtr"; 
+    return "SFUnrefdChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecFieldContainerChildFCDSParTestFCPtr"; 
+    return "MFRecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecFieldContainerChildFCDSParTestFCPtr"; 
+    return "MFUnrecChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakFieldContainerChildFCDSParTestFCPtr"; 
+    return "MFWeakChildFCDSParTestFCPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdFieldContainerChildFCDSParTestFCPtr"; 
+    return "MFUnrefdChildFCDSParTestFCPtr"; 
 }
 
 
@@ -243,48 +243,42 @@ const Char8 *FieldTraits<FCDSParTestFCPtr, 1>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<FCDSParTestFCPtr,
-                                RecordedRefCountPolicy  > SFRecFCDSParTestFCPtr;
-typedef FieldContainerPtrSField<FCDSParTestFCPtr,
-                                UnrecordedRefCountPolicy> SFUnrecFCDSParTestFCPtr;
-typedef FieldContainerPtrSField<FCDSParTestFCPtr,
-                                WeakRefCountPolicy      > SFWeakFCDSParTestFCPtr;
-typedef FieldContainerPtrSField<FCDSParTestFCPtr,
-                                NoRefCountPolicy        > SFUncountedFCDSParTestFCPtr;
+typedef PointerSField<FCDSParTestFCPtr,
+                      RecordedRefCountPolicy  > SFRecFCDSParTestFCPtr;
+typedef PointerSField<FCDSParTestFCPtr,
+                      UnrecordedRefCountPolicy> SFUnrecFCDSParTestFCPtr;
+typedef PointerSField<FCDSParTestFCPtr,
+                      WeakRefCountPolicy      > SFWeakFCDSParTestFCPtr;
+typedef PointerSField<FCDSParTestFCPtr,
+                      NoRefCountPolicy        > SFUncountedFCDSParTestFCPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<FCDSParTestFCPtr,
-                                RecordedRefCountPolicy  > MFRecFCDSParTestFCPtr;
-typedef FieldContainerPtrMField<FCDSParTestFCPtr,
-                                UnrecordedRefCountPolicy> MFUnrecFCDSParTestFCPtr;
-typedef FieldContainerPtrMField<FCDSParTestFCPtr,
-                                WeakRefCountPolicy      > MFWeakFCDSParTestFCPtr;
-typedef FieldContainerPtrMField<FCDSParTestFCPtr,
-                                NoRefCountPolicy        > MFUncountedFCDSParTestFCPtr;
+typedef PointerMField<FCDSParTestFCPtr,
+                      RecordedRefCountPolicy  > MFRecFCDSParTestFCPtr;
+typedef PointerMField<FCDSParTestFCPtr,
+                      UnrecordedRefCountPolicy> MFUnrecFCDSParTestFCPtr;
+typedef PointerMField<FCDSParTestFCPtr,
+                      WeakRefCountPolicy      > MFWeakFCDSParTestFCPtr;
+typedef PointerMField<FCDSParTestFCPtr,
+                      NoRefCountPolicy        > MFUncountedFCDSParTestFCPtr;
 #endif
 
 
 
-typedef FieldContainerPtrChildSField<
+typedef ChildPointerSField<
           FCDSParTestFCPtr, 
           UnrecordedRefCountPolicy,
-          1                  > SFUnrecFieldContainerChildFCDSParTestFCPtr;
-
-typedef SFUnrecFieldContainerChildFCDSParTestFCPtr 
-    SFUnrecChildFCDSParTestFCPtr;
+          1                       > SFUnrecChildFCDSParTestFCPtr;
 
 
-typedef FieldContainerPtrChildMField<
+typedef ChildPointerMField<
           FCDSParTestFCPtr, 
           UnrecordedRefCountPolicy,
-          1                  > MFUnrecFieldContainerChildFCDSParTestFCPtr;
-
-typedef MFUnrecFieldContainerChildFCDSParTestFCPtr
-    MFUnrecChildFCDSParTestFCPtr;
+          1                      > MFUnrecChildFCDSParTestFCPtr;
 
 OSG_END_NAMESPACE
 

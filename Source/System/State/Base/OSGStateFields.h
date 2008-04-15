@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StatePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StatePtr,
-                                RecordedRefCountPolicy  > SFRecStatePtr;
-typedef FieldContainerPtrSField<StatePtr,
-                                UnrecordedRefCountPolicy> SFUnrecStatePtr;
-typedef FieldContainerPtrSField<StatePtr,
-                                WeakRefCountPolicy      > SFWeakStatePtr;
-typedef FieldContainerPtrSField<StatePtr,
-                                NoRefCountPolicy        > SFUncountedStatePtr;
+typedef PointerSField<StatePtr,
+                      RecordedRefCountPolicy  > SFRecStatePtr;
+typedef PointerSField<StatePtr,
+                      UnrecordedRefCountPolicy> SFUnrecStatePtr;
+typedef PointerSField<StatePtr,
+                      WeakRefCountPolicy      > SFWeakStatePtr;
+typedef PointerSField<StatePtr,
+                      NoRefCountPolicy        > SFUncountedStatePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StatePtr,
-                                RecordedRefCountPolicy  > MFRecStatePtr;
-typedef FieldContainerPtrMField<StatePtr,
-                                UnrecordedRefCountPolicy> MFUnrecStatePtr;
-typedef FieldContainerPtrMField<StatePtr,
-                                WeakRefCountPolicy      > MFWeakStatePtr;
-typedef FieldContainerPtrMField<StatePtr,
-                                NoRefCountPolicy        > MFUncountedStatePtr;
+typedef PointerMField<StatePtr,
+                      RecordedRefCountPolicy  > MFRecStatePtr;
+typedef PointerMField<StatePtr,
+                      UnrecordedRefCountPolicy> MFUnrecStatePtr;
+typedef PointerMField<StatePtr,
+                      WeakRefCountPolicy      > MFWeakStatePtr;
+typedef PointerMField<StatePtr,
+                      NoRefCountPolicy        > MFUncountedStatePtr;
 #endif
 
 

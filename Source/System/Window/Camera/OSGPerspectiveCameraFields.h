@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                RecordedRefCountPolicy  > SFRecPerspectiveCameraPtr;
-typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                UnrecordedRefCountPolicy> SFUnrecPerspectiveCameraPtr;
-typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                WeakRefCountPolicy      > SFWeakPerspectiveCameraPtr;
-typedef FieldContainerPtrSField<PerspectiveCameraPtr,
-                                NoRefCountPolicy        > SFUncountedPerspectiveCameraPtr;
+typedef PointerSField<PerspectiveCameraPtr,
+                      RecordedRefCountPolicy  > SFRecPerspectiveCameraPtr;
+typedef PointerSField<PerspectiveCameraPtr,
+                      UnrecordedRefCountPolicy> SFUnrecPerspectiveCameraPtr;
+typedef PointerSField<PerspectiveCameraPtr,
+                      WeakRefCountPolicy      > SFWeakPerspectiveCameraPtr;
+typedef PointerSField<PerspectiveCameraPtr,
+                      NoRefCountPolicy        > SFUncountedPerspectiveCameraPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                RecordedRefCountPolicy  > MFRecPerspectiveCameraPtr;
-typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                UnrecordedRefCountPolicy> MFUnrecPerspectiveCameraPtr;
-typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                WeakRefCountPolicy      > MFWeakPerspectiveCameraPtr;
-typedef FieldContainerPtrMField<PerspectiveCameraPtr,
-                                NoRefCountPolicy        > MFUncountedPerspectiveCameraPtr;
+typedef PointerMField<PerspectiveCameraPtr,
+                      RecordedRefCountPolicy  > MFRecPerspectiveCameraPtr;
+typedef PointerMField<PerspectiveCameraPtr,
+                      UnrecordedRefCountPolicy> MFUnrecPerspectiveCameraPtr;
+typedef PointerMField<PerspectiveCameraPtr,
+                      WeakRefCountPolicy      > MFWeakPerspectiveCameraPtr;
+typedef PointerMField<PerspectiveCameraPtr,
+                      NoRefCountPolicy        > MFUncountedPerspectiveCameraPtr;
 #endif
 
 

@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StagePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<StagePtr,
-                                RecordedRefCountPolicy  > SFRecStagePtr;
-typedef FieldContainerPtrSField<StagePtr,
-                                UnrecordedRefCountPolicy> SFUnrecStagePtr;
-typedef FieldContainerPtrSField<StagePtr,
-                                WeakRefCountPolicy      > SFWeakStagePtr;
-typedef FieldContainerPtrSField<StagePtr,
-                                NoRefCountPolicy        > SFUncountedStagePtr;
+typedef PointerSField<StagePtr,
+                      RecordedRefCountPolicy  > SFRecStagePtr;
+typedef PointerSField<StagePtr,
+                      UnrecordedRefCountPolicy> SFUnrecStagePtr;
+typedef PointerSField<StagePtr,
+                      WeakRefCountPolicy      > SFWeakStagePtr;
+typedef PointerSField<StagePtr,
+                      NoRefCountPolicy        > SFUncountedStagePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<StagePtr,
-                                RecordedRefCountPolicy  > MFRecStagePtr;
-typedef FieldContainerPtrMField<StagePtr,
-                                UnrecordedRefCountPolicy> MFUnrecStagePtr;
-typedef FieldContainerPtrMField<StagePtr,
-                                WeakRefCountPolicy      > MFWeakStagePtr;
-typedef FieldContainerPtrMField<StagePtr,
-                                NoRefCountPolicy        > MFUncountedStagePtr;
+typedef PointerMField<StagePtr,
+                      RecordedRefCountPolicy  > MFRecStagePtr;
+typedef PointerMField<StagePtr,
+                      UnrecordedRefCountPolicy> MFUnrecStagePtr;
+typedef PointerMField<StagePtr,
+                      WeakRefCountPolicy      > MFWeakStagePtr;
+typedef PointerMField<StagePtr,
+                      NoRefCountPolicy        > MFUncountedStagePtr;
 #endif
 
 

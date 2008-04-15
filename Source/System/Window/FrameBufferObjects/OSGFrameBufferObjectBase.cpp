@@ -1029,11 +1029,11 @@ DataType FieldTraits<FrameBufferObjectPtr>::_type("FrameBufferObjectPtr", "Attac
 
 OSG_FIELDTRAITS_GETTYPE(FrameBufferObjectPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FrameBufferObjectPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FrameBufferObjectPtr, 
                            0);
 

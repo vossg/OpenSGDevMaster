@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ProjectionCameraDecoratorPtr, 0>::getMName<NoRefCountPo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                RecordedRefCountPolicy  > SFRecProjectionCameraDecoratorPtr;
-typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                UnrecordedRefCountPolicy> SFUnrecProjectionCameraDecoratorPtr;
-typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                WeakRefCountPolicy      > SFWeakProjectionCameraDecoratorPtr;
-typedef FieldContainerPtrSField<ProjectionCameraDecoratorPtr,
-                                NoRefCountPolicy        > SFUncountedProjectionCameraDecoratorPtr;
+typedef PointerSField<ProjectionCameraDecoratorPtr,
+                      RecordedRefCountPolicy  > SFRecProjectionCameraDecoratorPtr;
+typedef PointerSField<ProjectionCameraDecoratorPtr,
+                      UnrecordedRefCountPolicy> SFUnrecProjectionCameraDecoratorPtr;
+typedef PointerSField<ProjectionCameraDecoratorPtr,
+                      WeakRefCountPolicy      > SFWeakProjectionCameraDecoratorPtr;
+typedef PointerSField<ProjectionCameraDecoratorPtr,
+                      NoRefCountPolicy        > SFUncountedProjectionCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                RecordedRefCountPolicy  > MFRecProjectionCameraDecoratorPtr;
-typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                UnrecordedRefCountPolicy> MFUnrecProjectionCameraDecoratorPtr;
-typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                WeakRefCountPolicy      > MFWeakProjectionCameraDecoratorPtr;
-typedef FieldContainerPtrMField<ProjectionCameraDecoratorPtr,
-                                NoRefCountPolicy        > MFUncountedProjectionCameraDecoratorPtr;
+typedef PointerMField<ProjectionCameraDecoratorPtr,
+                      RecordedRefCountPolicy  > MFRecProjectionCameraDecoratorPtr;
+typedef PointerMField<ProjectionCameraDecoratorPtr,
+                      UnrecordedRefCountPolicy> MFUnrecProjectionCameraDecoratorPtr;
+typedef PointerMField<ProjectionCameraDecoratorPtr,
+                      WeakRefCountPolicy      > MFWeakProjectionCameraDecoratorPtr;
+typedef PointerMField<ProjectionCameraDecoratorPtr,
+                      NoRefCountPolicy        > MFUncountedProjectionCameraDecoratorPtr;
 #endif
 
 

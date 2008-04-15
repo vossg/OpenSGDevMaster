@@ -259,8 +259,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecFieldContainerChildImagePtr::Description(
-        SFUnrecFieldContainerChildImagePtr::getClassType(),
+    pDesc = new SFUnrecChildImagePtr::Description(
+        SFUnrecChildImagePtr::getClassType(),
         "image",
         "The texture image.\n",
         ImageFieldId, ImageFieldMask,
@@ -1031,7 +1031,7 @@ UInt32 TextureObjChunkBase::getContainerSize(void) const
 
 
 //! Get the TextureObjChunk::_sfImage field.
-const SFUnrecFieldContainerChildImagePtr *TextureObjChunkBase::getSFImage(void) const
+const SFUnrecChildImagePtr *TextureObjChunkBase::getSFImage(void) const
 {
     return &_sfImage;
 }
@@ -2095,8 +2095,8 @@ void TextureObjChunkBase::onCreate(const TextureObjChunk *source)
 
 GetFieldHandlePtr TextureObjChunkBase::getHandleImage           (void) const
 {
-    SFUnrecFieldContainerChildImagePtr::GetHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildImagePtr::GetHandle(
+    SFUnrecChildImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecChildImagePtr::GetHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
@@ -2105,8 +2105,8 @@ GetFieldHandlePtr TextureObjChunkBase::getHandleImage           (void) const
 
 EditFieldHandlePtr TextureObjChunkBase::editHandleImage          (void)
 {
-    SFUnrecFieldContainerChildImagePtr::EditHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildImagePtr::EditHandle(
+    SFUnrecChildImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecChildImagePtr::EditHandle(
              &_sfImage, 
              this->getType().getFieldDesc(ImageFieldId)));
 
@@ -2735,11 +2735,11 @@ DataType FieldTraits<TextureObjChunkPtr>::_type("TextureObjChunkPtr", "TextureBa
 
 OSG_FIELDTRAITS_GETTYPE(TextureObjChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TextureObjChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TextureObjChunkPtr, 
                            0);
 

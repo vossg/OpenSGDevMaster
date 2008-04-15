@@ -650,11 +650,11 @@ DataType FieldTraits<TextureBufferPtr>::_type("TextureBufferPtr", "FrameBufferAt
 
 OSG_FIELDTRAITS_GETTYPE(TextureBufferPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TextureBufferPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TextureBufferPtr, 
                            0);
 

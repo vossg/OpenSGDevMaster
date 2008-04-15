@@ -670,11 +670,11 @@ DataType FieldTraits<LineChunkPtr>::_type("LineChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(LineChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            LineChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            LineChunkPtr, 
                            0);
 

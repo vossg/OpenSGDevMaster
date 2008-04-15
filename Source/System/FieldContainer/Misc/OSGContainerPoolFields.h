@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                RecordedRefCountPolicy  > SFRecContainerPoolPtr;
-typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                UnrecordedRefCountPolicy> SFUnrecContainerPoolPtr;
-typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                WeakRefCountPolicy      > SFWeakContainerPoolPtr;
-typedef FieldContainerPtrSField<ContainerPoolPtr,
-                                NoRefCountPolicy        > SFUncountedContainerPoolPtr;
+typedef PointerSField<ContainerPoolPtr,
+                      RecordedRefCountPolicy  > SFRecContainerPoolPtr;
+typedef PointerSField<ContainerPoolPtr,
+                      UnrecordedRefCountPolicy> SFUnrecContainerPoolPtr;
+typedef PointerSField<ContainerPoolPtr,
+                      WeakRefCountPolicy      > SFWeakContainerPoolPtr;
+typedef PointerSField<ContainerPoolPtr,
+                      NoRefCountPolicy        > SFUncountedContainerPoolPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                RecordedRefCountPolicy  > MFRecContainerPoolPtr;
-typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                UnrecordedRefCountPolicy> MFUnrecContainerPoolPtr;
-typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                WeakRefCountPolicy      > MFWeakContainerPoolPtr;
-typedef FieldContainerPtrMField<ContainerPoolPtr,
-                                NoRefCountPolicy        > MFUncountedContainerPoolPtr;
+typedef PointerMField<ContainerPoolPtr,
+                      RecordedRefCountPolicy  > MFRecContainerPoolPtr;
+typedef PointerMField<ContainerPoolPtr,
+                      UnrecordedRefCountPolicy> MFUnrecContainerPoolPtr;
+typedef PointerMField<ContainerPoolPtr,
+                      WeakRefCountPolicy      > MFWeakContainerPoolPtr;
+typedef PointerMField<ContainerPoolPtr,
+                      NoRefCountPolicy        > MFUncountedContainerPoolPtr;
 #endif
 
 

@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -191,49 +191,49 @@ struct FieldTraits<ImagePtr, 1> :
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecFieldContainerChildImagePtr"; 
+    return "SFRecChildImagePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecFieldContainerChildImagePtr"; 
+    return "SFUnrecChildImagePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakFieldContainerChildImagePtr"; 
+    return "SFWeakChildImagePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdFieldContainerChildImagePtr"; 
+    return "SFUnrefdChildImagePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecFieldContainerChildImagePtr"; 
+    return "MFRecChildImagePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecFieldContainerChildImagePtr"; 
+    return "MFUnrecChildImagePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakFieldContainerChildImagePtr"; 
+    return "MFWeakChildImagePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<ImagePtr, 1>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdFieldContainerChildImagePtr"; 
+    return "MFUnrefdChildImagePtr"; 
 }
 
 
@@ -243,39 +243,36 @@ const Char8 *FieldTraits<ImagePtr, 1>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ImagePtr,
-                                RecordedRefCountPolicy  > SFRecImagePtr;
-typedef FieldContainerPtrSField<ImagePtr,
-                                UnrecordedRefCountPolicy> SFUnrecImagePtr;
-typedef FieldContainerPtrSField<ImagePtr,
-                                WeakRefCountPolicy      > SFWeakImagePtr;
-typedef FieldContainerPtrSField<ImagePtr,
-                                NoRefCountPolicy        > SFUncountedImagePtr;
+typedef PointerSField<ImagePtr,
+                      RecordedRefCountPolicy  > SFRecImagePtr;
+typedef PointerSField<ImagePtr,
+                      UnrecordedRefCountPolicy> SFUnrecImagePtr;
+typedef PointerSField<ImagePtr,
+                      WeakRefCountPolicy      > SFWeakImagePtr;
+typedef PointerSField<ImagePtr,
+                      NoRefCountPolicy        > SFUncountedImagePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ImagePtr,
-                                RecordedRefCountPolicy  > MFRecImagePtr;
-typedef FieldContainerPtrMField<ImagePtr,
-                                UnrecordedRefCountPolicy> MFUnrecImagePtr;
-typedef FieldContainerPtrMField<ImagePtr,
-                                WeakRefCountPolicy      > MFWeakImagePtr;
-typedef FieldContainerPtrMField<ImagePtr,
-                                NoRefCountPolicy        > MFUncountedImagePtr;
+typedef PointerMField<ImagePtr,
+                      RecordedRefCountPolicy  > MFRecImagePtr;
+typedef PointerMField<ImagePtr,
+                      UnrecordedRefCountPolicy> MFUnrecImagePtr;
+typedef PointerMField<ImagePtr,
+                      WeakRefCountPolicy      > MFWeakImagePtr;
+typedef PointerMField<ImagePtr,
+                      NoRefCountPolicy        > MFUncountedImagePtr;
 #endif
 
 
 
-typedef FieldContainerPtrChildSField<
+typedef ChildPointerSField<
           ImagePtr, 
           UnrecordedRefCountPolicy,
-          1                  > SFUnrecFieldContainerChildImagePtr;
-
-typedef SFUnrecFieldContainerChildImagePtr 
-    SFUnrecChildImagePtr;
+          1                       > SFUnrecChildImagePtr;
 
 OSG_END_NAMESPACE
 

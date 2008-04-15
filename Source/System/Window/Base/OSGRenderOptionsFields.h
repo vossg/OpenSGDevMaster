@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<RenderOptionsPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                RecordedRefCountPolicy  > SFRecRenderOptionsPtr;
-typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                UnrecordedRefCountPolicy> SFUnrecRenderOptionsPtr;
-typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                WeakRefCountPolicy      > SFWeakRenderOptionsPtr;
-typedef FieldContainerPtrSField<RenderOptionsPtr,
-                                NoRefCountPolicy        > SFUncountedRenderOptionsPtr;
+typedef PointerSField<RenderOptionsPtr,
+                      RecordedRefCountPolicy  > SFRecRenderOptionsPtr;
+typedef PointerSField<RenderOptionsPtr,
+                      UnrecordedRefCountPolicy> SFUnrecRenderOptionsPtr;
+typedef PointerSField<RenderOptionsPtr,
+                      WeakRefCountPolicy      > SFWeakRenderOptionsPtr;
+typedef PointerSField<RenderOptionsPtr,
+                      NoRefCountPolicy        > SFUncountedRenderOptionsPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                RecordedRefCountPolicy  > MFRecRenderOptionsPtr;
-typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                UnrecordedRefCountPolicy> MFUnrecRenderOptionsPtr;
-typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                WeakRefCountPolicy      > MFWeakRenderOptionsPtr;
-typedef FieldContainerPtrMField<RenderOptionsPtr,
-                                NoRefCountPolicy        > MFUncountedRenderOptionsPtr;
+typedef PointerMField<RenderOptionsPtr,
+                      RecordedRefCountPolicy  > MFRecRenderOptionsPtr;
+typedef PointerMField<RenderOptionsPtr,
+                      UnrecordedRefCountPolicy> MFUnrecRenderOptionsPtr;
+typedef PointerMField<RenderOptionsPtr,
+                      WeakRefCountPolicy      > MFWeakRenderOptionsPtr;
+typedef PointerMField<RenderOptionsPtr,
+                      NoRefCountPolicy        > MFUncountedRenderOptionsPtr;
 #endif
 
 

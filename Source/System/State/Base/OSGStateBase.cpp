@@ -558,11 +558,11 @@ DataType FieldTraits<StatePtr>::_type("StatePtr", "FieldContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StatePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            StatePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            StatePtr, 
                            0);
 

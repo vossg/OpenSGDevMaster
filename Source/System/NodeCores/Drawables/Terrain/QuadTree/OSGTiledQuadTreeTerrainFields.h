@@ -58,8 +58,8 @@
 #include "OSGDrawableDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                RecordedRefCountPolicy  > SFRecTiledQuadTreeTerrainPtr;
-typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                UnrecordedRefCountPolicy> SFUnrecTiledQuadTreeTerrainPtr;
-typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                WeakRefCountPolicy      > SFWeakTiledQuadTreeTerrainPtr;
-typedef FieldContainerPtrSField<TiledQuadTreeTerrainPtr,
-                                NoRefCountPolicy        > SFUncountedTiledQuadTreeTerrainPtr;
+typedef PointerSField<TiledQuadTreeTerrainPtr,
+                      RecordedRefCountPolicy  > SFRecTiledQuadTreeTerrainPtr;
+typedef PointerSField<TiledQuadTreeTerrainPtr,
+                      UnrecordedRefCountPolicy> SFUnrecTiledQuadTreeTerrainPtr;
+typedef PointerSField<TiledQuadTreeTerrainPtr,
+                      WeakRefCountPolicy      > SFWeakTiledQuadTreeTerrainPtr;
+typedef PointerSField<TiledQuadTreeTerrainPtr,
+                      NoRefCountPolicy        > SFUncountedTiledQuadTreeTerrainPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                RecordedRefCountPolicy  > MFRecTiledQuadTreeTerrainPtr;
-typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                UnrecordedRefCountPolicy> MFUnrecTiledQuadTreeTerrainPtr;
-typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                WeakRefCountPolicy      > MFWeakTiledQuadTreeTerrainPtr;
-typedef FieldContainerPtrMField<TiledQuadTreeTerrainPtr,
-                                NoRefCountPolicy        > MFUncountedTiledQuadTreeTerrainPtr;
+typedef PointerMField<TiledQuadTreeTerrainPtr,
+                      RecordedRefCountPolicy  > MFRecTiledQuadTreeTerrainPtr;
+typedef PointerMField<TiledQuadTreeTerrainPtr,
+                      UnrecordedRefCountPolicy> MFUnrecTiledQuadTreeTerrainPtr;
+typedef PointerMField<TiledQuadTreeTerrainPtr,
+                      WeakRefCountPolicy      > MFWeakTiledQuadTreeTerrainPtr;
+typedef PointerMField<TiledQuadTreeTerrainPtr,
+                      NoRefCountPolicy        > MFUncountedTiledQuadTreeTerrainPtr;
 #endif
 
 

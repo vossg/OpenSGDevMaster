@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                RecordedRefCountPolicy  > SFRecSwitchMaterialPtr;
-typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                UnrecordedRefCountPolicy> SFUnrecSwitchMaterialPtr;
-typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                WeakRefCountPolicy      > SFWeakSwitchMaterialPtr;
-typedef FieldContainerPtrSField<SwitchMaterialPtr,
-                                NoRefCountPolicy        > SFUncountedSwitchMaterialPtr;
+typedef PointerSField<SwitchMaterialPtr,
+                      RecordedRefCountPolicy  > SFRecSwitchMaterialPtr;
+typedef PointerSField<SwitchMaterialPtr,
+                      UnrecordedRefCountPolicy> SFUnrecSwitchMaterialPtr;
+typedef PointerSField<SwitchMaterialPtr,
+                      WeakRefCountPolicy      > SFWeakSwitchMaterialPtr;
+typedef PointerSField<SwitchMaterialPtr,
+                      NoRefCountPolicy        > SFUncountedSwitchMaterialPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                RecordedRefCountPolicy  > MFRecSwitchMaterialPtr;
-typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                UnrecordedRefCountPolicy> MFUnrecSwitchMaterialPtr;
-typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                WeakRefCountPolicy      > MFWeakSwitchMaterialPtr;
-typedef FieldContainerPtrMField<SwitchMaterialPtr,
-                                NoRefCountPolicy        > MFUncountedSwitchMaterialPtr;
+typedef PointerMField<SwitchMaterialPtr,
+                      RecordedRefCountPolicy  > MFRecSwitchMaterialPtr;
+typedef PointerMField<SwitchMaterialPtr,
+                      UnrecordedRefCountPolicy> MFUnrecSwitchMaterialPtr;
+typedef PointerMField<SwitchMaterialPtr,
+                      WeakRefCountPolicy      > MFWeakSwitchMaterialPtr;
+typedef PointerMField<SwitchMaterialPtr,
+                      NoRefCountPolicy        > MFUncountedSwitchMaterialPtr;
 #endif
 
 

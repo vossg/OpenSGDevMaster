@@ -58,8 +58,8 @@
 #include "OSGWindowGLUTDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<GLUTWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowGLUTFieldSingle */
 
-typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                RecordedRefCountPolicy  > SFRecGLUTWindowPtr;
-typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecGLUTWindowPtr;
-typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                WeakRefCountPolicy      > SFWeakGLUTWindowPtr;
-typedef FieldContainerPtrSField<GLUTWindowPtr,
-                                NoRefCountPolicy        > SFUncountedGLUTWindowPtr;
+typedef PointerSField<GLUTWindowPtr,
+                      RecordedRefCountPolicy  > SFRecGLUTWindowPtr;
+typedef PointerSField<GLUTWindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecGLUTWindowPtr;
+typedef PointerSField<GLUTWindowPtr,
+                      WeakRefCountPolicy      > SFWeakGLUTWindowPtr;
+typedef PointerSField<GLUTWindowPtr,
+                      NoRefCountPolicy        > SFUncountedGLUTWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowGLUTFieldMulti */
 
-typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                RecordedRefCountPolicy  > MFRecGLUTWindowPtr;
-typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecGLUTWindowPtr;
-typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                WeakRefCountPolicy      > MFWeakGLUTWindowPtr;
-typedef FieldContainerPtrMField<GLUTWindowPtr,
-                                NoRefCountPolicy        > MFUncountedGLUTWindowPtr;
+typedef PointerMField<GLUTWindowPtr,
+                      RecordedRefCountPolicy  > MFRecGLUTWindowPtr;
+typedef PointerMField<GLUTWindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecGLUTWindowPtr;
+typedef PointerMField<GLUTWindowPtr,
+                      WeakRefCountPolicy      > MFWeakGLUTWindowPtr;
+typedef PointerMField<GLUTWindowPtr,
+                      NoRefCountPolicy        > MFUncountedGLUTWindowPtr;
 #endif
 
 

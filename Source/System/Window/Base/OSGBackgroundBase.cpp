@@ -579,11 +579,11 @@ DataType FieldTraits<BackgroundPtr>::_type("BackgroundPtr", "AttachmentContainer
 
 OSG_FIELDTRAITS_GETTYPE(BackgroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            BackgroundPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            BackgroundPtr, 
                            0);
 

@@ -404,11 +404,11 @@ DataType FieldTraits<ShaderParameterMVec4fPtr>::_type("ShaderParameterMVec4fPtr"
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterMVec4fPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ShaderParameterMVec4fPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ShaderParameterMVec4fPtr, 
                            0);
 

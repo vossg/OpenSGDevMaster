@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<AlgorithmPtr,
-                                RecordedRefCountPolicy  > SFRecAlgorithmPtr;
-typedef FieldContainerPtrSField<AlgorithmPtr,
-                                UnrecordedRefCountPolicy> SFUnrecAlgorithmPtr;
-typedef FieldContainerPtrSField<AlgorithmPtr,
-                                WeakRefCountPolicy      > SFWeakAlgorithmPtr;
-typedef FieldContainerPtrSField<AlgorithmPtr,
-                                NoRefCountPolicy        > SFUncountedAlgorithmPtr;
+typedef PointerSField<AlgorithmPtr,
+                      RecordedRefCountPolicy  > SFRecAlgorithmPtr;
+typedef PointerSField<AlgorithmPtr,
+                      UnrecordedRefCountPolicy> SFUnrecAlgorithmPtr;
+typedef PointerSField<AlgorithmPtr,
+                      WeakRefCountPolicy      > SFWeakAlgorithmPtr;
+typedef PointerSField<AlgorithmPtr,
+                      NoRefCountPolicy        > SFUncountedAlgorithmPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<AlgorithmPtr,
-                                RecordedRefCountPolicy  > MFRecAlgorithmPtr;
-typedef FieldContainerPtrMField<AlgorithmPtr,
-                                UnrecordedRefCountPolicy> MFUnrecAlgorithmPtr;
-typedef FieldContainerPtrMField<AlgorithmPtr,
-                                WeakRefCountPolicy      > MFWeakAlgorithmPtr;
-typedef FieldContainerPtrMField<AlgorithmPtr,
-                                NoRefCountPolicy        > MFUncountedAlgorithmPtr;
+typedef PointerMField<AlgorithmPtr,
+                      RecordedRefCountPolicy  > MFRecAlgorithmPtr;
+typedef PointerMField<AlgorithmPtr,
+                      UnrecordedRefCountPolicy> MFUnrecAlgorithmPtr;
+typedef PointerMField<AlgorithmPtr,
+                      WeakRefCountPolicy      > MFWeakAlgorithmPtr;
+typedef PointerMField<AlgorithmPtr,
+                      NoRefCountPolicy        > MFUncountedAlgorithmPtr;
 #endif
 
 

@@ -489,7 +489,7 @@ DataType FieldTraits<SolidBackgroundPtr>::_type("SolidBackgroundPtr", "Backgroun
 
 OSG_FIELDTRAITS_GETTYPE(SolidBackgroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            SolidBackgroundPtr, 
                            0);
 

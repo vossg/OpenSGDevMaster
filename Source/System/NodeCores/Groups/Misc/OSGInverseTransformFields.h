@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<NoRefCountPolicy>(voi
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<InverseTransformPtr,
-                                RecordedRefCountPolicy  > SFRecInverseTransformPtr;
-typedef FieldContainerPtrSField<InverseTransformPtr,
-                                UnrecordedRefCountPolicy> SFUnrecInverseTransformPtr;
-typedef FieldContainerPtrSField<InverseTransformPtr,
-                                WeakRefCountPolicy      > SFWeakInverseTransformPtr;
-typedef FieldContainerPtrSField<InverseTransformPtr,
-                                NoRefCountPolicy        > SFUncountedInverseTransformPtr;
+typedef PointerSField<InverseTransformPtr,
+                      RecordedRefCountPolicy  > SFRecInverseTransformPtr;
+typedef PointerSField<InverseTransformPtr,
+                      UnrecordedRefCountPolicy> SFUnrecInverseTransformPtr;
+typedef PointerSField<InverseTransformPtr,
+                      WeakRefCountPolicy      > SFWeakInverseTransformPtr;
+typedef PointerSField<InverseTransformPtr,
+                      NoRefCountPolicy        > SFUncountedInverseTransformPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<InverseTransformPtr,
-                                RecordedRefCountPolicy  > MFRecInverseTransformPtr;
-typedef FieldContainerPtrMField<InverseTransformPtr,
-                                UnrecordedRefCountPolicy> MFUnrecInverseTransformPtr;
-typedef FieldContainerPtrMField<InverseTransformPtr,
-                                WeakRefCountPolicy      > MFWeakInverseTransformPtr;
-typedef FieldContainerPtrMField<InverseTransformPtr,
-                                NoRefCountPolicy        > MFUncountedInverseTransformPtr;
+typedef PointerMField<InverseTransformPtr,
+                      RecordedRefCountPolicy  > MFRecInverseTransformPtr;
+typedef PointerMField<InverseTransformPtr,
+                      UnrecordedRefCountPolicy> MFUnrecInverseTransformPtr;
+typedef PointerMField<InverseTransformPtr,
+                      WeakRefCountPolicy      > MFWeakInverseTransformPtr;
+typedef PointerMField<InverseTransformPtr,
+                      NoRefCountPolicy        > MFUncountedInverseTransformPtr;
 #endif
 
 

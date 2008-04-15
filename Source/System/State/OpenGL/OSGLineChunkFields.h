@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<LineChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<LineChunkPtr,
-                                RecordedRefCountPolicy  > SFRecLineChunkPtr;
-typedef FieldContainerPtrSField<LineChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecLineChunkPtr;
-typedef FieldContainerPtrSField<LineChunkPtr,
-                                WeakRefCountPolicy      > SFWeakLineChunkPtr;
-typedef FieldContainerPtrSField<LineChunkPtr,
-                                NoRefCountPolicy        > SFUncountedLineChunkPtr;
+typedef PointerSField<LineChunkPtr,
+                      RecordedRefCountPolicy  > SFRecLineChunkPtr;
+typedef PointerSField<LineChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecLineChunkPtr;
+typedef PointerSField<LineChunkPtr,
+                      WeakRefCountPolicy      > SFWeakLineChunkPtr;
+typedef PointerSField<LineChunkPtr,
+                      NoRefCountPolicy        > SFUncountedLineChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<LineChunkPtr,
-                                RecordedRefCountPolicy  > MFRecLineChunkPtr;
-typedef FieldContainerPtrMField<LineChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecLineChunkPtr;
-typedef FieldContainerPtrMField<LineChunkPtr,
-                                WeakRefCountPolicy      > MFWeakLineChunkPtr;
-typedef FieldContainerPtrMField<LineChunkPtr,
-                                NoRefCountPolicy        > MFUncountedLineChunkPtr;
+typedef PointerMField<LineChunkPtr,
+                      RecordedRefCountPolicy  > MFRecLineChunkPtr;
+typedef PointerMField<LineChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecLineChunkPtr;
+typedef PointerMField<LineChunkPtr,
+                      WeakRefCountPolicy      > MFWeakLineChunkPtr;
+typedef PointerMField<LineChunkPtr,
+                      NoRefCountPolicy        > MFUncountedLineChunkPtr;
 #endif
 
 

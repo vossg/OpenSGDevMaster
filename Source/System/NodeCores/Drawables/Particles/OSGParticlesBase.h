@@ -179,16 +179,16 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 #endif
                   SFUInt32            *editSFMode           (void);
             const SFUInt32            *getSFMode            (void) const;
-            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFPositions       (void) const;
+            const SFUnrecChildGeoVectorPropertyPtr *getSFPositions       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFSizes           (void);
 #endif
                   MFVec3f             *editMFSizes          (void);
             const MFVec3f             *getMFSizes           (void) const;
-            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFSecPositions    (void) const;
-            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFColors          (void) const;
-            const SFUnrecFieldContainerChildGeoVectorPropertyPtr *getSFNormals         (void) const;
+            const SFUnrecChildGeoVectorPropertyPtr *getSFSecPositions    (void) const;
+            const SFUnrecChildGeoVectorPropertyPtr *getSFColors          (void) const;
+            const SFUnrecChildGeoVectorPropertyPtr *getSFNormals         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   MFInt32             *getMFIndices         (void);
@@ -372,11 +372,11 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
     SFUInt32          _sfMode;
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfPositions;
+    SFUnrecChildGeoVectorPropertyPtr _sfPositions;
     MFVec3f           _mfSizes;
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfSecPositions;
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfColors;
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr _sfNormals;
+    SFUnrecChildGeoVectorPropertyPtr _sfSecPositions;
+    SFUnrecChildGeoVectorPropertyPtr _sfColors;
+    SFUnrecChildGeoVectorPropertyPtr _sfNormals;
     MFInt32           _mfIndices;
     MFReal32          _mfTextureZs;
     SFUInt32          _sfDrawOrder;

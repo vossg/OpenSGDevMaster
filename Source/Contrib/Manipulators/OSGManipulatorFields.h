@@ -58,8 +58,8 @@
 #include "OSGContribGUIDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribGUIFieldSingle */
 
-typedef FieldContainerPtrSField<ManipulatorPtr,
-                                RecordedRefCountPolicy  > SFRecManipulatorPtr;
-typedef FieldContainerPtrSField<ManipulatorPtr,
-                                UnrecordedRefCountPolicy> SFUnrecManipulatorPtr;
-typedef FieldContainerPtrSField<ManipulatorPtr,
-                                WeakRefCountPolicy      > SFWeakManipulatorPtr;
-typedef FieldContainerPtrSField<ManipulatorPtr,
-                                NoRefCountPolicy        > SFUncountedManipulatorPtr;
+typedef PointerSField<ManipulatorPtr,
+                      RecordedRefCountPolicy  > SFRecManipulatorPtr;
+typedef PointerSField<ManipulatorPtr,
+                      UnrecordedRefCountPolicy> SFUnrecManipulatorPtr;
+typedef PointerSField<ManipulatorPtr,
+                      WeakRefCountPolicy      > SFWeakManipulatorPtr;
+typedef PointerSField<ManipulatorPtr,
+                      NoRefCountPolicy        > SFUncountedManipulatorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribGUIFieldMulti */
 
-typedef FieldContainerPtrMField<ManipulatorPtr,
-                                RecordedRefCountPolicy  > MFRecManipulatorPtr;
-typedef FieldContainerPtrMField<ManipulatorPtr,
-                                UnrecordedRefCountPolicy> MFUnrecManipulatorPtr;
-typedef FieldContainerPtrMField<ManipulatorPtr,
-                                WeakRefCountPolicy      > MFWeakManipulatorPtr;
-typedef FieldContainerPtrMField<ManipulatorPtr,
-                                NoRefCountPolicy        > MFUncountedManipulatorPtr;
+typedef PointerMField<ManipulatorPtr,
+                      RecordedRefCountPolicy  > MFRecManipulatorPtr;
+typedef PointerMField<ManipulatorPtr,
+                      UnrecordedRefCountPolicy> MFUnrecManipulatorPtr;
+typedef PointerMField<ManipulatorPtr,
+                      WeakRefCountPolicy      > MFWeakManipulatorPtr;
+typedef PointerMField<ManipulatorPtr,
+                      NoRefCountPolicy        > MFUncountedManipulatorPtr;
 #endif
 
 

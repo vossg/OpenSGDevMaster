@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StereoCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StereoCameraDecoratorPtr,
-                                RecordedRefCountPolicy  > SFRecStereoCameraDecoratorPtr;
-typedef FieldContainerPtrSField<StereoCameraDecoratorPtr,
-                                UnrecordedRefCountPolicy> SFUnrecStereoCameraDecoratorPtr;
-typedef FieldContainerPtrSField<StereoCameraDecoratorPtr,
-                                WeakRefCountPolicy      > SFWeakStereoCameraDecoratorPtr;
-typedef FieldContainerPtrSField<StereoCameraDecoratorPtr,
-                                NoRefCountPolicy        > SFUncountedStereoCameraDecoratorPtr;
+typedef PointerSField<StereoCameraDecoratorPtr,
+                      RecordedRefCountPolicy  > SFRecStereoCameraDecoratorPtr;
+typedef PointerSField<StereoCameraDecoratorPtr,
+                      UnrecordedRefCountPolicy> SFUnrecStereoCameraDecoratorPtr;
+typedef PointerSField<StereoCameraDecoratorPtr,
+                      WeakRefCountPolicy      > SFWeakStereoCameraDecoratorPtr;
+typedef PointerSField<StereoCameraDecoratorPtr,
+                      NoRefCountPolicy        > SFUncountedStereoCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StereoCameraDecoratorPtr,
-                                RecordedRefCountPolicy  > MFRecStereoCameraDecoratorPtr;
-typedef FieldContainerPtrMField<StereoCameraDecoratorPtr,
-                                UnrecordedRefCountPolicy> MFUnrecStereoCameraDecoratorPtr;
-typedef FieldContainerPtrMField<StereoCameraDecoratorPtr,
-                                WeakRefCountPolicy      > MFWeakStereoCameraDecoratorPtr;
-typedef FieldContainerPtrMField<StereoCameraDecoratorPtr,
-                                NoRefCountPolicy        > MFUncountedStereoCameraDecoratorPtr;
+typedef PointerMField<StereoCameraDecoratorPtr,
+                      RecordedRefCountPolicy  > MFRecStereoCameraDecoratorPtr;
+typedef PointerMField<StereoCameraDecoratorPtr,
+                      UnrecordedRefCountPolicy> MFUnrecStereoCameraDecoratorPtr;
+typedef PointerMField<StereoCameraDecoratorPtr,
+                      WeakRefCountPolicy      > MFWeakStereoCameraDecoratorPtr;
+typedef PointerMField<StereoCameraDecoratorPtr,
+                      NoRefCountPolicy        > MFUncountedStereoCameraDecoratorPtr;
 #endif
 
 

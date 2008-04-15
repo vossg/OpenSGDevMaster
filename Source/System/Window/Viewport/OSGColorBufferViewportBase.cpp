@@ -657,11 +657,11 @@ DataType FieldTraits<ColorBufferViewportPtr>::_type("ColorBufferViewportPtr", "V
 
 OSG_FIELDTRAITS_GETTYPE(ColorBufferViewportPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ColorBufferViewportPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ColorBufferViewportPtr, 
                            0);
 

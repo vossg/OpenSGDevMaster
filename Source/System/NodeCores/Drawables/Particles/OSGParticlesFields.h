@@ -58,8 +58,8 @@
 #include "OSGDrawableDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ParticlesPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<ParticlesPtr,
-                                RecordedRefCountPolicy  > SFRecParticlesPtr;
-typedef FieldContainerPtrSField<ParticlesPtr,
-                                UnrecordedRefCountPolicy> SFUnrecParticlesPtr;
-typedef FieldContainerPtrSField<ParticlesPtr,
-                                WeakRefCountPolicy      > SFWeakParticlesPtr;
-typedef FieldContainerPtrSField<ParticlesPtr,
-                                NoRefCountPolicy        > SFUncountedParticlesPtr;
+typedef PointerSField<ParticlesPtr,
+                      RecordedRefCountPolicy  > SFRecParticlesPtr;
+typedef PointerSField<ParticlesPtr,
+                      UnrecordedRefCountPolicy> SFUnrecParticlesPtr;
+typedef PointerSField<ParticlesPtr,
+                      WeakRefCountPolicy      > SFWeakParticlesPtr;
+typedef PointerSField<ParticlesPtr,
+                      NoRefCountPolicy        > SFUncountedParticlesPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<ParticlesPtr,
-                                RecordedRefCountPolicy  > MFRecParticlesPtr;
-typedef FieldContainerPtrMField<ParticlesPtr,
-                                UnrecordedRefCountPolicy> MFUnrecParticlesPtr;
-typedef FieldContainerPtrMField<ParticlesPtr,
-                                WeakRefCountPolicy      > MFWeakParticlesPtr;
-typedef FieldContainerPtrMField<ParticlesPtr,
-                                NoRefCountPolicy        > MFUncountedParticlesPtr;
+typedef PointerMField<ParticlesPtr,
+                      RecordedRefCountPolicy  > MFRecParticlesPtr;
+typedef PointerMField<ParticlesPtr,
+                      UnrecordedRefCountPolicy> MFUnrecParticlesPtr;
+typedef PointerMField<ParticlesPtr,
+                      WeakRefCountPolicy      > MFWeakParticlesPtr;
+typedef PointerMField<ParticlesPtr,
+                      NoRefCountPolicy        > MFUncountedParticlesPtr;
 #endif
 
 

@@ -704,11 +704,11 @@ DataType FieldTraits<ComponentTransformPtr>::_type("ComponentTransformPtr", "Tra
 
 OSG_FIELDTRAITS_GETTYPE(ComponentTransformPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ComponentTransformPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ComponentTransformPtr, 
                            0);
 

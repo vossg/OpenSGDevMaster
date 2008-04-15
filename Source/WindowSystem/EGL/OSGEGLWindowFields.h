@@ -58,8 +58,8 @@
 #include "OSGWindowEGLDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<EGLWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowEGLFieldSingle */
 
-typedef FieldContainerPtrSField<EGLWindowPtr,
-                                RecordedRefCountPolicy  > SFRecEGLWindowPtr;
-typedef FieldContainerPtrSField<EGLWindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecEGLWindowPtr;
-typedef FieldContainerPtrSField<EGLWindowPtr,
-                                WeakRefCountPolicy      > SFWeakEGLWindowPtr;
-typedef FieldContainerPtrSField<EGLWindowPtr,
-                                NoRefCountPolicy        > SFUncountedEGLWindowPtr;
+typedef PointerSField<EGLWindowPtr,
+                      RecordedRefCountPolicy  > SFRecEGLWindowPtr;
+typedef PointerSField<EGLWindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecEGLWindowPtr;
+typedef PointerSField<EGLWindowPtr,
+                      WeakRefCountPolicy      > SFWeakEGLWindowPtr;
+typedef PointerSField<EGLWindowPtr,
+                      NoRefCountPolicy        > SFUncountedEGLWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowEGLFieldMulti */
 
-typedef FieldContainerPtrMField<EGLWindowPtr,
-                                RecordedRefCountPolicy  > MFRecEGLWindowPtr;
-typedef FieldContainerPtrMField<EGLWindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecEGLWindowPtr;
-typedef FieldContainerPtrMField<EGLWindowPtr,
-                                WeakRefCountPolicy      > MFWeakEGLWindowPtr;
-typedef FieldContainerPtrMField<EGLWindowPtr,
-                                NoRefCountPolicy        > MFUncountedEGLWindowPtr;
+typedef PointerMField<EGLWindowPtr,
+                      RecordedRefCountPolicy  > MFRecEGLWindowPtr;
+typedef PointerMField<EGLWindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecEGLWindowPtr;
+typedef PointerMField<EGLWindowPtr,
+                      WeakRefCountPolicy      > MFWeakEGLWindowPtr;
+typedef PointerMField<EGLWindowPtr,
+                      NoRefCountPolicy        > MFUncountedEGLWindowPtr;
 #endif
 
 

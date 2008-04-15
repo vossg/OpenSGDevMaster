@@ -486,11 +486,11 @@ DataType FieldTraits<ShearedStereoCameraDecoratorPtr>::_type("ShearedStereoCamer
 
 OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecoratorPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ShearedStereoCameraDecoratorPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ShearedStereoCameraDecoratorPtr, 
                            0);
 

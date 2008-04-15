@@ -394,11 +394,11 @@ DataType FieldTraits<SimpleShadowMapEnginePtr>::_type("SimpleShadowMapEnginePtr"
 
 OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEnginePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            SimpleShadowMapEnginePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            SimpleShadowMapEnginePtr, 
                            0);
 

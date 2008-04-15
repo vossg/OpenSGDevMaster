@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StereoBufferViewportPtr, 0>::getMName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef FieldContainerPtrSField<StereoBufferViewportPtr,
-                                RecordedRefCountPolicy  > SFRecStereoBufferViewportPtr;
-typedef FieldContainerPtrSField<StereoBufferViewportPtr,
-                                UnrecordedRefCountPolicy> SFUnrecStereoBufferViewportPtr;
-typedef FieldContainerPtrSField<StereoBufferViewportPtr,
-                                WeakRefCountPolicy      > SFWeakStereoBufferViewportPtr;
-typedef FieldContainerPtrSField<StereoBufferViewportPtr,
-                                NoRefCountPolicy        > SFUncountedStereoBufferViewportPtr;
+typedef PointerSField<StereoBufferViewportPtr,
+                      RecordedRefCountPolicy  > SFRecStereoBufferViewportPtr;
+typedef PointerSField<StereoBufferViewportPtr,
+                      UnrecordedRefCountPolicy> SFUnrecStereoBufferViewportPtr;
+typedef PointerSField<StereoBufferViewportPtr,
+                      WeakRefCountPolicy      > SFWeakStereoBufferViewportPtr;
+typedef PointerSField<StereoBufferViewportPtr,
+                      NoRefCountPolicy        > SFUncountedStereoBufferViewportPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<StereoBufferViewportPtr,
-                                RecordedRefCountPolicy  > MFRecStereoBufferViewportPtr;
-typedef FieldContainerPtrMField<StereoBufferViewportPtr,
-                                UnrecordedRefCountPolicy> MFUnrecStereoBufferViewportPtr;
-typedef FieldContainerPtrMField<StereoBufferViewportPtr,
-                                WeakRefCountPolicy      > MFWeakStereoBufferViewportPtr;
-typedef FieldContainerPtrMField<StereoBufferViewportPtr,
-                                NoRefCountPolicy        > MFUncountedStereoBufferViewportPtr;
+typedef PointerMField<StereoBufferViewportPtr,
+                      RecordedRefCountPolicy  > MFRecStereoBufferViewportPtr;
+typedef PointerMField<StereoBufferViewportPtr,
+                      UnrecordedRefCountPolicy> MFUnrecStereoBufferViewportPtr;
+typedef PointerMField<StereoBufferViewportPtr,
+                      WeakRefCountPolicy      > MFWeakStereoBufferViewportPtr;
+typedef PointerMField<StereoBufferViewportPtr,
+                      NoRefCountPolicy        > MFUncountedStereoBufferViewportPtr;
 #endif
 
 

@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ShaderParameterMMatrixPtr, 0>::getMName<NoRefCountPolic
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<ShaderParameterMMatrixPtr,
-                                RecordedRefCountPolicy  > SFRecShaderParameterMMatrixPtr;
-typedef FieldContainerPtrSField<ShaderParameterMMatrixPtr,
-                                UnrecordedRefCountPolicy> SFUnrecShaderParameterMMatrixPtr;
-typedef FieldContainerPtrSField<ShaderParameterMMatrixPtr,
-                                WeakRefCountPolicy      > SFWeakShaderParameterMMatrixPtr;
-typedef FieldContainerPtrSField<ShaderParameterMMatrixPtr,
-                                NoRefCountPolicy        > SFUncountedShaderParameterMMatrixPtr;
+typedef PointerSField<ShaderParameterMMatrixPtr,
+                      RecordedRefCountPolicy  > SFRecShaderParameterMMatrixPtr;
+typedef PointerSField<ShaderParameterMMatrixPtr,
+                      UnrecordedRefCountPolicy> SFUnrecShaderParameterMMatrixPtr;
+typedef PointerSField<ShaderParameterMMatrixPtr,
+                      WeakRefCountPolicy      > SFWeakShaderParameterMMatrixPtr;
+typedef PointerSField<ShaderParameterMMatrixPtr,
+                      NoRefCountPolicy        > SFUncountedShaderParameterMMatrixPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<ShaderParameterMMatrixPtr,
-                                RecordedRefCountPolicy  > MFRecShaderParameterMMatrixPtr;
-typedef FieldContainerPtrMField<ShaderParameterMMatrixPtr,
-                                UnrecordedRefCountPolicy> MFUnrecShaderParameterMMatrixPtr;
-typedef FieldContainerPtrMField<ShaderParameterMMatrixPtr,
-                                WeakRefCountPolicy      > MFWeakShaderParameterMMatrixPtr;
-typedef FieldContainerPtrMField<ShaderParameterMMatrixPtr,
-                                NoRefCountPolicy        > MFUncountedShaderParameterMMatrixPtr;
+typedef PointerMField<ShaderParameterMMatrixPtr,
+                      RecordedRefCountPolicy  > MFRecShaderParameterMMatrixPtr;
+typedef PointerMField<ShaderParameterMMatrixPtr,
+                      UnrecordedRefCountPolicy> MFUnrecShaderParameterMMatrixPtr;
+typedef PointerMField<ShaderParameterMMatrixPtr,
+                      WeakRefCountPolicy      > MFWeakShaderParameterMMatrixPtr;
+typedef PointerMField<ShaderParameterMMatrixPtr,
+                      NoRefCountPolicy        > MFUncountedShaderParameterMMatrixPtr;
 #endif
 
 

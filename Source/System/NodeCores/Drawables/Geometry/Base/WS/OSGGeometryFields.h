@@ -58,8 +58,8 @@
 #include "OSGDrawableDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<GeometryPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<GeometryPtr,
-                                RecordedRefCountPolicy  > SFRecGeometryPtr;
-typedef FieldContainerPtrSField<GeometryPtr,
-                                UnrecordedRefCountPolicy> SFUnrecGeometryPtr;
-typedef FieldContainerPtrSField<GeometryPtr,
-                                WeakRefCountPolicy      > SFWeakGeometryPtr;
-typedef FieldContainerPtrSField<GeometryPtr,
-                                NoRefCountPolicy        > SFUncountedGeometryPtr;
+typedef PointerSField<GeometryPtr,
+                      RecordedRefCountPolicy  > SFRecGeometryPtr;
+typedef PointerSField<GeometryPtr,
+                      UnrecordedRefCountPolicy> SFUnrecGeometryPtr;
+typedef PointerSField<GeometryPtr,
+                      WeakRefCountPolicy      > SFWeakGeometryPtr;
+typedef PointerSField<GeometryPtr,
+                      NoRefCountPolicy        > SFUncountedGeometryPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<GeometryPtr,
-                                RecordedRefCountPolicy  > MFRecGeometryPtr;
-typedef FieldContainerPtrMField<GeometryPtr,
-                                UnrecordedRefCountPolicy> MFUnrecGeometryPtr;
-typedef FieldContainerPtrMField<GeometryPtr,
-                                WeakRefCountPolicy      > MFWeakGeometryPtr;
-typedef FieldContainerPtrMField<GeometryPtr,
-                                NoRefCountPolicy        > MFUncountedGeometryPtr;
+typedef PointerMField<GeometryPtr,
+                      RecordedRefCountPolicy  > MFRecGeometryPtr;
+typedef PointerMField<GeometryPtr,
+                      UnrecordedRefCountPolicy> MFUnrecGeometryPtr;
+typedef PointerMField<GeometryPtr,
+                      WeakRefCountPolicy      > MFWeakGeometryPtr;
+typedef PointerMField<GeometryPtr,
+                      NoRefCountPolicy        > MFUncountedGeometryPtr;
 #endif
 
 

@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ImagePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ImagePtr,
-                                RecordedRefCountPolicy  > SFRecImagePtr;
-typedef FieldContainerPtrSField<ImagePtr,
-                                UnrecordedRefCountPolicy> SFUnrecImagePtr;
-typedef FieldContainerPtrSField<ImagePtr,
-                                WeakRefCountPolicy      > SFWeakImagePtr;
-typedef FieldContainerPtrSField<ImagePtr,
-                                NoRefCountPolicy        > SFUncountedImagePtr;
+typedef PointerSField<ImagePtr,
+                      RecordedRefCountPolicy  > SFRecImagePtr;
+typedef PointerSField<ImagePtr,
+                      UnrecordedRefCountPolicy> SFUnrecImagePtr;
+typedef PointerSField<ImagePtr,
+                      WeakRefCountPolicy      > SFWeakImagePtr;
+typedef PointerSField<ImagePtr,
+                      NoRefCountPolicy        > SFUncountedImagePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ImagePtr,
-                                RecordedRefCountPolicy  > MFRecImagePtr;
-typedef FieldContainerPtrMField<ImagePtr,
-                                UnrecordedRefCountPolicy> MFUnrecImagePtr;
-typedef FieldContainerPtrMField<ImagePtr,
-                                WeakRefCountPolicy      > MFWeakImagePtr;
-typedef FieldContainerPtrMField<ImagePtr,
-                                NoRefCountPolicy        > MFUncountedImagePtr;
+typedef PointerMField<ImagePtr,
+                      RecordedRefCountPolicy  > MFRecImagePtr;
+typedef PointerMField<ImagePtr,
+                      UnrecordedRefCountPolicy> MFUnrecImagePtr;
+typedef PointerMField<ImagePtr,
+                      WeakRefCountPolicy      > MFWeakImagePtr;
+typedef PointerMField<ImagePtr,
+                      NoRefCountPolicy        > MFUncountedImagePtr;
 #endif
 
 

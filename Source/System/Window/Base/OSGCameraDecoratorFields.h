@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<CameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(void
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<CameraDecoratorPtr,
-                                RecordedRefCountPolicy  > SFRecCameraDecoratorPtr;
-typedef FieldContainerPtrSField<CameraDecoratorPtr,
-                                UnrecordedRefCountPolicy> SFUnrecCameraDecoratorPtr;
-typedef FieldContainerPtrSField<CameraDecoratorPtr,
-                                WeakRefCountPolicy      > SFWeakCameraDecoratorPtr;
-typedef FieldContainerPtrSField<CameraDecoratorPtr,
-                                NoRefCountPolicy        > SFUncountedCameraDecoratorPtr;
+typedef PointerSField<CameraDecoratorPtr,
+                      RecordedRefCountPolicy  > SFRecCameraDecoratorPtr;
+typedef PointerSField<CameraDecoratorPtr,
+                      UnrecordedRefCountPolicy> SFUnrecCameraDecoratorPtr;
+typedef PointerSField<CameraDecoratorPtr,
+                      WeakRefCountPolicy      > SFWeakCameraDecoratorPtr;
+typedef PointerSField<CameraDecoratorPtr,
+                      NoRefCountPolicy        > SFUncountedCameraDecoratorPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<CameraDecoratorPtr,
-                                RecordedRefCountPolicy  > MFRecCameraDecoratorPtr;
-typedef FieldContainerPtrMField<CameraDecoratorPtr,
-                                UnrecordedRefCountPolicy> MFUnrecCameraDecoratorPtr;
-typedef FieldContainerPtrMField<CameraDecoratorPtr,
-                                WeakRefCountPolicy      > MFWeakCameraDecoratorPtr;
-typedef FieldContainerPtrMField<CameraDecoratorPtr,
-                                NoRefCountPolicy        > MFUncountedCameraDecoratorPtr;
+typedef PointerMField<CameraDecoratorPtr,
+                      RecordedRefCountPolicy  > MFRecCameraDecoratorPtr;
+typedef PointerMField<CameraDecoratorPtr,
+                      UnrecordedRefCountPolicy> MFUnrecCameraDecoratorPtr;
+typedef PointerMField<CameraDecoratorPtr,
+                      WeakRefCountPolicy      > MFWeakCameraDecoratorPtr;
+typedef PointerMField<CameraDecoratorPtr,
+                      NoRefCountPolicy        > MFUncountedCameraDecoratorPtr;
 #endif
 
 

@@ -251,12 +251,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
             const SFUnrecFCDTestFCPtr *getSFFieldSFPub_ptr  (void) const;
             const SFWeakFCDTestFCPtr  *getSFFieldSFPub_weakptr (void) const;
-            const SFUnrecFieldContainerChildFCDTestFCPtr *getSFFieldSFPub_mpchildptr (void) const;
+            const SFUnrecChildFCDTestFCPtr *getSFFieldSFPub_mpchildptr (void) const;
             const MFUnrecFCDTestFCPtr *getMFFieldMFPub_ptr  (void) const;
             const MFWeakFCDTestFCPtr  *getMFFieldMFPub_weakptr (void) const;
-            const MFUnrecFieldContainerChildFCDTestFCPtr *getMFFieldMFPub_mpchildptr (void) const;
-            const SFUnrecFieldContainerChildFCDSParTestFCPtr *getSFFieldSFPub_spchildptr (void) const;
-            const MFUnrecFieldContainerChildFCDSParTestFCPtr *getMFFieldMFPub_spchildptr (void) const;
+            const MFUnrecChildFCDTestFCPtr *getMFFieldMFPub_mpchildptr (void) const;
+            const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPub_spchildptr (void) const;
+            const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPub_spchildptr (void) const;
 
 
                   FCDTestFCPtrConst getFieldSFPub_ptr (void) const;
@@ -272,12 +272,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
             const MFWeakFCDTestFCPtr  &getFieldMFPub_weakptr(void) const;
 
                   FCDTestFCPtrConst getFieldMFPub_mpchildptr(const UInt32 index) const;
-            const MFUnrecFieldContainerChildFCDTestFCPtr &getFieldMFPub_mpchildptr(void) const;
+            const MFUnrecChildFCDTestFCPtr &getFieldMFPub_mpchildptr(void) const;
 
                   FCDSParTestFCPtrConst getFieldSFPub_spchildptr(void) const;
 
                   FCDSParTestFCPtrConst getFieldMFPub_spchildptr(const UInt32 index) const;
-            const MFUnrecFieldContainerChildFCDSParTestFCPtr &getFieldMFPub_spchildptr(void) const;
+            const MFUnrecChildFCDSParTestFCPtr &getFieldMFPub_spchildptr(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -328,7 +328,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
 
     void pushToFieldMFPub_mpchildptr           (FCDTestFCPtrConstArg value   );
-    void assignFieldMFPub_mpchildptr           (const MFUnrecFieldContainerChildFCDTestFCPtr &value);
+    void assignFieldMFPub_mpchildptr           (const MFUnrecChildFCDTestFCPtr &value);
     void insertIntoFieldMFPub_mpchildptr      (UInt32                uiIndex,
                                              FCDTestFCPtrConstArg value   );
     void replaceInFieldMFPub_mpchildptr  (UInt32                uiIndex,
@@ -342,7 +342,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
 
     void pushToFieldMFPub_spchildptr           (FCDSParTestFCPtrConstArg value   );
-    void assignFieldMFPub_spchildptr           (const MFUnrecFieldContainerChildFCDSParTestFCPtr &value);
+    void assignFieldMFPub_spchildptr           (const MFUnrecChildFCDSParTestFCPtr &value);
     void insertIntoFieldMFPub_spchildptr      (UInt32                uiIndex,
                                              FCDSParTestFCPtrConstArg value   );
     void replaceInFieldMFPub_spchildptr  (UInt32                uiIndex,
@@ -405,28 +405,28 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     SFUnrecFCDTestFCPtr _sfFieldSFPub_ptr;
     SFWeakFCDTestFCPtr _sfFieldSFPub_weakptr;
-    SFUnrecFieldContainerChildFCDTestFCPtr _sfFieldSFPub_mpchildptr;
+    SFUnrecChildFCDTestFCPtr _sfFieldSFPub_mpchildptr;
     SFUnrecFCDTestFCPtr _sfFieldSFPro_ptr;
     SFWeakFCDTestFCPtr _sfFieldSFPro_weakptr;
-    SFUnrecFieldContainerChildFCDTestFCPtr _sfFieldSFPro_mpchildptr;
+    SFUnrecChildFCDTestFCPtr _sfFieldSFPro_mpchildptr;
     SFUnrecFCDTestFCPtr _sfFieldSFNo_ptr;
     SFWeakFCDTestFCPtr _sfFieldSFNo_weakptr;
-    SFUnrecFieldContainerChildFCDTestFCPtr _sfFieldSFNo_mpchildptr;
+    SFUnrecChildFCDTestFCPtr _sfFieldSFNo_mpchildptr;
     MFUnrecFCDTestFCPtr _mfFieldMFPub_ptr;
     MFWeakFCDTestFCPtr _mfFieldMFPub_weakptr;
-    MFUnrecFieldContainerChildFCDTestFCPtr _mfFieldMFPub_mpchildptr;
+    MFUnrecChildFCDTestFCPtr _mfFieldMFPub_mpchildptr;
     MFUnrecFCDTestFCPtr _mfFieldMFPro_ptr;
     MFWeakFCDTestFCPtr _mfFieldMFPro_weakptr;
-    MFUnrecFieldContainerChildFCDTestFCPtr _mfFieldMFPro_mpchildptr;
+    MFUnrecChildFCDTestFCPtr _mfFieldMFPro_mpchildptr;
     MFUnrecFCDTestFCPtr _mfFieldMFNo_ptr;
     MFWeakFCDTestFCPtr _mfFieldMFNo_weakptr;
-    MFUnrecFieldContainerChildFCDTestFCPtr _mfFieldMFNo_mpchildptr;
-    SFUnrecFieldContainerChildFCDSParTestFCPtr _sfFieldSFPub_spchildptr;
-    SFUnrecFieldContainerChildFCDSParTestFCPtr _sfFieldSFPro_spchildptr;
-    SFUnrecFieldContainerChildFCDSParTestFCPtr _sfFieldSFNo_spchildptr;
-    MFUnrecFieldContainerChildFCDSParTestFCPtr _mfFieldMFPub_spchildptr;
-    MFUnrecFieldContainerChildFCDSParTestFCPtr _mfFieldMFPro_spchildptr;
-    MFUnrecFieldContainerChildFCDSParTestFCPtr _mfFieldMFNo_spchildptr;
+    MFUnrecChildFCDTestFCPtr _mfFieldMFNo_mpchildptr;
+    SFUnrecChildFCDSParTestFCPtr _sfFieldSFPub_spchildptr;
+    SFUnrecChildFCDSParTestFCPtr _sfFieldSFPro_spchildptr;
+    SFUnrecChildFCDSParTestFCPtr _sfFieldSFNo_spchildptr;
+    MFUnrecChildFCDSParTestFCPtr _mfFieldMFPub_spchildptr;
+    MFUnrecChildFCDSParTestFCPtr _mfFieldMFPro_spchildptr;
+    MFUnrecChildFCDSParTestFCPtr _mfFieldMFNo_spchildptr;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -535,12 +535,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
             const SFUnrecFCDTestFCPtr *getSFFieldSFPro_ptr  (void) const;
             const SFWeakFCDTestFCPtr  *getSFFieldSFPro_weakptr (void) const;
-            const SFUnrecFieldContainerChildFCDTestFCPtr *getSFFieldSFPro_mpchildptr (void) const;
+            const SFUnrecChildFCDTestFCPtr *getSFFieldSFPro_mpchildptr (void) const;
             const MFUnrecFCDTestFCPtr *getMFFieldMFPro_ptr  (void) const;
             const MFWeakFCDTestFCPtr  *getMFFieldMFPro_weakptr (void) const;
-            const MFUnrecFieldContainerChildFCDTestFCPtr *getMFFieldMFPro_mpchildptr (void) const;
-            const SFUnrecFieldContainerChildFCDSParTestFCPtr *getSFFieldSFPro_spchildptr (void) const;
-            const MFUnrecFieldContainerChildFCDSParTestFCPtr *getMFFieldMFPro_spchildptr (void) const;
+            const MFUnrecChildFCDTestFCPtr *getMFFieldMFPro_mpchildptr (void) const;
+            const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPro_spchildptr (void) const;
+            const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPro_spchildptr (void) const;
 
 
                   FCDTestFCPtrConst getFieldSFPro_ptr (void) const;
@@ -556,12 +556,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
             const MFWeakFCDTestFCPtr  &getFieldMFPro_weakptr (void) const;
 
                   FCDTestFCPtrConst getFieldMFPro_mpchildptr(const UInt32 index) const;
-            const MFUnrecFieldContainerChildFCDTestFCPtr &getFieldMFPro_mpchildptr (void) const;
+            const MFUnrecChildFCDTestFCPtr &getFieldMFPro_mpchildptr (void) const;
 
                   FCDSParTestFCPtrConst getFieldSFPro_spchildptr(void) const;
 
                   FCDSParTestFCPtrConst getFieldMFPro_spchildptr(const UInt32 index) const;
-            const MFUnrecFieldContainerChildFCDSParTestFCPtr &getFieldMFPro_spchildptr (void) const;
+            const MFUnrecChildFCDSParTestFCPtr &getFieldMFPro_spchildptr (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -605,7 +605,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
 
     void pushToFieldMFPro_mpchildptr           (FCDTestFCPtrConstArg value   );
-    void assignFieldMFPro_mpchildptr           (const MFUnrecFieldContainerChildFCDTestFCPtr &value);
+    void assignFieldMFPro_mpchildptr           (const MFUnrecChildFCDTestFCPtr &value);
     void insertIntoFieldMFPro_mpchildptr      (UInt32                uiIndex,
                                              FCDTestFCPtrConstArg value   );
     void replaceInFieldMFPro_mpchildptr  (UInt32                uiIndex,
@@ -618,7 +618,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
 
     void pushToFieldMFPro_spchildptr           (FCDSParTestFCPtrConstArg value   );
-    void assignFieldMFPro_spchildptr           (const MFUnrecFieldContainerChildFCDSParTestFCPtr &value);
+    void assignFieldMFPro_spchildptr           (const MFUnrecChildFCDSParTestFCPtr &value);
     void insertIntoFieldMFPro_spchildptr      (UInt32                uiIndex,
                                              FCDSParTestFCPtrConstArg value   );
     void replaceInFieldMFPro_spchildptr  (UInt32                uiIndex,
@@ -684,12 +684,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     SFUnrecFCDTestFCPtr _sfFieldSFPri_ptr;
     SFWeakFCDTestFCPtr _sfFieldSFPri_weakptr;
-    SFUnrecFieldContainerChildFCDTestFCPtr _sfFieldSFPri_mpchildptr;
+    SFUnrecChildFCDTestFCPtr _sfFieldSFPri_mpchildptr;
     MFUnrecFCDTestFCPtr _mfFieldMFPri_ptr;
     MFWeakFCDTestFCPtr _mfFieldMFPri_weakptr;
-    MFUnrecFieldContainerChildFCDTestFCPtr _mfFieldMFPri_mpchildptr;
-    SFUnrecFieldContainerChildFCDSParTestFCPtr _sfFieldSFPri_spchildptr;
-    MFUnrecFieldContainerChildFCDSParTestFCPtr _mfFieldMFPri_spchildptr;
+    MFUnrecChildFCDTestFCPtr _mfFieldMFPri_mpchildptr;
+    SFUnrecChildFCDSParTestFCPtr _sfFieldSFPri_spchildptr;
+    MFUnrecChildFCDSParTestFCPtr _mfFieldMFPri_spchildptr;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -698,12 +698,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
             const SFUnrecFCDTestFCPtr *getSFFieldSFPri_ptr  (void) const;
             const SFWeakFCDTestFCPtr  *getSFFieldSFPri_weakptr (void) const;
-            const SFUnrecFieldContainerChildFCDTestFCPtr *getSFFieldSFPri_mpchildptr (void) const;
+            const SFUnrecChildFCDTestFCPtr *getSFFieldSFPri_mpchildptr (void) const;
             const MFUnrecFCDTestFCPtr *getMFFieldMFPri_ptr  (void) const;
             const MFWeakFCDTestFCPtr  *getMFFieldMFPri_weakptr (void) const;
-            const MFUnrecFieldContainerChildFCDTestFCPtr *getMFFieldMFPri_mpchildptr (void) const;
-            const SFUnrecFieldContainerChildFCDSParTestFCPtr *getSFFieldSFPri_spchildptr (void) const;
-            const MFUnrecFieldContainerChildFCDSParTestFCPtr *getMFFieldMFPri_spchildptr (void) const;
+            const MFUnrecChildFCDTestFCPtr *getMFFieldMFPri_mpchildptr (void) const;
+            const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPri_spchildptr (void) const;
+            const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPri_spchildptr (void) const;
 
                   FCDTestFCPtrConst getFieldSFPri_ptr (void) const;
 
@@ -718,12 +718,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
             const MFWeakFCDTestFCPtr  &getFieldMFPri_weakptr(void) const;
 
                   FCDTestFCPtrConst getFieldMFPri_mpchildptr(const UInt32 index) const;
-            const MFUnrecFieldContainerChildFCDTestFCPtr &getFieldMFPri_mpchildptr(void) const;
+            const MFUnrecChildFCDTestFCPtr &getFieldMFPri_mpchildptr(void) const;
 
                   FCDSParTestFCPtrConst getFieldSFPri_spchildptr(void) const;
 
                   FCDSParTestFCPtrConst getFieldMFPri_spchildptr(const UInt32 index) const;
-            const MFUnrecFieldContainerChildFCDSParTestFCPtr &getFieldMFPri_spchildptr(void) const;
+            const MFUnrecChildFCDSParTestFCPtr &getFieldMFPri_spchildptr(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -767,7 +767,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
 
     void pushToFieldMFPri_mpchildptr           (FCDTestFCPtrConstArg value   );
-    void assignFieldMFPri_mpchildptr           (const MFUnrecFieldContainerChildFCDTestFCPtr &value   );
+    void assignFieldMFPri_mpchildptr           (const MFUnrecChildFCDTestFCPtr &value   );
     void insertIntoFieldMFPri_mpchildptr      (UInt32                uiIndex,
                                              FCDTestFCPtrConstArg value   );
     void replaceInFieldMFPri_mpchildptr  (UInt32                uiIndex,
@@ -780,7 +780,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
 
     void pushToFieldMFPri_spchildptr           (FCDSParTestFCPtrConstArg value   );
-    void assignFieldMFPri_spchildptr           (const MFUnrecFieldContainerChildFCDSParTestFCPtr &value   );
+    void assignFieldMFPri_spchildptr           (const MFUnrecChildFCDSParTestFCPtr &value   );
     void insertIntoFieldMFPri_spchildptr      (UInt32                uiIndex,
                                              FCDSParTestFCPtrConstArg value   );
     void replaceInFieldMFPri_spchildptr  (UInt32                uiIndex,

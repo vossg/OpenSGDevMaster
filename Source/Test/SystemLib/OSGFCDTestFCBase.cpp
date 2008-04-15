@@ -787,7 +787,7 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldSFNo       (void) const
 
 EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFNo      (void)
 {
-    SFUInt32::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -867,7 +867,7 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldMFNo       (void) const
 
 EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFNo      (void)
 {
-    MFUInt32::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -936,11 +936,11 @@ DataType FieldTraits<FCDTestFCPtr>::_type("FCDTestFCPtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(FCDTestFCPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FCDTestFCPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FCDTestFCPtr, 
                            0);
 
@@ -950,13 +950,13 @@ DataType &FieldTraits< FCDTestFCPtr, 1 >::getType(void)
 }
 
 
-OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       FCDTestFCPtr,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       FCDTestFCPtr,       
                       UnrecordedRefCountPolicy,  
                       1);

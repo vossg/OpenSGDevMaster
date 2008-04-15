@@ -315,7 +315,7 @@ FCDTestFCPtrConst FCDPtrTestFCBase::getFieldMFPub_mpchildptr(const UInt32 index)
 
 //! Get the FCDPtrTestFC::_mfFieldMFPub_mpchildptr field.
 inline
-const MFUnrecFieldContainerChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_mpchildptr(void) const
+const MFUnrecChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_mpchildptr(void) const
 {
     return _mfFieldMFPub_mpchildptr;
 }
@@ -357,7 +357,7 @@ FCDTestFCPtrConst FCDPtrTestFCBase::getFieldMFPro_mpchildptr(const UInt32 index)
 
 //! Get the FCDPtrTestFC::_mfFieldMFPro_mpchildptr field.
 inline
-const MFUnrecFieldContainerChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_mpchildptr(void) const
+const MFUnrecChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_mpchildptr(void) const
 {
     return _mfFieldMFPro_mpchildptr;
 }
@@ -399,7 +399,7 @@ FCDTestFCPtrConst FCDPtrTestFCBase::getFieldMFPri_mpchildptr(const UInt32 index)
 
 //! Get the FCDPtrTestFC::_mfFieldMFPri_mpchildptr field.
 inline
-const MFUnrecFieldContainerChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_mpchildptr(void) const
+const MFUnrecChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_mpchildptr(void) const
 {
     return _mfFieldMFPri_mpchildptr;
 }
@@ -413,7 +413,7 @@ FCDSParTestFCPtrConst FCDPtrTestFCBase::getFieldMFPub_spchildptr(const UInt32 in
 
 //! Get the FCDPtrTestFC::_mfFieldMFPub_spchildptr field.
 inline
-const MFUnrecFieldContainerChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_spchildptr(void) const
+const MFUnrecChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_spchildptr(void) const
 {
     return _mfFieldMFPub_spchildptr;
 }
@@ -427,7 +427,7 @@ FCDSParTestFCPtrConst FCDPtrTestFCBase::getFieldMFPro_spchildptr(const UInt32 in
 
 //! Get the FCDPtrTestFC::_mfFieldMFPro_spchildptr field.
 inline
-const MFUnrecFieldContainerChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_spchildptr(void) const
+const MFUnrecChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_spchildptr(void) const
 {
     return _mfFieldMFPro_spchildptr;
 }
@@ -441,7 +441,7 @@ FCDSParTestFCPtrConst FCDPtrTestFCBase::getFieldMFPri_spchildptr(const UInt32 in
 
 //! Get the FCDPtrTestFC::_mfFieldMFPri_spchildptr field.
 inline
-const MFUnrecFieldContainerChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_spchildptr(void) const
+const MFUnrecChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_spchildptr(void) const
 {
     return _mfFieldMFPri_spchildptr;
 }

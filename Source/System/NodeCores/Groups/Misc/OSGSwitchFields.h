@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<SwitchPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<SwitchPtr,
-                                RecordedRefCountPolicy  > SFRecSwitchPtr;
-typedef FieldContainerPtrSField<SwitchPtr,
-                                UnrecordedRefCountPolicy> SFUnrecSwitchPtr;
-typedef FieldContainerPtrSField<SwitchPtr,
-                                WeakRefCountPolicy      > SFWeakSwitchPtr;
-typedef FieldContainerPtrSField<SwitchPtr,
-                                NoRefCountPolicy        > SFUncountedSwitchPtr;
+typedef PointerSField<SwitchPtr,
+                      RecordedRefCountPolicy  > SFRecSwitchPtr;
+typedef PointerSField<SwitchPtr,
+                      UnrecordedRefCountPolicy> SFUnrecSwitchPtr;
+typedef PointerSField<SwitchPtr,
+                      WeakRefCountPolicy      > SFWeakSwitchPtr;
+typedef PointerSField<SwitchPtr,
+                      NoRefCountPolicy        > SFUncountedSwitchPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<SwitchPtr,
-                                RecordedRefCountPolicy  > MFRecSwitchPtr;
-typedef FieldContainerPtrMField<SwitchPtr,
-                                UnrecordedRefCountPolicy> MFUnrecSwitchPtr;
-typedef FieldContainerPtrMField<SwitchPtr,
-                                WeakRefCountPolicy      > MFWeakSwitchPtr;
-typedef FieldContainerPtrMField<SwitchPtr,
-                                NoRefCountPolicy        > MFUncountedSwitchPtr;
+typedef PointerMField<SwitchPtr,
+                      RecordedRefCountPolicy  > MFRecSwitchPtr;
+typedef PointerMField<SwitchPtr,
+                      UnrecordedRefCountPolicy> MFUnrecSwitchPtr;
+typedef PointerMField<SwitchPtr,
+                      WeakRefCountPolicy      > MFWeakSwitchPtr;
+typedef PointerMField<SwitchPtr,
+                      NoRefCountPolicy        > MFUncountedSwitchPtr;
 #endif
 
 

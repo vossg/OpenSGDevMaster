@@ -171,8 +171,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecFieldContainerChildGeoVectorPropertyPtr::Description(
-        SFUnrecFieldContainerChildGeoVectorPropertyPtr::getClassType(),
+    pDesc = new SFUnrecChildGeoVectorPropertyPtr::Description(
+        SFUnrecChildGeoVectorPropertyPtr::getClassType(),
         "positions",
         "The positions of the particles. This is the primary defining\n"
         "information for a particle.\n",
@@ -200,8 +200,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecFieldContainerChildGeoVectorPropertyPtr::Description(
-        SFUnrecFieldContainerChildGeoVectorPropertyPtr::getClassType(),
+    pDesc = new SFUnrecChildGeoVectorPropertyPtr::Description(
+        SFUnrecChildGeoVectorPropertyPtr::getClassType(),
         "secPositions",
         "The secondary position of the particle. This information is only used\n"
         "by a few rendering modes, e.g. the streak mode. Usually it represents\n"
@@ -214,8 +214,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecFieldContainerChildGeoVectorPropertyPtr::Description(
-        SFUnrecFieldContainerChildGeoVectorPropertyPtr::getClassType(),
+    pDesc = new SFUnrecChildGeoVectorPropertyPtr::Description(
+        SFUnrecChildGeoVectorPropertyPtr::getClassType(),
         "colors",
         "The particle colors (optional).\n",
         ColorsFieldId, ColorsFieldMask,
@@ -226,8 +226,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecFieldContainerChildGeoVectorPropertyPtr::Description(
-        SFUnrecFieldContainerChildGeoVectorPropertyPtr::getClassType(),
+    pDesc = new SFUnrecChildGeoVectorPropertyPtr::Description(
+        SFUnrecChildGeoVectorPropertyPtr::getClassType(),
         "normals",
         "Most particles will be automatically aligned to the view\n"
         "direction. If normals are set they will be used to define the\n"
@@ -548,7 +548,7 @@ SFUInt32            *ParticlesBase::getSFMode           (void)
 #endif
 
 //! Get the Particles::_sfPositions field.
-const SFUnrecFieldContainerChildGeoVectorPropertyPtr *ParticlesBase::getSFPositions(void) const
+const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFPositions(void) const
 {
     return &_sfPositions;
 }
@@ -573,19 +573,19 @@ MFVec3f             *ParticlesBase::getMFSizes          (void)
 #endif
 
 //! Get the Particles::_sfSecPositions field.
-const SFUnrecFieldContainerChildGeoVectorPropertyPtr *ParticlesBase::getSFSecPositions(void) const
+const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFSecPositions(void) const
 {
     return &_sfSecPositions;
 }
 
 //! Get the Particles::_sfColors field.
-const SFUnrecFieldContainerChildGeoVectorPropertyPtr *ParticlesBase::getSFColors(void) const
+const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFColors(void) const
 {
     return &_sfColors;
 }
 
 //! Get the Particles::_sfNormals field.
-const SFUnrecFieldContainerChildGeoVectorPropertyPtr *ParticlesBase::getSFNormals(void) const
+const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFNormals(void) const
 {
     return &_sfNormals;
 }
@@ -1207,8 +1207,8 @@ EditFieldHandlePtr ParticlesBase::editHandleMode           (void)
 
 GetFieldHandlePtr ParticlesBase::getHandlePositions       (void) const
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandle(
+    SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfPositions, 
              this->getType().getFieldDesc(PositionsFieldId)));
 
@@ -1217,8 +1217,8 @@ GetFieldHandlePtr ParticlesBase::getHandlePositions       (void) const
 
 EditFieldHandlePtr ParticlesBase::editHandlePositions      (void)
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandle(
+    SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfPositions, 
              this->getType().getFieldDesc(PositionsFieldId)));
 
@@ -1254,8 +1254,8 @@ EditFieldHandlePtr ParticlesBase::editHandleSizes          (void)
 
 GetFieldHandlePtr ParticlesBase::getHandleSecPositions    (void) const
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandle(
+    SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfSecPositions, 
              this->getType().getFieldDesc(SecPositionsFieldId)));
 
@@ -1264,8 +1264,8 @@ GetFieldHandlePtr ParticlesBase::getHandleSecPositions    (void) const
 
 EditFieldHandlePtr ParticlesBase::editHandleSecPositions   (void)
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandle(
+    SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfSecPositions, 
              this->getType().getFieldDesc(SecPositionsFieldId)));
 
@@ -1279,8 +1279,8 @@ EditFieldHandlePtr ParticlesBase::editHandleSecPositions   (void)
 
 GetFieldHandlePtr ParticlesBase::getHandleColors          (void) const
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandle(
+    SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfColors, 
              this->getType().getFieldDesc(ColorsFieldId)));
 
@@ -1289,8 +1289,8 @@ GetFieldHandlePtr ParticlesBase::getHandleColors          (void) const
 
 EditFieldHandlePtr ParticlesBase::editHandleColors         (void)
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandle(
+    SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfColors, 
              this->getType().getFieldDesc(ColorsFieldId)));
 
@@ -1304,8 +1304,8 @@ EditFieldHandlePtr ParticlesBase::editHandleColors         (void)
 
 GetFieldHandlePtr ParticlesBase::getHandleNormals         (void) const
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::GetHandle(
+    SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfNormals, 
              this->getType().getFieldDesc(NormalsFieldId)));
 
@@ -1314,8 +1314,8 @@ GetFieldHandlePtr ParticlesBase::getHandleNormals         (void) const
 
 EditFieldHandlePtr ParticlesBase::editHandleNormals        (void)
 {
-    SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
-        new  SFUnrecFieldContainerChildGeoVectorPropertyPtr::EditHandle(
+    SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
+        new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfNormals, 
              this->getType().getFieldDesc(NormalsFieldId)));
 
@@ -1549,11 +1549,11 @@ DataType FieldTraits<ParticlesPtr>::_type("ParticlesPtr", "MaterialDrawablePtr")
 
 OSG_FIELDTRAITS_GETTYPE(ParticlesPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ParticlesPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ParticlesPtr, 
                            0);
 

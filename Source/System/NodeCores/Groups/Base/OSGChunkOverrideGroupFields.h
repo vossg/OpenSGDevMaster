@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                RecordedRefCountPolicy  > SFRecChunkOverrideGroupPtr;
-typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                UnrecordedRefCountPolicy> SFUnrecChunkOverrideGroupPtr;
-typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                WeakRefCountPolicy      > SFWeakChunkOverrideGroupPtr;
-typedef FieldContainerPtrSField<ChunkOverrideGroupPtr,
-                                NoRefCountPolicy        > SFUncountedChunkOverrideGroupPtr;
+typedef PointerSField<ChunkOverrideGroupPtr,
+                      RecordedRefCountPolicy  > SFRecChunkOverrideGroupPtr;
+typedef PointerSField<ChunkOverrideGroupPtr,
+                      UnrecordedRefCountPolicy> SFUnrecChunkOverrideGroupPtr;
+typedef PointerSField<ChunkOverrideGroupPtr,
+                      WeakRefCountPolicy      > SFWeakChunkOverrideGroupPtr;
+typedef PointerSField<ChunkOverrideGroupPtr,
+                      NoRefCountPolicy        > SFUncountedChunkOverrideGroupPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                RecordedRefCountPolicy  > MFRecChunkOverrideGroupPtr;
-typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                UnrecordedRefCountPolicy> MFUnrecChunkOverrideGroupPtr;
-typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                WeakRefCountPolicy      > MFWeakChunkOverrideGroupPtr;
-typedef FieldContainerPtrMField<ChunkOverrideGroupPtr,
-                                NoRefCountPolicy        > MFUncountedChunkOverrideGroupPtr;
+typedef PointerMField<ChunkOverrideGroupPtr,
+                      RecordedRefCountPolicy  > MFRecChunkOverrideGroupPtr;
+typedef PointerMField<ChunkOverrideGroupPtr,
+                      UnrecordedRefCountPolicy> MFUnrecChunkOverrideGroupPtr;
+typedef PointerMField<ChunkOverrideGroupPtr,
+                      WeakRefCountPolicy      > MFWeakChunkOverrideGroupPtr;
+typedef PointerMField<ChunkOverrideGroupPtr,
+                      NoRefCountPolicy        > MFUncountedChunkOverrideGroupPtr;
 #endif
 
 

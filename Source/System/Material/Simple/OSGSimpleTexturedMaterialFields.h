@@ -58,8 +58,8 @@
 #include "OSGDrawableDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<SimpleTexturedMaterialPtr, 0>::getMName<NoRefCountPolic
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                RecordedRefCountPolicy  > SFRecSimpleTexturedMaterialPtr;
-typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                UnrecordedRefCountPolicy> SFUnrecSimpleTexturedMaterialPtr;
-typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                WeakRefCountPolicy      > SFWeakSimpleTexturedMaterialPtr;
-typedef FieldContainerPtrSField<SimpleTexturedMaterialPtr,
-                                NoRefCountPolicy        > SFUncountedSimpleTexturedMaterialPtr;
+typedef PointerSField<SimpleTexturedMaterialPtr,
+                      RecordedRefCountPolicy  > SFRecSimpleTexturedMaterialPtr;
+typedef PointerSField<SimpleTexturedMaterialPtr,
+                      UnrecordedRefCountPolicy> SFUnrecSimpleTexturedMaterialPtr;
+typedef PointerSField<SimpleTexturedMaterialPtr,
+                      WeakRefCountPolicy      > SFWeakSimpleTexturedMaterialPtr;
+typedef PointerSField<SimpleTexturedMaterialPtr,
+                      NoRefCountPolicy        > SFUncountedSimpleTexturedMaterialPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                RecordedRefCountPolicy  > MFRecSimpleTexturedMaterialPtr;
-typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                UnrecordedRefCountPolicy> MFUnrecSimpleTexturedMaterialPtr;
-typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                WeakRefCountPolicy      > MFWeakSimpleTexturedMaterialPtr;
-typedef FieldContainerPtrMField<SimpleTexturedMaterialPtr,
-                                NoRefCountPolicy        > MFUncountedSimpleTexturedMaterialPtr;
+typedef PointerMField<SimpleTexturedMaterialPtr,
+                      RecordedRefCountPolicy  > MFRecSimpleTexturedMaterialPtr;
+typedef PointerMField<SimpleTexturedMaterialPtr,
+                      UnrecordedRefCountPolicy> MFUnrecSimpleTexturedMaterialPtr;
+typedef PointerMField<SimpleTexturedMaterialPtr,
+                      WeakRefCountPolicy      > MFWeakSimpleTexturedMaterialPtr;
+typedef PointerMField<SimpleTexturedMaterialPtr,
+                      NoRefCountPolicy        > MFUncountedSimpleTexturedMaterialPtr;
 #endif
 
 

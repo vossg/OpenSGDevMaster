@@ -412,11 +412,11 @@ DataType FieldTraits<TextureTransformChunkPtr>::_type("TextureTransformChunkPtr"
 
 OSG_FIELDTRAITS_GETTYPE(TextureTransformChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TextureTransformChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TextureTransformChunkPtr, 
                            0);
 

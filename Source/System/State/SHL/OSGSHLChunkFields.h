@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<SHLChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<SHLChunkPtr,
-                                RecordedRefCountPolicy  > SFRecSHLChunkPtr;
-typedef FieldContainerPtrSField<SHLChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecSHLChunkPtr;
-typedef FieldContainerPtrSField<SHLChunkPtr,
-                                WeakRefCountPolicy      > SFWeakSHLChunkPtr;
-typedef FieldContainerPtrSField<SHLChunkPtr,
-                                NoRefCountPolicy        > SFUncountedSHLChunkPtr;
+typedef PointerSField<SHLChunkPtr,
+                      RecordedRefCountPolicy  > SFRecSHLChunkPtr;
+typedef PointerSField<SHLChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecSHLChunkPtr;
+typedef PointerSField<SHLChunkPtr,
+                      WeakRefCountPolicy      > SFWeakSHLChunkPtr;
+typedef PointerSField<SHLChunkPtr,
+                      NoRefCountPolicy        > SFUncountedSHLChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<SHLChunkPtr,
-                                RecordedRefCountPolicy  > MFRecSHLChunkPtr;
-typedef FieldContainerPtrMField<SHLChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecSHLChunkPtr;
-typedef FieldContainerPtrMField<SHLChunkPtr,
-                                WeakRefCountPolicy      > MFWeakSHLChunkPtr;
-typedef FieldContainerPtrMField<SHLChunkPtr,
-                                NoRefCountPolicy        > MFUncountedSHLChunkPtr;
+typedef PointerMField<SHLChunkPtr,
+                      RecordedRefCountPolicy  > MFRecSHLChunkPtr;
+typedef PointerMField<SHLChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecSHLChunkPtr;
+typedef PointerMField<SHLChunkPtr,
+                      WeakRefCountPolicy      > MFWeakSHLChunkPtr;
+typedef PointerMField<SHLChunkPtr,
+                      NoRefCountPolicy        > MFUncountedSHLChunkPtr;
 #endif
 
 

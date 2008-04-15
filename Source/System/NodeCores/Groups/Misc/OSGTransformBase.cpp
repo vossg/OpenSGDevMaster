@@ -397,11 +397,11 @@ DataType FieldTraits<TransformPtr>::_type("TransformPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(TransformPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TransformPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TransformPtr, 
                            0);
 

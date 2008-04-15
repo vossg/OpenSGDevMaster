@@ -399,11 +399,11 @@ DataType FieldTraits<SwitchPtr>::_type("SwitchPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(SwitchPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            SwitchPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            SwitchPtr, 
                            0);
 

@@ -58,8 +58,8 @@
 #include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef FieldContainerPtrSField<MultiCorePtr,
-                                RecordedRefCountPolicy  > SFRecMultiCorePtr;
-typedef FieldContainerPtrSField<MultiCorePtr,
-                                UnrecordedRefCountPolicy> SFUnrecMultiCorePtr;
-typedef FieldContainerPtrSField<MultiCorePtr,
-                                WeakRefCountPolicy      > SFWeakMultiCorePtr;
-typedef FieldContainerPtrSField<MultiCorePtr,
-                                NoRefCountPolicy        > SFUncountedMultiCorePtr;
+typedef PointerSField<MultiCorePtr,
+                      RecordedRefCountPolicy  > SFRecMultiCorePtr;
+typedef PointerSField<MultiCorePtr,
+                      UnrecordedRefCountPolicy> SFUnrecMultiCorePtr;
+typedef PointerSField<MultiCorePtr,
+                      WeakRefCountPolicy      > SFWeakMultiCorePtr;
+typedef PointerSField<MultiCorePtr,
+                      NoRefCountPolicy        > SFUncountedMultiCorePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef FieldContainerPtrMField<MultiCorePtr,
-                                RecordedRefCountPolicy  > MFRecMultiCorePtr;
-typedef FieldContainerPtrMField<MultiCorePtr,
-                                UnrecordedRefCountPolicy> MFUnrecMultiCorePtr;
-typedef FieldContainerPtrMField<MultiCorePtr,
-                                WeakRefCountPolicy      > MFWeakMultiCorePtr;
-typedef FieldContainerPtrMField<MultiCorePtr,
-                                NoRefCountPolicy        > MFUncountedMultiCorePtr;
+typedef PointerMField<MultiCorePtr,
+                      RecordedRefCountPolicy  > MFRecMultiCorePtr;
+typedef PointerMField<MultiCorePtr,
+                      UnrecordedRefCountPolicy> MFUnrecMultiCorePtr;
+typedef PointerMField<MultiCorePtr,
+                      WeakRefCountPolicy      > MFWeakMultiCorePtr;
+typedef PointerMField<MultiCorePtr,
+                      NoRefCountPolicy        > MFUncountedMultiCorePtr;
 #endif
 
 

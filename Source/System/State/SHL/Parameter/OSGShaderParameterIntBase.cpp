@@ -395,11 +395,11 @@ DataType FieldTraits<ShaderParameterIntPtr>::_type("ShaderParameterIntPtr", "Sha
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterIntPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ShaderParameterIntPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ShaderParameterIntPtr, 
                            0);
 

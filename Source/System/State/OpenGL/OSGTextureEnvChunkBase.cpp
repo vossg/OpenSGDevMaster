@@ -2651,11 +2651,11 @@ DataType FieldTraits<TextureEnvChunkPtr>::_type("TextureEnvChunkPtr", "StateChun
 
 OSG_FIELDTRAITS_GETTYPE(TextureEnvChunkPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            TextureEnvChunkPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            TextureEnvChunkPtr, 
                            0);
 

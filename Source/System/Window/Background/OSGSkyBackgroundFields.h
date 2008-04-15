@@ -58,8 +58,8 @@
 #include "OSGWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -140,14 +140,14 @@ const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                RecordedRefCountPolicy  > MFRecSkyBackgroundPtr;
-typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                UnrecordedRefCountPolicy> MFUnrecSkyBackgroundPtr;
-typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                WeakRefCountPolicy      > MFWeakSkyBackgroundPtr;
-typedef FieldContainerPtrMField<SkyBackgroundPtr,
-                                NoRefCountPolicy        > MFUncountedSkyBackgroundPtr;
+typedef PointerMField<SkyBackgroundPtr,
+                      RecordedRefCountPolicy  > MFRecSkyBackgroundPtr;
+typedef PointerMField<SkyBackgroundPtr,
+                      UnrecordedRefCountPolicy> MFUnrecSkyBackgroundPtr;
+typedef PointerMField<SkyBackgroundPtr,
+                      WeakRefCountPolicy      > MFWeakSkyBackgroundPtr;
+typedef PointerMField<SkyBackgroundPtr,
+                      NoRefCountPolicy        > MFUncountedSkyBackgroundPtr;
 #endif
 
 

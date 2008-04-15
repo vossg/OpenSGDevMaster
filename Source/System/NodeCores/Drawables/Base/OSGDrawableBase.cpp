@@ -208,11 +208,11 @@ DataType FieldTraits<DrawablePtr>::_type("DrawablePtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(DrawablePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            DrawablePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            DrawablePtr, 
                            0);
 

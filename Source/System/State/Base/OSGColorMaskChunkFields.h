@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                RecordedRefCountPolicy  > SFRecColorMaskChunkPtr;
-typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecColorMaskChunkPtr;
-typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                WeakRefCountPolicy      > SFWeakColorMaskChunkPtr;
-typedef FieldContainerPtrSField<ColorMaskChunkPtr,
-                                NoRefCountPolicy        > SFUncountedColorMaskChunkPtr;
+typedef PointerSField<ColorMaskChunkPtr,
+                      RecordedRefCountPolicy  > SFRecColorMaskChunkPtr;
+typedef PointerSField<ColorMaskChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecColorMaskChunkPtr;
+typedef PointerSField<ColorMaskChunkPtr,
+                      WeakRefCountPolicy      > SFWeakColorMaskChunkPtr;
+typedef PointerSField<ColorMaskChunkPtr,
+                      NoRefCountPolicy        > SFUncountedColorMaskChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                RecordedRefCountPolicy  > MFRecColorMaskChunkPtr;
-typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecColorMaskChunkPtr;
-typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                WeakRefCountPolicy      > MFWeakColorMaskChunkPtr;
-typedef FieldContainerPtrMField<ColorMaskChunkPtr,
-                                NoRefCountPolicy        > MFUncountedColorMaskChunkPtr;
+typedef PointerMField<ColorMaskChunkPtr,
+                      RecordedRefCountPolicy  > MFRecColorMaskChunkPtr;
+typedef PointerMField<ColorMaskChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecColorMaskChunkPtr;
+typedef PointerMField<ColorMaskChunkPtr,
+                      WeakRefCountPolicy      > MFWeakColorMaskChunkPtr;
+typedef PointerMField<ColorMaskChunkPtr,
+                      NoRefCountPolicy        > MFUncountedColorMaskChunkPtr;
 #endif
 
 

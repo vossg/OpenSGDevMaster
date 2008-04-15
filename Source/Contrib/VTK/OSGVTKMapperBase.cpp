@@ -2322,11 +2322,11 @@ DataType FieldTraits<VTKMapperPtr>::_type("VTKMapperPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(VTKMapperPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            VTKMapperPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            VTKMapperPtr, 
                            0);
 

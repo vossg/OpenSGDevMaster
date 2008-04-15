@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<WindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<WindowPtr,
-                                RecordedRefCountPolicy  > SFRecWindowPtr;
-typedef FieldContainerPtrSField<WindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecWindowPtr;
-typedef FieldContainerPtrSField<WindowPtr,
-                                WeakRefCountPolicy      > SFWeakWindowPtr;
-typedef FieldContainerPtrSField<WindowPtr,
-                                NoRefCountPolicy        > SFUncountedWindowPtr;
+typedef PointerSField<WindowPtr,
+                      RecordedRefCountPolicy  > SFRecWindowPtr;
+typedef PointerSField<WindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecWindowPtr;
+typedef PointerSField<WindowPtr,
+                      WeakRefCountPolicy      > SFWeakWindowPtr;
+typedef PointerSField<WindowPtr,
+                      NoRefCountPolicy        > SFUncountedWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<WindowPtr,
-                                RecordedRefCountPolicy  > MFRecWindowPtr;
-typedef FieldContainerPtrMField<WindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecWindowPtr;
-typedef FieldContainerPtrMField<WindowPtr,
-                                WeakRefCountPolicy      > MFWeakWindowPtr;
-typedef FieldContainerPtrMField<WindowPtr,
-                                NoRefCountPolicy        > MFUncountedWindowPtr;
+typedef PointerMField<WindowPtr,
+                      RecordedRefCountPolicy  > MFRecWindowPtr;
+typedef PointerMField<WindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecWindowPtr;
+typedef PointerMField<WindowPtr,
+                      WeakRefCountPolicy      > MFWeakWindowPtr;
+typedef PointerMField<WindowPtr,
+                      NoRefCountPolicy        > MFUncountedWindowPtr;
 #endif
 
 

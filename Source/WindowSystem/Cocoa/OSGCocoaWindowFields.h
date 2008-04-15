@@ -58,8 +58,8 @@
 #include "OSGWindowCocoaDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<CocoaWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCocoaFieldSingle */
 
-typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                RecordedRefCountPolicy  > SFRecCocoaWindowPtr;
-typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                UnrecordedRefCountPolicy> SFUnrecCocoaWindowPtr;
-typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                WeakRefCountPolicy      > SFWeakCocoaWindowPtr;
-typedef FieldContainerPtrSField<CocoaWindowPtr,
-                                NoRefCountPolicy        > SFUncountedCocoaWindowPtr;
+typedef PointerSField<CocoaWindowPtr,
+                      RecordedRefCountPolicy  > SFRecCocoaWindowPtr;
+typedef PointerSField<CocoaWindowPtr,
+                      UnrecordedRefCountPolicy> SFUnrecCocoaWindowPtr;
+typedef PointerSField<CocoaWindowPtr,
+                      WeakRefCountPolicy      > SFWeakCocoaWindowPtr;
+typedef PointerSField<CocoaWindowPtr,
+                      NoRefCountPolicy        > SFUncountedCocoaWindowPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowCocoaFieldMulti */
 
-typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                RecordedRefCountPolicy  > MFRecCocoaWindowPtr;
-typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                UnrecordedRefCountPolicy> MFUnrecCocoaWindowPtr;
-typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                WeakRefCountPolicy      > MFWeakCocoaWindowPtr;
-typedef FieldContainerPtrMField<CocoaWindowPtr,
-                                NoRefCountPolicy        > MFUncountedCocoaWindowPtr;
+typedef PointerMField<CocoaWindowPtr,
+                      RecordedRefCountPolicy  > MFRecCocoaWindowPtr;
+typedef PointerMField<CocoaWindowPtr,
+                      UnrecordedRefCountPolicy> MFUnrecCocoaWindowPtr;
+typedef PointerMField<CocoaWindowPtr,
+                      WeakRefCountPolicy      > MFWeakCocoaWindowPtr;
+typedef PointerMField<CocoaWindowPtr,
+                      NoRefCountPolicy        > MFUncountedCocoaWindowPtr;
 #endif
 
 

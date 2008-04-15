@@ -58,8 +58,8 @@
 #include "OSGDrawableDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<GeoMultiPropertyPtr, 0>::getMName<NoRefCountPolicy>(voi
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                RecordedRefCountPolicy  > SFRecGeoMultiPropertyPtr;
-typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                UnrecordedRefCountPolicy> SFUnrecGeoMultiPropertyPtr;
-typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                WeakRefCountPolicy      > SFWeakGeoMultiPropertyPtr;
-typedef FieldContainerPtrSField<GeoMultiPropertyPtr,
-                                NoRefCountPolicy        > SFUncountedGeoMultiPropertyPtr;
+typedef PointerSField<GeoMultiPropertyPtr,
+                      RecordedRefCountPolicy  > SFRecGeoMultiPropertyPtr;
+typedef PointerSField<GeoMultiPropertyPtr,
+                      UnrecordedRefCountPolicy> SFUnrecGeoMultiPropertyPtr;
+typedef PointerSField<GeoMultiPropertyPtr,
+                      WeakRefCountPolicy      > SFWeakGeoMultiPropertyPtr;
+typedef PointerSField<GeoMultiPropertyPtr,
+                      NoRefCountPolicy        > SFUncountedGeoMultiPropertyPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                RecordedRefCountPolicy  > MFRecGeoMultiPropertyPtr;
-typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                UnrecordedRefCountPolicy> MFUnrecGeoMultiPropertyPtr;
-typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                WeakRefCountPolicy      > MFWeakGeoMultiPropertyPtr;
-typedef FieldContainerPtrMField<GeoMultiPropertyPtr,
-                                NoRefCountPolicy        > MFUncountedGeoMultiPropertyPtr;
+typedef PointerMField<GeoMultiPropertyPtr,
+                      RecordedRefCountPolicy  > MFRecGeoMultiPropertyPtr;
+typedef PointerMField<GeoMultiPropertyPtr,
+                      UnrecordedRefCountPolicy> MFUnrecGeoMultiPropertyPtr;
+typedef PointerMField<GeoMultiPropertyPtr,
+                      WeakRefCountPolicy      > MFWeakGeoMultiPropertyPtr;
+typedef PointerMField<GeoMultiPropertyPtr,
+                      NoRefCountPolicy        > MFUncountedGeoMultiPropertyPtr;
 #endif
 
 

@@ -58,8 +58,8 @@
 #include "OSGStateDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<CubeTextureObjChunkPtr, 0>::getMName<NoRefCountPolicy>(
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
-                                RecordedRefCountPolicy  > SFRecCubeTextureObjChunkPtr;
-typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
-                                UnrecordedRefCountPolicy> SFUnrecCubeTextureObjChunkPtr;
-typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
-                                WeakRefCountPolicy      > SFWeakCubeTextureObjChunkPtr;
-typedef FieldContainerPtrSField<CubeTextureObjChunkPtr,
-                                NoRefCountPolicy        > SFUncountedCubeTextureObjChunkPtr;
+typedef PointerSField<CubeTextureObjChunkPtr,
+                      RecordedRefCountPolicy  > SFRecCubeTextureObjChunkPtr;
+typedef PointerSField<CubeTextureObjChunkPtr,
+                      UnrecordedRefCountPolicy> SFUnrecCubeTextureObjChunkPtr;
+typedef PointerSField<CubeTextureObjChunkPtr,
+                      WeakRefCountPolicy      > SFWeakCubeTextureObjChunkPtr;
+typedef PointerSField<CubeTextureObjChunkPtr,
+                      NoRefCountPolicy        > SFUncountedCubeTextureObjChunkPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
-                                RecordedRefCountPolicy  > MFRecCubeTextureObjChunkPtr;
-typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
-                                UnrecordedRefCountPolicy> MFUnrecCubeTextureObjChunkPtr;
-typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
-                                WeakRefCountPolicy      > MFWeakCubeTextureObjChunkPtr;
-typedef FieldContainerPtrMField<CubeTextureObjChunkPtr,
-                                NoRefCountPolicy        > MFUncountedCubeTextureObjChunkPtr;
+typedef PointerMField<CubeTextureObjChunkPtr,
+                      RecordedRefCountPolicy  > MFRecCubeTextureObjChunkPtr;
+typedef PointerMField<CubeTextureObjChunkPtr,
+                      UnrecordedRefCountPolicy> MFUnrecCubeTextureObjChunkPtr;
+typedef PointerMField<CubeTextureObjChunkPtr,
+                      WeakRefCountPolicy      > MFWeakCubeTextureObjChunkPtr;
+typedef PointerMField<CubeTextureObjChunkPtr,
+                      NoRefCountPolicy        > MFUncountedCubeTextureObjChunkPtr;
 #endif
 
 

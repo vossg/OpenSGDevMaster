@@ -449,11 +449,11 @@ DataType FieldTraits<StatisticsForegroundPtr>::_type("StatisticsForegroundPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(StatisticsForegroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            StatisticsForegroundPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            StatisticsForegroundPtr, 
                            0);
 

@@ -92,8 +92,8 @@ void MultiCoreBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecFieldContainerChildNodeCorePtr::Description(
-        MFUnrecFieldContainerChildNodeCorePtr::getClassType(),
+    pDesc = new MFUnrecChildNodeCorePtr::Description(
+        MFUnrecChildNodeCorePtr::getClassType(),
         "cores",
         "",
         CoresFieldId, CoresFieldMask,
@@ -173,7 +173,7 @@ UInt32 MultiCoreBase::getContainerSize(void) const
 
 
 //! Get the MultiCore::_mfCores field.
-const MFUnrecFieldContainerChildNodeCorePtr *MultiCoreBase::getMFCores(void) const
+const MFUnrecChildNodeCorePtr *MultiCoreBase::getMFCores(void) const
 {
     return &_mfCores;
 }
@@ -192,11 +192,11 @@ void MultiCoreBase::addCore(NodeCorePtrConstArg value)
     _mfCores.push_back(value);
 }
 
-void MultiCoreBase::assignCoresFrom(const MFUnrecFieldContainerChildNodeCorePtr &value)
+void MultiCoreBase::assignCoresFrom(const MFUnrecChildNodeCorePtr &value)
 {
-    MFUnrecFieldContainerChildNodeCorePtr::const_iterator elemIt  =
+    MFUnrecChildNodeCorePtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecFieldContainerChildNodeCorePtr::const_iterator elemEnd =
+    MFUnrecChildNodeCorePtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<MultiCore *>(this)->clearCores();
@@ -217,7 +217,7 @@ void MultiCoreBase::insertCore(UInt32                uiIndex,
 
     editMField(CoresFieldMask, _mfCores);
 
-    MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
+    MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
 
     //addRef(value);
 
@@ -275,7 +275,7 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
+        MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -293,7 +293,7 @@ void MultiCoreBase::subCore(NodeCorePtrConstArg value)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecFieldContainerChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
+        MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
 
         fieldIt += iElemIdx;
 
@@ -474,7 +474,7 @@ bool MultiCoreBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            MFUnrecFieldContainerChildNodeCorePtr::iterator pI =
+            MFUnrecChildNodeCorePtr::iterator pI =
                 _mfCores.find_nc(pTypedChild);
                 
             if(pI != _mfCores.end())
@@ -506,9 +506,9 @@ void MultiCoreBase::onCreate(const MultiCore *source)
     if(source != NULL)
     {
 
-        MFUnrecFieldContainerChildNodeCorePtr::const_iterator CoresIt  =
+        MFUnrecChildNodeCorePtr::const_iterator CoresIt  =
             source->_mfCores.begin();
-        MFUnrecFieldContainerChildNodeCorePtr::const_iterator CoresEnd =
+        MFUnrecChildNodeCorePtr::const_iterator CoresEnd =
             source->_mfCores.end  ();
 
         while(CoresIt != CoresEnd)
@@ -522,8 +522,8 @@ void MultiCoreBase::onCreate(const MultiCore *source)
 
 GetFieldHandlePtr MultiCoreBase::getHandleCores           (void) const
 {
-    MFUnrecFieldContainerChildNodeCorePtr::GetHandlePtr returnValue(
-        new  MFUnrecFieldContainerChildNodeCorePtr::GetHandle(
+    MFUnrecChildNodeCorePtr::GetHandlePtr returnValue(
+        new  MFUnrecChildNodeCorePtr::GetHandle(
              &_mfCores, 
              this->getType().getFieldDesc(CoresFieldId)));
 
@@ -532,8 +532,8 @@ GetFieldHandlePtr MultiCoreBase::getHandleCores           (void) const
 
 EditFieldHandlePtr MultiCoreBase::editHandleCores          (void)
 {
-    MFUnrecFieldContainerChildNodeCorePtr::EditHandlePtr returnValue(
-        new  MFUnrecFieldContainerChildNodeCorePtr::EditHandle(
+    MFUnrecChildNodeCorePtr::EditHandlePtr returnValue(
+        new  MFUnrecChildNodeCorePtr::EditHandle(
              &_mfCores, 
              this->getType().getFieldDesc(CoresFieldId)));
 
@@ -589,11 +589,11 @@ DataType FieldTraits<MultiCorePtr>::_type("MultiCorePtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MultiCorePtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            MultiCorePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            MultiCorePtr, 
                            0);
 

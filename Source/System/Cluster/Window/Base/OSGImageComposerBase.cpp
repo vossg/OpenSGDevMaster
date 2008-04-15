@@ -382,11 +382,11 @@ DataType FieldTraits<ImageComposerPtr>::_type("ImageComposerPtr", "AttachmentCon
 
 OSG_FIELDTRAITS_GETTYPE(ImageComposerPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ImageComposerPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ImageComposerPtr, 
                            0);
 

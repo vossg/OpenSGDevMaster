@@ -1139,11 +1139,11 @@ DataType FieldTraits<PolygonBackgroundPtr>::_type("PolygonBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(PolygonBackgroundPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            PolygonBackgroundPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            PolygonBackgroundPtr, 
                            0);
 

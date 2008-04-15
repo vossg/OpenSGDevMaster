@@ -156,8 +156,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFUnrecFieldContainerChildViewportPtr::Description(
-        MFUnrecFieldContainerChildViewportPtr::getClassType(),
+    pDesc = new MFUnrecChildViewportPtr::Description(
+        MFUnrecChildViewportPtr::getClassType(),
         "port",
         "",
         PortFieldId, PortFieldMask,
@@ -424,7 +424,7 @@ SFUInt16            *WindowBase::getSFHeight         (void)
 #endif
 
 //! Get the Window::_mfPort field.
-const MFUnrecFieldContainerChildViewportPtr *WindowBase::getMFPort(void) const
+const MFUnrecChildViewportPtr *WindowBase::getMFPort(void) const
 {
     return &_mfPort;
 }
@@ -538,11 +538,11 @@ void WindowBase::addPort(ViewportPtrConstArg value)
     _mfPort.push_back(value);
 }
 
-void WindowBase::assignPort     (const MFUnrecFieldContainerChildViewportPtr &value)
+void WindowBase::assignPort     (const MFUnrecChildViewportPtr &value)
 {
-    MFUnrecFieldContainerChildViewportPtr::const_iterator elemIt  =
+    MFUnrecChildViewportPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecFieldContainerChildViewportPtr::const_iterator elemEnd =
+    MFUnrecChildViewportPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Window *>(this)->clearPorts();
@@ -563,7 +563,7 @@ void WindowBase::insertPort(UInt32                uiIndex,
 
     editMField(PortFieldMask, _mfPort);
 
-    MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
+    MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
     //addRef(value);
 
@@ -621,7 +621,7 @@ void WindowBase::subPort(UInt32 uiIndex)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
+        MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -639,7 +639,7 @@ void WindowBase::subPort(ViewportPtrConstArg value)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecFieldContainerChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
+        MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
         fieldIt += iElemIdx;
 
@@ -834,7 +834,7 @@ bool WindowBase::unlinkChild(
             
         if(pTypedChild != NullFC)
         {
-            MFUnrecFieldContainerChildViewportPtr::iterator pI =
+            MFUnrecChildViewportPtr::iterator pI =
                 _mfPort.find_nc(pTypedChild);
                 
             if(pI != _mfPort.end())
@@ -866,9 +866,9 @@ void WindowBase::onCreate(const Window *source)
     if(source != NULL)
     {
 
-        MFUnrecFieldContainerChildViewportPtr::const_iterator PortIt  =
+        MFUnrecChildViewportPtr::const_iterator PortIt  =
             source->_mfPort.begin();
-        MFUnrecFieldContainerChildViewportPtr::const_iterator PortEnd =
+        MFUnrecChildViewportPtr::const_iterator PortEnd =
             source->_mfPort.end  ();
 
         while(PortIt != PortEnd)
@@ -926,8 +926,8 @@ EditFieldHandlePtr WindowBase::editHandleHeight         (void)
 
 GetFieldHandlePtr WindowBase::getHandlePort            (void) const
 {
-    MFUnrecFieldContainerChildViewportPtr::GetHandlePtr returnValue(
-        new  MFUnrecFieldContainerChildViewportPtr::GetHandle(
+    MFUnrecChildViewportPtr::GetHandlePtr returnValue(
+        new  MFUnrecChildViewportPtr::GetHandle(
              &_mfPort, 
              this->getType().getFieldDesc(PortFieldId)));
 
@@ -936,8 +936,8 @@ GetFieldHandlePtr WindowBase::getHandlePort            (void) const
 
 EditFieldHandlePtr WindowBase::editHandlePort           (void)
 {
-    MFUnrecFieldContainerChildViewportPtr::EditHandlePtr returnValue(
-        new  MFUnrecFieldContainerChildViewportPtr::EditHandle(
+    MFUnrecChildViewportPtr::EditHandlePtr returnValue(
+        new  MFUnrecChildViewportPtr::EditHandle(
              &_mfPort, 
              this->getType().getFieldDesc(PortFieldId)));
 
@@ -1105,11 +1105,11 @@ DataType FieldTraits<WindowPtr>::_type("WindowPtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(WindowPtr)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            WindowPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            WindowPtr, 
                            0);
 

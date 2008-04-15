@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<LightEnginePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<LightEnginePtr,
-                                RecordedRefCountPolicy  > SFRecLightEnginePtr;
-typedef FieldContainerPtrSField<LightEnginePtr,
-                                UnrecordedRefCountPolicy> SFUnrecLightEnginePtr;
-typedef FieldContainerPtrSField<LightEnginePtr,
-                                WeakRefCountPolicy      > SFWeakLightEnginePtr;
-typedef FieldContainerPtrSField<LightEnginePtr,
-                                NoRefCountPolicy        > SFUncountedLightEnginePtr;
+typedef PointerSField<LightEnginePtr,
+                      RecordedRefCountPolicy  > SFRecLightEnginePtr;
+typedef PointerSField<LightEnginePtr,
+                      UnrecordedRefCountPolicy> SFUnrecLightEnginePtr;
+typedef PointerSField<LightEnginePtr,
+                      WeakRefCountPolicy      > SFWeakLightEnginePtr;
+typedef PointerSField<LightEnginePtr,
+                      NoRefCountPolicy        > SFUncountedLightEnginePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<LightEnginePtr,
-                                RecordedRefCountPolicy  > MFRecLightEnginePtr;
-typedef FieldContainerPtrMField<LightEnginePtr,
-                                UnrecordedRefCountPolicy> MFUnrecLightEnginePtr;
-typedef FieldContainerPtrMField<LightEnginePtr,
-                                WeakRefCountPolicy      > MFWeakLightEnginePtr;
-typedef FieldContainerPtrMField<LightEnginePtr,
-                                NoRefCountPolicy        > MFUncountedLightEnginePtr;
+typedef PointerMField<LightEnginePtr,
+                      RecordedRefCountPolicy  > MFRecLightEnginePtr;
+typedef PointerMField<LightEnginePtr,
+                      UnrecordedRefCountPolicy> MFUnrecLightEnginePtr;
+typedef PointerMField<LightEnginePtr,
+                      WeakRefCountPolicy      > MFWeakLightEnginePtr;
+typedef PointerMField<LightEnginePtr,
+                      NoRefCountPolicy        > MFUncountedLightEnginePtr;
 #endif
 
 

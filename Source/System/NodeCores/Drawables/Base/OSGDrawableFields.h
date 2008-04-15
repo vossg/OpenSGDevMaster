@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<DrawablePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<DrawablePtr,
-                                RecordedRefCountPolicy  > SFRecDrawablePtr;
-typedef FieldContainerPtrSField<DrawablePtr,
-                                UnrecordedRefCountPolicy> SFUnrecDrawablePtr;
-typedef FieldContainerPtrSField<DrawablePtr,
-                                WeakRefCountPolicy      > SFWeakDrawablePtr;
-typedef FieldContainerPtrSField<DrawablePtr,
-                                NoRefCountPolicy        > SFUncountedDrawablePtr;
+typedef PointerSField<DrawablePtr,
+                      RecordedRefCountPolicy  > SFRecDrawablePtr;
+typedef PointerSField<DrawablePtr,
+                      UnrecordedRefCountPolicy> SFUnrecDrawablePtr;
+typedef PointerSField<DrawablePtr,
+                      WeakRefCountPolicy      > SFWeakDrawablePtr;
+typedef PointerSField<DrawablePtr,
+                      NoRefCountPolicy        > SFUncountedDrawablePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<DrawablePtr,
-                                RecordedRefCountPolicy  > MFRecDrawablePtr;
-typedef FieldContainerPtrMField<DrawablePtr,
-                                UnrecordedRefCountPolicy> MFUnrecDrawablePtr;
-typedef FieldContainerPtrMField<DrawablePtr,
-                                WeakRefCountPolicy      > MFWeakDrawablePtr;
-typedef FieldContainerPtrMField<DrawablePtr,
-                                NoRefCountPolicy        > MFUncountedDrawablePtr;
+typedef PointerMField<DrawablePtr,
+                      RecordedRefCountPolicy  > MFRecDrawablePtr;
+typedef PointerMField<DrawablePtr,
+                      UnrecordedRefCountPolicy> MFUnrecDrawablePtr;
+typedef PointerMField<DrawablePtr,
+                      WeakRefCountPolicy      > MFWeakDrawablePtr;
+typedef PointerMField<DrawablePtr,
+                      NoRefCountPolicy        > MFUncountedDrawablePtr;
 #endif
 
 
