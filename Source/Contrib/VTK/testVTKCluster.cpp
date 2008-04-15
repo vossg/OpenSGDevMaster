@@ -59,22 +59,22 @@ Trackball                tball;
 int                      mouseb = 0;
 int                      lastx=0, lasty=0;
 int                      winwidth=300, winheight=300;
-NodePtr		             root;
-TransformPtr             cam_trans;
-PerspectiveCameraPtr     cam;
-ClusterWindowPtr         clusterWindow;
+NodeRecPtr		             root;
+TransformRecPtr             cam_trans;
+PerspectiveCameraRecPtr     cam;
+ClusterWindowRecPtr         clusterWindow;
 RenderAction            *ract;
-GLUTWindowPtr            clientWindow;
+GLUTWindowRecPtr            clientWindow;
 
 #ifdef HAVE_SORT
-SortFirstWindowPtr       sortfirst;
-SortLastWindowPtr        sortlast;
+SortFirstWindowRecPtr       sortfirst;
+SortLastWindowRecPtr        sortlast;
 #endif
 
 #ifdef FRAMEINTERLEAVE
-FrameInterleaveWindowPtr frameinterleave;
+FrameInterleaveWindowRecPtr frameinterleave;
 #endif
-MultiDisplayWindowPtr    multidisplay;
+MultiDisplayWindowRecPtr    multidisplay;
 bool                     animate=false;
 int                      animLoops=-1;
 int                      animLength=30;
@@ -92,7 +92,7 @@ bool                     serviceAddressValid = false;
 UInt32                   interleave=0;
 Real32                   _dsFactor = 1.0; // scale down factor.
 bool                     _enablecc = true; // enable color correction.
-PolygonChunkPtr          polygonChunk;
+PolygonChunkRecPtr       polygonChunk;
 bool                     prepared=false;
 bool                     showInfo=false;
 Time                     frame_time=0;
@@ -102,8 +102,31 @@ UInt32                   sum_triangles=0;
 bool                     info = false;
 std::string              connectionDestination="";
 std::string              connectionInterface="";
-OSG::SolidBackgroundPtr  bkgnd;
+OSG::SolidBackgroundRecPtr  bkgnd;
 UInt32                   subtilesize=32;
+
+void cleanup(void)
+{
+    delete ract;
+
+    root = NullFC;
+    cam_trans = NullFC;
+    cam = NullFC;
+    clusterWindow = NullFC;
+    clientWindow = NullFC;
+#ifdef HAVE_SORT
+    sortfirst = NullFC;
+    sortlast = NullFC;
+ #endif
+#ifdef FRAMEINTERLEAVE
+    frameinterleave = NullFC;
+#endif
+    multidisplay = NullFC;
+    polygonChunk = NullFC;
+    bkgnd = NullFC;
+
+    osgExit(); 
+}
 
 /*! Simple show text function
  */
@@ -188,7 +211,6 @@ void prepareSceneGraph(const NodePtr &node)
     if(!prepared)
     {
         polygonChunk = PolygonChunk::create();
-        addRef(polygonChunk);
         prepared = true;
     }
 
@@ -247,7 +269,7 @@ void prepareSceneGraph(const NodePtr &node)
             }
         }
     }
-    for(MFNodePtr::const_iterator nI=node->getMFChildren()->begin();
+    for(MFUnrecChildNodePtr::const_iterator nI=node->getMFChildren()->begin();
         nI != node->getMFChildren()->end();
         ++nI)
     {
@@ -324,6 +346,7 @@ void display(void)
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
         std::cout << e.what() << std::endl;
+        cleanup();
         exit(0);
     }
     
@@ -349,8 +372,7 @@ void display(void)
                 animLoops--;
                 if(!animLoops) 
                 {
-                    subRef(clusterWindow);
-                    osgExit(); 
+                    cleanup();
                     exit(0);
                 }
             }
@@ -428,7 +450,7 @@ void setHEyeWallParameter(Real32 dsFactor, bool enablecc)
 {
     static char str[1024];
     
-    NamePtr parameters = dynamic_cast<NamePtr>(clusterWindow->findAttachment(Name::getClassType()));
+    NameUnrecPtr parameters = dynamic_cast<NamePtr>(clusterWindow->findAttachment(Name::getClassType()));
 
     if(parameters == NullFC)
     {
@@ -602,7 +624,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
         case 27:	// should kill the clients here
             // exit
 //            subRef(clusterWindow);
-            osgExit(); 
+            cleanup();
             exit(0);
 	}
 	
@@ -612,8 +634,8 @@ void key(unsigned char key, int /*x*/, int /*y*/)
 void addActor(OSG::NodePtr pRoot,
               vtkActor    *pActor)
 {
-    OSG::NodePtr      pTmpNode   = OSG::Node     ::create();
-    OSG::VTKMapperPtr pTmpMapper = OSG::VTKMapper::create();
+    OSG::NodeUnrecPtr      pTmpNode   = OSG::Node     ::create();
+    OSG::VTKMapperUnrecPtr pTmpMapper = OSG::VTKMapper::create();
 
     pTmpMapper->setActor(pActor    );
     pTmpNode  ->setCore (pTmpMapper);
@@ -622,15 +644,16 @@ void addActor(OSG::NodePtr pRoot,
 //    pTmpMapper->execute();
 }
 
-OSG::NodePtr initVTK(void)
+OSG::NodeTransitPtr initVTK(void)
 {
-    OSG::NodePtr returnValue = OSGNullFC;
+    OSG::NodeUnrecPtr returnValue = OSGNullFC;
 
     Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
 
     if(szDataRoot == NULL)
     {
         fprintf(stderr, "VTK_DATA_ROOT not set\n");
+        cleanup();
         exit(0);
     }
 
@@ -1090,13 +1113,13 @@ OSG::NodePtr initVTK(void)
     
     addActor(returnValue, outlineActor);
 
-    return returnValue;
+    return NodeTransitPtr(returnValue);
 }
 
 void init(std::vector<std::string> &filenames)
 {
     int i;
-    OSG::DirectionalLightPtr dl;
+    OSG::DirectionalLightUnrecPtr dl;
     Real32 x,y,z;
     DynamicVolume volume;
     OSG::Vec3f min,max;
@@ -1110,24 +1133,23 @@ void init(std::vector<std::string> &filenames)
     // create the graph
 
     // beacon for camera and light
-    OSG::NodePtr b1n = OSG::Node::create();
-    OSG::GroupPtr b1 = OSG::Group::create();
+    OSG::NodeUnrecPtr b1n = OSG::Node::create();
+    OSG::GroupUnrecPtr b1 = OSG::Group::create();
 
     b1n->setCore( b1 );
 
     // transformation
-    OSG::NodePtr t1n = OSG::Node::create();
-    OSG::TransformPtr t1 = OSG::Transform::create();
+    OSG::NodeUnrecPtr t1n = OSG::Node::create();
+    OSG::TransformUnrecPtr t1 = OSG::Transform::create();
 
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
     cam_trans = t1;
-    addRef(t1n);
 
     // light
 
-    OSG::NodePtr dlight = OSG::Node::create();
+    OSG::NodeUnrecPtr dlight = OSG::Node::create();
     dl = OSG::DirectionalLight::create();
 
 
@@ -1141,20 +1163,18 @@ void init(std::vector<std::string> &filenames)
 
     // root
     root = OSG::Node::create();
-    addRef(root);
-    OSG::GroupPtr gr1 = OSG::Group::create();
+    OSG::GroupUnrecPtr gr1 = OSG::Group::create();
 
     root->setCore( gr1 );
     root->addChild( t1n );
     root->addChild( dlight );
 
     // Load the file
-    OSG::NodePtr scene = OSG::Node::create();
-    addRef(scene);
+    OSG::NodeUnrecPtr scene = OSG::Node::create();
 
     scene->setCore(OSG::Group::create());
 
-    NodePtr file;
+    NodeUnrecPtr file;
 
     for(i=0;i<filenames.size();i++)
     {
@@ -1189,9 +1209,9 @@ void init(std::vector<std::string> &filenames)
         if(cc==-1)
             cc=cb;
             
-        NodePtr node;
-        NodePtr geoNode;
-        TransformPtr trans;
+        NodeUnrecPtr node;
+        NodeUnrecPtr geoNode;
+        TransformUnrecPtr trans;
         for(x=-ca/2.0 ; x<ca/2.0 ; x++)
             for(y=-cb/2.0 ; y<cb/2.0 ; y++)
                 for(z=-cc/2.0 ; z<cc/2.0 ; z++)
@@ -1212,7 +1232,6 @@ void init(std::vector<std::string> &filenames)
     {
         dlight->addChild(scene);
 	}
-    subRef(scene);
 
     if(ca>0)
     {
@@ -1239,7 +1258,7 @@ void init(std::vector<std::string> &filenames)
 
     // Camera
 
-    OSG::PerspectiveCameraPtr cam = OSG::PerspectiveCamera::create();
+    OSG::PerspectiveCameraUnrecPtr cam = OSG::PerspectiveCamera::create();
 
     cam->setBeacon( b1n );
     cam->setFov( OSG::osgDegree2Rad( 60 ) );
@@ -1254,8 +1273,8 @@ void init(std::vector<std::string> &filenames)
 //    bkgnd->setColor( OSG::Color3f(1,1,1) );
 
     // Viewport
-    OSG::ViewportPtr vp1;
-    OSG::ViewportPtr vp2;
+    OSG::ViewportUnrecPtr vp1;
+    OSG::ViewportUnrecPtr vp2;
     if(stereoMode == 0)
     {
         vp1 = OSG::Viewport::create();
@@ -1277,7 +1296,7 @@ void init(std::vector<std::string> &filenames)
     }
     else if(stereoMode == 1)
     {
-        OSG::ShearedStereoCameraDecoratorPtr deco;
+        OSG::ShearedStereoCameraDecoratorUnrecPtr deco;
         // left
         deco=OSG::ShearedStereoCameraDecorator::create();
 
@@ -1308,7 +1327,7 @@ void init(std::vector<std::string> &filenames)
     }
     else if(stereoMode == 2)
     {
-        OSG::ShearedStereoCameraDecoratorPtr deco;
+        OSG::ShearedStereoCameraDecoratorUnrecPtr deco;
         // left
         deco=OSG::ShearedStereoCameraDecorator::create();
 
@@ -1317,7 +1336,7 @@ void init(std::vector<std::string> &filenames)
             deco->setDecoratee(cam);
             deco->setZeroParallaxDistance(zeroparallax);
         
-        ColorBufferViewportPtr cvp1 = ColorBufferViewport::create();
+        ColorBufferViewportUnrecPtr cvp1 = ColorBufferViewport::create();
 
             cvp1->setCamera    ( deco );
             cvp1->setBackground( bkgnd );
@@ -1338,7 +1357,7 @@ void init(std::vector<std::string> &filenames)
             deco->setDecoratee(cam);
             deco->setZeroParallaxDistance(zeroparallax);
         
-        ColorBufferViewportPtr cvp2 = ColorBufferViewport::create();
+        ColorBufferViewportUnrecPtr cvp2 = ColorBufferViewport::create();
 
             cvp2->setCamera    ( deco );
             cvp2->setBackground( bkgnd );

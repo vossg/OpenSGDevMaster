@@ -21,6 +21,8 @@ else:
       if vtk_option.libDir:
          libpath.append(vtk_option.libDir)
          
+      cxx_flags.append("-Wno-deprecated")
+
       # Tests' dependencies
       osg_test_libs = [ 'OSGGroup','OSGDrawable', 'OSGState', 
                         'OSGFileIO', 'OSGText',

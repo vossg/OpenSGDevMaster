@@ -44,6 +44,7 @@
 
 #include "OSGConfig.h"
 #include "OSGVTKMapperBase.h"
+#include "OSGMaterialChunk.h"
 
 #ifdef OSG_WITH_VTK
 #include <vtkTimeStamp.h>

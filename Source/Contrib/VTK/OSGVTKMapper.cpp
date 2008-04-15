@@ -97,24 +97,24 @@ void VTKMapper::changed(ConstFieldMaskArg whichField,
 
 void VTKMapper::initGeometries(void)
 {
-    OSG::NodePtr pRoot = OSG::Node::create();
+    NodeUnrecPtr pRoot = Node::create();
     
-    pRoot->setCore(OSG::Group::create());
+    pRoot->setCore(Group::create());
 
     setRoot(pRoot);
 
     for(UInt32 i = 0; i < 4; ++i)
     {
-        OSG::GeometryPtr          pGeo      = OSG::Geometry::create();
+        GeometryUnrecPtr           pGeo      = Geometry::create();
     
-        OSG::ChunkMaterialPtr     pMat      = OSG::ChunkMaterial::create();
-        OSG::MaterialChunkPtr     pMatChunk = OSG::MaterialChunk::create();
+        ChunkMaterialUnrecPtr      pMat      = ChunkMaterial::create();
+        MaterialChunkUnrecPtr      pMatChunk = MaterialChunk::create();
         
-        OSG::GeoPnt3fPropertyPtr  pPoints  = OSG::GeoPnt3fProperty  ::create();
-        OSG::GeoUInt32PropertyPtr pLengths = OSG::GeoUInt32Property ::create();
-        OSG::GeoUInt8PropertyPtr  pTypes   = OSG::GeoUInt8Property  ::create();
-        OSG::GeoColor4fPropertyPtr pColors = OSG::GeoColor4fProperty::create();
-        OSG::GeoVec3fPropertyPtr  pNormals = OSG::GeoVec3fProperty  ::create();
+        GeoPnt3fPropertyUnrecPtr   pPoints   = GeoPnt3fProperty  ::create();
+        GeoUInt32PropertyUnrecPtr  pLengths  = GeoUInt32Property ::create();
+        GeoUInt8PropertyUnrecPtr   pTypes    = GeoUInt8Property  ::create();
+        GeoColor4fPropertyUnrecPtr pColors   = GeoColor4fProperty::create();
+        GeoVec3fPropertyUnrecPtr   pNormals  = GeoVec3fProperty  ::create();
 
         if(i < 2)
         {
@@ -126,7 +126,11 @@ void VTKMapper::initGeometries(void)
         pMatChunk->setShininess(10.0f);
         
         pMat->addChunk(pMatChunk);
-        pMat->addChunk(OSG::TwoSidedLightingChunk::create());
+
+        TwoSidedLightingChunkUnrecPtr pTSLChunk = 
+            TwoSidedLightingChunk::create();
+            
+        pMat->addChunk(pTSLChunk);
 
         pGeo->setDlistCache(false   );
         
@@ -141,7 +145,7 @@ void VTKMapper::initGeometries(void)
             pGeo->setNormals(pNormals);
         }
 
-        OSG::NodePtr pGeoRoot = OSG::Node::create();
+        OSG::NodeUnrecPtr pGeoRoot = OSG::Node::create();
         
         pGeoRoot->setCore    (pGeo);
         pGeoRoot->setTravMask(0   );

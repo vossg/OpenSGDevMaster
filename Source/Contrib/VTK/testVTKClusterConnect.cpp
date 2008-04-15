@@ -48,9 +48,9 @@ OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager          *_mgr = NULL;
-GLUTWindowPtr               _client_win = NullFC;
-MultiDisplayWindowPtr       _cluster_win = NullFC;
-NodePtr                     _root = NullFC;
+GLUTWindowRecPtr               _client_win = NullFC;
+MultiDisplayWindowRecPtr       _cluster_win = NullFC;
+NodeRecPtr                     _root = NullFC;
 std::vector<std::string>    _pipenames;
 UInt32                      _first_fc = 0;
 
@@ -61,8 +61,8 @@ void display(void);
 void addActor(OSG::NodePtr pRoot,
               vtkActor    *pActor)
 {
-    OSG::NodePtr      pTmpNode   = OSG::Node     ::create();
-    OSG::VTKMapperPtr pTmpMapper = OSG::VTKMapper::create();
+    OSG::NodeUnrecPtr      pTmpNode   = OSG::Node     ::create();
+    OSG::VTKMapperUnrecPtr pTmpMapper = OSG::VTKMapper::create();
 
     pTmpMapper->setActor(pActor    );
     pTmpNode  ->setCore (pTmpMapper);
@@ -91,9 +91,9 @@ void addActor(OSG::NodePtr pRoot,
 //    pTmpMapper->execute();
 }
 
-OSG::NodePtr initVTK(void)
+OSG::NodeTransitPtr initVTK(void)
 {
-    OSG::NodePtr returnValue = OSGNullFC;
+    OSG::NodeUnrecPtr returnValue = OSGNullFC;
 
     Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
 
@@ -561,7 +561,7 @@ OSG::NodePtr initVTK(void)
 
     OSG::Thread::getCurrentChangeList()->dump();
 
-    return returnValue;
+    return NodeTransitPtr(returnValue);
 }
 
 
@@ -590,7 +590,7 @@ int main(int argc, char **argv)
 
     // this is our first created fieldcontainer pointer we need this
     // to skip the prototypes in createCurrentStateChangeList().
-    _first_fc = getContainerId(_client_win);
+    _first_fc = _client_win->getId();
 
     fprintf(stderr, "%d -> %d\n", 
             _first_fc,
@@ -615,7 +615,7 @@ int main(int argc, char **argv)
     
     // create default scene
 //    NodePtr scene = makeTorus(.5, 2, 16, 16);
-    NodePtr scene = initVTK();
+    NodeUnrecPtr scene = initVTK();
 
     _root->addChild(scene);
 
@@ -643,7 +643,7 @@ static void connectCluster(void)
     ViewportPtr clientvp = _client_win->getPort()[0];
     
     // create the viewports for the cluster just a simple one ...
-    ViewportPtr vp = Viewport::create();
+    ViewportUnrecPtr vp = Viewport::create();
 
     vp->setCamera    (_mgr->getCamera());
     vp->setBackground(clientvp->getBackground());
@@ -689,8 +689,6 @@ static void disconnectCluster(void)
     if(_cluster_win == NullFC)
         return;
 
-    subRef(_cluster_win);
-
     _cluster_win = NullFC;
 }
 
@@ -711,6 +709,8 @@ void display(void)
     {
         if(_cluster_win != NullFC)
         {
+            OSG::Thread::getCurrentChangeList()->dump();
+
             // redraw the server windows
             _cluster_win->render((RenderAction *) _mgr->getRenderAction());
         }
@@ -720,8 +720,6 @@ void display(void)
     {
         //printf("error: '%s'\n", e.what());
         printf("ClusterServer was killed!\n");
-
-        subRef(_cluster_win);
 
         _cluster_win = NullFC;
     } 
@@ -762,6 +760,10 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:    
         {
+            delete _mgr;
+            _client_win = NullFC;
+            _cluster_win = NullFC;
+            _root = NullFC;
             OSG::osgExit();
             exit(0);
         }
@@ -773,7 +775,7 @@ void keyboard(unsigned char k, int x, int y)
         break;
         case 'l':
         {
-            NodePtr scene = SceneFileHandler::the()->read("tie.wrl");
+            NodeUnrecPtr scene = SceneFileHandler::the()->read("tie.wrl");
 
             if(scene != NullFC)
             {
@@ -787,7 +789,7 @@ void keyboard(unsigned char k, int x, int y)
         break;
         case 't':
         {
-            NodePtr scene = makeTorus(.5, 2, 16, 16);
+            NodeUnrecPtr scene = makeTorus(.5, 2, 16, 16);
 
             _root->addChild(scene);
 

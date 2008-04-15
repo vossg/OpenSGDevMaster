@@ -57,16 +57,16 @@ using namespace OSG;
 
 RenderAction *renact;
 
-NodePtr  root;
+NodeUnrecPtr  root;
 
-NodePtr  file;
+NodeUnrecPtr  file;
 
-PerspectiveCameraPtr cam;
-ViewportPtr vp;
-WindowPtr win;
+PerspectiveCameraUnrecPtr cam;
+ViewportUnrecPtr vp;
+WindowUnrecPtr win;
 
-TransformPtr cam_trans;
-TransformPtr scene_trans;
+TransformUnrecPtr cam_trans;
+TransformUnrecPtr scene_trans;
 
 Trackball tball;
 
@@ -213,7 +213,16 @@ void key(unsigned char key, int x, int y)
 {
     switch ( key )
     {
-        case 27:    osgExit(); exit(0);
+        case 27:    
+            root        = NullFC;
+            file        = NullFC;
+            cam         = NullFC;
+            vp          = NullFC;
+            win         = NullFC;
+            cam_trans   = NullFC;
+            scene_trans = NullFC;
+            osgExit(); 
+            exit(0);
         case 'a':   glDisable( GL_LIGHTING );
             std::cerr << "Lighting disabled." << std::endl;
             break;
@@ -284,8 +293,8 @@ void key(unsigned char key, int x, int y)
 void addActor(OSG::NodePtr pRoot,
               vtkActor    *pActor)
 {
-    OSG::NodePtr      pTmpNode   = OSG::Node     ::create();
-    OSG::VTKMapperPtr pTmpMapper = OSG::VTKMapper::create();
+    OSG::NodeUnrecPtr      pTmpNode   = OSG::Node     ::create();
+    OSG::VTKMapperUnrecPtr pTmpMapper = OSG::VTKMapper::create();
 
     pTmpMapper->setActor(pActor    );
     pTmpNode  ->setCore (pTmpMapper);
@@ -294,9 +303,9 @@ void addActor(OSG::NodePtr pRoot,
 //    pTmpMapper->execute();
 }
 
-OSG::NodePtr initVTK(void)
+OSG::NodeTransitPtr initVTK(void)
 {
-    OSG::NodePtr returnValue = OSGNullFC;
+    OSG::NodeUnrecPtr returnValue = OSGNullFC;
 
     Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
 
@@ -762,7 +771,7 @@ OSG::NodePtr initVTK(void)
     
     addActor(returnValue, outlineActor);
 
-    return returnValue;
+    return NodeTransitPtr(returnValue);
 }
 
 int main (int argc, char **argv)
@@ -796,13 +805,13 @@ int main (int argc, char **argv)
     // create the graph
 
     // beacon for camera and light  
-    NodePtr b1n = Node::create();
-    GroupPtr b1 = Group::create();
+    NodeUnrecPtr b1n = Node::create();
+    GroupUnrecPtr b1 = Group::create();
     b1n->setCore( b1 );
 
     // transformation
-    NodePtr t1n = Node::create();
-    TransformPtr t1 = Transform::create();
+    NodeUnrecPtr t1n = Node::create();
+    TransformUnrecPtr t1 = Transform::create();
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
@@ -810,8 +819,8 @@ int main (int argc, char **argv)
 
     // light
     
-    NodePtr dlight = Node::create();
-    DirectionalLightPtr dl = DirectionalLight::create();
+    NodeUnrecPtr dlight = Node::create();
+    DirectionalLightUnrecPtr dl = DirectionalLight::create();
 
     dlight->setCore( dl );
     
@@ -822,15 +831,15 @@ int main (int argc, char **argv)
 
     // root
     root = Node::create();
-    GroupPtr gr1 = Group::create();
+    GroupUnrecPtr gr1 = Group::create();
     root->setCore( gr1 );
     root->addChild( t1n );
     root->addChild( dlight );
 
     // Load the file
 
-    NodePtr file = NullFC;
-    NodePtr file1 = NullFC;
+    NodeUnrecPtr file = NullFC;
+    NodeUnrecPtr file1 = NullFC;
 
     if ( argc > 1 )
         file1 = SceneFileHandler::the()->read(argv[1]);
@@ -870,9 +879,9 @@ int main (int argc, char **argv)
 
 
     file = Node::create();
-    MaterialGroupPtr testMat = MaterialGroup::create();
+    MaterialGroupUnrecPtr testMat = MaterialGroup::create();
 
-    SimpleMaterialPtr defaultMaterial = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr defaultMaterial = SimpleMaterial::create();
 
     defaultMaterial->setDiffuse(Color3f(1,.0,.0));
     defaultMaterial->setAmbient(Color3f(0.1,0.1,0.1));
@@ -886,7 +895,7 @@ int main (int argc, char **argv)
     file->addChild(file1);
 
     scene_trans      = Transform::create();
-    NodePtr sceneTrN = Node::create();
+    NodeUnrecPtr sceneTrN = Node::create();
 
     sceneTrN->setCore(scene_trans);
     sceneTrN->addChild(file);
@@ -906,7 +915,7 @@ int main (int argc, char **argv)
     cam->setFar( 100000 );
 
     // Background
-    SolidBackgroundPtr bkgnd = SolidBackground::create();
+    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
     bkgnd->setColor(Color3f(1,1,1));
     
     // Viewport
@@ -920,7 +929,7 @@ int main (int argc, char **argv)
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
 
-    GLUTWindowPtr gwin;
+    GLUTWindowUnrecPtr gwin;
 
     GLint glvp[4];
     glGetIntegerv( GL_VIEWPORT, glvp );

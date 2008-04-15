@@ -529,9 +529,10 @@ vtk_libs = ['vtkRendering',
             'vtkftgl',
             'vtkDICOMParser',
             'vtksys',
-            'verdict',
-            'vtkNetCDF',
-            'vtkmetaio']
+#            'verdict',
+            'vtkNetCDF'
+#            'vtkmetaio'
+            ]
 
 #if "win32" != platform:
 #    vtk_libs.append('vtkMPEG2Encode')
