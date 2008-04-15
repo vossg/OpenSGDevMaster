@@ -293,8 +293,8 @@ bool MergeGraphOp::isGroup(NodePtrConst node)
 
 void MergeGraphOp::processGroups(NodePtrConst node)
 {
-    Node::ChildFieldType::const_iterator mfit = node->getMFChildren()->begin();
-    Node::ChildFieldType::const_iterator mfen = node->getMFChildren()->end  ();
+    MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
+    MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
     std::vector<NodePtr> toAdd;
     std::vector<NodePtr> toSub;
     
@@ -307,9 +307,9 @@ void MergeGraphOp::processGroups(NodePtrConst node)
         {
             if (!leaf && !special)
             {
-                Node::ChildFieldType::const_iterator it2 = 
+                MFUnrecChildNodePtr::const_iterator it2 = 
                     (*mfit)->getMFChildren()->begin();
-                Node::ChildFieldType::const_iterator en2 = 
+                MFUnrecChildNodePtr::const_iterator en2 = 
                     (*mfit)->getMFChildren()->end  ();
                 
                 for ( ; it2 != en2; ++it2 )
@@ -340,9 +340,9 @@ void MergeGraphOp::processGroups(NodePtrConst node)
             MaterialGroupPtr mg = 
                 dynamic_cast<MaterialGroupPtr>((*mfit)->getCore());
             
-            Node::ChildFieldType::const_iterator it2 = 
+            MFUnrecChildNodePtr::const_iterator it2 = 
                 (*mfit)->getMFChildren()->begin();
-            Node::ChildFieldType::const_iterator en2 = 
+            MFUnrecChildNodePtr::const_iterator en2 = 
                 (*mfit)->getMFChildren()->end  ();
             
             bool empty=true;
@@ -406,8 +406,8 @@ void MergeGraphOp::processGroups(NodePtrConst node)
 
 void MergeGraphOp::processTransformations(NodePtrConst node)
 {
-    Node::ChildFieldType::const_iterator mfit = node->getMFChildren()->begin();
-    Node::ChildFieldType::const_iterator mfen = node->getMFChildren()->end  ();
+    MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
+    MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
     std::vector<NodePtr> toAdd;
     std::vector<NodePtr> toSub;
     
@@ -426,9 +426,9 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
                 //try to apply it to children geometries
                 //move all "moveable" children one level up
                 //if empty after that, delete it
-                Node::ChildFieldType::const_iterator it2 = 
+                MFUnrecChildNodePtr::const_iterator it2 = 
                     (*mfit)->getMFChildren()->begin();
-                Node::ChildFieldType::const_iterator en2 = 
+                MFUnrecChildNodePtr::const_iterator en2 = 
                     (*mfit)->getMFChildren()->end  ();
                 
                 for ( ; it2 != en2; ++it2 )
@@ -608,8 +608,8 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
 
 void MergeGraphOp::processGeometries(NodePtrConst node)
 {
-    Node::ChildFieldType::const_iterator mfit = node->getMFChildren()->begin();
-    Node::ChildFieldType::const_iterator mfen = node->getMFChildren()->end  ();
+    MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
+    MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
 
     std::vector<NodePtr     > toSub;
     std::vector<NodeUnrecPtr> toAdd;
@@ -637,7 +637,7 @@ void MergeGraphOp::processGeometries(NodePtrConst node)
             if (!special && !inSubList)
             {
                 //ok, try
-                Node::ChildFieldType::const_iterator it2=mfit+1;
+                MFUnrecChildNodePtr::const_iterator it2=mfit+1;
                 GeometryPtr new_geo=NullFC;
                 for ( ; it2!=mfen; ++it2)
                 {

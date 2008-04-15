@@ -216,14 +216,6 @@ class PointerMFieldCommon : public PointerMFieldBase
     void operator =(const Self &other);
 };
 
-template <class LHSAccessHandlerT,
-          Int32 LHSNamespaceI,
-          class RHSAccessHandlerT,
-          Int32 RHSNamespaceI     >
-bool operator==(
-    PointerMFieldCommon<LHSAccessHandlerT, LHSNamespaceI> const &lhs,
-    PointerMFieldCommon<RHSAccessHandlerT, RHSNamespaceI> const &rhs ); 
-
 OSG_END_NAMESPACE
 
 #include "OSGPointerMFieldCommon.inl"

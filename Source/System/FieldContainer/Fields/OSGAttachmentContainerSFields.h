@@ -43,26 +43,26 @@
 #endif
 
 #include "OSGAttachmentContainerFieldTraits.h"
-#include "OSGFieldContainerPtrSField.h"
+#include "OSGPointerSField.h"
 
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef FieldContainerPtrSField<
+typedef PointerSField<
           AttachmentContainerPtr,
           RecordedRefCountPolicy     > SFRecAttachmentContainerPtr;
 
-typedef FieldContainerPtrSField<
+typedef PointerSField<
           AttachmentContainerPtr,
           UnrecordedRefCountPolicy   > SFUnrecAttachmentContainerPtr;
 
-typedef FieldContainerPtrSField<
+typedef PointerSField<
           AttachmentContainerPtr,
           WeakRefCountPolicy         > SFWeakAttachmentContainerPtr;
 
-typedef FieldContainerPtrSField<
+typedef PointerSField<
           AttachmentContainerPtr,
           NoRefCountPolicy           > SFUncountedAttachmentContainerPtr;
 

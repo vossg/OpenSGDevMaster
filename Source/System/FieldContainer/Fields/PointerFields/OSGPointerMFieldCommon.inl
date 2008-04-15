@@ -506,23 +506,4 @@ void PointerMFieldCommon<AccessHandlerT,
     }
 }
 
-
-/*-------------------------------------------------------------------------*/
-/* Free functions                                                          */
-
-template <class LHSAccessHandlerT,
-          Int32 LHSNamespaceI,
-          class RHSAccessHandlerT,
-          Int32 RHSNamespaceI     >
-inline bool
-    operator==(
-        PointerMFieldCommon<LHSAccessHandlerT, LHSNamespaceI> const &lhs,
-        PointerMFieldCommon<RHSAccessHandlerT, RHSNamespaceI> const &rhs )
-{
-    return lhs.size() == rhs.size() &&
-        std::equal(lhs.getRawStore().begin(),
-                   lhs.getRawStore().end  (),
-                   rhs.getRawStore().begin() );
-}
-
 OSG_END_NAMESPACE

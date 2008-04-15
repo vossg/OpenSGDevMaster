@@ -366,9 +366,9 @@ void TileLoadBalancer::updateSubtree(NodePtrConstArg &node,TileGeometryLoadMapT 
         }
     }
     // handle all childs
-    for(Node::ChildFieldType::const_iterator n = node->getMFChildren()->begin();
-                                             n !=node->getMFChildren()->end();
-                                           ++n)
+    for(MFUnrecChildNodePtr::const_iterator n = node->getMFChildren()->begin();
+                                            n !=node->getMFChildren()->end();
+                                          ++n)
     {
         updateSubtree(*n,loadMap);
     }

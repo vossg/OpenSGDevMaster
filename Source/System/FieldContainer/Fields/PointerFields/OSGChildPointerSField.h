@@ -94,6 +94,12 @@ class ChildPointerSField :
 
     typedef typename SFieldTraits::ParentType                ParentT;
 
+    // handles
+    typedef EditFCPtrSFieldHandle<Self                  > EditHandle;
+    typedef boost::shared_ptr    <EditHandle            > EditHandlePtr;
+
+    typedef GetFCPtrSFieldHandle <Self                  > GetHandle;
+    typedef boost::shared_ptr    <GetHandle             > GetHandlePtr;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

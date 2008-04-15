@@ -121,11 +121,11 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \{                                                                 */
 
     void updateParameters(      
-              Window                   *win,
-        const ShaderParameterFieldType &parameters,
-              bool                      useProgram       = true,
-              bool                      force            = false,
-              bool                      keepProgramActive=false);
+              Window                         *win,
+        const MFUnrecChildShaderParameterPtr &parameters,
+              bool                            useProgram       = true,
+              bool                            force            = false,
+              bool                            keepProgramActive=false);
     
 
     void updateProgramParameters(Window *win);
@@ -135,8 +135,8 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                         const ShaderParameterPtr &parameter);
 
     void updateParameterLocations(
-              Window                   *win,
-        const ShaderParameterFieldType &parameters);
+              Window                         *win,
+        const MFUnrecChildShaderParameterPtr &parameters);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

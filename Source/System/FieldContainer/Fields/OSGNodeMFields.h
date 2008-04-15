@@ -43,30 +43,25 @@
 #endif
 
 #include "OSGNodeFieldTraits.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerMField.h"
 
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef FieldContainerPtrMField<NodePtr, 
-                                RecordedRefCountPolicy  > MFRecNodePtr;
-typedef FieldContainerPtrMField<NodePtr, 
-                                UnrecordedRefCountPolicy> MFUnrecNodePtr;
-typedef FieldContainerPtrMField<NodePtr, 
-                                WeakRefCountPolicy      > MFWeakNodePtr;
-typedef FieldContainerPtrMField<NodePtr, 
-                                NoRefCountPolicy        > MFUncountedNodePtr;
+typedef PointerMField     <NodePtr, 
+                           RecordedRefCountPolicy  > MFRecNodePtr;
+typedef PointerMField     <NodePtr, 
+                           UnrecordedRefCountPolicy> MFUnrecNodePtr;
+typedef PointerMField     <NodePtr, 
+                           WeakRefCountPolicy      > MFWeakNodePtr;
+typedef PointerMField     <NodePtr, 
+                           NoRefCountPolicy        > MFUncountedNodePtr;
 
-typedef FieldContainerPtrChildMField<
-          NodePtr, 
-          UnrecordedRefCountPolicy,
-          1                       > MFUnrecNodeChildNodePtr;
-
-typedef MFUnrecNodeChildNodePtr MFUnrecChildNodePtr;
-
-//typedef MFNodePtr MFRecNodePtr;
+typedef ChildPointerMField<NodePtr, 
+                           UnrecordedRefCountPolicy,
+                           1                       > MFUnrecChildNodePtr;
 
 #endif
 

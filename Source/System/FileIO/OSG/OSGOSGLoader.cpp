@@ -208,7 +208,7 @@ void OSGLoader::initFieldTypeMapper(void)
 
     setIntExtMapping(SFUnrecNodePtr::getClassType().getId(),
                      ScanParseSkel::OSGsfNode);
-    setIntExtMapping(Node::ChildFieldType::getClassType().getId(),
+    setIntExtMapping(MFUnrecChildNodePtr::getClassType().getId(),
                      ScanParseSkel::OSGmfNode);
 
 

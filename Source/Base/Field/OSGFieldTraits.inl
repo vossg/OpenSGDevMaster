@@ -224,11 +224,7 @@ EditFieldHandlePtr
                      RefCountPolicy,
                      eFieldClass   >::createEditHandler(Field *pField)
 {
-    HandledField *pTypedField = dcast(pField);
-
-    EditHandlePtr returnValue(new EditHandle(pTypedField, this));
-
-    return returnValue;
+    return CreateEditHandler::createHandler(pField, this);
 }
 
 

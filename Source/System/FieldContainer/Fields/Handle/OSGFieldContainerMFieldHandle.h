@@ -206,7 +206,7 @@ class EditFCPtrMFieldHandle :
     typedef EditMFieldHandle<FieldContainerPtrMFieldBase> Inherited;
 
 
-    typedef boost::function<void (typename FieldT::const_reference)> AddMethod;
+    typedef boost::function<void (typename FieldT::const_value)> AddMethod;
 
     AddMethod _fAddMethod;
 

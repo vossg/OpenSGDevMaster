@@ -1087,7 +1087,7 @@ EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
     editSField(@!field.Name!@FieldMask);
 @@endif // field.isMField
 @@else // !field.noAccess
-    @!field.CARD!@@!field.FieldTypeCaps!@::EditHandlePtr returnValue;
+    EditFieldHandlePtr returnValue;
 @@endif
 
     return returnValue;
@@ -1416,13 +1416,13 @@ DataType FieldTraits<@!Classname!@Ptr>::_type("@!Classname!@Ptr", "@!Parent!@Ptr
 OSG_FIELDTRAITS_GETTYPE(@!Classname!@Ptr)
 
     @@if SFPointerField
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            @!Classname!@Ptr, 
                            0);
     @@endif // SFPointerField
 
     @@if MFPointerField
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            @!Classname!@Ptr, 
                            0);
     @@endif // MFPointerField
@@ -1437,7 +1437,7 @@ DataType &FieldTraits< @!Classname!@Ptr, 1 >::getType(void)
 @@endif
 @@if ChildSFields
 
-OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       @!Classname!@Ptr,       
                       UnrecordedRefCountPolicy,  
                       1);
@@ -1445,7 +1445,7 @@ OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
 @@endif
 @@if ChildMFields
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       @!Classname!@Ptr,       
                       UnrecordedRefCountPolicy,  
                       1);

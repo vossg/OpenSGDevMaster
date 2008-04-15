@@ -65,8 +65,8 @@
 #include "OSGDynamicAttachmentMixin.h"
 #include "OSGFieldContainerFieldTraits.h"
 
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 #include "OSGRefCountPolicies.h"
 
@@ -148,9 +148,8 @@ struct FieldTraits<ImageGenericAttPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef 
-  FieldContainerPtrSField<ImageGenericAttPtr,
-                          UnrecordedRefCountPolicy> SFUnrecImageGenericAttPtr;
+typedef PointerSField<ImageGenericAttPtr,
+                      UnrecordedRefCountPolicy> SFUnrecImageGenericAttPtr;
 #endif
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -160,9 +159,8 @@ typedef
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef 
-  FieldContainerPtrMField<ImageGenericAttPtr,
-                          UnrecordedRefCountPolicy> MFUnrecImageGenericAttPtr;
+typedef PointerMField<ImageGenericAttPtr,
+                      UnrecordedRefCountPolicy> MFUnrecImageGenericAttPtr;
 #endif
 
 OSG_END_NAMESPACE

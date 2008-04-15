@@ -558,9 +558,9 @@ void OBJSceneFileType::write(const NodePtr &node,
         tIndex += tCount;
         nIndex += nCount;
     }
-    for(Node::ChildFieldType::const_iterator nI =node->getMFChildren()->begin();
-                                             nI!=node->getMFChildren()->end();
-                                           ++nI)
+    for(MFUnrecChildNodePtr::const_iterator nI =node->getMFChildren()->begin();
+                                            nI!=node->getMFChildren()->end();
+                                          ++nI)
     {
         write((*nI),os,pIndex,nIndex,tIndex);
     }

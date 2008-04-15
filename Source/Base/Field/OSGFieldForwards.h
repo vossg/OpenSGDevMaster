@@ -61,32 +61,32 @@ class MField;
 template<class    ValueT, 
          typename RefCountPolicy,
          Int32    iNamespace>
-class FieldContainerPtrSField;
+class PointerSField;
 
 template<class    ValueT, 
          typename RefCountPolicy,
          Int32    iNamespace>
-class FieldContainerPtrMField;
+class PointerMField;
 
 template<class    ValueT, 
          typename RefCountPolicy,
          Int32    iNamespace>
-class FieldContainerPtrParentSField;
+class ParentPointerSField;
 
 template<class    ValueT, 
          typename RefCountPolicy,
          Int32    iNamespace>
-class FieldContainerPtrParentMField;
+class ParentPointerMField;
 
 template<class    ValueT, 
          typename RefCountPolicy, 
          Int32    iNamespace    >
-class FieldContainerPtrChildSField;
+class ChildPointerSField;
 
 template<class    ValueT, 
          typename RefCountPolicy, 
          Int32    iNamespace    >
-class FieldContainerPtrChildMField;
+class ChildPointerMField;
 
 class FieldDescriptionBase;
 class ReflexiveContainer;

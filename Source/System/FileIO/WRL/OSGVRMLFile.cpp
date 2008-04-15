@@ -699,7 +699,7 @@ void VRMLFile::initIntExtFieldTypeMapper(void)
     Self::setIntExtMapping(SFUnrecNodePtr::getClassType().getId(),
                            ScanParseSkel::OSGsfNode);
 
-    Self::setIntExtMapping(Node::ChildFieldType::getClassType().getId(),
+    Self::setIntExtMapping(MFUnrecChildNodePtr::getClassType().getId(),
                            ScanParseSkel::OSGmfNode);
 
     /* To Base Type Mappings */

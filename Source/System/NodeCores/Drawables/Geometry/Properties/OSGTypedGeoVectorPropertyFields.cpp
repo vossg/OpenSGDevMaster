@@ -70,24 +70,24 @@ OSG_FIELDTRAITS_GETTYPE(GeoColor4fPropertyPtr)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoPnt3fPropertyPtr, 
                            0);
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoPnt3fPropertyPtr, 
                            0);
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoVec3fPropertyPtr, 
                            0);
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoVec3fPropertyPtr, 
                            0);
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoColor4fPropertyPtr, 
                            0);
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoColor4fPropertyPtr, 
                            0);
 

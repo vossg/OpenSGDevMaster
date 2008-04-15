@@ -65,17 +65,17 @@ OSG_FIELDTRAITS_GETTYPE(GeoUInt32PropertyPtr)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoUInt8PropertyPtr, 
                            0);
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoUInt8PropertyPtr, 
                            0);
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoUInt32PropertyPtr, 
                            0);
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoUInt32PropertyPtr, 
                            0);
 

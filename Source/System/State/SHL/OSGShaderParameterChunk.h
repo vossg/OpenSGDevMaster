@@ -70,9 +70,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
 
     typedef ShaderParameterChunkBase Inherited;
 
-    typedef 
-        MFUnrecFieldContainerChildShaderParameterPtr ShaderParameterFieldType;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */

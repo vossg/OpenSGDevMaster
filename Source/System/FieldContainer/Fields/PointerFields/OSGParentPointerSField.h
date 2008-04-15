@@ -96,17 +96,17 @@ class ParentPointerSField :
                                 FieldType::ParentPtrField> Description;
 
     // handles
-//    typedef          EditParentPointerSFieldHandle<Self>      EditHandle;
-//    typedef typename EditParentPointerSFieldHandle<Self>::Ptr EditHandlePtr;
-    
-//    typedef          GetParentPointerSFieldHandle <Self>      GetHandle;
-//    typedef typename GetParentPointerSFieldHandle <Self>::Ptr GetHandlePtr;
+    typedef void                                          EditHandle;
+    typedef boost::shared_ptr    <EditHandle            > EditHandlePtr;
+
+    typedef GetFCPtrSFieldHandle <Self                  > GetHandle;
+    typedef boost::shared_ptr    <GetHandle             > GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
-//    typedef          EditParentPointerSFieldHandle<Self>      DynamicEditHandle;
+//    typedef          EditParentPointerSFieldHandle<Self> DynamicEditHandle;
 //    typedef typename EditParentPointerSFieldHandle<Self>::Ptr DynamicEditHandlePtr;
     
-//    typedef          GetParentPointerSFieldHandle <Self>      DynamicGetHandle;
+//    typedef          GetParentPointerSFieldHandle <Self>   DynamicGetHandle;
 //    typedef typename GetParentPointerSFieldHandle <Self>::Ptr DynamicGetHandlePtr;
     
     /*! \}                                                                 */

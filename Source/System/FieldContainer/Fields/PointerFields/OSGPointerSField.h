@@ -98,11 +98,11 @@ class PointerSField :
 
     // handles
 
-//    typedef EditFCPtrSFieldHandle<Self                  > EditHandle;
-//    typedef boost::shared_ptr    <EditHandle            > EditHandlePtr;
+    typedef EditFCPtrSFieldHandle<Self                  > EditHandle;
+    typedef boost::shared_ptr    <EditHandle            > EditHandlePtr;
 
-//    typedef GetFCPtrSFieldHandle <Self                  > GetHandle;
-//    typedef boost::shared_ptr    <GetHandle             > GetHandlePtr;
+    typedef GetFCPtrSFieldHandle <Self                  > GetHandle;
+    typedef boost::shared_ptr    <GetHandle             > GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
 //    typedef          EditPointerSFieldHandle<Self>      DynamicEditHandle;

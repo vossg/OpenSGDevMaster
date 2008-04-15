@@ -500,29 +500,29 @@ class FieldDescription : public DescT::FieldDescParent
 
     typedef typename
       boost::mpl::if_<boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
-              FieldContainerPtrSField<typename DescT::ValueType,
-                                      RefCountPolicy,
-                                      DescT::iNamespace>,
-              FieldContainerPtrMField<typename DescT::ValueType,
-                                      RefCountPolicy,
-                                      DescT::iNamespace> >::type HandledPField;
+              PointerSField<typename DescT::ValueType,
+                                     RefCountPolicy,
+                                     DescT::iNamespace>,
+              PointerMField<typename DescT::ValueType,
+                                     RefCountPolicy,
+                                     DescT::iNamespace> >::type HandledPField;
 
     typedef typename
       boost::mpl::if_<boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
-              FieldContainerPtrParentSField<typename DescT::ValueType,
-                                            RefCountPolicy,
-                                            DescT::iNamespace>,
-              FieldContainerPtrParentMField<typename DescT::ValueType,
-                                            RefCountPolicy,
-                                            DescT::iNamespace> 
+              ParentPointerSField<typename DescT::ValueType,
+                                           RefCountPolicy,
+                                           DescT::iNamespace>,
+              ParentPointerMField<typename DescT::ValueType,
+                                           RefCountPolicy,
+                                           DescT::iNamespace> 
               >::type HandledPPField;
 
     typedef typename
       boost::mpl::if_<boost::mpl::bool_<(eFieldCard == FieldType::SingleField)>,
-              FieldContainerPtrChildSField<typename DescT::ValueType,
+              ChildPointerSField<typename DescT::ValueType,
                                            RefCountPolicy,
                                            DescT::iNamespace>,
-              FieldContainerPtrChildMField<typename DescT::ValueType,
+              ChildPointerMField<typename DescT::ValueType,
                                            RefCountPolicy,
                                            DescT::iNamespace> 
               >::type HandledChField;
@@ -584,11 +584,41 @@ class FieldDescription : public DescT::FieldDescParent
         }
     };
 
+    struct DefaultCreateEditHandler
+    {
+        static EditFieldHandlePtr createHandler(Field            *pField,
+                                                FieldDescription *pDesc )
+        {
+            HandledField *pTypedField = pDesc->dcast(pField);
+            
+            EditHandlePtr returnValue(new EditHandle(pTypedField, pDesc));
+            
+            return returnValue;
+        }
+    };
+
+    struct ParentCreateEditHandler
+    {
+        static EditFieldHandlePtr createHandler(Field            *pField,
+                                                FieldDescription *pDesc )
+        {
+            EditFieldHandlePtr returnValue;
+            
+            return returnValue;
+        }
+    };
+
     typedef typename
         boost::mpl::if_<
               boost::mpl::bool_<(eFieldClass == FieldType::ChildPtrField)>,
               ChildFieldCreateHandler,
               DefaultFieldCreateHandler>::type FieldCreateHandler;
+
+    typedef typename
+        boost::mpl::if_<
+              boost::mpl::bool_<(eFieldClass == FieldType::ParentPtrField)>,
+              ParentCreateEditHandler,
+              DefaultCreateEditHandler>::type CreateEditHandler;
 
     typedef typename
         boost::mpl::if_<

@@ -125,19 +125,4 @@ void PointerSFieldCommon<AccessHandlerT,
 }
 #endif
 
-/*-------------------------------------------------------------------------*/
-/* Free functions                                                          */
-
-template <class LHSAccessHandlerT,
-          Int32 LHSNamespaceI,
-          class RHSAccessHandlerT,
-          Int32 RHSNamespaceI     >
-inline bool
-    operator==(
-        PointerSFieldCommon<LHSAccessHandlerT, LHSNamespaceI> const &lhs,
-        PointerSFieldCommon<RHSAccessHandlerT, RHSNamespaceI> const &rhs )
-{
-    return lhs.ptrStoreGet() == rhs.ptrStoreGet();
-}
-
 OSG_END_NAMESPACE

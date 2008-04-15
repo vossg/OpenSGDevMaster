@@ -106,8 +106,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                       Typedefs                               */
     /*! \{                                                                 */
 
-    typedef MFUnrecFieldContainerChildViewportPtr ViewportFieldType;
-
     typedef boost::function<void (DrawEnv *, UInt32, GLObjectStatusE)> 
                                                         GLObjectFunctor;
 

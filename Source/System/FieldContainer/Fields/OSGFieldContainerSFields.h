@@ -46,9 +46,9 @@
 
 #include "OSGFieldContainerFieldTraits.h"
 
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrParentSField.h"
-#include "OSGFieldContainerPtrChildSField.h"
+#include "OSGPointerSField.h"
+#include "OSGParentPointerSField.h"
+#include "OSGChildPointerSField.h"
 
 #include "OSGFieldContainerSFieldHandle.h"
 
@@ -59,21 +59,17 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup  */
 
-typedef 
-  FieldContainerPtrSField<FieldContainerPtr,
-                          RecordedRefCountPolicy  > SFRecFieldContainerPtr;
+typedef PointerSField<FieldContainerPtr,
+                      RecordedRefCountPolicy  > SFRecFieldContainerPtr;
 
-typedef 
-  FieldContainerPtrSField<FieldContainerPtr,
-                          UnrecordedRefCountPolicy> SFUnrecFieldContainerPtr;
+typedef PointerSField<FieldContainerPtr,
+                      UnrecordedRefCountPolicy> SFUnrecFieldContainerPtr;
 
-typedef 
-  FieldContainerPtrSField<FieldContainerPtr,
-                          WeakRefCountPolicy      > SFWeakFieldContainerPtr;
+typedef PointerSField<FieldContainerPtr,
+                      WeakRefCountPolicy      > SFWeakFieldContainerPtr;
 
-typedef 
-  FieldContainerPtrSField<FieldContainerPtr,
-                          NoRefCountPolicy      > SFUncountedFieldContainerPtr;
+typedef PointerSField<FieldContainerPtr,
+                      NoRefCountPolicy        > SFUncountedFieldContainerPtr;
 
 #endif
 
@@ -81,15 +77,14 @@ typedef
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef 
-    FieldContainerPtrParentSField<FieldContainerPtr, 
-                                  NoRefCountPolicy,
-                                  1                > SFParentFieldContainerPtr;
+typedef ParentPointerSField<FieldContainerPtr, 
+                            NoRefCountPolicy,
+                            1                > SFParentFieldContainerPtr;
 #endif
 
 OSG_END_NAMESPACE
 
-#include "OSGFieldContainerParentSFieldHandle.h"
+//#include "OSGFieldContainerParentSFieldHandle.h"
 
 #ifndef OSG_COMPILECONTAINERFIELDINST
 #include "OSGFieldContainerSFields.inl"

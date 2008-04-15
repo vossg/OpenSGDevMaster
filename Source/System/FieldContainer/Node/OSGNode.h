@@ -75,8 +75,6 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     typedef AttachmentContainer                    Inherited;
     typedef AttachmentContainer                    ParentContainer;
 
-    typedef MFUnrecNodeChildNodePtr                ChildFieldType;
-
     OSG_GEN_INTERNALPTR(Node);
 
     typedef Inherited::TypeObject                  TypeObject;
@@ -277,15 +275,15 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-          SFDynamicVolume                       *editSFVolume  (void);
-    const SFDynamicVolume                       *getSFVolume   (void) const;
+          SFDynamicVolume         *editSFVolume  (void);
+    const SFDynamicVolume         *getSFVolume   (void) const;
 
-          SFUInt32                              *editSFTravMask(void);
-    const SFUInt32                              *getSFTravMask (void) const;
+          SFUInt32                *editSFTravMask(void);
+    const SFUInt32                *getSFTravMask (void) const;
 
-    const SFUncountedNodePtr                    *getSFParent   (void) const;
-    const SFUnrecFieldContainerChildNodeCorePtr *getSFCore     (void) const;
-    const MFUnrecNodeChildNodePtr               *getMFChildren (void) const;
+    const SFUncountedNodePtr      *getSFParent   (void) const;
+    const SFUnrecChildNodeCorePtr *getSFCore     (void) const;
+    const MFUnrecChildNodePtr     *getMFChildren (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -306,17 +304,17 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFDynamicVolume                       _sfVolume;
+    SFDynamicVolume         _sfVolume;
 
-    SFUInt32                              _sfTravMask;
+    SFUInt32                _sfTravMask;
 
-    SFUncountedNodePtr                    _sfParent;
-    MFUnrecNodeChildNodePtr               _mfChildren;
+    SFUncountedNodePtr      _sfParent;
+    MFUnrecChildNodePtr     _mfChildren;
 
-    SFUnrecFieldContainerChildNodeCorePtr _sfCore;
+    SFUnrecChildNodeCorePtr _sfCore;
 
 #ifdef OSG_1_COMPAT
-    UInt8           _occlusionMask;
+    UInt8                   _occlusionMask;
 #endif
 
     /*! \}                                                                 */

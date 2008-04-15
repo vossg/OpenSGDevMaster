@@ -174,26 +174,26 @@ struct FieldTraits<NodeCorePtr, 1> :
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecNodeChildNodeCorePtr"; 
+    return "SFRecChildNodeCorePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 
                          1          >::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecNodeChildNodeCorePtr"; 
+    return "SFUnrecChildNodeCorePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakNodeChildNodeCorePtr"; 
+    return "SFWeakChildNodeCorePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdNodeChildNodeCorePtr"; 
+    return "SFUnrefdChildNodeCorePtr"; 
 }
 
 
@@ -201,26 +201,26 @@ const Char8 *FieldTraits<NodeCorePtr, 1>::getSName<NoRefCountPolicy>(void)
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 1>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecNodeChildNodeCorePtr"; 
+    return "MFRecChildNodeCorePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 
                          1          >::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecNodeChildNodeCorePtr"; 
+    return "MFUnrecChildNodeCorePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 1>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakNodeChildNodeCorePtr"; 
+    return "MFWeakChildNodeCorePtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<NodeCorePtr, 1>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdNodeChildNodeCorePtr"; 
+    return "MFUnrefdChildNodeCorePtr"; 
 }
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)

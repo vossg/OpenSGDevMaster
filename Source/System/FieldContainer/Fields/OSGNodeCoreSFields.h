@@ -43,33 +43,27 @@
 #endif
 
 #include "OSGNodeCoreFieldTraits.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrChildSField.h"
+#include "OSGPointerSField.h"
+#include "OSGChildPointerSField.h"
 
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef FieldContainerPtrSField<NodeCorePtr, 
-                                RecordedRefCountPolicy  > SFRecNodeCorePtr;
-typedef FieldContainerPtrSField<NodeCorePtr, 
-                                UnrecordedRefCountPolicy> SFUnrecNodeCorePtr;
-typedef FieldContainerPtrSField<NodeCorePtr, 
-                                WeakRefCountPolicy      > SFWeakNodeCorePtr;
-typedef FieldContainerPtrSField<NodeCorePtr, 
-                                NoRefCountPolicy        > SFUncountedNodeCorePtr;
+typedef PointerSField     <NodeCorePtr, 
+                           RecordedRefCountPolicy  > SFRecNodeCorePtr;
+typedef PointerSField     <NodeCorePtr, 
+                           UnrecordedRefCountPolicy> SFUnrecNodeCorePtr;
+typedef PointerSField     <NodeCorePtr, 
+                           WeakRefCountPolicy      > SFWeakNodeCorePtr;
+typedef PointerSField     <NodeCorePtr, 
+                           NoRefCountPolicy        > SFUncountedNodeCorePtr;
 
+typedef ChildPointerSField<NodeCorePtr, 
+                           UnrecordedRefCountPolicy,
+                           1                       > SFUnrecChildNodeCorePtr;
 
-
-typedef FieldContainerPtrChildSField<
-          NodeCorePtr, 
-          UnrecordedRefCountPolicy,
-          1                       > SFUnrecFieldContainerChildNodeCorePtr;
-
-typedef SFUnrecFieldContainerChildNodeCorePtr SFUnrecChildNodeCorePtr;
-
-//typedef SFNodeCorePtr SFRecNodeCorePtr;
 #endif
 
 OSG_END_NAMESPACE

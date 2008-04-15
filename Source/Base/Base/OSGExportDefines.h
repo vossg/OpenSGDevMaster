@@ -302,39 +302,39 @@ const Char8 *FieldTraits<                                  \
 }
 
 
-#define OSG_FIELDCONTAINER_FIELDS_INST(PTRCLASS)                           \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrMField<PTRCLASS,                                        \
-                          RecordedRefCountPolicy  > MFRec##PTRCLASS;       \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrMField<PTRCLASS,                                        \
-                          UnrecordedRefCountPolicy> MFUnrec##PTRCLASS;     \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrMField<PTRCLASS,                                        \
-                          WeakRefCountPolicy      > MFWeak##PTRCLASS;      \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrMField<PTRCLASS,                                        \
-                          NoRefCountPolicy        > MFUncounted##PTRCLASS; \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrSField<PTRCLASS,                                        \
-                          RecordedRefCountPolicy  > SFRec##PTRCLASS;       \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrSField<PTRCLASS,                                        \
-                          UnrecordedRefCountPolicy> SFUnrec##PTRCLASS;     \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrSField<PTRCLASS,                                        \
-                          WeakRefCountPolicy      > SFWeak##PTRCLASS;      \
-                                                                           \
-typedef                                                                    \
-  FieldContainerPtrSField<PTRCLASS,                                        \
-                          NoRefCountPolicy        > SFUncounted##PTRCLASS
+#define OSG_FIELDCONTAINER_FIELDS_INST(PTRCLASS)                 \
+                                                                 \
+typedef                                                          \
+  PointerMField<PTRCLASS,                                        \
+                RecordedRefCountPolicy  > MFRec##PTRCLASS;       \
+                                                                 \
+typedef                                                          \
+  PointerMField<PTRCLASS,                                        \
+                UnrecordedRefCountPolicy> MFUnrec##PTRCLASS;     \
+                                                                 \
+typedef                                                          \
+  PointerMField<PTRCLASS,                                        \
+                WeakRefCountPolicy      > MFWeak##PTRCLASS;      \
+                                                                 \
+typedef                                                          \
+  PointerMField<PTRCLASS,                                        \
+                NoRefCountPolicy        > MFUncounted##PTRCLASS; \
+                                                                 \
+typedef                                                          \
+  PointerSField<PTRCLASS,                                        \
+                RecordedRefCountPolicy  > SFRec##PTRCLASS;       \
+                                                                 \
+typedef                                                          \
+  PointerSField<PTRCLASS,                                        \
+                UnrecordedRefCountPolicy> SFUnrec##PTRCLASS;     \
+                                                                 \
+typedef                                                          \
+  PointerSField<PTRCLASS,                                        \
+                WeakRefCountPolicy      > SFWeak##PTRCLASS;      \
+                                                                 \
+typedef                                                          \
+  PointerSField<PTRCLASS,                                        \
+                NoRefCountPolicy        > SFUncounted##PTRCLASS
 
 
 #endif /* _OSGEXPORTDEFINES_H_ */

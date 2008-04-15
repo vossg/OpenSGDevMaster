@@ -159,9 +159,9 @@ class Field(FCDElement):
                 
             Type          = Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
-            FieldType     = "Unrec" + self["childparenttype"] + "Child" + TypeRaw + "Ptr";
+            FieldType     = "Unrec" + "Child" + TypeRaw + "Ptr";
             FieldTypeNS   = TypeNS;
-            FieldTypeCaps = "Unrec" + self["childparenttype"] + "Child" + TypeRawCaps + "Ptr";
+            FieldTypeCaps = "Unrec" + "Child" + TypeRawCaps + "Ptr";
             
         elif self.getFCD("category") == "parentpointer":
             self["category"]        = "pointer";

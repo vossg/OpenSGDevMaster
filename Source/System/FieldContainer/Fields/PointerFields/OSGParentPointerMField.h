@@ -376,11 +376,12 @@ class ParentPointerMField :
                          RefCountPolicy               > AccessHandler;
 
     // handles
-//    typedef          EditParentPointerMFieldHandle<Self>      EditHandle;
-//    typedef typename EditParentPointerMFieldHandle<Self>::Ptr EditHandlePtr;
-    
-//    typedef          GetParentPointerMFieldHandle <Self>      GetHandle;
-//    typedef typename GetParentPointerMFieldHandle <Self>::Ptr GetHandlePtr;
+    typedef          void                                    EditHandle;
+    typedef          boost::shared_ptr      <EditHandle    > EditHandlePtr;
+
+    typedef          GetFCPtrMFieldHandle   <Self          > GetHandle;
+    typedef          boost::shared_ptr      <GetHandle     > GetHandlePtr;
+
     
     // handles for dynamic fields -- XXX TODO
 //    typedef          EditParentPointerMFieldHandle<Self>      DynEditHandle;

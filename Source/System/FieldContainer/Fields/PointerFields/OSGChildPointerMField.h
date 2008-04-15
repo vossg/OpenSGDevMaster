@@ -465,11 +465,11 @@ class ChildPointerMField :
 
                                      
     // handles
-//    typedef          EditPointerMFieldHandle<Self>      EditHandle;
-//    typedef typename EditPointerMFieldHandle<Self>::Ptr EditHandlePtr;
-    
-//    typedef          GetPointerMFieldHandle <Self>      GetHandle;
-//    typedef typename GetPointerMFieldHandle <Self>::Ptr GetHandlePtr;
+    typedef          EditFCPtrMFieldHandle  <Self          > EditHandle;
+    typedef          boost::shared_ptr      <EditHandle    > EditHandlePtr;
+
+    typedef          GetFCPtrMFieldHandle   <Self          > GetHandle;
+    typedef          boost::shared_ptr      <GetHandle     > GetHandlePtr;
     
     // handles for dynamic fields -- XXX TODO
 //    typedef          EditPointerMFieldHandle<Self>      DynamicEditHandle;

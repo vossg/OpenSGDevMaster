@@ -116,69 +116,69 @@ DataType &FieldTraits< NodePtr, 1 >::getType(void)
 
 // FieldContainer
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FieldContainerPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FieldContainerPtr, 
                            0);
 
 // Node
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            NodePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            NodePtr, 
                            0);
 
 // NodeCore
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            NodeCorePtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            NodeCorePtr, 
                            0);
 
 // AttachmentContainer
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            AttachmentContainerPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            AttachmentContainerPtr, 
                            0);
 
 // FieldContainerAttachment
 
-OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FieldContainerAttachmentPtr, 
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FieldContainerAttachmentPtr, 
                            0);
 
 // FieldContainerChildNodeCore
 
 
-OSG_EXPORT_PTR_SFIELD(FieldContainerPtrChildSField,
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       NodeCorePtr,
                       UnrecordedRefCountPolicy, 
                       1);
 
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       NodeCorePtr,
                       UnrecordedRefCountPolicy, 
                       1);
 
 // NodeChildNode
-OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       NodePtr,
                       UnrecordedRefCountPolicy, 
                       1);
@@ -186,20 +186,20 @@ OSG_EXPORT_PTR_MFIELD(FieldContainerPtrChildMField,
 
 // ParentFieldContainer
 
-OSG_SFIELDTYPE_INST(FieldContainerPtrParentSField,
+OSG_SFIELDTYPE_INST(ParentPointerSField,
                     FieldContainerPtr, 
                     NoRefCountPolicy,
                     1);
-OSG_MFIELDTYPE_INST(FieldContainerPtrParentMField, 
+OSG_MFIELDTYPE_INST(ParentPointerMField, 
                     FieldContainerPtr, 
                     NoRefCountPolicy,
                     1);
 
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentSField, 
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField, 
                          FieldContainerPtr, 
                          NoRefCountPolicy,
                          1);
-OSG_FIELD_DLLEXPORT_DEF3(FieldContainerPtrParentMField, 
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField, 
                          FieldContainerPtr, 
                          NoRefCountPolicy,
                          1);
