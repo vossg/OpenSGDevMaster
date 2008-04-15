@@ -38,7 +38,9 @@ for (lib_name, library) in lib_map.iteritems():
                                    osg_lib_suffix=shared_lib_suffix)
 
    dep_libs = [l for l in config_info.getLibs() if l != full_lib_name]
+
    lib_env.Append(CPPPATH=config_info.getIncPath(),
+                  CXXFLAGS=config_info.getCXXFlags(),
                   LIBPATH=[inst_paths["lib_inst_combo"]] + config_info.getLibPath(),
                   LIBS=dep_libs,
                   FRAMEWORKPATH=config_info.getFrameworkPath(),
@@ -93,6 +95,7 @@ for (lib_name, library) in lib_map.iteritems():
                                       osg_lib_suffix=shared_lib_suffix)   
       test_env = build_env.Copy()
       test_env.Append(CPPPATH=library.test_cpppath + config_info.getIncPath(),
+                      CXXFLAGS=config_info.getCXXFlags(),
                       LIBPATH=library.test_libpath + [inst_paths["lib_inst_combo"]] + config_info.getLibPath(),
                       LIBS=config_info.getLibs() + library.other_test_libs,
                       FRAMEWORKPATH=config_info.getFrameworkPath(),

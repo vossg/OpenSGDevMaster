@@ -20,6 +20,7 @@ class LibraryInfo(object):
       self.test_cpppath = []         # Includedirs of libraries the tests depend on
       self.test_libpath = []         # Libpaths of libraries the tests depend on
       self.unittest_files = []       # list of source files for unit tests
+      self.cxx_flags = []
 
    def dump(self):
       """ Dump contained data to a dictionary that could be pprinted. """
@@ -40,6 +41,7 @@ class LibraryInfo(object):
       # Merge the lists but only merge in new unique entries
       for a in ["source_files","header_files","test_files","osg_dep_libs",
                 "libs","libpath","frameworks","frameworkpath","cpppath",
+                "cxx_flags",
                 "osg_test_libs","other_test_libs","test_cpppath","test_libpath","unittest_files"]:
          getattr(self,a).extend([i for i in getattr(other,a) if not i in getattr(self,a)])
  
@@ -133,5 +135,6 @@ class ConfigInfoAdapter(object):
       return self.merged_lib.frameworks
    def getFrameworkPath(self):
       return self.merged_lib.frameworkpath
- 
+   def getCXXFlags(self):
+      return self.merged_lib.cxx_flags
 

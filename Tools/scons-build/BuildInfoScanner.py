@@ -59,7 +59,8 @@ class BuildInfoScanner(object):
         self.libNameStack  = []
         self.libAttributes = ["osg_dep_libs", "libs", "frameworks", "cpppath",
                               "libpath", "frameworkpath","osg_test_libs",
-                              "other_test_libs","test_cpppath", "test_libpath"]
+                              "other_test_libs","test_cpppath",
+                              "test_libpath", "cxx_flags"]
     
     def scan(self, scanDir = ""):
         """Scan for build.info files in baseDir/scanDir keeping all file paths
@@ -123,7 +124,7 @@ class BuildInfoScanner(object):
             for attrib in self.libAttributes:
                 attribList = getattr(self.libMap[libName], attrib)
                 attribList.extend([a for a in biDict[attrib] if a not in attribList])
-        
+
         # Collect source files from all directories and put them into
         # the active library object
         testFiles     = [f for f in files if (os.path.basename(f).startswith("test") and
