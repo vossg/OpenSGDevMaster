@@ -610,7 +610,9 @@ class FieldDescription : public DescT::FieldDescParent
 
     typedef typename
         boost::mpl::if_<
-              boost::mpl::bool_<(eFieldClass == FieldType::ChildPtrField)>,
+              boost::mpl::bool_<(
+                  eFieldClass == FieldType::ChildPtrField ||
+                  eFieldClass == FieldType::ParentPtrField)>,
               ChildFieldCreateHandler,
               DefaultFieldCreateHandler>::type FieldCreateHandler;
 
