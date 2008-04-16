@@ -10,6 +10,6 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 	useLocalIncludes="false"
-    isNodeCore="true"
+    isNodeCore="false"
 >
 </FieldContainer>
