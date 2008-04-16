@@ -65,23 +65,27 @@ OSG_BEGIN_NAMESPACE
 /*! \brief create a grid geometry
  *  \ingroup SimpleGeometry
  */
-OSG_CONTRIBGUI_DLLMAPPING GeometryPtr makeGridGeo(const Real32   width,
-                                                  const Real32   depth,
-                                                  const Real32   horCellWidth,
-                                                  const Color3f &color       );
+OSG_CONTRIBGUI_DLLMAPPING 
+GeometryTransitPtr makeGridGeo(const Real32   width,
+                               const Real32   depth,
+                               const Real32   horCellWidth,
+                               const Color3f &color       );
 
 
 /*! \brief create a grid
  *  \ingroup SimpleGeometry
  */
-OSG_CONTRIBGUI_DLLMAPPING NodePtr makeGrid(const Real32   width,
-                                           const Real32   depth,
-                                           const Real32   horCellWidth,
-                                           const Color3f &color       );
+OSG_CONTRIBGUI_DLLMAPPING 
+NodeTransitPtr makeGrid(const Real32   width,
+                        const Real32   depth,
+                        const Real32   horCellWidth,
+                        const Color3f &color       );
 
-OSG_CONTRIBGUI_DLLMAPPING NodePtr makeSelection(NodePtr);
+OSG_CONTRIBGUI_DLLMAPPING 
+NodeTransitPtr makeSelection(NodePtr);
 
-OSG_CONTRIBGUI_DLLMAPPING GeometryPtr makeSelectionGeo(NodePtr);
+OSG_CONTRIBGUI_DLLMAPPING 
+GeometryTransitPtr makeSelectionGeo(NodePtr);
 
 
 /*! \brief create a coord-axis

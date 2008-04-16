@@ -225,7 +225,7 @@ static bool subRefDefaultUnlitMaterial(void);
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Stores the default material used by the Simple Geometry.
 */
-static SimpleMaterialUnrecPtr _defaultMaterial;
+static SimpleMaterialRecPtr _defaultMaterial;
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Access the default Material for Simple Geometry. Also useful whenever 
@@ -256,7 +256,7 @@ MaterialPtr getDefaultMaterial(void)
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Stores the default unlit material.
 */
-static SimpleMaterialUnrecPtr _defaultUnlitMaterial;
+static SimpleMaterialRecPtr _defaultUnlitMaterial;
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
     Access the default unlit Material. Useful whenever 

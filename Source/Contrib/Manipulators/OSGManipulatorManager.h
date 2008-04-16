@@ -53,27 +53,28 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorManager
 public:
     enum    ManipulatorType { ROTATE, SCALE, TRANSLATE };
 
-    NodePtr createManipulator(const ManipulatorType type);
-    void    changeManipulator(const ManipulatorType type);
-    bool    activate         (      NodePtr         n   );
+    NodeTransitPtr createManipulator(const ManipulatorType type);
+    void           changeManipulator(const ManipulatorType type);
+    bool           activate         (      NodePtr         n   );
     
-    void    setTarget        (const NodePtr     &value);
-    void    setViewport      (const ViewportPtr &value);
-    bool    isActive         (      void              );
+    void           setTarget        (const NodePtr     &value);
+    void           setViewport      (const ViewportPtr &value);
+    bool           isActive         (      void              );
     
-    void    mouseMove         (const Int16  x,
-                               const Int16  y);
-    void    mouseButtonPress  (const UInt16 button,
-                               const Int16  x,
-                               const Int16  y     );
-    void    mouseButtonRelease(const UInt16 button,
-                               const Int16  x,
-                               const Int16  y     );
+    void           mouseMove         (const Int16  x,
+                                      const Int16  y);
+    void           mouseButtonPress  (const UInt16 button,
+                                      const Int16  x,
+                                      const Int16  y     );
+    void           mouseButtonRelease(const UInt16 button,
+                                      const Int16  x,
+                                      const Int16  y     );
 private:
-    ManipulatorPtr  _maniC;
-    ManipulatorType _currentType;
-    NodePtr         _target;
-    ViewportPtr     _viewport;
+
+    ManipulatorUnrecPtr  _maniC;
+    ManipulatorType      _currentType;
+    NodeUnrecPtr         _target;
+    ViewportUnrecPtr     _viewport;
 };
 
 #endif // _OSGMANIPULATORMANAGER_H_

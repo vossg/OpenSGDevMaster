@@ -143,7 +143,7 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
         if ( !getParents().empty() )
         {
             //std::cout << "parent size= " << parents.getSize() << std::endl;
-            parent = dynamic_cast<NodePtr>(getParents()[0].getCPtr()); // Dangerous! multiple parents?
+            parent = dynamic_cast<NodePtr>(getParents()[0]); // Dangerous! multiple parents?
         }
         else
         {
@@ -238,9 +238,17 @@ void Manipulator::onCreate(const Manipulator* source)
 {
     Inherited::onCreate(source);
 
-    setMaterialX(SimpleMaterial::create());
-    setMaterialY(SimpleMaterial::create());
-    setMaterialZ(SimpleMaterial::create());
+    SimpleMaterialUnrecPtr pMat = SimpleMaterial::create();
+
+    setMaterialX(pMat);
+
+    pMat = SimpleMaterial::create();
+
+    setMaterialY(pMat);
+
+    pMat = SimpleMaterial::create();
+
+    setMaterialZ(pMat);
 
     SimpleMaterialPtr  simpleMat;
     GeometryPtr        geo;
@@ -248,25 +256,24 @@ void Manipulator::onCreate(const Manipulator* source)
     setExternalUpdateHandler(NULL);
 
     // add a name attachment
-    NamePtr nameN = Name::create();
+    NameUnrecPtr nameN = Name::create();
     nameN->editFieldPtr()->setValue("XManipulator");
     addAttachment(nameN);
 
     // make the axis lines
-    setAxisLinesN(makeCoordAxis(getLength()[0], 2.0, false));
-    addRef       (getAxisLinesN()                          );
+    NodeUnrecPtr pNode = makeCoordAxis(getLength()[0], 2.0, false);
+    setAxisLinesN(pNode);
 
     // make the red x-axis transform and handle
 
-    setTransXNode(Node::create());
+    pNode = Node::create();
+    setTransXNode(pNode);
     _transHandleXC = ComponentTransform::create();
-    setHandleXNode(makeHandleGeo()         );
-    setMaterialX  (SimpleMaterial::create());
 
-    addRef(getTransXNode() );
-    addRef(_transHandleXC  );
-    addRef(getHandleXNode());
-    addRef(getMaterialX()  );
+    pNode = makeHandleGeo();
+    setHandleXNode(pNode);
+    pMat = SimpleMaterial::create();
+    setMaterialX  (pMat );
 
     getTransXNode()->setCore (_transHandleXC  );
     getTransXNode()->addChild(getHandleXNode());
@@ -285,15 +292,13 @@ void Manipulator::onCreate(const Manipulator* source)
     //
     // make the green y-axis transform and handle
 
-    setTransYNode(Node::create());
+    pNode = Node::create();
+    setTransYNode(pNode);
     _transHandleYC = ComponentTransform::create();
-    setHandleYNode(makeHandleGeo());
-    setMaterialY(SimpleMaterial::create());
-
-    addRef(getTransYNode() );
-    addRef(_transHandleYC  );
-    addRef(getHandleYNode());
-    addRef(getMaterialY()  );
+    pNode = makeHandleGeo();
+    setHandleYNode(pNode);
+    pMat = SimpleMaterial::create();
+    setMaterialY(pMat);
 
     getTransYNode()->setCore (_transHandleYC  );
     getTransYNode()->addChild(getHandleYNode());
@@ -311,15 +316,13 @@ void Manipulator::onCreate(const Manipulator* source)
     //
     // make the blue z-axis transform and handle
 
-    setTransZNode(Node::create());
+    pNode = Node::create();
+    setTransZNode(pNode);
     _transHandleZC = ComponentTransform::create();
-    setHandleZNode(makeHandleGeo()         );
-    setMaterialZ  (SimpleMaterial::create());
-
-    addRef(getTransZNode() );
-    addRef(_transHandleZC  );
-    addRef(getHandleZNode());
-    addRef(getMaterialZ()  );
+    pNode = makeHandleGeo();
+    setHandleZNode(pNode);
+    pMat = SimpleMaterial::create();
+    setMaterialZ  (pMat);
 
     getTransZNode()->setCore (_transHandleZC);
     getTransZNode()->addChild(getHandleZNode());
@@ -339,23 +342,17 @@ void Manipulator::onCreate(const Manipulator* source)
 
 void Manipulator::onDestroy()
 {
-    subRef(getTransXNode() );
-    subRef(_transHandleXC  );
-    subRef(getHandleXNode());
-    subRef(getMaterialX()  );
+}
 
-    subRef(getTransYNode() );
-    subRef(_transHandleYC  );
-    subRef(getHandleYNode());
-    subRef(getMaterialY()  );
+void Manipulator::resolveLinks(void)
+{
+    Inherited::resolveLinks();
 
-    subRef(getTransZNode() );
-    subRef(_transHandleZC  );
-    subRef(getHandleZNode());
-    subRef(getMaterialZ()  );
+    _activeParent  = NullFC;
 
-    subRef(getAxisLinesN());
-    // Name??
+    _transHandleXC = NullFC;
+    _transHandleYC = NullFC;
+    _transHandleZC = NullFC;
 }
 
 Pnt2f Manipulator::calcScreenProjection(const Pnt3f       &p,

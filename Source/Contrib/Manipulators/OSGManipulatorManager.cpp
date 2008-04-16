@@ -50,9 +50,9 @@
 // Manipulators. Damit besteht ein Problem mit Multi-Parents, das nicht waere,
 // wenn der ManipulatorManager sich den Node merken wuerde!?!
 
-NodePtr ManipulatorManager::createManipulator(const ManipulatorType type)
+NodeTransitPtr ManipulatorManager::createManipulator(const ManipulatorType type)
 {
-    NodePtr maniN = Node::create();
+    NodeTransitPtr maniN = Node::create();
     
     switch (type)
     {
@@ -82,7 +82,7 @@ void ManipulatorManager::changeManipulator(const ManipulatorType type)
     {
         if ( ! _maniC->getParents().empty() )
         {
-            NodePtr maniN = dynamic_cast<NodePtr>(_maniC->getParents()[0].getCPtr());
+            NodePtr maniN = dynamic_cast<NodePtr>(_maniC->getParents()[0]);
 
             _maniC = NullFC;
 

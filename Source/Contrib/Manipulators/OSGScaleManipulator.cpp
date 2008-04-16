@@ -136,7 +136,7 @@ void ScaleManipulator::dump(      UInt32    uiIndent,
     Inherited::dump(uiIndent, bvFlags);
 }
 
-NodePtr ScaleManipulator::makeHandleGeo()
+NodeTransitPtr ScaleManipulator::makeHandleGeo()
 {
     return makeCylinder(0.75, 0.1, 12, true, true, true);
 }

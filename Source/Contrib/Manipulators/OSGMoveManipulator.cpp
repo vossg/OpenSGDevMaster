@@ -136,7 +136,7 @@ void MoveManipulator::dump(      UInt32    uiIndent,
     Inherited::dump(uiIndent, bvFlags);
 }
 
-NodePtr MoveManipulator::makeHandleGeo()
+NodeTransitPtr MoveManipulator::makeHandleGeo()
 {
     return makeCone(0.75, 0.1, 12, true, true);
 }

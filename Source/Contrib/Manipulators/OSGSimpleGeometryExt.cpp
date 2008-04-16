@@ -55,10 +55,10 @@ using namespace std;
 
 OSG_BEGIN_NAMESPACE
 
-GeometryPtr makeGridGeo(const Real32   width,
-                        const Real32   depth,
-                        const Real32   hCellWidth,
-                        const Color3f &color     )
+GeometryTransitPtr makeGridGeo(const Real32   width,
+                               const Real32   depth,
+                               const Real32   hCellWidth,
+                               const Color3f &color     )
 {
     Int32       nCols, nRows;
     Real32      x, z;
@@ -66,13 +66,13 @@ GeometryPtr makeGridGeo(const Real32   width,
     const Color3f darkerColor =
         Color3f(color[0] - 0.4, color[1] - 0.4, color[2] - 0.4);
 
-    GeometryPtr           geo     = Geometry::create();
-    GeoPnt3fPropertyPtr   pnts    = GeoPnt3fProperty  ::create();
-    GeoUInt32PropertyPtr  lens    = GeoUInt32Property ::create();
-    GeoUInt8PropertyPtr   types   = GeoUInt8Property  ::create();
-    GeoColor3fPropertyPtr colors  = GeoColor3fProperty::create();
+    GeometryTransitPtr           geo     = Geometry::create();
+    GeoPnt3fPropertyUnrecPtr   pnts    = GeoPnt3fProperty  ::create();
+    GeoUInt32PropertyUnrecPtr  lens    = GeoUInt32Property ::create();
+    GeoUInt8PropertyUnrecPtr   types   = GeoUInt8Property  ::create();
+    GeoColor3fPropertyUnrecPtr colors  = GeoColor3fProperty::create();
 //    GeoIndicesUI32Ptr  indices = GeoIndicesUI32::create();
-    SimpleMaterialPtr  mat     = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr  mat     = SimpleMaterial::create();
 
     Real32 height   (0.0        );
     Real32 widthHalf(width / 2.0);
@@ -155,21 +155,21 @@ GeometryPtr makeGridGeo(const Real32   width,
     return geo;
 }
 
-GeometryPtr makeGridBorderGeo(const Real32   width,
-                              const Real32   depth,
-                              const Color3f &color)
+GeometryTransitPtr makeGridBorderGeo(const Real32   width,
+                                     const Real32   depth,
+                                     const Color3f &color)
 {
     const Color3f darkerColor =
         Color3f( color[0]-0.4, color[1]-0.4, color[2]-0.4 );
 
-    GeometryPtr           geo    = Geometry::create();
-    GeoPnt3fPropertyPtr   pnts   = GeoPnt3fProperty::create();
-    GeoUInt32PropertyPtr  lens   = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr   types  = GeoUInt8Property::create();
-    GeoColor3fPropertyPtr colors = GeoColor3fProperty::create();
+    GeometryTransitPtr           geo    = Geometry::create();
+    GeoPnt3fPropertyUnrecPtr   pnts   = GeoPnt3fProperty::create();
+    GeoUInt32PropertyUnrecPtr  lens   = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr   types  = GeoUInt8Property::create();
+    GeoColor3fPropertyUnrecPtr colors = GeoColor3fProperty::create();
 //    GeoIndicesUI32Ptr  indices   = GeoIndicesUI32::create();
-    SimpleMaterialPtr  mat       = SimpleMaterial::create();
-    LineChunkPtr       lineChunk = LineChunk::create();
+    SimpleMaterialUnrecPtr  mat       = SimpleMaterial::create();
+    LineChunkUnrecPtr       lineChunk = LineChunk::create();
 
     Real32 height   (0.0        );
     Real32 widthHalf(width / 2.0);
@@ -248,15 +248,15 @@ GeometryPtr makeGridBorderGeo(const Real32   width,
  * Creates a grid with the specified <i>width</i> and <i>height</i>.
  * The grid has the base color <i>color</i>.
  */
-NodePtr makeGrid(const Real32   width,
-                 const Real32   depth,
-                 const Real32   hCellWidth,
-                 const Color3f &color     )
+NodeTransitPtr makeGrid(const Real32   width,
+                        const Real32   depth,
+                        const Real32   hCellWidth,
+                        const Color3f &color     )
 {
-    NodePtr  grpNode    = Node::create();
-    GroupPtr grpCore    = Group::create();
-    NodePtr  gridNode   = Node::create();
-    NodePtr  borderNode = Node::create();
+    NodeTransitPtr grpNode    = Node::create();
+    GroupUnrecPtr  grpCore    = Group::create();
+    NodeUnrecPtr   gridNode   = Node::create();
+    NodeUnrecPtr   borderNode = Node::create();
 
     gridNode->setCore  (makeGridGeo(width, depth, hCellWidth, color));
     borderNode->setCore(makeGridBorderGeo(width, depth, color)      );
@@ -271,39 +271,37 @@ NodePtr makeGrid(const Real32   width,
 }
 
 
-NodePtr makeSelection(NodePtr geoN)
+NodeTransitPtr makeSelection(NodePtr geoN)
 {
-    NodePtr               transN = Node::create();
-    NodePtr               node   = Node::create();
-    ComponentTransformPtr transC = ComponentTransform::create();
+    NodeTransitPtr             transN = Node::create();
+    NodeUnrecPtr               node   = Node::create();
+    ComponentTransformUnrecPtr transC = ComponentTransform::create();
 
     node->setCore(makeSelectionGeo(geoN));
 
     transN->setCore (transC);
     transN->addChild(node  );
 
-    addRef(transN);
-
     commitChanges();
 
     return transN;
 }
 
-GeometryPtr makeSelectionGeo(NodePtr geoN)
+GeometryTransitPtr makeSelectionGeo(NodePtr geoN)
 {
     Pnt3f min, max;
     geoN->getVolume().getBounds(min, max);
 
-    GeometryPtr           geo       = Geometry::create();
-    GeoPnt3fPropertyPtr   newPnts   = GeoPnt3fProperty::create();
-    GeoUInt32PropertyPtr  lens      = GeoUInt32Property::create();
-    GeoUInt8PropertyPtr   types     = GeoUInt8Property::create();
-    GeoColor3fPropertyPtr colors    = GeoColor3fProperty::create();
+    GeometryTransitPtr         geo       = Geometry::create();
+    GeoPnt3fPropertyUnrecPtr   newPnts   = GeoPnt3fProperty::create();
+    GeoUInt32PropertyUnrecPtr  lens      = GeoUInt32Property::create();
+    GeoUInt8PropertyUnrecPtr   types     = GeoUInt8Property::create();
+    GeoColor3fPropertyUnrecPtr colors    = GeoColor3fProperty::create();
 
 //    GeoIndicesUI32Ptr  indices   = GeoIndicesUI32::create();
-    SimpleMaterialPtr  mat       = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr  mat       = SimpleMaterial::create();
 
-    LineChunkPtr       lineChunk = LineChunk::create();
+    LineChunkUnrecPtr       lineChunk = LineChunk::create();
 
     GeometryPtr selGeoC = dynamic_cast<GeometryPtr>(geoN->getCore());
     if( selGeoC != NullFC )
@@ -349,7 +347,7 @@ GeometryPtr makeSelectionGeo(NodePtr geoN)
 }
 
 
-PolygonChunkPtr _gayaPolygonChunk;
+PolygonChunkUnrecPtr _gayaPolygonChunk;
 
 PolygonChunkPtr getPolygonChunk(const UInt16 faces,
                                 const UInt16 mode )
@@ -357,8 +355,6 @@ PolygonChunkPtr getPolygonChunk(const UInt16 faces,
     if( _gayaPolygonChunk == NullFC )
     {
         _gayaPolygonChunk = PolygonChunk::create();
-
-        addRef(_gayaPolygonChunk);
 
         _gayaPolygonChunk->setCullFace(faces);
         _gayaPolygonChunk->setFrontMode(mode);
@@ -373,7 +369,7 @@ PolygonChunkPtr getPolygonChunk(const UInt16 faces,
     return _gayaPolygonChunk;
 }
 
-MaterialChunkPtr _gayaMaterialChunk;
+MaterialChunkRecPtr _gayaMaterialChunk;
 
 MaterialChunkPtr getMaterialChunk(const Color4f &ambientColor,
                                   const Color4f &diffuseColor,
@@ -383,8 +379,6 @@ MaterialChunkPtr getMaterialChunk(const Color4f &ambientColor,
     if( _gayaMaterialChunk == NullFC )
     {
         _gayaMaterialChunk = MaterialChunk::create();
-
-        addRef(_gayaMaterialChunk);
 
         _gayaMaterialChunk->setDiffuse(diffuseColor);
         _gayaMaterialChunk->setAmbient(ambientColor);
@@ -396,15 +390,13 @@ MaterialChunkPtr getMaterialChunk(const Color4f &ambientColor,
     return _gayaMaterialChunk;
 }
 
-ChunkMaterialPtr _gayaSelectionMaterial;
+ChunkMaterialRecPtr _gayaSelectionMaterial;
 
 ChunkMaterialPtr getSelectionMaterial()
 {
     if( _gayaSelectionMaterial == NullFC )
     {
         _gayaSelectionMaterial = ChunkMaterial::create();
-
-        addRef(_gayaSelectionMaterial);
 
         _gayaSelectionMaterial->addChunk(getPolygonChunk());
         _gayaSelectionMaterial->addChunk(getMaterialChunk(Color4f(1,1,1,0),

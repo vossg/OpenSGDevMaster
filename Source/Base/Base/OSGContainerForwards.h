@@ -93,7 +93,8 @@
     typedef       RefCountPtr< CLASST,                                         \
                                WeakRefCountPolicy      > CLASST##WeakPtr;      \
     typedef       RefCountPtr< CLASST,                                         \
-                               MTRecordedRefCountPolicy> CLASST##MTRecPtr;
+                               MTRecordedRefCountPolicy> CLASST##MTRecPtr;     \
+    typedef       CLASST##RecPtr                         CLASST##RefPtr;
 
 
 #define OSG_GEN_INTERNALPTR(CLASST)                         \

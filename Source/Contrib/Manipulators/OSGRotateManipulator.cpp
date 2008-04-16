@@ -137,7 +137,7 @@ void RotateManipulator::dump(      UInt32    uiIndent,
     Inherited::dump(uiIndent, bvFlags);
 }
 
-NodePtr RotateManipulator::makeHandleGeo()
+NodeTransitPtr RotateManipulator::makeHandleGeo()
 {
     return makeSphere(2, 0.2);
 }

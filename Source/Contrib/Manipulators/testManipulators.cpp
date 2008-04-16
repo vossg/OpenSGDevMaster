@@ -15,30 +15,30 @@
 
 OSG_USING_NAMESPACE
 
-NodePtr         scene   = NullFC;
-TransformPtr    interTC = NullFC;
-NodePtr         interN  = NullFC;
-NodePtr         maniN   = NullFC;
+NodeRefPtr         scene   = NullFC;
+TransformRefPtr    interTC = NullFC;
+NodeRefPtr         interN  = NullFC;
+NodeRefPtr         maniN   = NullFC;
 
 ManipulatorManager *mama;
 SimpleSceneManager *mgr;
 
 int setupGLUT( int *argc, char *argv[] );
-NodePtr makeCoordAxes(void);
+NodeTransitPtr makeCoordAxes(void);
 
 int main(int argc, char **argv)
 {
     osgInit(argc,argv);
     int winid = setupGLUT(&argc, argv);
 
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
 
     mgr = new SimpleSceneManager;
     mama = new ManipulatorManager;
 
-    GroupPtr g = Group::create();
+    GroupUnrecPtr g = Group::create();
     scene = Node::create();
 
     interTC = Transform::create();
@@ -143,7 +143,15 @@ void keyboard(unsigned char k, int x, int y)
 {
     switch(k)
     {
-    case 27:    exit(1);
+    case 27:    
+        delete mama;
+        delete mgr;
+        scene   = NullFC;
+        interTC = NullFC;
+        interN  = NullFC;
+        maniN   = NullFC;
+        osgExit();
+        exit(1);
     case ' ':
     {
         maniN->setTravMask(TypeTraits<UInt32>::getZeroElement());
@@ -193,19 +201,19 @@ int setupGLUT(int *argc, char *argv[])
     return winid;
 }
 
-GeometryPtr makeCoordAxesGeo(void)
+GeometryTransitPtr makeCoordAxesGeo(void)
 {
-    GeometryPtr axesG = Geometry::create();
+    GeometryTransitPtr axesG = Geometry::create();
 
-    GeoUInt8PropertyPtr type = GeoUInt8Property::create();
+    GeoUInt8PropertyUnrecPtr type = GeoUInt8Property::create();
     type->addValue(GL_LINES    );
     type->addValue(GL_TRIANGLES);
 
-    GeoUInt32PropertyPtr lens = GeoUInt32Property::create();
+    GeoUInt32PropertyUnrecPtr lens = GeoUInt32Property::create();
     lens->addValue(6);
     lens->addValue(9);
 
-    GeoPnt3fPropertyPtr pnts = GeoPnt3fProperty::create();
+    GeoPnt3fPropertyUnrecPtr pnts = GeoPnt3fProperty::create();
     // the 6 points of the three Lines
     pnts->addValue(Pnt3f(0, 0, 0));
     pnts->addValue(Pnt3f(1, 0, 0));
@@ -229,7 +237,7 @@ GeometryPtr makeCoordAxesGeo(void)
     pnts->addValue(Pnt3f( 0.2,  0.2, 0.8));
     pnts->addValue(Pnt3f(-0.2, -0.2, 0.8));
 
-    GeoColor3fPropertyPtr colors = GeoColor3fProperty::create();
+    GeoColor3fPropertyUnrecPtr colors = GeoColor3fProperty::create();
     colors->addValue(Color3f(1, 0, 0));
     colors->addValue(Color3f(1, 0, 0));
 
@@ -260,9 +268,9 @@ GeometryPtr makeCoordAxesGeo(void)
     return axesG;
 }
 
-NodePtr makeCoordAxes(void)
+NodeTransitPtr makeCoordAxes(void)
 {
-    NodePtr axesN = Node::create();
+    NodeTransitPtr axesN = Node::create();
 
     axesN->setCore(makeCoordAxesGeo());
 

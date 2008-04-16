@@ -121,6 +121,8 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
 
     void    onDestroy();
 
+    virtual void resolveLinks(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Init                                  */
@@ -130,10 +132,10 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
 
     /*! \}                                                                 */
 
-    virtual NodePtr makeHandleGeo() = 0;
-    virtual void    addHandleGeo(NodePtr n);
-    virtual void    subHandleGeo(NodePtr n);
-    void            reverseTransform();
+    virtual NodeTransitPtr makeHandleGeo() = 0;
+    virtual void           addHandleGeo(NodePtr n);
+    virtual void           subHandleGeo(NodePtr n);
+    void                   reverseTransform();
 
     virtual void    doMovement(      TransformPtr t,
                                const Int32        coord,
@@ -146,15 +148,15 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
     Pnt2f calcScreenProjection(const Pnt3f       &,
                                const ViewportPtr &port);
 
-    NodePtr                 _activeParent;
+    NodeUnrecPtr            _activeParent;
     ExternalUpdateHandler*  _externalUpdateHandler;
 
     /*==========================  PRIVATE  ================================*/
   private:
 
-    ComponentTransformPtr _transHandleXC;
-    ComponentTransformPtr _transHandleYC;
-    ComponentTransformPtr _transHandleZC;
+    ComponentTransformUnrecPtr _transHandleXC;
+    ComponentTransformUnrecPtr _transHandleYC;
+    ComponentTransformUnrecPtr _transHandleZC;
 
     friend class FieldContainer;
     friend class ManipulatorBase;

@@ -22,4 +22,3 @@ else:
          if option.libDir:
             test_libpath.append(option.libDir)
 
-stop_traversal = True
