@@ -26,7 +26,7 @@ OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
-GroupNodePtr gScene;
+GroupNodeRefPtr gScene;
 
 unsigned gNextModelIdx = 0;
 
@@ -63,6 +63,8 @@ void findModels(std::string dirname)
    if (!fs::exists(dir_path))
    { 
       std::cerr << "ERROR: path does not exist: " << dirname << std::endl; 
+      gScene = NodePtr(NullFC);
+      osgExit();
       exit(-1);
    }
 
@@ -91,11 +93,13 @@ int main(int argc, char **argv)
     // OSG init
     osgInit(argc,argv);
 
-    gScene = GroupNodePtr::create();
+    gScene = GroupNodeRefPtr::create();
 
     if (argc < 2)
     {
        std::cout << "Specify a directory to load models from." << std::endl;
+       gScene = NodePtr(NullFC);
+       osgExit();
        exit(-1);
     }
 
@@ -108,7 +112,7 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
+    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
     
@@ -181,6 +185,8 @@ void keyboard(unsigned char k, int , int )
     {
         case 27:
         {
+            delete mgr;
+            gScene = NodePtr(NullFC);
             OSG::osgExit();
             exit(0);
         }

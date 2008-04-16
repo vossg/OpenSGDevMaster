@@ -13,4 +13,3 @@ else:
    test_cpppath = []
    test_libpath = []
  
-stop_traversal = True

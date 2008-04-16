@@ -224,7 +224,12 @@ class FieldContainer(FCDElement):
 
                 if not field.isPtrField():
                     self["hasValueMField"] = True;
-        
+
+        if self.getFCD("isNodeCore") == "true" or self.getFCD("isNodeCore") == "True":
+            self["isNodeCore"] = True;
+        else:
+            self["isNodeCore"] = False;
+            
         self["PointerField"]   = False;
         self["SFPointerField"] = False;
         self["MFPointerField"] = False;

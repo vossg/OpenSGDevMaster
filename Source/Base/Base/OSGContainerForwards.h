@@ -241,6 +241,13 @@ namespace FCLocal
     static const BitVector NamspaceMask = ~MTMask;
 }
 
+template <class CoreT>
+class CoredNodeMTRefPtr;
+
+template <class CoreT>
+class CoredNodeRefPtr;
+
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGFIELDCONTAINERFORWARDS_H_ */

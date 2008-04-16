@@ -534,8 +534,6 @@ OSG_END_NAMESPACE
 
 #include "OSGNodeCore.h"
 #include "OSGNode.inl"
-#if 0
 #include "OSGCoredNodePtr.h"
-#endif
 
 #endif /* _OSGNODE_H_ */
