@@ -291,6 +291,9 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
 
 typedef ChunkOverrideGroupBase *ChunkOverrideGroupBaseP;
 
+typedef CoredNodeRefPtr  <ChunkOverrideGroup> ChunkOverrideGroupNodeRefPtr;
+typedef CoredNodeMTRefPtr<ChunkOverrideGroup> ChunkOverrideGroupNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGCHUNKOVERRIDEGROUPBASE_H_ */

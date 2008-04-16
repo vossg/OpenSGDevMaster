@@ -524,6 +524,9 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
 typedef ProxyGroupBase *ProxyGroupBaseP;
 
+typedef CoredNodeRefPtr  <ProxyGroup> ProxyGroupNodeRefPtr;
+typedef CoredNodeMTRefPtr<ProxyGroup> ProxyGroupNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGPROXYGROUPBASE_H_ */

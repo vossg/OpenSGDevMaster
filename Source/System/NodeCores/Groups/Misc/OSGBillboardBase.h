@@ -366,6 +366,9 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
 
 typedef BillboardBase *BillboardBaseP;
 
+typedef CoredNodeRefPtr  <Billboard> BillboardNodeRefPtr;
+typedef CoredNodeMTRefPtr<Billboard> BillboardNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGBILLBOARDBASE_H_ */

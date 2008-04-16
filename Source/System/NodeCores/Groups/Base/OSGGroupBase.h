@@ -236,6 +236,9 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
 
 typedef GroupBase *GroupBaseP;
 
+typedef CoredNodeRefPtr  <Group> GroupNodeRefPtr;
+typedef CoredNodeMTRefPtr<Group> GroupNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGGROUPBASE_H_ */

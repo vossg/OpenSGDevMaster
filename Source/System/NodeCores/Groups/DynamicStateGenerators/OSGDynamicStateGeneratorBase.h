@@ -280,6 +280,9 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
 
 typedef DynamicStateGeneratorBase *DynamicStateGeneratorBaseP;
 
+typedef CoredNodeRefPtr  <DynamicStateGenerator> DynamicStateGeneratorNodeRefPtr;
+typedef CoredNodeMTRefPtr<DynamicStateGenerator> DynamicStateGeneratorNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGDYNAMICSTATEGENERATORBASE_H_ */

@@ -343,6 +343,9 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
 
 typedef AlgorithmStageBase *AlgorithmStageBaseP;
 
+typedef CoredNodeRefPtr  <AlgorithmStage> AlgorithmStageNodeRefPtr;
+typedef CoredNodeMTRefPtr<AlgorithmStage> AlgorithmStageNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGALGORITHMSTAGEBASE_H_ */

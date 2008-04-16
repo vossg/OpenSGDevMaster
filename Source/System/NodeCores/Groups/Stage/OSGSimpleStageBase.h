@@ -388,6 +388,9 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
 
 typedef SimpleStageBase *SimpleStageBaseP;
 
+typedef CoredNodeRefPtr  <SimpleStage> SimpleStageNodeRefPtr;
+typedef CoredNodeMTRefPtr<SimpleStage> SimpleStageNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGSIMPLESTAGEBASE_H_ */

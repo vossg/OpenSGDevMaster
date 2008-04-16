@@ -283,6 +283,9 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
 
 typedef MaterialGroupBase *MaterialGroupBaseP;
 
+typedef CoredNodeRefPtr  <MaterialGroup> MaterialGroupNodeRefPtr;
+typedef CoredNodeMTRefPtr<MaterialGroup> MaterialGroupNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGMATERIALGROUPBASE_H_ */

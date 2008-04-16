@@ -508,6 +508,9 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
 typedef VTKMapperBase *VTKMapperBaseP;
 
+typedef CoredNodeRefPtr  <VTKMapper> VTKMapperNodeRefPtr;
+typedef CoredNodeMTRefPtr<VTKMapper> VTKMapperNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGVTKMAPPERBASE_H_ */

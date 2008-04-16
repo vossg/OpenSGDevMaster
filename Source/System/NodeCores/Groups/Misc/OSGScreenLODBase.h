@@ -290,6 +290,9 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
 
 typedef ScreenLODBase *ScreenLODBaseP;
 
+typedef CoredNodeRefPtr  <ScreenLOD> ScreenLODNodeRefPtr;
+typedef CoredNodeMTRefPtr<ScreenLOD> ScreenLODNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGSCREENLODBASE_H_ */

@@ -101,7 +101,7 @@ AlgorithmBase::TypeObject AlgorithmBase::_type(
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"true\"\n"
+    "    isNodeCore=\"false\"\n"
     ">\n"
     "</FieldContainer>\n",
     ""

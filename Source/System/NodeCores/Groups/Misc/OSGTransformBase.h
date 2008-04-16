@@ -286,6 +286,9 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
 
 typedef TransformBase *TransformBaseP;
 
+typedef CoredNodeRefPtr  <Transform> TransformNodeRefPtr;
+typedef CoredNodeMTRefPtr<Transform> TransformNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGTRANSFORMBASE_H_ */

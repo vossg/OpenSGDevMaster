@@ -386,6 +386,9 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
 
 typedef HDRStageBase *HDRStageBaseP;
 
+typedef CoredNodeRefPtr  <HDRStage> HDRStageNodeRefPtr;
+typedef CoredNodeMTRefPtr<HDRStage> HDRStageNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGHDRSTAGEBASE_H_ */

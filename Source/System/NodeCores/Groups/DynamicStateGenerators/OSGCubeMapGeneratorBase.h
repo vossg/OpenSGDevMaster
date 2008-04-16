@@ -461,6 +461,9 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 
 typedef CubeMapGeneratorBase *CubeMapGeneratorBaseP;
 
+typedef CoredNodeRefPtr  <CubeMapGenerator> CubeMapGeneratorNodeRefPtr;
+typedef CoredNodeMTRefPtr<CubeMapGenerator> CubeMapGeneratorNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGCUBEMAPGENERATORBASE_H_ */

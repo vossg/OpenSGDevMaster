@@ -236,6 +236,9 @@ class OSG_GROUP_DLLMAPPING InverseTransformBase : public Group
 
 typedef InverseTransformBase *InverseTransformBaseP;
 
+typedef CoredNodeRefPtr  <InverseTransform> InverseTransformNodeRefPtr;
+typedef CoredNodeMTRefPtr<InverseTransform> InverseTransformNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGINVERSETRANSFORMBASE_H_ */

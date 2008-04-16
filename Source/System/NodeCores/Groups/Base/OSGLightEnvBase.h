@@ -236,6 +236,9 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
 
 typedef LightEnvBase *LightEnvBaseP;
 
+typedef CoredNodeRefPtr  <LightEnv> LightEnvNodeRefPtr;
+typedef CoredNodeMTRefPtr<LightEnv> LightEnvNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGLIGHTENVBASE_H_ */

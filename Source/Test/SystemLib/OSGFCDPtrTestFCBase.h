@@ -800,6 +800,9 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
 typedef FCDPtrTestFCBase *FCDPtrTestFCBaseP;
 
+typedef CoredNodeRefPtr  <FCDPtrTestFC> FCDPtrTestFCNodeRefPtr;
+typedef CoredNodeMTRefPtr<FCDPtrTestFC> FCDPtrTestFCNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGFCDPTRTESTFCBASE_H_ */

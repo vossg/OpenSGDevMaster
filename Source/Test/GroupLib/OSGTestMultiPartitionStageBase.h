@@ -350,6 +350,9 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
 
 typedef TestMultiPartitionStageBase *TestMultiPartitionStageBaseP;
 
+typedef CoredNodeRefPtr  <TestMultiPartitionStage> TestMultiPartitionStageNodeRefPtr;
+typedef CoredNodeMTRefPtr<TestMultiPartitionStage> TestMultiPartitionStageNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGTESTMULTIPARTITIONSTAGEBASE_H_ */

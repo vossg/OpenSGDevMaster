@@ -286,6 +286,9 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
 
 typedef SwitchBase *SwitchBaseP;
 
+typedef CoredNodeRefPtr  <Switch> SwitchNodeRefPtr;
+typedef CoredNodeMTRefPtr<Switch> SwitchNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGSWITCHBASE_H_ */

@@ -283,6 +283,9 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
 
 typedef VisitSubTreeBase *VisitSubTreeBaseP;
 
+typedef CoredNodeRefPtr  <VisitSubTree> VisitSubTreeNodeRefPtr;
+typedef CoredNodeMTRefPtr<VisitSubTree> VisitSubTreeNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGVISITSUBTREEBASE_H_ */

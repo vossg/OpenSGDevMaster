@@ -310,6 +310,9 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
 
 typedef DistanceLODBase *DistanceLODBaseP;
 
+typedef CoredNodeRefPtr  <DistanceLOD> DistanceLODNodeRefPtr;
+typedef CoredNodeMTRefPtr<DistanceLOD> DistanceLODNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGDISTANCELODBASE_H_ */

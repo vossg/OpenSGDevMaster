@@ -310,6 +310,9 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
 
 typedef InlineBase *InlineBaseP;
 
+typedef CoredNodeRefPtr  <Inline> InlineNodeRefPtr;
+typedef CoredNodeMTRefPtr<Inline> InlineNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGINLINEBASE_H_ */

@@ -407,6 +407,9 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
 
 typedef LightBase *LightBaseP;
 
+typedef CoredNodeRefPtr  <Light> LightNodeRefPtr;
+typedef CoredNodeMTRefPtr<Light> LightNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGLIGHTBASE_H_ */

@@ -286,6 +286,9 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
 
 typedef TestStageBase *TestStageBaseP;
 
+typedef CoredNodeRefPtr  <TestStage> TestStageNodeRefPtr;
+typedef CoredNodeMTRefPtr<TestStage> TestStageNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGTESTSTAGEBASE_H_ */

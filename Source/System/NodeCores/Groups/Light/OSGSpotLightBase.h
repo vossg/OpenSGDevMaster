@@ -326,6 +326,9 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
 
 typedef SpotLightBase *SpotLightBaseP;
 
+typedef CoredNodeRefPtr  <SpotLight> SpotLightNodeRefPtr;
+typedef CoredNodeMTRefPtr<SpotLight> SpotLightNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGSPOTLIGHTBASE_H_ */

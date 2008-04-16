@@ -305,6 +305,9 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
 
 typedef StageBase *StageBaseP;
 
+typedef CoredNodeRefPtr  <Stage> StageNodeRefPtr;
+typedef CoredNodeMTRefPtr<Stage> StageNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGSTAGEBASE_H_ */

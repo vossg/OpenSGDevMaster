@@ -366,6 +366,9 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
 
 typedef ComponentTransformBase *ComponentTransformBaseP;
 
+typedef CoredNodeRefPtr  <ComponentTransform> ComponentTransformNodeRefPtr;
+typedef CoredNodeMTRefPtr<ComponentTransform> ComponentTransformNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGCOMPONENTTRANSFORMBASE_H_ */

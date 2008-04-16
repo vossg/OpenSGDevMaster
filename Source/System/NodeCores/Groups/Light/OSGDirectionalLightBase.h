@@ -286,6 +286,9 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
 
 typedef DirectionalLightBase *DirectionalLightBaseP;
 
+typedef CoredNodeRefPtr  <DirectionalLight> DirectionalLightNodeRefPtr;
+typedef CoredNodeMTRefPtr<DirectionalLight> DirectionalLightNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGDIRECTIONALLIGHTBASE_H_ */
