@@ -91,17 +91,18 @@ SimpleStatisticsForeground::SimpleStatisticsForeground(
 /* */
 SimpleStatisticsForeground::~SimpleStatisticsForeground(void)
 {
-    if (_face != 0)
-        OSG::subRef(_face);
+}
 
-//    if (_texchunk != NullFC)
-//        OSG::subRefX(_texchunk);
-//    if (_texenvchunk != NullFC)
-//        OSG::subRefX(_texenvchunk);
-
+void SimpleStatisticsForeground::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+    
     _texchunk    = NullFC;
     _texenvchunk = NullFC;
+    
+    OSG::subRef(_face);
 }
+
 
 /*----------------------------- class specific ----------------------------*/
 

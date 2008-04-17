@@ -57,6 +57,9 @@ OSG_BEGIN_NAMESPACE
 class FieldContainerFactoryBase;
 class RemoteAspect;
 
+template <class ObjectT>
+class TransitPtr;
+
 /*! \ingroup GrpSystemFieldContainer
  */
 
@@ -143,38 +146,6 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
-#if 0
-    OSG_SYSTEM_DLLMAPPING
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    uiFieldId  );
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    uiFieldId  );
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual void clearField      (const UInt32                    uiFieldId  );
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
@@ -204,38 +175,6 @@ class FieldContainer : public ReflexiveContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Helper                                 */
-    /*! \{                                                                 */
-
-    OSG_SYSTEM_DLLMAPPING
-    void  addReferenceX          (void);
-
-    OSG_SYSTEM_DLLMAPPING
-    void  addReferenceUnrecordedX(void);
-
-    OSG_SYSTEM_DLLMAPPING
-    void  subReferenceX          (void);
-
-    OSG_SYSTEM_DLLMAPPING
-    void  subReferenceUnrecordedX(void);
-
-//    OSG_SYSTEM_DLLMAPPING
-//    void  subReferenceLocalVarX(void);
-
-    OSG_SYSTEM_DLLMAPPING 
-    Int32 getRefCount            (void) const;
-
-    OSG_SYSTEM_DLLMAPPING
-    void  addWeakReference       (void);
-
-    OSG_SYSTEM_DLLMAPPING
-    void  subWeakReference       (void);
-
-    OSG_SYSTEM_DLLMAPPING
-    Int32 getWeakRefCount        (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
@@ -246,6 +185,12 @@ class FieldContainer : public ReflexiveContainer
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
+
+    OSG_SYSTEM_DLLMAPPING
+    Int32 getWeakRefCount        (void) const;
+
+    OSG_SYSTEM_DLLMAPPING 
+    Int32 getRefCount            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -326,6 +271,34 @@ class FieldContainer : public ReflexiveContainer
 
     OSG_SYSTEM_DLLMAPPING
     virtual ~FieldContainer(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Helper                                 */
+    /*! \{                                                                 */
+
+    OSG_SYSTEM_DLLMAPPING
+    void  addReferenceX          (void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  addReferenceUnrecordedX(void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  subReferenceX          (void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  subReferenceUnrecordedX(void);
+
+//    OSG_SYSTEM_DLLMAPPING
+//    void  subReferenceLocalVarX(void);
+
+
+    OSG_SYSTEM_DLLMAPPING
+    void  addWeakReference       (void);
+
+    OSG_SYSTEM_DLLMAPPING
+    void  subWeakReference       (void);
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -463,6 +436,13 @@ class FieldContainer : public ReflexiveContainer
 
     template<class ContainerPtr>
     friend ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
+
+    friend struct RecordedRefCountPolicy;
+    friend struct UnrecordedRefCountPolicy;
+    friend struct WeakRefCountPolicy;
+
+    template <class ObjectT>
+    friend class TransitPtr;
 
 #ifdef OSG_MT_CPTR_ASPECT
     friend struct HandledFieldContainerFactoryDesc;

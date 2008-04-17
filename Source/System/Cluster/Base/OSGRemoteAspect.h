@@ -176,9 +176,9 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     /*! \name                 protected helper functions                   */
     /*! \{                                                                 */
 
-    bool   callCreated  (const FieldContainerPtr &node);
-    bool   callDestroyed(const FieldContainerPtr &node);
-    bool   callChanged  (const FieldContainerPtr &node);
+    bool   callCreated  (const FieldContainerPtr node);
+    bool   callDestroyed(const FieldContainerPtr node);
+    bool   callChanged  (const FieldContainerPtr node);
 
     /*! \}                                                                 */
 

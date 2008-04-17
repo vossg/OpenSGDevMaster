@@ -79,12 +79,13 @@ struct FieldTraits<bool, 2> : public FieldTraitsPODTemplateBase<bool, 2>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFBool";            }
-    static Char8    *getMName     (void) { return "MFBool";            }
+    static const Char8    *getSName     (void) { return "SFBool";            }
+    static const Char8    *getMName     (void) { return "MFBool";            }
 
-    static bool      getDefault   (void) { return false;               }
+    static       bool      getDefault   (void) { return false;               }
+
 
     static UInt32 getBinSize (const bool &)
     {
@@ -146,12 +147,12 @@ struct FieldTraits<Int8> : public FieldTraitsPODTemplateBase<Int8>
                                       Self::FromStringConvertible)};
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFInt8";            }
-    static Char8    *getMName     (void) { return "MFInt8";            }
+    static const Char8    *getSName     (void) { return "SFInt8";            }
+    static const Char8    *getMName     (void) { return "MFInt8";            }
 
-    static Int8      getDefault   (void) { return 0;                   }
+    static       Int8      getDefault   (void) { return 0;                   }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -180,12 +181,12 @@ struct FieldTraits<UInt8> : public FieldTraitsPODTemplateBase<UInt8>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFUInt8";           }
-    static Char8    *getMName     (void) { return "MFUInt8";           }
+    static const Char8    *getSName     (void) { return "SFUInt8";           }
+    static const Char8    *getMName     (void) { return "MFUInt8";           }
 
-    static UInt8     getDefault   (void) { return 0;                   }
+    static       UInt8     getDefault   (void) { return 0;                   }
 
 };
 
@@ -215,12 +216,12 @@ struct FieldTraits<Int16> : public FieldTraitsPODTemplateBase<Int16>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFInt16";           }
-    static Char8    *getMName     (void) { return "MFInt16";           }
+    static const Char8    *getSName     (void) { return "SFInt16";           }
+    static const Char8    *getMName     (void) { return "MFInt16";           }
 
-    static Int16     getDefault   (void) { return 0;                   }
+    static       Int16     getDefault   (void) { return 0;                   }
 
 };
 
@@ -250,12 +251,12 @@ struct FieldTraits<UInt16> : public FieldTraitsPODTemplateBase<UInt16>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFUInt16";          }
-    static Char8    *getMName     (void) { return "MFUInt16";          }
+    static const Char8    *getSName     (void) { return "SFUInt16";          }
+    static const Char8    *getMName     (void) { return "MFUInt16";          }
 
-    static UInt16    getDefault   (void) { return 0;                   }
+    static       UInt16    getDefault   (void) { return 0;                   }
 
 };
 
@@ -285,12 +286,12 @@ struct FieldTraits<Int32> : public FieldTraitsPODTemplateBase<Int32>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFInt32";           }
-    static Char8    *getMName     (void) { return "MFInt32";           }
+    static const Char8    *getSName     (void) { return "SFInt32";           }
+    static const Char8    *getMName     (void) { return "MFInt32";           }
 
-    static Int32     getDefault   (void) { return 0;                   }
+    static       Int32     getDefault   (void) { return 0;                   }
 
 };
 
@@ -320,12 +321,12 @@ struct FieldTraits<UInt32> : public FieldTraitsPODTemplateBase<UInt32>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFUInt32";          }
-    static Char8    *getMName     (void) { return "MFUInt32";          }
+    static const Char8    *getSName     (void) { return "SFUInt32";          }
+    static const Char8    *getMName     (void) { return "MFUInt32";          }
 
-    static UInt32    getDefault   (void) { return 0;                   }
+    static       UInt32    getDefault   (void) { return 0;                   }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -361,12 +362,12 @@ struct FieldTraits<Int64> : public FieldTraitsPODTemplateBase<Int64>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFInt64";           }
-    static Char8    *getMName     (void) { return "MFInt64";           }
+    static const Char8    *getSName     (void) { return "SFInt64";           }
+    static const Char8    *getMName     (void) { return "MFInt64";           }
 
-    static Int64     getDefault   (void) { return 0;                   }
+    static       Int64     getDefault   (void) { return 0;                   }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -395,12 +396,12 @@ struct FieldTraits<UInt64> : public FieldTraitsPODTemplateBase<UInt64>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFUInt64";          }
-    static Char8    *getMName     (void) { return "MFUInt64";          }
+    static const Char8    *getSName     (void) { return "SFUInt64";          }
+    static const Char8    *getMName     (void) { return "MFUInt64";          }
 
-    static UInt64    getDefault   (void) { return 0;                   }
+    static       UInt64    getDefault   (void) { return 0;                   }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -429,12 +430,12 @@ struct FieldTraits<Real16> : public FieldTraitsPODTemplateBase<Real16>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFReal16";          }
-    static Char8    *getMName     (void) { return "MFReal16";          }
+    static const Char8    *getSName     (void) { return "SFReal16";          }
+    static const Char8    *getMName     (void) { return "MFReal16";          }
 
-    static Real32    getDefault   (void) { return 0.f;                 }
+    static       Real32    getDefault   (void) { return 0.f;                 }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -464,12 +465,12 @@ struct FieldTraits<Real32> : public FieldTraitsPODTemplateBase<Real32>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFReal32";          }
-    static Char8    *getMName     (void) { return "MFReal32";          }
+    static const Char8    *getSName     (void) { return "SFReal32";          }
+    static const Char8    *getMName     (void) { return "MFReal32";          }
 
-    static Real32    getDefault   (void) { return 0.f;                 }
+    static       Real32    getDefault   (void) { return 0.f;                 }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -499,12 +500,12 @@ struct FieldTraits<Fixed32> : public FieldTraitsPODTemplateBase<Fixed32>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFFixed32";          }
-    static Char8    *getMName     (void) { return "MFFixed32";          }
+    static const Char8    *getSName     (void) { return "SFFixed32";          }
+    static const Char8    *getMName     (void) { return "MFFixed32";          }
 
-    static Fixed32    getDefault   (void) { return Fixed32(0.f);        }
+    static       Fixed32    getDefault   (void) { return Fixed32(0.f);        }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -533,12 +534,12 @@ struct FieldTraits<Real64> : public FieldTraitsPODTemplateBase<Real64>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFReal64";          }
-    static Char8    *getMName     (void) { return "MFReal64";          }
+    static const Char8    *getSName     (void) { return "SFReal64";          }
+    static const Char8    *getMName     (void) { return "MFReal64";          }
 
-    static Real64    getDefault   (void) { return 0.;                  }
+    static       Real64    getDefault   (void) { return 0.;                  }
 
 };
 
@@ -570,12 +571,12 @@ struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
     enum             { Convertible = Self::NotConvertible              };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFVoidP";           }
-    static Char8    *getMName     (void) { return "MFVoidP";           }
+    static const Char8    *getSName     (void) { return "SFVoidP";           }
+    static const Char8    *getMName     (void) { return "MFVoidP";           }
 
-    static void     *getDefault   (void) { return NULL;                }
+    static       void     *getDefault   (void) { return NULL;                }
     
     // Binary
     

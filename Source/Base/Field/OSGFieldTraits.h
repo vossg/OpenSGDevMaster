@@ -42,7 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGIDString.h"
 #include "OSGFieldForwards.h"
 #include "OSGLog.h"
 #include "OSGContainerForwards.h"

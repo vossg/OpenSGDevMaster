@@ -130,6 +130,12 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

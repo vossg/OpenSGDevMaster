@@ -57,23 +57,17 @@ void Node::setCore(TransitPtr<ObjectT> core)
 {
     editSField(CoreFieldMask);
 
-//    addRef(core);
-
-//    if(_sfCore.getValue() != NullFC)
-//    {
-//        _sfCore.getValue()->subParent(this);
-
-//        subRef(_sfCore.getValue());
-//    }
-
     NodeCoreUnrecPtr pCore = core;
 
     _sfCore.setValue(pCore);
+}
 
-//    if(_sfCore.getValue() != NullFC)
-//    {
-//        _sfCore.getValue()->addParent(this, CoreFieldId);
-//    }
+inline
+void Node::setCore(NodeCorePtrConstArg core)
+{
+    editSField(CoreFieldMask);
+
+    _sfCore.setValue(core);
 }
 
 inline

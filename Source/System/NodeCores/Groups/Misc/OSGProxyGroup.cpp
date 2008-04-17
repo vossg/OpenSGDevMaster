@@ -127,6 +127,11 @@ ProxyGroup::~ProxyGroup(void)
 {
 }
 
+void ProxyGroup::resolveLinks(void)
+{
+    _loadedRoot = NullFC;
+}
+
 /*! 
   If url was loaded, extend volume by loaded geometry. Otherwise
   extend volume by the volume given in the proxy object
@@ -356,6 +361,9 @@ void ProxyGroup::loadProc(void *)
     }
 }
 
-Thread                   *ProxyGroup::_loadThread = NULL;
-std::queue<ProxyGroupPtr> ProxyGroup::_loadQueue  =std::queue<ProxyGroupPtr>();
-Lock                     *ProxyGroup::_loadLock   = NULL;
+Thread                         *ProxyGroup::_loadThread = NULL;
+
+std::queue<ProxyGroupUnrecPtr>  ProxyGroup::_loadQueue  =
+    std::queue<ProxyGroupUnrecPtr>();
+
+Lock                           *ProxyGroup::_loadLock   = NULL;

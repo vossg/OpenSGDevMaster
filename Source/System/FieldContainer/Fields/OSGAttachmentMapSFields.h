@@ -89,7 +89,7 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFFieldContainerAttachmentPtrMap> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -144,14 +144,14 @@ class OSG_SYSTEM_DLLMAPPING
 
     void         setAddMethod(AddMethod      fMethod);
 
-    virtual bool equal       (Inherited::Ptr rhs    );
+    virtual bool equal       (Inherited::Ptr rhs    ) const;
 
     /*---------------------------------------------------------------------*/
 
     virtual void pushValueFromCString(const Char8             *str   );
 
-    virtual void copyValues          (      GetFieldHandlePtr  source);
-    virtual void shareValues         (      GetFieldHandlePtr  source);
+    virtual void copyValues          (      GetFieldHandlePtr  source) const;
+    virtual void shareValues         (      GetFieldHandlePtr  source) const;
 
     /*---------------------------------------------------------------------*/
 

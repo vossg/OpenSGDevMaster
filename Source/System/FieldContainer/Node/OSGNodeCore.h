@@ -74,10 +74,6 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
 
     typedef Inherited::TypeObject                            TypeObject;
 
-    typedef       MFParentFieldContainerPtr                  ParentField;
-    typedef const MFParentFieldContainerPtr                 *ParentFieldPtr;
-    typedef       MFParentFieldContainerPtr::const_iterator  ParentFieldIt;
-
     static const bool isNodeCore = true;
 
     OSG_RC_FIRST_FIELD_DECL(Parents);
@@ -122,31 +118,6 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
-
-#if 0
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex, 
-                                  const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
-                                  const UInt32                    uiFieldId  );
-
-    virtual void clearField      (const UInt32                    uiFieldId  );
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -240,8 +211,8 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
 
     static TypeObject _type;
 
-    static void   classDescInserter(TypeObject &oType);
-    static Char8 *getClassname     (void             );
+    static       void   classDescInserter(TypeObject &oType);
+    static const Char8 *getClassname     (void             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

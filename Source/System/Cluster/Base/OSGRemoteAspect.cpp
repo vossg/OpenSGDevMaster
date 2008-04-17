@@ -138,9 +138,9 @@ RemoteAspect::~RemoteAspect(void)
 /*-------------------------------------------------------------------------*/
 /*                          Remote aspect functionaliy                     */
 
-/*! <EM>receiveSync</EM> reads changes from the given connection and
+/*! \e receiveSync reads changes from the given connection and
  *  applies them to the current thread aspect.
- *  Functors for registered types are called, if they occure in the
+ *  Functors for registered types are called, if they occur in the
  *  sync stream.
  * 
  *  \see registerCreated registerChanged registerDeleted
@@ -672,7 +672,7 @@ void RemoteAspect::setStatistics(StatCollector *statistics)
  *  \see registerCreated
  */
 
-bool RemoteAspect::callCreated(const FieldContainerPtr &fcp)
+bool RemoteAspect::callCreated(const FieldContainerPtr fcp)
 {
     bool    result;
     UInt32  uiFunctorIndex = fcp->getType().getId();
@@ -694,7 +694,7 @@ bool RemoteAspect::callCreated(const FieldContainerPtr &fcp)
  *  \see registerDestroyed
  */
 
-bool RemoteAspect::callDestroyed(const FieldContainerPtr &fcp)
+bool RemoteAspect::callDestroyed(const FieldContainerPtr fcp)
 {
     bool    result;
     UInt32  uiFunctorIndex = fcp->getType().getId();
@@ -716,7 +716,7 @@ bool RemoteAspect::callDestroyed(const FieldContainerPtr &fcp)
  *  \see registerChanged
  */
 
-bool RemoteAspect::callChanged(const FieldContainerPtr &fcp)
+bool RemoteAspect::callChanged(const FieldContainerPtr fcp)
 {
     bool    result;
     UInt32  uiFunctorIndex = fcp->getType().getId();

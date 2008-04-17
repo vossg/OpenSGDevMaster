@@ -93,9 +93,7 @@ typedef SimpleAttachment<NameAttachmentDesc> Name;
 /*! \ingroup GrpSystemFieldContainer
  */
 
-typedef Name::ObjPtr NamePtr;
-typedef RefCountPtr<Name, 
-                    UnrecordedRefCountPolicy>         NameUnrecPtr;
+OSG_GEN_CONTAINERPTR(Name)  
 
 #ifdef WIN32
 template <> OSG_SYSTEM_DLLMAPPING

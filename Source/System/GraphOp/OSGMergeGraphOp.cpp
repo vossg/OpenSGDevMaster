@@ -113,7 +113,7 @@ GraphOp* MergeGraphOp::create()
     return inst;
 }
 
-UInt32 countNodes(const NodePtr& node)
+UInt32 countNodes(const NodePtr node)
 {
     if (node == NullFC)
         return 0;

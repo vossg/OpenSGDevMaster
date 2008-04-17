@@ -93,9 +93,7 @@ typedef SimpleAttachment<VoidPAttachmentDesc> VoidP;
 /*! \ingroup GrpSystemFieldContainer
  */
 
-typedef VoidP::ObjPtr VoidPPtr;
-typedef RefCountPtr<VoidP, 
-                    UnrecordedRefCountPolicy>         VoidPUnrecPtr;
+OSG_GEN_CONTAINERPTR(VoidP)  
 
 #ifdef WIN32
 template <> OSG_SYSTEM_DLLMAPPING

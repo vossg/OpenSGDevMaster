@@ -190,10 +190,10 @@ struct FieldTraits<StatCollectorP> :
     enum                  { Convertible = Self::ToStringConvertible  |
                                           Self::FromStringConvertible };
 
-    static DataType       &getType      (void) { return _type;          }
+    static       DataType &getType      (void) { return _type;          }
 
-    static Char8          *getSName     (void) { return "SFStatCollectorP"; }
-    static Char8          *getMName     (void) { return "MFStatCollectorP"; }
+    static const Char8    *getSName     (void) { return "SFStatCollectorP"; }
+    static const Char8    *getMName     (void) { return "MFStatCollectorP"; }
 
     static StatCollectorP  getDefault   (void) { return new StatCollector();   }
 

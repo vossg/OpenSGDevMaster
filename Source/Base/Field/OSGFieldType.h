@@ -83,9 +83,6 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
         PtrField,
         ParentPtrField,
         ChildPtrField
-#ifndef OSG_DELETE_LATER
-        ,WeakPtrField 
-#endif
     };
 
     /*---------------------------------------------------------------------*/

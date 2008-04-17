@@ -90,8 +90,8 @@ NodeCore::NodeCore(void) :
 }
 
 NodeCore::NodeCore(const NodeCore &source) :
-     Inherited(source           ),
-    _mfParents(source._mfParents)
+     Inherited(source),
+    _mfParents(      )
 {
 }
 
@@ -101,52 +101,6 @@ NodeCore::NodeCore(const NodeCore &source) :
 NodeCore::~NodeCore(void)
 {
 }
-
-#if 0
-void NodeCore::pushToField(      FieldContainerPtrConstArg pNewElement,
-                           const UInt32                    uiFieldId  )
-{
-    Inherited::pushToField(pNewElement, uiFieldId);
-}
-
-void NodeCore::insertIntoMField(const UInt32                    uiIndex,
-                                      FieldContainerPtrConstArg pNewElement,
-                                const UInt32                    uiFieldId  )
-{
-    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
-}
-
-void NodeCore::replaceInMField(const UInt32                    uiIndex,
-                                     FieldContainerPtrConstArg pNewElement,
-                               const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
-}
-
-void NodeCore::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                      FieldContainerPtrConstArg pNewElement,
-                                const UInt32                    uiFieldId  )
-{
-    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
-}
-
-void NodeCore::removeFromMField(const UInt32 uiIndex,
-                                const UInt32 uiFieldId)
-{
-    Inherited::removeFromMField(uiIndex, uiFieldId);
-}
-
-void NodeCore::removeFromMField(      FieldContainerPtrConstArg pElement,
-                                const UInt32                    uiFieldId)
-{
-    Inherited::removeFromMField(pElement, uiFieldId);
-}
-
-void NodeCore::clearField(const UInt32 uiFieldId)
-{
-    Inherited::clearField(uiFieldId);
-}
-#endif
 
 
 /*------------------------------ access -----------------------------------*/

@@ -223,7 +223,7 @@ void EditSFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
-bool EditSFieldHandle<FieldT>::equal(Inherited::Ptr rhs)
+bool EditSFieldHandle<FieldT>::equal(Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<EditSFieldHandle>(rhs);
 
@@ -248,7 +248,7 @@ void EditSFieldHandle<FieldT>::pushValueFromCString(
 }
 
 template<class FieldT> inline
-void EditSFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source)
+void EditSFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
 {
     typename GetSFieldHandle<FieldT>::Ptr pSource = 
         boost::dynamic_pointer_cast<GetSFieldHandle<FieldT> >(source);
@@ -262,7 +262,7 @@ void EditSFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source)
 }
 
 template<class FieldT> inline
-void EditSFieldHandle<FieldT>::shareValues(GetFieldHandlePtr)
+void EditSFieldHandle<FieldT>::shareValues(GetFieldHandlePtr) const
 {
     FWARNING(("illegal shareValues called for %s\n", this->getName().c_str()));
     OSG_ASSERT(false);
@@ -346,7 +346,7 @@ void EditMFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
-bool EditMFieldHandle<FieldT>::equal(Inherited::Ptr rhs)
+bool EditMFieldHandle<FieldT>::equal(Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<EditMFieldHandle>(rhs);
 
@@ -371,7 +371,7 @@ void EditMFieldHandle<FieldT>::pushValueFromCString(
 }
 
 template<class FieldT> inline
-void EditMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source)
+void EditMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
 {
     typename GetMFieldHandle<FieldT>::Ptr pSource = 
         boost::dynamic_pointer_cast<GetMFieldHandle<FieldT> >(source);
@@ -385,7 +385,7 @@ void EditMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source)
 }
 
 template<class FieldT> inline
-void EditMFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source)
+void EditMFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source) const
 {
     FWARNING(("illegal shareValues called for %s\n", this->getName().c_str()));
     OSG_ASSERT(false);
@@ -469,7 +469,7 @@ void GetSFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
-bool GetSFieldHandle<FieldT>::equal(Inherited::Ptr rhs)
+bool GetSFieldHandle<FieldT>::equal(Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
 
@@ -550,7 +550,7 @@ void GetMFieldHandle<FieldT>::pushSizeToStream (OutStream &str) const
 }
 
 template<class FieldT> inline
-bool GetMFieldHandle<FieldT>::equal(Inherited::Ptr rhs)
+bool GetMFieldHandle<FieldT>::equal(Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<GetMFieldHandle>(rhs);
 

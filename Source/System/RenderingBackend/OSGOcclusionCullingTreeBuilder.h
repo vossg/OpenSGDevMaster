@@ -211,7 +211,7 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     static UInt32 _funcEndQueryARB;
 
     static bool                    _isOccStateCreated;
-    static StateUnrecPtr           _testingStatePtr;
+    static StateMTRecPtr           _testingStatePtr;
     static State                  *_testingState;
 
 

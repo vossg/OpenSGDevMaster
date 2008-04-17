@@ -352,12 +352,10 @@ void ClusterServer::doSync(bool applyToChangelist)
     }
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
-
 /*! render server window
  */
 
-void ClusterServer::doRender(DrawActionBase *action)
+void ClusterServer::doRender(RenderActionBase *action)
 {
 #if 0
     OSG::IndentFileOutStream outFileStream("/tmp/cluster.osg");
@@ -373,30 +371,6 @@ void ClusterServer::doRender(DrawActionBase *action)
         outFileStream.close();
     } 
 #endif
-
-    _clusterWindow->serverRender(_window, _serverId, action);
-}
-
-#endif
-
-
-/*! render server window
- */
-
-void ClusterServer::doRender(RenderActionBase *action)
-{
-    OSG::IndentFileOutStream outFileStream("/tmp/cluster.osg");
-
-    if(outFileStream)
-    {
-        //std::cerr << "STARTING PRINTOUT:" << std::endl;
-
-        OSG::OSGWriter writer(outFileStream, 4);
-
-        writer.write(_clusterWindow);
-
-        outFileStream.close();
-    } 
 
     _clusterWindow->serverRender(_window, _serverId, action);
 }

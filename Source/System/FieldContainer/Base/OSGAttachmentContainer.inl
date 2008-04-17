@@ -39,7 +39,7 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-Char8 *AttachmentContainer::getClassname(void)
+const Char8 *AttachmentContainer::getClassname(void)
 {
     return "AttachmentContainer";
 }
@@ -57,11 +57,11 @@ Char8 *AttachmentContainer::getClassname(void)
 inline
 AttachmentContainer::AttachmentObjPtr
     AttachmentContainer::findAttachment(UInt32 groupId,
-                                        UInt16 binding)
+                                        UInt16 binding) const
 {
     UInt32 key = (UInt32(groupId) << 16) | binding;
 
-    AttachmentObjPtrMapIt fcI = _sfAttachments.getValue().find(key);
+    AttachmentObjPtrMapConstIt fcI = _sfAttachments.getValue().find(key);
 
     if(fcI == _sfAttachments.getValue().end())
     {
@@ -88,7 +88,7 @@ inline
 AttachmentContainer::AttachmentObjPtr
     AttachmentContainer::findAttachment(
         const FieldContainerType &type,
-              UInt16              binding)
+              UInt16              binding) const
 {
     return findAttachment(type.getGroupId(), binding);
 }

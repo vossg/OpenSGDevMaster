@@ -117,6 +117,13 @@ class OSG_GROUP_DLLMAPPING ProxyGroup : public ProxyGroupBase
     /*! \name                      NodeCore Specific                       */
     /*! \{                                                                 */
 
+    virtual void resolveLinks(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      NodeCore Specific                       */
+    /*! \{                                                                 */
+
     void adjustVolume(Volume & volume);
 
     /*! \}                                                                 */
@@ -153,9 +160,9 @@ class OSG_GROUP_DLLMAPPING ProxyGroup : public ProxyGroupBase
     /*! \name                    load thread                               */
     /*! \{                                                                 */
 
-    static Thread                     *_loadThread;
-    static std::queue<ProxyGroupPtr>   _loadQueue;
-    static Lock                       *_loadLock;
+    static Thread                         *_loadThread;
+    static std::queue<ProxyGroupUnrecPtr>  _loadQueue;
+    static Lock                           *_loadLock;
 
     static void loadProc(void *);
 

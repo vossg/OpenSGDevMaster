@@ -81,10 +81,10 @@ struct FieldTraits<base##dim##type> :                                       \
     enum             { bHasParent        = 0x01                        };   \
                                                                             \
     static OSG_BASE_DLLMAPPING                                              \
-           DataType &getType      (void);                                   \
+                 DataType &getType (void);                                  \
                                                                             \
-    static Char8    *getSName     (void) { return "SF"#base #dim #type; }   \
-    static Char8    *getMName     (void) { return "MF"#base #dim #type; }   \
+    static const Char8    *getSName(void) { return "SF"#base #dim #type; }  \
+    static const Char8    *getMName(void) { return "MF"#base #dim #type; }  \
                                                                             \
     static base##dim##type getDefault (void) { return base##dim##type();}   \
 }

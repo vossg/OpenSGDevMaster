@@ -117,7 +117,8 @@ void EditMFieldHandle<FieldContainerPtrMFieldBase>::setAddMethod(
 }
 
 inline
-bool EditMFieldHandle<FieldContainerPtrMFieldBase>::equal(Inherited::Ptr rhs)
+bool EditMFieldHandle<FieldContainerPtrMFieldBase>::equal(
+    Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<EditMFieldHandle>(rhs);
 
@@ -146,7 +147,7 @@ void EditMFieldHandle<FieldContainerPtrMFieldBase>::pushValueFromCString(
 
 inline
 void EditMFieldHandle<FieldContainerPtrMFieldBase>::copyValues(
-    GetFieldHandlePtr source)
+    GetFieldHandlePtr source) const
 {
     FWARNING(("illegal copyValues called for %s\n", 
               this->getName().c_str()));
@@ -155,7 +156,7 @@ void EditMFieldHandle<FieldContainerPtrMFieldBase>::copyValues(
 
 inline
 void EditMFieldHandle<FieldContainerPtrMFieldBase>::shareValues(
-    GetFieldHandlePtr source)
+    GetFieldHandlePtr source) const
 {
     OSG_ASSERT(false);
 }
@@ -225,7 +226,8 @@ void GetMFieldHandle<FieldContainerPtrMFieldBase>::pushSizeToStream(
 }
 
 inline
-bool GetMFieldHandle<FieldContainerPtrMFieldBase>::equal(Inherited::Ptr rhs)
+bool GetMFieldHandle<FieldContainerPtrMFieldBase>::equal(
+    Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<GetMFieldHandle>(rhs);
 
@@ -399,7 +401,7 @@ void EditFCPtrMFieldHandle<FieldT>::pushValueFromCString(const Char8 *str)
 }
 
 template<class FieldT> inline
-void EditFCPtrMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr  source)
+void EditFCPtrMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
 {
     FWARNING(("illegal copyValues called for %s\n", 
               this->getName().c_str()));
@@ -407,7 +409,7 @@ void EditFCPtrMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr  source)
 }
 
 template<class FieldT> inline
-void EditFCPtrMFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source)
+void EditFCPtrMFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source) const
 {
     OSG_ASSERT(false);
 }

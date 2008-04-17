@@ -49,7 +49,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-typedef SFGeoIntegralPropertyPtr SFGeoIndicesPtr;
+typedef SFUnrecGeoIntegralPropertyPtr SFGeoIndicesPtr;
 
 OSG_END_NAMESPACE
 

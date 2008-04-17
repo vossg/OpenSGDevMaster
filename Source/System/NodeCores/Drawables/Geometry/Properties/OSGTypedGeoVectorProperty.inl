@@ -106,6 +106,8 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(
 template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::resolveLinks(void)
 {
+    Inherited::resolveLinks();
+
     AspectOffsetStore oOffsets;
 
     _pAspectStore->fillOffsetArray(oOffsets, this);

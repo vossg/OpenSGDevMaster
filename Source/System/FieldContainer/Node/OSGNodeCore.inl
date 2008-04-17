@@ -66,7 +66,7 @@ void NodeCore::resolveLinks(void)
 }
 
 inline
-Char8 *NodeCore::getClassname(void)
+const Char8 *NodeCore::getClassname(void)
 {
     return "NodeCore";
 }

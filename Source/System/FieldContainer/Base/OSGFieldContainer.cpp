@@ -117,6 +117,23 @@ void FieldContainer::invalidateVolume(void)
 {
 }
 
+/*! Internal function to establish a link from this container to its parent.
+    \warning Do NOT call this function manually, it is reserved for use by the
+    system.
+    
+    \param[in] pParent The parent.
+    \param[in] childFieldId Id of the field that holds the
+        pointer to \em this.
+    \param[in] parentFieldId Id of the field that should store the
+        pointer to \em pParent.
+    
+    \return \c true if the linking succeeded, \c false otherwise.
+    
+    \dev
+        This is normally overridden by generated code.
+    \enddev
+ */
+
 bool FieldContainer::linkParent(const FieldContainerPtr pParent,
                                 const UInt16            childFieldId,
                                 const UInt16            parentFieldId) 
@@ -124,11 +141,41 @@ bool FieldContainer::linkParent(const FieldContainerPtr pParent,
     return false;
 }
 
+/*! Internal function to remove a link from this container to its parent.
+    \warning Do NOT call this function manually, it is reserved for use by the
+    system.
+    
+    \param[in] pParent The parent.
+    \param[in] parentFieldId Id of the field (in \c this) that stores the
+        pointer to \a pParent.
+    
+    \return \c true if the unlinking succeeded, \c false otherwise.
+    
+    \dev
+        This is normally overridden by generated code.
+    \enddev
+ */
+
 bool FieldContainer::unlinkParent(const FieldContainerPtr pParent,
                                   const UInt16            parentFieldId) 
 {
     return false;
 }
+
+/*! Internal function to remove a link from this container to a child.
+    \warning Do NOT call this function manually, it is reserved for use by the
+    system.
+    
+    \param[in] pChild Child to unlink.
+    \param[in] childFieldId Id of the field (in \c this) that holds the
+        pointer to \a pChild.
+    
+    \return \c true if the unlinking succeeded, \c false otherwise.
+    
+    \dev
+        This is normally overridden by generated code.
+    \enddev
+ */
             
 bool FieldContainer::unlinkChild(const FieldContainerPtr pChild,
                                  const UInt16            childFieldId) 

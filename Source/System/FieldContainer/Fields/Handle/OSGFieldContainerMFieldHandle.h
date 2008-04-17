@@ -94,14 +94,14 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 
     virtual void pushValueFromCString(const Char8             *str   );
 
-    virtual void copyValues          (      GetFieldHandlePtr  source);
-    virtual void shareValues         (      GetFieldHandlePtr  source);
+    virtual void copyValues          (      GetFieldHandlePtr  source) const;
+    virtual void shareValues         (      GetFieldHandlePtr  source) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -148,7 +148,7 @@ class OSG_SYSTEM_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -243,8 +243,8 @@ class EditFCPtrMFieldHandle :
 
     virtual void pushValueFromCString(const Char8             *str   );
 
-    virtual void copyValues          (      GetFieldHandlePtr  source);
-    virtual void shareValues         (      GetFieldHandlePtr  source);
+    virtual void copyValues          (      GetFieldHandlePtr  source) const;
+    virtual void shareValues         (      GetFieldHandlePtr  source) const;
 
     /*---------------------------------------------------------------------*/
 

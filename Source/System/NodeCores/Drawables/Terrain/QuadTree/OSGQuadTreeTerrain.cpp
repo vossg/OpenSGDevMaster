@@ -274,7 +274,7 @@ static std::string _fp_program =
 "}\n";
 
 // SHLChunk initialized in QuadTreeTerrain::changed
-static SHLChunkUnrecPtr s_shlChunk;
+static SHLChunkMTRecPtr s_shlChunk;
 
 SHLChunkTransitPtr QuadTreeTerrain::createSHLChunk () const
 {

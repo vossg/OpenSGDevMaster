@@ -91,14 +91,14 @@ class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
 
     void         setSetMethod(SetMethod      fMethod);
 
-    virtual bool equal       (Inherited::Ptr rhs    );
+    virtual bool equal       (Inherited::Ptr rhs    ) const;
 
     /*---------------------------------------------------------------------*/
 
     virtual void pushValueFromCString(const Char8             *str   );
 
-    virtual void copyValues          (      GetFieldHandlePtr  source);
-    virtual void shareValues         (      GetFieldHandlePtr  source);
+    virtual void copyValues          (      GetFieldHandlePtr  source) const;
+    virtual void shareValues         (      GetFieldHandlePtr  source) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -145,7 +145,7 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<FieldContainerPtrSFieldBase> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 

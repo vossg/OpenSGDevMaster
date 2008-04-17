@@ -456,127 +456,109 @@ struct TypedNormGeoVectorPropertyDescBase
 
 /*! Helper macro for auto building geo property header information.
 */
-#define makeProp(typename, gltypename, gltype)                               \
-struct Geo##typename##PropertyDesc :                                      \
-    public TypedGeoVectorPropertyDescBase                                 \
-{                                                                            \
-    /*---------------------------------------------------------------------*/\
-    /*! \name                          Get                                 */\
-    /*! \{                                                                 */\
-                                                                             \
-    static const Char8 *getTypeName (void)                                   \
-    {                                                                        \
-        return "Geo" #typename "Property";                                \
-    }                                                                        \
-                                                                             \
-    static UInt32             getFormat    (void) { return gltypename;      }\
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  }\
+#define makeProp(typename, gltypename, gltype)                                \
+struct Geo##typename##PropertyDesc :                                          \
+    public TypedGeoVectorPropertyDescBase                                     \
+{                                                                             \
+    /*---------------------------------------------------------------------*/ \
+    /*! \name                          Get                                 */ \
+    /*! \{                                                                 */ \
+                                                                              \
+    static const Char8 *getTypeName (void)                                    \
+    {                                                                         \
+        return "Geo" #typename "Property";                                    \
+    }                                                                         \
+                                                                              \
+    static UInt32             getFormat    (void) { return gltypename;      } \
+    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
     static UInt32             getDimension (void) { return typename::_uiSize;}\
-                                                                             \
-    typedef typename          StoredType;                                    \
-    typedef MF##typename      StoredFieldType;                               \
-    /*! \}                                                                 */\
-};                                                                           \
-                                                                             \
-typedef TypedGeoVectorProperty<Geo##typename##PropertyDesc>                 \
-        Geo##typename##Property;                                          \
-                                                                            \
-typedef Geo##typename##Property::ObjPtr                                     \
-    Geo##typename##PropertyPtr;                                             \
-typedef Geo##typename##Property::ObjRecPtr                                  \
-    Geo##typename##PropertyRecPtr;                                          \
-typedef Geo##typename##Property::ObjUnrecPtr                                \
-    Geo##typename##PropertyUnrecPtr;                                        \
-typedef Geo##typename##Property::ObjPtrConst                                \
-    Geo##typename##PropertyPtrConst;                                        \
-typedef Geo##typename##Property::ObjPtrConstArg                             \
-    Geo##typename##PropertyPtrConstArg
+                                                                              \
+    typedef typename          StoredType;                                     \
+    typedef MF##typename      StoredFieldType;                                \
+    /*! \}                                                                 */ \
+};                                                                            \
+                                                                              \
+typedef TypedGeoVectorProperty<Geo##typename##PropertyDesc>                   \
+        Geo##typename##Property;                                              \
+                                                                              \
+OSG_GEN_CONTAINERPTR(Geo##typename##Property);
 
 
-#define makeNormProp(typename, propname, nscale, gltypename, gltype)         \
-struct Geo##propname##PropertyDesc :                                      \
-    public TypedNormGeoVectorPropertyDescBase                             \
-{                                                                            \
-    /*---------------------------------------------------------------------*/\
-    /*! \name                          Get                                 */\
-    /*! \{                                                                 */\
-                                                                             \
-    static const Char8 *getTypeName (void)                                   \
-    {                                                                        \
-        return "Geo" #propname "Property";                                \
-    }                                                                        \
-                                                                             \
-    static UInt32             getFormat    (void) { return gltypename;      }\
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  }\
+#define makeNormProp(typename, propname, nscale, gltypename, gltype)          \
+struct Geo##propname##PropertyDesc :                                          \
+    public TypedNormGeoVectorPropertyDescBase                                 \
+{                                                                             \
+    /*---------------------------------------------------------------------*/ \
+    /*! \name                          Get                                 */ \
+    /*! \{                                                                 */ \
+                                                                              \
+    static const Char8 *getTypeName (void)                                    \
+    {                                                                         \
+        return "Geo" #propname "Property";                                    \
+    }                                                                         \
+                                                                              \
+    static UInt32             getFormat    (void) { return gltypename;      } \
+    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
     static UInt32             getDimension (void) { return typename::_uiSize;}\
-                                                                             \
-    typedef typename          StoredType;                                    \
-    typedef MF##typename      StoredFieldType;                               \
-                                                                             \
-    static const int scale = nscale;                                         \
-    /*! \}                                                                 */\
-};                                                                           \
-                                                                             \
-typedef TypedGeoVectorProperty<Geo##propname##PropertyDesc>                  \
-        Geo##propname##Property;                                             \
-                                                                            \
-typedef Geo##propname##Property::ObjPtr                                     \
-    Geo##propname##PropertyPtr;                                             \
-typedef Geo##propname##Property::ObjRecPtr                                  \
-    Geo##propname##PropertyRecPtr;                                          \
-typedef Geo##propname##Property::ObjUnrecPtr                                \
-    Geo##propname##PropertyUnrecPtr;                                        \
-typedef Geo##propname##Property::ObjPtrConst                                \
-    Geo##propname##PropertyPtrConst;                                        \
-typedef Geo##propname##Property::ObjPtrConstArg                             \
-    Geo##propname##PropertyPtrConstArg
+                                                                              \
+    typedef typename          StoredType;                                     \
+    typedef MF##typename      StoredFieldType;                                \
+                                                                              \
+    static const int scale = nscale;                                          \
+    /*! \}                                                                 */ \
+};                                                                            \
+                                                                              \
+typedef TypedGeoVectorProperty<Geo##propname##PropertyDesc>                   \
+        Geo##propname##Property;                                              \
+                                                                              \
+OSG_GEN_CONTAINERPTR(Geo##propname##Property);
 
 #else // !defined(OSG_DO_DOC)
 
-#define makeProp(typename, gltypename, gltype)                               \
-struct Geo##typename##PropertyDesc :                                      \
-    public TypedGeoVectorPropertyDescBase                                 \
-{                                                                            \
-    /*---------------------------------------------------------------------*/\
-    /*! \name                          Get                                 */\
-    /*! \{                                                                 */\
-                                                                             \
-    static const Char8 *getTypeName (void)                                   \
-    {                                                                        \
-        return "Geo" #typename "Property";                                \
-    }                                                                        \
-                                                                             \
-    static UInt32             getFormat    (void) { return gltypename;      }\
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  }\
+#define makeProp(typename, gltypename, gltype)                                \
+struct Geo##typename##PropertyDesc :                                          \
+    public TypedGeoVectorPropertyDescBase                                     \
+{                                                                             \
+    /*---------------------------------------------------------------------*/ \
+    /*! \name                          Get                                 */ \
+    /*! \{                                                                 */ \
+                                                                              \
+    static const Char8 *getTypeName (void)                                    \
+    {                                                                         \
+        return "Geo" #typename "Property";                                    \
+    }                                                                         \
+                                                                              \
+    static UInt32             getFormat    (void) { return gltypename;      } \
+    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
     static UInt32             getDimension (void) { return typename::_uiSize;}\
-                                                                             \
-    typedef typename          StoredType;                                    \
-    typedef MF##typename      StoredFieldType;                               \
-    /*! \}                                                                 */\
+                                                                              \
+    typedef typename          StoredType;                                     \
+    typedef MF##typename      StoredFieldType;                                \
+    /*! \}                                                                 */ \
 }
 
-#define makeNormProp(typename, propname, nscale, gltypename, gltype)         \
-struct Geo##propname##PropertyDesc :                                      \
-    public TypedNormGeoVectorPropertyDescBase                             \
-{                                                                            \
-    /*---------------------------------------------------------------------*/\
-    /*! \name                          Get                                 */\
-    /*! \{                                                                 */\
-                                                                             \
-    static const Char8 *getTypeName (void)                                   \
-    {                                                                        \
-        return "Geo" #propname "Property";                                \
-    }                                                                        \
-                                                                             \
-    static UInt32             getFormat    (void) { return gltypename;      }\
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  }\
+#define makeNormProp(typename, propname, nscale, gltypename, gltype)          \
+struct Geo##propname##PropertyDesc :                                          \
+    public TypedNormGeoVectorPropertyDescBase                                 \
+{                                                                             \
+    /*---------------------------------------------------------------------*/ \
+    /*! \name                          Get                                 */ \
+    /*! \{                                                                 */ \
+                                                                              \
+    static const Char8 *getTypeName (void)                                    \
+    {                                                                         \
+        return "Geo" #propname "Property";                                    \
+    }                                                                         \
+                                                                              \
+    static UInt32             getFormat    (void) { return gltypename;      } \
+    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
     static UInt32             getDimension (void) { return typename::_uiSize;}\
-                                                                             \
-    typedef typename          StoredType;                                    \
-    typedef MF##typename      StoredFieldType;                               \
-                                                                             \
-    static const int scale = nscale;                                         \
-    /*! \}                                                                 */\
+                                                                              \
+    typedef typename          StoredType;                                     \
+    typedef MF##typename      StoredFieldType;                                \
+                                                                              \
+    static const int scale = nscale;                                          \
+    /*! \}                                                                 */ \
 }
 
 #endif

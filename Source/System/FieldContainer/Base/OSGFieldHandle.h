@@ -153,7 +153,7 @@ class OSG_SYSTEM_DLLMAPPING GetFieldHandle : public FieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Ptr rhs) = 0;
+    virtual bool equal(Ptr rhs) const = 0;
 
     bool operator ==(const EditFieldHandle &rhs);
     bool operator ==(const GetFieldHandle  &rhs);
@@ -207,12 +207,12 @@ class OSG_SYSTEM_DLLMAPPING EditFieldHandle : public FieldHandle
 
     virtual void pushValueFromCString(const Char8             *str   ) = 0;
 
-    virtual void copyValues          (      GetFieldHandlePtr  source) = 0;
-    virtual void shareValues         (      GetFieldHandlePtr  source) = 0;
+    virtual void copyValues          (      GetFieldHandlePtr  source) const= 0;
+    virtual void shareValues         (      GetFieldHandlePtr  source) const= 0;
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Ptr rhs) = 0;
+    virtual bool equal(Ptr rhs) const = 0;
 
     bool operator ==(const EditFieldHandle &rhs);
     bool operator ==(const GetFieldHandle  &rhs);
@@ -273,14 +273,14 @@ class EditSFieldHandle : public EditFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 
     virtual void pushValueFromCString(const Char8             *str   );
 
-    virtual void copyValues          (      GetFieldHandlePtr  source);
-    virtual void shareValues         (      GetFieldHandlePtr  source);
+    virtual void copyValues          (      GetFieldHandlePtr  source) const;
+    virtual void shareValues         (      GetFieldHandlePtr  source) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -345,14 +345,14 @@ class EditMFieldHandle : public EditFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 
     virtual void pushValueFromCString(const Char8             *str   );
 
-    virtual void copyValues          (      GetFieldHandlePtr  source);
-    virtual void shareValues         (      GetFieldHandlePtr  source);
+    virtual void copyValues          (      GetFieldHandlePtr  source) const;
+    virtual void shareValues         (      GetFieldHandlePtr  source) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -414,7 +414,7 @@ class GetSFieldHandle : public GetFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -468,7 +468,7 @@ class GetMFieldHandle : public GetFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs);
+    virtual bool equal(Inherited::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 

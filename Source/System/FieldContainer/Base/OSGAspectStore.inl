@@ -51,7 +51,7 @@ AspectStore::~AspectStore(void)
 }
 
 inline
-FieldContainer *AspectStore::getPtr(UInt32 uiAspect) const
+FieldContainer *AspectStore::getPtr(const UInt32 uiAspect) const
 {
     if(uiAspect < _vAspects.size())
     {
@@ -71,8 +71,8 @@ FieldContainer *AspectStore::getPtr(void) const
 }
 
 inline
-void AspectStore::setPtrForAspect(FieldContainerPtr pContainer, 
-                                  UInt32            uiAspect  )
+void AspectStore::setPtrForAspect(const FieldContainerPtr pContainer, 
+                                  const UInt32            uiAspect  )
 {
     _vAspects.resize(osgMax<UInt32>(_vAspects.size(), uiAspect + 1), NULL);
     
@@ -80,7 +80,7 @@ void AspectStore::setPtrForAspect(FieldContainerPtr pContainer,
 }
 
 inline
-void AspectStore::removePtrForAspect(UInt32 uiAspect)
+void AspectStore::removePtrForAspect(const UInt32 uiAspect)
 {
     if(uiAspect >= _vAspects.size())
     {
@@ -125,19 +125,21 @@ Int32 AspectStore::getRefCount(void)
 
 inline
 AspectStore::AspectStore(void) :
+    _vAspects( ),
     _refCount(0)
 {
 }
 
 inline
 AspectStore::AspectStore(const AspectStore &) :
+    _vAspects( ),
     _refCount(0)
 {
 }
 
 inline
-void AspectStore::fillOffsetArray(AspectOffsetStore &oStore, 
-                                  FieldContainerPtr  pRef  )
+void AspectStore::fillOffsetArray(      AspectOffsetStore &oStore, 
+                                  const FieldContainerPtr  pRef  )
 {
     Char8 *pRefMem = reinterpret_cast<Char8 *>(pRef);
 

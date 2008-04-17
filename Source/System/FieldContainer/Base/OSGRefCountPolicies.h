@@ -49,7 +49,11 @@ struct RecordedRefCountPolicy
     static void addRef(FieldContainerPtrConst objectP)
     {
         if(objectP != NullFC)
+        {
             objectP->addReferenceX();
+
+//            Thread::getCurrentChangeList()->addAddRefd(objectP->getId());
+        }
     }
     static void subRef(FieldContainerPtrConst objectP)
     {

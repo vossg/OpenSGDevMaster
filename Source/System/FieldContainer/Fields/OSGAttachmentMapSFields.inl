@@ -92,7 +92,7 @@ void GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::pushSizeToStream(
 
 inline
 bool GetSFieldHandle<SFFieldContainerAttachmentPtrMap>::equal(
-    Inherited::Ptr rhs)
+    Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
 
@@ -200,7 +200,7 @@ void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::pushSizeToStream(
 
 inline
 bool EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::equal(
-    Inherited::Ptr rhs)
+    Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<EditSFieldHandle>(rhs);
 
@@ -236,7 +236,7 @@ void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::pushValueFromCString(
 
 inline
 void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::copyValues(
-    GetFieldHandlePtr source)
+    GetFieldHandlePtr source) const
 {
     FWARNING(("illegal copyValues called for %s\n", 
               this->getName().c_str()));
@@ -245,7 +245,7 @@ void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::copyValues(
 
 inline
 void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::shareValues(
-    GetFieldHandlePtr source)
+    GetFieldHandlePtr source) const
 {
     SFFieldContainerAttachmentPtrMap::GetHandlePtr pGetHandle = 
         boost::dynamic_pointer_cast<

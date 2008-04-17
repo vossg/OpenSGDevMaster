@@ -63,16 +63,17 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    typedef FieldContainer                    Inherited;
-    typedef Inherited::TypeObject             TypeObject;
-    typedef AttachmentContainer               Self;
+    typedef FieldContainer                      Inherited;
+    typedef Inherited::TypeObject               TypeObject;
+    typedef AttachmentContainer                 Self;
 
-    typedef FieldContainerAttachment          AttachmentObj;
-    typedef FieldContainerAttachmentPtr       AttachmentObjPtr;
-    typedef SFFieldContainerAttachmentPtrMap  SFAttachmentObjPtrMap;
+    typedef FieldContainerAttachment            AttachmentObj;
+    typedef FieldContainerAttachmentPtr         AttachmentObjPtr;
+    typedef SFFieldContainerAttachmentPtrMap    SFAttachmentObjPtrMap;
 
-    typedef SFAttachmentObjPtrMap::StoredType AttachmentObjPtrMap;
-    typedef AttachmentObjPtrMap::iterator     AttachmentObjPtrMapIt;
+    typedef SFAttachmentObjPtrMap::StoredType   AttachmentObjPtrMap;
+    typedef AttachmentObjPtrMap::iterator       AttachmentObjPtrMapIt;
+    typedef AttachmentObjPtrMap::const_iterator AttachmentObjPtrMapConstIt;
 
     
     OSG_GEN_INTERNALPTR(AttachmentContainer);
@@ -102,31 +103,6 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-#if 0
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void insertIntoMField(const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement,
-                                  const UInt32                    uiFieldId  );
-
-    virtual void removeFromMField(const UInt32                    uiIndex,
-                                  const UInt32                    whichField );
-
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
-                                  const UInt32                    whichField );
-
-    virtual void clearField      (const UInt32                    whichField );
-#endif
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
@@ -149,11 +125,16 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     void             subAttachment (const AttachmentObjPtr   attachmentP,
                                           UInt16             binding    = 0);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
     AttachmentObjPtr findAttachment(      UInt32             groupId,
-                                          UInt16             binding    = 0);
+                                          UInt16             binding = 0) const;
 
     AttachmentObjPtr findAttachment(const FieldContainerType &type,
-                                          UInt16              binding    = 0);
+                                          UInt16              binding= 0) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,8 +187,8 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
 
     static TypeObject _type;
 
-    static void   classDescInserter(TypeObject &oType);
-    static Char8 *getClassname     (void             );
+    static       void   classDescInserter(TypeObject &oType);
+    static const Char8 *getClassname     (void             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

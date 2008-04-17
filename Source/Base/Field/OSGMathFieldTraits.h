@@ -80,12 +80,12 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
                                       Self::ToStreamConvertible   ) };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFMatrix";       }
-    static Char8    *getMName     (void) { return "MFMatrix";       }
+    static const Char8    *getSName     (void) { return "SFMatrix";       }
+    static const Char8    *getMName     (void) { return "MFMatrix";       }
 
-    static Matrix    getDefault   (void) { return Matrix();         }
+    static       Matrix    getDefault   (void) { return Matrix();         }
 
 
     static bool      getFromCString(      Matrix   &outVal,
@@ -197,12 +197,12 @@ struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
                                             Self::ToStreamConvertible   ) };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType       (void);
+                 DataType &getType       (void);
 
-    static Char8    *getSName      (void) { return "SFMatrix4d";       }
-    static Char8    *getMName      (void) { return "MFMatrix4d";       }
+    static const Char8    *getSName      (void) { return "SFMatrix4d";       }
+    static const Char8    *getMName      (void) { return "MFMatrix4d";       }
 
-    static Matrix4d  getDefault    (void) { return Matrix4d();         }
+    static       Matrix4d  getDefault    (void) { return Matrix4d();         }
 
     static bool      getFromCString(      Matrix4d   &outVal,
                                     const Char8     *&inVal)
@@ -313,12 +313,12 @@ struct FieldTraits<Matrix4fx> : public FieldTraitsTemplateBase<Matrix4fx>
     enum             { Convertible = Self::NotConvertible           };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFMatrix4fx";    }
-    static Char8    *getMName     (void) { return "MFMatrix4fx";    }
+    static const Char8    *getSName     (void) { return "SFMatrix4fx";    }
+    static const Char8    *getMName     (void) { return "MFMatrix4fx";    }
 
-    static Matrix4fx getDefault   (void) { return Matrix4fx();      }
+    static       Matrix4fx getDefault   (void) { return Matrix4fx();      }
 
 
     static bool      getFromString(      Matrix4fx &outVal,
@@ -395,12 +395,12 @@ struct FieldTraits<Quaternion> : public FieldTraitsVec4TemplateBase<Quaternion>
     enum               { Convertible = Self::ToStreamConvertible    };
 
     static OSG_BASE_DLLMAPPING
-           DataType   &getType      (void);
+                 DataType   &getType      (void);
 
-    static Char8      *getSName     (void) { return "SFQuaternion"; }
-    static Char8      *getMName     (void) { return "MFQuaternion"; }
+    static const Char8      *getSName     (void) { return "SFQuaternion"; }
+    static const Char8      *getMName     (void) { return "MFQuaternion"; }
 
-    static Quaternion  getDefault   (void) { return Quaternion();   }
+    static       Quaternion  getDefault   (void) { return Quaternion();   }
 
 };
 
@@ -439,12 +439,12 @@ struct FieldTraits<Quaternionfx> :
     enum               { Convertible = Self::ToStreamConvertible    };
 
     static OSG_BASE_DLLMAPPING
-           DataType     &getType      (void);
+                 DataType     &getType      (void);
 
-    static Char8        *getSName     (void) { return "SFQuaternionfx"; }
-    static Char8        *getMName     (void) { return "MFQuaternionfx"; }
+    static const Char8        *getSName     (void) { return "SFQuaternionfx"; }
+    static const Char8        *getMName     (void) { return "MFQuaternionfx"; }
 
-    static Quaternionfx  getDefault   (void) { return Quaternionfx();   }
+    static       Quaternionfx  getDefault   (void) { return Quaternionfx();   }
 
 };
 

@@ -98,7 +98,7 @@ StatElemDesc<StatIntElem>  OcclusionCullingTreeBuilder::statNOccTriangles(
 
 
 bool           OcclusionCullingTreeBuilder::_isOccStateCreated = false;
-StateUnrecPtr  OcclusionCullingTreeBuilder::_testingStatePtr;
+StateMTRecPtr  OcclusionCullingTreeBuilder::_testingStatePtr;
 State         *OcclusionCullingTreeBuilder::_testingState;
 
 

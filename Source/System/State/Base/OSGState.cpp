@@ -289,17 +289,16 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 void State::activate(DrawEnv *pEnv)
 {
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind = 0;
     UInt32                               cind;
 
-    for(  it  = _mfChunks.begin(), cind = 0; 
-          it != _mfChunks.end  ();
-        ++it, ++cind)
+    for(cind = 0; cIt != cEnd; ++cIt, ++cind)
     {
-        if(*it != NullFC && (*it)->getIgnore() == false)
+        if(*cIt != NullFC && (*cIt)->getIgnore() == false)
         {
-            (*it)->activate(pEnv, UInt32(ind));
+            (*cIt)->activate(pEnv, UInt32(ind));
         }
 
         if(++ind >= StateChunkClass::getNumSlots(cind))
@@ -314,17 +313,16 @@ void State::activate(DrawEnv *pEnv)
 
 void State::changeFrom(DrawEnv *pEnv, State *pOld)
 {
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind = 0;
     UInt32                               i;
     UInt32                               cind;
 
-    for(  it = _mfChunks.begin(), cind = 0; 
-          it != _mfChunks.end();
-        ++it, ++cind)
+    for(cind = 0; cIt != cEnd; ++cIt, ++cind)
     {
         StateChunkPtr o = pOld->getChunk(cind);
-        StateChunkPtr n = *it;
+        StateChunkPtr n = *cIt;
 
         if(n != NullFC && n->getIgnore() == false)
         {
@@ -372,16 +370,15 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
 
 void State::deactivate(DrawEnv *pEnv)
 {
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
     Int32                                ind = 0;
     UInt32                               cind;
 
-    for(  it =  _mfChunks.begin(), cind = 0; 
-          it != _mfChunks.end  ();
-        ++it, ++cind)
+    for(cind = 0; cIt != cEnd; ++cIt, ++cind)
     {
-        if(*it != NullFC && (*it)->getIgnore() == false)
-            (*it)->deactivate(pEnv, UInt32(ind));
+        if(*cIt != NullFC && (*cIt)->getIgnore() == false)
+            (*cIt)->deactivate(pEnv, UInt32(ind));
 
         if(++ind >= StateChunkClass::getNumSlots(cind))
             ind = 0;
@@ -471,12 +468,10 @@ bool State::addChunk(StateChunkPtr chunk, Int32 index)
 
         for(UInt32 i = oldsize; i < newsize; i++)
         {
-//            _mfChunks[i] = NullFC;
             _mfChunks.replace(i, NullFC);
         }
     }
 
-//    setRefd(_mfChunks[cindex], chunk);
     _mfChunks.replace(cindex, chunk);
     
     return false;
@@ -521,9 +516,6 @@ bool State::subChunk(StateChunkPtr chunk)
 
     // remove the chunk from the state
 
-//    subRef(_mfChunks[ci]);
-
-//    _mfChunks[ci] = NullFC;
     _mfChunks.replace(ci, NullFC);
     
     return false;
@@ -551,9 +543,6 @@ bool State::subChunk(UInt32 classid, Int32 index)
 
     // remove the chunk from the state
 
-//    subRef(_mfChunks[classid + index]);
-
-//    _mfChunks[classid + index] = NullFC;
     _mfChunks.replace(classid + index, NullFC);
     
     return false;

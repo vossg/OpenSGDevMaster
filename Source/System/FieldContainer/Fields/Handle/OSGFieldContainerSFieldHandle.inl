@@ -103,7 +103,8 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
 }
 
 inline
-bool EditSFieldHandle<FieldContainerPtrSFieldBase>::equal(Inherited::Ptr rhs)
+bool EditSFieldHandle<FieldContainerPtrSFieldBase>::equal(
+    Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<EditSFieldHandle>(rhs);
 
@@ -139,7 +140,7 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushValueFromCString(
 
 inline
 void EditSFieldHandle<FieldContainerPtrSFieldBase>::copyValues(
-    GetFieldHandlePtr source)
+    GetFieldHandlePtr source) const
 {
     FWARNING(("illegal copyValues called for %s\n", 
               this->getName().c_str()));
@@ -148,7 +149,7 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::copyValues(
 
 inline
 void EditSFieldHandle<FieldContainerPtrSFieldBase>::shareValues(
-    GetFieldHandlePtr source)
+    GetFieldHandlePtr source) const
 {
     OSG_ASSERT(false);
 }
@@ -220,7 +221,8 @@ void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
 }
 
 inline
-bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(Inherited::Ptr rhs)
+bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(
+    Inherited::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
 

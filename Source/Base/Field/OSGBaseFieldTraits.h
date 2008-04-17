@@ -994,12 +994,12 @@ struct FieldTraits<GLenum, 1> : public FieldTraitsPODTemplateBase<GLenum, 1>
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING
-           DataType &getType      (void);
+                 DataType &getType      (void);
 
-    static Char8    *getSName     (void) { return "SFGLenum";          }
-    static Char8    *getMName     (void) { return "MFGLenum";          }
+    static const Char8    *getSName     (void) { return "SFGLenum";          }
+    static const Char8    *getMName     (void) { return "MFGLenum";          }
 
-    static GLenum    getDefault   (void) { return 0;                   }
+    static       GLenum    getDefault   (void) { return 0;                   }
 
     static void putToStream(const GLenum    &val,
                                   OutStream &str)
