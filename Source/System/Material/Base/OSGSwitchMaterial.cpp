@@ -95,7 +95,7 @@ SwitchMaterial::~SwitchMaterial(void)
     // Material::~Material ein subRefCP(_pState) aufgerufen. Dieser 
     // subRefCP wuerde dann nochmal mit dem gleichen ungueltigen pointer 
     // fuer das SwitchMaterial aufgerufen werden und
-    // das kracht natürlich, deswegen wird er jetzt einfach auf NullFC gesetzt!
+    // das kracht natuerlich, deswegen wird er jetzt einfach auf NullFC gesetzt!
 
     _pState = NullFC;
 }

@@ -202,7 +202,7 @@ bool MergeGraphOp::mergeOnce(NodePtr node)
     return result;
 }
 
-void MergeGraphOp::makeExcludeList(NodePtr& node)
+void MergeGraphOp::makeExcludeList(NodePtr node)
 {
     /*
     ::traverse(node,

@@ -106,7 +106,7 @@ private:
     /* Some internal helper methods */
     
     OSG::Action::ResultE verifyGeometry(NodePtrConst node);
-    bool verifyIndexMap(GeometryPtr &geo, bool &repair);
+    bool verifyIndexMap(GeometryPtr geo, bool &repair);
     bool repairGeometry(void);    
 
     /* Configuration variables */

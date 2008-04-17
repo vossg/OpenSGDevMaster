@@ -793,8 +793,8 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
     std::string elem;
     std::map<std::string, MaterialElem>::const_iterator elemI;
     MaterialElem mtlElem;
-    std::map<std::string, OSG::ImagePtr> imageMap;
-    std::map<std::string, OSG::ImagePtr>::iterator iI;
+    std::map<std::string, OSG::ImageUnrecPtr> imageMap;
+    std::map<std::string, OSG::ImageUnrecPtr>::iterator iI;
     ImageUnrecPtr image = NullFC;
     bool constDiffuse = false, constAmbient = false, constSpecular = false;
 

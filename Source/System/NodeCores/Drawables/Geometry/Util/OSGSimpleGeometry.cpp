@@ -74,7 +74,7 @@ OSG_BEGIN_NAMESPACE
     \param[in] ysize Length of plane edge in y direction.
     \param[in] hor Number of quads in x direction.
     \param[in] vert Number of quads in y direction.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -100,7 +100,7 @@ NodeTransitPtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
     \param[in] ysize Length of plane edge in y direction.
     \param[in] hor Number of quads in x direction.
     \param[in] vert Number of quads in y direction.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makePlane
 
@@ -188,7 +188,7 @@ GeometryTransitPtr makePlaneGeo(Real32 xsize, Real32 ysize,
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true side faces are created.
     \param[in] doBttom If true bottom faces are created.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
 */
@@ -214,7 +214,7 @@ NodeTransitPtr makeCone(Real32 height,
     \param[in] sides Number of sides the base is subdivided into.
     \param[in] doSide If true side faces are created.
     \param[in] doBttom If true bottom faces are created.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeCone
 
@@ -248,7 +248,7 @@ GeometryTransitPtr makeConeGeo(Real32 height,
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
     \param[in] doBttom If true, bottom cap faces are created.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
 */
@@ -276,7 +276,7 @@ NodeTransitPtr makeCylinder(Real32 height,
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
     \param[in] doBttom If true, bottom cap faces are created.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeCylinder
 
@@ -314,7 +314,7 @@ GeometryTransitPtr makeCylinderGeo(Real32 height,
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
     \param[in] doBttom If true, bottom cap faces are created.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -355,7 +355,7 @@ NodeTransitPtr makeConicalFrustum(Real32 height,
     \param[in] doSide If true, side faces are created.
     \param[in] doTop If true, top cap faces are created.
     \param[in] doBttom If true, bottom cap faces are created.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -512,7 +512,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
     \param[in] outerRadius Outer radius of the torus.
     \param[in] sides Number of subdivisions along the inner radius.
     \param[in] rings Number of subdivisions along the outer radius.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -544,7 +544,7 @@ NodeTransitPtr makeTorus(Real32 innerRadius,
     \param[in] outerRadius Outer radius of the torus.
     \param[in] sides Number of subdivisions along the inner radius.
     \param[in] rings Number of subdivisions along the outer radius.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeTorus
 
@@ -784,7 +784,7 @@ NodeTransitPtr makeSphere(UInt16 depth, Real32 radius)
 
     \param[in] depth Number of recursive subdivisions to perform.
     \param[in] radius Radius of sphere.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeSphere
 
@@ -961,7 +961,7 @@ GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
     \param[in] radius Radius of sphere.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -986,7 +986,7 @@ NodeTransitPtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
     \param[in] radius Radius of sphere.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeLatLongSphere
 
@@ -1093,7 +1093,7 @@ GeometryTransitPtr makeLatLongSphereGeo(UInt16 latres,
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
     \param[in] radius Radius of sphere.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -1124,7 +1124,7 @@ NodeTransitPtr makeLatLongEllipsoid(UInt16 latres,
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
     \param[in] radius Radius of sphere.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeLatLongSphere
 
@@ -1245,7 +1245,7 @@ GeometryTransitPtr makeLatLongEllipsoidGeo(UInt16 latres,
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
     \param[in] radius Radius of sphere.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -1285,7 +1285,7 @@ NodeTransitPtr makeLatLongEllipsoidSeg(UInt16 latres,
     \param[in] latres Number of subdivisions along latitudes.
     \param[in] longres Number of subdivisions along longitudes.
     \param[in] radius Radius of sphere.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeLatLongSphere
 
@@ -1562,7 +1562,7 @@ NodeTransitPtr makeEllipsoidAxis(UInt16 latres,
     \param[in] hor Number of quads along the x axis.
     \param[in] vert Number of quads along the y axis.
     \param[in] depth Number of quads along the z axis.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -1591,7 +1591,7 @@ NodeTransitPtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
     \param[in] hor Number of quads along the x axis.
     \param[in] vert Number of quads along the y axis.
     \param[in] depth Number of quads along the z axis.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeBox
 
@@ -1700,7 +1700,7 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
     (http://www1.acm.org/tog/resources/SPD).
 
     \param[in] depth Subdivision depth.
-    \return NodePtr to a newly created Node with a Geometry core.
+    \return NodeTransitPtr to a newly created Node with a Geometry core.
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
@@ -2179,7 +2179,7 @@ points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3],
 /*! Create the Geometry Core used by OSG::makeTeapot.
 
     \param[in] depth Subdivision depth.
-    \return GeometryPtr to a newly created Geometry core.
+    \return GeometryTransitPtr to a newly created Geometry core.
 
     \sa OSG::makeTeapot
 

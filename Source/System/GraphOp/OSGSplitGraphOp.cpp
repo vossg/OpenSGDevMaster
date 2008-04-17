@@ -279,8 +279,8 @@ Action::ResultE SplitGraphOp::traverseLeave(NodePtrConstArg node, Action::Result
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
 
-    std::vector<NodePtr> toAdd;
-    std::vector<NodePtr> toSub;
+    std::vector<NodeUnrecPtr> toAdd;
+    std::vector<NodePtr     > toSub;
 
     for ( ; mfit != mfen; ++mfit )
     {
@@ -294,26 +294,26 @@ Action::ResultE SplitGraphOp::traverseLeave(NodePtrConstArg node, Action::Result
         }
     }
 
-    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
-    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
+    std::vector<NodeUnrecPtr>::const_iterator vait = toAdd.begin();
+    std::vector<NodeUnrecPtr>::const_iterator vaen = toAdd.end  ();
     
-    for ( ; vit != ven; ++vit )
+    for ( ; vait != vaen; ++vait )
     {
-        node->addChild(*vit);
+        node->addChild(*vait);
     }
     
-    vit = toSub.begin();
-    ven = toSub.end  ();
+    std::vector<NodePtr>::const_iterator vsit = toSub.begin();
+    std::vector<NodePtr>::const_iterator vsen = toSub.end  ();
     
-    for ( ; vit != ven; ++vit )
+    for ( ; vsit != vsen; ++vsit )
     {
 //        OSG::addRefX(*vit);
-        node->subChild(*vit);
+        node->subChild(*vsit);
     }
     return res;
 }
 
-bool SplitGraphOp::splitNode(const NodePtr& node, std::vector<NodePtr> &split)
+bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &split)
 {
     // PORTME
     return false;

@@ -373,7 +373,8 @@ MaterialTransitPtr A3DSSceneFileType::createMaterial(L3DS   &scene,
         cmat->addChunk(blendc);
     }
 
-    _materials.insert(std::pair<UInt32, MaterialPtr>(id, cmat));
+    _materials.insert(std::pair<UInt32, MaterialUnrecPtr>(
+                          id, MaterialUnrecPtr(cmat)));
 
     return MaterialTransitPtr(cmat);
 }

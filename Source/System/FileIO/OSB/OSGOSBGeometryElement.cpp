@@ -635,7 +635,7 @@ OSBGeometryElement::postReadV100(void)
             if(_indices16Bit)
             {
                 GeoUInt16PropertyPtr ui16Indices =
-                    dynamic_cast<GeoUInt16PropertyPtr>(_indices);
+                    dynamic_pointer_cast<GeoUInt16Property>(_indices);
 
                 gh.splitMultiIndex<GeoUInt16PropertyPtr>(
                     _indexMapping, ui16Indices, geo);
@@ -643,7 +643,7 @@ OSBGeometryElement::postReadV100(void)
             else
             {
                 GeoUInt32PropertyPtr ui32Indices =
-                    dynamic_cast<GeoUInt32PropertyPtr>(_indices);
+                    dynamic_pointer_cast<GeoUInt32Property>(_indices);
 
                 gh.splitMultiIndex<GeoUInt32PropertyPtr>(
                     _indexMapping, ui32Indices, geo);
@@ -672,7 +672,7 @@ OSBGeometryElement::postReadV100(void)
             if(_indices->getFormatSize() == sizeof(UInt16))
             {
                 GeoUInt16PropertyPtr ui16Indices =
-                    dynamic_cast<GeoUInt16PropertyPtr>(_indices);
+                    dynamic_pointer_cast<GeoUInt16Property>(_indices);
 
                 gh.splitMultiIndex<GeoUInt16PropertyPtr>(
                     _indexMapping, ui16Indices, geo);
@@ -680,7 +680,7 @@ OSBGeometryElement::postReadV100(void)
             else if(_indices->getFormatSize() == sizeof(UInt32))
             {
                 GeoUInt32PropertyPtr ui32Indices =
-                    dynamic_cast<GeoUInt32PropertyPtr>(_indices);
+                    dynamic_pointer_cast<GeoUInt32Property>(_indices);
 
                 gh.splitMultiIndex<GeoUInt32PropertyPtr>(
                     _indexMapping, ui32Indices, geo);

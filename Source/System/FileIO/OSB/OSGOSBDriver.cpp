@@ -106,5 +106,7 @@ bool OSBDriver::write(const NodePtr       node,
 
     root->terminateWrite();
 
+    OSBElementFactory::the()->release(root);
+
     return true;
 }

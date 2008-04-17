@@ -133,13 +133,13 @@ class OSG_FILEIO_DLLMAPPING OSBGeometryElement : public OSBCommonElement
 
     static OSBElementRegistrationHelper<OSBGeometryElement> _regHelper;
 
-    std::vector<UInt16>    _indexMapping;
-    UInt32                 _indicesId;
-    GeoIntegralPropertyPtr _indices;
-    bool                   _indices16Bit;
-    bool                   _indicesPacked;
+    std::vector<UInt16>         _indexMapping;
+    UInt32                      _indicesId;
+    GeoIntegralPropertyUnrecPtr _indices;
+    bool                        _indices16Bit;
+    bool                        _indicesPacked;
 
-    UInt16                 _version;
+    UInt16                      _version;
 };
 
 OSG_END_NAMESPACE

@@ -131,7 +131,7 @@ typedef void (OSG_APIENTRY *attribPumpFunc)(GLuint index, const UInt8 * data);
 static const int formatBase = GL_BYTE;
 static const int numFormats = GL_DOUBLE - GL_BYTE + 1;
 
-static char *formatNames[] =
+static const char *formatNames[] =
 {   "GL_BYTE", "GL_UNSIGNED_BYTE", "GL_SHORT", "GL_UNSIGNED_SHORT",
     "GL_INT", "GL_UNSIGNED_INT", "GL_FLOAT", "GL_2_BYTES",
     "GL_3_BYTES", "GL_4_BYTES", "GL_DOUBLE"
@@ -145,7 +145,7 @@ class glextFuncInit
 {
     public:
 
-        glextFuncInit(char *name, UInt32 format, UInt32 dim, 
+        glextFuncInit(const char *name, UInt32 format, UInt32 dim, 
                 bool normalizing = false) :
             _name(name), _format(format), _dim(dim),
             _normalizing(normalizing) {};
@@ -158,10 +158,10 @@ class glextFuncInit
 
     private:
 
-        char   *_name;
-        UInt32  _format;
-        UInt32  _dim;
-        bool    _normalizing;
+        const char   *_name;
+              UInt32  _format;
+              UInt32  _dim;
+              bool    _normalizing;
 };
 
 static glextFuncInit secondaryColorInitFuncs[8] = {

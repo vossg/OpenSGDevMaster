@@ -97,7 +97,7 @@ struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
     template <class T>
     static T *validate   (T *pObject)
     {
-        convertToCurrentAspect(pObject);
+        return convertToCurrentAspect(pObject);
     }
 
     template <class T>

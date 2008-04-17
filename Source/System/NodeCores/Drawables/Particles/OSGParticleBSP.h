@@ -268,8 +268,8 @@ struct FieldTraits<ParticleBSPTree> :
     static OSG_DRAWABLE_DLLMAPPING 
            DataType       &getType      (void);
 
-    static Char8          *getSName     (void) { return "SFParticleBSPTree"; }
-    static Char8          *getMName     (void) { return "MFParticleBSPTree"; }
+    static const Char8    *getSName     (void) { return "SFParticleBSPTree"; }
+    static const Char8    *getMName     (void) { return "MFParticleBSPTree"; }
 
     static ParticleBSPTree getDefault   (void) { return ParticleBSPTree();   }
 

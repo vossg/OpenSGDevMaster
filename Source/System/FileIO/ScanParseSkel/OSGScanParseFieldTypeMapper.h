@@ -48,7 +48,7 @@
 OSG_BEGIN_NAMESPACE
 
 //! FieldTypeMapper, provides functions to map from system to scanner types  
-//! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib 
+//! \ingroup GrpSystemDrawablesGeometryLoaderLib 
 
 template <class BaseT>
 class ScanParseFieldTypeMapper : public BaseT 

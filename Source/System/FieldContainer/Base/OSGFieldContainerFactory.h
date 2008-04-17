@@ -62,7 +62,7 @@ struct FieldContainerFactoryDesc
     typedef FieldContainerPtr        ContainerPtr;
     typedef FieldContainerTransitPtr ContainerTransitPtr;
 
-    static Char8 *getContainerFactoryLockName(void)
+    static const Char8 *getContainerFactoryLockName(void)
     {
         return "ContainerFactory::cflock";
     }

@@ -229,7 +229,7 @@ Action::ResultE SharePtrGraphOp::traverseLeave(NodePtrConstArg /*node*/,
 \*-------------------------------------------------------------------------*/
 
 bool SharePtrGraphOp::isInList(const std::vector<std::string> &tlist,
-                               const FieldContainerPtr &fc)
+                               const FieldContainerPtr fc)
 {
     for(UInt32 k=0;k<tlist.size();++k)
     {
@@ -248,7 +248,7 @@ bool SharePtrGraphOp::isInList(const std::vector<std::string> &tlist,
     return false;
 }
 
-FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr &fc)
+FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr fc)
 {
     if(fc == NullFC)
         return fc;
@@ -439,8 +439,8 @@ static bool compareMField(Field *a, Field *b)
  * \param field container b
  * \return true if equal.
  */
-bool SharePtrGraphOp::isEqual(const OSG::FieldContainerPtr &a,
-                              const OSG::FieldContainerPtr &b)
+bool SharePtrGraphOp::isEqual(const FieldContainerPtr a,
+                              const FieldContainerPtr b)
 {
 #if 0
     // Compare the pointers.

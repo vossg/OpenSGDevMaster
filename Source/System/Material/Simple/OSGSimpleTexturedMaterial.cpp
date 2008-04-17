@@ -99,8 +99,8 @@ void SimpleTexturedMaterial::resolveLinks(void)
     Inherited::resolveLinks();
 
     _textureChunk = NullFC;
-    _textureChunk = NullFC;
-    _textureChunk = NullFC;
+    _texGenChunk  = NullFC;
+    _texEnvChunk  = NullFC;
 
 //    subRefLocalVarX(_textureChunk);
 //    subRefLocalVarX(_texGenChunk );

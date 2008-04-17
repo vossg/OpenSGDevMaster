@@ -112,10 +112,10 @@ private:
     Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res);
 
     bool isInList(const std::vector<std::string> &tlist,
-                  const FieldContainerPtr &fc);
-    FieldContainerPtr compareFCs(const FieldContainerPtr &fc);
-    static bool isEqual(const OSG::FieldContainerPtr &a,
-                        const OSG::FieldContainerPtr &b);
+                  const FieldContainerPtr fc);
+    FieldContainerPtr compareFCs(const FieldContainerPtr fc);
+    static bool isEqual(const FieldContainerPtr a,
+                        const FieldContainerPtr b);
 
     //static Action::ResultE clearAttachmentParent(NodePtr &node);
     //static Action::ResultE addAttachmentParent(NodePtr &node);

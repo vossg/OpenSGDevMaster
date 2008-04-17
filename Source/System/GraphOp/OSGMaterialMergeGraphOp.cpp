@@ -46,7 +46,7 @@
 #include "OSGMaterialMergeGraphOp.h"
 #include "OSGGraphOpFactory.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
  *                            Description                                  *
@@ -91,7 +91,7 @@ T next(T t) { // Iterator passed by value.
 }
 
 
-bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
+bool isEqual(const FieldContainerPtr a, const FieldContainerPtr b)
 {
     // Compare the pointers.
     if(a == b)
@@ -325,3 +325,5 @@ void MaterialMergeGraphOp::addObject(MaterialObject m)
 
     _materialObjects[mat].push_back(m);
 }
+
+OSG_END_NAMESPACE

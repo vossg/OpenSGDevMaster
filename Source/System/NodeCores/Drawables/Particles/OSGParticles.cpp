@@ -272,7 +272,7 @@ struct ColTraitBase : public ParticleTraits
     static const int formatBase;
     enum { numFormats = GL_DOUBLE - GL_BYTE + 1 };
 
-    static char *formatNames[];
+    static const char *formatNames[];
 
     static pumpFunc ColorFuncs[numFormats][4]; 
 };
@@ -283,7 +283,7 @@ const int ColTraitBase::formatBase = GL_BYTE;
 
 /*! A map from the OpenGL data type to the corresponding name 
 */
-char *ColTraitBase::formatNames[] = 
+const char *ColTraitBase::formatNames[] = 
 {   "GL_BYTE", "GL_UNSIGNED_BYTE", "GL_SHORT", "GL_UNSIGNED_SHORT", 
     "GL_INT", "GL_UNSIGNED_INT", "GL_FLOAT", "GL_2_BYTES", 
     "GL_3_BYTES", "GL_4_BYTES", "GL_DOUBLE"

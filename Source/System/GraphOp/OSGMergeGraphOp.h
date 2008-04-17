@@ -112,7 +112,7 @@ private:
 
     bool mergeOnce(NodePtr node);
 
-    void makeExcludeList        (NodePtr& node);
+    void makeExcludeList        (NodePtr      node);
     void processGroups          (NodePtrConst node);
     void processTransformations (NodePtrConst node);
     void processGeometries      (NodePtrConst node);

@@ -125,7 +125,7 @@ struct FieldTraits<RenderFunctorCallback> :
         }
         else
         {
-            containerId = getContainerId(pObject);
+            containerId = pObject->getId();
         }
 
         pMem.putValue(containerId);

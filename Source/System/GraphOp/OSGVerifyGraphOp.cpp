@@ -339,7 +339,7 @@ Action::ResultE VerifyGraphOp::verifyGeometry(NodePtrConst node)
 }
 
 
-bool VerifyGraphOp::verifyIndexMap(GeometryPtr &geo, bool &repair)
+bool VerifyGraphOp::verifyIndexMap(GeometryPtr geo, bool &repair)
 {
     repair = false;
     return true;
