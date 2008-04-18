@@ -60,6 +60,9 @@ class RemoteAspect;
 template <class ObjectT>
 class TransitPtr;
 
+template<typename RefCountPolicyT>
+class ChildAccessHandler;
+
 /*! \ingroup GrpSystemFieldContainer
  */
 
@@ -198,18 +201,9 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    virtual bool linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId);
-
-    OSG_SYSTEM_DLLMAPPING
-    virtual bool unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId);
-            
-    OSG_SYSTEM_DLLMAPPING
     virtual bool unlinkChild (const FieldContainerPtrConst pChild,
                               const UInt16                 childFieldId);
-    
+   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
@@ -384,6 +378,20 @@ class FieldContainer : public ReflexiveContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Parent Linking (Internal Use Only)                           */
+    /*! \{                                                                 */
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual bool linkParent  (const FieldContainerPtr pParent,
+                              const UInt16            childFieldId,
+                              const UInt16            parentFieldId);
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual bool unlinkParent(const FieldContainerPtr pParent,
+                              const UInt16            parentFieldId);
+            
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                MT Construction                               */
     /*! \{                                                                 */
 
@@ -450,6 +458,10 @@ class FieldContainer : public ReflexiveContainer
     friend class  FieldContainerType;
     friend class  ChangeList;
 #endif
+
+    template<typename RefCountPolicyT>
+    friend class ChildAccessHandler;
+
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldContainer &source);
 };
