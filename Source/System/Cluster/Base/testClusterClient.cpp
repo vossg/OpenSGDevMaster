@@ -931,7 +931,7 @@ void init(std::vector<std::string> &filenames)
     cam->setNear(size.length() * 100.0 / 100000.0);
 }
 
-int main(int argc,char **argv)
+int doMain(int argc,char **argv)
 {
     int                      i;
     char                    *opt;
@@ -1140,159 +1140,161 @@ int main(int argc,char **argv)
             servers.push_back(argv[i]);
         }
     }
-    try
-    {
-        osgInit(argc, argv);
-        glutInit(&argc, argv);
-        glutInitDisplayMode( GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE );
-        if(winx >=0 && winy >=0)
-            glutInitWindowPosition(winx,winy);
-        glutInitWindowSize(winwidth,winheight);
-        winid = glutCreateWindow("OpenSG Cluster Client");
-        glutKeyboardFunc(key);
-        glutReshapeFunc(reshape);
-        glutDisplayFunc(display);     
-        if(animate)
-            glutIdleFunc(display);       
-        glutMouseFunc(mouse);   
-        glutMotionFunc(motion); 
-        ract = RenderAction::create();
+
+    osgInit(argc, argv);
+    glutInit(&argc, argv);
+    glutInitDisplayMode( GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE );
+    if(winx >=0 && winy >=0)
+        glutInitWindowPosition(winx,winy);
+    glutInitWindowSize(winwidth,winheight);
+    winid = glutCreateWindow("OpenSG Cluster Client");
+    glutKeyboardFunc(key);
+    glutReshapeFunc(reshape);
+    glutDisplayFunc(display);     
+    if(animate)
+        glutIdleFunc(display);       
+    glutMouseFunc(mouse);   
+    glutMotionFunc(motion); 
+    ract = RenderAction::create();
 #ifdef OSG_OLD_RENDER_ACTION
-        ract->setSortTrans(true);
-        ract->setZWriteTrans(true);
-        ract->setLocalLights(true);
-        ract->setCorrectTwoSidedLighting(true);
+    ract->setSortTrans(true);
+    ract->setZWriteTrans(true);
+    ract->setLocalLights(true);
+    ract->setCorrectTwoSidedLighting(true);
 #endif
 
-        // clear changelist from prototypes
-        OSG::Thread::getCurrentChangeList()->clear();
-        
-        // create cluster window
-        switch(type)
-        {
-            case 'M': 
-                multidisplay=MultiDisplayWindow::create();
-                clusterWindow=multidisplay;
-                break;
-            case 'X': 
-                balancedmultidisplay=BalancedMultiWindow::create();
-                clusterWindow=balancedmultidisplay;
-                break;
-            case 'F':
-                sortfirst=SortFirstWindow::create();
-                if(compose)
-                    sortfirst->setCompose(true);
-                else
-                    sortfirst->setCompose(false);
-                clusterWindow=sortfirst;
-                break;
-            case 'L':
-                sortlast=SortLastWindow::create();
-                if(!composerType.empty())
-                {
-                    FieldContainerUnrecPtr fcPtr = 
-                        FieldContainerFactory::the()->
-                            createContainer(composerType.c_str());
-                    ImageComposerPtr icPtr = 
-                        dynamic_cast<ImageComposerPtr>(fcPtr.get());
-
-                    if(icPtr != NullFC)
-                    {
-                        if(dynamic_cast<PipelineComposerPtr>(icPtr) != NullFC)
-                        {
-                            if(subtilesize>0)
-                                dynamic_cast<PipelineComposerPtr>(icPtr)->setTileSize(subtilesize);
-                            dynamic_cast<PipelineComposerPtr>(icPtr)->setPipelined(pipelinedBufferRead);
-                        }
-                        if(dynamic_cast<BinarySwapComposerPtr>(icPtr) != NullFC)
-                        {
-                            if(subtilesize>0)
-                                dynamic_cast<BinarySwapComposerPtr>(icPtr)->setTileSize(subtilesize);
-                        }
-                        icPtr->setStatistics(info);
-//                        icPtr->setShort(false);
-                        sortlast->setComposer(icPtr);
-                    }
-                }
-                clusterWindow=sortlast;
-                break;
-#ifdef FRAMEINTERLEAVE
-            case 'I':
-                frameinterleave=FrameInterleaveWindow::create();
-                clusterWindow=frameinterleave;
-                if(compose)
-                    frameinterleave->setCompose(true);
-                else
-                    frameinterleave->setCompose(false);
-                break;
-#endif
-            case 'P':
-                sortfirst=SortFirstWindow::create();
-                sortfirst->setCompose(false);
-                clusterWindow=sortfirst;
-                break;
-        }
-
-        if(!autostart.empty())
-            clusterWindow->editAutostart().push_back(autostart);
-        
-        for(i=0 ; i<servers.size() ; ++i)
-            clusterWindow->editServers().push_back(servers[i]);
-        if(cols < 0)
-            cols = clusterWindow->getServers().size() / rows;
-        switch(type)
-        {
-            case 'M': 
-                multidisplay->setHServers(cols);
-                multidisplay->setVServers(rows);
-                break;
-            case 'X': 
-                balancedmultidisplay->setHServers(cols);
-                balancedmultidisplay->setVServers(rows);
-//                    balancedmultidisplay->setShowBalancing(true);
-                balancedmultidisplay->setShowBalancing(info);
-                break;
-        }
-#ifdef FRAMEINTERLEAVE
-        clusterWindow->setInterleave(interleave);
-#endif
-        
-        // create client window
-        clientWindow=GLUTWindow::create();
-//        glutReshapeWindow(800,600);
-        glutReshapeWindow(winwidth,winheight);
-        clientWindow->setGlutId(winid);
-        clientWindow->init();
-
-        // init scene graph
-        init(filenames);
-
-        // init client
-        clusterWindow->setConnectionType(connectionType);
-        // needs to be called before init()!
-        clusterWindow->setConnectionParams(connectionParameters);
-        if(clientRendering)
-        {
-            clusterWindow->setClientWindow(clientWindow);
-        }
-        clusterWindow->setConnectionDestination(connectionDestination);
-        clusterWindow->setConnectionInterface(connectionInterface);
-        clusterWindow->init();
-        if(serverx > 0)
-            clusterWindow->resize(serverx,servery);
-        else
-            clusterWindow->resize(winwidth,winheight);
-        clientWindow->resize(winwidth,winheight);
-        glutMainLoop();
-    }
-    catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
+    // clear changelist from prototypes
+    OSG::Thread::getCurrentChangeList()->clear();
+    
+    // create cluster window
+    switch(type)
     {
-        SLOG << e.what() << std::endl;
+        case 'M': 
+            multidisplay=MultiDisplayWindow::create();
+            clusterWindow=multidisplay;
+            break;
+        case 'X': 
+            balancedmultidisplay=BalancedMultiWindow::create();
+            clusterWindow=balancedmultidisplay;
+            break;
+        case 'F':
+            sortfirst=SortFirstWindow::create();
+            if(compose)
+                sortfirst->setCompose(true);
+            else
+                sortfirst->setCompose(false);
+            clusterWindow=sortfirst;
+            break;
+        case 'L':
+            sortlast=SortLastWindow::create();
+            if(!composerType.empty())
+            {
+                FieldContainerUnrecPtr fcPtr = 
+                    FieldContainerFactory::the()->
+                    createContainer(composerType.c_str());
+                ImageComposerPtr icPtr = 
+                    dynamic_cast<ImageComposerPtr>(fcPtr.get());
+                
+                if(icPtr != NullFC)
+                {
+                    if(dynamic_cast<PipelineComposerPtr>(icPtr) != NullFC)
+                    {
+                        if(subtilesize>0)
+                            dynamic_cast<PipelineComposerPtr>(icPtr)->setTileSize(subtilesize);
+                        dynamic_cast<PipelineComposerPtr>(icPtr)->setPipelined(pipelinedBufferRead);
+                    }
+                    if(dynamic_cast<BinarySwapComposerPtr>(icPtr) != NullFC)
+                    {
+                        if(subtilesize>0)
+                            dynamic_cast<BinarySwapComposerPtr>(icPtr)->setTileSize(subtilesize);
+                    }
+                    icPtr->setStatistics(info);
+//                        icPtr->setShort(false);
+                    sortlast->setComposer(icPtr);
+                }
+            }
+            clusterWindow=sortlast;
+            break;
+#ifdef FRAMEINTERLEAVE
+        case 'I':
+            frameinterleave=FrameInterleaveWindow::create();
+            clusterWindow=frameinterleave;
+            if(compose)
+                frameinterleave->setCompose(true);
+            else
+                frameinterleave->setCompose(false);
+            break;
+#endif
+        case 'P':
+            sortfirst=SortFirstWindow::create();
+            sortfirst->setCompose(false);
+            clusterWindow=sortfirst;
+            break;
     }
+    
+    if(!autostart.empty())
+        clusterWindow->editAutostart().push_back(autostart);
+    
+    for(i=0 ; i<servers.size() ; ++i)
+        clusterWindow->editServers().push_back(servers[i]);
+    if(cols < 0)
+        cols = clusterWindow->getServers().size() / rows;
+    switch(type)
+    {
+        case 'M': 
+            multidisplay->setHServers(cols);
+            multidisplay->setVServers(rows);
+            break;
+        case 'X': 
+            balancedmultidisplay->setHServers(cols);
+            balancedmultidisplay->setVServers(rows);
+//                    balancedmultidisplay->setShowBalancing(true);
+            balancedmultidisplay->setShowBalancing(info);
+            break;
+    }
+#ifdef FRAMEINTERLEAVE
+    clusterWindow->setInterleave(interleave);
+#endif
+        
+    // create client window
+    clientWindow=GLUTWindow::create();
+//        glutReshapeWindow(800,600);
+    glutReshapeWindow(winwidth,winheight);
+    clientWindow->setGlutId(winid);
+    clientWindow->init();
+    
+    // init scene graph
+    init(filenames);
+    
+    // init client
+    clusterWindow->setConnectionType(connectionType);
+    // needs to be called before init()!
+    clusterWindow->setConnectionParams(connectionParameters);
+    if(clientRendering)
+    {
+        clusterWindow->setClientWindow(clientWindow);
+    }
+    clusterWindow->setConnectionDestination(connectionDestination);
+    clusterWindow->setConnectionInterface(connectionInterface);
+    clusterWindow->init();
+    if(serverx > 0)
+        clusterWindow->resize(serverx,servery);
+    else
+        clusterWindow->resize(winwidth,winheight);
+    clientWindow->resize(winwidth,winheight);
+    glutMainLoop();
+
     return 0;
 }
 
+int main(int argc,char **argv)
+{
+    doMain(argc, argv);
 
+    glutMainLoop();
+
+    return 0;
+}
 
 
 

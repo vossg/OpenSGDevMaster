@@ -174,7 +174,7 @@ void AttachmentContainer::addAttachment(
 
     key = (UInt32 (pAttachment->getGroupId()) << 16) | binding;
 
-    pAttachment->addReferenceX();
+    pAttachment->addReferenceUnrecordedX();
 
     pAttachment->linkParent(this, 
                             AttachmentsFieldId, 
@@ -189,7 +189,7 @@ void AttachmentContainer::addAttachment(
         (*fcI).second->unlinkParent(this, 
                                     FieldContainerAttachment::ParentsFieldId);
 
-        (*fcI).second->subReferenceX();
+        (*fcI).second->subReferenceUnrecordedX();
 
         (*fcI).second = pAttachment;
     }
@@ -232,7 +232,7 @@ void AttachmentContainer::subAttachment(
         (*fcI).second->unlinkParent(this, 
                                     FieldContainerAttachment::ParentsFieldId);
 
-        (*fcI).second->subReferenceX();
+        (*fcI).second->subReferenceUnrecordedX();
 
         _sfAttachments.getValue().erase(fcI);
     }
@@ -292,7 +292,7 @@ void AttachmentContainer::resolveLinks(void)
         (*fcI).second->unlinkParent(this, 
                                     FieldContainerAttachment::ParentsFieldId);
 
-        (*fcI).second->subReferenceX();
+        (*fcI).second->subReferenceUnrecordedX();
 
         ++fcI;
     }

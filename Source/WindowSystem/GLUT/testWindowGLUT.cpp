@@ -60,6 +60,8 @@ PolygonChunkRecPtr       pPoly;
 bool                     bPolyActive = false;
 ChunkOverrideGroupRecPtr pCOver;
 
+GLUTWindowUnrecPtr gwin;
+
 Trackball tball;
 
 bool move_obj = false;
@@ -220,12 +222,12 @@ void key(unsigned char key, int x, int y)
             scene_trans = NullFC;
             pPoly       = NullFC;
             pCOver      = NullFC;
+            gwin        = NullFC;
 
             delete rentravact;
 
-            
-
             osgExit(); 
+
             exit(0);
         case 'a':   
             glDisable( GL_LIGHTING );
@@ -317,7 +319,7 @@ void key(unsigned char key, int x, int y)
 }
 
 
-int main (int argc, char **argv)
+int init(int argc, char **argv)
 {
     osgInit(argc,argv);
     
@@ -513,7 +515,6 @@ int main (int argc, char **argv)
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
 
-    GLUTWindowUnrecPtr gwin;
 
     GLint glvp[4];
 
@@ -595,6 +596,13 @@ int main (int argc, char **argv)
 
     pGr = NULL;
 #endif
+
+    return 0;
+}
+
+int main (int argc, char **argv)
+{
+    init(argc, argv);
 
     glutMainLoop();
     

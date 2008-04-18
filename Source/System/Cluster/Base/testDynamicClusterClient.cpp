@@ -43,7 +43,7 @@ int setupGLUT( int *argc, char *argv[] );
 void display(void);
 
 // Initialize GLUT & OpenSG and set up the scene
-int main(int argc, char **argv)
+int doMain(int argc, char **argv)
 {
     std::cout << "start a cluster server with './testClusterServer -w pipe0'\n"
                  "press 'c' to connect to the servers.\n"
@@ -103,7 +103,13 @@ int main(int argc, char **argv)
     // show the whole scene
     _mgr->showAll();
     
-    // GLUT main loop
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    doMain(argc, argv);
+
     glutMainLoop();
 
     return 0;

@@ -354,7 +354,7 @@ NodeTransitPtr setupAnim(void)
     return returnValue;
 }
 
-int main (int argc, char **argv)
+int doMain (int argc, char **argv)
 {
     osgInit(argc,argv);
     
@@ -580,9 +580,16 @@ int main (int argc, char **argv)
     tball.setTranslationScale(scale               );
     tball.setRotationCenter  (tCenter             );
 
-    // run...
-    glutMainLoop();
     
     return 0;
 }
 
+int main (int argc, char **argv)
+{
+    doMain(argc, argv);
+
+    // run...
+    glutMainLoop();
+
+    return 0;
+}

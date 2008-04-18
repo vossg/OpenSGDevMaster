@@ -184,7 +184,25 @@ struct FieldTraits<FieldContainerAttachmentMap> :
         UInt32                      size;
         
         pMem.getValue(size);
+
+
+        FieldContainerAttachmentMap::const_iterator mapIt  = 
+            aMap.begin();
+
+        FieldContainerAttachmentMap::const_iterator mapEnd = 
+            aMap.begin();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if((*mapIt).second != NullFC)
+            {
+                Thread::getCurrentChangeList()->addDelayedSubRef<
+                    UnrecordedRefCountPolicy>((*mapIt).second);
+            }
+        }
+        
         aMap.clear();
+
         
         for(UInt32 i = 0; i < size; ++i)
         {
@@ -195,7 +213,9 @@ struct FieldTraits<FieldContainerAttachmentMap> :
                 FieldContainerFactory::the()->getMappedContainer(fcId));
             
             key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;
-            
+
+            UnrecordedRefCountPolicy::addRef(attPtr);
+
             aMap.insert(FieldContainerAttachmentMap::value_type(key, attPtr));
         }
     }
