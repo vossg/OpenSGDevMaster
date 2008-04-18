@@ -90,12 +90,6 @@ void FieldDescriptionBase::setFieldId(UInt32 uiFieldId)
 }
 
 inline
-const Char8 *FieldDescriptionBase::getDefaultValue(void) const
-{
-    return _defaultValue.str();
-}
-
-inline
 const FieldType &FieldDescriptionBase::getFieldType(void) const
 {
     return _fieldType;

@@ -144,8 +144,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
                          const bool             bInternal,
                          const UInt32           uiFieldFlags,
                                FieldEditMethod  fEditMethod,
-                               FieldGetMethod   fGetMethod,
-                         const Char8           *defaultValue = NULL);
+                               FieldGetMethod   fGetMethod);
 
     FieldDescriptionBase(const FieldType            &elementType,
                          const Char8                *szName,
@@ -155,8 +154,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
                          const bool                  bInternal,
                          const UInt32                uiFieldFlags,
                                FieldIndexEditMethod  fIndexedEditMethod,
-                               FieldIndexGetMethod   fIndexedGetMethod,
-                         const Char8                *defaultValue = NULL);
+                               FieldIndexGetMethod   fIndexedGetMethod);
 
     FieldDescriptionBase(const FieldDescriptionBase &source);
 
@@ -184,8 +182,6 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 
           UInt32       getFieldId     (void                        ) const;
           void         setFieldId     (UInt32 uiFieldId            );
-
-    const Char8       *getDefaultValue(void                        ) const;
 
     const FieldType   &getFieldType   (void                        ) const;
 
@@ -361,8 +357,6 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
           FieldGetMethod        _fGetMethod;
           FieldIndexGetMethod   _fIndexedGetMethod;
           FieldIndexEditMethod  _fIndexedEditMethod;
-
-          IDString              _defaultValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

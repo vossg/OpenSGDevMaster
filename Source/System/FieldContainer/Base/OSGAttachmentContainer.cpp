@@ -68,8 +68,7 @@ void AttachmentContainer::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Self::editHandleAttachments),
-        static_cast<FieldGetMethodSig >(&Self::getHandleAttachments ),
-        NULL);
+        static_cast<FieldGetMethodSig >(&Self::getHandleAttachments ));
 
     oType.addInitialDesc(pDesc);
 }

@@ -53,8 +53,7 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Self::editHandleUpdateMode),
-        static_cast<FieldGetMethodSig >(&Self::getHandleUpdateMode ),
-        NULL);
+        static_cast<FieldGetMethodSig >(&Self::getHandleUpdateMode ));
 
     oType.addInitialDesc(pDesc);
 }

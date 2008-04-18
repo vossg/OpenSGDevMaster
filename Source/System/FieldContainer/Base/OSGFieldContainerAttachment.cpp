@@ -66,8 +66,7 @@ void FieldContainerAttachment::classDescInserter(TypeObject &oType)
         true,
         Field::MFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Self::invalidEditField),
-        static_cast<FieldGetMethodSig >(&Self::getHandleParents),
-        NULL);
+        static_cast<FieldGetMethodSig >(&Self::getHandleParents));
 
     oType.addInitialDesc(pDesc);
 
@@ -80,8 +79,7 @@ void FieldContainerAttachment::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Self::editInternalHandler),
-        static_cast<FieldGetMethodSig >(&Self::getInternalHandler ),
-        NULL);
+        static_cast<FieldGetMethodSig >(&Self::getInternalHandler ));
 
     oType.addInitialDesc(pDesc);
 }

@@ -644,8 +644,7 @@ class FieldDescription : public DescT::FieldDescParent
                      const bool              bInternal,
                      const UInt32            uiFieldFlags,
                            FieldEditMethod   fEditMethod,
-                           FieldGetMethod    fGetMethod,
-                     const Char8            *defaultValue = NULL );
+                           FieldGetMethod    fGetMethod   );
 
     FieldDescription(const FieldType            &elementType,
                      const Char8                *szName,
@@ -655,8 +654,7 @@ class FieldDescription : public DescT::FieldDescParent
                      const bool                  bInternal,
                      const UInt32                uiFieldFlags,
                            FieldIndexEditMethod  fIndexedEditMethod,
-                           FieldIndexGetMethod   fIndexedGetMethod,
-                     const Char8                *defaultValue = NULL );
+                           FieldIndexGetMethod   fIndexedGetMethod );
 
     FieldDescription(const FieldDescription &source);
 

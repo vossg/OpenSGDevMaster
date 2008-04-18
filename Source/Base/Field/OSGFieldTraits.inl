@@ -54,8 +54,7 @@ FieldDescription<DescT,
     const bool             bInternal,
     const UInt32           uiFieldFlags,
           FieldEditMethod  fEditMethod,
-          FieldGetMethod   fGetMethod,
-    const Char8           *defaultValue) :
+          FieldGetMethod   fGetMethod) :
 
     Inherited(elementType,
               szName,
@@ -65,8 +64,7 @@ FieldDescription<DescT,
               bInternal,
               uiFieldFlags,
               fEditMethod,
-              fGetMethod,
-              defaultValue)
+              fGetMethod)
 {
 }
 
@@ -86,8 +84,7 @@ FieldDescription<DescT,
     const bool                  bInternal,
     const UInt32                uiFieldFlags,
           FieldIndexEditMethod  fIndexedEditMethod,
-          FieldIndexGetMethod   fIndexedGetMethod,
-    const Char8                *defaultValue      ) :
+          FieldIndexGetMethod   fIndexedGetMethod) :
 
     Inherited(elementType,
               szName,
@@ -97,8 +94,7 @@ FieldDescription<DescT,
               bInternal,
               uiFieldFlags,
               fIndexedEditMethod,
-              fIndexedGetMethod,
-              defaultValue)
+              fIndexedGetMethod)
 {
 }
 

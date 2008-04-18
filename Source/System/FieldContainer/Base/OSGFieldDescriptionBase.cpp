@@ -63,8 +63,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     const bool             bInternal,
     const UInt32           uiFieldFlags,
           FieldEditMethod  fEditMethod,
-          FieldGetMethod   fGetMethod,
-    const Char8           *defaultValue) :
+          FieldGetMethod   fGetMethod) :
 
     _szName            (szName            ),
     _documentation     (fieldDocumentation),
@@ -79,8 +78,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     _fEditMethod       (fEditMethod       ),
     _fGetMethod        (fGetMethod        ),
     _fIndexedEditMethod(NULL              ),
-    _fIndexedGetMethod (NULL              ),
-    _defaultValue      (defaultValue      )
+    _fIndexedGetMethod (NULL              )
 {
 }
 
@@ -93,8 +91,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     const bool                  bInternal,
     const UInt32                uiFieldFlags,
           FieldIndexEditMethod  fIndexedEditMethod,
-          FieldIndexGetMethod   fIndexedGetMethod,
-    const Char8                *defaultValue      ) :
+          FieldIndexGetMethod   fIndexedGetMethod) :
 
     _szName            (szName            ),
     _documentation     (fieldDocumentation),
@@ -109,9 +106,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     _fEditMethod       (NULL              ),
     _fGetMethod        (NULL              ),
     _fIndexedEditMethod(fIndexedEditMethod),
-    _fIndexedGetMethod (fIndexedGetMethod ),
-
-    _defaultValue      (defaultValue      )
+    _fIndexedGetMethod (fIndexedGetMethod )
 {
 }
 
@@ -129,9 +124,7 @@ FieldDescriptionBase::FieldDescriptionBase(const FieldDescriptionBase &source):
     _fEditMethod       (source._fEditMethod       ),
     _fGetMethod        (source._fGetMethod        ),
     _fIndexedEditMethod(source._fIndexedEditMethod),
-    _fIndexedGetMethod (source._fIndexedGetMethod ),
-
-    _defaultValue      (source._defaultValue      )
+    _fIndexedGetMethod (source._fIndexedGetMethod )
 
 {
 }
