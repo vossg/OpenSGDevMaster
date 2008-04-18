@@ -164,11 +164,11 @@ bool EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::isPointerField(
 
 inline
 void EditSFieldHandle<SFFieldContainerAttachmentPtrMap>::add(
-    FieldContainerPtrConstArg rhs,
-    UInt32                    uiBindings)
+    const FieldContainerPtr rhs,
+          UInt32            uiBindings)
 {
-    FieldContainerAttachmentPtrConstArg pVal = 
-        dynamic_cast<FieldContainerAttachmentPtrConstArg>(rhs);
+    const FieldContainerAttachmentPtr pVal = 
+        dynamic_cast<const FieldContainerAttachmentPtr>(rhs);
 
     if(rhs != NULL && pVal == NULL)
         return;

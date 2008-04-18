@@ -49,26 +49,26 @@ OSG_BEGIN_NAMESPACE
 
 
 OSG_DRAWABLE_DLLMAPPING 
-void    calcVertexNormals        (GeometryPtrArg geo        );
+void    calcVertexNormals        (GeometryPtr geo        );
 
 OSG_DRAWABLE_DLLMAPPING 
-void    calcVertexNormals        (GeometryPtrArg geo,
-                                  Real32         creaseAngle);
+void    calcVertexNormals        (GeometryPtr geo,
+                                  Real32      creaseAngle);
 OSG_DRAWABLE_DLLMAPPING 
-void    calcFaceNormals          (GeometryPtrArg geo        );
+void    calcFaceNormals          (GeometryPtr geo        );
 
 OSG_DRAWABLE_DLLMAPPING 
-void    calcVertexTangentsProp   (GeometryPtrArg geo,
-                                  UInt32         srcTexProp,
-                                  UInt32         srcNormalProp,
-                                  UInt32          dstPropTan,
-                                  UInt32          dstPropBin);
+void    calcVertexTangentsProp   (GeometryPtr geo,
+                                  UInt32      srcTexProp,
+                                  UInt32      srcNormalProp,
+                                  UInt32      dstPropTan,
+                                  UInt32      dstPropBin);
 
 OSG_DRAWABLE_DLLMAPPING 
-void    calcVertexTangents       (GeometryPtrArg geo,
-                                  UInt32         srcTexIndex,
-                                  UInt32         dstPropTan,
-                                  UInt32         dstPropBin);
+void    calcVertexTangents       (GeometryPtr geo,
+                                  UInt32      srcTexIndex,
+                                  UInt32      dstPropTan,
+                                  UInt32      dstPropBin);
 
 OSG_DRAWABLE_DLLMAPPING
 void    calcVertexTexCoordsProp2D(GeometryPtr          geo,
@@ -80,7 +80,7 @@ void    calcVertexTexCoords      (GeometryPtr          geo,
                                   UInt32               texIndex = 0);
 
 OSG_DRAWABLE_DLLMAPPING 
-Int32   setIndexFromVRMLData     (     GeometryPtrArg  geo,
+Int32   setIndexFromVRMLData     (     GeometryPtr     geo,
                                   std::vector<Int32>  &coordIndex,
                                   std::vector<Int32>  &normalIndex,
                                   std::vector<Int32>  &colorIndex,
@@ -108,7 +108,7 @@ Int32 setIndexFromIndexedX3DData (     GeometryPtr     geo,
 
 
 OSG_DRAWABLE_DLLMAPPING 
-Int32   createOptimizedPrimitives(GeometryPtrArg  geo,
+Int32   createOptimizedPrimitives(GeometryPtr     geo,
                                   UInt32          iteration       = 1,
                                   bool            createStrips    = true,
                                   bool            createFans      = true,
@@ -117,30 +117,30 @@ Int32   createOptimizedPrimitives(GeometryPtrArg  geo,
                                   bool            stitchStrips    = false);
 
 OSG_DRAWABLE_DLLMAPPING 
-void    createConvexPrimitives   (GeometryPtrArg  geo);
+void    createConvexPrimitives   (GeometryPtr     geo);
 
 OSG_DRAWABLE_DLLMAPPING 
-Int32   createSharedIndex        (GeometryPtrArg  geo);
+Int32   createSharedIndex        (GeometryPtr     geo);
 
 OSG_DRAWABLE_DLLMAPPING 
-Int32   createSingleIndex        (GeometryPtrArg  geo);
+Int32   createSingleIndex        (GeometryPtr     geo);
 
 OSG_DRAWABLE_DLLMAPPING 
-UInt32  calcPrimitiveCount       (GeometryPtrArg  geo,
+UInt32  calcPrimitiveCount       (GeometryPtr     geo,
                                   UInt32         &triangle,
                                   UInt32         &line,
                                   UInt32         &point);
 
 OSG_DRAWABLE_DLLMAPPING 
-NodeTransitPtr calcVertexNormalsGeo    (GeometryPtrArg  geo, 
+NodeTransitPtr calcVertexNormalsGeo    (GeometryPtr     geo, 
                                         Real32          length);
 
 OSG_DRAWABLE_DLLMAPPING 
-NodeTransitPtr calcFaceNormalsGeo      (GeometryPtrArg  geo, 
+NodeTransitPtr calcFaceNormalsGeo      (GeometryPtr     geo, 
                                         Real32          length);
 
 OSG_DRAWABLE_DLLMAPPING 
-void    separateProperties      (GeometryPtrArg  geo);
+void    separateProperties      (GeometryPtr geo);
 
 
 OSG_DRAWABLE_DLLMAPPING 

@@ -673,8 +673,8 @@ void SortLastWindow::dump(      UInt32    ,
 /*! Collext all drawable nodes
  */
 
-void SortLastWindow::collectDrawables(NodePtrConstArg  node,
-                                      DrawableListT   &drawables)
+void SortLastWindow::collectDrawables(const NodePtr        node,
+                                            DrawableListT &drawables)
 {
     MaterialPtr mat  = NullFC;
     NodeCorePtr core = node->getCore();

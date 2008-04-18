@@ -148,73 +148,73 @@ GeoVectorPropertyPtr Geometry::getTexCoords7(void) const
 
 
 inline
-void Geometry::setPositions(GeoVectorPropertyPtrConstArg value)
+void Geometry::setPositions(const GeoVectorPropertyPtr value)
 {
     setProperty(value, PositionsIndex);
 }
 
 inline
-void Geometry::setNormals(GeoVectorPropertyPtrConstArg value)
+void Geometry::setNormals(const GeoVectorPropertyPtr value)
 {
     setProperty(value, NormalsIndex);
 }
 
 inline
-void Geometry::setColors(GeoVectorPropertyPtrConstArg value)
+void Geometry::setColors(const GeoVectorPropertyPtr value)
 {
     setProperty(value, ColorsIndex);
 }
 
 inline
-void Geometry::setSecondaryColors(GeoVectorPropertyPtrConstArg value)
+void Geometry::setSecondaryColors(const GeoVectorPropertyPtr value)
 {
     setProperty(value, SecondaryColorsIndex);
 }
 
 inline
-void Geometry::setTexCoords(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoordsIndex);
 }
 
 inline
-void Geometry::setTexCoords1(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords1(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoords1Index);
 }
 
 inline
-void Geometry::setTexCoords2(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords2(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoords2Index);
 }
 
 inline
-void Geometry::setTexCoords3(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords3(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoords3Index);
 }
 
 inline
-void Geometry::setTexCoords4(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords4(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoords4Index);
 }
 
 inline
-void Geometry::setTexCoords5(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords5(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoords5Index);
 }
 
 inline
-void Geometry::setTexCoords6(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords6(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoords6Index);
 }
 
 inline
-void Geometry::setTexCoords7(GeoVectorPropertyPtrConstArg value)
+void Geometry::setTexCoords7(const GeoVectorPropertyPtr value)
 {
     setProperty(value, TexCoords7Index);
 }
@@ -225,7 +225,7 @@ void Geometry::setTexCoords7(GeoVectorPropertyPtrConstArg value)
 * \param index  The index of the OpenGL vertex attribute to set.
 */
 inline
-void Geometry::setProperty(GeoVectorPropertyPtrConstArg value, UInt16 index)
+void Geometry::setProperty(const GeoVectorPropertyPtr value, UInt16 index)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
@@ -252,7 +252,7 @@ GeoVectorPropertyPtr Geometry::getProperty(UInt16 index) const
 * \param index   The index of the vertex attribute data
 */
 inline
-void Geometry::setIndex(GeoIntegralPropertyPtrConstArg value, UInt16 index)
+void Geometry::setIndex(const GeoIntegralPropertyPtr value, UInt16 index)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
@@ -328,7 +328,7 @@ inline void Geometry::reservePropIndices(size_t newsize)
 
 /*! Set all indices to the same value for all vertex attributes.
 */
-inline void Geometry::setIndices(GeoIntegralPropertyPtrConstArg value)
+inline void Geometry::setIndices(const GeoIntegralPropertyPtr value)
 {
     for(UInt16 i = 0; i < MaxAttribs; ++i)
         setIndex(value, i);

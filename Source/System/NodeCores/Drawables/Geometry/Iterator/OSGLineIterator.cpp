@@ -119,7 +119,7 @@ LineIterator::LineIterator(const LineIterator &source) :
     Otherwise, use OSG::Geometry::beginTriangles() resp. 
     OSG::Geometry::endTriangles() to create an iterator.
 */
-LineIterator::LineIterator(GeometryConstPtrArg geo) :
+LineIterator::LineIterator(ConstGeometryPtr geo) :
     PrimitiveIterator(),
     _lineIndex(0), _actPrimIndex(0), _linePntIndex()
 {
@@ -133,7 +133,7 @@ LineIterator::LineIterator(GeometryConstPtrArg geo) :
     OSG::Geometry::endTriangles() to create an iterator.
 */
 
-LineIterator::LineIterator(const NodePtr& geo) : 
+LineIterator::LineIterator(const NodePtr geo) : 
     PrimitiveIterator(),
     _lineIndex(0), _actPrimIndex(0), _linePntIndex()
 {

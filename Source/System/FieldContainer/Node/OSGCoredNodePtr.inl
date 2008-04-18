@@ -222,7 +222,7 @@ inline typename CoredNodeRefPtr<CoreT>::Self &
 
 template <class CoreT>
 inline void
-    CoredNodeRefPtr<CoreT>::setNode(NodePtrConstArg pNode)
+    CoredNodeRefPtr<CoreT>::setNode(const NodePtr pNode)
 {
     if(_pNode == pNode)
         return;
@@ -232,7 +232,7 @@ inline void
 
 template<class CoreT>
 inline void
-    CoredNodeRefPtr<CoreT>::setCore(NodeCorePtrConstArg pCore)
+    CoredNodeRefPtr<CoreT>::setCore(const NodeCorePtr pCore)
 {
     setCore(dynamic_cast<CorePtr>(pCore));
 }
@@ -439,7 +439,7 @@ inline typename CoredNodeMTRefPtr<CoreT>::Self &
 
 template <class CoreT>
 inline void
-    CoredNodeMTRefPtr<CoreT>::setNode(NodePtrConstArg pNode)
+    CoredNodeMTRefPtr<CoreT>::setNode(const NodePtr pNode)
 {
     if(_pNode == pNode)
         return;
@@ -449,7 +449,7 @@ inline void
 
 template<class CoreT>
 inline void
-    CoredNodeMTRefPtr<CoreT>::setCore(NodeCorePtrConstArg pCore)
+    CoredNodeMTRefPtr<CoreT>::setCore(const NodeCorePtr pCore)
 {
     setCore(dynamic_cast<CorePtr>(pCore));
 }

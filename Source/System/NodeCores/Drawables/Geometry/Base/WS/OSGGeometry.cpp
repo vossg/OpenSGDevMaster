@@ -541,7 +541,7 @@ void Geometry::dump(      UInt32    ,
     SLOG << "Dump Geometry NI" << std::endl;
 }
 
-UInt32 Geometry::indexOccurrence(GeoIntegralPropertyPtrConstArg value)
+UInt32 Geometry::indexOccurrence(const GeoIntegralPropertyPtr value)
 {
     UInt32 returnValue = 0;
 
@@ -629,7 +629,7 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void)
     return returnValue;
 }
 
-void Geometry::fill(DrawableStatsAttachmentPtrArg pStat)
+void Geometry::fill(DrawableStatsAttachmentPtr pStat)
 {
     if(pStat == NullFC)
     {

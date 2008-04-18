@@ -125,7 +125,7 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
 typedef XWindow *XWindowP;
 
 typedef XWindow::ObjPtr      XWindowPtr;
-typedef XWindow::ObjConstPtr XWindowConstPtr;
+typedef XWindow::ConstObjPtr ConstXWindowPtr;
 
 OSG_END_NAMESPACE
 

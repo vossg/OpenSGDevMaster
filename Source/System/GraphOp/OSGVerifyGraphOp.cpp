@@ -159,7 +159,7 @@ bool VerifyGraphOp::traverse(NodePtr node)
     return true;
 }
 
-Action::ResultE VerifyGraphOp::traverseEnter(NodePtrConstArg node)
+Action::ResultE VerifyGraphOp::traverseEnter(const NodePtr node)
 {
     if(NullFC == node)
     {
@@ -207,14 +207,15 @@ Action::ResultE VerifyGraphOp::traverseEnter(NodePtrConstArg node)
     return Action::Continue;
 }
 
-Action::ResultE VerifyGraphOp::traverseLeave(NodePtrConstArg, Action::ResultE res)
+Action::ResultE VerifyGraphOp::traverseLeave(const NodePtr, 
+                                                   Action::ResultE res)
 {
     return Action::Continue;
 }
 
 
 /** Verify geometry method. */
-Action::ResultE VerifyGraphOp::verifyGeometry(NodePtrConst node)
+Action::ResultE VerifyGraphOp::verifyGeometry(const NodePtr node)
 {
     GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
 

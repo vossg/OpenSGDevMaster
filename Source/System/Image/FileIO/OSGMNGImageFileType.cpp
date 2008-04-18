@@ -101,7 +101,7 @@ MNGImageFileType MNGImageFileType::_the("video/x-mng",
    the given fileName. Returns true on success.
  */
 
-bool MNGImageFileType::read(      ImagePtrArg       , 
+bool MNGImageFileType::read(      ImagePtr          , 
                                   std::istream     &, 
                             const std::string      &)
 {
@@ -216,7 +216,7 @@ bool MNGImageFileType::read(      ImagePtrArg       ,
     Returns true on success.
  */
 
-bool MNGImageFileType::write(      ImageConstPtrArg  , 
+bool MNGImageFileType::write(      ConstImagePtr     , 
                                    std::ostream     &, 
                              const std::string      &)
 {

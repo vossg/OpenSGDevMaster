@@ -293,8 +293,8 @@ void RenderPartition::setKeyGen(UInt32 uiKeyGen)
 }
 
 inline
-void RenderPartition::overrideMaterial(Material        *pMaterial,
-                                       NodePtrConstArg  pNode    )
+void RenderPartition::overrideMaterial(      Material *pMaterial,
+                                       const NodePtr   pNode    )
 {
     if(_pMaterialNode == NullFC)
     {

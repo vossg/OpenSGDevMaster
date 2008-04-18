@@ -73,7 +73,7 @@ bool EditMFieldHandle<FieldContainerPtrMFieldBase>::isPointerField(void) const
 
 inline
 void EditMFieldHandle<FieldContainerPtrMFieldBase>::add(
-    FieldContainerPtrConstArg pNewElement)
+    const FieldContainerPtr pNewElement)
 {
     // for whatever reason VS2003 does not like == NULL
     if(_fAddMethod)
@@ -85,8 +85,8 @@ void EditMFieldHandle<FieldContainerPtrMFieldBase>::add(
 
 inline
 void EditMFieldHandle<FieldContainerPtrMFieldBase>::replace(
-    const UInt32                    uiIndex,
-          FieldContainerPtrConstArg pNewElement)
+    const UInt32            uiIndex,
+    const FieldContainerPtr pNewElement)
 {
     OSG_ASSERT(false);
 }
@@ -342,7 +342,7 @@ const FieldType &EditFCPtrMFieldHandle<FieldT>::getType(void) const
 }
 
 template<class FieldT> inline
-void EditFCPtrMFieldHandle<FieldT>::add(FieldContainerPtrConstArg pNewElement)
+void EditFCPtrMFieldHandle<FieldT>::add(const FieldContainerPtr pNewElement)
 {
     typename FieldT::const_value pVal = 
         dynamic_cast<typename FieldT::const_value>(pNewElement);
@@ -364,8 +364,8 @@ void EditFCPtrMFieldHandle<FieldT>::add(FieldContainerPtrConstArg pNewElement)
 
 template<class FieldT> inline
 void EditFCPtrMFieldHandle<FieldT>::replace(
-    const    UInt32                    uiIndex,
-             FieldContainerPtrConstArg pNewElement)
+    const UInt32            uiIndex,
+    const FieldContainerPtr pNewElement)
 {
     OSG_ASSERT(false);
 }

@@ -84,7 +84,7 @@ RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
-RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(ObjectPtrConstArg pObj) :
+RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(const ObjectPtr pObj) :
     _pObj(NULL)
 {
     RefCountPolicy::setRefd(_pObj, pObj);
@@ -114,7 +114,7 @@ template <class ObjectT,
           class RefCountPolicyT> inline
 typename RefCountPtr<ObjectT, RefCountPolicyT>::Self &
     RefCountPtr<ObjectT, RefCountPolicyT>::operator =(
-        ObjectPtrConstArg objectPtr)
+        const ObjectPtr objectPtr)
 {
     if(_pObj != objectPtr)
         RefCountPolicy::setRefd(_pObj, objectPtr);
@@ -188,7 +188,7 @@ typename RefCountPtr<ObjectT, RefCountPolicyT>::ObjectPtr
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
-void RefCountPtr<ObjectT, RefCountPolicyT>::set(ObjectPtrConstArg objectPtr)
+void RefCountPtr<ObjectT, RefCountPolicyT>::set(const ObjectPtr objectPtr)
 {
     if(_pObj != objectPtr)
         RefCountPolicy::setRefd(_pObj, objectPtr);

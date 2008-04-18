@@ -77,8 +77,8 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     };
 
     /** functor called for changed containers **/
-    typedef boost::function<bool (FieldContainerPtrConstArg, 
-                                  RemoteAspect             *)> Functor;
+    typedef boost::function<bool (const FieldContainerPtr, 
+                                        RemoteAspect     *)> Functor;
 
 
     /** Map remote to local id **/

@@ -403,9 +403,7 @@ typedef GeoIntegralPropertyPtr GeoPTypesPtr;
 typedef GeoIntegralPropertyPtr GeoPLengthsPtr;
 
 typedef GeoIntegralPropertyPtr         GeoIndicesPtr;
-typedef GeoIntegralPropertyConstPtr    GeoIndicesConstPtr;
-typedef GeoIntegralPropertyPtrConst    GeoIndicesPtrConst;
-typedef GeoIntegralPropertyPtrConstArg GeoIndicesPtrConstArg;
+typedef ConstGeoIntegralPropertyPtr    ConstGeoIndicesPtr;
 
 typedef GeoUInt8Property       GeoPTypesUI8;
 typedef GeoUInt8Property       GeoPLengthsUI8;

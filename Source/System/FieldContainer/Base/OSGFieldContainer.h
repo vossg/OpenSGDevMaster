@@ -201,8 +201,8 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    virtual bool unlinkChild (const FieldContainerPtrConst pChild,
-                              const UInt16                 childFieldId);
+    virtual bool unlinkChild (const FieldContainerPtr pChild,
+                              const UInt16            childFieldId);
    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -483,7 +483,7 @@ void appendTypesString(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(      
-          FieldContainerPtrConstArg                    src,
+          ConstFieldContainerPtr                       src,
     const std::vector<std::string>                    &shareTypeNames,
 
     const std::vector<std::string>                    &ignoreTypeNames   =
@@ -497,7 +497,7 @@ FieldContainerTransitPtr deepClone(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(
-          FieldContainerPtrConstArg                    src,
+          ConstFieldContainerPtr                       src,
     const std::vector<UInt16>                         &shareGroupIds,
 
     const std::vector<UInt16>                         &ignoreGroupIds    =
@@ -505,7 +505,7 @@ FieldContainerTransitPtr deepClone(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(      
-          FieldContainerPtrConstArg                    src,
+          ConstFieldContainerPtr                       src,
     const std::string                                 &shareTypesString,
 
     const std::string                                 &ignoreTypesString =
@@ -513,7 +513,7 @@ FieldContainerTransitPtr deepClone(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(
-          FieldContainerPtrConstArg                    src,
+          ConstFieldContainerPtr                       src,
 
     const std::vector<const ReflexiveContainerType *> &shareTypes        =
               std::vector<const ReflexiveContainerType *>(),
@@ -535,10 +535,8 @@ ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
 
 OSG_END_NAMESPACE
 
-#ifdef NEW_REFPTR
 #include "OSGTransitPtr.h"
 #include "OSGRefCountPtr.h"
-#endif
 
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"

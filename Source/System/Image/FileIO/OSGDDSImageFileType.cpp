@@ -319,7 +319,7 @@ bool DDSImageFileType::getSwapCubeMap(void)
     the given stream. Returns true on success.
  */
 
-bool DDSImageFileType::read(      ImagePtrArg       pImage, 
+bool DDSImageFileType::read(      ImagePtr          pImage, 
                                   std::istream     &is, 
                             const std::string      &mimetype)
 {
@@ -452,7 +452,7 @@ bool DDSImageFileType::read(      ImagePtrArg       pImage,
   Returns true on success.
  */
 
-bool DDSImageFileType::write(      ImageConstPtrArg  , 
+bool DDSImageFileType::write(      ConstImagePtr  , 
                                    std::ostream     &, 
                              const std::string      &)
 {

@@ -301,7 +301,7 @@ VRMLWriteAction *VRMLWriteAction::getPrototype( void )
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-ActionBase::ResultE VRMLWriteAction::writeGroupEnter(NodeCorePtrConstArg , 
+ActionBase::ResultE VRMLWriteAction::writeGroupEnter(const NodeCorePtr , 
                                                      Action     *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
@@ -388,7 +388,7 @@ ActionBase::ResultE VRMLWriteAction::writeGroupEnter(NodeCorePtrConstArg ,
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeGroupLeave(NodeCorePtrConstArg , 
+Action::ResultE VRMLWriteAction::writeGroupLeave(const NodeCorePtr , 
                                                  Action              *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
@@ -433,7 +433,7 @@ Action::ResultE VRMLWriteAction::writeGroupLeave(NodeCorePtrConstArg ,
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeComponentTransformEnter(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeComponentTransformEnter(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
     NodePtr pNode = pAction->getActNode();
@@ -533,7 +533,7 @@ Action::ResultE VRMLWriteAction::writeComponentTransformEnter(NodeCorePtrConstAr
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeComponentTransformLeave(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeComponentTransformLeave(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -567,7 +567,7 @@ Action::ResultE VRMLWriteAction::writeComponentTransformLeave(NodeCorePtrConstAr
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeTransformEnter(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeTransformEnter(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
     NodePtr pNode = pAction->getActNode();
@@ -672,7 +672,7 @@ Action::ResultE VRMLWriteAction::writeTransformEnter(NodeCorePtrConstArg , Actio
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeTransformLeave(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeTransformLeave(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -1594,7 +1594,7 @@ void VRMLWriteAction::writeFaceSet(NodePtr          pNode,
 }
 
 
-Action::ResultE VRMLWriteAction::writeGeoEnter(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeGeoEnter(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -1702,7 +1702,7 @@ Action::ResultE VRMLWriteAction::writeGeoEnter(NodeCorePtrConstArg , Action *pAc
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeGeoLeave(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeGeoLeave(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -1731,7 +1731,7 @@ Action::ResultE VRMLWriteAction::writeGeoLeave(NodeCorePtrConstArg , Action *pAc
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeMatGroupEnter(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeMatGroupEnter(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -1752,7 +1752,7 @@ Action::ResultE VRMLWriteAction::writeMatGroupEnter(NodeCorePtrConstArg , Action
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeMatGroupLeave(NodeCorePtrConstArg , Action *pAction)
+Action::ResultE VRMLWriteAction::writeMatGroupLeave(const NodeCorePtr , Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
  

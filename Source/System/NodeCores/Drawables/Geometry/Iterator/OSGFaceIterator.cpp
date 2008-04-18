@@ -128,7 +128,7 @@ FaceIterator::FaceIterator(const FaceIterator &source) :
     Otherwise, use Geometry::beginFaces() resp. Geometry::endFaces() to create
     an iterator.
 */
-FaceIterator::FaceIterator(const NodePtr& geo) : PrimitiveIterator(),
+FaceIterator::FaceIterator(const NodePtr geo) : PrimitiveIterator(),
     _faceIndex(0), _actPrimIndex(), _facePntIndex()
 {
     setGeo(geo);
@@ -139,7 +139,7 @@ FaceIterator::FaceIterator(const NodePtr& geo) : PrimitiveIterator(),
     Otherwise, use Geometry::beginFaces() resp. Geometry::endFaces() to create
     an iterator.
 */
-FaceIterator::FaceIterator(GeometryConstPtrArg geo) : 
+FaceIterator::FaceIterator(ConstGeometryPtr geo) : 
     PrimitiveIterator(),
     _faceIndex(0), _actPrimIndex(), _facePntIndex()
 {

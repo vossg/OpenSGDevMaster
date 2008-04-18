@@ -126,7 +126,7 @@ EdgeIterator::EdgeIterator(const EdgeIterator &source) :
     Otherwise, use Geometry::beginEdges() resp. Geometry::endEdges() to create
     an iterator.
 */
-EdgeIterator::EdgeIterator(const NodePtr& geo) : PrimitiveIterator(),
+EdgeIterator::EdgeIterator(const NodePtr geo) : PrimitiveIterator(),
     _edgeIndex(0), _actPrimIndex(), _edgePntIndex()
 {
     setGeo(geo);
@@ -137,7 +137,7 @@ EdgeIterator::EdgeIterator(const NodePtr& geo) : PrimitiveIterator(),
     Otherwise, use Geometry::beginEdges() resp. Geometry::endEdges() to create
     an iterator.
 */
-EdgeIterator::EdgeIterator(const GeometryConstPtrArg geo) : 
+EdgeIterator::EdgeIterator(const ConstGeometryPtr geo) : 
     PrimitiveIterator(),
     _edgeIndex(0), _actPrimIndex(), _edgePntIndex()
 {

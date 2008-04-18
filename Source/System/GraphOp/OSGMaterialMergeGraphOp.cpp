@@ -292,7 +292,7 @@ std::string MaterialMergeGraphOp::usage(void)
     ;
 }
 
-Action::ResultE MaterialMergeGraphOp::traverseEnter(NodePtrConstArg node)
+Action::ResultE MaterialMergeGraphOp::traverseEnter(const NodePtr node)
 {
     GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
     if (geo != NullFC)
@@ -312,7 +312,7 @@ Action::ResultE MaterialMergeGraphOp::traverseEnter(NodePtrConstArg node)
     return Action::Continue;
 }
 
-Action::ResultE MaterialMergeGraphOp::traverseLeave(NodePtrConstArg node, Action::ResultE res)
+Action::ResultE MaterialMergeGraphOp::traverseLeave(const NodePtr node, Action::ResultE res)
 {
     return res;
 }

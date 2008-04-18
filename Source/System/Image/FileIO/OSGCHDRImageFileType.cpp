@@ -107,7 +107,7 @@ CHDRImageFileType CHDRImageFileType::_the("chdr",
   the given input stream. Returns true on success.
 */
 
-bool CHDRImageFileType::read(      ImagePtrArg   image, 
+bool CHDRImageFileType::read(      ImagePtr      image, 
                                    std::istream &is, 
                              const std::string  &mimetype)
 {
@@ -137,7 +137,7 @@ bool CHDRImageFileType::read(      ImagePtrArg   image,
   Returns true on success.
 */
 
-bool CHDRImageFileType::write(      ImageConstPtrArg  image, 
+bool CHDRImageFileType::write(      ConstImagePtr     image, 
                                     std::ostream     &os, 
                               const std::string      &mimetype)
 {
@@ -191,7 +191,7 @@ bool CHDRImageFileType::write(      ImageConstPtrArg  image,
   Returns the amount of data read.
 */
 
-UInt64 CHDRImageFileType::restoreData(      ImagePtrArg  image, 
+UInt64 CHDRImageFileType::restoreData(      ImagePtr     image, 
                                       const UChar8      *buffer,
                                             Int32              )
 {
@@ -206,7 +206,7 @@ UInt64 CHDRImageFileType::restoreData(      ImagePtrArg  image,
   Returns the amount of data written.
 */
 
-UInt64 CHDRImageFileType::storeData(ImageConstPtrArg  image, 
+UInt64 CHDRImageFileType::storeData(ConstImagePtr     image, 
                                     UChar8           *buffer,
                                     Int32             OSG_CHECK_ARG(memSize))
 {

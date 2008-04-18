@@ -319,7 +319,7 @@ void appendTypesString(
  */
 
 FieldContainerTransitPtr deepClone(
-          FieldContainerPtrConstArg  src,
+          ConstFieldContainerPtr     src,
     const std::vector<std::string>  &shareTypeNames,
     const std::vector<std::string>  &ignoreTypeNames,
     const std::vector<std::string>  &shareGroupNames,
@@ -352,7 +352,7 @@ FieldContainerTransitPtr deepClone(
  */
 
 FieldContainerTransitPtr deepClone(
-          FieldContainerPtrConstArg  src,
+          ConstFieldContainerPtr     src,
     const std::vector<UInt16>       &shareGroupIds,
     const std::vector<UInt16>       &ignoreGroupIds)
 {
@@ -377,7 +377,7 @@ FieldContainerTransitPtr deepClone(
  */
 
 FieldContainerTransitPtr deepClone(      
-          FieldContainerPtrConstArg  src,
+          ConstFieldContainerPtr     src,
     const std::string               &shareTypesString,
     const std::string               &ignoreTypesString)
 {
@@ -408,7 +408,7 @@ FieldContainerTransitPtr deepClone(
  */
 
 FieldContainerTransitPtr deepClone(
-          FieldContainerPtrConstArg                    src,
+          ConstFieldContainerPtr                       src,
     const std::vector<const ReflexiveContainerType *> &shareTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &shareGroupIds,

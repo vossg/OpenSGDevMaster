@@ -134,7 +134,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- your_category -------------------------------*/
 
-    ResultE recurceNoNodeCallbacks(NodePtrConstArg node);
+    ResultE recurceNoNodeCallbacks(const NodePtr node);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -190,10 +190,10 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    void      overrideMaterial(Material        *pMaterial,
-                               NodePtrConstArg  pNode    );
+    void      overrideMaterial(      Material *pMaterial,
+                               const NodePtr   pNode    );
 
-    Material *getMaterial     (void                      );
+    Material *getMaterial     (      void               );
 
     /*------------------------- comparison ----------------------------------*/
 

@@ -73,9 +73,9 @@ class OSG_DRAWABLE_DLLMAPPING EdgeIterator : public PrimitiveIterator
     /*! \{                                                                 */  
 
     EdgeIterator(void);
-    EdgeIterator(const EdgeIterator &source);
-    EdgeIterator(      GeometryConstPtrArg geo);
-    EdgeIterator(const NodePtr& geo);
+    EdgeIterator(const EdgeIterator     &source);
+    EdgeIterator(      ConstGeometryPtr  geo   );
+    EdgeIterator(const NodePtr           geo   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -86,8 +86,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
 
     void                              reset(void);
 
-    static 
-       DrawableStatsAttachmentTransitPtr calcStatic(DrawablePtrArg pDrawable);
+    static DrawableStatsAttachmentTransitPtr calcStatic(DrawablePtr pDrawable);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -149,10 +148,10 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
     /*! \name                  Update Helper                               */
     /*! \{                                                                 */
     
-    static void invalidateFunctor(FieldContainerPtr    obj,
-                                  BitVector            mask);
+    static void invalidateFunctor(FieldContainerPtr  obj,
+                                  BitVector          mask);
     
-    static void invalidate       (FieldContainerPtrArg obj );
+    static void invalidate       (FieldContainerPtr  obj );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

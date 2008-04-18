@@ -454,8 +454,7 @@ UInt32 RenderAction::getCurrentBuffer(void)
 
 /*-------------------------- your_category---------------------------------*/
 
-ActionBase::ResultE RenderAction::recurceNoNodeCallbacks(
-    NodePtrConstArg node)
+ActionBase::ResultE RenderAction::recurceNoNodeCallbacks(const NodePtr node)
 {
     if(node == NullFC)
         return Continue;
@@ -768,8 +767,8 @@ const Matrix &RenderAction::topMatrix(void)
     return _pActivePartition->topMatrix();
 }
 
-void RenderAction::overrideMaterial(Material        *pMaterial,
-                                             NodePtrConstArg  pNode    )
+void RenderAction::overrideMaterial(      Material *pMaterial,
+                                    const NodePtr   pNode    )
 {
     _pActivePartition->overrideMaterial(pMaterial, pNode);
 }
@@ -780,7 +779,7 @@ Material *RenderAction::getMaterial(void)
 }
 
 void RenderAction::pushPartition(UInt32                uiCopyOnPush,
-                                          RenderPartition::Mode eMode       )
+                                 RenderPartition::Mode eMode       )
 {
     _sRenderPartitionIdxStack.push(_iActivePartitionIdx);
     _sRenderPartitionStack   .push(_pActivePartition   );

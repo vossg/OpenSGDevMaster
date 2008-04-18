@@ -813,7 +813,7 @@ bool RenderPartition::isVisible(Node *pNode)
 }
     
 // visibility levels
-bool RenderPartition::pushVisibility(NodePtrConstArg pNode)
+bool RenderPartition::pushVisibility(const NodePtr pNode)
 {
     if(getFrustumCulling() == false)
         return true;

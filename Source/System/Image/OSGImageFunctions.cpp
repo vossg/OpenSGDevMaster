@@ -1583,8 +1583,8 @@ bool createVignette(ImagePtr pImg,
     return true;
 }
 
-bool convertCrossToCubeMap(ImageConstPtrArg pIn,
-                           ImagePtr         pOut)
+bool convertCrossToCubeMap(ConstImagePtr pIn,
+                           ImagePtr      pOut)
 {
     if(pIn == NULL || pOut == NULL)
     {

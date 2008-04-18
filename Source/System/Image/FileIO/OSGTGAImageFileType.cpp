@@ -104,7 +104,7 @@ bool TGAImageFileType::readHeader(std::istream &is, TGAHeader &header)
 }
 
 bool TGAImageFileType::readCompressedImageData(std::istream &is, 
-                                               ImagePtrArg   pImage)
+                                               ImagePtr      pImage)
 {
     UInt32 npix = pImage->getWidth() * pImage->getHeight();
     Int32  rep, len;
@@ -187,7 +187,7 @@ TGAImageFileType TGAImageFileType::_the("image/x-targa",
     the given fileName. Returns true on success.
  */
 
-bool TGAImageFileType::read(      ImagePtrArg   pImage, 
+bool TGAImageFileType::read(      ImagePtr      pImage, 
                                   std::istream &is, 
                             const std::string  &mimetype)
 {
@@ -336,7 +336,7 @@ bool TGAImageFileType::read(      ImagePtrArg   pImage,
     Returns true on success.
  */
 
-bool TGAImageFileType::write(      ImageConstPtrArg  , 
+bool TGAImageFileType::write(      ConstImagePtr     , 
                                    std::ostream     &, 
                              const std::string      &)
 {

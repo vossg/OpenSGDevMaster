@@ -142,7 +142,7 @@ PrimitiveIterator::PrimitiveIterator(void) :
     Otherwise, use Geometry::beginPrimitives() resp. Geometry::endPrimitives()
     to create an iterator.
 */
-PrimitiveIterator::PrimitiveIterator(GeometryConstPtrArg geo) :
+PrimitiveIterator::PrimitiveIterator(ConstGeometryPtr geo) :
     _geo                (      ), 
     _ended              (  true),
     _primIndex          (     0), 
@@ -162,7 +162,7 @@ PrimitiveIterator::PrimitiveIterator(GeometryConstPtrArg geo) :
     to a specific indexed face. Otherwise, use Geometry::beginPrimitives()
     resp. Geometry::endPrimitives() to create an iterator.
 */
-PrimitiveIterator::PrimitiveIterator(const NodePtr& geo) :
+PrimitiveIterator::PrimitiveIterator(const NodePtr geo) :
     _geo                (      ), 
     _ended              (  true),
     _primIndex          (     0), 
@@ -207,7 +207,7 @@ PrimitiveIterator::~PrimitiveIterator(void)
 /*! Switch the iterator to a new geometry. Automatically sets it to the
     beginning.
 */
-void PrimitiveIterator::setGeo(GeometryConstPtrArg geo)
+void PrimitiveIterator::setGeo(ConstGeometryPtr geo)
 {
     OSG_ASSERT(geo != NullFC);
 
@@ -228,7 +228,7 @@ void PrimitiveIterator::setGeo(GeometryConstPtrArg geo)
 /*! Switch the iterator to a new geometry. Automatically sets it to the
     beginning.
 */
-void PrimitiveIterator::setGeo(const NodePtr& geo)
+void PrimitiveIterator::setGeo(const NodePtr geo)
 {
     GeometryPtr gc = dynamic_cast<GeometryPtr>(geo->getCore());
     

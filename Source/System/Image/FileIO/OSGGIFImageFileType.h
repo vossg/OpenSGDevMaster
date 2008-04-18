@@ -69,11 +69,11 @@ class OSG_IMGFILEIO_DLLMAPPING GIFImageFileType : public ImageFileType
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read (      ImagePtrArg       pImage, 
+    virtual bool read (      ImagePtr          pImage, 
                              std::istream     &is, 
                        const std::string      &mimetype);
 
-    virtual bool write(      ImageConstPtrArg  pImage, 
+    virtual bool write(      ConstImagePtr     pImage, 
                              std::ostream     &os, 
                        const std::string      &mimetype);
 

@@ -183,7 +183,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
 typedef VTKMapper *VTKMapperP;
 
 typedef VTKMapper::ObjPtr      VTKMapperPtr;
-typedef VTKMapper::ObjConstPtr VTKMapperConstPtr;
+typedef VTKMapper::ConstObjPtr ConstVTKMapperPtr;
 
 OSG_END_NAMESPACE
 

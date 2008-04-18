@@ -93,7 +93,7 @@ PNMImageFileType PNMImageFileType::_the("image/x-portable-bitmap",
     the given stream. Returns true on success.
  */
 
-bool PNMImageFileType::read(      ImagePtrArg   pImage, 
+bool PNMImageFileType::read(      ImagePtr      pImage, 
                                   std::istream &in, 
                             const std::string  &mimetype)
 {
@@ -212,7 +212,7 @@ bool PNMImageFileType::read(      ImagePtrArg   pImage,
     Returns true on success.
  */
 
-bool PNMImageFileType::write(      ImageConstPtrArg  pImage, 
+bool PNMImageFileType::write(      ConstImagePtr     pImage, 
                                    std::ostream     &out, 
                              const std::string      &mimetype)
 {

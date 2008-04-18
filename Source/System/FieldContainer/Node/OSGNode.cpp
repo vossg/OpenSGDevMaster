@@ -182,7 +182,7 @@ OSG_FIELD_CONTAINER_DEF(Node)
 /*-------------------------------------------------------------------------*/
 /*                             Children                                    */
 
-void Node::addChild(NodePtrConstArg childP)
+void Node::addChild(const NodePtr childP)
 {
     if(childP != NullFC)
     {
@@ -216,7 +216,7 @@ void Node::addChild(NodeTransitPtr childP)
 * \param childIndex  The location in the list to put the new child.
 * \param childP  Pointer to the child to insert.
 */
-void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
+void Node::insertChild(UInt32 childIndex, const NodePtr childP)
 {
     OSG_ASSERT((childIndex <= getNChildren()) && "Child index out of range");
 
@@ -233,7 +233,7 @@ void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
     }
 }
 
-void Node::replaceChild(UInt32 childIndex, NodePtrConstArg childP)
+void Node::replaceChild(UInt32 childIndex, const NodePtr childP)
 {
     if(childP     != NullFC                  && 
        childIndex <  _mfChildren.size()      && 
@@ -247,8 +247,8 @@ void Node::replaceChild(UInt32 childIndex, NodePtrConstArg childP)
 
 //! return true on success, false on child not found
 
-bool Node::replaceChildBy(NodePtrConstArg childP,
-                          NodePtrConstArg newChildP)
+bool Node::replaceChildBy(const NodePtr childP,
+                          const NodePtr newChildP)
 {
     if(newChildP != NullFC && childP != newChildP)
     {
@@ -268,7 +268,7 @@ bool Node::replaceChildBy(NodePtrConstArg childP,
     return false;
 }
 
-Int32 Node::findChild(NodePtrConstArg childP) const
+Int32 Node::findChild(const NodePtr childP) const
 {
     UInt32 index;
 
@@ -288,7 +288,7 @@ Int32 Node::findChild(NodePtrConstArg childP) const
     }
 }
 
-void Node::subChild(NodePtrConstArg childP)
+void Node::subChild(const NodePtr childP)
 {
     Int32 childIdx = findChild(childP);
 
@@ -909,7 +909,7 @@ EditFieldHandlePtr Node::editHandleCore(void)
              &_sfCore, 
              this->getType().getFieldDesc(CoreFieldId)));
 
-    typedef void (Node::*SetCoreF)(NodeCorePtrConstArg);
+    typedef void (Node::*SetCoreF)(const NodeCorePtr);
     
     SetCoreF fFunc = &Node::setCore;
 
@@ -937,7 +937,7 @@ EditFieldHandlePtr Node::editHandleChildren(void)
              &_mfChildren, 
              this->getType().getFieldDesc(ChildrenFieldId)));
 
-    typedef void (Node::*AddChildF)(NodePtrConstArg);
+    typedef void (Node::*AddChildF)(const NodePtr);
 
     AddChildF fFunc = &Node::addChild;
 
@@ -984,7 +984,7 @@ void Node::resolveLinks(void)
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr cloneTree(      NodePtrConstArg           rootNode,
+NodeTransitPtr cloneTree(      ConstNodePtr              rootNode,
                          const std::vector<std::string> &cloneTypeNames,
                          const std::vector<std::string> &ignoreTypeNames,
                          const std::vector<std::string> &cloneGroupNames,
@@ -1015,7 +1015,7 @@ NodeTransitPtr cloneTree(      NodePtrConstArg           rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr cloneTree(      NodePtrConstArg      rootNode,
+NodeTransitPtr cloneTree(      ConstNodePtr         rootNode,
                          const std::vector<UInt16> &cloneGroupIds,
                          const std::vector<UInt16> &ignoreGroupIds)
 {
@@ -1039,7 +1039,7 @@ NodeTransitPtr cloneTree(      NodePtrConstArg      rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr cloneTree(      NodePtrConstArg  rootNode,
+NodeTransitPtr cloneTree(      ConstNodePtr     rootNode,
                          const std::string     &cloneTypesString,
                          const std::string     &ignoreTypesString)
 {
@@ -1070,7 +1070,7 @@ NodeTransitPtr cloneTree(      NodePtrConstArg  rootNode,
  */
 
 NodeTransitPtr cloneTree(      
-          NodePtrConstArg                              rootNode,
+          ConstNodePtr                                 rootNode,
     const std::vector<const ReflexiveContainerType *> &cloneTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &cloneGroupIds,
@@ -1155,7 +1155,7 @@ NodeTransitPtr cloneTree(
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr deepCloneTree(      NodePtrConstArg           rootNode,
+NodeTransitPtr deepCloneTree(      ConstNodePtr              rootNode,
                              const std::vector<std::string> &shareTypeNames,
                              const std::vector<std::string> &ignoreTypeNames,
                              const std::vector<std::string> &shareGroupNames,
@@ -1186,7 +1186,7 @@ NodeTransitPtr deepCloneTree(      NodePtrConstArg           rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr deepCloneTree(      NodePtrConstArg      rootNode,
+NodeTransitPtr deepCloneTree(      ConstNodePtr         rootNode,
                              const std::vector<UInt16> &shareGroupIds,
                              const std::vector<UInt16> &ignoreGroupIds)
 {
@@ -1210,7 +1210,7 @@ NodeTransitPtr deepCloneTree(      NodePtrConstArg      rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr deepCloneTree(      NodePtrConstArg  rootNode,
+NodeTransitPtr deepCloneTree(      ConstNodePtr     rootNode,
                              const std::string     &shareTypesString,
                              const std::string     &ignoreTypesString)
 {
@@ -1241,7 +1241,7 @@ NodeTransitPtr deepCloneTree(      NodePtrConstArg  rootNode,
  */
 
 NodeTransitPtr deepCloneTree(      
-          NodePtrConstArg                              rootNode,
+          ConstNodePtr                                 rootNode,
     const std::vector<const ReflexiveContainerType *> &shareTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &shareGroupIds,

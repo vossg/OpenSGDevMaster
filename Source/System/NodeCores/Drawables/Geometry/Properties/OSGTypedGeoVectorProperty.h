@@ -632,9 +632,7 @@ makeProp(Color4fx, GL_FIXED,  GLfixed);
 
 // Positions
 typedef GeoVectorPropertyPtr         GeoPositionsPtr;
-typedef GeoVectorPropertyConstPtr    GeoPositionsConstPtr;
-typedef GeoVectorPropertyPtrConst    GeoPositionsPtrConst;
-typedef GeoVectorPropertyPtrConstArg GeoPositionsPtrConstArg;
+typedef ConstGeoVectorPropertyPtr    ConstGeoPositionsPtr;
 
 typedef GeoPnt2sProperty    GeoPositions2s;
 typedef GeoPnt3sProperty    GeoPositions3s;
@@ -661,9 +659,7 @@ typedef GeoPnt4dPropertyPtr GeoPositions4dPtr;
 
 // Normals
 typedef GeoVectorPropertyPtr         GeoNormalsPtr;
-typedef GeoVectorPropertyConstPtr    GeoNormalsConstPtr;
-typedef GeoVectorPropertyPtrConst    GeoNormalsPtrConst;
-typedef GeoVectorPropertyPtrConstArg GeoNormalsPtrConstArg;
+typedef ConstGeoVectorPropertyPtr    ConstGeoNormalsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoVec3fProperty    GeoNormals3f;
@@ -678,9 +674,7 @@ typedef GeoVec3bPropertyPtr GeoNormals3bPtr;
 
 // Colors
 typedef GeoVectorPropertyPtr         GeoColorsPtr;
-typedef GeoVectorPropertyConstPtr    GeoColorsConstPtr;
-typedef GeoVectorPropertyPtrConst    GeoColorsPtrConst;
-typedef GeoVectorPropertyPtrConstArg GeoColorsPtrConstArg;
+typedef ConstGeoVectorPropertyPtr    ConstGeoColorsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoColor3fProperty     GeoColors3f;
@@ -697,9 +691,7 @@ typedef GeoColor4ubPropertyPtr GeoColors4ubPtr;
 
 // TexCoords
 typedef GeoVectorPropertyPtr         GeoTexCoordsPtr;
-typedef GeoVectorPropertyConstPtr    GeoTexCoordsConstPtr;
-typedef GeoVectorPropertyPtrConst    GeoTexCoordsPtrConst;
-typedef GeoVectorPropertyPtrConstArg GeoTexCoordsPtrConstArg;
+typedef ConstGeoVectorPropertyPtr    ConstGeoTexCoordsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoVec1fProperty     GeoTexCoords1f;

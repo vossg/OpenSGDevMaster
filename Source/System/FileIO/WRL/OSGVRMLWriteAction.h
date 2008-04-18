@@ -277,24 +277,24 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     //-----------------------------------------------------------------------
 
 
-    static Action::ResultE writeGroupEnter(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeGroupEnter(const NodeCorePtr pGroup,
                                            Action *pAction);
-    static Action::ResultE writeGroupLeave(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeGroupLeave(const NodeCorePtr pGroup,
                                            Action *pAction);
 
-    static Action::ResultE writeMatGroupEnter(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeMatGroupEnter(const NodeCorePtr pGroup,
                                               Action *pAction);
-    static Action::ResultE writeMatGroupLeave(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeMatGroupLeave(const NodeCorePtr pGroup,
                                               Action *pAction);
 
-    static Action::ResultE writeComponentTransformEnter(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeComponentTransformEnter(const NodeCorePtr pGroup,
                                                         Action *pAction);
-    static Action::ResultE writeComponentTransformLeave(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeComponentTransformLeave(const NodeCorePtr pGroup,
                                                         Action *pAction);
 
-    static Action::ResultE writeTransformEnter(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeTransformEnter(const NodeCorePtr pGroup,
                                                Action *pAction);
-    static Action::ResultE writeTransformLeave(NodeCorePtrConstArg pGroup,
+    static Action::ResultE writeTransformLeave(const NodeCorePtr pGroup,
                                                Action *pAction);
 
     static void writePoints   (      GeometryPtr      pGeo, 
@@ -345,8 +345,8 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
                                      VRMLWriteAction *pWriter,
                                      bool             bSinglePrimitiveGeo);
 
-    static Action::ResultE writeGeoEnter(NodeCorePtrConstArg pGroup, Action *pAction);
-    static Action::ResultE writeGeoLeave(NodeCorePtrConstArg pGroup, Action *pAction);
+    static Action::ResultE writeGeoEnter(const NodeCorePtr pGroup, Action *pAction);
+    static Action::ResultE writeGeoLeave(const NodeCorePtr pGroup, Action *pAction);
 
     static bool initializeAction(void);
     static bool terminateAction (void);

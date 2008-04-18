@@ -113,15 +113,15 @@ SimpleAttachment<VoidPAttachmentDesc>::TypeObject &
  */
 
 OSG_SYSTEM_DLLMAPPING
-void *getVoidP(AttachmentContainerPtrConstArg  container);
+void *getVoidP(const AttachmentContainerPtr container);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-void  setVoidP(AttachmentContainerPtrConstArg  container, 
-               void                           *pData,
-               bool                            bInternal = false);
+void  setVoidP(const AttachmentContainerPtr  container, 
+                     void                   *pData,
+                     bool                    bInternal = false);
 
 OSG_END_NAMESPACE
 

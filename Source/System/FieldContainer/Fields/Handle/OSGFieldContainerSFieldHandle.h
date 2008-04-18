@@ -80,7 +80,7 @@ class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual void setValue(FieldContainerPtrConstArg rhs);
+    virtual void setValue(const FieldContainerPtr rhs);
 
     /*---------------------------------------------------------------------*/
 
@@ -219,7 +219,7 @@ class EditFCPtrSFieldHandle :
 
     /*---------------------------------------------------------------------*/
 
-    virtual void setValue(FieldContainerPtrConstArg rhs);
+    virtual void setValue(const FieldContainerPtr rhs);
 
     /*---------------------------------------------------------------------*/
 

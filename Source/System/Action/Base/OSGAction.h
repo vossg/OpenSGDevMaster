@@ -90,10 +90,10 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //   enums                                                               
     //-----------------------------------------------------------------------
 
-    typedef boost::function<ResultE(NodeCorePtrConstArg, 
-                                    Action             *)> Functor;
-    typedef boost::function<ResultE(NodePtrConstArg,   
-                                    Action             *)> NodeFunctor; 
+    typedef boost::function<ResultE(const NodeCorePtr, 
+                                          Action     *)> Functor;
+    typedef boost::function<ResultE(const NodePtr,   
+                                          Action     *)> NodeFunctor; 
 
     typedef ActionBase::ResultE (NodeCore::*Callback)(Action *);
 
@@ -143,10 +143,10 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
 
     // application
 
-    virtual ResultE apply(std::vector<NodePtr>::iterator begin, 
-                          std::vector<NodePtr>::iterator end  );
+    virtual ResultE apply(      std::vector<NodePtr>::iterator begin, 
+                                std::vector<NodePtr>::iterator end  );
 
-    virtual ResultE apply(NodePtrConstArg                node );
+    virtual ResultE apply(const NodePtr                        node );
 
     /*------------------------- your_category -------------------------------*/
     
@@ -158,7 +158,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     // needs to be set by the RenderAction, as the draw tree is traversed 
     // after the graph traversal
     
-    void setActNode(NodePtrConstArg node);
+    void setActNode(const NodePtr node);
 
     /*------------------------- your_category -------------------------------*/
 
@@ -174,7 +174,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     // per default all child nodes are traversed. If addNode is called, 
     // only the added nodes will be traversed.
     
-    void         addNode    (NodePtrConstArg node);
+    void         addNode    (const NodePtr node);
 
     // Common case: going through the children list and picking up some of 
     // them, but it's not clear if any at all. Call useNodeList() and then
@@ -191,7 +191,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     /*------------------------- comparison ----------------------------------*/
 
     // recurse through the node
-    ResultE recurse(NodePtrConstArg node);
+    ResultE recurse(const NodePtr node);
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -232,8 +232,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
 
     // call the single node. used for cascading actions
     
-    inline ResultE callEnter(NodeCorePtrConstArg core);   
-    inline ResultE callLeave(NodeCorePtrConstArg core);
+    inline ResultE callEnter(const NodeCorePtr core);   
+    inline ResultE callLeave(const NodeCorePtr core);
 
     // start/stop functions for the action.
     // called at the very beginning/end, can return a list of nodes
@@ -255,10 +255,10 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
 
     // default function
     
-    static ResultE _defaultEnterFunction(NodeCorePtrConstArg  node, 
-                                         Action              *action);
-    static ResultE _defaultLeaveFunction(NodeCorePtrConstArg  node, 
-                                         Action              *action);
+    static ResultE _defaultEnterFunction(const NodeCorePtr  node, 
+                                               Action      *action);
+    static ResultE _defaultLeaveFunction(const NodeCorePtr  node, 
+                                               Action      *action);
 
     // functors
     // just protected, so that derived actions can access them
@@ -345,10 +345,10 @@ typedef Action *ActionP;
 /*! \{                                                                 */
 
 typedef boost::function<
-          Action::ResultE (NodePtrConstArg)> TraverseEnterFunctor;
+          Action::ResultE (const NodePtr        )> TraverseEnterFunctor;
 typedef boost::function<
-          Action::ResultE (NodePtrConstArg, 
-                           Action::ResultE)> TraverseLeaveFunctor;
+          Action::ResultE (const NodePtr, 
+                                 Action::ResultE)> TraverseLeaveFunctor;
 
 
 /*
@@ -362,8 +362,8 @@ typedef TypedFunctor2Base<Action::ResultE,
  */
 
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(NodePtrConstArg       root, 
-                             TraverseEnterFunctor  func);
+ActionBase::ResultE traverse(const NodePtr               root, 
+                                   TraverseEnterFunctor  func);
 OSG_SYSTEM_DLLMAPPING
 ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList, 
                                    TraverseEnterFunctor  func);
@@ -373,9 +373,9 @@ ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
                                    TraverseEnterFunctor  func);
                             
 OSG_SYSTEM_DLLMAPPING
-ActionBase::ResultE traverse(NodePtrConstArg       root, 
-                             TraverseEnterFunctor  enter, 
-                             TraverseLeaveFunctor  leave);
+ActionBase::ResultE traverse(const NodePtr               root, 
+                                   TraverseEnterFunctor  enter, 
+                                   TraverseLeaveFunctor  leave);
 OSG_SYSTEM_DLLMAPPING
 ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList, 
                                    TraverseEnterFunctor  enter, 

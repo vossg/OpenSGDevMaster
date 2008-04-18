@@ -210,9 +210,9 @@ bool Viewport::isFullWindow(void) const
         getPixelRight()  == getParent()->getWidth () - 1;
 }
 
-WindowPtrConst Viewport::getParent(void) const
+WindowPtr Viewport::getParent(void) const
 {
-    return dynamic_cast<WindowPtrConst>(_sfParent.getValue());
+    return dynamic_cast<WindowPtr>(_sfParent.getValue());
 }
 
 /*-------------------------- your_category---------------------------------*/

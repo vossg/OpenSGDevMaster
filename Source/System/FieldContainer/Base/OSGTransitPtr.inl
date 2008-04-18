@@ -43,7 +43,7 @@ TransitPtr<ObjectT>::TransitPtr(void) :
 }
 
 template<class ObjectT> inline
-TransitPtr<ObjectT>::TransitPtr(ObjectPtrConstArg pObj) :
+TransitPtr<ObjectT>::TransitPtr(const ObjectPtr pObj) :
     _pObj(pObj)
 {
     if(_pObj != NULL)
@@ -108,7 +108,7 @@ typename TransitPtr<ObjectT>::Self &TransitPtr<ObjectT>::operator =(
 
 template<class ObjectT> inline
 typename TransitPtr<ObjectT>::Self &
-    TransitPtr<ObjectT>::operator =(ObjectPtrConstArg  pObj)
+    TransitPtr<ObjectT>::operator =(const ObjectPtr  pObj)
 {
     if(pObj != NULL)
         pObj->addReferenceUnrecordedX();

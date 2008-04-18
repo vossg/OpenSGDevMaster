@@ -192,7 +192,7 @@ std::string MergeGraphOp::usage(void)
 
 bool MergeGraphOp::mergeOnce(NodePtr node)
 {
-    std::list<NodeConstPtr> tempList;
+    std::list<ConstNodePtr> tempList;
     tempList.clear();
     tempList.splice(tempList.end(),_excludeListNodes);
     makeExcludeList(node);
@@ -220,13 +220,13 @@ void MergeGraphOp::makeExcludeList(NodePtr node)
 }
 
 
-Action::ResultE MergeGraphOp::excludeListEnter(NodePtrConstArg node)
+Action::ResultE MergeGraphOp::excludeListEnter(const NodePtr node)
 {
     if (node==NullFC) ; else ;    
     return Action::Continue;
 }
 
-Action::ResultE MergeGraphOp::excludeListLeave(NodePtrConstArg node, Action::ResultE res)
+Action::ResultE MergeGraphOp::excludeListLeave(const NodePtr node, Action::ResultE res)
 {
     DirectionalLightPtr dlight = dynamic_cast<DirectionalLightPtr>(node->getCore());
     if (dlight!=NullFC)
@@ -247,7 +247,7 @@ Action::ResultE MergeGraphOp::excludeListLeave(NodePtrConstArg node, Action::Res
     return res;
 }
 
-Action::ResultE MergeGraphOp::traverseEnter(NodePtrConstArg node)
+Action::ResultE MergeGraphOp::traverseEnter(const NodePtr node)
 {
     SwitchPtr switch_ = dynamic_cast<SwitchPtr>(node->getCore());
     if (switch_!=NullFC) return Action::Skip;
@@ -261,7 +261,7 @@ Action::ResultE MergeGraphOp::traverseEnter(NodePtrConstArg node)
     return Action::Continue;    
 }
 
-Action::ResultE MergeGraphOp::traverseLeave(NodePtrConstArg node, Action::ResultE res)
+Action::ResultE MergeGraphOp::traverseLeave(const NodePtr node, Action::ResultE res)
 {
     processGroups(node);
     processTransformations(node);
@@ -269,7 +269,7 @@ Action::ResultE MergeGraphOp::traverseLeave(NodePtrConstArg node, Action::Result
     return res;
 }
 
-bool MergeGraphOp::isLeaf(NodePtrConst node)
+bool MergeGraphOp::isLeaf(const NodePtr node)
 {
     if (node->getMFChildren()->begin() ==
         node->getMFChildren()->end  ()) return true;
@@ -278,7 +278,7 @@ bool MergeGraphOp::isLeaf(NodePtrConst node)
 
 /*! checks whether a node is a group and nothing else
 */
-bool MergeGraphOp::isGroup(NodePtrConst node)
+bool MergeGraphOp::isGroup(const NodePtr node)
 {
     if(  node->getCore()->getType().isDerivedFrom( Group::getClassType()              ) &&
         !node->getCore()->getType().isDerivedFrom( Transform::getClassType()          ) &&
@@ -291,7 +291,7 @@ bool MergeGraphOp::isGroup(NodePtrConst node)
     else return false;
 }
 
-void MergeGraphOp::processGroups(NodePtrConst node)
+void MergeGraphOp::processGroups(const NodePtr node)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
@@ -404,7 +404,7 @@ void MergeGraphOp::processGroups(NodePtrConst node)
     }
 }
 
-void MergeGraphOp::processTransformations(NodePtrConst node)
+void MergeGraphOp::processTransformations(const NodePtr node)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
@@ -606,7 +606,7 @@ void MergeGraphOp::processTransformations(NodePtrConst node)
     }
 }
 
-void MergeGraphOp::processGeometries(NodePtrConst node)
+void MergeGraphOp::processGeometries(const NodePtr node)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();

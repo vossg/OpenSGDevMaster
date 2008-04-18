@@ -90,8 +90,8 @@ public:
     /*=========================  PROTECTED  ===============================*/
 protected:    
 
-    Action::ResultE traverseEnter(NodePtrConstArg node);
-    Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res);
+    Action::ResultE traverseEnter(const NodePtr node);
+    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -105,7 +105,7 @@ private:
 
     /* Some internal helper methods */
     
-    OSG::Action::ResultE verifyGeometry(NodePtrConst node);
+    Action::ResultE verifyGeometry(const NodePtr node);
     bool verifyIndexMap(GeometryPtr geo, bool &repair);
     bool repairGeometry(void);    
 

@@ -118,7 +118,7 @@ HDRImageFileType HDRImageFileType::_the( "image/x-hdr",
   the given input stream. Returns true on success.
 */
 
-bool HDRImageFileType::read(      ImagePtrArg   image, 
+bool HDRImageFileType::read(      ImagePtr      image, 
                                   std::istream &is, 
                             const std::string  &mimetype)
 {
@@ -149,7 +149,7 @@ bool HDRImageFileType::read(      ImagePtrArg   image,
   Returns true on success.
 */
 
-bool HDRImageFileType::write(      ImageConstPtrArg  image, 
+bool HDRImageFileType::write(      ConstImagePtr     image, 
                                    std::ostream     &os, 
                              const std::string      &mimetype)
 {
@@ -222,7 +222,7 @@ bool HDRImageFileType::write(      ImageConstPtrArg  image,
   Returns the amount of data read.
 */
 
-UInt64 HDRImageFileType::restoreData(      ImagePtrArg  image, 
+UInt64 HDRImageFileType::restoreData(      ImagePtr     image, 
                                      const UChar8      *buffer,
                                            Int32              )
 {
@@ -237,7 +237,7 @@ UInt64 HDRImageFileType::restoreData(      ImagePtrArg  image,
   Returns the amount of data written.
 */
 
-UInt64 HDRImageFileType::storeData(ImageConstPtrArg  image, 
+UInt64 HDRImageFileType::storeData(ConstImagePtr     image, 
                                    UChar8           *buffer,
                                    Int32             OSG_CHECK_ARG(memSize))
 {

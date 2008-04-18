@@ -53,91 +53,44 @@
 //  typedefs
 //---------------------------------------------------------------------------
 
-#define OLD_OSG_GEN_INTERNALPTR(CLASST)                     \
-    typedef       CLASST *       ObjPtr;                    \
-    typedef       CLASST * const ObjPtrConst;               \
-    typedef const CLASST *       ObjConstPtr;               \
-    typedef       CLASST * const ObjPtrConstArg
-
-#if 0
-    typedef const CLASST * const ObjConstPtrConst;          \
-                                                            \
-    typedef       CLASST *       ObjPtrArg;                 \
-    typedef const CLASST *       ObjConstPtrArg
-#endif
-
-#define OLD_OSG_GEN_CONTAINERPTR(CLASST)                   \
-    typedef       CLASST *       CLASST##Ptr;              \
-    typedef       CLASST * const CLASST##PtrConst;         \
-    typedef const CLASST *       CLASST##ConstPtrArg;      \
-    typedef       CLASST * const CLASST##PtrConstArg;      \
-    typedef const CLASST * const CLASST##ConstPtrConst;    \
-    typedef       CLASST *       CLASST##PtrArg;           \
-    typedef const CLASST *       CLASST##ConstPtr;
-
-#define NEW_REFPTR
-
-
-#define TMP_INTERNAL_PTR(CLASST)                                               \
-    typedef       TransitPtr< CLASST                          > ObjTransitPtr; \
-    typedef       RefCountPtr<CLASST, RecordedRefCountPolicy  > ObjRecPtr;     \
-    typedef       RefCountPtr<CLASST, UnrecordedRefCountPolicy> ObjUnrecPtr;   \
-    typedef       RefCountPtr<CLASST, WeakRefCountPolicy      > ObjWeakPtr;  
-
-#define TMP_PTR(CLASST)                                                        \
-    typedef       TransitPtr < CLASST                  > CLASST##TransitPtr;   \
-    typedef       RefCountPtr< CLASST,                                         \
-                               RecordedRefCountPolicy  > CLASST##RecPtr;       \
-    typedef       RefCountPtr< CLASST,                                         \
-                               UnrecordedRefCountPolicy> CLASST##UnrecPtr;     \
-    typedef       RefCountPtr< CLASST,                                         \
-                               WeakRefCountPolicy      > CLASST##WeakPtr;      \
-    typedef       RefCountPtr< CLASST,                                         \
-                               MTRecordedRefCountPolicy> CLASST##MTRecPtr;     \
-    typedef       CLASST##RecPtr                         CLASST##RefPtr;
-
-
-#define OSG_GEN_INTERNALPTR(CLASST)                         \
-    typedef       CLASST *       ObjCPtr;                   \
-    typedef       CLASST * const ObjCPtrConst;              \
-    typedef const CLASST *       ObjConstCPtr;              \
-    typedef const CLASST * const ObjConstCPtrConst;         \
-                                                            \
-    typedef       CLASST *       ObjCPtrArg;                \
-    typedef       CLASST * const ObjCPtrConstArg;           \
-    typedef const CLASST *       ObjConstCPtrArg;           \
-                                                            \
-    TMP_INTERNAL_PTR(CLASST)                                \
-                                                            \
-    OLD_OSG_GEN_INTERNALPTR(CLASST)
+#define OSG_GEN_INTERNALPTR(CLASST)                                      \
+    typedef TransitPtr< CLASST                          > ObjTransitPtr; \
+    typedef RefCountPtr<CLASST, RecordedRefCountPolicy  > ObjRecPtr;     \
+    typedef RefCountPtr<CLASST, UnrecordedRefCountPolicy> ObjUnrecPtr;   \
+    typedef RefCountPtr<CLASST, WeakRefCountPolicy      > ObjWeakPtr;    \
+                                                                         \
+    typedef CLASST       *                                ObjPtr;        \
+    typedef CLASST const *                                ConstObjPtr;   \
+                                                                         \
+    typedef CLASST       *                                ObjCPtr;       \
+    typedef CLASST const *                                ConstObjCPtr;
 
 
 
-#define OSG_GEN_CONTAINERPTR(CLASST)                       \
-    typedef       CLASST *       CLASST##CPtr;             \
-    typedef       CLASST * const CLASST##CPtrConst;        \
-    typedef const CLASST *       CLASST##ConstCPtr;        \
-    typedef const CLASST * const CLASST##ConstCPtrConst;   \
-                                                           \
-    typedef       CLASST *       CLASST##CPtrArg;          \
-    typedef       CLASST * const CLASST##CPtrConstArg;     \
-    typedef const CLASST *       CLASST##ConstCPtrArg;     \
-                                                           \
-    TMP_PTR(CLASST)                                        \
-                                                           \
-    OLD_OSG_GEN_CONTAINERPTR(CLASST)
+
+#define OSG_GEN_CONTAINERPTR(CLASST)                                     \
+    typedef TransitPtr < CLASST                  > CLASST##TransitPtr;   \
+    typedef RefCountPtr< CLASST,                                         \
+                         RecordedRefCountPolicy  > CLASST##RecPtr;       \
+    typedef RefCountPtr< CLASST,                                         \
+                         UnrecordedRefCountPolicy> CLASST##UnrecPtr;     \
+    typedef RefCountPtr< CLASST,                                         \
+                         WeakRefCountPolicy      > CLASST##WeakPtr;      \
+    typedef RefCountPtr< CLASST,                                         \
+                         MTRecordedRefCountPolicy> CLASST##MTRecPtr;     \
+    typedef CLASST##RecPtr                         CLASST##RefPtr;       \
+    typedef CLASST##MTRecPtr                       CLASST##MTRefPtr;     \
+                                                                         \
+    typedef CLASST       * CLASST##Ptr;                                  \
+    typedef CLASST const * Const##CLASST##Ptr;                           \
+                                                                         \
+    typedef CLASST       * CLASST##CPtr;                                 \
+    typedef CLASST const * Const##CLASST##CPtr;
 
 
-#define OSG_GEN_NAMED_PTR(CLASST, NAME)                     \
-    typedef CLASST       *       NAME##Ptr;                 \
-    typedef CLASST       * const NAME##PtrConst;            \
-    typedef CLASST const *       NAME##ConstPtr;            \
-    typedef CLASST const * const NAME##ConstPtrConst;       \
-                                                            \
-    typedef CLASST       *       NAME##PtrArg;              \
-    typedef CLASST       * const NAME##PtrConstArg;         \
-    typedef CLASST const *       NAME##ConstPtrArg
-
+#define OSG_GEN_NAMED_PTR(CLASST, NAME)                    \
+    typedef CLASST       * NAME##Ptr;                      \
+    typedef CLASST const * Const##NAME##Ptr;               
 
 
 
@@ -199,7 +152,7 @@ class FieldContainerFactoryBase;
 typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 
 typedef boost::function<
-              void (FieldContainerCPtrArg, ConstFieldMaskArg )> ChangedFunctor;
+              void (FieldContainerCPtr, ConstFieldMaskArg )> ChangedFunctor;
 
 typedef boost::function<void (DrawEnv *)> RenderFunctor;
 

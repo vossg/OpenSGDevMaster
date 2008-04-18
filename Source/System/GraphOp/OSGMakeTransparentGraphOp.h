@@ -108,8 +108,8 @@ protected:
     virtual ~MakeTransparentGraphOp(void);
 
 private:
-    Action::ResultE traverseEnter(NodePtrConstArg node);
-    Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res);
+    Action::ResultE traverseEnter(const NodePtr node);
+    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
 
     void addObject(MaterialObject m);
     void applyTransparency(MaterialPtr m);

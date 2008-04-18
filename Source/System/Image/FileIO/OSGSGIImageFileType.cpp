@@ -315,7 +315,7 @@ SGIImageFileType SGIImageFileType::_the("image/x-sgi",
     the given input stream. Returns true on success.
  */
 
-bool SGIImageFileType::read(      ImagePtrArg       pImage, 
+bool SGIImageFileType::read(      ImagePtr          pImage, 
                                   std::istream     &is, 
                             const std::string      &mimetype)
 {
@@ -352,7 +352,7 @@ bool SGIImageFileType::read(      ImagePtrArg       pImage,
     Returns true on success.
  */
 
-bool SGIImageFileType::write(      ImageConstPtrArg  pImage, 
+bool SGIImageFileType::write(      ConstImagePtr     pImage, 
                                    std::ostream     &os, 
                              const std::string      &mimetype)
 { 

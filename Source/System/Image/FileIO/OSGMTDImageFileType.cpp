@@ -81,7 +81,7 @@ MTDImageFileType MTDImageFileType::_the("image/x-mtd",
     the given stream. Returns true on success.
  */
 
-bool MTDImageFileType::read(      ImagePtrArg       pImage, 
+bool MTDImageFileType::read(      ImagePtr          pImage, 
                                   std::istream     &is, 
                             const std::string      &mimetype)
 {
@@ -122,7 +122,7 @@ bool MTDImageFileType::read(      ImagePtrArg       pImage,
 Tries to write the image object to the given stream.
 Returns true on success.
 */
-bool MTDImageFileType::write(      ImageConstPtrArg  pImage, 
+bool MTDImageFileType::write(      ConstImagePtr     pImage, 
                                    std::ostream     &os, 
                              const std::string      &mimetype)
 {
@@ -164,7 +164,7 @@ bool MTDImageFileType::write(      ImageConstPtrArg  pImage,
 Tries to restore the image data from the given memblock.
 Returns the amount of data read.
 */
-UInt64 MTDImageFileType::restoreData(      ImagePtrArg       pImage, 
+UInt64 MTDImageFileType::restoreData(      ImagePtr          pImage, 
                                      const UChar8           *buffer,
                                            Int32                   )
 {
@@ -178,7 +178,7 @@ UInt64 MTDImageFileType::restoreData(      ImagePtrArg       pImage,
     Returns the amount of data written.
  */
 
-UInt64 MTDImageFileType::storeData(ImageConstPtrArg  pImage, 
+UInt64 MTDImageFileType::storeData(ConstImagePtr     pImage, 
                                    UChar8           *buffer,
                                    Int32                   )
 {

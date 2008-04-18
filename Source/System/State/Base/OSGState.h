@@ -116,20 +116,20 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    StateChunkPtrConst getChunk     (UInt32        chunkId                );
+    const StateChunkPtr getChunk     (UInt32        chunkId                );
 
-    bool               chunkPresent (UInt32        chunkId                );
-    bool               chunkPresent (StateChunkPtr chunk                  );
+    bool                chunkPresent (UInt32        chunkId                );
+    bool                chunkPresent (StateChunkPtr chunk                  );
    
-    bool               addChunk     (StateChunkPtr chunk, 
-                                     Int32         index = AutoSlotReplace);
+    bool                addChunk     (StateChunkPtr chunk, 
+                                      Int32         index = AutoSlotReplace);
 
-    bool               subChunk     (StateChunkPtr chunk                  );
+    bool                subChunk     (StateChunkPtr chunk                  );
 
-    bool               subChunk     (UInt32        classid, 
-                                     Int32         index                  );
+    bool                subChunk     (UInt32        classid, 
+                                      Int32         index                  );
 
-    void               clearChunks  (void                                 );
+    void                clearChunks  (void                                 );
 
 
     /*! \}                                                                 */

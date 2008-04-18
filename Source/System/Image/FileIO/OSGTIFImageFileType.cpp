@@ -225,7 +225,7 @@ TIFImageFileType TIFImageFileType:: _the("image/tiff",
     the given fileName. Returns true on success.
  */
 
-bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage), 
+bool TIFImageFileType::read(      ImagePtr      OSG_TIF_ARG(pImage), 
                                   std::istream &OSG_TIF_ARG(is),
                             const std::string  &OSG_TIF_ARG(mimetype))
 {
@@ -369,7 +369,7 @@ bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage),
     Returns true on success.
 */
 
-bool TIFImageFileType::write(      ImageConstPtrArg  OSG_TIF_ARG(pImage), 
+bool TIFImageFileType::write(      ConstImagePtr     OSG_TIF_ARG(pImage), 
                                    std::ostream     &OSG_TIF_ARG(os),
                              const std::string      &OSG_TIF_ARG(mimetype))
 {

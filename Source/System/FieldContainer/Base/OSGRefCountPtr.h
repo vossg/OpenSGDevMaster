@@ -96,7 +96,7 @@ class RefCountPtr
     explicit
     RefCountPtr(ObjectTransitPtr        &other);
 
-    RefCountPtr(ObjectPtrConstArg        pObj );
+    RefCountPtr(const ObjectPtr          pObj );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -110,13 +110,13 @@ class RefCountPtr
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(Self              const &other    );
-    Self &operator =(ObjectPtrConstArg        objectPtr);
-    Self &operator =(ObjectTransitPtr  const &other);
+    Self &operator =(const Self              &other    );
+    Self &operator =(const ObjectPtr          objectPtr);
+    Self &operator =(const ObjectTransitPtr  &other    );
 
     template <class OtherObjectT, class OtherRefCountPolicyT>
-    Self &operator=(RefCountPtr<OtherObjectT,
-                                OtherRefCountPolicyT> const &refPtr);
+    Self &operator =(const RefCountPtr<OtherObjectT,
+                                OtherRefCountPolicyT> &refPtr);
    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,10 +138,10 @@ class RefCountPtr
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    ObjectPtr get (void                        ) const;
-    void      set (ObjectPtrConstArg objectPtr );
+    ObjectPtr get (      void                ) const;
+    void      set (const ObjectPtr  objectPtr);
     
-    void      swap(Self              &other    );
+    void      swap(      Self      &other    );
        
 #ifdef REFPTR_UNITTEST
     inline

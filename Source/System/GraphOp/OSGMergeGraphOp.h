@@ -112,19 +112,19 @@ private:
 
     bool mergeOnce(NodePtr node);
 
-    void makeExcludeList        (NodePtr      node);
-    void processGroups          (NodePtrConst node);
-    void processTransformations (NodePtrConst node);
-    void processGeometries      (NodePtrConst node);
+    void makeExcludeList        (      NodePtr node);
+    void processGroups          (const NodePtr node);
+    void processTransformations (const NodePtr node);
+    void processGeometries      (const NodePtr node);
 
-    bool isLeaf        (NodePtrConst node);
-    bool isGroup       (NodePtrConst node);
+    bool isLeaf        (const NodePtr node);
+    bool isGroup       (const NodePtr node);
 
-    Action::ResultE excludeListEnter(NodePtrConstArg node);
-    Action::ResultE excludeListLeave(NodePtrConstArg node, Action::ResultE res);
+    Action::ResultE excludeListEnter(const NodePtr node);
+    Action::ResultE excludeListLeave(const NodePtr node, Action::ResultE res);
 
-    Action::ResultE traverseEnter(NodePtrConstArg node);
-    Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res);
+    Action::ResultE traverseEnter(const NodePtr node);
+    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
 };
 
 typedef MergeGraphOp *MergeGraphOpP;

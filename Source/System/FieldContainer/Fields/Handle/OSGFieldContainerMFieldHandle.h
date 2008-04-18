@@ -79,9 +79,9 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual void add    (      FieldContainerPtrConstArg pNewElement);
-    virtual void replace(const UInt32                    uiIndex,
-                               FieldContainerPtrConstArg pNewElement);
+    virtual void add    (const FieldContainerPtr pNewElement);
+    virtual void replace(const UInt32            uiIndex,
+                         const FieldContainerPtr pNewElement);
 
     /*---------------------------------------------------------------------*/
 
@@ -220,9 +220,9 @@ class EditFCPtrMFieldHandle :
 
     /*---------------------------------------------------------------------*/
 
-    virtual void add    (      FieldContainerPtrConstArg pNewElement);
-    virtual void replace(const UInt32                    uiIndex,
-                               FieldContainerPtrConstArg pNewElement);
+    virtual void add    (const FieldContainerPtr pNewElement);
+    virtual void replace(const UInt32            uiIndex,
+                         const FieldContainerPtr pNewElement);
 
     /*---------------------------------------------------------------------*/
 

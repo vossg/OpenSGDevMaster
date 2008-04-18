@@ -544,7 +544,7 @@ void VRMLFile::scanStandardPrototypes(const Char8  *szFilename)
     postStandardProtos();
 }
 
-static Action::ResultE modifyMaterial(NodePtrConstArg node)
+static Action::ResultE modifyMaterial(const NodePtr node)
 {   
     MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>(node->getCore());
     

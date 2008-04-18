@@ -49,7 +49,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ExternalUpdateHandler
 {
 public:
     virtual ~ExternalUpdateHandler() {}
-    virtual void update(const NodePtrConst TransformNode) = 0;
+    virtual void update(const NodePtr TransformNode) = 0;
 };
 
 #endif // _OSGEXTERNALUPDATEHANDLER_H

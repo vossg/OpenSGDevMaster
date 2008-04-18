@@ -87,7 +87,7 @@ SimpleAttachment<NameAttachmentDesc>::TypeObject &
   container is NULL.
  */
 
-const Char8 *getName(AttachmentContainerPtrConstArg pContainer)
+const Char8 *getName(const AttachmentContainerPtr pContainer)
 {
     if(pContainer == NullFC)
         return NULL;
@@ -113,8 +113,8 @@ const Char8 *getName(AttachmentContainerPtrConstArg pContainer)
     name attachement yet one is created. 
  */
 
-void setName(      AttachmentContainerPtrConstArg  pContainer, 
-             const std::string                    &namestring)
+void setName(const AttachmentContainerPtr  pContainer, 
+             const std::string            &namestring)
 {
     if(pContainer == NullFC)
     {
@@ -155,7 +155,7 @@ void setName(      AttachmentContainerPtrConstArg  pContainer,
   name is removed.
  */
 
-void setName(AttachmentContainerPtrConstArg pContainer, const Char8 *name)
+void setName(const AttachmentContainerPtr pContainer, const Char8 *name)
 {
     if(name == NULL)
     {

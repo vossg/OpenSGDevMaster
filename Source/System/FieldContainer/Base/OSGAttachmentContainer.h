@@ -248,8 +248,8 @@ OSG_GEN_CONTAINERPTR(AttachmentContainer);
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -263,8 +263,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
     const std::vector<UInt16>                     &cloneGroupIds,
 
     const std::vector<UInt16>                     &ignoreGroupIds    =
@@ -272,8 +272,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
     const std::string                             &cloneTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -281,8 +281,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
 
     const std::vector<const ReflexiveContainerType *> &cloneTypes    =
               std::vector<const ReflexiveContainerType *>(),
@@ -298,8 +298,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -313,8 +313,8 @@ void deepCloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
     const std::vector<UInt16>                     &cloneGroupIds,
 
     const std::vector<UInt16>                     &ignoreGroupIds    =
@@ -322,8 +322,8 @@ void deepCloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
     const std::string                             &cloneTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -331,8 +331,8 @@ void deepCloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg           src,
-          AttachmentContainerPtrArg                dst,
+          ConstAttachmentContainerPtr              src,
+          AttachmentContainerPtr                   dst,
 
     const std::vector<const ReflexiveContainerType *> &shareTypes    =
               std::vector<const ReflexiveContainerType *>(),

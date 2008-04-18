@@ -349,8 +349,8 @@ GetFieldHandlePtr AttachmentContainer::getHandleAttachments(void) const
  */
 
 void cloneAttachments(
-          AttachmentContainerPtrConstArg  src,
-          AttachmentContainerPtrArg       dst,
+          ConstAttachmentContainerPtr     src,
+          AttachmentContainerPtr          dst,
     const std::vector<std::string>       &cloneTypeNames,
     const std::vector<std::string>       &ignoreTypeNames,
     const std::vector<std::string>       &cloneGroupNames,
@@ -382,8 +382,8 @@ void cloneAttachments(
  */
 
 void cloneAttachments(
-          AttachmentContainerPtrConstArg  src,
-          AttachmentContainerPtrArg       dst,
+          ConstAttachmentContainerPtr     src,
+          AttachmentContainerPtr          dst,
     const std::vector<UInt16>            &cloneGroupIds,
     const std::vector<UInt16>            &ignoreGroupIds)
 {
@@ -410,8 +410,8 @@ void cloneAttachments(
  */
 
 void cloneAttachments(
-          AttachmentContainerPtrConstArg  src,
-          AttachmentContainerPtrArg       dst,
+          ConstAttachmentContainerPtr     src,
+          AttachmentContainerPtr          dst,
     const std::string                    &cloneTypesString,
     const std::string                    &ignoreTypesString)
 {
@@ -442,8 +442,8 @@ void cloneAttachments(
  */
 
 void cloneAttachments(
-          AttachmentContainerPtrConstArg               src,
-          AttachmentContainerPtrArg                    dst,
+          ConstAttachmentContainerPtr                  src,
+          AttachmentContainerPtr                       dst,
     const std::vector<const ReflexiveContainerType *> &cloneTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &cloneGroupIds,
@@ -521,8 +521,8 @@ void cloneAttachments(
  */
 
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg   src,
-          AttachmentContainerPtrArg        dst,
+          ConstAttachmentContainerPtr      src,
+          AttachmentContainerPtr           dst,
     const std::vector<std::string>        &shareTypeNames,
     const std::vector<std::string>        &ignoreTypeNames,
     const std::vector<std::string>        &shareGroupNames,
@@ -554,8 +554,8 @@ void deepCloneAttachments(
  */
 
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg  src,
-          AttachmentContainerPtrArg       dst,
+          ConstAttachmentContainerPtr     src,
+          AttachmentContainerPtr          dst,
     const std::vector<UInt16>            &shareGroupIds,
     const std::vector<UInt16>            &ignoreGroupIds)
 {
@@ -582,8 +582,8 @@ void deepCloneAttachments(
  */
 
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg  src,
-          AttachmentContainerPtrArg       dst,
+          ConstAttachmentContainerPtr     src,
+          AttachmentContainerPtr          dst,
     const std::string                    &shareTypesString,
     const std::string                    &ignoreTypesString)
 {
@@ -614,8 +614,8 @@ void deepCloneAttachments(
  */
 
 void deepCloneAttachments(
-          AttachmentContainerPtrConstArg               src,
-          AttachmentContainerPtrArg                    dst,
+          ConstAttachmentContainerPtr                  src,
+          AttachmentContainerPtr                       dst,
     const std::vector<const ReflexiveContainerType *> &shareTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &shareGroupIds,

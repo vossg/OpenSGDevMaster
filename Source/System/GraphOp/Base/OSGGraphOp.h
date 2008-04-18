@@ -101,14 +101,14 @@ public:
     /*! \name                    Exclusion                                 */
     /*! \{                                                                 */    
     
-    void addToExcludeList       (NodePtrConst node       );
+    void addToExcludeList       (const NodePtr      node );
     void addToExcludeList       (const std::string &name );
-    void removeFromExcludeList  (NodePtrConst node       );
+    void removeFromExcludeList  (const NodePtr      node );
     void removeFromExcludeList  (const std::string &name );
-    void clearExcludeList       (void                    );
-    bool isInExcludeListNodes   (NodePtrConst node       );
+    void clearExcludeList       (      void              );
+    bool isInExcludeListNodes   (const NodePtr      node );
     bool isInExcludeListNames   (const std::string &name );
-    bool isInExcludeList        (NodePtrConst node       );        
+    bool isInExcludeList        (const NodePtr      node );        
 
     /*! \}                                                                 */
 
@@ -156,11 +156,12 @@ protected:
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    virtual Action::ResultE traverseEnter(NodePtrConstArg node) = 0;
-    virtual Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res) = 0;
+    virtual Action::ResultE traverseEnter(const NodePtr         node) = 0;
+    virtual Action::ResultE traverseLeave(const NodePtr         node, 
+                                                Action::ResultE res ) = 0;
 
-    std::list<NodeConstPtr> _excludeListNodes;
-    std::list<std::string>  _excludeListNames;
+    std::list<ConstNodePtr> _excludeListNodes;
+    std::list<std::string >  _excludeListNames;
 
     /*==========================  PRIVATE  ================================*/
 private:

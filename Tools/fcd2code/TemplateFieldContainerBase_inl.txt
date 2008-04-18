@@ -81,7 +81,7 @@ OSG::UInt16 @!Classname!@Base::getClassGroupId(void)
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
-@!field.FullType!@Const @!Classname!@Base::get@!field.Name!@(void) const
+@!field.FullType!@ @!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@.getValue();
 }
@@ -89,10 +89,10 @@ inline
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
             @@if field.PassFieldMask
-void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value,
+void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value,
                              const UInt16      uiStoredInFieldId)
             @@else // field.PassFieldMask
-void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
+void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
             @@endif // field.PassFieldMask
 {
     editSField(@!field.Name!@FieldMask);
@@ -177,7 +177,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ &value)
 //! Get the value of the \a index element the @!Classname!@::_@!field.VarName!@ field.
 inline
             @@if field.isPtrField
-@!field.Type!@Const @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
+@!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@else // field.isPtrField
 const @!field.FullType!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@endif // field.isPtrField
@@ -235,7 +235,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ &@!Classname!@B
 @@else // !isDecorator
 
 inline
-const @!Parent!@PtrConst @!Classname!@Base::getDecoratee(void) const
+@!Parent!@Ptr @!Classname!@Base::getDecoratee(void) const
 {
     return _sfDecoratee.getValue();
 }

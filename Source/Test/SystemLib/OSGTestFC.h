@@ -278,7 +278,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
 typedef TestFC::ObjPtr      TestFCPtr;
 typedef TestFC::ObjUnrecPtr TestFCUnrecPtr;
-typedef TestFC::ObjConstPtr TestFCConstPtr;
+typedef TestFC::ConstObjPtr ConstTestFCPtr;
 
 OSG_END_NAMESPACE
 

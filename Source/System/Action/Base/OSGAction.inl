@@ -50,7 +50,7 @@ NodePtr Action::getActNode(void)
 
     
 inline 
-void Action::setActNode(NodePtrConstArg node)
+void Action::setActNode(const NodePtr node)
 {
     _actNode = node;
 }
@@ -69,7 +69,7 @@ NodePtr Action::getNode(int index)
 }
 
 inline
-void Action::addNode(NodePtrConstArg node)
+void Action::addNode(const NodePtr node)
 {
     _newList.push_back(node);
 }
@@ -113,7 +113,7 @@ void Action::setTravMask(UInt32 val)
 // default list.
 
 inline
-ActionBase::ResultE Action::callEnter(NodeCorePtrConstArg core)
+ActionBase::ResultE Action::callEnter(const NodeCorePtr core)
 {
     ResultE result;
 
@@ -147,7 +147,7 @@ ActionBase::ResultE Action::callEnter(NodeCorePtrConstArg core)
 }
 
 inline
-ActionBase::ResultE Action::callLeave(NodeCorePtrConstArg core)
+ActionBase::ResultE Action::callLeave(const NodeCorePtr core)
 {
     ResultE result;
 

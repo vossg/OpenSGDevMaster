@@ -105,12 +105,12 @@ protected:
 private:
     UInt16 _max_polygons;
 
-    bool isLeaf        (NodePtrConst node);
-    bool isGroup       (NodePtrConst node);
+    bool isLeaf        (const NodePtr node);
+    bool isGroup       (const NodePtr node);
     bool splitNode     (const NodePtr node, std::vector<NodeUnrecPtr> &split);
 
-    Action::ResultE traverseEnter(NodePtrConstArg node);
-    Action::ResultE traverseLeave(NodePtrConstArg node, Action::ResultE res);
+    Action::ResultE traverseEnter(const NodePtr node);
+    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
 };
 
 typedef SplitGraphOp *SplitGraphOpP;

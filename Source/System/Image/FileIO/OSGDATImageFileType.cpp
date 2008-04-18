@@ -95,7 +95,7 @@ std::map<std::string,
     the given fileName. Returns true on success.
  */
 
-bool DATImageFileType::read(      ImagePtrArg  image,
+bool DATImageFileType::read(      ImagePtr     image,
                             const Char8       *fileName)
 {
     bool retCode = false;
@@ -391,7 +391,7 @@ bool DATImageFileType::read(      ImagePtrArg  image,
 /*! Tries to write the image object to the given fileName.
     Returns true on success.
 */
-bool DATImageFileType::write(      ImageConstPtrArg  image,
+bool DATImageFileType::write(      ConstImagePtr     image,
                              const Char8            *fileName)
 {
     initTypeMap();
@@ -524,7 +524,7 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
     Returns the amount of data read.
 */
 
-UInt64 DATImageFileType::restoreData(      ImagePtrArg  image,
+UInt64 DATImageFileType::restoreData(      ImagePtr     image,
                                      const UChar8      *buffer,
                                            Int32        OSG_CHECK_ARG(memSize))
 {
@@ -538,7 +538,7 @@ UInt64 DATImageFileType::restoreData(      ImagePtrArg  image,
     Returns the amount of data written.
 */
 
-UInt64 DATImageFileType::storeData(ImageConstPtrArg  image,
+UInt64 DATImageFileType::storeData(ConstImagePtr     image,
                                    UChar8           *buffer,
                                    Int32             OSG_CHECK_ARG(memSize))
 {

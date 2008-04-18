@@ -126,8 +126,6 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     typedef std::vector<const FieldContainerType *> TypePtrVector;
     typedef std::vector<      UInt16              > TypeIdVector;
 
-    typedef FieldContainerCPtrConstArg              FCPtrConstArg;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */

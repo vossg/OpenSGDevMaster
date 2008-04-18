@@ -83,8 +83,8 @@ class OSG_SYSTEM_DLLMAPPING FCDSParTestFC : public FCDSParTestFCBase
     /*! \{                                                                 */
 
     void setParent(
-              FieldContainerPtrConst &parent, 
-        const UInt16                  uiStoredInFieldId = InvalidParentEPos);
+        const FieldContainerPtr parent, 
+        const UInt16            uiStoredInFieldId = InvalidParentEPos);
 
     FieldContainerPtr getParent(void) const;
 

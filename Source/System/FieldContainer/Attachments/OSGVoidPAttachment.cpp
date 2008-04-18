@@ -87,7 +87,7 @@ SimpleAttachment<VoidPAttachmentDesc>::TypeObject &
   container is NULL.
  */
 
-void *getVoidP(AttachmentContainerPtrConstArg pContainer)
+void *getVoidP(const AttachmentContainerPtr pContainer)
 {
     if(pContainer == NullFC)
         return NULL;
@@ -114,9 +114,9 @@ void *getVoidP(AttachmentContainerPtrConstArg pContainer)
     name attachement yet one is created. 
  */
 
-void setVoidP(AttachmentContainerPtrConstArg  pContainer, 
-              void                           *pData,
-              bool                            bInternal)
+void setVoidP(const AttachmentContainerPtr  pContainer, 
+              void                         *pData,
+              bool                          bInternal)
 {
     if(pContainer == NullFC)
     {

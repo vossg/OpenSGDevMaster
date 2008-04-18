@@ -191,12 +191,12 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
     /*! \name                   load balancing                             */
     /*! \{                                                                 */
 
-    void collectDrawables(NodePtrConstArg  node,
-                          DrawableListT   &drawables  );
-    void splitDrawables  (DrawableListT   &src,
-                          UInt32           groups,
-                          bool             cut = false);
-    void setupNodes      (UInt32           groupId    );
+    void collectDrawables(const NodePtr  node,
+                                DrawableListT   &drawables  );
+    void splitDrawables  (      DrawableListT   &src,
+                                UInt32           groups,
+                                bool             cut = false);
+    void setupNodes      (      UInt32           groupId    );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

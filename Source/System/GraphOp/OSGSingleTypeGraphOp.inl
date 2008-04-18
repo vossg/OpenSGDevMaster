@@ -76,7 +76,7 @@ SingleTypeGraphOp<Type>::~SingleTypeGraphOp(void)
 }
 
 template < class Type > inline
-Action::ResultE SingleTypeGraphOp<Type>::traverseEnter(NodePtrConstArg node)
+Action::ResultE SingleTypeGraphOp<Type>::traverseEnter(const NodePtr node)
 {
     if (node->getCore()->getType().isDerivedFrom(Type::getClassType()))
         travNodeEnter(node);
@@ -84,8 +84,9 @@ Action::ResultE SingleTypeGraphOp<Type>::traverseEnter(NodePtrConstArg node)
 }
 
 template < class Type > inline
-Action::ResultE SingleTypeGraphOp<Type>::traverseLeave(NodePtrConstArg node, 
-                                                       Action::ResultE      )
+Action::ResultE SingleTypeGraphOp<Type>::traverseLeave(
+    const NodePtr node, 
+          Action::ResultE)
 {
     if (node->getCore()->getType().isDerivedFrom(Type::getClassType()))
         travNodeLeave(node);

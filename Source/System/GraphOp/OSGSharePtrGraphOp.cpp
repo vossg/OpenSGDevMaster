@@ -213,12 +213,12 @@ void SharePtrGraphOp::setExcludes(const std::string &excludes)
     }
 }
 
-Action::ResultE SharePtrGraphOp::traverseEnter(NodePtrConstArg /*node*/)
+Action::ResultE SharePtrGraphOp::traverseEnter(const NodePtr /*node*/)
 {
     return Action::Continue;
 }
 
-Action::ResultE SharePtrGraphOp::traverseLeave(NodePtrConstArg /*node*/,
+Action::ResultE SharePtrGraphOp::traverseLeave(const NodePtr /*node*/,
                                                Action::ResultE /*res*/)
 {
     return Action::Continue;

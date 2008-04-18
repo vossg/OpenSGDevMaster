@@ -126,12 +126,12 @@ class CoredNodeRefPtr
     /*! \name                      Access                                  */
     /*! \{                                                                 */
     
-    void setNode   (NodePtrConstArg     pNode);
+    void setNode   (const NodePtr     pNode);
     
-    void setCore   (NodeCorePtrConstArg pCore);
-    void setCore   (CorePtr             pCore);
+    void setCore   (const NodeCorePtr pCore);
+    void setCore   (      CorePtr     pCore);
 
-    void updateNode(void                     );
+    void updateNode(      void             );
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -217,12 +217,12 @@ class CoredNodeMTRefPtr
     /*! \name                      Access                                  */
     /*! \{                                                                 */
     
-    void setNode   (NodePtrConstArg     pNode);
+    void setNode   (const NodePtr     pNode);
     
-    void setCore   (NodeCorePtrConstArg pCore);
-    void setCore   (CorePtr             pCore);
+    void setCore   (const NodeCorePtr pCore);
+    void setCore   (      CorePtr     pCore);
 
-    void updateNode(void                     );
+    void updateNode(      void             );
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

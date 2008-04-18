@@ -98,17 +98,17 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read          (      ImagePtrArg       pImage, 
+    virtual bool read          (      ImagePtr          pImage, 
                                 const Char8            *fileName   ) ;
 
-    virtual bool write         (      ImageConstPtrArg  pImage, 
+    virtual bool write         (      ConstImagePtr     pImage, 
                                 const Char8            *fileName   ) ;
 
-    virtual bool read          (      ImagePtrArg       pImage, 
+    virtual bool read          (      ImagePtr          pImage, 
                                       std::istream     &is, 
                                 const std::string      &mimetype);
 
-    virtual bool write         (const ImageConstPtrArg  pImage, 
+    virtual bool write         (const ConstImagePtr     pImage, 
                                       std::ostream     &os, 
                                 const std::string      &mimetype);
 
@@ -128,11 +128,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
     /*! \name              static store/restore                            */
     /*! \{                                                                 */
 
-    static UInt64 restore(      ImagePtrArg       pImage, 
+    static UInt64 restore(      ImagePtr          pImage, 
                           const UChar8           *buffer,
                                 Int32             memSize = -1);
 
-    static UInt64 store  (      ImageConstPtrArg  pImage,
+    static UInt64 store  (      ConstImagePtr     pImage,
                           const Char8            *mimeType,
                                 UChar8           *buffer, 
                                 Int32             memSize = -1);
@@ -142,11 +142,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
     /*! \name                  Raw Store/Restore                           */
     /*! \{                                                                 */
 
-    virtual UInt64 restoreData(      ImagePtrArg       pImage, 
+    virtual UInt64 restoreData(      ImagePtr          pImage, 
                                const UChar8           *buffer,
                                      Int32             memSize = -1);
 
-    virtual UInt64 storeData  (      ImageConstPtrArg  pImage, 
+    virtual UInt64 storeData  (      ConstImagePtr     pImage, 
                                      UChar8           *buffer,
                                      Int32             memSize = -1);
 
@@ -155,11 +155,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
     /*! \name                   store/restore                              */
     /*! \{                                                                 */
 
-           UInt64 store         (ImageConstPtrArg  pImage, 
+           UInt64 store         (ConstImagePtr     pImage, 
                                  UChar8           *buffer,
                                  Int32             memSize = -1);
     
-    virtual UInt64 maxBufferSize(ImageConstPtrArg   image       );
+    virtual UInt64 maxBufferSize(ConstImagePtr    image       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -348,7 +348,7 @@ Vec2f PrimitiveIterator::getTexCoords3(Int32 which) const
 /*! Return the geometry the iterator is currently attached to.
 */
 inline
-GeometryConstPtr PrimitiveIterator::getGeometry(void) const
+ConstGeometryPtr PrimitiveIterator::getGeometry(void) const
 {
     return _geo;
 }

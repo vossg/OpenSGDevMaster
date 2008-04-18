@@ -63,7 +63,7 @@ void Node::setCore(TransitPtr<ObjectT> core)
 }
 
 inline
-void Node::setCore(NodeCorePtrConstArg core)
+void Node::setCore(const NodeCorePtr core)
 {
     editSField(CoreFieldMask);
 
@@ -83,7 +83,7 @@ UInt32 Node::getNChildren(void) const
 }
 
 inline
-NodePtr Node::getChild(UInt32 childIndex)
+NodePtr Node::getChild(UInt32 childIndex) const
 {
     OSG_ASSERT((childIndex < _mfChildren.size()));
 

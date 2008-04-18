@@ -137,7 +137,7 @@ std::string MakeTransparentGraphOp::usage(void)
     "  transparency (Real32, 0.5f): transparency value\n";    
 }
 
-Action::ResultE MakeTransparentGraphOp::traverseEnter(NodePtrConstArg node)
+Action::ResultE MakeTransparentGraphOp::traverseEnter(const NodePtr node)
 {
     GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
     if (geo != NullFC)
@@ -157,7 +157,9 @@ Action::ResultE MakeTransparentGraphOp::traverseEnter(NodePtrConstArg node)
     return Action::Continue;
 }
 
-Action::ResultE MakeTransparentGraphOp::traverseLeave(NodePtrConstArg node, Action::ResultE res)
+Action::ResultE MakeTransparentGraphOp::traverseLeave(
+    const NodePtr         node, 
+          Action::ResultE res )
 {
     return res;
 }

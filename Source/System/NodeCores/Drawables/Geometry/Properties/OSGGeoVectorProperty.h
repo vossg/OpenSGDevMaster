@@ -266,9 +266,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
 typedef GeoVectorProperty *GeoVectorPropertyP;
 
 typedef GeoVectorProperty::ObjPtr         GeoVectorPropertyPtr;
-typedef GeoVectorProperty::ObjConstPtr    GeoVectorPropertyConstPtr;
-typedef GeoVectorProperty::ObjPtrConst    GeoVectorPropertyPtrConst;
-typedef GeoVectorProperty::ObjPtrConstArg GeoVectorPropertyPtrConstArg;
+typedef GeoVectorProperty::ConstObjPtr    ConstGeoVectorPropertyPtr;
 
 OSG_END_NAMESPACE
 

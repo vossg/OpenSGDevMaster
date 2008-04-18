@@ -160,7 +160,7 @@ properties.
 \warning This doesn't do anything for nonindexed geometries!
 
 */
-void calcVertexNormals(GeometryPtrArg geo)
+void calcVertexNormals(GeometryPtr geo)
 {
     typedef std::set<UInt32> IndexSet;
 
@@ -288,8 +288,8 @@ merged.
 \warning This doesn't do anything for nonindexed geometries!
 
 */
-void calcVertexNormals(GeometryPtrArg geo,
-                       Real32         creaseAngle)
+void calcVertexNormals(GeometryPtr geo,
+                       Real32      creaseAngle)
 {
     GeoVectorPropertyUnrecPtr   norms;
     GeoVectorPropertyUnrecPtr   positions;
@@ -520,17 +520,17 @@ void calcVertexNormals(GeometryPtrArg geo,
     }
 }
 
-void calcFaceNormals(GeometryPtrArg geo)
+void calcFaceNormals(GeometryPtr geo)
 {
     FFATAL(("calcFaceNormals:: NYI!\n"));
 }
 
 
-void calcVertexTangentsProp(GeometryPtrArg geo,
-                            UInt32         srcTexProp,
-                            UInt32         srcNormalProp,
-                            UInt32         dstPropTan,
-                            UInt32         dstPropBin)
+void calcVertexTangentsProp(GeometryPtr geo,
+                            UInt32      srcTexProp,
+                            UInt32      srcNormalProp,
+                            UInt32      dstPropTan,
+                            UInt32      dstPropBin)
 {
     GeoVec4fPropertyUnrecPtr  tangentP;
     GeoVec4fPropertyUnrecPtr  binormalP;
@@ -711,10 +711,10 @@ void calcVertexTangentsProp(GeometryPtrArg geo,
     }
 }
 
-void calcVertexTangents(GeometryPtrArg geo,
-                        UInt32         srcTexIndex,
-                        UInt32         dstPropTan,
-                        UInt32         dstPropBin)
+void calcVertexTangents(GeometryPtr geo,
+                        UInt32      srcTexIndex,
+                        UInt32      dstPropTan,
+                        UInt32      dstPropBin)
 {
     calcVertexTangentsProp(geo,
                            srcTexIndex + Geometry::TexCoordsIndex,
@@ -853,7 +853,7 @@ void calcVertexTexCoords(GeometryPtr geo,
     Note: the \a convex and \a createNormals parameters are ignored right now!
 */
 
-Int32 setIndexFromVRMLData(     GeometryPtrArg  geoPtr,
+Int32 setIndexFromVRMLData(     GeometryPtr     geoPtr,
                            std::vector<Int32>  &coordIndex,
                            std::vector<Int32>  &normalIndex,
                            std::vector<Int32>  &colorIndex,
@@ -2138,13 +2138,13 @@ else
 }
 
 
-Int32 createOptimizedPrimitives(GeometryPtrArg  geo,
-                                UInt32          iteration,
-                                bool            createStrips,
-                                bool            createFans,
-                                UInt32          minFanEdgeCount,
-                                bool            colorCode,
-                                bool            stitchStrips   )
+Int32 createOptimizedPrimitives(GeometryPtr  geo,
+                                UInt32       iteration,
+                                bool         createStrips,
+                                bool         createFans,
+                                UInt32       minFanEdgeCount,
+                                bool         colorCode,
+                                bool         stitchStrips   )
 {
     if (geo == NullFC)
     {
@@ -2507,12 +2507,12 @@ Int32 createOptimizedPrimitives(GeometryPtrArg  geo,
     return bestCost;
 }
 
-void createConvexPrimitives(GeometryPtrArg  geo)
+void createConvexPrimitives(GeometryPtr  geo)
 {
     FFATAL(("createConvexPrimitives:: NYI!\n"));
 }
 
-Int32 createSharedIndex(GeometryPtrArg geoPtr)
+Int32 createSharedIndex(GeometryPtr geoPtr)
 {
     UInt32 indexSharedCount = 0, dataRemapCount = 0, indexRemapCount = 0;
     UInt32 i, iN, index, si, sN;
@@ -2715,7 +2715,7 @@ Int32 createSharedIndex(GeometryPtrArg geoPtr)
     return indexRemapCount + dataRemapCount;
 }
 
-Int32 createSingleIndex(GeometryPtrArg  geo)
+Int32 createSingleIndex(GeometryPtr  geo)
 {
     FFATAL(("createSingleIndex:: NYI!\n"));
     return -1;
@@ -2727,10 +2727,10 @@ Int32 createSingleIndex(GeometryPtrArg  geo)
 Calculate some basic statistics of the Geometry. 
 
 */
-UInt32 calcPrimitiveCount(GeometryPtrArg  geo,
-                          UInt32         &triangle,
-                          UInt32         &line,
-                          UInt32         &point)
+UInt32 calcPrimitiveCount(GeometryPtr  geo,
+                          UInt32      &triangle,
+                          UInt32      &line,
+                          UInt32      &point)
 {
     GeoIntegralPropertyPtr geoTypePtr;
     GeoIntegralPropertyPtr lensPtr;
@@ -2833,8 +2833,8 @@ the normals.
 it just uses them as if.
 
 */
-NodeTransitPtr calcVertexNormalsGeo(GeometryPtrArg  geo, 
-                                    Real32          length)
+NodeTransitPtr calcVertexNormalsGeo(GeometryPtr  geo, 
+                                    Real32       length)
 {
     GeoPnt3fPropertyUnrecPtr pnts = GeoPnt3fProperty::create();
 
@@ -2897,8 +2897,8 @@ the normals.
 it just uses them as if.
 
 */
-NodeTransitPtr calcFaceNormalsGeo(GeometryPtrArg  geo, 
-                                  Real32          length)
+NodeTransitPtr calcFaceNormalsGeo(GeometryPtr  geo, 
+                                  Real32       length)
 {
     NodeTransitPtr            p     = Node::create();
     GeometryUnrecPtr          g     = Geometry::create();
@@ -2964,7 +2964,7 @@ NodeTransitPtr calcFaceNormalsGeo(GeometryPtrArg  geo,
 
 
 OSG_DRAWABLE_DLLMAPPING 
-void    separateProperties      (GeometryPtrArg  geo)
+void    separateProperties      (GeometryPtr  geo)
 {
     FFATAL(("separateProperties: not implemented yet!\n"));
 }

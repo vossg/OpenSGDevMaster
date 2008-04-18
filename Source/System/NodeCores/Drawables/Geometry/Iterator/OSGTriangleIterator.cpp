@@ -121,7 +121,7 @@ TriangleIterator::TriangleIterator(const TriangleIterator &source) :
     Otherwise, use OSG::Geometry::beginTriangles() resp. 
     OSG::Geometry::endTriangles() to create an iterator.
 */
-TriangleIterator::TriangleIterator(GeometryConstPtrArg geo) :
+TriangleIterator::TriangleIterator(ConstGeometryPtr geo) :
     PrimitiveIterator(),
     _triIndex(0), _actPrimIndex(0), _triPntIndex()
 {
@@ -135,7 +135,7 @@ TriangleIterator::TriangleIterator(GeometryConstPtrArg geo) :
     OSG::Geometry::endTriangles() to create an iterator.
 */
 
-TriangleIterator::TriangleIterator(const NodePtr& geo) : 
+TriangleIterator::TriangleIterator(const NodePtr geo) : 
     PrimitiveIterator(),
     _triIndex(0), _actPrimIndex(0), _triPntIndex()
 {

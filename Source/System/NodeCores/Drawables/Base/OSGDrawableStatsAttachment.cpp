@@ -134,7 +134,7 @@ void DrawableStatsAttachment::reset(void)
 */
 
 DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::calcStatic(
-    DrawablePtrArg pDrawable)
+    DrawablePtr pDrawable)
 {
     DrawableStatsAttachmentUnrecPtr st = DrawableStatsAttachment::create();
 
@@ -287,7 +287,7 @@ void DrawableStatsAttachment::invalidateFunctor(
     invalidate(obj);
 }
 
-void DrawableStatsAttachment::invalidate(FieldContainerPtrArg obj)
+void DrawableStatsAttachment::invalidate(FieldContainerPtr obj)
 {
     if(obj == NullFC)
         return;

@@ -91,7 +91,7 @@ class TransitPtr
     TransitPtr(const Self  &other);
    
     explicit
-    TransitPtr(ObjectPtrConstArg   pObj );
+    TransitPtr(const ObjectPtr pObj );
     
     template<class OtherObjT> explicit 
     TransitPtr(TransitPtr<OtherObjT> const &other);
@@ -108,9 +108,9 @@ class TransitPtr
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(      Self              &other);
-    Self &operator =(const Self              &other);
-    Self &operator =(      ObjectPtrConstArg  pObj );
+    Self &operator =(      Self      &other);
+    Self &operator =(const Self      &other);
+    Self &operator =(const ObjectPtr  pObj );
 
     template<class OtherObjT> 
     Self &operator =(TransitPtr<OtherObjT> const &other);

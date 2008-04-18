@@ -347,7 +347,7 @@ void TileLoadBalancer::drawVolumes(WindowPtr win)
 
 /** Add all geometry nodes in the given tree
  **/
-void TileLoadBalancer::updateSubtree(NodePtrConstArg &node,TileGeometryLoadMapT &loadMap)
+void TileLoadBalancer::updateSubtree(const NodePtr node,TileGeometryLoadMapT &loadMap)
 {
     // is nodecore a geometry?
     if(node->getCore() != NullFC &&

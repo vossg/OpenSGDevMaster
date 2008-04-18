@@ -144,7 +144,7 @@ void SplitGraphOp::setMaxPolygons(UInt16 max_polygons)
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-Action::ResultE SplitGraphOp::traverseEnter(NodePtrConstArg node)
+Action::ResultE SplitGraphOp::traverseEnter(const NodePtr node)
 {
     if (isLeaf(node)) return Action::Skip;
 
@@ -274,7 +274,7 @@ if (geo->getmethod()!=NullFC && geo->getmethod()->size()>0)                     
         arr2[i][j]=-1;                                                              \
 } else { arr2[i]=0; arr1[i]=NullFC; }
 
-Action::ResultE SplitGraphOp::traverseLeave(NodePtrConstArg node, Action::ResultE res)
+Action::ResultE SplitGraphOp::traverseLeave(const NodePtr node, Action::ResultE res)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
@@ -724,7 +724,7 @@ bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &spli
 #endif
 }
 
-bool SplitGraphOp::isLeaf(NodePtrConst node)
+bool SplitGraphOp::isLeaf(const NodePtr node)
 {
     if (node->getMFChildren()->begin()==
         node->getMFChildren()->end()) return true;
@@ -733,7 +733,7 @@ bool SplitGraphOp::isLeaf(NodePtrConst node)
 
 /*! checks whether a node is a group and nothing else
 */
-bool SplitGraphOp::isGroup(NodePtrConst node)
+bool SplitGraphOp::isGroup(const NodePtr node)
 {
     if(  node->getCore()->getType().isDerivedFrom( Group::getClassType()              ) &&
         !node->getCore()->getType().isDerivedFrom( Transform::getClassType()          ) &&

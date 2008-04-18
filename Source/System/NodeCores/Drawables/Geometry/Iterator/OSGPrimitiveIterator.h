@@ -78,8 +78,8 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
 
     PrimitiveIterator(const PrimitiveIterator &source);
 
-    PrimitiveIterator(GeometryConstPtrArg geo);
-    PrimitiveIterator(const NodePtr& geo);
+    PrimitiveIterator(      ConstGeometryPtr   geo);
+    PrimitiveIterator(const NodePtr            geo);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -93,8 +93,8 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \name                       Set                                    */
     /*! \{                                                                 */
 
-    void setGeo(GeometryConstPtrArg geo);
-    void setGeo(const NodePtr& geo);
+    void setGeo(      ConstGeometryPtr geo);
+    void setGeo(const NodePtr          geo);
 
     void setToBegin(void);
     void setToEnd  (void);
@@ -111,7 +111,7 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     inline UInt32       getLength              (void       ) const;
     inline UInt32       getType                (void       ) const;
 
-    inline GeometryConstPtr getGeometry         (void        ) const;
+    inline ConstGeometryPtr getGeometry       (void        ) const;
 
     inline Int32        getPropertyIndex      (Int32 att, Int32 which) const;
     
@@ -178,12 +178,12 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \name                       Data                                   */
     /*! \{                                                                 */
 
-    GeometryConstPtr  _geo;
-    bool            _ended;
-    UInt32          _primIndex;
-    UInt32          _actPointIndex;
-    UInt32          _actPrimType;
-    UInt32          _actPrimLength;
+    ConstGeometryPtr _geo;
+    bool             _ended;
+    UInt32           _primIndex;
+    UInt32           _actPointIndex;
+    UInt32           _actPrimType;
+    UInt32           _actPrimLength;
     
     // Some local copies for faster access
     GeoIntegralPropertyPtr  _types;

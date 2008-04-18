@@ -89,7 +89,7 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     
     virtual bool  isFullWindow  (void) const;
 
-    WindowPtrConst getParent(void) const;
+    WindowPtr     getParent(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

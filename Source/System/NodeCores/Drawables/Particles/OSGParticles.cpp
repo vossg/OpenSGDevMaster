@@ -237,7 +237,7 @@ void Particles::adjustVolume( Volume & volume )
     }
 }
 
-void Particles::fill(DrawableStatsAttachmentPtrArg pStat)
+void Particles::fill(DrawableStatsAttachmentPtr pStat)
 {
     SWARNING << "Particles::fill stats NYI "
              << std::endl;
@@ -481,7 +481,7 @@ struct PosTraitNone : public ParticleTraits
     dataType;
     
     static inline void init(Particles *, DrawEnv *, dataType &data,
-        GeoVectorPropertyPtrConstArg pos)
+        GeoVectorPropertyPtr pos)
     {
     }
     
@@ -516,7 +516,7 @@ struct PosTraitGeneric : public ParticleTraits
     dataType;
     
     static inline void init(Particles *, DrawEnv *, dataType &data,
-        GeoVectorPropertyPtrConstArg pos)
+        GeoVectorPropertyPtr pos)
     {
         data.pos = pos;
     }
@@ -555,10 +555,10 @@ struct PosTrait3f : public ParticleTraits
         const Pnt3f   *p;
     };
     
-    static inline void init(Particles                    *, 
-                            DrawEnv                      *, 
-                            dataType                     &data,
-                            GeoVectorPropertyPtrConstArg  pos)
+    static inline void init(Particles            *, 
+                            DrawEnv              *, 
+                            dataType             &data,
+                            GeoVectorPropertyPtr  pos)
     {
         GeoPnt3fPropertyPtr pos3f = dynamic_cast<GeoPnt3fPropertyPtr>(pos);
  

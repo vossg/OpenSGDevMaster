@@ -192,7 +192,7 @@ void displayInfo(int x, int y)
   glPopAttrib();
 }
 
-void prepareSceneGraph(NodePtrConstArg &node)
+void prepareSceneGraph(const NodePtr node)
 {
     if(!prepared)
     {

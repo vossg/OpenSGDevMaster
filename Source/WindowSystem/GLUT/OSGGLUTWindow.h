@@ -125,7 +125,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
 typedef GLUTWindow *GLUTWindowP;
 
 typedef GLUTWindow::ObjPtr      GLUTWindowPtr;
-typedef GLUTWindow::ObjConstPtr GLUTWindowConstPtr;
+typedef GLUTWindow::ConstObjPtr ConstGLUTWindowPtr;
 
 OSG_END_NAMESPACE
 

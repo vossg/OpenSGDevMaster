@@ -295,7 +295,7 @@ ActionBase::ResultE Action::apply(std::vector<NodePtr>::iterator begin,
     return res;
 }
 
-ActionBase::ResultE Action::apply(NodePtrConstArg node)
+ActionBase::ResultE Action::apply(const NodePtr node)
 {
     if(node == NullFC)
     {
@@ -315,7 +315,7 @@ ActionBase::ResultE Action::apply(NodePtrConstArg node)
 
 // recursion calling
 
-ActionBase::ResultE Action::recurse(NodePtrConstArg node)
+ActionBase::ResultE Action::recurse(const NodePtr node)
 {
     if(node == NullFC)
         return Continue;
@@ -546,14 +546,14 @@ std::vector<Action::Functor>* Action::getDefaultLeaveFunctors(void)
 
 // default Action function: just call all kids
 
-ActionBase::ResultE Action::_defaultEnterFunction(NodeCorePtrConstArg  , 
-                                                  Action          *)
+ActionBase::ResultE Action::_defaultEnterFunction(const NodeCorePtr  , 
+                                                        Action      *)
 {
     return Continue;
 }
 
-ActionBase::ResultE Action::_defaultLeaveFunction(NodeCorePtrConstArg  , 
-                                                  Action          *)
+ActionBase::ResultE Action::_defaultLeaveFunction(const NodeCorePtr  , 
+                                                        Action       *)
 {
     return Continue;
 }
@@ -623,8 +623,8 @@ ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
-ActionBase::ResultE traverse(NodePtrConstArg      node, 
-                             TraverseEnterFunctor func )
+ActionBase::ResultE traverse(const NodePtr              node, 
+                                   TraverseEnterFunctor func )
 {
     ActionBase::ResultE res = ActionBase::Continue;
     
@@ -695,9 +695,9 @@ ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
     leave after leaving.
  */
 
-ActionBase::ResultE traverse(NodePtrConstArg      node, 
-                             TraverseEnterFunctor enter, 
-                             TraverseLeaveFunctor leave )
+ActionBase::ResultE traverse(const NodePtr              node, 
+                                   TraverseEnterFunctor enter, 
+                                   TraverseLeaveFunctor leave )
 {
     ActionBase::ResultE res = ActionBase::Continue;
     

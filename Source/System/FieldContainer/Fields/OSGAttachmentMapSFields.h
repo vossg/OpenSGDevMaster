@@ -107,8 +107,8 @@ class OSG_SYSTEM_DLLMAPPING
 
     typedef EditFieldHandle Inherited;
 
-    typedef boost::function<void(FieldContainerAttachmentPtrConstArg,
-                                 UInt32                           )> AddMethod;
+    typedef boost::function<void(const FieldContainerAttachmentPtr,
+                                       UInt32                     )> AddMethod;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -132,8 +132,8 @@ class OSG_SYSTEM_DLLMAPPING
 
     /*---------------------------------------------------------------------*/
 
-    virtual void add(FieldContainerPtrConstArg rhs,
-                     UInt32                    uiBindings);
+    virtual void add(const FieldContainerPtr rhs,
+                           UInt32            uiBindings);
 
     /*---------------------------------------------------------------------*/
 

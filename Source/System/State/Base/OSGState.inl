@@ -41,7 +41,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 inline
-StateChunkPtrConst State::getChunk(UInt32 chunkId)
+const StateChunkPtr State::getChunk(UInt32 chunkId)
 {
     if(chunkId < _mfChunks.size())
         return _mfChunks[chunkId];

@@ -148,7 +148,7 @@ PNGImageFileType PNGImageFileType:: _the("image/png",
     the given stream. Returns true on success.
  */
 
-bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ), 
+bool PNGImageFileType::read(      ImagePtr      OSG_PNG_ARG(pImage  ), 
                                   std::istream &OSG_PNG_ARG(is      ),
                             const std::string  &OSG_PNG_ARG(mimetype))
 {
@@ -315,7 +315,7 @@ bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ),
     from the PNG dist.
  */
 
-bool PNGImageFileType::write(      ImageConstPtrArg  OSG_PNG_ARG(pImage  ), 
+bool PNGImageFileType::write(      ConstImagePtr     OSG_PNG_ARG(pImage  ), 
                                    std::ostream     &OSG_PNG_ARG(os      ),
                              const std::string      &OSG_PNG_ARG(mimetype))
 {
@@ -620,7 +620,7 @@ static void user_read_data(png_structp png_ptr,
 #endif
 
 /* */
-UInt64 PNGImageFileType::restoreData(      ImagePtrArg  OSG_PNG_ARG  (pImage ),
+UInt64 PNGImageFileType::restoreData(      ImagePtr     OSG_PNG_ARG  (pImage ),
                                      const UChar8      *OSG_PNG_ARG  (buffer ),
                                            Int32        OSG_CHECK_ARG(memSize))
 {
@@ -790,7 +790,7 @@ static void user_flush_data(png_structp OSG_CHECK_ARG(png_ptr))
     Returns the amount of data read.
  */
 
-UInt64 PNGImageFileType::storeData(ImageConstPtrArg  OSG_PNG_ARG  (pImage  ), 
+UInt64 PNGImageFileType::storeData(ConstImagePtr     OSG_PNG_ARG  (pImage  ), 
                                    UChar8           *OSG_PNG_ARG  (buffer ),
                                    Int32             OSG_CHECK_ARG(memSize))
 {
