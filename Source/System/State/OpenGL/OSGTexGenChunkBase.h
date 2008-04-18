@@ -271,13 +271,13 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
                   Vec4f               &editGenFuncQPlane  (void);
             const Vec4f               &getGenFuncQPlane   (void) const;
 
-                  NodePtrConst getSBeacon        (void) const;
+                  NodePtr getSBeacon        (void) const;
 
-                  NodePtrConst getTBeacon        (void) const;
+                  NodePtr getTBeacon        (void) const;
 
-                  NodePtrConst getRBeacon        (void) const;
+                  NodePtr getRBeacon        (void) const;
 
-                  NodePtrConst getQBeacon        (void) const;
+                  NodePtr getQBeacon        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -292,10 +292,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
             void setGenFuncTPlane  (const Vec4f &value);
             void setGenFuncRPlane  (const Vec4f &value);
             void setGenFuncQPlane  (const Vec4f &value);
-            void setSBeacon        (NodePtrConstArg value);
-            void setTBeacon        (NodePtrConstArg value);
-            void setRBeacon        (NodePtrConstArg value);
-            void setQBeacon        (NodePtrConstArg value);
+            void setSBeacon        (const NodePtr value);
+            void setTBeacon        (const NodePtr value);
+            void setRBeacon        (const NodePtr value);
+            void setQBeacon        (const NodePtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -144,7 +144,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
                   UInt32              &editChoice         (void);
             const UInt32              &getChoice          (void) const;
 
-                  TextureBaseChunkPtrConst getTextures       (const UInt32 index) const;
+                  TextureBaseChunkPtr getTextures       (const UInt32 index) const;
             const MFUnrecTextureBaseChunkPtr &getTextures       (void) const;
 
     /*! \}                                                                 */
@@ -164,16 +164,16 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToTextures            (TextureBaseChunkPtrConstArg value   );
+    void pushToTextures            (const TextureBaseChunkPtr value   );
     void assignTextures            (const MFUnrecTextureBaseChunkPtr &value);
-    void insertIntoTextures      (UInt32                uiIndex,
-                                             TextureBaseChunkPtrConstArg value   );
-    void replaceInTextures  (UInt32                uiIndex,
-                                             TextureBaseChunkPtrConstArg value   );
-    void replaceInTextures (TextureBaseChunkPtrConstArg pOldElem,
-                                             TextureBaseChunkPtrConstArg pNewElem);
+    void insertIntoTextures      (      UInt32         uiIndex,
+                                             const TextureBaseChunkPtr value   );
+    void replaceInTextures  (      UInt32         uiIndex,
+                                             const TextureBaseChunkPtr value   );
+    void replaceInTextures (const TextureBaseChunkPtr pOldElem,
+                                             const TextureBaseChunkPtr pNewElem);
     void removeFromTextures (UInt32                uiIndex );
-    void removeFromTextures(TextureBaseChunkPtrConstArg value   );
+    void removeFromTextures(const TextureBaseChunkPtr value   );
     void clearTextures              (void                          );
 
 

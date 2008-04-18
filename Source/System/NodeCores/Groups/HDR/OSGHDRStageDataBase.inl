@@ -76,14 +76,14 @@ OSG::UInt16 HDRStageDataBase::getClassGroupId(void)
 
 //! Get the value of the HDRStageData::_sfToneMappingMaterial field.
 inline
-ChunkMaterialPtrConst HDRStageDataBase::getToneMappingMaterial(void) const
+ChunkMaterialPtr HDRStageDataBase::getToneMappingMaterial(void) const
 {
     return _sfToneMappingMaterial.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfToneMappingMaterial field.
 inline
-void HDRStageDataBase::setToneMappingMaterial(ChunkMaterialPtrConstArg value)
+void HDRStageDataBase::setToneMappingMaterial(const ChunkMaterialPtr value)
 {
     editSField(ToneMappingMaterialFieldMask);
 
@@ -93,14 +93,14 @@ void HDRStageDataBase::setToneMappingMaterial(ChunkMaterialPtrConstArg value)
 
 //! Get the value of the HDRStageData::_sfBlurRenderTarget field.
 inline
-FrameBufferObjectPtrConst HDRStageDataBase::getBlurRenderTarget(void) const
+FrameBufferObjectPtr HDRStageDataBase::getBlurRenderTarget(void) const
 {
     return _sfBlurRenderTarget.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfBlurRenderTarget field.
 inline
-void HDRStageDataBase::setBlurRenderTarget(FrameBufferObjectPtrConstArg value)
+void HDRStageDataBase::setBlurRenderTarget(const FrameBufferObjectPtr value)
 {
     editSField(BlurRenderTargetFieldMask);
 
@@ -110,14 +110,14 @@ void HDRStageDataBase::setBlurRenderTarget(FrameBufferObjectPtrConstArg value)
 
 //! Get the value of the HDRStageData::_sfBlurMaterial field.
 inline
-ChunkMaterialPtrConst HDRStageDataBase::getBlurMaterial(void) const
+ChunkMaterialPtr HDRStageDataBase::getBlurMaterial(void) const
 {
     return _sfBlurMaterial.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfBlurMaterial field.
 inline
-void HDRStageDataBase::setBlurMaterial(ChunkMaterialPtrConstArg value)
+void HDRStageDataBase::setBlurMaterial(const ChunkMaterialPtr value)
 {
     editSField(BlurMaterialFieldMask);
 
@@ -127,14 +127,14 @@ void HDRStageDataBase::setBlurMaterial(ChunkMaterialPtrConstArg value)
 
 //! Get the value of the HDRStageData::_sfHBlurShader field.
 inline
-SHLChunkPtrConst HDRStageDataBase::getHBlurShader(void) const
+SHLChunkPtr HDRStageDataBase::getHBlurShader(void) const
 {
     return _sfHBlurShader.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfHBlurShader field.
 inline
-void HDRStageDataBase::setHBlurShader(SHLChunkPtrConstArg value)
+void HDRStageDataBase::setHBlurShader(const SHLChunkPtr value)
 {
     editSField(HBlurShaderFieldMask);
 
@@ -144,14 +144,14 @@ void HDRStageDataBase::setHBlurShader(SHLChunkPtrConstArg value)
 
 //! Get the value of the HDRStageData::_sfVBlurShader field.
 inline
-SHLChunkPtrConst HDRStageDataBase::getVBlurShader(void) const
+SHLChunkPtr HDRStageDataBase::getVBlurShader(void) const
 {
     return _sfVBlurShader.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfVBlurShader field.
 inline
-void HDRStageDataBase::setVBlurShader(SHLChunkPtrConstArg value)
+void HDRStageDataBase::setVBlurShader(const SHLChunkPtr value)
 {
     editSField(VBlurShaderFieldMask);
 
@@ -227,14 +227,14 @@ void HDRStageDataBase::setHeight(const UInt32 &value)
 
 //! Get the value of the HDRStageData::_sfShrinkRenderTarget field.
 inline
-FrameBufferObjectPtrConst HDRStageDataBase::getShrinkRenderTarget(void) const
+FrameBufferObjectPtr HDRStageDataBase::getShrinkRenderTarget(void) const
 {
     return _sfShrinkRenderTarget.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfShrinkRenderTarget field.
 inline
-void HDRStageDataBase::setShrinkRenderTarget(FrameBufferObjectPtrConstArg value)
+void HDRStageDataBase::setShrinkRenderTarget(const FrameBufferObjectPtr value)
 {
     editSField(ShrinkRenderTargetFieldMask);
 
@@ -244,14 +244,14 @@ void HDRStageDataBase::setShrinkRenderTarget(FrameBufferObjectPtrConstArg value)
 
 //! Get the value of the HDRStageData::_sfShrinkMaterial field.
 inline
-ChunkMaterialPtrConst HDRStageDataBase::getShrinkMaterial(void) const
+ChunkMaterialPtr HDRStageDataBase::getShrinkMaterial(void) const
 {
     return _sfShrinkMaterial.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfShrinkMaterial field.
 inline
-void HDRStageDataBase::setShrinkMaterial(ChunkMaterialPtrConstArg value)
+void HDRStageDataBase::setShrinkMaterial(const ChunkMaterialPtr value)
 {
     editSField(ShrinkMaterialFieldMask);
 

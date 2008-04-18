@@ -194,7 +194,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
                   Color4f             &editColor          (void);
             const Color4f             &getColor           (void) const;
 
-                  TextureBaseChunkPtrConst getTexture        (void) const;
+                  TextureBaseChunkPtr getTexture        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getTexCoords       (const UInt32 index);
@@ -235,7 +235,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
             void setColor          (const Color4f &value);
-            void setTexture        (TextureBaseChunkPtrConstArg value);
+            void setTexture        (const TextureBaseChunkPtr value);
             void setRadialDistortion(const Real32 &value);
             void setCenterOfDistortion(const Vec2f &value);
             void setHor            (const UInt16 &value);

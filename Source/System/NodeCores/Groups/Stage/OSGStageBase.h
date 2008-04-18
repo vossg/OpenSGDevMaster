@@ -140,7 +140,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
             const SFBool              *getSFInheritedTarget (void) const;
 
 
-                  FrameBufferObjectPtrConst getRenderTarget   (void) const;
+                  FrameBufferObjectPtr getRenderTarget   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getInheritedTarget (void);
@@ -153,7 +153,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRenderTarget   (FrameBufferObjectPtrConstArg value);
+            void setRenderTarget   (const FrameBufferObjectPtr value);
             void setInheritedTarget(const bool &value);
 
     /*! \}                                                                 */

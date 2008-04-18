@@ -138,9 +138,9 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     virtual       SFReal32            *editSFFar            (void);
     virtual const SFReal32            *getSFFar             (void) const;
 
-    virtual             CameraPtrConst getDecoratee(void) const;
+    virtual             CameraPtr getDecoratee(void) const;
 
-    virtual       NodePtrConst getBeacon         (void) const;
+    virtual       NodePtr getBeacon         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
     virtual       Real32              &getNear            (void);
@@ -160,7 +160,7 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     /*! \{                                                                 */
 
     virtual       void setDecoratee      ( const CameraPtr &value );
-    virtual void setBeacon         (NodePtrConstArg value);
+    virtual void setBeacon         (const NodePtr value);
     virtual void setNear           (const Real32 &value);
     virtual void setFar            (const Real32 &value);
 

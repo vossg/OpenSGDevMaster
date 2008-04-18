@@ -109,7 +109,7 @@ void SortLastWindowBase::setGroupsChanged(const bool &value)
 
 //! Get the value of the \a index element the SortLastWindow::_mfGroupNodes field.
 inline
-NodePtrConst SortLastWindowBase::getGroupNodes(const UInt32 index) const
+NodePtr SortLastWindowBase::getGroupNodes(const UInt32 index) const
 {
     return _mfGroupNodes[index];
 }

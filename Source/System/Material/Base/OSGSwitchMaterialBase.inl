@@ -109,7 +109,7 @@ void SwitchMaterialBase::setChoice(const UInt32 &value)
 
 //! Get the value of the \a index element the SwitchMaterial::_mfMaterials field.
 inline
-MaterialPtrConst SwitchMaterialBase::getMaterials(const UInt32 index) const
+MaterialPtr SwitchMaterialBase::getMaterials(const UInt32 index) const
 {
     return _mfMaterials[index];
 }

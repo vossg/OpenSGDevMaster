@@ -424,7 +424,7 @@ SFUInt16            *FrameBufferObjectBase::getSFHeight         (void)
 
 
 
-void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachmentPtrConstArg value)
+void FrameBufferObjectBase::pushToColorAttachments(const FrameBufferAttachmentPtr value)
 {
     if(value == NullFC)
         return;
@@ -453,8 +453,8 @@ void FrameBufferObjectBase::assignColorAttachments(const MFUnrecFrameBufferAttac
     }
 }
 
-void FrameBufferObjectBase::insertIntoColorAttachments(UInt32                uiIndex,
-                                                   FrameBufferAttachmentPtrConstArg value   )
+void FrameBufferObjectBase::insertIntoColorAttachments(      UInt32         uiIndex,
+                                                   const FrameBufferAttachmentPtr value   )
 {
     if(value == NullFC)
         return;
@@ -470,8 +470,8 @@ void FrameBufferObjectBase::insertIntoColorAttachments(UInt32                uiI
     _mfColorAttachments.insert(fieldIt, value);
 }
 
-void FrameBufferObjectBase::replaceInColorAttachments(UInt32                uiIndex,
-                                                       FrameBufferAttachmentPtrConstArg value   )
+void FrameBufferObjectBase::replaceInColorAttachments(      UInt32         uiIndex,
+                                                       const FrameBufferAttachmentPtr value   )
 {
     if(value == NullFC)
         return;
@@ -490,8 +490,8 @@ void FrameBufferObjectBase::replaceInColorAttachments(UInt32                uiIn
       _mfColorAttachments.replace(uiIndex, value);
 }
 
-void FrameBufferObjectBase::replaceInColorAttachments(FrameBufferAttachmentPtrConstArg pOldElem,
-                                                        FrameBufferAttachmentPtrConstArg pNewElem)
+void FrameBufferObjectBase::replaceInColorAttachments(const FrameBufferAttachmentPtr pOldElem,
+                                                        const FrameBufferAttachmentPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -529,7 +529,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
     }
 }
 
-void FrameBufferObjectBase::removeFromColorAttachments(FrameBufferAttachmentPtrConstArg value)
+void FrameBufferObjectBase::removeFromColorAttachments(const FrameBufferAttachmentPtr value)
 {
     Int32 iElemIdx = _mfColorAttachments.findIndex(value);
 

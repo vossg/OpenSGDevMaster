@@ -76,14 +76,14 @@ OSG::UInt16 CubeTextureChunkBase::getClassGroupId(void)
 
 //! Get the value of the CubeTextureChunk::_sfPosZImage field.
 inline
-ImagePtrConst CubeTextureChunkBase::getPosZImage(void) const
+ImagePtr CubeTextureChunkBase::getPosZImage(void) const
 {
     return _sfPosZImage.getValue();
 }
 
 //! Set the value of the CubeTextureChunk::_sfPosZImage field.
 inline
-void CubeTextureChunkBase::setPosZImage(ImagePtrConstArg value)
+void CubeTextureChunkBase::setPosZImage(const ImagePtr value)
 {
     editSField(PosZImageFieldMask);
 
@@ -93,14 +93,14 @@ void CubeTextureChunkBase::setPosZImage(ImagePtrConstArg value)
 
 //! Get the value of the CubeTextureChunk::_sfPosXImage field.
 inline
-ImagePtrConst CubeTextureChunkBase::getPosXImage(void) const
+ImagePtr CubeTextureChunkBase::getPosXImage(void) const
 {
     return _sfPosXImage.getValue();
 }
 
 //! Set the value of the CubeTextureChunk::_sfPosXImage field.
 inline
-void CubeTextureChunkBase::setPosXImage(ImagePtrConstArg value)
+void CubeTextureChunkBase::setPosXImage(const ImagePtr value)
 {
     editSField(PosXImageFieldMask);
 
@@ -110,14 +110,14 @@ void CubeTextureChunkBase::setPosXImage(ImagePtrConstArg value)
 
 //! Get the value of the CubeTextureChunk::_sfNegXImage field.
 inline
-ImagePtrConst CubeTextureChunkBase::getNegXImage(void) const
+ImagePtr CubeTextureChunkBase::getNegXImage(void) const
 {
     return _sfNegXImage.getValue();
 }
 
 //! Set the value of the CubeTextureChunk::_sfNegXImage field.
 inline
-void CubeTextureChunkBase::setNegXImage(ImagePtrConstArg value)
+void CubeTextureChunkBase::setNegXImage(const ImagePtr value)
 {
     editSField(NegXImageFieldMask);
 
@@ -127,14 +127,14 @@ void CubeTextureChunkBase::setNegXImage(ImagePtrConstArg value)
 
 //! Get the value of the CubeTextureChunk::_sfPosYImage field.
 inline
-ImagePtrConst CubeTextureChunkBase::getPosYImage(void) const
+ImagePtr CubeTextureChunkBase::getPosYImage(void) const
 {
     return _sfPosYImage.getValue();
 }
 
 //! Set the value of the CubeTextureChunk::_sfPosYImage field.
 inline
-void CubeTextureChunkBase::setPosYImage(ImagePtrConstArg value)
+void CubeTextureChunkBase::setPosYImage(const ImagePtr value)
 {
     editSField(PosYImageFieldMask);
 
@@ -144,14 +144,14 @@ void CubeTextureChunkBase::setPosYImage(ImagePtrConstArg value)
 
 //! Get the value of the CubeTextureChunk::_sfNegYImage field.
 inline
-ImagePtrConst CubeTextureChunkBase::getNegYImage(void) const
+ImagePtr CubeTextureChunkBase::getNegYImage(void) const
 {
     return _sfNegYImage.getValue();
 }
 
 //! Set the value of the CubeTextureChunk::_sfNegYImage field.
 inline
-void CubeTextureChunkBase::setNegYImage(ImagePtrConstArg value)
+void CubeTextureChunkBase::setNegYImage(const ImagePtr value)
 {
     editSField(NegYImageFieldMask);
 

@@ -179,7 +179,7 @@ const MFUnrecStateChunkPtr *ChunkOverrideGroupBase::getMFChunks(void) const
 
 
 
-void ChunkOverrideGroupBase::pushToChunks(StateChunkPtrConstArg value)
+void ChunkOverrideGroupBase::pushToChunks(const StateChunkPtr value)
 {
     if(value == NullFC)
         return;
@@ -208,8 +208,8 @@ void ChunkOverrideGroupBase::assignChunks   (const MFUnrecStateChunkPtr &value)
     }
 }
 
-void ChunkOverrideGroupBase::insertIntoChunks(UInt32                uiIndex,
-                                                   StateChunkPtrConstArg value   )
+void ChunkOverrideGroupBase::insertIntoChunks(      UInt32         uiIndex,
+                                                   const StateChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -225,8 +225,8 @@ void ChunkOverrideGroupBase::insertIntoChunks(UInt32                uiIndex,
     _mfChunks.insert(fieldIt, value);
 }
 
-void ChunkOverrideGroupBase::replaceInChunks(UInt32                uiIndex,
-                                                       StateChunkPtrConstArg value   )
+void ChunkOverrideGroupBase::replaceInChunks(      UInt32         uiIndex,
+                                                       const StateChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -245,8 +245,8 @@ void ChunkOverrideGroupBase::replaceInChunks(UInt32                uiIndex,
       _mfChunks.replace(uiIndex, value);
 }
 
-void ChunkOverrideGroupBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
-                                                        StateChunkPtrConstArg pNewElem)
+void ChunkOverrideGroupBase::replaceInChunks(const StateChunkPtr pOldElem,
+                                                        const StateChunkPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -284,7 +284,7 @@ void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
     }
 }
 
-void ChunkOverrideGroupBase::removeFromChunks(StateChunkPtrConstArg value)
+void ChunkOverrideGroupBase::removeFromChunks(const StateChunkPtr value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 

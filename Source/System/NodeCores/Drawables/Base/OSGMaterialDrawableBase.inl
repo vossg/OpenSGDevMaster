@@ -76,14 +76,14 @@ OSG::UInt16 MaterialDrawableBase::getClassGroupId(void)
 
 //! Get the value of the MaterialDrawable::_sfMaterial field.
 inline
-MaterialPtrConst MaterialDrawableBase::getMaterial(void) const
+MaterialPtr MaterialDrawableBase::getMaterial(void) const
 {
     return _sfMaterial.getValue();
 }
 
 //! Set the value of the MaterialDrawable::_sfMaterial field.
 inline
-void MaterialDrawableBase::setMaterial(MaterialPtrConstArg value)
+void MaterialDrawableBase::setMaterial(const MaterialPtr value)
 {
     editSField(MaterialFieldMask);
 

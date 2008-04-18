@@ -383,7 +383,7 @@ SFInt32             *GeometryBase::getSFAttGLId        (void)
 
 
 
-void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
+void GeometryBase::pushToProperties(const GeoVectorPropertyPtr value)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
@@ -412,8 +412,8 @@ void GeometryBase::assignProperties(const MFUnrecChildGeoVectorPropertyPtr &valu
     }
 }
 
-void GeometryBase::insertIntoProperties(UInt32                uiIndex,
-                                                   GeoVectorPropertyPtrConstArg value   )
+void GeometryBase::insertIntoProperties(      UInt32         uiIndex,
+                                                   const GeoVectorPropertyPtr value   )
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
@@ -429,8 +429,8 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
 //        return;
 }
 
-void GeometryBase::replaceInProperties(UInt32                uiIndex,
-                                                       GeoVectorPropertyPtrConstArg value   )
+void GeometryBase::replaceInProperties(      UInt32         uiIndex,
+                                                       const GeoVectorPropertyPtr value   )
 {
     if(uiIndex >= _mfProperties.size())
         return;
@@ -449,8 +449,8 @@ void GeometryBase::replaceInProperties(UInt32                uiIndex,
 //        return;
 }
 
-void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
-                                                        GeoVectorPropertyPtrConstArg pNewElem)
+void GeometryBase::replaceInProperties(const GeoVectorPropertyPtr pOldElem,
+                                                        const GeoVectorPropertyPtr pNewElem)
 {
     Int32  elemIdx = _mfProperties.findIndex(pOldElem);
 
@@ -485,7 +485,7 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
     }
 }
 
-void GeometryBase::removeFromProperties(GeoVectorPropertyPtrConstArg value)
+void GeometryBase::removeFromProperties(const GeoVectorPropertyPtr value)
 {
     Int32 iElemIdx = _mfProperties.findIndex(value);
 
@@ -510,7 +510,7 @@ void GeometryBase::clearProperties(void)
     _mfProperties.clear();
 }
 
-void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
+void GeometryBase::pushToPropIndices(const GeoIntegralPropertyPtr value)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
@@ -539,8 +539,8 @@ void GeometryBase::assignPropIndices(const MFUnrecChildGeoIntegralPropertyPtr &v
     }
 }
 
-void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
-                                                   GeoIntegralPropertyPtrConstArg value   )
+void GeometryBase::insertIntoPropIndices(      UInt32         uiIndex,
+                                                   const GeoIntegralPropertyPtr value   )
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
@@ -556,8 +556,8 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
 //        return;
 }
 
-void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
-                                                       GeoIntegralPropertyPtrConstArg value   )
+void GeometryBase::replaceInPropIndices(      UInt32         uiIndex,
+                                                       const GeoIntegralPropertyPtr value   )
 {
     if(uiIndex >= _mfPropIndices.size())
         return;
@@ -576,8 +576,8 @@ void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
 //        return;
 }
 
-void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
-                                                        GeoIntegralPropertyPtrConstArg pNewElem)
+void GeometryBase::replaceInPropIndices(const GeoIntegralPropertyPtr pOldElem,
+                                                        const GeoIntegralPropertyPtr pNewElem)
 {
     Int32  elemIdx = _mfPropIndices.findIndex(pOldElem);
 
@@ -612,7 +612,7 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
     }
 }
 
-void GeometryBase::removeFromPropIndices(GeoIntegralPropertyPtrConstArg value)
+void GeometryBase::removeFromPropIndices(const GeoIntegralPropertyPtr value)
 {
     Int32 iElemIdx = _mfPropIndices.findIndex(value);
 

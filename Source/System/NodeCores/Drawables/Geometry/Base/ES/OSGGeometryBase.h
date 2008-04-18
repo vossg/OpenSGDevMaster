@@ -151,14 +151,14 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
             const MFUnrecChildGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
 
 
-                  GeoIntegralPropertyPtrConst getTypes          (void) const;
+                  GeoIntegralPropertyPtr getTypes          (void) const;
 
-                  GeoIntegralPropertyPtrConst getLengths        (void) const;
+                  GeoIntegralPropertyPtr getLengths        (void) const;
 
-                  GeoVectorPropertyPtrConst getProperties     (const UInt32 index) const;
+                  GeoVectorPropertyPtr getProperties     (const UInt32 index) const;
             const MFUnrecChildGeoVectorPropertyPtr &getProperties     (void) const;
 
-                  GeoIntegralPropertyPtrConst getPropIndices    (const UInt32 index) const;
+                  GeoIntegralPropertyPtr getPropIndices    (const UInt32 index) const;
             const MFUnrecChildGeoIntegralPropertyPtr &getPropIndices    (void) const;
 
     /*! \}                                                                 */
@@ -166,8 +166,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTypes          (GeoIntegralPropertyPtrConstArg value);
-            void setLengths        (GeoIntegralPropertyPtrConstArg value);
+            void setTypes          (const GeoIntegralPropertyPtr value);
+            void setLengths        (const GeoIntegralPropertyPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -179,30 +179,30 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToProperties           (GeoVectorPropertyPtrConstArg value   );
+    void pushToProperties           (const GeoVectorPropertyPtr value   );
     void assignProperties           (const MFUnrecChildGeoVectorPropertyPtr &value);
-    void insertIntoProperties      (UInt32                uiIndex,
-                                             GeoVectorPropertyPtrConstArg value   );
-    void replaceInProperties  (UInt32                uiIndex,
-                                             GeoVectorPropertyPtrConstArg value   );
-    void replaceInProperties (GeoVectorPropertyPtrConstArg pOldElem,
-                                             GeoVectorPropertyPtrConstArg pNewElem);
+    void insertIntoProperties      (      UInt32         uiIndex,
+                                             const GeoVectorPropertyPtr value   );
+    void replaceInProperties  (      UInt32         uiIndex,
+                                             const GeoVectorPropertyPtr value   );
+    void replaceInProperties (const GeoVectorPropertyPtr pOldElem,
+                                             const GeoVectorPropertyPtr pNewElem);
     void removeFromProperties (UInt32                uiIndex );
-    void removeFromProperties(GeoVectorPropertyPtrConstArg value   );
+    void removeFromProperties(const GeoVectorPropertyPtr value   );
     void clearProperties            (void                          );
 
 
 
-    void pushToPropIndices           (GeoIntegralPropertyPtrConstArg value   );
+    void pushToPropIndices           (const GeoIntegralPropertyPtr value   );
     void assignPropIndices           (const MFUnrecChildGeoIntegralPropertyPtr &value);
-    void insertIntoPropIndices      (UInt32                uiIndex,
-                                             GeoIntegralPropertyPtrConstArg value   );
-    void replaceInPropIndices  (UInt32                uiIndex,
-                                             GeoIntegralPropertyPtrConstArg value   );
-    void replaceInPropIndices (GeoIntegralPropertyPtrConstArg pOldElem,
-                                             GeoIntegralPropertyPtrConstArg pNewElem);
+    void insertIntoPropIndices      (      UInt32         uiIndex,
+                                             const GeoIntegralPropertyPtr value   );
+    void replaceInPropIndices  (      UInt32         uiIndex,
+                                             const GeoIntegralPropertyPtr value   );
+    void replaceInPropIndices (const GeoIntegralPropertyPtr pOldElem,
+                                             const GeoIntegralPropertyPtr pNewElem);
     void removeFromPropIndices (UInt32                uiIndex );
-    void removeFromPropIndices(GeoIntegralPropertyPtrConstArg value   );
+    void removeFromPropIndices(const GeoIntegralPropertyPtr value   );
     void clearPropIndices            (void                          );
 
 

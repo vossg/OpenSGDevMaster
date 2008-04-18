@@ -232,7 +232,7 @@ const MFUnrecTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) co
 
 
 
-void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
+void TextureSelectChunkBase::pushToTextures(const TextureBaseChunkPtr value)
 {
     if(value == NullFC)
         return;
@@ -261,8 +261,8 @@ void TextureSelectChunkBase::assignTextures (const MFUnrecTextureBaseChunkPtr &v
     }
 }
 
-void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
-                                                   TextureBaseChunkPtrConstArg value   )
+void TextureSelectChunkBase::insertIntoTextures(      UInt32         uiIndex,
+                                                   const TextureBaseChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -278,8 +278,8 @@ void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
     _mfTextures.insert(fieldIt, value);
 }
 
-void TextureSelectChunkBase::replaceInTextures(UInt32                uiIndex,
-                                                       TextureBaseChunkPtrConstArg value   )
+void TextureSelectChunkBase::replaceInTextures(      UInt32         uiIndex,
+                                                       const TextureBaseChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -298,8 +298,8 @@ void TextureSelectChunkBase::replaceInTextures(UInt32                uiIndex,
       _mfTextures.replace(uiIndex, value);
 }
 
-void TextureSelectChunkBase::replaceInTextures(TextureBaseChunkPtrConstArg pOldElem,
-                                                        TextureBaseChunkPtrConstArg pNewElem)
+void TextureSelectChunkBase::replaceInTextures(const TextureBaseChunkPtr pOldElem,
+                                                        const TextureBaseChunkPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -337,7 +337,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     }
 }
 
-void TextureSelectChunkBase::removeFromTextures(TextureBaseChunkPtrConstArg value)
+void TextureSelectChunkBase::removeFromTextures(const TextureBaseChunkPtr value)
 {
     Int32 iElemIdx = _mfTextures.findIndex(value);
 

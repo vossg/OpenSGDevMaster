@@ -231,13 +231,13 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   Real32              &editTop            (void);
             const Real32              &getTop             (void) const;
 
-                  CameraPtrConst getCamera         (void) const;
+                  CameraPtr getCamera         (void) const;
 
-                  NodePtrConst getRoot           (void) const;
+                  NodePtr getRoot           (void) const;
 
-                  BackgroundPtrConst getBackground     (void) const;
+                  BackgroundPtr getBackground     (void) const;
 
-                  ForegroundPtrConst getForegrounds    (const UInt32 index) const;
+                  ForegroundPtr getForegrounds    (const UInt32 index) const;
             const MFUnrecForegroundPtr &getForegrounds    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -261,9 +261,9 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
             void setRight          (const Real32 &value);
             void setBottom         (const Real32 &value);
             void setTop            (const Real32 &value);
-            void setCamera         (CameraPtrConstArg value);
-            void setRoot           (NodePtrConstArg value);
-            void setBackground     (BackgroundPtrConstArg value);
+            void setCamera         (const CameraPtr value);
+            void setRoot           (const NodePtr value);
+            void setBackground     (const BackgroundPtr value);
             void setTravMask       (const UInt32 &value);
             void setDrawTime       (const Real32 &value);
 
@@ -277,16 +277,16 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addForeground             (ForegroundPtrConstArg value   );
+    void addForeground             (const ForegroundPtr value   );
     void assignForegrounds           (const MFUnrecForegroundPtr &value);
-    void insertIntoForegrounds      (UInt32                uiIndex,
-                                             ForegroundPtrConstArg value   );
-    void replaceInForegrounds  (UInt32                uiIndex,
-                                             ForegroundPtrConstArg value   );
-    void replaceInForegrounds (ForegroundPtrConstArg pOldElem,
-                                             ForegroundPtrConstArg pNewElem);
+    void insertIntoForegrounds      (      UInt32         uiIndex,
+                                             const ForegroundPtr value   );
+    void replaceInForegrounds  (      UInt32         uiIndex,
+                                             const ForegroundPtr value   );
+    void replaceInForegrounds (const ForegroundPtr pOldElem,
+                                             const ForegroundPtr pNewElem);
     void removeFromForegrounds (UInt32                uiIndex );
-    void removeFromForegrounds(ForegroundPtrConstArg value   );
+    void removeFromForegrounds(const ForegroundPtr value   );
     void clearForegrounds            (void                          );
 
 

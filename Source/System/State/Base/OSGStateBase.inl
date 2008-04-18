@@ -76,7 +76,7 @@ OSG::UInt16 StateBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the State::_mfChunks field.
 inline
-StateChunkPtrConst StateBase::getChunks(const UInt32 index) const
+StateChunkPtr StateBase::getChunks(const UInt32 index) const
 {
     return _mfChunks[index];
 }

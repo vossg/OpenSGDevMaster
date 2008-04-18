@@ -739,7 +739,7 @@ SFBool              *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
 
 
 
-void TiledQuadTreeTerrainBase::pushToHeightTiles(ImagePtrConstArg value)
+void TiledQuadTreeTerrainBase::pushToHeightTiles(const ImagePtr value)
 {
     if(value == NullFC)
         return;
@@ -768,8 +768,8 @@ void TiledQuadTreeTerrainBase::assignHeightTiles(const MFUnrecImagePtr   &value)
     }
 }
 
-void TiledQuadTreeTerrainBase::insertIntoHeightTiles(UInt32                uiIndex,
-                                                   ImagePtrConstArg value   )
+void TiledQuadTreeTerrainBase::insertIntoHeightTiles(      UInt32         uiIndex,
+                                                   const ImagePtr value   )
 {
     if(value == NullFC)
         return;
@@ -785,8 +785,8 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTiles(UInt32                uiInd
     _mfHeightTiles.insert(fieldIt, value);
 }
 
-void TiledQuadTreeTerrainBase::replaceInHeightTiles(UInt32                uiIndex,
-                                                       ImagePtrConstArg value   )
+void TiledQuadTreeTerrainBase::replaceInHeightTiles(      UInt32         uiIndex,
+                                                       const ImagePtr value   )
 {
     if(value == NullFC)
         return;
@@ -805,8 +805,8 @@ void TiledQuadTreeTerrainBase::replaceInHeightTiles(UInt32                uiInde
       _mfHeightTiles.replace(uiIndex, value);
 }
 
-void TiledQuadTreeTerrainBase::replaceInHeightTiles(ImagePtrConstArg pOldElem,
-                                                        ImagePtrConstArg pNewElem)
+void TiledQuadTreeTerrainBase::replaceInHeightTiles(const ImagePtr pOldElem,
+                                                        const ImagePtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -844,7 +844,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
     }
 }
 
-void TiledQuadTreeTerrainBase::removeFromHeightTiles(ImagePtrConstArg value)
+void TiledQuadTreeTerrainBase::removeFromHeightTiles(const ImagePtr value)
 {
     Int32 iElemIdx = _mfHeightTiles.findIndex(value);
 
@@ -869,7 +869,7 @@ void TiledQuadTreeTerrainBase::clearHeightTiles(void)
     _mfHeightTiles.clear();
 }
 
-void TiledQuadTreeTerrainBase::pushToHeightTextures(MaterialPtrConstArg value)
+void TiledQuadTreeTerrainBase::pushToHeightTextures(const MaterialPtr value)
 {
     if(value == NullFC)
         return;
@@ -898,8 +898,8 @@ void TiledQuadTreeTerrainBase::assignHeightTextures(const MFUnrecMaterialPtr &va
     }
 }
 
-void TiledQuadTreeTerrainBase::insertIntoHeightTextures(UInt32                uiIndex,
-                                                   MaterialPtrConstArg value   )
+void TiledQuadTreeTerrainBase::insertIntoHeightTextures(      UInt32         uiIndex,
+                                                   const MaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -915,8 +915,8 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTextures(UInt32                ui
     _mfHeightTextures.insert(fieldIt, value);
 }
 
-void TiledQuadTreeTerrainBase::replaceInHeightTextures(UInt32                uiIndex,
-                                                       MaterialPtrConstArg value   )
+void TiledQuadTreeTerrainBase::replaceInHeightTextures(      UInt32         uiIndex,
+                                                       const MaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -935,8 +935,8 @@ void TiledQuadTreeTerrainBase::replaceInHeightTextures(UInt32                uiI
       _mfHeightTextures.replace(uiIndex, value);
 }
 
-void TiledQuadTreeTerrainBase::replaceInHeightTextures(MaterialPtrConstArg pOldElem,
-                                                        MaterialPtrConstArg pNewElem)
+void TiledQuadTreeTerrainBase::replaceInHeightTextures(const MaterialPtr pOldElem,
+                                                        const MaterialPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -974,7 +974,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
     }
 }
 
-void TiledQuadTreeTerrainBase::removeFromHeightTextures(MaterialPtrConstArg value)
+void TiledQuadTreeTerrainBase::removeFromHeightTextures(const MaterialPtr value)
 {
     Int32 iElemIdx = _mfHeightTextures.findIndex(value);
 

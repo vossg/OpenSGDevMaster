@@ -158,32 +158,32 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
             const SFUnrecPolygonChunkPtr *getSFPolyChunk       (void) const;
 
 
-                  CameraPtrConst getCamera         (void) const;
+                  CameraPtr getCamera         (void) const;
 
-                  TextureObjChunkPtrConst getTexChunk       (void) const;
+                  TextureObjChunkPtr getTexChunk       (void) const;
 
-                  TextureBufferPtrConst getTexBuffer      (void) const;
+                  TextureBufferPtr getTexBuffer      (void) const;
 
-                  LightChunkPtrConst getLightChunk     (void) const;
+                  LightChunkPtr getLightChunk     (void) const;
 
-                  BlendChunkPtrConst getBlendChunk     (void) const;
+                  BlendChunkPtr getBlendChunk     (void) const;
 
-                  TexGenChunkPtrConst getTexGenChunk    (void) const;
+                  TexGenChunkPtr getTexGenChunk    (void) const;
 
-                  PolygonChunkPtrConst getPolyChunk      (void) const;
+                  PolygonChunkPtr getPolyChunk      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setCamera         (CameraPtrConstArg value);
-            void setTexChunk       (TextureObjChunkPtrConstArg value);
-            void setTexBuffer      (TextureBufferPtrConstArg value);
-            void setLightChunk     (LightChunkPtrConstArg value);
-            void setBlendChunk     (BlendChunkPtrConstArg value);
-            void setTexGenChunk    (TexGenChunkPtrConstArg value);
-            void setPolyChunk      (PolygonChunkPtrConstArg value);
+            void setCamera         (const CameraPtr value);
+            void setTexChunk       (const TextureObjChunkPtr value);
+            void setTexBuffer      (const TextureBufferPtr value);
+            void setLightChunk     (const LightChunkPtr value);
+            void setBlendChunk     (const BlendChunkPtr value);
+            void setTexGenChunk    (const TexGenChunkPtr value);
+            void setPolyChunk      (const PolygonChunkPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -128,14 +128,14 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
             const SFUnrecNodePtr      *getSFSubTreeRoot     (void) const;
 
 
-                  NodePtrConst getSubTreeRoot    (void) const;
+                  NodePtr getSubTreeRoot    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setSubTreeRoot    (NodePtrConstArg value);
+            void setSubTreeRoot    (const NodePtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

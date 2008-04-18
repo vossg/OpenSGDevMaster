@@ -178,15 +178,15 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
             const SFUnrecChunkMaterialPtr *getSFShrinkMaterial  (void) const;
 
 
-                  ChunkMaterialPtrConst getToneMappingMaterial(void) const;
+                  ChunkMaterialPtr getToneMappingMaterial(void) const;
 
-                  FrameBufferObjectPtrConst getBlurRenderTarget(void) const;
+                  FrameBufferObjectPtr getBlurRenderTarget(void) const;
 
-                  ChunkMaterialPtrConst getBlurMaterial   (void) const;
+                  ChunkMaterialPtr getBlurMaterial   (void) const;
 
-                  SHLChunkPtrConst getHBlurShader    (void) const;
+                  SHLChunkPtr getHBlurShader    (void) const;
 
-                  SHLChunkPtrConst getVBlurShader    (void) const;
+                  SHLChunkPtr getVBlurShader    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getWidth           (void);
@@ -200,24 +200,24 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
                   UInt32              &editHeight         (void);
             const UInt32              &getHeight          (void) const;
 
-                  FrameBufferObjectPtrConst getShrinkRenderTarget(void) const;
+                  FrameBufferObjectPtr getShrinkRenderTarget(void) const;
 
-                  ChunkMaterialPtrConst getShrinkMaterial (void) const;
+                  ChunkMaterialPtr getShrinkMaterial (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setToneMappingMaterial(ChunkMaterialPtrConstArg value);
-            void setBlurRenderTarget(FrameBufferObjectPtrConstArg value);
-            void setBlurMaterial   (ChunkMaterialPtrConstArg value);
-            void setHBlurShader    (SHLChunkPtrConstArg value);
-            void setVBlurShader    (SHLChunkPtrConstArg value);
+            void setToneMappingMaterial(const ChunkMaterialPtr value);
+            void setBlurRenderTarget(const FrameBufferObjectPtr value);
+            void setBlurMaterial   (const ChunkMaterialPtr value);
+            void setHBlurShader    (const SHLChunkPtr value);
+            void setVBlurShader    (const SHLChunkPtr value);
             void setWidth          (const UInt32 &value);
             void setHeight         (const UInt32 &value);
-            void setShrinkRenderTarget(FrameBufferObjectPtrConstArg value);
-            void setShrinkMaterial (ChunkMaterialPtrConstArg value);
+            void setShrinkRenderTarget(const FrameBufferObjectPtr value);
+            void setShrinkMaterial (const ChunkMaterialPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

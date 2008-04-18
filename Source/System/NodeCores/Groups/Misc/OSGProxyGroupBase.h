@@ -244,7 +244,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
                   std::string         &editUrl            (void);
             const std::string         &getUrl             (void) const;
 
-                  NodePtrConst getRoot           (void) const;
+                  NodePtr getRoot           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getState           (void);
@@ -304,7 +304,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
             void setEnabled        (const bool &value);
             void setUrl            (const std::string &value);
-            void setRoot           (NodePtrConstArg value);
+            void setRoot           (const NodePtr value);
             void setState          (const UInt32 &value);
             void setConcurrentLoad (const bool &value);
             void setVolume         (const DynamicVolume &value);

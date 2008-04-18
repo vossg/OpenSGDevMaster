@@ -168,7 +168,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
             const SFBool              *getSFEnvMap          (void) const;
 
 
-                  ImagePtrConst getImage          (void) const;
+                  ImagePtr getImage          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getMinFilter       (void);
@@ -199,7 +199,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setImage          (ImagePtrConstArg value);
+            void setImage          (const ImagePtr value);
             void setMinFilter      (const GLenum &value);
             void setMagFilter      (const GLenum &value);
             void setEnvMode        (const GLenum &value);

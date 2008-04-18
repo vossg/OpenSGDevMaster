@@ -192,7 +192,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   UInt16              &editHeight         (void);
             const UInt16              &getHeight          (void) const;
 
-                  ViewportPtrConst getPort           (const UInt32 index) const;
+                  ViewportPtr getPort           (const UInt32 index) const;
             const MFUnrecChildViewportPtr &getPort           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -227,16 +227,16 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addPort                   (ViewportPtrConstArg value   );
+    void addPort                   (const ViewportPtr value   );
     void assignPort                (const MFUnrecChildViewportPtr &value);
-    void insertPort           (UInt32                uiIndex,
-                                             ViewportPtrConstArg value   );
-    void replacePort      (UInt32                uiIndex,
-                                             ViewportPtrConstArg value   );
-    void replacePortBy   (ViewportPtrConstArg pOldElem,
-                                             ViewportPtrConstArg pNewElem);
+    void insertPort           (      UInt32         uiIndex,
+                                             const ViewportPtr value   );
+    void replacePort      (      UInt32         uiIndex,
+                                             const ViewportPtr value   );
+    void replacePortBy   (const ViewportPtr pOldElem,
+                                             const ViewportPtr pNewElem);
     void subPort         (UInt32                uiIndex );
-    void subPort        (ViewportPtrConstArg value   );
+    void subPort        (const ViewportPtr value   );
     void clearPorts                 (void                          );
 
 

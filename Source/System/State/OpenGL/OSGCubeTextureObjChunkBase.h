@@ -158,15 +158,15 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
             const SFBool              *getSFIsReflectionMap (void) const;
 
 
-                  ImagePtrConst getPosZImage      (void) const;
+                  ImagePtr getPosZImage      (void) const;
 
-                  ImagePtrConst getPosXImage      (void) const;
+                  ImagePtr getPosXImage      (void) const;
 
-                  ImagePtrConst getNegXImage      (void) const;
+                  ImagePtr getNegXImage      (void) const;
 
-                  ImagePtrConst getPosYImage      (void) const;
+                  ImagePtr getPosYImage      (void) const;
 
-                  ImagePtrConst getNegYImage      (void) const;
+                  ImagePtr getNegYImage      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getIsReflectionMap (void);
@@ -179,11 +179,11 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setPosZImage      (ImagePtrConstArg value);
-            void setPosXImage      (ImagePtrConstArg value);
-            void setNegXImage      (ImagePtrConstArg value);
-            void setPosYImage      (ImagePtrConstArg value);
-            void setNegYImage      (ImagePtrConstArg value);
+            void setPosZImage      (const ImagePtr value);
+            void setPosXImage      (const ImagePtr value);
+            void setNegXImage      (const ImagePtr value);
+            void setPosYImage      (const ImagePtr value);
+            void setNegYImage      (const ImagePtr value);
             void setIsReflectionMap(const bool &value);
 
     /*! \}                                                                 */

@@ -142,14 +142,14 @@ void ProxyGroupBase::setUrl(const std::string &value)
 
 //! Get the value of the ProxyGroup::_sfRoot field.
 inline
-NodePtrConst ProxyGroupBase::getRoot(void) const
+NodePtr ProxyGroupBase::getRoot(void) const
 {
     return _sfRoot.getValue();
 }
 
 //! Set the value of the ProxyGroup::_sfRoot field.
 inline
-void ProxyGroupBase::setRoot(NodePtrConstArg value)
+void ProxyGroupBase::setRoot(const NodePtr value)
 {
     editSField(RootFieldMask);
 

@@ -160,7 +160,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
                   bool                &editEnable         (void);
             const bool                &getEnable          (void) const;
 
-                  NodePtrConst getBeacon         (void) const;
+                  NodePtr getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,7 +169,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 
             void setEquation       (const Vec4f &value);
             void setEnable         (const bool &value);
-            void setBeacon         (NodePtrConstArg value);
+            void setBeacon         (const NodePtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

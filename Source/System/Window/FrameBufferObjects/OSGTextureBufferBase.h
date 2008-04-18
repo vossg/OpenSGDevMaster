@@ -158,7 +158,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
             const SFUInt32            *getSFZoffset         (void) const;
 
 
-                  TextureObjChunkPtrConst getTexture        (void) const;
+                  TextureObjChunkPtr getTexture        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getTexTarget       (void);
@@ -183,7 +183,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTexture        (TextureObjChunkPtrConstArg value);
+            void setTexture        (const TextureObjChunkPtr value);
             void setTexTarget      (const GLenum &value);
             void setLevel          (const UInt32 &value);
             void setZoffset        (const UInt32 &value);

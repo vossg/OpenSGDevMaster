@@ -73,7 +73,7 @@ OSG::UInt16 CameraDecoratorBase::getClassGroupId(void)
 
 
 inline
-const CameraPtrConst CameraDecoratorBase::getDecoratee(void) const
+CameraPtr CameraDecoratorBase::getDecoratee(void) const
 {
     return _sfDecoratee.getValue();
 }

@@ -76,14 +76,14 @@ OSG::UInt16 AlgorithmStageBase::getClassGroupId(void)
 
 //! Get the value of the AlgorithmStage::_sfAlgorithm field.
 inline
-AlgorithmPtrConst AlgorithmStageBase::getAlgorithm(void) const
+AlgorithmPtr AlgorithmStageBase::getAlgorithm(void) const
 {
     return _sfAlgorithm.getValue();
 }
 
 //! Set the value of the AlgorithmStage::_sfAlgorithm field.
 inline
-void AlgorithmStageBase::setAlgorithm(AlgorithmPtrConstArg value)
+void AlgorithmStageBase::setAlgorithm(const AlgorithmPtr value)
 {
     editSField(AlgorithmFieldMask);
 

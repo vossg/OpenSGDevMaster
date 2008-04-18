@@ -205,9 +205,9 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
                   Real32              &editTop            (void);
             const Real32              &getTop             (void) const;
 
-                  CameraPtrConst getCamera         (void) const;
+                  CameraPtr getCamera         (void) const;
 
-                  BackgroundPtrConst getBackground     (void) const;
+                  BackgroundPtr getBackground     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,8 +218,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
             void setRight          (const Real32 &value);
             void setBottom         (const Real32 &value);
             void setTop            (const Real32 &value);
-            void setCamera         (CameraPtrConstArg value);
-            void setBackground     (BackgroundPtrConstArg value);
+            void setCamera         (const CameraPtr value);
+            void setBackground     (const BackgroundPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

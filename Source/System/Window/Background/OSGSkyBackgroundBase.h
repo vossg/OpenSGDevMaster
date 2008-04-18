@@ -320,17 +320,17 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   UInt32              &editSphereRes      (void);
             const UInt32              &getSphereRes       (void) const;
 
-                  TextureBaseChunkPtrConst getBackTexture    (void) const;
+                  TextureBaseChunkPtr getBackTexture    (void) const;
 
-                  TextureBaseChunkPtrConst getBottomTexture  (void) const;
+                  TextureBaseChunkPtr getBottomTexture  (void) const;
 
-                  TextureBaseChunkPtrConst getFrontTexture   (void) const;
+                  TextureBaseChunkPtr getFrontTexture   (void) const;
 
-                  TextureBaseChunkPtrConst getLeftTexture    (void) const;
+                  TextureBaseChunkPtr getLeftTexture    (void) const;
 
-                  TextureBaseChunkPtrConst getRightTexture   (void) const;
+                  TextureBaseChunkPtr getRightTexture   (void) const;
 
-                  TextureBaseChunkPtrConst getTopTexture     (void) const;
+                  TextureBaseChunkPtr getTopTexture     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getBoxInside       (void);
@@ -392,7 +392,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   MFVec3f             &editBackTexCoord   (void);
             const MFVec3f             &getBackTexCoord   (void) const;
 
-                  NodePtrConst getBeacon         (void) const;
+                  NodePtr getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -400,14 +400,14 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
             void setSphereRes      (const UInt32 &value);
-            void setBackTexture    (TextureBaseChunkPtrConstArg value);
-            void setBottomTexture  (TextureBaseChunkPtrConstArg value);
-            void setFrontTexture   (TextureBaseChunkPtrConstArg value);
-            void setLeftTexture    (TextureBaseChunkPtrConstArg value);
-            void setRightTexture   (TextureBaseChunkPtrConstArg value);
-            void setTopTexture     (TextureBaseChunkPtrConstArg value);
+            void setBackTexture    (const TextureBaseChunkPtr value);
+            void setBottomTexture  (const TextureBaseChunkPtr value);
+            void setFrontTexture   (const TextureBaseChunkPtr value);
+            void setLeftTexture    (const TextureBaseChunkPtr value);
+            void setRightTexture   (const TextureBaseChunkPtr value);
+            void setTopTexture     (const TextureBaseChunkPtr value);
             void setBoxInside      (const bool &value);
-            void setBeacon         (NodePtrConstArg value);
+            void setBeacon         (const NodePtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

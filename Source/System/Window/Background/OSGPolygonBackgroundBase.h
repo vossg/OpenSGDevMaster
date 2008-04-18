@@ -218,7 +218,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
             const SFBool              *getSFTile            (void) const;
 
 
-                  MaterialPtrConst getMaterial       (void) const;
+                  MaterialPtr getMaterial       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3f               &getTexCoords       (const UInt32 index);
@@ -285,7 +285,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaterial       (MaterialPtrConstArg value);
+            void setMaterial       (const MaterialPtr value);
             void setNormalizedX    (const bool &value);
             void setNormalizedY    (const bool &value);
             void setAspectHeight   (const UInt16 &value);

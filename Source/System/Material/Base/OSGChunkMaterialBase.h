@@ -222,7 +222,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
             const MFInt32             *getMFSlots           (void) const;
 
 
-                  StateChunkPtrConst getChunks         (const UInt32 index) const;
+                  StateChunkPtr getChunks         (const UInt32 index) const;
             const MFUnrecStateChunkPtr &getChunks          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -245,16 +245,16 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChunks              (StateChunkPtrConstArg value   );
+    void pushToChunks              (const StateChunkPtr value   );
     void assignChunks              (const MFUnrecStateChunkPtr &value);
-    void insertIntoChunks      (UInt32                uiIndex,
-                                             StateChunkPtrConstArg value   );
-    void replaceInChunks  (UInt32                uiIndex,
-                                             StateChunkPtrConstArg value   );
-    void replaceInChunks (StateChunkPtrConstArg pOldElem,
-                                             StateChunkPtrConstArg pNewElem);
+    void insertIntoChunks      (      UInt32        uiIndex,
+                                             const StateChunkPtr value   );
+    void replaceInChunks  (      UInt32         uiIndex,
+                                             const StateChunkPtr value   );
+    void replaceInChunks (const StateChunkPtr pOldElem,
+                                             const StateChunkPtr pNewElem);
     void removeFromChunks (UInt32                uiIndex );
-    void removeFromChunks(StateChunkPtrConstArg value   );
+    void removeFromChunks(const StateChunkPtr value   );
     void clearChunks                (void                          );
 
 

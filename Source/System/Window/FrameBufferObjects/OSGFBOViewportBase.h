@@ -128,14 +128,14 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
             const SFUnrecFrameBufferObjectPtr *getSFFrameBufferObject (void) const;
 
 
-                  FrameBufferObjectPtrConst getFrameBufferObject(void) const;
+                  FrameBufferObjectPtr getFrameBufferObject(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setFrameBufferObject(FrameBufferObjectPtrConstArg value);
+            void setFrameBufferObject(const FrameBufferObjectPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

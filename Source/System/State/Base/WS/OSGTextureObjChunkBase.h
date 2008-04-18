@@ -388,7 +388,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
             const SFUInt32            *getSFNPOTMatrixScale (void) const;
 
 
-                  ImagePtrConst getImage          (void) const;
+                  ImagePtr getImage          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getInternalFormat  (void);
@@ -551,7 +551,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setImage          (ImagePtrConstArg value);
+            void setImage          (const ImagePtr value);
             void setInternalFormat (const GLenum &value);
             void setExternalFormat (const GLenum &value);
             void setScale          (const bool &value);

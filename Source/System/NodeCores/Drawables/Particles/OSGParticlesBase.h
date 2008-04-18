@@ -233,7 +233,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
                   UInt32              &editMode           (void);
             const UInt32              &getMode            (void) const;
 
-                  GeoVectorPropertyPtrConst getPositions      (void) const;
+                  GeoVectorPropertyPtr getPositions      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3f               &getSizes           (const UInt32 index);
@@ -244,11 +244,11 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
                   MFVec3f             &editSizes          (void);
             const MFVec3f             &getSizes          (void) const;
 
-                  GeoVectorPropertyPtrConst getSecPositions   (void) const;
+                  GeoVectorPropertyPtr getSecPositions   (void) const;
 
-                  GeoVectorPropertyPtrConst getColors         (void) const;
+                  GeoVectorPropertyPtr getColors         (void) const;
 
-                  GeoVectorPropertyPtrConst getNormals        (void) const;
+                  GeoVectorPropertyPtr getNormals        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getIndices         (const UInt32 index);
@@ -298,10 +298,10 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
             void setMode           (const UInt32 &value);
-            void setPositions      (GeoVectorPropertyPtrConstArg value);
-            void setSecPositions   (GeoVectorPropertyPtrConstArg value);
-            void setColors         (GeoVectorPropertyPtrConstArg value);
-            void setNormals        (GeoVectorPropertyPtrConstArg value);
+            void setPositions      (const GeoVectorPropertyPtr value);
+            void setSecPositions   (const GeoVectorPropertyPtr value);
+            void setColors         (const GeoVectorPropertyPtr value);
+            void setNormals        (const GeoVectorPropertyPtr value);
             void setDrawOrder      (const UInt32 &value);
             void setDynamic        (const bool &value);
             void setBsp            (const ParticleBSPTree &value);

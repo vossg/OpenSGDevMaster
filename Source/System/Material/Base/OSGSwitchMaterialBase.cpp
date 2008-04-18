@@ -219,7 +219,7 @@ SFUInt32            *SwitchMaterialBase::getSFChoice         (void)
 
 
 
-void SwitchMaterialBase::pushToMaterials(MaterialPtrConstArg value)
+void SwitchMaterialBase::pushToMaterials(const MaterialPtr value)
 {
     if(value == NullFC)
         return;
@@ -248,8 +248,8 @@ void SwitchMaterialBase::assignMaterials(const MFUnrecMaterialPtr &value)
     }
 }
 
-void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
-                                                   MaterialPtrConstArg value   )
+void SwitchMaterialBase::insertIntoMaterials(      UInt32         uiIndex,
+                                                   const MaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -265,8 +265,8 @@ void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
     _mfMaterials.insert(fieldIt, value);
 }
 
-void SwitchMaterialBase::replaceInMaterials(UInt32                uiIndex,
-                                                       MaterialPtrConstArg value   )
+void SwitchMaterialBase::replaceInMaterials(      UInt32         uiIndex,
+                                                       const MaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -285,8 +285,8 @@ void SwitchMaterialBase::replaceInMaterials(UInt32                uiIndex,
       _mfMaterials.replace(uiIndex, value);
 }
 
-void SwitchMaterialBase::replaceInMaterials(MaterialPtrConstArg pOldElem,
-                                                        MaterialPtrConstArg pNewElem)
+void SwitchMaterialBase::replaceInMaterials(const MaterialPtr pOldElem,
+                                                        const MaterialPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -324,7 +324,7 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
     }
 }
 
-void SwitchMaterialBase::removeFromMaterials(MaterialPtrConstArg value)
+void SwitchMaterialBase::removeFromMaterials(const MaterialPtr value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 

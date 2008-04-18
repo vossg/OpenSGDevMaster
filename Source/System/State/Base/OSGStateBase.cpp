@@ -184,7 +184,7 @@ const MFUnrecStateChunkPtr *StateBase::getMFChunks(void) const
 
 
 
-void StateBase::pushToChunks(StateChunkPtrConstArg value)
+void StateBase::pushToChunks(const StateChunkPtr value)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -213,8 +213,8 @@ void StateBase::assignChunks   (const MFUnrecStateChunkPtr &value)
     }
 }
 
-void StateBase::insertIntoChunks(UInt32                uiIndex,
-                                                   StateChunkPtrConstArg value   )
+void StateBase::insertIntoChunks(      UInt32         uiIndex,
+                                                   const StateChunkPtr value   )
 {
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -230,8 +230,8 @@ void StateBase::insertIntoChunks(UInt32                uiIndex,
 //        return;
 }
 
-void StateBase::replaceInChunks(UInt32                uiIndex,
-                                                       StateChunkPtrConstArg value   )
+void StateBase::replaceInChunks(      UInt32         uiIndex,
+                                                       const StateChunkPtr value   )
 {
     if(uiIndex >= _mfChunks.size())
         return;
@@ -250,8 +250,8 @@ void StateBase::replaceInChunks(UInt32                uiIndex,
 //        return;
 }
 
-void StateBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
-                                                        StateChunkPtrConstArg pNewElem)
+void StateBase::replaceInChunks(const StateChunkPtr pOldElem,
+                                                        const StateChunkPtr pNewElem)
 {
     Int32  elemIdx = _mfChunks.findIndex(pOldElem);
 
@@ -287,7 +287,7 @@ void StateBase::removeFromChunks(UInt32 uiIndex)
     }
 }
 
-void StateBase::removeFromChunks(StateChunkPtrConstArg value)
+void StateBase::removeFromChunks(const StateChunkPtr value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 

@@ -468,7 +468,7 @@ void CameraDecoratorBase::resolveLinks(void)
 
 
 //! Get the value of the CameraDecorator::_sfBeacon field.
-NodePtrConst CameraDecoratorBase::getBeacon(void) const
+NodePtr CameraDecoratorBase::getBeacon(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -481,7 +481,7 @@ NodePtrConst CameraDecoratorBase::getBeacon(void) const
 }
 
 //! Set the value of the CameraDecorator::_sfBeacon field.
-void CameraDecoratorBase::setBeacon(NodePtrConstArg value)
+void CameraDecoratorBase::setBeacon(const NodePtr value)
 {
     if(_sfDecoratee.getValue() != NullFC)
     {

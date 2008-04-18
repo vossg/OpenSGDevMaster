@@ -294,7 +294,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   std::string         &editServiceInterface(void);
             const std::string         &getServiceInterface (void) const;
 
-                  WindowPtrConst getClientWindow   (void) const;
+                  WindowPtr getClientWindow   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getInterleave      (void);
@@ -308,7 +308,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   UInt32              &editFrameCount     (void);
             const UInt32              &getFrameCount      (void) const;
 
-                  ImageComposerPtrConst getComposer       (void) const;
+                  ImageComposerPtr getComposer       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getAutostart       (const UInt32 index);
@@ -331,10 +331,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
             void setServicePort    (const UInt32 &value);
             void setServiceAddress (const std::string &value);
             void setServiceInterface(const std::string &value);
-            void setClientWindow   (WindowPtrConstArg value);
+            void setClientWindow   (const WindowPtr value);
             void setInterleave     (const UInt32 &value);
             void setFrameCount     (const UInt32 &value);
-            void setComposer       (ImageComposerPtrConstArg value);
+            void setComposer       (const ImageComposerPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

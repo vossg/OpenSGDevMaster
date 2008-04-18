@@ -288,7 +288,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
                   Real                &editQuadraticAttenuation(void);
             const Real                &getQuadraticAttenuation (void) const;
 
-                  NodePtrConst getBeacon         (void) const;
+                  NodePtr getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -305,7 +305,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
             void setConstantAttenuation(const Real &value);
             void setLinearAttenuation(const Real &value);
             void setQuadraticAttenuation(const Real &value);
-            void setBeacon         (NodePtrConstArg value);
+            void setBeacon         (const NodePtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

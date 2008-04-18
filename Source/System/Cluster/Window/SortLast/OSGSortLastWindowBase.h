@@ -148,7 +148,7 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
             const SFBool              *getSFGroupsChanged   (void) const;
 
 
-                  NodePtrConst getGroupNodes     (const UInt32 index) const;
+                  NodePtr getGroupNodes     (const UInt32 index) const;
             const MFUnrecNodePtr      &getGroupNodes     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -183,16 +183,16 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToGroupNodes           (NodePtrConstArg value   );
+    void pushToGroupNodes           (const NodePtr value   );
     void assignGroupNodes           (const MFUnrecNodePtr    &value);
-    void insertIntoGroupNodes      (UInt32                uiIndex,
-                                             NodePtrConstArg value   );
-    void replaceInGroupNodes  (UInt32                uiIndex,
-                                             NodePtrConstArg value   );
-    void replaceInGroupNodes (NodePtrConstArg pOldElem,
-                                             NodePtrConstArg pNewElem);
+    void insertIntoGroupNodes      (      UInt32         uiIndex,
+                                             const NodePtr value   );
+    void replaceInGroupNodes  (      UInt32         uiIndex,
+                                             const NodePtr value   );
+    void replaceInGroupNodes (const NodePtr pOldElem,
+                                             const NodePtr pNewElem);
     void removeFromGroupNodes (UInt32                uiIndex );
-    void removeFromGroupNodes(NodePtrConstArg value   );
+    void removeFromGroupNodes(const NodePtr value   );
     void clearGroupNodes            (void                          );
 
 

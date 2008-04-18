@@ -109,14 +109,14 @@ void TextureBackgroundBase::setColor(const Color4f &value)
 
 //! Get the value of the TextureBackground::_sfTexture field.
 inline
-TextureBaseChunkPtrConst TextureBackgroundBase::getTexture(void) const
+TextureBaseChunkPtr TextureBackgroundBase::getTexture(void) const
 {
     return _sfTexture.getValue();
 }
 
 //! Set the value of the TextureBackground::_sfTexture field.
 inline
-void TextureBackgroundBase::setTexture(TextureBaseChunkPtrConstArg value)
+void TextureBackgroundBase::setTexture(const TextureBaseChunkPtr value)
 {
     editSField(TextureFieldMask);
 

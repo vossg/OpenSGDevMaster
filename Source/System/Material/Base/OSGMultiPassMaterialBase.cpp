@@ -178,7 +178,7 @@ const MFUnrecMaterialPtr *MultiPassMaterialBase::getMFMaterials(void) const
 
 
 
-void MultiPassMaterialBase::addMaterial(MaterialPtrConstArg value)
+void MultiPassMaterialBase::addMaterial(const MaterialPtr value)
 {
     if(value == NullFC)
         return;
@@ -207,8 +207,8 @@ void MultiPassMaterialBase::assignMaterialsFrom(const MFUnrecMaterialPtr &value)
     }
 }
 
-void MultiPassMaterialBase::insertMaterial(UInt32                uiIndex,
-                                                   MaterialPtrConstArg value   )
+void MultiPassMaterialBase::insertMaterial(      UInt32         uiIndex,
+                                                   const MaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -224,8 +224,8 @@ void MultiPassMaterialBase::insertMaterial(UInt32                uiIndex,
     _mfMaterials.insert(fieldIt, value);
 }
 
-void MultiPassMaterialBase::replaceMaterial(UInt32                uiIndex,
-                                                       MaterialPtrConstArg value   )
+void MultiPassMaterialBase::replaceMaterial(      UInt32         uiIndex,
+                                                       const MaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -244,8 +244,8 @@ void MultiPassMaterialBase::replaceMaterial(UInt32                uiIndex,
       _mfMaterials.replace(uiIndex, value);
 }
 
-void MultiPassMaterialBase::replaceMaterial(MaterialPtrConstArg pOldElem,
-                                                        MaterialPtrConstArg pNewElem)
+void MultiPassMaterialBase::replaceMaterial(const MaterialPtr pOldElem,
+                                                        const MaterialPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -283,7 +283,7 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
     }
 }
 
-void MultiPassMaterialBase::subMaterial(MaterialPtrConstArg value)
+void MultiPassMaterialBase::subMaterial(const MaterialPtr value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 

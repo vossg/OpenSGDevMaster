@@ -76,14 +76,14 @@ OSG::UInt16 StageBase::getClassGroupId(void)
 
 //! Get the value of the Stage::_sfRenderTarget field.
 inline
-FrameBufferObjectPtrConst StageBase::getRenderTarget(void) const
+FrameBufferObjectPtr StageBase::getRenderTarget(void) const
 {
     return _sfRenderTarget.getValue();
 }
 
 //! Set the value of the Stage::_sfRenderTarget field.
 inline
-void StageBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
+void StageBase::setRenderTarget(const FrameBufferObjectPtr value)
 {
     editSField(RenderTargetFieldMask);
 

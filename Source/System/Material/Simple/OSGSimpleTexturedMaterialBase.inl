@@ -76,14 +76,14 @@ OSG::UInt16 SimpleTexturedMaterialBase::getClassGroupId(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfImage field.
 inline
-ImagePtrConst SimpleTexturedMaterialBase::getImage(void) const
+ImagePtr SimpleTexturedMaterialBase::getImage(void) const
 {
     return _sfImage.getValue();
 }
 
 //! Set the value of the SimpleTexturedMaterial::_sfImage field.
 inline
-void SimpleTexturedMaterialBase::setImage(ImagePtrConstArg value)
+void SimpleTexturedMaterialBase::setImage(const ImagePtr value)
 {
     editSField(ImageFieldMask);
 

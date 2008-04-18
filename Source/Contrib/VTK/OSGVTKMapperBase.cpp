@@ -457,7 +457,7 @@ const MFUnrecGeoVec3fPropertyPtr *VTKMapperBase::getMFNormals(void) const
 
 
 
-void VTKMapperBase::pushToGeoRoots(NodePtrConstArg value)
+void VTKMapperBase::pushToGeoRoots(const NodePtr value)
 {
     if(value == NullFC)
         return;
@@ -486,8 +486,8 @@ void VTKMapperBase::assignGeoRoots (const MFUnrecNodePtr    &value)
     }
 }
 
-void VTKMapperBase::insertIntoGeoRoots(UInt32                uiIndex,
-                                                   NodePtrConstArg value   )
+void VTKMapperBase::insertIntoGeoRoots(      UInt32         uiIndex,
+                                                   const NodePtr value   )
 {
     if(value == NullFC)
         return;
@@ -503,8 +503,8 @@ void VTKMapperBase::insertIntoGeoRoots(UInt32                uiIndex,
     _mfGeoRoots.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInGeoRoots(UInt32                uiIndex,
-                                                       NodePtrConstArg value   )
+void VTKMapperBase::replaceInGeoRoots(      UInt32         uiIndex,
+                                                       const NodePtr value   )
 {
     if(value == NullFC)
         return;
@@ -523,8 +523,8 @@ void VTKMapperBase::replaceInGeoRoots(UInt32                uiIndex,
       _mfGeoRoots.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInGeoRoots(NodePtrConstArg pOldElem,
-                                                        NodePtrConstArg pNewElem)
+void VTKMapperBase::replaceInGeoRoots(const NodePtr pOldElem,
+                                                        const NodePtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -562,7 +562,7 @@ void VTKMapperBase::removeFromGeoRoots(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromGeoRoots(NodePtrConstArg value)
+void VTKMapperBase::removeFromGeoRoots(const NodePtr value)
 {
     Int32 iElemIdx = _mfGeoRoots.findIndex(value);
 
@@ -587,7 +587,7 @@ void VTKMapperBase::clearGeoRoots(void)
     _mfGeoRoots.clear();
 }
 
-void VTKMapperBase::pushToGeometries(GeometryPtrConstArg value)
+void VTKMapperBase::pushToGeometries(const GeometryPtr value)
 {
     if(value == NullFC)
         return;
@@ -616,8 +616,8 @@ void VTKMapperBase::assignGeometries(const MFUnrecGeometryPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoGeometries(UInt32                uiIndex,
-                                                   GeometryPtrConstArg value   )
+void VTKMapperBase::insertIntoGeometries(      UInt32         uiIndex,
+                                                   const GeometryPtr value   )
 {
     if(value == NullFC)
         return;
@@ -633,8 +633,8 @@ void VTKMapperBase::insertIntoGeometries(UInt32                uiIndex,
     _mfGeometries.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInGeometries(UInt32                uiIndex,
-                                                       GeometryPtrConstArg value   )
+void VTKMapperBase::replaceInGeometries(      UInt32         uiIndex,
+                                                       const GeometryPtr value   )
 {
     if(value == NullFC)
         return;
@@ -653,8 +653,8 @@ void VTKMapperBase::replaceInGeometries(UInt32                uiIndex,
       _mfGeometries.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInGeometries(GeometryPtrConstArg pOldElem,
-                                                        GeometryPtrConstArg pNewElem)
+void VTKMapperBase::replaceInGeometries(const GeometryPtr pOldElem,
+                                                        const GeometryPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -692,7 +692,7 @@ void VTKMapperBase::removeFromGeometries(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromGeometries(GeometryPtrConstArg value)
+void VTKMapperBase::removeFromGeometries(const GeometryPtr value)
 {
     Int32 iElemIdx = _mfGeometries.findIndex(value);
 
@@ -717,7 +717,7 @@ void VTKMapperBase::clearGeometries(void)
     _mfGeometries.clear();
 }
 
-void VTKMapperBase::pushToMaterials(ChunkMaterialPtrConstArg value)
+void VTKMapperBase::pushToMaterials(const ChunkMaterialPtr value)
 {
     if(value == NullFC)
         return;
@@ -746,8 +746,8 @@ void VTKMapperBase::assignMaterials(const MFUnrecChunkMaterialPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoMaterials(UInt32                uiIndex,
-                                                   ChunkMaterialPtrConstArg value   )
+void VTKMapperBase::insertIntoMaterials(      UInt32         uiIndex,
+                                                   const ChunkMaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -763,8 +763,8 @@ void VTKMapperBase::insertIntoMaterials(UInt32                uiIndex,
     _mfMaterials.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInMaterials(UInt32                uiIndex,
-                                                       ChunkMaterialPtrConstArg value   )
+void VTKMapperBase::replaceInMaterials(      UInt32         uiIndex,
+                                                       const ChunkMaterialPtr value   )
 {
     if(value == NullFC)
         return;
@@ -783,8 +783,8 @@ void VTKMapperBase::replaceInMaterials(UInt32                uiIndex,
       _mfMaterials.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInMaterials(ChunkMaterialPtrConstArg pOldElem,
-                                                        ChunkMaterialPtrConstArg pNewElem)
+void VTKMapperBase::replaceInMaterials(const ChunkMaterialPtr pOldElem,
+                                                        const ChunkMaterialPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -822,7 +822,7 @@ void VTKMapperBase::removeFromMaterials(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromMaterials(ChunkMaterialPtrConstArg value)
+void VTKMapperBase::removeFromMaterials(const ChunkMaterialPtr value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -847,7 +847,7 @@ void VTKMapperBase::clearMaterials(void)
     _mfMaterials.clear();
 }
 
-void VTKMapperBase::pushToMaterialChunks(MaterialChunkPtrConstArg value)
+void VTKMapperBase::pushToMaterialChunks(const MaterialChunkPtr value)
 {
     if(value == NullFC)
         return;
@@ -876,8 +876,8 @@ void VTKMapperBase::assignMaterialChunks(const MFUnrecMaterialChunkPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoMaterialChunks(UInt32                uiIndex,
-                                                   MaterialChunkPtrConstArg value   )
+void VTKMapperBase::insertIntoMaterialChunks(      UInt32         uiIndex,
+                                                   const MaterialChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -893,8 +893,8 @@ void VTKMapperBase::insertIntoMaterialChunks(UInt32                uiIndex,
     _mfMaterialChunks.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInMaterialChunks(UInt32                uiIndex,
-                                                       MaterialChunkPtrConstArg value   )
+void VTKMapperBase::replaceInMaterialChunks(      UInt32         uiIndex,
+                                                       const MaterialChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -913,8 +913,8 @@ void VTKMapperBase::replaceInMaterialChunks(UInt32                uiIndex,
       _mfMaterialChunks.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInMaterialChunks(MaterialChunkPtrConstArg pOldElem,
-                                                        MaterialChunkPtrConstArg pNewElem)
+void VTKMapperBase::replaceInMaterialChunks(const MaterialChunkPtr pOldElem,
+                                                        const MaterialChunkPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -952,7 +952,7 @@ void VTKMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromMaterialChunks(MaterialChunkPtrConstArg value)
+void VTKMapperBase::removeFromMaterialChunks(const MaterialChunkPtr value)
 {
     Int32 iElemIdx = _mfMaterialChunks.findIndex(value);
 
@@ -977,7 +977,7 @@ void VTKMapperBase::clearMaterialChunks(void)
     _mfMaterialChunks.clear();
 }
 
-void VTKMapperBase::pushToPositions(GeoPnt3fPropertyPtrConstArg value)
+void VTKMapperBase::pushToPositions(const GeoPnt3fPropertyPtr value)
 {
     if(value == NullFC)
         return;
@@ -1006,8 +1006,8 @@ void VTKMapperBase::assignPositions(const MFUnrecGeoPnt3fPropertyPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoPositions(UInt32                uiIndex,
-                                                   GeoPnt3fPropertyPtrConstArg value   )
+void VTKMapperBase::insertIntoPositions(      UInt32         uiIndex,
+                                                   const GeoPnt3fPropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1023,8 +1023,8 @@ void VTKMapperBase::insertIntoPositions(UInt32                uiIndex,
     _mfPositions.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInPositions(UInt32                uiIndex,
-                                                       GeoPnt3fPropertyPtrConstArg value   )
+void VTKMapperBase::replaceInPositions(      UInt32         uiIndex,
+                                                       const GeoPnt3fPropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1043,8 +1043,8 @@ void VTKMapperBase::replaceInPositions(UInt32                uiIndex,
       _mfPositions.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInPositions(GeoPnt3fPropertyPtrConstArg pOldElem,
-                                                        GeoPnt3fPropertyPtrConstArg pNewElem)
+void VTKMapperBase::replaceInPositions(const GeoPnt3fPropertyPtr pOldElem,
+                                                        const GeoPnt3fPropertyPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1082,7 +1082,7 @@ void VTKMapperBase::removeFromPositions(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromPositions(GeoPnt3fPropertyPtrConstArg value)
+void VTKMapperBase::removeFromPositions(const GeoPnt3fPropertyPtr value)
 {
     Int32 iElemIdx = _mfPositions.findIndex(value);
 
@@ -1107,7 +1107,7 @@ void VTKMapperBase::clearPositions(void)
     _mfPositions.clear();
 }
 
-void VTKMapperBase::pushToLength(GeoUInt32PropertyPtrConstArg value)
+void VTKMapperBase::pushToLength(const GeoUInt32PropertyPtr value)
 {
     if(value == NullFC)
         return;
@@ -1136,8 +1136,8 @@ void VTKMapperBase::assignLength   (const MFUnrecGeoUInt32PropertyPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoLength(UInt32                uiIndex,
-                                                   GeoUInt32PropertyPtrConstArg value   )
+void VTKMapperBase::insertIntoLength(      UInt32         uiIndex,
+                                                   const GeoUInt32PropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1153,8 +1153,8 @@ void VTKMapperBase::insertIntoLength(UInt32                uiIndex,
     _mfLength.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInLength(UInt32                uiIndex,
-                                                       GeoUInt32PropertyPtrConstArg value   )
+void VTKMapperBase::replaceInLength(      UInt32         uiIndex,
+                                                       const GeoUInt32PropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1173,8 +1173,8 @@ void VTKMapperBase::replaceInLength(UInt32                uiIndex,
       _mfLength.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInLength(GeoUInt32PropertyPtrConstArg pOldElem,
-                                                        GeoUInt32PropertyPtrConstArg pNewElem)
+void VTKMapperBase::replaceInLength(const GeoUInt32PropertyPtr pOldElem,
+                                                        const GeoUInt32PropertyPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1212,7 +1212,7 @@ void VTKMapperBase::removeFromLength(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromLength(GeoUInt32PropertyPtrConstArg value)
+void VTKMapperBase::removeFromLength(const GeoUInt32PropertyPtr value)
 {
     Int32 iElemIdx = _mfLength.findIndex(value);
 
@@ -1237,7 +1237,7 @@ void VTKMapperBase::clearLength(void)
     _mfLength.clear();
 }
 
-void VTKMapperBase::pushToTypes(GeoUInt8PropertyPtrConstArg value)
+void VTKMapperBase::pushToTypes(const GeoUInt8PropertyPtr value)
 {
     if(value == NullFC)
         return;
@@ -1266,8 +1266,8 @@ void VTKMapperBase::assignTypes    (const MFUnrecGeoUInt8PropertyPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoTypes(UInt32                uiIndex,
-                                                   GeoUInt8PropertyPtrConstArg value   )
+void VTKMapperBase::insertIntoTypes(      UInt32         uiIndex,
+                                                   const GeoUInt8PropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1283,8 +1283,8 @@ void VTKMapperBase::insertIntoTypes(UInt32                uiIndex,
     _mfTypes.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInTypes(UInt32                uiIndex,
-                                                       GeoUInt8PropertyPtrConstArg value   )
+void VTKMapperBase::replaceInTypes(      UInt32         uiIndex,
+                                                       const GeoUInt8PropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1303,8 +1303,8 @@ void VTKMapperBase::replaceInTypes(UInt32                uiIndex,
       _mfTypes.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInTypes(GeoUInt8PropertyPtrConstArg pOldElem,
-                                                        GeoUInt8PropertyPtrConstArg pNewElem)
+void VTKMapperBase::replaceInTypes(const GeoUInt8PropertyPtr pOldElem,
+                                                        const GeoUInt8PropertyPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1342,7 +1342,7 @@ void VTKMapperBase::removeFromTypes(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromTypes(GeoUInt8PropertyPtrConstArg value)
+void VTKMapperBase::removeFromTypes(const GeoUInt8PropertyPtr value)
 {
     Int32 iElemIdx = _mfTypes.findIndex(value);
 
@@ -1367,7 +1367,7 @@ void VTKMapperBase::clearTypes(void)
     _mfTypes.clear();
 }
 
-void VTKMapperBase::pushToColors(GeoColor4fPropertyPtrConstArg value)
+void VTKMapperBase::pushToColors(const GeoColor4fPropertyPtr value)
 {
     if(value == NullFC)
         return;
@@ -1396,8 +1396,8 @@ void VTKMapperBase::assignColors   (const MFUnrecGeoColor4fPropertyPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoColors(UInt32                uiIndex,
-                                                   GeoColor4fPropertyPtrConstArg value   )
+void VTKMapperBase::insertIntoColors(      UInt32         uiIndex,
+                                                   const GeoColor4fPropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1413,8 +1413,8 @@ void VTKMapperBase::insertIntoColors(UInt32                uiIndex,
     _mfColors.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInColors(UInt32                uiIndex,
-                                                       GeoColor4fPropertyPtrConstArg value   )
+void VTKMapperBase::replaceInColors(      UInt32         uiIndex,
+                                                       const GeoColor4fPropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1433,8 +1433,8 @@ void VTKMapperBase::replaceInColors(UInt32                uiIndex,
       _mfColors.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInColors(GeoColor4fPropertyPtrConstArg pOldElem,
-                                                        GeoColor4fPropertyPtrConstArg pNewElem)
+void VTKMapperBase::replaceInColors(const GeoColor4fPropertyPtr pOldElem,
+                                                        const GeoColor4fPropertyPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1472,7 +1472,7 @@ void VTKMapperBase::removeFromColors(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromColors(GeoColor4fPropertyPtrConstArg value)
+void VTKMapperBase::removeFromColors(const GeoColor4fPropertyPtr value)
 {
     Int32 iElemIdx = _mfColors.findIndex(value);
 
@@ -1497,7 +1497,7 @@ void VTKMapperBase::clearColors(void)
     _mfColors.clear();
 }
 
-void VTKMapperBase::pushToNormals(GeoVec3fPropertyPtrConstArg value)
+void VTKMapperBase::pushToNormals(const GeoVec3fPropertyPtr value)
 {
     if(value == NullFC)
         return;
@@ -1526,8 +1526,8 @@ void VTKMapperBase::assignNormals  (const MFUnrecGeoVec3fPropertyPtr &value)
     }
 }
 
-void VTKMapperBase::insertIntoNormals(UInt32                uiIndex,
-                                                   GeoVec3fPropertyPtrConstArg value   )
+void VTKMapperBase::insertIntoNormals(      UInt32         uiIndex,
+                                                   const GeoVec3fPropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1543,8 +1543,8 @@ void VTKMapperBase::insertIntoNormals(UInt32                uiIndex,
     _mfNormals.insert(fieldIt, value);
 }
 
-void VTKMapperBase::replaceInNormals(UInt32                uiIndex,
-                                                       GeoVec3fPropertyPtrConstArg value   )
+void VTKMapperBase::replaceInNormals(      UInt32         uiIndex,
+                                                       const GeoVec3fPropertyPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1563,8 +1563,8 @@ void VTKMapperBase::replaceInNormals(UInt32                uiIndex,
       _mfNormals.replace(uiIndex, value);
 }
 
-void VTKMapperBase::replaceInNormals(GeoVec3fPropertyPtrConstArg pOldElem,
-                                                        GeoVec3fPropertyPtrConstArg pNewElem)
+void VTKMapperBase::replaceInNormals(const GeoVec3fPropertyPtr pOldElem,
+                                                        const GeoVec3fPropertyPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1602,7 +1602,7 @@ void VTKMapperBase::removeFromNormals(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromNormals(GeoVec3fPropertyPtrConstArg value)
+void VTKMapperBase::removeFromNormals(const GeoVec3fPropertyPtr value)
 {
     Int32 iElemIdx = _mfNormals.findIndex(value);
 

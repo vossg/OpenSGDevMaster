@@ -128,14 +128,14 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
             const SFUnrecSHLChunkPtr  *getSFSHLChunk        (void) const;
 
 
-                  SHLChunkPtrConst getSHLChunk       (void) const;
+                  SHLChunkPtr getSHLChunk       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setSHLChunk       (SHLChunkPtrConstArg value);
+            void setSHLChunk       (const SHLChunkPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

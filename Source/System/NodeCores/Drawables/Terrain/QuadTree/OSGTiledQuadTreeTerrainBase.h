@@ -253,10 +253,10 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
             const SFBool              *getSFPerPixelLighting (void) const;
 
 
-                  ImagePtrConst getHeightTiles    (const UInt32 index) const;
+                  ImagePtr getHeightTiles    (const UInt32 index) const;
             const MFUnrecImagePtr     &getHeightTiles    (void) const;
 
-                  MaterialPtrConst getHeightTextures (const UInt32 index) const;
+                  MaterialPtr getHeightTextures (const UInt32 index) const;
             const MFUnrecMaterialPtr  &getHeightTextures (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -359,30 +359,30 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToHeightTiles           (ImagePtrConstArg value   );
+    void pushToHeightTiles           (const ImagePtr value   );
     void assignHeightTiles           (const MFUnrecImagePtr   &value);
-    void insertIntoHeightTiles      (UInt32                uiIndex,
-                                             ImagePtrConstArg value   );
-    void replaceInHeightTiles  (UInt32                uiIndex,
-                                             ImagePtrConstArg value   );
-    void replaceInHeightTiles (ImagePtrConstArg pOldElem,
-                                             ImagePtrConstArg pNewElem);
+    void insertIntoHeightTiles      (      UInt32         uiIndex,
+                                             const ImagePtr value   );
+    void replaceInHeightTiles  (      UInt32         uiIndex,
+                                             const ImagePtr value   );
+    void replaceInHeightTiles (const ImagePtr pOldElem,
+                                             const ImagePtr pNewElem);
     void removeFromHeightTiles (UInt32                uiIndex );
-    void removeFromHeightTiles(ImagePtrConstArg value   );
+    void removeFromHeightTiles(const ImagePtr value   );
     void clearHeightTiles            (void                          );
 
 
 
-    void pushToHeightTextures           (MaterialPtrConstArg value   );
+    void pushToHeightTextures           (const MaterialPtr value   );
     void assignHeightTextures           (const MFUnrecMaterialPtr &value);
-    void insertIntoHeightTextures      (UInt32                uiIndex,
-                                             MaterialPtrConstArg value   );
-    void replaceInHeightTextures  (UInt32                uiIndex,
-                                             MaterialPtrConstArg value   );
-    void replaceInHeightTextures (MaterialPtrConstArg pOldElem,
-                                             MaterialPtrConstArg pNewElem);
+    void insertIntoHeightTextures      (      UInt32         uiIndex,
+                                             const MaterialPtr value   );
+    void replaceInHeightTextures  (      UInt32         uiIndex,
+                                             const MaterialPtr value   );
+    void replaceInHeightTextures (const MaterialPtr pOldElem,
+                                             const MaterialPtr pNewElem);
     void removeFromHeightTextures (UInt32                uiIndex );
-    void removeFromHeightTextures(MaterialPtrConstArg value   );
+    void removeFromHeightTextures(const MaterialPtr value   );
     void clearHeightTextures            (void                          );
 
 

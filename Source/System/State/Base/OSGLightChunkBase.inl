@@ -406,14 +406,14 @@ void LightChunkBase::setQuadraticAttenuation(const Real &value)
 
 //! Get the value of the LightChunk::_sfBeacon field.
 inline
-NodePtrConst LightChunkBase::getBeacon(void) const
+NodePtr LightChunkBase::getBeacon(void) const
 {
     return _sfBeacon.getValue();
 }
 
 //! Set the value of the LightChunk::_sfBeacon field.
 inline
-void LightChunkBase::setBeacon(NodePtrConstArg value)
+void LightChunkBase::setBeacon(const NodePtr value)
 {
     editSField(BeaconFieldMask);
 

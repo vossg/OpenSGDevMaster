@@ -307,14 +307,14 @@ void ClusterWindowBase::setServiceInterface(const std::string &value)
 
 //! Get the value of the ClusterWindow::_sfClientWindow field.
 inline
-WindowPtrConst ClusterWindowBase::getClientWindow(void) const
+WindowPtr ClusterWindowBase::getClientWindow(void) const
 {
     return _sfClientWindow.getValue();
 }
 
 //! Set the value of the ClusterWindow::_sfClientWindow field.
 inline
-void ClusterWindowBase::setClientWindow(WindowPtrConstArg value)
+void ClusterWindowBase::setClientWindow(const WindowPtr value)
 {
     editSField(ClientWindowFieldMask);
 
@@ -390,14 +390,14 @@ void ClusterWindowBase::setFrameCount(const UInt32 &value)
 
 //! Get the value of the ClusterWindow::_sfComposer field.
 inline
-ImageComposerPtrConst ClusterWindowBase::getComposer(void) const
+ImageComposerPtr ClusterWindowBase::getComposer(void) const
 {
     return _sfComposer.getValue();
 }
 
 //! Set the value of the ClusterWindow::_sfComposer field.
 inline
-void ClusterWindowBase::setComposer(ImageComposerPtrConstArg value)
+void ClusterWindowBase::setComposer(const ImageComposerPtr value)
 {
     editSField(ComposerFieldMask);
 

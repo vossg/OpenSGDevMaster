@@ -170,7 +170,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
             const SFReal32            *getSFHeight          (void) const;
 
 
-                  NodePtrConst getUser           (void) const;
+                  NodePtr getUser           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt3f               &getSurface         (const UInt32 index);
@@ -198,7 +198,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setUser           (NodePtrConstArg value);
+            void setUser           (const NodePtr value);
             void setWidth          (const Real32 &value);
             void setHeight         (const Real32 &value);
 

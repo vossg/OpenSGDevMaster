@@ -526,7 +526,7 @@ SFUInt32            *WindowBase::getSFDrawerId       (void)
 
 
 
-void WindowBase::addPort(ViewportPtrConstArg value)
+void WindowBase::addPort(const ViewportPtr value)
 {
     if(value == NullFC)
         return;
@@ -555,8 +555,8 @@ void WindowBase::assignPort     (const MFUnrecChildViewportPtr &value)
     }
 }
 
-void WindowBase::insertPort(UInt32                uiIndex,
-                                                   ViewportPtrConstArg value   )
+void WindowBase::insertPort(      UInt32         uiIndex,
+                                                   const ViewportPtr value   )
 {
     if(value == NullFC)
         return;
@@ -572,8 +572,8 @@ void WindowBase::insertPort(UInt32                uiIndex,
     _mfPort.insert(fieldIt, value);
 }
 
-void WindowBase::replacePort(UInt32                uiIndex,
-                                                       ViewportPtrConstArg value   )
+void WindowBase::replacePort(      UInt32         uiIndex,
+                                                       const ViewportPtr value   )
 {
     if(value == NullFC)
         return;
@@ -592,8 +592,8 @@ void WindowBase::replacePort(UInt32                uiIndex,
       _mfPort.replace(uiIndex, value);
 }
 
-void WindowBase::replacePortBy(ViewportPtrConstArg pOldElem,
-                                                        ViewportPtrConstArg pNewElem)
+void WindowBase::replacePortBy(const ViewportPtr pOldElem,
+                                                        const ViewportPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -631,7 +631,7 @@ void WindowBase::subPort(UInt32 uiIndex)
     }
 }
 
-void WindowBase::subPort(ViewportPtrConstArg value)
+void WindowBase::subPort(const ViewportPtr value)
 {
     Int32 iElemIdx = _mfPort.findIndex(value);
 

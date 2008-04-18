@@ -213,7 +213,7 @@ const MFUnrecFieldContainerPtr *ContainerPoolBase::getMFContainers(void) const
 
 
 
-void ContainerPoolBase::pushToContainers(FieldContainerPtrConstArg value)
+void ContainerPoolBase::pushToContainers(const FieldContainerPtr value)
 {
     if(value == NullFC)
         return;
@@ -242,8 +242,8 @@ void ContainerPoolBase::assignContainers(const MFUnrecFieldContainerPtr &value)
     }
 }
 
-void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
-                                                   FieldContainerPtrConstArg value   )
+void ContainerPoolBase::insertIntoContainers(      UInt32         uiIndex,
+                                                   const FieldContainerPtr value   )
 {
     if(value == NullFC)
         return;
@@ -259,8 +259,8 @@ void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
     _mfContainers.insert(fieldIt, value);
 }
 
-void ContainerPoolBase::replaceInContainers(UInt32                uiIndex,
-                                                       FieldContainerPtrConstArg value   )
+void ContainerPoolBase::replaceInContainers(      UInt32         uiIndex,
+                                                       const FieldContainerPtr value   )
 {
     if(value == NullFC)
         return;
@@ -279,8 +279,8 @@ void ContainerPoolBase::replaceInContainers(UInt32                uiIndex,
       _mfContainers.replace(uiIndex, value);
 }
 
-void ContainerPoolBase::replaceInContainers(FieldContainerPtrConstArg pOldElem,
-                                                        FieldContainerPtrConstArg pNewElem)
+void ContainerPoolBase::replaceInContainers(const FieldContainerPtr pOldElem,
+                                                        const FieldContainerPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -318,7 +318,7 @@ void ContainerPoolBase::removeFromContainers(UInt32 uiIndex)
     }
 }
 
-void ContainerPoolBase::removeFromContainers(FieldContainerPtrConstArg value)
+void ContainerPoolBase::removeFromContainers(const FieldContainerPtr value)
 {
     Int32 iElemIdx = _mfContainers.findIndex(value);
 

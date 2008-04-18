@@ -138,7 +138,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
             const SFUInt32            *getSFChoice          (void) const;
 
 
-                  MaterialPtrConst getMaterials      (const UInt32 index) const;
+                  MaterialPtr getMaterials      (const UInt32 index) const;
             const MFUnrecMaterialPtr  &getMaterials      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -164,16 +164,16 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToMaterials           (MaterialPtrConstArg value   );
+    void pushToMaterials           (const MaterialPtr value   );
     void assignMaterials           (const MFUnrecMaterialPtr &value);
-    void insertIntoMaterials      (UInt32                uiIndex,
-                                             MaterialPtrConstArg value   );
-    void replaceInMaterials  (UInt32                uiIndex,
-                                             MaterialPtrConstArg value   );
-    void replaceInMaterials (MaterialPtrConstArg pOldElem,
-                                             MaterialPtrConstArg pNewElem);
+    void insertIntoMaterials      (      UInt32         uiIndex,
+                                             const MaterialPtr value   );
+    void replaceInMaterials  (      UInt32         uiIndex,
+                                             const MaterialPtr value   );
+    void replaceInMaterials (const MaterialPtr pOldElem,
+                                             const MaterialPtr pNewElem);
     void removeFromMaterials (UInt32                uiIndex );
-    void removeFromMaterials(MaterialPtrConstArg value   );
+    void removeFromMaterials(const MaterialPtr value   );
     void clearMaterials             (void                          );
 
 

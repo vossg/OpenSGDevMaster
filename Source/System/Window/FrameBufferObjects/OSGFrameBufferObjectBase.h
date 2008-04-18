@@ -184,7 +184,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   GLenum              &editGLId           (void);
             const GLenum              &getGLId            (void) const;
 
-                  FrameBufferAttachmentPtrConst getColorAttachments(const UInt32 index) const;
+                  FrameBufferAttachmentPtr getColorAttachments(const UInt32 index) const;
             const MFUnrecFrameBufferAttachmentPtr &getColorAttachments(void) const;
 
 #ifdef OSG_1_GET_COMPAT
@@ -196,9 +196,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   MFGLenum            &editDrawBuffers    (void);
             const MFGLenum            &getDrawBuffers    (void) const;
 
-                  FrameBufferAttachmentPtrConst getDepthAttachment(void) const;
+                  FrameBufferAttachmentPtr getDepthAttachment(void) const;
 
-                  FrameBufferAttachmentPtrConst getStencilAttachment(void) const;
+                  FrameBufferAttachmentPtr getStencilAttachment(void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getWidth           (void);
@@ -218,8 +218,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
             void setGLId           (const GLenum &value);
-            void setDepthAttachment(FrameBufferAttachmentPtrConstArg value);
-            void setStencilAttachment(FrameBufferAttachmentPtrConstArg value);
+            void setDepthAttachment(const FrameBufferAttachmentPtr value);
+            void setStencilAttachment(const FrameBufferAttachmentPtr value);
             void setWidth          (const UInt16 &value);
             void setHeight         (const UInt16 &value);
 
@@ -233,16 +233,16 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToColorAttachments           (FrameBufferAttachmentPtrConstArg value   );
+    void pushToColorAttachments           (const FrameBufferAttachmentPtr value   );
     void assignColorAttachments           (const MFUnrecFrameBufferAttachmentPtr &value);
-    void insertIntoColorAttachments      (UInt32                uiIndex,
-                                             FrameBufferAttachmentPtrConstArg value   );
-    void replaceInColorAttachments  (UInt32                uiIndex,
-                                             FrameBufferAttachmentPtrConstArg value   );
-    void replaceInColorAttachments (FrameBufferAttachmentPtrConstArg pOldElem,
-                                             FrameBufferAttachmentPtrConstArg pNewElem);
+    void insertIntoColorAttachments      (      UInt32         uiIndex,
+                                             const FrameBufferAttachmentPtr value   );
+    void replaceInColorAttachments  (      UInt32         uiIndex,
+                                             const FrameBufferAttachmentPtr value   );
+    void replaceInColorAttachments (const FrameBufferAttachmentPtr pOldElem,
+                                             const FrameBufferAttachmentPtr pNewElem);
     void removeFromColorAttachments (UInt32                uiIndex );
-    void removeFromColorAttachments(FrameBufferAttachmentPtrConstArg value   );
+    void removeFromColorAttachments(const FrameBufferAttachmentPtr value   );
     void clearColorAttachments            (void                          );
 
 

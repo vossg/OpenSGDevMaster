@@ -659,7 +659,7 @@ SFReal32            *ViewportBase::getSFDrawTime       (void)
 
 
 
-void ViewportBase::addForeground(ForegroundPtrConstArg value)
+void ViewportBase::addForeground(const ForegroundPtr value)
 {
     if(value == NullFC)
         return;
@@ -688,8 +688,8 @@ void ViewportBase::assignForegrounds(const MFUnrecForegroundPtr &value)
     }
 }
 
-void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
-                                                   ForegroundPtrConstArg value   )
+void ViewportBase::insertIntoForegrounds(      UInt32         uiIndex,
+                                                   const ForegroundPtr value   )
 {
     if(value == NullFC)
         return;
@@ -705,8 +705,8 @@ void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
     _mfForegrounds.insert(fieldIt, value);
 }
 
-void ViewportBase::replaceInForegrounds(UInt32                uiIndex,
-                                                       ForegroundPtrConstArg value   )
+void ViewportBase::replaceInForegrounds(      UInt32         uiIndex,
+                                                       const ForegroundPtr value   )
 {
     if(value == NullFC)
         return;
@@ -725,8 +725,8 @@ void ViewportBase::replaceInForegrounds(UInt32                uiIndex,
       _mfForegrounds.replace(uiIndex, value);
 }
 
-void ViewportBase::replaceInForegrounds(ForegroundPtrConstArg pOldElem,
-                                                        ForegroundPtrConstArg pNewElem)
+void ViewportBase::replaceInForegrounds(const ForegroundPtr pOldElem,
+                                                        const ForegroundPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -764,7 +764,7 @@ void ViewportBase::removeFromForegrounds(UInt32 uiIndex)
     }
 }
 
-void ViewportBase::removeFromForegrounds(ForegroundPtrConstArg value)
+void ViewportBase::removeFromForegrounds(const ForegroundPtr value)
 {
     Int32 iElemIdx = _mfForegrounds.findIndex(value);
 

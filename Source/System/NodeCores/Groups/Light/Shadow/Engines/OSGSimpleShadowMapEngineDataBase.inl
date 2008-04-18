@@ -76,14 +76,14 @@ OSG::UInt16 SimpleShadowMapEngineDataBase::getClassGroupId(void)
 
 //! Get the value of the SimpleShadowMapEngineData::_sfCamera field.
 inline
-CameraPtrConst SimpleShadowMapEngineDataBase::getCamera(void) const
+CameraPtr SimpleShadowMapEngineDataBase::getCamera(void) const
 {
     return _sfCamera.getValue();
 }
 
 //! Set the value of the SimpleShadowMapEngineData::_sfCamera field.
 inline
-void SimpleShadowMapEngineDataBase::setCamera(CameraPtrConstArg value)
+void SimpleShadowMapEngineDataBase::setCamera(const CameraPtr value)
 {
     editSField(CameraFieldMask);
 
@@ -93,14 +93,14 @@ void SimpleShadowMapEngineDataBase::setCamera(CameraPtrConstArg value)
 
 //! Get the value of the SimpleShadowMapEngineData::_sfTexChunk field.
 inline
-TextureObjChunkPtrConst SimpleShadowMapEngineDataBase::getTexChunk(void) const
+TextureObjChunkPtr SimpleShadowMapEngineDataBase::getTexChunk(void) const
 {
     return _sfTexChunk.getValue();
 }
 
 //! Set the value of the SimpleShadowMapEngineData::_sfTexChunk field.
 inline
-void SimpleShadowMapEngineDataBase::setTexChunk(TextureObjChunkPtrConstArg value)
+void SimpleShadowMapEngineDataBase::setTexChunk(const TextureObjChunkPtr value)
 {
     editSField(TexChunkFieldMask);
 
@@ -110,14 +110,14 @@ void SimpleShadowMapEngineDataBase::setTexChunk(TextureObjChunkPtrConstArg value
 
 //! Get the value of the SimpleShadowMapEngineData::_sfTexBuffer field.
 inline
-TextureBufferPtrConst SimpleShadowMapEngineDataBase::getTexBuffer(void) const
+TextureBufferPtr SimpleShadowMapEngineDataBase::getTexBuffer(void) const
 {
     return _sfTexBuffer.getValue();
 }
 
 //! Set the value of the SimpleShadowMapEngineData::_sfTexBuffer field.
 inline
-void SimpleShadowMapEngineDataBase::setTexBuffer(TextureBufferPtrConstArg value)
+void SimpleShadowMapEngineDataBase::setTexBuffer(const TextureBufferPtr value)
 {
     editSField(TexBufferFieldMask);
 
@@ -127,14 +127,14 @@ void SimpleShadowMapEngineDataBase::setTexBuffer(TextureBufferPtrConstArg value)
 
 //! Get the value of the SimpleShadowMapEngineData::_sfLightChunk field.
 inline
-LightChunkPtrConst SimpleShadowMapEngineDataBase::getLightChunk(void) const
+LightChunkPtr SimpleShadowMapEngineDataBase::getLightChunk(void) const
 {
     return _sfLightChunk.getValue();
 }
 
 //! Set the value of the SimpleShadowMapEngineData::_sfLightChunk field.
 inline
-void SimpleShadowMapEngineDataBase::setLightChunk(LightChunkPtrConstArg value)
+void SimpleShadowMapEngineDataBase::setLightChunk(const LightChunkPtr value)
 {
     editSField(LightChunkFieldMask);
 
@@ -144,14 +144,14 @@ void SimpleShadowMapEngineDataBase::setLightChunk(LightChunkPtrConstArg value)
 
 //! Get the value of the SimpleShadowMapEngineData::_sfBlendChunk field.
 inline
-BlendChunkPtrConst SimpleShadowMapEngineDataBase::getBlendChunk(void) const
+BlendChunkPtr SimpleShadowMapEngineDataBase::getBlendChunk(void) const
 {
     return _sfBlendChunk.getValue();
 }
 
 //! Set the value of the SimpleShadowMapEngineData::_sfBlendChunk field.
 inline
-void SimpleShadowMapEngineDataBase::setBlendChunk(BlendChunkPtrConstArg value)
+void SimpleShadowMapEngineDataBase::setBlendChunk(const BlendChunkPtr value)
 {
     editSField(BlendChunkFieldMask);
 
@@ -161,14 +161,14 @@ void SimpleShadowMapEngineDataBase::setBlendChunk(BlendChunkPtrConstArg value)
 
 //! Get the value of the SimpleShadowMapEngineData::_sfTexGenChunk field.
 inline
-TexGenChunkPtrConst SimpleShadowMapEngineDataBase::getTexGenChunk(void) const
+TexGenChunkPtr SimpleShadowMapEngineDataBase::getTexGenChunk(void) const
 {
     return _sfTexGenChunk.getValue();
 }
 
 //! Set the value of the SimpleShadowMapEngineData::_sfTexGenChunk field.
 inline
-void SimpleShadowMapEngineDataBase::setTexGenChunk(TexGenChunkPtrConstArg value)
+void SimpleShadowMapEngineDataBase::setTexGenChunk(const TexGenChunkPtr value)
 {
     editSField(TexGenChunkFieldMask);
 
@@ -178,14 +178,14 @@ void SimpleShadowMapEngineDataBase::setTexGenChunk(TexGenChunkPtrConstArg value)
 
 //! Get the value of the SimpleShadowMapEngineData::_sfPolyChunk field.
 inline
-PolygonChunkPtrConst SimpleShadowMapEngineDataBase::getPolyChunk(void) const
+PolygonChunkPtr SimpleShadowMapEngineDataBase::getPolyChunk(void) const
 {
     return _sfPolyChunk.getValue();
 }
 
 //! Set the value of the SimpleShadowMapEngineData::_sfPolyChunk field.
 inline
-void SimpleShadowMapEngineDataBase::setPolyChunk(PolygonChunkPtrConstArg value)
+void SimpleShadowMapEngineDataBase::setPolyChunk(const PolygonChunkPtr value)
 {
     editSField(PolyChunkFieldMask);
 

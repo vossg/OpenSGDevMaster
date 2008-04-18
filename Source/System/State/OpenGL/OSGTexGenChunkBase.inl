@@ -340,14 +340,14 @@ void TexGenChunkBase::setGenFuncQPlane(const Vec4f &value)
 
 //! Get the value of the TexGenChunk::_sfSBeacon field.
 inline
-NodePtrConst TexGenChunkBase::getSBeacon(void) const
+NodePtr TexGenChunkBase::getSBeacon(void) const
 {
     return _sfSBeacon.getValue();
 }
 
 //! Set the value of the TexGenChunk::_sfSBeacon field.
 inline
-void TexGenChunkBase::setSBeacon(NodePtrConstArg value)
+void TexGenChunkBase::setSBeacon(const NodePtr value)
 {
     editSField(SBeaconFieldMask);
 
@@ -357,14 +357,14 @@ void TexGenChunkBase::setSBeacon(NodePtrConstArg value)
 
 //! Get the value of the TexGenChunk::_sfTBeacon field.
 inline
-NodePtrConst TexGenChunkBase::getTBeacon(void) const
+NodePtr TexGenChunkBase::getTBeacon(void) const
 {
     return _sfTBeacon.getValue();
 }
 
 //! Set the value of the TexGenChunk::_sfTBeacon field.
 inline
-void TexGenChunkBase::setTBeacon(NodePtrConstArg value)
+void TexGenChunkBase::setTBeacon(const NodePtr value)
 {
     editSField(TBeaconFieldMask);
 
@@ -374,14 +374,14 @@ void TexGenChunkBase::setTBeacon(NodePtrConstArg value)
 
 //! Get the value of the TexGenChunk::_sfRBeacon field.
 inline
-NodePtrConst TexGenChunkBase::getRBeacon(void) const
+NodePtr TexGenChunkBase::getRBeacon(void) const
 {
     return _sfRBeacon.getValue();
 }
 
 //! Set the value of the TexGenChunk::_sfRBeacon field.
 inline
-void TexGenChunkBase::setRBeacon(NodePtrConstArg value)
+void TexGenChunkBase::setRBeacon(const NodePtr value)
 {
     editSField(RBeaconFieldMask);
 
@@ -391,14 +391,14 @@ void TexGenChunkBase::setRBeacon(NodePtrConstArg value)
 
 //! Get the value of the TexGenChunk::_sfQBeacon field.
 inline
-NodePtrConst TexGenChunkBase::getQBeacon(void) const
+NodePtr TexGenChunkBase::getQBeacon(void) const
 {
     return _sfQBeacon.getValue();
 }
 
 //! Set the value of the TexGenChunk::_sfQBeacon field.
 inline
-void TexGenChunkBase::setQBeacon(NodePtrConstArg value)
+void TexGenChunkBase::setQBeacon(const NodePtr value)
 {
     editSField(QBeaconFieldMask);
 

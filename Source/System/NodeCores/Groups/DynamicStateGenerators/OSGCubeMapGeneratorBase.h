@@ -208,12 +208,12 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
             const SFUnrecBackgroundPtr *getSFBackground      (void) const;
 
 
-                  NodePtrConst getRoot           (void) const;
+                  NodePtr getRoot           (void) const;
 
-                  NodePtrConst getExclude        (const UInt32 index) const;
+                  NodePtr getExclude        (const UInt32 index) const;
             const MFUnrecNodePtr      &getExclude        (void) const;
 
-                  TextureObjChunkPtrConst getTexture        (void) const;
+                  TextureObjChunkPtr getTexture        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2s               &getTextureSize     (void);
@@ -227,7 +227,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                   GLenum              &editTextureFormat  (void);
             const GLenum              &getTextureFormat   (void) const;
 
-                  NodePtrConst getBeacon         (void) const;
+                  NodePtr getBeacon         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt3f               &getOrigin          (void);
@@ -253,23 +253,23 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                   UInt32              &editSetupMode      (void);
             const UInt32              &getSetupMode       (void) const;
 
-                  BackgroundPtrConst getBackground     (void) const;
+                  BackgroundPtr getBackground     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRoot           (NodePtrConstArg value);
-            void setTexture        (TextureObjChunkPtrConstArg value);
+            void setRoot           (const NodePtr value);
+            void setTexture        (const TextureObjChunkPtr value);
             void setTextureSize    (const Vec2s &value);
             void setTextureFormat  (const GLenum &value);
-            void setBeacon         (NodePtrConstArg value);
+            void setBeacon         (const NodePtr value);
             void setOrigin         (const Pnt3f &value);
             void setOriginMode     (const UInt32 &value);
             void setTexUnit        (const UInt32 &value);
             void setSetupMode      (const UInt32 &value);
-            void setBackground     (BackgroundPtrConstArg value);
+            void setBackground     (const BackgroundPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -281,16 +281,16 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToExclude             (NodePtrConstArg value   );
+    void pushToExclude             (const NodePtr value   );
     void assignExclude             (const MFUnrecNodePtr    &value);
-    void insertIntoExclude      (UInt32                uiIndex,
-                                             NodePtrConstArg value   );
-    void replaceInExclude  (UInt32                uiIndex,
-                                             NodePtrConstArg value   );
-    void replaceInExclude (NodePtrConstArg pOldElem,
-                                             NodePtrConstArg pNewElem);
+    void insertIntoExclude      (      UInt32         uiIndex,
+                                             const NodePtr value   );
+    void replaceInExclude  (      UInt32         uiIndex,
+                                             const NodePtr value   );
+    void replaceInExclude (const NodePtr pOldElem,
+                                             const NodePtr pNewElem);
     void removeFromExclude (UInt32                uiIndex );
-    void removeFromExclude(NodePtrConstArg value   );
+    void removeFromExclude(const NodePtr value   );
     void clearExclude               (void                          );
 
 

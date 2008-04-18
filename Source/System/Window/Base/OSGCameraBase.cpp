@@ -473,13 +473,13 @@ void CameraBase::resolveLinks(void)
 
 
 //! Get the value of the Camera::_sfBeacon field.
-NodePtrConst CameraBase::getBeacon(void) const
+NodePtr CameraBase::getBeacon(void) const
 {
     return _sfBeacon.getValue();
 }
 
 //! Set the value of the Camera::_sfBeacon field.
-void CameraBase::setBeacon(NodePtrConstArg value)
+void CameraBase::setBeacon(const NodePtr value)
 {
     editSField(BeaconFieldMask);
 

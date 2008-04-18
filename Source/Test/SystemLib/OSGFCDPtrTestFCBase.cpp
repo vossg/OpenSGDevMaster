@@ -1247,7 +1247,7 @@ const MFUnrecChildFCDSParTestFCPtr *FCDPtrTestFCBase::getMFFieldMFPri_spchildptr
 
 
 
-void FCDPtrTestFCBase::pushToFieldMFPub_ptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPub_ptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -1276,8 +1276,8 @@ void FCDPtrTestFCBase::assignFieldMFPub_ptr(const MFUnrecFCDTestFCPtr &value)
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPub_ptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPub_ptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1293,8 +1293,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPub_ptr(UInt32                uiIndex,
     _mfFieldMFPub_ptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_ptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPub_ptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1313,8 +1313,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPub_ptr(UInt32                uiIndex,
       _mfFieldMFPub_ptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_ptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPub_ptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1352,7 +1352,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPub_ptr.findIndex(value);
 
@@ -1377,7 +1377,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_ptr(void)
     _mfFieldMFPub_ptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPub_weakptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPub_weakptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -1406,8 +1406,8 @@ void FCDPtrTestFCBase::assignFieldMFPub_weakptr(const MFWeakFCDTestFCPtr &value)
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPub_weakptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPub_weakptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1423,8 +1423,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPub_weakptr(UInt32                uiInde
     _mfFieldMFPub_weakptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_weakptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPub_weakptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1443,8 +1443,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPub_weakptr(UInt32                uiIndex
       _mfFieldMFPub_weakptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_weakptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPub_weakptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1482,7 +1482,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPub_weakptr.findIndex(value);
 
@@ -1507,7 +1507,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_weakptr(void)
     _mfFieldMFPub_weakptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPub_mpchildptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPub_mpchildptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -1536,8 +1536,8 @@ void FCDPtrTestFCBase::assignFieldMFPub_mpchildptr(const MFUnrecChildFCDTestFCPt
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPub_mpchildptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPub_mpchildptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1553,8 +1553,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPub_mpchildptr(UInt32                uiI
     _mfFieldMFPub_mpchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_mpchildptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPub_mpchildptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1573,8 +1573,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPub_mpchildptr(UInt32                uiIn
       _mfFieldMFPub_mpchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_mpchildptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPub_mpchildptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1612,7 +1612,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPub_mpchildptr.findIndex(value);
 
@@ -1637,7 +1637,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_mpchildptr(void)
     _mfFieldMFPub_mpchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_ptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPro_ptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -1666,8 +1666,8 @@ void FCDPtrTestFCBase::assignFieldMFPro_ptr(const MFUnrecFCDTestFCPtr &value)
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPro_ptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPro_ptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1683,8 +1683,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPro_ptr(UInt32                uiIndex,
     _mfFieldMFPro_ptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_ptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPro_ptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1703,8 +1703,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPro_ptr(UInt32                uiIndex,
       _mfFieldMFPro_ptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_ptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPro_ptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1742,7 +1742,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPro_ptr.findIndex(value);
 
@@ -1767,7 +1767,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_ptr(void)
     _mfFieldMFPro_ptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_weakptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPro_weakptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -1796,8 +1796,8 @@ void FCDPtrTestFCBase::assignFieldMFPro_weakptr(const MFWeakFCDTestFCPtr &value)
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPro_weakptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPro_weakptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1813,8 +1813,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPro_weakptr(UInt32                uiInde
     _mfFieldMFPro_weakptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_weakptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPro_weakptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1833,8 +1833,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPro_weakptr(UInt32                uiIndex
       _mfFieldMFPro_weakptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_weakptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPro_weakptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1872,7 +1872,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPro_weakptr.findIndex(value);
 
@@ -1897,7 +1897,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_weakptr(void)
     _mfFieldMFPro_weakptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_mpchildptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPro_mpchildptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -1926,8 +1926,8 @@ void FCDPtrTestFCBase::assignFieldMFPro_mpchildptr(const MFUnrecChildFCDTestFCPt
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPro_mpchildptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPro_mpchildptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1943,8 +1943,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPro_mpchildptr(UInt32                uiI
     _mfFieldMFPro_mpchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_mpchildptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPro_mpchildptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -1963,8 +1963,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPro_mpchildptr(UInt32                uiIn
       _mfFieldMFPro_mpchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_mpchildptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPro_mpchildptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -2002,7 +2002,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPro_mpchildptr.findIndex(value);
 
@@ -2027,7 +2027,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_mpchildptr(void)
     _mfFieldMFPro_mpchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_ptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPri_ptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -2056,8 +2056,8 @@ void FCDPtrTestFCBase::assignFieldMFPri_ptr(const MFUnrecFCDTestFCPtr &value)
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPri_ptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPri_ptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2073,8 +2073,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPri_ptr(UInt32                uiIndex,
     _mfFieldMFPri_ptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_ptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPri_ptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2093,8 +2093,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPri_ptr(UInt32                uiIndex,
       _mfFieldMFPri_ptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_ptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPri_ptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -2132,7 +2132,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_ptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_ptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPri_ptr.findIndex(value);
 
@@ -2157,7 +2157,7 @@ void FCDPtrTestFCBase::clearFieldMFPri_ptr(void)
     _mfFieldMFPri_ptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_weakptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPri_weakptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -2186,8 +2186,8 @@ void FCDPtrTestFCBase::assignFieldMFPri_weakptr(const MFWeakFCDTestFCPtr &value)
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPri_weakptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPri_weakptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2203,8 +2203,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPri_weakptr(UInt32                uiInde
     _mfFieldMFPri_weakptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_weakptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPri_weakptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2223,8 +2223,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPri_weakptr(UInt32                uiIndex
       _mfFieldMFPri_weakptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_weakptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPri_weakptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -2262,7 +2262,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_weakptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_weakptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPri_weakptr.findIndex(value);
 
@@ -2287,7 +2287,7 @@ void FCDPtrTestFCBase::clearFieldMFPri_weakptr(void)
     _mfFieldMFPri_weakptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_mpchildptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPri_mpchildptr(const FCDTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -2316,8 +2316,8 @@ void FCDPtrTestFCBase::assignFieldMFPri_mpchildptr(const MFUnrecChildFCDTestFCPt
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPri_mpchildptr(UInt32                uiIndex,
-                                                   FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPri_mpchildptr(      UInt32         uiIndex,
+                                                   const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2333,8 +2333,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPri_mpchildptr(UInt32                uiI
     _mfFieldMFPri_mpchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_mpchildptr(UInt32                uiIndex,
-                                                       FCDTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPri_mpchildptr(      UInt32         uiIndex,
+                                                       const FCDTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2353,8 +2353,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPri_mpchildptr(UInt32                uiIn
       _mfFieldMFPri_mpchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_mpchildptr(FCDTestFCPtrConstArg pOldElem,
-                                                        FCDTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPri_mpchildptr(const FCDTestFCPtr pOldElem,
+                                                        const FCDTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -2392,7 +2392,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_mpchildptr(FCDTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_mpchildptr(const FCDTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPri_mpchildptr.findIndex(value);
 
@@ -2417,7 +2417,7 @@ void FCDPtrTestFCBase::clearFieldMFPri_mpchildptr(void)
     _mfFieldMFPri_mpchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPub_spchildptr(FCDSParTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPub_spchildptr(const FCDSParTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -2446,8 +2446,8 @@ void FCDPtrTestFCBase::assignFieldMFPub_spchildptr(const MFUnrecChildFCDSParTest
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPub_spchildptr(UInt32                uiIndex,
-                                                   FCDSParTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPub_spchildptr(      UInt32         uiIndex,
+                                                   const FCDSParTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2463,8 +2463,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPub_spchildptr(UInt32                uiI
     _mfFieldMFPub_spchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_spchildptr(UInt32                uiIndex,
-                                                       FCDSParTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPub_spchildptr(      UInt32         uiIndex,
+                                                       const FCDSParTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2483,8 +2483,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPub_spchildptr(UInt32                uiIn
       _mfFieldMFPub_spchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPub_spchildptr(FCDSParTestFCPtrConstArg pOldElem,
-                                                        FCDSParTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPub_spchildptr(const FCDSParTestFCPtr pOldElem,
+                                                        const FCDSParTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -2522,7 +2522,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(FCDSParTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(const FCDSParTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPub_spchildptr.findIndex(value);
 
@@ -2547,7 +2547,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_spchildptr(void)
     _mfFieldMFPub_spchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_spchildptr(FCDSParTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPro_spchildptr(const FCDSParTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -2576,8 +2576,8 @@ void FCDPtrTestFCBase::assignFieldMFPro_spchildptr(const MFUnrecChildFCDSParTest
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPro_spchildptr(UInt32                uiIndex,
-                                                   FCDSParTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPro_spchildptr(      UInt32         uiIndex,
+                                                   const FCDSParTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2593,8 +2593,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPro_spchildptr(UInt32                uiI
     _mfFieldMFPro_spchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_spchildptr(UInt32                uiIndex,
-                                                       FCDSParTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPro_spchildptr(      UInt32         uiIndex,
+                                                       const FCDSParTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2613,8 +2613,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPro_spchildptr(UInt32                uiIn
       _mfFieldMFPro_spchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPro_spchildptr(FCDSParTestFCPtrConstArg pOldElem,
-                                                        FCDSParTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPro_spchildptr(const FCDSParTestFCPtr pOldElem,
+                                                        const FCDSParTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -2652,7 +2652,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(FCDSParTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(const FCDSParTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPro_spchildptr.findIndex(value);
 
@@ -2677,7 +2677,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_spchildptr(void)
     _mfFieldMFPro_spchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_spchildptr(FCDSParTestFCPtrConstArg value)
+void FCDPtrTestFCBase::pushToFieldMFPri_spchildptr(const FCDSParTestFCPtr value)
 {
     if(value == NullFC)
         return;
@@ -2706,8 +2706,8 @@ void FCDPtrTestFCBase::assignFieldMFPri_spchildptr(const MFUnrecChildFCDSParTest
     }
 }
 
-void FCDPtrTestFCBase::insertIntoFieldMFPri_spchildptr(UInt32                uiIndex,
-                                                   FCDSParTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::insertIntoFieldMFPri_spchildptr(      UInt32         uiIndex,
+                                                   const FCDSParTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2723,8 +2723,8 @@ void FCDPtrTestFCBase::insertIntoFieldMFPri_spchildptr(UInt32                uiI
     _mfFieldMFPri_spchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_spchildptr(UInt32                uiIndex,
-                                                       FCDSParTestFCPtrConstArg value   )
+void FCDPtrTestFCBase::replaceInFieldMFPri_spchildptr(      UInt32         uiIndex,
+                                                       const FCDSParTestFCPtr value   )
 {
     if(value == NullFC)
         return;
@@ -2743,8 +2743,8 @@ void FCDPtrTestFCBase::replaceInFieldMFPri_spchildptr(UInt32                uiIn
       _mfFieldMFPri_spchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCBase::replaceInFieldMFPri_spchildptr(FCDSParTestFCPtrConstArg pOldElem,
-                                                        FCDSParTestFCPtrConstArg pNewElem)
+void FCDPtrTestFCBase::replaceInFieldMFPri_spchildptr(const FCDSParTestFCPtr pOldElem,
+                                                        const FCDSParTestFCPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -2782,7 +2782,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_spchildptr(FCDSParTestFCPtrConstArg value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_spchildptr(const FCDSParTestFCPtr value)
 {
     Int32 iElemIdx = _mfFieldMFPri_spchildptr.findIndex(value);
 

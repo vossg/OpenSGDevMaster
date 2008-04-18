@@ -182,7 +182,7 @@ const MFUnrecChildShaderParameterPtr *ShaderParameterChunkBase::getMFParameters(
 
 
 
-void ShaderParameterChunkBase::addParameter(ShaderParameterPtrConstArg value)
+void ShaderParameterChunkBase::addParameter(const ShaderParameterPtr value)
 {
     if(value == NullFC)
         return;
@@ -211,8 +211,8 @@ void ShaderParameterChunkBase::assignParameters(const MFUnrecChildShaderParamete
     }
 }
 
-void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
-                                                   ShaderParameterPtrConstArg value   )
+void ShaderParameterChunkBase::insertParameter(      UInt32         uiIndex,
+                                                   const ShaderParameterPtr value   )
 {
     if(value == NullFC)
         return;
@@ -228,8 +228,8 @@ void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
     _mfParameters.insert(fieldIt, value);
 }
 
-void ShaderParameterChunkBase::replaceParameter(UInt32                uiIndex,
-                                                       ShaderParameterPtrConstArg value   )
+void ShaderParameterChunkBase::replaceParameter(      UInt32         uiIndex,
+                                                       const ShaderParameterPtr value   )
 {
     if(value == NullFC)
         return;
@@ -248,8 +248,8 @@ void ShaderParameterChunkBase::replaceParameter(UInt32                uiIndex,
       _mfParameters.replace(uiIndex, value);
 }
 
-void ShaderParameterChunkBase::replaceParameterBy(ShaderParameterPtrConstArg pOldElem,
-                                                        ShaderParameterPtrConstArg pNewElem)
+void ShaderParameterChunkBase::replaceParameterBy(const ShaderParameterPtr pOldElem,
+                                                        const ShaderParameterPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -287,7 +287,7 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
     }
 }
 
-void ShaderParameterChunkBase::subParameter(ShaderParameterPtrConstArg value)
+void ShaderParameterChunkBase::subParameter(const ShaderParameterPtr value)
 {
     Int32 iElemIdx = _mfParameters.findIndex(value);
 

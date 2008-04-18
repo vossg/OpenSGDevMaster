@@ -188,7 +188,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
             const SFUInt32            *getSFIStride         (void) const;
 
 
-                  GeoMultiPropertyDataPtrConst getContainer      (void) const;
+                  GeoMultiPropertyDataPtr getContainer      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getOffset          (void);
@@ -231,7 +231,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setContainer      (GeoMultiPropertyDataPtrConstArg value);
+            void setContainer      (const GeoMultiPropertyDataPtr value);
             void setOffset         (const UInt32 &value);
             void setIFormat        (const GLenum &value);
             void setIDimension     (const UInt32 &value);

@@ -232,7 +232,7 @@ MFPnt2f             *ImageForegroundBase::getMFPositions      (void)
 
 
 
-void ImageForegroundBase::pushToImages(ImagePtrConstArg value)
+void ImageForegroundBase::pushToImages(const ImagePtr value)
 {
     if(value == NullFC)
         return;
@@ -261,8 +261,8 @@ void ImageForegroundBase::assignImages   (const MFUnrecImagePtr   &value)
     }
 }
 
-void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
-                                                   ImagePtrConstArg value   )
+void ImageForegroundBase::insertIntoImages(      UInt32         uiIndex,
+                                                   const ImagePtr value   )
 {
     if(value == NullFC)
         return;
@@ -278,8 +278,8 @@ void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
     _mfImages.insert(fieldIt, value);
 }
 
-void ImageForegroundBase::replaceInImages(UInt32                uiIndex,
-                                                       ImagePtrConstArg value   )
+void ImageForegroundBase::replaceInImages(      UInt32         uiIndex,
+                                                       const ImagePtr value   )
 {
     if(value == NullFC)
         return;
@@ -298,8 +298,8 @@ void ImageForegroundBase::replaceInImages(UInt32                uiIndex,
       _mfImages.replace(uiIndex, value);
 }
 
-void ImageForegroundBase::replaceInImages(ImagePtrConstArg pOldElem,
-                                                        ImagePtrConstArg pNewElem)
+void ImageForegroundBase::replaceInImages(const ImagePtr pOldElem,
+                                                        const ImagePtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -337,7 +337,7 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
     }
 }
 
-void ImageForegroundBase::removeFromImages(ImagePtrConstArg value)
+void ImageForegroundBase::removeFromImages(const ImagePtr value)
 {
     Int32 iElemIdx = _mfImages.findIndex(value);
 

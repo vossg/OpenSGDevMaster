@@ -76,14 +76,14 @@ OSG::UInt16 ManipulatorBase::getClassGroupId(void)
 
 //! Get the value of the Manipulator::_sfTarget field.
 inline
-NodePtrConst ManipulatorBase::getTarget(void) const
+NodePtr ManipulatorBase::getTarget(void) const
 {
     return _sfTarget.getValue();
 }
 
 //! Set the value of the Manipulator::_sfTarget field.
 inline
-void ManipulatorBase::setTarget(NodePtrConstArg value)
+void ManipulatorBase::setTarget(const NodePtr value)
 {
     editSField(TargetFieldMask);
 
@@ -93,14 +93,14 @@ void ManipulatorBase::setTarget(NodePtrConstArg value)
 
 //! Get the value of the Manipulator::_sfActiveSubHandle field.
 inline
-NodePtrConst ManipulatorBase::getActiveSubHandle(void) const
+NodePtr ManipulatorBase::getActiveSubHandle(void) const
 {
     return _sfActiveSubHandle.getValue();
 }
 
 //! Set the value of the Manipulator::_sfActiveSubHandle field.
 inline
-void ManipulatorBase::setActiveSubHandle(NodePtrConstArg value)
+void ManipulatorBase::setActiveSubHandle(const NodePtr value)
 {
     editSField(ActiveSubHandleFieldMask);
 
@@ -143,14 +143,14 @@ void ManipulatorBase::setLastMousePos(const Pnt2f &value)
 
 //! Get the value of the Manipulator::_sfViewport field.
 inline
-ViewportPtrConst ManipulatorBase::getViewport(void) const
+ViewportPtr ManipulatorBase::getViewport(void) const
 {
     return _sfViewport.getValue();
 }
 
 //! Set the value of the Manipulator::_sfViewport field.
 inline
-void ManipulatorBase::setViewport(ViewportPtrConstArg value)
+void ManipulatorBase::setViewport(const ViewportPtr value)
 {
     editSField(ViewportFieldMask);
 
@@ -226,14 +226,14 @@ void ManipulatorBase::setLength(const Vec3f &value)
 
 //! Get the value of the Manipulator::_sfHandleXNode field.
 inline
-NodePtrConst ManipulatorBase::getHandleXNode(void) const
+NodePtr ManipulatorBase::getHandleXNode(void) const
 {
     return _sfHandleXNode.getValue();
 }
 
 //! Set the value of the Manipulator::_sfHandleXNode field.
 inline
-void ManipulatorBase::setHandleXNode(NodePtrConstArg value)
+void ManipulatorBase::setHandleXNode(const NodePtr value)
 {
     editSField(HandleXNodeFieldMask);
 
@@ -243,14 +243,14 @@ void ManipulatorBase::setHandleXNode(NodePtrConstArg value)
 
 //! Get the value of the Manipulator::_sfHandleYNode field.
 inline
-NodePtrConst ManipulatorBase::getHandleYNode(void) const
+NodePtr ManipulatorBase::getHandleYNode(void) const
 {
     return _sfHandleYNode.getValue();
 }
 
 //! Set the value of the Manipulator::_sfHandleYNode field.
 inline
-void ManipulatorBase::setHandleYNode(NodePtrConstArg value)
+void ManipulatorBase::setHandleYNode(const NodePtr value)
 {
     editSField(HandleYNodeFieldMask);
 
@@ -260,14 +260,14 @@ void ManipulatorBase::setHandleYNode(NodePtrConstArg value)
 
 //! Get the value of the Manipulator::_sfHandleZNode field.
 inline
-NodePtrConst ManipulatorBase::getHandleZNode(void) const
+NodePtr ManipulatorBase::getHandleZNode(void) const
 {
     return _sfHandleZNode.getValue();
 }
 
 //! Set the value of the Manipulator::_sfHandleZNode field.
 inline
-void ManipulatorBase::setHandleZNode(NodePtrConstArg value)
+void ManipulatorBase::setHandleZNode(const NodePtr value)
 {
     editSField(HandleZNodeFieldMask);
 
@@ -277,14 +277,14 @@ void ManipulatorBase::setHandleZNode(NodePtrConstArg value)
 
 //! Get the value of the Manipulator::_sfTransXNode field.
 inline
-NodePtrConst ManipulatorBase::getTransXNode(void) const
+NodePtr ManipulatorBase::getTransXNode(void) const
 {
     return _sfTransXNode.getValue();
 }
 
 //! Set the value of the Manipulator::_sfTransXNode field.
 inline
-void ManipulatorBase::setTransXNode(NodePtrConstArg value)
+void ManipulatorBase::setTransXNode(const NodePtr value)
 {
     editSField(TransXNodeFieldMask);
 
@@ -294,14 +294,14 @@ void ManipulatorBase::setTransXNode(NodePtrConstArg value)
 
 //! Get the value of the Manipulator::_sfTransYNode field.
 inline
-NodePtrConst ManipulatorBase::getTransYNode(void) const
+NodePtr ManipulatorBase::getTransYNode(void) const
 {
     return _sfTransYNode.getValue();
 }
 
 //! Set the value of the Manipulator::_sfTransYNode field.
 inline
-void ManipulatorBase::setTransYNode(NodePtrConstArg value)
+void ManipulatorBase::setTransYNode(const NodePtr value)
 {
     editSField(TransYNodeFieldMask);
 
@@ -311,14 +311,14 @@ void ManipulatorBase::setTransYNode(NodePtrConstArg value)
 
 //! Get the value of the Manipulator::_sfTransZNode field.
 inline
-NodePtrConst ManipulatorBase::getTransZNode(void) const
+NodePtr ManipulatorBase::getTransZNode(void) const
 {
     return _sfTransZNode.getValue();
 }
 
 //! Set the value of the Manipulator::_sfTransZNode field.
 inline
-void ManipulatorBase::setTransZNode(NodePtrConstArg value)
+void ManipulatorBase::setTransZNode(const NodePtr value)
 {
     editSField(TransZNodeFieldMask);
 
@@ -328,14 +328,14 @@ void ManipulatorBase::setTransZNode(NodePtrConstArg value)
 
 //! Get the value of the Manipulator::_sfMaterialX field.
 inline
-MaterialPtrConst ManipulatorBase::getMaterialX(void) const
+MaterialPtr ManipulatorBase::getMaterialX(void) const
 {
     return _sfMaterialX.getValue();
 }
 
 //! Set the value of the Manipulator::_sfMaterialX field.
 inline
-void ManipulatorBase::setMaterialX(MaterialPtrConstArg value)
+void ManipulatorBase::setMaterialX(const MaterialPtr value)
 {
     editSField(MaterialXFieldMask);
 
@@ -345,14 +345,14 @@ void ManipulatorBase::setMaterialX(MaterialPtrConstArg value)
 
 //! Get the value of the Manipulator::_sfMaterialY field.
 inline
-MaterialPtrConst ManipulatorBase::getMaterialY(void) const
+MaterialPtr ManipulatorBase::getMaterialY(void) const
 {
     return _sfMaterialY.getValue();
 }
 
 //! Set the value of the Manipulator::_sfMaterialY field.
 inline
-void ManipulatorBase::setMaterialY(MaterialPtrConstArg value)
+void ManipulatorBase::setMaterialY(const MaterialPtr value)
 {
     editSField(MaterialYFieldMask);
 
@@ -362,14 +362,14 @@ void ManipulatorBase::setMaterialY(MaterialPtrConstArg value)
 
 //! Get the value of the Manipulator::_sfMaterialZ field.
 inline
-MaterialPtrConst ManipulatorBase::getMaterialZ(void) const
+MaterialPtr ManipulatorBase::getMaterialZ(void) const
 {
     return _sfMaterialZ.getValue();
 }
 
 //! Set the value of the Manipulator::_sfMaterialZ field.
 inline
-void ManipulatorBase::setMaterialZ(MaterialPtrConstArg value)
+void ManipulatorBase::setMaterialZ(const MaterialPtr value)
 {
     editSField(MaterialZFieldMask);
 
@@ -379,14 +379,14 @@ void ManipulatorBase::setMaterialZ(MaterialPtrConstArg value)
 
 //! Get the value of the Manipulator::_sfAxisLinesN field.
 inline
-NodePtrConst ManipulatorBase::getAxisLinesN(void) const
+NodePtr ManipulatorBase::getAxisLinesN(void) const
 {
     return _sfAxisLinesN.getValue();
 }
 
 //! Set the value of the Manipulator::_sfAxisLinesN field.
 inline
-void ManipulatorBase::setAxisLinesN(NodePtrConstArg value)
+void ManipulatorBase::setAxisLinesN(const NodePtr value)
 {
     editSField(AxisLinesNFieldMask);
 

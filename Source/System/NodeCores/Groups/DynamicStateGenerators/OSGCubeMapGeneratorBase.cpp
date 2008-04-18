@@ -565,7 +565,7 @@ const SFUnrecBackgroundPtr *CubeMapGeneratorBase::getSFBackground(void) const
 
 
 
-void CubeMapGeneratorBase::pushToExclude(NodePtrConstArg value)
+void CubeMapGeneratorBase::pushToExclude(const NodePtr value)
 {
     if(value == NullFC)
         return;
@@ -594,8 +594,8 @@ void CubeMapGeneratorBase::assignExclude  (const MFUnrecNodePtr    &value)
     }
 }
 
-void CubeMapGeneratorBase::insertIntoExclude(UInt32                uiIndex,
-                                                   NodePtrConstArg value   )
+void CubeMapGeneratorBase::insertIntoExclude(      UInt32         uiIndex,
+                                                   const NodePtr value   )
 {
     if(value == NullFC)
         return;
@@ -611,8 +611,8 @@ void CubeMapGeneratorBase::insertIntoExclude(UInt32                uiIndex,
     _mfExclude.insert(fieldIt, value);
 }
 
-void CubeMapGeneratorBase::replaceInExclude(UInt32                uiIndex,
-                                                       NodePtrConstArg value   )
+void CubeMapGeneratorBase::replaceInExclude(      UInt32         uiIndex,
+                                                       const NodePtr value   )
 {
     if(value == NullFC)
         return;
@@ -631,8 +631,8 @@ void CubeMapGeneratorBase::replaceInExclude(UInt32                uiIndex,
       _mfExclude.replace(uiIndex, value);
 }
 
-void CubeMapGeneratorBase::replaceInExclude(NodePtrConstArg pOldElem,
-                                                        NodePtrConstArg pNewElem)
+void CubeMapGeneratorBase::replaceInExclude(const NodePtr pOldElem,
+                                                        const NodePtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -670,7 +670,7 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
     }
 }
 
-void CubeMapGeneratorBase::removeFromExclude(NodePtrConstArg value)
+void CubeMapGeneratorBase::removeFromExclude(const NodePtr value)
 {
     Int32 iElemIdx = _mfExclude.findIndex(value);
 

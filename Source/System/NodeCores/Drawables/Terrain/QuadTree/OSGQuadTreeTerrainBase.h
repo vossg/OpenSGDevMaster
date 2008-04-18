@@ -322,7 +322,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
             const SFBool              *getSFPerPixelLighting (void) const;
 
 
-                  ImagePtrConst getHeightData     (void) const;
+                  ImagePtr getHeightData     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getHeightScale     (void);
@@ -437,7 +437,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setHeightData     (ImagePtrConstArg value);
+            void setHeightData     (const ImagePtr value);
             void setHeightScale    (const Real32 &value);
             void setDetail         (const Real32 &value);
             void setBorderDetail   (const Int32 &value);
@@ -667,7 +667,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
                   UInt32              &editLevel          (void);
             const UInt32              &getLevel           (void) const;
 
-                  GeoVectorPropertyPtrConst getHeightVertices (void) const;
+                  GeoVectorPropertyPtr getHeightVertices (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt3f               &getBoundMin        (void);
@@ -694,7 +694,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
 
             void setWidth          (const UInt32 &value);
             void setLevel          (const UInt32 &value);
-            void setHeightVertices (GeoVectorPropertyPtrConstArg value);
+            void setHeightVertices (const GeoVectorPropertyPtr value);
             void setBoundMin       (const Pnt3f &value);
             void setBoundMax       (const Pnt3f &value);
             void setEyeHeight      (const Real32 &value);

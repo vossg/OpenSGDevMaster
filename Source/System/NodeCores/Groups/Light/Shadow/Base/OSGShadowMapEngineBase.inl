@@ -76,14 +76,14 @@ OSG::UInt16 ShadowMapEngineBase::getClassGroupId(void)
 
 //! Get the value of the ShadowMapEngine::_sfRenderTarget field.
 inline
-FrameBufferObjectPtrConst ShadowMapEngineBase::getRenderTarget(void) const
+FrameBufferObjectPtr ShadowMapEngineBase::getRenderTarget(void) const
 {
     return _sfRenderTarget.getValue();
 }
 
 //! Set the value of the ShadowMapEngine::_sfRenderTarget field.
 inline
-void ShadowMapEngineBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
+void ShadowMapEngineBase::setRenderTarget(const FrameBufferObjectPtr value)
 {
     editSField(RenderTargetFieldMask);
 

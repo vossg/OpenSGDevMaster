@@ -211,14 +211,14 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
             const SFUnrecFrameBufferObjectPtr *getSFRenderTarget    (void) const;
 
 
-                  FrameBufferObjectPtrConst getRenderTarget   (void) const;
+                  FrameBufferObjectPtr getRenderTarget   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRenderTarget   (FrameBufferObjectPtrConstArg value);
+            void setRenderTarget   (const FrameBufferObjectPtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

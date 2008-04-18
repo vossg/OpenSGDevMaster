@@ -257,7 +257,7 @@ SFBool              *SortLastWindowBase::getSFGroupsChanged  (void)
 
 
 
-void SortLastWindowBase::pushToGroupNodes(NodePtrConstArg value)
+void SortLastWindowBase::pushToGroupNodes(const NodePtr value)
 {
     if(value == NullFC)
         return;
@@ -286,8 +286,8 @@ void SortLastWindowBase::assignGroupNodes(const MFUnrecNodePtr    &value)
     }
 }
 
-void SortLastWindowBase::insertIntoGroupNodes(UInt32                uiIndex,
-                                                   NodePtrConstArg value   )
+void SortLastWindowBase::insertIntoGroupNodes(      UInt32         uiIndex,
+                                                   const NodePtr value   )
 {
     if(value == NullFC)
         return;
@@ -303,8 +303,8 @@ void SortLastWindowBase::insertIntoGroupNodes(UInt32                uiIndex,
     _mfGroupNodes.insert(fieldIt, value);
 }
 
-void SortLastWindowBase::replaceInGroupNodes(UInt32                uiIndex,
-                                                       NodePtrConstArg value   )
+void SortLastWindowBase::replaceInGroupNodes(      UInt32         uiIndex,
+                                                       const NodePtr value   )
 {
     if(value == NullFC)
         return;
@@ -323,8 +323,8 @@ void SortLastWindowBase::replaceInGroupNodes(UInt32                uiIndex,
       _mfGroupNodes.replace(uiIndex, value);
 }
 
-void SortLastWindowBase::replaceInGroupNodes(NodePtrConstArg pOldElem,
-                                                        NodePtrConstArg pNewElem)
+void SortLastWindowBase::replaceInGroupNodes(const NodePtr pOldElem,
+                                                        const NodePtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -362,7 +362,7 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
     }
 }
 
-void SortLastWindowBase::removeFromGroupNodes(NodePtrConstArg value)
+void SortLastWindowBase::removeFromGroupNodes(const NodePtr value)
 {
     Int32 iElemIdx = _mfGroupNodes.findIndex(value);
 

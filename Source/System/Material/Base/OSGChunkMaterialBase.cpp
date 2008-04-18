@@ -236,7 +236,7 @@ MFInt32             *ChunkMaterialBase::getMFSlots          (void)
 
 
 
-void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
+void ChunkMaterialBase::pushToChunks(const StateChunkPtr value)
 {
     if(value == NullFC)
         return;
@@ -265,8 +265,8 @@ void ChunkMaterialBase::assignChunks   (const MFUnrecStateChunkPtr &value)
     }
 }
 
-void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
-                                                   StateChunkPtrConstArg value   )
+void ChunkMaterialBase::insertIntoChunks(      UInt32         uiIndex,
+                                                   const StateChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -282,8 +282,8 @@ void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
     _mfChunks.insert(fieldIt, value);
 }
 
-void ChunkMaterialBase::replaceInChunks(UInt32                uiIndex,
-                                                       StateChunkPtrConstArg value   )
+void ChunkMaterialBase::replaceInChunks(      UInt32         uiIndex,
+                                                       const StateChunkPtr value   )
 {
     if(value == NullFC)
         return;
@@ -302,8 +302,8 @@ void ChunkMaterialBase::replaceInChunks(UInt32                uiIndex,
       _mfChunks.replace(uiIndex, value);
 }
 
-void ChunkMaterialBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
-                                                        StateChunkPtrConstArg pNewElem)
+void ChunkMaterialBase::replaceInChunks(const StateChunkPtr pOldElem,
+                                                        const StateChunkPtr pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -341,7 +341,7 @@ void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
     }
 }
 
-void ChunkMaterialBase::removeFromChunks(StateChunkPtrConstArg value)
+void ChunkMaterialBase::removeFromChunks(const StateChunkPtr value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 

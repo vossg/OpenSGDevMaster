@@ -76,14 +76,14 @@ OSG::UInt16 VisitSubTreeBase::getClassGroupId(void)
 
 //! Get the value of the VisitSubTree::_sfSubTreeRoot field.
 inline
-NodePtrConst VisitSubTreeBase::getSubTreeRoot(void) const
+NodePtr VisitSubTreeBase::getSubTreeRoot(void) const
 {
     return _sfSubTreeRoot.getValue();
 }
 
 //! Set the value of the VisitSubTree::_sfSubTreeRoot field.
 inline
-void VisitSubTreeBase::setSubTreeRoot(NodePtrConstArg value)
+void VisitSubTreeBase::setSubTreeRoot(const NodePtr value)
 {
     editSField(SubTreeRootFieldMask);
 

@@ -109,7 +109,7 @@ void ContainerPoolBase::setName(const std::string &value)
 
 //! Get the value of the \a index element the ContainerPool::_mfContainers field.
 inline
-FieldContainerPtrConst ContainerPoolBase::getContainers(const UInt32 index) const
+FieldContainerPtr ContainerPoolBase::getContainers(const UInt32 index) const
 {
     return _mfContainers[index];
 }

@@ -212,11 +212,11 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
             const SFUnrecNodePtr      *getSFAxisLinesN      (void) const;
 
 
-                  NodePtrConst getTarget         (void) const;
+                  NodePtr getTarget         (void) const;
 
-                  NodePtrConst getActiveSubHandle(void) const;
+                  NodePtr getActiveSubHandle(void) const;
 
-                  ViewportPtrConst getViewport       (void) const;
+                  ViewportPtr getViewport       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getActive          (void);
@@ -230,46 +230,46 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
                   Vec3f               &editLength         (void);
             const Vec3f               &getLength          (void) const;
 
-                  NodePtrConst getHandleXNode    (void) const;
+                  NodePtr getHandleXNode    (void) const;
 
-                  NodePtrConst getHandleYNode    (void) const;
+                  NodePtr getHandleYNode    (void) const;
 
-                  NodePtrConst getHandleZNode    (void) const;
+                  NodePtr getHandleZNode    (void) const;
 
-                  NodePtrConst getTransXNode     (void) const;
+                  NodePtr getTransXNode     (void) const;
 
-                  NodePtrConst getTransYNode     (void) const;
+                  NodePtr getTransYNode     (void) const;
 
-                  NodePtrConst getTransZNode     (void) const;
+                  NodePtr getTransZNode     (void) const;
 
-                  MaterialPtrConst getMaterialX      (void) const;
+                  MaterialPtr getMaterialX      (void) const;
 
-                  MaterialPtrConst getMaterialY      (void) const;
+                  MaterialPtr getMaterialY      (void) const;
 
-                  MaterialPtrConst getMaterialZ      (void) const;
+                  MaterialPtr getMaterialZ      (void) const;
 
-                  NodePtrConst getAxisLinesN     (void) const;
+                  NodePtr getAxisLinesN     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTarget         (NodePtrConstArg value);
-            void setActiveSubHandle(NodePtrConstArg value);
-            void setViewport       (ViewportPtrConstArg value);
+            void setTarget         (const NodePtr value);
+            void setActiveSubHandle(const NodePtr value);
+            void setViewport       (const ViewportPtr value);
             void setActive         (const bool &value);
             void setLength         (const Vec3f &value);
-            void setHandleXNode    (NodePtrConstArg value);
-            void setHandleYNode    (NodePtrConstArg value);
-            void setHandleZNode    (NodePtrConstArg value);
-            void setTransXNode     (NodePtrConstArg value);
-            void setTransYNode     (NodePtrConstArg value);
-            void setTransZNode     (NodePtrConstArg value);
-            void setMaterialX      (MaterialPtrConstArg value);
-            void setMaterialY      (MaterialPtrConstArg value);
-            void setMaterialZ      (MaterialPtrConstArg value);
-            void setAxisLinesN     (NodePtrConstArg value);
+            void setHandleXNode    (const NodePtr value);
+            void setHandleYNode    (const NodePtr value);
+            void setHandleZNode    (const NodePtr value);
+            void setTransXNode     (const NodePtr value);
+            void setTransYNode     (const NodePtr value);
+            void setTransZNode     (const NodePtr value);
+            void setMaterialX      (const MaterialPtr value);
+            void setMaterialY      (const MaterialPtr value);
+            void setMaterialZ      (const MaterialPtr value);
+            void setAxisLinesN     (const NodePtr value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

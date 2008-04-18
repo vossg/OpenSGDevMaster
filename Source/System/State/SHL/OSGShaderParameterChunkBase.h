@@ -128,7 +128,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
             const MFUnrecChildShaderParameterPtr *getMFParameters      (void) const;
 
 
-                  ShaderParameterPtrConst getParameters     (const UInt32 index) const;
+                  ShaderParameterPtr getParameters     (const UInt32 index) const;
             const MFUnrecChildShaderParameterPtr &getParameters     (void) const;
 
     /*! \}                                                                 */
@@ -147,16 +147,16 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addParameter              (ShaderParameterPtrConstArg value   );
+    void addParameter              (const ShaderParameterPtr value   );
     void assignParameters           (const MFUnrecChildShaderParameterPtr &value);
-    void insertParameter      (UInt32                uiIndex,
-                                             ShaderParameterPtrConstArg value   );
-    void replaceParameter  (UInt32                uiIndex,
-                                             ShaderParameterPtrConstArg value   );
-    void replaceParameterBy (ShaderParameterPtrConstArg pOldElem,
-                                             ShaderParameterPtrConstArg pNewElem);
+    void insertParameter      (      UInt32         uiIndex,
+                                             const ShaderParameterPtr value   );
+    void replaceParameter  (      UInt32         uiIndex,
+                                             const ShaderParameterPtr value   );
+    void replaceParameterBy (const ShaderParameterPtr pOldElem,
+                                             const ShaderParameterPtr pNewElem);
     void subParameter    (UInt32                uiIndex );
-    void subParameter   (ShaderParameterPtrConstArg value   );
+    void subParameter   (const ShaderParameterPtr value   );
     void clearParameters            (void                          );
 
 
