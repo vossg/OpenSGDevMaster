@@ -97,8 +97,8 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecNodePtr::Description(
-        SFUnrecNodePtr::getClassType(),
+    pDesc = new SFWeakNodePtr::Description(
+        SFWeakNodePtr::getClassType(),
         "subTreeRoot",
         "Reference to the sub-graph to draw in place of this node.\n"
         "Whatever node is pointed to will be drawn here as if it was duplicated\n"
@@ -144,7 +144,8 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     "without duplicating the nodes.\n"
     "        <Field\n"
     "                name=\"subTreeRoot\"\n"
-    "                type=\"NodePtr\"\n"
+    "                type=\"Node\"\n"
+    "                category=\"weakpointer\"\n"
     "                cardinality=\"single\"\n"
     "                visibility=\"external\"\n"
     "                defaultValue=\"NullFC\"\n"
@@ -182,7 +183,7 @@ UInt32 VisitSubTreeBase::getContainerSize(void) const
 
 
 //! Get the VisitSubTree::_sfSubTreeRoot field.
-const SFUnrecNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
+const SFWeakNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
 {
     return &_sfSubTreeRoot;
 }
@@ -348,8 +349,8 @@ void VisitSubTreeBase::onCreate(const VisitSubTree *source)
 
 GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void) const
 {
-    SFUnrecNodePtr::GetHandlePtr returnValue(
-        new  SFUnrecNodePtr::GetHandle(
+    SFWeakNodePtr::GetHandlePtr returnValue(
+        new  SFWeakNodePtr::GetHandle(
              &_sfSubTreeRoot, 
              this->getType().getFieldDesc(SubTreeRootFieldId)));
 
@@ -358,8 +359,8 @@ GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void) const
 
 EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
 {
-    SFUnrecNodePtr::EditHandlePtr returnValue(
-        new  SFUnrecNodePtr::EditHandle(
+    SFWeakNodePtr::EditHandlePtr returnValue(
+        new  SFWeakNodePtr::EditHandle(
              &_sfSubTreeRoot, 
              this->getType().getFieldDesc(SubTreeRootFieldId)));
 

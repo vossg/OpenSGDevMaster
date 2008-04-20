@@ -18,7 +18,8 @@ OSG::Stage because it provides a way to render the same graph multiple times
 without duplicating the nodes.
         <Field
                 name="subTreeRoot"
-                type="NodePtr"
+                type="Node"
+                category="weakpointer"
                 cardinality="single"
                 visibility="external"
                 defaultValue="NullFC"

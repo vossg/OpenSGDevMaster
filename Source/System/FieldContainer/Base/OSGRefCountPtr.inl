@@ -68,7 +68,9 @@ template <class ObjectT,
           class RefCountPolicyT>
 template <class OtherObjectT   > inline
 RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(
-    TransitPtr<OtherObjectT> const &other)
+    TransitPtr<OtherObjectT> const &other) :
+
+    _pObj(NULL)
 {
     RefCountPolicy::convertTransitPtr(_pObj, other._pObj);
 }
@@ -77,7 +79,9 @@ RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(
 template <class ObjectT, 
           class RefCountPolicyT> inline
 RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(
-    ObjectTransitPtr const &other)
+    ObjectTransitPtr const &other) :
+
+    _pObj(NULL)
 {
     RefCountPolicy::convertTransitPtr(_pObj, other._pObj);
 }
@@ -194,4 +198,23 @@ void RefCountPtr<ObjectT, RefCountPolicyT>::set(const ObjectPtr objectPtr)
         RefCountPolicy::setRefd(_pObj, objectPtr);
 }
 
+
+template <class TargetObjectT, class SourceObjectT, class RP> inline
+RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
+    RefCountPtr<SourceObjectT, RP> const &source)
+{
+    TargetObjectT *pRet = dynamic_cast<TargetObjectT *>(source.get());
+
+    return RefCountPtr<TargetObjectT, RP>(pRet);
+}
+ 
+template <class TargetObjectT, class SourceObjectT, class RP> inline
+RefCountPtr<TargetObjectT, RP> static_pointer_cast(
+    RefCountPtr<SourceObjectT, RP> const &source)
+{
+    TargetObjectT *pRet = static_cast<TargetObjectT *>(source.get());
+
+    return RefCountPtr<TargetObjectT, RP>(pRet);
+}
+  
 OSG_END_NAMESPACE

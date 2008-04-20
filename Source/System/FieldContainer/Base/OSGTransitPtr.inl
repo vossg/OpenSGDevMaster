@@ -158,5 +158,36 @@ bool TransitPtr<ObjectT>::operator !=(const FieldContainerCPtr rhs)
     return !(*this == rhs);
 }
 
+template<class ObjectT> 
+template<class SourceObjectT> inline
+void TransitPtr<ObjectT>::dynamic_cast_set(
+    TransitPtr<SourceObjectT> const &source)
+{
+    ObjectPtr pObj = dynamic_cast<ObjectPtr>(source._pObj);
+    
+    if(pObj != NULL)
+    {
+        _pObj = pObj;
+        
+        source._pObj = NULL;
+    }
+}
+
+template<class ObjectT> 
+template<class SourceObjectT> inline
+void TransitPtr<ObjectT>::static_cast_set(
+    TransitPtr<SourceObjectT> const &source)
+{
+    ObjectPtr pObj = static_cast<ObjectPtr>(source._pObj);
+    
+    if(pObj != NULL)
+    {
+        _pObj = pObj;
+        
+        source._pObj = NULL;
+    }
+}
+
+
 OSG_END_NAMESPACE
 

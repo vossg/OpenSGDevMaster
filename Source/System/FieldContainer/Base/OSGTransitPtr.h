@@ -59,6 +59,14 @@ template <class ObjectT,
           class RefCountPolicyT>
 class RefCountPtr;
 
+template <class TargetObjectT, class SourceObjectT> inline
+TransitPtr<TargetObjectT> dynamic_pointer_cast(
+    TransitPtr<SourceObjectT> const &source);
+
+template <class TargetObjectT, class SourceObjectT> inline
+TransitPtr<TargetObjectT> static_pointer_cast(
+    TransitPtr<SourceObjectT> const &source);
+
 template <class ObjectT>
 class TransitPtr
 {
@@ -143,19 +151,6 @@ class TransitPtr
     }
 #endif
 
-    template<class SourceObjectT>
-    void dynamic_cast_set(TransitPtr<SourceObjectT> const &source)
-    {
-        ObjectPtr pObj = dynamic_cast<ObjectPtr>(source._pObj);
-
-        if(pObj != NULL)
-        {
-            _pObj = pObj;
-
-            source._pObj = NULL;
-        }
-    }
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -171,12 +166,31 @@ class TransitPtr
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    template<class SourceObjectT>
+    void dynamic_cast_set(TransitPtr<SourceObjectT> const &source);
+
+    template<class SourceObjectT>
+    void static_cast_set (TransitPtr<SourceObjectT> const &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
   private:
 
     /*---------------------------------------------------------------------*/
     /*! \name Internal Helpers                                             */
     /*! \{                                                                 */
+
+    template <class TargetObjectT, class SourceObjectT> 
+    friend TransitPtr<TargetObjectT> dynamic_pointer_cast(
+        TransitPtr<SourceObjectT> const &source);
+
+    template <class TargetObjectT, class SourceObjectT> 
+    friend TransitPtr<TargetObjectT> static_pointer_cast(
+        TransitPtr<SourceObjectT> const &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -180,12 +180,11 @@ class RefCountPtr
        
 template <class TargetObjectT, class SourceObjectT, class RP> inline
 RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
-    RefCountPtr<SourceObjectT, RP> const &source)
-{
-    TargetObjectT *pRet = dynamic_cast<TargetObjectT *>(source.get());
-
-    return RefCountPtr<TargetObjectT, RP>(pRet);
-}
+    RefCountPtr<SourceObjectT, RP> const &source);
+ 
+template <class TargetObjectT, class SourceObjectT, class RP> inline
+RefCountPtr<TargetObjectT, RP> static_pointer_cast(
+    RefCountPtr<SourceObjectT, RP> const &source);
   
 OSG_END_NAMESPACE
 

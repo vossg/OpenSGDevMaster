@@ -86,6 +86,8 @@ struct RecordedRefCountPolicy
     template<class T, class U>
     static void convertTransitPtr(T *&pOut, U *&pIn)
     {
+        RecordedRefCountPolicy::subRef(pOut);
+
         pOut = pIn;
         pIn  = NULL;
 
@@ -149,6 +151,8 @@ struct UnrecordedRefCountPolicy
     template<class T, class U>
     static void convertTransitPtr(T *&pOut, U *&pIn)
     {
+        UnrecordedRefCountPolicy::subRef(pOut);
+
         pOut = pIn;
         pIn  = NULL;
     } 

@@ -112,7 +112,25 @@ void FieldContainer::addReferenceX(void)
 inline
 void FieldContainer::addReferenceUnrecordedX(void)
 {
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+    FINFO(("FieldContainer::addReferenceUnrec [%p] [%d] [%s] START - [%d %d]\n",
+           this, 
+           this->getId(), 
+           this->getType().getCName(),
+           this->_iRefCount, 
+           this->_iWeakRefCount));
+#endif
+
     ++_iRefCount;
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+    FINFO(("FieldContainer::addReferenceUnrec [%p] [%d] [%s] STOP - [%d %d]\n",
+           this, 
+           this->getId(), 
+           this->getType().getCName(),
+           this->_iRefCount, 
+           this->_iWeakRefCount));
+#endif
     
 //    Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
 }
@@ -128,18 +146,7 @@ void FieldContainer::subReferenceX(void)
            this->_iWeakRefCount));
 #endif
 
-    --_iRefCount;
-
-#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
-    FINFO(("FieldContainer::subReference [%p] [%d] [%s] STOP - [%d %d]\n",
-           this, 
-           this->getId(), 
-           this->getType().getCName(),
-           this->_iRefCount, 
-           this->_iWeakRefCount));
-#endif
-
-    if(_iRefCount <= 0 && _iWeakRefCount <= 0)
+    if(_iRefCount <= 1)
     {
         Thread::getCurrentChangeList()->incSubRefLevel();
 
@@ -149,28 +156,58 @@ void FieldContainer::subReferenceX(void)
 
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
-#ifdef OSG_MT_CPTR_ASPECT
-        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
-
-        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
-
-        if(_pAspectStore->getRefCount() == 1)
+        if(_iWeakRefCount <= 0)
         {
-            this->deregister(Inherited::getId());
-            this->onDestroy (Inherited::getId());
-        }
+#ifdef OSG_MT_CPTR_ASPECT
+            this->onDestroyAspect(Inherited::getId(), 
+                                  Thread::getCurrentAspect());
 
-        OSG::subRef(_pAspectStore);
+            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+            if(_pAspectStore->getRefCount() == 1)
+            {
+                this->deregister(Inherited::getId());
+                this->onDestroy (Inherited::getId());
+            }
+
+            OSG::subRef(_pAspectStore);
 #else
-        this->deregister     (Inherited::getId()   );
-        this->onDestroyAspect(Inherited::getId(), 0);
-        this->onDestroy      (Inherited::getId()   );
+            this->deregister     (Inherited::getId()   );
+            this->onDestroyAspect(Inherited::getId(), 0);
+            this->onDestroy      (Inherited::getId()   );
 #endif
+            
+            delete this;
+        }
+        else
+        {
+            --_iRefCount;
 
-        delete this;
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+            FINFO(
+                ("FieldContainer::subReference [%p] [%d] [%s] STOP A [%d %d]\n",
+                 this, 
+                 this->getId(), 
+                 this->getType().getCName(),
+                 this->_iRefCount, 
+                 this->_iWeakRefCount));
+#endif
+        }
     }
     else
     {
+        --_iRefCount;
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+        FINFO(
+            ("FieldContainer::subReference [%p] [%d] [%s] STOP B [%d %d]\n",
+             this, 
+             this->getId(), 
+             this->getType().getCName(),
+             this->_iRefCount, 
+             this->_iWeakRefCount));
+#endif
+
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
     }
 
@@ -180,7 +217,7 @@ inline
 void FieldContainer::subReferenceUnrecordedX(void)
 {
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
-    FINFO(("FieldContainer::subReference [%p] [%d] [%s] START - [%d %d]\n",
+    FINFO(("FieldContainer::subReferenceUnrec [%p] [%d] [%s] START - [%d %d]\n",
            this, 
            this->getId(), 
            this->getType().getCName(),
@@ -188,18 +225,7 @@ void FieldContainer::subReferenceUnrecordedX(void)
            this->_iWeakRefCount));
 #endif
 
-    --_iRefCount;
-
-#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
-    FINFO(("FieldContainer::subReference [%p] [%d] [%s] STOP - [%d %d]\n",
-           this, 
-           this->getId(), 
-           this->getType().getCName(),
-           this->_iRefCount, 
-           this->_iWeakRefCount));
-#endif
-
-    if(_iRefCount <= 0 && _iWeakRefCount <= 0)
+    if(_iRefCount <= 1)
     {
 //      Thread::getCurrentChangeList()->incSubRefLevel();
 
@@ -209,28 +235,58 @@ void FieldContainer::subReferenceUnrecordedX(void)
 
 //        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
-#ifdef OSG_MT_CPTR_ASPECT
-        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
-
-        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
-
-        if(_pAspectStore->getRefCount() == 1)
+        if(_iWeakRefCount <= 0)
         {
-            this->deregister(Inherited::getId());
-            this->onDestroy (Inherited::getId());
-        }
+#ifdef OSG_MT_CPTR_ASPECT
+            this->onDestroyAspect(Inherited::getId(), 
+                                  Thread::getCurrentAspect());
 
-        OSG::subRef(_pAspectStore);
+            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+            
+            if(_pAspectStore->getRefCount() == 1)
+            {
+                this->deregister(Inherited::getId());
+                this->onDestroy (Inherited::getId());
+            }
+            
+            OSG::subRef(_pAspectStore);
 #else
-        this->deregister     (Inherited::getId()   );
-        this->onDestroyAspect(Inherited::getId(), 0);
-        this->onDestroy      (Inherited::getId()   );
+            this->deregister     (Inherited::getId()   );
+            this->onDestroyAspect(Inherited::getId(), 0);
+            this->onDestroy      (Inherited::getId()   );
 #endif
 
-        delete this;
+            delete this;
+        }
+        else
+        {
+            --_iRefCount;
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+            FINFO(
+                ("FieldContainer::subReferenceUnrec [%p] [%d] [%s] "
+                 "STOP A [%d %d]\n",
+                 this, 
+                 this->getId(), 
+                 this->getType().getCName(),
+                 this->_iRefCount, 
+                 this->_iWeakRefCount));
+#endif
+        }
     }
     else
     {
+        --_iRefCount;
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+        FINFO(("FieldContainer::subReferenceUnrec [%p] [%d] [%s] "
+               "STOP - [%d %d]\n",
+               this, 
+               this->getId(), 
+               this->getType().getCName(),
+               this->_iRefCount, 
+               this->_iWeakRefCount));
+#endif
 //        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
     }
 

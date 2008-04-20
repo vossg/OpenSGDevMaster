@@ -217,6 +217,9 @@ void key(unsigned char key, int x, int y)
     switch ( key )
     {
         case 27:    
+
+            fprintf(stderr, "Start Destruction\n\n");
+
             delete rentravact;
 
             hdrroot = NullFC;
@@ -385,6 +388,11 @@ int doMain (int argc, char **argv)
     NodeUnrecPtr  b1n = Node::create();
     GroupUnrecPtr b1  = Group::create();
 
+    fprintf(stderr, "Create b1n %p %d %d \n",
+            b1n.get(),
+            b1n->getRefCount(),
+            b1n->getWeakRefCount());
+
     b1n->setCore( b1 );
 
     // transformation
@@ -393,6 +401,11 @@ int doMain (int argc, char **argv)
 
     t1n->setCore (t1 );
     t1n->addChild(b1n);
+
+    fprintf(stderr, "Create t1n %p %d %d \n",
+            t1n.get(),
+            t1n->getRefCount(),
+            t1n->getWeakRefCount());
 
     cam_trans = t1;
 
@@ -410,6 +423,10 @@ int doMain (int argc, char **argv)
         dl->setBeacon( b1n);
     }
 
+    fprintf(stderr, "Create dlight %p %d %d \n",
+            dlight.get(),
+            dlight->getRefCount(),
+            dlight->getWeakRefCount());
 
     hdrroot = Node::create();
 
@@ -423,6 +440,11 @@ int doMain (int argc, char **argv)
 
     hdrroot->setCore (pHDR   );
 
+    fprintf(stderr, "Create hdrroot %p %d %d \n",
+            hdrroot.get(),
+            hdrroot->getRefCount(),
+            hdrroot->getWeakRefCount());
+
     // root
     root         = Node:: create();
 
@@ -435,6 +457,11 @@ int doMain (int argc, char **argv)
 
     root->addChild(t1n   );
     root->addChild(dlight);
+
+    fprintf(stderr, "Create root %p %d %d \n",
+            root.get(),
+            root->getRefCount(),
+            root->getWeakRefCount());
 
     // Load the file
 
@@ -580,13 +607,47 @@ int doMain (int argc, char **argv)
     tball.setTranslationScale(scale               );
     tball.setRotationCenter  (tCenter             );
 
-    
+    fprintf(stderr, "Create b1n %p %d %d \n",
+            b1n.get(),
+            b1n->getRefCount(),
+            b1n->getWeakRefCount());
+
+    fprintf(stderr, "Create t1n %p %d %d \n",
+            t1n.get(),
+            t1n->getRefCount(),
+            t1n->getWeakRefCount());
+
+    fprintf(stderr, "Create dlight %p %d %d \n",
+            dlight.get(),
+            dlight->getRefCount(),
+            dlight->getWeakRefCount());
+
+    fprintf(stderr, "Create hdrroot %p %d %d \n",
+            hdrroot.get(),
+            hdrroot->getRefCount(),
+            hdrroot->getWeakRefCount());
+
+    fprintf(stderr, "Create root %p %d %d \n",
+            root.get(),
+            root->getRefCount(),
+            root->getWeakRefCount());
+
     return 0;
 }
 
 int main (int argc, char **argv)
 {
     doMain(argc, argv);
+
+    fprintf(stderr, "Create hdrroot %p %d %d \n",
+            hdrroot.get(),
+            hdrroot->getRefCount(),
+            hdrroot->getWeakRefCount());
+
+    fprintf(stderr, "Create root %p %d %d \n",
+            root.get(),
+            root->getRefCount(),
+            root->getWeakRefCount());
 
     // run...
     glutMainLoop();
