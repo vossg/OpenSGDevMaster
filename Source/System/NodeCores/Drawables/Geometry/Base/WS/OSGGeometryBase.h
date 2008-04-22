@@ -429,6 +429,9 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 typedef GeometryBase *GeometryBaseP;
 
+typedef CoredNodeRefPtr  <Geometry> GeometryNodeRefPtr;
+typedef CoredNodeMTRefPtr<Geometry> GeometryNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGGEOMETRYBASE_H_ */

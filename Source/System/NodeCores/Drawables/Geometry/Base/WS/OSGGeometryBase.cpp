@@ -237,6 +237,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
     ">\n"
     "\t<Field\n"
     "\t\tname=\"types\"\n"
