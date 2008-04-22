@@ -8,14 +8,14 @@ OSG_BEGIN_NAMESPACE
 
 struct TestAttDesc
 {
-    typedef OSG::FieldContainerAttachment    Parent;
-    typedef OSG::FieldContainerAttachmentPtr ParentPtr;
+    typedef OSG::Attachment    Parent;
+    typedef OSG::AttachmentPtr ParentPtr;
     
     // TODO rename it to VRMLGenericAtt ????
     static const OSG::Char8 *getTypeName        (void) { return "TestAtt";    }
     static const OSG::Char8 *getParentTypeName  (void) 
     {
-        return "FieldContainerAttachment"; 
+        return "Attachment"; 
     }
     static const OSG::Char8 *getGroupName       (void) { return "TestGenAtt"; }
     
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
 
 //    CHECK(pFI != NULL);
 
-    OSG::FieldContainerAttachment::getClassType().dump();
+    OSG::Attachment::getClassType().dump();
     OSG::TestAtt::getClassType().dump();
     tp->getType().dump();
 

@@ -46,7 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGAttachmentContainer.h"
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 #include "OSGTypeBasePredicates.h"
 #include "OSGReflexiveContainerTypePredicates.h"
 
@@ -177,7 +177,7 @@ void AttachmentContainer::addAttachment(
 
     pAttachment->linkParent(this, 
                             AttachmentsFieldId, 
-                            FieldContainerAttachment::ParentsFieldId);
+                            Attachment::ParentsFieldId);
 
     Self::editSField(AttachmentsFieldMask);
 
@@ -186,7 +186,7 @@ void AttachmentContainer::addAttachment(
     if(fcI != _sfAttachments.getValue().end())
     {
         (*fcI).second->unlinkParent(this, 
-                                    FieldContainerAttachment::ParentsFieldId);
+                                    Attachment::ParentsFieldId);
 
         (*fcI).second->subReferenceUnrecordedX();
 
@@ -229,7 +229,7 @@ void AttachmentContainer::subAttachment(
     if(fcI != _sfAttachments.getValue().end())
     {
         (*fcI).second->unlinkParent(this, 
-                                    FieldContainerAttachment::ParentsFieldId);
+                                    Attachment::ParentsFieldId);
 
         (*fcI).second->subReferenceUnrecordedX();
 
@@ -289,7 +289,7 @@ void AttachmentContainer::resolveLinks(void)
     while(fcI != fcE)
     {
         (*fcI).second->unlinkParent(this, 
-                                    FieldContainerAttachment::ParentsFieldId);
+                                    Attachment::ParentsFieldId);
 
         (*fcI).second->subReferenceUnrecordedX();
 
@@ -457,20 +457,17 @@ void cloneAttachments(
     fDesc->shareValuesV(srcField, fieldId, dst, cloneTypes,    ignoreTypes,
                                                 cloneGroupIds, ignoreGroupIds);
 #else
-    const SFFieldContainerAttachmentPtrMap *pAttMap =
+    const SFAttachmentPtrMap *pAttMap =
         src->getSFAttachments();
 
-    FieldContainerAttachmentMap::const_iterator mapIt  =
-        pAttMap->getValue().begin();
-
-    FieldContainerAttachmentMap::const_iterator mapEnd =
-        pAttMap->getValue().end();
+    AttachmentMap::const_iterator mapIt  = pAttMap->getValue().begin();
+    AttachmentMap::const_iterator mapEnd = pAttMap->getValue().end();
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentUnrecPtr att       = mapIt->second;
-        UInt16                           uiBinding = UInt16(mapIt->first &
-                                                            0x0000FFFF    );
+        AttachmentUnrecPtr att       = mapIt->second;
+        UInt16             uiBinding = UInt16(mapIt->first &
+                                              0x0000FFFF    );
 
         if(att != NullFC)
         {
@@ -492,7 +489,7 @@ void cloneAttachments(
                                                    cloneTypes.end(),
                                                    attType               )   )
                 {
-                    att = dynamic_pointer_cast<FieldContainerAttachment>(
+                    att = dynamic_pointer_cast<Attachment>(
                         OSG::deepClone(att, cloneTypes,    ignoreTypes,
                                             cloneGroupIds, ignoreGroupIds));
                 }
@@ -629,20 +626,17 @@ void deepCloneAttachments(
     fDesc->cloneValuesV(srcField, fieldId, dst, shareTypes,    ignoreTypes,
                                                 shareGroupIds, ignoreGroupIds);
 #else
-    const SFFieldContainerAttachmentPtrMap *pAttMap =
+    const SFAttachmentPtrMap *pAttMap =
         src->getSFAttachments();
 
-    FieldContainerAttachmentMap::const_iterator mapIt  =
-        pAttMap->getValue().begin();
-
-    FieldContainerAttachmentMap::const_iterator mapEnd =
-        pAttMap->getValue().end();
+    AttachmentMap::const_iterator mapIt  = pAttMap->getValue().begin();
+    AttachmentMap::const_iterator mapEnd = pAttMap->getValue().end();
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentUnrecPtr att       = mapIt->second;
-        UInt16                           uiBinding = UInt16(mapIt->first &
-                                                            0x0000FFFF    );
+        AttachmentUnrecPtr att       = mapIt->second;
+        UInt16             uiBinding = UInt16(mapIt->first &
+                                              0x0000FFFF    );
 
         if(att != NullFC)
         {
@@ -664,7 +658,7 @@ void deepCloneAttachments(
                                                     shareTypes.end(),
                                                     attType               )   )
                 {
-                    att = dynamic_pointer_cast<FieldContainerAttachment>(
+                    att = dynamic_pointer_cast<Attachment>(
                         OSG::deepClone(att, shareTypes,    ignoreTypes,
                                             shareGroupIds, ignoreGroupIds));
                 }

@@ -44,7 +44,7 @@
 //#include "OSGVRMLNodeDescs.h"
 
 #include <OSGAttachmentMapSFields.h>
-#include <OSGFieldContainerAttachment.h>
+#include <OSGAttachment.h>
 
 OSG_USING_NAMESPACE
 
@@ -233,9 +233,9 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
 
     const FieldType &fType       = hF->getType();
 
-    SFFieldContainerAttachmentPtrMap::GetHandlePtr sfAttMap = 
+    SFAttachmentPtrMap::GetHandlePtr sfAttMap = 
         boost::dynamic_pointer_cast<
-            SFFieldContainerAttachmentPtrMap::GetHandle>(hF);
+            SFAttachmentPtrMap::GetHandle>(hF);
 
 //    if(strstr(fType.getCName(), "AttachmentPtrMap") != NULL)
     if(sfAttMap != NULL && sfAttMap->isValid() == true)
@@ -245,10 +245,8 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
 //            reinterpret_cast<const SFFieldContainerAttachmentPtrMap *>(
 //                hF.getField());
 
-        FieldContainerAttachmentMap::const_iterator iter = 
-            (*sfAttMap)->getValue().begin();
-        FieldContainerAttachmentMap::const_iterator end  = 
-            (*sfAttMap)->getValue().end();
+        AttachmentMap::const_iterator iter = (*sfAttMap)->getValue().begin();
+        AttachmentMap::const_iterator end  = (*sfAttMap)->getValue().end();
 
         for(; iter!=end; ++iter)
         {
@@ -396,9 +394,9 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
     const FieldType& fType = hF->getType();
 
-    SFFieldContainerAttachmentPtrMap::GetHandlePtr sfAttMap = 
+    SFAttachmentPtrMap::GetHandlePtr sfAttMap = 
         boost::dynamic_pointer_cast<
-            SFFieldContainerAttachmentPtrMap::GetHandle>(hF);
+            SFAttachmentPtrMap::GetHandle>(hF);
 
     FieldContainerPtrSFieldBase::GetHandlePtr sfFCPtr = 
         boost::dynamic_pointer_cast<FieldContainerPtrSFieldBase::GetHandle>(hF);
@@ -408,10 +406,8 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
     if(sfAttMap != NULL && sfAttMap->isValid() == true)
     {
-        FieldContainerAttachmentMap::const_iterator iter = 
-            (*sfAttMap)->getValue().begin();
-        FieldContainerAttachmentMap::const_iterator end  = 
-            (*sfAttMap)->getValue().end();
+        AttachmentMap::const_iterator iter = (*sfAttMap)->getValue().begin();
+        AttachmentMap::const_iterator end  = (*sfAttMap)->getValue().end();
 
         _outStream << BeginElem 
                    << hF->getName();

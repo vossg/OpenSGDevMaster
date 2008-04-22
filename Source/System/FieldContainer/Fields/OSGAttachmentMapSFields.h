@@ -52,11 +52,11 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
 
-typedef SField<FieldContainerAttachmentMap> SFFieldContainerAttachmentPtrMap;
+typedef SField<AttachmentMap> SFAttachmentPtrMap;
 #endif
 
 template<>
-class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFFieldContainerAttachmentPtrMap> : 
+class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> : 
     public GetFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/
@@ -73,9 +73,9 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFFieldContainerAttachmentPtrMap> :
 
     /*---------------------------------------------------------------------*/
 
-    GetSFieldHandle(const GetSFieldHandle                  &source);
-    GetSFieldHandle(const SFFieldContainerAttachmentPtrMap *pField, 
-                    const FieldDescriptionBase             *pDescription);
+    GetSFieldHandle(const GetSFieldHandle       &source);
+    GetSFieldHandle(const SFAttachmentPtrMap    *pField, 
+                    const FieldDescriptionBase  *pDescription);
 
     /*---------------------------------------------------------------------*/
 
@@ -93,13 +93,13 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFFieldContainerAttachmentPtrMap> :
 
     /*---------------------------------------------------------------------*/
 
-    SFFieldContainerAttachmentPtrMap const * operator ->(void);
-    SFFieldContainerAttachmentPtrMap const & operator * (void);
+    SFAttachmentPtrMap const * operator ->(void);
+    SFAttachmentPtrMap const & operator * (void);
 };
 
 template<>
 class OSG_SYSTEM_DLLMAPPING 
-    EditSFieldHandle<SFFieldContainerAttachmentPtrMap> : public EditFieldHandle
+    EditSFieldHandle<SFAttachmentPtrMap> : public EditFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/
 
@@ -107,8 +107,8 @@ class OSG_SYSTEM_DLLMAPPING
 
     typedef EditFieldHandle Inherited;
 
-    typedef boost::function<void(const FieldContainerAttachmentPtr,
-                                       UInt32                     )> AddMethod;
+    typedef boost::function<void(const AttachmentPtr,
+                                       UInt32       )> AddMethod;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -121,9 +121,9 @@ class OSG_SYSTEM_DLLMAPPING
 
     /*---------------------------------------------------------------------*/
 
-    EditSFieldHandle(const EditSFieldHandle                 &source      );
-    EditSFieldHandle(      SFFieldContainerAttachmentPtrMap *pField, 
-                     const FieldDescriptionBase             *pDescription);
+    EditSFieldHandle(const EditSFieldHandle     &source      );
+    EditSFieldHandle(      SFAttachmentPtrMap   *pField, 
+                     const FieldDescriptionBase *pDescription);
 
     /*---------------------------------------------------------------------*/
 

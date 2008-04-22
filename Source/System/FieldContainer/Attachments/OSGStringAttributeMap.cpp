@@ -204,8 +204,8 @@ StringAttributeMapTransitPtr stringAttributeMap(
         return StringAttributeMapTransitPtr(NullFC);
     }
 
-    StringAttributeMapUnrecPtr attr_map = NullFC;
-    FieldContainerAttachmentPtr attach_ptr =
+    StringAttributeMapUnrecPtr attr_map   = NullFC;
+    AttachmentPtr              attach_ptr =
         container->findAttachment(StringAttributeMap::getClassType().getGroupId());
 
     if ( NullFC == attach_ptr )

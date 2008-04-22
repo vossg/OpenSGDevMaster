@@ -49,8 +49,8 @@
 #include "OSGFieldContainerSFields.h"
 #include "OSGFieldContainerMFields.h"
 
-#include "OSGFieldContainerAttachmentSFields.h"
-#include "OSGFieldContainerAttachmentMFields.h"
+#include "OSGAttachmentSFields.h"
+#include "OSGAttachmentMFields.h"
 
 #include "OSGAttachmentContainerSFields.h"
 #include "OSGAttachmentContainerMFields.h"
@@ -69,8 +69,8 @@ DataType FieldTraits<FieldContainerPtr          >::_type(
     "FieldContainerPtr",
     NULL);
 
-DataType FieldTraits<FieldContainerAttachmentPtr>::_type(
-    "FieldContainerAttachmentPtr",
+DataType FieldTraits<AttachmentPtr>::_type(
+    "AttachmentPtr",
     "FieldContainerPtr");
 
 DataType FieldTraits<AttachmentContainerPtr     >::_type(
@@ -91,7 +91,7 @@ DataType FieldTraits<ChangedFunctorCallback     >::_type(
  
 OSG_FIELDTRAITS_GETTYPE   (FieldContainerPtr          )
 
-OSG_FIELDTRAITS_GETTYPE   (FieldContainerAttachmentPtr)
+OSG_FIELDTRAITS_GETTYPE   (AttachmentPtr              )
 OSG_FIELDTRAITS_GETTYPE   (AttachmentContainerPtr     )
 OSG_FIELDTRAITS_GETTYPE   (NodeCorePtr                )
 OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
@@ -157,11 +157,11 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 // FieldContainerAttachment
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FieldContainerAttachmentPtr, 
+                           AttachmentPtr, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FieldContainerAttachmentPtr, 
+                           AttachmentPtr, 
                            0);
 
 // FieldContainerChildNodeCore

@@ -43,7 +43,7 @@
 #pragma once
 #endif
 
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 
 #include "boost/bind.hpp"
 
@@ -53,15 +53,15 @@ OSG_BEGIN_NAMESPACE
 //! \ingroup GrpSystemFieldContainer
 
 template <class AttachmentDescT>
-class SimpleAttachment : public FieldContainerAttachment
+class SimpleAttachment : public Attachment
 {
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef FieldContainerAttachment Inherited;
-    typedef FieldContainerAttachment ParentContainer;
+    typedef          Attachment                        Inherited;
+    typedef          Attachment                        ParentContainer;
 
     typedef          AttachmentDescT                   SimpleDesc;
     typedef typename SimpleDesc::FieldTypeT            StoredFieldType;

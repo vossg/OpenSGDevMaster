@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2007 by the OpenSG Forum                  *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,38 +36,96 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERATTACHMENTSFIELDS_H_
-#define _OSGFIELDCONTAINERATTACHMENTSFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGFieldContainerAttachmentFieldTraits.h"
-#include "OSGPointerSField.h"
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+OSG_ABSTR_FIELD_CONTAINER_INL_DEF(Attachment)
 
-typedef PointerSField<
-          FieldContainerAttachmentPtr,
-          RecordedRefCountPolicy     > SFRecFieldContainerAttachmentPtr;
+inline
+SFBool &Attachment::editInternal(void)
+{
+    Inherited::editSField(InternalFieldMask);
 
-typedef PointerSField<
-          FieldContainerAttachmentPtr,
-          UnrecordedRefCountPolicy   > SFUnrecFieldContainerAttachmentPtr;
+    return _sfInternal;
+}
 
-typedef PointerSField<
-          FieldContainerAttachmentPtr,
-          WeakRefCountPolicy         > SFWeakFieldContainerAttachmentPtr;
+inline
+const SFBool &Attachment::getInternal(void) const
+{
+    return _sfInternal;
+}
 
-typedef PointerSField<
-          FieldContainerAttachmentPtr,
-          NoRefCountPolicy           > SFUncountedFieldContainerAttachmentPtr;
+inline
+SFBool *Attachment::editSFInternal(void)
+{
+    Inherited::editSField(InternalFieldMask);
 
+    return &_sfInternal;
+}
+
+inline
+const SFBool *Attachment::getSFInternal(void) const
+{
+    return &_sfInternal;
+}
+
+inline
+const MFParentFieldContainerPtr &Attachment::getParents(void) const
+{
+    return _mfParents;
+}
+
+inline
+const MFParentFieldContainerPtr *Attachment::getMFParents(void) const
+{
+    return &_mfParents;
+}
+
+inline
+void Attachment::setInternal(bool bVal)
+{
+    Inherited::editSField(InternalFieldMask);
+
+    _sfInternal.setValue(bVal);
+}
+
+inline
+FieldContainerPtr Attachment::getParent(UInt32 uiIdx) const
+{
+    if(uiIdx < _mfParents.size())
+    {
+        return _mfParents[uiIdx];
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+#ifdef OSG_MT_CPTR_ASPECT
+inline
+void Attachment::execSync (      
+          Attachment        *pFrom,
+          ConstFieldMaskArg  whichField,
+          AspectOffsetStore &oOffsets,
+          ConstFieldMaskArg  syncMode  ,
+    const UInt32             uiSyncInfo)
+{
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.syncWith(pFrom->_sfInternal);
+    }
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.syncWith(pFrom->_mfParents, 
+                            syncMode, 
+                            uiSyncInfo,
+                            oOffsets);
+    }
+}
 #endif
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGFIELDCONTAINERATTACHMENTSFIELDS_H_ */

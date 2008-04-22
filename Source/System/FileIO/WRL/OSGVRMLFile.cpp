@@ -751,7 +751,7 @@ void VRMLFile::initIntExtFieldTypeMapper(void)
                            ScanParseSkel::OSGmfNode);
 
     //SFAttachmentMap
-    Self::setIntExtMapping(SFFieldContainerAttachmentPtrMap::getClassType().getId(),
+    Self::setIntExtMapping(SFAttachmentPtrMap::getClassType().getId(),
                            ScanParseSkel::OSGmfNode);
 
     /* extended types */

@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldContainerAttachment.h" // Parent
+#include "OSGAttachment.h" // Parent
 
 #include "OSGBoolFields.h" // Ignore type
 
@@ -75,12 +75,12 @@ class StateChunk;
 
 //! \brief StateChunk Base Class.
 
-class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
+class OSG_SYSTEM_DLLMAPPING StateChunkBase : public Attachment
 {
   public:
 
-    typedef FieldContainerAttachment Inherited;
-    typedef FieldContainerAttachment ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

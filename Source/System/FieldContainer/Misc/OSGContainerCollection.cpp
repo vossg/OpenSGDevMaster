@@ -45,13 +45,13 @@
 
 #include <OSGConfig.h>
 
-#include "OSGContainerPool.h"
+#include "OSGContainerCollection.h"
 
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
-// OSGContainerPoolBase.cpp file.
-// To modify it, please change the .fcd file (OSGContainerPool.fcd) and
+// OSGContainerCollectionBase.cpp file.
+// To modify it, please change the .fcd file (OSGContainerCollection.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void ContainerPool::initMethod(InitPhase ePhase)
+void ContainerCollection::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -82,39 +82,39 @@ void ContainerPool::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-ContainerPool::ContainerPool(void) :
+ContainerCollection::ContainerCollection(void) :
     Inherited()
 {
 }
 
-ContainerPool::ContainerPool(const ContainerPool &source) :
+ContainerCollection::ContainerCollection(const ContainerCollection &source) :
     Inherited(source)
 {
 }
 
-ContainerPool::~ContainerPool(void)
+ContainerCollection::~ContainerCollection(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void ContainerPool::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+void ContainerCollection::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void ContainerPool::dump(      UInt32    ,
-                         const BitVector ) const
+void ContainerCollection::dump(      UInt32    ,
+                               const BitVector ) const
 {
-    SLOG << "Dump ContainerPool NI" << std::endl;
+    SLOG << "Dump ContainerCollection NI" << std::endl;
 }
 
-/*! Add another container to the pool.
+/*! Add another container to the collection.
 * @param container  The container to add.
 */
-void ContainerPool::addContainer(FieldContainerPtr container)
+void ContainerCollection::addContainer(FieldContainerPtr container)
 {
    /*
    editMField(ContainersFieldMask, _mfContainers);
@@ -126,13 +126,13 @@ void ContainerPool::addContainer(FieldContainerPtr container)
 
 /*! Remove a container if it is found.
 */
-void ContainerPool::subContainer(FieldContainerPtr container)
+void ContainerCollection::subContainer(FieldContainerPtr container)
 {
    removeFromContainers(container);
 }
 
 /*! Return the number of containers. */
-UInt32 ContainerPool::getNContainers()
+UInt32 ContainerCollection::getNContainers()
 {
    return _mfContainers.size();
 }

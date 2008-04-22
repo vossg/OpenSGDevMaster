@@ -138,7 +138,7 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"StringAttributeMap\"\n"
-    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tparent=\"Attachment\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"single\"\n"
     "\tstructure=\"concrete\"\n"
@@ -488,7 +488,7 @@ void StringAttributeMapBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StringAttributeMapPtr>::_type("StringAttributeMapPtr", "FieldContainerAttachmentPtr");
+DataType FieldTraits<StringAttributeMapPtr>::_type("StringAttributeMapPtr", "AttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(StringAttributeMapPtr)

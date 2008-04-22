@@ -61,7 +61,7 @@
 #endif
 
 #include "OSGFieldContainer.h"
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 #include "OSGDynamicAttachmentMixin.h"
 #include "OSGFieldContainerFieldTraits.h"
 
@@ -78,13 +78,13 @@ class FieldDescriptionBase;
 
 struct ImageGenericAttDesc
 {
-    typedef FieldContainerAttachment    Parent;
-    typedef FieldContainerAttachmentPtr ParentPtr;
+    typedef Attachment    Parent;
+    typedef AttachmentPtr ParentPtr;
 
     static const Char8 *getTypeName      (void) { return "ImageGenericAtt"; }
     static const Char8 *getParentTypeName(void) 
     {
-        return "FieldContainerAttachment";      
+        return "Attachment";      
     }
     static const Char8 *getGroupName     (void) { return "ImageGenAtt";     }
 

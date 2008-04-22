@@ -45,14 +45,13 @@
 #include "OSGFieldTraits.h"
 #include "OSGContainerForwards.h"
 
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 
 #include "map"
 
 OSG_BEGIN_NAMESPACE
 
-typedef std::map<UInt32, 
-                 FieldContainerAttachmentPtr>  FieldContainerAttachmentMap;
+typedef std::map<UInt32, AttachmentPtr>  AttachmentMap;
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -70,8 +69,8 @@ typedef std::map<UInt32,
 #endif
 
 template <>
-struct FieldTraits<FieldContainerAttachmentMap> : 
-    public FieldTraitsTemplateBase<FieldContainerAttachmentMap>
+struct FieldTraits<AttachmentMap> : 
+    public FieldTraitsTemplateBase<AttachmentMap>
 {
   private:
 
@@ -79,7 +78,7 @@ struct FieldTraits<FieldContainerAttachmentMap> :
 
   public:
 
-    typedef FieldTraits<FieldContainerAttachmentMap>  Self;
+    typedef FieldTraits<AttachmentMap>  Self;
 
 
     enum             { Convertible = Self::NotConvertible                  };
@@ -89,18 +88,18 @@ struct FieldTraits<FieldContainerAttachmentMap> :
 
     static const Char8    *getSName     (void) 
     {
-        return "SFFieldContainerAttachmentPtrMap"; 
+        return "SFAttachmentPtrMap"; 
     }
 
     static const Char8    *getMName     (void)
     {
-        return "MFFieldContainerAttachmentPtrMap"; 
+        return "MFAttachmentPtrMap"; 
     }
     
-    static UInt32 getBinSize(const FieldContainerAttachmentMap &aMap)
+    static UInt32 getBinSize(const AttachmentMap &aMap)
     {
-        FieldContainerAttachmentMap::const_iterator mapIt  = aMap.begin();
-        FieldContainerAttachmentMap::const_iterator mapEnd = aMap.end  ();
+        AttachmentMap::const_iterator mapIt  = aMap.begin();
+        AttachmentMap::const_iterator mapEnd = aMap.end  ();
 
         UInt32 numPublicObjects = 0;
 
@@ -117,8 +116,8 @@ struct FieldTraits<FieldContainerAttachmentMap> :
                 numPublicObjects * (sizeof(UInt16) + sizeof(UInt32));
     }
 
-    static UInt32 getBinSize(const FieldContainerAttachmentMap *aMaps,
-                                   UInt32                       numObjects)
+    static UInt32 getBinSize(const AttachmentMap *aMaps,
+                                   UInt32         numObjects)
     {
         UInt32 size = 0;
 
@@ -131,11 +130,11 @@ struct FieldTraits<FieldContainerAttachmentMap> :
         return size;
     }
     
-    static void copyToBin(      BinaryDataHandler           &pMem,
-                          const FieldContainerAttachmentMap &aMap )
+    static void copyToBin(      BinaryDataHandler &pMem,
+                          const AttachmentMap     &aMap )
     {
-        FieldContainerAttachmentMap::const_iterator mapIt  = aMap.begin();
-        FieldContainerAttachmentMap::const_iterator mapEnd = aMap.end  ();
+        AttachmentMap::const_iterator mapIt  = aMap.begin();
+        AttachmentMap::const_iterator mapEnd = aMap.end  ();
         
         UInt32 numPublicObjects = 0;
         UInt16 binding;
@@ -165,8 +164,8 @@ struct FieldTraits<FieldContainerAttachmentMap> :
     }
     
     static void copyToBin(      BinaryDataHandler &pMem,
-                          const FieldContainerAttachmentMap *aMaps,
-                                UInt32                       numObjects)
+                          const AttachmentMap     *aMaps,
+                                UInt32             numObjects)
     {
         for(UInt32 i = 0; i < numObjects; ++i)
         {
@@ -174,23 +173,20 @@ struct FieldTraits<FieldContainerAttachmentMap> :
         }
     }
     
-    static void copyFromBin(BinaryDataHandler           &pMem,
-                            FieldContainerAttachmentMap &aMap )
+    static void copyFromBin(BinaryDataHandler &pMem,
+                            AttachmentMap     &aMap )
     {
-        FieldContainerAttachmentPtr attPtr;
-        UInt32                      key;
-        UInt16                      binding;
-        UInt32                      fcId;
-        UInt32                      size;
+        AttachmentPtr attPtr;
+        UInt32        key;
+        UInt16        binding;
+        UInt32        fcId;
+        UInt32        size;
         
         pMem.getValue(size);
 
 
-        FieldContainerAttachmentMap::const_iterator mapIt  = 
-            aMap.begin();
-
-        FieldContainerAttachmentMap::const_iterator mapEnd = 
-            aMap.begin();
+        AttachmentMap::const_iterator mapIt  = aMap.begin();
+        AttachmentMap::const_iterator mapEnd = aMap.begin();
 
         for(; mapIt != mapEnd; ++mapIt)
         {
@@ -209,20 +205,20 @@ struct FieldTraits<FieldContainerAttachmentMap> :
             pMem.getValue(binding);
             pMem.getValue(fcId   );
             
-            attPtr = dynamic_cast<FieldContainerAttachmentPtr>(
+            attPtr = dynamic_cast<AttachmentPtr>(
                 FieldContainerFactory::the()->getMappedContainer(fcId));
             
             key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;
 
             UnrecordedRefCountPolicy::addRef(attPtr);
 
-            aMap.insert(FieldContainerAttachmentMap::value_type(key, attPtr));
+            aMap.insert(AttachmentMap::value_type(key, attPtr));
         }
     }
     
-    static void copyFromBin(BinaryDataHandler           &pMem,
-                            FieldContainerAttachmentMap *aMaps,
-                            UInt32                       numObjects)
+    static void copyFromBin(BinaryDataHandler &pMem,
+                            AttachmentMap     *aMaps,
+                            UInt32             numObjects)
     {
         for(UInt32 i = 0; i < numObjects; ++i)
         {

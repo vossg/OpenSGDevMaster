@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="StateChunk"
-	parent="FieldContainerAttachment"
+	parent="Attachment"
 	library="System"
 	structure="abstract"
 	pointerfieldtypes="both"

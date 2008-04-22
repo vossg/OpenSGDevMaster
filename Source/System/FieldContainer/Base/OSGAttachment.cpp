@@ -45,14 +45,14 @@
 
 #include "OSGConfig.h"
 
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 
 OSG_USING_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                               Fields                                    */
 
-void FieldContainerAttachment::classDescInserter(TypeObject &oType)
+void Attachment::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc;
 
@@ -84,35 +84,34 @@ void FieldContainerAttachment::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 }
 
-Char8 *FieldContainerAttachment::getClassname(void)
+Char8 *Attachment::getClassname(void)
 {
-    return "FieldContainerAttachment";
+    return "Attachment";
 }
 
-FieldContainerAttachment::TypeObject FieldContainerAttachment::_type(
-    FieldContainerAttachment::getClassname(),
-    Inherited               ::getClassname(),
+Attachment::TypeObject Attachment::_type(
+    Attachment::getClassname(),
+    Inherited ::getClassname(),
     "FieldContainer",
     0,
     NULL,
     NULL,
     NULL,
-    (InitalInsertDescFunc) &FieldContainerAttachment::classDescInserter,
+    (InitalInsertDescFunc) &Attachment::classDescInserter,
     false,
     0);
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-FieldContainerAttachment::FieldContainerAttachment(void) :
+Attachment::Attachment(void) :
      Inherited (     ),
     _mfParents (     ),
     _sfInternal(false)
 {
 }
 
-FieldContainerAttachment::FieldContainerAttachment(
-    const FieldContainerAttachment &source) :
+Attachment::Attachment(const Attachment &source) :
 
      Inherited (source            ),
     _mfParents (                  ),
@@ -122,17 +121,16 @@ FieldContainerAttachment::FieldContainerAttachment(
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-FieldContainerAttachment::~FieldContainerAttachment(void)
+Attachment::~Attachment(void)
 {
 }
 
-OSG_ABSTR_FIELD_CONTAINER_DEF(FieldContainerAttachment)
+OSG_ABSTR_FIELD_CONTAINER_DEF(Attachment)
 
 
-bool FieldContainerAttachment::linkParent  (
-    const FieldContainerPtr pParent,
-    const UInt16            childFieldId,
-    const UInt16            parentFieldId)
+bool Attachment::linkParent  (const FieldContainerPtr pParent,
+                              const UInt16            childFieldId,
+                              const UInt16            parentFieldId)
 {
     if(parentFieldId == ParentsFieldId)
     {
@@ -154,9 +152,8 @@ bool FieldContainerAttachment::linkParent  (
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
 }
 
-bool FieldContainerAttachment::unlinkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            parentFieldId)
+bool Attachment::unlinkParent(const FieldContainerPtr pParent,
+                              const UInt16            parentFieldId)
 {
     if(parentFieldId == ParentsFieldId)
     {
@@ -177,7 +174,7 @@ bool FieldContainerAttachment::unlinkParent(
                 return true;
             }
              
-            FWARNING(("FieldContainerAttachment::unlinkParent: "
+            FWARNING(("Attachment::unlinkParent: "
                       "Child <-> Parent link inconsistent.\n"));
             
             return false;
@@ -193,7 +190,7 @@ bool FieldContainerAttachment::unlinkParent(
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
-UInt32 FieldContainerAttachment::getBinSize(ConstFieldMaskArg whichField)
+UInt32 Attachment::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
     
@@ -210,8 +207,8 @@ UInt32 FieldContainerAttachment::getBinSize(ConstFieldMaskArg whichField)
     return returnValue;
 }
 
-void FieldContainerAttachment::copyToBin(BinaryDataHandler &pMem,
-                                         ConstFieldMaskArg  whichField)
+void Attachment::copyToBin(BinaryDataHandler &pMem,
+                           ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
@@ -226,8 +223,8 @@ void FieldContainerAttachment::copyToBin(BinaryDataHandler &pMem,
     }
 }
 
-void FieldContainerAttachment::copyFromBin(BinaryDataHandler &pMem,
-                                           ConstFieldMaskArg  whichField)
+void Attachment::copyFromBin(BinaryDataHandler &pMem,
+                             ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
@@ -242,7 +239,7 @@ void FieldContainerAttachment::copyFromBin(BinaryDataHandler &pMem,
     }
 }
 
-EditFieldHandlePtr FieldContainerAttachment::editInternalHandler(void)
+EditFieldHandlePtr Attachment::editInternalHandler(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -254,7 +251,7 @@ EditFieldHandlePtr FieldContainerAttachment::editInternalHandler(void)
     return returnValue;
 }
 
-GetFieldHandlePtr FieldContainerAttachment::getInternalHandler(void) const
+GetFieldHandlePtr Attachment::getInternalHandler(void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -264,7 +261,7 @@ GetFieldHandlePtr FieldContainerAttachment::getInternalHandler(void) const
     return returnValue;
 }
 
-GetFieldHandlePtr FieldContainerAttachment::getHandleParents(void) const
+GetFieldHandlePtr Attachment::getHandleParents(void) const
 {
     MFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  MFParentFieldContainerPtr::GetHandle(
@@ -275,14 +272,14 @@ GetFieldHandlePtr FieldContainerAttachment::getHandleParents(void) const
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-void FieldContainerAttachment::execSyncV(      
-          FieldContainer           &oFrom,
-          ConstFieldMaskArg         whichField,
-          AspectOffsetStore        &oOffsets,
-          ConstFieldMaskArg         syncMode  ,
-    const UInt32                    uiSyncInfo)
+void Attachment::execSyncV(     
+          FieldContainer    &oFrom,
+          ConstFieldMaskArg  whichField,
+          AspectOffsetStore &oOffsets,
+          ConstFieldMaskArg  syncMode  ,
+    const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FieldContainerAttachment *>(&oFrom),
+    this->execSync(static_cast<Attachment *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,

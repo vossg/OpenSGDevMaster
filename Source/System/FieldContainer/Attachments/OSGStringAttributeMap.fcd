@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="StringAttributeMap"
-	parent="FieldContainerAttachment"
+	parent="Attachment"
 	library="System"
 	pointerfieldtypes="single"
 	structure="concrete"

@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldContainerAttachment.h" // Parent
+#include "OSGAttachment.h" // Parent
 
 #include "OSGBoolFields.h" // Statistic type
 #include "OSGGLenumFields.h" // PolygonMode type
@@ -95,12 +95,12 @@ class RenderOptions;
 
 //! \brief RenderOptions Base Class.
 
-class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
+class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
 {
   public:
 
-    typedef FieldContainerAttachment Inherited;
-    typedef FieldContainerAttachment ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

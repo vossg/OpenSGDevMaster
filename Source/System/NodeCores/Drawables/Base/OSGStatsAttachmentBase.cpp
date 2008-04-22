@@ -93,7 +93,7 @@ StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"StatsAttachment\"\n"
-    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tparent=\"Attachment\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"abstract\"\n"
@@ -204,7 +204,7 @@ void StatsAttachmentBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatsAttachmentPtr>::_type("StatsAttachmentPtr", "FieldContainerAttachmentPtr");
+DataType FieldTraits<StatsAttachmentPtr>::_type("StatsAttachmentPtr", "AttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(StatsAttachmentPtr)

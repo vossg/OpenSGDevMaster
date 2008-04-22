@@ -441,7 +441,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"RenderOptions\"\n"
-    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tparent=\"Attachment\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
@@ -1991,7 +1991,7 @@ void RenderOptionsBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderOptionsPtr>::_type("RenderOptionsPtr", "FieldContainerAttachmentPtr");
+DataType FieldTraits<RenderOptionsPtr>::_type("RenderOptionsPtr", "AttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(RenderOptionsPtr)

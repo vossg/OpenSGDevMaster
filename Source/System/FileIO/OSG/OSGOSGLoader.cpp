@@ -249,7 +249,7 @@ void OSGLoader::initFieldTypeMapper(void)
 
     /* To Node Mappings */
 
-    setIntExtMapping(SFFieldContainerAttachmentPtrMap::getClassType().getId(),
+    setIntExtMapping(SFAttachmentPtrMap::getClassType().getId(),
                      ScanParseSkel::OSGmfNode);
 
     /* extended types */
@@ -288,10 +288,9 @@ void OSGLoader::setFieldContainerValue(FieldContainerPtr pNewNode)
                 FieldContainerPtrMFieldBase::EditHandle>(
                     _pCurrentField);
 
-        SFFieldContainerAttachmentPtrMap::EditHandlePtr pAMapHandle =
+        SFAttachmentPtrMap::EditHandlePtr pAMapHandle =
             boost::dynamic_pointer_cast<
-                SFFieldContainerAttachmentPtrMap::EditHandle>(
-                    _pCurrentField);
+                SFAttachmentPtrMap::EditHandle>(_pCurrentField);
 
         if(pSFHandle != NULL && pSFHandle->isValid())
         {

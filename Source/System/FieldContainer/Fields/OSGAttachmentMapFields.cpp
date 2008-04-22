@@ -44,7 +44,7 @@
 
 #include <OSGFieldContainer.h>
 #include <OSGAttachmentMapSFields.h>
-#include <OSGFieldContainerAttachment.h>
+#include <OSGAttachment.h>
 #include <OSGAttachmentContainer.h>
 #include <OSGContainerPtrFuncs.h>
 
@@ -58,7 +58,7 @@ OSG_BEGIN_NAMESPACE
 #if 0
 template <>
 void
-FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
+FieldDescription<SFAttachmentPtrMap::SFieldTraits,
                  SingleField                                    >::cloneValues(
     const Field                                  *pSrc,
     const UInt32                                  fieldId,
@@ -173,14 +173,14 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-DataType FieldTraits<FieldContainerAttachmentMap>::_type(
-    "FieldContainerAttachmentMap",
+DataType FieldTraits<AttachmentMap>::_type(
+    "AttachmentMap",
     NULL);
 
-OSG_FIELDTRAITS_GETTYPE(FieldContainerAttachmentMap)
+OSG_FIELDTRAITS_GETTYPE(AttachmentMap)
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, FieldContainerAttachmentMap);
+OSG_FIELD_DLLEXPORT_DEF1(SField, AttachmentMap);
 
 OSG_END_NAMESPACE

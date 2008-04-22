@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="RenderOptions"
-	parent="FieldContainerAttachment"
+	parent="Attachment"
 	library="System"
 	pointerfieldtypes="both"
 	structure="concrete"

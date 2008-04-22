@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="ContainerPool"
-	parent="FieldContainerAttachment"
+	name="ContainerCollection"
+	parent="Attachment"
 	library="System"
 	structure="concrete"
 	pointerfieldtypes="both"
@@ -16,7 +16,7 @@
 		visibility="external"
 		access="public"
 	>
-	The name of the container pool.  Can be used to identify pools.
+	The name of the container collection.  Can be used to identify collections.
 	</Field>
 	<Field
 		name="containers"
@@ -25,6 +25,6 @@
 		visibility="external"
                 access="public"
 	>
-        A list of containers held in the pool.
+        A list of containers held in the collection.
 	</Field>
 </FieldContainer>

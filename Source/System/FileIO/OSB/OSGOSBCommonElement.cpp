@@ -748,18 +748,16 @@ OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
 
     OSBRootElement                        *root        = editRoot();
 
-    SFFieldContainerAttachmentPtrMap::GetHandlePtr sfAMapField =
+    SFAttachmentPtrMap::GetHandlePtr sfAMapField =
         boost::dynamic_pointer_cast<
-            SFFieldContainerAttachmentPtrMap::GetHandle>(
+            SFAttachmentPtrMap::GetHandle>(
                 getContainer()->getField(fieldId));
 
     if(sfAMapField == NULL || sfAMapField->isValid() == false)
         return;
 
-    FieldContainerAttachmentMap::const_iterator mapIt  =
-        (*sfAMapField)->getValue().begin();
-    FieldContainerAttachmentMap::const_iterator mapEnd =
-        (*sfAMapField)->getValue().end();
+    AttachmentMap::const_iterator mapIt  = (*sfAMapField)->getValue().begin();
+    AttachmentMap::const_iterator mapEnd = (*sfAMapField)->getValue().end();
 
     for(; mapIt != mapEnd; ++mapIt)
     {

@@ -36,131 +36,34 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERATTACHMENTFIELDTRAITS_H_
-#define _OSGFIELDCONTAINERATTACHMENTFIELDTRAITS_H_
+#ifndef _OSGATTACHMENTSFIELDS_H_
+#define _OSGATTACHMENTSFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGFieldContainerFieldTraits.h"
-#include "OSGDataType.h"
-
-#include "OSGContainerForwards.h"
+#include "OSGAttachmentFieldTraits.h"
+#include "OSGPointerSField.h"
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup  */
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file 
-    \ingroup 
-    \ingroup 
-*/
+typedef PointerSField<AttachmentPtr,
+                      RecordedRefCountPolicy  > SFRecAttachmentPtr;
+
+typedef PointerSField<AttachmentPtr,
+                      UnrecordedRefCountPolicy> SFUnrecAttachmentPtr;
+
+typedef PointerSField<AttachmentPtr,
+                      WeakRefCountPolicy      > SFWeakAttachmentPtr;
+
+typedef PointerSField<AttachmentPtr,
+                      NoRefCountPolicy        > SFUncountedAttachmentPtr;
+
 #endif
-
-/*! \ingroup 
- */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
-template <>
-struct FieldTraits<FieldContainerAttachmentPtr>
-    : public FieldTraitsFCPtrBase<FieldContainerAttachmentPtr>
-{
-  private:
-
-    static  DataType                                  _type;
-
-  public:
-
-    typedef FieldTraits<FieldContainerAttachmentPtr>  Self;
-
-
-    enum             { Convertible = Self::NotConvertible              };
-
-    static OSG_SYSTEM_DLLMAPPING
-                 DataType &getType      (void);
-
-    template<typename RefCountPolicy> inline
-    static const Char8    *getSName(void);
-
-    template<typename RefCountPolicy> inline
-    static const Char8    *getMName(void);
-};
-
-
-template<> inline
-const Char8 *
-  FieldTraits<FieldContainerAttachmentPtr, 
-              0                >::getSName<RecordedRefCountPolicy>(void)
-{
-    return "SFRecFieldContainerAttachmentPtr"; 
-}
-
-template<> inline
-const Char8 *
-  FieldTraits<FieldContainerAttachmentPtr, 
-              0                >::getSName<UnrecordedRefCountPolicy>(void)
-{
-    return "SFUnrecFieldContainerAttachmentPtr"; 
-}
-
-template<> inline
-const Char8 *
-  FieldTraits<FieldContainerAttachmentPtr, 
-              0                >::getSName<WeakRefCountPolicy>(void)
-{
-    return "SFWeakFieldContainerAttachmentPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getSName<NoRefCountPolicy>(void)
-{
-    return "SFUnrefdFieldContainerAttachmentPtr"; 
-}
-
-
-
-template<> inline
-const Char8 *
-  FieldTraits<FieldContainerAttachmentPtr, 
-              0               >::getMName<RecordedRefCountPolicy>(void)
-{
-    return "MFRecFieldContainerAttachmentPtr"; 
-}
-
-template<> inline
-const Char8 *
-  FieldTraits<FieldContainerAttachmentPtr, 
-              0                >::getMName<UnrecordedRefCountPolicy>(void)
-{
-    return "MFUnrecFieldContainerAttachmentPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getMName<WeakRefCountPolicy>(void)
-{
-    return "MFWeakFieldContainerAttachmentPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<FieldContainerAttachmentPtr, 
-                         0                >::getMName<NoRefCountPolicy>(void)
-{
-    return "MFUnrefdFieldContainerAttachmentPtr"; 
-}
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FieldContainerAttachmentPtr>
-    \hideinhierarchy
- */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGFIELDCONTAINERATTACHMENTFIELDTRAITS_H_ */
+#endif /* _OSGATTACHMENTSFIELDS_H_ */

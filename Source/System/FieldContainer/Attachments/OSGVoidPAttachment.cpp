@@ -93,7 +93,7 @@ void *getVoidP(const AttachmentContainerPtr pContainer)
         return NULL;
    
     // Get attachment pointer
-    FieldContainerAttachmentPtr att = 
+    AttachmentPtr att = 
         pContainer->findAttachment(VoidP::getClassType().getGroupId());
 
     if(att == NullFC)
@@ -126,8 +126,8 @@ void setVoidP(const AttachmentContainerPtr  pContainer,
    
     // Get attachment pointer
 
-    VoidPUnrecPtr               voidP = NullFC;
-    FieldContainerAttachmentPtr att   = 
+    VoidPUnrecPtr voidP = NullFC;
+    AttachmentPtr att   = 
         pContainer->findAttachment(VoidP::getClassType().getGroupId());
     
     if(att == NullFC)

@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIELDCONTAINERATTACHMENT_H_
-#define _OSGFIELDCONTAINERATTACHMENT_H_
+#ifndef _OSGATTACHMENT_H_
+#define _OSGATTACHMENT_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -53,7 +53,7 @@ class AttachmentContainer;
 //! Brief
 //! \ingroup baselib
 
-class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
+class OSG_SYSTEM_DLLMAPPING Attachment : public FieldContainer
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -65,7 +65,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    OSG_GEN_INTERNALPTR(FieldContainerAttachment);
+    OSG_GEN_INTERNALPTR(Attachment);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -161,7 +161,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
 
   protected:
 
-    typedef FieldContainerAttachment  Self;
+    typedef Attachment                Self;
     typedef MFParentFieldContainerPtr ParentField;
 
     /*---------------------------------------------------------------------*/
@@ -191,10 +191,10 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    FieldContainerAttachment(void);
-    FieldContainerAttachment(const FieldContainerAttachment &source);
+    Attachment(void);
+    Attachment(const Attachment &source);
 
-    virtual ~FieldContainerAttachment(void);
+    virtual ~Attachment(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -233,17 +233,17 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual void execSyncV(      FieldContainer           &oFrom,
-                                 ConstFieldMaskArg         whichField,
-                                 AspectOffsetStore        &oOffsets,
-                                 ConstFieldMaskArg         syncMode  ,
-                           const UInt32                    uiSyncInfo);
+    virtual void execSyncV(      FieldContainer     &oFrom,
+                                 ConstFieldMaskArg    whichField,
+                                 AspectOffsetStore  &oOffsets,
+                                 ConstFieldMaskArg   syncMode  ,
+                           const UInt32              uiSyncInfo);
 
-            void execSync (      FieldContainerAttachment *pFrom,
-                                 ConstFieldMaskArg         whichField,
-                                 AspectOffsetStore        &oOffsets,
-                                 ConstFieldMaskArg         syncMode  ,
-                           const UInt32                    uiSyncInfo);
+            void execSync (      Attachment         *pFrom,
+                                 ConstFieldMaskArg   whichField,
+                                 AspectOffsetStore  &oOffsets,
+                                 ConstFieldMaskArg   syncMode  ,
+                           const UInt32              uiSyncInfo);
 #endif
 
     /*! \}                                                                 */
@@ -254,27 +254,13 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment : public FieldContainer
     friend class AttachmentContainer;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const FieldContainerAttachment &source);
+    void operator =(const Attachment &source);
 };
 
-OSG_GEN_CONTAINERPTR(FieldContainerAttachment);
-
-#ifdef OSG_1_COMPAT
-typedef FieldContainerAttachment            Attachment;
-
-typedef FieldContainerAttachmentPtr         AttachmentPtr;
-typedef FieldContainerAttachmentPtrConst    AttachmentPtrConst;
-typedef FieldContainerAttachmentConstPtr    AttachmentConstPtr;
-
-typedef FieldContainerAttachmentPtrArg      AttachmentPtrArg;
-typedef FieldContainerAttachmentConstPtrArg AttachmentConstPtrArg;
-typedef FieldContainerAttachmentPtrConstArg AttachmentPtrConstArg;
-
-typedef FieldContainerAttachmentRefPtr      AttachmentRefPtr;
-#endif
+OSG_GEN_CONTAINERPTR(Attachment);
 
 OSG_END_NAMESPACE
 
-#include "OSGFieldContainerAttachment.inl"
+#include "OSGAttachment.inl"
 
-#endif /* _OSGFIELDCONTAINERATTACHMENT_H_ */
+#endif /* _OSGATTACHMENT_H_ */

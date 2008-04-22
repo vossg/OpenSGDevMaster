@@ -36,21 +36,21 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCONTAINERPOOL_H_
-#define _OSGCONTAINERPOOL_H_
+#ifndef _OSGCONTAINERCOLLECTION_H_
+#define _OSGCONTAINERCOLLECTION_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGContainerPoolBase.h"
+#include "OSGContainerCollectionBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ContainerPool class. See \ref
-           PageSystemContainerPool for a description.
+/*! \brief ContainerCollection class. See \ref
+           PageSystemContainerCollection for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
+class OSG_SYSTEM_DLLMAPPING ContainerCollection : public ContainerCollectionBase
 {
   protected:
 
@@ -58,8 +58,8 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
 
   public:
 
-    typedef ContainerPoolBase Inherited;
-    typedef ContainerPool     Self;
+    typedef ContainerCollectionBase Inherited;
+    typedef ContainerCollection     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -91,21 +91,21 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
 
   protected:
 
-    // Variables should all be in ContainerPoolBase.
+    // Variables should all be in ContainerCollectionBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ContainerPool(void);
-    ContainerPool(const ContainerPool &source);
+    ContainerCollection(void);
+    ContainerCollection(const ContainerCollection &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ContainerPool(void);
+    virtual ~ContainerCollection(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -120,17 +120,17 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
   private:
 
     friend class FieldContainer;
-    friend class ContainerPoolBase;
+    friend class ContainerCollectionBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ContainerPool &source);
+    void operator =(const ContainerCollection &source);
 };
 
-typedef ContainerPool *ContainerPoolP;
+typedef ContainerCollection *ContainerCollectionP;
 
 OSG_END_NAMESPACE
 
-#include "OSGContainerPoolBase.inl"
-#include "OSGContainerPool.inl"
+#include "OSGContainerCollectionBase.inl"
+#include "OSGContainerCollection.inl"
 
-#endif /* _OSGCONTAINERPOOL_H_ */
+#endif /* _OSGCONTAINERCOLLECTION_H_ */

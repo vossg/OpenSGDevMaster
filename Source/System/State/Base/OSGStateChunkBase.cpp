@@ -122,7 +122,7 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"StateChunk\"\n"
-    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tparent=\"Attachment\"\n"
     "\tlibrary=\"System\"\n"
     "\tstructure=\"abstract\"\n"
     "\tpointerfieldtypes=\"both\"\n"
@@ -303,7 +303,7 @@ void StateChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StateChunkPtr>::_type("StateChunkPtr", "FieldContainerAttachmentPtr");
+DataType FieldTraits<StateChunkPtr>::_type("StateChunkPtr", "AttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(StateChunkPtr)

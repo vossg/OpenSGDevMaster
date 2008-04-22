@@ -430,7 +430,7 @@ NodeTransitPtr cloneTree(
 
     const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
           boost::assign::list_of(
-              &FieldContainerAttachment::getClassType()),
+              &Attachment::getClassType()),
 
     const std::vector<UInt16>                     &cloneGroupIds     =
               std::vector<UInt16>(),

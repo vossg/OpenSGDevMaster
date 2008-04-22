@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGCONTAINERPOOLFIELDS_H_
-#define _OSGCONTAINERPOOLFIELDS_H_
+#ifndef _OSGCONTAINERCOLLECTIONFIELDS_H_
+#define _OSGCONTAINERCOLLECTIONFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,12 +64,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-class ContainerPool;
+class ContainerCollection;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ContainerPoolPtr
+//! ContainerCollectionPtr
 
-OSG_GEN_CONTAINERPTR(ContainerPool);
+OSG_GEN_CONTAINERPTR(ContainerCollection);
 
 #endif
 
@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ContainerPool);
 #endif
 
 template <>
-struct FieldTraits<ContainerPoolPtr> :
-    public FieldTraitsFCPtrBase<ContainerPoolPtr>
+struct FieldTraits<ContainerCollectionPtr> :
+    public FieldTraitsFCPtrBase<ContainerCollectionPtr>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ContainerPoolPtr> :
 
   public:
 
-    typedef FieldTraits<ContainerPoolPtr>  Self;
+    typedef FieldTraits<ContainerCollectionPtr>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -99,63 +99,63 @@ struct FieldTraits<ContainerPoolPtr> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFContainerPoolPtr"; }
+//    static const char *getSName(void) { return "SFContainerCollectionPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFContainerPoolPtr"; }
+//    static const char *getMName(void) { return "MFContainerCollectionPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecContainerPoolPtr"; 
+    return "SFRecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecContainerPoolPtr"; 
+    return "SFUnrecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakContainerPoolPtr"; 
+    return "SFWeakContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdContainerPoolPtr"; 
+    return "SFUnrefdContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecContainerPoolPtr"; 
+    return "MFRecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecContainerPoolPtr"; 
+    return "MFUnrecContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakContainerPoolPtr"; 
+    return "MFWeakContainerCollectionPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ContainerCollectionPtr, 0>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdContainerPoolPtr"; 
+    return "MFUnrefdContainerCollectionPtr"; 
 }
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ContainerPoolPtr, 0>
+/*! \class  FieldTraitsTemplateBase<ContainerCollectionPtr, 0>
     \hideinhierarchy
  */
 #endif
@@ -166,31 +166,31 @@ const Char8 *FieldTraits<ContainerPoolPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<ContainerPoolPtr,
-                      RecordedRefCountPolicy  > SFRecContainerPoolPtr;
-typedef PointerSField<ContainerPoolPtr,
-                      UnrecordedRefCountPolicy> SFUnrecContainerPoolPtr;
-typedef PointerSField<ContainerPoolPtr,
-                      WeakRefCountPolicy      > SFWeakContainerPoolPtr;
-typedef PointerSField<ContainerPoolPtr,
-                      NoRefCountPolicy        > SFUncountedContainerPoolPtr;
+typedef PointerSField<ContainerCollectionPtr,
+                      RecordedRefCountPolicy  > SFRecContainerCollectionPtr;
+typedef PointerSField<ContainerCollectionPtr,
+                      UnrecordedRefCountPolicy> SFUnrecContainerCollectionPtr;
+typedef PointerSField<ContainerCollectionPtr,
+                      WeakRefCountPolicy      > SFWeakContainerCollectionPtr;
+typedef PointerSField<ContainerCollectionPtr,
+                      NoRefCountPolicy        > SFUncountedContainerCollectionPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<ContainerPoolPtr,
-                      RecordedRefCountPolicy  > MFRecContainerPoolPtr;
-typedef PointerMField<ContainerPoolPtr,
-                      UnrecordedRefCountPolicy> MFUnrecContainerPoolPtr;
-typedef PointerMField<ContainerPoolPtr,
-                      WeakRefCountPolicy      > MFWeakContainerPoolPtr;
-typedef PointerMField<ContainerPoolPtr,
-                      NoRefCountPolicy        > MFUncountedContainerPoolPtr;
+typedef PointerMField<ContainerCollectionPtr,
+                      RecordedRefCountPolicy  > MFRecContainerCollectionPtr;
+typedef PointerMField<ContainerCollectionPtr,
+                      UnrecordedRefCountPolicy> MFUnrecContainerCollectionPtr;
+typedef PointerMField<ContainerCollectionPtr,
+                      WeakRefCountPolicy      > MFWeakContainerCollectionPtr;
+typedef PointerMField<ContainerCollectionPtr,
+                      NoRefCountPolicy        > MFUncountedContainerCollectionPtr;
 #endif
 
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCONTAINERPOOLFIELDS_H_ */
+#endif /* _OSGCONTAINERCOLLECTIONFIELDS_H_ */

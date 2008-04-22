@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ContainerPool!
+ **     class ContainerCollection!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,70 +53,70 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &ContainerPoolBase::getClassType(void)
+OSG::FieldContainerType &ContainerCollectionBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ContainerPoolBase::getClassTypeId(void)
+OSG::UInt32 ContainerCollectionBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 ContainerPoolBase::getClassGroupId(void)
+OSG::UInt16 ContainerCollectionBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the ContainerPool::_sfName field.
+//! Get the value of the ContainerCollection::_sfName field.
 
 inline
-std::string &ContainerPoolBase::editName(void)
+std::string &ContainerCollectionBase::editName(void)
 {
     editSField(NameFieldMask);
 
     return _sfName.getValue();
 }
 
-//! Get the value of the ContainerPool::_sfName field.
+//! Get the value of the ContainerCollection::_sfName field.
 inline
-const std::string &ContainerPoolBase::getName(void) const
+const std::string &ContainerCollectionBase::getName(void) const
 {
     return _sfName.getValue();
 }
 
 #ifdef OSG_1_GET_COMPAT
 inline
-std::string         &ContainerPoolBase::getName           (void)
+std::string         &ContainerCollectionBase::getName           (void)
 {
     return this->editName           ();
 }
 #endif
 
-//! Set the value of the ContainerPool::_sfName field.
+//! Set the value of the ContainerCollection::_sfName field.
 inline
-void ContainerPoolBase::setName(const std::string &value)
+void ContainerCollectionBase::setName(const std::string &value)
 {
     editSField(NameFieldMask);
 
     _sfName.setValue(value);
 }
 
-//! Get the value of the \a index element the ContainerPool::_mfContainers field.
+//! Get the value of the \a index element the ContainerCollection::_mfContainers field.
 inline
-FieldContainerPtr ContainerPoolBase::getContainers(const UInt32 index) const
+FieldContainerPtr ContainerCollectionBase::getContainers(const UInt32 index) const
 {
     return _mfContainers[index];
 }
 
-//! Get the ContainerPool::_mfContainers field.
+//! Get the ContainerCollection::_mfContainers field.
 inline
-const MFUnrecFieldContainerPtr &ContainerPoolBase::getContainers(void) const
+const MFUnrecFieldContainerPtr &ContainerCollectionBase::getContainers(void) const
 {
     return _mfContainers;
 }
@@ -124,7 +124,7 @@ const MFUnrecFieldContainerPtr &ContainerPoolBase::getContainers(void) const
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void ContainerPoolBase::execSync (      ContainerPoolBase *pFrom,
+void ContainerCollectionBase::execSync (      ContainerCollectionBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -145,11 +145,11 @@ void ContainerPoolBase::execSync (      ContainerPoolBase *pFrom,
 
 
 inline
-Char8 *ContainerPoolBase::getClassname(void)
+Char8 *ContainerCollectionBase::getClassname(void)
 {
-    return "ContainerPool";
+    return "ContainerCollection";
 }
-OSG_GEN_CONTAINERPTR(ContainerPool);
+OSG_GEN_CONTAINERPTR(ContainerCollection);
 
 OSG_END_NAMESPACE
 

@@ -93,7 +93,7 @@ const Char8 *getName(const AttachmentContainerPtr pContainer)
         return NULL;
    
     // Get attachment pointer
-    FieldContainerAttachmentPtr att = 
+    AttachmentPtr att = 
         pContainer->findAttachment(Name::getClassType().getGroupId());
 
     if(att == NullFC)
@@ -124,8 +124,8 @@ void setName(const AttachmentContainerPtr  pContainer,
    
     // Get attachment pointer
 
-    NameUnrecPtr                name = NullFC;
-    FieldContainerAttachmentPtr att  = 
+    NameUnrecPtr  name = NullFC;
+    AttachmentPtr att  = 
         pContainer->findAttachment(Name::getClassType().getGroupId());
     
     if(att == NullFC)
@@ -159,7 +159,7 @@ void setName(const AttachmentContainerPtr pContainer, const Char8 *name)
 {
     if(name == NULL)
     {
-        FieldContainerAttachmentPtr att = 
+        AttachmentPtr att = 
             pContainer->findAttachment(Name::getClassType().getGroupId());
  
         if(att != NullFC)

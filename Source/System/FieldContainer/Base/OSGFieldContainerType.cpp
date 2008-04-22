@@ -52,7 +52,7 @@
 
 #include "OSGNodeCore.h"
 #include "OSGNode.h"
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 
 OSG_USING_NAMESPACE
 
@@ -221,7 +221,7 @@ bool FieldContainerType::initBaseType(void)
     {
         _baseType = IsNodeCore;
     }
-    else if(isDerivedFrom(FieldContainerAttachment::getClassType()) == true)
+    else if(isDerivedFrom(Attachment::getClassType()) == true)
     {
         _baseType = IsAttachment;
     }

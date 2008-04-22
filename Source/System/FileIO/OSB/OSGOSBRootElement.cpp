@@ -42,7 +42,7 @@
 #include "OSGContainerPtrFuncs.h"
 
 #include "OSGAttachmentContainer.h"
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 #include "OSGFieldContainerSFields.h"
 
 OSG_USING_NAMESPACE
@@ -363,8 +363,8 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 
     if(bindingIt != bindingEnd)
     {
-        FieldContainerAttachmentPtr att    = NullFC;
-        AttachmentContainerPtr      attCon =
+        AttachmentPtr          att    = NullFC;
+        AttachmentContainerPtr attCon =
             dynamic_cast<AttachmentContainerPtr>(ptrField.getContainer());
 
         for(; (idIt != idEnd) && (bindingIt != bindingEnd); ++idIt, ++bindingIt)
@@ -375,7 +375,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 
                 if(idMapIt != idMapEnd)
                 {
-                    att = dynamic_cast<FieldContainerAttachmentPtr>(
+                    att = dynamic_cast<AttachmentPtr>(
                         FieldContainerFactory::the()->getContainer(
                             idMapIt->second));
                 }

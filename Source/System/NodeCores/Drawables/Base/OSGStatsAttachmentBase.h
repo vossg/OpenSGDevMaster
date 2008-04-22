@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldContainerAttachment.h" // Parent
+#include "OSGAttachment.h" // Parent
 
 
 #include "OSGStatsAttachmentFields.h"
@@ -74,12 +74,12 @@ class StatsAttachment;
 
 //! \brief StatsAttachment Base Class.
 
-class OSG_SYSTEM_DLLMAPPING StatsAttachmentBase : public FieldContainerAttachment
+class OSG_SYSTEM_DLLMAPPING StatsAttachmentBase : public Attachment
 {
   public:
 
-    typedef FieldContainerAttachment Inherited;
-    typedef FieldContainerAttachment ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

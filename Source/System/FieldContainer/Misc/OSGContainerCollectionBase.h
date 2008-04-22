@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ContainerPool
+ **     class ContainerCollection
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCONTAINERPOOLBASE_H_
-#define _OSGCONTAINERPOOLBASE_H_
+#ifndef _OSGCONTAINERCOLLECTIONBASE_H_
+#define _OSGCONTAINERCOLLECTIONBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,30 +63,30 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldContainerAttachment.h" // Parent
+#include "OSGAttachment.h" // Parent
 
 #include "OSGStringFields.h" // Name type
 #include "OSGFieldContainerFields.h" // Containers type
 
-#include "OSGContainerPoolFields.h"
+#include "OSGContainerCollectionFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ContainerPool;
+class ContainerCollection;
 
-//! \brief ContainerPool Base Class.
+//! \brief ContainerCollection Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
+class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
 {
   public:
 
-    typedef FieldContainerAttachment Inherited;
-    typedef FieldContainerAttachment ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(ContainerPool);
+    OSG_GEN_INTERNALPTR(ContainerCollection);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -194,13 +194,13 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ContainerPoolTransitPtr create          (void);
-    static  ContainerPoolPtr        createEmpty     (void);
+    static  ContainerCollectionTransitPtr create          (void);
+    static  ContainerCollectionPtr        createEmpty     (void);
 
-    static  ContainerPoolTransitPtr createLocal     (
+    static  ContainerCollectionTransitPtr createLocal     (
                                               BitVector bFlags = FCLocal::All);
 
-    static  ContainerPoolPtr        createEmptyLocal(
+    static  ContainerCollectionPtr        createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -234,22 +234,22 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ContainerPoolBase(void);
-    ContainerPoolBase(const ContainerPoolBase &source);
+    ContainerCollectionBase(void);
+    ContainerCollectionBase(const ContainerCollectionBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ContainerPoolBase(void);
+    virtual ~ContainerCollectionBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const ContainerPool *source = NULL);
+    void onCreate(const ContainerCollection *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -273,7 +273,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      ContainerPoolBase *pFrom,
+            void execSync (      ContainerCollectionBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -312,11 +312,11 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ContainerPoolBase &source);
+    void operator =(const ContainerCollectionBase &source);
 };
 
-typedef ContainerPoolBase *ContainerPoolBaseP;
+typedef ContainerCollectionBase *ContainerCollectionBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCONTAINERPOOLBASE_H_ */
+#endif /* _OSGCONTAINERCOLLECTIONBASE_H_ */

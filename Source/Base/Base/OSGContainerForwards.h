@@ -115,7 +115,7 @@ class AttachmentContainer;
 class Node;
 class NodeCore;
 
-class FieldContainerAttachment;
+class Attachment;
 
 class DrawEnv;
 
@@ -134,7 +134,7 @@ template<class ObjT, class RefCountPolicyT>
 class RefCountPtr;
 
 OSG_GEN_CONTAINERPTR(FieldContainer);
-OSG_GEN_CONTAINERPTR(FieldContainerAttachment);
+OSG_GEN_CONTAINERPTR(Attachment);
 OSG_GEN_CONTAINERPTR(AttachmentContainer);
 OSG_GEN_CONTAINERPTR(Node);
 OSG_GEN_CONTAINERPTR(NodeCore);

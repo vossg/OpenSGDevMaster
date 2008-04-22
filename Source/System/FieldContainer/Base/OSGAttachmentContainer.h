@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGFieldContainer.h"
-#include "OSGFieldContainerAttachment.h"
+#include "OSGAttachment.h"
 #include "OSGAttachmentMapSFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -67,9 +67,9 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     typedef Inherited::TypeObject               TypeObject;
     typedef AttachmentContainer                 Self;
 
-    typedef FieldContainerAttachment            AttachmentObj;
-    typedef FieldContainerAttachmentPtr         AttachmentObjPtr;
-    typedef SFFieldContainerAttachmentPtrMap    SFAttachmentObjPtrMap;
+    typedef Attachment                          AttachmentObj;
+    typedef AttachmentPtr                       AttachmentObjPtr;
+    typedef SFAttachmentPtrMap                  SFAttachmentObjPtrMap;
 
     typedef SFAttachmentObjPtrMap::StoredType   AttachmentObjPtrMap;
     typedef AttachmentObjPtrMap::iterator       AttachmentObjPtrMapIt;
