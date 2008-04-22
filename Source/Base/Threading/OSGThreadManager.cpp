@@ -428,6 +428,71 @@ bool ThreadManager::shutdown(void)
 
     _pAppThread->shutdown();
 
+#ifdef OSG_DEBUG
+
+    ThreadStore::MPFieldMapCIt tI = _sThreadStore._mFieldMap.begin();
+    ThreadStore::MPFieldMapCIt tE = _sThreadStore._mFieldMap.end  ();
+
+    for(; tI != tE; ++tI)
+    {
+        FWARNING(("ThreadManager::shutdown: "
+                  "thread [%s|%p] is still alive ([%d]). \n", 
+                  (*tI).first.str(),
+                  (*tI).second,
+                  (*tI).second->exists()));
+
+    }
+
+    BarrierStore::MPFieldMapCIt bI = _sBarrierStore._mFieldMap.begin();
+    BarrierStore::MPFieldMapCIt bE = _sBarrierStore._mFieldMap.end  ();
+
+    for(; bI != bE; ++bI)
+    {
+        FWARNING(("ThreadManager::shutdown: "
+                  "barrier [%s|%p] is still alive\n", 
+                  (*bI).first.str(),
+                  (*bI).second));
+
+    }
+
+    CondVarStore::MPFieldMapCIt cI = _sCondVarStore._mFieldMap.begin();
+    CondVarStore::MPFieldMapCIt cE = _sCondVarStore._mFieldMap.end  ();
+
+    for(; cI != cE; ++cI)
+    {
+        FWARNING(("ThreadManager::shutdown: "
+                  "condvar [%s|%p] is still alive\n", 
+                  (*cI).first.str(),
+                  (*cI).second));
+
+    }
+
+    LockStore::MPFieldMapCIt lI = _sLockStore._mFieldMap.begin();
+    LockStore::MPFieldMapCIt lE = _sLockStore._mFieldMap.end  ();
+
+    for(; lI != lE; ++lI)
+    {
+        FWARNING(("ThreadManager::shutdown: "
+                  "lock [%s|%p] is still alive\n", 
+                  (*lI).first.str(),
+                  (*lI).second));
+
+    }
+
+    LockPoolStore::MPFieldMapCIt lpI = _sLockPoolStore._mFieldMap.begin();
+    LockPoolStore::MPFieldMapCIt lpE = _sLockPoolStore._mFieldMap.end  ();
+
+    for(; lpI != lpE; ++lpI)
+    {
+        FWARNING(("ThreadManager::shutdown: "
+                  "lockpool [%s|%p] is still alive\n", 
+                  (*lpI).first.str(),
+                  (*lpI).second));
+
+    }
+
+#endif
+
     FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d CondVarStore: %d"
             "LockStore: %d LockPoolStore: %d\n",
             _sThreadStore._mFieldMap.size(),

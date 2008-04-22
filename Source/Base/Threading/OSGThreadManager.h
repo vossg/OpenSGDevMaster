@@ -132,6 +132,8 @@ class MPFieldStore
     typedef std::map<IDStringLink, MPFieldT     *>  MPFieldMap;
     typedef typename MPFieldMap::iterator           MPFieldMapIt;
 
+    typedef typename MPFieldMap::const_iterator     MPFieldMapCIt;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
