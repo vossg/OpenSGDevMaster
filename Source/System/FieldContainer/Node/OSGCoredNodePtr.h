@@ -137,8 +137,9 @@ class CoredNodeRefPtr
     /*==========================  PRIVATE  ================================*/
 
   private:
-    NodeRecPtr     _pNode;
-    NodeCoreRecPtr _pCore;
+
+    NodeRecPtr _pNode;
+    CoreRefPtr _pCore;
 };
 
 /*! \ingroup GrpSystemFieldContainer
@@ -228,8 +229,9 @@ class CoredNodeMTRefPtr
     /*==========================  PRIVATE  ================================*/
 
   private:
-    NodeMTRecPtr     _pNode;
-    NodeCoreMTRecPtr _pCore;
+
+    NodeMTRecPtr  _pNode;
+    CoreMTRefPtr  _pCore;
 };
 
 OSG_END_NAMESPACE
