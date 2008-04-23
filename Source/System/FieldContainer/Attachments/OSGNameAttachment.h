@@ -79,7 +79,7 @@ struct NameAttachmentDesc
 
     static const Char8         *getParentTypeName(void) 
     {
-        return "FieldContainerAttachment";    
+        return "Attachment";    
     }
 
     static InitContainerF     getInitMethod(void) { return NULL;  }
