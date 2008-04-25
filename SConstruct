@@ -848,7 +848,7 @@ if not SConsAddons.Util.hasHelpFlag():
       tagWriter.run()
       
    # Documentation
-   if "NONE" != common_env["docs_mode"]:
+   if "NONE" != common_env["docs_mode"] and not ARGUMENTS.has_key("ignore_docs"):
       # Todo: 
       #   - put output into build dir
       #   - handle different doc levels
@@ -857,11 +857,20 @@ if not SConsAddons.Util.hasHelpFlag():
       # Get all used source/header files
       dox_inp = "INPUT = "
       for (name,lib) in lib_map.iteritems():
-         for i in lib.source_files:
-            dox_inp += "../Source/" + i + " "
-         for i in lib.header_files:
-            dox_inp += "../Source/" + i + " "
-      
+         for i in lib.doc_extra_files:
+            dox_inp += "../" + i + " "
+
+         if ARGUMENTS.has_key("simple_docs"):
+            for i in lib.doc_source_files:
+               dox_inp += "../" + i + " "
+            for i in lib.doc_header_files:
+               dox_inp += "../" + i + " "
+         else:
+            for i in lib.source_files:
+               dox_inp += "../Source/" + i + " "
+            for i in lib.header_files:
+               dox_inp += "../Source/" + i + " "
+
       # Write it to a file that's included by doxygen
       # Need to do this to avoid environment size problems
       f = open(pj("Doc","opensg_input.doxy"), 'w')
@@ -882,78 +891,80 @@ if not SConsAddons.Util.hasHelpFlag():
       else:
          raise "Unknown docs_mode %s" % common_env["docs_mode"]
       
-   # ---- FOR EACH VARIANT ----- #
-   # This is the core of the build.
-   if verbose_build:
-      print "types: ",    variant_helper.variants["type"]
-      #print "libtypes: ", variant_helper.variants["libtype"]
-      print "archs: ",    variant_helper.variants["arch"]
+   if not ARGUMENTS.has_key("docs_only"):
+
+      # ---- FOR EACH VARIANT ----- #
+      # This is the core of the build.
+      if verbose_build:
+         print "types: ",    variant_helper.variants["type"]
+         #print "libtypes: ", variant_helper.variants["libtype"]
+         print "archs: ",    variant_helper.variants["arch"]
       
-   # We tread the first variant type special (auto link from libs here)
-   try:
-      default_combo_type = variant_helper.variants["type"][0][0]
-   except:
-      default_combo_type = None
+      # We tread the first variant type special (auto link from libs here)
+      try:
+         default_combo_type = variant_helper.variants["type"][0][0]
+      except:
+         default_combo_type = None
       
-   for combo in variant_helper.iterate(locals(), base_bldr, common_env):
+      for combo in variant_helper.iterate(locals(), base_bldr, common_env):
       #baseEnv = env_bldr.applyToEnvironment(common_env.Copy(), variant=combo,options=opts)
-      print "   Processing combo: ", ", ".join(['%s:%s'%(i[0],i[1]) for i in combo.iteritems()])
+         print "   Processing combo: ", ", ".join(['%s:%s'%(i[0],i[1]) for i in combo.iteritems()])
 
-      inst_paths = copy.copy(paths)
-      if "x64" == combo["arch"]:
-         inst_paths['lib'] = inst_paths['lib'] + '64'
-      inst_paths["lib_inst_combo"] = inst_paths["lib"]
-      if GetPlatform() != "win32":
-         if "debug" == combo["type"]:
-            inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debug")
-         else:
-            inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"opt")
+         inst_paths = copy.copy(paths)
+         if "x64" == combo["arch"]:
+            inst_paths['lib'] = inst_paths['lib'] + '64'
+         inst_paths["lib_inst_combo"] = inst_paths["lib"]
+         if GetPlatform() != "win32":
+            if "debug" == combo["type"]:
+               inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debug")
+            else:
+               inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"opt")
       
-      Export('build_env', 'inst_paths', 'opts', 'variant_pass', 'combo',
-             'lib_map', 'shared_lib_suffix', 'static_lib_suffix',
-             'default_combo_type', 'verbose_build')
+         Export('build_env', 'inst_paths', 'opts', 'variant_pass', 'combo',
+                'lib_map', 'shared_lib_suffix', 'static_lib_suffix',
+                'default_combo_type', 'verbose_build')
       
-      # Process subdirectories
-      sub_dirs = ['Source']
-      full_build_dir = pj(buildDir, combo_dir)
-      for d in sub_dirs:
-         SConscript(pj(d, 'SConscript'), build_dir = pj(full_build_dir, d), duplicate = 0)
+         # Process subdirectories
+         sub_dirs = ['Source']
+         full_build_dir = pj(buildDir, combo_dir)
+         for d in sub_dirs:
+            SConscript(pj(d, 'SConscript'), build_dir = pj(full_build_dir, d), duplicate = 0)
       
-      # Build -config file based on first set installed
-      if 0 == variant_pass:
-         # - Create string using pprint.pformat that can build libmap (see osg-config.in for read)
-         lib_map_build_list = []
-         for (name,lib) in lib_map.iteritems():
-            lib_map_build_list.append(lib.dump())
+         # Build -config file based on first set installed
+         if 0 == variant_pass:
+            # - Create string using pprint.pformat that can build libmap (see osg-config.in for read)
+            lib_map_build_list = []
+            for (name,lib) in lib_map.iteritems():
+               lib_map_build_list.append(lib.dump())
             
-            # Add an alias just for this lib and its unittests
-            Alias(name[3:], [ pj(full_build_dir, "Source", "lib" + name + common_env["SHLIBSUFFIX"]), \
-                              pj(full_build_dir, "unittest", "run" + name)\
-                            ])
+               # Add an alias just for this lib and its unittests
+               Alias(name[3:], [ pj(full_build_dir, "Source", "lib" + name + common_env["SHLIBSUFFIX"]), \
+                                 pj(full_build_dir, "unittest", "run" + name)\
+                               ])
 
-         lib_map_str = pprint.pformat(lib_map_build_list)
+            lib_map_str = pprint.pformat(lib_map_build_list)
+  
+            if "win32" == platform:
+                inst_inc_path = inst_paths["include"].replace('\\','\\\\')
+                inst_prefix   = common_env["prefix"].replace('\\','\\\\')
+                inst_lib_path = inst_paths["lib"].replace('\\','\\\\')
+            else:
+                inst_inc_path = inst_paths["include"]
+                inst_prefix   = common_env["prefix"]
+                inst_lib_path = inst_paths["lib"]
 
-         if "win32" == platform:
-             inst_inc_path = inst_paths["include"].replace('\\','\\\\')
-             inst_prefix   = common_env["prefix"].replace('\\','\\\\')
-             inst_lib_path = inst_paths["lib"].replace('\\','\\\\')
-         else:
-             inst_inc_path = inst_paths["include"]
-             inst_prefix   = common_env["prefix"]
-             inst_lib_path = inst_paths["lib"]
-
-         submap = {'@LIB_MAP_STR@'      : lib_map_str,
-                   '@PREFIX@'           : inst_prefix,
-                   '@LIBPATH@'          : inst_lib_path,
-                   '@INCPATH@'          : inst_inc_path,
-                   '@VERSION@'          : opensg_version_string,
-                   '@LIBRARY_UTIL_SRC@' : file(pj('Tools','scons-build','LibraryUtils.py')).read()}
-         # Install two scripts so we have one with osg2 in the name to let users be sure they get the right version
-         for n in ["osg-config","osg2-config"]:
-            osg_config = common_env.SubstBuilder(pj(paths['bin'],n),
-                                    'osg-config.in', submap=submap)
-            common_env.AddPostAction(osg_config, Chmod('$TARGET', 0755))
-            common_env.Depends(osg_config, Value(lib_map_str))
+            submap = {'@LIB_MAP_STR@'      : lib_map_str,
+                      '@PREFIX@'           : inst_prefix,
+                      '@LIBPATH@'          : inst_lib_path,
+                      '@INCPATH@'          : inst_inc_path,
+                      '@VERSION@'          : opensg_version_string,
+                      '@LIBRARY_UTIL_SRC@' : file(pj('Tools','scons-build','LibraryUtils.py')).read()}
+            # Install two scripts so we have one with osg2 in the name to let users be sure they get the right version
+            for n in ["osg-config","osg2-config"]:
+               osg_config = common_env.SubstBuilder(pj(paths['bin'],n),
+                                                    'osg-config.in', submap=submap)
+               common_env.AddPostAction(osg_config, Chmod('$TARGET', 0755))
+               common_env.Depends(osg_config, Value(lib_map_str))
    
    common_env.Alias('install', paths['base'])
    

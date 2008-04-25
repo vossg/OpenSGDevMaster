@@ -4,11 +4,13 @@ using namespace OSG;
 
 /*! \defgroup GrpSystem OpenSG System Library
 
-    \brief The System Library contains the main system-independent parts of OpenSG.
+    \brief The System Library contains the main system-independent parts of 
+           OpenSG.
 
     See \ref PageSystem for details.
 */
 
+#if 0
 /*! \defgroup GrpSystemField Fields
     \ingroup GrpSystem
     
@@ -35,8 +37,13 @@ using namespace OSG;
     ToDo
 */
 
+#endif
+
 /*! \page PageSystem System
+   
+   SystemLib
 
-SystemLib: everything not base and winsys
-
+   \subpage PageSystemFieldsNFieldContainers
+   \subpage PageSystemFieldContainerExt
 */
+

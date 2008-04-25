@@ -22,6 +22,22 @@ using namespace OSG;
     ToDo
 */
 
+/*! \defgroup GrpBaseBaseConstants Constants
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseTypeSystem TypeSystem
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+#if 0
+
+
+
 /*! \defgroup GrpBaseBaseBaseTypeTraits BaseTypesTraits
     \ingroup GrpBaseBase
 
@@ -40,11 +56,6 @@ using namespace OSG;
     ToDo
 */
 
-/*! \defgroup GrpBaseBaseConstants Constants
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
 
 /*! \defgroup GrpBaseBaseFileSystem FileSystem
     \ingroup GrpBaseBase
@@ -118,11 +129,6 @@ using namespace OSG;
     ToDo
 */
 
-/*! \defgroup GrpBaseBaseTypeSystem TypeSystem
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
 
 /*! \defgroup GrpBaseBaseVolume Volume
     \ingroup GrpBaseBase
@@ -145,15 +151,6 @@ communication. This objects are mainly used by OpenSG-Cluster support
     STLHelpers are little structures and classes that are need to run STL
     algorithms or to use STL containers. 
  */
-
-/*! \page PageBase Base
-
-\latexonly Starter:NewChapter \endlatexonly
-
-All OpenSG symbols are part of the OSG name space, and they have no prefix.
-The actual files, including headers, all use the OSG prefix.
-
-*/
 
 /*! \page PageBaseTypes Base Types
 
@@ -425,18 +422,21 @@ not provide all features we needed (e.g. shared memory pointer, automatic
 preferred pointer comparison when comparing objects)
 
 */
+#endif
 
-/* \page PageBaseFunctors Functors
+/*! \page PageBase Base
 
-Functors are the main method for OpenSG to call configurable actions. Functors
-wrap calls to a standard function, to a member of a specific instance or to a
-member of the first parameter. 
+\latexonly Starter:NewChapter \endlatexonly
 
-Functors will have to be redesigned for 1.1, as they don't compile using the
-Microsoft Visual Studio compiler. :( Thus we don't talk much about them here,
-if you need to add a new action or GL object, send us mail.
-
+All OpenSG symbols are part of the OSG name space, and they have no prefix.
+The actual files, including headers, all use the OSG prefix.
 
 */
 
+/*! \page PageDoc General Documentation
 
+   Related Pages
+
+   \subpage PageBase
+   \subpage PageSystem
+ */

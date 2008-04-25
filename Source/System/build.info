@@ -25,3 +25,5 @@ else:
    if "darwin" == platform:
       frameworks = ['OpenGL', 'GLUT']
       frameworkpath = []
+
+   doc_extra_files = ['System.dox']

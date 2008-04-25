@@ -8,6 +8,9 @@ class LibraryInfo(object):
       self.name = name
       self.source_files = []         # List of source files for this library
       self.header_files = []         # List of header files for this library
+      self.doc_source_files = []     # List of source files for this library
+      self.doc_header_files = []     # List of header files for this library
+      self.doc_extra_files = []      # List of header files for this library
       self.test_files = []           # list of source files for tests
       self.osg_dep_libs = []         # Names of OpenSG libraries we depend on
       self.libs = []                 # Names of other libraries we depend on
@@ -41,7 +44,7 @@ class LibraryInfo(object):
       # Merge the lists but only merge in new unique entries
       for a in ["source_files","header_files","test_files","osg_dep_libs",
                 "libs","libpath","frameworks","frameworkpath","cpppath",
-                "cxx_flags",
+                "cxx_flags","doc_source_files","doc_header_files",
                 "osg_test_libs","other_test_libs","test_cpppath","test_libpath","unittest_files"]:
          getattr(self,a).extend([i for i in getattr(other,a) if not i in getattr(self,a)])
  

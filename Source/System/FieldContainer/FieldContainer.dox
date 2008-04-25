@@ -6,6 +6,8 @@ using namespace OSG;
     \ingroup GrpSystem
  */
 
+#if 0
+
 /*! \defgroup GrpSystemFieldContainerFuncs Field Container Functions
     \ingroup GrpSystem
  */
@@ -13,7 +15,16 @@ using namespace OSG;
 /*! \defgroup GrpSystemMultithreading Multithreading
     \ingroup GrpSystem
  */
+#endif
 
+/*! \page PageSystemFieldsNFieldContainers Fields & Field Containers
+
+ */
+
+/*! \page PageSystemFieldContainerExt Creating New FieldContainer Classes
+ */
+
+#if 0
 /*! \page PageSystemFieldsNFieldContainers Fields & Field Containers
 
 \latexonly Starter:NewChapter \endlatexonly
@@ -39,12 +50,6 @@ the factory is for. The factory is a singleton, the single instance can be
 accessed via FieldContainerFactory::the(), which has functions to create
 arbitrary field containers, with some special versions to directly create
 different subsets of field containers (Nodes, NodeCores, Attachments).
-
-For reasons connected to multi-threading (s. [threadsafety]) specific kinds of
-pointers have to be used. For every FieldContainer type fc there is a specific
-pointer type fcPtr. It has all the features of a standard pointer, i.e. it can
-be dereferenced via -> and it can be downcasted to a derived type by
-DerivedPtr.dcast( ParentPtr );.
 
 Creating a new instance of a specific class is done by calling fcPtr
 var=fcPtr::create(). 
@@ -95,7 +100,6 @@ The CPEditor is an equivalent to the std::auto_ptr in the sense that as it calls
 the beginEdit as soon as it is created and calls the endEdit as soon as it goes
 out of scope.
 
-\example Use CPEditor for begin/endEdit:
 
 \code
 
@@ -110,27 +114,7 @@ out of scope.
 
 \endcode
 
-\endexample
 
-As a further (small) simplification there is a CPEdit macro that creates the
-CPEditor instance automatically.
-
-\example Use CPEdit for begin/endEdit:
-
-\code
-
-    GeoPTypesPtr type = GeoPTypesUI8::create();        
-    {
-        CPEdit(type, GeoPTypesUI8::GeoPropDataFieldMask);
-        
-        type->addValue(GL_POLYGON  );
-        type->addValue(GL_TRIANGLES);
-        type->addValue(GL_QUADS    );
-    }
-
-\endcode
-
-\endexample
 
 
 
@@ -408,4 +392,4 @@ Shutdown.
 */
 
 #endif
-
+#endif

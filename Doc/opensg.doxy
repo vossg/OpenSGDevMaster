@@ -108,7 +108,7 @@ ALWAYS_DETAILED_SEC    = YES
 # members were ordinary class members. Constructors, destructors and assignment 
 # operators of the base classes will not be shown.
 
-INLINE_INHERITED_MEMB  = YES
+INLINE_INHERITED_MEMB  = NO
 
 # If the FULL_PATH_NAMES tag is set to YES then Doxygen will prepend the full 
 # path before files name in the file list and in the header files. If set 
@@ -1059,7 +1059,10 @@ PREDEFINED             = DOC_LEVEL=3 \
                         "OSG_USING_NAMESPACE=namespace OSG {} using namespace OSG;" \
                         OSG_DEBUG_ARG                     \
                         OSG_DO_DOC                        \
-                        DOXYGEN_SHOULD_SKIP_THIS
+                        DOXYGEN_SHOULD_SKIP_THIS          \
+                        __GNUC__                          \
+                        __linux                           \
+                        OSG_UNUSED_ATTRIB=
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 
@@ -1068,7 +1071,9 @@ PREDEFINED             = DOC_LEVEL=3 \
 
 EXPAND_AS_DEFINED      =    OSG_CHECK_ARG \
                             OSG_BASELIB_DLLMAPPING \
-                            OSG_SYSTEMLIB_DLLMAPPING
+                            OSG_SYSTEMLIB_DLLMAPPING \
+                            OSG_UNUSED_ATTRIB        \
+                            OSGT
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then 
 # doxygen's preprocessor will remove all function-like macros that are alone 

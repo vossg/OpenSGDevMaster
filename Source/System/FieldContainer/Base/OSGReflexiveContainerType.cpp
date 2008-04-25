@@ -51,7 +51,7 @@
 
 #include <algorithm>
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
@@ -401,3 +401,5 @@ bool ReflexiveContainerType::subDescription(UInt32 uiFieldId)
 
     return returnValue;
 }
+
+OSG_END_NAMESPACE

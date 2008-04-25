@@ -59,8 +59,9 @@ class BuildInfoScanner(object):
         self.libNameStack  = []
         self.libAttributes = ["osg_dep_libs", "libs", "frameworks", "cpppath",
                               "libpath", "frameworkpath","osg_test_libs",
-                              "other_test_libs","test_cpppath",
-                              "test_libpath", "cxx_flags"]
+                              "other_test_libs","test_cpppath", "doc_header_files",
+                              "doc_extra_files", "test_libpath", "cxx_flags",
+                              "doc_source_files" ]
     
     def scan(self, scanDir = ""):
         """Scan for build.info files in baseDir/scanDir keeping all file paths
@@ -119,6 +120,29 @@ class BuildInfoScanner(object):
             if self.verbose:
                 print "Library name: ", libName
             
+            if biDict.has_key('doc_header_files'):
+                tmplist = []
+                for f in biDict['doc_header_files']:
+                    tmplist.append(pj(fullDir, f))
+
+                biDict['doc_header_files'] = tmplist
+
+
+            if biDict.has_key('doc_source_files'):
+                tmplist = []
+                for f in biDict['doc_source_files']:
+                    tmplist.append(pj(fullDir, f))
+
+                biDict['doc_source_files'] = tmplist
+
+
+            if biDict.has_key('doc_extra_files'):
+                tmplist = []
+                for f in biDict['doc_extra_files']:
+                    tmplist.append(pj(fullDir, f))
+
+                biDict['doc_extra_files'] = tmplist
+
             # Add all the lib options from the evaluation
             # - Only add on the unique ones
             for attrib in self.libAttributes:
@@ -136,7 +160,7 @@ class BuildInfoScanner(object):
                                               f not in testFiles and f not in unittestFiles)]
         headerFiles   = [f for f in files if (os.path.splitext(f)[1] in [".h", ".inl", ".ins", ".hpp"] and
                                               os.path.basename(f).startswith("OSG"))]
-        
+
         if self.env['enable_scanparse_in_builddir'] == True:
             parserFiles  = [f for f in files if (os.path.splitext(f)[1] in [".yy"] and
                                                  os.path.basename(f).startswith("OSG") )]

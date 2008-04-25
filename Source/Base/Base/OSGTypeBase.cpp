@@ -51,13 +51,16 @@
 #include "OSGTypeFactory.h"
 #include "OSGLog.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
 
 /*! \class TypeBase
+    \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpBaseBase
+
     Base for all types in the type system.
 
     A type is uniquely defined by:
@@ -75,8 +78,6 @@ OSG_USING_NAMESPACE
     when initialize is called these members are set (often with values obtained
     from the TypeFactory). This decouples the creation/initialization order from
     the inheritance hierarchy of the types.
-
-    \ingroup GrpBaseBaseTypeSystem
 
     \see TypeFactory
  */
@@ -371,6 +372,7 @@ bool TypeBase::operator !=(const TypeBase &other) const
 /*! Print information about this object for debugging purposes.
 
     \param[in] uiIndent Number of spaces to indent output.
+    \param[in] bvFlags Not used
  */
 void TypeBase::dump(      UInt32    uiIndent,
                     const BitVector         ) const
@@ -379,3 +381,4 @@ void TypeBase::dump(      UInt32    uiIndent,
     PLOG << "TypeBase : " << getId() << " | " << getCName() << endLog;
 }
 
+OSG_END_NAMESPACE

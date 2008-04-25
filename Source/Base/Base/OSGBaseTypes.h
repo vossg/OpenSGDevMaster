@@ -637,10 +637,12 @@ const Char8  DirSep    = '/';
 
 #else
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(__GNUC__)
 #define OSG_UNUSED_ATTRIB __attribute__((__unused__))
 #else
 #define OSG_UNUSED_ATTRIB
+#endif
 #endif
 
 /*! \ingroup GrpBaseBaseConstants
@@ -659,6 +661,8 @@ static const Char8  DirSep OSG_UNUSED_ATTRIB = '/';
 #undef OSG_UNUSED_ATTRIB
 #endif
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
 namespace PointerSize
 {
     struct UnknowSize {};
@@ -671,6 +675,11 @@ namespace PointerSize
                             UInt64,
                             Tmp1  >::type PtrSize;
 }
+
+#endif
+
+/*! \ingroup GrpBaseBaseBaseTypes
+ */
 
 typedef PointerSize::PtrSize UIntPointer;
 
@@ -686,6 +695,11 @@ enum MathTypeProperties
 };
 
 typedef const BitVector ConstFieldMaskArg;
+
+/*! FieldFlags
+    \ingroup GrpBaseBaseBaseTypes
+    \ingroup GrpBaseBase
+ */
 
 struct FieldFlags
 {
