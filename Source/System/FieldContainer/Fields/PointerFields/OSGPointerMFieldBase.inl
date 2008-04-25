@@ -69,7 +69,7 @@ UInt32 PointerMFieldBase::getBinSize(void) const
 inline
 void PointerMFieldBase::copyToBin(BinaryDataHandler &pMem) const
 {
-    size_type n = _ptrStore.size();
+    UInt32 n = _ptrStore.size();
 
     pMem.putValue(n);
 

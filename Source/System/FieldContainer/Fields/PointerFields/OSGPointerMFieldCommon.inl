@@ -384,7 +384,7 @@ template <class AccessHandlerT, Int32 NamespaceI> inline
 void PointerMFieldCommon<AccessHandlerT,
                          NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
-    size_type n;
+    UInt32 n;
 
     pMem.getValue(n);
 
@@ -416,7 +416,7 @@ void PointerMFieldCommon<AccessHandlerT,
 
             FieldContainerPtr tmpVal;
 
-            for(size_type i = 0; i < n; ++i)
+            for(UInt32 i = 0; i < n; ++i)
             {
                 MFieldTraits::copyFromBin(pMem, 
                                           tmpVal);

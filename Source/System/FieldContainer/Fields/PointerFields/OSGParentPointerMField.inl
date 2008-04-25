@@ -555,7 +555,7 @@ void ParentPointerMField<PtrTypeT,
 {
     Inherited::copyToBin(pMem);
     
-    size_type ptrSize = this->size();
+    UInt32 ptrSize = this->size();
 
     if(ptrSize > 0)
     {
@@ -572,7 +572,7 @@ void ParentPointerMField<PtrTypeT,
 {
     Inherited::copyFromBin(pMem);
 
-    size_type ptrSize = this->size();
+    UInt32 ptrSize = this->size();
     
     if(ptrSize > 0)
     {
