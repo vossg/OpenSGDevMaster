@@ -121,10 +121,10 @@ ColladaLoader::~ColladaLoader(void)
     delete _pPathHandler;
 }
 
-NodePtr ColladaLoader::read(      std::istream  &is, 
-                            const Char8         *szFileName)
+NodeTransitPtr ColladaLoader::read(      std::istream  &is, 
+                                   const Char8         *szFileName)
 {
-    NodePtr returnValue = NullFC;
+    NodeTransitPtr returnValue(NullFC);
 
 #ifdef OSG_WITH_COLLADA
     _pPathHandler->clearPathList();
@@ -227,6 +227,15 @@ NodePtr ColladaLoader::read(      std::istream  &is,
     fprintf(stderr, "returnValue %p\n", &(*returnValue));
 #endif
 #endif
+
+    pInput->clear();
+
+    pInput->setDatabase(NULL);
+
+    delete pDataBase;
+    delete pInput;
+
+    daeMetaElement::releaseMetas();
 
     return returnValue;
 }

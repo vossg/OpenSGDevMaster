@@ -155,7 +155,7 @@ class VisualSceneIntegration : public ColladaIntegrationBase
 
     static daeMetaElement *_pMeta;
 
-    NodePtr _pScene;
+    NodeUnrecPtr _pScene;
 
   public:
 
@@ -187,8 +187,8 @@ class NodeIntegration : public ColladaIntegrationBase
 
     static daeMetaElement *_pMeta;
 
-    NodePtr      _pNode;
-    TransformPtr _pTransform;
+    NodeUnrecPtr      _pNode;
+    TransformUnrecPtr _pTransform;
 
     bool handleNode     (daeElementRef pElem);
     bool handleTranslate(daeElementRef pElem);
@@ -224,15 +224,15 @@ class InstanceIntegration : public ColladaIntegrationBase
 
     typedef ColladaIntegrationBase Inherited;
 
-    NodePtr _pNode;
-    UInt32  _uiCount;
+    NodeUnrecPtr _pNode;
+    UInt32       _uiCount;
 
   public:
 
     InstanceIntegration(void);
     ~InstanceIntegration(void);
 
-    NodePtr getInstance(void);
+    NodeTransitPtr getInstance(void);
 };
 
 //---------------------------------------------------------------------------
@@ -251,20 +251,20 @@ class GeometryIntegration : public ColladaIntegrationBase
     typedef ColladaIntegrationBase Inherited;
 
 
-    typedef std::pair  <GeoIntegralPropertyPtr,
-                        GeoVectorPropertyPtr   >           PropIndexPair;
+    typedef std::pair  <GeoIntegralPropertyUnrecPtr,
+                        GeoVectorPropertyUnrecPtr  >           PropIndexPair;
     
     typedef std::map   <std::string,  
-                        PropIndexPair          >           PropIndexMap;
+                        PropIndexPair              >           PropIndexMap;
     typedef std::map   <std::string,  
-                        PropIndexPair          >::iterator PropIndexMapIt;
+                        PropIndexPair              >::iterator PropIndexMapIt;
 
 
 
     struct GeometryInfo
     {
-        GeometryPtr   pGeo;
-        PropIndexMap _mPropIndexMap;
+        GeometryUnrecPtr  pGeo;
+        PropIndexMap     _mPropIndexMap;
     };
 
   
@@ -288,8 +288,8 @@ class GeometryIntegration : public ColladaIntegrationBase
     void   setupGeometry         (xsNCName                    szMatName,
                                   domInputLocal_Array        &aVertexInput,
                                   domInputLocalOffset_Array  &aInput,
-                                  GeoUInt32PropertyPtr       &pLengthsOut,
-                                  GeoUInt8PropertyPtr        &pTypesOut,
+                                  GeoUInt32PropertyUnrecPtr  &pLengthsOut,
+                                  GeoUInt8PropertyUnrecPtr   &pTypesOut,
                                   PropVec                    &pPropVecOut );
 
 
@@ -381,9 +381,9 @@ class SourceIntegration : public ColladaIntegrationBase
 
     static daeMetaElement *_pMeta;
     
-    GeoVec3fPropertyPtr    _pVec3fProp;
-    GeoPnt3fPropertyPtr    _pPnt3fProp;
-    GeoVec2fPropertyPtr    _pVec2fProp;
+    GeoVec3fPropertyUnrecPtr    _pVec3fProp;
+    GeoPnt3fPropertyUnrecPtr    _pPnt3fProp;
+    GeoVec2fPropertyUnrecPtr    _pVec2fProp;
 
   public:
 
@@ -421,8 +421,8 @@ class EffectIntegration : public ColladaIntegrationBase
 
     typedef ColladaIntegrationBase Inherited;
 
-    static daeMetaElement   *_pMeta;
-           ChunkMaterialPtr  _pMaterial;
+    static daeMetaElement        *_pMeta;
+           ChunkMaterialUnrecPtr  _pMaterial;
     
            std::vector<std::string>              _vTexCoordMapping;
            std::map   <std::string, 
@@ -488,7 +488,7 @@ class ImageIntegration : public ColladaIntegrationBase
 
     static daeMetaElement *_pMeta;
 
-    ImagePtr      _pImage;
+    ImageUnrecPtr          _pImage;
 
   public:
 
@@ -519,11 +519,11 @@ class Sampler2DIntegration : public ColladaIntegrationBase
 
     typedef ColladaIntegrationBase Inherited;
 
-    static daeMetaElement *_pMeta;
+    static daeMetaElement           *_pMeta;
 
-    static EffectIntegration *_pEffectInt;
+    static EffectIntegration       *_pEffectInt;
 
-           TextureObjChunkPtr _pTexObj;
+           TextureObjChunkUnrecPtr  _pTexObj;
 
   public:
 
@@ -556,9 +556,9 @@ class SurfaceIntegration : public ColladaIntegrationBase
 
     typedef ColladaIntegrationBase Inherited;
 
-    static daeMetaElement *_pMeta;
+    static daeMetaElement   *_pMeta;
 
-    TextureObjChunkPtr _pTexObj;
+    TextureObjChunkUnrecPtr  _pTexObj;
 
   public:
 

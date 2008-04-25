@@ -186,8 +186,8 @@ class OSG_FILEIO_DLLMAPPING ColladaLoader
 
     /*------------------------- your_operators ------------------------------*/
 
-    virtual NodePtr read(      std::istream  &is, 
-                         const Char8         *szFileName);
+    virtual NodeTransitPtr read(      std::istream  &is, 
+                                const Char8         *szFileName);
 
     /*------------------------- your_operators ------------------------------*/
 

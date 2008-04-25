@@ -187,7 +187,7 @@ VisualSceneIntegration::VisualSceneIntegration(void) :
 
 VisualSceneIntegration::~VisualSceneIntegration(void)
 {
-    OSG::subRef(_pScene);
+    _pScene = NULL;
 }
 
 daeElementRef VisualSceneIntegration::create(daeInt bytes)
@@ -321,8 +321,6 @@ bool NodeIntegration::handleTranslate(daeElementRef pElem)
     {
         _pTransform = Transform::create();
 
-        OSG::addRef(_pTransform);
-
         _pNode->setCore(_pTransform);
     }
 
@@ -353,8 +351,6 @@ bool NodeIntegration::handleRotate(daeElementRef pElem)
     if(_pTransform == NullFC)
     {
         _pTransform = Transform::create();
-
-        OSG::addRef(_pTransform);
 
         _pNode->setCore(_pTransform);
     }
@@ -390,8 +386,6 @@ bool NodeIntegration::handleScale(daeElementRef pElem)
     if(_pTransform == NullFC)
     {
         _pTransform = Transform::create();
-
-        OSG::addRef(_pTransform);
 
         _pNode->setCore(_pTransform);
     }
@@ -452,8 +446,8 @@ NodeIntegration::NodeIntegration(void) :
 
 NodeIntegration::~NodeIntegration(void)
 {
-    OSG::subRef(_pNode     );
-    OSG::subRef(_pTransform);
+    _pNode      = NULL;
+    _pTransform = NULL;
 }
 
 daeElementRef NodeIntegration::create(daeInt bytes)
@@ -502,8 +496,6 @@ void NodeIntegration::fromCOLLADA(void)
 #endif
 
     _pNode = Node::create();
-
-    OSG::addRef(_pNode);
 
     daeMetaElement *pMeta = _pElement->getMeta();
 
@@ -564,19 +556,19 @@ InstanceIntegration::InstanceIntegration(void) :
 
 InstanceIntegration::~InstanceIntegration(void)
 {
-    OSG::subRef(_pNode);
+    _pNode = NULL;
 }
 
-NodePtr InstanceIntegration::getInstance(void)
+NodeTransitPtr InstanceIntegration::getInstance(void)
 {
     if(_pNode == NullFC)
-        return NullFC;
+        return NodeTransitPtr(NullFC);
 
     if(_uiCount == 0)
     {
         ++_uiCount;
 
-        return _pNode;
+        return NodeTransitPtr(_pNode);
     }
     else
     {
@@ -933,10 +925,10 @@ void GeometryInstanceIntegration::fromCOLLADA(void)
     {
         for(UInt32 i = 0; i < geoIt->second.size(); ++i)
         {
-            MaterialGroupPtr pMatGroup     = MaterialGroup::create();
-            NodePtr          pMatGroupNode = Node         ::create();
+            MaterialGroupUnrecPtr pMatGroup     = MaterialGroup::create();
+            NodeUnrecPtr          pMatGroupNode = Node         ::create();
             
-            NodePtr          pGeoNode      = Node         ::create();
+            NodeUnrecPtr          pGeoNode      = Node         ::create();
 
 #ifdef OSG_DEBUG_PRINT
             fprintf(stderr, "%s\n", geoIt->first.c_str());
@@ -978,8 +970,8 @@ void GeometryIntegration::setupGeometry(
     xsNCName                   szMatName,
     domInputLocal_Array       &aVertexInput,
     domInputLocalOffset_Array &aInput,
-    GeoUInt32PropertyPtr      &pLengthsOut,
-    GeoUInt8PropertyPtr       &pTypesOut,
+    GeoUInt32PropertyUnrecPtr &pLengthsOut,
+    GeoUInt8PropertyUnrecPtr  &pTypesOut,
     PropVec                   &vPropVecOut  )
 {
     daeURI      oSource;
@@ -1034,8 +1026,8 @@ void GeometryIntegration::setupGeometry(
             UInt32 uiPropIdx = 
                 SemanticToPropGeoIndex(aInput[i]->getSemantic());
 
-            GeoUInt32PropertyPtr pProp  = GeoUInt32Property::create();
-            GeoVectorPropertyPtr pVProp = NullFC;
+            GeoUInt32PropertyUnrecPtr pProp  = GeoUInt32Property::create();
+            GeoVectorPropertyUnrecPtr pVProp = NullFC;
 
             if(uiPropIdx == 0xFFFE)
             {
@@ -1125,7 +1117,7 @@ void GeometryIntegration::setupGeometry(
                     }
                     else
                     {
-                        OSG::subRef(pProp);
+                        pProp = NullFC;
                     }
                 }
             }
@@ -1181,7 +1173,7 @@ void GeometryIntegration::setupGeometry(
             if(propIt != pGeoInfo->_mPropIndexMap.end())
             {
                 vPropVecOut[aInput[i]->getOffset()] =
-                    static_cast<GeoUInt32PropertyPtr>(
+                    static_pointer_cast<GeoUInt32Property>(
                         propIt->second.first);
             }
         }
@@ -1200,8 +1192,8 @@ void GeometryIntegration::handlePolygon(domInputLocal_Array &aVertexInput,
 {
     domInputLocalOffset_Array &aInput   = pPoly->getInput_array();
 
-    GeoUInt32PropertyPtr       pLengths = NullFC;
-    GeoUInt8PropertyPtr        pTypes   = NullFC;
+    GeoUInt32PropertyUnrecPtr  pLengths = NullFC;
+    GeoUInt8PropertyUnrecPtr   pTypes   = NullFC;
 
     PropVec                    aProps;
 
@@ -1252,8 +1244,8 @@ void GeometryIntegration::handlePolygonList(domInputLocal_Array &aVertexInput,
 {
     domInputLocalOffset_Array &aInput   = pPoly->getInput_array();
 
-    GeoUInt32PropertyPtr       pLengths = NullFC;
-    GeoUInt8PropertyPtr        pTypes   = NullFC;
+    GeoUInt32PropertyUnrecPtr  pLengths = NullFC;
+    GeoUInt8PropertyUnrecPtr   pTypes   = NullFC;
 
     PropVec                    aProps;
 
@@ -1297,8 +1289,8 @@ void GeometryIntegration::handleTriangles(domInputLocal_Array &aVertexInput,
 {
     domInputLocalOffset_Array &aInput   = pTriangles->getInput_array();
 
-    GeoUInt32PropertyPtr       pLengths = NullFC;
-    GeoUInt8PropertyPtr        pTypes   = NullFC;
+    GeoUInt32PropertyUnrecPtr  pLengths = NullFC;
+    GeoUInt8PropertyUnrecPtr   pTypes   = NullFC;
 
     PropVec                    aProps;
 
@@ -1609,9 +1601,9 @@ SourceIntegration::SourceIntegration(void) :
 
 SourceIntegration::~SourceIntegration(void)
 {
-    OSG::subRef(_pVec3fProp);
-    OSG::subRef(_pPnt3fProp);
-    OSG::subRef(_pVec2fProp);
+    _pVec3fProp = NULL;
+    _pPnt3fProp = NULL;
+    _pVec2fProp = NULL;
 }
 
 daeElementRef SourceIntegration::create(daeInt bytes)
@@ -1672,8 +1664,6 @@ GeoVec3fPropertyPtr SourceIntegration::getAsVec3fProp(void)
 
     _pVec3fProp = GeoVec3fProperty::create();
 
-    OSG::addRef(_pVec3fProp);
-
     UInt32 uiCurr = 0;
     Vec3f  tmpVec;
     
@@ -1707,8 +1697,6 @@ GeoPnt3fPropertyPtr SourceIntegration::getAsPnt3fProp(void)
     const domFloat_arrayRef aData = pSource->getFloat_array();
 
     _pPnt3fProp = GeoPnt3fProperty::create();
-
-    OSG::addRef(_pPnt3fProp);
 
     UInt32 uiCurr = 0;
     Vec3f  tmpVec;
@@ -1744,8 +1732,6 @@ GeoVec2fPropertyPtr SourceIntegration::getAsVec2fProp(void)
 
     _pVec2fProp = GeoVec2fProperty::create();
 
-    OSG::addRef(_pVec2fProp);
-
     UInt32 uiCurr = 0;
     Vec2f  tmpVec;
     
@@ -1779,7 +1765,7 @@ void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
                                           Real32    fShininess,
                                           Real32    fTransparency)
 {
-    MaterialChunkPtr pMatChunk = MaterialChunk::create();
+    MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
 
     Color4f colVal;
 
@@ -1936,7 +1922,7 @@ void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
 #endif            
             if(pTexObj != NULL)
             {
-                TextureEnvChunkPtr pTexEnv = TextureEnvChunk::create();
+                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
                 
                 _pMaterial->addChunk(pTexObj);
                 _pMaterial->addChunk(pTexEnv);
@@ -1993,8 +1979,8 @@ void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
             
             if(pImage != NullFC)
             {
-                TextureObjChunkPtr pTexObj = TextureObjChunk::create();
-                TextureEnvChunkPtr pTexEnv = TextureEnvChunk::create();
+                TextureObjChunkUnrecPtr pTexObj = TextureObjChunk::create();
+                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
                 
                 pTexObj->setImage(pImage);
                 
@@ -2042,7 +2028,7 @@ void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
             
             if(pTexObj != NULL)
             {
-                TextureEnvChunkPtr pTexEnv = TextureEnvChunk::create();
+                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
                 
                 _pMaterial->addChunk(pTexObj);
                 _pMaterial->addChunk(pTexEnv);
@@ -2099,8 +2085,8 @@ void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
             
             if(pImage != NullFC)
             {
-                TextureObjChunkPtr pTexObj = TextureObjChunk::create();
-                TextureEnvChunkPtr pTexEnv = TextureEnvChunk::create();
+                TextureObjChunkUnrecPtr pTexObj = TextureObjChunk::create();
+                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
                 
                 pTexObj->setImage(pImage);
                 
@@ -2275,7 +2261,7 @@ EffectIntegration::EffectIntegration(void) :
 
 EffectIntegration::~EffectIntegration(void)
 {
-    OSG::subRef(_pMaterial);
+    _pMaterial = NULL;
 }
 
 daeElementRef EffectIntegration::create(daeInt bytes)
@@ -2435,7 +2421,7 @@ ImageIntegration::ImageIntegration(void) :
 
 ImageIntegration::~ImageIntegration(void)
 {
-    OSG::subRef(_pImage);
+    _pImage = NULL;
 }
 
 daeElementRef ImageIntegration::create(daeInt bytes)
@@ -2509,7 +2495,6 @@ void ImageIntegration::fromCOLLADA(void)
 #ifdef OSG_DEBUG_PRINT
                 fprintf(stderr, "Image loaded\n");
 #endif
-                OSG::addRef(_pImage);
             }
         }
     }
@@ -2534,7 +2519,7 @@ Sampler2DIntegration::Sampler2DIntegration(void) :
 
 Sampler2DIntegration::~Sampler2DIntegration(void)
 {
-    OSG::subRef(_pTexObj);
+    _pTexObj = NULL;
 }
 
 daeElementRef Sampler2DIntegration::create(daeInt bytes)
@@ -2638,8 +2623,6 @@ void Sampler2DIntegration::fromCOLLADA(void)
         pSurfaceInt->fromCOLLADAChecked();
 
         _pTexObj = pSurfaceInt->getTexObj();
-
-        OSG::addRef(_pTexObj);
     }
 
 #ifdef OSG_DEBUG_PRINT
@@ -2663,7 +2646,7 @@ SurfaceIntegration::SurfaceIntegration(void) :
 
 SurfaceIntegration::~SurfaceIntegration(void)
 {
-    OSG::subRef(_pTexObj);
+    _pTexObj = NULL;
 }
 
 daeElementRef SurfaceIntegration::create(daeInt bytes)
