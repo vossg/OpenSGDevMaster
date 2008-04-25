@@ -136,7 +136,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 
     UInt32  getNChildren  (      void                     ) const;
 
-    void    addChild      (const NodePtr        childP);
+    void    addChild      (const NodePtr        childP    );
     void    addChild      (      NodeTransitPtr childP    );
 
     void    insertChild   (      UInt32         childIndex,
