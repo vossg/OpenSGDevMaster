@@ -661,7 +661,10 @@ ChildMFieldReferenceProxy<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
 ChildMFieldReferenceProxy<PtrTypeT, 
                           RefCountPolicy, 
-                          iNamespace    >::operator const_value(void) const
+                          iNamespace    >::operator 
+    typename ChildMFieldReferenceProxy<PtrTypeT, 
+                                       RefCountPolicy, 
+                                       iNamespace    >::const_value(void) const
 {
     return static_cast<const_value>(AccessHandler::validate(*_storeIter));
 }

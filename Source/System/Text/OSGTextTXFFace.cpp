@@ -213,13 +213,13 @@ void TextTXFFace::addToGeom(GeometryPtr geoPtr, const TextLayoutResult &layoutRe
         dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
 
     // Create color buffer: If Null container AND color is set && we have not potentially added text before
-    if ((NullFC == colorPtr) && (color != OSG::Color3f(-1,-1,-1)) &&
-        ((NullFC == posPtr) && (NullFC == texPtr)) )
+    if ((colorPtr == NullFC) && (color != OSG::Color3f(-1,-1,-1)) &&
+        ((posPtr == NullFC) && (texPtr == NullFC)) )
     {
        colorPtr = GeoColor3fProperty::create();
        geoPtr->setColors(colorPtr);
     }
-    bool use_colors(NullFC != colorPtr);
+    bool use_colors(colorPtr != NullFC);
 
     if (posPtr == NullFC)
     {

@@ -161,7 +161,8 @@ typename RefCountPtr<ObjectT, RefCountPolicyT>::Self &
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
-RefCountPtr<ObjectT, RefCountPolicyT>::operator ObjectPtr (void) const
+RefCountPtr<ObjectT, RefCountPolicyT>::operator 
+    typename RefCountPtr<ObjectT, RefCountPolicyT>::ObjectPtr (void) const
 {
     return RefCountPolicy::validate(_pObj);
 }

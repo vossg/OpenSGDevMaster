@@ -165,7 +165,8 @@ CoredNodeRefPtr<CoreT>::operator NodePtr(void)
 }
 
 template<class CoreT> inline
-CoredNodeRefPtr<CoreT>::operator CorePtr(void)
+CoredNodeRefPtr<CoreT>::operator 
+    typename CoredNodeRefPtr<CoreT>::CorePtr(void)
 {
 #ifdef OSG_DEBUG
     FFASSERT((_pNode->getCore() == _pCore), false, 
@@ -382,7 +383,8 @@ CoredNodeMTRefPtr<CoreT>::operator NodePtr(void)
 }
 
 template<class CoreT> inline
-CoredNodeMTRefPtr<CoreT>::operator CorePtr(void)
+CoredNodeMTRefPtr<CoreT>::operator 
+    typename CoredNodeMTRefPtr<CoreT>::CorePtr(void)
 {
 #ifdef OSG_DEBUG
     FFASSERT((_pNode->getCore() == _pCore), false, 

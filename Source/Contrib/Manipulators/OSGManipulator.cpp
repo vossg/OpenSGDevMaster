@@ -165,7 +165,7 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
                 addHandleGeo(parent);
             }
 
-            if ( NullFC != _activeParent )
+            if ( _activeParent != NullFC )
             {
                 subHandleGeo(_activeParent);
             }

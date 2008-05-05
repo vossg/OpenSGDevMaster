@@ -217,7 +217,7 @@ StringAttributeMapTransitPtr stringAttributeMap(
     {
         attr_map = dynamic_cast<StringAttributeMapPtr>(attach_ptr);
 
-        if ( NullFC == attr_map )
+        if ( attr_map == NullFC )
         {
             FFATAL(("stringAttributeMap: StringAttributeMap Attachment is not castable to StringAttributeMap?!?\n"));
             return StringAttributeMapTransitPtr(NullFC);
