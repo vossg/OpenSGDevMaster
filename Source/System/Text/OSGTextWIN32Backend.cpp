@@ -1195,7 +1195,7 @@ TextWIN32TXFFace::TextWIN32TXFFace(const TextWIN32Backend *backend, HFONT hHoriF
 
     // Calculate the positions of the glyphs on the texture
     prepareTexture(param);
-    assert(_texture != NullFC);
+    assert(_texture != NULL);
     assert(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
 
     // Create the texture
