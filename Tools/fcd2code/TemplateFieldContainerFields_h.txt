@@ -59,9 +59,9 @@
 #include "OSG@!Libname!@Def.h"
 @@endif
 
-#include "OSGFieldContainerFields.h"
-#include "OSGPointerSField.h"
-#include "OSGPointerMField.h"
+#include "@!HeaderPrefix!@OSGFieldContainerFields.h"
+#include "@!HeaderPrefix!@OSGPointerSField.h"
+#include "@!HeaderPrefix!@OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
