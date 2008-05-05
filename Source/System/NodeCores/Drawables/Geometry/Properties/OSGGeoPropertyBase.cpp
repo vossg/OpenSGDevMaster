@@ -460,17 +460,17 @@ void GeoPropertyBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoPropertyPtr>::_type("GeoPropertyPtr", "StateChunkPtr");
+DataType FieldTraits<GeoProperty *>::_type("GeoPropertyPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoPropertyPtr)
+OSG_FIELDTRAITS_GETTYPE(GeoProperty *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoPropertyPtr, 
+                           GeoProperty *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoPropertyPtr, 
+                           GeoProperty *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(StringAttributeMap);
 #endif
 
 template <>
-struct FieldTraits<StringAttributeMapPtr> :
-    public FieldTraitsFCPtrBase<StringAttributeMapPtr>
+struct FieldTraits<StringAttributeMap *> :
+    public FieldTraitsFCPtrBase<StringAttributeMap *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<StringAttributeMapPtr> :
 
   public:
 
-    typedef FieldTraits<StringAttributeMapPtr>  Self;
+    typedef FieldTraits<StringAttributeMap *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -103,25 +103,25 @@ struct FieldTraits<StringAttributeMapPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStringAttributeMapPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStringAttributeMapPtr"; 
 }
@@ -139,13 +139,13 @@ const Char8 *FieldTraits<StringAttributeMapPtr, 0>::getSName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<StringAttributeMapPtr,
+typedef PointerSField<StringAttributeMap *,
                       RecordedRefCountPolicy  > SFRecStringAttributeMapPtr;
-typedef PointerSField<StringAttributeMapPtr,
+typedef PointerSField<StringAttributeMap *,
                       UnrecordedRefCountPolicy> SFUnrecStringAttributeMapPtr;
-typedef PointerSField<StringAttributeMapPtr,
+typedef PointerSField<StringAttributeMap *,
                       WeakRefCountPolicy      > SFWeakStringAttributeMapPtr;
-typedef PointerSField<StringAttributeMapPtr,
+typedef PointerSField<StringAttributeMap *,
                       NoRefCountPolicy        > SFUncountedStringAttributeMapPtr;
 #endif
 

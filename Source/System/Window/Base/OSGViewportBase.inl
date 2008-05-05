@@ -208,14 +208,14 @@ void ViewportBase::setTop(const Real32 &value)
 
 //! Get the value of the Viewport::_sfCamera field.
 inline
-CameraPtr ViewportBase::getCamera(void) const
+Camera * ViewportBase::getCamera(void) const
 {
     return _sfCamera.getValue();
 }
 
 //! Set the value of the Viewport::_sfCamera field.
 inline
-void ViewportBase::setCamera(const CameraPtr value)
+void ViewportBase::setCamera(Camera * const value)
 {
     editSField(CameraFieldMask);
 
@@ -224,14 +224,14 @@ void ViewportBase::setCamera(const CameraPtr value)
 
 //! Get the value of the Viewport::_sfRoot field.
 inline
-NodePtr ViewportBase::getRoot(void) const
+Node * ViewportBase::getRoot(void) const
 {
     return _sfRoot.getValue();
 }
 
 //! Set the value of the Viewport::_sfRoot field.
 inline
-void ViewportBase::setRoot(const NodePtr value)
+void ViewportBase::setRoot(Node * const value)
 {
     editSField(RootFieldMask);
 
@@ -240,14 +240,14 @@ void ViewportBase::setRoot(const NodePtr value)
 
 //! Get the value of the Viewport::_sfBackground field.
 inline
-BackgroundPtr ViewportBase::getBackground(void) const
+Background * ViewportBase::getBackground(void) const
 {
     return _sfBackground.getValue();
 }
 
 //! Set the value of the Viewport::_sfBackground field.
 inline
-void ViewportBase::setBackground(const BackgroundPtr value)
+void ViewportBase::setBackground(Background * const value)
 {
     editSField(BackgroundFieldMask);
 
@@ -322,7 +322,7 @@ void ViewportBase::setDrawTime(const Real32 &value)
 
 //! Get the value of the \a index element the Viewport::_mfForegrounds field.
 inline
-ForegroundPtr ViewportBase::getForegrounds(const UInt32 index) const
+Foreground * ViewportBase::getForegrounds(const UInt32 index) const
 {
     return _mfForegrounds[index];
 }

@@ -95,7 +95,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var NodePtr         ProxyGroupBase::_sfRoot
+/*! \var Node *          ProxyGroupBase::_sfRoot
     
 */
 
@@ -340,7 +340,7 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     "\t\ttype=\"NodePtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -848,7 +848,7 @@ ProxyGroupTransitPtr ProxyGroupBase::create(void)
 {
     ProxyGroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -864,7 +864,7 @@ ProxyGroupTransitPtr ProxyGroupBase::createLocal(BitVector bFlags)
 {
     ProxyGroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -876,9 +876,9 @@ ProxyGroupTransitPtr ProxyGroupBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ProxyGroupPtr ProxyGroupBase::createEmpty(void)
+ProxyGroup *ProxyGroupBase::createEmpty(void)
 {
-    ProxyGroupPtr returnValue;
+    ProxyGroup *returnValue;
 
     newPtr<ProxyGroup>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -888,9 +888,9 @@ ProxyGroupPtr ProxyGroupBase::createEmpty(void)
     return returnValue;
 }
 
-ProxyGroupPtr ProxyGroupBase::createEmptyLocal(BitVector bFlags)
+ProxyGroup *ProxyGroupBase::createEmptyLocal(BitVector bFlags)
 {
-    ProxyGroupPtr returnValue;
+    ProxyGroup *returnValue;
 
     newPtr<ProxyGroup>(returnValue, bFlags);
 
@@ -901,7 +901,7 @@ ProxyGroupPtr ProxyGroupBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ProxyGroupBase::shallowCopy(void) const
 {
-    ProxyGroupPtr tmpPtr;
+    ProxyGroup *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ProxyGroup *>(this), 
@@ -917,7 +917,7 @@ FieldContainerTransitPtr ProxyGroupBase::shallowCopy(void) const
 FieldContainerTransitPtr ProxyGroupBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ProxyGroupPtr tmpPtr;
+    ProxyGroup *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ProxyGroup *>(this), bFlags);
 
@@ -936,7 +936,7 @@ ProxyGroupBase::ProxyGroupBase(void) :
     Inherited(),
     _sfEnabled                (bool(true)),
     _sfUrl                    (),
-    _sfRoot                   (NodePtr(NullFC)),
+    _sfRoot                   (NULL),
     _sfState                  (UInt32(0)),
     _sfConcurrentLoad         (bool(true)),
     _sfVolume                 (),
@@ -953,7 +953,7 @@ ProxyGroupBase::ProxyGroupBase(const ProxyGroupBase &source) :
     Inherited(source),
     _sfEnabled                (source._sfEnabled                ),
     _sfUrl                    (source._sfUrl                    ),
-    _sfRoot                   (NullFC),
+    _sfRoot                   (NULL),
     _sfState                  (source._sfState                  ),
     _sfConcurrentLoad         (source._sfConcurrentLoad         ),
     _sfVolume                 (source._sfVolume                 ),
@@ -1270,9 +1270,9 @@ void ProxyGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ProxyGroupBase::createAspectCopy(void) const
+FieldContainer *ProxyGroupBase::createAspectCopy(void) const
 {
-    ProxyGroupPtr returnValue;
+    ProxyGroup *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ProxyGroup *>(this));
@@ -1285,7 +1285,7 @@ void ProxyGroupBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ProxyGroup *>(this)->setRoot(NullFC);
+    static_cast<ProxyGroup *>(this)->setRoot(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -1301,7 +1301,7 @@ void ProxyGroupBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProxyGroupPtr>::_type("ProxyGroupPtr", "GroupPtr");
+DataType FieldTraits<ProxyGroup *>::_type("ProxyGroupPtr", "GroupPtr");
 #endif
 
 

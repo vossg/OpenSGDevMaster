@@ -355,13 +355,13 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleStatisticsForegroundTransitPtr create          (void);
-    static  SimpleStatisticsForegroundPtr        createEmpty     (void);
+    static  SimpleStatisticsForegroundTransitPtr  create          (void);
+    static  SimpleStatisticsForeground           *createEmpty     (void);
 
-    static  SimpleStatisticsForegroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SimpleStatisticsForegroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SimpleStatisticsForegroundPtr        createEmptyLocal(
+    static  SimpleStatisticsForeground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -481,7 +481,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

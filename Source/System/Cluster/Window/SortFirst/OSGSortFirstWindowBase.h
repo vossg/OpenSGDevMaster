@@ -236,13 +236,13 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SortFirstWindowTransitPtr create          (void);
-    static  SortFirstWindowPtr        createEmpty     (void);
+    static  SortFirstWindowTransitPtr  create          (void);
+    static  SortFirstWindow           *createEmpty     (void);
 
-    static  SortFirstWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SortFirstWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SortFirstWindowPtr        createEmptyLocal(
+    static  SortFirstWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -341,7 +341,7 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

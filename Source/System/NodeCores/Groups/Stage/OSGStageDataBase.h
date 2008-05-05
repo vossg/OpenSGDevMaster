@@ -202,13 +202,13 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StageDataTransitPtr create          (void);
-    static  StageDataPtr        createEmpty     (void);
+    static  StageDataTransitPtr  create          (void);
+    static  StageData           *createEmpty     (void);
 
-    static  StageDataTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  StageDataTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  StageDataPtr        createEmptyLocal(
+    static  StageData            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

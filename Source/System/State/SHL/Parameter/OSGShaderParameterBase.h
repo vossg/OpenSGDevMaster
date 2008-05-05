@@ -216,11 +216,11 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*! \name Parent linking                                               */
     /*! \{                                                                 */
 
-    virtual bool linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId);
-    virtual bool unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId);
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

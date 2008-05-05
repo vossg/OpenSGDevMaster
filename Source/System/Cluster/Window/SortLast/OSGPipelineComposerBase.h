@@ -219,13 +219,13 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PipelineComposerTransitPtr create          (void);
-    static  PipelineComposerPtr        createEmpty     (void);
+    static  PipelineComposerTransitPtr  create          (void);
+    static  PipelineComposer           *createEmpty     (void);
 
-    static  PipelineComposerTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  PipelineComposerTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  PipelineComposerPtr        createEmptyLocal(
+    static  PipelineComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -321,7 +321,7 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

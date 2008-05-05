@@ -226,7 +226,7 @@ CarbonWindowTransitPtr CarbonWindowBase::create(void)
 {
     CarbonWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -242,7 +242,7 @@ CarbonWindowTransitPtr CarbonWindowBase::createLocal(BitVector bFlags)
 {
     CarbonWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -254,9 +254,9 @@ CarbonWindowTransitPtr CarbonWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CarbonWindowPtr CarbonWindowBase::createEmpty(void)
+CarbonWindow *CarbonWindowBase::createEmpty(void)
 {
-    CarbonWindowPtr returnValue;
+    CarbonWindow *returnValue;
 
     newPtr<CarbonWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -266,9 +266,9 @@ CarbonWindowPtr CarbonWindowBase::createEmpty(void)
     return returnValue;
 }
 
-CarbonWindowPtr CarbonWindowBase::createEmptyLocal(BitVector bFlags)
+CarbonWindow *CarbonWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    CarbonWindowPtr returnValue;
+    CarbonWindow *returnValue;
 
     newPtr<CarbonWindow>(returnValue, bFlags);
 
@@ -279,7 +279,7 @@ CarbonWindowPtr CarbonWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr CarbonWindowBase::shallowCopy(void) const
 {
-    CarbonWindowPtr tmpPtr;
+    CarbonWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const CarbonWindow *>(this), 
@@ -295,7 +295,7 @@ FieldContainerTransitPtr CarbonWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr CarbonWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CarbonWindowPtr tmpPtr;
+    CarbonWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const CarbonWindow *>(this), bFlags);
 
@@ -370,9 +370,9 @@ void CarbonWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CarbonWindowBase::createAspectCopy(void) const
+FieldContainer *CarbonWindowBase::createAspectCopy(void) const
 {
-    CarbonWindowPtr returnValue;
+    CarbonWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CarbonWindow *>(this));
@@ -390,17 +390,17 @@ void CarbonWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CarbonWindowPtr>::_type("CarbonWindowPtr", "WindowPtr");
+DataType FieldTraits<CarbonWindow *>::_type("CarbonWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CarbonWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(CarbonWindow *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CarbonWindowPtr, 
+                           CarbonWindow *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CarbonWindowPtr, 
+                           CarbonWindow *, 
                            0);
 
 OSG_END_NAMESPACE

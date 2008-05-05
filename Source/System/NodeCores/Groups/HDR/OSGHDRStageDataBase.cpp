@@ -88,23 +88,23 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ChunkMaterialPtr HDRStageDataBase::_sfToneMappingMaterial
+/*! \var ChunkMaterial * HDRStageDataBase::_sfToneMappingMaterial
     
 */
 
-/*! \var FrameBufferObjectPtr HDRStageDataBase::_sfBlurRenderTarget
+/*! \var FrameBufferObject * HDRStageDataBase::_sfBlurRenderTarget
     
 */
 
-/*! \var ChunkMaterialPtr HDRStageDataBase::_sfBlurMaterial
+/*! \var ChunkMaterial * HDRStageDataBase::_sfBlurMaterial
     
 */
 
-/*! \var SHLChunkPtr     HDRStageDataBase::_sfHBlurShader
+/*! \var SHLChunk *      HDRStageDataBase::_sfHBlurShader
     
 */
 
-/*! \var SHLChunkPtr     HDRStageDataBase::_sfVBlurShader
+/*! \var SHLChunk *      HDRStageDataBase::_sfVBlurShader
     
 */
 
@@ -116,11 +116,11 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var FrameBufferObjectPtr HDRStageDataBase::_sfShrinkRenderTarget
+/*! \var FrameBufferObject * HDRStageDataBase::_sfShrinkRenderTarget
     
 */
 
-/*! \var ChunkMaterialPtr HDRStageDataBase::_sfShrinkMaterial
+/*! \var ChunkMaterial * HDRStageDataBase::_sfShrinkMaterial
     
 */
 
@@ -272,7 +272,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t\ttype=\"ChunkMaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -281,7 +281,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t\ttype=\"FrameBufferObjectPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -290,7 +290,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t\ttype=\"ChunkMaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -299,7 +299,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t\ttype=\"SHLChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -308,7 +308,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t\ttype=\"SHLChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -335,7 +335,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t\ttype=\"FrameBufferObjectPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -344,7 +344,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t\ttype=\"ChunkMaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -642,7 +642,7 @@ HDRStageDataTransitPtr HDRStageDataBase::create(void)
 {
     HDRStageDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -658,7 +658,7 @@ HDRStageDataTransitPtr HDRStageDataBase::createLocal(BitVector bFlags)
 {
     HDRStageDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -670,9 +670,9 @@ HDRStageDataTransitPtr HDRStageDataBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-HDRStageDataPtr HDRStageDataBase::createEmpty(void)
+HDRStageData *HDRStageDataBase::createEmpty(void)
 {
-    HDRStageDataPtr returnValue;
+    HDRStageData *returnValue;
 
     newPtr<HDRStageData>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -682,9 +682,9 @@ HDRStageDataPtr HDRStageDataBase::createEmpty(void)
     return returnValue;
 }
 
-HDRStageDataPtr HDRStageDataBase::createEmptyLocal(BitVector bFlags)
+HDRStageData *HDRStageDataBase::createEmptyLocal(BitVector bFlags)
 {
-    HDRStageDataPtr returnValue;
+    HDRStageData *returnValue;
 
     newPtr<HDRStageData>(returnValue, bFlags);
 
@@ -695,7 +695,7 @@ HDRStageDataPtr HDRStageDataBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr HDRStageDataBase::shallowCopy(void) const
 {
-    HDRStageDataPtr tmpPtr;
+    HDRStageData *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const HDRStageData *>(this), 
@@ -711,7 +711,7 @@ FieldContainerTransitPtr HDRStageDataBase::shallowCopy(void) const
 FieldContainerTransitPtr HDRStageDataBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    HDRStageDataPtr tmpPtr;
+    HDRStageData *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const HDRStageData *>(this), bFlags);
 
@@ -728,29 +728,29 @@ FieldContainerTransitPtr HDRStageDataBase::shallowCopyLocal(
 
 HDRStageDataBase::HDRStageDataBase(void) :
     Inherited(),
-    _sfToneMappingMaterial    (ChunkMaterialPtr(NullFC)),
-    _sfBlurRenderTarget       (FrameBufferObjectPtr(NullFC)),
-    _sfBlurMaterial           (ChunkMaterialPtr(NullFC)),
-    _sfHBlurShader            (SHLChunkPtr(NullFC)),
-    _sfVBlurShader            (SHLChunkPtr(NullFC)),
+    _sfToneMappingMaterial    (NULL),
+    _sfBlurRenderTarget       (NULL),
+    _sfBlurMaterial           (NULL),
+    _sfHBlurShader            (NULL),
+    _sfVBlurShader            (NULL),
     _sfWidth                  (UInt32(0)),
     _sfHeight                 (UInt32(0)),
-    _sfShrinkRenderTarget     (FrameBufferObjectPtr(NullFC)),
-    _sfShrinkMaterial         (ChunkMaterialPtr(NullFC))
+    _sfShrinkRenderTarget     (NULL),
+    _sfShrinkMaterial         (NULL)
 {
 }
 
 HDRStageDataBase::HDRStageDataBase(const HDRStageDataBase &source) :
     Inherited(source),
-    _sfToneMappingMaterial    (NullFC),
-    _sfBlurRenderTarget       (NullFC),
-    _sfBlurMaterial           (NullFC),
-    _sfHBlurShader            (NullFC),
-    _sfVBlurShader            (NullFC),
+    _sfToneMappingMaterial    (NULL),
+    _sfBlurRenderTarget       (NULL),
+    _sfBlurMaterial           (NULL),
+    _sfHBlurShader            (NULL),
+    _sfVBlurShader            (NULL),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 ),
-    _sfShrinkRenderTarget     (NullFC),
-    _sfShrinkMaterial         (NullFC)
+    _sfShrinkRenderTarget     (NULL),
+    _sfShrinkMaterial         (NULL)
 {
 }
 
@@ -1022,9 +1022,9 @@ void HDRStageDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr HDRStageDataBase::createAspectCopy(void) const
+FieldContainer *HDRStageDataBase::createAspectCopy(void) const
 {
-    HDRStageDataPtr returnValue;
+    HDRStageData *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const HDRStageData *>(this));
@@ -1037,26 +1037,26 @@ void HDRStageDataBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<HDRStageData *>(this)->setToneMappingMaterial(NullFC);
+    static_cast<HDRStageData *>(this)->setToneMappingMaterial(NULL);
 
-    static_cast<HDRStageData *>(this)->setBlurRenderTarget(NullFC);
+    static_cast<HDRStageData *>(this)->setBlurRenderTarget(NULL);
 
-    static_cast<HDRStageData *>(this)->setBlurMaterial(NullFC);
+    static_cast<HDRStageData *>(this)->setBlurMaterial(NULL);
 
-    static_cast<HDRStageData *>(this)->setHBlurShader(NullFC);
+    static_cast<HDRStageData *>(this)->setHBlurShader(NULL);
 
-    static_cast<HDRStageData *>(this)->setVBlurShader(NullFC);
+    static_cast<HDRStageData *>(this)->setVBlurShader(NULL);
 
-    static_cast<HDRStageData *>(this)->setShrinkRenderTarget(NullFC);
+    static_cast<HDRStageData *>(this)->setShrinkRenderTarget(NULL);
 
-    static_cast<HDRStageData *>(this)->setShrinkMaterial(NullFC);
+    static_cast<HDRStageData *>(this)->setShrinkMaterial(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HDRStageDataPtr>::_type("HDRStageDataPtr", "StageDataPtr");
+DataType FieldTraits<HDRStageData *>::_type("HDRStageDataPtr", "StageDataPtr");
 #endif
 
 

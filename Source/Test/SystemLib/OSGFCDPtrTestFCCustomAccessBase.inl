@@ -76,7 +76,7 @@ OSG::UInt16 FCDPtrTestFCCustomAccessBase::getClassGroupId(void)
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPub_ptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_ptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPub_ptr(void) const
 {
     return _sfFieldSFPub_ptr.getValue();
 }
@@ -84,7 +84,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_ptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPub_weakptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_weakptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPub_weakptr(void) const
 {
     return _sfFieldSFPub_weakptr.getValue();
 }
@@ -92,7 +92,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_weakptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPub_mpchildptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_mpchildptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPub_mpchildptr(void) const
 {
     return _sfFieldSFPub_mpchildptr.getValue();
 }
@@ -100,7 +100,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_mpchildptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPro_ptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_ptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPro_ptr(void) const
 {
     return _sfFieldSFPro_ptr.getValue();
 }
@@ -108,7 +108,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_ptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPro_weakptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_weakptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPro_weakptr(void) const
 {
     return _sfFieldSFPro_weakptr.getValue();
 }
@@ -116,7 +116,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_weakptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPro_mpchildptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_mpchildptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPro_mpchildptr(void) const
 {
     return _sfFieldSFPro_mpchildptr.getValue();
 }
@@ -124,7 +124,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_mpchildptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_ptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_ptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_ptr(void) const
 {
     return _sfFieldSFPri_ptr.getValue();
 }
@@ -132,7 +132,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_ptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_weakptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_weakptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_weakptr(void) const
 {
     return _sfFieldSFPri_weakptr.getValue();
 }
@@ -140,7 +140,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_weakptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_mpchildptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_mpchildptr(void) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_mpchildptr(void) const
 {
     return _sfFieldSFPri_mpchildptr.getValue();
 }
@@ -148,7 +148,7 @@ FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_mpchildptr(void) const
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPub_spchildptr field.
 inline
-FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_spchildptr(void) const
+FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPub_spchildptr(void) const
 {
     return _sfFieldSFPub_spchildptr.getValue();
 }
@@ -156,7 +156,7 @@ FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPub_spchildptr(void) co
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPro_spchildptr field.
 inline
-FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_spchildptr(void) const
+FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPro_spchildptr(void) const
 {
     return _sfFieldSFPro_spchildptr.getValue();
 }
@@ -164,7 +164,7 @@ FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPro_spchildptr(void) co
 
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_spchildptr field.
 inline
-FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_spchildptr(void) const
+FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_spchildptr(void) const
 {
     return _sfFieldSFPri_spchildptr.getValue();
 }
@@ -172,84 +172,84 @@ FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldSFPri_spchildptr(void) co
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPub_ptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPub_ptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPub_ptr(const UInt32 index) const
 {
     return _mfFieldMFPub_ptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPub_weakptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPub_weakptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPub_weakptr(const UInt32 index) const
 {
     return _mfFieldMFPub_weakptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPub_mpchildptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPub_mpchildptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPub_mpchildptr(const UInt32 index) const
 {
     return _mfFieldMFPub_mpchildptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPro_ptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPro_ptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPro_ptr(const UInt32 index) const
 {
     return _mfFieldMFPro_ptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPro_weakptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPro_weakptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPro_weakptr(const UInt32 index) const
 {
     return _mfFieldMFPro_weakptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPro_mpchildptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPro_mpchildptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPro_mpchildptr(const UInt32 index) const
 {
     return _mfFieldMFPro_mpchildptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_ptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPri_ptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_ptr(const UInt32 index) const
 {
     return _mfFieldMFPri_ptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_weakptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPri_weakptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_weakptr(const UInt32 index) const
 {
     return _mfFieldMFPri_weakptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_mpchildptr field.
 inline
-FCDTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPri_mpchildptr(const UInt32 index) const
+FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_mpchildptr(const UInt32 index) const
 {
     return _mfFieldMFPri_mpchildptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPub_spchildptr field.
 inline
-FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPub_spchildptr(const UInt32 index) const
+FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPub_spchildptr(const UInt32 index) const
 {
     return _mfFieldMFPub_spchildptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPro_spchildptr field.
 inline
-FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPro_spchildptr(const UInt32 index) const
+FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPro_spchildptr(const UInt32 index) const
 {
     return _mfFieldMFPro_spchildptr[index];
 }
 
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_spchildptr field.
 inline
-FCDSParTestFCPtr FCDPtrTestFCCustomAccessBase::getFieldMFPri_spchildptr(const UInt32 index) const
+FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_spchildptr(const UInt32 index) const
 {
     return _mfFieldMFPri_spchildptr[index];
 }

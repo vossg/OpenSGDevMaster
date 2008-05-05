@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(FBOViewport);
 #endif
 
 template <>
-struct FieldTraits<FBOViewportPtr> :
-    public FieldTraitsFCPtrBase<FBOViewportPtr>
+struct FieldTraits<FBOViewport *> :
+    public FieldTraitsFCPtrBase<FBOViewport *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<FBOViewportPtr> :
 
   public:
 
-    typedef FieldTraits<FBOViewportPtr>  Self;
+    typedef FieldTraits<FBOViewport *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<FBOViewportPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFBOViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FBOViewport *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFBOViewportPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<FBOViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<FBOViewportPtr,
+typedef PointerSField<FBOViewport *,
                       RecordedRefCountPolicy  > SFRecFBOViewportPtr;
-typedef PointerSField<FBOViewportPtr,
+typedef PointerSField<FBOViewport *,
                       UnrecordedRefCountPolicy> SFUnrecFBOViewportPtr;
-typedef PointerSField<FBOViewportPtr,
+typedef PointerSField<FBOViewport *,
                       WeakRefCountPolicy      > SFWeakFBOViewportPtr;
-typedef PointerSField<FBOViewportPtr,
+typedef PointerSField<FBOViewport *,
                       NoRefCountPolicy        > SFUncountedFBOViewportPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<FBOViewportPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<FBOViewportPtr,
+typedef PointerMField<FBOViewport *,
                       RecordedRefCountPolicy  > MFRecFBOViewportPtr;
-typedef PointerMField<FBOViewportPtr,
+typedef PointerMField<FBOViewport *,
                       UnrecordedRefCountPolicy> MFUnrecFBOViewportPtr;
-typedef PointerMField<FBOViewportPtr,
+typedef PointerMField<FBOViewport *,
                       WeakRefCountPolicy      > MFWeakFBOViewportPtr;
-typedef PointerMField<FBOViewportPtr,
+typedef PointerMField<FBOViewport *,
                       NoRefCountPolicy        > MFUncountedFBOViewportPtr;
 #endif
 

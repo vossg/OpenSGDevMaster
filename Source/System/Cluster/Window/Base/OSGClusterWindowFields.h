@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ClusterWindow);
 #endif
 
 template <>
-struct FieldTraits<ClusterWindowPtr> :
-    public FieldTraitsFCPtrBase<ClusterWindowPtr>
+struct FieldTraits<ClusterWindow *> :
+    public FieldTraitsFCPtrBase<ClusterWindow *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ClusterWindowPtr> :
 
   public:
 
-    typedef FieldTraits<ClusterWindowPtr>  Self;
+    typedef FieldTraits<ClusterWindow *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ClusterWindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakClusterWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ClusterWindow *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdClusterWindowPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ClusterWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldSingle */
 
-typedef PointerSField<ClusterWindowPtr,
+typedef PointerSField<ClusterWindow *,
                       RecordedRefCountPolicy  > SFRecClusterWindowPtr;
-typedef PointerSField<ClusterWindowPtr,
+typedef PointerSField<ClusterWindow *,
                       UnrecordedRefCountPolicy> SFUnrecClusterWindowPtr;
-typedef PointerSField<ClusterWindowPtr,
+typedef PointerSField<ClusterWindow *,
                       WeakRefCountPolicy      > SFWeakClusterWindowPtr;
-typedef PointerSField<ClusterWindowPtr,
+typedef PointerSField<ClusterWindow *,
                       NoRefCountPolicy        > SFUncountedClusterWindowPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ClusterWindowPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpClusterFieldMulti */
 
-typedef PointerMField<ClusterWindowPtr,
+typedef PointerMField<ClusterWindow *,
                       RecordedRefCountPolicy  > MFRecClusterWindowPtr;
-typedef PointerMField<ClusterWindowPtr,
+typedef PointerMField<ClusterWindow *,
                       UnrecordedRefCountPolicy> MFUnrecClusterWindowPtr;
-typedef PointerMField<ClusterWindowPtr,
+typedef PointerMField<ClusterWindow *,
                       WeakRefCountPolicy      > MFWeakClusterWindowPtr;
-typedef PointerMField<ClusterWindowPtr,
+typedef PointerMField<ClusterWindow *,
                       NoRefCountPolicy        > MFUncountedClusterWindowPtr;
 #endif
 

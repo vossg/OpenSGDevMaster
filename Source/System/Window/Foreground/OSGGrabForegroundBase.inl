@@ -76,14 +76,14 @@ OSG::UInt16 GrabForegroundBase::getClassGroupId(void)
 
 //! Get the value of the GrabForeground::_sfImage field.
 inline
-ImagePtr GrabForegroundBase::getImage(void) const
+Image * GrabForegroundBase::getImage(void) const
 {
     return _sfImage.getValue();
 }
 
 //! Set the value of the GrabForeground::_sfImage field.
 inline
-void GrabForegroundBase::setImage(const ImagePtr value)
+void GrabForegroundBase::setImage(Image * const value)
 {
     editSField(ImageFieldMask);
 

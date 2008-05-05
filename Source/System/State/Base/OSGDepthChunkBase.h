@@ -236,13 +236,13 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DepthChunkTransitPtr create          (void);
-    static  DepthChunkPtr        createEmpty     (void);
+    static  DepthChunkTransitPtr  create          (void);
+    static  DepthChunk           *createEmpty     (void);
 
-    static  DepthChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  DepthChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  DepthChunkPtr        createEmptyLocal(
+    static  DepthChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -341,7 +341,7 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

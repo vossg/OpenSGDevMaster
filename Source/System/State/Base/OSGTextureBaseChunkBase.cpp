@@ -314,17 +314,17 @@ void TextureBaseChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBaseChunkPtr>::_type("TextureBaseChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TextureBaseChunk *>::_type("TextureBaseChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureBaseChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(TextureBaseChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureBaseChunkPtr, 
+                           TextureBaseChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureBaseChunkPtr, 
+                           TextureBaseChunk *, 
                            0);
 
 OSG_END_NAMESPACE

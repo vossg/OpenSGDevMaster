@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var GeoMultiPropertyDataPtr GeoMultiPropertyBase::_sfContainer
+/*! \var GeoMultiPropertyData * GeoMultiPropertyBase::_sfContainer
     The data container to source off of.
 */
 
@@ -576,7 +576,7 @@ GeoMultiPropertyTransitPtr GeoMultiPropertyBase::create(void)
 {
     GeoMultiPropertyTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -592,7 +592,7 @@ GeoMultiPropertyTransitPtr GeoMultiPropertyBase::createLocal(BitVector bFlags)
 {
     GeoMultiPropertyTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -604,9 +604,9 @@ GeoMultiPropertyTransitPtr GeoMultiPropertyBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GeoMultiPropertyPtr GeoMultiPropertyBase::createEmpty(void)
+GeoMultiProperty *GeoMultiPropertyBase::createEmpty(void)
 {
-    GeoMultiPropertyPtr returnValue;
+    GeoMultiProperty *returnValue;
 
     newPtr<GeoMultiProperty>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -616,9 +616,9 @@ GeoMultiPropertyPtr GeoMultiPropertyBase::createEmpty(void)
     return returnValue;
 }
 
-GeoMultiPropertyPtr GeoMultiPropertyBase::createEmptyLocal(BitVector bFlags)
+GeoMultiProperty *GeoMultiPropertyBase::createEmptyLocal(BitVector bFlags)
 {
-    GeoMultiPropertyPtr returnValue;
+    GeoMultiProperty *returnValue;
 
     newPtr<GeoMultiProperty>(returnValue, bFlags);
 
@@ -629,7 +629,7 @@ GeoMultiPropertyPtr GeoMultiPropertyBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr GeoMultiPropertyBase::shallowCopy(void) const
 {
-    GeoMultiPropertyPtr tmpPtr;
+    GeoMultiProperty *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const GeoMultiProperty *>(this), 
@@ -645,7 +645,7 @@ FieldContainerTransitPtr GeoMultiPropertyBase::shallowCopy(void) const
 FieldContainerTransitPtr GeoMultiPropertyBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    GeoMultiPropertyPtr tmpPtr;
+    GeoMultiProperty *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const GeoMultiProperty *>(this), bFlags);
 
@@ -662,7 +662,7 @@ FieldContainerTransitPtr GeoMultiPropertyBase::shallowCopyLocal(
 
 GeoMultiPropertyBase::GeoMultiPropertyBase(void) :
     Inherited(),
-    _sfContainer              (NullFC),
+    _sfContainer              (NULL),
     _sfOffset                 (UInt32(0)),
     _sfIFormat                (GLenum(0)),
     _sfIDimension             (UInt32(0)),
@@ -674,7 +674,7 @@ GeoMultiPropertyBase::GeoMultiPropertyBase(void) :
 
 GeoMultiPropertyBase::GeoMultiPropertyBase(const GeoMultiPropertyBase &source) :
     Inherited(source),
-    _sfContainer              (NullFC),
+    _sfContainer              (NULL),
     _sfOffset                 (source._sfOffset                 ),
     _sfIFormat                (source._sfIFormat                ),
     _sfIDimension             (source._sfIDimension             ),
@@ -878,9 +878,9 @@ void GeoMultiPropertyBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr GeoMultiPropertyBase::createAspectCopy(void) const
+FieldContainer *GeoMultiPropertyBase::createAspectCopy(void) const
 {
-    GeoMultiPropertyPtr returnValue;
+    GeoMultiProperty *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const GeoMultiProperty *>(this));
@@ -893,24 +893,24 @@ void GeoMultiPropertyBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<GeoMultiProperty *>(this)->setContainer(NullFC);
+    static_cast<GeoMultiProperty *>(this)->setContainer(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoMultiPropertyPtr>::_type("GeoMultiPropertyPtr", "GeoVectorPropertyPtr");
+DataType FieldTraits<GeoMultiProperty *>::_type("GeoMultiPropertyPtr", "GeoVectorPropertyPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyPtr)
+OSG_FIELDTRAITS_GETTYPE(GeoMultiProperty *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoMultiPropertyPtr, 
+                           GeoMultiProperty *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoMultiPropertyPtr, 
+                           GeoMultiProperty *, 
                            0);
 
 OSG_END_NAMESPACE

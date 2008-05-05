@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var NodeCorePtr     MultiCoreBase::_mfCores
+/*! \var NodeCore *      MultiCoreBase::_mfCores
     
 */
 
@@ -187,7 +187,7 @@ MFUnrecChildNodeCorePtr *MultiCoreBase::editMFCores          (void)
 
 
 
-void MultiCoreBase::addCore(const NodeCorePtr value)
+void MultiCoreBase::addCore(NodeCore * const value)
 {
     editMField(CoresFieldMask, _mfCores);
 
@@ -225,7 +225,7 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
     }
 }
 
-void MultiCoreBase::subCore(const NodeCorePtr value)
+void MultiCoreBase::subCore(NodeCore * const value)
 {
     Int32 iElemIdx = _mfCores.findIndex(value);
 
@@ -291,7 +291,7 @@ MultiCoreTransitPtr MultiCoreBase::create(void)
 {
     MultiCoreTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -307,7 +307,7 @@ MultiCoreTransitPtr MultiCoreBase::createLocal(BitVector bFlags)
 {
     MultiCoreTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -319,9 +319,9 @@ MultiCoreTransitPtr MultiCoreBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MultiCorePtr MultiCoreBase::createEmpty(void)
+MultiCore *MultiCoreBase::createEmpty(void)
 {
-    MultiCorePtr returnValue;
+    MultiCore *returnValue;
 
     newPtr<MultiCore>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -331,9 +331,9 @@ MultiCorePtr MultiCoreBase::createEmpty(void)
     return returnValue;
 }
 
-MultiCorePtr MultiCoreBase::createEmptyLocal(BitVector bFlags)
+MultiCore *MultiCoreBase::createEmptyLocal(BitVector bFlags)
 {
-    MultiCorePtr returnValue;
+    MultiCore *returnValue;
 
     newPtr<MultiCore>(returnValue, bFlags);
 
@@ -344,7 +344,7 @@ MultiCorePtr MultiCoreBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr MultiCoreBase::shallowCopy(void) const
 {
-    MultiCorePtr tmpPtr;
+    MultiCore *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MultiCore *>(this), 
@@ -360,7 +360,7 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopy(void) const
 FieldContainerTransitPtr MultiCoreBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MultiCorePtr tmpPtr;
+    MultiCore *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MultiCore *>(this), bFlags);
 
@@ -402,15 +402,15 @@ MultiCoreBase::~MultiCoreBase(void)
 /* Child linking                                                           */
 
 bool MultiCoreBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == CoresFieldId)
     {
-        NodeCorePtr pTypedChild =
-            dynamic_cast<NodeCorePtr>(pChild);
+        NodeCore * pTypedChild =
+            dynamic_cast<NodeCore *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildNodeCorePtr::iterator pI =
                 _mfCores.find_nc(pTypedChild);
@@ -502,9 +502,9 @@ void MultiCoreBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MultiCoreBase::createAspectCopy(void) const
+FieldContainer *MultiCoreBase::createAspectCopy(void) const
 {
-    MultiCorePtr returnValue;
+    MultiCore *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MultiCore *>(this));
@@ -523,17 +523,17 @@ void MultiCoreBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiCorePtr>::_type("MultiCorePtr", "GroupPtr");
+DataType FieldTraits<MultiCore *>::_type("MultiCorePtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MultiCorePtr)
+OSG_FIELDTRAITS_GETTYPE(MultiCore *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MultiCorePtr, 
+                           MultiCore *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MultiCorePtr, 
+                           MultiCore *, 
                            0);
 
 OSG_END_NAMESPACE

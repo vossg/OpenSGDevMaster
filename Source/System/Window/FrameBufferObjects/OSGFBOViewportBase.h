@@ -129,14 +129,14 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
                   SFUnrecFrameBufferObjectPtr *editSFFrameBufferObject(void);
 
 
-                  FrameBufferObjectPtr getFrameBufferObject(void) const;
+                  FrameBufferObject * getFrameBufferObject(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setFrameBufferObject(const FrameBufferObjectPtr value);
+            void setFrameBufferObject(FrameBufferObject * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,13 +165,13 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FBOViewportTransitPtr create          (void);
-    static  FBOViewportPtr        createEmpty     (void);
+    static  FBOViewportTransitPtr  create          (void);
+    static  FBOViewport           *createEmpty     (void);
 
-    static  FBOViewportTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  FBOViewportTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  FBOViewportPtr        createEmptyLocal(
+    static  FBOViewport            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -259,7 +259,7 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

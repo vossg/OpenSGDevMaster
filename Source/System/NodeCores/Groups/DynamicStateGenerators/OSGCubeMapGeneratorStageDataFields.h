@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(CubeMapGeneratorStageData);
 #endif
 
 template <>
-struct FieldTraits<CubeMapGeneratorStageDataPtr> :
-    public FieldTraitsFCPtrBase<CubeMapGeneratorStageDataPtr>
+struct FieldTraits<CubeMapGeneratorStageData *> :
+    public FieldTraitsFCPtrBase<CubeMapGeneratorStageData *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<CubeMapGeneratorStageDataPtr> :
 
   public:
 
-    typedef FieldTraits<CubeMapGeneratorStageDataPtr>  Self;
+    typedef FieldTraits<CubeMapGeneratorStageData *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

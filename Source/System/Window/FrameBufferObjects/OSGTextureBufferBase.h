@@ -159,7 +159,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
             const SFUInt32            *getSFZoffset         (void) const;
 
 
-                  TextureObjChunkPtr getTexture        (void) const;
+                  TextureObjChunk * getTexture        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getTexTarget       (void);
@@ -184,7 +184,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTexture        (const TextureObjChunkPtr value);
+            void setTexture        (TextureObjChunk * const value);
             void setTexTarget      (const GLenum &value);
             void setLevel          (const UInt32 &value);
             void setZoffset        (const UInt32 &value);
@@ -216,13 +216,13 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureBufferTransitPtr create          (void);
-    static  TextureBufferPtr        createEmpty     (void);
+    static  TextureBufferTransitPtr  create          (void);
+    static  TextureBuffer           *createEmpty     (void);
 
-    static  TextureBufferTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TextureBufferTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TextureBufferPtr        createEmptyLocal(
+    static  TextureBuffer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -319,7 +319,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

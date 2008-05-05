@@ -73,13 +73,13 @@ OSG::UInt16 CameraDecoratorBase::getClassGroupId(void)
 
 
 inline
-CameraPtr CameraDecoratorBase::getDecoratee(void) const
+Camera *CameraDecoratorBase::getDecoratee(void) const
 {
     return _sfDecoratee.getValue();
 }
 
 inline
-void CameraDecoratorBase::setDecoratee(const CameraPtr &value)
+void CameraDecoratorBase::setDecoratee(Camera * const value)
 {
     editSField(DecorateeFieldMask);
 

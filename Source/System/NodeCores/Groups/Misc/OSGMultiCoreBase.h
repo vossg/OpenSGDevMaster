@@ -129,7 +129,7 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
                   MFUnrecChildNodeCorePtr *editMFCores          (void);
 
 
-                  NodeCorePtr getCores          (const UInt32 index) const;
+                  NodeCore * getCores          (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,10 +147,10 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addCore                   (const NodeCorePtr value   );
-    void assignCoresFrom           (const MFUnrecChildNodeCorePtr &value);
-    void subCore         (UInt32                uiIndex );
-    void subCore        (const NodeCorePtr value   );
+    void addCore                   (NodeCore * const value   );
+    void assignCoresFrom          (const MFUnrecChildNodeCorePtr &value);
+    void subCore         (UInt32               uiIndex );
+    void subCore        (NodeCore * const value   );
     void clearCores                 (void                          );
 
 
@@ -171,13 +171,13 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MultiCoreTransitPtr create          (void);
-    static  MultiCorePtr        createEmpty     (void);
+    static  MultiCoreTransitPtr  create          (void);
+    static  MultiCore           *createEmpty     (void);
 
-    static  MultiCoreTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MultiCoreTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MultiCorePtr        createEmptyLocal(
+    static  MultiCore            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -232,8 +232,8 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name Child linking                                                */
     /*! \{                                                                 */
     
-    virtual bool unlinkChild(const FieldContainerPtr pChild,
-                             const UInt16            childFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -273,7 +273,7 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

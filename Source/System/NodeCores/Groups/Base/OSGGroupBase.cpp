@@ -166,7 +166,7 @@ GroupTransitPtr GroupBase::create(void)
 {
     GroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -182,7 +182,7 @@ GroupTransitPtr GroupBase::createLocal(BitVector bFlags)
 {
     GroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -194,9 +194,9 @@ GroupTransitPtr GroupBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GroupPtr GroupBase::createEmpty(void)
+Group *GroupBase::createEmpty(void)
 {
-    GroupPtr returnValue;
+    Group *returnValue;
 
     newPtr<Group>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -206,9 +206,9 @@ GroupPtr GroupBase::createEmpty(void)
     return returnValue;
 }
 
-GroupPtr GroupBase::createEmptyLocal(BitVector bFlags)
+Group *GroupBase::createEmptyLocal(BitVector bFlags)
 {
-    GroupPtr returnValue;
+    Group *returnValue;
 
     newPtr<Group>(returnValue, bFlags);
 
@@ -219,7 +219,7 @@ GroupPtr GroupBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr GroupBase::shallowCopy(void) const
 {
-    GroupPtr tmpPtr;
+    Group *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Group *>(this), 
@@ -235,7 +235,7 @@ FieldContainerTransitPtr GroupBase::shallowCopy(void) const
 FieldContainerTransitPtr GroupBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    GroupPtr tmpPtr;
+    Group *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Group *>(this), bFlags);
 
@@ -286,9 +286,9 @@ void GroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr GroupBase::createAspectCopy(void) const
+FieldContainer *GroupBase::createAspectCopy(void) const
 {
-    GroupPtr returnValue;
+    Group *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Group *>(this));
@@ -306,17 +306,17 @@ void GroupBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GroupPtr>::_type("GroupPtr", "NodeCorePtr");
+DataType FieldTraits<Group *>::_type("GroupPtr", "NodeCorePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GroupPtr)
+OSG_FIELDTRAITS_GETTYPE(Group *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GroupPtr, 
+                           Group *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GroupPtr, 
+                           Group *, 
                            0);
 
 OSG_END_NAMESPACE

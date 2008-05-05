@@ -171,7 +171,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
             const SFReal32            *getSFHeight          (void) const;
 
 
-                  NodePtr getUser           (void) const;
+                  Node * getUser           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt3f               &getSurface         (const UInt32 index);
@@ -197,7 +197,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setUser           (const NodePtr value);
+            void setUser           (Node * const value);
             void setWidth          (const Real32 &value);
             void setHeight         (const Real32 &value);
 
@@ -228,13 +228,13 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ProjectionCameraDecoratorTransitPtr create          (void);
-    static  ProjectionCameraDecoratorPtr        createEmpty     (void);
+    static  ProjectionCameraDecoratorTransitPtr  create          (void);
+    static  ProjectionCameraDecorator           *createEmpty     (void);
 
-    static  ProjectionCameraDecoratorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ProjectionCameraDecoratorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ProjectionCameraDecoratorPtr        createEmptyLocal(
+    static  ProjectionCameraDecorator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -379,7 +379,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

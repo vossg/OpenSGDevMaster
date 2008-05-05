@@ -226,7 +226,7 @@ ShaderParameterBoolTransitPtr ShaderParameterBoolBase::create(void)
 {
     ShaderParameterBoolTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -242,7 +242,7 @@ ShaderParameterBoolTransitPtr ShaderParameterBoolBase::createLocal(BitVector bFl
 {
     ShaderParameterBoolTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -254,9 +254,9 @@ ShaderParameterBoolTransitPtr ShaderParameterBoolBase::createLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterBoolPtr ShaderParameterBoolBase::createEmpty(void)
+ShaderParameterBool *ShaderParameterBoolBase::createEmpty(void)
 {
-    ShaderParameterBoolPtr returnValue;
+    ShaderParameterBool *returnValue;
 
     newPtr<ShaderParameterBool>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -266,9 +266,9 @@ ShaderParameterBoolPtr ShaderParameterBoolBase::createEmpty(void)
     return returnValue;
 }
 
-ShaderParameterBoolPtr ShaderParameterBoolBase::createEmptyLocal(BitVector bFlags)
+ShaderParameterBool *ShaderParameterBoolBase::createEmptyLocal(BitVector bFlags)
 {
-    ShaderParameterBoolPtr returnValue;
+    ShaderParameterBool *returnValue;
 
     newPtr<ShaderParameterBool>(returnValue, bFlags);
 
@@ -279,7 +279,7 @@ ShaderParameterBoolPtr ShaderParameterBoolBase::createEmptyLocal(BitVector bFlag
 
 FieldContainerTransitPtr ShaderParameterBoolBase::shallowCopy(void) const
 {
-    ShaderParameterBoolPtr tmpPtr;
+    ShaderParameterBool *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ShaderParameterBool *>(this), 
@@ -295,7 +295,7 @@ FieldContainerTransitPtr ShaderParameterBoolBase::shallowCopy(void) const
 FieldContainerTransitPtr ShaderParameterBoolBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ShaderParameterBoolPtr tmpPtr;
+    ShaderParameterBool *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ShaderParameterBool *>(this), bFlags);
 
@@ -370,9 +370,9 @@ void ShaderParameterBoolBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ShaderParameterBoolBase::createAspectCopy(void) const
+FieldContainer *ShaderParameterBoolBase::createAspectCopy(void) const
 {
-    ShaderParameterBoolPtr returnValue;
+    ShaderParameterBool *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ShaderParameterBool *>(this));
@@ -390,17 +390,17 @@ void ShaderParameterBoolBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterBoolPtr>::_type("ShaderParameterBoolPtr", "ShaderParameterPtr");
+DataType FieldTraits<ShaderParameterBool *>::_type("ShaderParameterBoolPtr", "ShaderParameterPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterBoolPtr)
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterBool *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterBoolPtr, 
+                           ShaderParameterBool *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterBoolPtr, 
+                           ShaderParameterBool *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -168,13 +168,13 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleShadowMapEngineTransitPtr create          (void);
-    static  SimpleShadowMapEnginePtr        createEmpty     (void);
+    static  SimpleShadowMapEngineTransitPtr  create          (void);
+    static  SimpleShadowMapEngine           *createEmpty     (void);
 
-    static  SimpleShadowMapEngineTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SimpleShadowMapEngineTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SimpleShadowMapEnginePtr        createEmptyLocal(
+    static  SimpleShadowMapEngine            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

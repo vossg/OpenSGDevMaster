@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(CubeTextureChunk);
 #endif
 
 template <>
-struct FieldTraits<CubeTextureChunkPtr> :
-    public FieldTraitsFCPtrBase<CubeTextureChunkPtr>
+struct FieldTraits<CubeTextureChunk *> :
+    public FieldTraitsFCPtrBase<CubeTextureChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<CubeTextureChunkPtr> :
 
   public:
 
-    typedef FieldTraits<CubeTextureChunkPtr>  Self;
+    typedef FieldTraits<CubeTextureChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<CubeTextureChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCubeTextureChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<CubeTextureChunkPtr, 0>::getMName<NoRefCountPolicy>(voi
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<CubeTextureChunkPtr,
+typedef PointerSField<CubeTextureChunk *,
                       RecordedRefCountPolicy  > SFRecCubeTextureChunkPtr;
-typedef PointerSField<CubeTextureChunkPtr,
+typedef PointerSField<CubeTextureChunk *,
                       UnrecordedRefCountPolicy> SFUnrecCubeTextureChunkPtr;
-typedef PointerSField<CubeTextureChunkPtr,
+typedef PointerSField<CubeTextureChunk *,
                       WeakRefCountPolicy      > SFWeakCubeTextureChunkPtr;
-typedef PointerSField<CubeTextureChunkPtr,
+typedef PointerSField<CubeTextureChunk *,
                       NoRefCountPolicy        > SFUncountedCubeTextureChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<CubeTextureChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<CubeTextureChunkPtr,
+typedef PointerMField<CubeTextureChunk *,
                       RecordedRefCountPolicy  > MFRecCubeTextureChunkPtr;
-typedef PointerMField<CubeTextureChunkPtr,
+typedef PointerMField<CubeTextureChunk *,
                       UnrecordedRefCountPolicy> MFUnrecCubeTextureChunkPtr;
-typedef PointerMField<CubeTextureChunkPtr,
+typedef PointerMField<CubeTextureChunk *,
                       WeakRefCountPolicy      > MFWeakCubeTextureChunkPtr;
-typedef PointerMField<CubeTextureChunkPtr,
+typedef PointerMField<CubeTextureChunk *,
                       NoRefCountPolicy        > MFUncountedCubeTextureChunkPtr;
 #endif
 

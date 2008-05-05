@@ -202,13 +202,13 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MatrixCameraTransitPtr create          (void);
-    static  MatrixCameraPtr        createEmpty     (void);
+    static  MatrixCameraTransitPtr  create          (void);
+    static  MatrixCamera           *createEmpty     (void);
 
-    static  MatrixCameraTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MatrixCameraTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MatrixCameraPtr        createEmptyLocal(
+    static  MatrixCamera            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

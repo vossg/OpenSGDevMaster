@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(PerspectiveCamera);
 #endif
 
 template <>
-struct FieldTraits<PerspectiveCameraPtr> :
-    public FieldTraitsFCPtrBase<PerspectiveCameraPtr>
+struct FieldTraits<PerspectiveCamera *> :
+    public FieldTraitsFCPtrBase<PerspectiveCamera *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<PerspectiveCameraPtr> :
 
   public:
 
-    typedef FieldTraits<PerspectiveCameraPtr>  Self;
+    typedef FieldTraits<PerspectiveCamera *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<PerspectiveCameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PerspectiveCamera *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPerspectiveCameraPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<PerspectiveCameraPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<PerspectiveCameraPtr,
+typedef PointerSField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > SFRecPerspectiveCameraPtr;
-typedef PointerSField<PerspectiveCameraPtr,
+typedef PointerSField<PerspectiveCamera *,
                       UnrecordedRefCountPolicy> SFUnrecPerspectiveCameraPtr;
-typedef PointerSField<PerspectiveCameraPtr,
+typedef PointerSField<PerspectiveCamera *,
                       WeakRefCountPolicy      > SFWeakPerspectiveCameraPtr;
-typedef PointerSField<PerspectiveCameraPtr,
+typedef PointerSField<PerspectiveCamera *,
                       NoRefCountPolicy        > SFUncountedPerspectiveCameraPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<PerspectiveCameraPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<PerspectiveCameraPtr,
+typedef PointerMField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > MFRecPerspectiveCameraPtr;
-typedef PointerMField<PerspectiveCameraPtr,
+typedef PointerMField<PerspectiveCamera *,
                       UnrecordedRefCountPolicy> MFUnrecPerspectiveCameraPtr;
-typedef PointerMField<PerspectiveCameraPtr,
+typedef PointerMField<PerspectiveCamera *,
                       WeakRefCountPolicy      > MFWeakPerspectiveCameraPtr;
-typedef PointerMField<PerspectiveCameraPtr,
+typedef PointerMField<PerspectiveCamera *,
                       NoRefCountPolicy        > MFUncountedPerspectiveCameraPtr;
 #endif
 

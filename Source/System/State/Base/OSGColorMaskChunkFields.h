@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ColorMaskChunk);
 #endif
 
 template <>
-struct FieldTraits<ColorMaskChunkPtr> :
-    public FieldTraitsFCPtrBase<ColorMaskChunkPtr>
+struct FieldTraits<ColorMaskChunk *> :
+    public FieldTraitsFCPtrBase<ColorMaskChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ColorMaskChunkPtr> :
 
   public:
 
-    typedef FieldTraits<ColorMaskChunkPtr>  Self;
+    typedef FieldTraits<ColorMaskChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ColorMaskChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakColorMaskChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdColorMaskChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ColorMaskChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<ColorMaskChunkPtr,
+typedef PointerSField<ColorMaskChunk *,
                       RecordedRefCountPolicy  > SFRecColorMaskChunkPtr;
-typedef PointerSField<ColorMaskChunkPtr,
+typedef PointerSField<ColorMaskChunk *,
                       UnrecordedRefCountPolicy> SFUnrecColorMaskChunkPtr;
-typedef PointerSField<ColorMaskChunkPtr,
+typedef PointerSField<ColorMaskChunk *,
                       WeakRefCountPolicy      > SFWeakColorMaskChunkPtr;
-typedef PointerSField<ColorMaskChunkPtr,
+typedef PointerSField<ColorMaskChunk *,
                       NoRefCountPolicy        > SFUncountedColorMaskChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ColorMaskChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<ColorMaskChunkPtr,
+typedef PointerMField<ColorMaskChunk *,
                       RecordedRefCountPolicy  > MFRecColorMaskChunkPtr;
-typedef PointerMField<ColorMaskChunkPtr,
+typedef PointerMField<ColorMaskChunk *,
                       UnrecordedRefCountPolicy> MFUnrecColorMaskChunkPtr;
-typedef PointerMField<ColorMaskChunkPtr,
+typedef PointerMField<ColorMaskChunk *,
                       WeakRefCountPolicy      > MFWeakColorMaskChunkPtr;
-typedef PointerMField<ColorMaskChunkPtr,
+typedef PointerMField<ColorMaskChunk *,
                       NoRefCountPolicy        > MFUncountedColorMaskChunkPtr;
 #endif
 

@@ -225,7 +225,7 @@ SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::create(void)
 {
     SimpleShadowMapEngineTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -241,7 +241,7 @@ SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::createLocal(BitVector
 {
     SimpleShadowMapEngineTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -253,9 +253,9 @@ SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::createLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::createEmpty(void)
+SimpleShadowMapEngine *SimpleShadowMapEngineBase::createEmpty(void)
 {
-    SimpleShadowMapEnginePtr returnValue;
+    SimpleShadowMapEngine *returnValue;
 
     newPtr<SimpleShadowMapEngine>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -265,9 +265,9 @@ SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::createEmptyLocal(BitVector bFlags)
+SimpleShadowMapEngine *SimpleShadowMapEngineBase::createEmptyLocal(BitVector bFlags)
 {
-    SimpleShadowMapEnginePtr returnValue;
+    SimpleShadowMapEngine *returnValue;
 
     newPtr<SimpleShadowMapEngine>(returnValue, bFlags);
 
@@ -278,7 +278,7 @@ SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::createEmptyLocal(BitVector b
 
 FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopy(void) const
 {
-    SimpleShadowMapEnginePtr tmpPtr;
+    SimpleShadowMapEngine *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SimpleShadowMapEngine *>(this), 
@@ -294,7 +294,7 @@ FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopy(void) const
 FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SimpleShadowMapEnginePtr tmpPtr;
+    SimpleShadowMapEngine *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SimpleShadowMapEngine *>(this), bFlags);
 
@@ -369,9 +369,9 @@ void SimpleShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SimpleShadowMapEngineBase::createAspectCopy(void) const
+FieldContainer *SimpleShadowMapEngineBase::createAspectCopy(void) const
 {
-    SimpleShadowMapEnginePtr returnValue;
+    SimpleShadowMapEngine *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SimpleShadowMapEngine *>(this));
@@ -389,17 +389,17 @@ void SimpleShadowMapEngineBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleShadowMapEnginePtr>::_type("SimpleShadowMapEnginePtr", "ShadowMapEnginePtr");
+DataType FieldTraits<SimpleShadowMapEngine *>::_type("SimpleShadowMapEnginePtr", "ShadowMapEnginePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEnginePtr)
+OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEngine *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SimpleShadowMapEnginePtr, 
+                           SimpleShadowMapEngine *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SimpleShadowMapEnginePtr, 
+                           SimpleShadowMapEngine *, 
                            0);
 
 OSG_END_NAMESPACE

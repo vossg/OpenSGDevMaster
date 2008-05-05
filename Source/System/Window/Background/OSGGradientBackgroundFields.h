@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(GradientBackground);
 #endif
 
 template <>
-struct FieldTraits<GradientBackgroundPtr> :
-    public FieldTraitsFCPtrBase<GradientBackgroundPtr>
+struct FieldTraits<GradientBackground *> :
+    public FieldTraitsFCPtrBase<GradientBackground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<GradientBackgroundPtr> :
 
   public:
 
-    typedef FieldTraits<GradientBackgroundPtr>  Self;
+    typedef FieldTraits<GradientBackground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -104,25 +104,25 @@ struct FieldTraits<GradientBackgroundPtr> :
 
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGradientBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GradientBackground *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGradientBackgroundPtr"; 
 }
@@ -140,13 +140,13 @@ const Char8 *FieldTraits<GradientBackgroundPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<GradientBackgroundPtr,
+typedef PointerMField<GradientBackground *,
                       RecordedRefCountPolicy  > MFRecGradientBackgroundPtr;
-typedef PointerMField<GradientBackgroundPtr,
+typedef PointerMField<GradientBackground *,
                       UnrecordedRefCountPolicy> MFUnrecGradientBackgroundPtr;
-typedef PointerMField<GradientBackgroundPtr,
+typedef PointerMField<GradientBackground *,
                       WeakRefCountPolicy      > MFWeakGradientBackgroundPtr;
-typedef PointerMField<GradientBackgroundPtr,
+typedef PointerMField<GradientBackground *,
                       NoRefCountPolicy        > MFUncountedGradientBackgroundPtr;
 #endif
 

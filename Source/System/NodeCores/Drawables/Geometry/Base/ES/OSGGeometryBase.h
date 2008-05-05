@@ -155,21 +155,21 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   MFUnrecChildGeoIntegralPropertyPtr *editMFPropIndices    (void);
 
 
-                  GeoIntegralPropertyPtr getTypes          (void) const;
+                  GeoIntegralProperty * getTypes          (void) const;
 
-                  GeoIntegralPropertyPtr getLengths        (void) const;
+                  GeoIntegralProperty * getLengths        (void) const;
 
-                  GeoVectorPropertyPtr getProperties     (const UInt32 index) const;
+                  GeoVectorProperty * getProperties     (const UInt32 index) const;
 
-                  GeoIntegralPropertyPtr getPropIndices    (const UInt32 index) const;
+                  GeoIntegralProperty * getPropIndices    (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTypes          (const GeoIntegralPropertyPtr value);
-            void setLengths        (const GeoIntegralPropertyPtr value);
+            void setTypes          (GeoIntegralProperty * const value);
+            void setLengths        (GeoIntegralProperty * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -181,17 +181,17 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToProperties           (const GeoVectorPropertyPtr value   );
-    void assignProperties           (const MFUnrecChildGeoVectorPropertyPtr &value);
-    void removeFromProperties (UInt32                uiIndex );
-    void removeFromProperties(const GeoVectorPropertyPtr value   );
+    void pushToProperties           (GeoVectorProperty * const value   );
+    void assignProperties          (const MFUnrecChildGeoVectorPropertyPtr &value);
+    void removeFromProperties (UInt32               uiIndex );
+    void removeFromProperties(GeoVectorProperty * const value   );
     void clearProperties            (void                          );
 
 
-    void pushToPropIndices           (const GeoIntegralPropertyPtr value   );
-    void assignPropIndices           (const MFUnrecChildGeoIntegralPropertyPtr &value);
-    void removeFromPropIndices (UInt32                uiIndex );
-    void removeFromPropIndices(const GeoIntegralPropertyPtr value   );
+    void pushToPropIndices           (GeoIntegralProperty * const value   );
+    void assignPropIndices          (const MFUnrecChildGeoIntegralPropertyPtr &value);
+    void removeFromPropIndices (UInt32               uiIndex );
+    void removeFromPropIndices(GeoIntegralProperty * const value   );
     void clearPropIndices            (void                          );
 
 
@@ -212,13 +212,13 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeometryTransitPtr create          (void);
-    static  GeometryPtr        createEmpty     (void);
+    static  GeometryTransitPtr  create          (void);
+    static  Geometry           *createEmpty     (void);
 
-    static  GeometryTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GeometryTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GeometryPtr        createEmptyLocal(
+    static  Geometry            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -278,8 +278,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name Child linking                                                */
     /*! \{                                                                 */
     
-    virtual bool unlinkChild(const FieldContainerPtr pChild,
-                             const UInt16            childFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -361,7 +361,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

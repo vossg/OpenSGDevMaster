@@ -209,13 +209,13 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FCDTestFCTransitPtr create          (void);
-    static  FCDTestFCPtr        createEmpty     (void);
+    static  FCDTestFCTransitPtr  create          (void);
+    static  FCDTestFC           *createEmpty     (void);
 
-    static  FCDTestFCTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  FCDTestFCTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  FCDTestFCPtr        createEmptyLocal(
+    static  FCDTestFC            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -352,7 +352,7 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

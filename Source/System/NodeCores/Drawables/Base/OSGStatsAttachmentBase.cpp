@@ -204,17 +204,17 @@ void StatsAttachmentBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatsAttachmentPtr>::_type("StatsAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<StatsAttachment *>::_type("StatsAttachmentPtr", "AttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StatsAttachmentPtr)
+OSG_FIELDTRAITS_GETTYPE(StatsAttachment *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StatsAttachmentPtr, 
+                           StatsAttachment *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StatsAttachmentPtr, 
+                           StatsAttachment *, 
                            0);
 
 OSG_END_NAMESPACE

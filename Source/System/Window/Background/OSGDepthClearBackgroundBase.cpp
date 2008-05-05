@@ -164,7 +164,7 @@ DepthClearBackgroundTransitPtr DepthClearBackgroundBase::create(void)
 {
     DepthClearBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -180,7 +180,7 @@ DepthClearBackgroundTransitPtr DepthClearBackgroundBase::createLocal(BitVector b
 {
     DepthClearBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -192,9 +192,9 @@ DepthClearBackgroundTransitPtr DepthClearBackgroundBase::createLocal(BitVector b
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DepthClearBackgroundPtr DepthClearBackgroundBase::createEmpty(void)
+DepthClearBackground *DepthClearBackgroundBase::createEmpty(void)
 {
-    DepthClearBackgroundPtr returnValue;
+    DepthClearBackground *returnValue;
 
     newPtr<DepthClearBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -204,9 +204,9 @@ DepthClearBackgroundPtr DepthClearBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-DepthClearBackgroundPtr DepthClearBackgroundBase::createEmptyLocal(BitVector bFlags)
+DepthClearBackground *DepthClearBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    DepthClearBackgroundPtr returnValue;
+    DepthClearBackground *returnValue;
 
     newPtr<DepthClearBackground>(returnValue, bFlags);
 
@@ -217,7 +217,7 @@ DepthClearBackgroundPtr DepthClearBackgroundBase::createEmptyLocal(BitVector bFl
 
 FieldContainerTransitPtr DepthClearBackgroundBase::shallowCopy(void) const
 {
-    DepthClearBackgroundPtr tmpPtr;
+    DepthClearBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const DepthClearBackground *>(this), 
@@ -233,7 +233,7 @@ FieldContainerTransitPtr DepthClearBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr DepthClearBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DepthClearBackgroundPtr tmpPtr;
+    DepthClearBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const DepthClearBackground *>(this), bFlags);
 
@@ -284,9 +284,9 @@ void DepthClearBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr DepthClearBackgroundBase::createAspectCopy(void) const
+FieldContainer *DepthClearBackgroundBase::createAspectCopy(void) const
 {
-    DepthClearBackgroundPtr returnValue;
+    DepthClearBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const DepthClearBackground *>(this));
@@ -304,13 +304,13 @@ void DepthClearBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DepthClearBackgroundPtr>::_type("DepthClearBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<DepthClearBackground *>::_type("DepthClearBackgroundPtr", "BackgroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DepthClearBackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(DepthClearBackground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DepthClearBackgroundPtr, 
+                           DepthClearBackground *, 
                            0);
 
 

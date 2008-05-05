@@ -473,7 +473,7 @@ DepthChunkTransitPtr DepthChunkBase::create(void)
 {
     DepthChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -489,7 +489,7 @@ DepthChunkTransitPtr DepthChunkBase::createLocal(BitVector bFlags)
 {
     DepthChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -501,9 +501,9 @@ DepthChunkTransitPtr DepthChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DepthChunkPtr DepthChunkBase::createEmpty(void)
+DepthChunk *DepthChunkBase::createEmpty(void)
 {
-    DepthChunkPtr returnValue;
+    DepthChunk *returnValue;
 
     newPtr<DepthChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -513,9 +513,9 @@ DepthChunkPtr DepthChunkBase::createEmpty(void)
     return returnValue;
 }
 
-DepthChunkPtr DepthChunkBase::createEmptyLocal(BitVector bFlags)
+DepthChunk *DepthChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    DepthChunkPtr returnValue;
+    DepthChunk *returnValue;
 
     newPtr<DepthChunk>(returnValue, bFlags);
 
@@ -526,7 +526,7 @@ DepthChunkPtr DepthChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr DepthChunkBase::shallowCopy(void) const
 {
-    DepthChunkPtr tmpPtr;
+    DepthChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const DepthChunk *>(this), 
@@ -542,7 +542,7 @@ FieldContainerTransitPtr DepthChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr DepthChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DepthChunkPtr tmpPtr;
+    DepthChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const DepthChunk *>(this), bFlags);
 
@@ -713,9 +713,9 @@ void DepthChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr DepthChunkBase::createAspectCopy(void) const
+FieldContainer *DepthChunkBase::createAspectCopy(void) const
 {
-    DepthChunkPtr returnValue;
+    DepthChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const DepthChunk *>(this));
@@ -733,17 +733,17 @@ void DepthChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DepthChunkPtr>::_type("DepthChunkPtr", "StateChunkPtr");
+DataType FieldTraits<DepthChunk *>::_type("DepthChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DepthChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(DepthChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DepthChunkPtr, 
+                           DepthChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DepthChunkPtr, 
+                           DepthChunk *, 
                            0);
 
 OSG_END_NAMESPACE

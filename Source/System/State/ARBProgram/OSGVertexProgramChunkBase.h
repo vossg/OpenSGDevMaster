@@ -126,13 +126,13 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VertexProgramChunkTransitPtr create          (void);
-    static  VertexProgramChunkPtr        createEmpty     (void);
+    static  VertexProgramChunkTransitPtr  create          (void);
+    static  VertexProgramChunk           *createEmpty     (void);
 
-    static  VertexProgramChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  VertexProgramChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  VertexProgramChunkPtr        createEmptyLocal(
+    static  VertexProgramChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

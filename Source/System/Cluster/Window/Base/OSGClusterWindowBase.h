@@ -294,7 +294,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   std::string         &editServiceInterface(void);
             const std::string          getServiceInterface (void) const;
 
-                  WindowPtr getClientWindow   (void) const;
+                  Window * getClientWindow   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getInterleave      (void);
@@ -308,7 +308,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   UInt32              &editFrameCount     (void);
             const UInt32               getFrameCount      (void) const;
 
-                  ImageComposerPtr getComposer       (void) const;
+                  ImageComposer * getComposer       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getAutostart       (const UInt32 index);
@@ -329,10 +329,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
             void setServicePort    (const UInt32 &value);
             void setServiceAddress (const std::string &value);
             void setServiceInterface(const std::string &value);
-            void setClientWindow   (const WindowPtr value);
+            void setClientWindow   (Window * const value);
             void setInterleave     (const UInt32 &value);
             void setFrameCount     (const UInt32 &value);
-            void setComposer       (const ImageComposerPtr value);
+            void setComposer       (ImageComposer * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -361,13 +361,13 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ClusterWindowTransitPtr create          (void);
-    static  ClusterWindowPtr        createEmpty     (void);
+    static  ClusterWindowTransitPtr  create          (void);
+    static  ClusterWindow           *createEmpty     (void);
 
-    static  ClusterWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ClusterWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ClusterWindowPtr        createEmptyLocal(
+    static  ClusterWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -491,7 +491,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -389,7 +389,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
             const SFUInt32            *getSFNPOTMatrixScale (void) const;
 
 
-                  ImagePtr getImage          (void) const;
+                  Image * getImage          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getInternalFormat  (void);
@@ -552,7 +552,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setImage          (const ImagePtr value);
+            void setImage          (Image * const value);
             void setInternalFormat (const GLenum &value);
             void setExternalFormat (const GLenum &value);
             void setScale          (const bool &value);
@@ -607,13 +607,13 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureObjChunkTransitPtr create          (void);
-    static  TextureObjChunkPtr        createEmpty     (void);
+    static  TextureObjChunkTransitPtr  create          (void);
+    static  TextureObjChunk           *createEmpty     (void);
 
-    static  TextureObjChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TextureObjChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TextureObjChunkPtr        createEmptyLocal(
+    static  TextureObjChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -694,8 +694,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name Child linking                                                */
     /*! \{                                                                 */
     
-    virtual bool unlinkChild(const FieldContainerPtr pChild,
-                             const UInt16            childFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -787,7 +787,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

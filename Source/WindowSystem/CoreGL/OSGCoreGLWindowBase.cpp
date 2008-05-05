@@ -226,7 +226,7 @@ CoreGLWindowTransitPtr CoreGLWindowBase::create(void)
 {
     CoreGLWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -242,7 +242,7 @@ CoreGLWindowTransitPtr CoreGLWindowBase::createLocal(BitVector bFlags)
 {
     CoreGLWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -254,9 +254,9 @@ CoreGLWindowTransitPtr CoreGLWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CoreGLWindowPtr CoreGLWindowBase::createEmpty(void)
+CoreGLWindow *CoreGLWindowBase::createEmpty(void)
 {
-    CoreGLWindowPtr returnValue;
+    CoreGLWindow *returnValue;
 
     newPtr<CoreGLWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -266,9 +266,9 @@ CoreGLWindowPtr CoreGLWindowBase::createEmpty(void)
     return returnValue;
 }
 
-CoreGLWindowPtr CoreGLWindowBase::createEmptyLocal(BitVector bFlags)
+CoreGLWindow *CoreGLWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    CoreGLWindowPtr returnValue;
+    CoreGLWindow *returnValue;
 
     newPtr<CoreGLWindow>(returnValue, bFlags);
 
@@ -279,7 +279,7 @@ CoreGLWindowPtr CoreGLWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr CoreGLWindowBase::shallowCopy(void) const
 {
-    CoreGLWindowPtr tmpPtr;
+    CoreGLWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const CoreGLWindow *>(this), 
@@ -295,7 +295,7 @@ FieldContainerTransitPtr CoreGLWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr CoreGLWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CoreGLWindowPtr tmpPtr;
+    CoreGLWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const CoreGLWindow *>(this), bFlags);
 
@@ -370,9 +370,9 @@ void CoreGLWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CoreGLWindowBase::createAspectCopy(void) const
+FieldContainer *CoreGLWindowBase::createAspectCopy(void) const
 {
-    CoreGLWindowPtr returnValue;
+    CoreGLWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CoreGLWindow *>(this));
@@ -390,17 +390,17 @@ void CoreGLWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CoreGLWindowPtr>::_type("CoreGLWindowPtr", "WindowPtr");
+DataType FieldTraits<CoreGLWindow *>::_type("CoreGLWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CoreGLWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(CoreGLWindow *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CoreGLWindowPtr, 
+                           CoreGLWindow *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CoreGLWindowPtr, 
+                           CoreGLWindow *, 
                            0);
 
 OSG_END_NAMESPACE

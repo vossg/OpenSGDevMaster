@@ -321,13 +321,13 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PointChunkTransitPtr create          (void);
-    static  PointChunkPtr        createEmpty     (void);
+    static  PointChunkTransitPtr  create          (void);
+    static  PointChunk           *createEmpty     (void);
 
-    static  PointChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  PointChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  PointChunkPtr        createEmptyLocal(
+    static  PointChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -441,7 +441,7 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

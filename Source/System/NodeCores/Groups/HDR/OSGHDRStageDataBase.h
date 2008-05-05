@@ -185,15 +185,15 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
                   SFUnrecChunkMaterialPtr *editSFShrinkMaterial (void);
 
 
-                  ChunkMaterialPtr getToneMappingMaterial(void) const;
+                  ChunkMaterial * getToneMappingMaterial(void) const;
 
-                  FrameBufferObjectPtr getBlurRenderTarget(void) const;
+                  FrameBufferObject * getBlurRenderTarget(void) const;
 
-                  ChunkMaterialPtr getBlurMaterial   (void) const;
+                  ChunkMaterial * getBlurMaterial   (void) const;
 
-                  SHLChunkPtr getHBlurShader    (void) const;
+                  SHLChunk * getHBlurShader    (void) const;
 
-                  SHLChunkPtr getVBlurShader    (void) const;
+                  SHLChunk * getVBlurShader    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getWidth           (void);
@@ -207,24 +207,24 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
                   UInt32              &editHeight         (void);
             const UInt32               getHeight          (void) const;
 
-                  FrameBufferObjectPtr getShrinkRenderTarget(void) const;
+                  FrameBufferObject * getShrinkRenderTarget(void) const;
 
-                  ChunkMaterialPtr getShrinkMaterial (void) const;
+                  ChunkMaterial * getShrinkMaterial (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setToneMappingMaterial(const ChunkMaterialPtr value);
-            void setBlurRenderTarget(const FrameBufferObjectPtr value);
-            void setBlurMaterial   (const ChunkMaterialPtr value);
-            void setHBlurShader    (const SHLChunkPtr value);
-            void setVBlurShader    (const SHLChunkPtr value);
+            void setToneMappingMaterial(ChunkMaterial * const value);
+            void setBlurRenderTarget(FrameBufferObject * const value);
+            void setBlurMaterial   (ChunkMaterial * const value);
+            void setHBlurShader    (SHLChunk * const value);
+            void setVBlurShader    (SHLChunk * const value);
             void setWidth          (const UInt32 &value);
             void setHeight         (const UInt32 &value);
-            void setShrinkRenderTarget(const FrameBufferObjectPtr value);
-            void setShrinkMaterial (const ChunkMaterialPtr value);
+            void setShrinkRenderTarget(FrameBufferObject * const value);
+            void setShrinkMaterial (ChunkMaterial * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,13 +253,13 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  HDRStageDataTransitPtr create          (void);
-    static  HDRStageDataPtr        createEmpty     (void);
+    static  HDRStageDataTransitPtr  create          (void);
+    static  HDRStageData           *createEmpty     (void);
 
-    static  HDRStageDataTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  HDRStageDataTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  HDRStageDataPtr        createEmptyLocal(
+    static  HDRStageData            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -371,7 +371,7 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

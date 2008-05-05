@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Algorithm);
 #endif
 
 template <>
-struct FieldTraits<AlgorithmPtr> :
-    public FieldTraitsFCPtrBase<AlgorithmPtr>
+struct FieldTraits<Algorithm *> :
+    public FieldTraitsFCPtrBase<Algorithm *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<AlgorithmPtr> :
 
   public:
 
-    typedef FieldTraits<AlgorithmPtr>  Self;
+    typedef FieldTraits<Algorithm *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<AlgorithmPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Algorithm *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAlgorithmPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<AlgorithmPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef PointerSField<AlgorithmPtr,
+typedef PointerSField<Algorithm *,
                       RecordedRefCountPolicy  > SFRecAlgorithmPtr;
-typedef PointerSField<AlgorithmPtr,
+typedef PointerSField<Algorithm *,
                       UnrecordedRefCountPolicy> SFUnrecAlgorithmPtr;
-typedef PointerSField<AlgorithmPtr,
+typedef PointerSField<Algorithm *,
                       WeakRefCountPolicy      > SFWeakAlgorithmPtr;
-typedef PointerSField<AlgorithmPtr,
+typedef PointerSField<Algorithm *,
                       NoRefCountPolicy        > SFUncountedAlgorithmPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<AlgorithmPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef PointerMField<AlgorithmPtr,
+typedef PointerMField<Algorithm *,
                       RecordedRefCountPolicy  > MFRecAlgorithmPtr;
-typedef PointerMField<AlgorithmPtr,
+typedef PointerMField<Algorithm *,
                       UnrecordedRefCountPolicy> MFUnrecAlgorithmPtr;
-typedef PointerMField<AlgorithmPtr,
+typedef PointerMField<Algorithm *,
                       WeakRefCountPolicy      > MFWeakAlgorithmPtr;
-typedef PointerMField<AlgorithmPtr,
+typedef PointerMField<Algorithm *,
                       NoRefCountPolicy        > MFUncountedAlgorithmPtr;
 #endif
 

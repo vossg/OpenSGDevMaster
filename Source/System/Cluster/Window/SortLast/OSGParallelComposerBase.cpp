@@ -338,7 +338,7 @@ ParallelComposerTransitPtr ParallelComposerBase::create(void)
 {
     ParallelComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -354,7 +354,7 @@ ParallelComposerTransitPtr ParallelComposerBase::createLocal(BitVector bFlags)
 {
     ParallelComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -366,9 +366,9 @@ ParallelComposerTransitPtr ParallelComposerBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ParallelComposerPtr ParallelComposerBase::createEmpty(void)
+ParallelComposer *ParallelComposerBase::createEmpty(void)
 {
-    ParallelComposerPtr returnValue;
+    ParallelComposer *returnValue;
 
     newPtr<ParallelComposer>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -378,9 +378,9 @@ ParallelComposerPtr ParallelComposerBase::createEmpty(void)
     return returnValue;
 }
 
-ParallelComposerPtr ParallelComposerBase::createEmptyLocal(BitVector bFlags)
+ParallelComposer *ParallelComposerBase::createEmptyLocal(BitVector bFlags)
 {
-    ParallelComposerPtr returnValue;
+    ParallelComposer *returnValue;
 
     newPtr<ParallelComposer>(returnValue, bFlags);
 
@@ -391,7 +391,7 @@ ParallelComposerPtr ParallelComposerBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ParallelComposerBase::shallowCopy(void) const
 {
-    ParallelComposerPtr tmpPtr;
+    ParallelComposer *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ParallelComposer *>(this), 
@@ -407,7 +407,7 @@ FieldContainerTransitPtr ParallelComposerBase::shallowCopy(void) const
 FieldContainerTransitPtr ParallelComposerBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ParallelComposerPtr tmpPtr;
+    ParallelComposer *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ParallelComposer *>(this), bFlags);
 
@@ -530,9 +530,9 @@ void ParallelComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ParallelComposerBase::createAspectCopy(void) const
+FieldContainer *ParallelComposerBase::createAspectCopy(void) const
 {
-    ParallelComposerPtr returnValue;
+    ParallelComposer *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ParallelComposer *>(this));
@@ -550,7 +550,7 @@ void ParallelComposerBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ParallelComposerPtr>::_type("ParallelComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<ParallelComposer *>::_type("ParallelComposerPtr", "ImageComposerPtr");
 #endif
 
 

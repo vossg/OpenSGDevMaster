@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SolidBackground);
 #endif
 
 template <>
-struct FieldTraits<SolidBackgroundPtr> :
-    public FieldTraitsFCPtrBase<SolidBackgroundPtr>
+struct FieldTraits<SolidBackground *> :
+    public FieldTraitsFCPtrBase<SolidBackground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SolidBackgroundPtr> :
 
   public:
 
-    typedef FieldTraits<SolidBackgroundPtr>  Self;
+    typedef FieldTraits<SolidBackground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -103,25 +103,25 @@ struct FieldTraits<SolidBackgroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SolidBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSolidBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SolidBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSolidBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SolidBackground *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSolidBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SolidBackground *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSolidBackgroundPtr"; 
 }
@@ -139,13 +139,13 @@ const Char8 *FieldTraits<SolidBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<SolidBackgroundPtr,
+typedef PointerSField<SolidBackground *,
                       RecordedRefCountPolicy  > SFRecSolidBackgroundPtr;
-typedef PointerSField<SolidBackgroundPtr,
+typedef PointerSField<SolidBackground *,
                       UnrecordedRefCountPolicy> SFUnrecSolidBackgroundPtr;
-typedef PointerSField<SolidBackgroundPtr,
+typedef PointerSField<SolidBackground *,
                       WeakRefCountPolicy      > SFWeakSolidBackgroundPtr;
-typedef PointerSField<SolidBackgroundPtr,
+typedef PointerSField<SolidBackground *,
                       NoRefCountPolicy        > SFUncountedSolidBackgroundPtr;
 #endif
 

@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var NodePtr         VisitSubTreeBase::_sfSubTreeRoot
+/*! \var Node *          VisitSubTreeBase::_sfSubTreeRoot
     Reference to the sub-graph to draw in place of this node.
     Whatever node is pointed to will be drawn here as if it was duplicated
     at this location.
@@ -148,7 +148,7 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     "                category=\"weakpointer\"\n"
     "                cardinality=\"single\"\n"
     "                visibility=\"external\"\n"
-    "                defaultValue=\"NullFC\"\n"
+    "                defaultValue=\"NULL\"\n"
     "                access=\"public\"\n"
     "        >\n"
     "        Reference to the sub-graph to draw in place of this node.\n"
@@ -240,7 +240,7 @@ VisitSubTreeTransitPtr VisitSubTreeBase::create(void)
 {
     VisitSubTreeTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -256,7 +256,7 @@ VisitSubTreeTransitPtr VisitSubTreeBase::createLocal(BitVector bFlags)
 {
     VisitSubTreeTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -268,9 +268,9 @@ VisitSubTreeTransitPtr VisitSubTreeBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-VisitSubTreePtr VisitSubTreeBase::createEmpty(void)
+VisitSubTree *VisitSubTreeBase::createEmpty(void)
 {
-    VisitSubTreePtr returnValue;
+    VisitSubTree *returnValue;
 
     newPtr<VisitSubTree>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -280,9 +280,9 @@ VisitSubTreePtr VisitSubTreeBase::createEmpty(void)
     return returnValue;
 }
 
-VisitSubTreePtr VisitSubTreeBase::createEmptyLocal(BitVector bFlags)
+VisitSubTree *VisitSubTreeBase::createEmptyLocal(BitVector bFlags)
 {
-    VisitSubTreePtr returnValue;
+    VisitSubTree *returnValue;
 
     newPtr<VisitSubTree>(returnValue, bFlags);
 
@@ -293,7 +293,7 @@ VisitSubTreePtr VisitSubTreeBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr VisitSubTreeBase::shallowCopy(void) const
 {
-    VisitSubTreePtr tmpPtr;
+    VisitSubTree *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const VisitSubTree *>(this), 
@@ -309,7 +309,7 @@ FieldContainerTransitPtr VisitSubTreeBase::shallowCopy(void) const
 FieldContainerTransitPtr VisitSubTreeBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    VisitSubTreePtr tmpPtr;
+    VisitSubTree *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const VisitSubTree *>(this), bFlags);
 
@@ -326,13 +326,13 @@ FieldContainerTransitPtr VisitSubTreeBase::shallowCopyLocal(
 
 VisitSubTreeBase::VisitSubTreeBase(void) :
     Inherited(),
-    _sfSubTreeRoot            (NodePtr(NullFC))
+    _sfSubTreeRoot            (NULL)
 {
 }
 
 VisitSubTreeBase::VisitSubTreeBase(const VisitSubTreeBase &source) :
     Inherited(source),
-    _sfSubTreeRoot            (NullFC)
+    _sfSubTreeRoot            (NULL)
 {
 }
 
@@ -398,9 +398,9 @@ void VisitSubTreeBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr VisitSubTreeBase::createAspectCopy(void) const
+FieldContainer *VisitSubTreeBase::createAspectCopy(void) const
 {
-    VisitSubTreePtr returnValue;
+    VisitSubTree *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const VisitSubTree *>(this));
@@ -413,14 +413,14 @@ void VisitSubTreeBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<VisitSubTree *>(this)->setSubTreeRoot(NullFC);
+    static_cast<VisitSubTree *>(this)->setSubTreeRoot(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VisitSubTreePtr>::_type("VisitSubTreePtr", "GroupPtr");
+DataType FieldTraits<VisitSubTree *>::_type("VisitSubTreePtr", "GroupPtr");
 #endif
 
 

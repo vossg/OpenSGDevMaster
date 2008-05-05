@@ -1967,7 +1967,7 @@ RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::create(void)
 {
     RegisterCombinersChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -1983,7 +1983,7 @@ RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::createLocal(BitVect
 {
     RegisterCombinersChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1995,9 +1995,9 @@ RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::createLocal(BitVect
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmpty(void)
+RegisterCombinersChunk *RegisterCombinersChunkBase::createEmpty(void)
 {
-    RegisterCombinersChunkPtr returnValue;
+    RegisterCombinersChunk *returnValue;
 
     newPtr<RegisterCombinersChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -2007,9 +2007,9 @@ RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmpty(void)
     return returnValue;
 }
 
-RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmptyLocal(BitVector bFlags)
+RegisterCombinersChunk *RegisterCombinersChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    RegisterCombinersChunkPtr returnValue;
+    RegisterCombinersChunk *returnValue;
 
     newPtr<RegisterCombinersChunk>(returnValue, bFlags);
 
@@ -2020,7 +2020,7 @@ RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmptyLocal(BitVector
 
 FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopy(void) const
 {
-    RegisterCombinersChunkPtr tmpPtr;
+    RegisterCombinersChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const RegisterCombinersChunk *>(this), 
@@ -2036,7 +2036,7 @@ FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    RegisterCombinersChunkPtr tmpPtr;
+    RegisterCombinersChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const RegisterCombinersChunk *>(this), bFlags);
 
@@ -2831,9 +2831,9 @@ void RegisterCombinersChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr RegisterCombinersChunkBase::createAspectCopy(void) const
+FieldContainer *RegisterCombinersChunkBase::createAspectCopy(void) const
 {
-    RegisterCombinersChunkPtr returnValue;
+    RegisterCombinersChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const RegisterCombinersChunk *>(this));
@@ -2964,17 +2964,17 @@ void RegisterCombinersChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RegisterCombinersChunkPtr>::_type("RegisterCombinersChunkPtr", "StateChunkPtr");
+DataType FieldTraits<RegisterCombinersChunk *>::_type("RegisterCombinersChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           RegisterCombinersChunkPtr, 
+                           RegisterCombinersChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           RegisterCombinersChunkPtr, 
+                           RegisterCombinersChunk *, 
                            0);
 
 OSG_END_NAMESPACE

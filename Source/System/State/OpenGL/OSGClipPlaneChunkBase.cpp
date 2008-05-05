@@ -98,7 +98,7 @@ OSG_BEGIN_NAMESPACE
     Defines activation state of the clip plane.
 */
 
-/*! \var NodePtr         ClipPlaneChunkBase::_sfBeacon
+/*! \var Node *          ClipPlaneChunkBase::_sfBeacon
     The object that defines the clip planes's coordinate system. The clip
     plane is positioned relative to this system.
 */
@@ -207,7 +207,7 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        The object that defines the clip planes's coordinate system. The clip\n"
@@ -363,7 +363,7 @@ ClipPlaneChunkTransitPtr ClipPlaneChunkBase::create(void)
 {
     ClipPlaneChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -379,7 +379,7 @@ ClipPlaneChunkTransitPtr ClipPlaneChunkBase::createLocal(BitVector bFlags)
 {
     ClipPlaneChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -391,9 +391,9 @@ ClipPlaneChunkTransitPtr ClipPlaneChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ClipPlaneChunkPtr ClipPlaneChunkBase::createEmpty(void)
+ClipPlaneChunk *ClipPlaneChunkBase::createEmpty(void)
 {
-    ClipPlaneChunkPtr returnValue;
+    ClipPlaneChunk *returnValue;
 
     newPtr<ClipPlaneChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -403,9 +403,9 @@ ClipPlaneChunkPtr ClipPlaneChunkBase::createEmpty(void)
     return returnValue;
 }
 
-ClipPlaneChunkPtr ClipPlaneChunkBase::createEmptyLocal(BitVector bFlags)
+ClipPlaneChunk *ClipPlaneChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    ClipPlaneChunkPtr returnValue;
+    ClipPlaneChunk *returnValue;
 
     newPtr<ClipPlaneChunk>(returnValue, bFlags);
 
@@ -416,7 +416,7 @@ ClipPlaneChunkPtr ClipPlaneChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ClipPlaneChunkBase::shallowCopy(void) const
 {
-    ClipPlaneChunkPtr tmpPtr;
+    ClipPlaneChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ClipPlaneChunk *>(this), 
@@ -432,7 +432,7 @@ FieldContainerTransitPtr ClipPlaneChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr ClipPlaneChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ClipPlaneChunkPtr tmpPtr;
+    ClipPlaneChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ClipPlaneChunk *>(this), bFlags);
 
@@ -451,7 +451,7 @@ ClipPlaneChunkBase::ClipPlaneChunkBase(void) :
     Inherited(),
     _sfEquation               (Vec4f(0, 0, 1, 0)),
     _sfEnable                 (bool(GL_TRUE)),
-    _sfBeacon                 (NodePtr(NullFC))
+    _sfBeacon                 (NULL)
 {
 }
 
@@ -459,7 +459,7 @@ ClipPlaneChunkBase::ClipPlaneChunkBase(const ClipPlaneChunkBase &source) :
     Inherited(source),
     _sfEquation               (source._sfEquation               ),
     _sfEnable                 (source._sfEnable                 ),
-    _sfBeacon                 (NullFC)
+    _sfBeacon                 (NULL)
 {
 }
 
@@ -569,9 +569,9 @@ void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ClipPlaneChunkBase::createAspectCopy(void) const
+FieldContainer *ClipPlaneChunkBase::createAspectCopy(void) const
 {
-    ClipPlaneChunkPtr returnValue;
+    ClipPlaneChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ClipPlaneChunk *>(this));
@@ -584,24 +584,24 @@ void ClipPlaneChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ClipPlaneChunk *>(this)->setBeacon(NullFC);
+    static_cast<ClipPlaneChunk *>(this)->setBeacon(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ClipPlaneChunkPtr>::_type("ClipPlaneChunkPtr", "StateChunkPtr");
+DataType FieldTraits<ClipPlaneChunk *>::_type("ClipPlaneChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ClipPlaneChunkPtr, 
+                           ClipPlaneChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ClipPlaneChunkPtr, 
+                           ClipPlaneChunk *, 
                            0);
 
 OSG_END_NAMESPACE

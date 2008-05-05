@@ -241,7 +241,7 @@ void WindowBase::setDrawerId(const UInt32 &value)
 
 //! Get the value of the \a index element the Window::_mfPort field.
 inline
-ViewportPtr WindowBase::getPort(const UInt32 index) const
+Viewport * WindowBase::getPort(const UInt32 index) const
 {
     return _mfPort[index];
 }

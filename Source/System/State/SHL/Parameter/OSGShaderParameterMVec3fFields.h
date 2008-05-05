@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ShaderParameterMVec3f);
 #endif
 
 template <>
-struct FieldTraits<ShaderParameterMVec3fPtr> :
-    public FieldTraitsFCPtrBase<ShaderParameterMVec3fPtr>
+struct FieldTraits<ShaderParameterMVec3f *> :
+    public FieldTraitsFCPtrBase<ShaderParameterMVec3f *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ShaderParameterMVec3fPtr> :
 
   public:
 
-    typedef FieldTraits<ShaderParameterMVec3fPtr>  Self;
+    typedef FieldTraits<ShaderParameterMVec3f *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ShaderParameterMVec3fPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderParameterMVec3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderParameterMVec3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderParameterMVec3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderParameterMVec3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderParameterMVec3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderParameterMVec3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderParameterMVec3fPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMVec3f *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderParameterMVec3fPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ShaderParameterMVec3fPtr, 0>::getMName<NoRefCountPolicy
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<ShaderParameterMVec3fPtr,
+typedef PointerSField<ShaderParameterMVec3f *,
                       RecordedRefCountPolicy  > SFRecShaderParameterMVec3fPtr;
-typedef PointerSField<ShaderParameterMVec3fPtr,
+typedef PointerSField<ShaderParameterMVec3f *,
                       UnrecordedRefCountPolicy> SFUnrecShaderParameterMVec3fPtr;
-typedef PointerSField<ShaderParameterMVec3fPtr,
+typedef PointerSField<ShaderParameterMVec3f *,
                       WeakRefCountPolicy      > SFWeakShaderParameterMVec3fPtr;
-typedef PointerSField<ShaderParameterMVec3fPtr,
+typedef PointerSField<ShaderParameterMVec3f *,
                       NoRefCountPolicy        > SFUncountedShaderParameterMVec3fPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ShaderParameterMVec3fPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<ShaderParameterMVec3fPtr,
+typedef PointerMField<ShaderParameterMVec3f *,
                       RecordedRefCountPolicy  > MFRecShaderParameterMVec3fPtr;
-typedef PointerMField<ShaderParameterMVec3fPtr,
+typedef PointerMField<ShaderParameterMVec3f *,
                       UnrecordedRefCountPolicy> MFUnrecShaderParameterMVec3fPtr;
-typedef PointerMField<ShaderParameterMVec3fPtr,
+typedef PointerMField<ShaderParameterMVec3f *,
                       WeakRefCountPolicy      > MFWeakShaderParameterMVec3fPtr;
-typedef PointerMField<ShaderParameterMVec3fPtr,
+typedef PointerMField<ShaderParameterMVec3f *,
                       NoRefCountPolicy        > MFUncountedShaderParameterMVec3fPtr;
 #endif
 

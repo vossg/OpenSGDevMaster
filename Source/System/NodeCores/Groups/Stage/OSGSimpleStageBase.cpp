@@ -107,11 +107,11 @@ OSG_BEGIN_NAMESPACE
     top border. All other values are illegal.
 */
 
-/*! \var CameraPtr       SimpleStageBase::_sfCamera
+/*! \var Camera *        SimpleStageBase::_sfCamera
     The Camera used to render the viewport.
 */
 
-/*! \var BackgroundPtr   SimpleStageBase::_sfBackground
+/*! \var Background *    SimpleStageBase::_sfBackground
     The background used to clear this viewport.
 */
 
@@ -603,7 +603,7 @@ SimpleStageTransitPtr SimpleStageBase::create(void)
 {
     SimpleStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -619,7 +619,7 @@ SimpleStageTransitPtr SimpleStageBase::createLocal(BitVector bFlags)
 {
     SimpleStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -631,9 +631,9 @@ SimpleStageTransitPtr SimpleStageBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleStagePtr SimpleStageBase::createEmpty(void)
+SimpleStage *SimpleStageBase::createEmpty(void)
 {
-    SimpleStagePtr returnValue;
+    SimpleStage *returnValue;
 
     newPtr<SimpleStage>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -643,9 +643,9 @@ SimpleStagePtr SimpleStageBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleStagePtr SimpleStageBase::createEmptyLocal(BitVector bFlags)
+SimpleStage *SimpleStageBase::createEmptyLocal(BitVector bFlags)
 {
-    SimpleStagePtr returnValue;
+    SimpleStage *returnValue;
 
     newPtr<SimpleStage>(returnValue, bFlags);
 
@@ -656,7 +656,7 @@ SimpleStagePtr SimpleStageBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SimpleStageBase::shallowCopy(void) const
 {
-    SimpleStagePtr tmpPtr;
+    SimpleStage *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SimpleStage *>(this), 
@@ -672,7 +672,7 @@ FieldContainerTransitPtr SimpleStageBase::shallowCopy(void) const
 FieldContainerTransitPtr SimpleStageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SimpleStagePtr tmpPtr;
+    SimpleStage *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SimpleStage *>(this), bFlags);
 
@@ -693,8 +693,8 @@ SimpleStageBase::SimpleStageBase(void) :
     _sfRight                  (Real32(1.f)),
     _sfBottom                 (Real32(0.f)),
     _sfTop                    (Real32(1.f)),
-    _sfCamera                 (NullFC),
-    _sfBackground             (NullFC),
+    _sfCamera                 (NULL),
+    _sfBackground             (NULL),
     _mfPreRenderCallbacks     (),
     _mfPostRenderCallbacks    ()
 {
@@ -706,8 +706,8 @@ SimpleStageBase::SimpleStageBase(const SimpleStageBase &source) :
     _sfRight                  (source._sfRight                  ),
     _sfBottom                 (source._sfBottom                 ),
     _sfTop                    (source._sfTop                    ),
-    _sfCamera                 (NullFC),
-    _sfBackground             (NullFC),
+    _sfCamera                 (NULL),
+    _sfBackground             (NULL),
     _mfPreRenderCallbacks     (source._mfPreRenderCallbacks     ),
     _mfPostRenderCallbacks    (source._mfPostRenderCallbacks    )
 {
@@ -918,9 +918,9 @@ void SimpleStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SimpleStageBase::createAspectCopy(void) const
+FieldContainer *SimpleStageBase::createAspectCopy(void) const
 {
-    SimpleStagePtr returnValue;
+    SimpleStage *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SimpleStage *>(this));
@@ -933,9 +933,9 @@ void SimpleStageBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<SimpleStage *>(this)->setCamera(NullFC);
+    static_cast<SimpleStage *>(this)->setCamera(NULL);
 
-    static_cast<SimpleStage *>(this)->setBackground(NullFC);
+    static_cast<SimpleStage *>(this)->setBackground(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -955,7 +955,7 @@ void SimpleStageBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleStagePtr>::_type("SimpleStagePtr", "StagePtr");
+DataType FieldTraits<SimpleStage *>::_type("SimpleStagePtr", "StagePtr");
 #endif
 
 

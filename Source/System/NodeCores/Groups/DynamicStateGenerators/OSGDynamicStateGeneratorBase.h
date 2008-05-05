@@ -139,13 +139,13 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DynamicStateGeneratorTransitPtr create          (void);
-    static  DynamicStateGeneratorPtr        createEmpty     (void);
+    static  DynamicStateGeneratorTransitPtr  create          (void);
+    static  DynamicStateGenerator           *createEmpty     (void);
 
-    static  DynamicStateGeneratorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  DynamicStateGeneratorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  DynamicStateGeneratorPtr        createEmptyLocal(
+    static  DynamicStateGenerator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -212,14 +212,14 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
                   SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
 
 
-                  FrameBufferObjectPtr getRenderTarget   (void) const;
+                  FrameBufferObject * getRenderTarget   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRenderTarget   (const FrameBufferObjectPtr value);
+            void setRenderTarget   (FrameBufferObject * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -256,7 +256,7 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

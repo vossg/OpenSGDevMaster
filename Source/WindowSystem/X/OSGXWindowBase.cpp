@@ -338,7 +338,7 @@ XWindowTransitPtr XWindowBase::create(void)
 {
     XWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -354,7 +354,7 @@ XWindowTransitPtr XWindowBase::createLocal(BitVector bFlags)
 {
     XWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -366,9 +366,9 @@ XWindowTransitPtr XWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-XWindowPtr XWindowBase::createEmpty(void)
+XWindow *XWindowBase::createEmpty(void)
 {
-    XWindowPtr returnValue;
+    XWindow *returnValue;
 
     newPtr<XWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -378,9 +378,9 @@ XWindowPtr XWindowBase::createEmpty(void)
     return returnValue;
 }
 
-XWindowPtr XWindowBase::createEmptyLocal(BitVector bFlags)
+XWindow *XWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    XWindowPtr returnValue;
+    XWindow *returnValue;
 
     newPtr<XWindow>(returnValue, bFlags);
 
@@ -391,7 +391,7 @@ XWindowPtr XWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr XWindowBase::shallowCopy(void) const
 {
-    XWindowPtr tmpPtr;
+    XWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const XWindow *>(this), 
@@ -407,7 +407,7 @@ FieldContainerTransitPtr XWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr XWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    XWindowPtr tmpPtr;
+    XWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const XWindow *>(this), bFlags);
 
@@ -530,9 +530,9 @@ void XWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr XWindowBase::createAspectCopy(void) const
+FieldContainer *XWindowBase::createAspectCopy(void) const
 {
-    XWindowPtr returnValue;
+    XWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const XWindow *>(this));
@@ -550,17 +550,17 @@ void XWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<XWindowPtr>::_type("XWindowPtr", "WindowPtr");
+DataType FieldTraits<XWindow *>::_type("XWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(XWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(XWindow *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           XWindowPtr, 
+                           XWindow *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           XWindowPtr, 
+                           XWindow *, 
                            0);
 
 OSG_END_NAMESPACE

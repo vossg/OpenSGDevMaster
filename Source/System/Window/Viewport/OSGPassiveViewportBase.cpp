@@ -159,7 +159,7 @@ PassiveViewportTransitPtr PassiveViewportBase::create(void)
 {
     PassiveViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -175,7 +175,7 @@ PassiveViewportTransitPtr PassiveViewportBase::createLocal(BitVector bFlags)
 {
     PassiveViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -187,9 +187,9 @@ PassiveViewportTransitPtr PassiveViewportBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PassiveViewportPtr PassiveViewportBase::createEmpty(void)
+PassiveViewport *PassiveViewportBase::createEmpty(void)
 {
-    PassiveViewportPtr returnValue;
+    PassiveViewport *returnValue;
 
     newPtr<PassiveViewport>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -199,9 +199,9 @@ PassiveViewportPtr PassiveViewportBase::createEmpty(void)
     return returnValue;
 }
 
-PassiveViewportPtr PassiveViewportBase::createEmptyLocal(BitVector bFlags)
+PassiveViewport *PassiveViewportBase::createEmptyLocal(BitVector bFlags)
 {
-    PassiveViewportPtr returnValue;
+    PassiveViewport *returnValue;
 
     newPtr<PassiveViewport>(returnValue, bFlags);
 
@@ -212,7 +212,7 @@ PassiveViewportPtr PassiveViewportBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PassiveViewportBase::shallowCopy(void) const
 {
-    PassiveViewportPtr tmpPtr;
+    PassiveViewport *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PassiveViewport *>(this), 
@@ -228,7 +228,7 @@ FieldContainerTransitPtr PassiveViewportBase::shallowCopy(void) const
 FieldContainerTransitPtr PassiveViewportBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PassiveViewportPtr tmpPtr;
+    PassiveViewport *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PassiveViewport *>(this), bFlags);
 
@@ -279,9 +279,9 @@ void PassiveViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PassiveViewportBase::createAspectCopy(void) const
+FieldContainer *PassiveViewportBase::createAspectCopy(void) const
 {
-    PassiveViewportPtr returnValue;
+    PassiveViewport *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PassiveViewport *>(this));
@@ -299,17 +299,17 @@ void PassiveViewportBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveViewportPtr>::_type("PassiveViewportPtr", "ViewportPtr");
+DataType FieldTraits<PassiveViewport *>::_type("PassiveViewportPtr", "ViewportPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PassiveViewportPtr)
+OSG_FIELDTRAITS_GETTYPE(PassiveViewport *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PassiveViewportPtr, 
+                           PassiveViewport *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PassiveViewportPtr, 
+                           PassiveViewport *, 
                            0);
 
 OSG_END_NAMESPACE

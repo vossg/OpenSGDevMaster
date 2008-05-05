@@ -181,7 +181,7 @@ VertexProgramChunkTransitPtr VertexProgramChunkBase::create(void)
 {
     VertexProgramChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -197,7 +197,7 @@ VertexProgramChunkTransitPtr VertexProgramChunkBase::createLocal(BitVector bFlag
 {
     VertexProgramChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -209,9 +209,9 @@ VertexProgramChunkTransitPtr VertexProgramChunkBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-VertexProgramChunkPtr VertexProgramChunkBase::createEmpty(void)
+VertexProgramChunk *VertexProgramChunkBase::createEmpty(void)
 {
-    VertexProgramChunkPtr returnValue;
+    VertexProgramChunk *returnValue;
 
     newPtr<VertexProgramChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -221,9 +221,9 @@ VertexProgramChunkPtr VertexProgramChunkBase::createEmpty(void)
     return returnValue;
 }
 
-VertexProgramChunkPtr VertexProgramChunkBase::createEmptyLocal(BitVector bFlags)
+VertexProgramChunk *VertexProgramChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    VertexProgramChunkPtr returnValue;
+    VertexProgramChunk *returnValue;
 
     newPtr<VertexProgramChunk>(returnValue, bFlags);
 
@@ -234,7 +234,7 @@ VertexProgramChunkPtr VertexProgramChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr VertexProgramChunkBase::shallowCopy(void) const
 {
-    VertexProgramChunkPtr tmpPtr;
+    VertexProgramChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const VertexProgramChunk *>(this), 
@@ -250,7 +250,7 @@ FieldContainerTransitPtr VertexProgramChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr VertexProgramChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    VertexProgramChunkPtr tmpPtr;
+    VertexProgramChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const VertexProgramChunk *>(this), bFlags);
 
@@ -301,9 +301,9 @@ void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr VertexProgramChunkBase::createAspectCopy(void) const
+FieldContainer *VertexProgramChunkBase::createAspectCopy(void) const
 {
-    VertexProgramChunkPtr returnValue;
+    VertexProgramChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const VertexProgramChunk *>(this));
@@ -321,17 +321,17 @@ void VertexProgramChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VertexProgramChunkPtr>::_type("VertexProgramChunkPtr", "ProgramChunkPtr");
+DataType FieldTraits<VertexProgramChunk *>::_type("VertexProgramChunkPtr", "ProgramChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VertexProgramChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(VertexProgramChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           VertexProgramChunkPtr, 
+                           VertexProgramChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           VertexProgramChunkPtr, 
+                           VertexProgramChunk *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TextureBuffer);
 #endif
 
 template <>
-struct FieldTraits<TextureBufferPtr> :
-    public FieldTraitsFCPtrBase<TextureBufferPtr>
+struct FieldTraits<TextureBuffer *> :
+    public FieldTraitsFCPtrBase<TextureBuffer *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TextureBufferPtr> :
 
   public:
 
-    typedef FieldTraits<TextureBufferPtr>  Self;
+    typedef FieldTraits<TextureBuffer *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<TextureBufferPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextureBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextureBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextureBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextureBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTextureBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTextureBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTextureBufferPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBuffer *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTextureBufferPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<TextureBufferPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<TextureBufferPtr,
+typedef PointerSField<TextureBuffer *,
                       RecordedRefCountPolicy  > SFRecTextureBufferPtr;
-typedef PointerSField<TextureBufferPtr,
+typedef PointerSField<TextureBuffer *,
                       UnrecordedRefCountPolicy> SFUnrecTextureBufferPtr;
-typedef PointerSField<TextureBufferPtr,
+typedef PointerSField<TextureBuffer *,
                       WeakRefCountPolicy      > SFWeakTextureBufferPtr;
-typedef PointerSField<TextureBufferPtr,
+typedef PointerSField<TextureBuffer *,
                       NoRefCountPolicy        > SFUncountedTextureBufferPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<TextureBufferPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<TextureBufferPtr,
+typedef PointerMField<TextureBuffer *,
                       RecordedRefCountPolicy  > MFRecTextureBufferPtr;
-typedef PointerMField<TextureBufferPtr,
+typedef PointerMField<TextureBuffer *,
                       UnrecordedRefCountPolicy> MFUnrecTextureBufferPtr;
-typedef PointerMField<TextureBufferPtr,
+typedef PointerMField<TextureBuffer *,
                       WeakRefCountPolicy      > MFWeakTextureBufferPtr;
-typedef PointerMField<TextureBufferPtr,
+typedef PointerMField<TextureBuffer *,
                       NoRefCountPolicy        > MFUncountedTextureBufferPtr;
 #endif
 

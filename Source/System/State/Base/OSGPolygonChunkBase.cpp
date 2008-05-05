@@ -856,7 +856,7 @@ PolygonChunkTransitPtr PolygonChunkBase::create(void)
 {
     PolygonChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -872,7 +872,7 @@ PolygonChunkTransitPtr PolygonChunkBase::createLocal(BitVector bFlags)
 {
     PolygonChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -884,9 +884,9 @@ PolygonChunkTransitPtr PolygonChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PolygonChunkPtr PolygonChunkBase::createEmpty(void)
+PolygonChunk *PolygonChunkBase::createEmpty(void)
 {
-    PolygonChunkPtr returnValue;
+    PolygonChunk *returnValue;
 
     newPtr<PolygonChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -896,9 +896,9 @@ PolygonChunkPtr PolygonChunkBase::createEmpty(void)
     return returnValue;
 }
 
-PolygonChunkPtr PolygonChunkBase::createEmptyLocal(BitVector bFlags)
+PolygonChunk *PolygonChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    PolygonChunkPtr returnValue;
+    PolygonChunk *returnValue;
 
     newPtr<PolygonChunk>(returnValue, bFlags);
 
@@ -909,7 +909,7 @@ PolygonChunkPtr PolygonChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PolygonChunkBase::shallowCopy(void) const
 {
-    PolygonChunkPtr tmpPtr;
+    PolygonChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PolygonChunk *>(this), 
@@ -925,7 +925,7 @@ FieldContainerTransitPtr PolygonChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr PolygonChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PolygonChunkPtr tmpPtr;
+    PolygonChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PolygonChunk *>(this), bFlags);
 
@@ -1240,9 +1240,9 @@ void PolygonChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PolygonChunkBase::createAspectCopy(void) const
+FieldContainer *PolygonChunkBase::createAspectCopy(void) const
 {
-    PolygonChunkPtr returnValue;
+    PolygonChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PolygonChunk *>(this));
@@ -1269,17 +1269,17 @@ void PolygonChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonChunkPtr>::_type("PolygonChunkPtr", "StateChunkPtr");
+DataType FieldTraits<PolygonChunk *>::_type("PolygonChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PolygonChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(PolygonChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PolygonChunkPtr, 
+                           PolygonChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PolygonChunkPtr, 
+                           PolygonChunk *, 
                            0);
 
 OSG_END_NAMESPACE

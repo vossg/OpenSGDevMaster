@@ -226,7 +226,7 @@ GLUTWindowTransitPtr GLUTWindowBase::create(void)
 {
     GLUTWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -242,7 +242,7 @@ GLUTWindowTransitPtr GLUTWindowBase::createLocal(BitVector bFlags)
 {
     GLUTWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -254,9 +254,9 @@ GLUTWindowTransitPtr GLUTWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GLUTWindowPtr GLUTWindowBase::createEmpty(void)
+GLUTWindow *GLUTWindowBase::createEmpty(void)
 {
-    GLUTWindowPtr returnValue;
+    GLUTWindow *returnValue;
 
     newPtr<GLUTWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -266,9 +266,9 @@ GLUTWindowPtr GLUTWindowBase::createEmpty(void)
     return returnValue;
 }
 
-GLUTWindowPtr GLUTWindowBase::createEmptyLocal(BitVector bFlags)
+GLUTWindow *GLUTWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    GLUTWindowPtr returnValue;
+    GLUTWindow *returnValue;
 
     newPtr<GLUTWindow>(returnValue, bFlags);
 
@@ -279,7 +279,7 @@ GLUTWindowPtr GLUTWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr GLUTWindowBase::shallowCopy(void) const
 {
-    GLUTWindowPtr tmpPtr;
+    GLUTWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const GLUTWindow *>(this), 
@@ -295,7 +295,7 @@ FieldContainerTransitPtr GLUTWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr GLUTWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    GLUTWindowPtr tmpPtr;
+    GLUTWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const GLUTWindow *>(this), bFlags);
 
@@ -370,9 +370,9 @@ void GLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr GLUTWindowBase::createAspectCopy(void) const
+FieldContainer *GLUTWindowBase::createAspectCopy(void) const
 {
-    GLUTWindowPtr returnValue;
+    GLUTWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const GLUTWindow *>(this));
@@ -390,17 +390,17 @@ void GLUTWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GLUTWindowPtr>::_type("GLUTWindowPtr", "WindowPtr");
+DataType FieldTraits<GLUTWindow *>::_type("GLUTWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GLUTWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(GLUTWindow *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GLUTWindowPtr, 
+                           GLUTWindow *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GLUTWindowPtr, 
+                           GLUTWindow *, 
                            0);
 
 OSG_END_NAMESPACE

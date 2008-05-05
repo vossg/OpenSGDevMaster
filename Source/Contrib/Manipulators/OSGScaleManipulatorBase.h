@@ -126,13 +126,13 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ScaleManipulatorTransitPtr create          (void);
-    static  ScaleManipulatorPtr        createEmpty     (void);
+    static  ScaleManipulatorTransitPtr  create          (void);
+    static  ScaleManipulator           *createEmpty     (void);
 
-    static  ScaleManipulatorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ScaleManipulatorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ScaleManipulatorPtr        createEmptyLocal(
+    static  ScaleManipulator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

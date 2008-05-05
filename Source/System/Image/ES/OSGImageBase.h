@@ -487,13 +487,13 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ImageTransitPtr create          (void);
-    static  ImagePtr        createEmpty     (void);
+    static  ImageTransitPtr  create          (void);
+    static  Image           *createEmpty     (void);
 
-    static  ImageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ImageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ImagePtr        createEmptyLocal(
+    static  Image            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -666,7 +666,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -126,13 +126,13 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PassiveBackgroundTransitPtr create          (void);
-    static  PassiveBackgroundPtr        createEmpty     (void);
+    static  PassiveBackgroundTransitPtr  create          (void);
+    static  PassiveBackground           *createEmpty     (void);
 
-    static  PassiveBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  PassiveBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  PassiveBackgroundPtr        createEmptyLocal(
+    static  PassiveBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -245,7 +245,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
                   std::string         &editUrl            (void);
             const std::string          getUrl             (void) const;
 
-                  NodePtr getRoot           (void) const;
+                  Node * getRoot           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getState           (void);
@@ -303,7 +303,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
             void setEnabled        (const bool &value);
             void setUrl            (const std::string &value);
-            void setRoot           (const NodePtr value);
+            void setRoot           (Node * const value);
             void setState          (const UInt32 &value);
             void setConcurrentLoad (const bool &value);
             void setVolume         (const DynamicVolume &value);
@@ -339,13 +339,13 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ProxyGroupTransitPtr create          (void);
-    static  ProxyGroupPtr        createEmpty     (void);
+    static  ProxyGroupTransitPtr  create          (void);
+    static  ProxyGroup           *createEmpty     (void);
 
-    static  ProxyGroupTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ProxyGroupTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ProxyGroupPtr        createEmptyLocal(
+    static  ProxyGroup            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -491,7 +491,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

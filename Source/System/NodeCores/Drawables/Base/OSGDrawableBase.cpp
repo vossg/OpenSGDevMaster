@@ -203,17 +203,17 @@ void DrawableBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DrawablePtr>::_type("DrawablePtr", "NodeCorePtr");
+DataType FieldTraits<Drawable *>::_type("DrawablePtr", "NodeCorePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DrawablePtr)
+OSG_FIELDTRAITS_GETTYPE(Drawable *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DrawablePtr, 
+                           Drawable *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DrawablePtr, 
+                           Drawable *, 
                            0);
 
 OSG_END_NAMESPACE

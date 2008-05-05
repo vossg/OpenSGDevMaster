@@ -91,7 +91,7 @@ OSG_BEGIN_NAMESPACE
     Texture selector
 */
 
-/*! \var TextureBaseChunkPtr TextureSelectChunkBase::_mfTextures
+/*! \var TextureBaseChunk * TextureSelectChunkBase::_mfTextures
     Texture chunks to choose from 
 */
 
@@ -239,7 +239,7 @@ MFUnrecTextureBaseChunkPtr *TextureSelectChunkBase::editMFTextures       (void)
 
 
 
-void TextureSelectChunkBase::pushToTextures(const TextureBaseChunkPtr value)
+void TextureSelectChunkBase::pushToTextures(TextureBaseChunk * const value)
 {
     editMField(TexturesFieldMask, _mfTextures);
 
@@ -277,7 +277,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     }
 }
 
-void TextureSelectChunkBase::removeFromTextures(const TextureBaseChunkPtr value)
+void TextureSelectChunkBase::removeFromTextures(TextureBaseChunk * const value)
 {
     Int32 iElemIdx = _mfTextures.findIndex(value);
 
@@ -355,7 +355,7 @@ TextureSelectChunkTransitPtr TextureSelectChunkBase::create(void)
 {
     TextureSelectChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -371,7 +371,7 @@ TextureSelectChunkTransitPtr TextureSelectChunkBase::createLocal(BitVector bFlag
 {
     TextureSelectChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -383,9 +383,9 @@ TextureSelectChunkTransitPtr TextureSelectChunkBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureSelectChunkPtr TextureSelectChunkBase::createEmpty(void)
+TextureSelectChunk *TextureSelectChunkBase::createEmpty(void)
 {
-    TextureSelectChunkPtr returnValue;
+    TextureSelectChunk *returnValue;
 
     newPtr<TextureSelectChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -395,9 +395,9 @@ TextureSelectChunkPtr TextureSelectChunkBase::createEmpty(void)
     return returnValue;
 }
 
-TextureSelectChunkPtr TextureSelectChunkBase::createEmptyLocal(BitVector bFlags)
+TextureSelectChunk *TextureSelectChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    TextureSelectChunkPtr returnValue;
+    TextureSelectChunk *returnValue;
 
     newPtr<TextureSelectChunk>(returnValue, bFlags);
 
@@ -408,7 +408,7 @@ TextureSelectChunkPtr TextureSelectChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TextureSelectChunkBase::shallowCopy(void) const
 {
-    TextureSelectChunkPtr tmpPtr;
+    TextureSelectChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TextureSelectChunk *>(this), 
@@ -424,7 +424,7 @@ FieldContainerTransitPtr TextureSelectChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr TextureSelectChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TextureSelectChunkPtr tmpPtr;
+    TextureSelectChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TextureSelectChunk *>(this), bFlags);
 
@@ -547,9 +547,9 @@ void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TextureSelectChunkBase::createAspectCopy(void) const
+FieldContainer *TextureSelectChunkBase::createAspectCopy(void) const
 {
-    TextureSelectChunkPtr returnValue;
+    TextureSelectChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TextureSelectChunk *>(this));
@@ -568,17 +568,17 @@ void TextureSelectChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureSelectChunkPtr>::_type("TextureSelectChunkPtr", "TextureBaseChunkPtr");
+DataType FieldTraits<TextureSelectChunk *>::_type("TextureSelectChunkPtr", "TextureBaseChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureSelectChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(TextureSelectChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureSelectChunkPtr, 
+                           TextureSelectChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureSelectChunkPtr, 
+                           TextureSelectChunk *, 
                            0);
 
 OSG_END_NAMESPACE

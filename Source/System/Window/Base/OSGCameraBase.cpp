@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var NodePtr         CameraBase::_sfBeacon
+/*! \var Node *          CameraBase::_sfBeacon
     The object that define's the camera's coordinate system. The camera is positioned
     at the origin of the system and looks down the negative z-axis (OpenGL-style).
 */
@@ -348,7 +348,7 @@ void CameraBase::copyFromBin(BinaryDataHandler &pMem,
 
 CameraBase::CameraBase(void) :
     Inherited(),
-    _sfBeacon                 (NullFC),
+    _sfBeacon                 (NULL),
     _sfNear                   (),
     _sfFar                    ()
 {
@@ -356,7 +356,7 @@ CameraBase::CameraBase(void) :
 
 CameraBase::CameraBase(const CameraBase &source) :
     Inherited(source),
-    _sfBeacon                 (NullFC),
+    _sfBeacon                 (NULL),
     _sfNear                   (source._sfNear                   ),
     _sfFar                    (source._sfFar                    )
 {
@@ -472,7 +472,7 @@ void CameraBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<Camera *>(this)->setBeacon(NullFC);
+    static_cast<Camera *>(this)->setBeacon(NULL);
 
 
 }
@@ -481,13 +481,13 @@ void CameraBase::resolveLinks(void)
 
 
 //! Get the value of the Camera::_sfBeacon field.
-NodePtr CameraBase::getBeacon(void) const
+Node * CameraBase::getBeacon(void) const
 {
     return _sfBeacon.getValue();
 }
 
 //! Set the value of the Camera::_sfBeacon field.
-void CameraBase::setBeacon(const NodePtr value)
+void CameraBase::setBeacon(Node * const value)
 {
     editSField(BeaconFieldMask);
 
@@ -554,17 +554,17 @@ void CameraBase::setFar(const Real32 &value)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CameraPtr>::_type("CameraPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Camera *>::_type("CameraPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CameraPtr)
+OSG_FIELDTRAITS_GETTYPE(Camera *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CameraPtr, 
+                           Camera *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CameraPtr, 
+                           Camera *, 
                            0);
 
 OSG_END_NAMESPACE

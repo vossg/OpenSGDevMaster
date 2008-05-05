@@ -129,7 +129,7 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
                   MFUnrecStateChunkPtr *editMFChunks         (void);
 
 
-                  StateChunkPtr getChunks         (const UInt32 index) const;
+                  StateChunk * getChunks         (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,10 +147,10 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChunks              (const StateChunkPtr value   );
-    void assignChunks              (const MFUnrecStateChunkPtr &value);
-    void removeFromChunks (UInt32                uiIndex );
-    void removeFromChunks(const StateChunkPtr value   );
+    void pushToChunks              (StateChunk * const value   );
+    void assignChunks             (const MFUnrecStateChunkPtr &value);
+    void removeFromChunks (UInt32               uiIndex );
+    void removeFromChunks(StateChunk * const value   );
     void clearChunks                (void                          );
 
 
@@ -171,13 +171,13 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StateTransitPtr create          (void);
-    static  StatePtr        createEmpty     (void);
+    static  StateTransitPtr  create          (void);
+    static  State           *createEmpty     (void);
 
-    static  StateTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  StateTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  StatePtr        createEmptyLocal(
+    static  State            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -265,7 +265,7 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

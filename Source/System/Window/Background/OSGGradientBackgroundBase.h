@@ -141,13 +141,13 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GradientBackgroundTransitPtr create          (void);
-    static  GradientBackgroundPtr        createEmpty     (void);
+    static  GradientBackgroundTransitPtr  create          (void);
+    static  GradientBackground           *createEmpty     (void);
 
-    static  GradientBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GradientBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GradientBackgroundPtr        createEmptyLocal(
+    static  GradientBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -267,7 +267,7 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

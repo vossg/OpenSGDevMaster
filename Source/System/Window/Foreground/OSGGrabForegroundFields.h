@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(GrabForeground);
 #endif
 
 template <>
-struct FieldTraits<GrabForegroundPtr> :
-    public FieldTraitsFCPtrBase<GrabForegroundPtr>
+struct FieldTraits<GrabForeground *> :
+    public FieldTraitsFCPtrBase<GrabForeground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<GrabForegroundPtr> :
 
   public:
 
-    typedef FieldTraits<GrabForegroundPtr>  Self;
+    typedef FieldTraits<GrabForeground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<GrabForegroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGrabForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<GrabForeground *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGrabForegroundPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<GrabForegroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<GrabForegroundPtr,
+typedef PointerSField<GrabForeground *,
                       RecordedRefCountPolicy  > SFRecGrabForegroundPtr;
-typedef PointerSField<GrabForegroundPtr,
+typedef PointerSField<GrabForeground *,
                       UnrecordedRefCountPolicy> SFUnrecGrabForegroundPtr;
-typedef PointerSField<GrabForegroundPtr,
+typedef PointerSField<GrabForeground *,
                       WeakRefCountPolicy      > SFWeakGrabForegroundPtr;
-typedef PointerSField<GrabForegroundPtr,
+typedef PointerSField<GrabForeground *,
                       NoRefCountPolicy        > SFUncountedGrabForegroundPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<GrabForegroundPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<GrabForegroundPtr,
+typedef PointerMField<GrabForeground *,
                       RecordedRefCountPolicy  > MFRecGrabForegroundPtr;
-typedef PointerMField<GrabForegroundPtr,
+typedef PointerMField<GrabForeground *,
                       UnrecordedRefCountPolicy> MFUnrecGrabForegroundPtr;
-typedef PointerMField<GrabForegroundPtr,
+typedef PointerMField<GrabForeground *,
                       WeakRefCountPolicy      > MFWeakGrabForegroundPtr;
-typedef PointerMField<GrabForegroundPtr,
+typedef PointerMField<GrabForeground *,
                       NoRefCountPolicy        > MFUncountedGrabForegroundPtr;
 #endif
 

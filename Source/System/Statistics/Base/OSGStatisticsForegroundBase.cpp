@@ -444,17 +444,17 @@ void StatisticsForegroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatisticsForegroundPtr>::_type("StatisticsForegroundPtr", "ForegroundPtr");
+DataType FieldTraits<StatisticsForeground *>::_type("StatisticsForegroundPtr", "ForegroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StatisticsForegroundPtr)
+OSG_FIELDTRAITS_GETTYPE(StatisticsForeground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StatisticsForegroundPtr, 
+                           StatisticsForeground *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StatisticsForegroundPtr, 
+                           StatisticsForeground *, 
                            0);
 
 OSG_END_NAMESPACE

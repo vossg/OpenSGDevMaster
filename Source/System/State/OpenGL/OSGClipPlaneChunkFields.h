@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ClipPlaneChunk);
 #endif
 
 template <>
-struct FieldTraits<ClipPlaneChunkPtr> :
-    public FieldTraitsFCPtrBase<ClipPlaneChunkPtr>
+struct FieldTraits<ClipPlaneChunk *> :
+    public FieldTraitsFCPtrBase<ClipPlaneChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ClipPlaneChunkPtr> :
 
   public:
 
-    typedef FieldTraits<ClipPlaneChunkPtr>  Self;
+    typedef FieldTraits<ClipPlaneChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ClipPlaneChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakClipPlaneChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdClipPlaneChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ClipPlaneChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<ClipPlaneChunkPtr,
+typedef PointerSField<ClipPlaneChunk *,
                       RecordedRefCountPolicy  > SFRecClipPlaneChunkPtr;
-typedef PointerSField<ClipPlaneChunkPtr,
+typedef PointerSField<ClipPlaneChunk *,
                       UnrecordedRefCountPolicy> SFUnrecClipPlaneChunkPtr;
-typedef PointerSField<ClipPlaneChunkPtr,
+typedef PointerSField<ClipPlaneChunk *,
                       WeakRefCountPolicy      > SFWeakClipPlaneChunkPtr;
-typedef PointerSField<ClipPlaneChunkPtr,
+typedef PointerSField<ClipPlaneChunk *,
                       NoRefCountPolicy        > SFUncountedClipPlaneChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ClipPlaneChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<ClipPlaneChunkPtr,
+typedef PointerMField<ClipPlaneChunk *,
                       RecordedRefCountPolicy  > MFRecClipPlaneChunkPtr;
-typedef PointerMField<ClipPlaneChunkPtr,
+typedef PointerMField<ClipPlaneChunk *,
                       UnrecordedRefCountPolicy> MFUnrecClipPlaneChunkPtr;
-typedef PointerMField<ClipPlaneChunkPtr,
+typedef PointerMField<ClipPlaneChunk *,
                       WeakRefCountPolicy      > MFWeakClipPlaneChunkPtr;
-typedef PointerMField<ClipPlaneChunkPtr,
+typedef PointerMField<ClipPlaneChunk *,
                       NoRefCountPolicy        > MFUncountedClipPlaneChunkPtr;
 #endif
 

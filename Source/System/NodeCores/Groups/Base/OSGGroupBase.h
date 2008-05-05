@@ -126,13 +126,13 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GroupTransitPtr create          (void);
-    static  GroupPtr        createEmpty     (void);
+    static  GroupTransitPtr  create          (void);
+    static  Group           *createEmpty     (void);
 
-    static  GroupTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GroupTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GroupPtr        createEmptyLocal(
+    static  Group            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

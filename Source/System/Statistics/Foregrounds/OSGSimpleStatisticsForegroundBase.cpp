@@ -909,7 +909,7 @@ SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::create(void
 {
     SimpleStatisticsForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -925,7 +925,7 @@ SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::createLocal
 {
     SimpleStatisticsForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -937,9 +937,9 @@ SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::createLocal
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmpty(void)
+SimpleStatisticsForeground *SimpleStatisticsForegroundBase::createEmpty(void)
 {
-    SimpleStatisticsForegroundPtr returnValue;
+    SimpleStatisticsForeground *returnValue;
 
     newPtr<SimpleStatisticsForeground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -949,9 +949,9 @@ SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmptyLocal(BitVector bFlags)
+SimpleStatisticsForeground *SimpleStatisticsForegroundBase::createEmptyLocal(BitVector bFlags)
 {
-    SimpleStatisticsForegroundPtr returnValue;
+    SimpleStatisticsForeground *returnValue;
 
     newPtr<SimpleStatisticsForeground>(returnValue, bFlags);
 
@@ -962,7 +962,7 @@ SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmptyLocal(B
 
 FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
 {
-    SimpleStatisticsForegroundPtr tmpPtr;
+    SimpleStatisticsForeground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SimpleStatisticsForeground *>(this), 
@@ -978,7 +978,7 @@ FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
 FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SimpleStatisticsForegroundPtr tmpPtr;
+    SimpleStatisticsForeground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SimpleStatisticsForeground *>(this), bFlags);
 
@@ -1317,9 +1317,9 @@ void SimpleStatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SimpleStatisticsForegroundBase::createAspectCopy(void) const
+FieldContainer *SimpleStatisticsForegroundBase::createAspectCopy(void) const
 {
-    SimpleStatisticsForegroundPtr returnValue;
+    SimpleStatisticsForeground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SimpleStatisticsForeground *>(this));
@@ -1346,17 +1346,17 @@ void SimpleStatisticsForegroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleStatisticsForegroundPtr>::_type("SimpleStatisticsForegroundPtr", "StatisticsForegroundPtr");
+DataType FieldTraits<SimpleStatisticsForeground *>::_type("SimpleStatisticsForegroundPtr", "StatisticsForegroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleStatisticsForegroundPtr)
+OSG_FIELDTRAITS_GETTYPE(SimpleStatisticsForeground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SimpleStatisticsForegroundPtr, 
+                           SimpleStatisticsForeground *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SimpleStatisticsForegroundPtr, 
+                           SimpleStatisticsForeground *, 
                            0);
 
 OSG_END_NAMESPACE

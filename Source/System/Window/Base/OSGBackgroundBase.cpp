@@ -574,17 +574,17 @@ void BackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BackgroundPtr>::_type("BackgroundPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Background *>::_type("BackgroundPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(BackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(Background *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           BackgroundPtr, 
+                           Background *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           BackgroundPtr, 
+                           Background *, 
                            0);
 
 OSG_END_NAMESPACE

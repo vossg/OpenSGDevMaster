@@ -185,13 +185,13 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SolidBackgroundTransitPtr create          (void);
-    static  SolidBackgroundPtr        createEmpty     (void);
+    static  SolidBackgroundTransitPtr  create          (void);
+    static  SolidBackground           *createEmpty     (void);
 
-    static  SolidBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SolidBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SolidBackgroundPtr        createEmptyLocal(
+    static  SolidBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -185,13 +185,13 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  OrthographicCameraTransitPtr create          (void);
-    static  OrthographicCameraPtr        createEmpty     (void);
+    static  OrthographicCameraTransitPtr  create          (void);
+    static  OrthographicCamera           *createEmpty     (void);
 
-    static  OrthographicCameraTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  OrthographicCameraTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  OrthographicCameraPtr        createEmptyLocal(
+    static  OrthographicCamera            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

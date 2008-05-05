@@ -168,13 +168,13 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TestStageTransitPtr create          (void);
-    static  TestStagePtr        createEmpty     (void);
+    static  TestStageTransitPtr  create          (void);
+    static  TestStage           *createEmpty     (void);
 
-    static  TestStageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TestStageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TestStagePtr        createEmptyLocal(
+    static  TestStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

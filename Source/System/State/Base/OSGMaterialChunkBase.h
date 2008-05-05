@@ -389,13 +389,13 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MaterialChunkTransitPtr create          (void);
-    static  MaterialChunkPtr        createEmpty     (void);
+    static  MaterialChunkTransitPtr  create          (void);
+    static  MaterialChunk           *createEmpty     (void);
 
-    static  MaterialChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MaterialChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MaterialChunkPtr        createEmptyLocal(
+    static  MaterialChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -521,7 +521,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

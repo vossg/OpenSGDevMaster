@@ -202,13 +202,13 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  XWindowTransitPtr create          (void);
-    static  XWindowPtr        createEmpty     (void);
+    static  XWindowTransitPtr  create          (void);
+    static  XWindow           *createEmpty     (void);
 
-    static  XWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  XWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  XWindowPtr        createEmptyLocal(
+    static  XWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

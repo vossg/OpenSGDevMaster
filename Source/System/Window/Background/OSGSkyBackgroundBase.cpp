@@ -123,27 +123,27 @@ OSG_BEGIN_NAMESPACE
     The polygonal resolution of the sky/ground sphere.
 */
 
-/*! \var TextureBaseChunkPtr SkyBackgroundBase::_sfBackTexture
+/*! \var TextureBaseChunk * SkyBackgroundBase::_sfBackTexture
     Texture for the back (+Z) side of the sky cube.
 */
 
-/*! \var TextureBaseChunkPtr SkyBackgroundBase::_sfBottomTexture
+/*! \var TextureBaseChunk * SkyBackgroundBase::_sfBottomTexture
     Texture for the bottom (-Y) side of the sky cube.
 */
 
-/*! \var TextureBaseChunkPtr SkyBackgroundBase::_sfFrontTexture
+/*! \var TextureBaseChunk * SkyBackgroundBase::_sfFrontTexture
     Texture for the front (-Z) side of the sky cube.
 */
 
-/*! \var TextureBaseChunkPtr SkyBackgroundBase::_sfLeftTexture
+/*! \var TextureBaseChunk * SkyBackgroundBase::_sfLeftTexture
     Texture for the left (-X) side of the sky cube.
 */
 
-/*! \var TextureBaseChunkPtr SkyBackgroundBase::_sfRightTexture
+/*! \var TextureBaseChunk * SkyBackgroundBase::_sfRightTexture
     Texture for the right (+X) side of the sky cube.
 */
 
-/*! \var TextureBaseChunkPtr SkyBackgroundBase::_sfTopTexture
+/*! \var TextureBaseChunk * SkyBackgroundBase::_sfTopTexture
     Texture for the top (+Y) side of the sky cube.
 */
 
@@ -175,7 +175,7 @@ OSG_BEGIN_NAMESPACE
     Back texture coordinates.
 */
 
-/*! \var NodePtr         SkyBackgroundBase::_sfBeacon
+/*! \var Node *          SkyBackgroundBase::_sfBeacon
     The object that defines the orientation of the background, i.e. the
     local coordinate system it is drawn in.
 */
@@ -514,7 +514,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tTexture for the back (+Z) side of the sky cube.\n"
@@ -524,7 +524,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tTexture for the bottom (-Y) side of the sky cube.\n"
@@ -534,7 +534,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tTexture for the front (-Z) side of the sky cube.\n"
@@ -544,7 +544,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tTexture for the left (-X) side of the sky cube.\n"
@@ -554,7 +554,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tTexture for the right (+X) side of the sky cube.\n"
@@ -564,7 +564,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tTexture for the top (+Y) side of the sky cube.\n"
@@ -1257,7 +1257,7 @@ SkyBackgroundTransitPtr SkyBackgroundBase::create(void)
 {
     SkyBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -1273,7 +1273,7 @@ SkyBackgroundTransitPtr SkyBackgroundBase::createLocal(BitVector bFlags)
 {
     SkyBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1285,9 +1285,9 @@ SkyBackgroundTransitPtr SkyBackgroundBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SkyBackgroundPtr SkyBackgroundBase::createEmpty(void)
+SkyBackground *SkyBackgroundBase::createEmpty(void)
 {
-    SkyBackgroundPtr returnValue;
+    SkyBackground *returnValue;
 
     newPtr<SkyBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -1297,9 +1297,9 @@ SkyBackgroundPtr SkyBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-SkyBackgroundPtr SkyBackgroundBase::createEmptyLocal(BitVector bFlags)
+SkyBackground *SkyBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    SkyBackgroundPtr returnValue;
+    SkyBackground *returnValue;
 
     newPtr<SkyBackground>(returnValue, bFlags);
 
@@ -1310,7 +1310,7 @@ SkyBackgroundPtr SkyBackgroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SkyBackgroundBase::shallowCopy(void) const
 {
-    SkyBackgroundPtr tmpPtr;
+    SkyBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SkyBackground *>(this), 
@@ -1326,7 +1326,7 @@ FieldContainerTransitPtr SkyBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr SkyBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SkyBackgroundPtr tmpPtr;
+    SkyBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SkyBackground *>(this), bFlags);
 
@@ -1348,12 +1348,12 @@ SkyBackgroundBase::SkyBackgroundBase(void) :
     _mfGroundColor            (),
     _mfGroundAngle            (),
     _sfSphereRes              (UInt32(8)),
-    _sfBackTexture            (TextureBaseChunkPtr(NullFC)),
-    _sfBottomTexture          (TextureBaseChunkPtr(NullFC)),
-    _sfFrontTexture           (TextureBaseChunkPtr(NullFC)),
-    _sfLeftTexture            (TextureBaseChunkPtr(NullFC)),
-    _sfRightTexture           (TextureBaseChunkPtr(NullFC)),
-    _sfTopTexture             (TextureBaseChunkPtr(NullFC)),
+    _sfBackTexture            (NULL),
+    _sfBottomTexture          (NULL),
+    _sfFrontTexture           (NULL),
+    _sfLeftTexture            (NULL),
+    _sfRightTexture           (NULL),
+    _sfTopTexture             (NULL),
     _sfBoxInside              (bool(true)),
     _mfTopTexCoord            (),
     _mfBottomTexCoord         (),
@@ -1361,7 +1361,7 @@ SkyBackgroundBase::SkyBackgroundBase(void) :
     _mfLeftTexCoord           (),
     _mfFrontTexCoord          (),
     _mfBackTexCoord           (),
-    _sfBeacon                 (NullFC)
+    _sfBeacon                 (NULL)
 {
 }
 
@@ -1372,12 +1372,12 @@ SkyBackgroundBase::SkyBackgroundBase(const SkyBackgroundBase &source) :
     _mfGroundColor            (source._mfGroundColor            ),
     _mfGroundAngle            (source._mfGroundAngle            ),
     _sfSphereRes              (source._sfSphereRes              ),
-    _sfBackTexture            (NullFC),
-    _sfBottomTexture          (NullFC),
-    _sfFrontTexture           (NullFC),
-    _sfLeftTexture            (NullFC),
-    _sfRightTexture           (NullFC),
-    _sfTopTexture             (NullFC),
+    _sfBackTexture            (NULL),
+    _sfBottomTexture          (NULL),
+    _sfFrontTexture           (NULL),
+    _sfLeftTexture            (NULL),
+    _sfRightTexture           (NULL),
+    _sfTopTexture             (NULL),
     _sfBoxInside              (source._sfBoxInside              ),
     _mfTopTexCoord            (source._mfTopTexCoord            ),
     _mfBottomTexCoord         (source._mfBottomTexCoord         ),
@@ -1385,7 +1385,7 @@ SkyBackgroundBase::SkyBackgroundBase(const SkyBackgroundBase &source) :
     _mfLeftTexCoord           (source._mfLeftTexCoord           ),
     _mfFrontTexCoord          (source._mfFrontTexCoord          ),
     _mfBackTexCoord           (source._mfBackTexCoord           ),
-    _sfBeacon                 (NullFC)
+    _sfBeacon                 (NULL)
 {
 }
 
@@ -1877,9 +1877,9 @@ void SkyBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SkyBackgroundBase::createAspectCopy(void) const
+FieldContainer *SkyBackgroundBase::createAspectCopy(void) const
 {
-    SkyBackgroundPtr returnValue;
+    SkyBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SkyBackground *>(this));
@@ -1892,19 +1892,19 @@ void SkyBackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<SkyBackground *>(this)->setBackTexture(NullFC);
+    static_cast<SkyBackground *>(this)->setBackTexture(NULL);
 
-    static_cast<SkyBackground *>(this)->setBottomTexture(NullFC);
+    static_cast<SkyBackground *>(this)->setBottomTexture(NULL);
 
-    static_cast<SkyBackground *>(this)->setFrontTexture(NullFC);
+    static_cast<SkyBackground *>(this)->setFrontTexture(NULL);
 
-    static_cast<SkyBackground *>(this)->setLeftTexture(NullFC);
+    static_cast<SkyBackground *>(this)->setLeftTexture(NULL);
 
-    static_cast<SkyBackground *>(this)->setRightTexture(NullFC);
+    static_cast<SkyBackground *>(this)->setRightTexture(NULL);
 
-    static_cast<SkyBackground *>(this)->setTopTexture(NullFC);
+    static_cast<SkyBackground *>(this)->setTopTexture(NULL);
 
-    static_cast<SkyBackground *>(this)->setBeacon(NullFC);
+    static_cast<SkyBackground *>(this)->setBeacon(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -1956,14 +1956,14 @@ void SkyBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkyBackgroundPtr>::_type("SkyBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<SkyBackground *>::_type("SkyBackgroundPtr", "BackgroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SkyBackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(SkyBackground *)
 
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SkyBackgroundPtr, 
+                           SkyBackground *, 
                            0);
 
 OSG_END_NAMESPACE

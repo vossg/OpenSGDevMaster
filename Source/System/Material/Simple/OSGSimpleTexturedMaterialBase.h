@@ -169,7 +169,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
             const SFBool              *getSFEnvMap          (void) const;
 
 
-                  ImagePtr getImage          (void) const;
+                  Image * getImage          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getMinFilter       (void);
@@ -200,7 +200,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setImage          (const ImagePtr value);
+            void setImage          (Image * const value);
             void setMinFilter      (const GLenum &value);
             void setMagFilter      (const GLenum &value);
             void setEnvMode        (const GLenum &value);
@@ -233,13 +233,13 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleTexturedMaterialTransitPtr create          (void);
-    static  SimpleTexturedMaterialPtr        createEmpty     (void);
+    static  SimpleTexturedMaterialTransitPtr  create          (void);
+    static  SimpleTexturedMaterial           *createEmpty     (void);
 
-    static  SimpleTexturedMaterialTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SimpleTexturedMaterialTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SimpleTexturedMaterialPtr        createEmptyLocal(
+    static  SimpleTexturedMaterial            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -339,7 +339,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

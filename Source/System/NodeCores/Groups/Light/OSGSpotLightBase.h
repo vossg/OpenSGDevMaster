@@ -202,13 +202,13 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SpotLightTransitPtr create          (void);
-    static  SpotLightPtr        createEmpty     (void);
+    static  SpotLightTransitPtr  create          (void);
+    static  SpotLight           *createEmpty     (void);
 
-    static  SpotLightTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SpotLightTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SpotLightPtr        createEmptyLocal(
+    static  SpotLight            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

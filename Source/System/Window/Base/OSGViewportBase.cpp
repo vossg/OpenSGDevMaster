@@ -133,23 +133,23 @@ OSG_BEGIN_NAMESPACE
     top border. All other values are illegal.
 */
 
-/*! \var ParentFieldContainerPtr ViewportBase::_sfParent
+/*! \var FieldContainer * ViewportBase::_sfParent
     The Window this viewport is contained in.
 */
 
-/*! \var CameraPtr       ViewportBase::_sfCamera
+/*! \var Camera *        ViewportBase::_sfCamera
     The Camera used to render the viewport.
 */
 
-/*! \var NodePtr         ViewportBase::_sfRoot
+/*! \var Node *          ViewportBase::_sfRoot
     The root of the tree that is displayed in this viewport.
 */
 
-/*! \var BackgroundPtr   ViewportBase::_sfBackground
+/*! \var Background *    ViewportBase::_sfBackground
     The background used to clear this viewport.
 */
 
-/*! \var ForegroundPtr   ViewportBase::_mfForegrounds
+/*! \var Foreground *    ViewportBase::_mfForegrounds
     The foreground additions to the rendered image.
 */
 
@@ -687,7 +687,7 @@ SFReal32            *ViewportBase::getSFDrawTime       (void)
 
 
 
-void ViewportBase::addForeground(const ForegroundPtr value)
+void ViewportBase::addForeground(Foreground * const value)
 {
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
@@ -725,7 +725,7 @@ void ViewportBase::removeFromForegrounds(UInt32 uiIndex)
     }
 }
 
-void ViewportBase::removeFromForegrounds(const ForegroundPtr value)
+void ViewportBase::removeFromForegrounds(Foreground * const value)
 {
     Int32 iElemIdx = _mfForegrounds.findIndex(value);
 
@@ -911,7 +911,7 @@ ViewportTransitPtr ViewportBase::create(void)
 {
     ViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -927,7 +927,7 @@ ViewportTransitPtr ViewportBase::createLocal(BitVector bFlags)
 {
     ViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -939,9 +939,9 @@ ViewportTransitPtr ViewportBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ViewportPtr ViewportBase::createEmpty(void)
+Viewport *ViewportBase::createEmpty(void)
 {
-    ViewportPtr returnValue;
+    Viewport *returnValue;
 
     newPtr<Viewport>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -951,9 +951,9 @@ ViewportPtr ViewportBase::createEmpty(void)
     return returnValue;
 }
 
-ViewportPtr ViewportBase::createEmptyLocal(BitVector bFlags)
+Viewport *ViewportBase::createEmptyLocal(BitVector bFlags)
 {
-    ViewportPtr returnValue;
+    Viewport *returnValue;
 
     newPtr<Viewport>(returnValue, bFlags);
 
@@ -964,7 +964,7 @@ ViewportPtr ViewportBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ViewportBase::shallowCopy(void) const
 {
-    ViewportPtr tmpPtr;
+    Viewport *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Viewport *>(this), 
@@ -980,7 +980,7 @@ FieldContainerTransitPtr ViewportBase::shallowCopy(void) const
 FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ViewportPtr tmpPtr;
+    Viewport *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Viewport *>(this), bFlags);
 
@@ -1001,10 +1001,10 @@ ViewportBase::ViewportBase(void) :
     _sfRight                  (),
     _sfBottom                 (),
     _sfTop                    (),
-    _sfParent                 (NullFC),
-    _sfCamera                 (NullFC),
-    _sfRoot                   (NullFC),
-    _sfBackground             (NullFC),
+    _sfParent                 (NULL),
+    _sfCamera                 (NULL),
+    _sfRoot                   (NULL),
+    _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
     _sfDrawTime               (Real32(0.0f))
@@ -1017,10 +1017,10 @@ ViewportBase::ViewportBase(const ViewportBase &source) :
     _sfRight                  (source._sfRight                  ),
     _sfBottom                 (source._sfBottom                 ),
     _sfTop                    (source._sfTop                    ),
-    _sfParent                 (NullFC),
-    _sfCamera                 (NullFC),
-    _sfRoot                   (NullFC),
-    _sfBackground             (NullFC),
+    _sfParent                 (NULL),
+    _sfCamera                 (NULL),
+    _sfRoot                   (NULL),
+    _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfTravMask               (source._sfTravMask               ),
     _sfDrawTime               (source._sfDrawTime               )
@@ -1037,24 +1037,24 @@ ViewportBase::~ViewportBase(void)
 /* Parent linking                                                          */
 
 bool ViewportBase::linkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            childFieldId,
-    const UInt16            parentFieldId )
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
 {
     if(parentFieldId == ParentFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
         
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
-            FieldContainerPtr pOldParent =
+            FieldContainer * pOldParent =
                 _sfParent.getValue         ();
 
             UInt16 oldChildFieldId =
                 _sfParent.getParentFieldPos();
             
-            if(pOldParent != NullFC)
+            if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, oldChildFieldId);
             }
@@ -1073,21 +1073,21 @@ bool ViewportBase::linkParent(
 }
 
 bool ViewportBase::unlinkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            parentFieldId)
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
             
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             if(_sfParent.getValue() == pParent)
             {
                 editSField(ParentFieldMask);
 
-                _sfParent.setValue(NullFC, 0xFFFF);
+                _sfParent.setValue(NULL, 0xFFFF);
                 
                 return true;
             }
@@ -1397,9 +1397,9 @@ void ViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ViewportBase::createAspectCopy(void) const
+FieldContainer *ViewportBase::createAspectCopy(void) const
 {
-    ViewportPtr returnValue;
+    Viewport *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Viewport *>(this));
@@ -1412,11 +1412,11 @@ void ViewportBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<Viewport *>(this)->setCamera(NullFC);
+    static_cast<Viewport *>(this)->setCamera(NULL);
 
-    static_cast<Viewport *>(this)->setRoot(NullFC);
+    static_cast<Viewport *>(this)->setRoot(NULL);
 
-    static_cast<Viewport *>(this)->setBackground(NullFC);
+    static_cast<Viewport *>(this)->setBackground(NULL);
 
 
     static_cast<Viewport *>(this)->clearForegrounds();
@@ -1424,27 +1424,27 @@ void ViewportBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ViewportPtr>::_type("ViewportPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Viewport *>::_type("ViewportPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ViewportPtr)
+OSG_FIELDTRAITS_GETTYPE(Viewport *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ViewportPtr, 
+                           Viewport *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ViewportPtr, 
+                           Viewport *, 
                            0);
 
-DataType &FieldTraits< ViewportPtr, 1 >::getType(void)
+DataType &FieldTraits< Viewport *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<ViewportPtr, 0>::getType();
+    return FieldTraits<Viewport *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      ViewportPtr,       
+                      Viewport *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

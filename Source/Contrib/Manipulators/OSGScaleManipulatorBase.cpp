@@ -160,7 +160,7 @@ ScaleManipulatorTransitPtr ScaleManipulatorBase::create(void)
 {
     ScaleManipulatorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -176,7 +176,7 @@ ScaleManipulatorTransitPtr ScaleManipulatorBase::createLocal(BitVector bFlags)
 {
     ScaleManipulatorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -188,9 +188,9 @@ ScaleManipulatorTransitPtr ScaleManipulatorBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ScaleManipulatorPtr ScaleManipulatorBase::createEmpty(void)
+ScaleManipulator *ScaleManipulatorBase::createEmpty(void)
 {
-    ScaleManipulatorPtr returnValue;
+    ScaleManipulator *returnValue;
 
     newPtr<ScaleManipulator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -200,9 +200,9 @@ ScaleManipulatorPtr ScaleManipulatorBase::createEmpty(void)
     return returnValue;
 }
 
-ScaleManipulatorPtr ScaleManipulatorBase::createEmptyLocal(BitVector bFlags)
+ScaleManipulator *ScaleManipulatorBase::createEmptyLocal(BitVector bFlags)
 {
-    ScaleManipulatorPtr returnValue;
+    ScaleManipulator *returnValue;
 
     newPtr<ScaleManipulator>(returnValue, bFlags);
 
@@ -213,7 +213,7 @@ ScaleManipulatorPtr ScaleManipulatorBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ScaleManipulatorBase::shallowCopy(void) const
 {
-    ScaleManipulatorPtr tmpPtr;
+    ScaleManipulator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ScaleManipulator *>(this), 
@@ -229,7 +229,7 @@ FieldContainerTransitPtr ScaleManipulatorBase::shallowCopy(void) const
 FieldContainerTransitPtr ScaleManipulatorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ScaleManipulatorPtr tmpPtr;
+    ScaleManipulator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ScaleManipulator *>(this), bFlags);
 
@@ -280,9 +280,9 @@ void ScaleManipulatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ScaleManipulatorBase::createAspectCopy(void) const
+FieldContainer *ScaleManipulatorBase::createAspectCopy(void) const
 {
-    ScaleManipulatorPtr returnValue;
+    ScaleManipulator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ScaleManipulator *>(this));
@@ -300,7 +300,7 @@ void ScaleManipulatorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScaleManipulatorPtr>::_type("ScaleManipulatorPtr", "ManipulatorPtr");
+DataType FieldTraits<ScaleManipulator *>::_type("ScaleManipulatorPtr", "ManipulatorPtr");
 #endif
 
 

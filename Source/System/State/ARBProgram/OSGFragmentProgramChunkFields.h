@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(FragmentProgramChunk);
 #endif
 
 template <>
-struct FieldTraits<FragmentProgramChunkPtr> :
-    public FieldTraitsFCPtrBase<FragmentProgramChunkPtr>
+struct FieldTraits<FragmentProgramChunk *> :
+    public FieldTraitsFCPtrBase<FragmentProgramChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<FragmentProgramChunkPtr> :
 
   public:
 
-    typedef FieldTraits<FragmentProgramChunkPtr>  Self;
+    typedef FieldTraits<FragmentProgramChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<FragmentProgramChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFragmentProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFragmentProgramChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<FragmentProgramChunkPtr, 0>::getMName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<FragmentProgramChunkPtr,
+typedef PointerSField<FragmentProgramChunk *,
                       RecordedRefCountPolicy  > SFRecFragmentProgramChunkPtr;
-typedef PointerSField<FragmentProgramChunkPtr,
+typedef PointerSField<FragmentProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecFragmentProgramChunkPtr;
-typedef PointerSField<FragmentProgramChunkPtr,
+typedef PointerSField<FragmentProgramChunk *,
                       WeakRefCountPolicy      > SFWeakFragmentProgramChunkPtr;
-typedef PointerSField<FragmentProgramChunkPtr,
+typedef PointerSField<FragmentProgramChunk *,
                       NoRefCountPolicy        > SFUncountedFragmentProgramChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<FragmentProgramChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<FragmentProgramChunkPtr,
+typedef PointerMField<FragmentProgramChunk *,
                       RecordedRefCountPolicy  > MFRecFragmentProgramChunkPtr;
-typedef PointerMField<FragmentProgramChunkPtr,
+typedef PointerMField<FragmentProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecFragmentProgramChunkPtr;
-typedef PointerMField<FragmentProgramChunkPtr,
+typedef PointerMField<FragmentProgramChunk *,
                       WeakRefCountPolicy      > MFWeakFragmentProgramChunkPtr;
-typedef PointerMField<FragmentProgramChunkPtr,
+typedef PointerMField<FragmentProgramChunk *,
                       NoRefCountPolicy        > MFUncountedFragmentProgramChunkPtr;
 #endif
 

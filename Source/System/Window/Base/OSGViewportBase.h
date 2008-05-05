@@ -235,13 +235,13 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   Real32              &editTop            (void);
             const Real32               getTop             (void) const;
 
-                  CameraPtr getCamera         (void) const;
+                  Camera * getCamera         (void) const;
 
-                  NodePtr getRoot           (void) const;
+                  Node * getRoot           (void) const;
 
-                  BackgroundPtr getBackground     (void) const;
+                  Background * getBackground     (void) const;
 
-                  ForegroundPtr getForegrounds    (const UInt32 index) const;
+                  Foreground * getForegrounds    (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTravMask        (void);
@@ -264,9 +264,9 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
             void setRight          (const Real32 &value);
             void setBottom         (const Real32 &value);
             void setTop            (const Real32 &value);
-            void setCamera         (const CameraPtr value);
-            void setRoot           (const NodePtr value);
-            void setBackground     (const BackgroundPtr value);
+            void setCamera         (Camera * const value);
+            void setRoot           (Node * const value);
+            void setBackground     (Background * const value);
             void setTravMask       (const UInt32 &value);
             void setDrawTime       (const Real32 &value);
 
@@ -280,10 +280,10 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addForeground             (const ForegroundPtr value   );
-    void assignForegrounds           (const MFUnrecForegroundPtr &value);
-    void removeFromForegrounds (UInt32                uiIndex );
-    void removeFromForegrounds(const ForegroundPtr value   );
+    void addForeground             (Foreground * const value   );
+    void assignForegrounds          (const MFUnrecForegroundPtr &value);
+    void removeFromForegrounds (UInt32               uiIndex );
+    void removeFromForegrounds(Foreground * const value   );
     void clearForegrounds            (void                          );
 
 
@@ -304,13 +304,13 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ViewportTransitPtr create          (void);
-    static  ViewportPtr        createEmpty     (void);
+    static  ViewportTransitPtr  create          (void);
+    static  Viewport           *createEmpty     (void);
 
-    static  ViewportTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ViewportTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ViewportPtr        createEmptyLocal(
+    static  Viewport            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -375,11 +375,11 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name Parent linking                                               */
     /*! \{                                                                 */
 
-    virtual bool linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId);
-    virtual bool unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId);
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -439,7 +439,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

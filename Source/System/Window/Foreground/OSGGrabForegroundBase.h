@@ -139,7 +139,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
             const SFBool              *getSFAutoResize      (void) const;
 
 
-                  ImagePtr getImage          (void) const;
+                  Image * getImage          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getAutoResize      (void);
@@ -152,7 +152,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setImage          (const ImagePtr value);
+            void setImage          (Image * const value);
             void setAutoResize     (const bool &value);
 
     /*! \}                                                                 */
@@ -182,13 +182,13 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GrabForegroundTransitPtr create          (void);
-    static  GrabForegroundPtr        createEmpty     (void);
+    static  GrabForegroundTransitPtr  create          (void);
+    static  GrabForeground           *createEmpty     (void);
 
-    static  GrabForegroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GrabForegroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GrabForegroundPtr        createEmptyLocal(
+    static  GrabForeground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -279,7 +279,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

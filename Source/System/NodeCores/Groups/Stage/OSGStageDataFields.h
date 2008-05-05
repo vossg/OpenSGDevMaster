@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(StageData);
 #endif
 
 template <>
-struct FieldTraits<StageDataPtr> :
-    public FieldTraitsFCPtrBase<StageDataPtr>
+struct FieldTraits<StageData *> :
+    public FieldTraitsFCPtrBase<StageData *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<StageDataPtr> :
 
   public:
 
-    typedef FieldTraits<StageDataPtr>  Self;
+    typedef FieldTraits<StageData *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

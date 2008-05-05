@@ -123,7 +123,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        TextureObjChunkBase::_sfImage
+/*! \var Image *         TextureObjChunkBase::_sfImage
     The texture image.
 */
 
@@ -1894,7 +1894,7 @@ TextureObjChunkTransitPtr TextureObjChunkBase::create(void)
 {
     TextureObjChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -1910,7 +1910,7 @@ TextureObjChunkTransitPtr TextureObjChunkBase::createLocal(BitVector bFlags)
 {
     TextureObjChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1922,9 +1922,9 @@ TextureObjChunkTransitPtr TextureObjChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureObjChunkPtr TextureObjChunkBase::createEmpty(void)
+TextureObjChunk *TextureObjChunkBase::createEmpty(void)
 {
-    TextureObjChunkPtr returnValue;
+    TextureObjChunk *returnValue;
 
     newPtr<TextureObjChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -1934,9 +1934,9 @@ TextureObjChunkPtr TextureObjChunkBase::createEmpty(void)
     return returnValue;
 }
 
-TextureObjChunkPtr TextureObjChunkBase::createEmptyLocal(BitVector bFlags)
+TextureObjChunk *TextureObjChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    TextureObjChunkPtr returnValue;
+    TextureObjChunk *returnValue;
 
     newPtr<TextureObjChunk>(returnValue, bFlags);
 
@@ -1947,7 +1947,7 @@ TextureObjChunkPtr TextureObjChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TextureObjChunkBase::shallowCopy(void) const
 {
-    TextureObjChunkPtr tmpPtr;
+    TextureObjChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TextureObjChunk *>(this), 
@@ -1963,7 +1963,7 @@ FieldContainerTransitPtr TextureObjChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr TextureObjChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TextureObjChunkPtr tmpPtr;
+    TextureObjChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TextureObjChunk *>(this), bFlags);
 
@@ -2057,21 +2057,21 @@ TextureObjChunkBase::~TextureObjChunkBase(void)
 /* Child linking                                                           */
 
 bool TextureObjChunkBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == ImageFieldId)
     {
-        ImagePtr pTypedChild =
-            dynamic_cast<ImagePtr>(pChild);
+        Image * pTypedChild =
+            dynamic_cast<Image *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfImage.getValue())
             {
                 editSField(ImageFieldMask);
 
-                _sfImage.setValue(NullFC);
+                _sfImage.setValue(NULL);
                 
                 return true;
             }
@@ -2716,9 +2716,9 @@ void TextureObjChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TextureObjChunkBase::createAspectCopy(void) const
+FieldContainer *TextureObjChunkBase::createAspectCopy(void) const
 {
-    TextureObjChunkPtr returnValue;
+    TextureObjChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TextureObjChunk *>(this));
@@ -2731,24 +2731,24 @@ void TextureObjChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<TextureObjChunk *>(this)->setImage(NullFC);
+    static_cast<TextureObjChunk *>(this)->setImage(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureObjChunkPtr>::_type("TextureObjChunkPtr", "TextureBaseChunkPtr");
+DataType FieldTraits<TextureObjChunk *>::_type("TextureObjChunkPtr", "TextureBaseChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureObjChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(TextureObjChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureObjChunkPtr, 
+                           TextureObjChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureObjChunkPtr, 
+                           TextureObjChunk *, 
                            0);
 
 OSG_END_NAMESPACE

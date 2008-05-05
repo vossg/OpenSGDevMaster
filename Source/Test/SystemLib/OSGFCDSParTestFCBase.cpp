@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ParentFieldContainerPtr FCDSParTestFCBase::_sfParent
+/*! \var FieldContainer * FCDSParTestFCBase::_sfParent
     
 */
 
@@ -211,7 +211,7 @@ FCDSParTestFCTransitPtr FCDSParTestFCBase::create(void)
 {
     FCDSParTestFCTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -227,7 +227,7 @@ FCDSParTestFCTransitPtr FCDSParTestFCBase::createLocal(BitVector bFlags)
 {
     FCDSParTestFCTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -239,9 +239,9 @@ FCDSParTestFCTransitPtr FCDSParTestFCBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FCDSParTestFCPtr FCDSParTestFCBase::createEmpty(void)
+FCDSParTestFC *FCDSParTestFCBase::createEmpty(void)
 {
-    FCDSParTestFCPtr returnValue;
+    FCDSParTestFC *returnValue;
 
     newPtr<FCDSParTestFC>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -251,9 +251,9 @@ FCDSParTestFCPtr FCDSParTestFCBase::createEmpty(void)
     return returnValue;
 }
 
-FCDSParTestFCPtr FCDSParTestFCBase::createEmptyLocal(BitVector bFlags)
+FCDSParTestFC *FCDSParTestFCBase::createEmptyLocal(BitVector bFlags)
 {
-    FCDSParTestFCPtr returnValue;
+    FCDSParTestFC *returnValue;
 
     newPtr<FCDSParTestFC>(returnValue, bFlags);
 
@@ -264,7 +264,7 @@ FCDSParTestFCPtr FCDSParTestFCBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr FCDSParTestFCBase::shallowCopy(void) const
 {
-    FCDSParTestFCPtr tmpPtr;
+    FCDSParTestFC *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FCDSParTestFC *>(this), 
@@ -280,7 +280,7 @@ FieldContainerTransitPtr FCDSParTestFCBase::shallowCopy(void) const
 FieldContainerTransitPtr FCDSParTestFCBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FCDSParTestFCPtr tmpPtr;
+    FCDSParTestFC *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FCDSParTestFC *>(this), bFlags);
 
@@ -297,13 +297,13 @@ FieldContainerTransitPtr FCDSParTestFCBase::shallowCopyLocal(
 
 FCDSParTestFCBase::FCDSParTestFCBase(void) :
     Inherited(),
-    _sfParent                 (NullFC)
+    _sfParent                 (NULL)
 {
 }
 
 FCDSParTestFCBase::FCDSParTestFCBase(const FCDSParTestFCBase &source) :
     Inherited(source),
-    _sfParent                 (NullFC)
+    _sfParent                 (NULL)
 {
 }
 
@@ -317,24 +317,24 @@ FCDSParTestFCBase::~FCDSParTestFCBase(void)
 /* Parent linking                                                          */
 
 bool FCDSParTestFCBase::linkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            childFieldId,
-    const UInt16            parentFieldId )
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
 {
     if(parentFieldId == ParentFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
         
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
-            FieldContainerPtr pOldParent =
+            FieldContainer * pOldParent =
                 _sfParent.getValue         ();
 
             UInt16 oldChildFieldId =
                 _sfParent.getParentFieldPos();
             
-            if(pOldParent != NullFC)
+            if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, oldChildFieldId);
             }
@@ -353,21 +353,21 @@ bool FCDSParTestFCBase::linkParent(
 }
 
 bool FCDSParTestFCBase::unlinkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            parentFieldId)
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
             
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             if(_sfParent.getValue() == pParent)
             {
                 editSField(ParentFieldMask);
 
-                _sfParent.setValue(NullFC, 0xFFFF);
+                _sfParent.setValue(NULL, 0xFFFF);
                 
                 return true;
             }
@@ -427,9 +427,9 @@ void FCDSParTestFCBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FCDSParTestFCBase::createAspectCopy(void) const
+FieldContainer *FCDSParTestFCBase::createAspectCopy(void) const
 {
-    FCDSParTestFCPtr returnValue;
+    FCDSParTestFC *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FCDSParTestFC *>(this));
@@ -447,33 +447,33 @@ void FCDSParTestFCBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDSParTestFCPtr>::_type("FCDSParTestFCPtr", "AttachmentContainerPtr");
+DataType FieldTraits<FCDSParTestFC *>::_type("FCDSParTestFCPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDSParTestFCPtr)
+OSG_FIELDTRAITS_GETTYPE(FCDSParTestFC *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FCDSParTestFCPtr, 
+                           FCDSParTestFC *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FCDSParTestFCPtr, 
+                           FCDSParTestFC *, 
                            0);
 
-DataType &FieldTraits< FCDSParTestFCPtr, 1 >::getType(void)
+DataType &FieldTraits< FCDSParTestFC *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<FCDSParTestFCPtr, 0>::getType();
+    return FieldTraits<FCDSParTestFC *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      FCDSParTestFCPtr,       
+                      FCDSParTestFC *,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      FCDSParTestFCPtr,       
+                      FCDSParTestFC *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

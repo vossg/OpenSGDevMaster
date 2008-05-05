@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Group);
 #endif
 
 template <>
-struct FieldTraits<GroupPtr> :
-    public FieldTraitsFCPtrBase<GroupPtr>
+struct FieldTraits<Group *> :
+    public FieldTraitsFCPtrBase<Group *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<GroupPtr> :
 
   public:
 
-    typedef FieldTraits<GroupPtr>  Self;
+    typedef FieldTraits<Group *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<GroupPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<GroupPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Group *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdGroupPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<GroupPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<GroupPtr,
+typedef PointerSField<Group *,
                       RecordedRefCountPolicy  > SFRecGroupPtr;
-typedef PointerSField<GroupPtr,
+typedef PointerSField<Group *,
                       UnrecordedRefCountPolicy> SFUnrecGroupPtr;
-typedef PointerSField<GroupPtr,
+typedef PointerSField<Group *,
                       WeakRefCountPolicy      > SFWeakGroupPtr;
-typedef PointerSField<GroupPtr,
+typedef PointerSField<Group *,
                       NoRefCountPolicy        > SFUncountedGroupPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<GroupPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<GroupPtr,
+typedef PointerMField<Group *,
                       RecordedRefCountPolicy  > MFRecGroupPtr;
-typedef PointerMField<GroupPtr,
+typedef PointerMField<Group *,
                       UnrecordedRefCountPolicy> MFUnrecGroupPtr;
-typedef PointerMField<GroupPtr,
+typedef PointerMField<Group *,
                       WeakRefCountPolicy      > MFWeakGroupPtr;
-typedef PointerMField<GroupPtr,
+typedef PointerMField<Group *,
                       NoRefCountPolicy        > MFUncountedGroupPtr;
 #endif
 

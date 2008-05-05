@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ParallelComposer);
 #endif
 
 template <>
-struct FieldTraits<ParallelComposerPtr> :
-    public FieldTraitsFCPtrBase<ParallelComposerPtr>
+struct FieldTraits<ParallelComposer *> :
+    public FieldTraitsFCPtrBase<ParallelComposer *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ParallelComposerPtr> :
 
   public:
 
-    typedef FieldTraits<ParallelComposerPtr>  Self;
+    typedef FieldTraits<ParallelComposer *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

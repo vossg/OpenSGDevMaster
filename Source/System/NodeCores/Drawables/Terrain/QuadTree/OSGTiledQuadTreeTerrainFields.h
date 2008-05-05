@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TiledQuadTreeTerrain);
 #endif
 
 template <>
-struct FieldTraits<TiledQuadTreeTerrainPtr> :
-    public FieldTraitsFCPtrBase<TiledQuadTreeTerrainPtr>
+struct FieldTraits<TiledQuadTreeTerrain *> :
+    public FieldTraitsFCPtrBase<TiledQuadTreeTerrain *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TiledQuadTreeTerrainPtr> :
 
   public:
 
-    typedef FieldTraits<TiledQuadTreeTerrainPtr>  Self;
+    typedef FieldTraits<TiledQuadTreeTerrain *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<TiledQuadTreeTerrainPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTiledQuadTreeTerrainPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTiledQuadTreeTerrainPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<TiledQuadTreeTerrainPtr, 0>::getMName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldSingle */
 
-typedef PointerSField<TiledQuadTreeTerrainPtr,
+typedef PointerSField<TiledQuadTreeTerrain *,
                       RecordedRefCountPolicy  > SFRecTiledQuadTreeTerrainPtr;
-typedef PointerSField<TiledQuadTreeTerrainPtr,
+typedef PointerSField<TiledQuadTreeTerrain *,
                       UnrecordedRefCountPolicy> SFUnrecTiledQuadTreeTerrainPtr;
-typedef PointerSField<TiledQuadTreeTerrainPtr,
+typedef PointerSField<TiledQuadTreeTerrain *,
                       WeakRefCountPolicy      > SFWeakTiledQuadTreeTerrainPtr;
-typedef PointerSField<TiledQuadTreeTerrainPtr,
+typedef PointerSField<TiledQuadTreeTerrain *,
                       NoRefCountPolicy        > SFUncountedTiledQuadTreeTerrainPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<TiledQuadTreeTerrainPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpDrawableFieldMulti */
 
-typedef PointerMField<TiledQuadTreeTerrainPtr,
+typedef PointerMField<TiledQuadTreeTerrain *,
                       RecordedRefCountPolicy  > MFRecTiledQuadTreeTerrainPtr;
-typedef PointerMField<TiledQuadTreeTerrainPtr,
+typedef PointerMField<TiledQuadTreeTerrain *,
                       UnrecordedRefCountPolicy> MFUnrecTiledQuadTreeTerrainPtr;
-typedef PointerMField<TiledQuadTreeTerrainPtr,
+typedef PointerMField<TiledQuadTreeTerrain *,
                       WeakRefCountPolicy      > MFWeakTiledQuadTreeTerrainPtr;
-typedef PointerMField<TiledQuadTreeTerrainPtr,
+typedef PointerMField<TiledQuadTreeTerrain *,
                       NoRefCountPolicy        > MFUncountedTiledQuadTreeTerrainPtr;
 #endif
 

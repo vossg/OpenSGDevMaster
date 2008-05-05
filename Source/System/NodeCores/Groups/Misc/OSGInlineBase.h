@@ -185,13 +185,13 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  InlineTransitPtr create          (void);
-    static  InlinePtr        createEmpty     (void);
+    static  InlineTransitPtr  create          (void);
+    static  Inline           *createEmpty     (void);
 
-    static  InlineTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  InlineTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  InlinePtr        createEmptyLocal(
+    static  Inline            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

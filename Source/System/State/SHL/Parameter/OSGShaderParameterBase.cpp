@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
     parameter name
 */
 
-/*! \var ParentFieldContainerPtr ShaderParameterBase::_mfParents
+/*! \var FieldContainer * ShaderParameterBase::_mfParents
     parameter name
 */
 
@@ -295,16 +295,16 @@ ShaderParameterBase::~ShaderParameterBase(void)
 /* Parent linking                                                          */
 
 bool ShaderParameterBase::linkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            childFieldId,
-    const UInt16            parentFieldId )
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
 {
     if(parentFieldId == ParentsFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
         
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             editMField(ParentsFieldMask, _mfParents);
 
@@ -320,15 +320,15 @@ bool ShaderParameterBase::linkParent(
 }
 
 bool ShaderParameterBase::unlinkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            parentFieldId)
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentsFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
             
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             MFParentFieldContainerPtr::iterator pI = 
                 _mfParents.find_nc(pParent);
@@ -428,27 +428,27 @@ void ShaderParameterBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterPtr>::_type("ShaderParameterPtr", "AttachmentContainerPtr");
+DataType FieldTraits<ShaderParameter *>::_type("ShaderParameterPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterPtr)
+OSG_FIELDTRAITS_GETTYPE(ShaderParameter *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterPtr, 
+                           ShaderParameter *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterPtr, 
+                           ShaderParameter *, 
                            0);
 
-DataType &FieldTraits< ShaderParameterPtr, 1 >::getType(void)
+DataType &FieldTraits< ShaderParameter *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<ShaderParameterPtr, 0>::getType();
+    return FieldTraits<ShaderParameter *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      ShaderParameterPtr,       
+                      ShaderParameter *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

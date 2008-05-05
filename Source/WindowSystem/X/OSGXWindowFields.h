@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(XWindow);
 #endif
 
 template <>
-struct FieldTraits<XWindowPtr> :
-    public FieldTraitsFCPtrBase<XWindowPtr>
+struct FieldTraits<XWindow *> :
+    public FieldTraitsFCPtrBase<XWindow *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<XWindowPtr> :
 
   public:
 
-    typedef FieldTraits<XWindowPtr>  Self;
+    typedef FieldTraits<XWindow *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<XWindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecXWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecXWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakXWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdXWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecXWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecXWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakXWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<XWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<XWindow *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdXWindowPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<XWindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowXFieldSingle */
 
-typedef PointerSField<XWindowPtr,
+typedef PointerSField<XWindow *,
                       RecordedRefCountPolicy  > SFRecXWindowPtr;
-typedef PointerSField<XWindowPtr,
+typedef PointerSField<XWindow *,
                       UnrecordedRefCountPolicy> SFUnrecXWindowPtr;
-typedef PointerSField<XWindowPtr,
+typedef PointerSField<XWindow *,
                       WeakRefCountPolicy      > SFWeakXWindowPtr;
-typedef PointerSField<XWindowPtr,
+typedef PointerSField<XWindow *,
                       NoRefCountPolicy        > SFUncountedXWindowPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<XWindowPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowXFieldMulti */
 
-typedef PointerMField<XWindowPtr,
+typedef PointerMField<XWindow *,
                       RecordedRefCountPolicy  > MFRecXWindowPtr;
-typedef PointerMField<XWindowPtr,
+typedef PointerMField<XWindow *,
                       UnrecordedRefCountPolicy> MFUnrecXWindowPtr;
-typedef PointerMField<XWindowPtr,
+typedef PointerMField<XWindow *,
                       WeakRefCountPolicy      > MFWeakXWindowPtr;
-typedef PointerMField<XWindowPtr,
+typedef PointerMField<XWindow *,
                       NoRefCountPolicy        > MFUncountedXWindowPtr;
 #endif
 

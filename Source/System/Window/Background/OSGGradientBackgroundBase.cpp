@@ -303,7 +303,7 @@ GradientBackgroundTransitPtr GradientBackgroundBase::create(void)
 {
     GradientBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -319,7 +319,7 @@ GradientBackgroundTransitPtr GradientBackgroundBase::createLocal(BitVector bFlag
 {
     GradientBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -331,9 +331,9 @@ GradientBackgroundTransitPtr GradientBackgroundBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GradientBackgroundPtr GradientBackgroundBase::createEmpty(void)
+GradientBackground *GradientBackgroundBase::createEmpty(void)
 {
-    GradientBackgroundPtr returnValue;
+    GradientBackground *returnValue;
 
     newPtr<GradientBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -343,9 +343,9 @@ GradientBackgroundPtr GradientBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-GradientBackgroundPtr GradientBackgroundBase::createEmptyLocal(BitVector bFlags)
+GradientBackground *GradientBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    GradientBackgroundPtr returnValue;
+    GradientBackground *returnValue;
 
     newPtr<GradientBackground>(returnValue, bFlags);
 
@@ -356,7 +356,7 @@ GradientBackgroundPtr GradientBackgroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr GradientBackgroundBase::shallowCopy(void) const
 {
-    GradientBackgroundPtr tmpPtr;
+    GradientBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const GradientBackground *>(this), 
@@ -372,7 +372,7 @@ FieldContainerTransitPtr GradientBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr GradientBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    GradientBackgroundPtr tmpPtr;
+    GradientBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const GradientBackground *>(this), bFlags);
 
@@ -471,9 +471,9 @@ void GradientBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr GradientBackgroundBase::createAspectCopy(void) const
+FieldContainer *GradientBackgroundBase::createAspectCopy(void) const
 {
-    GradientBackgroundPtr returnValue;
+    GradientBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const GradientBackground *>(this));
@@ -504,14 +504,14 @@ void GradientBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GradientBackgroundPtr>::_type("GradientBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<GradientBackground *>::_type("GradientBackgroundPtr", "BackgroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GradientBackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(GradientBackground *)
 
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GradientBackgroundPtr, 
+                           GradientBackground *, 
                            0);
 
 OSG_END_NAMESPACE

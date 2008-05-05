@@ -546,7 +546,7 @@ SHLChunkTransitPtr SHLChunkBase::create(void)
 {
     SHLChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -562,7 +562,7 @@ SHLChunkTransitPtr SHLChunkBase::createLocal(BitVector bFlags)
 {
     SHLChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -574,9 +574,9 @@ SHLChunkTransitPtr SHLChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SHLChunkPtr SHLChunkBase::createEmpty(void)
+SHLChunk *SHLChunkBase::createEmpty(void)
 {
-    SHLChunkPtr returnValue;
+    SHLChunk *returnValue;
 
     newPtr<SHLChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -586,9 +586,9 @@ SHLChunkPtr SHLChunkBase::createEmpty(void)
     return returnValue;
 }
 
-SHLChunkPtr SHLChunkBase::createEmptyLocal(BitVector bFlags)
+SHLChunk *SHLChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    SHLChunkPtr returnValue;
+    SHLChunk *returnValue;
 
     newPtr<SHLChunk>(returnValue, bFlags);
 
@@ -599,7 +599,7 @@ SHLChunkPtr SHLChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SHLChunkBase::shallowCopy(void) const
 {
-    SHLChunkPtr tmpPtr;
+    SHLChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SHLChunk *>(this), 
@@ -615,7 +615,7 @@ FieldContainerTransitPtr SHLChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr SHLChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SHLChunkPtr tmpPtr;
+    SHLChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SHLChunk *>(this), bFlags);
 
@@ -786,9 +786,9 @@ void SHLChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SHLChunkBase::createAspectCopy(void) const
+FieldContainer *SHLChunkBase::createAspectCopy(void) const
 {
-    SHLChunkPtr returnValue;
+    SHLChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SHLChunk *>(this));
@@ -819,17 +819,17 @@ void SHLChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SHLChunkPtr>::_type("SHLChunkPtr", "ShaderChunkPtr");
+DataType FieldTraits<SHLChunk *>::_type("SHLChunkPtr", "ShaderChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SHLChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(SHLChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SHLChunkPtr, 
+                           SHLChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SHLChunkPtr, 
+                           SHLChunk *, 
                            0);
 
 OSG_END_NAMESPACE

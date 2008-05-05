@@ -76,7 +76,7 @@ OSG::UInt16 ChunkMaterialBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ChunkMaterial::_mfChunks field.
 inline
-StateChunkPtr ChunkMaterialBase::getChunks(const UInt32 index) const
+StateChunk * ChunkMaterialBase::getChunks(const UInt32 index) const
 {
     return _mfChunks[index];
 }

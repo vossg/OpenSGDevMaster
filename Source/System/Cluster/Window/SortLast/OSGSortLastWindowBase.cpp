@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var NodePtr         SortLastWindowBase::_mfGroupNodes
+/*! \var Node *          SortLastWindowBase::_mfGroupNodes
     
 */
 
@@ -264,7 +264,7 @@ SFBool              *SortLastWindowBase::getSFGroupsChanged  (void)
 
 
 
-void SortLastWindowBase::pushToGroupNodes(const NodePtr value)
+void SortLastWindowBase::pushToGroupNodes(Node * const value)
 {
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
@@ -302,7 +302,7 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
     }
 }
 
-void SortLastWindowBase::removeFromGroupNodes(const NodePtr value)
+void SortLastWindowBase::removeFromGroupNodes(Node * const value)
 {
     Int32 iElemIdx = _mfGroupNodes.findIndex(value);
 
@@ -392,7 +392,7 @@ SortLastWindowTransitPtr SortLastWindowBase::create(void)
 {
     SortLastWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -408,7 +408,7 @@ SortLastWindowTransitPtr SortLastWindowBase::createLocal(BitVector bFlags)
 {
     SortLastWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -420,9 +420,9 @@ SortLastWindowTransitPtr SortLastWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SortLastWindowPtr SortLastWindowBase::createEmpty(void)
+SortLastWindow *SortLastWindowBase::createEmpty(void)
 {
-    SortLastWindowPtr returnValue;
+    SortLastWindow *returnValue;
 
     newPtr<SortLastWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -432,9 +432,9 @@ SortLastWindowPtr SortLastWindowBase::createEmpty(void)
     return returnValue;
 }
 
-SortLastWindowPtr SortLastWindowBase::createEmptyLocal(BitVector bFlags)
+SortLastWindow *SortLastWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    SortLastWindowPtr returnValue;
+    SortLastWindow *returnValue;
 
     newPtr<SortLastWindow>(returnValue, bFlags);
 
@@ -445,7 +445,7 @@ SortLastWindowPtr SortLastWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SortLastWindowBase::shallowCopy(void) const
 {
-    SortLastWindowPtr tmpPtr;
+    SortLastWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SortLastWindow *>(this), 
@@ -461,7 +461,7 @@ FieldContainerTransitPtr SortLastWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr SortLastWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SortLastWindowPtr tmpPtr;
+    SortLastWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SortLastWindow *>(this), bFlags);
 
@@ -608,9 +608,9 @@ void SortLastWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SortLastWindowBase::createAspectCopy(void) const
+FieldContainer *SortLastWindowBase::createAspectCopy(void) const
 {
-    SortLastWindowPtr returnValue;
+    SortLastWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SortLastWindow *>(this));
@@ -638,7 +638,7 @@ void SortLastWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SortLastWindowPtr>::_type("SortLastWindowPtr", "ClusterWindowPtr");
+DataType FieldTraits<SortLastWindow *>::_type("SortLastWindowPtr", "ClusterWindowPtr");
 #endif
 
 

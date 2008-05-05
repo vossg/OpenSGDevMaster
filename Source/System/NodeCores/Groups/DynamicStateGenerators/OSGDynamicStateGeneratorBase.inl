@@ -76,14 +76,14 @@ OSG::UInt16 DynamicStateGeneratorBase::getClassGroupId(void)
 
 //! Get the value of the DynamicStateGenerator::_sfRenderTarget field.
 inline
-FrameBufferObjectPtr DynamicStateGeneratorBase::getRenderTarget(void) const
+FrameBufferObject * DynamicStateGeneratorBase::getRenderTarget(void) const
 {
     return _sfRenderTarget.getValue();
 }
 
 //! Set the value of the DynamicStateGenerator::_sfRenderTarget field.
 inline
-void DynamicStateGeneratorBase::setRenderTarget(const FrameBufferObjectPtr value)
+void DynamicStateGeneratorBase::setRenderTarget(FrameBufferObject * const value)
 {
     editSField(RenderTargetFieldMask);
 

@@ -62,8 +62,8 @@ OSG_GEN_CONTAINERPTR(GeoPnt3fProperty);
 #endif
 
 template <>
-struct FieldTraits<GeoPnt3fPropertyPtr> : 
-    public FieldTraitsFCPtrBase<GeoPnt3fPropertyPtr>
+struct FieldTraits<GeoPnt3fProperty *> : 
+    public FieldTraitsFCPtrBase<GeoPnt3fProperty *>
 {
   private:
 
@@ -71,7 +71,7 @@ struct FieldTraits<GeoPnt3fPropertyPtr> :
 
   public:
 
-    typedef FieldTraits<GeoPnt3fPropertyPtr>  Self;
+    typedef FieldTraits<GeoPnt3fProperty *>  Self;
 
     enum                        { StringConvertable = 0x00 };
 
@@ -85,9 +85,9 @@ struct FieldTraits<GeoPnt3fPropertyPtr> :
     static const Char8 *getMName(void);
 };
 
-OSG_FIELD_TRAITS_NAME_INST(GeoPnt3fPropertyPtr)
+OSG_FIELD_TRAITS_NAME_INST(GeoPnt3fProperty *, GeoPnt3fPropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoPnt3fPropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoPnt3fProperty *, GeoPnt3fPropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -109,8 +109,8 @@ OSG_GEN_CONTAINERPTR(GeoVec3fProperty);
 #endif
 
 template <>
-struct FieldTraits<GeoVec3fPropertyPtr> : 
-    public FieldTraitsFCPtrBase<GeoVec3fPropertyPtr>
+struct FieldTraits<GeoVec3fProperty *> : 
+    public FieldTraitsFCPtrBase<GeoVec3fProperty *>
 {
   private:
 
@@ -118,7 +118,7 @@ struct FieldTraits<GeoVec3fPropertyPtr> :
 
   public:
 
-    typedef FieldTraits<GeoVec3fPropertyPtr>  Self;
+    typedef FieldTraits<GeoVec3fProperty *>  Self;
 
     enum                        { StringConvertable = 0x00 };
 
@@ -134,9 +134,9 @@ struct FieldTraits<GeoVec3fPropertyPtr> :
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-OSG_FIELD_TRAITS_NAME_INST(GeoVec3fPropertyPtr)
+OSG_FIELD_TRAITS_NAME_INST(GeoVec3fProperty *, GeoVec3fPropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoVec3fPropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoVec3fProperty *, GeoVec3fPropertyPtr);
 
 
 
@@ -156,8 +156,8 @@ OSG_GEN_CONTAINERPTR(GeoColor4fProperty);
 #endif
 
 template <>
-struct FieldTraits<GeoColor4fPropertyPtr> : 
-    public FieldTraitsFCPtrBase<GeoColor4fPropertyPtr>
+struct FieldTraits<GeoColor4fProperty *> : 
+    public FieldTraitsFCPtrBase<GeoColor4fProperty *>
 {
   private:
 
@@ -165,7 +165,7 @@ struct FieldTraits<GeoColor4fPropertyPtr> :
 
   public:
 
-    typedef FieldTraits<GeoColor4fPropertyPtr>  Self;
+    typedef FieldTraits<GeoColor4fProperty *>  Self;
 
     enum                        { StringConvertable = 0x00 };
 
@@ -179,9 +179,9 @@ struct FieldTraits<GeoColor4fPropertyPtr> :
     static const Char8 *getMName(void);
 };
 
-OSG_FIELD_TRAITS_NAME_INST(GeoColor4fPropertyPtr)
+OSG_FIELD_TRAITS_NAME_INST(GeoColor4fProperty *, GeoColor4fPropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoColor4fPropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoColor4fProperty *, GeoColor4fPropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 

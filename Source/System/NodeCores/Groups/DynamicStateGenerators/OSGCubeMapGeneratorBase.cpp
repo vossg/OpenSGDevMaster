@@ -86,15 +86,15 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var NodePtr         CubeMapGeneratorBase::_sfRoot
+/*! \var Node *          CubeMapGeneratorBase::_sfRoot
     
 */
 
-/*! \var NodePtr         CubeMapGeneratorBase::_mfExclude
+/*! \var Node *          CubeMapGeneratorBase::_mfExclude
     
 */
 
-/*! \var TextureObjChunkPtr CubeMapGeneratorBase::_sfTexture
+/*! \var TextureObjChunk * CubeMapGeneratorBase::_sfTexture
     
 */
 
@@ -106,7 +106,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var NodePtr         CubeMapGeneratorBase::_sfBeacon
+/*! \var Node *          CubeMapGeneratorBase::_sfBeacon
     
 */
 
@@ -126,7 +126,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var BackgroundPtr   CubeMapGeneratorBase::_sfBackground
+/*! \var Background *    CubeMapGeneratorBase::_sfBackground
     
 */
 
@@ -300,7 +300,7 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     "\t\ttype=\"NodePtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -318,7 +318,7 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     "\t\ttype=\"TextureObjChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -346,7 +346,7 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -391,7 +391,7 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     "\t\ttype=\"BackgroundPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -600,7 +600,7 @@ SFUnrecBackgroundPtr *CubeMapGeneratorBase::editSFBackground     (void)
 
 
 
-void CubeMapGeneratorBase::pushToExclude(const NodePtr value)
+void CubeMapGeneratorBase::pushToExclude(Node * const value)
 {
     editMField(ExcludeFieldMask, _mfExclude);
 
@@ -638,7 +638,7 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
     }
 }
 
-void CubeMapGeneratorBase::removeFromExclude(const NodePtr value)
+void CubeMapGeneratorBase::removeFromExclude(Node * const value)
 {
     Int32 iElemIdx = _mfExclude.findIndex(value);
 
@@ -824,7 +824,7 @@ CubeMapGeneratorTransitPtr CubeMapGeneratorBase::create(void)
 {
     CubeMapGeneratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -840,7 +840,7 @@ CubeMapGeneratorTransitPtr CubeMapGeneratorBase::createLocal(BitVector bFlags)
 {
     CubeMapGeneratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -852,9 +852,9 @@ CubeMapGeneratorTransitPtr CubeMapGeneratorBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CubeMapGeneratorPtr CubeMapGeneratorBase::createEmpty(void)
+CubeMapGenerator *CubeMapGeneratorBase::createEmpty(void)
 {
-    CubeMapGeneratorPtr returnValue;
+    CubeMapGenerator *returnValue;
 
     newPtr<CubeMapGenerator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -864,9 +864,9 @@ CubeMapGeneratorPtr CubeMapGeneratorBase::createEmpty(void)
     return returnValue;
 }
 
-CubeMapGeneratorPtr CubeMapGeneratorBase::createEmptyLocal(BitVector bFlags)
+CubeMapGenerator *CubeMapGeneratorBase::createEmptyLocal(BitVector bFlags)
 {
-    CubeMapGeneratorPtr returnValue;
+    CubeMapGenerator *returnValue;
 
     newPtr<CubeMapGenerator>(returnValue, bFlags);
 
@@ -877,7 +877,7 @@ CubeMapGeneratorPtr CubeMapGeneratorBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopy(void) const
 {
-    CubeMapGeneratorPtr tmpPtr;
+    CubeMapGenerator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const CubeMapGenerator *>(this), 
@@ -893,7 +893,7 @@ FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopy(void) const
 FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CubeMapGeneratorPtr tmpPtr;
+    CubeMapGenerator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const CubeMapGenerator *>(this), bFlags);
 
@@ -910,33 +910,33 @@ FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopyLocal(
 
 CubeMapGeneratorBase::CubeMapGeneratorBase(void) :
     Inherited(),
-    _sfRoot                   (NodePtr(NullFC)),
+    _sfRoot                   (NULL),
     _mfExclude                (),
-    _sfTexture                (TextureObjChunkPtr(NullFC)),
+    _sfTexture                (NULL),
     _sfTextureSize            (Vec2s(0, 0)),
     _sfTextureFormat          (GLenum(GL_NONE)),
-    _sfBeacon                 (NodePtr(NullFC)),
+    _sfBeacon                 (NULL),
     _sfOrigin                 (Pnt3f(0.f,0.f,0.f)),
     _sfOriginMode             (UInt32(CubeMapGenerator::UseCurrentVolumeCenter)),
     _sfTexUnit                (UInt32(0)),
     _sfSetupMode              (UInt32(CubeMapGenerator::SetupAll)),
-    _sfBackground             (BackgroundPtr(NullFC))
+    _sfBackground             (NULL)
 {
 }
 
 CubeMapGeneratorBase::CubeMapGeneratorBase(const CubeMapGeneratorBase &source) :
     Inherited(source),
-    _sfRoot                   (NullFC),
+    _sfRoot                   (NULL),
     _mfExclude                (),
-    _sfTexture                (NullFC),
+    _sfTexture                (NULL),
     _sfTextureSize            (source._sfTextureSize            ),
     _sfTextureFormat          (source._sfTextureFormat          ),
-    _sfBeacon                 (NullFC),
+    _sfBeacon                 (NULL),
     _sfOrigin                 (source._sfOrigin                 ),
     _sfOriginMode             (source._sfOriginMode             ),
     _sfTexUnit                (source._sfTexUnit                ),
     _sfSetupMode              (source._sfSetupMode              ),
-    _sfBackground             (NullFC)
+    _sfBackground             (NULL)
 {
 }
 
@@ -1252,9 +1252,9 @@ void CubeMapGeneratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CubeMapGeneratorBase::createAspectCopy(void) const
+FieldContainer *CubeMapGeneratorBase::createAspectCopy(void) const
 {
-    CubeMapGeneratorPtr returnValue;
+    CubeMapGenerator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CubeMapGenerator *>(this));
@@ -1267,13 +1267,13 @@ void CubeMapGeneratorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<CubeMapGenerator *>(this)->setRoot(NullFC);
+    static_cast<CubeMapGenerator *>(this)->setRoot(NULL);
 
-    static_cast<CubeMapGenerator *>(this)->setTexture(NullFC);
+    static_cast<CubeMapGenerator *>(this)->setTexture(NULL);
 
-    static_cast<CubeMapGenerator *>(this)->setBeacon(NullFC);
+    static_cast<CubeMapGenerator *>(this)->setBeacon(NULL);
 
-    static_cast<CubeMapGenerator *>(this)->setBackground(NullFC);
+    static_cast<CubeMapGenerator *>(this)->setBackground(NULL);
 
 
     static_cast<CubeMapGenerator *>(this)->clearExclude();
@@ -1281,7 +1281,7 @@ void CubeMapGeneratorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeMapGeneratorPtr>::_type("CubeMapGeneratorPtr", "DynamicStateGeneratorPtr");
+DataType FieldTraits<CubeMapGenerator *>::_type("CubeMapGeneratorPtr", "DynamicStateGeneratorPtr");
 #endif
 
 

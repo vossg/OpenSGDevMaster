@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ShaderParameterMInt);
 #endif
 
 template <>
-struct FieldTraits<ShaderParameterMIntPtr> :
-    public FieldTraitsFCPtrBase<ShaderParameterMIntPtr>
+struct FieldTraits<ShaderParameterMInt *> :
+    public FieldTraitsFCPtrBase<ShaderParameterMInt *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ShaderParameterMIntPtr> :
 
   public:
 
-    typedef FieldTraits<ShaderParameterMIntPtr>  Self;
+    typedef FieldTraits<ShaderParameterMInt *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ShaderParameterMIntPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShaderParameterMIntPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShaderParameterMIntPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShaderParameterMIntPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShaderParameterMIntPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShaderParameterMIntPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShaderParameterMIntPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShaderParameterMIntPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShaderParameterMInt *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShaderParameterMIntPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ShaderParameterMIntPtr, 0>::getMName<NoRefCountPolicy>(
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<ShaderParameterMIntPtr,
+typedef PointerSField<ShaderParameterMInt *,
                       RecordedRefCountPolicy  > SFRecShaderParameterMIntPtr;
-typedef PointerSField<ShaderParameterMIntPtr,
+typedef PointerSField<ShaderParameterMInt *,
                       UnrecordedRefCountPolicy> SFUnrecShaderParameterMIntPtr;
-typedef PointerSField<ShaderParameterMIntPtr,
+typedef PointerSField<ShaderParameterMInt *,
                       WeakRefCountPolicy      > SFWeakShaderParameterMIntPtr;
-typedef PointerSField<ShaderParameterMIntPtr,
+typedef PointerSField<ShaderParameterMInt *,
                       NoRefCountPolicy        > SFUncountedShaderParameterMIntPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ShaderParameterMIntPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<ShaderParameterMIntPtr,
+typedef PointerMField<ShaderParameterMInt *,
                       RecordedRefCountPolicy  > MFRecShaderParameterMIntPtr;
-typedef PointerMField<ShaderParameterMIntPtr,
+typedef PointerMField<ShaderParameterMInt *,
                       UnrecordedRefCountPolicy> MFUnrecShaderParameterMIntPtr;
-typedef PointerMField<ShaderParameterMIntPtr,
+typedef PointerMField<ShaderParameterMInt *,
                       WeakRefCountPolicy      > MFWeakShaderParameterMIntPtr;
-typedef PointerMField<ShaderParameterMIntPtr,
+typedef PointerMField<ShaderParameterMInt *,
                       NoRefCountPolicy        > MFUncountedShaderParameterMIntPtr;
 #endif
 

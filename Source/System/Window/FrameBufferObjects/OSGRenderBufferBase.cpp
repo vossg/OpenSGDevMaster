@@ -293,7 +293,7 @@ RenderBufferTransitPtr RenderBufferBase::create(void)
 {
     RenderBufferTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -309,7 +309,7 @@ RenderBufferTransitPtr RenderBufferBase::createLocal(BitVector bFlags)
 {
     RenderBufferTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -321,9 +321,9 @@ RenderBufferTransitPtr RenderBufferBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-RenderBufferPtr RenderBufferBase::createEmpty(void)
+RenderBuffer *RenderBufferBase::createEmpty(void)
 {
-    RenderBufferPtr returnValue;
+    RenderBuffer *returnValue;
 
     newPtr<RenderBuffer>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -333,9 +333,9 @@ RenderBufferPtr RenderBufferBase::createEmpty(void)
     return returnValue;
 }
 
-RenderBufferPtr RenderBufferBase::createEmptyLocal(BitVector bFlags)
+RenderBuffer *RenderBufferBase::createEmptyLocal(BitVector bFlags)
 {
-    RenderBufferPtr returnValue;
+    RenderBuffer *returnValue;
 
     newPtr<RenderBuffer>(returnValue, bFlags);
 
@@ -346,7 +346,7 @@ RenderBufferPtr RenderBufferBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr RenderBufferBase::shallowCopy(void) const
 {
-    RenderBufferPtr tmpPtr;
+    RenderBuffer *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const RenderBuffer *>(this), 
@@ -362,7 +362,7 @@ FieldContainerTransitPtr RenderBufferBase::shallowCopy(void) const
 FieldContainerTransitPtr RenderBufferBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    RenderBufferPtr tmpPtr;
+    RenderBuffer *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const RenderBuffer *>(this), bFlags);
 
@@ -461,9 +461,9 @@ void RenderBufferBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr RenderBufferBase::createAspectCopy(void) const
+FieldContainer *RenderBufferBase::createAspectCopy(void) const
 {
-    RenderBufferPtr returnValue;
+    RenderBuffer *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const RenderBuffer *>(this));
@@ -481,17 +481,17 @@ void RenderBufferBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderBufferPtr>::_type("RenderBufferPtr", "FrameBufferAttachmentPtr");
+DataType FieldTraits<RenderBuffer *>::_type("RenderBufferPtr", "FrameBufferAttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RenderBufferPtr)
+OSG_FIELDTRAITS_GETTYPE(RenderBuffer *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           RenderBufferPtr, 
+                           RenderBuffer *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           RenderBufferPtr, 
+                           RenderBuffer *, 
                            0);
 
 OSG_END_NAMESPACE

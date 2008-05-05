@@ -538,13 +538,13 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ImageTransitPtr create          (void);
-    static  ImagePtr        createEmpty     (void);
+    static  ImageTransitPtr  create          (void);
+    static  Image           *createEmpty     (void);
 
-    static  ImageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ImageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ImagePtr        createEmptyLocal(
+    static  Image            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -622,11 +622,11 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name Parent linking                                               */
     /*! \{                                                                 */
 
-    virtual bool linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId);
-    virtual bool unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId);
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -737,7 +737,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

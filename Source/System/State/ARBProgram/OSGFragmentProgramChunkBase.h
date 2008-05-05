@@ -126,13 +126,13 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FragmentProgramChunkTransitPtr create          (void);
-    static  FragmentProgramChunkPtr        createEmpty     (void);
+    static  FragmentProgramChunkTransitPtr  create          (void);
+    static  FragmentProgramChunk           *createEmpty     (void);
 
-    static  FragmentProgramChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  FragmentProgramChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  FragmentProgramChunkPtr        createEmptyLocal(
+    static  FragmentProgramChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

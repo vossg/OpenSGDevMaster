@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Light);
 #endif
 
 template <>
-struct FieldTraits<LightPtr> :
-    public FieldTraitsFCPtrBase<LightPtr>
+struct FieldTraits<Light *> :
+    public FieldTraitsFCPtrBase<Light *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<LightPtr> :
 
   public:
 
-    typedef FieldTraits<LightPtr>  Self;
+    typedef FieldTraits<Light *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

@@ -76,14 +76,14 @@ OSG::UInt16 GeometryBase::getClassGroupId(void)
 
 //! Get the value of the Geometry::_sfTypes field.
 inline
-GeoIntegralPropertyPtr GeometryBase::getTypes(void) const
+GeoIntegralProperty * GeometryBase::getTypes(void) const
 {
     return _sfTypes.getValue();
 }
 
 //! Set the value of the Geometry::_sfTypes field.
 inline
-void GeometryBase::setTypes(const GeoIntegralPropertyPtr value)
+void GeometryBase::setTypes(GeoIntegralProperty * const value)
 {
     editSField(TypesFieldMask);
 
@@ -92,14 +92,14 @@ void GeometryBase::setTypes(const GeoIntegralPropertyPtr value)
 
 //! Get the value of the Geometry::_sfLengths field.
 inline
-GeoIntegralPropertyPtr GeometryBase::getLengths(void) const
+GeoIntegralProperty * GeometryBase::getLengths(void) const
 {
     return _sfLengths.getValue();
 }
 
 //! Set the value of the Geometry::_sfLengths field.
 inline
-void GeometryBase::setLengths(const GeoIntegralPropertyPtr value)
+void GeometryBase::setLengths(GeoIntegralProperty * const value)
 {
     editSField(LengthsFieldMask);
 
@@ -174,14 +174,14 @@ void GeometryBase::setAttGLId(const Int32 &value)
 
 //! Get the value of the \a index element the Geometry::_mfProperties field.
 inline
-GeoVectorPropertyPtr GeometryBase::getProperties(const UInt32 index) const
+GeoVectorProperty * GeometryBase::getProperties(const UInt32 index) const
 {
     return _mfProperties[index];
 }
 
 //! Get the value of the \a index element the Geometry::_mfPropIndices field.
 inline
-GeoIntegralPropertyPtr GeometryBase::getPropIndices(const UInt32 index) const
+GeoIntegralProperty * GeometryBase::getPropIndices(const UInt32 index) const
 {
     return _mfPropIndices[index];
 }

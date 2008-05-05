@@ -168,13 +168,13 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TransformChunkTransitPtr create          (void);
-    static  TransformChunkPtr        createEmpty     (void);
+    static  TransformChunkTransitPtr  create          (void);
+    static  TransformChunk           *createEmpty     (void);
 
-    static  TransformChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TransformChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TransformChunkPtr        createEmptyLocal(
+    static  TransformChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

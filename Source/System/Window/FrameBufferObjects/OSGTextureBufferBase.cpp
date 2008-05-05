@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var TextureObjChunkPtr TextureBufferBase::_sfTexture
+/*! \var TextureObjChunk * TextureBufferBase::_sfTexture
     The texture object to target.
 */
 
@@ -401,7 +401,7 @@ TextureBufferTransitPtr TextureBufferBase::create(void)
 {
     TextureBufferTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -417,7 +417,7 @@ TextureBufferTransitPtr TextureBufferBase::createLocal(BitVector bFlags)
 {
     TextureBufferTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -429,9 +429,9 @@ TextureBufferTransitPtr TextureBufferBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureBufferPtr TextureBufferBase::createEmpty(void)
+TextureBuffer *TextureBufferBase::createEmpty(void)
 {
-    TextureBufferPtr returnValue;
+    TextureBuffer *returnValue;
 
     newPtr<TextureBuffer>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -441,9 +441,9 @@ TextureBufferPtr TextureBufferBase::createEmpty(void)
     return returnValue;
 }
 
-TextureBufferPtr TextureBufferBase::createEmptyLocal(BitVector bFlags)
+TextureBuffer *TextureBufferBase::createEmptyLocal(BitVector bFlags)
 {
-    TextureBufferPtr returnValue;
+    TextureBuffer *returnValue;
 
     newPtr<TextureBuffer>(returnValue, bFlags);
 
@@ -454,7 +454,7 @@ TextureBufferPtr TextureBufferBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TextureBufferBase::shallowCopy(void) const
 {
-    TextureBufferPtr tmpPtr;
+    TextureBuffer *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TextureBuffer *>(this), 
@@ -470,7 +470,7 @@ FieldContainerTransitPtr TextureBufferBase::shallowCopy(void) const
 FieldContainerTransitPtr TextureBufferBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TextureBufferPtr tmpPtr;
+    TextureBuffer *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TextureBuffer *>(this), bFlags);
 
@@ -487,7 +487,7 @@ FieldContainerTransitPtr TextureBufferBase::shallowCopyLocal(
 
 TextureBufferBase::TextureBufferBase(void) :
     Inherited(),
-    _sfTexture                (NullFC),
+    _sfTexture                (NULL),
     _sfTexTarget              (GLenum(GL_NONE)),
     _sfLevel                  (UInt32(0)),
     _sfZoffset                (UInt32(0))
@@ -496,7 +496,7 @@ TextureBufferBase::TextureBufferBase(void) :
 
 TextureBufferBase::TextureBufferBase(const TextureBufferBase &source) :
     Inherited(source),
-    _sfTexture                (NullFC),
+    _sfTexture                (NULL),
     _sfTexTarget              (source._sfTexTarget              ),
     _sfLevel                  (source._sfLevel                  ),
     _sfZoffset                (source._sfZoffset                )
@@ -631,9 +631,9 @@ void TextureBufferBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TextureBufferBase::createAspectCopy(void) const
+FieldContainer *TextureBufferBase::createAspectCopy(void) const
 {
-    TextureBufferPtr returnValue;
+    TextureBuffer *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TextureBuffer *>(this));
@@ -646,24 +646,24 @@ void TextureBufferBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<TextureBuffer *>(this)->setTexture(NullFC);
+    static_cast<TextureBuffer *>(this)->setTexture(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBufferPtr>::_type("TextureBufferPtr", "FrameBufferAttachmentPtr");
+DataType FieldTraits<TextureBuffer *>::_type("TextureBufferPtr", "FrameBufferAttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureBufferPtr)
+OSG_FIELDTRAITS_GETTYPE(TextureBuffer *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureBufferPtr, 
+                           TextureBuffer *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureBufferPtr, 
+                           TextureBuffer *, 
                            0);
 
 OSG_END_NAMESPACE

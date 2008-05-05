@@ -302,7 +302,7 @@ StereoBufferViewportTransitPtr StereoBufferViewportBase::create(void)
 {
     StereoBufferViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -318,7 +318,7 @@ StereoBufferViewportTransitPtr StereoBufferViewportBase::createLocal(BitVector b
 {
     StereoBufferViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -330,9 +330,9 @@ StereoBufferViewportTransitPtr StereoBufferViewportBase::createLocal(BitVector b
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StereoBufferViewportPtr StereoBufferViewportBase::createEmpty(void)
+StereoBufferViewport *StereoBufferViewportBase::createEmpty(void)
 {
-    StereoBufferViewportPtr returnValue;
+    StereoBufferViewport *returnValue;
 
     newPtr<StereoBufferViewport>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -342,9 +342,9 @@ StereoBufferViewportPtr StereoBufferViewportBase::createEmpty(void)
     return returnValue;
 }
 
-StereoBufferViewportPtr StereoBufferViewportBase::createEmptyLocal(BitVector bFlags)
+StereoBufferViewport *StereoBufferViewportBase::createEmptyLocal(BitVector bFlags)
 {
-    StereoBufferViewportPtr returnValue;
+    StereoBufferViewport *returnValue;
 
     newPtr<StereoBufferViewport>(returnValue, bFlags);
 
@@ -355,7 +355,7 @@ StereoBufferViewportPtr StereoBufferViewportBase::createEmptyLocal(BitVector bFl
 
 FieldContainerTransitPtr StereoBufferViewportBase::shallowCopy(void) const
 {
-    StereoBufferViewportPtr tmpPtr;
+    StereoBufferViewport *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const StereoBufferViewport *>(this), 
@@ -371,7 +371,7 @@ FieldContainerTransitPtr StereoBufferViewportBase::shallowCopy(void) const
 FieldContainerTransitPtr StereoBufferViewportBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    StereoBufferViewportPtr tmpPtr;
+    StereoBufferViewport *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const StereoBufferViewport *>(this), bFlags);
 
@@ -470,9 +470,9 @@ void StereoBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr StereoBufferViewportBase::createAspectCopy(void) const
+FieldContainer *StereoBufferViewportBase::createAspectCopy(void) const
 {
-    StereoBufferViewportPtr returnValue;
+    StereoBufferViewport *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const StereoBufferViewport *>(this));
@@ -490,17 +490,17 @@ void StereoBufferViewportBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StereoBufferViewportPtr>::_type("StereoBufferViewportPtr", "ViewportPtr");
+DataType FieldTraits<StereoBufferViewport *>::_type("StereoBufferViewportPtr", "ViewportPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StereoBufferViewportPtr)
+OSG_FIELDTRAITS_GETTYPE(StereoBufferViewport *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StereoBufferViewportPtr, 
+                           StereoBufferViewport *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StereoBufferViewportPtr, 
+                           StereoBufferViewport *, 
                            0);
 
 OSG_END_NAMESPACE

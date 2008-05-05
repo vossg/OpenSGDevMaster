@@ -168,13 +168,13 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DirectionalLightTransitPtr create          (void);
-    static  DirectionalLightPtr        createEmpty     (void);
+    static  DirectionalLightTransitPtr  create          (void);
+    static  DirectionalLight           *createEmpty     (void);
 
-    static  DirectionalLightTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  DirectionalLightTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  DirectionalLightPtr        createEmptyLocal(
+    static  DirectionalLight            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -159,7 +159,7 @@ SepiaComposerTransitPtr SepiaComposerBase::create(void)
 {
     SepiaComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -175,7 +175,7 @@ SepiaComposerTransitPtr SepiaComposerBase::createLocal(BitVector bFlags)
 {
     SepiaComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -187,9 +187,9 @@ SepiaComposerTransitPtr SepiaComposerBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SepiaComposerPtr SepiaComposerBase::createEmpty(void)
+SepiaComposer *SepiaComposerBase::createEmpty(void)
 {
-    SepiaComposerPtr returnValue;
+    SepiaComposer *returnValue;
 
     newPtr<SepiaComposer>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -199,9 +199,9 @@ SepiaComposerPtr SepiaComposerBase::createEmpty(void)
     return returnValue;
 }
 
-SepiaComposerPtr SepiaComposerBase::createEmptyLocal(BitVector bFlags)
+SepiaComposer *SepiaComposerBase::createEmptyLocal(BitVector bFlags)
 {
-    SepiaComposerPtr returnValue;
+    SepiaComposer *returnValue;
 
     newPtr<SepiaComposer>(returnValue, bFlags);
 
@@ -212,7 +212,7 @@ SepiaComposerPtr SepiaComposerBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SepiaComposerBase::shallowCopy(void) const
 {
-    SepiaComposerPtr tmpPtr;
+    SepiaComposer *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SepiaComposer *>(this), 
@@ -228,7 +228,7 @@ FieldContainerTransitPtr SepiaComposerBase::shallowCopy(void) const
 FieldContainerTransitPtr SepiaComposerBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SepiaComposerPtr tmpPtr;
+    SepiaComposer *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SepiaComposer *>(this), bFlags);
 
@@ -279,9 +279,9 @@ void SepiaComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SepiaComposerBase::createAspectCopy(void) const
+FieldContainer *SepiaComposerBase::createAspectCopy(void) const
 {
-    SepiaComposerPtr returnValue;
+    SepiaComposer *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SepiaComposer *>(this));
@@ -299,7 +299,7 @@ void SepiaComposerBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SepiaComposerPtr>::_type("SepiaComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<SepiaComposer *>::_type("SepiaComposerPtr", "ImageComposerPtr");
 #endif
 
 

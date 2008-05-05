@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(StatsAttachment);
 #endif
 
 template <>
-struct FieldTraits<StatsAttachmentPtr> :
-    public FieldTraitsFCPtrBase<StatsAttachmentPtr>
+struct FieldTraits<StatsAttachment *> :
+    public FieldTraitsFCPtrBase<StatsAttachment *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<StatsAttachmentPtr> :
 
   public:
 
-    typedef FieldTraits<StatsAttachmentPtr>  Self;
+    typedef FieldTraits<StatsAttachment *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<StatsAttachmentPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStatsAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StatsAttachment *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStatsAttachmentPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<StatsAttachmentPtr, 0>::getMName<NoRefCountPolicy>(void
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<StatsAttachmentPtr,
+typedef PointerSField<StatsAttachment *,
                       RecordedRefCountPolicy  > SFRecStatsAttachmentPtr;
-typedef PointerSField<StatsAttachmentPtr,
+typedef PointerSField<StatsAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecStatsAttachmentPtr;
-typedef PointerSField<StatsAttachmentPtr,
+typedef PointerSField<StatsAttachment *,
                       WeakRefCountPolicy      > SFWeakStatsAttachmentPtr;
-typedef PointerSField<StatsAttachmentPtr,
+typedef PointerSField<StatsAttachment *,
                       NoRefCountPolicy        > SFUncountedStatsAttachmentPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<StatsAttachmentPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<StatsAttachmentPtr,
+typedef PointerMField<StatsAttachment *,
                       RecordedRefCountPolicy  > MFRecStatsAttachmentPtr;
-typedef PointerMField<StatsAttachmentPtr,
+typedef PointerMField<StatsAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecStatsAttachmentPtr;
-typedef PointerMField<StatsAttachmentPtr,
+typedef PointerMField<StatsAttachment *,
                       WeakRefCountPolicy      > MFWeakStatsAttachmentPtr;
-typedef PointerMField<StatsAttachmentPtr,
+typedef PointerMField<StatsAttachment *,
                       NoRefCountPolicy        > MFUncountedStatsAttachmentPtr;
 #endif
 

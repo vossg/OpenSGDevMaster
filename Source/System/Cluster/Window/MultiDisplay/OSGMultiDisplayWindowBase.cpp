@@ -454,7 +454,7 @@ MultiDisplayWindowTransitPtr MultiDisplayWindowBase::create(void)
 {
     MultiDisplayWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -470,7 +470,7 @@ MultiDisplayWindowTransitPtr MultiDisplayWindowBase::createLocal(BitVector bFlag
 {
     MultiDisplayWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -482,9 +482,9 @@ MultiDisplayWindowTransitPtr MultiDisplayWindowBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MultiDisplayWindowPtr MultiDisplayWindowBase::createEmpty(void)
+MultiDisplayWindow *MultiDisplayWindowBase::createEmpty(void)
 {
-    MultiDisplayWindowPtr returnValue;
+    MultiDisplayWindow *returnValue;
 
     newPtr<MultiDisplayWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -494,9 +494,9 @@ MultiDisplayWindowPtr MultiDisplayWindowBase::createEmpty(void)
     return returnValue;
 }
 
-MultiDisplayWindowPtr MultiDisplayWindowBase::createEmptyLocal(BitVector bFlags)
+MultiDisplayWindow *MultiDisplayWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    MultiDisplayWindowPtr returnValue;
+    MultiDisplayWindow *returnValue;
 
     newPtr<MultiDisplayWindow>(returnValue, bFlags);
 
@@ -507,7 +507,7 @@ MultiDisplayWindowPtr MultiDisplayWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopy(void) const
 {
-    MultiDisplayWindowPtr tmpPtr;
+    MultiDisplayWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MultiDisplayWindow *>(this), 
@@ -523,7 +523,7 @@ FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MultiDisplayWindowPtr tmpPtr;
+    MultiDisplayWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MultiDisplayWindow *>(this), bFlags);
 
@@ -694,9 +694,9 @@ void MultiDisplayWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MultiDisplayWindowBase::createAspectCopy(void) const
+FieldContainer *MultiDisplayWindowBase::createAspectCopy(void) const
 {
-    MultiDisplayWindowPtr returnValue;
+    MultiDisplayWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MultiDisplayWindow *>(this));
@@ -714,7 +714,7 @@ void MultiDisplayWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiDisplayWindowPtr>::_type("MultiDisplayWindowPtr", "ClusterWindowPtr");
+DataType FieldTraits<MultiDisplayWindow *>::_type("MultiDisplayWindowPtr", "ClusterWindowPtr");
 #endif
 
 

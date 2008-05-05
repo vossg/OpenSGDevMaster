@@ -1347,7 +1347,7 @@ RenderOptionsTransitPtr RenderOptionsBase::create(void)
 {
     RenderOptionsTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -1363,7 +1363,7 @@ RenderOptionsTransitPtr RenderOptionsBase::createLocal(BitVector bFlags)
 {
     RenderOptionsTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1375,9 +1375,9 @@ RenderOptionsTransitPtr RenderOptionsBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-RenderOptionsPtr RenderOptionsBase::createEmpty(void)
+RenderOptions *RenderOptionsBase::createEmpty(void)
 {
-    RenderOptionsPtr returnValue;
+    RenderOptions *returnValue;
 
     newPtr<RenderOptions>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -1387,9 +1387,9 @@ RenderOptionsPtr RenderOptionsBase::createEmpty(void)
     return returnValue;
 }
 
-RenderOptionsPtr RenderOptionsBase::createEmptyLocal(BitVector bFlags)
+RenderOptions *RenderOptionsBase::createEmptyLocal(BitVector bFlags)
 {
-    RenderOptionsPtr returnValue;
+    RenderOptions *returnValue;
 
     newPtr<RenderOptions>(returnValue, bFlags);
 
@@ -1400,7 +1400,7 @@ RenderOptionsPtr RenderOptionsBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr RenderOptionsBase::shallowCopy(void) const
 {
-    RenderOptionsPtr tmpPtr;
+    RenderOptions *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const RenderOptions *>(this), 
@@ -1416,7 +1416,7 @@ FieldContainerTransitPtr RenderOptionsBase::shallowCopy(void) const
 FieldContainerTransitPtr RenderOptionsBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    RenderOptionsPtr tmpPtr;
+    RenderOptions *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const RenderOptions *>(this), bFlags);
 
@@ -1971,9 +1971,9 @@ void RenderOptionsBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr RenderOptionsBase::createAspectCopy(void) const
+FieldContainer *RenderOptionsBase::createAspectCopy(void) const
 {
-    RenderOptionsPtr returnValue;
+    RenderOptions *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const RenderOptions *>(this));
@@ -1991,17 +1991,17 @@ void RenderOptionsBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderOptionsPtr>::_type("RenderOptionsPtr", "AttachmentPtr");
+DataType FieldTraits<RenderOptions *>::_type("RenderOptionsPtr", "AttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(RenderOptionsPtr)
+OSG_FIELDTRAITS_GETTYPE(RenderOptions *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           RenderOptionsPtr, 
+                           RenderOptions *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           RenderOptionsPtr, 
+                           RenderOptions *, 
                            0);
 
 OSG_END_NAMESPACE

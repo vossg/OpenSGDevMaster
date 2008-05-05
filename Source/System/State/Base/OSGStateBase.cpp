@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var StateChunkPtr   StateBase::_mfChunks
+/*! \var StateChunk *    StateBase::_mfChunks
     
 */
 
@@ -138,7 +138,7 @@ StateBase::TypeObject StateBase::_type(
     "\t\ttype=\"StateChunkPtr\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
-    "        removeTo=\"NullFC\"\n"
+    "        removeTo=\"NULL\"\n"
     "        clearMField=\"true\"\n"
     "        pushToField=\"\"\n"
     "        insertIntoMField=\"\"\n"
@@ -190,7 +190,7 @@ MFUnrecStateChunkPtr *StateBase::editMFChunks         (void)
 
 
 
-void StateBase::pushToChunks(const StateChunkPtr value)
+void StateBase::pushToChunks(StateChunk * const value)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -224,11 +224,11 @@ void StateBase::removeFromChunks(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-        _mfChunks.replace(uiIndex, NullFC);
+        _mfChunks.replace(uiIndex, NULL);
     }
 }
 
-void StateBase::removeFromChunks(const StateChunkPtr value)
+void StateBase::removeFromChunks(StateChunk * const value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 
@@ -240,7 +240,7 @@ void StateBase::removeFromChunks(const StateChunkPtr value)
 
         fieldIt += iElemIdx;
 
-        _mfChunks.replace(iElemIdx, NullFC);
+        _mfChunks.replace(iElemIdx, NULL);
     }
 }
 void StateBase::clearChunks(void)
@@ -252,7 +252,7 @@ void StateBase::clearChunks(void)
 
     while(fieldIt != fieldEnd)
     {
-        _mfChunks.replace(fieldIt, NullFC);
+        _mfChunks.replace(fieldIt, NULL);
 
         ++fieldIt;
     }
@@ -301,7 +301,7 @@ StateTransitPtr StateBase::create(void)
 {
     StateTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -317,7 +317,7 @@ StateTransitPtr StateBase::createLocal(BitVector bFlags)
 {
     StateTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -329,9 +329,9 @@ StateTransitPtr StateBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StatePtr StateBase::createEmpty(void)
+State *StateBase::createEmpty(void)
 {
-    StatePtr returnValue;
+    State *returnValue;
 
     newPtr<State>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -341,9 +341,9 @@ StatePtr StateBase::createEmpty(void)
     return returnValue;
 }
 
-StatePtr StateBase::createEmptyLocal(BitVector bFlags)
+State *StateBase::createEmptyLocal(BitVector bFlags)
 {
-    StatePtr returnValue;
+    State *returnValue;
 
     newPtr<State>(returnValue, bFlags);
 
@@ -354,7 +354,7 @@ StatePtr StateBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr StateBase::shallowCopy(void) const
 {
-    StatePtr tmpPtr;
+    State *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const State *>(this), 
@@ -370,7 +370,7 @@ FieldContainerTransitPtr StateBase::shallowCopy(void) const
 FieldContainerTransitPtr StateBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    StatePtr tmpPtr;
+    State *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const State *>(this), bFlags);
 
@@ -469,9 +469,9 @@ void StateBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr StateBase::createAspectCopy(void) const
+FieldContainer *StateBase::createAspectCopy(void) const
 {
-    StatePtr returnValue;
+    State *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const State *>(this));
@@ -490,17 +490,17 @@ void StateBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatePtr>::_type("StatePtr", "FieldContainerPtr");
+DataType FieldTraits<State *>::_type("StatePtr", "FieldContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StatePtr)
+OSG_FIELDTRAITS_GETTYPE(State *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StatePtr, 
+                           State *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StatePtr, 
+                           State *, 
                            0);
 
 OSG_END_NAMESPACE

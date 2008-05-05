@@ -219,13 +219,13 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ColorMaskChunkTransitPtr create          (void);
-    static  ColorMaskChunkPtr        createEmpty     (void);
+    static  ColorMaskChunkTransitPtr  create          (void);
+    static  ColorMaskChunk           *createEmpty     (void);
 
-    static  ColorMaskChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ColorMaskChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ColorMaskChunkPtr        createEmptyLocal(
+    static  ColorMaskChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -321,7 +321,7 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

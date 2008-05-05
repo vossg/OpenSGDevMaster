@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(OrthographicCamera);
 #endif
 
 template <>
-struct FieldTraits<OrthographicCameraPtr> :
-    public FieldTraitsFCPtrBase<OrthographicCameraPtr>
+struct FieldTraits<OrthographicCamera *> :
+    public FieldTraitsFCPtrBase<OrthographicCamera *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<OrthographicCameraPtr> :
 
   public:
 
-    typedef FieldTraits<OrthographicCameraPtr>  Self;
+    typedef FieldTraits<OrthographicCamera *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<OrthographicCameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakOrthographicCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<OrthographicCamera *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdOrthographicCameraPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<OrthographicCameraPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<OrthographicCameraPtr,
+typedef PointerSField<OrthographicCamera *,
                       RecordedRefCountPolicy  > SFRecOrthographicCameraPtr;
-typedef PointerSField<OrthographicCameraPtr,
+typedef PointerSField<OrthographicCamera *,
                       UnrecordedRefCountPolicy> SFUnrecOrthographicCameraPtr;
-typedef PointerSField<OrthographicCameraPtr,
+typedef PointerSField<OrthographicCamera *,
                       WeakRefCountPolicy      > SFWeakOrthographicCameraPtr;
-typedef PointerSField<OrthographicCameraPtr,
+typedef PointerSField<OrthographicCamera *,
                       NoRefCountPolicy        > SFUncountedOrthographicCameraPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<OrthographicCameraPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<OrthographicCameraPtr,
+typedef PointerMField<OrthographicCamera *,
                       RecordedRefCountPolicy  > MFRecOrthographicCameraPtr;
-typedef PointerMField<OrthographicCameraPtr,
+typedef PointerMField<OrthographicCamera *,
                       UnrecordedRefCountPolicy> MFUnrecOrthographicCameraPtr;
-typedef PointerMField<OrthographicCameraPtr,
+typedef PointerMField<OrthographicCamera *,
                       WeakRefCountPolicy      > MFWeakOrthographicCameraPtr;
-typedef PointerMField<OrthographicCameraPtr,
+typedef PointerMField<OrthographicCamera *,
                       NoRefCountPolicy        > MFUncountedOrthographicCameraPtr;
 #endif
 

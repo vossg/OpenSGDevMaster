@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var MaterialPtr     MultiPassMaterialBase::_mfMaterials
+/*! \var Material *      MultiPassMaterialBase::_mfMaterials
     
 */
 
@@ -185,7 +185,7 @@ MFUnrecMaterialPtr  *MultiPassMaterialBase::editMFMaterials      (void)
 
 
 
-void MultiPassMaterialBase::addMaterial(const MaterialPtr value)
+void MultiPassMaterialBase::addMaterial(Material * const value)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -223,7 +223,7 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
     }
 }
 
-void MultiPassMaterialBase::subMaterial(const MaterialPtr value)
+void MultiPassMaterialBase::subMaterial(Material * const value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -289,7 +289,7 @@ MultiPassMaterialTransitPtr MultiPassMaterialBase::create(void)
 {
     MultiPassMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -305,7 +305,7 @@ MultiPassMaterialTransitPtr MultiPassMaterialBase::createLocal(BitVector bFlags)
 {
     MultiPassMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -317,9 +317,9 @@ MultiPassMaterialTransitPtr MultiPassMaterialBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MultiPassMaterialPtr MultiPassMaterialBase::createEmpty(void)
+MultiPassMaterial *MultiPassMaterialBase::createEmpty(void)
 {
-    MultiPassMaterialPtr returnValue;
+    MultiPassMaterial *returnValue;
 
     newPtr<MultiPassMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -329,9 +329,9 @@ MultiPassMaterialPtr MultiPassMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-MultiPassMaterialPtr MultiPassMaterialBase::createEmptyLocal(BitVector bFlags)
+MultiPassMaterial *MultiPassMaterialBase::createEmptyLocal(BitVector bFlags)
 {
-    MultiPassMaterialPtr returnValue;
+    MultiPassMaterial *returnValue;
 
     newPtr<MultiPassMaterial>(returnValue, bFlags);
 
@@ -342,7 +342,7 @@ MultiPassMaterialPtr MultiPassMaterialBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr MultiPassMaterialBase::shallowCopy(void) const
 {
-    MultiPassMaterialPtr tmpPtr;
+    MultiPassMaterial *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MultiPassMaterial *>(this), 
@@ -358,7 +358,7 @@ FieldContainerTransitPtr MultiPassMaterialBase::shallowCopy(void) const
 FieldContainerTransitPtr MultiPassMaterialBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MultiPassMaterialPtr tmpPtr;
+    MultiPassMaterial *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MultiPassMaterial *>(this), bFlags);
 
@@ -457,9 +457,9 @@ void MultiPassMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MultiPassMaterialBase::createAspectCopy(void) const
+FieldContainer *MultiPassMaterialBase::createAspectCopy(void) const
 {
-    MultiPassMaterialPtr returnValue;
+    MultiPassMaterial *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MultiPassMaterial *>(this));
@@ -478,17 +478,17 @@ void MultiPassMaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiPassMaterialPtr>::_type("MultiPassMaterialPtr", "MaterialPtr");
+DataType FieldTraits<MultiPassMaterial *>::_type("MultiPassMaterialPtr", "MaterialPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MultiPassMaterialPtr)
+OSG_FIELDTRAITS_GETTYPE(MultiPassMaterial *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MultiPassMaterialPtr, 
+                           MultiPassMaterial *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MultiPassMaterialPtr, 
+                           MultiPassMaterial *, 
                            0);
 
 OSG_END_NAMESPACE

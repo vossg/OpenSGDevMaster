@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(StateChunk);
 #endif
 
 template <>
-struct FieldTraits<StateChunkPtr> :
-    public FieldTraitsFCPtrBase<StateChunkPtr>
+struct FieldTraits<StateChunk *> :
+    public FieldTraitsFCPtrBase<StateChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<StateChunkPtr> :
 
   public:
 
-    typedef FieldTraits<StateChunkPtr>  Self;
+    typedef FieldTraits<StateChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<StateChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStateChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StateChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StateChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStateChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<StateChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<StateChunkPtr,
+typedef PointerSField<StateChunk *,
                       RecordedRefCountPolicy  > SFRecStateChunkPtr;
-typedef PointerSField<StateChunkPtr,
+typedef PointerSField<StateChunk *,
                       UnrecordedRefCountPolicy> SFUnrecStateChunkPtr;
-typedef PointerSField<StateChunkPtr,
+typedef PointerSField<StateChunk *,
                       WeakRefCountPolicy      > SFWeakStateChunkPtr;
-typedef PointerSField<StateChunkPtr,
+typedef PointerSField<StateChunk *,
                       NoRefCountPolicy        > SFUncountedStateChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<StateChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<StateChunkPtr,
+typedef PointerMField<StateChunk *,
                       RecordedRefCountPolicy  > MFRecStateChunkPtr;
-typedef PointerMField<StateChunkPtr,
+typedef PointerMField<StateChunk *,
                       UnrecordedRefCountPolicy> MFUnrecStateChunkPtr;
-typedef PointerMField<StateChunkPtr,
+typedef PointerMField<StateChunk *,
                       WeakRefCountPolicy      > MFWeakStateChunkPtr;
-typedef PointerMField<StateChunkPtr,
+typedef PointerMField<StateChunk *,
                       NoRefCountPolicy        > MFUncountedStateChunkPtr;
 #endif
 

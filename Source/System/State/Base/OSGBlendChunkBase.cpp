@@ -681,7 +681,7 @@ BlendChunkTransitPtr BlendChunkBase::create(void)
 {
     BlendChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -697,7 +697,7 @@ BlendChunkTransitPtr BlendChunkBase::createLocal(BitVector bFlags)
 {
     BlendChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -709,9 +709,9 @@ BlendChunkTransitPtr BlendChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-BlendChunkPtr BlendChunkBase::createEmpty(void)
+BlendChunk *BlendChunkBase::createEmpty(void)
 {
-    BlendChunkPtr returnValue;
+    BlendChunk *returnValue;
 
     newPtr<BlendChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -721,9 +721,9 @@ BlendChunkPtr BlendChunkBase::createEmpty(void)
     return returnValue;
 }
 
-BlendChunkPtr BlendChunkBase::createEmptyLocal(BitVector bFlags)
+BlendChunk *BlendChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    BlendChunkPtr returnValue;
+    BlendChunk *returnValue;
 
     newPtr<BlendChunk>(returnValue, bFlags);
 
@@ -734,7 +734,7 @@ BlendChunkPtr BlendChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr BlendChunkBase::shallowCopy(void) const
 {
-    BlendChunkPtr tmpPtr;
+    BlendChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const BlendChunk *>(this), 
@@ -750,7 +750,7 @@ FieldContainerTransitPtr BlendChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr BlendChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    BlendChunkPtr tmpPtr;
+    BlendChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const BlendChunk *>(this), bFlags);
 
@@ -993,9 +993,9 @@ void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr BlendChunkBase::createAspectCopy(void) const
+FieldContainer *BlendChunkBase::createAspectCopy(void) const
 {
-    BlendChunkPtr returnValue;
+    BlendChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const BlendChunk *>(this));
@@ -1013,17 +1013,17 @@ void BlendChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BlendChunkPtr>::_type("BlendChunkPtr", "StateChunkPtr");
+DataType FieldTraits<BlendChunk *>::_type("BlendChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(BlendChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(BlendChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           BlendChunkPtr, 
+                           BlendChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           BlendChunkPtr, 
+                           BlendChunk *, 
                            0);
 
 OSG_END_NAMESPACE

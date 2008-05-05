@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ScreenLOD);
 #endif
 
 template <>
-struct FieldTraits<ScreenLODPtr> :
-    public FieldTraitsFCPtrBase<ScreenLODPtr>
+struct FieldTraits<ScreenLOD *> :
+    public FieldTraitsFCPtrBase<ScreenLOD *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ScreenLODPtr> :
 
   public:
 
-    typedef FieldTraits<ScreenLODPtr>  Self;
+    typedef FieldTraits<ScreenLOD *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

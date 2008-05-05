@@ -168,13 +168,13 @@ class OSG_STATE_DLLMAPPING ShaderParameterPnt3fBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterPnt3fTransitPtr create          (void);
-    static  ShaderParameterPnt3fPtr        createEmpty     (void);
+    static  ShaderParameterPnt3fTransitPtr  create          (void);
+    static  ShaderParameterPnt3f           *createEmpty     (void);
 
-    static  ShaderParameterPnt3fTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ShaderParameterPnt3fTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ShaderParameterPnt3fPtr        createEmptyLocal(
+    static  ShaderParameterPnt3f            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterPnt3fBase : public ShaderParameter
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

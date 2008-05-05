@@ -181,7 +181,7 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
             const SFReal32            *getSFOffsetFactor    (void) const;
 
 
-                  FrameBufferObjectPtr getRenderTarget   (void) const;
+                  FrameBufferObject * getRenderTarget   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getWidth           (void);
@@ -218,7 +218,7 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRenderTarget   (const FrameBufferObjectPtr value);
+            void setRenderTarget   (FrameBufferObject * const value);
             void setWidth          (const Int32 &value);
             void setHeight         (const Int32 &value);
             void setShadowColor    (const Color4f &value);

@@ -236,13 +236,13 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MultiDisplayWindowTransitPtr create          (void);
-    static  MultiDisplayWindowPtr        createEmpty     (void);
+    static  MultiDisplayWindowTransitPtr  create          (void);
+    static  MultiDisplayWindow           *createEmpty     (void);
 
-    static  MultiDisplayWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MultiDisplayWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MultiDisplayWindowPtr        createEmptyLocal(
+    static  MultiDisplayWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -341,7 +341,7 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -109,7 +109,7 @@ void TextureSelectChunkBase::setChoice(const UInt32 &value)
 
 //! Get the value of the \a index element the TextureSelectChunk::_mfTextures field.
 inline
-TextureBaseChunkPtr TextureSelectChunkBase::getTextures(const UInt32 index) const
+TextureBaseChunk * TextureSelectChunkBase::getTextures(const UInt32 index) const
 {
     return _mfTextures[index];
 }

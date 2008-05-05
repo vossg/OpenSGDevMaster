@@ -303,17 +303,17 @@ void StateChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StateChunkPtr>::_type("StateChunkPtr", "AttachmentPtr");
+DataType FieldTraits<StateChunk *>::_type("StateChunkPtr", "AttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StateChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(StateChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StateChunkPtr, 
+                           StateChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StateChunkPtr, 
+                           StateChunk *, 
                            0);
 
 OSG_END_NAMESPACE

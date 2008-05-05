@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var MaterialPtr     SwitchMaterialBase::_mfMaterials
+/*! \var Material *      SwitchMaterialBase::_mfMaterials
     Materials to choose from.
 */
 
@@ -226,7 +226,7 @@ SFUInt32            *SwitchMaterialBase::getSFChoice         (void)
 
 
 
-void SwitchMaterialBase::pushToMaterials(const MaterialPtr value)
+void SwitchMaterialBase::pushToMaterials(Material * const value)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -264,7 +264,7 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
     }
 }
 
-void SwitchMaterialBase::removeFromMaterials(const MaterialPtr value)
+void SwitchMaterialBase::removeFromMaterials(Material * const value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -342,7 +342,7 @@ SwitchMaterialTransitPtr SwitchMaterialBase::create(void)
 {
     SwitchMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -358,7 +358,7 @@ SwitchMaterialTransitPtr SwitchMaterialBase::createLocal(BitVector bFlags)
 {
     SwitchMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -370,9 +370,9 @@ SwitchMaterialTransitPtr SwitchMaterialBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SwitchMaterialPtr SwitchMaterialBase::createEmpty(void)
+SwitchMaterial *SwitchMaterialBase::createEmpty(void)
 {
-    SwitchMaterialPtr returnValue;
+    SwitchMaterial *returnValue;
 
     newPtr<SwitchMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -382,9 +382,9 @@ SwitchMaterialPtr SwitchMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-SwitchMaterialPtr SwitchMaterialBase::createEmptyLocal(BitVector bFlags)
+SwitchMaterial *SwitchMaterialBase::createEmptyLocal(BitVector bFlags)
 {
-    SwitchMaterialPtr returnValue;
+    SwitchMaterial *returnValue;
 
     newPtr<SwitchMaterial>(returnValue, bFlags);
 
@@ -395,7 +395,7 @@ SwitchMaterialPtr SwitchMaterialBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SwitchMaterialBase::shallowCopy(void) const
 {
-    SwitchMaterialPtr tmpPtr;
+    SwitchMaterial *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SwitchMaterial *>(this), 
@@ -411,7 +411,7 @@ FieldContainerTransitPtr SwitchMaterialBase::shallowCopy(void) const
 FieldContainerTransitPtr SwitchMaterialBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SwitchMaterialPtr tmpPtr;
+    SwitchMaterial *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SwitchMaterial *>(this), bFlags);
 
@@ -534,9 +534,9 @@ void SwitchMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SwitchMaterialBase::createAspectCopy(void) const
+FieldContainer *SwitchMaterialBase::createAspectCopy(void) const
 {
-    SwitchMaterialPtr returnValue;
+    SwitchMaterial *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SwitchMaterial *>(this));
@@ -555,17 +555,17 @@ void SwitchMaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SwitchMaterialPtr>::_type("SwitchMaterialPtr", "MaterialPtr");
+DataType FieldTraits<SwitchMaterial *>::_type("SwitchMaterialPtr", "MaterialPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SwitchMaterialPtr)
+OSG_FIELDTRAITS_GETTYPE(SwitchMaterial *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SwitchMaterialPtr, 
+                           SwitchMaterial *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SwitchMaterialPtr, 
+                           SwitchMaterial *, 
                            0);
 
 OSG_END_NAMESPACE

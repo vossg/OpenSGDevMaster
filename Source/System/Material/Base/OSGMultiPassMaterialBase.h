@@ -129,7 +129,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
                   MFUnrecMaterialPtr  *editMFMaterials      (void);
 
 
-                  MaterialPtr getMaterials      (const UInt32 index) const;
+                  Material * getMaterials      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,10 +147,10 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addMaterial               (const MaterialPtr value   );
-    void assignMaterialsFrom           (const MFUnrecMaterialPtr &value);
-    void subMaterial     (UInt32                uiIndex );
-    void subMaterial    (const MaterialPtr value   );
+    void addMaterial               (Material * const value   );
+    void assignMaterialsFrom          (const MFUnrecMaterialPtr &value);
+    void subMaterial     (UInt32               uiIndex );
+    void subMaterial    (Material * const value   );
     void clearMaterials             (void                          );
 
 
@@ -171,13 +171,13 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MultiPassMaterialTransitPtr create          (void);
-    static  MultiPassMaterialPtr        createEmpty     (void);
+    static  MultiPassMaterialTransitPtr  create          (void);
+    static  MultiPassMaterial           *createEmpty     (void);
 
-    static  MultiPassMaterialTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MultiPassMaterialTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MultiPassMaterialPtr        createEmptyLocal(
+    static  MultiPassMaterial            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -265,7 +265,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

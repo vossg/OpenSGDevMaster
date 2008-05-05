@@ -76,14 +76,14 @@ OSG::UInt16 ProjectionCameraDecoratorBase::getClassGroupId(void)
 
 //! Get the value of the ProjectionCameraDecorator::_sfUser field.
 inline
-NodePtr ProjectionCameraDecoratorBase::getUser(void) const
+Node * ProjectionCameraDecoratorBase::getUser(void) const
 {
     return _sfUser.getValue();
 }
 
 //! Set the value of the ProjectionCameraDecorator::_sfUser field.
 inline
-void ProjectionCameraDecoratorBase::setUser(const NodePtr value)
+void ProjectionCameraDecoratorBase::setUser(Node * const value)
 {
     editSField(UserFieldMask);
 

@@ -137,13 +137,13 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CallbackAlgorithmTransitPtr create          (void);
-    static  CallbackAlgorithmPtr        createEmpty     (void);
+    static  CallbackAlgorithmTransitPtr  create          (void);
+    static  CallbackAlgorithm           *createEmpty     (void);
 
-    static  CallbackAlgorithmTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  CallbackAlgorithmTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  CallbackAlgorithmPtr        createEmptyLocal(
+    static  CallbackAlgorithm            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -230,7 +230,7 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

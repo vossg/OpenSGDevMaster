@@ -145,7 +145,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
                   UInt32              &editChoice         (void);
             const UInt32               getChoice          (void) const;
 
-                  TextureBaseChunkPtr getTextures       (const UInt32 index) const;
+                  TextureBaseChunk * getTextures       (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,10 +164,10 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToTextures            (const TextureBaseChunkPtr value   );
-    void assignTextures            (const MFUnrecTextureBaseChunkPtr &value);
-    void removeFromTextures (UInt32                uiIndex );
-    void removeFromTextures(const TextureBaseChunkPtr value   );
+    void pushToTextures            (TextureBaseChunk * const value   );
+    void assignTextures           (const MFUnrecTextureBaseChunkPtr &value);
+    void removeFromTextures (UInt32               uiIndex );
+    void removeFromTextures(TextureBaseChunk * const value   );
     void clearTextures              (void                          );
 
 
@@ -188,13 +188,13 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureSelectChunkTransitPtr create          (void);
-    static  TextureSelectChunkPtr        createEmpty     (void);
+    static  TextureSelectChunkTransitPtr  create          (void);
+    static  TextureSelectChunk           *createEmpty     (void);
 
-    static  TextureSelectChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TextureSelectChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TextureSelectChunkPtr        createEmptyLocal(
+    static  TextureSelectChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -285,7 +285,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

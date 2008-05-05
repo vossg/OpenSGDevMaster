@@ -76,14 +76,14 @@ OSG::UInt16 TextureObjChunkBase::getClassGroupId(void)
 
 //! Get the value of the TextureObjChunk::_sfImage field.
 inline
-ImagePtr TextureObjChunkBase::getImage(void) const
+Image * TextureObjChunkBase::getImage(void) const
 {
     return _sfImage.getValue();
 }
 
 //! Set the value of the TextureObjChunk::_sfImage field.
 inline
-void TextureObjChunkBase::setImage(const ImagePtr value)
+void TextureObjChunkBase::setImage(Image * const value)
 {
     editSField(ImageFieldMask);
 

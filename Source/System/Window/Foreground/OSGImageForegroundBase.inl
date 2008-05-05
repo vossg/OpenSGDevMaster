@@ -76,7 +76,7 @@ OSG::UInt16 ImageForegroundBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ImageForeground::_mfImages field.
 inline
-ImagePtr ImageForegroundBase::getImages(const UInt32 index) const
+Image * ImageForegroundBase::getImages(const UInt32 index) const
 {
     return _mfImages[index];
 }

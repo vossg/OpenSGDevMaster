@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(BlendChunk);
 #endif
 
 template <>
-struct FieldTraits<BlendChunkPtr> :
-    public FieldTraitsFCPtrBase<BlendChunkPtr>
+struct FieldTraits<BlendChunk *> :
+    public FieldTraitsFCPtrBase<BlendChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<BlendChunkPtr> :
 
   public:
 
-    typedef FieldTraits<BlendChunkPtr>  Self;
+    typedef FieldTraits<BlendChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<BlendChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakBlendChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<BlendChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdBlendChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<BlendChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<BlendChunkPtr,
+typedef PointerSField<BlendChunk *,
                       RecordedRefCountPolicy  > SFRecBlendChunkPtr;
-typedef PointerSField<BlendChunkPtr,
+typedef PointerSField<BlendChunk *,
                       UnrecordedRefCountPolicy> SFUnrecBlendChunkPtr;
-typedef PointerSField<BlendChunkPtr,
+typedef PointerSField<BlendChunk *,
                       WeakRefCountPolicy      > SFWeakBlendChunkPtr;
-typedef PointerSField<BlendChunkPtr,
+typedef PointerSField<BlendChunk *,
                       NoRefCountPolicy        > SFUncountedBlendChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<BlendChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<BlendChunkPtr,
+typedef PointerMField<BlendChunk *,
                       RecordedRefCountPolicy  > MFRecBlendChunkPtr;
-typedef PointerMField<BlendChunkPtr,
+typedef PointerMField<BlendChunk *,
                       UnrecordedRefCountPolicy> MFUnrecBlendChunkPtr;
-typedef PointerMField<BlendChunkPtr,
+typedef PointerMField<BlendChunk *,
                       WeakRefCountPolicy      > MFWeakBlendChunkPtr;
-typedef PointerMField<BlendChunkPtr,
+typedef PointerMField<BlendChunk *,
                       NoRefCountPolicy        > MFUncountedBlendChunkPtr;
 #endif
 

@@ -175,14 +175,14 @@ void LightBase::setSpecular(const Color4r &value)
 
 //! Get the value of the Light::_sfBeacon field.
 inline
-NodePtr LightBase::getBeacon(void) const
+Node * LightBase::getBeacon(void) const
 {
     return _sfBeacon.getValue();
 }
 
 //! Set the value of the Light::_sfBeacon field.
 inline
-void LightBase::setBeacon(const NodePtr value)
+void LightBase::setBeacon(Node * const value)
 {
     editSField(BeaconFieldMask);
 
@@ -323,14 +323,14 @@ void LightBase::setQuadraticAttenuation(const Real &value)
 
 //! Get the value of the Light::_sfLightEngine field.
 inline
-LightEnginePtr LightBase::getLightEngine(void) const
+LightEngine * LightBase::getLightEngine(void) const
 {
     return _sfLightEngine.getValue();
 }
 
 //! Set the value of the Light::_sfLightEngine field.
 inline
-void LightBase::setLightEngine(const LightEnginePtr value)
+void LightBase::setLightEngine(LightEngine * const value)
 {
     editSField(LightEngineFieldMask);
 

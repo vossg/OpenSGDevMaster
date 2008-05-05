@@ -472,14 +472,14 @@ void TiledQuadTreeTerrainBase::setPerPixelLighting(const bool &value)
 
 //! Get the value of the \a index element the TiledQuadTreeTerrain::_mfHeightTiles field.
 inline
-ImagePtr TiledQuadTreeTerrainBase::getHeightTiles(const UInt32 index) const
+Image * TiledQuadTreeTerrainBase::getHeightTiles(const UInt32 index) const
 {
     return _mfHeightTiles[index];
 }
 
 //! Get the value of the \a index element the TiledQuadTreeTerrain::_mfHeightTextures field.
 inline
-MaterialPtr TiledQuadTreeTerrainBase::getHeightTextures(const UInt32 index) const
+Material * TiledQuadTreeTerrainBase::getHeightTextures(const UInt32 index) const
 {
     return _mfHeightTextures[index];
 }

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(RegisterCombinersChunk);
 #endif
 
 template <>
-struct FieldTraits<RegisterCombinersChunkPtr> :
-    public FieldTraitsFCPtrBase<RegisterCombinersChunkPtr>
+struct FieldTraits<RegisterCombinersChunk *> :
+    public FieldTraitsFCPtrBase<RegisterCombinersChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<RegisterCombinersChunkPtr> :
 
   public:
 
-    typedef FieldTraits<RegisterCombinersChunkPtr>  Self;
+    typedef FieldTraits<RegisterCombinersChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<RegisterCombinersChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakRegisterCombinersChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdRegisterCombinersChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<RegisterCombinersChunkPtr, 0>::getMName<NoRefCountPolic
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<RegisterCombinersChunkPtr,
+typedef PointerSField<RegisterCombinersChunk *,
                       RecordedRefCountPolicy  > SFRecRegisterCombinersChunkPtr;
-typedef PointerSField<RegisterCombinersChunkPtr,
+typedef PointerSField<RegisterCombinersChunk *,
                       UnrecordedRefCountPolicy> SFUnrecRegisterCombinersChunkPtr;
-typedef PointerSField<RegisterCombinersChunkPtr,
+typedef PointerSField<RegisterCombinersChunk *,
                       WeakRefCountPolicy      > SFWeakRegisterCombinersChunkPtr;
-typedef PointerSField<RegisterCombinersChunkPtr,
+typedef PointerSField<RegisterCombinersChunk *,
                       NoRefCountPolicy        > SFUncountedRegisterCombinersChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<RegisterCombinersChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<RegisterCombinersChunkPtr,
+typedef PointerMField<RegisterCombinersChunk *,
                       RecordedRefCountPolicy  > MFRecRegisterCombinersChunkPtr;
-typedef PointerMField<RegisterCombinersChunkPtr,
+typedef PointerMField<RegisterCombinersChunk *,
                       UnrecordedRefCountPolicy> MFUnrecRegisterCombinersChunkPtr;
-typedef PointerMField<RegisterCombinersChunkPtr,
+typedef PointerMField<RegisterCombinersChunk *,
                       WeakRefCountPolicy      > MFWeakRegisterCombinersChunkPtr;
-typedef PointerMField<RegisterCombinersChunkPtr,
+typedef PointerMField<RegisterCombinersChunk *,
                       NoRefCountPolicy        > MFUncountedRegisterCombinersChunkPtr;
 #endif
 

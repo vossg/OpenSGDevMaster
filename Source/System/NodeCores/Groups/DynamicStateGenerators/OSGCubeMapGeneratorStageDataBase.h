@@ -126,13 +126,13 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeMapGeneratorStageDataTransitPtr create          (void);
-    static  CubeMapGeneratorStageDataPtr        createEmpty     (void);
+    static  CubeMapGeneratorStageDataTransitPtr  create          (void);
+    static  CubeMapGeneratorStageData           *createEmpty     (void);
 
-    static  CubeMapGeneratorStageDataTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  CubeMapGeneratorStageDataTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  CubeMapGeneratorStageDataPtr        createEmptyLocal(
+    static  CubeMapGeneratorStageData            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

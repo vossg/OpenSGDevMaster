@@ -185,13 +185,13 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StereoBufferViewportTransitPtr create          (void);
-    static  StereoBufferViewportPtr        createEmpty     (void);
+    static  StereoBufferViewportTransitPtr  create          (void);
+    static  StereoBufferViewport           *createEmpty     (void);
 
-    static  StereoBufferViewportTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  StereoBufferViewportTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  StereoBufferViewportPtr        createEmptyLocal(
+    static  StereoBufferViewport            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

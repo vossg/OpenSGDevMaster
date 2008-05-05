@@ -980,7 +980,7 @@ MaterialChunkTransitPtr MaterialChunkBase::create(void)
 {
     MaterialChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -996,7 +996,7 @@ MaterialChunkTransitPtr MaterialChunkBase::createLocal(BitVector bFlags)
 {
     MaterialChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1008,9 +1008,9 @@ MaterialChunkTransitPtr MaterialChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MaterialChunkPtr MaterialChunkBase::createEmpty(void)
+MaterialChunk *MaterialChunkBase::createEmpty(void)
 {
-    MaterialChunkPtr returnValue;
+    MaterialChunk *returnValue;
 
     newPtr<MaterialChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -1020,9 +1020,9 @@ MaterialChunkPtr MaterialChunkBase::createEmpty(void)
     return returnValue;
 }
 
-MaterialChunkPtr MaterialChunkBase::createEmptyLocal(BitVector bFlags)
+MaterialChunk *MaterialChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    MaterialChunkPtr returnValue;
+    MaterialChunk *returnValue;
 
     newPtr<MaterialChunk>(returnValue, bFlags);
 
@@ -1033,7 +1033,7 @@ MaterialChunkPtr MaterialChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr MaterialChunkBase::shallowCopy(void) const
 {
-    MaterialChunkPtr tmpPtr;
+    MaterialChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MaterialChunk *>(this), 
@@ -1049,7 +1049,7 @@ FieldContainerTransitPtr MaterialChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr MaterialChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MaterialChunkPtr tmpPtr;
+    MaterialChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MaterialChunk *>(this), bFlags);
 
@@ -1436,9 +1436,9 @@ void MaterialChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MaterialChunkBase::createAspectCopy(void) const
+FieldContainer *MaterialChunkBase::createAspectCopy(void) const
 {
-    MaterialChunkPtr returnValue;
+    MaterialChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MaterialChunk *>(this));
@@ -1456,17 +1456,17 @@ void MaterialChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialChunkPtr>::_type("MaterialChunkPtr", "StateChunkPtr");
+DataType FieldTraits<MaterialChunk *>::_type("MaterialChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MaterialChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(MaterialChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MaterialChunkPtr, 
+                           MaterialChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MaterialChunkPtr, 
+                           MaterialChunk *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -168,13 +168,13 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMIntTransitPtr create          (void);
-    static  ShaderParameterMIntPtr        createEmpty     (void);
+    static  ShaderParameterMIntTransitPtr  create          (void);
+    static  ShaderParameterMInt           *createEmpty     (void);
 
-    static  ShaderParameterMIntTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ShaderParameterMIntTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ShaderParameterMIntPtr        createEmptyLocal(
+    static  ShaderParameterMInt            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

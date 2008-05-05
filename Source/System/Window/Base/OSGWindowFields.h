@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Window);
 #endif
 
 template <>
-struct FieldTraits<WindowPtr> :
-    public FieldTraitsFCPtrBase<WindowPtr>
+struct FieldTraits<Window *> :
+    public FieldTraitsFCPtrBase<Window *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<WindowPtr> :
 
   public:
 
-    typedef FieldTraits<WindowPtr>  Self;
+    typedef FieldTraits<Window *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<WindowPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Window *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdWindowPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<WindowPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<WindowPtr,
+typedef PointerSField<Window *,
                       RecordedRefCountPolicy  > SFRecWindowPtr;
-typedef PointerSField<WindowPtr,
+typedef PointerSField<Window *,
                       UnrecordedRefCountPolicy> SFUnrecWindowPtr;
-typedef PointerSField<WindowPtr,
+typedef PointerSField<Window *,
                       WeakRefCountPolicy      > SFWeakWindowPtr;
-typedef PointerSField<WindowPtr,
+typedef PointerSField<Window *,
                       NoRefCountPolicy        > SFUncountedWindowPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<WindowPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<WindowPtr,
+typedef PointerMField<Window *,
                       RecordedRefCountPolicy  > MFRecWindowPtr;
-typedef PointerMField<WindowPtr,
+typedef PointerMField<Window *,
                       UnrecordedRefCountPolicy> MFUnrecWindowPtr;
-typedef PointerMField<WindowPtr,
+typedef PointerMField<Window *,
                       WeakRefCountPolicy      > MFWeakWindowPtr;
-typedef PointerMField<WindowPtr,
+typedef PointerMField<Window *,
                       NoRefCountPolicy        > MFUncountedWindowPtr;
 #endif
 

@@ -508,13 +508,13 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RenderOptionsTransitPtr create          (void);
-    static  RenderOptionsPtr        createEmpty     (void);
+    static  RenderOptionsTransitPtr  create          (void);
+    static  RenderOptions           *createEmpty     (void);
 
-    static  RenderOptionsTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  RenderOptionsTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  RenderOptionsPtr        createEmptyLocal(
+    static  RenderOptions            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -661,7 +661,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

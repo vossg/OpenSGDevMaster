@@ -76,14 +76,14 @@ OSG::UInt16 QuadTreeTerrainBase::getClassGroupId(void)
 
 //! Get the value of the QuadTreeTerrain::_sfHeightData field.
 inline
-ImagePtr QuadTreeTerrainBase::getHeightData(void) const
+Image * QuadTreeTerrainBase::getHeightData(void) const
 {
     return _sfHeightData.getValue();
 }
 
 //! Set the value of the QuadTreeTerrain::_sfHeightData field.
 inline
-void QuadTreeTerrainBase::setHeightData(const ImagePtr value)
+void QuadTreeTerrainBase::setHeightData(Image * const value)
 {
     editSField(HeightDataFieldMask);
 
@@ -290,14 +290,14 @@ void QuadTreeTerrainBase::setVertexSpacing(const Real32 &value)
 
 //! Get the value of the QuadTreeTerrain::_sfHeightVertices field.
 inline
-GeoVectorPropertyPtr QuadTreeTerrainBase::getHeightVertices(void) const
+GeoVectorProperty * QuadTreeTerrainBase::getHeightVertices(void) const
 {
     return _sfHeightVertices.getValue();
 }
 
 //! Set the value of the QuadTreeTerrain::_sfHeightVertices field.
 inline
-void QuadTreeTerrainBase::setHeightVertices(const GeoVectorPropertyPtr value)
+void QuadTreeTerrainBase::setHeightVertices(GeoVectorProperty * const value)
 {
     editSField(HeightVerticesFieldMask);
 

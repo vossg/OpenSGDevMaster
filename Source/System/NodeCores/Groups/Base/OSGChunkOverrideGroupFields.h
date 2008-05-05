@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ChunkOverrideGroup);
 #endif
 
 template <>
-struct FieldTraits<ChunkOverrideGroupPtr> :
-    public FieldTraitsFCPtrBase<ChunkOverrideGroupPtr>
+struct FieldTraits<ChunkOverrideGroup *> :
+    public FieldTraitsFCPtrBase<ChunkOverrideGroup *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ChunkOverrideGroupPtr> :
 
   public:
 
-    typedef FieldTraits<ChunkOverrideGroupPtr>  Self;
+    typedef FieldTraits<ChunkOverrideGroup *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ChunkOverrideGroupPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChunkOverrideGroupPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ChunkOverrideGroup *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChunkOverrideGroupPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ChunkOverrideGroupPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<ChunkOverrideGroupPtr,
+typedef PointerSField<ChunkOverrideGroup *,
                       RecordedRefCountPolicy  > SFRecChunkOverrideGroupPtr;
-typedef PointerSField<ChunkOverrideGroupPtr,
+typedef PointerSField<ChunkOverrideGroup *,
                       UnrecordedRefCountPolicy> SFUnrecChunkOverrideGroupPtr;
-typedef PointerSField<ChunkOverrideGroupPtr,
+typedef PointerSField<ChunkOverrideGroup *,
                       WeakRefCountPolicy      > SFWeakChunkOverrideGroupPtr;
-typedef PointerSField<ChunkOverrideGroupPtr,
+typedef PointerSField<ChunkOverrideGroup *,
                       NoRefCountPolicy        > SFUncountedChunkOverrideGroupPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ChunkOverrideGroupPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<ChunkOverrideGroupPtr,
+typedef PointerMField<ChunkOverrideGroup *,
                       RecordedRefCountPolicy  > MFRecChunkOverrideGroupPtr;
-typedef PointerMField<ChunkOverrideGroupPtr,
+typedef PointerMField<ChunkOverrideGroup *,
                       UnrecordedRefCountPolicy> MFUnrecChunkOverrideGroupPtr;
-typedef PointerMField<ChunkOverrideGroupPtr,
+typedef PointerMField<ChunkOverrideGroup *,
                       WeakRefCountPolicy      > MFWeakChunkOverrideGroupPtr;
-typedef PointerMField<ChunkOverrideGroupPtr,
+typedef PointerMField<ChunkOverrideGroup *,
                       NoRefCountPolicy        > MFUncountedChunkOverrideGroupPtr;
 #endif
 

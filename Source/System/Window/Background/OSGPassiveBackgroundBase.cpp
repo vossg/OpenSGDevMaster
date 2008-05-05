@@ -162,7 +162,7 @@ PassiveBackgroundTransitPtr PassiveBackgroundBase::create(void)
 {
     PassiveBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -178,7 +178,7 @@ PassiveBackgroundTransitPtr PassiveBackgroundBase::createLocal(BitVector bFlags)
 {
     PassiveBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -190,9 +190,9 @@ PassiveBackgroundTransitPtr PassiveBackgroundBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PassiveBackgroundPtr PassiveBackgroundBase::createEmpty(void)
+PassiveBackground *PassiveBackgroundBase::createEmpty(void)
 {
-    PassiveBackgroundPtr returnValue;
+    PassiveBackground *returnValue;
 
     newPtr<PassiveBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -202,9 +202,9 @@ PassiveBackgroundPtr PassiveBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-PassiveBackgroundPtr PassiveBackgroundBase::createEmptyLocal(BitVector bFlags)
+PassiveBackground *PassiveBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    PassiveBackgroundPtr returnValue;
+    PassiveBackground *returnValue;
 
     newPtr<PassiveBackground>(returnValue, bFlags);
 
@@ -215,7 +215,7 @@ PassiveBackgroundPtr PassiveBackgroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PassiveBackgroundBase::shallowCopy(void) const
 {
-    PassiveBackgroundPtr tmpPtr;
+    PassiveBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PassiveBackground *>(this), 
@@ -231,7 +231,7 @@ FieldContainerTransitPtr PassiveBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr PassiveBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PassiveBackgroundPtr tmpPtr;
+    PassiveBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PassiveBackground *>(this), bFlags);
 
@@ -282,9 +282,9 @@ void PassiveBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PassiveBackgroundBase::createAspectCopy(void) const
+FieldContainer *PassiveBackgroundBase::createAspectCopy(void) const
 {
-    PassiveBackgroundPtr returnValue;
+    PassiveBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PassiveBackground *>(this));
@@ -302,13 +302,13 @@ void PassiveBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveBackgroundPtr>::_type("PassiveBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<PassiveBackground *>::_type("PassiveBackgroundPtr", "BackgroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PassiveBackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(PassiveBackground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PassiveBackgroundPtr, 
+                           PassiveBackground *, 
                            0);
 
 

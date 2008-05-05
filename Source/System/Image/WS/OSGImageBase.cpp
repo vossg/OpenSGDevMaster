@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ParentFieldContainerPtr ImageBase::_mfParents
+/*! \var FieldContainer * ImageBase::_mfParents
     
 */
 
@@ -1533,7 +1533,7 @@ ImageTransitPtr ImageBase::create(void)
 {
     ImageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -1549,7 +1549,7 @@ ImageTransitPtr ImageBase::createLocal(BitVector bFlags)
 {
     ImageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1561,9 +1561,9 @@ ImageTransitPtr ImageBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ImagePtr ImageBase::createEmpty(void)
+Image *ImageBase::createEmpty(void)
 {
-    ImagePtr returnValue;
+    Image *returnValue;
 
     newPtr<Image>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -1573,9 +1573,9 @@ ImagePtr ImageBase::createEmpty(void)
     return returnValue;
 }
 
-ImagePtr ImageBase::createEmptyLocal(BitVector bFlags)
+Image *ImageBase::createEmptyLocal(BitVector bFlags)
 {
-    ImagePtr returnValue;
+    Image *returnValue;
 
     newPtr<Image>(returnValue, bFlags);
 
@@ -1586,7 +1586,7 @@ ImagePtr ImageBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ImageBase::shallowCopy(void) const
 {
-    ImagePtr tmpPtr;
+    Image *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Image *>(this), 
@@ -1602,7 +1602,7 @@ FieldContainerTransitPtr ImageBase::shallowCopy(void) const
 FieldContainerTransitPtr ImageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ImagePtr tmpPtr;
+    Image *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Image *>(this), bFlags);
 
@@ -1685,16 +1685,16 @@ ImageBase::~ImageBase(void)
 /* Parent linking                                                          */
 
 bool ImageBase::linkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            childFieldId,
-    const UInt16            parentFieldId )
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
 {
     if(parentFieldId == ParentsFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
         
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             editMField(ParentsFieldMask, _mfParents);
 
@@ -1710,15 +1710,15 @@ bool ImageBase::linkParent(
 }
 
 bool ImageBase::unlinkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            parentFieldId)
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentsFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast< FieldContainerPtr >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
             
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             MFParentFieldContainerPtr::iterator pI = 
                 _mfParents.find_nc(pParent);
@@ -2293,9 +2293,9 @@ void ImageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ImageBase::createAspectCopy(void) const
+FieldContainer *ImageBase::createAspectCopy(void) const
 {
-    ImagePtr returnValue;
+    Image *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Image *>(this));
@@ -2322,27 +2322,27 @@ void ImageBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImagePtr>::_type("ImagePtr", "AttachmentContainerPtr");
+DataType FieldTraits<Image *>::_type("ImagePtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ImagePtr)
+OSG_FIELDTRAITS_GETTYPE(Image *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ImagePtr, 
+                           Image *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ImagePtr, 
+                           Image *, 
                            0);
 
-DataType &FieldTraits< ImagePtr, 1 >::getType(void)
+DataType &FieldTraits< Image *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<ImagePtr, 0>::getType();
+    return FieldTraits<Image *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      ImagePtr,       
+                      Image *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

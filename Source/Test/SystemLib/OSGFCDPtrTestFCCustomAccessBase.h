@@ -259,21 +259,21 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
             const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPub_spchildptr(void) const;
 
 
-                  FCDTestFCPtr getFieldSFPub_ptr (void) const;
+                  FCDTestFC * getFieldSFPub_ptr (void) const;
 
-                  FCDTestFCPtr getFieldSFPub_weakptr(void) const;
+                  FCDTestFC * getFieldSFPub_weakptr(void) const;
 
-                  FCDTestFCPtr getFieldSFPub_mpchildptr(void) const;
+                  FCDTestFC * getFieldSFPub_mpchildptr(void) const;
 
-                  FCDTestFCPtr getFieldMFPub_ptr (const UInt32 index) const;
+                  FCDTestFC * getFieldMFPub_ptr (const UInt32 index) const;
 
-                  FCDTestFCPtr getFieldMFPub_weakptr(const UInt32 index) const;
+                  FCDTestFC * getFieldMFPub_weakptr(const UInt32 index) const;
 
-                  FCDTestFCPtr getFieldMFPub_mpchildptr(const UInt32 index) const;
+                  FCDTestFC * getFieldMFPub_mpchildptr(const UInt32 index) const;
 
-                  FCDSParTestFCPtr getFieldSFPub_spchildptr(void) const;
+                  FCDSParTestFC * getFieldSFPub_spchildptr(void) const;
 
-                  FCDSParTestFCPtr getFieldMFPub_spchildptr(const UInt32 index) const;
+                  FCDSParTestFC * getFieldMFPub_spchildptr(const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -308,13 +308,13 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FCDPtrTestFCCustomAccessTransitPtr create          (void);
-    static  FCDPtrTestFCCustomAccessPtr        createEmpty     (void);
+    static  FCDPtrTestFCCustomAccessTransitPtr  create          (void);
+    static  FCDPtrTestFCCustomAccess           *createEmpty     (void);
 
-    static  FCDPtrTestFCCustomAccessTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  FCDPtrTestFCCustomAccessTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  FCDPtrTestFCCustomAccessPtr        createEmptyLocal(
+    static  FCDPtrTestFCCustomAccess            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -392,8 +392,8 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*! \name Child linking                                                */
     /*! \{                                                                 */
     
-    virtual bool unlinkChild(const FieldContainerPtr pChild,
-                             const UInt16            childFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -480,21 +480,21 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
             const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPro_spchildptr (void) const;
 
 
-                  FCDTestFCPtr getFieldSFPro_ptr (void) const;
+                  FCDTestFC * getFieldSFPro_ptr (void) const;
 
-                  FCDTestFCPtr getFieldSFPro_weakptr(void) const;
+                  FCDTestFC * getFieldSFPro_weakptr(void) const;
 
-                  FCDTestFCPtr getFieldSFPro_mpchildptr(void) const;
+                  FCDTestFC * getFieldSFPro_mpchildptr(void) const;
 
-                  FCDTestFCPtr getFieldMFPro_ptr (const UInt32 index) const;
+                  FCDTestFC * getFieldMFPro_ptr (const UInt32 index) const;
 
-                  FCDTestFCPtr getFieldMFPro_weakptr(const UInt32 index) const;
+                  FCDTestFC * getFieldMFPro_weakptr(const UInt32 index) const;
 
-                  FCDTestFCPtr getFieldMFPro_mpchildptr(const UInt32 index) const;
+                  FCDTestFC * getFieldMFPro_mpchildptr(const UInt32 index) const;
 
-                  FCDSParTestFCPtr getFieldSFPro_spchildptr(void) const;
+                  FCDSParTestFC * getFieldSFPro_spchildptr(void) const;
 
-                  FCDSParTestFCPtr getFieldMFPro_spchildptr(const UInt32 index) const;
+                  FCDSParTestFC * getFieldMFPro_spchildptr(const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -537,7 +537,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */
@@ -583,21 +583,21 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
             const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPri_spchildptr (void) const;
             const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPri_spchildptr (void) const;
 
-                  FCDTestFCPtr getFieldSFPri_ptr (void) const;
+                  FCDTestFC * getFieldSFPri_ptr (void) const;
 
-                  FCDTestFCPtr getFieldSFPri_weakptr(void) const;
+                  FCDTestFC * getFieldSFPri_weakptr(void) const;
 
-                  FCDTestFCPtr getFieldSFPri_mpchildptr(void) const;
+                  FCDTestFC * getFieldSFPri_mpchildptr(void) const;
 
-                  FCDTestFCPtr getFieldMFPri_ptr (const UInt32 index) const;
+                  FCDTestFC * getFieldMFPri_ptr (const UInt32 index) const;
 
-                  FCDTestFCPtr getFieldMFPri_weakptr(const UInt32 index) const;
+                  FCDTestFC * getFieldMFPri_weakptr(const UInt32 index) const;
 
-                  FCDTestFCPtr getFieldMFPri_mpchildptr(const UInt32 index) const;
+                  FCDTestFC * getFieldMFPri_mpchildptr(const UInt32 index) const;
 
-                  FCDSParTestFCPtr getFieldSFPri_spchildptr(void) const;
+                  FCDSParTestFC * getFieldSFPri_spchildptr(void) const;
 
-                  FCDSParTestFCPtr getFieldMFPri_spchildptr(const UInt32 index) const;
+                  FCDSParTestFC * getFieldMFPri_spchildptr(const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

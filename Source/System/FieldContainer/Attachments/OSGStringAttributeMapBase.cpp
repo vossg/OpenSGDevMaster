@@ -287,7 +287,7 @@ StringAttributeMapTransitPtr StringAttributeMapBase::create(void)
 {
     StringAttributeMapTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -303,7 +303,7 @@ StringAttributeMapTransitPtr StringAttributeMapBase::createLocal(BitVector bFlag
 {
     StringAttributeMapTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -315,9 +315,9 @@ StringAttributeMapTransitPtr StringAttributeMapBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StringAttributeMapPtr StringAttributeMapBase::createEmpty(void)
+StringAttributeMap *StringAttributeMapBase::createEmpty(void)
 {
-    StringAttributeMapPtr returnValue;
+    StringAttributeMap *returnValue;
 
     newPtr<StringAttributeMap>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -327,9 +327,9 @@ StringAttributeMapPtr StringAttributeMapBase::createEmpty(void)
     return returnValue;
 }
 
-StringAttributeMapPtr StringAttributeMapBase::createEmptyLocal(BitVector bFlags)
+StringAttributeMap *StringAttributeMapBase::createEmptyLocal(BitVector bFlags)
 {
-    StringAttributeMapPtr returnValue;
+    StringAttributeMap *returnValue;
 
     newPtr<StringAttributeMap>(returnValue, bFlags);
 
@@ -340,7 +340,7 @@ StringAttributeMapPtr StringAttributeMapBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr StringAttributeMapBase::shallowCopy(void) const
 {
-    StringAttributeMapPtr tmpPtr;
+    StringAttributeMap *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const StringAttributeMap *>(this), 
@@ -356,7 +356,7 @@ FieldContainerTransitPtr StringAttributeMapBase::shallowCopy(void) const
 FieldContainerTransitPtr StringAttributeMapBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    StringAttributeMapPtr tmpPtr;
+    StringAttributeMap *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const StringAttributeMap *>(this), bFlags);
 
@@ -455,9 +455,9 @@ void StringAttributeMapBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr StringAttributeMapBase::createAspectCopy(void) const
+FieldContainer *StringAttributeMapBase::createAspectCopy(void) const
 {
-    StringAttributeMapPtr returnValue;
+    StringAttributeMap *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const StringAttributeMap *>(this));
@@ -488,13 +488,13 @@ void StringAttributeMapBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StringAttributeMapPtr>::_type("StringAttributeMapPtr", "AttachmentPtr");
+DataType FieldTraits<StringAttributeMap *>::_type("StringAttributeMapPtr", "AttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StringAttributeMapPtr)
+OSG_FIELDTRAITS_GETTYPE(StringAttributeMap *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StringAttributeMapPtr, 
+                           StringAttributeMap *, 
                            0);
 
 

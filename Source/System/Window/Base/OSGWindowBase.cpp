@@ -100,7 +100,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var ViewportPtr     WindowBase::_mfPort
+/*! \var Viewport *      WindowBase::_mfPort
     
 */
 
@@ -526,9 +526,9 @@ SFUInt32            *WindowBase::getSFDrawerId       (void)
 
 
 
-void WindowBase::addPort(const ViewportPtr value)
+void WindowBase::addPort(Viewport * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(PortFieldMask, _mfPort);
@@ -553,10 +553,10 @@ void WindowBase::assignPort     (const MFUnrecChildViewportPtr &value)
     }
 }
 
-void WindowBase::insertPort(      UInt32         uiIndex,
-                                                   const ViewportPtr value   )
+void WindowBase::insertPort(UInt32               uiIndex,
+                                                   Viewport * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(PortFieldMask, _mfPort);
@@ -568,10 +568,10 @@ void WindowBase::insertPort(      UInt32         uiIndex,
     _mfPort.insert(fieldIt, value);
 }
 
-void WindowBase::replacePort(      UInt32         uiIndex,
-                                                       const ViewportPtr value   )
+void WindowBase::replacePort(UInt32               uiIndex,
+                                                       Viewport * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfPort.size())
@@ -582,10 +582,10 @@ void WindowBase::replacePort(      UInt32         uiIndex,
     _mfPort.replace(uiIndex, value);
 }
 
-void WindowBase::replacePortBy(const ViewportPtr pOldElem,
-                                                        const ViewportPtr pNewElem)
+void WindowBase::replacePortBy(Viewport * const pOldElem,
+                                                        Viewport * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfPort.findIndex(pOldElem);
@@ -612,7 +612,7 @@ void WindowBase::subPort(UInt32 uiIndex)
     }
 }
 
-void WindowBase::subPort(const ViewportPtr value)
+void WindowBase::subPort(Viewport * const value)
 {
     Int32 iElemIdx = _mfPort.findIndex(value);
 
@@ -803,15 +803,15 @@ WindowBase::~WindowBase(void)
 /* Child linking                                                           */
 
 bool WindowBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == PortFieldId)
     {
-        ViewportPtr pTypedChild =
-            dynamic_cast<ViewportPtr>(pChild);
+        Viewport * pTypedChild =
+            dynamic_cast<Viewport *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildViewportPtr::iterator pI =
                 _mfPort.find_nc(pTypedChild);
@@ -1080,17 +1080,17 @@ void WindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<WindowPtr>::_type("WindowPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Window *>::_type("WindowPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(WindowPtr)
+OSG_FIELDTRAITS_GETTYPE(Window *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           WindowPtr, 
+                           Window *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           WindowPtr, 
+                           Window *, 
                            0);
 
 OSG_END_NAMESPACE

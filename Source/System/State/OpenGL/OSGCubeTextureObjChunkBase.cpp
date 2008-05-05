@@ -95,23 +95,23 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        CubeTextureObjChunkBase::_sfPosZImage
+/*! \var Image *         CubeTextureObjChunkBase::_sfPosZImage
     The image for the positive Z direction of the cube texture.
 */
 
-/*! \var ImagePtr        CubeTextureObjChunkBase::_sfPosXImage
+/*! \var Image *         CubeTextureObjChunkBase::_sfPosXImage
     The image for the positive X direction of the cube texture.
 */
 
-/*! \var ImagePtr        CubeTextureObjChunkBase::_sfNegXImage
+/*! \var Image *         CubeTextureObjChunkBase::_sfNegXImage
     The image for the negative X direction of the cube texture.
 */
 
-/*! \var ImagePtr        CubeTextureObjChunkBase::_sfPosYImage
+/*! \var Image *         CubeTextureObjChunkBase::_sfPosYImage
     The image for the positive Y direction of the cube texture.
 */
 
-/*! \var ImagePtr        CubeTextureObjChunkBase::_sfNegYImage
+/*! \var Image *         CubeTextureObjChunkBase::_sfNegYImage
     The image for the negative Y direction of the cube texture.
 */
 
@@ -508,7 +508,7 @@ CubeTextureObjChunkTransitPtr CubeTextureObjChunkBase::create(void)
 {
     CubeTextureObjChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -524,7 +524,7 @@ CubeTextureObjChunkTransitPtr CubeTextureObjChunkBase::createLocal(BitVector bFl
 {
     CubeTextureObjChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -536,9 +536,9 @@ CubeTextureObjChunkTransitPtr CubeTextureObjChunkBase::createLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CubeTextureObjChunkPtr CubeTextureObjChunkBase::createEmpty(void)
+CubeTextureObjChunk *CubeTextureObjChunkBase::createEmpty(void)
 {
-    CubeTextureObjChunkPtr returnValue;
+    CubeTextureObjChunk *returnValue;
 
     newPtr<CubeTextureObjChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -548,9 +548,9 @@ CubeTextureObjChunkPtr CubeTextureObjChunkBase::createEmpty(void)
     return returnValue;
 }
 
-CubeTextureObjChunkPtr CubeTextureObjChunkBase::createEmptyLocal(BitVector bFlags)
+CubeTextureObjChunk *CubeTextureObjChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    CubeTextureObjChunkPtr returnValue;
+    CubeTextureObjChunk *returnValue;
 
     newPtr<CubeTextureObjChunk>(returnValue, bFlags);
 
@@ -561,7 +561,7 @@ CubeTextureObjChunkPtr CubeTextureObjChunkBase::createEmptyLocal(BitVector bFlag
 
 FieldContainerTransitPtr CubeTextureObjChunkBase::shallowCopy(void) const
 {
-    CubeTextureObjChunkPtr tmpPtr;
+    CubeTextureObjChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const CubeTextureObjChunk *>(this), 
@@ -577,7 +577,7 @@ FieldContainerTransitPtr CubeTextureObjChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr CubeTextureObjChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CubeTextureObjChunkPtr tmpPtr;
+    CubeTextureObjChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const CubeTextureObjChunk *>(this), bFlags);
 
@@ -594,22 +594,22 @@ FieldContainerTransitPtr CubeTextureObjChunkBase::shallowCopyLocal(
 
 CubeTextureObjChunkBase::CubeTextureObjChunkBase(void) :
     Inherited(),
-    _sfPosZImage              (NullFC),
-    _sfPosXImage              (NullFC),
-    _sfNegXImage              (NullFC),
-    _sfPosYImage              (NullFC),
-    _sfNegYImage              (NullFC),
+    _sfPosZImage              (NULL),
+    _sfPosXImage              (NULL),
+    _sfNegXImage              (NULL),
+    _sfPosYImage              (NULL),
+    _sfNegYImage              (NULL),
     _sfIsReflectionMap        (bool(true))
 {
 }
 
 CubeTextureObjChunkBase::CubeTextureObjChunkBase(const CubeTextureObjChunkBase &source) :
     Inherited(source),
-    _sfPosZImage              (NullFC),
-    _sfPosXImage              (NullFC),
-    _sfNegXImage              (NullFC),
-    _sfPosYImage              (NullFC),
-    _sfNegYImage              (NullFC),
+    _sfPosZImage              (NULL),
+    _sfPosXImage              (NULL),
+    _sfNegXImage              (NULL),
+    _sfPosYImage              (NULL),
+    _sfNegYImage              (NULL),
     _sfIsReflectionMap        (source._sfIsReflectionMap        )
 {
 }
@@ -806,9 +806,9 @@ void CubeTextureObjChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CubeTextureObjChunkBase::createAspectCopy(void) const
+FieldContainer *CubeTextureObjChunkBase::createAspectCopy(void) const
 {
-    CubeTextureObjChunkPtr returnValue;
+    CubeTextureObjChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CubeTextureObjChunk *>(this));
@@ -821,32 +821,32 @@ void CubeTextureObjChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<CubeTextureObjChunk *>(this)->setPosZImage(NullFC);
+    static_cast<CubeTextureObjChunk *>(this)->setPosZImage(NULL);
 
-    static_cast<CubeTextureObjChunk *>(this)->setPosXImage(NullFC);
+    static_cast<CubeTextureObjChunk *>(this)->setPosXImage(NULL);
 
-    static_cast<CubeTextureObjChunk *>(this)->setNegXImage(NullFC);
+    static_cast<CubeTextureObjChunk *>(this)->setNegXImage(NULL);
 
-    static_cast<CubeTextureObjChunk *>(this)->setPosYImage(NullFC);
+    static_cast<CubeTextureObjChunk *>(this)->setPosYImage(NULL);
 
-    static_cast<CubeTextureObjChunk *>(this)->setNegYImage(NullFC);
+    static_cast<CubeTextureObjChunk *>(this)->setNegYImage(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeTextureObjChunkPtr>::_type("CubeTextureObjChunkPtr", "TextureObjChunkPtr");
+DataType FieldTraits<CubeTextureObjChunk *>::_type("CubeTextureObjChunkPtr", "TextureObjChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CubeTextureObjChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(CubeTextureObjChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CubeTextureObjChunkPtr, 
+                           CubeTextureObjChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CubeTextureObjChunkPtr, 
+                           CubeTextureObjChunk *, 
                            0);
 
 OSG_END_NAMESPACE

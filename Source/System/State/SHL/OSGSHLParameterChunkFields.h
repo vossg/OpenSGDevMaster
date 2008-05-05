@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SHLParameterChunk);
 #endif
 
 template <>
-struct FieldTraits<SHLParameterChunkPtr> :
-    public FieldTraitsFCPtrBase<SHLParameterChunkPtr>
+struct FieldTraits<SHLParameterChunk *> :
+    public FieldTraitsFCPtrBase<SHLParameterChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SHLParameterChunkPtr> :
 
   public:
 
-    typedef FieldTraits<SHLParameterChunkPtr>  Self;
+    typedef FieldTraits<SHLParameterChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<SHLParameterChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSHLParameterChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SHLParameterChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSHLParameterChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<SHLParameterChunkPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<SHLParameterChunkPtr,
+typedef PointerSField<SHLParameterChunk *,
                       RecordedRefCountPolicy  > SFRecSHLParameterChunkPtr;
-typedef PointerSField<SHLParameterChunkPtr,
+typedef PointerSField<SHLParameterChunk *,
                       UnrecordedRefCountPolicy> SFUnrecSHLParameterChunkPtr;
-typedef PointerSField<SHLParameterChunkPtr,
+typedef PointerSField<SHLParameterChunk *,
                       WeakRefCountPolicy      > SFWeakSHLParameterChunkPtr;
-typedef PointerSField<SHLParameterChunkPtr,
+typedef PointerSField<SHLParameterChunk *,
                       NoRefCountPolicy        > SFUncountedSHLParameterChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<SHLParameterChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<SHLParameterChunkPtr,
+typedef PointerMField<SHLParameterChunk *,
                       RecordedRefCountPolicy  > MFRecSHLParameterChunkPtr;
-typedef PointerMField<SHLParameterChunkPtr,
+typedef PointerMField<SHLParameterChunk *,
                       UnrecordedRefCountPolicy> MFUnrecSHLParameterChunkPtr;
-typedef PointerMField<SHLParameterChunkPtr,
+typedef PointerMField<SHLParameterChunk *,
                       WeakRefCountPolicy      > MFWeakSHLParameterChunkPtr;
-typedef PointerMField<SHLParameterChunkPtr,
+typedef PointerMField<SHLParameterChunk *,
                       NoRefCountPolicy        > MFUncountedSHLParameterChunkPtr;
 #endif
 

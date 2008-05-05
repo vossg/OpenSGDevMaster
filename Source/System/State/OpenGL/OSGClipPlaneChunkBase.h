@@ -161,7 +161,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
                   bool                &editEnable         (void);
             const bool                 getEnable          (void) const;
 
-                  NodePtr getBeacon         (void) const;
+                  Node * getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -170,7 +170,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 
             void setEquation       (const Vec4f &value);
             void setEnable         (const bool &value);
-            void setBeacon         (const NodePtr value);
+            void setBeacon         (Node * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,13 +199,13 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ClipPlaneChunkTransitPtr create          (void);
-    static  ClipPlaneChunkPtr        createEmpty     (void);
+    static  ClipPlaneChunkTransitPtr  create          (void);
+    static  ClipPlaneChunk           *createEmpty     (void);
 
-    static  ClipPlaneChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ClipPlaneChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ClipPlaneChunkPtr        createEmptyLocal(
+    static  ClipPlaneChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -299,7 +299,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

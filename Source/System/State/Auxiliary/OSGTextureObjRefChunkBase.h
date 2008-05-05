@@ -168,13 +168,13 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureObjRefChunkTransitPtr create          (void);
-    static  TextureObjRefChunkPtr        createEmpty     (void);
+    static  TextureObjRefChunkTransitPtr  create          (void);
+    static  TextureObjRefChunk           *createEmpty     (void);
 
-    static  TextureObjRefChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TextureObjRefChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TextureObjRefChunkPtr        createEmptyLocal(
+    static  TextureObjRefChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

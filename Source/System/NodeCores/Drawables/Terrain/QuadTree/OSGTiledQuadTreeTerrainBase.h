@@ -255,9 +255,9 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
             const SFBool              *getSFPerPixelLighting (void) const;
 
 
-                  ImagePtr getHeightTiles    (const UInt32 index) const;
+                  Image * getHeightTiles    (const UInt32 index) const;
 
-                  MaterialPtr getHeightTextures (const UInt32 index) const;
+                  Material * getHeightTextures (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getSizeX           (void);
@@ -359,17 +359,17 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToHeightTiles           (const ImagePtr value   );
-    void assignHeightTiles           (const MFUnrecImagePtr   &value);
-    void removeFromHeightTiles (UInt32                uiIndex );
-    void removeFromHeightTiles(const ImagePtr value   );
+    void pushToHeightTiles           (Image * const value   );
+    void assignHeightTiles          (const MFUnrecImagePtr   &value);
+    void removeFromHeightTiles (UInt32               uiIndex );
+    void removeFromHeightTiles(Image * const value   );
     void clearHeightTiles            (void                          );
 
 
-    void pushToHeightTextures           (const MaterialPtr value   );
-    void assignHeightTextures           (const MFUnrecMaterialPtr &value);
-    void removeFromHeightTextures (UInt32                uiIndex );
-    void removeFromHeightTextures(const MaterialPtr value   );
+    void pushToHeightTextures           (Material * const value   );
+    void assignHeightTextures          (const MFUnrecMaterialPtr &value);
+    void removeFromHeightTextures (UInt32               uiIndex );
+    void removeFromHeightTextures(Material * const value   );
     void clearHeightTextures            (void                          );
 
 
@@ -390,13 +390,13 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TiledQuadTreeTerrainTransitPtr create          (void);
-    static  TiledQuadTreeTerrainPtr        createEmpty     (void);
+    static  TiledQuadTreeTerrainTransitPtr  create          (void);
+    static  TiledQuadTreeTerrain           *createEmpty     (void);
 
-    static  TiledQuadTreeTerrainTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TiledQuadTreeTerrainTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TiledQuadTreeTerrainPtr        createEmptyLocal(
+    static  TiledQuadTreeTerrain            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -523,7 +523,7 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

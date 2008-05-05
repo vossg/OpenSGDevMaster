@@ -553,7 +553,7 @@ MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::create(void)
 {
     MatrixCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -569,7 +569,7 @@ MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::createLocal(BitVector
 {
     MatrixCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -581,9 +581,9 @@ MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::createLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmpty(void)
+MatrixCameraDecorator *MatrixCameraDecoratorBase::createEmpty(void)
 {
-    MatrixCameraDecoratorPtr returnValue;
+    MatrixCameraDecorator *returnValue;
 
     newPtr<MatrixCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -593,9 +593,9 @@ MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmpty(void)
     return returnValue;
 }
 
-MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+MatrixCameraDecorator *MatrixCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
 {
-    MatrixCameraDecoratorPtr returnValue;
+    MatrixCameraDecorator *returnValue;
 
     newPtr<MatrixCameraDecorator>(returnValue, bFlags);
 
@@ -606,7 +606,7 @@ MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmptyLocal(BitVector b
 
 FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopy(void) const
 {
-    MatrixCameraDecoratorPtr tmpPtr;
+    MatrixCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MatrixCameraDecorator *>(this), 
@@ -622,7 +622,7 @@ FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopy(void) const
 FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MatrixCameraDecoratorPtr tmpPtr;
+    MatrixCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MatrixCameraDecorator *>(this), bFlags);
 
@@ -817,9 +817,9 @@ void MatrixCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MatrixCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *MatrixCameraDecoratorBase::createAspectCopy(void) const
 {
-    MatrixCameraDecoratorPtr returnValue;
+    MatrixCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MatrixCameraDecorator *>(this));
@@ -837,17 +837,17 @@ void MatrixCameraDecoratorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCameraDecoratorPtr>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr");
+DataType FieldTraits<MatrixCameraDecorator *>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecoratorPtr)
+OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecorator *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MatrixCameraDecoratorPtr, 
+                           MatrixCameraDecorator *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MatrixCameraDecoratorPtr, 
+                           MatrixCameraDecorator *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -76,14 +76,14 @@ OSG::UInt16 SHLParameterChunkBase::getClassGroupId(void)
 
 //! Get the value of the SHLParameterChunk::_sfSHLChunk field.
 inline
-SHLChunkPtr SHLParameterChunkBase::getSHLChunk(void) const
+SHLChunk * SHLParameterChunkBase::getSHLChunk(void) const
 {
     return _sfSHLChunk.getValue();
 }
 
 //! Set the value of the SHLParameterChunk::_sfSHLChunk field.
 inline
-void SHLParameterChunkBase::setSHLChunk(const SHLChunkPtr value)
+void SHLParameterChunkBase::setSHLChunk(SHLChunk * const value)
 {
     editSField(SHLChunkFieldMask);
 

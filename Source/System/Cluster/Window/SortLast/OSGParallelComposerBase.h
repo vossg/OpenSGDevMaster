@@ -202,13 +202,13 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ParallelComposerTransitPtr create          (void);
-    static  ParallelComposerPtr        createEmpty     (void);
+    static  ParallelComposerTransitPtr  create          (void);
+    static  ParallelComposer           *createEmpty     (void);
 
-    static  ParallelComposerTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ParallelComposerTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ParallelComposerPtr        createEmptyLocal(
+    static  ParallelComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

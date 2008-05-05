@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ShaderParameterPtr ShaderParameterChunkBase::_mfParameters
+/*! \var ShaderParameter * ShaderParameterChunkBase::_mfParameters
     parameter list
 */
 
@@ -189,7 +189,7 @@ MFUnrecChildShaderParameterPtr *ShaderParameterChunkBase::editMFParameters     (
 
 
 
-void ShaderParameterChunkBase::addParameter(const ShaderParameterPtr value)
+void ShaderParameterChunkBase::addParameter(ShaderParameter * const value)
 {
     editMField(ParametersFieldMask, _mfParameters);
 
@@ -227,7 +227,7 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
     }
 }
 
-void ShaderParameterChunkBase::subParameter(const ShaderParameterPtr value)
+void ShaderParameterChunkBase::subParameter(ShaderParameter * const value)
 {
     Int32 iElemIdx = _mfParameters.findIndex(value);
 
@@ -320,15 +320,15 @@ ShaderParameterChunkBase::~ShaderParameterChunkBase(void)
 /* Child linking                                                           */
 
 bool ShaderParameterChunkBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == ParametersFieldId)
     {
-        ShaderParameterPtr pTypedChild =
-            dynamic_cast<ShaderParameterPtr>(pChild);
+        ShaderParameter * pTypedChild =
+            dynamic_cast<ShaderParameter *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildShaderParameterPtr::iterator pI =
                 _mfParameters.find_nc(pTypedChild);
@@ -430,17 +430,17 @@ void ShaderParameterChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterChunkPtr>::_type("ShaderParameterChunkPtr", "StateChunkPtr");
+DataType FieldTraits<ShaderParameterChunk *>::_type("ShaderParameterChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterChunkPtr, 
+                           ShaderParameterChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterChunkPtr, 
+                           ShaderParameterChunk *, 
                            0);
 
 OSG_END_NAMESPACE

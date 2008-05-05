@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var StateChunkPtr   ChunkOverrideGroupBase::_mfChunks
+/*! \var StateChunk *    ChunkOverrideGroupBase::_mfChunks
     
 */
 
@@ -186,7 +186,7 @@ MFUnrecStateChunkPtr *ChunkOverrideGroupBase::editMFChunks         (void)
 
 
 
-void ChunkOverrideGroupBase::pushToChunks(const StateChunkPtr value)
+void ChunkOverrideGroupBase::pushToChunks(StateChunk * const value)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -224,7 +224,7 @@ void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
     }
 }
 
-void ChunkOverrideGroupBase::removeFromChunks(const StateChunkPtr value)
+void ChunkOverrideGroupBase::removeFromChunks(StateChunk * const value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 
@@ -290,7 +290,7 @@ ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::create(void)
 {
     ChunkOverrideGroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -306,7 +306,7 @@ ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::createLocal(BitVector bFlag
 {
     ChunkOverrideGroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -318,9 +318,9 @@ ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmpty(void)
+ChunkOverrideGroup *ChunkOverrideGroupBase::createEmpty(void)
 {
-    ChunkOverrideGroupPtr returnValue;
+    ChunkOverrideGroup *returnValue;
 
     newPtr<ChunkOverrideGroup>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -330,9 +330,9 @@ ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmpty(void)
     return returnValue;
 }
 
-ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmptyLocal(BitVector bFlags)
+ChunkOverrideGroup *ChunkOverrideGroupBase::createEmptyLocal(BitVector bFlags)
 {
-    ChunkOverrideGroupPtr returnValue;
+    ChunkOverrideGroup *returnValue;
 
     newPtr<ChunkOverrideGroup>(returnValue, bFlags);
 
@@ -343,7 +343,7 @@ ChunkOverrideGroupPtr ChunkOverrideGroupBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
 {
-    ChunkOverrideGroupPtr tmpPtr;
+    ChunkOverrideGroup *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ChunkOverrideGroup *>(this), 
@@ -359,7 +359,7 @@ FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
 FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ChunkOverrideGroupPtr tmpPtr;
+    ChunkOverrideGroup *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ChunkOverrideGroup *>(this), bFlags);
 
@@ -458,9 +458,9 @@ void ChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ChunkOverrideGroupBase::createAspectCopy(void) const
+FieldContainer *ChunkOverrideGroupBase::createAspectCopy(void) const
 {
-    ChunkOverrideGroupPtr returnValue;
+    ChunkOverrideGroup *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ChunkOverrideGroup *>(this));
@@ -479,17 +479,17 @@ void ChunkOverrideGroupBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkOverrideGroupPtr>::_type("ChunkOverrideGroupPtr", "GroupPtr");
+DataType FieldTraits<ChunkOverrideGroup *>::_type("ChunkOverrideGroupPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroupPtr)
+OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroup *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ChunkOverrideGroupPtr, 
+                           ChunkOverrideGroup *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ChunkOverrideGroupPtr, 
+                           ChunkOverrideGroup *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -219,13 +219,13 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ColorBufferViewportTransitPtr create          (void);
-    static  ColorBufferViewportPtr        createEmpty     (void);
+    static  ColorBufferViewportTransitPtr  create          (void);
+    static  ColorBufferViewport           *createEmpty     (void);
 
-    static  ColorBufferViewportTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ColorBufferViewportTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ColorBufferViewportPtr        createEmptyLocal(
+    static  ColorBufferViewport            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -321,7 +321,7 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

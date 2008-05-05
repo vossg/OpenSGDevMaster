@@ -139,7 +139,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
             const SFUInt32            *getSFChoice          (void) const;
 
 
-                  MaterialPtr getMaterials      (const UInt32 index) const;
+                  Material * getMaterials      (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getChoice          (void);
@@ -164,10 +164,10 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToMaterials           (const MaterialPtr value   );
-    void assignMaterials           (const MFUnrecMaterialPtr &value);
-    void removeFromMaterials (UInt32                uiIndex );
-    void removeFromMaterials(const MaterialPtr value   );
+    void pushToMaterials           (Material * const value   );
+    void assignMaterials          (const MFUnrecMaterialPtr &value);
+    void removeFromMaterials (UInt32               uiIndex );
+    void removeFromMaterials(Material * const value   );
     void clearMaterials             (void                          );
 
 
@@ -188,13 +188,13 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SwitchMaterialTransitPtr create          (void);
-    static  SwitchMaterialPtr        createEmpty     (void);
+    static  SwitchMaterialTransitPtr  create          (void);
+    static  SwitchMaterial           *createEmpty     (void);
 
-    static  SwitchMaterialTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SwitchMaterialTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SwitchMaterialPtr        createEmptyLocal(
+    static  SwitchMaterial            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -285,7 +285,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

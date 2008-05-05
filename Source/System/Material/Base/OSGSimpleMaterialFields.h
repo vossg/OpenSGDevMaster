@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SimpleMaterial);
 #endif
 
 template <>
-struct FieldTraits<SimpleMaterialPtr> :
-    public FieldTraitsFCPtrBase<SimpleMaterialPtr>
+struct FieldTraits<SimpleMaterial *> :
+    public FieldTraitsFCPtrBase<SimpleMaterial *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SimpleMaterialPtr> :
 
   public:
 
-    typedef FieldTraits<SimpleMaterialPtr>  Self;
+    typedef FieldTraits<SimpleMaterial *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

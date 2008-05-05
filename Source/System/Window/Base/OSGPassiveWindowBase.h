@@ -126,13 +126,13 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PassiveWindowTransitPtr create          (void);
-    static  PassiveWindowPtr        createEmpty     (void);
+    static  PassiveWindowTransitPtr  create          (void);
+    static  PassiveWindow           *createEmpty     (void);
 
-    static  PassiveWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  PassiveWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  PassiveWindowPtr        createEmptyLocal(
+    static  PassiveWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

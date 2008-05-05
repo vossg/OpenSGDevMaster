@@ -225,7 +225,7 @@ OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::create(void
 {
     OffCenterPerspectiveCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -241,7 +241,7 @@ OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::createLocal
 {
     OffCenterPerspectiveCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -253,9 +253,9 @@ OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::createLocal
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::createEmpty(void)
+OffCenterPerspectiveCamera *OffCenterPerspectiveCameraBase::createEmpty(void)
 {
-    OffCenterPerspectiveCameraPtr returnValue;
+    OffCenterPerspectiveCamera *returnValue;
 
     newPtr<OffCenterPerspectiveCamera>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -265,9 +265,9 @@ OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::createEmpty(void)
     return returnValue;
 }
 
-OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
+OffCenterPerspectiveCamera *OffCenterPerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
 {
-    OffCenterPerspectiveCameraPtr returnValue;
+    OffCenterPerspectiveCamera *returnValue;
 
     newPtr<OffCenterPerspectiveCamera>(returnValue, bFlags);
 
@@ -278,7 +278,7 @@ OffCenterPerspectiveCameraPtr OffCenterPerspectiveCameraBase::createEmptyLocal(B
 
 FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopy(void) const
 {
-    OffCenterPerspectiveCameraPtr tmpPtr;
+    OffCenterPerspectiveCamera *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const OffCenterPerspectiveCamera *>(this), 
@@ -294,7 +294,7 @@ FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopy(void) const
 FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    OffCenterPerspectiveCameraPtr tmpPtr;
+    OffCenterPerspectiveCamera *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const OffCenterPerspectiveCamera *>(this), bFlags);
 
@@ -369,9 +369,9 @@ void OffCenterPerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr OffCenterPerspectiveCameraBase::createAspectCopy(void) const
+FieldContainer *OffCenterPerspectiveCameraBase::createAspectCopy(void) const
 {
-    OffCenterPerspectiveCameraPtr returnValue;
+    OffCenterPerspectiveCamera *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const OffCenterPerspectiveCamera *>(this));
@@ -389,17 +389,17 @@ void OffCenterPerspectiveCameraBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<OffCenterPerspectiveCameraPtr>::_type("OffCenterPerspectiveCameraPtr", "PerspectiveCameraPtr");
+DataType FieldTraits<OffCenterPerspectiveCamera *>::_type("OffCenterPerspectiveCameraPtr", "PerspectiveCameraPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(OffCenterPerspectiveCameraPtr)
+OSG_FIELDTRAITS_GETTYPE(OffCenterPerspectiveCamera *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           OffCenterPerspectiveCameraPtr, 
+                           OffCenterPerspectiveCamera *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           OffCenterPerspectiveCameraPtr, 
+                           OffCenterPerspectiveCamera *, 
                            0);
 
 OSG_END_NAMESPACE

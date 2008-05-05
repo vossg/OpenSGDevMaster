@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(MultiCore);
 #endif
 
 template <>
-struct FieldTraits<MultiCorePtr> :
-    public FieldTraitsFCPtrBase<MultiCorePtr>
+struct FieldTraits<MultiCore *> :
+    public FieldTraitsFCPtrBase<MultiCore *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<MultiCorePtr> :
 
   public:
 
-    typedef FieldTraits<MultiCorePtr>  Self;
+    typedef FieldTraits<MultiCore *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<MultiCorePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMultiCorePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MultiCore *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMultiCorePtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<MultiCorePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef PointerSField<MultiCorePtr,
+typedef PointerSField<MultiCore *,
                       RecordedRefCountPolicy  > SFRecMultiCorePtr;
-typedef PointerSField<MultiCorePtr,
+typedef PointerSField<MultiCore *,
                       UnrecordedRefCountPolicy> SFUnrecMultiCorePtr;
-typedef PointerSField<MultiCorePtr,
+typedef PointerSField<MultiCore *,
                       WeakRefCountPolicy      > SFWeakMultiCorePtr;
-typedef PointerSField<MultiCorePtr,
+typedef PointerSField<MultiCore *,
                       NoRefCountPolicy        > SFUncountedMultiCorePtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<MultiCorePtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef PointerMField<MultiCorePtr,
+typedef PointerMField<MultiCore *,
                       RecordedRefCountPolicy  > MFRecMultiCorePtr;
-typedef PointerMField<MultiCorePtr,
+typedef PointerMField<MultiCore *,
                       UnrecordedRefCountPolicy> MFUnrecMultiCorePtr;
-typedef PointerMField<MultiCorePtr,
+typedef PointerMField<MultiCore *,
                       WeakRefCountPolicy      > MFWeakMultiCorePtr;
-typedef PointerMField<MultiCorePtr,
+typedef PointerMField<MultiCore *,
                       NoRefCountPolicy        > MFUncountedMultiCorePtr;
 #endif
 

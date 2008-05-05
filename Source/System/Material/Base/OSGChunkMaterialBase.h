@@ -141,13 +141,13 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ChunkMaterialTransitPtr create          (void);
-    static  ChunkMaterialPtr        createEmpty     (void);
+    static  ChunkMaterialTransitPtr  create          (void);
+    static  ChunkMaterial           *createEmpty     (void);
 
-    static  ChunkMaterialTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ChunkMaterialTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ChunkMaterialPtr        createEmptyLocal(
+    static  ChunkMaterial            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -220,7 +220,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
             const MFInt32             *getMFSlots           (void) const;
 
 
-                  StateChunkPtr getChunks         (const UInt32 index) const;
+                  StateChunk * getChunks         (const UInt32 index) const;
 
                   Int32               &editSlots          (const UInt32 index);
             const Int32                getSlots           (const UInt32 index) const;
@@ -236,10 +236,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChunks              (const StateChunkPtr value   );
+    void pushToChunks              (StateChunk * const value   );
     void assignChunks              (const MFUnrecStateChunkPtr &value);
     void removeFromChunks (UInt32                uiIndex );
-    void removeFromChunks(const StateChunkPtr value   );
+    void removeFromChunks(StateChunk * const value   );
     void clearChunks                (void                          );
 
 
@@ -273,7 +273,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

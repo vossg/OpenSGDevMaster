@@ -202,13 +202,13 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  WIN32WindowTransitPtr create          (void);
-    static  WIN32WindowPtr        createEmpty     (void);
+    static  WIN32WindowTransitPtr  create          (void);
+    static  WIN32Window           *createEmpty     (void);
 
-    static  WIN32WindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  WIN32WindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  WIN32WindowPtr        createEmptyLocal(
+    static  WIN32Window            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

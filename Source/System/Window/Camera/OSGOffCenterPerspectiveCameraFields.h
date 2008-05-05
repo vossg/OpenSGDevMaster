@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(OffCenterPerspectiveCamera);
 #endif
 
 template <>
-struct FieldTraits<OffCenterPerspectiveCameraPtr> :
-    public FieldTraitsFCPtrBase<OffCenterPerspectiveCameraPtr>
+struct FieldTraits<OffCenterPerspectiveCamera *> :
+    public FieldTraitsFCPtrBase<OffCenterPerspectiveCamera *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 
   public:
 
-    typedef FieldTraits<OffCenterPerspectiveCameraPtr>  Self;
+    typedef FieldTraits<OffCenterPerspectiveCamera *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<OffCenterPerspectiveCameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakOffCenterPerspectiveCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdOffCenterPerspectiveCameraPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<OffCenterPerspectiveCameraPtr, 0>::getMName<NoRefCountP
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<OffCenterPerspectiveCameraPtr,
+typedef PointerSField<OffCenterPerspectiveCamera *,
                       RecordedRefCountPolicy  > SFRecOffCenterPerspectiveCameraPtr;
-typedef PointerSField<OffCenterPerspectiveCameraPtr,
+typedef PointerSField<OffCenterPerspectiveCamera *,
                       UnrecordedRefCountPolicy> SFUnrecOffCenterPerspectiveCameraPtr;
-typedef PointerSField<OffCenterPerspectiveCameraPtr,
+typedef PointerSField<OffCenterPerspectiveCamera *,
                       WeakRefCountPolicy      > SFWeakOffCenterPerspectiveCameraPtr;
-typedef PointerSField<OffCenterPerspectiveCameraPtr,
+typedef PointerSField<OffCenterPerspectiveCamera *,
                       NoRefCountPolicy        > SFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<OffCenterPerspectiveCameraPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<OffCenterPerspectiveCameraPtr,
+typedef PointerMField<OffCenterPerspectiveCamera *,
                       RecordedRefCountPolicy  > MFRecOffCenterPerspectiveCameraPtr;
-typedef PointerMField<OffCenterPerspectiveCameraPtr,
+typedef PointerMField<OffCenterPerspectiveCamera *,
                       UnrecordedRefCountPolicy> MFUnrecOffCenterPerspectiveCameraPtr;
-typedef PointerMField<OffCenterPerspectiveCameraPtr,
+typedef PointerMField<OffCenterPerspectiveCamera *,
                       WeakRefCountPolicy      > MFWeakOffCenterPerspectiveCameraPtr;
-typedef PointerMField<OffCenterPerspectiveCameraPtr,
+typedef PointerMField<OffCenterPerspectiveCamera *,
                       NoRefCountPolicy        > MFUncountedOffCenterPerspectiveCameraPtr;
 #endif
 

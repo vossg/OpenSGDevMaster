@@ -323,7 +323,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
             const SFBool              *getSFPerPixelLighting (void) const;
 
 
-                  ImagePtr getHeightData     (void) const;
+                  Image * getHeightData     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getHeightScale     (void);
@@ -434,7 +434,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setHeightData     (const ImagePtr value);
+            void setHeightData     (Image * const value);
             void setHeightScale    (const Real32 &value);
             void setDetail         (const Real32 &value);
             void setBorderDetail   (const Int32 &value);
@@ -478,13 +478,13 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  QuadTreeTerrainTransitPtr create          (void);
-    static  QuadTreeTerrainPtr        createEmpty     (void);
+    static  QuadTreeTerrainTransitPtr  create          (void);
+    static  QuadTreeTerrain           *createEmpty     (void);
 
-    static  QuadTreeTerrainTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  QuadTreeTerrainTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  QuadTreeTerrainPtr        createEmptyLocal(
+    static  QuadTreeTerrain            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -641,7 +641,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
                   UInt32              &editLevel          (void);
             const UInt32               getLevel           (void) const;
 
-                  GeoVectorPropertyPtr getHeightVertices (void) const;
+                  GeoVectorProperty * getHeightVertices (void) const;
 
                   Pnt3f               &editBoundMin       (void);
             const Pnt3f                getBoundMin        (void) const;
@@ -659,7 +659,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
 
             void setWidth          (const UInt32 &value);
             void setLevel          (const UInt32 &value);
-            void setHeightVertices (const GeoVectorPropertyPtr value);
+            void setHeightVertices (GeoVectorProperty * const value);
             void setBoundMin       (const Pnt3f &value);
             void setBoundMax       (const Pnt3f &value);
             void setEyeHeight      (const Real32 &value);
@@ -699,7 +699,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

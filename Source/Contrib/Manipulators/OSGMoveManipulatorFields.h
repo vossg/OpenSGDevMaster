@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(MoveManipulator);
 #endif
 
 template <>
-struct FieldTraits<MoveManipulatorPtr> :
-    public FieldTraitsFCPtrBase<MoveManipulatorPtr>
+struct FieldTraits<MoveManipulator *> :
+    public FieldTraitsFCPtrBase<MoveManipulator *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<MoveManipulatorPtr> :
 
   public:
 
-    typedef FieldTraits<MoveManipulatorPtr>  Self;
+    typedef FieldTraits<MoveManipulator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

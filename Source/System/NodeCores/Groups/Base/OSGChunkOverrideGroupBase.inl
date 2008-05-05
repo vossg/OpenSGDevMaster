@@ -76,7 +76,7 @@ OSG::UInt16 ChunkOverrideGroupBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ChunkOverrideGroup::_mfChunks field.
 inline
-StateChunkPtr ChunkOverrideGroupBase::getChunks(const UInt32 index) const
+StateChunk * ChunkOverrideGroupBase::getChunks(const UInt32 index) const
 {
     return _mfChunks[index];
 }

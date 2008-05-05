@@ -236,13 +236,13 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BillboardTransitPtr create          (void);
-    static  BillboardPtr        createEmpty     (void);
+    static  BillboardTransitPtr  create          (void);
+    static  Billboard           *createEmpty     (void);
 
-    static  BillboardTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  BillboardTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  BillboardPtr        createEmptyLocal(
+    static  Billboard            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -341,7 +341,7 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

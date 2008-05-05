@@ -83,11 +83,11 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        TiledQuadTreeTerrainBase::_mfHeightTiles
+/*! \var Image *         TiledQuadTreeTerrainBase::_mfHeightTiles
     Terrain tile array.
 */
 
-/*! \var MaterialPtr     TiledQuadTreeTerrainBase::_mfHeightTextures
+/*! \var Material *      TiledQuadTreeTerrainBase::_mfHeightTextures
     Terrain textures.
 */
 
@@ -753,7 +753,7 @@ SFBool              *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
 
 
 
-void TiledQuadTreeTerrainBase::pushToHeightTiles(const ImagePtr value)
+void TiledQuadTreeTerrainBase::pushToHeightTiles(Image * const value)
 {
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
@@ -791,7 +791,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
     }
 }
 
-void TiledQuadTreeTerrainBase::removeFromHeightTiles(const ImagePtr value)
+void TiledQuadTreeTerrainBase::removeFromHeightTiles(Image * const value)
 {
     Int32 iElemIdx = _mfHeightTiles.findIndex(value);
 
@@ -814,7 +814,7 @@ void TiledQuadTreeTerrainBase::clearHeightTiles(void)
     _mfHeightTiles.clear();
 }
 
-void TiledQuadTreeTerrainBase::pushToHeightTextures(const MaterialPtr value)
+void TiledQuadTreeTerrainBase::pushToHeightTextures(Material * const value)
 {
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
@@ -852,7 +852,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
     }
 }
 
-void TiledQuadTreeTerrainBase::removeFromHeightTextures(const MaterialPtr value)
+void TiledQuadTreeTerrainBase::removeFromHeightTextures(Material * const value)
 {
     Int32 iElemIdx = _mfHeightTextures.findIndex(value);
 
@@ -1074,7 +1074,7 @@ TiledQuadTreeTerrainTransitPtr TiledQuadTreeTerrainBase::create(void)
 {
     TiledQuadTreeTerrainTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -1090,7 +1090,7 @@ TiledQuadTreeTerrainTransitPtr TiledQuadTreeTerrainBase::createLocal(BitVector b
 {
     TiledQuadTreeTerrainTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1102,9 +1102,9 @@ TiledQuadTreeTerrainTransitPtr TiledQuadTreeTerrainBase::createLocal(BitVector b
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmpty(void)
+TiledQuadTreeTerrain *TiledQuadTreeTerrainBase::createEmpty(void)
 {
-    TiledQuadTreeTerrainPtr returnValue;
+    TiledQuadTreeTerrain *returnValue;
 
     newPtr<TiledQuadTreeTerrain>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -1114,9 +1114,9 @@ TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmpty(void)
     return returnValue;
 }
 
-TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmptyLocal(BitVector bFlags)
+TiledQuadTreeTerrain *TiledQuadTreeTerrainBase::createEmptyLocal(BitVector bFlags)
 {
-    TiledQuadTreeTerrainPtr returnValue;
+    TiledQuadTreeTerrain *returnValue;
 
     newPtr<TiledQuadTreeTerrain>(returnValue, bFlags);
 
@@ -1127,7 +1127,7 @@ TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmptyLocal(BitVector bFl
 
 FieldContainerTransitPtr TiledQuadTreeTerrainBase::shallowCopy(void) const
 {
-    TiledQuadTreeTerrainPtr tmpPtr;
+    TiledQuadTreeTerrain *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TiledQuadTreeTerrain *>(this), 
@@ -1143,7 +1143,7 @@ FieldContainerTransitPtr TiledQuadTreeTerrainBase::shallowCopy(void) const
 FieldContainerTransitPtr TiledQuadTreeTerrainBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TiledQuadTreeTerrainPtr tmpPtr;
+    TiledQuadTreeTerrain *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TiledQuadTreeTerrain *>(this), bFlags);
 
@@ -1569,9 +1569,9 @@ void TiledQuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TiledQuadTreeTerrainBase::createAspectCopy(void) const
+FieldContainer *TiledQuadTreeTerrainBase::createAspectCopy(void) const
 {
-    TiledQuadTreeTerrainPtr returnValue;
+    TiledQuadTreeTerrain *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TiledQuadTreeTerrain *>(this));
@@ -1591,17 +1591,17 @@ void TiledQuadTreeTerrainBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TiledQuadTreeTerrainPtr>::_type("TiledQuadTreeTerrainPtr", "MaterialGroupPtr");
+DataType FieldTraits<TiledQuadTreeTerrain *>::_type("TiledQuadTreeTerrainPtr", "MaterialGroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrainPtr)
+OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrain *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TiledQuadTreeTerrainPtr, 
+                           TiledQuadTreeTerrain *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TiledQuadTreeTerrainPtr, 
+                           TiledQuadTreeTerrain *, 
                            0);
 
 OSG_END_NAMESPACE

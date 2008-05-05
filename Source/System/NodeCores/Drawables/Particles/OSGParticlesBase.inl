@@ -109,14 +109,14 @@ void ParticlesBase::setMode(const UInt32 &value)
 
 //! Get the value of the Particles::_sfPositions field.
 inline
-GeoVectorPropertyPtr ParticlesBase::getPositions(void) const
+GeoVectorProperty * ParticlesBase::getPositions(void) const
 {
     return _sfPositions.getValue();
 }
 
 //! Set the value of the Particles::_sfPositions field.
 inline
-void ParticlesBase::setPositions(const GeoVectorPropertyPtr value)
+void ParticlesBase::setPositions(GeoVectorProperty * const value)
 {
     editSField(PositionsFieldMask);
 
@@ -125,14 +125,14 @@ void ParticlesBase::setPositions(const GeoVectorPropertyPtr value)
 
 //! Get the value of the Particles::_sfSecPositions field.
 inline
-GeoVectorPropertyPtr ParticlesBase::getSecPositions(void) const
+GeoVectorProperty * ParticlesBase::getSecPositions(void) const
 {
     return _sfSecPositions.getValue();
 }
 
 //! Set the value of the Particles::_sfSecPositions field.
 inline
-void ParticlesBase::setSecPositions(const GeoVectorPropertyPtr value)
+void ParticlesBase::setSecPositions(GeoVectorProperty * const value)
 {
     editSField(SecPositionsFieldMask);
 
@@ -141,14 +141,14 @@ void ParticlesBase::setSecPositions(const GeoVectorPropertyPtr value)
 
 //! Get the value of the Particles::_sfColors field.
 inline
-GeoVectorPropertyPtr ParticlesBase::getColors(void) const
+GeoVectorProperty * ParticlesBase::getColors(void) const
 {
     return _sfColors.getValue();
 }
 
 //! Set the value of the Particles::_sfColors field.
 inline
-void ParticlesBase::setColors(const GeoVectorPropertyPtr value)
+void ParticlesBase::setColors(GeoVectorProperty * const value)
 {
     editSField(ColorsFieldMask);
 
@@ -157,14 +157,14 @@ void ParticlesBase::setColors(const GeoVectorPropertyPtr value)
 
 //! Get the value of the Particles::_sfNormals field.
 inline
-GeoVectorPropertyPtr ParticlesBase::getNormals(void) const
+GeoVectorProperty * ParticlesBase::getNormals(void) const
 {
     return _sfNormals.getValue();
 }
 
 //! Set the value of the Particles::_sfNormals field.
 inline
-void ParticlesBase::setNormals(const GeoVectorPropertyPtr value)
+void ParticlesBase::setNormals(GeoVectorProperty * const value)
 {
     editSField(NormalsFieldMask);
 

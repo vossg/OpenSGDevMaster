@@ -168,13 +168,13 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CoreGLWindowTransitPtr create          (void);
-    static  CoreGLWindowPtr        createEmpty     (void);
+    static  CoreGLWindowTransitPtr  create          (void);
+    static  CoreGLWindow           *createEmpty     (void);
 
-    static  CoreGLWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  CoreGLWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  CoreGLWindowPtr        createEmptyLocal(
+    static  CoreGLWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

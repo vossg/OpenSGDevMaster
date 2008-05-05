@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(FrameBufferObject);
 #endif
 
 template <>
-struct FieldTraits<FrameBufferObjectPtr> :
-    public FieldTraitsFCPtrBase<FrameBufferObjectPtr>
+struct FieldTraits<FrameBufferObject *> :
+    public FieldTraitsFCPtrBase<FrameBufferObject *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<FrameBufferObjectPtr> :
 
   public:
 
-    typedef FieldTraits<FrameBufferObjectPtr>  Self;
+    typedef FieldTraits<FrameBufferObject *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<FrameBufferObjectPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFrameBufferObjectPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FrameBufferObject *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFrameBufferObjectPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<FrameBufferObjectPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<FrameBufferObjectPtr,
+typedef PointerSField<FrameBufferObject *,
                       RecordedRefCountPolicy  > SFRecFrameBufferObjectPtr;
-typedef PointerSField<FrameBufferObjectPtr,
+typedef PointerSField<FrameBufferObject *,
                       UnrecordedRefCountPolicy> SFUnrecFrameBufferObjectPtr;
-typedef PointerSField<FrameBufferObjectPtr,
+typedef PointerSField<FrameBufferObject *,
                       WeakRefCountPolicy      > SFWeakFrameBufferObjectPtr;
-typedef PointerSField<FrameBufferObjectPtr,
+typedef PointerSField<FrameBufferObject *,
                       NoRefCountPolicy        > SFUncountedFrameBufferObjectPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<FrameBufferObjectPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<FrameBufferObjectPtr,
+typedef PointerMField<FrameBufferObject *,
                       RecordedRefCountPolicy  > MFRecFrameBufferObjectPtr;
-typedef PointerMField<FrameBufferObjectPtr,
+typedef PointerMField<FrameBufferObject *,
                       UnrecordedRefCountPolicy> MFUnrecFrameBufferObjectPtr;
-typedef PointerMField<FrameBufferObjectPtr,
+typedef PointerMField<FrameBufferObject *,
                       WeakRefCountPolicy      > MFWeakFrameBufferObjectPtr;
-typedef PointerMField<FrameBufferObjectPtr,
+typedef PointerMField<FrameBufferObject *,
                       NoRefCountPolicy        > MFUncountedFrameBufferObjectPtr;
 #endif
 

@@ -237,7 +237,7 @@ PointLightTransitPtr PointLightBase::create(void)
 {
     PointLightTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -253,7 +253,7 @@ PointLightTransitPtr PointLightBase::createLocal(BitVector bFlags)
 {
     PointLightTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -265,9 +265,9 @@ PointLightTransitPtr PointLightBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PointLightPtr PointLightBase::createEmpty(void)
+PointLight *PointLightBase::createEmpty(void)
 {
-    PointLightPtr returnValue;
+    PointLight *returnValue;
 
     newPtr<PointLight>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -277,9 +277,9 @@ PointLightPtr PointLightBase::createEmpty(void)
     return returnValue;
 }
 
-PointLightPtr PointLightBase::createEmptyLocal(BitVector bFlags)
+PointLight *PointLightBase::createEmptyLocal(BitVector bFlags)
 {
-    PointLightPtr returnValue;
+    PointLight *returnValue;
 
     newPtr<PointLight>(returnValue, bFlags);
 
@@ -290,7 +290,7 @@ PointLightPtr PointLightBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PointLightBase::shallowCopy(void) const
 {
-    PointLightPtr tmpPtr;
+    PointLight *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PointLight *>(this), 
@@ -306,7 +306,7 @@ FieldContainerTransitPtr PointLightBase::shallowCopy(void) const
 FieldContainerTransitPtr PointLightBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PointLightPtr tmpPtr;
+    PointLight *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PointLight *>(this), bFlags);
 
@@ -381,9 +381,9 @@ void PointLightBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PointLightBase::createAspectCopy(void) const
+FieldContainer *PointLightBase::createAspectCopy(void) const
 {
-    PointLightPtr returnValue;
+    PointLight *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PointLight *>(this));
@@ -401,7 +401,7 @@ void PointLightBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PointLightPtr>::_type("PointLightPtr", "LightPtr");
+DataType FieldTraits<PointLight *>::_type("PointLightPtr", "LightPtr");
 #endif
 
 

@@ -429,7 +429,7 @@ LineChunkTransitPtr LineChunkBase::create(void)
 {
     LineChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -445,7 +445,7 @@ LineChunkTransitPtr LineChunkBase::createLocal(BitVector bFlags)
 {
     LineChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -457,9 +457,9 @@ LineChunkTransitPtr LineChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-LineChunkPtr LineChunkBase::createEmpty(void)
+LineChunk *LineChunkBase::createEmpty(void)
 {
-    LineChunkPtr returnValue;
+    LineChunk *returnValue;
 
     newPtr<LineChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -469,9 +469,9 @@ LineChunkPtr LineChunkBase::createEmpty(void)
     return returnValue;
 }
 
-LineChunkPtr LineChunkBase::createEmptyLocal(BitVector bFlags)
+LineChunk *LineChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    LineChunkPtr returnValue;
+    LineChunk *returnValue;
 
     newPtr<LineChunk>(returnValue, bFlags);
 
@@ -482,7 +482,7 @@ LineChunkPtr LineChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr LineChunkBase::shallowCopy(void) const
 {
-    LineChunkPtr tmpPtr;
+    LineChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const LineChunk *>(this), 
@@ -498,7 +498,7 @@ FieldContainerTransitPtr LineChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr LineChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    LineChunkPtr tmpPtr;
+    LineChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const LineChunk *>(this), bFlags);
 
@@ -645,9 +645,9 @@ void LineChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr LineChunkBase::createAspectCopy(void) const
+FieldContainer *LineChunkBase::createAspectCopy(void) const
 {
-    LineChunkPtr returnValue;
+    LineChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const LineChunk *>(this));
@@ -665,17 +665,17 @@ void LineChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LineChunkPtr>::_type("LineChunkPtr", "StateChunkPtr");
+DataType FieldTraits<LineChunk *>::_type("LineChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(LineChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(LineChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           LineChunkPtr, 
+                           LineChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           LineChunkPtr, 
+                           LineChunk *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Camera);
 #endif
 
 template <>
-struct FieldTraits<CameraPtr> :
-    public FieldTraitsFCPtrBase<CameraPtr>
+struct FieldTraits<Camera *> :
+    public FieldTraitsFCPtrBase<Camera *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<CameraPtr> :
 
   public:
 
-    typedef FieldTraits<CameraPtr>  Self;
+    typedef FieldTraits<Camera *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<CameraPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCameraPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CameraPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Camera *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCameraPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<CameraPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<CameraPtr,
+typedef PointerSField<Camera *,
                       RecordedRefCountPolicy  > SFRecCameraPtr;
-typedef PointerSField<CameraPtr,
+typedef PointerSField<Camera *,
                       UnrecordedRefCountPolicy> SFUnrecCameraPtr;
-typedef PointerSField<CameraPtr,
+typedef PointerSField<Camera *,
                       WeakRefCountPolicy      > SFWeakCameraPtr;
-typedef PointerSField<CameraPtr,
+typedef PointerSField<Camera *,
                       NoRefCountPolicy        > SFUncountedCameraPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<CameraPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<CameraPtr,
+typedef PointerMField<Camera *,
                       RecordedRefCountPolicy  > MFRecCameraPtr;
-typedef PointerMField<CameraPtr,
+typedef PointerMField<Camera *,
                       UnrecordedRefCountPolicy> MFUnrecCameraPtr;
-typedef PointerMField<CameraPtr,
+typedef PointerMField<Camera *,
                       WeakRefCountPolicy      > MFWeakCameraPtr;
-typedef PointerMField<CameraPtr,
+typedef PointerMField<Camera *,
                       NoRefCountPolicy        > MFUncountedCameraPtr;
 #endif
 

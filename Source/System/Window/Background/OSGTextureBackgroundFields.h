@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TextureBackground);
 #endif
 
 template <>
-struct FieldTraits<TextureBackgroundPtr> :
-    public FieldTraitsFCPtrBase<TextureBackgroundPtr>
+struct FieldTraits<TextureBackground *> :
+    public FieldTraitsFCPtrBase<TextureBackground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TextureBackgroundPtr> :
 
   public:
 
-    typedef FieldTraits<TextureBackgroundPtr>  Self;
+    typedef FieldTraits<TextureBackground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -103,25 +103,25 @@ struct FieldTraits<TextureBackgroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextureBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextureBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextureBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextureBackground *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextureBackgroundPtr"; 
 }
@@ -139,13 +139,13 @@ const Char8 *FieldTraits<TextureBackgroundPtr, 0>::getSName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<TextureBackgroundPtr,
+typedef PointerSField<TextureBackground *,
                       RecordedRefCountPolicy  > SFRecTextureBackgroundPtr;
-typedef PointerSField<TextureBackgroundPtr,
+typedef PointerSField<TextureBackground *,
                       UnrecordedRefCountPolicy> SFUnrecTextureBackgroundPtr;
-typedef PointerSField<TextureBackgroundPtr,
+typedef PointerSField<TextureBackground *,
                       WeakRefCountPolicy      > SFWeakTextureBackgroundPtr;
-typedef PointerSField<TextureBackgroundPtr,
+typedef PointerSField<TextureBackground *,
                       NoRefCountPolicy        > SFUncountedTextureBackgroundPtr;
 #endif
 

@@ -209,7 +209,7 @@ CallbackAlgorithmTransitPtr CallbackAlgorithmBase::create(void)
 {
     CallbackAlgorithmTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -225,7 +225,7 @@ CallbackAlgorithmTransitPtr CallbackAlgorithmBase::createLocal(BitVector bFlags)
 {
     CallbackAlgorithmTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -237,9 +237,9 @@ CallbackAlgorithmTransitPtr CallbackAlgorithmBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CallbackAlgorithmPtr CallbackAlgorithmBase::createEmpty(void)
+CallbackAlgorithm *CallbackAlgorithmBase::createEmpty(void)
 {
-    CallbackAlgorithmPtr returnValue;
+    CallbackAlgorithm *returnValue;
 
     newPtr<CallbackAlgorithm>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -249,9 +249,9 @@ CallbackAlgorithmPtr CallbackAlgorithmBase::createEmpty(void)
     return returnValue;
 }
 
-CallbackAlgorithmPtr CallbackAlgorithmBase::createEmptyLocal(BitVector bFlags)
+CallbackAlgorithm *CallbackAlgorithmBase::createEmptyLocal(BitVector bFlags)
 {
-    CallbackAlgorithmPtr returnValue;
+    CallbackAlgorithm *returnValue;
 
     newPtr<CallbackAlgorithm>(returnValue, bFlags);
 
@@ -262,7 +262,7 @@ CallbackAlgorithmPtr CallbackAlgorithmBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
 {
-    CallbackAlgorithmPtr tmpPtr;
+    CallbackAlgorithm *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const CallbackAlgorithm *>(this), 
@@ -278,7 +278,7 @@ FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
 FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CallbackAlgorithmPtr tmpPtr;
+    CallbackAlgorithm *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const CallbackAlgorithm *>(this), bFlags);
 
@@ -345,9 +345,9 @@ void CallbackAlgorithmBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CallbackAlgorithmBase::createAspectCopy(void) const
+FieldContainer *CallbackAlgorithmBase::createAspectCopy(void) const
 {
-    CallbackAlgorithmPtr returnValue;
+    CallbackAlgorithm *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CallbackAlgorithm *>(this));
@@ -365,17 +365,17 @@ void CallbackAlgorithmBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CallbackAlgorithmPtr>::_type("CallbackAlgorithmPtr", "AlgorithmPtr");
+DataType FieldTraits<CallbackAlgorithm *>::_type("CallbackAlgorithmPtr", "AlgorithmPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithmPtr)
+OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithm *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CallbackAlgorithmPtr, 
+                           CallbackAlgorithm *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CallbackAlgorithmPtr, 
+                           CallbackAlgorithm *, 
                            0);
 
 OSG_END_NAMESPACE

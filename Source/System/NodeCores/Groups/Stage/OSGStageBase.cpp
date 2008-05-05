@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var FrameBufferObjectPtr StageBase::_sfRenderTarget
+/*! \var FrameBufferObject * StageBase::_sfRenderTarget
     The FBO to target for rendering this subtree.
 */
 
@@ -156,7 +156,7 @@ StageBase::TypeObject StageBase::_type(
     "                type=\"FrameBufferObjectPtr\"\n"
     "                cardinality=\"single\"\n"
     "                visibility=\"external\"\n"
-    "                defaultValue=\"NullFC\"\n"
+    "                defaultValue=\"NULL\"\n"
     "                access=\"public\"\n"
     "        >\n"
     "        The FBO to target for rendering this subtree.\n"
@@ -284,7 +284,7 @@ StageTransitPtr StageBase::create(void)
 {
     StageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -300,7 +300,7 @@ StageTransitPtr StageBase::createLocal(BitVector bFlags)
 {
     StageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -312,9 +312,9 @@ StageTransitPtr StageBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StagePtr StageBase::createEmpty(void)
+Stage *StageBase::createEmpty(void)
 {
-    StagePtr returnValue;
+    Stage *returnValue;
 
     newPtr<Stage>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -324,9 +324,9 @@ StagePtr StageBase::createEmpty(void)
     return returnValue;
 }
 
-StagePtr StageBase::createEmptyLocal(BitVector bFlags)
+Stage *StageBase::createEmptyLocal(BitVector bFlags)
 {
-    StagePtr returnValue;
+    Stage *returnValue;
 
     newPtr<Stage>(returnValue, bFlags);
 
@@ -337,7 +337,7 @@ StagePtr StageBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr StageBase::shallowCopy(void) const
 {
-    StagePtr tmpPtr;
+    Stage *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Stage *>(this), 
@@ -353,7 +353,7 @@ FieldContainerTransitPtr StageBase::shallowCopy(void) const
 FieldContainerTransitPtr StageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    StagePtr tmpPtr;
+    Stage *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Stage *>(this), bFlags);
 
@@ -370,14 +370,14 @@ FieldContainerTransitPtr StageBase::shallowCopyLocal(
 
 StageBase::StageBase(void) :
     Inherited(),
-    _sfRenderTarget           (FrameBufferObjectPtr(NullFC)),
+    _sfRenderTarget           (NULL),
     _sfInheritedTarget        (bool(false))
 {
 }
 
 StageBase::StageBase(const StageBase &source) :
     Inherited(source),
-    _sfRenderTarget           (NullFC),
+    _sfRenderTarget           (NULL),
     _sfInheritedTarget        (source._sfInheritedTarget        )
 {
 }
@@ -466,9 +466,9 @@ void StageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr StageBase::createAspectCopy(void) const
+FieldContainer *StageBase::createAspectCopy(void) const
 {
-    StagePtr returnValue;
+    Stage *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Stage *>(this));
@@ -481,24 +481,24 @@ void StageBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<Stage *>(this)->setRenderTarget(NullFC);
+    static_cast<Stage *>(this)->setRenderTarget(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StagePtr>::_type("StagePtr", "GroupPtr");
+DataType FieldTraits<Stage *>::_type("StagePtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StagePtr)
+OSG_FIELDTRAITS_GETTYPE(Stage *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StagePtr, 
+                           Stage *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StagePtr, 
+                           Stage *, 
                            0);
 
 OSG_END_NAMESPACE

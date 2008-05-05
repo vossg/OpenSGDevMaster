@@ -189,7 +189,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
             const SFUInt32            *getSFIStride         (void) const;
 
 
-                  GeoMultiPropertyDataPtr getContainer      (void) const;
+                  GeoMultiPropertyData * getContainer      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getOffset          (void);
@@ -232,7 +232,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setContainer      (const GeoMultiPropertyDataPtr value);
+            void setContainer      (GeoMultiPropertyData * const value);
             void setOffset         (const UInt32 &value);
             void setIFormat        (const GLenum &value);
             void setIDimension     (const UInt32 &value);
@@ -267,13 +267,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoMultiPropertyTransitPtr create          (void);
-    static  GeoMultiPropertyPtr        createEmpty     (void);
+    static  GeoMultiPropertyTransitPtr  create          (void);
+    static  GeoMultiProperty           *createEmpty     (void);
 
-    static  GeoMultiPropertyTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GeoMultiPropertyTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GeoMultiPropertyPtr        createEmptyLocal(
+    static  GeoMultiProperty            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -379,7 +379,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ScaleManipulator);
 #endif
 
 template <>
-struct FieldTraits<ScaleManipulatorPtr> :
-    public FieldTraitsFCPtrBase<ScaleManipulatorPtr>
+struct FieldTraits<ScaleManipulator *> :
+    public FieldTraitsFCPtrBase<ScaleManipulator *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ScaleManipulatorPtr> :
 
   public:
 
-    typedef FieldTraits<ScaleManipulatorPtr>  Self;
+    typedef FieldTraits<ScaleManipulator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

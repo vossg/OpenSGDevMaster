@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ColorBufferViewport);
 #endif
 
 template <>
-struct FieldTraits<ColorBufferViewportPtr> :
-    public FieldTraitsFCPtrBase<ColorBufferViewportPtr>
+struct FieldTraits<ColorBufferViewport *> :
+    public FieldTraitsFCPtrBase<ColorBufferViewport *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ColorBufferViewportPtr> :
 
   public:
 
-    typedef FieldTraits<ColorBufferViewportPtr>  Self;
+    typedef FieldTraits<ColorBufferViewport *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ColorBufferViewportPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakColorBufferViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorBufferViewport *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdColorBufferViewportPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ColorBufferViewportPtr, 0>::getMName<NoRefCountPolicy>(
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<ColorBufferViewportPtr,
+typedef PointerSField<ColorBufferViewport *,
                       RecordedRefCountPolicy  > SFRecColorBufferViewportPtr;
-typedef PointerSField<ColorBufferViewportPtr,
+typedef PointerSField<ColorBufferViewport *,
                       UnrecordedRefCountPolicy> SFUnrecColorBufferViewportPtr;
-typedef PointerSField<ColorBufferViewportPtr,
+typedef PointerSField<ColorBufferViewport *,
                       WeakRefCountPolicy      > SFWeakColorBufferViewportPtr;
-typedef PointerSField<ColorBufferViewportPtr,
+typedef PointerSField<ColorBufferViewport *,
                       NoRefCountPolicy        > SFUncountedColorBufferViewportPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ColorBufferViewportPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<ColorBufferViewportPtr,
+typedef PointerMField<ColorBufferViewport *,
                       RecordedRefCountPolicy  > MFRecColorBufferViewportPtr;
-typedef PointerMField<ColorBufferViewportPtr,
+typedef PointerMField<ColorBufferViewport *,
                       UnrecordedRefCountPolicy> MFUnrecColorBufferViewportPtr;
-typedef PointerMField<ColorBufferViewportPtr,
+typedef PointerMField<ColorBufferViewport *,
                       WeakRefCountPolicy      > MFWeakColorBufferViewportPtr;
-typedef PointerMField<ColorBufferViewportPtr,
+typedef PointerMField<ColorBufferViewport *,
                       NoRefCountPolicy        > MFUncountedColorBufferViewportPtr;
 #endif
 

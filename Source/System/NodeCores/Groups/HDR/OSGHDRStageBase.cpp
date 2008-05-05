@@ -510,7 +510,7 @@ HDRStageTransitPtr HDRStageBase::create(void)
 {
     HDRStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -526,7 +526,7 @@ HDRStageTransitPtr HDRStageBase::createLocal(BitVector bFlags)
 {
     HDRStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -538,9 +538,9 @@ HDRStageTransitPtr HDRStageBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-HDRStagePtr HDRStageBase::createEmpty(void)
+HDRStage *HDRStageBase::createEmpty(void)
 {
-    HDRStagePtr returnValue;
+    HDRStage *returnValue;
 
     newPtr<HDRStage>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -550,9 +550,9 @@ HDRStagePtr HDRStageBase::createEmpty(void)
     return returnValue;
 }
 
-HDRStagePtr HDRStageBase::createEmptyLocal(BitVector bFlags)
+HDRStage *HDRStageBase::createEmptyLocal(BitVector bFlags)
 {
-    HDRStagePtr returnValue;
+    HDRStage *returnValue;
 
     newPtr<HDRStage>(returnValue, bFlags);
 
@@ -563,7 +563,7 @@ HDRStagePtr HDRStageBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr HDRStageBase::shallowCopy(void) const
 {
-    HDRStagePtr tmpPtr;
+    HDRStage *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const HDRStage *>(this), 
@@ -579,7 +579,7 @@ FieldContainerTransitPtr HDRStageBase::shallowCopy(void) const
 FieldContainerTransitPtr HDRStageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    HDRStagePtr tmpPtr;
+    HDRStage *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const HDRStage *>(this), bFlags);
 
@@ -774,9 +774,9 @@ void HDRStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr HDRStageBase::createAspectCopy(void) const
+FieldContainer *HDRStageBase::createAspectCopy(void) const
 {
-    HDRStagePtr returnValue;
+    HDRStage *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const HDRStage *>(this));
@@ -794,7 +794,7 @@ void HDRStageBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HDRStagePtr>::_type("HDRStagePtr", "StagePtr");
+DataType FieldTraits<HDRStage *>::_type("HDRStagePtr", "StagePtr");
 #endif
 
 

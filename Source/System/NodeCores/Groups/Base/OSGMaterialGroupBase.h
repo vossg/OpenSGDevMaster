@@ -129,14 +129,14 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
                   SFUnrecMaterialPtr  *editSFMaterial       (void);
 
 
-                  MaterialPtr getMaterial       (void) const;
+                  Material * getMaterial       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaterial       (const MaterialPtr value);
+            void setMaterial       (Material * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,13 +165,13 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MaterialGroupTransitPtr create          (void);
-    static  MaterialGroupPtr        createEmpty     (void);
+    static  MaterialGroupTransitPtr  create          (void);
+    static  MaterialGroup           *createEmpty     (void);
 
-    static  MaterialGroupTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MaterialGroupTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MaterialGroupPtr        createEmptyLocal(
+    static  MaterialGroup            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -259,7 +259,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

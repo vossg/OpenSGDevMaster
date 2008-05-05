@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SortLastWindow);
 #endif
 
 template <>
-struct FieldTraits<SortLastWindowPtr> :
-    public FieldTraitsFCPtrBase<SortLastWindowPtr>
+struct FieldTraits<SortLastWindow *> :
+    public FieldTraitsFCPtrBase<SortLastWindow *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SortLastWindowPtr> :
 
   public:
 
-    typedef FieldTraits<SortLastWindowPtr>  Self;
+    typedef FieldTraits<SortLastWindow *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

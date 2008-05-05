@@ -236,13 +236,13 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ComponentTransformTransitPtr create          (void);
-    static  ComponentTransformPtr        createEmpty     (void);
+    static  ComponentTransformTransitPtr  create          (void);
+    static  ComponentTransform           *createEmpty     (void);
 
-    static  ComponentTransformTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ComponentTransformTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ComponentTransformPtr        createEmptyLocal(
+    static  ComponentTransform            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -341,7 +341,7 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

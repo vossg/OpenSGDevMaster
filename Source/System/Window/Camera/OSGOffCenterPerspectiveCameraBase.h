@@ -168,13 +168,13 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  OffCenterPerspectiveCameraTransitPtr create          (void);
-    static  OffCenterPerspectiveCameraPtr        createEmpty     (void);
+    static  OffCenterPerspectiveCameraTransitPtr  create          (void);
+    static  OffCenterPerspectiveCamera           *createEmpty     (void);
 
-    static  OffCenterPerspectiveCameraTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  OffCenterPerspectiveCameraTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  OffCenterPerspectiveCameraPtr        createEmptyLocal(
+    static  OffCenterPerspectiveCamera            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

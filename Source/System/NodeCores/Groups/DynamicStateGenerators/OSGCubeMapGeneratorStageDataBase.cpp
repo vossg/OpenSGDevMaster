@@ -162,7 +162,7 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGeneratorStageDataBase::create(void)
 {
     CubeMapGeneratorStageDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -178,7 +178,7 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGeneratorStageDataBase::createLocal(B
 {
     CubeMapGeneratorStageDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -190,9 +190,9 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGeneratorStageDataBase::createLocal(B
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CubeMapGeneratorStageDataPtr CubeMapGeneratorStageDataBase::createEmpty(void)
+CubeMapGeneratorStageData *CubeMapGeneratorStageDataBase::createEmpty(void)
 {
-    CubeMapGeneratorStageDataPtr returnValue;
+    CubeMapGeneratorStageData *returnValue;
 
     newPtr<CubeMapGeneratorStageData>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -202,9 +202,9 @@ CubeMapGeneratorStageDataPtr CubeMapGeneratorStageDataBase::createEmpty(void)
     return returnValue;
 }
 
-CubeMapGeneratorStageDataPtr CubeMapGeneratorStageDataBase::createEmptyLocal(BitVector bFlags)
+CubeMapGeneratorStageData *CubeMapGeneratorStageDataBase::createEmptyLocal(BitVector bFlags)
 {
-    CubeMapGeneratorStageDataPtr returnValue;
+    CubeMapGeneratorStageData *returnValue;
 
     newPtr<CubeMapGeneratorStageData>(returnValue, bFlags);
 
@@ -215,7 +215,7 @@ CubeMapGeneratorStageDataPtr CubeMapGeneratorStageDataBase::createEmptyLocal(Bit
 
 FieldContainerTransitPtr CubeMapGeneratorStageDataBase::shallowCopy(void) const
 {
-    CubeMapGeneratorStageDataPtr tmpPtr;
+    CubeMapGeneratorStageData *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const CubeMapGeneratorStageData *>(this), 
@@ -231,7 +231,7 @@ FieldContainerTransitPtr CubeMapGeneratorStageDataBase::shallowCopy(void) const
 FieldContainerTransitPtr CubeMapGeneratorStageDataBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CubeMapGeneratorStageDataPtr tmpPtr;
+    CubeMapGeneratorStageData *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const CubeMapGeneratorStageData *>(this), bFlags);
 
@@ -282,9 +282,9 @@ void CubeMapGeneratorStageDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CubeMapGeneratorStageDataBase::createAspectCopy(void) const
+FieldContainer *CubeMapGeneratorStageDataBase::createAspectCopy(void) const
 {
-    CubeMapGeneratorStageDataPtr returnValue;
+    CubeMapGeneratorStageData *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CubeMapGeneratorStageData *>(this));
@@ -302,7 +302,7 @@ void CubeMapGeneratorStageDataBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeMapGeneratorStageDataPtr>::_type("CubeMapGeneratorStageDataPtr", "StageDataPtr");
+DataType FieldTraits<CubeMapGeneratorStageData *>::_type("CubeMapGeneratorStageDataPtr", "StageDataPtr");
 #endif
 
 

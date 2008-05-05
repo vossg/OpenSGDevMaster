@@ -141,7 +141,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
             const SFBool              *getSFInheritedTarget (void) const;
 
 
-                  FrameBufferObjectPtr getRenderTarget   (void) const;
+                  FrameBufferObject * getRenderTarget   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getInheritedTarget (void);
@@ -154,7 +154,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRenderTarget   (const FrameBufferObjectPtr value);
+            void setRenderTarget   (FrameBufferObject * const value);
             void setInheritedTarget(const bool &value);
 
     /*! \}                                                                 */
@@ -184,13 +184,13 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StageTransitPtr create          (void);
-    static  StagePtr        createEmpty     (void);
+    static  StageTransitPtr  create          (void);
+    static  Stage           *createEmpty     (void);
 
-    static  StageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  StageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  StagePtr        createEmptyLocal(
+    static  Stage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

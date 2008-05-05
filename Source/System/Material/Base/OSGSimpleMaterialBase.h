@@ -287,13 +287,13 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleMaterialTransitPtr create          (void);
-    static  SimpleMaterialPtr        createEmpty     (void);
+    static  SimpleMaterialTransitPtr  create          (void);
+    static  SimpleMaterial           *createEmpty     (void);
 
-    static  SimpleMaterialTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SimpleMaterialTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SimpleMaterialPtr        createEmptyLocal(
+    static  SimpleMaterial            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -401,7 +401,7 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

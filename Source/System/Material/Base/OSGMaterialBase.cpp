@@ -416,17 +416,17 @@ void MaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialPtr>::_type("MaterialPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Material *>::_type("MaterialPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MaterialPtr)
+OSG_FIELDTRAITS_GETTYPE(Material *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MaterialPtr, 
+                           Material *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MaterialPtr, 
+                           Material *, 
                            0);
 
 OSG_END_NAMESPACE

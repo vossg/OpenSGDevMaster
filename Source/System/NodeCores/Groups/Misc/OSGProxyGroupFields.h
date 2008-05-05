@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ProxyGroup);
 #endif
 
 template <>
-struct FieldTraits<ProxyGroupPtr> :
-    public FieldTraitsFCPtrBase<ProxyGroupPtr>
+struct FieldTraits<ProxyGroup *> :
+    public FieldTraitsFCPtrBase<ProxyGroup *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ProxyGroupPtr> :
 
   public:
 
-    typedef FieldTraits<ProxyGroupPtr>  Self;
+    typedef FieldTraits<ProxyGroup *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

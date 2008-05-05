@@ -160,7 +160,7 @@ MoveManipulatorTransitPtr MoveManipulatorBase::create(void)
 {
     MoveManipulatorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -176,7 +176,7 @@ MoveManipulatorTransitPtr MoveManipulatorBase::createLocal(BitVector bFlags)
 {
     MoveManipulatorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -188,9 +188,9 @@ MoveManipulatorTransitPtr MoveManipulatorBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MoveManipulatorPtr MoveManipulatorBase::createEmpty(void)
+MoveManipulator *MoveManipulatorBase::createEmpty(void)
 {
-    MoveManipulatorPtr returnValue;
+    MoveManipulator *returnValue;
 
     newPtr<MoveManipulator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -200,9 +200,9 @@ MoveManipulatorPtr MoveManipulatorBase::createEmpty(void)
     return returnValue;
 }
 
-MoveManipulatorPtr MoveManipulatorBase::createEmptyLocal(BitVector bFlags)
+MoveManipulator *MoveManipulatorBase::createEmptyLocal(BitVector bFlags)
 {
-    MoveManipulatorPtr returnValue;
+    MoveManipulator *returnValue;
 
     newPtr<MoveManipulator>(returnValue, bFlags);
 
@@ -213,7 +213,7 @@ MoveManipulatorPtr MoveManipulatorBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr MoveManipulatorBase::shallowCopy(void) const
 {
-    MoveManipulatorPtr tmpPtr;
+    MoveManipulator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MoveManipulator *>(this), 
@@ -229,7 +229,7 @@ FieldContainerTransitPtr MoveManipulatorBase::shallowCopy(void) const
 FieldContainerTransitPtr MoveManipulatorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MoveManipulatorPtr tmpPtr;
+    MoveManipulator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MoveManipulator *>(this), bFlags);
 
@@ -280,9 +280,9 @@ void MoveManipulatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MoveManipulatorBase::createAspectCopy(void) const
+FieldContainer *MoveManipulatorBase::createAspectCopy(void) const
 {
-    MoveManipulatorPtr returnValue;
+    MoveManipulator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MoveManipulator *>(this));
@@ -300,7 +300,7 @@ void MoveManipulatorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MoveManipulatorPtr>::_type("MoveManipulatorPtr", "ManipulatorPtr");
+DataType FieldTraits<MoveManipulator *>::_type("MoveManipulatorPtr", "ManipulatorPtr");
 #endif
 
 

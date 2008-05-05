@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TransformChunk);
 #endif
 
 template <>
-struct FieldTraits<TransformChunkPtr> :
-    public FieldTraitsFCPtrBase<TransformChunkPtr>
+struct FieldTraits<TransformChunk *> :
+    public FieldTraitsFCPtrBase<TransformChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TransformChunkPtr> :
 
   public:
 
-    typedef FieldTraits<TransformChunkPtr>  Self;
+    typedef FieldTraits<TransformChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<TransformChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTransformChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TransformChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTransformChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<TransformChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<TransformChunkPtr,
+typedef PointerSField<TransformChunk *,
                       RecordedRefCountPolicy  > SFRecTransformChunkPtr;
-typedef PointerSField<TransformChunkPtr,
+typedef PointerSField<TransformChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTransformChunkPtr;
-typedef PointerSField<TransformChunkPtr,
+typedef PointerSField<TransformChunk *,
                       WeakRefCountPolicy      > SFWeakTransformChunkPtr;
-typedef PointerSField<TransformChunkPtr,
+typedef PointerSField<TransformChunk *,
                       NoRefCountPolicy        > SFUncountedTransformChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<TransformChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<TransformChunkPtr,
+typedef PointerMField<TransformChunk *,
                       RecordedRefCountPolicy  > MFRecTransformChunkPtr;
-typedef PointerMField<TransformChunkPtr,
+typedef PointerMField<TransformChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTransformChunkPtr;
-typedef PointerMField<TransformChunkPtr,
+typedef PointerMField<TransformChunk *,
                       WeakRefCountPolicy      > MFWeakTransformChunkPtr;
-typedef PointerMField<TransformChunkPtr,
+typedef PointerMField<TransformChunk *,
                       NoRefCountPolicy        > MFUncountedTransformChunkPtr;
 #endif
 

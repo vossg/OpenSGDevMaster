@@ -399,7 +399,7 @@ ColorMaskChunkTransitPtr ColorMaskChunkBase::create(void)
 {
     ColorMaskChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -415,7 +415,7 @@ ColorMaskChunkTransitPtr ColorMaskChunkBase::createLocal(BitVector bFlags)
 {
     ColorMaskChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -427,9 +427,9 @@ ColorMaskChunkTransitPtr ColorMaskChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ColorMaskChunkPtr ColorMaskChunkBase::createEmpty(void)
+ColorMaskChunk *ColorMaskChunkBase::createEmpty(void)
 {
-    ColorMaskChunkPtr returnValue;
+    ColorMaskChunk *returnValue;
 
     newPtr<ColorMaskChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -439,9 +439,9 @@ ColorMaskChunkPtr ColorMaskChunkBase::createEmpty(void)
     return returnValue;
 }
 
-ColorMaskChunkPtr ColorMaskChunkBase::createEmptyLocal(BitVector bFlags)
+ColorMaskChunk *ColorMaskChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    ColorMaskChunkPtr returnValue;
+    ColorMaskChunk *returnValue;
 
     newPtr<ColorMaskChunk>(returnValue, bFlags);
 
@@ -452,7 +452,7 @@ ColorMaskChunkPtr ColorMaskChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ColorMaskChunkBase::shallowCopy(void) const
 {
-    ColorMaskChunkPtr tmpPtr;
+    ColorMaskChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ColorMaskChunk *>(this), 
@@ -468,7 +468,7 @@ FieldContainerTransitPtr ColorMaskChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr ColorMaskChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ColorMaskChunkPtr tmpPtr;
+    ColorMaskChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ColorMaskChunk *>(this), bFlags);
 
@@ -615,9 +615,9 @@ void ColorMaskChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ColorMaskChunkBase::createAspectCopy(void) const
+FieldContainer *ColorMaskChunkBase::createAspectCopy(void) const
 {
-    ColorMaskChunkPtr returnValue;
+    ColorMaskChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ColorMaskChunk *>(this));
@@ -635,17 +635,17 @@ void ColorMaskChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorMaskChunkPtr>::_type("ColorMaskChunkPtr", "StateChunkPtr");
+DataType FieldTraits<ColorMaskChunk *>::_type("ColorMaskChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ColorMaskChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(ColorMaskChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ColorMaskChunkPtr, 
+                           ColorMaskChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ColorMaskChunkPtr, 
+                           ColorMaskChunk *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -99,7 +99,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        SimpleTexturedMaterialBase::_sfImage
+/*! \var Image *         SimpleTexturedMaterialBase::_sfImage
     Defines the texture image.
 */
 
@@ -509,7 +509,7 @@ SimpleTexturedMaterialTransitPtr SimpleTexturedMaterialBase::create(void)
 {
     SimpleTexturedMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -525,7 +525,7 @@ SimpleTexturedMaterialTransitPtr SimpleTexturedMaterialBase::createLocal(BitVect
 {
     SimpleTexturedMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -537,9 +537,9 @@ SimpleTexturedMaterialTransitPtr SimpleTexturedMaterialBase::createLocal(BitVect
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::createEmpty(void)
+SimpleTexturedMaterial *SimpleTexturedMaterialBase::createEmpty(void)
 {
-    SimpleTexturedMaterialPtr returnValue;
+    SimpleTexturedMaterial *returnValue;
 
     newPtr<SimpleTexturedMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -549,9 +549,9 @@ SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::createEmptyLocal(BitVector bFlags)
+SimpleTexturedMaterial *SimpleTexturedMaterialBase::createEmptyLocal(BitVector bFlags)
 {
-    SimpleTexturedMaterialPtr returnValue;
+    SimpleTexturedMaterial *returnValue;
 
     newPtr<SimpleTexturedMaterial>(returnValue, bFlags);
 
@@ -562,7 +562,7 @@ SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::createEmptyLocal(BitVector
 
 FieldContainerTransitPtr SimpleTexturedMaterialBase::shallowCopy(void) const
 {
-    SimpleTexturedMaterialPtr tmpPtr;
+    SimpleTexturedMaterial *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SimpleTexturedMaterial *>(this), 
@@ -578,7 +578,7 @@ FieldContainerTransitPtr SimpleTexturedMaterialBase::shallowCopy(void) const
 FieldContainerTransitPtr SimpleTexturedMaterialBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SimpleTexturedMaterialPtr tmpPtr;
+    SimpleTexturedMaterial *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SimpleTexturedMaterial *>(this), bFlags);
 
@@ -595,7 +595,7 @@ FieldContainerTransitPtr SimpleTexturedMaterialBase::shallowCopyLocal(
 
 SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(void) :
     Inherited(),
-    _sfImage                  (NullFC),
+    _sfImage                  (NULL),
     _sfMinFilter              (GLenum(GL_LINEAR_MIPMAP_LINEAR)),
     _sfMagFilter              (GLenum(GL_LINEAR)),
     _sfEnvMode                (GLenum(GL_REPLACE)),
@@ -605,7 +605,7 @@ SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(void) :
 
 SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(const SimpleTexturedMaterialBase &source) :
     Inherited(source),
-    _sfImage                  (NullFC),
+    _sfImage                  (NULL),
     _sfMinFilter              (source._sfMinFilter              ),
     _sfMagFilter              (source._sfMagFilter              ),
     _sfEnvMode                (source._sfEnvMode                ),
@@ -763,9 +763,9 @@ void SimpleTexturedMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SimpleTexturedMaterialBase::createAspectCopy(void) const
+FieldContainer *SimpleTexturedMaterialBase::createAspectCopy(void) const
 {
-    SimpleTexturedMaterialPtr returnValue;
+    SimpleTexturedMaterial *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SimpleTexturedMaterial *>(this));
@@ -778,24 +778,24 @@ void SimpleTexturedMaterialBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<SimpleTexturedMaterial *>(this)->setImage(NullFC);
+    static_cast<SimpleTexturedMaterial *>(this)->setImage(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleTexturedMaterialPtr>::_type("SimpleTexturedMaterialPtr", "SimpleMaterialPtr");
+DataType FieldTraits<SimpleTexturedMaterial *>::_type("SimpleTexturedMaterialPtr", "SimpleMaterialPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterialPtr)
+OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterial *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SimpleTexturedMaterialPtr, 
+                           SimpleTexturedMaterial *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SimpleTexturedMaterialPtr, 
+                           SimpleTexturedMaterial *, 
                            0);
 
 OSG_END_NAMESPACE

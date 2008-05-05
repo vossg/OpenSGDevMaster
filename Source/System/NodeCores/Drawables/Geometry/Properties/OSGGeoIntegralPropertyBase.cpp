@@ -213,33 +213,33 @@ void GeoIntegralPropertyBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoIntegralPropertyPtr>::_type("GeoIntegralPropertyPtr", "GeoPropertyPtr");
+DataType FieldTraits<GeoIntegralProperty *>::_type("GeoIntegralPropertyPtr", "GeoPropertyPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoIntegralPropertyPtr)
+OSG_FIELDTRAITS_GETTYPE(GeoIntegralProperty *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoIntegralPropertyPtr, 
+                           GeoIntegralProperty *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoIntegralPropertyPtr, 
+                           GeoIntegralProperty *, 
                            0);
 
-DataType &FieldTraits< GeoIntegralPropertyPtr, 1 >::getType(void)
+DataType &FieldTraits< GeoIntegralProperty *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<GeoIntegralPropertyPtr, 0>::getType();
+    return FieldTraits<GeoIntegralProperty *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      GeoIntegralPropertyPtr,       
+                      GeoIntegralProperty *,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      GeoIntegralPropertyPtr,       
+                      GeoIntegralProperty *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

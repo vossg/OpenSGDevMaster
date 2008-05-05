@@ -253,13 +253,13 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  HDRStageTransitPtr create          (void);
-    static  HDRStagePtr        createEmpty     (void);
+    static  HDRStageTransitPtr  create          (void);
+    static  HDRStage           *createEmpty     (void);
 
-    static  HDRStageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  HDRStageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  HDRStagePtr        createEmptyLocal(
+    static  HDRStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -361,7 +361,7 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

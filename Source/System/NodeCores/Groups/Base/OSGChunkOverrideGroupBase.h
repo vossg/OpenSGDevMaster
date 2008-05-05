@@ -137,13 +137,13 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ChunkOverrideGroupTransitPtr create          (void);
-    static  ChunkOverrideGroupPtr        createEmpty     (void);
+    static  ChunkOverrideGroupTransitPtr  create          (void);
+    static  ChunkOverrideGroup           *createEmpty     (void);
 
-    static  ChunkOverrideGroupTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ChunkOverrideGroupTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ChunkOverrideGroupPtr        createEmptyLocal(
+    static  ChunkOverrideGroup            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
                   MFUnrecStateChunkPtr *editMFChunks         (void);
 
 
-                  StateChunkPtr getChunks         (const UInt32 index) const;
+                  StateChunk * getChunks         (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -223,10 +223,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChunks              (const StateChunkPtr value   );
+    void pushToChunks              (StateChunk * const value   );
     void assignChunks              (const MFUnrecStateChunkPtr &value);
     void removeFromChunks (UInt32                uiIndex );
-    void removeFromChunks(const StateChunkPtr value   );
+    void removeFromChunks(StateChunk * const value   );
     void clearChunks                (void                          );
 
 
@@ -260,7 +260,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -358,7 +358,7 @@ SpotLightTransitPtr SpotLightBase::create(void)
 {
     SpotLightTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -374,7 +374,7 @@ SpotLightTransitPtr SpotLightBase::createLocal(BitVector bFlags)
 {
     SpotLightTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -386,9 +386,9 @@ SpotLightTransitPtr SpotLightBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SpotLightPtr SpotLightBase::createEmpty(void)
+SpotLight *SpotLightBase::createEmpty(void)
 {
-    SpotLightPtr returnValue;
+    SpotLight *returnValue;
 
     newPtr<SpotLight>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -398,9 +398,9 @@ SpotLightPtr SpotLightBase::createEmpty(void)
     return returnValue;
 }
 
-SpotLightPtr SpotLightBase::createEmptyLocal(BitVector bFlags)
+SpotLight *SpotLightBase::createEmptyLocal(BitVector bFlags)
 {
-    SpotLightPtr returnValue;
+    SpotLight *returnValue;
 
     newPtr<SpotLight>(returnValue, bFlags);
 
@@ -411,7 +411,7 @@ SpotLightPtr SpotLightBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
 {
-    SpotLightPtr tmpPtr;
+    SpotLight *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SpotLight *>(this), 
@@ -427,7 +427,7 @@ FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
 FieldContainerTransitPtr SpotLightBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SpotLightPtr tmpPtr;
+    SpotLight *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SpotLight *>(this), bFlags);
 
@@ -550,9 +550,9 @@ void SpotLightBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SpotLightBase::createAspectCopy(void) const
+FieldContainer *SpotLightBase::createAspectCopy(void) const
 {
-    SpotLightPtr returnValue;
+    SpotLight *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SpotLight *>(this));
@@ -570,7 +570,7 @@ void SpotLightBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SpotLightPtr>::_type("SpotLightPtr", "PointLightPtr");
+DataType FieldTraits<SpotLight *>::_type("SpotLightPtr", "PointLightPtr");
 #endif
 
 

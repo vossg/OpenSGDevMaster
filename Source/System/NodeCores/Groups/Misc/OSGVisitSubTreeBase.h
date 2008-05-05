@@ -129,14 +129,14 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
                   SFWeakNodePtr       *editSFSubTreeRoot    (void);
 
 
-                  NodePtr getSubTreeRoot    (void) const;
+                  Node * getSubTreeRoot    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setSubTreeRoot    (const NodePtr value);
+            void setSubTreeRoot    (Node * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,13 +165,13 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VisitSubTreeTransitPtr create          (void);
-    static  VisitSubTreePtr        createEmpty     (void);
+    static  VisitSubTreeTransitPtr  create          (void);
+    static  VisitSubTree           *createEmpty     (void);
 
-    static  VisitSubTreeTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  VisitSubTreeTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  VisitSubTreePtr        createEmptyLocal(
+    static  VisitSubTree            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -259,7 +259,7 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

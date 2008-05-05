@@ -159,7 +159,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
             const SFGLenum            *getSFCopyTarget      (void) const;
 
 
-                  TextureObjChunkPtr getTexture        (void) const;
+                  TextureObjChunk * getTexture        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getAutoResize      (void);
@@ -184,7 +184,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTexture        (const TextureObjChunkPtr value);
+            void setTexture        (TextureObjChunk * const value);
             void setAutoResize     (const bool &value);
             void setBindTarget     (const GLenum &value);
             void setCopyTarget     (const GLenum &value);
@@ -216,13 +216,13 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureGrabBackgroundTransitPtr create          (void);
-    static  TextureGrabBackgroundPtr        createEmpty     (void);
+    static  TextureGrabBackgroundTransitPtr  create          (void);
+    static  TextureGrabBackground           *createEmpty     (void);
 
-    static  TextureGrabBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TextureGrabBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TextureGrabBackgroundPtr        createEmptyLocal(
+    static  TextureGrabBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -319,7 +319,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

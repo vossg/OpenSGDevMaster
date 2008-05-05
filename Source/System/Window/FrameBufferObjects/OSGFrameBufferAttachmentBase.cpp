@@ -373,17 +373,17 @@ void FrameBufferAttachmentBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FrameBufferAttachmentPtr>::_type("FrameBufferAttachmentPtr", "AttachmentContainerPtr");
+DataType FieldTraits<FrameBufferAttachment *>::_type("FrameBufferAttachmentPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FrameBufferAttachmentPtr)
+OSG_FIELDTRAITS_GETTYPE(FrameBufferAttachment *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FrameBufferAttachmentPtr, 
+                           FrameBufferAttachment *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FrameBufferAttachmentPtr, 
+                           FrameBufferAttachment *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -185,13 +185,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoMultiPropertyDataTransitPtr create          (void);
-    static  GeoMultiPropertyDataPtr        createEmpty     (void);
+    static  GeoMultiPropertyDataTransitPtr  create          (void);
+    static  GeoMultiPropertyData           *createEmpty     (void);
 
-    static  GeoMultiPropertyDataTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GeoMultiPropertyDataTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GeoMultiPropertyDataPtr        createEmptyLocal(
+    static  GeoMultiPropertyData            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

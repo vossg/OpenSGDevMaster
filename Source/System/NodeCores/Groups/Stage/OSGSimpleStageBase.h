@@ -207,9 +207,9 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
                   Real32              &editTop            (void);
             const Real32               getTop             (void) const;
 
-                  CameraPtr getCamera         (void) const;
+                  Camera * getCamera         (void) const;
 
-                  BackgroundPtr getBackground     (void) const;
+                  Background * getBackground     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -220,8 +220,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
             void setRight          (const Real32 &value);
             void setBottom         (const Real32 &value);
             void setTop            (const Real32 &value);
-            void setCamera         (const CameraPtr value);
-            void setBackground     (const BackgroundPtr value);
+            void setCamera         (Camera * const value);
+            void setBackground     (Background * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -250,13 +250,13 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleStageTransitPtr create          (void);
-    static  SimpleStagePtr        createEmpty     (void);
+    static  SimpleStageTransitPtr  create          (void);
+    static  SimpleStage           *createEmpty     (void);
 
-    static  SimpleStageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SimpleStageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SimpleStagePtr        createEmptyLocal(
+    static  SimpleStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -365,7 +365,7 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

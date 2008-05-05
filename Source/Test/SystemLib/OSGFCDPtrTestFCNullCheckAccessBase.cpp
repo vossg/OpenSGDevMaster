@@ -113,131 +113,131 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_mpchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPro_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPri_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_sfFieldSFNo_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPub_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPro_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_mfFieldMFPri_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCNullCheckAccessBase::_mfFieldMFNo_spchildptr
     
 */
 
@@ -1363,9 +1363,9 @@ const MFUnrecChildFCDSParTestFCPtr *FCDPtrTestFCNullCheckAccessBase::getMFFieldM
 
 
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_ptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_ptrFieldMask, _mfFieldMFPub_ptr);
@@ -1390,10 +1390,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPub_ptr(const MFUnrecFCDTestF
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_ptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_ptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_ptrFieldMask, _mfFieldMFPub_ptr);
@@ -1405,10 +1405,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_ptr(      UInt32     
     _mfFieldMFPub_ptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_ptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_ptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPub_ptr.size())
@@ -1419,10 +1419,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_ptr(      UInt32      
     _mfFieldMFPub_ptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_ptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_ptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPub_ptr.findIndex(pOldElem);
@@ -1449,7 +1449,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_ptr.findIndex(value);
 
@@ -1472,9 +1472,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_ptr(void)
     _mfFieldMFPub_ptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_weakptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_weakptrFieldMask, _mfFieldMFPub_weakptr);
@@ -1499,10 +1499,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPub_weakptr(const MFWeakFCDTe
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_weakptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_weakptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_weakptrFieldMask, _mfFieldMFPub_weakptr);
@@ -1514,10 +1514,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_weakptr(      UInt32 
     _mfFieldMFPub_weakptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_weakptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_weakptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPub_weakptr.size())
@@ -1528,10 +1528,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_weakptr(      UInt32  
     _mfFieldMFPub_weakptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_weakptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_weakptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPub_weakptr.findIndex(pOldElem);
@@ -1558,7 +1558,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_weakptr(UInt32 uiInde
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_weakptr.findIndex(value);
 
@@ -1581,9 +1581,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_weakptr(void)
     _mfFieldMFPub_weakptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_mpchildptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
@@ -1608,10 +1608,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPub_mpchildptr(const MFUnrecC
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_mpchildptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_mpchildptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
@@ -1623,10 +1623,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_mpchildptr(      UInt
     _mfFieldMFPub_mpchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_mpchildptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_mpchildptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPub_mpchildptr.size())
@@ -1637,10 +1637,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_mpchildptr(      UInt3
     _mfFieldMFPub_mpchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_mpchildptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_mpchildptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPub_mpchildptr.findIndex(pOldElem);
@@ -1667,7 +1667,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_mpchildptr(UInt32 uiI
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_mpchildptr.findIndex(value);
 
@@ -1690,9 +1690,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_mpchildptr(void)
     _mfFieldMFPub_mpchildptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_ptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_ptrFieldMask, _mfFieldMFPro_ptr);
@@ -1717,10 +1717,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPro_ptr(const MFUnrecFCDTestF
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_ptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_ptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_ptrFieldMask, _mfFieldMFPro_ptr);
@@ -1732,10 +1732,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_ptr(      UInt32     
     _mfFieldMFPro_ptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_ptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_ptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPro_ptr.size())
@@ -1746,10 +1746,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_ptr(      UInt32      
     _mfFieldMFPro_ptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_ptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_ptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPro_ptr.findIndex(pOldElem);
@@ -1776,7 +1776,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_ptr.findIndex(value);
 
@@ -1799,9 +1799,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_ptr(void)
     _mfFieldMFPro_ptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_weakptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_weakptrFieldMask, _mfFieldMFPro_weakptr);
@@ -1826,10 +1826,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPro_weakptr(const MFWeakFCDTe
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_weakptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_weakptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_weakptrFieldMask, _mfFieldMFPro_weakptr);
@@ -1841,10 +1841,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_weakptr(      UInt32 
     _mfFieldMFPro_weakptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_weakptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_weakptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPro_weakptr.size())
@@ -1855,10 +1855,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_weakptr(      UInt32  
     _mfFieldMFPro_weakptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_weakptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_weakptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPro_weakptr.findIndex(pOldElem);
@@ -1885,7 +1885,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_weakptr(UInt32 uiInde
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_weakptr.findIndex(value);
 
@@ -1908,9 +1908,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_weakptr(void)
     _mfFieldMFPro_weakptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_mpchildptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
@@ -1935,10 +1935,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPro_mpchildptr(const MFUnrecC
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_mpchildptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_mpchildptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
@@ -1950,10 +1950,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_mpchildptr(      UInt
     _mfFieldMFPro_mpchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_mpchildptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_mpchildptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPro_mpchildptr.size())
@@ -1964,10 +1964,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_mpchildptr(      UInt3
     _mfFieldMFPro_mpchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_mpchildptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_mpchildptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPro_mpchildptr.findIndex(pOldElem);
@@ -1994,7 +1994,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_mpchildptr(UInt32 uiI
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_mpchildptr.findIndex(value);
 
@@ -2017,9 +2017,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_mpchildptr(void)
     _mfFieldMFPro_mpchildptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_ptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_ptrFieldMask, _mfFieldMFPri_ptr);
@@ -2044,10 +2044,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPri_ptr(const MFUnrecFCDTestF
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_ptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_ptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_ptrFieldMask, _mfFieldMFPri_ptr);
@@ -2059,10 +2059,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_ptr(      UInt32     
     _mfFieldMFPri_ptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_ptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_ptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPri_ptr.size())
@@ -2073,10 +2073,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_ptr(      UInt32      
     _mfFieldMFPri_ptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_ptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_ptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPri_ptr.findIndex(pOldElem);
@@ -2103,7 +2103,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_ptr.findIndex(value);
 
@@ -2126,9 +2126,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPri_ptr(void)
     _mfFieldMFPri_ptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_weakptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_weakptrFieldMask, _mfFieldMFPri_weakptr);
@@ -2153,10 +2153,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPri_weakptr(const MFWeakFCDTe
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_weakptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_weakptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_weakptrFieldMask, _mfFieldMFPri_weakptr);
@@ -2168,10 +2168,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_weakptr(      UInt32 
     _mfFieldMFPri_weakptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_weakptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_weakptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPri_weakptr.size())
@@ -2182,10 +2182,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_weakptr(      UInt32  
     _mfFieldMFPri_weakptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_weakptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_weakptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPri_weakptr.findIndex(pOldElem);
@@ -2212,7 +2212,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_weakptr(UInt32 uiInde
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_weakptr.findIndex(value);
 
@@ -2235,9 +2235,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPri_weakptr(void)
     _mfFieldMFPri_weakptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_mpchildptr(FCDTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_mpchildptrFieldMask, _mfFieldMFPri_mpchildptr);
@@ -2262,10 +2262,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPri_mpchildptr(const MFUnrecC
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_mpchildptr(      UInt32         uiIndex,
-                                                   const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_mpchildptr(UInt32               uiIndex,
+                                                   FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_mpchildptrFieldMask, _mfFieldMFPri_mpchildptr);
@@ -2277,10 +2277,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_mpchildptr(      UInt
     _mfFieldMFPri_mpchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_mpchildptr(      UInt32         uiIndex,
-                                                       const FCDTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_mpchildptr(UInt32               uiIndex,
+                                                       FCDTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPri_mpchildptr.size())
@@ -2291,10 +2291,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_mpchildptr(      UInt3
     _mfFieldMFPri_mpchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_mpchildptr(const FCDTestFCPtr pOldElem,
-                                                        const FCDTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_mpchildptr(FCDTestFC * const pOldElem,
+                                                        FCDTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPri_mpchildptr.findIndex(pOldElem);
@@ -2321,7 +2321,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_mpchildptr(UInt32 uiI
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_mpchildptr.findIndex(value);
 
@@ -2344,9 +2344,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPri_mpchildptr(void)
     _mfFieldMFPri_mpchildptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPub_spchildptr(FCDSParTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
@@ -2371,10 +2371,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPub_spchildptr(const MFUnrecC
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_spchildptr(      UInt32         uiIndex,
-                                                   const FCDSParTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_spchildptr(UInt32               uiIndex,
+                                                   FCDSParTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
@@ -2386,10 +2386,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPub_spchildptr(      UInt
     _mfFieldMFPub_spchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_spchildptr(      UInt32         uiIndex,
-                                                       const FCDSParTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_spchildptr(UInt32               uiIndex,
+                                                       FCDSParTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPub_spchildptr.size())
@@ -2400,10 +2400,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_spchildptr(      UInt3
     _mfFieldMFPub_spchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_spchildptr(const FCDSParTestFCPtr pOldElem,
-                                                        const FCDSParTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPub_spchildptr(FCDSParTestFC * const pOldElem,
+                                                        FCDSParTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPub_spchildptr.findIndex(pOldElem);
@@ -2430,7 +2430,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_spchildptr(UInt32 uiI
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_spchildptr.findIndex(value);
 
@@ -2453,9 +2453,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_spchildptr(void)
     _mfFieldMFPub_spchildptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPro_spchildptr(FCDSParTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
@@ -2480,10 +2480,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPro_spchildptr(const MFUnrecC
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_spchildptr(      UInt32         uiIndex,
-                                                   const FCDSParTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_spchildptr(UInt32               uiIndex,
+                                                   FCDSParTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
@@ -2495,10 +2495,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPro_spchildptr(      UInt
     _mfFieldMFPro_spchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_spchildptr(      UInt32         uiIndex,
-                                                       const FCDSParTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_spchildptr(UInt32               uiIndex,
+                                                       FCDSParTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPro_spchildptr.size())
@@ -2509,10 +2509,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_spchildptr(      UInt3
     _mfFieldMFPro_spchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_spchildptr(const FCDSParTestFCPtr pOldElem,
-                                                        const FCDSParTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPro_spchildptr(FCDSParTestFC * const pOldElem,
+                                                        FCDSParTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPro_spchildptr.findIndex(pOldElem);
@@ -2539,7 +2539,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_spchildptr(UInt32 uiI
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_spchildptr.findIndex(value);
 
@@ -2562,9 +2562,9 @@ void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_spchildptr(void)
     _mfFieldMFPro_spchildptr.clear();
 }
 
-void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::pushToFieldMFPri_spchildptr(FCDSParTestFC * const value)
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_spchildptrFieldMask, _mfFieldMFPri_spchildptr);
@@ -2589,10 +2589,10 @@ void FCDPtrTestFCNullCheckAccessBase::assignFieldMFPri_spchildptr(const MFUnrecC
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_spchildptr(      UInt32         uiIndex,
-                                                   const FCDSParTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_spchildptr(UInt32               uiIndex,
+                                                   FCDSParTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     editMField(FieldMFPri_spchildptrFieldMask, _mfFieldMFPri_spchildptr);
@@ -2604,10 +2604,10 @@ void FCDPtrTestFCNullCheckAccessBase::insertIntoFieldMFPri_spchildptr(      UInt
     _mfFieldMFPri_spchildptr.insert(fieldIt, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_spchildptr(      UInt32         uiIndex,
-                                                       const FCDSParTestFCPtr value   )
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_spchildptr(UInt32               uiIndex,
+                                                       FCDSParTestFC * const value   )
 {
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
     if(uiIndex >= _mfFieldMFPri_spchildptr.size())
@@ -2618,10 +2618,10 @@ void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_spchildptr(      UInt3
     _mfFieldMFPri_spchildptr.replace(uiIndex, value);
 }
 
-void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_spchildptr(const FCDSParTestFCPtr pOldElem,
-                                                        const FCDSParTestFCPtr pNewElem)
+void FCDPtrTestFCNullCheckAccessBase::replaceInFieldMFPri_spchildptr(FCDSParTestFC * const pOldElem,
+                                                        FCDSParTestFC * const pNewElem)
 {
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
     Int32  elemIdx = _mfFieldMFPri_spchildptr.findIndex(pOldElem);
@@ -2648,7 +2648,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_spchildptr(UInt32 uiI
     }
 }
 
-void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPri_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_spchildptr.findIndex(value);
 
@@ -3086,7 +3086,7 @@ FCDPtrTestFCNullCheckAccessTransitPtr FCDPtrTestFCNullCheckAccessBase::create(vo
 {
     FCDPtrTestFCNullCheckAccessTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -3102,7 +3102,7 @@ FCDPtrTestFCNullCheckAccessTransitPtr FCDPtrTestFCNullCheckAccessBase::createLoc
 {
     FCDPtrTestFCNullCheckAccessTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -3114,9 +3114,9 @@ FCDPtrTestFCNullCheckAccessTransitPtr FCDPtrTestFCNullCheckAccessBase::createLoc
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FCDPtrTestFCNullCheckAccessPtr FCDPtrTestFCNullCheckAccessBase::createEmpty(void)
+FCDPtrTestFCNullCheckAccess *FCDPtrTestFCNullCheckAccessBase::createEmpty(void)
 {
-    FCDPtrTestFCNullCheckAccessPtr returnValue;
+    FCDPtrTestFCNullCheckAccess *returnValue;
 
     newPtr<FCDPtrTestFCNullCheckAccess>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -3126,9 +3126,9 @@ FCDPtrTestFCNullCheckAccessPtr FCDPtrTestFCNullCheckAccessBase::createEmpty(void
     return returnValue;
 }
 
-FCDPtrTestFCNullCheckAccessPtr FCDPtrTestFCNullCheckAccessBase::createEmptyLocal(BitVector bFlags)
+FCDPtrTestFCNullCheckAccess *FCDPtrTestFCNullCheckAccessBase::createEmptyLocal(BitVector bFlags)
 {
-    FCDPtrTestFCNullCheckAccessPtr returnValue;
+    FCDPtrTestFCNullCheckAccess *returnValue;
 
     newPtr<FCDPtrTestFCNullCheckAccess>(returnValue, bFlags);
 
@@ -3139,7 +3139,7 @@ FCDPtrTestFCNullCheckAccessPtr FCDPtrTestFCNullCheckAccessBase::createEmptyLocal
 
 FieldContainerTransitPtr FCDPtrTestFCNullCheckAccessBase::shallowCopy(void) const
 {
-    FCDPtrTestFCNullCheckAccessPtr tmpPtr;
+    FCDPtrTestFCNullCheckAccess *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FCDPtrTestFCNullCheckAccess *>(this), 
@@ -3155,7 +3155,7 @@ FieldContainerTransitPtr FCDPtrTestFCNullCheckAccessBase::shallowCopy(void) cons
 FieldContainerTransitPtr FCDPtrTestFCNullCheckAccessBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FCDPtrTestFCNullCheckAccessPtr tmpPtr;
+    FCDPtrTestFCNullCheckAccess *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FCDPtrTestFCNullCheckAccess *>(this), bFlags);
 
@@ -3172,23 +3172,23 @@ FieldContainerTransitPtr FCDPtrTestFCNullCheckAccessBase::shallowCopyLocal(
 
 FCDPtrTestFCNullCheckAccessBase::FCDPtrTestFCNullCheckAccessBase(void) :
     Inherited(),
-    _sfFieldSFPub_ptr         (NullFC),
-    _sfFieldSFPub_weakptr     (NullFC),
+    _sfFieldSFPub_ptr         (NULL),
+    _sfFieldSFPub_weakptr     (NULL),
     _sfFieldSFPub_mpchildptr  (this, 
                           FieldSFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPro_ptr         (NullFC),
-    _sfFieldSFPro_weakptr     (NullFC),
+    _sfFieldSFPro_ptr         (NULL),
+    _sfFieldSFPro_weakptr     (NULL),
     _sfFieldSFPro_mpchildptr  (this, 
                           FieldSFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPri_ptr         (NullFC),
-    _sfFieldSFPri_weakptr     (NullFC),
+    _sfFieldSFPri_ptr         (NULL),
+    _sfFieldSFPri_weakptr     (NULL),
     _sfFieldSFPri_mpchildptr  (this, 
                           FieldSFPri_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFNo_ptr          (NullFC),
-    _sfFieldSFNo_weakptr      (NullFC),
+    _sfFieldSFNo_ptr          (NULL),
+    _sfFieldSFNo_weakptr      (NULL),
     _sfFieldSFNo_mpchildptr   (this, 
                           FieldSFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
@@ -3241,23 +3241,23 @@ FCDPtrTestFCNullCheckAccessBase::FCDPtrTestFCNullCheckAccessBase(void) :
 
 FCDPtrTestFCNullCheckAccessBase::FCDPtrTestFCNullCheckAccessBase(const FCDPtrTestFCNullCheckAccessBase &source) :
     Inherited(source),
-    _sfFieldSFPub_ptr         (NullFC),
-    _sfFieldSFPub_weakptr     (NullFC),
+    _sfFieldSFPub_ptr         (NULL),
+    _sfFieldSFPub_weakptr     (NULL),
     _sfFieldSFPub_mpchildptr  (this, 
                           FieldSFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPro_ptr         (NullFC),
-    _sfFieldSFPro_weakptr     (NullFC),
+    _sfFieldSFPro_ptr         (NULL),
+    _sfFieldSFPro_weakptr     (NULL),
     _sfFieldSFPro_mpchildptr  (this, 
                           FieldSFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPri_ptr         (NullFC),
-    _sfFieldSFPri_weakptr     (NullFC),
+    _sfFieldSFPri_ptr         (NULL),
+    _sfFieldSFPri_weakptr     (NULL),
     _sfFieldSFPri_mpchildptr  (this, 
                           FieldSFPri_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFNo_ptr          (NullFC),
-    _sfFieldSFNo_weakptr      (NullFC),
+    _sfFieldSFNo_ptr          (NULL),
+    _sfFieldSFNo_weakptr      (NULL),
     _sfFieldSFNo_mpchildptr   (this, 
                           FieldSFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
@@ -3319,21 +3319,21 @@ FCDPtrTestFCNullCheckAccessBase::~FCDPtrTestFCNullCheckAccessBase(void)
 /* Child linking                                                           */
 
 bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == FieldSFPub_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPub_mpchildptr.getValue())
             {
                 editSField(FieldSFPub_mpchildptrFieldMask);
 
-                _sfFieldSFPub_mpchildptr.setValue(NullFC);
+                _sfFieldSFPub_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3349,16 +3349,16 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldSFPro_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPro_mpchildptr.getValue())
             {
                 editSField(FieldSFPro_mpchildptrFieldMask);
 
-                _sfFieldSFPro_mpchildptr.setValue(NullFC);
+                _sfFieldSFPro_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3374,16 +3374,16 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldSFPri_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPri_mpchildptr.getValue())
             {
                 editSField(FieldSFPri_mpchildptrFieldMask);
 
-                _sfFieldSFPri_mpchildptr.setValue(NullFC);
+                _sfFieldSFPri_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3399,16 +3399,16 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldSFNo_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFNo_mpchildptr.getValue())
             {
                 editSField(FieldSFNo_mpchildptrFieldMask);
 
-                _sfFieldSFNo_mpchildptr.setValue(NullFC);
+                _sfFieldSFNo_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3424,10 +3424,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFPub_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPub_mpchildptr.find_nc(pTypedChild);
@@ -3452,10 +3452,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFPro_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPro_mpchildptr.find_nc(pTypedChild);
@@ -3480,10 +3480,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFPri_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPri_mpchildptr.find_nc(pTypedChild);
@@ -3508,10 +3508,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFNo_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFNo_mpchildptr.find_nc(pTypedChild);
@@ -3536,16 +3536,16 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldSFPub_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPub_spchildptr.getValue())
             {
                 editSField(FieldSFPub_spchildptrFieldMask);
 
-                _sfFieldSFPub_spchildptr.setValue(NullFC);
+                _sfFieldSFPub_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3561,16 +3561,16 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldSFPro_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPro_spchildptr.getValue())
             {
                 editSField(FieldSFPro_spchildptrFieldMask);
 
-                _sfFieldSFPro_spchildptr.setValue(NullFC);
+                _sfFieldSFPro_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3586,16 +3586,16 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldSFPri_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPri_spchildptr.getValue())
             {
                 editSField(FieldSFPri_spchildptrFieldMask);
 
-                _sfFieldSFPri_spchildptr.setValue(NullFC);
+                _sfFieldSFPri_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3611,16 +3611,16 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldSFNo_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFNo_spchildptr.getValue())
             {
                 editSField(FieldSFNo_spchildptrFieldMask);
 
-                _sfFieldSFNo_spchildptr.setValue(NullFC);
+                _sfFieldSFNo_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3636,10 +3636,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFPub_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPub_spchildptr.find_nc(pTypedChild);
@@ -3664,10 +3664,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFPro_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPro_spchildptr.find_nc(pTypedChild);
@@ -3692,10 +3692,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFPri_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPri_spchildptr.find_nc(pTypedChild);
@@ -3720,10 +3720,10 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
     
     if(childFieldId == FieldMFNo_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFNo_spchildptr.find_nc(pTypedChild);
@@ -4658,9 +4658,9 @@ void FCDPtrTestFCNullCheckAccessBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FCDPtrTestFCNullCheckAccessBase::createAspectCopy(void) const
+FieldContainer *FCDPtrTestFCNullCheckAccessBase::createAspectCopy(void) const
 {
-    FCDPtrTestFCNullCheckAccessPtr returnValue;
+    FCDPtrTestFCNullCheckAccess *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FCDPtrTestFCNullCheckAccess *>(this));
@@ -4673,29 +4673,29 @@ void FCDPtrTestFCNullCheckAccessBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_ptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_ptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_weakptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_weakptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_mpchildptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_mpchildptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_ptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_ptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_weakptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_weakptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_mpchildptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_mpchildptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_ptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_ptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_weakptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_weakptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_mpchildptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_mpchildptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_spchildptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPub_spchildptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_spchildptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPro_spchildptr(NULL);
 
-    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_spchildptr(NullFC);
+    static_cast<FCDPtrTestFCNullCheckAccess *>(this)->setFieldSFPri_spchildptr(NULL);
 
 
     static_cast<FCDPtrTestFCNullCheckAccess *>(this)->clearFieldMFPub_ptr();
@@ -4714,17 +4714,17 @@ void FCDPtrTestFCNullCheckAccessBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDPtrTestFCNullCheckAccessPtr>::_type("FCDPtrTestFCNullCheckAccessPtr", "NodeCorePtr");
+DataType FieldTraits<FCDPtrTestFCNullCheckAccess *>::_type("FCDPtrTestFCNullCheckAccessPtr", "NodeCorePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFCNullCheckAccessPtr)
+OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFCNullCheckAccess *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FCDPtrTestFCNullCheckAccessPtr, 
+                           FCDPtrTestFCNullCheckAccess *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FCDPtrTestFCNullCheckAccessPtr, 
+                           FCDPtrTestFCNullCheckAccess *, 
                            0);
 
 OSG_END_NAMESPACE

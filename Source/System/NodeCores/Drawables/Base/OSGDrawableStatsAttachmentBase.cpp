@@ -599,7 +599,7 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::create(void)
 {
     DrawableStatsAttachmentTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -615,7 +615,7 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::createLocal(BitVe
 {
     DrawableStatsAttachmentTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -627,9 +627,9 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::createLocal(BitVe
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::createEmpty(void)
+DrawableStatsAttachment *DrawableStatsAttachmentBase::createEmpty(void)
 {
-    DrawableStatsAttachmentPtr returnValue;
+    DrawableStatsAttachment *returnValue;
 
     newPtr<DrawableStatsAttachment>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -639,9 +639,9 @@ DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::createEmpty(void)
     return returnValue;
 }
 
-DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::createEmptyLocal(BitVector bFlags)
+DrawableStatsAttachment *DrawableStatsAttachmentBase::createEmptyLocal(BitVector bFlags)
 {
-    DrawableStatsAttachmentPtr returnValue;
+    DrawableStatsAttachment *returnValue;
 
     newPtr<DrawableStatsAttachment>(returnValue, bFlags);
 
@@ -652,7 +652,7 @@ DrawableStatsAttachmentPtr DrawableStatsAttachmentBase::createEmptyLocal(BitVect
 
 FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopy(void) const
 {
-    DrawableStatsAttachmentPtr tmpPtr;
+    DrawableStatsAttachment *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const DrawableStatsAttachment *>(this), 
@@ -668,7 +668,7 @@ FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopy(void) const
 FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DrawableStatsAttachmentPtr tmpPtr;
+    DrawableStatsAttachment *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const DrawableStatsAttachment *>(this), bFlags);
 
@@ -887,9 +887,9 @@ void DrawableStatsAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr DrawableStatsAttachmentBase::createAspectCopy(void) const
+FieldContainer *DrawableStatsAttachmentBase::createAspectCopy(void) const
 {
-    DrawableStatsAttachmentPtr returnValue;
+    DrawableStatsAttachment *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const DrawableStatsAttachment *>(this));
@@ -907,17 +907,17 @@ void DrawableStatsAttachmentBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DrawableStatsAttachmentPtr>::_type("DrawableStatsAttachmentPtr", "StatsAttachmentPtr");
+DataType FieldTraits<DrawableStatsAttachment *>::_type("DrawableStatsAttachmentPtr", "StatsAttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachmentPtr)
+OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachment *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DrawableStatsAttachmentPtr, 
+                           DrawableStatsAttachment *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DrawableStatsAttachmentPtr, 
+                           DrawableStatsAttachment *, 
                            0);
 
 OSG_END_NAMESPACE

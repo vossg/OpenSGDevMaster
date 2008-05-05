@@ -247,7 +247,7 @@ ScreenLODTransitPtr ScreenLODBase::create(void)
 {
     ScreenLODTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -263,7 +263,7 @@ ScreenLODTransitPtr ScreenLODBase::createLocal(BitVector bFlags)
 {
     ScreenLODTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -275,9 +275,9 @@ ScreenLODTransitPtr ScreenLODBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ScreenLODPtr ScreenLODBase::createEmpty(void)
+ScreenLOD *ScreenLODBase::createEmpty(void)
 {
-    ScreenLODPtr returnValue;
+    ScreenLOD *returnValue;
 
     newPtr<ScreenLOD>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -287,9 +287,9 @@ ScreenLODPtr ScreenLODBase::createEmpty(void)
     return returnValue;
 }
 
-ScreenLODPtr ScreenLODBase::createEmptyLocal(BitVector bFlags)
+ScreenLOD *ScreenLODBase::createEmptyLocal(BitVector bFlags)
 {
-    ScreenLODPtr returnValue;
+    ScreenLOD *returnValue;
 
     newPtr<ScreenLOD>(returnValue, bFlags);
 
@@ -300,7 +300,7 @@ ScreenLODPtr ScreenLODBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ScreenLODBase::shallowCopy(void) const
 {
-    ScreenLODPtr tmpPtr;
+    ScreenLOD *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ScreenLOD *>(this), 
@@ -316,7 +316,7 @@ FieldContainerTransitPtr ScreenLODBase::shallowCopy(void) const
 FieldContainerTransitPtr ScreenLODBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ScreenLODPtr tmpPtr;
+    ScreenLOD *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ScreenLOD *>(this), bFlags);
 
@@ -391,9 +391,9 @@ void ScreenLODBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ScreenLODBase::createAspectCopy(void) const
+FieldContainer *ScreenLODBase::createAspectCopy(void) const
 {
-    ScreenLODPtr returnValue;
+    ScreenLOD *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ScreenLOD *>(this));
@@ -420,7 +420,7 @@ void ScreenLODBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScreenLODPtr>::_type("ScreenLODPtr", "GroupPtr");
+DataType FieldTraits<ScreenLOD *>::_type("ScreenLODPtr", "GroupPtr");
 #endif
 
 

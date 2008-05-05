@@ -139,7 +139,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
             const MFPnt2f             *getMFPositions       (void) const;
 
 
-                  ImagePtr getImages         (const UInt32 index) const;
+                  Image * getImages         (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getPositions       (const UInt32 index);
@@ -164,10 +164,10 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToImages              (const ImagePtr value   );
-    void assignImages              (const MFUnrecImagePtr   &value);
-    void removeFromImages (UInt32                uiIndex );
-    void removeFromImages(const ImagePtr value   );
+    void pushToImages              (Image * const value   );
+    void assignImages             (const MFUnrecImagePtr   &value);
+    void removeFromImages (UInt32               uiIndex );
+    void removeFromImages(Image * const value   );
     void clearImages                (void                          );
 
 
@@ -188,13 +188,13 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ImageForegroundTransitPtr create          (void);
-    static  ImageForegroundPtr        createEmpty     (void);
+    static  ImageForegroundTransitPtr  create          (void);
+    static  ImageForeground           *createEmpty     (void);
 
-    static  ImageForegroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ImageForegroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ImageForegroundPtr        createEmptyLocal(
+    static  ImageForeground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -285,7 +285,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

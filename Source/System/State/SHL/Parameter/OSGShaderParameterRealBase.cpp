@@ -226,7 +226,7 @@ ShaderParameterRealTransitPtr ShaderParameterRealBase::create(void)
 {
     ShaderParameterRealTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -242,7 +242,7 @@ ShaderParameterRealTransitPtr ShaderParameterRealBase::createLocal(BitVector bFl
 {
     ShaderParameterRealTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -254,9 +254,9 @@ ShaderParameterRealTransitPtr ShaderParameterRealBase::createLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterRealPtr ShaderParameterRealBase::createEmpty(void)
+ShaderParameterReal *ShaderParameterRealBase::createEmpty(void)
 {
-    ShaderParameterRealPtr returnValue;
+    ShaderParameterReal *returnValue;
 
     newPtr<ShaderParameterReal>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -266,9 +266,9 @@ ShaderParameterRealPtr ShaderParameterRealBase::createEmpty(void)
     return returnValue;
 }
 
-ShaderParameterRealPtr ShaderParameterRealBase::createEmptyLocal(BitVector bFlags)
+ShaderParameterReal *ShaderParameterRealBase::createEmptyLocal(BitVector bFlags)
 {
-    ShaderParameterRealPtr returnValue;
+    ShaderParameterReal *returnValue;
 
     newPtr<ShaderParameterReal>(returnValue, bFlags);
 
@@ -279,7 +279,7 @@ ShaderParameterRealPtr ShaderParameterRealBase::createEmptyLocal(BitVector bFlag
 
 FieldContainerTransitPtr ShaderParameterRealBase::shallowCopy(void) const
 {
-    ShaderParameterRealPtr tmpPtr;
+    ShaderParameterReal *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ShaderParameterReal *>(this), 
@@ -295,7 +295,7 @@ FieldContainerTransitPtr ShaderParameterRealBase::shallowCopy(void) const
 FieldContainerTransitPtr ShaderParameterRealBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ShaderParameterRealPtr tmpPtr;
+    ShaderParameterReal *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ShaderParameterReal *>(this), bFlags);
 
@@ -370,9 +370,9 @@ void ShaderParameterRealBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ShaderParameterRealBase::createAspectCopy(void) const
+FieldContainer *ShaderParameterRealBase::createAspectCopy(void) const
 {
-    ShaderParameterRealPtr returnValue;
+    ShaderParameterReal *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ShaderParameterReal *>(this));
@@ -390,17 +390,17 @@ void ShaderParameterRealBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterRealPtr>::_type("ShaderParameterRealPtr", "ShaderParameterPtr");
+DataType FieldTraits<ShaderParameterReal *>::_type("ShaderParameterRealPtr", "ShaderParameterPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterRealPtr)
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterReal *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterRealPtr, 
+                           ShaderParameterReal *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterRealPtr, 
+                           ShaderParameterReal *, 
                            0);
 
 OSG_END_NAMESPACE

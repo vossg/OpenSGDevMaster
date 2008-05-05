@@ -340,7 +340,7 @@ EGLWindowTransitPtr EGLWindowBase::create(void)
 {
     EGLWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -356,7 +356,7 @@ EGLWindowTransitPtr EGLWindowBase::createLocal(BitVector bFlags)
 {
     EGLWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -368,9 +368,9 @@ EGLWindowTransitPtr EGLWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-EGLWindowPtr EGLWindowBase::createEmpty(void)
+EGLWindow *EGLWindowBase::createEmpty(void)
 {
-    EGLWindowPtr returnValue;
+    EGLWindow *returnValue;
 
     newPtr<EGLWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -380,9 +380,9 @@ EGLWindowPtr EGLWindowBase::createEmpty(void)
     return returnValue;
 }
 
-EGLWindowPtr EGLWindowBase::createEmptyLocal(BitVector bFlags)
+EGLWindow *EGLWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    EGLWindowPtr returnValue;
+    EGLWindow *returnValue;
 
     newPtr<EGLWindow>(returnValue, bFlags);
 
@@ -393,7 +393,7 @@ EGLWindowPtr EGLWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr EGLWindowBase::shallowCopy(void) const
 {
-    EGLWindowPtr tmpPtr;
+    EGLWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const EGLWindow *>(this), 
@@ -409,7 +409,7 @@ FieldContainerTransitPtr EGLWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr EGLWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    EGLWindowPtr tmpPtr;
+    EGLWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const EGLWindow *>(this), bFlags);
 
@@ -532,9 +532,9 @@ void EGLWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr EGLWindowBase::createAspectCopy(void) const
+FieldContainer *EGLWindowBase::createAspectCopy(void) const
 {
-    EGLWindowPtr returnValue;
+    EGLWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const EGLWindow *>(this));
@@ -552,17 +552,17 @@ void EGLWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<EGLWindowPtr>::_type("EGLWindowPtr", "WindowPtr");
+DataType FieldTraits<EGLWindow *>::_type("EGLWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(EGLWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(EGLWindow *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           EGLWindowPtr, 
+                           EGLWindow *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           EGLWindowPtr, 
+                           EGLWindow *, 
                            0);
 
 OSG_END_NAMESPACE

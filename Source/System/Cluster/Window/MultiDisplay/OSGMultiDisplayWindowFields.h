@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(MultiDisplayWindow);
 #endif
 
 template <>
-struct FieldTraits<MultiDisplayWindowPtr> :
-    public FieldTraitsFCPtrBase<MultiDisplayWindowPtr>
+struct FieldTraits<MultiDisplayWindow *> :
+    public FieldTraitsFCPtrBase<MultiDisplayWindow *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<MultiDisplayWindowPtr> :
 
   public:
 
-    typedef FieldTraits<MultiDisplayWindowPtr>  Self;
+    typedef FieldTraits<MultiDisplayWindow *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

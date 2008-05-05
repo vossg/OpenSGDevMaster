@@ -439,7 +439,7 @@ ComponentTransformTransitPtr ComponentTransformBase::create(void)
 {
     ComponentTransformTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -455,7 +455,7 @@ ComponentTransformTransitPtr ComponentTransformBase::createLocal(BitVector bFlag
 {
     ComponentTransformTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -467,9 +467,9 @@ ComponentTransformTransitPtr ComponentTransformBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ComponentTransformPtr ComponentTransformBase::createEmpty(void)
+ComponentTransform *ComponentTransformBase::createEmpty(void)
 {
-    ComponentTransformPtr returnValue;
+    ComponentTransform *returnValue;
 
     newPtr<ComponentTransform>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -479,9 +479,9 @@ ComponentTransformPtr ComponentTransformBase::createEmpty(void)
     return returnValue;
 }
 
-ComponentTransformPtr ComponentTransformBase::createEmptyLocal(BitVector bFlags)
+ComponentTransform *ComponentTransformBase::createEmptyLocal(BitVector bFlags)
 {
-    ComponentTransformPtr returnValue;
+    ComponentTransform *returnValue;
 
     newPtr<ComponentTransform>(returnValue, bFlags);
 
@@ -492,7 +492,7 @@ ComponentTransformPtr ComponentTransformBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ComponentTransformBase::shallowCopy(void) const
 {
-    ComponentTransformPtr tmpPtr;
+    ComponentTransform *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ComponentTransform *>(this), 
@@ -508,7 +508,7 @@ FieldContainerTransitPtr ComponentTransformBase::shallowCopy(void) const
 FieldContainerTransitPtr ComponentTransformBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ComponentTransformPtr tmpPtr;
+    ComponentTransform *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ComponentTransform *>(this), bFlags);
 
@@ -679,9 +679,9 @@ void ComponentTransformBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ComponentTransformBase::createAspectCopy(void) const
+FieldContainer *ComponentTransformBase::createAspectCopy(void) const
 {
-    ComponentTransformPtr returnValue;
+    ComponentTransform *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ComponentTransform *>(this));
@@ -699,17 +699,17 @@ void ComponentTransformBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComponentTransformPtr>::_type("ComponentTransformPtr", "TransformPtr");
+DataType FieldTraits<ComponentTransform *>::_type("ComponentTransformPtr", "TransformPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ComponentTransformPtr)
+OSG_FIELDTRAITS_GETTYPE(ComponentTransform *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ComponentTransformPtr, 
+                           ComponentTransform *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ComponentTransformPtr, 
+                           ComponentTransform *, 
                            0);
 
 OSG_END_NAMESPACE

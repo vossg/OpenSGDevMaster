@@ -253,13 +253,13 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MatrixCameraDecoratorTransitPtr create          (void);
-    static  MatrixCameraDecoratorPtr        createEmpty     (void);
+    static  MatrixCameraDecoratorTransitPtr  create          (void);
+    static  MatrixCameraDecorator           *createEmpty     (void);
 
-    static  MatrixCameraDecoratorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MatrixCameraDecoratorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MatrixCameraDecoratorPtr        createEmptyLocal(
+    static  MatrixCameraDecorator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -361,7 +361,7 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

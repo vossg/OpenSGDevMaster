@@ -168,13 +168,13 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CocoaWindowTransitPtr create          (void);
-    static  CocoaWindowPtr        createEmpty     (void);
+    static  CocoaWindowTransitPtr  create          (void);
+    static  CocoaWindow           *createEmpty     (void);
 
-    static  CocoaWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  CocoaWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  CocoaWindowPtr        createEmptyLocal(
+    static  CocoaWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -202,13 +202,13 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  EGLWindowTransitPtr create          (void);
-    static  EGLWindowPtr        createEmpty     (void);
+    static  EGLWindowTransitPtr  create          (void);
+    static  EGLWindow           *createEmpty     (void);
 
-    static  EGLWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  EGLWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  EGLWindowPtr        createEmptyLocal(
+    static  EGLWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

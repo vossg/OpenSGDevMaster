@@ -293,7 +293,7 @@ ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::create(
 {
     ShearedStereoCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -309,7 +309,7 @@ ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::createL
 {
     ShearedStereoCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -321,9 +321,9 @@ ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::createL
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmpty(void)
+ShearedStereoCameraDecorator *ShearedStereoCameraDecoratorBase::createEmpty(void)
 {
-    ShearedStereoCameraDecoratorPtr returnValue;
+    ShearedStereoCameraDecorator *returnValue;
 
     newPtr<ShearedStereoCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -333,9 +333,9 @@ ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmpty(vo
     return returnValue;
 }
 
-ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+ShearedStereoCameraDecorator *ShearedStereoCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
 {
-    ShearedStereoCameraDecoratorPtr returnValue;
+    ShearedStereoCameraDecorator *returnValue;
 
     newPtr<ShearedStereoCameraDecorator>(returnValue, bFlags);
 
@@ -346,7 +346,7 @@ ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmptyLoc
 
 FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) const
 {
-    ShearedStereoCameraDecoratorPtr tmpPtr;
+    ShearedStereoCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ShearedStereoCameraDecorator *>(this), 
@@ -362,7 +362,7 @@ FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) con
 FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ShearedStereoCameraDecoratorPtr tmpPtr;
+    ShearedStereoCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ShearedStereoCameraDecorator *>(this), bFlags);
 
@@ -461,9 +461,9 @@ void ShearedStereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ShearedStereoCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *ShearedStereoCameraDecoratorBase::createAspectCopy(void) const
 {
-    ShearedStereoCameraDecoratorPtr returnValue;
+    ShearedStereoCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ShearedStereoCameraDecorator *>(this));
@@ -481,17 +481,17 @@ void ShearedStereoCameraDecoratorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShearedStereoCameraDecoratorPtr>::_type("ShearedStereoCameraDecoratorPtr", "StereoCameraDecoratorPtr");
+DataType FieldTraits<ShearedStereoCameraDecorator *>::_type("ShearedStereoCameraDecoratorPtr", "StereoCameraDecoratorPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecoratorPtr)
+OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecorator *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShearedStereoCameraDecoratorPtr, 
+                           ShearedStereoCameraDecorator *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShearedStereoCameraDecoratorPtr, 
+                           ShearedStereoCameraDecorator *, 
                            0);
 
 OSG_END_NAMESPACE

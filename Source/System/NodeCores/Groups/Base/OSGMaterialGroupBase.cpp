@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var MaterialPtr     MaterialGroupBase::_sfMaterial
+/*! \var Material *      MaterialGroupBase::_sfMaterial
     
 */
 
@@ -230,7 +230,7 @@ MaterialGroupTransitPtr MaterialGroupBase::create(void)
 {
     MaterialGroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -246,7 +246,7 @@ MaterialGroupTransitPtr MaterialGroupBase::createLocal(BitVector bFlags)
 {
     MaterialGroupTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -258,9 +258,9 @@ MaterialGroupTransitPtr MaterialGroupBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MaterialGroupPtr MaterialGroupBase::createEmpty(void)
+MaterialGroup *MaterialGroupBase::createEmpty(void)
 {
-    MaterialGroupPtr returnValue;
+    MaterialGroup *returnValue;
 
     newPtr<MaterialGroup>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -270,9 +270,9 @@ MaterialGroupPtr MaterialGroupBase::createEmpty(void)
     return returnValue;
 }
 
-MaterialGroupPtr MaterialGroupBase::createEmptyLocal(BitVector bFlags)
+MaterialGroup *MaterialGroupBase::createEmptyLocal(BitVector bFlags)
 {
-    MaterialGroupPtr returnValue;
+    MaterialGroup *returnValue;
 
     newPtr<MaterialGroup>(returnValue, bFlags);
 
@@ -283,7 +283,7 @@ MaterialGroupPtr MaterialGroupBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr MaterialGroupBase::shallowCopy(void) const
 {
-    MaterialGroupPtr tmpPtr;
+    MaterialGroup *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MaterialGroup *>(this), 
@@ -299,7 +299,7 @@ FieldContainerTransitPtr MaterialGroupBase::shallowCopy(void) const
 FieldContainerTransitPtr MaterialGroupBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MaterialGroupPtr tmpPtr;
+    MaterialGroup *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MaterialGroup *>(this), bFlags);
 
@@ -316,13 +316,13 @@ FieldContainerTransitPtr MaterialGroupBase::shallowCopyLocal(
 
 MaterialGroupBase::MaterialGroupBase(void) :
     Inherited(),
-    _sfMaterial               (NullFC)
+    _sfMaterial               (NULL)
 {
 }
 
 MaterialGroupBase::MaterialGroupBase(const MaterialGroupBase &source) :
     Inherited(source),
-    _sfMaterial               (NullFC)
+    _sfMaterial               (NULL)
 {
 }
 
@@ -388,9 +388,9 @@ void MaterialGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MaterialGroupBase::createAspectCopy(void) const
+FieldContainer *MaterialGroupBase::createAspectCopy(void) const
 {
-    MaterialGroupPtr returnValue;
+    MaterialGroup *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MaterialGroup *>(this));
@@ -403,24 +403,24 @@ void MaterialGroupBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<MaterialGroup *>(this)->setMaterial(NullFC);
+    static_cast<MaterialGroup *>(this)->setMaterial(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialGroupPtr>::_type("MaterialGroupPtr", "GroupPtr");
+DataType FieldTraits<MaterialGroup *>::_type("MaterialGroupPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MaterialGroupPtr)
+OSG_FIELDTRAITS_GETTYPE(MaterialGroup *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MaterialGroupPtr, 
+                           MaterialGroup *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MaterialGroupPtr, 
+                           MaterialGroup *, 
                            0);
 
 OSG_END_NAMESPACE

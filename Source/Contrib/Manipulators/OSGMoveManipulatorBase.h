@@ -126,13 +126,13 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MoveManipulatorTransitPtr create          (void);
-    static  MoveManipulatorPtr        createEmpty     (void);
+    static  MoveManipulatorTransitPtr  create          (void);
+    static  MoveManipulator           *createEmpty     (void);
 
-    static  MoveManipulatorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  MoveManipulatorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  MoveManipulatorPtr        createEmptyLocal(
+    static  MoveManipulator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

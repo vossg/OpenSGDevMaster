@@ -76,7 +76,7 @@ OSG::UInt16 MultiCoreBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the MultiCore::_mfCores field.
 inline
-NodeCorePtr MultiCoreBase::getCores(const UInt32 index) const
+NodeCore * MultiCoreBase::getCores(const UInt32 index) const
 {
     return _mfCores[index];
 }

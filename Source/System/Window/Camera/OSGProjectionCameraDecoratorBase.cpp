@@ -94,7 +94,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var NodePtr         ProjectionCameraDecoratorBase::_sfUser
+/*! \var Node *          ProjectionCameraDecoratorBase::_sfUser
     The coordinate system relative to the camera.
 */
 
@@ -596,7 +596,7 @@ ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::create(void)
 {
     ProjectionCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -612,7 +612,7 @@ ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::createLocal(B
 {
     ProjectionCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -624,9 +624,9 @@ ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::createLocal(B
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmpty(void)
+ProjectionCameraDecorator *ProjectionCameraDecoratorBase::createEmpty(void)
 {
-    ProjectionCameraDecoratorPtr returnValue;
+    ProjectionCameraDecorator *returnValue;
 
     newPtr<ProjectionCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -636,9 +636,9 @@ ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmpty(void)
     return returnValue;
 }
 
-ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+ProjectionCameraDecorator *ProjectionCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
 {
-    ProjectionCameraDecoratorPtr returnValue;
+    ProjectionCameraDecorator *returnValue;
 
     newPtr<ProjectionCameraDecorator>(returnValue, bFlags);
 
@@ -649,7 +649,7 @@ ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmptyLocal(Bit
 
 FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
 {
-    ProjectionCameraDecoratorPtr tmpPtr;
+    ProjectionCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ProjectionCameraDecorator *>(this), 
@@ -665,7 +665,7 @@ FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
 FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ProjectionCameraDecoratorPtr tmpPtr;
+    ProjectionCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ProjectionCameraDecorator *>(this), bFlags);
 
@@ -682,7 +682,7 @@ FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopyLocal(
 
 ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(void) :
     Inherited(),
-    _sfUser                   (NullFC),
+    _sfUser                   (NULL),
     _mfSurface                (),
     _sfLeft                   (),
     _sfBottom                 (),
@@ -694,7 +694,7 @@ ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(void) :
 
 ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(const ProjectionCameraDecoratorBase &source) :
     Inherited(source),
-    _sfUser                   (NullFC),
+    _sfUser                   (NULL),
     _mfSurface                (source._mfSurface                ),
     _sfLeft                   (source._sfLeft                   ),
     _sfBottom                 (source._sfBottom                 ),
@@ -898,9 +898,9 @@ void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ProjectionCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *ProjectionCameraDecoratorBase::createAspectCopy(void) const
 {
-    ProjectionCameraDecoratorPtr returnValue;
+    ProjectionCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ProjectionCameraDecorator *>(this));
@@ -913,7 +913,7 @@ void ProjectionCameraDecoratorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ProjectionCameraDecorator *>(this)->setUser(NullFC);
+    static_cast<ProjectionCameraDecorator *>(this)->setUser(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -929,17 +929,17 @@ void ProjectionCameraDecoratorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProjectionCameraDecoratorPtr>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr");
+DataType FieldTraits<ProjectionCameraDecorator *>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecoratorPtr)
+OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecorator *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ProjectionCameraDecoratorPtr, 
+                           ProjectionCameraDecorator *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ProjectionCameraDecoratorPtr, 
+                           ProjectionCameraDecorator *, 
                            0);
 
 OSG_END_NAMESPACE

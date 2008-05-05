@@ -202,13 +202,13 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FileGrabForegroundTransitPtr create          (void);
-    static  FileGrabForegroundPtr        createEmpty     (void);
+    static  FileGrabForegroundTransitPtr  create          (void);
+    static  FileGrabForeground           *createEmpty     (void);
 
-    static  FileGrabForegroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  FileGrabForegroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  FileGrabForegroundPtr        createEmptyLocal(
+    static  FileGrabForeground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

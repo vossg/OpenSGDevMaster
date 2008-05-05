@@ -226,7 +226,7 @@ ShaderParameterMVec2fTransitPtr ShaderParameterMVec2fBase::create(void)
 {
     ShaderParameterMVec2fTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -242,7 +242,7 @@ ShaderParameterMVec2fTransitPtr ShaderParameterMVec2fBase::createLocal(BitVector
 {
     ShaderParameterMVec2fTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -254,9 +254,9 @@ ShaderParameterMVec2fTransitPtr ShaderParameterMVec2fBase::createLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterMVec2fPtr ShaderParameterMVec2fBase::createEmpty(void)
+ShaderParameterMVec2f *ShaderParameterMVec2fBase::createEmpty(void)
 {
-    ShaderParameterMVec2fPtr returnValue;
+    ShaderParameterMVec2f *returnValue;
 
     newPtr<ShaderParameterMVec2f>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -266,9 +266,9 @@ ShaderParameterMVec2fPtr ShaderParameterMVec2fBase::createEmpty(void)
     return returnValue;
 }
 
-ShaderParameterMVec2fPtr ShaderParameterMVec2fBase::createEmptyLocal(BitVector bFlags)
+ShaderParameterMVec2f *ShaderParameterMVec2fBase::createEmptyLocal(BitVector bFlags)
 {
-    ShaderParameterMVec2fPtr returnValue;
+    ShaderParameterMVec2f *returnValue;
 
     newPtr<ShaderParameterMVec2f>(returnValue, bFlags);
 
@@ -279,7 +279,7 @@ ShaderParameterMVec2fPtr ShaderParameterMVec2fBase::createEmptyLocal(BitVector b
 
 FieldContainerTransitPtr ShaderParameterMVec2fBase::shallowCopy(void) const
 {
-    ShaderParameterMVec2fPtr tmpPtr;
+    ShaderParameterMVec2f *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ShaderParameterMVec2f *>(this), 
@@ -295,7 +295,7 @@ FieldContainerTransitPtr ShaderParameterMVec2fBase::shallowCopy(void) const
 FieldContainerTransitPtr ShaderParameterMVec2fBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ShaderParameterMVec2fPtr tmpPtr;
+    ShaderParameterMVec2f *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ShaderParameterMVec2f *>(this), bFlags);
 
@@ -370,9 +370,9 @@ void ShaderParameterMVec2fBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ShaderParameterMVec2fBase::createAspectCopy(void) const
+FieldContainer *ShaderParameterMVec2fBase::createAspectCopy(void) const
 {
-    ShaderParameterMVec2fPtr returnValue;
+    ShaderParameterMVec2f *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ShaderParameterMVec2f *>(this));
@@ -399,17 +399,17 @@ void ShaderParameterMVec2fBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterMVec2fPtr>::_type("ShaderParameterMVec2fPtr", "ShaderParameterPtr");
+DataType FieldTraits<ShaderParameterMVec2f *>::_type("ShaderParameterMVec2fPtr", "ShaderParameterPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterMVec2fPtr)
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterMVec2f *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterMVec2fPtr, 
+                           ShaderParameterMVec2f *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterMVec2fPtr, 
+                           ShaderParameterMVec2f *, 
                            0);
 
 OSG_END_NAMESPACE

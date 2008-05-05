@@ -669,7 +669,7 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
             const SFUInt32            *getSFNPOTMatrixScale (void) const;
 
 
-                  ImagePtr getImage          (void) const;
+                  Image * getImage          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getInternalFormat  (void);
@@ -1001,7 +1001,7 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setImage          (const ImagePtr value);
+            void setImage          (Image * const value);
             void setInternalFormat (const GLenum &value);
             void setExternalFormat (const GLenum &value);
             void setScale          (const bool &value);
@@ -1083,13 +1083,13 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureChunkTransitPtr create          (void);
-    static  TextureChunkPtr        createEmpty     (void);
+    static  TextureChunkTransitPtr  create          (void);
+    static  TextureChunk           *createEmpty     (void);
 
-    static  TextureChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TextureChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TextureChunkPtr        createEmptyLocal(
+    static  TextureChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -1339,7 +1339,7 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

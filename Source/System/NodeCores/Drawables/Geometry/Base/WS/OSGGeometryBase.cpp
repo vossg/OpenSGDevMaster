@@ -85,23 +85,23 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var GeoIntegralPropertyPtr GeometryBase::_sfTypes
+/*! \var GeoIntegralProperty * GeometryBase::_sfTypes
     The types property contains the primitive's types. Legal values are 
     everything that can be passed to glBegin(). There have to be as many 
     types as lengths.
 */
 
-/*! \var GeoIntegralPropertyPtr GeometryBase::_sfLengths
+/*! \var GeoIntegralProperty * GeometryBase::_sfLengths
     The lengths property contains the number of vertices to use for the 
     corresponding primitive. There have to be as many  lengths as types.
 */
 
-/*! \var GeoVectorPropertyPtr GeometryBase::_mfProperties
+/*! \var GeoVectorProperty * GeometryBase::_mfProperties
     The attributes used to render the geometry. The order is based on the 
     the one given in ARB_vertex_program.
 */
 
-/*! \var GeoIntegralPropertyPtr GeometryBase::_mfPropIndices
+/*! \var GeoIntegralProperty * GeometryBase::_mfPropIndices
     The indices property contains the index data. See \ref 
     PageSystemGeoIndexing for a description of the indexing options.
 */
@@ -459,7 +459,7 @@ SFInt32             *GeometryBase::getSFAttGLId        (void)
 
 
 
-void GeometryBase::pushToProperties(const GeoVectorPropertyPtr value)
+void GeometryBase::pushToProperties(GeoVectorProperty * const value)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
@@ -497,7 +497,7 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
     }
 }
 
-void GeometryBase::removeFromProperties(const GeoVectorPropertyPtr value)
+void GeometryBase::removeFromProperties(GeoVectorProperty * const value)
 {
     Int32 iElemIdx = _mfProperties.findIndex(value);
 
@@ -520,7 +520,7 @@ void GeometryBase::clearProperties(void)
     _mfProperties.clear();
 }
 
-void GeometryBase::pushToPropIndices(const GeoIntegralPropertyPtr value)
+void GeometryBase::pushToPropIndices(GeoIntegralProperty * const value)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
@@ -558,7 +558,7 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
     }
 }
 
-void GeometryBase::removeFromPropIndices(const GeoIntegralPropertyPtr value)
+void GeometryBase::removeFromPropIndices(GeoIntegralProperty * const value)
 {
     Int32 iElemIdx = _mfPropIndices.findIndex(value);
 
@@ -696,7 +696,7 @@ GeometryTransitPtr GeometryBase::create(void)
 {
     GeometryTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -712,7 +712,7 @@ GeometryTransitPtr GeometryBase::createLocal(BitVector bFlags)
 {
     GeometryTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -724,9 +724,9 @@ GeometryTransitPtr GeometryBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GeometryPtr GeometryBase::createEmpty(void)
+Geometry *GeometryBase::createEmpty(void)
 {
-    GeometryPtr returnValue;
+    Geometry *returnValue;
 
     newPtr<Geometry>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -736,9 +736,9 @@ GeometryPtr GeometryBase::createEmpty(void)
     return returnValue;
 }
 
-GeometryPtr GeometryBase::createEmptyLocal(BitVector bFlags)
+Geometry *GeometryBase::createEmptyLocal(BitVector bFlags)
 {
-    GeometryPtr returnValue;
+    Geometry *returnValue;
 
     newPtr<Geometry>(returnValue, bFlags);
 
@@ -749,7 +749,7 @@ GeometryPtr GeometryBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr GeometryBase::shallowCopy(void) const
 {
-    GeometryPtr tmpPtr;
+    Geometry *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Geometry *>(this), 
@@ -765,7 +765,7 @@ FieldContainerTransitPtr GeometryBase::shallowCopy(void) const
 FieldContainerTransitPtr GeometryBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    GeometryPtr tmpPtr;
+    Geometry *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Geometry *>(this), bFlags);
 
@@ -831,21 +831,21 @@ GeometryBase::~GeometryBase(void)
 /* Child linking                                                           */
 
 bool GeometryBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == TypesFieldId)
     {
-        GeoIntegralPropertyPtr pTypedChild =
-            dynamic_cast<GeoIntegralPropertyPtr>(pChild);
+        GeoIntegralProperty * pTypedChild =
+            dynamic_cast<GeoIntegralProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfTypes.getValue())
             {
                 editSField(TypesFieldMask);
 
-                _sfTypes.setValue(NullFC);
+                _sfTypes.setValue(NULL);
                 
                 return true;
             }
@@ -861,16 +861,16 @@ bool GeometryBase::unlinkChild(
     
     if(childFieldId == LengthsFieldId)
     {
-        GeoIntegralPropertyPtr pTypedChild =
-            dynamic_cast<GeoIntegralPropertyPtr>(pChild);
+        GeoIntegralProperty * pTypedChild =
+            dynamic_cast<GeoIntegralProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfLengths.getValue())
             {
                 editSField(LengthsFieldMask);
 
-                _sfLengths.setValue(NullFC);
+                _sfLengths.setValue(NULL);
                 
                 return true;
             }
@@ -886,10 +886,10 @@ bool GeometryBase::unlinkChild(
     
     if(childFieldId == PropertiesFieldId)
     {
-        GeoVectorPropertyPtr pTypedChild =
-            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+        GeoVectorProperty * pTypedChild =
+            dynamic_cast<GeoVectorProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildGeoVectorPropertyPtr::iterator pI =
                 _mfProperties.find_nc(pTypedChild);
@@ -914,10 +914,10 @@ bool GeometryBase::unlinkChild(
     
     if(childFieldId == PropIndicesFieldId)
     {
-        GeoIntegralPropertyPtr pTypedChild =
-            dynamic_cast<GeoIntegralPropertyPtr>(pChild);
+        GeoIntegralProperty * pTypedChild =
+            dynamic_cast<GeoIntegralProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildGeoIntegralPropertyPtr::iterator pI =
                 _mfPropIndices.find_nc(pTypedChild);
@@ -1166,9 +1166,9 @@ void GeometryBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr GeometryBase::createAspectCopy(void) const
+FieldContainer *GeometryBase::createAspectCopy(void) const
 {
-    GeometryPtr returnValue;
+    Geometry *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Geometry *>(this));
@@ -1181,9 +1181,9 @@ void GeometryBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<Geometry *>(this)->setTypes(NullFC);
+    static_cast<Geometry *>(this)->setTypes(NULL);
 
-    static_cast<Geometry *>(this)->setLengths(NullFC);
+    static_cast<Geometry *>(this)->setLengths(NULL);
 
 
     static_cast<Geometry *>(this)->clearProperties();
@@ -1192,17 +1192,17 @@ void GeometryBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeometryPtr>::_type("GeometryPtr", "MaterialDrawablePtr");
+DataType FieldTraits<Geometry *>::_type("GeometryPtr", "MaterialDrawablePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeometryPtr)
+OSG_FIELDTRAITS_GETTYPE(Geometry *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeometryPtr, 
+                           Geometry *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeometryPtr, 
+                           Geometry *, 
                            0);
 
 OSG_END_NAMESPACE

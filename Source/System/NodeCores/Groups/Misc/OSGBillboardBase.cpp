@@ -449,7 +449,7 @@ BillboardTransitPtr BillboardBase::create(void)
 {
     BillboardTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -465,7 +465,7 @@ BillboardTransitPtr BillboardBase::createLocal(BitVector bFlags)
 {
     BillboardTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -477,9 +477,9 @@ BillboardTransitPtr BillboardBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-BillboardPtr BillboardBase::createEmpty(void)
+Billboard *BillboardBase::createEmpty(void)
 {
-    BillboardPtr returnValue;
+    Billboard *returnValue;
 
     newPtr<Billboard>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -489,9 +489,9 @@ BillboardPtr BillboardBase::createEmpty(void)
     return returnValue;
 }
 
-BillboardPtr BillboardBase::createEmptyLocal(BitVector bFlags)
+Billboard *BillboardBase::createEmptyLocal(BitVector bFlags)
 {
-    BillboardPtr returnValue;
+    Billboard *returnValue;
 
     newPtr<Billboard>(returnValue, bFlags);
 
@@ -502,7 +502,7 @@ BillboardPtr BillboardBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr BillboardBase::shallowCopy(void) const
 {
-    BillboardPtr tmpPtr;
+    Billboard *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Billboard *>(this), 
@@ -518,7 +518,7 @@ FieldContainerTransitPtr BillboardBase::shallowCopy(void) const
 FieldContainerTransitPtr BillboardBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    BillboardPtr tmpPtr;
+    Billboard *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Billboard *>(this), bFlags);
 
@@ -689,9 +689,9 @@ void BillboardBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr BillboardBase::createAspectCopy(void) const
+FieldContainer *BillboardBase::createAspectCopy(void) const
 {
-    BillboardPtr returnValue;
+    Billboard *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Billboard *>(this));
@@ -709,17 +709,17 @@ void BillboardBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BillboardPtr>::_type("BillboardPtr", "GroupPtr");
+DataType FieldTraits<Billboard *>::_type("BillboardPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(BillboardPtr)
+OSG_FIELDTRAITS_GETTYPE(Billboard *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           BillboardPtr, 
+                           Billboard *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           BillboardPtr, 
+                           Billboard *, 
                            0);
 
 OSG_END_NAMESPACE

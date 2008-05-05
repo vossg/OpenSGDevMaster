@@ -227,7 +227,7 @@ TextureObjRefChunkTransitPtr TextureObjRefChunkBase::create(void)
 {
     TextureObjRefChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -243,7 +243,7 @@ TextureObjRefChunkTransitPtr TextureObjRefChunkBase::createLocal(BitVector bFlag
 {
     TextureObjRefChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -255,9 +255,9 @@ TextureObjRefChunkTransitPtr TextureObjRefChunkBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureObjRefChunkPtr TextureObjRefChunkBase::createEmpty(void)
+TextureObjRefChunk *TextureObjRefChunkBase::createEmpty(void)
 {
-    TextureObjRefChunkPtr returnValue;
+    TextureObjRefChunk *returnValue;
 
     newPtr<TextureObjRefChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -267,9 +267,9 @@ TextureObjRefChunkPtr TextureObjRefChunkBase::createEmpty(void)
     return returnValue;
 }
 
-TextureObjRefChunkPtr TextureObjRefChunkBase::createEmptyLocal(BitVector bFlags)
+TextureObjRefChunk *TextureObjRefChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    TextureObjRefChunkPtr returnValue;
+    TextureObjRefChunk *returnValue;
 
     newPtr<TextureObjRefChunk>(returnValue, bFlags);
 
@@ -280,7 +280,7 @@ TextureObjRefChunkPtr TextureObjRefChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TextureObjRefChunkBase::shallowCopy(void) const
 {
-    TextureObjRefChunkPtr tmpPtr;
+    TextureObjRefChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TextureObjRefChunk *>(this), 
@@ -296,7 +296,7 @@ FieldContainerTransitPtr TextureObjRefChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr TextureObjRefChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TextureObjRefChunkPtr tmpPtr;
+    TextureObjRefChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TextureObjRefChunk *>(this), bFlags);
 
@@ -371,9 +371,9 @@ void TextureObjRefChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TextureObjRefChunkBase::createAspectCopy(void) const
+FieldContainer *TextureObjRefChunkBase::createAspectCopy(void) const
 {
-    TextureObjRefChunkPtr returnValue;
+    TextureObjRefChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TextureObjRefChunk *>(this));
@@ -391,17 +391,17 @@ void TextureObjRefChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureObjRefChunkPtr>::_type("TextureObjRefChunkPtr", "TextureBaseChunkPtr");
+DataType FieldTraits<TextureObjRefChunk *>::_type("TextureObjRefChunkPtr", "TextureBaseChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureObjRefChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(TextureObjRefChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureObjRefChunkPtr, 
+                           TextureObjRefChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureObjRefChunkPtr, 
+                           TextureObjRefChunk *, 
                            0);
 
 OSG_END_NAMESPACE

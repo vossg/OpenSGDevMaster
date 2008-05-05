@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TestMultiPartitionStage);
 #endif
 
 template <>
-struct FieldTraits<TestMultiPartitionStagePtr> :
-    public FieldTraitsFCPtrBase<TestMultiPartitionStagePtr>
+struct FieldTraits<TestMultiPartitionStage *> :
+    public FieldTraitsFCPtrBase<TestMultiPartitionStage *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TestMultiPartitionStagePtr> :
 
   public:
 
-    typedef FieldTraits<TestMultiPartitionStagePtr>  Self;
+    typedef FieldTraits<TestMultiPartitionStage *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

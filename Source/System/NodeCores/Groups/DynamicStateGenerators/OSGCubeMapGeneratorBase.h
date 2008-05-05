@@ -213,11 +213,11 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                   SFUnrecBackgroundPtr *editSFBackground     (void);
 
 
-                  NodePtr getRoot           (void) const;
+                  Node * getRoot           (void) const;
 
-                  NodePtr getExclude        (const UInt32 index) const;
+                  Node * getExclude        (const UInt32 index) const;
 
-                  TextureObjChunkPtr getTexture        (void) const;
+                  TextureObjChunk * getTexture        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2s               &getTextureSize     (void);
@@ -231,7 +231,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                   GLenum              &editTextureFormat  (void);
             const GLenum               getTextureFormat   (void) const;
 
-                  NodePtr getBeacon         (void) const;
+                  Node * getBeacon         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt3f               &getOrigin          (void);
@@ -257,23 +257,23 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                   UInt32              &editSetupMode      (void);
             const UInt32               getSetupMode       (void) const;
 
-                  BackgroundPtr getBackground     (void) const;
+                  Background * getBackground     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRoot           (const NodePtr value);
-            void setTexture        (const TextureObjChunkPtr value);
+            void setRoot           (Node * const value);
+            void setTexture        (TextureObjChunk * const value);
             void setTextureSize    (const Vec2s &value);
             void setTextureFormat  (const GLenum &value);
-            void setBeacon         (const NodePtr value);
+            void setBeacon         (Node * const value);
             void setOrigin         (const Pnt3f &value);
             void setOriginMode     (const UInt32 &value);
             void setTexUnit        (const UInt32 &value);
             void setSetupMode      (const UInt32 &value);
-            void setBackground     (const BackgroundPtr value);
+            void setBackground     (Background * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,10 +285,10 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToExclude             (const NodePtr value   );
-    void assignExclude             (const MFUnrecNodePtr    &value);
-    void removeFromExclude (UInt32                uiIndex );
-    void removeFromExclude(const NodePtr value   );
+    void pushToExclude             (Node * const value   );
+    void assignExclude            (const MFUnrecNodePtr    &value);
+    void removeFromExclude (UInt32               uiIndex );
+    void removeFromExclude(Node * const value   );
     void clearExclude               (void                          );
 
 
@@ -309,13 +309,13 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeMapGeneratorTransitPtr create          (void);
-    static  CubeMapGeneratorPtr        createEmpty     (void);
+    static  CubeMapGeneratorTransitPtr  create          (void);
+    static  CubeMapGenerator           *createEmpty     (void);
 
-    static  CubeMapGeneratorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  CubeMapGeneratorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  CubeMapGeneratorPtr        createEmptyLocal(
+    static  CubeMapGenerator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -433,7 +433,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

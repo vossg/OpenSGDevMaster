@@ -328,17 +328,17 @@ void ForegroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ForegroundPtr>::_type("ForegroundPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Foreground *>::_type("ForegroundPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ForegroundPtr)
+OSG_FIELDTRAITS_GETTYPE(Foreground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ForegroundPtr, 
+                           Foreground *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ForegroundPtr, 
+                           Foreground *, 
                            0);
 
 OSG_END_NAMESPACE

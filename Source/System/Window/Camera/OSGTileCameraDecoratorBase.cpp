@@ -535,7 +535,7 @@ TileCameraDecoratorTransitPtr TileCameraDecoratorBase::create(void)
 {
     TileCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -551,7 +551,7 @@ TileCameraDecoratorTransitPtr TileCameraDecoratorBase::createLocal(BitVector bFl
 {
     TileCameraDecoratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -563,9 +563,9 @@ TileCameraDecoratorTransitPtr TileCameraDecoratorBase::createLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TileCameraDecoratorPtr TileCameraDecoratorBase::createEmpty(void)
+TileCameraDecorator *TileCameraDecoratorBase::createEmpty(void)
 {
-    TileCameraDecoratorPtr returnValue;
+    TileCameraDecorator *returnValue;
 
     newPtr<TileCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -575,9 +575,9 @@ TileCameraDecoratorPtr TileCameraDecoratorBase::createEmpty(void)
     return returnValue;
 }
 
-TileCameraDecoratorPtr TileCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+TileCameraDecorator *TileCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
 {
-    TileCameraDecoratorPtr returnValue;
+    TileCameraDecorator *returnValue;
 
     newPtr<TileCameraDecorator>(returnValue, bFlags);
 
@@ -588,7 +588,7 @@ TileCameraDecoratorPtr TileCameraDecoratorBase::createEmptyLocal(BitVector bFlag
 
 FieldContainerTransitPtr TileCameraDecoratorBase::shallowCopy(void) const
 {
-    TileCameraDecoratorPtr tmpPtr;
+    TileCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TileCameraDecorator *>(this), 
@@ -604,7 +604,7 @@ FieldContainerTransitPtr TileCameraDecoratorBase::shallowCopy(void) const
 FieldContainerTransitPtr TileCameraDecoratorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TileCameraDecoratorPtr tmpPtr;
+    TileCameraDecorator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TileCameraDecorator *>(this), bFlags);
 
@@ -799,9 +799,9 @@ void TileCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TileCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *TileCameraDecoratorBase::createAspectCopy(void) const
 {
-    TileCameraDecoratorPtr returnValue;
+    TileCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TileCameraDecorator *>(this));
@@ -819,17 +819,17 @@ void TileCameraDecoratorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TileCameraDecoratorPtr>::_type("TileCameraDecoratorPtr", "CameraDecoratorPtr");
+DataType FieldTraits<TileCameraDecorator *>::_type("TileCameraDecoratorPtr", "CameraDecoratorPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TileCameraDecoratorPtr)
+OSG_FIELDTRAITS_GETTYPE(TileCameraDecorator *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TileCameraDecoratorPtr, 
+                           TileCameraDecorator *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TileCameraDecoratorPtr, 
+                           TileCameraDecorator *, 
                            0);
 
 OSG_END_NAMESPACE

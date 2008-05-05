@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Manipulator);
 #endif
 
 template <>
-struct FieldTraits<ManipulatorPtr> :
-    public FieldTraitsFCPtrBase<ManipulatorPtr>
+struct FieldTraits<Manipulator *> :
+    public FieldTraitsFCPtrBase<Manipulator *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ManipulatorPtr> :
 
   public:
 
-    typedef FieldTraits<ManipulatorPtr>  Self;
+    typedef FieldTraits<Manipulator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ManipulatorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakManipulatorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Manipulator *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdManipulatorPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ManipulatorPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribGUIFieldSingle */
 
-typedef PointerSField<ManipulatorPtr,
+typedef PointerSField<Manipulator *,
                       RecordedRefCountPolicy  > SFRecManipulatorPtr;
-typedef PointerSField<ManipulatorPtr,
+typedef PointerSField<Manipulator *,
                       UnrecordedRefCountPolicy> SFUnrecManipulatorPtr;
-typedef PointerSField<ManipulatorPtr,
+typedef PointerSField<Manipulator *,
                       WeakRefCountPolicy      > SFWeakManipulatorPtr;
-typedef PointerSField<ManipulatorPtr,
+typedef PointerSField<Manipulator *,
                       NoRefCountPolicy        > SFUncountedManipulatorPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ManipulatorPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribGUIFieldMulti */
 
-typedef PointerMField<ManipulatorPtr,
+typedef PointerMField<Manipulator *,
                       RecordedRefCountPolicy  > MFRecManipulatorPtr;
-typedef PointerMField<ManipulatorPtr,
+typedef PointerMField<Manipulator *,
                       UnrecordedRefCountPolicy> MFUnrecManipulatorPtr;
-typedef PointerMField<ManipulatorPtr,
+typedef PointerMField<Manipulator *,
                       WeakRefCountPolicy      > MFWeakManipulatorPtr;
-typedef PointerMField<ManipulatorPtr,
+typedef PointerMField<Manipulator *,
                       NoRefCountPolicy        > MFUncountedManipulatorPtr;
 #endif
 

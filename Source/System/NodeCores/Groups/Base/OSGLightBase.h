@@ -223,7 +223,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
                   Color4r             &editSpecular       (void);
             const Color4r              getSpecular        (void) const;
 
-                  NodePtr getBeacon         (void) const;
+                  Node * getBeacon         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getOn              (void);
@@ -249,7 +249,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
                   Real                &editQuadraticAttenuation(void);
             const Real                 getQuadraticAttenuation (void) const;
 
-                  LightEnginePtr getLightEngine    (void) const;
+                  LightEngine * getLightEngine    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -259,12 +259,12 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
             void setAmbient        (const Color4r &value);
             void setDiffuse        (const Color4r &value);
             void setSpecular       (const Color4r &value);
-            void setBeacon         (const NodePtr value);
+            void setBeacon         (Node * const value);
             void setOn             (const bool &value);
             void setConstantAttenuation(const Real &value);
             void setLinearAttenuation(const Real &value);
             void setQuadraticAttenuation(const Real &value);
-            void setLightEngine    (const LightEnginePtr value);
+            void setLightEngine    (LightEngine * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(BinarySwapComposer);
 #endif
 
 template <>
-struct FieldTraits<BinarySwapComposerPtr> :
-    public FieldTraitsFCPtrBase<BinarySwapComposerPtr>
+struct FieldTraits<BinarySwapComposer *> :
+    public FieldTraitsFCPtrBase<BinarySwapComposer *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<BinarySwapComposerPtr> :
 
   public:
 
-    typedef FieldTraits<BinarySwapComposerPtr>  Self;
+    typedef FieldTraits<BinarySwapComposer *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

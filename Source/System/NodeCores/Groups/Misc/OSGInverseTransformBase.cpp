@@ -160,7 +160,7 @@ InverseTransformTransitPtr InverseTransformBase::create(void)
 {
     InverseTransformTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -176,7 +176,7 @@ InverseTransformTransitPtr InverseTransformBase::createLocal(BitVector bFlags)
 {
     InverseTransformTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -188,9 +188,9 @@ InverseTransformTransitPtr InverseTransformBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-InverseTransformPtr InverseTransformBase::createEmpty(void)
+InverseTransform *InverseTransformBase::createEmpty(void)
 {
-    InverseTransformPtr returnValue;
+    InverseTransform *returnValue;
 
     newPtr<InverseTransform>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -200,9 +200,9 @@ InverseTransformPtr InverseTransformBase::createEmpty(void)
     return returnValue;
 }
 
-InverseTransformPtr InverseTransformBase::createEmptyLocal(BitVector bFlags)
+InverseTransform *InverseTransformBase::createEmptyLocal(BitVector bFlags)
 {
-    InverseTransformPtr returnValue;
+    InverseTransform *returnValue;
 
     newPtr<InverseTransform>(returnValue, bFlags);
 
@@ -213,7 +213,7 @@ InverseTransformPtr InverseTransformBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr InverseTransformBase::shallowCopy(void) const
 {
-    InverseTransformPtr tmpPtr;
+    InverseTransform *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const InverseTransform *>(this), 
@@ -229,7 +229,7 @@ FieldContainerTransitPtr InverseTransformBase::shallowCopy(void) const
 FieldContainerTransitPtr InverseTransformBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    InverseTransformPtr tmpPtr;
+    InverseTransform *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const InverseTransform *>(this), bFlags);
 
@@ -280,9 +280,9 @@ void InverseTransformBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr InverseTransformBase::createAspectCopy(void) const
+FieldContainer *InverseTransformBase::createAspectCopy(void) const
 {
-    InverseTransformPtr returnValue;
+    InverseTransform *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const InverseTransform *>(this));
@@ -300,17 +300,17 @@ void InverseTransformBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<InverseTransformPtr>::_type("InverseTransformPtr", "GroupPtr");
+DataType FieldTraits<InverseTransform *>::_type("InverseTransformPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(InverseTransformPtr)
+OSG_FIELDTRAITS_GETTYPE(InverseTransform *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           InverseTransformPtr, 
+                           InverseTransform *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           InverseTransformPtr, 
+                           InverseTransform *, 
                            0);
 
 OSG_END_NAMESPACE

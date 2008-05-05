@@ -91,7 +91,7 @@ OSG_BEGIN_NAMESPACE
     The particle mode, see OSG::Particles::modeE for options.
 */
 
-/*! \var GeoVectorPropertyPtr ParticlesBase::_sfPositions
+/*! \var GeoVectorProperty * ParticlesBase::_sfPositions
     The positions of the particles. This is the primary defining
     information for a particle.
 */
@@ -104,17 +104,17 @@ OSG_BEGIN_NAMESPACE
     size[0] == 0 are ignored.
 */
 
-/*! \var GeoVectorPropertyPtr ParticlesBase::_sfSecPositions
+/*! \var GeoVectorProperty * ParticlesBase::_sfSecPositions
     The secondary position of the particle. This information is only used
     by a few rendering modes, e.g. the streak mode. Usually it represents
     the particle's last position.
 */
 
-/*! \var GeoVectorPropertyPtr ParticlesBase::_sfColors
+/*! \var GeoVectorProperty * ParticlesBase::_sfColors
     The particle colors (optional).
 */
 
-/*! \var GeoVectorPropertyPtr ParticlesBase::_sfNormals
+/*! \var GeoVectorProperty * ParticlesBase::_sfNormals
     Most particles will be automatically aligned to the view
     direction. If normals are set they will be used to define the
     direction the particles are facing.
@@ -940,7 +940,7 @@ ParticlesTransitPtr ParticlesBase::create(void)
 {
     ParticlesTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -956,7 +956,7 @@ ParticlesTransitPtr ParticlesBase::createLocal(BitVector bFlags)
 {
     ParticlesTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -968,9 +968,9 @@ ParticlesTransitPtr ParticlesBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ParticlesPtr ParticlesBase::createEmpty(void)
+Particles *ParticlesBase::createEmpty(void)
 {
-    ParticlesPtr returnValue;
+    Particles *returnValue;
 
     newPtr<Particles>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -980,9 +980,9 @@ ParticlesPtr ParticlesBase::createEmpty(void)
     return returnValue;
 }
 
-ParticlesPtr ParticlesBase::createEmptyLocal(BitVector bFlags)
+Particles *ParticlesBase::createEmptyLocal(BitVector bFlags)
 {
-    ParticlesPtr returnValue;
+    Particles *returnValue;
 
     newPtr<Particles>(returnValue, bFlags);
 
@@ -993,7 +993,7 @@ ParticlesPtr ParticlesBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ParticlesBase::shallowCopy(void) const
 {
-    ParticlesPtr tmpPtr;
+    Particles *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Particles *>(this), 
@@ -1009,7 +1009,7 @@ FieldContainerTransitPtr ParticlesBase::shallowCopy(void) const
 FieldContainerTransitPtr ParticlesBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ParticlesPtr tmpPtr;
+    Particles *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Particles *>(this), bFlags);
 
@@ -1087,21 +1087,21 @@ ParticlesBase::~ParticlesBase(void)
 /* Child linking                                                           */
 
 bool ParticlesBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == PositionsFieldId)
     {
-        GeoVectorPropertyPtr pTypedChild =
-            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+        GeoVectorProperty * pTypedChild =
+            dynamic_cast<GeoVectorProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfPositions.getValue())
             {
                 editSField(PositionsFieldMask);
 
-                _sfPositions.setValue(NullFC);
+                _sfPositions.setValue(NULL);
                 
                 return true;
             }
@@ -1117,16 +1117,16 @@ bool ParticlesBase::unlinkChild(
     
     if(childFieldId == SecPositionsFieldId)
     {
-        GeoVectorPropertyPtr pTypedChild =
-            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+        GeoVectorProperty * pTypedChild =
+            dynamic_cast<GeoVectorProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfSecPositions.getValue())
             {
                 editSField(SecPositionsFieldMask);
 
-                _sfSecPositions.setValue(NullFC);
+                _sfSecPositions.setValue(NULL);
                 
                 return true;
             }
@@ -1142,16 +1142,16 @@ bool ParticlesBase::unlinkChild(
     
     if(childFieldId == ColorsFieldId)
     {
-        GeoVectorPropertyPtr pTypedChild =
-            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+        GeoVectorProperty * pTypedChild =
+            dynamic_cast<GeoVectorProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfColors.getValue())
             {
                 editSField(ColorsFieldMask);
 
-                _sfColors.setValue(NullFC);
+                _sfColors.setValue(NULL);
                 
                 return true;
             }
@@ -1167,16 +1167,16 @@ bool ParticlesBase::unlinkChild(
     
     if(childFieldId == NormalsFieldId)
     {
-        GeoVectorPropertyPtr pTypedChild =
-            dynamic_cast<GeoVectorPropertyPtr>(pChild);
+        GeoVectorProperty * pTypedChild =
+            dynamic_cast<GeoVectorProperty *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfNormals.getValue())
             {
                 editSField(NormalsFieldMask);
 
-                _sfNormals.setValue(NullFC);
+                _sfNormals.setValue(NULL);
                 
                 return true;
             }
@@ -1528,9 +1528,9 @@ void ParticlesBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ParticlesBase::createAspectCopy(void) const
+FieldContainer *ParticlesBase::createAspectCopy(void) const
 {
-    ParticlesPtr returnValue;
+    Particles *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Particles *>(this));
@@ -1543,13 +1543,13 @@ void ParticlesBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<Particles *>(this)->setPositions(NullFC);
+    static_cast<Particles *>(this)->setPositions(NULL);
 
-    static_cast<Particles *>(this)->setSecPositions(NullFC);
+    static_cast<Particles *>(this)->setSecPositions(NULL);
 
-    static_cast<Particles *>(this)->setColors(NullFC);
+    static_cast<Particles *>(this)->setColors(NULL);
 
-    static_cast<Particles *>(this)->setNormals(NullFC);
+    static_cast<Particles *>(this)->setNormals(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -1573,17 +1573,17 @@ void ParticlesBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ParticlesPtr>::_type("ParticlesPtr", "MaterialDrawablePtr");
+DataType FieldTraits<Particles *>::_type("ParticlesPtr", "MaterialDrawablePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ParticlesPtr)
+OSG_FIELDTRAITS_GETTYPE(Particles *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ParticlesPtr, 
+                           Particles *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ParticlesPtr, 
+                           Particles *, 
                            0);
 
 OSG_END_NAMESPACE

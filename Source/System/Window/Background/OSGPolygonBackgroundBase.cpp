@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var MaterialPtr     PolygonBackgroundBase::_sfMaterial
+/*! \var Material *      PolygonBackgroundBase::_sfMaterial
     The material used to display.
 */
 
@@ -733,7 +733,7 @@ PolygonBackgroundTransitPtr PolygonBackgroundBase::create(void)
 {
     PolygonBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -749,7 +749,7 @@ PolygonBackgroundTransitPtr PolygonBackgroundBase::createLocal(BitVector bFlags)
 {
     PolygonBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -761,9 +761,9 @@ PolygonBackgroundTransitPtr PolygonBackgroundBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PolygonBackgroundPtr PolygonBackgroundBase::createEmpty(void)
+PolygonBackground *PolygonBackgroundBase::createEmpty(void)
 {
-    PolygonBackgroundPtr returnValue;
+    PolygonBackground *returnValue;
 
     newPtr<PolygonBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -773,9 +773,9 @@ PolygonBackgroundPtr PolygonBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-PolygonBackgroundPtr PolygonBackgroundBase::createEmptyLocal(BitVector bFlags)
+PolygonBackground *PolygonBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    PolygonBackgroundPtr returnValue;
+    PolygonBackground *returnValue;
 
     newPtr<PolygonBackground>(returnValue, bFlags);
 
@@ -786,7 +786,7 @@ PolygonBackgroundPtr PolygonBackgroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PolygonBackgroundBase::shallowCopy(void) const
 {
-    PolygonBackgroundPtr tmpPtr;
+    PolygonBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PolygonBackground *>(this), 
@@ -802,7 +802,7 @@ FieldContainerTransitPtr PolygonBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr PolygonBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PolygonBackgroundPtr tmpPtr;
+    PolygonBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PolygonBackground *>(this), bFlags);
 
@@ -819,7 +819,7 @@ FieldContainerTransitPtr PolygonBackgroundBase::shallowCopyLocal(
 
 PolygonBackgroundBase::PolygonBackgroundBase(void) :
     Inherited(),
-    _sfMaterial               (NullFC),
+    _sfMaterial               (NULL),
     _mfTexCoords              (),
     _mfPositions              (),
     _sfNormalizedX            (bool(true)),
@@ -834,7 +834,7 @@ PolygonBackgroundBase::PolygonBackgroundBase(void) :
 
 PolygonBackgroundBase::PolygonBackgroundBase(const PolygonBackgroundBase &source) :
     Inherited(source),
-    _sfMaterial               (NullFC),
+    _sfMaterial               (NULL),
     _mfTexCoords              (source._mfTexCoords              ),
     _mfPositions              (source._mfPositions              ),
     _sfNormalizedX            (source._sfNormalizedX            ),
@@ -1107,9 +1107,9 @@ void PolygonBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PolygonBackgroundBase::createAspectCopy(void) const
+FieldContainer *PolygonBackgroundBase::createAspectCopy(void) const
 {
-    PolygonBackgroundPtr returnValue;
+    PolygonBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PolygonBackground *>(this));
@@ -1122,7 +1122,7 @@ void PolygonBackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<PolygonBackground *>(this)->setMaterial(NullFC);
+    static_cast<PolygonBackground *>(this)->setMaterial(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -1142,17 +1142,17 @@ void PolygonBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonBackgroundPtr>::_type("PolygonBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<PolygonBackground *>::_type("PolygonBackgroundPtr", "BackgroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PolygonBackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(PolygonBackground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PolygonBackgroundPtr, 
+                           PolygonBackground *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PolygonBackgroundPtr, 
+                           PolygonBackground *, 
                            0);
 
 OSG_END_NAMESPACE

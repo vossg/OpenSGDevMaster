@@ -235,7 +235,7 @@ TransformChunkTransitPtr TransformChunkBase::create(void)
 {
     TransformChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -251,7 +251,7 @@ TransformChunkTransitPtr TransformChunkBase::createLocal(BitVector bFlags)
 {
     TransformChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -263,9 +263,9 @@ TransformChunkTransitPtr TransformChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TransformChunkPtr TransformChunkBase::createEmpty(void)
+TransformChunk *TransformChunkBase::createEmpty(void)
 {
-    TransformChunkPtr returnValue;
+    TransformChunk *returnValue;
 
     newPtr<TransformChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -275,9 +275,9 @@ TransformChunkPtr TransformChunkBase::createEmpty(void)
     return returnValue;
 }
 
-TransformChunkPtr TransformChunkBase::createEmptyLocal(BitVector bFlags)
+TransformChunk *TransformChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    TransformChunkPtr returnValue;
+    TransformChunk *returnValue;
 
     newPtr<TransformChunk>(returnValue, bFlags);
 
@@ -288,7 +288,7 @@ TransformChunkPtr TransformChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TransformChunkBase::shallowCopy(void) const
 {
-    TransformChunkPtr tmpPtr;
+    TransformChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TransformChunk *>(this), 
@@ -304,7 +304,7 @@ FieldContainerTransitPtr TransformChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr TransformChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TransformChunkPtr tmpPtr;
+    TransformChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TransformChunk *>(this), bFlags);
 
@@ -379,9 +379,9 @@ void TransformChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TransformChunkBase::createAspectCopy(void) const
+FieldContainer *TransformChunkBase::createAspectCopy(void) const
 {
-    TransformChunkPtr returnValue;
+    TransformChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TransformChunk *>(this));
@@ -399,17 +399,17 @@ void TransformChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TransformChunkPtr>::_type("TransformChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TransformChunk *>::_type("TransformChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TransformChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(TransformChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TransformChunkPtr, 
+                           TransformChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TransformChunkPtr, 
+                           TransformChunk *, 
                            0);
 
 OSG_END_NAMESPACE

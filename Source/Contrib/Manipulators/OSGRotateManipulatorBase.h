@@ -126,13 +126,13 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RotateManipulatorTransitPtr create          (void);
-    static  RotateManipulatorPtr        createEmpty     (void);
+    static  RotateManipulatorTransitPtr  create          (void);
+    static  RotateManipulator           *createEmpty     (void);
 
-    static  RotateManipulatorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  RotateManipulatorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  RotateManipulatorPtr        createEmptyLocal(
+    static  RotateManipulator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

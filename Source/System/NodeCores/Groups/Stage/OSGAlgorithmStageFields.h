@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(AlgorithmStage);
 #endif
 
 template <>
-struct FieldTraits<AlgorithmStagePtr> :
-    public FieldTraitsFCPtrBase<AlgorithmStagePtr>
+struct FieldTraits<AlgorithmStage *> :
+    public FieldTraitsFCPtrBase<AlgorithmStage *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<AlgorithmStagePtr> :
 
   public:
 
-    typedef FieldTraits<AlgorithmStagePtr>  Self;
+    typedef FieldTraits<AlgorithmStage *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

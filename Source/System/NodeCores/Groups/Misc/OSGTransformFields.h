@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Transform);
 #endif
 
 template <>
-struct FieldTraits<TransformPtr> :
-    public FieldTraitsFCPtrBase<TransformPtr>
+struct FieldTraits<Transform *> :
+    public FieldTraitsFCPtrBase<Transform *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TransformPtr> :
 
   public:
 
-    typedef FieldTraits<TransformPtr>  Self;
+    typedef FieldTraits<Transform *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<TransformPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TransformPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Transform *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTransformPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<TransformPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef PointerSField<TransformPtr,
+typedef PointerSField<Transform *,
                       RecordedRefCountPolicy  > SFRecTransformPtr;
-typedef PointerSField<TransformPtr,
+typedef PointerSField<Transform *,
                       UnrecordedRefCountPolicy> SFUnrecTransformPtr;
-typedef PointerSField<TransformPtr,
+typedef PointerSField<Transform *,
                       WeakRefCountPolicy      > SFWeakTransformPtr;
-typedef PointerSField<TransformPtr,
+typedef PointerSField<Transform *,
                       NoRefCountPolicy        > SFUncountedTransformPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<TransformPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef PointerMField<TransformPtr,
+typedef PointerMField<Transform *,
                       RecordedRefCountPolicy  > MFRecTransformPtr;
-typedef PointerMField<TransformPtr,
+typedef PointerMField<Transform *,
                       UnrecordedRefCountPolicy> MFUnrecTransformPtr;
-typedef PointerMField<TransformPtr,
+typedef PointerMField<Transform *,
                       WeakRefCountPolicy      > MFWeakTransformPtr;
-typedef PointerMField<TransformPtr,
+typedef PointerMField<Transform *,
                       NoRefCountPolicy        > MFUncountedTransformPtr;
 #endif
 

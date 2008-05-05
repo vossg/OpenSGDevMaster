@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var SHLChunkPtr     SHLParameterChunkBase::_sfSHLChunk
+/*! \var SHLChunk *      SHLParameterChunkBase::_sfSHLChunk
     
 */
 
@@ -135,7 +135,7 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(
     "\t\ttype=\"SHLChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -221,7 +221,7 @@ SHLParameterChunkTransitPtr SHLParameterChunkBase::create(void)
 {
     SHLParameterChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -237,7 +237,7 @@ SHLParameterChunkTransitPtr SHLParameterChunkBase::createLocal(BitVector bFlags)
 {
     SHLParameterChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -249,9 +249,9 @@ SHLParameterChunkTransitPtr SHLParameterChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SHLParameterChunkPtr SHLParameterChunkBase::createEmpty(void)
+SHLParameterChunk *SHLParameterChunkBase::createEmpty(void)
 {
-    SHLParameterChunkPtr returnValue;
+    SHLParameterChunk *returnValue;
 
     newPtr<SHLParameterChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -261,9 +261,9 @@ SHLParameterChunkPtr SHLParameterChunkBase::createEmpty(void)
     return returnValue;
 }
 
-SHLParameterChunkPtr SHLParameterChunkBase::createEmptyLocal(BitVector bFlags)
+SHLParameterChunk *SHLParameterChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    SHLParameterChunkPtr returnValue;
+    SHLParameterChunk *returnValue;
 
     newPtr<SHLParameterChunk>(returnValue, bFlags);
 
@@ -274,7 +274,7 @@ SHLParameterChunkPtr SHLParameterChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SHLParameterChunkBase::shallowCopy(void) const
 {
-    SHLParameterChunkPtr tmpPtr;
+    SHLParameterChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SHLParameterChunk *>(this), 
@@ -290,7 +290,7 @@ FieldContainerTransitPtr SHLParameterChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr SHLParameterChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SHLParameterChunkPtr tmpPtr;
+    SHLParameterChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SHLParameterChunk *>(this), bFlags);
 
@@ -307,13 +307,13 @@ FieldContainerTransitPtr SHLParameterChunkBase::shallowCopyLocal(
 
 SHLParameterChunkBase::SHLParameterChunkBase(void) :
     Inherited(),
-    _sfSHLChunk               (SHLChunkPtr(NullFC))
+    _sfSHLChunk               (NULL)
 {
 }
 
 SHLParameterChunkBase::SHLParameterChunkBase(const SHLParameterChunkBase &source) :
     Inherited(source),
-    _sfSHLChunk               (NullFC)
+    _sfSHLChunk               (NULL)
 {
 }
 
@@ -379,9 +379,9 @@ void SHLParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SHLParameterChunkBase::createAspectCopy(void) const
+FieldContainer *SHLParameterChunkBase::createAspectCopy(void) const
 {
-    SHLParameterChunkPtr returnValue;
+    SHLParameterChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SHLParameterChunk *>(this));
@@ -394,24 +394,24 @@ void SHLParameterChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<SHLParameterChunk *>(this)->setSHLChunk(NullFC);
+    static_cast<SHLParameterChunk *>(this)->setSHLChunk(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SHLParameterChunkPtr>::_type("SHLParameterChunkPtr", "ShaderParameterChunkPtr");
+DataType FieldTraits<SHLParameterChunk *>::_type("SHLParameterChunkPtr", "ShaderParameterChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SHLParameterChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(SHLParameterChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SHLParameterChunkPtr, 
+                           SHLParameterChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SHLParameterChunkPtr, 
+                           SHLParameterChunk *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(MatrixCameraDecorator);
 #endif
 
 template <>
-struct FieldTraits<MatrixCameraDecoratorPtr> :
-    public FieldTraitsFCPtrBase<MatrixCameraDecoratorPtr>
+struct FieldTraits<MatrixCameraDecorator *> :
+    public FieldTraitsFCPtrBase<MatrixCameraDecorator *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<MatrixCameraDecoratorPtr> :
 
   public:
 
-    typedef FieldTraits<MatrixCameraDecoratorPtr>  Self;
+    typedef FieldTraits<MatrixCameraDecorator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<MatrixCameraDecoratorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMatrixCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMatrixCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMatrixCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMatrixCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMatrixCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMatrixCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMatrixCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMatrixCameraDecoratorPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<MatrixCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<MatrixCameraDecoratorPtr,
+typedef PointerSField<MatrixCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecMatrixCameraDecoratorPtr;
-typedef PointerSField<MatrixCameraDecoratorPtr,
+typedef PointerSField<MatrixCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecMatrixCameraDecoratorPtr;
-typedef PointerSField<MatrixCameraDecoratorPtr,
+typedef PointerSField<MatrixCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakMatrixCameraDecoratorPtr;
-typedef PointerSField<MatrixCameraDecoratorPtr,
+typedef PointerSField<MatrixCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedMatrixCameraDecoratorPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<MatrixCameraDecoratorPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<MatrixCameraDecoratorPtr,
+typedef PointerMField<MatrixCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecMatrixCameraDecoratorPtr;
-typedef PointerMField<MatrixCameraDecoratorPtr,
+typedef PointerMField<MatrixCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecMatrixCameraDecoratorPtr;
-typedef PointerMField<MatrixCameraDecoratorPtr,
+typedef PointerMField<MatrixCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakMatrixCameraDecoratorPtr;
-typedef PointerMField<MatrixCameraDecoratorPtr,
+typedef PointerMField<MatrixCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedMatrixCameraDecoratorPtr;
 #endif
 

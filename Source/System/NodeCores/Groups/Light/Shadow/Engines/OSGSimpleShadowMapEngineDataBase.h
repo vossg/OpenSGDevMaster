@@ -165,32 +165,32 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
                   SFUnrecPolygonChunkPtr *editSFPolyChunk      (void);
 
 
-                  CameraPtr getCamera         (void) const;
+                  Camera * getCamera         (void) const;
 
-                  TextureObjChunkPtr getTexChunk       (void) const;
+                  TextureObjChunk * getTexChunk       (void) const;
 
-                  TextureBufferPtr getTexBuffer      (void) const;
+                  TextureBuffer * getTexBuffer      (void) const;
 
-                  LightChunkPtr getLightChunk     (void) const;
+                  LightChunk * getLightChunk     (void) const;
 
-                  BlendChunkPtr getBlendChunk     (void) const;
+                  BlendChunk * getBlendChunk     (void) const;
 
-                  TexGenChunkPtr getTexGenChunk    (void) const;
+                  TexGenChunk * getTexGenChunk    (void) const;
 
-                  PolygonChunkPtr getPolyChunk      (void) const;
+                  PolygonChunk * getPolyChunk      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setCamera         (const CameraPtr value);
-            void setTexChunk       (const TextureObjChunkPtr value);
-            void setTexBuffer      (const TextureBufferPtr value);
-            void setLightChunk     (const LightChunkPtr value);
-            void setBlendChunk     (const BlendChunkPtr value);
-            void setTexGenChunk    (const TexGenChunkPtr value);
-            void setPolyChunk      (const PolygonChunkPtr value);
+            void setCamera         (Camera * const value);
+            void setTexChunk       (TextureObjChunk * const value);
+            void setTexBuffer      (TextureBuffer * const value);
+            void setLightChunk     (LightChunk * const value);
+            void setBlendChunk     (BlendChunk * const value);
+            void setTexGenChunk    (TexGenChunk * const value);
+            void setPolyChunk      (PolygonChunk * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -219,13 +219,13 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleShadowMapEngineDataTransitPtr create          (void);
-    static  SimpleShadowMapEngineDataPtr        createEmpty     (void);
+    static  SimpleShadowMapEngineDataTransitPtr  create          (void);
+    static  SimpleShadowMapEngineData           *createEmpty     (void);
 
-    static  SimpleShadowMapEngineDataTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SimpleShadowMapEngineDataTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SimpleShadowMapEngineDataPtr        createEmptyLocal(
+    static  SimpleShadowMapEngineData            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -331,7 +331,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

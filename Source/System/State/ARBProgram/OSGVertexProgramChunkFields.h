@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(VertexProgramChunk);
 #endif
 
 template <>
-struct FieldTraits<VertexProgramChunkPtr> :
-    public FieldTraitsFCPtrBase<VertexProgramChunkPtr>
+struct FieldTraits<VertexProgramChunk *> :
+    public FieldTraitsFCPtrBase<VertexProgramChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<VertexProgramChunkPtr> :
 
   public:
 
-    typedef FieldTraits<VertexProgramChunkPtr>  Self;
+    typedef FieldTraits<VertexProgramChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<VertexProgramChunkPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakVertexProgramChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdVertexProgramChunkPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<VertexProgramChunkPtr, 0>::getMName<NoRefCountPolicy>(v
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldSingle */
 
-typedef PointerSField<VertexProgramChunkPtr,
+typedef PointerSField<VertexProgramChunk *,
                       RecordedRefCountPolicy  > SFRecVertexProgramChunkPtr;
-typedef PointerSField<VertexProgramChunkPtr,
+typedef PointerSField<VertexProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecVertexProgramChunkPtr;
-typedef PointerSField<VertexProgramChunkPtr,
+typedef PointerSField<VertexProgramChunk *,
                       WeakRefCountPolicy      > SFWeakVertexProgramChunkPtr;
-typedef PointerSField<VertexProgramChunkPtr,
+typedef PointerSField<VertexProgramChunk *,
                       NoRefCountPolicy        > SFUncountedVertexProgramChunkPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<VertexProgramChunkPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpStateFieldMulti */
 
-typedef PointerMField<VertexProgramChunkPtr,
+typedef PointerMField<VertexProgramChunk *,
                       RecordedRefCountPolicy  > MFRecVertexProgramChunkPtr;
-typedef PointerMField<VertexProgramChunkPtr,
+typedef PointerMField<VertexProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecVertexProgramChunkPtr;
-typedef PointerMField<VertexProgramChunkPtr,
+typedef PointerMField<VertexProgramChunk *,
                       WeakRefCountPolicy      > MFWeakVertexProgramChunkPtr;
-typedef PointerMField<VertexProgramChunkPtr,
+typedef PointerMField<VertexProgramChunk *,
                       NoRefCountPolicy        > MFUncountedVertexProgramChunkPtr;
 #endif
 

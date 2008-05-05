@@ -76,14 +76,14 @@ OSG::UInt16 CubeMapGeneratorBase::getClassGroupId(void)
 
 //! Get the value of the CubeMapGenerator::_sfRoot field.
 inline
-NodePtr CubeMapGeneratorBase::getRoot(void) const
+Node * CubeMapGeneratorBase::getRoot(void) const
 {
     return _sfRoot.getValue();
 }
 
 //! Set the value of the CubeMapGenerator::_sfRoot field.
 inline
-void CubeMapGeneratorBase::setRoot(const NodePtr value)
+void CubeMapGeneratorBase::setRoot(Node * const value)
 {
     editSField(RootFieldMask);
 
@@ -92,14 +92,14 @@ void CubeMapGeneratorBase::setRoot(const NodePtr value)
 
 //! Get the value of the CubeMapGenerator::_sfTexture field.
 inline
-TextureObjChunkPtr CubeMapGeneratorBase::getTexture(void) const
+TextureObjChunk * CubeMapGeneratorBase::getTexture(void) const
 {
     return _sfTexture.getValue();
 }
 
 //! Set the value of the CubeMapGenerator::_sfTexture field.
 inline
-void CubeMapGeneratorBase::setTexture(const TextureObjChunkPtr value)
+void CubeMapGeneratorBase::setTexture(TextureObjChunk * const value)
 {
     editSField(TextureFieldMask);
 
@@ -174,14 +174,14 @@ void CubeMapGeneratorBase::setTextureFormat(const GLenum &value)
 
 //! Get the value of the CubeMapGenerator::_sfBeacon field.
 inline
-NodePtr CubeMapGeneratorBase::getBeacon(void) const
+Node * CubeMapGeneratorBase::getBeacon(void) const
 {
     return _sfBeacon.getValue();
 }
 
 //! Set the value of the CubeMapGenerator::_sfBeacon field.
 inline
-void CubeMapGeneratorBase::setBeacon(const NodePtr value)
+void CubeMapGeneratorBase::setBeacon(Node * const value)
 {
     editSField(BeaconFieldMask);
 
@@ -322,14 +322,14 @@ void CubeMapGeneratorBase::setSetupMode(const UInt32 &value)
 
 //! Get the value of the CubeMapGenerator::_sfBackground field.
 inline
-BackgroundPtr CubeMapGeneratorBase::getBackground(void) const
+Background * CubeMapGeneratorBase::getBackground(void) const
 {
     return _sfBackground.getValue();
 }
 
 //! Set the value of the CubeMapGenerator::_sfBackground field.
 inline
-void CubeMapGeneratorBase::setBackground(const BackgroundPtr value)
+void CubeMapGeneratorBase::setBackground(Background * const value)
 {
     editSField(BackgroundFieldMask);
 
@@ -338,7 +338,7 @@ void CubeMapGeneratorBase::setBackground(const BackgroundPtr value)
 
 //! Get the value of the \a index element the CubeMapGenerator::_mfExclude field.
 inline
-NodePtr CubeMapGeneratorBase::getExclude(const UInt32 index) const
+Node * CubeMapGeneratorBase::getExclude(const UInt32 index) const
 {
     return _mfExclude[index];
 }

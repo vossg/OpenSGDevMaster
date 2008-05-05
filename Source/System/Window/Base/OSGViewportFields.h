@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Viewport);
 #endif
 
 template <>
-struct FieldTraits<ViewportPtr> :
-    public FieldTraitsFCPtrBase<ViewportPtr>
+struct FieldTraits<Viewport *> :
+    public FieldTraitsFCPtrBase<Viewport *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ViewportPtr> :
 
   public:
 
-    typedef FieldTraits<ViewportPtr>  Self;
+    typedef FieldTraits<Viewport *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ViewportPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdViewportPtr"; 
 }
@@ -162,15 +162,15 @@ const Char8 *FieldTraits<ViewportPtr, 0>::getMName<NoRefCountPolicy>(void)
 
 
 template <>
-struct FieldTraits<ViewportPtr, 1> :
-    public FieldTraitsFCPtrBase<ViewportPtr, 1>
+struct FieldTraits<Viewport *, 1> :
+    public FieldTraitsFCPtrBase<Viewport *, 1>
 {
   private:
 
   public:
 
-    typedef FieldTraits<ViewportPtr, 1>  Self;
-    typedef FieldContainerPtr           ParentType;
+    typedef FieldContainer            *ParentType;
+    typedef FieldTraits<Viewport *, 1>  Self;
 
     static const FieldType::Cardinality eParentCard = FieldType::SingleField;
 
@@ -189,49 +189,49 @@ struct FieldTraits<ViewportPtr, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ViewportPtr, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Viewport *, 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildViewportPtr"; 
 }
@@ -243,13 +243,13 @@ const Char8 *FieldTraits<ViewportPtr, 1>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<ViewportPtr,
+typedef PointerSField<Viewport *,
                       RecordedRefCountPolicy  > SFRecViewportPtr;
-typedef PointerSField<ViewportPtr,
+typedef PointerSField<Viewport *,
                       UnrecordedRefCountPolicy> SFUnrecViewportPtr;
-typedef PointerSField<ViewportPtr,
+typedef PointerSField<Viewport *,
                       WeakRefCountPolicy      > SFWeakViewportPtr;
-typedef PointerSField<ViewportPtr,
+typedef PointerSField<Viewport *,
                       NoRefCountPolicy        > SFUncountedViewportPtr;
 #endif
 
@@ -257,20 +257,20 @@ typedef PointerSField<ViewportPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<ViewportPtr,
+typedef PointerMField<Viewport *,
                       RecordedRefCountPolicy  > MFRecViewportPtr;
-typedef PointerMField<ViewportPtr,
+typedef PointerMField<Viewport *,
                       UnrecordedRefCountPolicy> MFUnrecViewportPtr;
-typedef PointerMField<ViewportPtr,
+typedef PointerMField<Viewport *,
                       WeakRefCountPolicy      > MFWeakViewportPtr;
-typedef PointerMField<ViewportPtr,
+typedef PointerMField<Viewport *,
                       NoRefCountPolicy        > MFUncountedViewportPtr;
 #endif
 
 
 
 typedef ChildPointerMField<
-          ViewportPtr, 
+          Viewport *, 
           UnrecordedRefCountPolicy,
           1                      > MFUnrecChildViewportPtr;
 

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(ShearedStereoCameraDecorator);
 #endif
 
 template <>
-struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
-    public FieldTraitsFCPtrBase<ShearedStereoCameraDecoratorPtr>
+struct FieldTraits<ShearedStereoCameraDecorator *> :
+    public FieldTraitsFCPtrBase<ShearedStereoCameraDecorator *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 
   public:
 
-    typedef FieldTraits<ShearedStereoCameraDecoratorPtr>  Self;
+    typedef FieldTraits<ShearedStereoCameraDecorator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakShearedStereoCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdShearedStereoCameraDecoratorPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<ShearedStereoCameraDecoratorPtr, 0>::getMName<NoRefCoun
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<ShearedStereoCameraDecoratorPtr,
+typedef PointerSField<ShearedStereoCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecShearedStereoCameraDecoratorPtr;
-typedef PointerSField<ShearedStereoCameraDecoratorPtr,
+typedef PointerSField<ShearedStereoCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecShearedStereoCameraDecoratorPtr;
-typedef PointerSField<ShearedStereoCameraDecoratorPtr,
+typedef PointerSField<ShearedStereoCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakShearedStereoCameraDecoratorPtr;
-typedef PointerSField<ShearedStereoCameraDecoratorPtr,
+typedef PointerSField<ShearedStereoCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedShearedStereoCameraDecoratorPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<ShearedStereoCameraDecoratorPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<ShearedStereoCameraDecoratorPtr,
+typedef PointerMField<ShearedStereoCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecShearedStereoCameraDecoratorPtr;
-typedef PointerMField<ShearedStereoCameraDecoratorPtr,
+typedef PointerMField<ShearedStereoCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecShearedStereoCameraDecoratorPtr;
-typedef PointerMField<ShearedStereoCameraDecoratorPtr,
+typedef PointerMField<ShearedStereoCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakShearedStereoCameraDecoratorPtr;
-typedef PointerMField<ShearedStereoCameraDecoratorPtr,
+typedef PointerMField<ShearedStereoCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedShearedStereoCameraDecoratorPtr;
 #endif
 

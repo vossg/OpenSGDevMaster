@@ -270,13 +270,13 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DrawableStatsAttachmentTransitPtr create          (void);
-    static  DrawableStatsAttachmentPtr        createEmpty     (void);
+    static  DrawableStatsAttachmentTransitPtr  create          (void);
+    static  DrawableStatsAttachment           *createEmpty     (void);
 
-    static  DrawableStatsAttachmentTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  DrawableStatsAttachmentTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  DrawableStatsAttachmentPtr        createEmptyLocal(
+    static  DrawableStatsAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -381,7 +381,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -195,7 +195,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
                   Color4f             &editColor          (void);
             const Color4f              getColor           (void) const;
 
-                  TextureBaseChunkPtr getTexture        (void) const;
+                  TextureBaseChunk * getTexture        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getTexCoords       (const UInt32 index);
@@ -234,7 +234,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
             void setColor          (const Color4f &value);
-            void setTexture        (const TextureBaseChunkPtr value);
+            void setTexture        (TextureBaseChunk * const value);
             void setRadialDistortion(const Real32 &value);
             void setCenterOfDistortion(const Vec2f &value);
             void setHor            (const UInt16 &value);
@@ -267,13 +267,13 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureBackgroundTransitPtr create          (void);
-    static  TextureBackgroundPtr        createEmpty     (void);
+    static  TextureBackgroundTransitPtr  create          (void);
+    static  TextureBackground           *createEmpty     (void);
 
-    static  TextureBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TextureBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TextureBackgroundPtr        createEmptyLocal(
+    static  TextureBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -379,7 +379,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

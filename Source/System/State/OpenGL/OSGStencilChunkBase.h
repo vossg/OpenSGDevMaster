@@ -287,13 +287,13 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StencilChunkTransitPtr create          (void);
-    static  StencilChunkPtr        createEmpty     (void);
+    static  StencilChunkTransitPtr  create          (void);
+    static  StencilChunk           *createEmpty     (void);
 
-    static  StencilChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  StencilChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  StencilChunkPtr        createEmptyLocal(
+    static  StencilChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -401,7 +401,7 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -109,14 +109,14 @@ void FrameBufferObjectBase::setGLId(const GLenum &value)
 
 //! Get the value of the FrameBufferObject::_sfDepthAttachment field.
 inline
-FrameBufferAttachmentPtr FrameBufferObjectBase::getDepthAttachment(void) const
+FrameBufferAttachment * FrameBufferObjectBase::getDepthAttachment(void) const
 {
     return _sfDepthAttachment.getValue();
 }
 
 //! Set the value of the FrameBufferObject::_sfDepthAttachment field.
 inline
-void FrameBufferObjectBase::setDepthAttachment(const FrameBufferAttachmentPtr value)
+void FrameBufferObjectBase::setDepthAttachment(FrameBufferAttachment * const value)
 {
     editSField(DepthAttachmentFieldMask);
 
@@ -125,14 +125,14 @@ void FrameBufferObjectBase::setDepthAttachment(const FrameBufferAttachmentPtr va
 
 //! Get the value of the FrameBufferObject::_sfStencilAttachment field.
 inline
-FrameBufferAttachmentPtr FrameBufferObjectBase::getStencilAttachment(void) const
+FrameBufferAttachment * FrameBufferObjectBase::getStencilAttachment(void) const
 {
     return _sfStencilAttachment.getValue();
 }
 
 //! Set the value of the FrameBufferObject::_sfStencilAttachment field.
 inline
-void FrameBufferObjectBase::setStencilAttachment(const FrameBufferAttachmentPtr value)
+void FrameBufferObjectBase::setStencilAttachment(FrameBufferAttachment * const value)
 {
     editSField(StencilAttachmentFieldMask);
 
@@ -207,7 +207,7 @@ void FrameBufferObjectBase::setHeight(const UInt16 &value)
 
 //! Get the value of the \a index element the FrameBufferObject::_mfColorAttachments field.
 inline
-FrameBufferAttachmentPtr FrameBufferObjectBase::getColorAttachments(const UInt32 index) const
+FrameBufferAttachment * FrameBufferObjectBase::getColorAttachments(const UInt32 index) const
 {
     return _mfColorAttachments[index];
 }

@@ -129,14 +129,14 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
                   SFUnrecSHLChunkPtr  *editSFSHLChunk       (void);
 
 
-                  SHLChunkPtr getSHLChunk       (void) const;
+                  SHLChunk * getSHLChunk       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setSHLChunk       (const SHLChunkPtr value);
+            void setSHLChunk       (SHLChunk * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,13 +165,13 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SHLParameterChunkTransitPtr create          (void);
-    static  SHLParameterChunkPtr        createEmpty     (void);
+    static  SHLParameterChunkTransitPtr  create          (void);
+    static  SHLParameterChunk           *createEmpty     (void);
 
-    static  SHLParameterChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SHLParameterChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SHLParameterChunkPtr        createEmptyLocal(
+    static  SHLParameterChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -259,7 +259,7 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SimpleShadowMapEngineData);
 #endif
 
 template <>
-struct FieldTraits<SimpleShadowMapEngineDataPtr> :
-    public FieldTraitsFCPtrBase<SimpleShadowMapEngineDataPtr>
+struct FieldTraits<SimpleShadowMapEngineData *> :
+    public FieldTraitsFCPtrBase<SimpleShadowMapEngineData *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SimpleShadowMapEngineDataPtr> :
 
   public:
 
-    typedef FieldTraits<SimpleShadowMapEngineDataPtr>  Self;
+    typedef FieldTraits<SimpleShadowMapEngineData *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

@@ -135,7 +135,7 @@ OSG_BEGIN_NAMESPACE
     The light's quadratic attenuation.
 */
 
-/*! \var NodePtr         LightChunkBase::_sfBeacon
+/*! \var Node *          LightChunkBase::_sfBeacon
     
 */
 
@@ -411,7 +411,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "        category=\"weakpointer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "        doRefCount=\"false\"\n"
     "\t>\n"
@@ -821,7 +821,7 @@ LightChunkTransitPtr LightChunkBase::create(void)
 {
     LightChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -837,7 +837,7 @@ LightChunkTransitPtr LightChunkBase::createLocal(BitVector bFlags)
 {
     LightChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -849,9 +849,9 @@ LightChunkTransitPtr LightChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-LightChunkPtr LightChunkBase::createEmpty(void)
+LightChunk *LightChunkBase::createEmpty(void)
 {
-    LightChunkPtr returnValue;
+    LightChunk *returnValue;
 
     newPtr<LightChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -861,9 +861,9 @@ LightChunkPtr LightChunkBase::createEmpty(void)
     return returnValue;
 }
 
-LightChunkPtr LightChunkBase::createEmptyLocal(BitVector bFlags)
+LightChunk *LightChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    LightChunkPtr returnValue;
+    LightChunk *returnValue;
 
     newPtr<LightChunk>(returnValue, bFlags);
 
@@ -874,7 +874,7 @@ LightChunkPtr LightChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr LightChunkBase::shallowCopy(void) const
 {
-    LightChunkPtr tmpPtr;
+    LightChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const LightChunk *>(this), 
@@ -890,7 +890,7 @@ FieldContainerTransitPtr LightChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr LightChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    LightChunkPtr tmpPtr;
+    LightChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const LightChunk *>(this), bFlags);
 
@@ -917,7 +917,7 @@ LightChunkBase::LightChunkBase(void) :
     _sfConstantAttenuation    (Real(1.f)),
     _sfLinearAttenuation      (Real(0.f)),
     _sfQuadraticAttenuation   (Real(0.f)),
-    _sfBeacon                 (NodePtr(NullFC))
+    _sfBeacon                 (NULL)
 {
 }
 
@@ -933,7 +933,7 @@ LightChunkBase::LightChunkBase(const LightChunkBase &source) :
     _sfConstantAttenuation    (source._sfConstantAttenuation    ),
     _sfLinearAttenuation      (source._sfLinearAttenuation      ),
     _sfQuadraticAttenuation   (source._sfQuadraticAttenuation   ),
-    _sfBeacon                 (NullFC)
+    _sfBeacon                 (NULL)
 {
 }
 
@@ -1219,9 +1219,9 @@ void LightChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr LightChunkBase::createAspectCopy(void) const
+FieldContainer *LightChunkBase::createAspectCopy(void) const
 {
-    LightChunkPtr returnValue;
+    LightChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const LightChunk *>(this));
@@ -1234,24 +1234,24 @@ void LightChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<LightChunk *>(this)->setBeacon(NullFC);
+    static_cast<LightChunk *>(this)->setBeacon(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightChunkPtr>::_type("LightChunkPtr", "StateChunkPtr");
+DataType FieldTraits<LightChunk *>::_type("LightChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(LightChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(LightChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           LightChunkPtr, 
+                           LightChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           LightChunkPtr, 
+                           LightChunk *, 
                            0);
 
 OSG_END_NAMESPACE

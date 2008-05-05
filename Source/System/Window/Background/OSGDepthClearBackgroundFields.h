@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(DepthClearBackground);
 #endif
 
 template <>
-struct FieldTraits<DepthClearBackgroundPtr> :
-    public FieldTraitsFCPtrBase<DepthClearBackgroundPtr>
+struct FieldTraits<DepthClearBackground *> :
+    public FieldTraitsFCPtrBase<DepthClearBackground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<DepthClearBackgroundPtr> :
 
   public:
 
-    typedef FieldTraits<DepthClearBackgroundPtr>  Self;
+    typedef FieldTraits<DepthClearBackground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -103,25 +103,25 @@ struct FieldTraits<DepthClearBackgroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakDepthClearBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdDepthClearBackgroundPtr"; 
 }
@@ -139,13 +139,13 @@ const Char8 *FieldTraits<DepthClearBackgroundPtr, 0>::getSName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<DepthClearBackgroundPtr,
+typedef PointerSField<DepthClearBackground *,
                       RecordedRefCountPolicy  > SFRecDepthClearBackgroundPtr;
-typedef PointerSField<DepthClearBackgroundPtr,
+typedef PointerSField<DepthClearBackground *,
                       UnrecordedRefCountPolicy> SFUnrecDepthClearBackgroundPtr;
-typedef PointerSField<DepthClearBackgroundPtr,
+typedef PointerSField<DepthClearBackground *,
                       WeakRefCountPolicy      > SFWeakDepthClearBackgroundPtr;
-typedef PointerSField<DepthClearBackgroundPtr,
+typedef PointerSField<DepthClearBackground *,
                       NoRefCountPolicy        > SFUncountedDepthClearBackgroundPtr;
 #endif
 

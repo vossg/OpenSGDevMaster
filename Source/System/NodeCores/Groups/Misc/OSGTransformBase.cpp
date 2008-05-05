@@ -228,7 +228,7 @@ TransformTransitPtr TransformBase::create(void)
 {
     TransformTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -244,7 +244,7 @@ TransformTransitPtr TransformBase::createLocal(BitVector bFlags)
 {
     TransformTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -256,9 +256,9 @@ TransformTransitPtr TransformBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TransformPtr TransformBase::createEmpty(void)
+Transform *TransformBase::createEmpty(void)
 {
-    TransformPtr returnValue;
+    Transform *returnValue;
 
     newPtr<Transform>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -268,9 +268,9 @@ TransformPtr TransformBase::createEmpty(void)
     return returnValue;
 }
 
-TransformPtr TransformBase::createEmptyLocal(BitVector bFlags)
+Transform *TransformBase::createEmptyLocal(BitVector bFlags)
 {
-    TransformPtr returnValue;
+    Transform *returnValue;
 
     newPtr<Transform>(returnValue, bFlags);
 
@@ -281,7 +281,7 @@ TransformPtr TransformBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TransformBase::shallowCopy(void) const
 {
-    TransformPtr tmpPtr;
+    Transform *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Transform *>(this), 
@@ -297,7 +297,7 @@ FieldContainerTransitPtr TransformBase::shallowCopy(void) const
 FieldContainerTransitPtr TransformBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TransformPtr tmpPtr;
+    Transform *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Transform *>(this), bFlags);
 
@@ -372,9 +372,9 @@ void TransformBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TransformBase::createAspectCopy(void) const
+FieldContainer *TransformBase::createAspectCopy(void) const
 {
-    TransformPtr returnValue;
+    Transform *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Transform *>(this));
@@ -392,17 +392,17 @@ void TransformBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TransformPtr>::_type("TransformPtr", "GroupPtr");
+DataType FieldTraits<Transform *>::_type("TransformPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TransformPtr)
+OSG_FIELDTRAITS_GETTYPE(Transform *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TransformPtr, 
+                           Transform *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TransformPtr, 
+                           Transform *, 
                            0);
 
 OSG_END_NAMESPACE

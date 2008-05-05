@@ -678,13 +678,13 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RegisterCombinersChunkTransitPtr create          (void);
-    static  RegisterCombinersChunkPtr        createEmpty     (void);
+    static  RegisterCombinersChunkTransitPtr  create          (void);
+    static  RegisterCombinersChunk           *createEmpty     (void);
 
-    static  RegisterCombinersChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  RegisterCombinersChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  RegisterCombinersChunkPtr        createEmptyLocal(
+    static  RegisterCombinersChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -861,7 +861,7 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -226,7 +226,7 @@ ShaderParameterMMatrixTransitPtr ShaderParameterMMatrixBase::create(void)
 {
     ShaderParameterMMatrixTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -242,7 +242,7 @@ ShaderParameterMMatrixTransitPtr ShaderParameterMMatrixBase::createLocal(BitVect
 {
     ShaderParameterMMatrixTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -254,9 +254,9 @@ ShaderParameterMMatrixTransitPtr ShaderParameterMMatrixBase::createLocal(BitVect
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterMMatrixPtr ShaderParameterMMatrixBase::createEmpty(void)
+ShaderParameterMMatrix *ShaderParameterMMatrixBase::createEmpty(void)
 {
-    ShaderParameterMMatrixPtr returnValue;
+    ShaderParameterMMatrix *returnValue;
 
     newPtr<ShaderParameterMMatrix>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -266,9 +266,9 @@ ShaderParameterMMatrixPtr ShaderParameterMMatrixBase::createEmpty(void)
     return returnValue;
 }
 
-ShaderParameterMMatrixPtr ShaderParameterMMatrixBase::createEmptyLocal(BitVector bFlags)
+ShaderParameterMMatrix *ShaderParameterMMatrixBase::createEmptyLocal(BitVector bFlags)
 {
-    ShaderParameterMMatrixPtr returnValue;
+    ShaderParameterMMatrix *returnValue;
 
     newPtr<ShaderParameterMMatrix>(returnValue, bFlags);
 
@@ -279,7 +279,7 @@ ShaderParameterMMatrixPtr ShaderParameterMMatrixBase::createEmptyLocal(BitVector
 
 FieldContainerTransitPtr ShaderParameterMMatrixBase::shallowCopy(void) const
 {
-    ShaderParameterMMatrixPtr tmpPtr;
+    ShaderParameterMMatrix *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ShaderParameterMMatrix *>(this), 
@@ -295,7 +295,7 @@ FieldContainerTransitPtr ShaderParameterMMatrixBase::shallowCopy(void) const
 FieldContainerTransitPtr ShaderParameterMMatrixBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ShaderParameterMMatrixPtr tmpPtr;
+    ShaderParameterMMatrix *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ShaderParameterMMatrix *>(this), bFlags);
 
@@ -370,9 +370,9 @@ void ShaderParameterMMatrixBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ShaderParameterMMatrixBase::createAspectCopy(void) const
+FieldContainer *ShaderParameterMMatrixBase::createAspectCopy(void) const
 {
-    ShaderParameterMMatrixPtr returnValue;
+    ShaderParameterMMatrix *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ShaderParameterMMatrix *>(this));
@@ -399,17 +399,17 @@ void ShaderParameterMMatrixBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterMMatrixPtr>::_type("ShaderParameterMMatrixPtr", "ShaderParameterPtr");
+DataType FieldTraits<ShaderParameterMMatrix *>::_type("ShaderParameterMMatrixPtr", "ShaderParameterPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterMMatrixPtr)
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterMMatrix *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterMMatrixPtr, 
+                           ShaderParameterMMatrix *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterMMatrixPtr, 
+                           ShaderParameterMMatrix *, 
                            0);
 
 OSG_END_NAMESPACE

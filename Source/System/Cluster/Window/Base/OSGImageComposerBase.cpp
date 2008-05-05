@@ -377,17 +377,17 @@ void ImageComposerBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImageComposerPtr>::_type("ImageComposerPtr", "AttachmentContainerPtr");
+DataType FieldTraits<ImageComposer *>::_type("ImageComposerPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ImageComposerPtr)
+OSG_FIELDTRAITS_GETTYPE(ImageComposer *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ImageComposerPtr, 
+                           ImageComposer *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ImageComposerPtr, 
+                           ImageComposer *, 
                            0);
 
 OSG_END_NAMESPACE

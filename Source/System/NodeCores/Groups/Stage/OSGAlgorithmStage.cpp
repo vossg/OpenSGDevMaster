@@ -106,9 +106,9 @@ AlgorithmStage::~AlgorithmStage(void)
 
 void AlgorithmStage::execute(DrawEnv *pDrawEnv)
 {
-    AlgorithmPtr pAlgorithm = getAlgorithm();
+    Algorithm *pAlgorithm = getAlgorithm();
 
-    if(pAlgorithm != NullFC)
+    if(pAlgorithm != NULL)
     {
         pAlgorithm->execute(pDrawEnv);
     }

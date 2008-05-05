@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(RotateManipulator);
 #endif
 
 template <>
-struct FieldTraits<RotateManipulatorPtr> :
-    public FieldTraitsFCPtrBase<RotateManipulatorPtr>
+struct FieldTraits<RotateManipulator *> :
+    public FieldTraitsFCPtrBase<RotateManipulator *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<RotateManipulatorPtr> :
 
   public:
 
-    typedef FieldTraits<RotateManipulatorPtr>  Self;
+    typedef FieldTraits<RotateManipulator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

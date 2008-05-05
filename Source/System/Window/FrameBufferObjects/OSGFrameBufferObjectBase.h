@@ -187,7 +187,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   GLenum              &editGLId           (void);
             const GLenum               getGLId            (void) const;
 
-                  FrameBufferAttachmentPtr getColorAttachments(const UInt32 index) const;
+                  FrameBufferAttachment * getColorAttachments(const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getDrawBuffers     (const UInt32 index);
@@ -196,9 +196,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   GLenum              &editDrawBuffers    (const UInt32 index);
             const GLenum               getDrawBuffers     (const UInt32 index) const;
 
-                  FrameBufferAttachmentPtr getDepthAttachment(void) const;
+                  FrameBufferAttachment * getDepthAttachment(void) const;
 
-                  FrameBufferAttachmentPtr getStencilAttachment(void) const;
+                  FrameBufferAttachment * getStencilAttachment(void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getWidth           (void);
@@ -218,8 +218,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
             void setGLId           (const GLenum &value);
-            void setDepthAttachment(const FrameBufferAttachmentPtr value);
-            void setStencilAttachment(const FrameBufferAttachmentPtr value);
+            void setDepthAttachment(FrameBufferAttachment * const value);
+            void setStencilAttachment(FrameBufferAttachment * const value);
             void setWidth          (const UInt16 &value);
             void setHeight         (const UInt16 &value);
 
@@ -233,10 +233,10 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToColorAttachments           (const FrameBufferAttachmentPtr value   );
-    void assignColorAttachments           (const MFUnrecFrameBufferAttachmentPtr &value);
-    void removeFromColorAttachments (UInt32                uiIndex );
-    void removeFromColorAttachments(const FrameBufferAttachmentPtr value   );
+    void pushToColorAttachments           (FrameBufferAttachment * const value   );
+    void assignColorAttachments          (const MFUnrecFrameBufferAttachmentPtr &value);
+    void removeFromColorAttachments (UInt32               uiIndex );
+    void removeFromColorAttachments(FrameBufferAttachment * const value   );
     void clearColorAttachments            (void                          );
 
 
@@ -257,13 +257,13 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FrameBufferObjectTransitPtr create          (void);
-    static  FrameBufferObjectPtr        createEmpty     (void);
+    static  FrameBufferObjectTransitPtr  create          (void);
+    static  FrameBufferObject           *createEmpty     (void);
 
-    static  FrameBufferObjectTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  FrameBufferObjectTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  FrameBufferObjectPtr        createEmptyLocal(
+    static  FrameBufferObject            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -369,7 +369,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

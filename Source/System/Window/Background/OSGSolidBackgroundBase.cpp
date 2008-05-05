@@ -296,7 +296,7 @@ SolidBackgroundTransitPtr SolidBackgroundBase::create(void)
 {
     SolidBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -312,7 +312,7 @@ SolidBackgroundTransitPtr SolidBackgroundBase::createLocal(BitVector bFlags)
 {
     SolidBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -324,9 +324,9 @@ SolidBackgroundTransitPtr SolidBackgroundBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SolidBackgroundPtr SolidBackgroundBase::createEmpty(void)
+SolidBackground *SolidBackgroundBase::createEmpty(void)
 {
-    SolidBackgroundPtr returnValue;
+    SolidBackground *returnValue;
 
     newPtr<SolidBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -336,9 +336,9 @@ SolidBackgroundPtr SolidBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-SolidBackgroundPtr SolidBackgroundBase::createEmptyLocal(BitVector bFlags)
+SolidBackground *SolidBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    SolidBackgroundPtr returnValue;
+    SolidBackground *returnValue;
 
     newPtr<SolidBackground>(returnValue, bFlags);
 
@@ -349,7 +349,7 @@ SolidBackgroundPtr SolidBackgroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SolidBackgroundBase::shallowCopy(void) const
 {
-    SolidBackgroundPtr tmpPtr;
+    SolidBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SolidBackground *>(this), 
@@ -365,7 +365,7 @@ FieldContainerTransitPtr SolidBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr SolidBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SolidBackgroundPtr tmpPtr;
+    SolidBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SolidBackground *>(this), bFlags);
 
@@ -464,9 +464,9 @@ void SolidBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SolidBackgroundBase::createAspectCopy(void) const
+FieldContainer *SolidBackgroundBase::createAspectCopy(void) const
 {
-    SolidBackgroundPtr returnValue;
+    SolidBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SolidBackground *>(this));
@@ -484,13 +484,13 @@ void SolidBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SolidBackgroundPtr>::_type("SolidBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<SolidBackground *>::_type("SolidBackgroundPtr", "BackgroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SolidBackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(SolidBackground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SolidBackgroundPtr, 
+                           SolidBackground *, 
                            0);
 
 

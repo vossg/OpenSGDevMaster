@@ -168,13 +168,13 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SwitchTransitPtr create          (void);
-    static  SwitchPtr        createEmpty     (void);
+    static  SwitchTransitPtr  create          (void);
+    static  Switch           *createEmpty     (void);
 
-    static  SwitchTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SwitchTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SwitchPtr        createEmptyLocal(
+    static  Switch            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

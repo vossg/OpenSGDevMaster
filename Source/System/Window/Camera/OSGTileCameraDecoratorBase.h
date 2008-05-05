@@ -253,13 +253,13 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TileCameraDecoratorTransitPtr create          (void);
-    static  TileCameraDecoratorPtr        createEmpty     (void);
+    static  TileCameraDecoratorTransitPtr  create          (void);
+    static  TileCameraDecorator           *createEmpty     (void);
 
-    static  TileCameraDecoratorTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TileCameraDecoratorTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TileCameraDecoratorPtr        createEmptyLocal(
+    static  TileCameraDecorator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -361,7 +361,7 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

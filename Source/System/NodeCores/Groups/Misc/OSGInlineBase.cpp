@@ -280,7 +280,7 @@ InlineTransitPtr InlineBase::create(void)
 {
     InlineTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -296,7 +296,7 @@ InlineTransitPtr InlineBase::createLocal(BitVector bFlags)
 {
     InlineTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -308,9 +308,9 @@ InlineTransitPtr InlineBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-InlinePtr InlineBase::createEmpty(void)
+Inline *InlineBase::createEmpty(void)
 {
-    InlinePtr returnValue;
+    Inline *returnValue;
 
     newPtr<Inline>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -320,9 +320,9 @@ InlinePtr InlineBase::createEmpty(void)
     return returnValue;
 }
 
-InlinePtr InlineBase::createEmptyLocal(BitVector bFlags)
+Inline *InlineBase::createEmptyLocal(BitVector bFlags)
 {
-    InlinePtr returnValue;
+    Inline *returnValue;
 
     newPtr<Inline>(returnValue, bFlags);
 
@@ -333,7 +333,7 @@ InlinePtr InlineBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr InlineBase::shallowCopy(void) const
 {
-    InlinePtr tmpPtr;
+    Inline *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Inline *>(this), 
@@ -349,7 +349,7 @@ FieldContainerTransitPtr InlineBase::shallowCopy(void) const
 FieldContainerTransitPtr InlineBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    InlinePtr tmpPtr;
+    Inline *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Inline *>(this), bFlags);
 
@@ -448,9 +448,9 @@ void InlineBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr InlineBase::createAspectCopy(void) const
+FieldContainer *InlineBase::createAspectCopy(void) const
 {
-    InlinePtr returnValue;
+    Inline *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Inline *>(this));
@@ -477,17 +477,17 @@ void InlineBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<InlinePtr>::_type("InlinePtr", "NodeCorePtr");
+DataType FieldTraits<Inline *>::_type("InlinePtr", "NodeCorePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(InlinePtr)
+OSG_FIELDTRAITS_GETTYPE(Inline *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           InlinePtr, 
+                           Inline *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           InlinePtr, 
+                           Inline *, 
                            0);
 
 OSG_END_NAMESPACE

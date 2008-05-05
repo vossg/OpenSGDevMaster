@@ -160,7 +160,7 @@ RotateManipulatorTransitPtr RotateManipulatorBase::create(void)
 {
     RotateManipulatorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -176,7 +176,7 @@ RotateManipulatorTransitPtr RotateManipulatorBase::createLocal(BitVector bFlags)
 {
     RotateManipulatorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -188,9 +188,9 @@ RotateManipulatorTransitPtr RotateManipulatorBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-RotateManipulatorPtr RotateManipulatorBase::createEmpty(void)
+RotateManipulator *RotateManipulatorBase::createEmpty(void)
 {
-    RotateManipulatorPtr returnValue;
+    RotateManipulator *returnValue;
 
     newPtr<RotateManipulator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -200,9 +200,9 @@ RotateManipulatorPtr RotateManipulatorBase::createEmpty(void)
     return returnValue;
 }
 
-RotateManipulatorPtr RotateManipulatorBase::createEmptyLocal(BitVector bFlags)
+RotateManipulator *RotateManipulatorBase::createEmptyLocal(BitVector bFlags)
 {
-    RotateManipulatorPtr returnValue;
+    RotateManipulator *returnValue;
 
     newPtr<RotateManipulator>(returnValue, bFlags);
 
@@ -213,7 +213,7 @@ RotateManipulatorPtr RotateManipulatorBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr RotateManipulatorBase::shallowCopy(void) const
 {
-    RotateManipulatorPtr tmpPtr;
+    RotateManipulator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const RotateManipulator *>(this), 
@@ -229,7 +229,7 @@ FieldContainerTransitPtr RotateManipulatorBase::shallowCopy(void) const
 FieldContainerTransitPtr RotateManipulatorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    RotateManipulatorPtr tmpPtr;
+    RotateManipulator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const RotateManipulator *>(this), bFlags);
 
@@ -280,9 +280,9 @@ void RotateManipulatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr RotateManipulatorBase::createAspectCopy(void) const
+FieldContainer *RotateManipulatorBase::createAspectCopy(void) const
 {
-    RotateManipulatorPtr returnValue;
+    RotateManipulator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const RotateManipulator *>(this));
@@ -300,7 +300,7 @@ void RotateManipulatorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RotateManipulatorPtr>::_type("RotateManipulatorPtr", "ManipulatorPtr");
+DataType FieldTraits<RotateManipulator *>::_type("RotateManipulatorPtr", "ManipulatorPtr");
 #endif
 
 

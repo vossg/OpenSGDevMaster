@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SkyBackground);
 #endif
 
 template <>
-struct FieldTraits<SkyBackgroundPtr> :
-    public FieldTraitsFCPtrBase<SkyBackgroundPtr>
+struct FieldTraits<SkyBackground *> :
+    public FieldTraitsFCPtrBase<SkyBackground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SkyBackgroundPtr> :
 
   public:
 
-    typedef FieldTraits<SkyBackgroundPtr>  Self;
+    typedef FieldTraits<SkyBackground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -104,25 +104,25 @@ struct FieldTraits<SkyBackgroundPtr> :
 
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkyBackground *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSkyBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkyBackground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSkyBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkyBackground *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSkyBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkyBackground *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSkyBackgroundPtr"; 
 }
@@ -140,13 +140,13 @@ const Char8 *FieldTraits<SkyBackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<SkyBackgroundPtr,
+typedef PointerMField<SkyBackground *,
                       RecordedRefCountPolicy  > MFRecSkyBackgroundPtr;
-typedef PointerMField<SkyBackgroundPtr,
+typedef PointerMField<SkyBackground *,
                       UnrecordedRefCountPolicy> MFUnrecSkyBackgroundPtr;
-typedef PointerMField<SkyBackgroundPtr,
+typedef PointerMField<SkyBackground *,
                       WeakRefCountPolicy      > MFWeakSkyBackgroundPtr;
-typedef PointerMField<SkyBackgroundPtr,
+typedef PointerMField<SkyBackground *,
                       NoRefCountPolicy        > MFUncountedSkyBackgroundPtr;
 #endif
 

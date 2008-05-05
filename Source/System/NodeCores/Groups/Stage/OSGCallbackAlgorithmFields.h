@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(CallbackAlgorithm);
 #endif
 
 template <>
-struct FieldTraits<CallbackAlgorithmPtr> :
-    public FieldTraitsFCPtrBase<CallbackAlgorithmPtr>
+struct FieldTraits<CallbackAlgorithm *> :
+    public FieldTraitsFCPtrBase<CallbackAlgorithm *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<CallbackAlgorithmPtr> :
 
   public:
 
-    typedef FieldTraits<CallbackAlgorithmPtr>  Self;
+    typedef FieldTraits<CallbackAlgorithm *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<CallbackAlgorithmPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCallbackAlgorithmPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCallbackAlgorithmPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<CallbackAlgorithmPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef PointerSField<CallbackAlgorithmPtr,
+typedef PointerSField<CallbackAlgorithm *,
                       RecordedRefCountPolicy  > SFRecCallbackAlgorithmPtr;
-typedef PointerSField<CallbackAlgorithmPtr,
+typedef PointerSField<CallbackAlgorithm *,
                       UnrecordedRefCountPolicy> SFUnrecCallbackAlgorithmPtr;
-typedef PointerSField<CallbackAlgorithmPtr,
+typedef PointerSField<CallbackAlgorithm *,
                       WeakRefCountPolicy      > SFWeakCallbackAlgorithmPtr;
-typedef PointerSField<CallbackAlgorithmPtr,
+typedef PointerSField<CallbackAlgorithm *,
                       NoRefCountPolicy        > SFUncountedCallbackAlgorithmPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<CallbackAlgorithmPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef PointerMField<CallbackAlgorithmPtr,
+typedef PointerMField<CallbackAlgorithm *,
                       RecordedRefCountPolicy  > MFRecCallbackAlgorithmPtr;
-typedef PointerMField<CallbackAlgorithmPtr,
+typedef PointerMField<CallbackAlgorithm *,
                       UnrecordedRefCountPolicy> MFUnrecCallbackAlgorithmPtr;
-typedef PointerMField<CallbackAlgorithmPtr,
+typedef PointerMField<CallbackAlgorithm *,
                       WeakRefCountPolicy      > MFWeakCallbackAlgorithmPtr;
-typedef PointerMField<CallbackAlgorithmPtr,
+typedef PointerMField<CallbackAlgorithm *,
                       NoRefCountPolicy        > MFUncountedCallbackAlgorithmPtr;
 #endif
 

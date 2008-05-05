@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(HDRStage);
 #endif
 
 template <>
-struct FieldTraits<HDRStagePtr> :
-    public FieldTraitsFCPtrBase<HDRStagePtr>
+struct FieldTraits<HDRStage *> :
+    public FieldTraitsFCPtrBase<HDRStage *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<HDRStagePtr> :
 
   public:
 
-    typedef FieldTraits<HDRStagePtr>  Self;
+    typedef FieldTraits<HDRStage *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

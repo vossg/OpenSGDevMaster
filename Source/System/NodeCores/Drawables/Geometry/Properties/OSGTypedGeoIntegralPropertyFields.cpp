@@ -52,31 +52,31 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-DataType FieldTraits<GeoUInt8PropertyPtr>::_type(
+DataType FieldTraits<GeoUInt8Property  *>::_type(
     "GeoUInt8PropertyPtr",
     "GeoIntegralPropertyPtr");
 
-DataType FieldTraits<GeoUInt32PropertyPtr>::_type(
+DataType FieldTraits<GeoUInt32Property *>::_type(
     "GeoUInt32PropertyPtr",
     "GeoIntegralPropertyPtr");
 
-OSG_FIELDTRAITS_GETTYPE(GeoUInt8PropertyPtr)
-OSG_FIELDTRAITS_GETTYPE(GeoUInt32PropertyPtr)
+OSG_FIELDTRAITS_GETTYPE(GeoUInt8Property  *)
+OSG_FIELDTRAITS_GETTYPE(GeoUInt32Property *)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoUInt8PropertyPtr, 
+                           GeoUInt8Property *, 
                            0);
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoUInt8PropertyPtr, 
+                           GeoUInt8Property *, 
                            0);
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoUInt32PropertyPtr, 
+                           GeoUInt32Property *, 
                            0);
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoUInt32PropertyPtr, 
+                           GeoUInt32Property *, 
                            0);
 
 OSG_END_NAMESPACE

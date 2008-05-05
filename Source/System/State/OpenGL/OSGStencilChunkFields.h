@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(StencilChunk);
 #endif
 
 template <>
-struct FieldTraits<StencilChunkPtr> :
-    public FieldTraitsFCPtrBase<StencilChunkPtr>
+struct FieldTraits<StencilChunk *> :
+    public FieldTraitsFCPtrBase<StencilChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<StencilChunkPtr> :
 
   public:
 
-    typedef FieldTraits<StencilChunkPtr>  Self;
+    typedef FieldTraits<StencilChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

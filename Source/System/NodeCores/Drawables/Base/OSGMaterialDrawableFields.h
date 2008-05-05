@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(MaterialDrawable);
 #endif
 
 template <>
-struct FieldTraits<MaterialDrawablePtr> :
-    public FieldTraitsFCPtrBase<MaterialDrawablePtr>
+struct FieldTraits<MaterialDrawable *> :
+    public FieldTraitsFCPtrBase<MaterialDrawable *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<MaterialDrawablePtr> :
 
   public:
 
-    typedef FieldTraits<MaterialDrawablePtr>  Self;
+    typedef FieldTraits<MaterialDrawable *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<MaterialDrawablePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakMaterialDrawablePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdMaterialDrawablePtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<MaterialDrawablePtr, 0>::getMName<NoRefCountPolicy>(voi
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<MaterialDrawablePtr,
+typedef PointerSField<MaterialDrawable *,
                       RecordedRefCountPolicy  > SFRecMaterialDrawablePtr;
-typedef PointerSField<MaterialDrawablePtr,
+typedef PointerSField<MaterialDrawable *,
                       UnrecordedRefCountPolicy> SFUnrecMaterialDrawablePtr;
-typedef PointerSField<MaterialDrawablePtr,
+typedef PointerSField<MaterialDrawable *,
                       WeakRefCountPolicy      > SFWeakMaterialDrawablePtr;
-typedef PointerSField<MaterialDrawablePtr,
+typedef PointerSField<MaterialDrawable *,
                       NoRefCountPolicy        > SFUncountedMaterialDrawablePtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<MaterialDrawablePtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<MaterialDrawablePtr,
+typedef PointerMField<MaterialDrawable *,
                       RecordedRefCountPolicy  > MFRecMaterialDrawablePtr;
-typedef PointerMField<MaterialDrawablePtr,
+typedef PointerMField<MaterialDrawable *,
                       UnrecordedRefCountPolicy> MFUnrecMaterialDrawablePtr;
-typedef PointerMField<MaterialDrawablePtr,
+typedef PointerMField<MaterialDrawable *,
                       WeakRefCountPolicy      > MFWeakMaterialDrawablePtr;
-typedef PointerMField<MaterialDrawablePtr,
+typedef PointerMField<MaterialDrawable *,
                       NoRefCountPolicy        > MFUncountedMaterialDrawablePtr;
 #endif
 

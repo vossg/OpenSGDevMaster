@@ -163,15 +163,15 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
             const SFBool              *getSFIsReflectionMap (void) const;
 
 
-                  ImagePtr getPosZImage      (void) const;
+                  Image * getPosZImage      (void) const;
 
-                  ImagePtr getPosXImage      (void) const;
+                  Image * getPosXImage      (void) const;
 
-                  ImagePtr getNegXImage      (void) const;
+                  Image * getNegXImage      (void) const;
 
-                  ImagePtr getPosYImage      (void) const;
+                  Image * getPosYImage      (void) const;
 
-                  ImagePtr getNegYImage      (void) const;
+                  Image * getNegYImage      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getIsReflectionMap (void);
@@ -184,11 +184,11 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setPosZImage      (const ImagePtr value);
-            void setPosXImage      (const ImagePtr value);
-            void setNegXImage      (const ImagePtr value);
-            void setPosYImage      (const ImagePtr value);
-            void setNegYImage      (const ImagePtr value);
+            void setPosZImage      (Image * const value);
+            void setPosXImage      (Image * const value);
+            void setNegXImage      (Image * const value);
+            void setPosYImage      (Image * const value);
+            void setNegYImage      (Image * const value);
             void setIsReflectionMap(const bool &value);
 
     /*! \}                                                                 */
@@ -218,13 +218,13 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeTextureChunkTransitPtr create          (void);
-    static  CubeTextureChunkPtr        createEmpty     (void);
+    static  CubeTextureChunkTransitPtr  create          (void);
+    static  CubeTextureChunk           *createEmpty     (void);
 
-    static  CubeTextureChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  CubeTextureChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  CubeTextureChunkPtr        createEmptyLocal(
+    static  CubeTextureChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -327,7 +327,7 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

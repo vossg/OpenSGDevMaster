@@ -89,7 +89,7 @@ OSG_BEGIN_NAMESPACE
     The OpenGL texture id for this frame buffer object.
 */
 
-/*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_mfColorAttachments
+/*! \var FrameBufferAttachment * FrameBufferObjectBase::_mfColorAttachments
     GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
     This defines the target buffers for color attachments.
 */
@@ -100,11 +100,11 @@ OSG_BEGIN_NAMESPACE
     to render into.
 */
 
-/*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfDepthAttachment
+/*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfDepthAttachment
     GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
 */
 
-/*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfStencilAttachment
+/*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfStencilAttachment
     GL_STENCIL_ATTACHMENT_EXT slot.
 */
 
@@ -445,7 +445,7 @@ SFUInt16            *FrameBufferObjectBase::getSFHeight         (void)
 
 
 
-void FrameBufferObjectBase::pushToColorAttachments(const FrameBufferAttachmentPtr value)
+void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachment * const value)
 {
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
@@ -483,7 +483,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
     }
 }
 
-void FrameBufferObjectBase::removeFromColorAttachments(const FrameBufferAttachmentPtr value)
+void FrameBufferObjectBase::removeFromColorAttachments(FrameBufferAttachment * const value)
 {
     Int32 iElemIdx = _mfColorAttachments.findIndex(value);
 
@@ -621,7 +621,7 @@ FrameBufferObjectTransitPtr FrameBufferObjectBase::create(void)
 {
     FrameBufferObjectTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -637,7 +637,7 @@ FrameBufferObjectTransitPtr FrameBufferObjectBase::createLocal(BitVector bFlags)
 {
     FrameBufferObjectTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -649,9 +649,9 @@ FrameBufferObjectTransitPtr FrameBufferObjectBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FrameBufferObjectPtr FrameBufferObjectBase::createEmpty(void)
+FrameBufferObject *FrameBufferObjectBase::createEmpty(void)
 {
-    FrameBufferObjectPtr returnValue;
+    FrameBufferObject *returnValue;
 
     newPtr<FrameBufferObject>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -661,9 +661,9 @@ FrameBufferObjectPtr FrameBufferObjectBase::createEmpty(void)
     return returnValue;
 }
 
-FrameBufferObjectPtr FrameBufferObjectBase::createEmptyLocal(BitVector bFlags)
+FrameBufferObject *FrameBufferObjectBase::createEmptyLocal(BitVector bFlags)
 {
-    FrameBufferObjectPtr returnValue;
+    FrameBufferObject *returnValue;
 
     newPtr<FrameBufferObject>(returnValue, bFlags);
 
@@ -674,7 +674,7 @@ FrameBufferObjectPtr FrameBufferObjectBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr FrameBufferObjectBase::shallowCopy(void) const
 {
-    FrameBufferObjectPtr tmpPtr;
+    FrameBufferObject *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FrameBufferObject *>(this), 
@@ -690,7 +690,7 @@ FieldContainerTransitPtr FrameBufferObjectBase::shallowCopy(void) const
 FieldContainerTransitPtr FrameBufferObjectBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FrameBufferObjectPtr tmpPtr;
+    FrameBufferObject *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FrameBufferObject *>(this), bFlags);
 
@@ -710,8 +710,8 @@ FrameBufferObjectBase::FrameBufferObjectBase(void) :
     _sfGLId                   (GLenum(0)),
     _mfColorAttachments       (),
     _mfDrawBuffers            (GLenum(0)),
-    _sfDepthAttachment        (NullFC),
-    _sfStencilAttachment      (NullFC),
+    _sfDepthAttachment        (NULL),
+    _sfStencilAttachment      (NULL),
     _sfWidth                  (),
     _sfHeight                 ()
 {
@@ -722,8 +722,8 @@ FrameBufferObjectBase::FrameBufferObjectBase(const FrameBufferObjectBase &source
     _sfGLId                   (source._sfGLId                   ),
     _mfColorAttachments       (),
     _mfDrawBuffers            (source._mfDrawBuffers            ),
-    _sfDepthAttachment        (NullFC),
-    _sfStencilAttachment      (NullFC),
+    _sfDepthAttachment        (NULL),
+    _sfStencilAttachment      (NULL),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 )
 {
@@ -943,9 +943,9 @@ void FrameBufferObjectBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FrameBufferObjectBase::createAspectCopy(void) const
+FieldContainer *FrameBufferObjectBase::createAspectCopy(void) const
 {
-    FrameBufferObjectPtr returnValue;
+    FrameBufferObject *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FrameBufferObject *>(this));
@@ -958,9 +958,9 @@ void FrameBufferObjectBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<FrameBufferObject *>(this)->setDepthAttachment(NullFC);
+    static_cast<FrameBufferObject *>(this)->setDepthAttachment(NULL);
 
-    static_cast<FrameBufferObject *>(this)->setStencilAttachment(NullFC);
+    static_cast<FrameBufferObject *>(this)->setStencilAttachment(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -977,17 +977,17 @@ void FrameBufferObjectBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FrameBufferObjectPtr>::_type("FrameBufferObjectPtr", "AttachmentContainerPtr");
+DataType FieldTraits<FrameBufferObject *>::_type("FrameBufferObjectPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FrameBufferObjectPtr)
+OSG_FIELDTRAITS_GETTYPE(FrameBufferObject *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FrameBufferObjectPtr, 
+                           FrameBufferObject *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FrameBufferObjectPtr, 
+                           FrameBufferObject *, 
                            0);
 
 OSG_END_NAMESPACE

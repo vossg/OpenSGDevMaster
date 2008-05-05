@@ -141,13 +141,13 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StringAttributeMapTransitPtr create          (void);
-    static  StringAttributeMapPtr        createEmpty     (void);
+    static  StringAttributeMapTransitPtr  create          (void);
+    static  StringAttributeMap           *createEmpty     (void);
 
-    static  StringAttributeMapTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  StringAttributeMapTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  StringAttributeMapPtr        createEmptyLocal(
+    static  StringAttributeMap            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -267,7 +267,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

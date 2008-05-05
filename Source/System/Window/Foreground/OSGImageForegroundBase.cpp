@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        ImageForegroundBase::_mfImages
+/*! \var Image *         ImageForegroundBase::_mfImages
     The images to display.
 */
 
@@ -239,7 +239,7 @@ MFPnt2f             *ImageForegroundBase::getMFPositions      (void)
 
 
 
-void ImageForegroundBase::pushToImages(const ImagePtr value)
+void ImageForegroundBase::pushToImages(Image * const value)
 {
     editMField(ImagesFieldMask, _mfImages);
 
@@ -277,7 +277,7 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
     }
 }
 
-void ImageForegroundBase::removeFromImages(const ImagePtr value)
+void ImageForegroundBase::removeFromImages(Image * const value)
 {
     Int32 iElemIdx = _mfImages.findIndex(value);
 
@@ -355,7 +355,7 @@ ImageForegroundTransitPtr ImageForegroundBase::create(void)
 {
     ImageForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -371,7 +371,7 @@ ImageForegroundTransitPtr ImageForegroundBase::createLocal(BitVector bFlags)
 {
     ImageForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -383,9 +383,9 @@ ImageForegroundTransitPtr ImageForegroundBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ImageForegroundPtr ImageForegroundBase::createEmpty(void)
+ImageForeground *ImageForegroundBase::createEmpty(void)
 {
-    ImageForegroundPtr returnValue;
+    ImageForeground *returnValue;
 
     newPtr<ImageForeground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -395,9 +395,9 @@ ImageForegroundPtr ImageForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-ImageForegroundPtr ImageForegroundBase::createEmptyLocal(BitVector bFlags)
+ImageForeground *ImageForegroundBase::createEmptyLocal(BitVector bFlags)
 {
-    ImageForegroundPtr returnValue;
+    ImageForeground *returnValue;
 
     newPtr<ImageForeground>(returnValue, bFlags);
 
@@ -408,7 +408,7 @@ ImageForegroundPtr ImageForegroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ImageForegroundBase::shallowCopy(void) const
 {
-    ImageForegroundPtr tmpPtr;
+    ImageForeground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ImageForeground *>(this), 
@@ -424,7 +424,7 @@ FieldContainerTransitPtr ImageForegroundBase::shallowCopy(void) const
 FieldContainerTransitPtr ImageForegroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ImageForegroundPtr tmpPtr;
+    ImageForeground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ImageForeground *>(this), bFlags);
 
@@ -547,9 +547,9 @@ void ImageForegroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ImageForegroundBase::createAspectCopy(void) const
+FieldContainer *ImageForegroundBase::createAspectCopy(void) const
 {
-    ImageForegroundPtr returnValue;
+    ImageForeground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ImageForeground *>(this));
@@ -577,17 +577,17 @@ void ImageForegroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImageForegroundPtr>::_type("ImageForegroundPtr", "ForegroundPtr");
+DataType FieldTraits<ImageForeground *>::_type("ImageForegroundPtr", "ForegroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ImageForegroundPtr)
+OSG_FIELDTRAITS_GETTYPE(ImageForeground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ImageForegroundPtr, 
+                           ImageForeground *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ImageForegroundPtr, 
+                           ImageForeground *, 
                            0);
 
 OSG_END_NAMESPACE

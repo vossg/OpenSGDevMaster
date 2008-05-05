@@ -89,7 +89,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var TextureBaseChunkPtr TextureBackgroundBase::_sfTexture
+/*! \var TextureBaseChunk * TextureBackgroundBase::_sfTexture
     
 */
 
@@ -566,7 +566,7 @@ TextureBackgroundTransitPtr TextureBackgroundBase::create(void)
 {
     TextureBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -582,7 +582,7 @@ TextureBackgroundTransitPtr TextureBackgroundBase::createLocal(BitVector bFlags)
 {
     TextureBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -594,9 +594,9 @@ TextureBackgroundTransitPtr TextureBackgroundBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureBackgroundPtr TextureBackgroundBase::createEmpty(void)
+TextureBackground *TextureBackgroundBase::createEmpty(void)
 {
-    TextureBackgroundPtr returnValue;
+    TextureBackground *returnValue;
 
     newPtr<TextureBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -606,9 +606,9 @@ TextureBackgroundPtr TextureBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-TextureBackgroundPtr TextureBackgroundBase::createEmptyLocal(BitVector bFlags)
+TextureBackground *TextureBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    TextureBackgroundPtr returnValue;
+    TextureBackground *returnValue;
 
     newPtr<TextureBackground>(returnValue, bFlags);
 
@@ -619,7 +619,7 @@ TextureBackgroundPtr TextureBackgroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TextureBackgroundBase::shallowCopy(void) const
 {
-    TextureBackgroundPtr tmpPtr;
+    TextureBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TextureBackground *>(this), 
@@ -635,7 +635,7 @@ FieldContainerTransitPtr TextureBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr TextureBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TextureBackgroundPtr tmpPtr;
+    TextureBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TextureBackground *>(this), bFlags);
 
@@ -653,7 +653,7 @@ FieldContainerTransitPtr TextureBackgroundBase::shallowCopyLocal(
 TextureBackgroundBase::TextureBackgroundBase(void) :
     Inherited(),
     _sfColor                  (),
-    _sfTexture                (NullFC),
+    _sfTexture                (NULL),
     _mfTexCoords              (),
     _sfRadialDistortion       (Real32(0)),
     _sfCenterOfDistortion     (Vec2f(0.5, 0.5)),
@@ -665,7 +665,7 @@ TextureBackgroundBase::TextureBackgroundBase(void) :
 TextureBackgroundBase::TextureBackgroundBase(const TextureBackgroundBase &source) :
     Inherited(source),
     _sfColor                  (source._sfColor                  ),
-    _sfTexture                (NullFC),
+    _sfTexture                (NULL),
     _mfTexCoords              (source._mfTexCoords              ),
     _sfRadialDistortion       (source._sfRadialDistortion       ),
     _sfCenterOfDistortion     (source._sfCenterOfDistortion     ),
@@ -868,9 +868,9 @@ void TextureBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TextureBackgroundBase::createAspectCopy(void) const
+FieldContainer *TextureBackgroundBase::createAspectCopy(void) const
 {
-    TextureBackgroundPtr returnValue;
+    TextureBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TextureBackground *>(this));
@@ -883,7 +883,7 @@ void TextureBackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<TextureBackground *>(this)->setTexture(NullFC);
+    static_cast<TextureBackground *>(this)->setTexture(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -899,13 +899,13 @@ void TextureBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBackgroundPtr>::_type("TextureBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<TextureBackground *>::_type("TextureBackgroundPtr", "BackgroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextureBackgroundPtr)
+OSG_FIELDTRAITS_GETTYPE(TextureBackground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureBackgroundPtr, 
+                           TextureBackground *, 
                            0);
 
 

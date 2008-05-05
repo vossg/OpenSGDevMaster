@@ -416,7 +416,7 @@ ColorBufferViewportTransitPtr ColorBufferViewportBase::create(void)
 {
     ColorBufferViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -432,7 +432,7 @@ ColorBufferViewportTransitPtr ColorBufferViewportBase::createLocal(BitVector bFl
 {
     ColorBufferViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -444,9 +444,9 @@ ColorBufferViewportTransitPtr ColorBufferViewportBase::createLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ColorBufferViewportPtr ColorBufferViewportBase::createEmpty(void)
+ColorBufferViewport *ColorBufferViewportBase::createEmpty(void)
 {
-    ColorBufferViewportPtr returnValue;
+    ColorBufferViewport *returnValue;
 
     newPtr<ColorBufferViewport>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -456,9 +456,9 @@ ColorBufferViewportPtr ColorBufferViewportBase::createEmpty(void)
     return returnValue;
 }
 
-ColorBufferViewportPtr ColorBufferViewportBase::createEmptyLocal(BitVector bFlags)
+ColorBufferViewport *ColorBufferViewportBase::createEmptyLocal(BitVector bFlags)
 {
-    ColorBufferViewportPtr returnValue;
+    ColorBufferViewport *returnValue;
 
     newPtr<ColorBufferViewport>(returnValue, bFlags);
 
@@ -469,7 +469,7 @@ ColorBufferViewportPtr ColorBufferViewportBase::createEmptyLocal(BitVector bFlag
 
 FieldContainerTransitPtr ColorBufferViewportBase::shallowCopy(void) const
 {
-    ColorBufferViewportPtr tmpPtr;
+    ColorBufferViewport *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ColorBufferViewport *>(this), 
@@ -485,7 +485,7 @@ FieldContainerTransitPtr ColorBufferViewportBase::shallowCopy(void) const
 FieldContainerTransitPtr ColorBufferViewportBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ColorBufferViewportPtr tmpPtr;
+    ColorBufferViewport *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ColorBufferViewport *>(this), bFlags);
 
@@ -632,9 +632,9 @@ void ColorBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ColorBufferViewportBase::createAspectCopy(void) const
+FieldContainer *ColorBufferViewportBase::createAspectCopy(void) const
 {
-    ColorBufferViewportPtr returnValue;
+    ColorBufferViewport *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ColorBufferViewport *>(this));
@@ -652,17 +652,17 @@ void ColorBufferViewportBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorBufferViewportPtr>::_type("ColorBufferViewportPtr", "ViewportPtr");
+DataType FieldTraits<ColorBufferViewport *>::_type("ColorBufferViewportPtr", "ViewportPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ColorBufferViewportPtr)
+OSG_FIELDTRAITS_GETTYPE(ColorBufferViewport *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ColorBufferViewportPtr, 
+                           ColorBufferViewport *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ColorBufferViewportPtr, 
+                           ColorBufferViewport *, 
                            0);
 
 OSG_END_NAMESPACE

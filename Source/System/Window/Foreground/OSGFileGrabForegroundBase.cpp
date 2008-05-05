@@ -368,7 +368,7 @@ FileGrabForegroundTransitPtr FileGrabForegroundBase::create(void)
 {
     FileGrabForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -384,7 +384,7 @@ FileGrabForegroundTransitPtr FileGrabForegroundBase::createLocal(BitVector bFlag
 {
     FileGrabForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -396,9 +396,9 @@ FileGrabForegroundTransitPtr FileGrabForegroundBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FileGrabForegroundPtr FileGrabForegroundBase::createEmpty(void)
+FileGrabForeground *FileGrabForegroundBase::createEmpty(void)
 {
-    FileGrabForegroundPtr returnValue;
+    FileGrabForeground *returnValue;
 
     newPtr<FileGrabForeground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -408,9 +408,9 @@ FileGrabForegroundPtr FileGrabForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-FileGrabForegroundPtr FileGrabForegroundBase::createEmptyLocal(BitVector bFlags)
+FileGrabForeground *FileGrabForegroundBase::createEmptyLocal(BitVector bFlags)
 {
-    FileGrabForegroundPtr returnValue;
+    FileGrabForeground *returnValue;
 
     newPtr<FileGrabForeground>(returnValue, bFlags);
 
@@ -421,7 +421,7 @@ FileGrabForegroundPtr FileGrabForegroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr FileGrabForegroundBase::shallowCopy(void) const
 {
-    FileGrabForegroundPtr tmpPtr;
+    FileGrabForeground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FileGrabForeground *>(this), 
@@ -437,7 +437,7 @@ FieldContainerTransitPtr FileGrabForegroundBase::shallowCopy(void) const
 FieldContainerTransitPtr FileGrabForegroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FileGrabForegroundPtr tmpPtr;
+    FileGrabForeground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FileGrabForeground *>(this), bFlags);
 
@@ -560,9 +560,9 @@ void FileGrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FileGrabForegroundBase::createAspectCopy(void) const
+FieldContainer *FileGrabForegroundBase::createAspectCopy(void) const
 {
-    FileGrabForegroundPtr returnValue;
+    FileGrabForeground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FileGrabForeground *>(this));
@@ -580,17 +580,17 @@ void FileGrabForegroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FileGrabForegroundPtr>::_type("FileGrabForegroundPtr", "GrabForegroundPtr");
+DataType FieldTraits<FileGrabForeground *>::_type("FileGrabForegroundPtr", "GrabForegroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FileGrabForegroundPtr)
+OSG_FIELDTRAITS_GETTYPE(FileGrabForeground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FileGrabForegroundPtr, 
+                           FileGrabForeground *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FileGrabForegroundPtr, 
+                           FileGrabForeground *, 
                            0);
 
 OSG_END_NAMESPACE

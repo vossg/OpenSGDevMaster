@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        GrabForegroundBase::_sfImage
+/*! \var Image *         GrabForegroundBase::_sfImage
     The image to write to.
 */
 
@@ -288,7 +288,7 @@ GrabForegroundTransitPtr GrabForegroundBase::create(void)
 {
     GrabForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -304,7 +304,7 @@ GrabForegroundTransitPtr GrabForegroundBase::createLocal(BitVector bFlags)
 {
     GrabForegroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -316,9 +316,9 @@ GrabForegroundTransitPtr GrabForegroundBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GrabForegroundPtr GrabForegroundBase::createEmpty(void)
+GrabForeground *GrabForegroundBase::createEmpty(void)
 {
-    GrabForegroundPtr returnValue;
+    GrabForeground *returnValue;
 
     newPtr<GrabForeground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -328,9 +328,9 @@ GrabForegroundPtr GrabForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-GrabForegroundPtr GrabForegroundBase::createEmptyLocal(BitVector bFlags)
+GrabForeground *GrabForegroundBase::createEmptyLocal(BitVector bFlags)
 {
-    GrabForegroundPtr returnValue;
+    GrabForeground *returnValue;
 
     newPtr<GrabForeground>(returnValue, bFlags);
 
@@ -341,7 +341,7 @@ GrabForegroundPtr GrabForegroundBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr GrabForegroundBase::shallowCopy(void) const
 {
-    GrabForegroundPtr tmpPtr;
+    GrabForeground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const GrabForeground *>(this), 
@@ -357,7 +357,7 @@ FieldContainerTransitPtr GrabForegroundBase::shallowCopy(void) const
 FieldContainerTransitPtr GrabForegroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    GrabForegroundPtr tmpPtr;
+    GrabForeground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const GrabForeground *>(this), bFlags);
 
@@ -374,14 +374,14 @@ FieldContainerTransitPtr GrabForegroundBase::shallowCopyLocal(
 
 GrabForegroundBase::GrabForegroundBase(void) :
     Inherited(),
-    _sfImage                  (NullFC),
+    _sfImage                  (NULL),
     _sfAutoResize             (bool(false))
 {
 }
 
 GrabForegroundBase::GrabForegroundBase(const GrabForegroundBase &source) :
     Inherited(source),
-    _sfImage                  (NullFC),
+    _sfImage                  (NULL),
     _sfAutoResize             (source._sfAutoResize             )
 {
 }
@@ -470,9 +470,9 @@ void GrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr GrabForegroundBase::createAspectCopy(void) const
+FieldContainer *GrabForegroundBase::createAspectCopy(void) const
 {
-    GrabForegroundPtr returnValue;
+    GrabForeground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const GrabForeground *>(this));
@@ -485,24 +485,24 @@ void GrabForegroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<GrabForeground *>(this)->setImage(NullFC);
+    static_cast<GrabForeground *>(this)->setImage(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GrabForegroundPtr>::_type("GrabForegroundPtr", "ForegroundPtr");
+DataType FieldTraits<GrabForeground *>::_type("GrabForegroundPtr", "ForegroundPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GrabForegroundPtr)
+OSG_FIELDTRAITS_GETTYPE(GrabForeground *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GrabForegroundPtr, 
+                           GrabForeground *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GrabForegroundPtr, 
+                           GrabForeground *, 
                            0);
 
 OSG_END_NAMESPACE

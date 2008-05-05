@@ -353,7 +353,7 @@ MatrixCameraTransitPtr MatrixCameraBase::create(void)
 {
     MatrixCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -369,7 +369,7 @@ MatrixCameraTransitPtr MatrixCameraBase::createLocal(BitVector bFlags)
 {
     MatrixCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -381,9 +381,9 @@ MatrixCameraTransitPtr MatrixCameraBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MatrixCameraPtr MatrixCameraBase::createEmpty(void)
+MatrixCamera *MatrixCameraBase::createEmpty(void)
 {
-    MatrixCameraPtr returnValue;
+    MatrixCamera *returnValue;
 
     newPtr<MatrixCamera>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -393,9 +393,9 @@ MatrixCameraPtr MatrixCameraBase::createEmpty(void)
     return returnValue;
 }
 
-MatrixCameraPtr MatrixCameraBase::createEmptyLocal(BitVector bFlags)
+MatrixCamera *MatrixCameraBase::createEmptyLocal(BitVector bFlags)
 {
-    MatrixCameraPtr returnValue;
+    MatrixCamera *returnValue;
 
     newPtr<MatrixCamera>(returnValue, bFlags);
 
@@ -406,7 +406,7 @@ MatrixCameraPtr MatrixCameraBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr MatrixCameraBase::shallowCopy(void) const
 {
-    MatrixCameraPtr tmpPtr;
+    MatrixCamera *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const MatrixCamera *>(this), 
@@ -422,7 +422,7 @@ FieldContainerTransitPtr MatrixCameraBase::shallowCopy(void) const
 FieldContainerTransitPtr MatrixCameraBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    MatrixCameraPtr tmpPtr;
+    MatrixCamera *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const MatrixCamera *>(this), bFlags);
 
@@ -545,9 +545,9 @@ void MatrixCameraBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr MatrixCameraBase::createAspectCopy(void) const
+FieldContainer *MatrixCameraBase::createAspectCopy(void) const
 {
-    MatrixCameraPtr returnValue;
+    MatrixCamera *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const MatrixCamera *>(this));
@@ -565,17 +565,17 @@ void MatrixCameraBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCameraPtr>::_type("MatrixCameraPtr", "CameraPtr");
+DataType FieldTraits<MatrixCamera *>::_type("MatrixCameraPtr", "CameraPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MatrixCameraPtr)
+OSG_FIELDTRAITS_GETTYPE(MatrixCamera *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MatrixCameraPtr, 
+                           MatrixCamera *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MatrixCameraPtr, 
+                           MatrixCamera *, 
                            0);
 
 OSG_END_NAMESPACE

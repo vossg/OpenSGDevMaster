@@ -219,7 +219,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
             const SFBool              *getSFTile            (void) const;
 
 
-                  MaterialPtr getMaterial       (void) const;
+                  Material * getMaterial       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3f               &getTexCoords       (const UInt32 index);
@@ -282,7 +282,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaterial       (const MaterialPtr value);
+            void setMaterial       (Material * const value);
             void setNormalizedX    (const bool &value);
             void setNormalizedY    (const bool &value);
             void setAspectHeight   (const UInt16 &value);
@@ -318,13 +318,13 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonBackgroundTransitPtr create          (void);
-    static  PolygonBackgroundPtr        createEmpty     (void);
+    static  PolygonBackgroundTransitPtr  create          (void);
+    static  PolygonBackground           *createEmpty     (void);
 
-    static  PolygonBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  PolygonBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  PolygonBackgroundPtr        createEmptyLocal(
+    static  PolygonBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -439,7 +439,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

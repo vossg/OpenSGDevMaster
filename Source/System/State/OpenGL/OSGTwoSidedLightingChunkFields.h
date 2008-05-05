@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TwoSidedLightingChunk);
 #endif
 
 template <>
-struct FieldTraits<TwoSidedLightingChunkPtr> :
-    public FieldTraitsFCPtrBase<TwoSidedLightingChunkPtr>
+struct FieldTraits<TwoSidedLightingChunk *> :
+    public FieldTraitsFCPtrBase<TwoSidedLightingChunk *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TwoSidedLightingChunkPtr> :
 
   public:
 
-    typedef FieldTraits<TwoSidedLightingChunkPtr>  Self;
+    typedef FieldTraits<TwoSidedLightingChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

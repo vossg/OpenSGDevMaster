@@ -134,19 +134,19 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var NodePtr         TexGenChunkBase::_sfSBeacon
+/*! \var Node *          TexGenChunkBase::_sfSBeacon
     
 */
 
-/*! \var NodePtr         TexGenChunkBase::_sfTBeacon
+/*! \var Node *          TexGenChunkBase::_sfTBeacon
     
 */
 
-/*! \var NodePtr         TexGenChunkBase::_sfRBeacon
+/*! \var Node *          TexGenChunkBase::_sfRBeacon
     
 */
 
-/*! \var NodePtr         TexGenChunkBase::_sfQBeacon
+/*! \var Node *          TexGenChunkBase::_sfQBeacon
     
 */
 
@@ -870,7 +870,7 @@ TexGenChunkTransitPtr TexGenChunkBase::create(void)
 {
     TexGenChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -886,7 +886,7 @@ TexGenChunkTransitPtr TexGenChunkBase::createLocal(BitVector bFlags)
 {
     TexGenChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -898,9 +898,9 @@ TexGenChunkTransitPtr TexGenChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TexGenChunkPtr TexGenChunkBase::createEmpty(void)
+TexGenChunk *TexGenChunkBase::createEmpty(void)
 {
-    TexGenChunkPtr returnValue;
+    TexGenChunk *returnValue;
 
     newPtr<TexGenChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -910,9 +910,9 @@ TexGenChunkPtr TexGenChunkBase::createEmpty(void)
     return returnValue;
 }
 
-TexGenChunkPtr TexGenChunkBase::createEmptyLocal(BitVector bFlags)
+TexGenChunk *TexGenChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    TexGenChunkPtr returnValue;
+    TexGenChunk *returnValue;
 
     newPtr<TexGenChunk>(returnValue, bFlags);
 
@@ -923,7 +923,7 @@ TexGenChunkPtr TexGenChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TexGenChunkBase::shallowCopy(void) const
 {
-    TexGenChunkPtr tmpPtr;
+    TexGenChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TexGenChunk *>(this), 
@@ -939,7 +939,7 @@ FieldContainerTransitPtr TexGenChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr TexGenChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TexGenChunkPtr tmpPtr;
+    TexGenChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TexGenChunk *>(this), bFlags);
 
@@ -964,10 +964,10 @@ TexGenChunkBase::TexGenChunkBase(void) :
     _sfGenFuncTPlane          (Vec4f(0,1,0,0)),
     _sfGenFuncRPlane          (Vec4f(0,0,1,0)),
     _sfGenFuncQPlane          (Vec4f(0,0,0,1)),
-    _sfSBeacon                (NullFC),
-    _sfTBeacon                (NullFC),
-    _sfRBeacon                (NullFC),
-    _sfQBeacon                (NullFC)
+    _sfSBeacon                (NULL),
+    _sfTBeacon                (NULL),
+    _sfRBeacon                (NULL),
+    _sfQBeacon                (NULL)
 {
 }
 
@@ -981,10 +981,10 @@ TexGenChunkBase::TexGenChunkBase(const TexGenChunkBase &source) :
     _sfGenFuncTPlane          (source._sfGenFuncTPlane          ),
     _sfGenFuncRPlane          (source._sfGenFuncRPlane          ),
     _sfGenFuncQPlane          (source._sfGenFuncQPlane          ),
-    _sfSBeacon                (NullFC),
-    _sfTBeacon                (NullFC),
-    _sfRBeacon                (NullFC),
-    _sfQBeacon                (NullFC)
+    _sfSBeacon                (NULL),
+    _sfTBeacon                (NULL),
+    _sfRBeacon                (NULL),
+    _sfQBeacon                (NULL)
 {
 }
 
@@ -1307,9 +1307,9 @@ void TexGenChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TexGenChunkBase::createAspectCopy(void) const
+FieldContainer *TexGenChunkBase::createAspectCopy(void) const
 {
-    TexGenChunkPtr returnValue;
+    TexGenChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TexGenChunk *>(this));
@@ -1322,30 +1322,30 @@ void TexGenChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<TexGenChunk *>(this)->setSBeacon(NullFC);
+    static_cast<TexGenChunk *>(this)->setSBeacon(NULL);
 
-    static_cast<TexGenChunk *>(this)->setTBeacon(NullFC);
+    static_cast<TexGenChunk *>(this)->setTBeacon(NULL);
 
-    static_cast<TexGenChunk *>(this)->setRBeacon(NullFC);
+    static_cast<TexGenChunk *>(this)->setRBeacon(NULL);
 
-    static_cast<TexGenChunk *>(this)->setQBeacon(NullFC);
+    static_cast<TexGenChunk *>(this)->setQBeacon(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TexGenChunkPtr>::_type("TexGenChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TexGenChunk *>::_type("TexGenChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TexGenChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(TexGenChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TexGenChunkPtr, 
+                           TexGenChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TexGenChunkPtr, 
+                           TexGenChunk *, 
                            0);
 
 OSG_END_NAMESPACE

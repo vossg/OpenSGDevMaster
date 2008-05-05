@@ -213,33 +213,33 @@ void GeoVectorPropertyBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoVectorPropertyPtr>::_type("GeoVectorPropertyPtr", "GeoPropertyPtr");
+DataType FieldTraits<GeoVectorProperty *>::_type("GeoVectorPropertyPtr", "GeoPropertyPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoVectorPropertyPtr)
+OSG_FIELDTRAITS_GETTYPE(GeoVectorProperty *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoVectorPropertyPtr, 
+                           GeoVectorProperty *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoVectorPropertyPtr, 
+                           GeoVectorProperty *, 
                            0);
 
-DataType &FieldTraits< GeoVectorPropertyPtr, 1 >::getType(void)
+DataType &FieldTraits< GeoVectorProperty *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<GeoVectorPropertyPtr, 0>::getType();
+    return FieldTraits<GeoVectorProperty *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      GeoVectorPropertyPtr,       
+                      GeoVectorProperty *,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      GeoVectorPropertyPtr,       
+                      GeoVectorProperty *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

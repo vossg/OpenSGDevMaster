@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SwitchMaterial);
 #endif
 
 template <>
-struct FieldTraits<SwitchMaterialPtr> :
-    public FieldTraitsFCPtrBase<SwitchMaterialPtr>
+struct FieldTraits<SwitchMaterial *> :
+    public FieldTraitsFCPtrBase<SwitchMaterial *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SwitchMaterialPtr> :
 
   public:
 
-    typedef FieldTraits<SwitchMaterialPtr>  Self;
+    typedef FieldTraits<SwitchMaterial *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<SwitchMaterialPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSwitchMaterialPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSwitchMaterialPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<SwitchMaterialPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<SwitchMaterialPtr,
+typedef PointerSField<SwitchMaterial *,
                       RecordedRefCountPolicy  > SFRecSwitchMaterialPtr;
-typedef PointerSField<SwitchMaterialPtr,
+typedef PointerSField<SwitchMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecSwitchMaterialPtr;
-typedef PointerSField<SwitchMaterialPtr,
+typedef PointerSField<SwitchMaterial *,
                       WeakRefCountPolicy      > SFWeakSwitchMaterialPtr;
-typedef PointerSField<SwitchMaterialPtr,
+typedef PointerSField<SwitchMaterial *,
                       NoRefCountPolicy        > SFUncountedSwitchMaterialPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<SwitchMaterialPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<SwitchMaterialPtr,
+typedef PointerMField<SwitchMaterial *,
                       RecordedRefCountPolicy  > MFRecSwitchMaterialPtr;
-typedef PointerMField<SwitchMaterialPtr,
+typedef PointerMField<SwitchMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecSwitchMaterialPtr;
-typedef PointerMField<SwitchMaterialPtr,
+typedef PointerMField<SwitchMaterial *,
                       WeakRefCountPolicy      > MFWeakSwitchMaterialPtr;
-typedef PointerMField<SwitchMaterialPtr,
+typedef PointerMField<SwitchMaterial *,
                       NoRefCountPolicy        > MFUncountedSwitchMaterialPtr;
 #endif
 

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(StatisticsForeground);
 #endif
 
 template <>
-struct FieldTraits<StatisticsForegroundPtr> :
-    public FieldTraitsFCPtrBase<StatisticsForegroundPtr>
+struct FieldTraits<StatisticsForeground *> :
+    public FieldTraitsFCPtrBase<StatisticsForeground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<StatisticsForegroundPtr> :
 
   public:
 
-    typedef FieldTraits<StatisticsForegroundPtr>  Self;
+    typedef FieldTraits<StatisticsForeground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<StatisticsForegroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakStatisticsForegroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<StatisticsForeground *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdStatisticsForegroundPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<StatisticsForegroundPtr, 0>::getMName<NoRefCountPolicy>
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<StatisticsForegroundPtr,
+typedef PointerSField<StatisticsForeground *,
                       RecordedRefCountPolicy  > SFRecStatisticsForegroundPtr;
-typedef PointerSField<StatisticsForegroundPtr,
+typedef PointerSField<StatisticsForeground *,
                       UnrecordedRefCountPolicy> SFUnrecStatisticsForegroundPtr;
-typedef PointerSField<StatisticsForegroundPtr,
+typedef PointerSField<StatisticsForeground *,
                       WeakRefCountPolicy      > SFWeakStatisticsForegroundPtr;
-typedef PointerSField<StatisticsForegroundPtr,
+typedef PointerSField<StatisticsForeground *,
                       NoRefCountPolicy        > SFUncountedStatisticsForegroundPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<StatisticsForegroundPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<StatisticsForegroundPtr,
+typedef PointerMField<StatisticsForeground *,
                       RecordedRefCountPolicy  > MFRecStatisticsForegroundPtr;
-typedef PointerMField<StatisticsForegroundPtr,
+typedef PointerMField<StatisticsForeground *,
                       UnrecordedRefCountPolicy> MFUnrecStatisticsForegroundPtr;
-typedef PointerMField<StatisticsForegroundPtr,
+typedef PointerMField<StatisticsForeground *,
                       WeakRefCountPolicy      > MFWeakStatisticsForegroundPtr;
-typedef PointerMField<StatisticsForegroundPtr,
+typedef PointerMField<StatisticsForeground *,
                       NoRefCountPolicy        > MFUncountedStatisticsForegroundPtr;
 #endif
 

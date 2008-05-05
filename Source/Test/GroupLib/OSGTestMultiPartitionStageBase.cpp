@@ -393,7 +393,7 @@ TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::create(void)
 {
     TestMultiPartitionStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -409,7 +409,7 @@ TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::createLocal(BitVe
 {
     TestMultiPartitionStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -421,9 +421,9 @@ TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::createLocal(BitVe
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TestMultiPartitionStagePtr TestMultiPartitionStageBase::createEmpty(void)
+TestMultiPartitionStage *TestMultiPartitionStageBase::createEmpty(void)
 {
-    TestMultiPartitionStagePtr returnValue;
+    TestMultiPartitionStage *returnValue;
 
     newPtr<TestMultiPartitionStage>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -433,9 +433,9 @@ TestMultiPartitionStagePtr TestMultiPartitionStageBase::createEmpty(void)
     return returnValue;
 }
 
-TestMultiPartitionStagePtr TestMultiPartitionStageBase::createEmptyLocal(BitVector bFlags)
+TestMultiPartitionStage *TestMultiPartitionStageBase::createEmptyLocal(BitVector bFlags)
 {
-    TestMultiPartitionStagePtr returnValue;
+    TestMultiPartitionStage *returnValue;
 
     newPtr<TestMultiPartitionStage>(returnValue, bFlags);
 
@@ -446,7 +446,7 @@ TestMultiPartitionStagePtr TestMultiPartitionStageBase::createEmptyLocal(BitVect
 
 FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopy(void) const
 {
-    TestMultiPartitionStagePtr tmpPtr;
+    TestMultiPartitionStage *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TestMultiPartitionStage *>(this), 
@@ -462,7 +462,7 @@ FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopy(void) const
 FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TestMultiPartitionStagePtr tmpPtr;
+    TestMultiPartitionStage *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TestMultiPartitionStage *>(this), bFlags);
 
@@ -609,9 +609,9 @@ void TestMultiPartitionStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TestMultiPartitionStageBase::createAspectCopy(void) const
+FieldContainer *TestMultiPartitionStageBase::createAspectCopy(void) const
 {
-    TestMultiPartitionStagePtr returnValue;
+    TestMultiPartitionStage *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TestMultiPartitionStage *>(this));
@@ -638,7 +638,7 @@ void TestMultiPartitionStageBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TestMultiPartitionStagePtr>::_type("TestMultiPartitionStagePtr", "StagePtr");
+DataType FieldTraits<TestMultiPartitionStage *>::_type("TestMultiPartitionStagePtr", "StagePtr");
 #endif
 
 

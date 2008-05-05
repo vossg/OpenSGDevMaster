@@ -230,7 +230,7 @@ SwitchTransitPtr SwitchBase::create(void)
 {
     SwitchTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -246,7 +246,7 @@ SwitchTransitPtr SwitchBase::createLocal(BitVector bFlags)
 {
     SwitchTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -258,9 +258,9 @@ SwitchTransitPtr SwitchBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SwitchPtr SwitchBase::createEmpty(void)
+Switch *SwitchBase::createEmpty(void)
 {
-    SwitchPtr returnValue;
+    Switch *returnValue;
 
     newPtr<Switch>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -270,9 +270,9 @@ SwitchPtr SwitchBase::createEmpty(void)
     return returnValue;
 }
 
-SwitchPtr SwitchBase::createEmptyLocal(BitVector bFlags)
+Switch *SwitchBase::createEmptyLocal(BitVector bFlags)
 {
-    SwitchPtr returnValue;
+    Switch *returnValue;
 
     newPtr<Switch>(returnValue, bFlags);
 
@@ -283,7 +283,7 @@ SwitchPtr SwitchBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SwitchBase::shallowCopy(void) const
 {
-    SwitchPtr tmpPtr;
+    Switch *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const Switch *>(this), 
@@ -299,7 +299,7 @@ FieldContainerTransitPtr SwitchBase::shallowCopy(void) const
 FieldContainerTransitPtr SwitchBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SwitchPtr tmpPtr;
+    Switch *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const Switch *>(this), bFlags);
 
@@ -374,9 +374,9 @@ void SwitchBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SwitchBase::createAspectCopy(void) const
+FieldContainer *SwitchBase::createAspectCopy(void) const
 {
-    SwitchPtr returnValue;
+    Switch *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Switch *>(this));
@@ -394,17 +394,17 @@ void SwitchBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SwitchPtr>::_type("SwitchPtr", "GroupPtr");
+DataType FieldTraits<Switch *>::_type("SwitchPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(SwitchPtr)
+OSG_FIELDTRAITS_GETTYPE(Switch *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SwitchPtr, 
+                           Switch *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SwitchPtr, 
+                           Switch *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -62,8 +62,8 @@ OSG_GEN_CONTAINERPTR(GeoUInt8Property);
 #endif
 
 template <>
-struct FieldTraits<GeoUInt8PropertyPtr> : 
-    public FieldTraitsFCPtrBase<GeoUInt8PropertyPtr>
+struct FieldTraits<GeoUInt8Property *> : 
+    public FieldTraitsFCPtrBase<GeoUInt8Property *>
 {
   private:
 
@@ -71,7 +71,7 @@ struct FieldTraits<GeoUInt8PropertyPtr> :
 
   public:
 
-    typedef FieldTraits<GeoUInt8PropertyPtr>  Self;
+    typedef FieldTraits<GeoUInt8Property *>  Self;
 
     enum                        { StringConvertable = 0x00 };
 
@@ -86,9 +86,9 @@ struct FieldTraits<GeoUInt8PropertyPtr> :
 };
 
 
-OSG_FIELD_TRAITS_NAME_INST(GeoUInt8PropertyPtr)
+OSG_FIELD_TRAITS_NAME_INST(GeoUInt8Property *, GeoUInt8PropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt8PropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt8Property *, GeoUInt8PropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -112,8 +112,8 @@ OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 #endif
 
 template <>
-struct FieldTraits<GeoUInt32PropertyPtr> : 
-    public FieldTraitsFCPtrBase<GeoUInt32PropertyPtr>
+struct FieldTraits<GeoUInt32Property *> : 
+    public FieldTraitsFCPtrBase<GeoUInt32Property *>
 {
   private:
 
@@ -121,7 +121,7 @@ struct FieldTraits<GeoUInt32PropertyPtr> :
 
   public:
 
-    typedef FieldTraits<GeoUInt32PropertyPtr>  Self;
+    typedef FieldTraits<GeoUInt32Property *>  Self;
 
     enum                        { StringConvertable = 0x00 };
 
@@ -135,9 +135,9 @@ struct FieldTraits<GeoUInt32PropertyPtr> :
     static const Char8 *getMName(void);
 };
 
-OSG_FIELD_TRAITS_NAME_INST(GeoUInt32PropertyPtr)
+OSG_FIELD_TRAITS_NAME_INST(GeoUInt32Property *, GeoUInt32PropertyPtr)
 
-OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt32PropertyPtr);
+OSG_FIELDCONTAINER_FIELDS_INST(GeoUInt32Property *, GeoUInt32PropertyPtr);
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 

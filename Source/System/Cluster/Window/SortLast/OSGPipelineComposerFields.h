@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(PipelineComposer);
 #endif
 
 template <>
-struct FieldTraits<PipelineComposerPtr> :
-    public FieldTraitsFCPtrBase<PipelineComposerPtr>
+struct FieldTraits<PipelineComposer *> :
+    public FieldTraitsFCPtrBase<PipelineComposer *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<PipelineComposerPtr> :
 
   public:
 
-    typedef FieldTraits<PipelineComposerPtr>  Self;
+    typedef FieldTraits<PipelineComposer *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

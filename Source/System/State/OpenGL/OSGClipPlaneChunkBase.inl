@@ -142,14 +142,14 @@ void ClipPlaneChunkBase::setEnable(const bool &value)
 
 //! Get the value of the ClipPlaneChunk::_sfBeacon field.
 inline
-NodePtr ClipPlaneChunkBase::getBeacon(void) const
+Node * ClipPlaneChunkBase::getBeacon(void) const
 {
     return _sfBeacon.getValue();
 }
 
 //! Set the value of the ClipPlaneChunk::_sfBeacon field.
 inline
-void ClipPlaneChunkBase::setBeacon(const NodePtr value)
+void ClipPlaneChunkBase::setBeacon(Node * const value)
 {
     editSField(BeaconFieldMask);
 

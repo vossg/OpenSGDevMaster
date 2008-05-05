@@ -126,13 +126,13 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SepiaComposerTransitPtr create          (void);
-    static  SepiaComposerPtr        createEmpty     (void);
+    static  SepiaComposerTransitPtr  create          (void);
+    static  SepiaComposer           *createEmpty     (void);
 
-    static  SepiaComposerTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SepiaComposerTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SepiaComposerPtr        createEmptyLocal(
+    static  SepiaComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposerBase : public ImageComposer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

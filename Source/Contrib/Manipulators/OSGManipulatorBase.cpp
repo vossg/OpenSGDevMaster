@@ -94,11 +94,11 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var NodePtr         ManipulatorBase::_sfTarget
+/*! \var Node *          ManipulatorBase::_sfTarget
     
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfActiveSubHandle
+/*! \var Node *          ManipulatorBase::_sfActiveSubHandle
     the active sub handle
 */
 
@@ -106,7 +106,7 @@ OSG_BEGIN_NAMESPACE
     Last mouse position (in pixel, although 2f is used!)
 */
 
-/*! \var ViewportPtr     ManipulatorBase::_sfViewport
+/*! \var Viewport *      ManipulatorBase::_sfViewport
     
 */
 
@@ -118,43 +118,43 @@ OSG_BEGIN_NAMESPACE
     The length of the three axes in one vector
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfHandleXNode
+/*! \var Node *          ManipulatorBase::_sfHandleXNode
     The node for the x-handle geometry
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfHandleYNode
+/*! \var Node *          ManipulatorBase::_sfHandleYNode
     The node for the y-handle geometry
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfHandleZNode
+/*! \var Node *          ManipulatorBase::_sfHandleZNode
     The node for the z-handle geometry
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfTransXNode
+/*! \var Node *          ManipulatorBase::_sfTransXNode
     The node for the x-handle transform
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfTransYNode
+/*! \var Node *          ManipulatorBase::_sfTransYNode
     The node for the y-handle transform
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfTransZNode
+/*! \var Node *          ManipulatorBase::_sfTransZNode
     The node for the z-handle transform
 */
 
-/*! \var MaterialPtr     ManipulatorBase::_sfMaterialX
+/*! \var Material *      ManipulatorBase::_sfMaterialX
     material for the x-axis geometry
 */
 
-/*! \var MaterialPtr     ManipulatorBase::_sfMaterialY
+/*! \var Material *      ManipulatorBase::_sfMaterialY
     material for the y-axis geometry
 */
 
-/*! \var MaterialPtr     ManipulatorBase::_sfMaterialZ
+/*! \var Material *      ManipulatorBase::_sfMaterialZ
     material for the z-axis geometry
 */
 
-/*! \var NodePtr         ManipulatorBase::_sfAxisLinesN
+/*! \var Node *          ManipulatorBase::_sfAxisLinesN
     
 */
 
@@ -414,7 +414,7 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\ttype=\"ViewportPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\theader=\"OSGViewport.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -1006,43 +1006,43 @@ void ManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 
 ManipulatorBase::ManipulatorBase(void) :
     Inherited(),
-    _sfTarget                 (NullFC),
-    _sfActiveSubHandle        (NullFC),
+    _sfTarget                 (NULL),
+    _sfActiveSubHandle        (NULL),
     _sfLastMousePos           (),
-    _sfViewport               (ViewportPtr(NullFC)),
+    _sfViewport               (NULL),
     _sfActive                 (),
     _sfLength                 (Vec3f(1,1,1)),
-    _sfHandleXNode            (NullFC),
-    _sfHandleYNode            (NullFC),
-    _sfHandleZNode            (NullFC),
-    _sfTransXNode             (NullFC),
-    _sfTransYNode             (NullFC),
-    _sfTransZNode             (NullFC),
-    _sfMaterialX              (NullFC),
-    _sfMaterialY              (NullFC),
-    _sfMaterialZ              (NullFC),
-    _sfAxisLinesN             (NullFC)
+    _sfHandleXNode            (NULL),
+    _sfHandleYNode            (NULL),
+    _sfHandleZNode            (NULL),
+    _sfTransXNode             (NULL),
+    _sfTransYNode             (NULL),
+    _sfTransZNode             (NULL),
+    _sfMaterialX              (NULL),
+    _sfMaterialY              (NULL),
+    _sfMaterialZ              (NULL),
+    _sfAxisLinesN             (NULL)
 {
 }
 
 ManipulatorBase::ManipulatorBase(const ManipulatorBase &source) :
     Inherited(source),
-    _sfTarget                 (NullFC),
-    _sfActiveSubHandle        (NullFC),
+    _sfTarget                 (NULL),
+    _sfActiveSubHandle        (NULL),
     _sfLastMousePos           (source._sfLastMousePos           ),
-    _sfViewport               (NullFC),
+    _sfViewport               (NULL),
     _sfActive                 (source._sfActive                 ),
     _sfLength                 (source._sfLength                 ),
-    _sfHandleXNode            (NullFC),
-    _sfHandleYNode            (NullFC),
-    _sfHandleZNode            (NullFC),
-    _sfTransXNode             (NullFC),
-    _sfTransYNode             (NullFC),
-    _sfTransZNode             (NullFC),
-    _sfMaterialX              (NullFC),
-    _sfMaterialY              (NullFC),
-    _sfMaterialZ              (NullFC),
-    _sfAxisLinesN             (NullFC)
+    _sfHandleXNode            (NULL),
+    _sfHandleYNode            (NULL),
+    _sfHandleZNode            (NULL),
+    _sfTransXNode             (NULL),
+    _sfTransYNode             (NULL),
+    _sfTransZNode             (NULL),
+    _sfMaterialX              (NULL),
+    _sfMaterialY              (NULL),
+    _sfMaterialZ              (NULL),
+    _sfAxisLinesN             (NULL)
 {
 }
 
@@ -1502,48 +1502,48 @@ void ManipulatorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<Manipulator *>(this)->setTarget(NullFC);
+    static_cast<Manipulator *>(this)->setTarget(NULL);
 
-    static_cast<Manipulator *>(this)->setActiveSubHandle(NullFC);
+    static_cast<Manipulator *>(this)->setActiveSubHandle(NULL);
 
-    static_cast<Manipulator *>(this)->setViewport(NullFC);
+    static_cast<Manipulator *>(this)->setViewport(NULL);
 
-    static_cast<Manipulator *>(this)->setHandleXNode(NullFC);
+    static_cast<Manipulator *>(this)->setHandleXNode(NULL);
 
-    static_cast<Manipulator *>(this)->setHandleYNode(NullFC);
+    static_cast<Manipulator *>(this)->setHandleYNode(NULL);
 
-    static_cast<Manipulator *>(this)->setHandleZNode(NullFC);
+    static_cast<Manipulator *>(this)->setHandleZNode(NULL);
 
-    static_cast<Manipulator *>(this)->setTransXNode(NullFC);
+    static_cast<Manipulator *>(this)->setTransXNode(NULL);
 
-    static_cast<Manipulator *>(this)->setTransYNode(NullFC);
+    static_cast<Manipulator *>(this)->setTransYNode(NULL);
 
-    static_cast<Manipulator *>(this)->setTransZNode(NullFC);
+    static_cast<Manipulator *>(this)->setTransZNode(NULL);
 
-    static_cast<Manipulator *>(this)->setMaterialX(NullFC);
+    static_cast<Manipulator *>(this)->setMaterialX(NULL);
 
-    static_cast<Manipulator *>(this)->setMaterialY(NullFC);
+    static_cast<Manipulator *>(this)->setMaterialY(NULL);
 
-    static_cast<Manipulator *>(this)->setMaterialZ(NullFC);
+    static_cast<Manipulator *>(this)->setMaterialZ(NULL);
 
-    static_cast<Manipulator *>(this)->setAxisLinesN(NullFC);
+    static_cast<Manipulator *>(this)->setAxisLinesN(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ManipulatorPtr>::_type("ManipulatorPtr", "TransformPtr");
+DataType FieldTraits<Manipulator *>::_type("ManipulatorPtr", "TransformPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ManipulatorPtr)
+OSG_FIELDTRAITS_GETTYPE(Manipulator *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ManipulatorPtr, 
+                           Manipulator *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ManipulatorPtr, 
+                           Manipulator *, 
                            0);
 
 OSG_END_NAMESPACE

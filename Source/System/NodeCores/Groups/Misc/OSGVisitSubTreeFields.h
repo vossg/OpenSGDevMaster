@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(VisitSubTree);
 #endif
 
 template <>
-struct FieldTraits<VisitSubTreePtr> :
-    public FieldTraitsFCPtrBase<VisitSubTreePtr>
+struct FieldTraits<VisitSubTree *> :
+    public FieldTraitsFCPtrBase<VisitSubTree *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<VisitSubTreePtr> :
 
   public:
 
-    typedef FieldTraits<VisitSubTreePtr>  Self;
+    typedef FieldTraits<VisitSubTree *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

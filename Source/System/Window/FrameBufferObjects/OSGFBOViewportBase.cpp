@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var FrameBufferObjectPtr FBOViewportBase::_sfFrameBufferObject
+/*! \var FrameBufferObject * FBOViewportBase::_sfFrameBufferObject
     FramebufferObject to write to.
 */
 
@@ -227,7 +227,7 @@ FBOViewportTransitPtr FBOViewportBase::create(void)
 {
     FBOViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -243,7 +243,7 @@ FBOViewportTransitPtr FBOViewportBase::createLocal(BitVector bFlags)
 {
     FBOViewportTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -255,9 +255,9 @@ FBOViewportTransitPtr FBOViewportBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FBOViewportPtr FBOViewportBase::createEmpty(void)
+FBOViewport *FBOViewportBase::createEmpty(void)
 {
-    FBOViewportPtr returnValue;
+    FBOViewport *returnValue;
 
     newPtr<FBOViewport>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -267,9 +267,9 @@ FBOViewportPtr FBOViewportBase::createEmpty(void)
     return returnValue;
 }
 
-FBOViewportPtr FBOViewportBase::createEmptyLocal(BitVector bFlags)
+FBOViewport *FBOViewportBase::createEmptyLocal(BitVector bFlags)
 {
-    FBOViewportPtr returnValue;
+    FBOViewport *returnValue;
 
     newPtr<FBOViewport>(returnValue, bFlags);
 
@@ -280,7 +280,7 @@ FBOViewportPtr FBOViewportBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr FBOViewportBase::shallowCopy(void) const
 {
-    FBOViewportPtr tmpPtr;
+    FBOViewport *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FBOViewport *>(this), 
@@ -296,7 +296,7 @@ FieldContainerTransitPtr FBOViewportBase::shallowCopy(void) const
 FieldContainerTransitPtr FBOViewportBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FBOViewportPtr tmpPtr;
+    FBOViewport *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FBOViewport *>(this), bFlags);
 
@@ -313,13 +313,13 @@ FieldContainerTransitPtr FBOViewportBase::shallowCopyLocal(
 
 FBOViewportBase::FBOViewportBase(void) :
     Inherited(),
-    _sfFrameBufferObject      (NullFC)
+    _sfFrameBufferObject      (NULL)
 {
 }
 
 FBOViewportBase::FBOViewportBase(const FBOViewportBase &source) :
     Inherited(source),
-    _sfFrameBufferObject      (NullFC)
+    _sfFrameBufferObject      (NULL)
 {
 }
 
@@ -385,9 +385,9 @@ void FBOViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FBOViewportBase::createAspectCopy(void) const
+FieldContainer *FBOViewportBase::createAspectCopy(void) const
 {
-    FBOViewportPtr returnValue;
+    FBOViewport *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FBOViewport *>(this));
@@ -400,24 +400,24 @@ void FBOViewportBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<FBOViewport *>(this)->setFrameBufferObject(NullFC);
+    static_cast<FBOViewport *>(this)->setFrameBufferObject(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FBOViewportPtr>::_type("FBOViewportPtr", "ViewportPtr");
+DataType FieldTraits<FBOViewport *>::_type("FBOViewportPtr", "ViewportPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FBOViewportPtr)
+OSG_FIELDTRAITS_GETTYPE(FBOViewport *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FBOViewportPtr, 
+                           FBOViewport *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FBOViewportPtr, 
+                           FBOViewport *, 
                            0);
 
 OSG_END_NAMESPACE

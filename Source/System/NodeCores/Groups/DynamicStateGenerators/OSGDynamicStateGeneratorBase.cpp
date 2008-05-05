@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var FrameBufferObjectPtr DynamicStateGeneratorBase::_sfRenderTarget
+/*! \var FrameBufferObject * DynamicStateGeneratorBase::_sfRenderTarget
     The FBO to target for rendering this subtree.
 */
 
@@ -140,7 +140,7 @@ DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
     "                type=\"FrameBufferObjectPtr\"\n"
     "                cardinality=\"single\"\n"
     "                visibility=\"external\"\n"
-    "                defaultValue=\"NullFC\"\n"
+    "                defaultValue=\"NULL\"\n"
     "                access=\"protected\"\n"
     "        >\n"
     "        The FBO to target for rendering this subtree.\n"
@@ -227,7 +227,7 @@ DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::create(void)
 {
     DynamicStateGeneratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -243,7 +243,7 @@ DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::createLocal(BitVector
 {
     DynamicStateGeneratorTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -255,9 +255,9 @@ DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::createLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DynamicStateGeneratorPtr DynamicStateGeneratorBase::createEmpty(void)
+DynamicStateGenerator *DynamicStateGeneratorBase::createEmpty(void)
 {
-    DynamicStateGeneratorPtr returnValue;
+    DynamicStateGenerator *returnValue;
 
     newPtr<DynamicStateGenerator>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -267,9 +267,9 @@ DynamicStateGeneratorPtr DynamicStateGeneratorBase::createEmpty(void)
     return returnValue;
 }
 
-DynamicStateGeneratorPtr DynamicStateGeneratorBase::createEmptyLocal(BitVector bFlags)
+DynamicStateGenerator *DynamicStateGeneratorBase::createEmptyLocal(BitVector bFlags)
 {
-    DynamicStateGeneratorPtr returnValue;
+    DynamicStateGenerator *returnValue;
 
     newPtr<DynamicStateGenerator>(returnValue, bFlags);
 
@@ -280,7 +280,7 @@ DynamicStateGeneratorPtr DynamicStateGeneratorBase::createEmptyLocal(BitVector b
 
 FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopy(void) const
 {
-    DynamicStateGeneratorPtr tmpPtr;
+    DynamicStateGenerator *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const DynamicStateGenerator *>(this), 
@@ -296,7 +296,7 @@ FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopy(void) const
 FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DynamicStateGeneratorPtr tmpPtr;
+    DynamicStateGenerator *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const DynamicStateGenerator *>(this), bFlags);
 
@@ -313,13 +313,13 @@ FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopyLocal(
 
 DynamicStateGeneratorBase::DynamicStateGeneratorBase(void) :
     Inherited(),
-    _sfRenderTarget           (FrameBufferObjectPtr(NullFC))
+    _sfRenderTarget           (NULL)
 {
 }
 
 DynamicStateGeneratorBase::DynamicStateGeneratorBase(const DynamicStateGeneratorBase &source) :
     Inherited(source),
-    _sfRenderTarget           (NullFC)
+    _sfRenderTarget           (NULL)
 {
 }
 
@@ -385,9 +385,9 @@ void DynamicStateGeneratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr DynamicStateGeneratorBase::createAspectCopy(void) const
+FieldContainer *DynamicStateGeneratorBase::createAspectCopy(void) const
 {
-    DynamicStateGeneratorPtr returnValue;
+    DynamicStateGenerator *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const DynamicStateGenerator *>(this));
@@ -400,24 +400,24 @@ void DynamicStateGeneratorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<DynamicStateGenerator *>(this)->setRenderTarget(NullFC);
+    static_cast<DynamicStateGenerator *>(this)->setRenderTarget(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DynamicStateGeneratorPtr>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr");
+DataType FieldTraits<DynamicStateGenerator *>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorPtr)
+OSG_FIELDTRAITS_GETTYPE(DynamicStateGenerator *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DynamicStateGeneratorPtr, 
+                           DynamicStateGenerator *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DynamicStateGeneratorPtr, 
+                           DynamicStateGenerator *, 
                            0);
 
 OSG_END_NAMESPACE

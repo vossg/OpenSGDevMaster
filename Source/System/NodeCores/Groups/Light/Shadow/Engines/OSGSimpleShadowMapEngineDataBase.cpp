@@ -88,31 +88,31 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var CameraPtr       SimpleShadowMapEngineDataBase::_sfCamera
+/*! \var Camera *        SimpleShadowMapEngineDataBase::_sfCamera
     
 */
 
-/*! \var TextureObjChunkPtr SimpleShadowMapEngineDataBase::_sfTexChunk
+/*! \var TextureObjChunk * SimpleShadowMapEngineDataBase::_sfTexChunk
     
 */
 
-/*! \var TextureBufferPtr SimpleShadowMapEngineDataBase::_sfTexBuffer
+/*! \var TextureBuffer * SimpleShadowMapEngineDataBase::_sfTexBuffer
     
 */
 
-/*! \var LightChunkPtr   SimpleShadowMapEngineDataBase::_sfLightChunk
+/*! \var LightChunk *    SimpleShadowMapEngineDataBase::_sfLightChunk
     
 */
 
-/*! \var BlendChunkPtr   SimpleShadowMapEngineDataBase::_sfBlendChunk
+/*! \var BlendChunk *    SimpleShadowMapEngineDataBase::_sfBlendChunk
     
 */
 
-/*! \var TexGenChunkPtr  SimpleShadowMapEngineDataBase::_sfTexGenChunk
+/*! \var TexGenChunk *   SimpleShadowMapEngineDataBase::_sfTexGenChunk
     
 */
 
-/*! \var PolygonChunkPtr SimpleShadowMapEngineDataBase::_sfPolyChunk
+/*! \var PolygonChunk *  SimpleShadowMapEngineDataBase::_sfPolyChunk
     
 */
 
@@ -240,7 +240,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\ttype=\"CameraPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -249,7 +249,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\ttype=\"TextureObjChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -258,7 +258,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\ttype=\"TextureBufferPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -267,7 +267,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\ttype=\"LightChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -276,7 +276,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\ttype=\"BlendChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -285,7 +285,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\ttype=\"TexGenChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -294,7 +294,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\ttype=\"PolygonChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -530,7 +530,7 @@ SimpleShadowMapEngineDataTransitPtr SimpleShadowMapEngineDataBase::create(void)
 {
     SimpleShadowMapEngineDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -546,7 +546,7 @@ SimpleShadowMapEngineDataTransitPtr SimpleShadowMapEngineDataBase::createLocal(B
 {
     SimpleShadowMapEngineDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -558,9 +558,9 @@ SimpleShadowMapEngineDataTransitPtr SimpleShadowMapEngineDataBase::createLocal(B
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleShadowMapEngineDataPtr SimpleShadowMapEngineDataBase::createEmpty(void)
+SimpleShadowMapEngineData *SimpleShadowMapEngineDataBase::createEmpty(void)
 {
-    SimpleShadowMapEngineDataPtr returnValue;
+    SimpleShadowMapEngineData *returnValue;
 
     newPtr<SimpleShadowMapEngineData>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -570,9 +570,9 @@ SimpleShadowMapEngineDataPtr SimpleShadowMapEngineDataBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleShadowMapEngineDataPtr SimpleShadowMapEngineDataBase::createEmptyLocal(BitVector bFlags)
+SimpleShadowMapEngineData *SimpleShadowMapEngineDataBase::createEmptyLocal(BitVector bFlags)
 {
-    SimpleShadowMapEngineDataPtr returnValue;
+    SimpleShadowMapEngineData *returnValue;
 
     newPtr<SimpleShadowMapEngineData>(returnValue, bFlags);
 
@@ -583,7 +583,7 @@ SimpleShadowMapEngineDataPtr SimpleShadowMapEngineDataBase::createEmptyLocal(Bit
 
 FieldContainerTransitPtr SimpleShadowMapEngineDataBase::shallowCopy(void) const
 {
-    SimpleShadowMapEngineDataPtr tmpPtr;
+    SimpleShadowMapEngineData *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SimpleShadowMapEngineData *>(this), 
@@ -599,7 +599,7 @@ FieldContainerTransitPtr SimpleShadowMapEngineDataBase::shallowCopy(void) const
 FieldContainerTransitPtr SimpleShadowMapEngineDataBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SimpleShadowMapEngineDataPtr tmpPtr;
+    SimpleShadowMapEngineData *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SimpleShadowMapEngineData *>(this), bFlags);
 
@@ -616,25 +616,25 @@ FieldContainerTransitPtr SimpleShadowMapEngineDataBase::shallowCopyLocal(
 
 SimpleShadowMapEngineDataBase::SimpleShadowMapEngineDataBase(void) :
     Inherited(),
-    _sfCamera                 (CameraPtr(NullFC)),
-    _sfTexChunk               (TextureObjChunkPtr(NullFC)),
-    _sfTexBuffer              (TextureBufferPtr(NullFC)),
-    _sfLightChunk             (LightChunkPtr(NullFC)),
-    _sfBlendChunk             (BlendChunkPtr(NullFC)),
-    _sfTexGenChunk            (TexGenChunkPtr(NullFC)),
-    _sfPolyChunk              (PolygonChunkPtr(NullFC))
+    _sfCamera                 (NULL),
+    _sfTexChunk               (NULL),
+    _sfTexBuffer              (NULL),
+    _sfLightChunk             (NULL),
+    _sfBlendChunk             (NULL),
+    _sfTexGenChunk            (NULL),
+    _sfPolyChunk              (NULL)
 {
 }
 
 SimpleShadowMapEngineDataBase::SimpleShadowMapEngineDataBase(const SimpleShadowMapEngineDataBase &source) :
     Inherited(source),
-    _sfCamera                 (NullFC),
-    _sfTexChunk               (NullFC),
-    _sfTexBuffer              (NullFC),
-    _sfLightChunk             (NullFC),
-    _sfBlendChunk             (NullFC),
-    _sfTexGenChunk            (NullFC),
-    _sfPolyChunk              (NullFC)
+    _sfCamera                 (NULL),
+    _sfTexChunk               (NULL),
+    _sfTexBuffer              (NULL),
+    _sfLightChunk             (NULL),
+    _sfBlendChunk             (NULL),
+    _sfTexGenChunk            (NULL),
+    _sfPolyChunk              (NULL)
 {
 }
 
@@ -862,9 +862,9 @@ void SimpleShadowMapEngineDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SimpleShadowMapEngineDataBase::createAspectCopy(void) const
+FieldContainer *SimpleShadowMapEngineDataBase::createAspectCopy(void) const
 {
-    SimpleShadowMapEngineDataPtr returnValue;
+    SimpleShadowMapEngineData *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SimpleShadowMapEngineData *>(this));
@@ -877,26 +877,26 @@ void SimpleShadowMapEngineDataBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<SimpleShadowMapEngineData *>(this)->setCamera(NullFC);
+    static_cast<SimpleShadowMapEngineData *>(this)->setCamera(NULL);
 
-    static_cast<SimpleShadowMapEngineData *>(this)->setTexChunk(NullFC);
+    static_cast<SimpleShadowMapEngineData *>(this)->setTexChunk(NULL);
 
-    static_cast<SimpleShadowMapEngineData *>(this)->setTexBuffer(NullFC);
+    static_cast<SimpleShadowMapEngineData *>(this)->setTexBuffer(NULL);
 
-    static_cast<SimpleShadowMapEngineData *>(this)->setLightChunk(NullFC);
+    static_cast<SimpleShadowMapEngineData *>(this)->setLightChunk(NULL);
 
-    static_cast<SimpleShadowMapEngineData *>(this)->setBlendChunk(NullFC);
+    static_cast<SimpleShadowMapEngineData *>(this)->setBlendChunk(NULL);
 
-    static_cast<SimpleShadowMapEngineData *>(this)->setTexGenChunk(NullFC);
+    static_cast<SimpleShadowMapEngineData *>(this)->setTexGenChunk(NULL);
 
-    static_cast<SimpleShadowMapEngineData *>(this)->setPolyChunk(NullFC);
+    static_cast<SimpleShadowMapEngineData *>(this)->setPolyChunk(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleShadowMapEngineDataPtr>::_type("SimpleShadowMapEngineDataPtr", "StageDataPtr");
+DataType FieldTraits<SimpleShadowMapEngineData *>::_type("SimpleShadowMapEngineDataPtr", "StageDataPtr");
 #endif
 
 

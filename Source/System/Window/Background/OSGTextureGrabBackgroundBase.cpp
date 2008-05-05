@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var TextureObjChunkPtr TextureGrabBackgroundBase::_sfTexture
+/*! \var TextureObjChunk * TextureGrabBackgroundBase::_sfTexture
     The texture to grab into.
 */
 
@@ -413,7 +413,7 @@ TextureGrabBackgroundTransitPtr TextureGrabBackgroundBase::create(void)
 {
     TextureGrabBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -429,7 +429,7 @@ TextureGrabBackgroundTransitPtr TextureGrabBackgroundBase::createLocal(BitVector
 {
     TextureGrabBackgroundTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -441,9 +441,9 @@ TextureGrabBackgroundTransitPtr TextureGrabBackgroundBase::createLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmpty(void)
+TextureGrabBackground *TextureGrabBackgroundBase::createEmpty(void)
 {
-    TextureGrabBackgroundPtr returnValue;
+    TextureGrabBackground *returnValue;
 
     newPtr<TextureGrabBackground>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -453,9 +453,9 @@ TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmptyLocal(BitVector bFlags)
+TextureGrabBackground *TextureGrabBackgroundBase::createEmptyLocal(BitVector bFlags)
 {
-    TextureGrabBackgroundPtr returnValue;
+    TextureGrabBackground *returnValue;
 
     newPtr<TextureGrabBackground>(returnValue, bFlags);
 
@@ -466,7 +466,7 @@ TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmptyLocal(BitVector b
 
 FieldContainerTransitPtr TextureGrabBackgroundBase::shallowCopy(void) const
 {
-    TextureGrabBackgroundPtr tmpPtr;
+    TextureGrabBackground *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TextureGrabBackground *>(this), 
@@ -482,7 +482,7 @@ FieldContainerTransitPtr TextureGrabBackgroundBase::shallowCopy(void) const
 FieldContainerTransitPtr TextureGrabBackgroundBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TextureGrabBackgroundPtr tmpPtr;
+    TextureGrabBackground *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TextureGrabBackground *>(this), bFlags);
 
@@ -499,7 +499,7 @@ FieldContainerTransitPtr TextureGrabBackgroundBase::shallowCopyLocal(
 
 TextureGrabBackgroundBase::TextureGrabBackgroundBase(void) :
     Inherited(),
-    _sfTexture                (NullFC),
+    _sfTexture                (NULL),
     _sfAutoResize             (bool(true)),
     _sfBindTarget             (GLenum(GL_NONE)),
     _sfCopyTarget             (GLenum(GL_NONE))
@@ -508,7 +508,7 @@ TextureGrabBackgroundBase::TextureGrabBackgroundBase(void) :
 
 TextureGrabBackgroundBase::TextureGrabBackgroundBase(const TextureGrabBackgroundBase &source) :
     Inherited(source),
-    _sfTexture                (NullFC),
+    _sfTexture                (NULL),
     _sfAutoResize             (source._sfAutoResize             ),
     _sfBindTarget             (source._sfBindTarget             ),
     _sfCopyTarget             (source._sfCopyTarget             )
@@ -643,9 +643,9 @@ void TextureGrabBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TextureGrabBackgroundBase::createAspectCopy(void) const
+FieldContainer *TextureGrabBackgroundBase::createAspectCopy(void) const
 {
-    TextureGrabBackgroundPtr returnValue;
+    TextureGrabBackground *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TextureGrabBackground *>(this));
@@ -658,14 +658,14 @@ void TextureGrabBackgroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<TextureGrabBackground *>(this)->setTexture(NullFC);
+    static_cast<TextureGrabBackground *>(this)->setTexture(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureGrabBackgroundPtr>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr");
+DataType FieldTraits<TextureGrabBackground *>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr");
 #endif
 
 

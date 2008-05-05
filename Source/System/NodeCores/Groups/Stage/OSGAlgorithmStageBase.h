@@ -159,7 +159,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
             const SFMatrix            *getSFProjectionMatrix (void) const;
 
 
-                  AlgorithmPtr getAlgorithm      (void) const;
+                  Algorithm * getAlgorithm      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getProjectionMode  (void);
@@ -184,7 +184,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setAlgorithm      (const AlgorithmPtr value);
+            void setAlgorithm      (Algorithm * const value);
             void setProjectionMode (const UInt32 &value);
             void setCopyViewing    (const bool &value);
             void setProjectionMatrix(const Matrix &value);
@@ -216,13 +216,13 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AlgorithmStageTransitPtr create          (void);
-    static  AlgorithmStagePtr        createEmpty     (void);
+    static  AlgorithmStageTransitPtr  create          (void);
+    static  AlgorithmStage           *createEmpty     (void);
 
-    static  AlgorithmStageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  AlgorithmStageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  AlgorithmStagePtr        createEmptyLocal(
+    static  AlgorithmStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -319,7 +319,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

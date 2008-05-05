@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Switch);
 #endif
 
 template <>
-struct FieldTraits<SwitchPtr> :
-    public FieldTraitsFCPtrBase<SwitchPtr>
+struct FieldTraits<Switch *> :
+    public FieldTraitsFCPtrBase<Switch *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SwitchPtr> :
 
   public:
 
-    typedef FieldTraits<SwitchPtr>  Self;
+    typedef FieldTraits<Switch *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<SwitchPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSwitchPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SwitchPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Switch *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSwitchPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<SwitchPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef PointerSField<SwitchPtr,
+typedef PointerSField<Switch *,
                       RecordedRefCountPolicy  > SFRecSwitchPtr;
-typedef PointerSField<SwitchPtr,
+typedef PointerSField<Switch *,
                       UnrecordedRefCountPolicy> SFUnrecSwitchPtr;
-typedef PointerSField<SwitchPtr,
+typedef PointerSField<Switch *,
                       WeakRefCountPolicy      > SFWeakSwitchPtr;
-typedef PointerSField<SwitchPtr,
+typedef PointerSField<Switch *,
                       NoRefCountPolicy        > SFUncountedSwitchPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<SwitchPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef PointerMField<SwitchPtr,
+typedef PointerMField<Switch *,
                       RecordedRefCountPolicy  > MFRecSwitchPtr;
-typedef PointerMField<SwitchPtr,
+typedef PointerMField<Switch *,
                       UnrecordedRefCountPolicy> MFUnrecSwitchPtr;
-typedef PointerMField<SwitchPtr,
+typedef PointerMField<Switch *,
                       WeakRefCountPolicy      > MFWeakSwitchPtr;
-typedef PointerMField<SwitchPtr,
+typedef PointerMField<Switch *,
                       NoRefCountPolicy        > MFUncountedSwitchPtr;
 #endif
 

@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        QuadTreeTerrainBase::_sfHeightData
+/*! \var Image *         QuadTreeTerrainBase::_sfHeightData
     Terrain height as image.
 */
 
@@ -119,7 +119,7 @@ OSG_BEGIN_NAMESPACE
     Spacing to horizontal and vertical neighbour vertices.
 */
 
-/*! \var GeoVectorPropertyPtr QuadTreeTerrainBase::_sfHeightVertices
+/*! \var GeoVectorProperty * QuadTreeTerrainBase::_sfHeightVertices
     Precomputed terrain vertices.
 */
 
@@ -1521,7 +1521,7 @@ QuadTreeTerrainTransitPtr QuadTreeTerrainBase::create(void)
 {
     QuadTreeTerrainTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -1537,7 +1537,7 @@ QuadTreeTerrainTransitPtr QuadTreeTerrainBase::createLocal(BitVector bFlags)
 {
     QuadTreeTerrainTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -1549,9 +1549,9 @@ QuadTreeTerrainTransitPtr QuadTreeTerrainBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-QuadTreeTerrainPtr QuadTreeTerrainBase::createEmpty(void)
+QuadTreeTerrain *QuadTreeTerrainBase::createEmpty(void)
 {
-    QuadTreeTerrainPtr returnValue;
+    QuadTreeTerrain *returnValue;
 
     newPtr<QuadTreeTerrain>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -1561,9 +1561,9 @@ QuadTreeTerrainPtr QuadTreeTerrainBase::createEmpty(void)
     return returnValue;
 }
 
-QuadTreeTerrainPtr QuadTreeTerrainBase::createEmptyLocal(BitVector bFlags)
+QuadTreeTerrain *QuadTreeTerrainBase::createEmptyLocal(BitVector bFlags)
 {
-    QuadTreeTerrainPtr returnValue;
+    QuadTreeTerrain *returnValue;
 
     newPtr<QuadTreeTerrain>(returnValue, bFlags);
 
@@ -1574,7 +1574,7 @@ QuadTreeTerrainPtr QuadTreeTerrainBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopy(void) const
 {
-    QuadTreeTerrainPtr tmpPtr;
+    QuadTreeTerrain *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const QuadTreeTerrain *>(this), 
@@ -1590,7 +1590,7 @@ FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopy(void) const
 FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    QuadTreeTerrainPtr tmpPtr;
+    QuadTreeTerrain *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const QuadTreeTerrain *>(this), bFlags);
 
@@ -1607,7 +1607,7 @@ FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopyLocal(
 
 QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
     Inherited(),
-    _sfHeightData             (NullFC),
+    _sfHeightData             (NULL),
     _sfHeightScale            (Real32(1.0f)),
     _mfHeightError            (),
     _mfHeightQuad             (),
@@ -1616,7 +1616,7 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
     _sfDetail                 (Real32(22.0f)),
     _sfBorderDetail           (Int32(0)),
     _sfVertexSpacing          (Real32(0.1f)),
-    _sfHeightVertices         (NullFC),
+    _sfHeightVertices         (NULL),
     _sfGeoMorphing            (bool(false)),
     _sfBoundMin               (),
     _sfBoundMax               (),
@@ -1636,7 +1636,7 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
 
 QuadTreeTerrainBase::QuadTreeTerrainBase(const QuadTreeTerrainBase &source) :
     Inherited(source),
-    _sfHeightData             (NullFC),
+    _sfHeightData             (NULL),
     _sfHeightScale            (source._sfHeightScale            ),
     _mfHeightError            (source._mfHeightError            ),
     _mfHeightQuad             (source._mfHeightQuad             ),
@@ -1645,7 +1645,7 @@ QuadTreeTerrainBase::QuadTreeTerrainBase(const QuadTreeTerrainBase &source) :
     _sfDetail                 (source._sfDetail                 ),
     _sfBorderDetail           (source._sfBorderDetail           ),
     _sfVertexSpacing          (source._sfVertexSpacing          ),
-    _sfHeightVertices         (NullFC),
+    _sfHeightVertices         (NULL),
     _sfGeoMorphing            (source._sfGeoMorphing            ),
     _sfBoundMin               (source._sfBoundMin               ),
     _sfBoundMax               (source._sfBoundMax               ),
@@ -2236,9 +2236,9 @@ void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr QuadTreeTerrainBase::createAspectCopy(void) const
+FieldContainer *QuadTreeTerrainBase::createAspectCopy(void) const
 {
-    QuadTreeTerrainPtr returnValue;
+    QuadTreeTerrain *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const QuadTreeTerrain *>(this));
@@ -2251,9 +2251,9 @@ void QuadTreeTerrainBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<QuadTreeTerrain *>(this)->setHeightData(NullFC);
+    static_cast<QuadTreeTerrain *>(this)->setHeightData(NULL);
 
-    static_cast<QuadTreeTerrain *>(this)->setHeightVertices(NullFC);
+    static_cast<QuadTreeTerrain *>(this)->setHeightVertices(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -2273,17 +2273,17 @@ void QuadTreeTerrainBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QuadTreeTerrainPtr>::_type("QuadTreeTerrainPtr", "GeometryPtr");
+DataType FieldTraits<QuadTreeTerrain *>::_type("QuadTreeTerrainPtr", "GeometryPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrainPtr)
+OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrain *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           QuadTreeTerrainPtr, 
+                           QuadTreeTerrain *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           QuadTreeTerrainPtr, 
+                           QuadTreeTerrain *, 
                            0);
 
 OSG_END_NAMESPACE

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TextureGrabForeground);
 #endif
 
 template <>
-struct FieldTraits<TextureGrabForegroundPtr> :
-    public FieldTraitsFCPtrBase<TextureGrabForegroundPtr>
+struct FieldTraits<TextureGrabForeground *> :
+    public FieldTraitsFCPtrBase<TextureGrabForeground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TextureGrabForegroundPtr> :
 
   public:
 
-    typedef FieldTraits<TextureGrabForegroundPtr>  Self;
+    typedef FieldTraits<TextureGrabForeground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

@@ -205,17 +205,17 @@ void AlgorithmBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AlgorithmPtr>::_type("AlgorithmPtr", "FieldContainerPtr");
+DataType FieldTraits<Algorithm *>::_type("AlgorithmPtr", "FieldContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AlgorithmPtr)
+OSG_FIELDTRAITS_GETTYPE(Algorithm *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           AlgorithmPtr, 
+                           Algorithm *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           AlgorithmPtr, 
+                           Algorithm *, 
                            0);
 
 OSG_END_NAMESPACE

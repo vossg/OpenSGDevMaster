@@ -289,7 +289,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
                   Real                &editQuadraticAttenuation(void);
             const Real                 getQuadraticAttenuation (void) const;
 
-                  NodePtr getBeacon         (void) const;
+                  Node * getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -306,7 +306,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
             void setConstantAttenuation(const Real &value);
             void setLinearAttenuation(const Real &value);
             void setQuadraticAttenuation(const Real &value);
-            void setBeacon         (const NodePtr value);
+            void setBeacon         (Node * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -335,13 +335,13 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  LightChunkTransitPtr create          (void);
-    static  LightChunkPtr        createEmpty     (void);
+    static  LightChunkTransitPtr  create          (void);
+    static  LightChunk           *createEmpty     (void);
 
-    static  LightChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  LightChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  LightChunkPtr        createEmptyLocal(
+    static  LightChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -459,7 +459,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

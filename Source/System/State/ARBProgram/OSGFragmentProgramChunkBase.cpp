@@ -173,7 +173,7 @@ FragmentProgramChunkTransitPtr FragmentProgramChunkBase::create(void)
 {
     FragmentProgramChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -189,7 +189,7 @@ FragmentProgramChunkTransitPtr FragmentProgramChunkBase::createLocal(BitVector b
 {
     FragmentProgramChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -201,9 +201,9 @@ FragmentProgramChunkTransitPtr FragmentProgramChunkBase::createLocal(BitVector b
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FragmentProgramChunkPtr FragmentProgramChunkBase::createEmpty(void)
+FragmentProgramChunk *FragmentProgramChunkBase::createEmpty(void)
 {
-    FragmentProgramChunkPtr returnValue;
+    FragmentProgramChunk *returnValue;
 
     newPtr<FragmentProgramChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -213,9 +213,9 @@ FragmentProgramChunkPtr FragmentProgramChunkBase::createEmpty(void)
     return returnValue;
 }
 
-FragmentProgramChunkPtr FragmentProgramChunkBase::createEmptyLocal(BitVector bFlags)
+FragmentProgramChunk *FragmentProgramChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    FragmentProgramChunkPtr returnValue;
+    FragmentProgramChunk *returnValue;
 
     newPtr<FragmentProgramChunk>(returnValue, bFlags);
 
@@ -226,7 +226,7 @@ FragmentProgramChunkPtr FragmentProgramChunkBase::createEmptyLocal(BitVector bFl
 
 FieldContainerTransitPtr FragmentProgramChunkBase::shallowCopy(void) const
 {
-    FragmentProgramChunkPtr tmpPtr;
+    FragmentProgramChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FragmentProgramChunk *>(this), 
@@ -242,7 +242,7 @@ FieldContainerTransitPtr FragmentProgramChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr FragmentProgramChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FragmentProgramChunkPtr tmpPtr;
+    FragmentProgramChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FragmentProgramChunk *>(this), bFlags);
 
@@ -293,9 +293,9 @@ void FragmentProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FragmentProgramChunkBase::createAspectCopy(void) const
+FieldContainer *FragmentProgramChunkBase::createAspectCopy(void) const
 {
-    FragmentProgramChunkPtr returnValue;
+    FragmentProgramChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FragmentProgramChunk *>(this));
@@ -313,17 +313,17 @@ void FragmentProgramChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FragmentProgramChunkPtr>::_type("FragmentProgramChunkPtr", "ProgramChunkPtr");
+DataType FieldTraits<FragmentProgramChunk *>::_type("FragmentProgramChunkPtr", "ProgramChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FragmentProgramChunkPtr, 
+                           FragmentProgramChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FragmentProgramChunkPtr, 
+                           FragmentProgramChunk *, 
                            0);
 
 OSG_END_NAMESPACE

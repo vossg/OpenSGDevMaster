@@ -97,23 +97,23 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ImagePtr        CubeTextureChunkBase::_sfPosZImage
+/*! \var Image *         CubeTextureChunkBase::_sfPosZImage
     The image for the positive Z direction for the cube tetxure.
 */
 
-/*! \var ImagePtr        CubeTextureChunkBase::_sfPosXImage
+/*! \var Image *         CubeTextureChunkBase::_sfPosXImage
     The image for the positive X direction for the cube tetxure.
 */
 
-/*! \var ImagePtr        CubeTextureChunkBase::_sfNegXImage
+/*! \var Image *         CubeTextureChunkBase::_sfNegXImage
     The image for the negative X direction for the cube tetxure.
 */
 
-/*! \var ImagePtr        CubeTextureChunkBase::_sfPosYImage
+/*! \var Image *         CubeTextureChunkBase::_sfPosYImage
     The image for the positive Y direction for the cube tetxure.
 */
 
-/*! \var ImagePtr        CubeTextureChunkBase::_sfNegYImage
+/*! \var Image *         CubeTextureChunkBase::_sfNegYImage
     The image for the negative Y direction for the cube tetxure.
 */
 
@@ -514,7 +514,7 @@ CubeTextureChunkTransitPtr CubeTextureChunkBase::create(void)
 {
     CubeTextureChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -530,7 +530,7 @@ CubeTextureChunkTransitPtr CubeTextureChunkBase::createLocal(BitVector bFlags)
 {
     CubeTextureChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -542,9 +542,9 @@ CubeTextureChunkTransitPtr CubeTextureChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CubeTextureChunkPtr CubeTextureChunkBase::createEmpty(void)
+CubeTextureChunk *CubeTextureChunkBase::createEmpty(void)
 {
-    CubeTextureChunkPtr returnValue;
+    CubeTextureChunk *returnValue;
 
     newPtr<CubeTextureChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -554,9 +554,9 @@ CubeTextureChunkPtr CubeTextureChunkBase::createEmpty(void)
     return returnValue;
 }
 
-CubeTextureChunkPtr CubeTextureChunkBase::createEmptyLocal(BitVector bFlags)
+CubeTextureChunk *CubeTextureChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    CubeTextureChunkPtr returnValue;
+    CubeTextureChunk *returnValue;
 
     newPtr<CubeTextureChunk>(returnValue, bFlags);
 
@@ -567,7 +567,7 @@ CubeTextureChunkPtr CubeTextureChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr CubeTextureChunkBase::shallowCopy(void) const
 {
-    CubeTextureChunkPtr tmpPtr;
+    CubeTextureChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const CubeTextureChunk *>(this), 
@@ -583,7 +583,7 @@ FieldContainerTransitPtr CubeTextureChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr CubeTextureChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CubeTextureChunkPtr tmpPtr;
+    CubeTextureChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const CubeTextureChunk *>(this), bFlags);
 
@@ -600,22 +600,22 @@ FieldContainerTransitPtr CubeTextureChunkBase::shallowCopyLocal(
 
 CubeTextureChunkBase::CubeTextureChunkBase(void) :
     Inherited(),
-    _sfPosZImage              (NullFC),
-    _sfPosXImage              (NullFC),
-    _sfNegXImage              (NullFC),
-    _sfPosYImage              (NullFC),
-    _sfNegYImage              (NullFC),
+    _sfPosZImage              (NULL),
+    _sfPosXImage              (NULL),
+    _sfNegXImage              (NULL),
+    _sfPosYImage              (NULL),
+    _sfNegYImage              (NULL),
     _sfIsReflectionMap        (bool(true))
 {
 }
 
 CubeTextureChunkBase::CubeTextureChunkBase(const CubeTextureChunkBase &source) :
     Inherited(source),
-    _sfPosZImage              (NullFC),
-    _sfPosXImage              (NullFC),
-    _sfNegXImage              (NullFC),
-    _sfPosYImage              (NullFC),
-    _sfNegYImage              (NullFC),
+    _sfPosZImage              (NULL),
+    _sfPosXImage              (NULL),
+    _sfNegXImage              (NULL),
+    _sfPosYImage              (NULL),
+    _sfNegYImage              (NULL),
     _sfIsReflectionMap        (source._sfIsReflectionMap        )
 {
 }
@@ -812,9 +812,9 @@ void CubeTextureChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CubeTextureChunkBase::createAspectCopy(void) const
+FieldContainer *CubeTextureChunkBase::createAspectCopy(void) const
 {
-    CubeTextureChunkPtr returnValue;
+    CubeTextureChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CubeTextureChunk *>(this));
@@ -827,32 +827,32 @@ void CubeTextureChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<CubeTextureChunk *>(this)->setPosZImage(NullFC);
+    static_cast<CubeTextureChunk *>(this)->setPosZImage(NULL);
 
-    static_cast<CubeTextureChunk *>(this)->setPosXImage(NullFC);
+    static_cast<CubeTextureChunk *>(this)->setPosXImage(NULL);
 
-    static_cast<CubeTextureChunk *>(this)->setNegXImage(NullFC);
+    static_cast<CubeTextureChunk *>(this)->setNegXImage(NULL);
 
-    static_cast<CubeTextureChunk *>(this)->setPosYImage(NullFC);
+    static_cast<CubeTextureChunk *>(this)->setPosYImage(NULL);
 
-    static_cast<CubeTextureChunk *>(this)->setNegYImage(NullFC);
+    static_cast<CubeTextureChunk *>(this)->setNegYImage(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeTextureChunkPtr>::_type("CubeTextureChunkPtr", "TextureChunkPtr");
+DataType FieldTraits<CubeTextureChunk *>::_type("CubeTextureChunkPtr", "TextureChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CubeTextureChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(CubeTextureChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CubeTextureChunkPtr, 
+                           CubeTextureChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CubeTextureChunkPtr, 
+                           CubeTextureChunk *, 
                            0);
 
 OSG_END_NAMESPACE

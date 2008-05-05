@@ -168,13 +168,13 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CarbonWindowTransitPtr create          (void);
-    static  CarbonWindowPtr        createEmpty     (void);
+    static  CarbonWindowTransitPtr  create          (void);
+    static  CarbonWindow           *createEmpty     (void);
 
-    static  CarbonWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  CarbonWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  CarbonWindowPtr        createEmptyLocal(
+    static  CarbonWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

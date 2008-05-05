@@ -160,7 +160,7 @@ LightEnvTransitPtr LightEnvBase::create(void)
 {
     LightEnvTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -176,7 +176,7 @@ LightEnvTransitPtr LightEnvBase::createLocal(BitVector bFlags)
 {
     LightEnvTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -188,9 +188,9 @@ LightEnvTransitPtr LightEnvBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-LightEnvPtr LightEnvBase::createEmpty(void)
+LightEnv *LightEnvBase::createEmpty(void)
 {
-    LightEnvPtr returnValue;
+    LightEnv *returnValue;
 
     newPtr<LightEnv>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -200,9 +200,9 @@ LightEnvPtr LightEnvBase::createEmpty(void)
     return returnValue;
 }
 
-LightEnvPtr LightEnvBase::createEmptyLocal(BitVector bFlags)
+LightEnv *LightEnvBase::createEmptyLocal(BitVector bFlags)
 {
-    LightEnvPtr returnValue;
+    LightEnv *returnValue;
 
     newPtr<LightEnv>(returnValue, bFlags);
 
@@ -213,7 +213,7 @@ LightEnvPtr LightEnvBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr LightEnvBase::shallowCopy(void) const
 {
-    LightEnvPtr tmpPtr;
+    LightEnv *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const LightEnv *>(this), 
@@ -229,7 +229,7 @@ FieldContainerTransitPtr LightEnvBase::shallowCopy(void) const
 FieldContainerTransitPtr LightEnvBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    LightEnvPtr tmpPtr;
+    LightEnv *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const LightEnv *>(this), bFlags);
 
@@ -280,9 +280,9 @@ void LightEnvBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr LightEnvBase::createAspectCopy(void) const
+FieldContainer *LightEnvBase::createAspectCopy(void) const
 {
-    LightEnvPtr returnValue;
+    LightEnv *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const LightEnv *>(this));
@@ -300,7 +300,7 @@ void LightEnvBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightEnvPtr>::_type("LightEnvPtr", "NodeCorePtr");
+DataType FieldTraits<LightEnv *>::_type("LightEnvPtr", "NodeCorePtr");
 #endif
 
 

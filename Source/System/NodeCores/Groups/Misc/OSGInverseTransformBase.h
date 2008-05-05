@@ -126,13 +126,13 @@ class OSG_GROUP_DLLMAPPING InverseTransformBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  InverseTransformTransitPtr create          (void);
-    static  InverseTransformPtr        createEmpty     (void);
+    static  InverseTransformTransitPtr  create          (void);
+    static  InverseTransform           *createEmpty     (void);
 
-    static  InverseTransformTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  InverseTransformTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  InverseTransformPtr        createEmptyLocal(
+    static  InverseTransform            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_GROUP_DLLMAPPING InverseTransformBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

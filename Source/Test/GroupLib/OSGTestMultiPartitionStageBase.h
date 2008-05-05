@@ -219,13 +219,13 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TestMultiPartitionStageTransitPtr create          (void);
-    static  TestMultiPartitionStagePtr        createEmpty     (void);
+    static  TestMultiPartitionStageTransitPtr  create          (void);
+    static  TestMultiPartitionStage           *createEmpty     (void);
 
-    static  TestMultiPartitionStageTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TestMultiPartitionStageTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TestMultiPartitionStagePtr        createEmptyLocal(
+    static  TestMultiPartitionStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -321,7 +321,7 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

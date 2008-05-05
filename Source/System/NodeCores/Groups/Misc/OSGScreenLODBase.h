@@ -168,13 +168,13 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ScreenLODTransitPtr create          (void);
-    static  ScreenLODPtr        createEmpty     (void);
+    static  ScreenLODTransitPtr  create          (void);
+    static  ScreenLOD           *createEmpty     (void);
 
-    static  ScreenLODTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ScreenLODTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ScreenLODPtr        createEmptyLocal(
+    static  ScreenLOD            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

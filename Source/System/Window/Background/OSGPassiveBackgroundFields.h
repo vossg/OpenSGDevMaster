@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(PassiveBackground);
 #endif
 
 template <>
-struct FieldTraits<PassiveBackgroundPtr> :
-    public FieldTraitsFCPtrBase<PassiveBackgroundPtr>
+struct FieldTraits<PassiveBackground *> :
+    public FieldTraitsFCPtrBase<PassiveBackground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<PassiveBackgroundPtr> :
 
   public:
 
-    typedef FieldTraits<PassiveBackgroundPtr>  Self;
+    typedef FieldTraits<PassiveBackground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -103,25 +103,25 @@ struct FieldTraits<PassiveBackgroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPassiveBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPassiveBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPassiveBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPassiveBackgroundPtr"; 
 }
@@ -139,13 +139,13 @@ const Char8 *FieldTraits<PassiveBackgroundPtr, 0>::getSName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<PassiveBackgroundPtr,
+typedef PointerSField<PassiveBackground *,
                       RecordedRefCountPolicy  > SFRecPassiveBackgroundPtr;
-typedef PointerSField<PassiveBackgroundPtr,
+typedef PointerSField<PassiveBackground *,
                       UnrecordedRefCountPolicy> SFUnrecPassiveBackgroundPtr;
-typedef PointerSField<PassiveBackgroundPtr,
+typedef PointerSField<PassiveBackground *,
                       WeakRefCountPolicy      > SFWeakPassiveBackgroundPtr;
-typedef PointerSField<PassiveBackgroundPtr,
+typedef PointerSField<PassiveBackground *,
                       NoRefCountPolicy        > SFUncountedPassiveBackgroundPtr;
 #endif
 

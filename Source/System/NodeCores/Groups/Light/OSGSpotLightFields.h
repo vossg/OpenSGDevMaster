@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SpotLight);
 #endif
 
 template <>
-struct FieldTraits<SpotLightPtr> :
-    public FieldTraitsFCPtrBase<SpotLightPtr>
+struct FieldTraits<SpotLight *> :
+    public FieldTraitsFCPtrBase<SpotLight *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SpotLightPtr> :
 
   public:
 
-    typedef FieldTraits<SpotLightPtr>  Self;
+    typedef FieldTraits<SpotLight *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

@@ -338,7 +338,7 @@ BinarySwapComposerTransitPtr BinarySwapComposerBase::create(void)
 {
     BinarySwapComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -354,7 +354,7 @@ BinarySwapComposerTransitPtr BinarySwapComposerBase::createLocal(BitVector bFlag
 {
     BinarySwapComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -366,9 +366,9 @@ BinarySwapComposerTransitPtr BinarySwapComposerBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-BinarySwapComposerPtr BinarySwapComposerBase::createEmpty(void)
+BinarySwapComposer *BinarySwapComposerBase::createEmpty(void)
 {
-    BinarySwapComposerPtr returnValue;
+    BinarySwapComposer *returnValue;
 
     newPtr<BinarySwapComposer>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -378,9 +378,9 @@ BinarySwapComposerPtr BinarySwapComposerBase::createEmpty(void)
     return returnValue;
 }
 
-BinarySwapComposerPtr BinarySwapComposerBase::createEmptyLocal(BitVector bFlags)
+BinarySwapComposer *BinarySwapComposerBase::createEmptyLocal(BitVector bFlags)
 {
-    BinarySwapComposerPtr returnValue;
+    BinarySwapComposer *returnValue;
 
     newPtr<BinarySwapComposer>(returnValue, bFlags);
 
@@ -391,7 +391,7 @@ BinarySwapComposerPtr BinarySwapComposerBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr BinarySwapComposerBase::shallowCopy(void) const
 {
-    BinarySwapComposerPtr tmpPtr;
+    BinarySwapComposer *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const BinarySwapComposer *>(this), 
@@ -407,7 +407,7 @@ FieldContainerTransitPtr BinarySwapComposerBase::shallowCopy(void) const
 FieldContainerTransitPtr BinarySwapComposerBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    BinarySwapComposerPtr tmpPtr;
+    BinarySwapComposer *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const BinarySwapComposer *>(this), bFlags);
 
@@ -530,9 +530,9 @@ void BinarySwapComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr BinarySwapComposerBase::createAspectCopy(void) const
+FieldContainer *BinarySwapComposerBase::createAspectCopy(void) const
 {
-    BinarySwapComposerPtr returnValue;
+    BinarySwapComposer *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const BinarySwapComposer *>(this));
@@ -550,7 +550,7 @@ void BinarySwapComposerBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BinarySwapComposerPtr>::_type("BinarySwapComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<BinarySwapComposer *>::_type("BinarySwapComposerPtr", "ImageComposerPtr");
 #endif
 
 

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(DirectionalLight);
 #endif
 
 template <>
-struct FieldTraits<DirectionalLightPtr> :
-    public FieldTraitsFCPtrBase<DirectionalLightPtr>
+struct FieldTraits<DirectionalLight *> :
+    public FieldTraitsFCPtrBase<DirectionalLight *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<DirectionalLightPtr> :
 
   public:
 
-    typedef FieldTraits<DirectionalLightPtr>  Self;
+    typedef FieldTraits<DirectionalLight *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

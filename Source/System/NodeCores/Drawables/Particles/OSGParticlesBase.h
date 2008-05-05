@@ -237,7 +237,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
                   UInt32              &editMode           (void);
             const UInt32               getMode            (void) const;
 
-                  GeoVectorPropertyPtr getPositions      (void) const;
+                  GeoVectorProperty * getPositions      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3f               &getSizes           (const UInt32 index);
@@ -246,11 +246,11 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
                   Vec3f               &editSizes          (const UInt32 index);
             const Vec3f                getSizes           (const UInt32 index) const;
 
-                  GeoVectorPropertyPtr getSecPositions   (void) const;
+                  GeoVectorProperty * getSecPositions   (void) const;
 
-                  GeoVectorPropertyPtr getColors         (void) const;
+                  GeoVectorProperty * getColors         (void) const;
 
-                  GeoVectorPropertyPtr getNormals        (void) const;
+                  GeoVectorProperty * getNormals        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getIndices         (const UInt32 index);
@@ -296,10 +296,10 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
             void setMode           (const UInt32 &value);
-            void setPositions      (const GeoVectorPropertyPtr value);
-            void setSecPositions   (const GeoVectorPropertyPtr value);
-            void setColors         (const GeoVectorPropertyPtr value);
-            void setNormals        (const GeoVectorPropertyPtr value);
+            void setPositions      (GeoVectorProperty * const value);
+            void setSecPositions   (GeoVectorProperty * const value);
+            void setColors         (GeoVectorProperty * const value);
+            void setNormals        (GeoVectorProperty * const value);
             void setDrawOrder      (const UInt32 &value);
             void setDynamic        (const bool &value);
             void setBsp            (const ParticleBSPTree &value);
@@ -332,13 +332,13 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ParticlesTransitPtr create          (void);
-    static  ParticlesPtr        createEmpty     (void);
+    static  ParticlesTransitPtr  create          (void);
+    static  Particles           *createEmpty     (void);
 
-    static  ParticlesTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ParticlesTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ParticlesPtr        createEmptyLocal(
+    static  Particles            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -404,8 +404,8 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name Child linking                                                */
     /*! \{                                                                 */
     
-    virtual bool unlinkChild(const FieldContainerPtr pChild,
-                             const UInt16            childFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -469,7 +469,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -390,17 +390,17 @@ void StereoCameraDecoratorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StereoCameraDecoratorPtr>::_type("StereoCameraDecoratorPtr", "CameraDecoratorPtr");
+DataType FieldTraits<StereoCameraDecorator *>::_type("StereoCameraDecoratorPtr", "CameraDecoratorPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(StereoCameraDecoratorPtr)
+OSG_FIELDTRAITS_GETTYPE(StereoCameraDecorator *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StereoCameraDecoratorPtr, 
+                           StereoCameraDecorator *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StereoCameraDecoratorPtr, 
+                           StereoCameraDecorator *, 
                            0);
 
 OSG_END_NAMESPACE

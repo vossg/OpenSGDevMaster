@@ -583,17 +583,17 @@ void ProgramChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProgramChunkPtr>::_type("ProgramChunkPtr", "StateChunkPtr");
+DataType FieldTraits<ProgramChunk *>::_type("ProgramChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ProgramChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(ProgramChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ProgramChunkPtr, 
+                           ProgramChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ProgramChunkPtr, 
+                           ProgramChunk *, 
                            0);
 
 OSG_END_NAMESPACE

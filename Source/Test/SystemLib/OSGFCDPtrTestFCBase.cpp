@@ -113,131 +113,131 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPub_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPub_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPub_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPub_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPub_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPub_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPro_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPro_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPro_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPro_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPro_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPro_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPri_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPri_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPri_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPri_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFPri_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPri_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFNo_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFNo_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFNo_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFNo_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_sfFieldSFNo_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFNo_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPub_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPub_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPub_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPub_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPub_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPub_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPro_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPro_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPro_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPro_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPro_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPro_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPri_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPri_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPri_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPri_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFPri_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFPri_mpchildptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFNo_ptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFNo_ptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFNo_weakptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFNo_weakptr
     
 */
 
-/*! \var FCDTestFCPtr    FCDPtrTestFCBase::_mfFieldMFNo_mpchildptr
+/*! \var FCDTestFC *     FCDPtrTestFCBase::_mfFieldMFNo_mpchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_sfFieldSFPub_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_sfFieldSFPub_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_sfFieldSFPro_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_sfFieldSFPro_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_sfFieldSFPri_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_sfFieldSFPri_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_sfFieldSFNo_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_sfFieldSFNo_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_mfFieldMFPub_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_mfFieldMFPub_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_mfFieldMFPro_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_mfFieldMFPro_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_mfFieldMFPri_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_mfFieldMFPri_spchildptr
     
 */
 
-/*! \var FCDSParTestFCPtr FCDPtrTestFCBase::_mfFieldMFNo_spchildptr
+/*! \var FCDSParTestFC * FCDPtrTestFCBase::_mfFieldMFNo_spchildptr
     
 */
 
@@ -1415,7 +1415,7 @@ MFUnrecChildFCDSParTestFCPtr *FCDPtrTestFCBase::editMFFieldMFPri_spchildptr(void
 
 
 
-void FCDPtrTestFCBase::pushToFieldMFPub_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPub_ptr(FCDTestFC * const value)
 {
     editMField(FieldMFPub_ptrFieldMask, _mfFieldMFPub_ptr);
 
@@ -1453,7 +1453,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_ptr.findIndex(value);
 
@@ -1476,7 +1476,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_ptr(void)
     _mfFieldMFPub_ptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPub_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPub_weakptr(FCDTestFC * const value)
 {
     editMField(FieldMFPub_weakptrFieldMask, _mfFieldMFPub_weakptr);
 
@@ -1514,7 +1514,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_weakptr.findIndex(value);
 
@@ -1537,7 +1537,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_weakptr(void)
     _mfFieldMFPub_weakptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPub_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPub_mpchildptr(FCDTestFC * const value)
 {
     editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
 
@@ -1575,7 +1575,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_mpchildptr.findIndex(value);
 
@@ -1598,7 +1598,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_mpchildptr(void)
     _mfFieldMFPub_mpchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPro_ptr(FCDTestFC * const value)
 {
     editMField(FieldMFPro_ptrFieldMask, _mfFieldMFPro_ptr);
 
@@ -1636,7 +1636,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_ptr.findIndex(value);
 
@@ -1659,7 +1659,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_ptr(void)
     _mfFieldMFPro_ptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPro_weakptr(FCDTestFC * const value)
 {
     editMField(FieldMFPro_weakptrFieldMask, _mfFieldMFPro_weakptr);
 
@@ -1697,7 +1697,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_weakptr.findIndex(value);
 
@@ -1720,7 +1720,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_weakptr(void)
     _mfFieldMFPro_weakptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPro_mpchildptr(FCDTestFC * const value)
 {
     editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
 
@@ -1758,7 +1758,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_mpchildptr.findIndex(value);
 
@@ -1781,7 +1781,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_mpchildptr(void)
     _mfFieldMFPro_mpchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPri_ptr(FCDTestFC * const value)
 {
     editMField(FieldMFPri_ptrFieldMask, _mfFieldMFPri_ptr);
 
@@ -1819,7 +1819,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_ptr.findIndex(value);
 
@@ -1842,7 +1842,7 @@ void FCDPtrTestFCBase::clearFieldMFPri_ptr(void)
     _mfFieldMFPri_ptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPri_weakptr(FCDTestFC * const value)
 {
     editMField(FieldMFPri_weakptrFieldMask, _mfFieldMFPri_weakptr);
 
@@ -1880,7 +1880,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_weakptr.findIndex(value);
 
@@ -1903,7 +1903,7 @@ void FCDPtrTestFCBase::clearFieldMFPri_weakptr(void)
     _mfFieldMFPri_weakptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPri_mpchildptr(FCDTestFC * const value)
 {
     editMField(FieldMFPri_mpchildptrFieldMask, _mfFieldMFPri_mpchildptr);
 
@@ -1941,7 +1941,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_mpchildptr(const FCDTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_mpchildptr.findIndex(value);
 
@@ -1964,7 +1964,7 @@ void FCDPtrTestFCBase::clearFieldMFPri_mpchildptr(void)
     _mfFieldMFPri_mpchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPub_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPub_spchildptr(FCDSParTestFC * const value)
 {
     editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
 
@@ -2002,7 +2002,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_spchildptr.findIndex(value);
 
@@ -2025,7 +2025,7 @@ void FCDPtrTestFCBase::clearFieldMFPub_spchildptr(void)
     _mfFieldMFPub_spchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPro_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPro_spchildptr(FCDSParTestFC * const value)
 {
     editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
 
@@ -2063,7 +2063,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_spchildptr.findIndex(value);
 
@@ -2086,7 +2086,7 @@ void FCDPtrTestFCBase::clearFieldMFPro_spchildptr(void)
     _mfFieldMFPro_spchildptr.clear();
 }
 
-void FCDPtrTestFCBase::pushToFieldMFPri_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCBase::pushToFieldMFPri_spchildptr(FCDSParTestFC * const value)
 {
     editMField(FieldMFPri_spchildptrFieldMask, _mfFieldMFPri_spchildptr);
 
@@ -2124,7 +2124,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPri_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPri_spchildptr(const FCDSParTestFCPtr value)
+void FCDPtrTestFCBase::removeFromFieldMFPri_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPri_spchildptr.findIndex(value);
 
@@ -2562,7 +2562,7 @@ FCDPtrTestFCTransitPtr FCDPtrTestFCBase::create(void)
 {
     FCDPtrTestFCTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -2578,7 +2578,7 @@ FCDPtrTestFCTransitPtr FCDPtrTestFCBase::createLocal(BitVector bFlags)
 {
     FCDPtrTestFCTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -2590,9 +2590,9 @@ FCDPtrTestFCTransitPtr FCDPtrTestFCBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FCDPtrTestFCPtr FCDPtrTestFCBase::createEmpty(void)
+FCDPtrTestFC *FCDPtrTestFCBase::createEmpty(void)
 {
-    FCDPtrTestFCPtr returnValue;
+    FCDPtrTestFC *returnValue;
 
     newPtr<FCDPtrTestFC>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -2602,9 +2602,9 @@ FCDPtrTestFCPtr FCDPtrTestFCBase::createEmpty(void)
     return returnValue;
 }
 
-FCDPtrTestFCPtr FCDPtrTestFCBase::createEmptyLocal(BitVector bFlags)
+FCDPtrTestFC *FCDPtrTestFCBase::createEmptyLocal(BitVector bFlags)
 {
-    FCDPtrTestFCPtr returnValue;
+    FCDPtrTestFC *returnValue;
 
     newPtr<FCDPtrTestFC>(returnValue, bFlags);
 
@@ -2615,7 +2615,7 @@ FCDPtrTestFCPtr FCDPtrTestFCBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr FCDPtrTestFCBase::shallowCopy(void) const
 {
-    FCDPtrTestFCPtr tmpPtr;
+    FCDPtrTestFC *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FCDPtrTestFC *>(this), 
@@ -2631,7 +2631,7 @@ FieldContainerTransitPtr FCDPtrTestFCBase::shallowCopy(void) const
 FieldContainerTransitPtr FCDPtrTestFCBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FCDPtrTestFCPtr tmpPtr;
+    FCDPtrTestFC *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FCDPtrTestFC *>(this), bFlags);
 
@@ -2648,23 +2648,23 @@ FieldContainerTransitPtr FCDPtrTestFCBase::shallowCopyLocal(
 
 FCDPtrTestFCBase::FCDPtrTestFCBase(void) :
     Inherited(),
-    _sfFieldSFPub_ptr         (NullFC),
-    _sfFieldSFPub_weakptr     (NullFC),
+    _sfFieldSFPub_ptr         (NULL),
+    _sfFieldSFPub_weakptr     (NULL),
     _sfFieldSFPub_mpchildptr  (this, 
                           FieldSFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPro_ptr         (NullFC),
-    _sfFieldSFPro_weakptr     (NullFC),
+    _sfFieldSFPro_ptr         (NULL),
+    _sfFieldSFPro_weakptr     (NULL),
     _sfFieldSFPro_mpchildptr  (this, 
                           FieldSFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPri_ptr         (NullFC),
-    _sfFieldSFPri_weakptr     (NullFC),
+    _sfFieldSFPri_ptr         (NULL),
+    _sfFieldSFPri_weakptr     (NULL),
     _sfFieldSFPri_mpchildptr  (this, 
                           FieldSFPri_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFNo_ptr          (NullFC),
-    _sfFieldSFNo_weakptr      (NullFC),
+    _sfFieldSFNo_ptr          (NULL),
+    _sfFieldSFNo_weakptr      (NULL),
     _sfFieldSFNo_mpchildptr   (this, 
                           FieldSFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
@@ -2717,23 +2717,23 @@ FCDPtrTestFCBase::FCDPtrTestFCBase(void) :
 
 FCDPtrTestFCBase::FCDPtrTestFCBase(const FCDPtrTestFCBase &source) :
     Inherited(source),
-    _sfFieldSFPub_ptr         (NullFC),
-    _sfFieldSFPub_weakptr     (NullFC),
+    _sfFieldSFPub_ptr         (NULL),
+    _sfFieldSFPub_weakptr     (NULL),
     _sfFieldSFPub_mpchildptr  (this, 
                           FieldSFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPro_ptr         (NullFC),
-    _sfFieldSFPro_weakptr     (NullFC),
+    _sfFieldSFPro_ptr         (NULL),
+    _sfFieldSFPro_weakptr     (NULL),
     _sfFieldSFPro_mpchildptr  (this, 
                           FieldSFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPri_ptr         (NullFC),
-    _sfFieldSFPri_weakptr     (NullFC),
+    _sfFieldSFPri_ptr         (NULL),
+    _sfFieldSFPri_weakptr     (NULL),
     _sfFieldSFPri_mpchildptr  (this, 
                           FieldSFPri_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFNo_ptr          (NullFC),
-    _sfFieldSFNo_weakptr      (NullFC),
+    _sfFieldSFNo_ptr          (NULL),
+    _sfFieldSFNo_weakptr      (NULL),
     _sfFieldSFNo_mpchildptr   (this, 
                           FieldSFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
@@ -2795,21 +2795,21 @@ FCDPtrTestFCBase::~FCDPtrTestFCBase(void)
 /* Child linking                                                           */
 
 bool FCDPtrTestFCBase::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     if(childFieldId == FieldSFPub_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPub_mpchildptr.getValue())
             {
                 editSField(FieldSFPub_mpchildptrFieldMask);
 
-                _sfFieldSFPub_mpchildptr.setValue(NullFC);
+                _sfFieldSFPub_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -2825,16 +2825,16 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldSFPro_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPro_mpchildptr.getValue())
             {
                 editSField(FieldSFPro_mpchildptrFieldMask);
 
-                _sfFieldSFPro_mpchildptr.setValue(NullFC);
+                _sfFieldSFPro_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -2850,16 +2850,16 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldSFPri_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPri_mpchildptr.getValue())
             {
                 editSField(FieldSFPri_mpchildptrFieldMask);
 
-                _sfFieldSFPri_mpchildptr.setValue(NullFC);
+                _sfFieldSFPri_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -2875,16 +2875,16 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldSFNo_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFNo_mpchildptr.getValue())
             {
                 editSField(FieldSFNo_mpchildptrFieldMask);
 
-                _sfFieldSFNo_mpchildptr.setValue(NullFC);
+                _sfFieldSFNo_mpchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -2900,10 +2900,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFPub_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPub_mpchildptr.find_nc(pTypedChild);
@@ -2928,10 +2928,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFPro_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPro_mpchildptr.find_nc(pTypedChild);
@@ -2956,10 +2956,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFPri_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPri_mpchildptr.find_nc(pTypedChild);
@@ -2984,10 +2984,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFNo_mpchildptrFieldId)
     {
-        FCDTestFCPtr pTypedChild =
-            dynamic_cast<FCDTestFCPtr>(pChild);
+        FCDTestFC * pTypedChild =
+            dynamic_cast<FCDTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFNo_mpchildptr.find_nc(pTypedChild);
@@ -3012,16 +3012,16 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldSFPub_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPub_spchildptr.getValue())
             {
                 editSField(FieldSFPub_spchildptrFieldMask);
 
-                _sfFieldSFPub_spchildptr.setValue(NullFC);
+                _sfFieldSFPub_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3037,16 +3037,16 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldSFPro_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPro_spchildptr.getValue())
             {
                 editSField(FieldSFPro_spchildptrFieldMask);
 
-                _sfFieldSFPro_spchildptr.setValue(NullFC);
+                _sfFieldSFPro_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3062,16 +3062,16 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldSFPri_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPri_spchildptr.getValue())
             {
                 editSField(FieldSFPri_spchildptrFieldMask);
 
-                _sfFieldSFPri_spchildptr.setValue(NullFC);
+                _sfFieldSFPri_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3087,16 +3087,16 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldSFNo_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFNo_spchildptr.getValue())
             {
                 editSField(FieldSFNo_spchildptrFieldMask);
 
-                _sfFieldSFNo_spchildptr.setValue(NullFC);
+                _sfFieldSFNo_spchildptr.setValue(NULL);
                 
                 return true;
             }
@@ -3112,10 +3112,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFPub_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPub_spchildptr.find_nc(pTypedChild);
@@ -3140,10 +3140,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFPro_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPro_spchildptr.find_nc(pTypedChild);
@@ -3168,10 +3168,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFPri_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPri_spchildptr.find_nc(pTypedChild);
@@ -3196,10 +3196,10 @@ bool FCDPtrTestFCBase::unlinkChild(
     
     if(childFieldId == FieldMFNo_spchildptrFieldId)
     {
-        FCDSParTestFCPtr pTypedChild =
-            dynamic_cast<FCDSParTestFCPtr>(pChild);
+        FCDSParTestFC * pTypedChild =
+            dynamic_cast<FCDSParTestFC *>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFNo_spchildptr.find_nc(pTypedChild);
@@ -4134,9 +4134,9 @@ void FCDPtrTestFCBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FCDPtrTestFCBase::createAspectCopy(void) const
+FieldContainer *FCDPtrTestFCBase::createAspectCopy(void) const
 {
-    FCDPtrTestFCPtr returnValue;
+    FCDPtrTestFC *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FCDPtrTestFC *>(this));
@@ -4149,29 +4149,29 @@ void FCDPtrTestFCBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_ptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_ptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_weakptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_weakptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_mpchildptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_mpchildptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_ptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_ptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_weakptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_weakptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_mpchildptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_mpchildptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_ptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_ptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_weakptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_weakptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_mpchildptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_mpchildptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_spchildptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPub_spchildptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_spchildptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPro_spchildptr(NULL);
 
-    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_spchildptr(NullFC);
+    static_cast<FCDPtrTestFC *>(this)->setFieldSFPri_spchildptr(NULL);
 
 
     static_cast<FCDPtrTestFC *>(this)->clearFieldMFPub_ptr();
@@ -4190,17 +4190,17 @@ void FCDPtrTestFCBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDPtrTestFCPtr>::_type("FCDPtrTestFCPtr", "NodeCorePtr");
+DataType FieldTraits<FCDPtrTestFC *>::_type("FCDPtrTestFCPtr", "NodeCorePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFCPtr)
+OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFC *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FCDPtrTestFCPtr, 
+                           FCDPtrTestFC *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FCDPtrTestFCPtr, 
+                           FCDPtrTestFC *, 
                            0);
 
 OSG_END_NAMESPACE

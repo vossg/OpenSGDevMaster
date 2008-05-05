@@ -109,14 +109,14 @@ void SkyBackgroundBase::setSphereRes(const UInt32 &value)
 
 //! Get the value of the SkyBackground::_sfBackTexture field.
 inline
-TextureBaseChunkPtr SkyBackgroundBase::getBackTexture(void) const
+TextureBaseChunk * SkyBackgroundBase::getBackTexture(void) const
 {
     return _sfBackTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfBackTexture field.
 inline
-void SkyBackgroundBase::setBackTexture(const TextureBaseChunkPtr value)
+void SkyBackgroundBase::setBackTexture(TextureBaseChunk * const value)
 {
     editSField(BackTextureFieldMask);
 
@@ -125,14 +125,14 @@ void SkyBackgroundBase::setBackTexture(const TextureBaseChunkPtr value)
 
 //! Get the value of the SkyBackground::_sfBottomTexture field.
 inline
-TextureBaseChunkPtr SkyBackgroundBase::getBottomTexture(void) const
+TextureBaseChunk * SkyBackgroundBase::getBottomTexture(void) const
 {
     return _sfBottomTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfBottomTexture field.
 inline
-void SkyBackgroundBase::setBottomTexture(const TextureBaseChunkPtr value)
+void SkyBackgroundBase::setBottomTexture(TextureBaseChunk * const value)
 {
     editSField(BottomTextureFieldMask);
 
@@ -141,14 +141,14 @@ void SkyBackgroundBase::setBottomTexture(const TextureBaseChunkPtr value)
 
 //! Get the value of the SkyBackground::_sfFrontTexture field.
 inline
-TextureBaseChunkPtr SkyBackgroundBase::getFrontTexture(void) const
+TextureBaseChunk * SkyBackgroundBase::getFrontTexture(void) const
 {
     return _sfFrontTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfFrontTexture field.
 inline
-void SkyBackgroundBase::setFrontTexture(const TextureBaseChunkPtr value)
+void SkyBackgroundBase::setFrontTexture(TextureBaseChunk * const value)
 {
     editSField(FrontTextureFieldMask);
 
@@ -157,14 +157,14 @@ void SkyBackgroundBase::setFrontTexture(const TextureBaseChunkPtr value)
 
 //! Get the value of the SkyBackground::_sfLeftTexture field.
 inline
-TextureBaseChunkPtr SkyBackgroundBase::getLeftTexture(void) const
+TextureBaseChunk * SkyBackgroundBase::getLeftTexture(void) const
 {
     return _sfLeftTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfLeftTexture field.
 inline
-void SkyBackgroundBase::setLeftTexture(const TextureBaseChunkPtr value)
+void SkyBackgroundBase::setLeftTexture(TextureBaseChunk * const value)
 {
     editSField(LeftTextureFieldMask);
 
@@ -173,14 +173,14 @@ void SkyBackgroundBase::setLeftTexture(const TextureBaseChunkPtr value)
 
 //! Get the value of the SkyBackground::_sfRightTexture field.
 inline
-TextureBaseChunkPtr SkyBackgroundBase::getRightTexture(void) const
+TextureBaseChunk * SkyBackgroundBase::getRightTexture(void) const
 {
     return _sfRightTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfRightTexture field.
 inline
-void SkyBackgroundBase::setRightTexture(const TextureBaseChunkPtr value)
+void SkyBackgroundBase::setRightTexture(TextureBaseChunk * const value)
 {
     editSField(RightTextureFieldMask);
 
@@ -189,14 +189,14 @@ void SkyBackgroundBase::setRightTexture(const TextureBaseChunkPtr value)
 
 //! Get the value of the SkyBackground::_sfTopTexture field.
 inline
-TextureBaseChunkPtr SkyBackgroundBase::getTopTexture(void) const
+TextureBaseChunk * SkyBackgroundBase::getTopTexture(void) const
 {
     return _sfTopTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfTopTexture field.
 inline
-void SkyBackgroundBase::setTopTexture(const TextureBaseChunkPtr value)
+void SkyBackgroundBase::setTopTexture(TextureBaseChunk * const value)
 {
     editSField(TopTextureFieldMask);
 
@@ -238,14 +238,14 @@ void SkyBackgroundBase::setBoxInside(const bool &value)
 
 //! Get the value of the SkyBackground::_sfBeacon field.
 inline
-NodePtr SkyBackgroundBase::getBeacon(void) const
+Node * SkyBackgroundBase::getBeacon(void) const
 {
     return _sfBeacon.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfBeacon field.
 inline
-void SkyBackgroundBase::setBeacon(const NodePtr value)
+void SkyBackgroundBase::setBeacon(Node * const value)
 {
     editSField(BeaconFieldMask);
 

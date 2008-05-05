@@ -455,17 +455,17 @@ void ShaderChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderChunkPtr>::_type("ShaderChunkPtr", "ShaderParameterChunkPtr");
+DataType FieldTraits<ShaderChunk *>::_type("ShaderChunkPtr", "ShaderParameterChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShaderChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(ShaderChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderChunkPtr, 
+                           ShaderChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderChunkPtr, 
+                           ShaderChunk *, 
                            0);
 
 OSG_END_NAMESPACE

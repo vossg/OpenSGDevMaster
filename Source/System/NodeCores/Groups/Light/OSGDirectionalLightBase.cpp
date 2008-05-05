@@ -228,7 +228,7 @@ DirectionalLightTransitPtr DirectionalLightBase::create(void)
 {
     DirectionalLightTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -244,7 +244,7 @@ DirectionalLightTransitPtr DirectionalLightBase::createLocal(BitVector bFlags)
 {
     DirectionalLightTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -256,9 +256,9 @@ DirectionalLightTransitPtr DirectionalLightBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DirectionalLightPtr DirectionalLightBase::createEmpty(void)
+DirectionalLight *DirectionalLightBase::createEmpty(void)
 {
-    DirectionalLightPtr returnValue;
+    DirectionalLight *returnValue;
 
     newPtr<DirectionalLight>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -268,9 +268,9 @@ DirectionalLightPtr DirectionalLightBase::createEmpty(void)
     return returnValue;
 }
 
-DirectionalLightPtr DirectionalLightBase::createEmptyLocal(BitVector bFlags)
+DirectionalLight *DirectionalLightBase::createEmptyLocal(BitVector bFlags)
 {
-    DirectionalLightPtr returnValue;
+    DirectionalLight *returnValue;
 
     newPtr<DirectionalLight>(returnValue, bFlags);
 
@@ -281,7 +281,7 @@ DirectionalLightPtr DirectionalLightBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr DirectionalLightBase::shallowCopy(void) const
 {
-    DirectionalLightPtr tmpPtr;
+    DirectionalLight *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const DirectionalLight *>(this), 
@@ -297,7 +297,7 @@ FieldContainerTransitPtr DirectionalLightBase::shallowCopy(void) const
 FieldContainerTransitPtr DirectionalLightBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DirectionalLightPtr tmpPtr;
+    DirectionalLight *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const DirectionalLight *>(this), bFlags);
 
@@ -372,9 +372,9 @@ void DirectionalLightBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr DirectionalLightBase::createAspectCopy(void) const
+FieldContainer *DirectionalLightBase::createAspectCopy(void) const
 {
-    DirectionalLightPtr returnValue;
+    DirectionalLight *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const DirectionalLight *>(this));
@@ -392,7 +392,7 @@ void DirectionalLightBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DirectionalLightPtr>::_type("DirectionalLightPtr", "LightPtr");
+DataType FieldTraits<DirectionalLight *>::_type("DirectionalLightPtr", "LightPtr");
 #endif
 
 

@@ -185,13 +185,13 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RenderBufferTransitPtr create          (void);
-    static  RenderBufferPtr        createEmpty     (void);
+    static  RenderBufferTransitPtr  create          (void);
+    static  RenderBuffer           *createEmpty     (void);
 
-    static  RenderBufferTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  RenderBufferTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  RenderBufferPtr        createEmptyLocal(
+    static  RenderBuffer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

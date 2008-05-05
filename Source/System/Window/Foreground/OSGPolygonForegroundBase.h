@@ -209,7 +209,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
             const SFBool              *getSFTile            (void) const;
 
 
-                  MaterialPtr getMaterial       (void) const;
+                  Material * getMaterial       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getPositions       (const UInt32 index);
@@ -266,7 +266,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaterial       (const MaterialPtr value);
+            void setMaterial       (Material * const value);
             void setNormalizedX    (const bool &value);
             void setNormalizedY    (const bool &value);
             void setAspectHeight   (const UInt16 &value);
@@ -301,13 +301,13 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonForegroundTransitPtr create          (void);
-    static  PolygonForegroundPtr        createEmpty     (void);
+    static  PolygonForegroundTransitPtr  create          (void);
+    static  PolygonForeground           *createEmpty     (void);
 
-    static  PolygonForegroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  PolygonForegroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  PolygonForegroundPtr        createEmptyLocal(
+    static  PolygonForeground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -419,7 +419,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

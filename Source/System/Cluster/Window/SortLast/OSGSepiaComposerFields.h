@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(SepiaComposer);
 #endif
 
 template <>
-struct FieldTraits<SepiaComposerPtr> :
-    public FieldTraitsFCPtrBase<SepiaComposerPtr>
+struct FieldTraits<SepiaComposer *> :
+    public FieldTraitsFCPtrBase<SepiaComposer *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<SepiaComposerPtr> :
 
   public:
 
-    typedef FieldTraits<SepiaComposerPtr>  Self;
+    typedef FieldTraits<SepiaComposer *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

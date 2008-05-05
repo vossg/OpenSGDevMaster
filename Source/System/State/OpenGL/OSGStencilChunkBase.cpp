@@ -653,7 +653,7 @@ StencilChunkTransitPtr StencilChunkBase::create(void)
 {
     StencilChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -669,7 +669,7 @@ StencilChunkTransitPtr StencilChunkBase::createLocal(BitVector bFlags)
 {
     StencilChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -681,9 +681,9 @@ StencilChunkTransitPtr StencilChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StencilChunkPtr StencilChunkBase::createEmpty(void)
+StencilChunk *StencilChunkBase::createEmpty(void)
 {
-    StencilChunkPtr returnValue;
+    StencilChunk *returnValue;
 
     newPtr<StencilChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -693,9 +693,9 @@ StencilChunkPtr StencilChunkBase::createEmpty(void)
     return returnValue;
 }
 
-StencilChunkPtr StencilChunkBase::createEmptyLocal(BitVector bFlags)
+StencilChunk *StencilChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    StencilChunkPtr returnValue;
+    StencilChunk *returnValue;
 
     newPtr<StencilChunk>(returnValue, bFlags);
 
@@ -706,7 +706,7 @@ StencilChunkPtr StencilChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr StencilChunkBase::shallowCopy(void) const
 {
-    StencilChunkPtr tmpPtr;
+    StencilChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const StencilChunk *>(this), 
@@ -722,7 +722,7 @@ FieldContainerTransitPtr StencilChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr StencilChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    StencilChunkPtr tmpPtr;
+    StencilChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const StencilChunk *>(this), bFlags);
 
@@ -965,9 +965,9 @@ void StencilChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr StencilChunkBase::createAspectCopy(void) const
+FieldContainer *StencilChunkBase::createAspectCopy(void) const
 {
-    StencilChunkPtr returnValue;
+    StencilChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const StencilChunk *>(this));
@@ -985,7 +985,7 @@ void StencilChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StencilChunkPtr>::_type("StencilChunkPtr", "StateChunkPtr");
+DataType FieldTraits<StencilChunk *>::_type("StencilChunkPtr", "StateChunkPtr");
 #endif
 
 

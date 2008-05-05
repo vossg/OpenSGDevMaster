@@ -387,7 +387,7 @@ DistanceLODTransitPtr DistanceLODBase::create(void)
 {
     DistanceLODTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -403,7 +403,7 @@ DistanceLODTransitPtr DistanceLODBase::createLocal(BitVector bFlags)
 {
     DistanceLODTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -415,9 +415,9 @@ DistanceLODTransitPtr DistanceLODBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DistanceLODPtr DistanceLODBase::createEmpty(void)
+DistanceLOD *DistanceLODBase::createEmpty(void)
 {
-    DistanceLODPtr returnValue;
+    DistanceLOD *returnValue;
 
     newPtr<DistanceLOD>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -427,9 +427,9 @@ DistanceLODPtr DistanceLODBase::createEmpty(void)
     return returnValue;
 }
 
-DistanceLODPtr DistanceLODBase::createEmptyLocal(BitVector bFlags)
+DistanceLOD *DistanceLODBase::createEmptyLocal(BitVector bFlags)
 {
-    DistanceLODPtr returnValue;
+    DistanceLOD *returnValue;
 
     newPtr<DistanceLOD>(returnValue, bFlags);
 
@@ -440,7 +440,7 @@ DistanceLODPtr DistanceLODBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr DistanceLODBase::shallowCopy(void) const
 {
-    DistanceLODPtr tmpPtr;
+    DistanceLOD *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const DistanceLOD *>(this), 
@@ -456,7 +456,7 @@ FieldContainerTransitPtr DistanceLODBase::shallowCopy(void) const
 FieldContainerTransitPtr DistanceLODBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DistanceLODPtr tmpPtr;
+    DistanceLOD *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const DistanceLOD *>(this), bFlags);
 
@@ -555,9 +555,9 @@ void DistanceLODBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr DistanceLODBase::createAspectCopy(void) const
+FieldContainer *DistanceLODBase::createAspectCopy(void) const
 {
-    DistanceLODPtr returnValue;
+    DistanceLOD *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const DistanceLOD *>(this));
@@ -584,7 +584,7 @@ void DistanceLODBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DistanceLODPtr>::_type("DistanceLODPtr", "GroupPtr");
+DataType FieldTraits<DistanceLOD *>::_type("DistanceLODPtr", "GroupPtr");
 #endif
 
 

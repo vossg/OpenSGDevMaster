@@ -101,7 +101,7 @@ OSG_BEGIN_NAMESPACE
     The light's specular color.
 */
 
-/*! \var NodePtr         LightBase::_sfBeacon
+/*! \var Node *          LightBase::_sfBeacon
     
 */
 
@@ -121,7 +121,7 @@ OSG_BEGIN_NAMESPACE
     The light's quadratic attenuation.
 */
 
-/*! \var LightEnginePtr  LightBase::_sfLightEngine
+/*! \var LightEngine *   LightBase::_sfLightEngine
     
 */
 
@@ -693,12 +693,12 @@ LightBase::LightBase(void) :
     _sfAmbient                (Color4r(0.f,0.f,0.f,1.f)),
     _sfDiffuse                (Color4r(1.f,1.f,1.f,1.f)),
     _sfSpecular               (Color4r(1.f,1.f,1.f,1.f)),
-    _sfBeacon                 (NullFC),
+    _sfBeacon                 (NULL),
     _sfOn                     (bool(true)),
     _sfConstantAttenuation    (Real(1.f)),
     _sfLinearAttenuation      (Real(0.f)),
     _sfQuadraticAttenuation   (Real(0.f)),
-    _sfLightEngine            (NullFC)
+    _sfLightEngine            (NULL)
 {
 }
 
@@ -707,12 +707,12 @@ LightBase::LightBase(const LightBase &source) :
     _sfAmbient                (source._sfAmbient                ),
     _sfDiffuse                (source._sfDiffuse                ),
     _sfSpecular               (source._sfSpecular               ),
-    _sfBeacon                 (NullFC),
+    _sfBeacon                 (NULL),
     _sfOn                     (source._sfOn                     ),
     _sfConstantAttenuation    (source._sfConstantAttenuation    ),
     _sfLinearAttenuation      (source._sfLinearAttenuation      ),
     _sfQuadraticAttenuation   (source._sfQuadraticAttenuation   ),
-    _sfLightEngine            (NullFC)
+    _sfLightEngine            (NULL)
 {
 }
 
@@ -963,16 +963,16 @@ void LightBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<Light *>(this)->setBeacon(NullFC);
+    static_cast<Light *>(this)->setBeacon(NULL);
 
-    static_cast<Light *>(this)->setLightEngine(NullFC);
+    static_cast<Light *>(this)->setLightEngine(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightPtr>::_type("LightPtr", "NodeCorePtr");
+DataType FieldTraits<Light *>::_type("LightPtr", "NodeCorePtr");
 #endif
 
 

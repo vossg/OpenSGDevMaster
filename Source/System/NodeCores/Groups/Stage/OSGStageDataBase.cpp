@@ -341,7 +341,7 @@ StageDataTransitPtr StageDataBase::create(void)
 {
     StageDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -357,7 +357,7 @@ StageDataTransitPtr StageDataBase::createLocal(BitVector bFlags)
 {
     StageDataTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -369,9 +369,9 @@ StageDataTransitPtr StageDataBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StageDataPtr StageDataBase::createEmpty(void)
+StageData *StageDataBase::createEmpty(void)
 {
-    StageDataPtr returnValue;
+    StageData *returnValue;
 
     newPtr<StageData>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -381,9 +381,9 @@ StageDataPtr StageDataBase::createEmpty(void)
     return returnValue;
 }
 
-StageDataPtr StageDataBase::createEmptyLocal(BitVector bFlags)
+StageData *StageDataBase::createEmptyLocal(BitVector bFlags)
 {
-    StageDataPtr returnValue;
+    StageData *returnValue;
 
     newPtr<StageData>(returnValue, bFlags);
 
@@ -394,7 +394,7 @@ StageDataPtr StageDataBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr StageDataBase::shallowCopy(void) const
 {
-    StageDataPtr tmpPtr;
+    StageData *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const StageData *>(this), 
@@ -410,7 +410,7 @@ FieldContainerTransitPtr StageDataBase::shallowCopy(void) const
 FieldContainerTransitPtr StageDataBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    StageDataPtr tmpPtr;
+    StageData *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const StageData *>(this), bFlags);
 
@@ -533,9 +533,9 @@ void StageDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr StageDataBase::createAspectCopy(void) const
+FieldContainer *StageDataBase::createAspectCopy(void) const
 {
-    StageDataPtr returnValue;
+    StageData *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const StageData *>(this));
@@ -553,7 +553,7 @@ void StageDataBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StageDataPtr>::_type("StageDataPtr", "FieldContainerPtr");
+DataType FieldTraits<StageData *>::_type("StageDataPtr", "FieldContainerPtr");
 #endif
 
 

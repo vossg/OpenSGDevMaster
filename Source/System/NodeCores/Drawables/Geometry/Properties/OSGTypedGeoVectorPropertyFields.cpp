@@ -52,43 +52,43 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-DataType FieldTraits<GeoPnt3fPropertyPtr>::_type(
+DataType FieldTraits<GeoPnt3fProperty *>::_type(
     "GeoPnt3fPropertyPtr",
     "GeoVectorPropertyPtr");
 
-DataType FieldTraits<GeoVec3fPropertyPtr>::_type(
+DataType FieldTraits<GeoVec3fProperty *>::_type(
     "GeoVec3fPropertyPtr",
     "GeoVectorPropertyPtr");
 
-DataType FieldTraits<GeoColor4fPropertyPtr>::_type(
+DataType FieldTraits<GeoColor4fProperty *>::_type(
     "GeoColor4fPropertyPtr",
     "GeoVectorPropertyPtr");
 
-OSG_FIELDTRAITS_GETTYPE(GeoPnt3fPropertyPtr)
-OSG_FIELDTRAITS_GETTYPE(GeoVec3fPropertyPtr)
-OSG_FIELDTRAITS_GETTYPE(GeoColor4fPropertyPtr)
+OSG_FIELDTRAITS_GETTYPE(GeoPnt3fProperty   *)
+OSG_FIELDTRAITS_GETTYPE(GeoVec3fProperty   *)
+OSG_FIELDTRAITS_GETTYPE(GeoColor4fProperty *)
 
 #endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoPnt3fPropertyPtr, 
+                           GeoPnt3fProperty *, 
                            0);
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoPnt3fPropertyPtr, 
+                           GeoPnt3fProperty *, 
                            0);
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoVec3fPropertyPtr, 
+                           GeoVec3fProperty *, 
                            0);
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoVec3fPropertyPtr, 
+                           GeoVec3fProperty *, 
                            0);
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoColor4fPropertyPtr, 
+                           GeoColor4fProperty *, 
                            0);
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoColor4fPropertyPtr, 
+                           GeoColor4fProperty *, 
                            0);
 
 OSG_END_NAMESPACE

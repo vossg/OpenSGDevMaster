@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var AlgorithmPtr    AlgorithmStageBase::_sfAlgorithm
+/*! \var Algorithm *     AlgorithmStageBase::_sfAlgorithm
     
 */
 
@@ -184,7 +184,7 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     "\t\ttype=\"AlgorithmPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -390,7 +390,7 @@ AlgorithmStageTransitPtr AlgorithmStageBase::create(void)
 {
     AlgorithmStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -406,7 +406,7 @@ AlgorithmStageTransitPtr AlgorithmStageBase::createLocal(BitVector bFlags)
 {
     AlgorithmStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -418,9 +418,9 @@ AlgorithmStageTransitPtr AlgorithmStageBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-AlgorithmStagePtr AlgorithmStageBase::createEmpty(void)
+AlgorithmStage *AlgorithmStageBase::createEmpty(void)
 {
-    AlgorithmStagePtr returnValue;
+    AlgorithmStage *returnValue;
 
     newPtr<AlgorithmStage>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -430,9 +430,9 @@ AlgorithmStagePtr AlgorithmStageBase::createEmpty(void)
     return returnValue;
 }
 
-AlgorithmStagePtr AlgorithmStageBase::createEmptyLocal(BitVector bFlags)
+AlgorithmStage *AlgorithmStageBase::createEmptyLocal(BitVector bFlags)
 {
-    AlgorithmStagePtr returnValue;
+    AlgorithmStage *returnValue;
 
     newPtr<AlgorithmStage>(returnValue, bFlags);
 
@@ -443,7 +443,7 @@ AlgorithmStagePtr AlgorithmStageBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr AlgorithmStageBase::shallowCopy(void) const
 {
-    AlgorithmStagePtr tmpPtr;
+    AlgorithmStage *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const AlgorithmStage *>(this), 
@@ -459,7 +459,7 @@ FieldContainerTransitPtr AlgorithmStageBase::shallowCopy(void) const
 FieldContainerTransitPtr AlgorithmStageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    AlgorithmStagePtr tmpPtr;
+    AlgorithmStage *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const AlgorithmStage *>(this), bFlags);
 
@@ -476,7 +476,7 @@ FieldContainerTransitPtr AlgorithmStageBase::shallowCopyLocal(
 
 AlgorithmStageBase::AlgorithmStageBase(void) :
     Inherited(),
-    _sfAlgorithm              (AlgorithmPtr(NullFC)),
+    _sfAlgorithm              (NULL),
     _sfProjectionMode         (UInt32(0x0001)),
     _sfCopyViewing            (bool(false)),
     _sfProjectionMatrix       ()
@@ -485,7 +485,7 @@ AlgorithmStageBase::AlgorithmStageBase(void) :
 
 AlgorithmStageBase::AlgorithmStageBase(const AlgorithmStageBase &source) :
     Inherited(source),
-    _sfAlgorithm              (NullFC),
+    _sfAlgorithm              (NULL),
     _sfProjectionMode         (source._sfProjectionMode         ),
     _sfCopyViewing            (source._sfCopyViewing            ),
     _sfProjectionMatrix       (source._sfProjectionMatrix       )
@@ -620,9 +620,9 @@ void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr AlgorithmStageBase::createAspectCopy(void) const
+FieldContainer *AlgorithmStageBase::createAspectCopy(void) const
 {
-    AlgorithmStagePtr returnValue;
+    AlgorithmStage *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const AlgorithmStage *>(this));
@@ -635,14 +635,14 @@ void AlgorithmStageBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<AlgorithmStage *>(this)->setAlgorithm(NullFC);
+    static_cast<AlgorithmStage *>(this)->setAlgorithm(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AlgorithmStagePtr>::_type("AlgorithmStagePtr", "StagePtr");
+DataType FieldTraits<AlgorithmStage *>::_type("AlgorithmStagePtr", "StagePtr");
 #endif
 
 

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Inline);
 #endif
 
 template <>
-struct FieldTraits<InlinePtr> :
-    public FieldTraitsFCPtrBase<InlinePtr>
+struct FieldTraits<Inline *> :
+    public FieldTraitsFCPtrBase<Inline *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<InlinePtr> :
 
   public:
 
-    typedef FieldTraits<InlinePtr>  Self;
+    typedef FieldTraits<Inline *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<InlinePtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakInlinePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InlinePtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Inline *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdInlinePtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<InlinePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef PointerSField<InlinePtr,
+typedef PointerSField<Inline *,
                       RecordedRefCountPolicy  > SFRecInlinePtr;
-typedef PointerSField<InlinePtr,
+typedef PointerSField<Inline *,
                       UnrecordedRefCountPolicy> SFUnrecInlinePtr;
-typedef PointerSField<InlinePtr,
+typedef PointerSField<Inline *,
                       WeakRefCountPolicy      > SFWeakInlinePtr;
-typedef PointerSField<InlinePtr,
+typedef PointerSField<Inline *,
                       NoRefCountPolicy        > SFUncountedInlinePtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<InlinePtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef PointerMField<InlinePtr,
+typedef PointerMField<Inline *,
                       RecordedRefCountPolicy  > MFRecInlinePtr;
-typedef PointerMField<InlinePtr,
+typedef PointerMField<Inline *,
                       UnrecordedRefCountPolicy> MFUnrecInlinePtr;
-typedef PointerMField<InlinePtr,
+typedef PointerMField<Inline *,
                       WeakRefCountPolicy      > MFWeakInlinePtr;
-typedef PointerMField<InlinePtr,
+typedef PointerMField<Inline *,
                       NoRefCountPolicy        > MFUncountedInlinePtr;
 #endif
 

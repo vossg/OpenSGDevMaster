@@ -280,7 +280,7 @@ OrthographicCameraTransitPtr OrthographicCameraBase::create(void)
 {
     OrthographicCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -296,7 +296,7 @@ OrthographicCameraTransitPtr OrthographicCameraBase::createLocal(BitVector bFlag
 {
     OrthographicCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -308,9 +308,9 @@ OrthographicCameraTransitPtr OrthographicCameraBase::createLocal(BitVector bFlag
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-OrthographicCameraPtr OrthographicCameraBase::createEmpty(void)
+OrthographicCamera *OrthographicCameraBase::createEmpty(void)
 {
-    OrthographicCameraPtr returnValue;
+    OrthographicCamera *returnValue;
 
     newPtr<OrthographicCamera>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -320,9 +320,9 @@ OrthographicCameraPtr OrthographicCameraBase::createEmpty(void)
     return returnValue;
 }
 
-OrthographicCameraPtr OrthographicCameraBase::createEmptyLocal(BitVector bFlags)
+OrthographicCamera *OrthographicCameraBase::createEmptyLocal(BitVector bFlags)
 {
-    OrthographicCameraPtr returnValue;
+    OrthographicCamera *returnValue;
 
     newPtr<OrthographicCamera>(returnValue, bFlags);
 
@@ -333,7 +333,7 @@ OrthographicCameraPtr OrthographicCameraBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr OrthographicCameraBase::shallowCopy(void) const
 {
-    OrthographicCameraPtr tmpPtr;
+    OrthographicCamera *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const OrthographicCamera *>(this), 
@@ -349,7 +349,7 @@ FieldContainerTransitPtr OrthographicCameraBase::shallowCopy(void) const
 FieldContainerTransitPtr OrthographicCameraBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    OrthographicCameraPtr tmpPtr;
+    OrthographicCamera *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const OrthographicCamera *>(this), bFlags);
 
@@ -448,9 +448,9 @@ void OrthographicCameraBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr OrthographicCameraBase::createAspectCopy(void) const
+FieldContainer *OrthographicCameraBase::createAspectCopy(void) const
 {
-    OrthographicCameraPtr returnValue;
+    OrthographicCamera *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const OrthographicCamera *>(this));
@@ -468,17 +468,17 @@ void OrthographicCameraBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<OrthographicCameraPtr>::_type("OrthographicCameraPtr", "CameraPtr");
+DataType FieldTraits<OrthographicCamera *>::_type("OrthographicCameraPtr", "CameraPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(OrthographicCameraPtr)
+OSG_FIELDTRAITS_GETTYPE(OrthographicCamera *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           OrthographicCameraPtr, 
+                           OrthographicCamera *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           OrthographicCameraPtr, 
+                           OrthographicCamera *, 
                            0);
 
 OSG_END_NAMESPACE

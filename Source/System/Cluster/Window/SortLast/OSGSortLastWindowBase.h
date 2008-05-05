@@ -149,7 +149,7 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
             const SFBool              *getSFGroupsChanged   (void) const;
 
 
-                  NodePtr getGroupNodes     (const UInt32 index) const;
+                  Node * getGroupNodes     (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getGroupLengths    (const UInt32 index);
@@ -181,10 +181,10 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToGroupNodes           (const NodePtr value   );
-    void assignGroupNodes           (const MFUnrecNodePtr    &value);
-    void removeFromGroupNodes (UInt32                uiIndex );
-    void removeFromGroupNodes(const NodePtr value   );
+    void pushToGroupNodes           (Node * const value   );
+    void assignGroupNodes          (const MFUnrecNodePtr    &value);
+    void removeFromGroupNodes (UInt32               uiIndex );
+    void removeFromGroupNodes(Node * const value   );
     void clearGroupNodes            (void                          );
 
 
@@ -205,13 +205,13 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SortLastWindowTransitPtr create          (void);
-    static  SortLastWindowPtr        createEmpty     (void);
+    static  SortLastWindowTransitPtr  create          (void);
+    static  SortLastWindow           *createEmpty     (void);
 
-    static  SortLastWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SortLastWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SortLastWindowPtr        createEmptyLocal(
+    static  SortLastWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -305,7 +305,7 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

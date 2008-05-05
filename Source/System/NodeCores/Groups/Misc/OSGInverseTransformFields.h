@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(InverseTransform);
 #endif
 
 template <>
-struct FieldTraits<InverseTransformPtr> :
-    public FieldTraitsFCPtrBase<InverseTransformPtr>
+struct FieldTraits<InverseTransform *> :
+    public FieldTraitsFCPtrBase<InverseTransform *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<InverseTransformPtr> :
 
   public:
 
-    typedef FieldTraits<InverseTransformPtr>  Self;
+    typedef FieldTraits<InverseTransform *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<InverseTransformPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakInverseTransformPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InverseTransform *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdInverseTransformPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<InverseTransformPtr, 0>::getMName<NoRefCountPolicy>(voi
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldSingle */
 
-typedef PointerSField<InverseTransformPtr,
+typedef PointerSField<InverseTransform *,
                       RecordedRefCountPolicy  > SFRecInverseTransformPtr;
-typedef PointerSField<InverseTransformPtr,
+typedef PointerSField<InverseTransform *,
                       UnrecordedRefCountPolicy> SFUnrecInverseTransformPtr;
-typedef PointerSField<InverseTransformPtr,
+typedef PointerSField<InverseTransform *,
                       WeakRefCountPolicy      > SFWeakInverseTransformPtr;
-typedef PointerSField<InverseTransformPtr,
+typedef PointerSField<InverseTransform *,
                       NoRefCountPolicy        > SFUncountedInverseTransformPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<InverseTransformPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpGroupFieldMulti */
 
-typedef PointerMField<InverseTransformPtr,
+typedef PointerMField<InverseTransform *,
                       RecordedRefCountPolicy  > MFRecInverseTransformPtr;
-typedef PointerMField<InverseTransformPtr,
+typedef PointerMField<InverseTransform *,
                       UnrecordedRefCountPolicy> MFUnrecInverseTransformPtr;
-typedef PointerMField<InverseTransformPtr,
+typedef PointerMField<InverseTransform *,
                       WeakRefCountPolicy      > MFWeakInverseTransformPtr;
-typedef PointerMField<InverseTransformPtr,
+typedef PointerMField<InverseTransform *,
                       NoRefCountPolicy        > MFUncountedInverseTransformPtr;
 #endif
 

@@ -295,7 +295,7 @@ PerspectiveCameraTransitPtr PerspectiveCameraBase::create(void)
 {
     PerspectiveCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -311,7 +311,7 @@ PerspectiveCameraTransitPtr PerspectiveCameraBase::createLocal(BitVector bFlags)
 {
     PerspectiveCameraTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -323,9 +323,9 @@ PerspectiveCameraTransitPtr PerspectiveCameraBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PerspectiveCameraPtr PerspectiveCameraBase::createEmpty(void)
+PerspectiveCamera *PerspectiveCameraBase::createEmpty(void)
 {
-    PerspectiveCameraPtr returnValue;
+    PerspectiveCamera *returnValue;
 
     newPtr<PerspectiveCamera>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -335,9 +335,9 @@ PerspectiveCameraPtr PerspectiveCameraBase::createEmpty(void)
     return returnValue;
 }
 
-PerspectiveCameraPtr PerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
+PerspectiveCamera *PerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
 {
-    PerspectiveCameraPtr returnValue;
+    PerspectiveCamera *returnValue;
 
     newPtr<PerspectiveCamera>(returnValue, bFlags);
 
@@ -348,7 +348,7 @@ PerspectiveCameraPtr PerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PerspectiveCameraBase::shallowCopy(void) const
 {
-    PerspectiveCameraPtr tmpPtr;
+    PerspectiveCamera *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PerspectiveCamera *>(this), 
@@ -364,7 +364,7 @@ FieldContainerTransitPtr PerspectiveCameraBase::shallowCopy(void) const
 FieldContainerTransitPtr PerspectiveCameraBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PerspectiveCameraPtr tmpPtr;
+    PerspectiveCamera *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PerspectiveCamera *>(this), bFlags);
 
@@ -463,9 +463,9 @@ void PerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PerspectiveCameraBase::createAspectCopy(void) const
+FieldContainer *PerspectiveCameraBase::createAspectCopy(void) const
 {
-    PerspectiveCameraPtr returnValue;
+    PerspectiveCamera *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PerspectiveCamera *>(this));
@@ -483,17 +483,17 @@ void PerspectiveCameraBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PerspectiveCameraPtr>::_type("PerspectiveCameraPtr", "CameraPtr");
+DataType FieldTraits<PerspectiveCamera *>::_type("PerspectiveCameraPtr", "CameraPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PerspectiveCameraPtr)
+OSG_FIELDTRAITS_GETTYPE(PerspectiveCamera *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PerspectiveCameraPtr, 
+                           PerspectiveCamera *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PerspectiveCameraPtr, 
+                           PerspectiveCamera *, 
                            0);
 
 OSG_END_NAMESPACE

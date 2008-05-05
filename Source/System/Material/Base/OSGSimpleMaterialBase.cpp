@@ -657,7 +657,7 @@ SimpleMaterialTransitPtr SimpleMaterialBase::create(void)
 {
     SimpleMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -673,7 +673,7 @@ SimpleMaterialTransitPtr SimpleMaterialBase::createLocal(BitVector bFlags)
 {
     SimpleMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -685,9 +685,9 @@ SimpleMaterialTransitPtr SimpleMaterialBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleMaterialPtr SimpleMaterialBase::createEmpty(void)
+SimpleMaterial *SimpleMaterialBase::createEmpty(void)
 {
-    SimpleMaterialPtr returnValue;
+    SimpleMaterial *returnValue;
 
     newPtr<SimpleMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -697,9 +697,9 @@ SimpleMaterialPtr SimpleMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleMaterialPtr SimpleMaterialBase::createEmptyLocal(BitVector bFlags)
+SimpleMaterial *SimpleMaterialBase::createEmptyLocal(BitVector bFlags)
 {
-    SimpleMaterialPtr returnValue;
+    SimpleMaterial *returnValue;
 
     newPtr<SimpleMaterial>(returnValue, bFlags);
 
@@ -710,7 +710,7 @@ SimpleMaterialPtr SimpleMaterialBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SimpleMaterialBase::shallowCopy(void) const
 {
-    SimpleMaterialPtr tmpPtr;
+    SimpleMaterial *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SimpleMaterial *>(this), 
@@ -726,7 +726,7 @@ FieldContainerTransitPtr SimpleMaterialBase::shallowCopy(void) const
 FieldContainerTransitPtr SimpleMaterialBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SimpleMaterialPtr tmpPtr;
+    SimpleMaterial *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SimpleMaterial *>(this), bFlags);
 
@@ -969,9 +969,9 @@ void SimpleMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SimpleMaterialBase::createAspectCopy(void) const
+FieldContainer *SimpleMaterialBase::createAspectCopy(void) const
 {
-    SimpleMaterialPtr returnValue;
+    SimpleMaterial *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SimpleMaterial *>(this));
@@ -989,7 +989,7 @@ void SimpleMaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleMaterialPtr>::_type("SimpleMaterialPtr", "ChunkMaterialPtr");
+DataType FieldTraits<SimpleMaterial *>::_type("SimpleMaterialPtr", "ChunkMaterialPtr");
 #endif
 
 

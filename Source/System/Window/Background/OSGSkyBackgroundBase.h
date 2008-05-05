@@ -319,17 +319,17 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   UInt32              &editSphereRes      (void);
             const UInt32               getSphereRes       (void) const;
 
-                  TextureBaseChunkPtr getBackTexture    (void) const;
+                  TextureBaseChunk * getBackTexture    (void) const;
 
-                  TextureBaseChunkPtr getBottomTexture  (void) const;
+                  TextureBaseChunk * getBottomTexture  (void) const;
 
-                  TextureBaseChunkPtr getFrontTexture   (void) const;
+                  TextureBaseChunk * getFrontTexture   (void) const;
 
-                  TextureBaseChunkPtr getLeftTexture    (void) const;
+                  TextureBaseChunk * getLeftTexture    (void) const;
 
-                  TextureBaseChunkPtr getRightTexture   (void) const;
+                  TextureBaseChunk * getRightTexture   (void) const;
 
-                  TextureBaseChunkPtr getTopTexture     (void) const;
+                  TextureBaseChunk * getTopTexture     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getBoxInside       (void);
@@ -379,7 +379,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   Vec3f               &editBackTexCoord   (const UInt32 index);
             const Vec3f                getBackTexCoord    (const UInt32 index) const;
 
-                  NodePtr getBeacon         (void) const;
+                  Node * getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -387,14 +387,14 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
             void setSphereRes      (const UInt32 &value);
-            void setBackTexture    (const TextureBaseChunkPtr value);
-            void setBottomTexture  (const TextureBaseChunkPtr value);
-            void setFrontTexture   (const TextureBaseChunkPtr value);
-            void setLeftTexture    (const TextureBaseChunkPtr value);
-            void setRightTexture   (const TextureBaseChunkPtr value);
-            void setTopTexture     (const TextureBaseChunkPtr value);
+            void setBackTexture    (TextureBaseChunk * const value);
+            void setBottomTexture  (TextureBaseChunk * const value);
+            void setFrontTexture   (TextureBaseChunk * const value);
+            void setLeftTexture    (TextureBaseChunk * const value);
+            void setRightTexture   (TextureBaseChunk * const value);
+            void setTopTexture     (TextureBaseChunk * const value);
             void setBoxInside      (const bool &value);
-            void setBeacon         (const NodePtr value);
+            void setBeacon         (Node * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -423,13 +423,13 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SkyBackgroundTransitPtr create          (void);
-    static  SkyBackgroundPtr        createEmpty     (void);
+    static  SkyBackgroundTransitPtr  create          (void);
+    static  SkyBackground           *createEmpty     (void);
 
-    static  SkyBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  SkyBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  SkyBackgroundPtr        createEmptyLocal(
+    static  SkyBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -571,7 +571,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

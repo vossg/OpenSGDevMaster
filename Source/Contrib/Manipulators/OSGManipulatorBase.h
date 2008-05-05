@@ -225,11 +225,11 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
                   SFUnrecNodePtr      *editSFAxisLinesN     (void);
 
 
-                  NodePtr getTarget         (void) const;
+                  Node * getTarget         (void) const;
 
-                  NodePtr getActiveSubHandle(void) const;
+                  Node * getActiveSubHandle(void) const;
 
-                  ViewportPtr getViewport       (void) const;
+                  Viewport * getViewport       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getActive          (void);
@@ -243,46 +243,46 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
                   Vec3f               &editLength         (void);
             const Vec3f                getLength          (void) const;
 
-                  NodePtr getHandleXNode    (void) const;
+                  Node * getHandleXNode    (void) const;
 
-                  NodePtr getHandleYNode    (void) const;
+                  Node * getHandleYNode    (void) const;
 
-                  NodePtr getHandleZNode    (void) const;
+                  Node * getHandleZNode    (void) const;
 
-                  NodePtr getTransXNode     (void) const;
+                  Node * getTransXNode     (void) const;
 
-                  NodePtr getTransYNode     (void) const;
+                  Node * getTransYNode     (void) const;
 
-                  NodePtr getTransZNode     (void) const;
+                  Node * getTransZNode     (void) const;
 
-                  MaterialPtr getMaterialX      (void) const;
+                  Material * getMaterialX      (void) const;
 
-                  MaterialPtr getMaterialY      (void) const;
+                  Material * getMaterialY      (void) const;
 
-                  MaterialPtr getMaterialZ      (void) const;
+                  Material * getMaterialZ      (void) const;
 
-                  NodePtr getAxisLinesN     (void) const;
+                  Node * getAxisLinesN     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTarget         (const NodePtr value);
-            void setActiveSubHandle(const NodePtr value);
-            void setViewport       (const ViewportPtr value);
+            void setTarget         (Node * const value);
+            void setActiveSubHandle(Node * const value);
+            void setViewport       (Viewport * const value);
             void setActive         (const bool &value);
             void setLength         (const Vec3f &value);
-            void setHandleXNode    (const NodePtr value);
-            void setHandleYNode    (const NodePtr value);
-            void setHandleZNode    (const NodePtr value);
-            void setTransXNode     (const NodePtr value);
-            void setTransYNode     (const NodePtr value);
-            void setTransZNode     (const NodePtr value);
-            void setMaterialX      (const MaterialPtr value);
-            void setMaterialY      (const MaterialPtr value);
-            void setMaterialZ      (const MaterialPtr value);
-            void setAxisLinesN     (const NodePtr value);
+            void setHandleXNode    (Node * const value);
+            void setHandleYNode    (Node * const value);
+            void setHandleZNode    (Node * const value);
+            void setTransXNode     (Node * const value);
+            void setTransYNode     (Node * const value);
+            void setTransZNode     (Node * const value);
+            void setMaterialX      (Material * const value);
+            void setMaterialY      (Material * const value);
+            void setMaterialZ      (Material * const value);
+            void setAxisLinesN     (Node * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

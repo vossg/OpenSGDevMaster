@@ -227,7 +227,7 @@ TestStageTransitPtr TestStageBase::create(void)
 {
     TestStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -243,7 +243,7 @@ TestStageTransitPtr TestStageBase::createLocal(BitVector bFlags)
 {
     TestStageTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -255,9 +255,9 @@ TestStageTransitPtr TestStageBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TestStagePtr TestStageBase::createEmpty(void)
+TestStage *TestStageBase::createEmpty(void)
 {
-    TestStagePtr returnValue;
+    TestStage *returnValue;
 
     newPtr<TestStage>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -267,9 +267,9 @@ TestStagePtr TestStageBase::createEmpty(void)
     return returnValue;
 }
 
-TestStagePtr TestStageBase::createEmptyLocal(BitVector bFlags)
+TestStage *TestStageBase::createEmptyLocal(BitVector bFlags)
 {
-    TestStagePtr returnValue;
+    TestStage *returnValue;
 
     newPtr<TestStage>(returnValue, bFlags);
 
@@ -280,7 +280,7 @@ TestStagePtr TestStageBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr TestStageBase::shallowCopy(void) const
 {
-    TestStagePtr tmpPtr;
+    TestStage *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TestStage *>(this), 
@@ -296,7 +296,7 @@ FieldContainerTransitPtr TestStageBase::shallowCopy(void) const
 FieldContainerTransitPtr TestStageBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TestStagePtr tmpPtr;
+    TestStage *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TestStage *>(this), bFlags);
 
@@ -371,9 +371,9 @@ void TestStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TestStageBase::createAspectCopy(void) const
+FieldContainer *TestStageBase::createAspectCopy(void) const
 {
-    TestStagePtr returnValue;
+    TestStage *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TestStage *>(this));
@@ -391,7 +391,7 @@ void TestStageBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TestStagePtr>::_type("TestStagePtr", "StagePtr");
+DataType FieldTraits<TestStage *>::_type("TestStagePtr", "StagePtr");
 #endif
 
 

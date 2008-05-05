@@ -451,7 +451,7 @@ SortFirstWindowTransitPtr SortFirstWindowBase::create(void)
 {
     SortFirstWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -467,7 +467,7 @@ SortFirstWindowTransitPtr SortFirstWindowBase::createLocal(BitVector bFlags)
 {
     SortFirstWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -479,9 +479,9 @@ SortFirstWindowTransitPtr SortFirstWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SortFirstWindowPtr SortFirstWindowBase::createEmpty(void)
+SortFirstWindow *SortFirstWindowBase::createEmpty(void)
 {
-    SortFirstWindowPtr returnValue;
+    SortFirstWindow *returnValue;
 
     newPtr<SortFirstWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -491,9 +491,9 @@ SortFirstWindowPtr SortFirstWindowBase::createEmpty(void)
     return returnValue;
 }
 
-SortFirstWindowPtr SortFirstWindowBase::createEmptyLocal(BitVector bFlags)
+SortFirstWindow *SortFirstWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    SortFirstWindowPtr returnValue;
+    SortFirstWindow *returnValue;
 
     newPtr<SortFirstWindow>(returnValue, bFlags);
 
@@ -504,7 +504,7 @@ SortFirstWindowPtr SortFirstWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr SortFirstWindowBase::shallowCopy(void) const
 {
-    SortFirstWindowPtr tmpPtr;
+    SortFirstWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const SortFirstWindow *>(this), 
@@ -520,7 +520,7 @@ FieldContainerTransitPtr SortFirstWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr SortFirstWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    SortFirstWindowPtr tmpPtr;
+    SortFirstWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const SortFirstWindow *>(this), bFlags);
 
@@ -691,9 +691,9 @@ void SortFirstWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr SortFirstWindowBase::createAspectCopy(void) const
+FieldContainer *SortFirstWindowBase::createAspectCopy(void) const
 {
-    SortFirstWindowPtr returnValue;
+    SortFirstWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const SortFirstWindow *>(this));
@@ -720,7 +720,7 @@ void SortFirstWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SortFirstWindowPtr>::_type("SortFirstWindowPtr", "ClusterWindowPtr");
+DataType FieldTraits<SortFirstWindow *>::_type("SortFirstWindowPtr", "ClusterWindowPtr");
 #endif
 
 

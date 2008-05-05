@@ -192,7 +192,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   UInt16              &editHeight         (void);
             const UInt16               getHeight          (void) const;
 
-                  ViewportPtr getPort           (const UInt32 index) const;
+                  Viewport * getPort           (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getResizePending   (void);
@@ -226,17 +226,17 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addPort                   (const ViewportPtr value   );
+    void addPort                   (Viewport * const value   );
     void assignPort               (const MFUnrecChildViewportPtr &value);
     void clearPorts                 (void                          );
-    void insertPort           (      UInt32         uiIndex,
-                                             const ViewportPtr value   );
+    void insertPort           (UInt32               uiIndex,
+                                             Viewport * const value   );
     void replacePort      (      UInt32         uiIndex,
-                                             const ViewportPtr value   );
-    void replacePortBy   (const ViewportPtr pOldElem,
-                                             const ViewportPtr pNewElem);
-    void subPort         (UInt32                uiIndex );
-    void subPort        (const ViewportPtr value   );
+                                             Viewport * const value   );
+    void replacePortBy   (Viewport * const pOldElem,
+                                             Viewport * const pNewElem);
+    void subPort         (UInt32               uiIndex );
+    void subPort        (Viewport * const value   );
 
 
     /*! \}                                                                 */
@@ -301,8 +301,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name Child linking                                                */
     /*! \{                                                                 */
     
-    virtual bool unlinkChild(const FieldContainerPtr pChild,
-                             const UInt16            childFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

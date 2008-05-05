@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var FrameBufferObjectPtr ShadowMapEngineBase::_sfRenderTarget
+/*! \var FrameBufferObject * ShadowMapEngineBase::_sfRenderTarget
     
 */
 
@@ -217,7 +217,7 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     "\t\ttype=\"FrameBufferObjectPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -505,7 +505,7 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShadowMapEngineBase::ShadowMapEngineBase(void) :
     Inherited(),
-    _sfRenderTarget           (FrameBufferObjectPtr(NullFC)),
+    _sfRenderTarget           (NULL),
     _sfWidth                  (Int32(512)),
     _sfHeight                 (Int32(512)),
     _sfShadowColor            (Color4f(Color4f(0.f, 0.f, 0.f, 1.f))),
@@ -516,7 +516,7 @@ ShadowMapEngineBase::ShadowMapEngineBase(void) :
 
 ShadowMapEngineBase::ShadowMapEngineBase(const ShadowMapEngineBase &source) :
     Inherited(source),
-    _sfRenderTarget           (NullFC),
+    _sfRenderTarget           (NULL),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 ),
     _sfShadowColor            (source._sfShadowColor            ),
@@ -701,24 +701,24 @@ void ShadowMapEngineBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ShadowMapEngine *>(this)->setRenderTarget(NullFC);
+    static_cast<ShadowMapEngine *>(this)->setRenderTarget(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadowMapEnginePtr>::_type("ShadowMapEnginePtr", "LightEnginePtr");
+DataType FieldTraits<ShadowMapEngine *>::_type("ShadowMapEnginePtr", "LightEnginePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ShadowMapEnginePtr)
+OSG_FIELDTRAITS_GETTYPE(ShadowMapEngine *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShadowMapEnginePtr, 
+                           ShadowMapEngine *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShadowMapEnginePtr, 
+                           ShadowMapEngine *, 
                            0);
 
 OSG_END_NAMESPACE

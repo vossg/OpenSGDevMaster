@@ -778,7 +778,7 @@ PointChunkTransitPtr PointChunkBase::create(void)
 {
     PointChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -794,7 +794,7 @@ PointChunkTransitPtr PointChunkBase::createLocal(BitVector bFlags)
 {
     PointChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -806,9 +806,9 @@ PointChunkTransitPtr PointChunkBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PointChunkPtr PointChunkBase::createEmpty(void)
+PointChunk *PointChunkBase::createEmpty(void)
 {
-    PointChunkPtr returnValue;
+    PointChunk *returnValue;
 
     newPtr<PointChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -818,9 +818,9 @@ PointChunkPtr PointChunkBase::createEmpty(void)
     return returnValue;
 }
 
-PointChunkPtr PointChunkBase::createEmptyLocal(BitVector bFlags)
+PointChunk *PointChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    PointChunkPtr returnValue;
+    PointChunk *returnValue;
 
     newPtr<PointChunk>(returnValue, bFlags);
 
@@ -831,7 +831,7 @@ PointChunkPtr PointChunkBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PointChunkBase::shallowCopy(void) const
 {
-    PointChunkPtr tmpPtr;
+    PointChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PointChunk *>(this), 
@@ -847,7 +847,7 @@ FieldContainerTransitPtr PointChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr PointChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PointChunkPtr tmpPtr;
+    PointChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PointChunk *>(this), bFlags);
 
@@ -1138,9 +1138,9 @@ void PointChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PointChunkBase::createAspectCopy(void) const
+FieldContainer *PointChunkBase::createAspectCopy(void) const
 {
-    PointChunkPtr returnValue;
+    PointChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PointChunk *>(this));
@@ -1158,17 +1158,17 @@ void PointChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PointChunkPtr>::_type("PointChunkPtr", "StateChunkPtr");
+DataType FieldTraits<PointChunk *>::_type("PointChunkPtr", "StateChunkPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PointChunkPtr)
+OSG_FIELDTRAITS_GETTYPE(PointChunk *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PointChunkPtr, 
+                           PointChunk *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PointChunkPtr, 
+                           PointChunk *, 
                            0);
 
 OSG_END_NAMESPACE

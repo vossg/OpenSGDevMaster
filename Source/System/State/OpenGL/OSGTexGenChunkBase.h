@@ -275,13 +275,13 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
                   Vec4f               &editGenFuncQPlane  (void);
             const Vec4f                getGenFuncQPlane   (void) const;
 
-                  NodePtr getSBeacon        (void) const;
+                  Node * getSBeacon        (void) const;
 
-                  NodePtr getTBeacon        (void) const;
+                  Node * getTBeacon        (void) const;
 
-                  NodePtr getRBeacon        (void) const;
+                  Node * getRBeacon        (void) const;
 
-                  NodePtr getQBeacon        (void) const;
+                  Node * getQBeacon        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -296,10 +296,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
             void setGenFuncTPlane  (const Vec4f &value);
             void setGenFuncRPlane  (const Vec4f &value);
             void setGenFuncQPlane  (const Vec4f &value);
-            void setSBeacon        (const NodePtr value);
-            void setTBeacon        (const NodePtr value);
-            void setRBeacon        (const NodePtr value);
-            void setQBeacon        (const NodePtr value);
+            void setSBeacon        (Node * const value);
+            void setTBeacon        (Node * const value);
+            void setRBeacon        (Node * const value);
+            void setQBeacon        (Node * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -328,13 +328,13 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TexGenChunkTransitPtr create          (void);
-    static  TexGenChunkPtr        createEmpty     (void);
+    static  TexGenChunkTransitPtr  create          (void);
+    static  TexGenChunk           *createEmpty     (void);
 
-    static  TexGenChunkTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  TexGenChunkTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  TexGenChunkPtr        createEmptyLocal(
+    static  TexGenChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -455,7 +455,7 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(PolygonBackground);
 #endif
 
 template <>
-struct FieldTraits<PolygonBackgroundPtr> :
-    public FieldTraitsFCPtrBase<PolygonBackgroundPtr>
+struct FieldTraits<PolygonBackground *> :
+    public FieldTraitsFCPtrBase<PolygonBackground *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<PolygonBackgroundPtr> :
 
   public:
 
-    typedef FieldTraits<PolygonBackgroundPtr>  Self;
+    typedef FieldTraits<PolygonBackground *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<PolygonBackgroundPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPolygonBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPolygonBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPolygonBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPolygonBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPolygonBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPolygonBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPolygonBackgroundPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PolygonBackground *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPolygonBackgroundPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<PolygonBackgroundPtr, 0>::getMName<NoRefCountPolicy>(vo
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<PolygonBackgroundPtr,
+typedef PointerSField<PolygonBackground *,
                       RecordedRefCountPolicy  > SFRecPolygonBackgroundPtr;
-typedef PointerSField<PolygonBackgroundPtr,
+typedef PointerSField<PolygonBackground *,
                       UnrecordedRefCountPolicy> SFUnrecPolygonBackgroundPtr;
-typedef PointerSField<PolygonBackgroundPtr,
+typedef PointerSField<PolygonBackground *,
                       WeakRefCountPolicy      > SFWeakPolygonBackgroundPtr;
-typedef PointerSField<PolygonBackgroundPtr,
+typedef PointerSField<PolygonBackground *,
                       NoRefCountPolicy        > SFUncountedPolygonBackgroundPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<PolygonBackgroundPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<PolygonBackgroundPtr,
+typedef PointerMField<PolygonBackground *,
                       RecordedRefCountPolicy  > MFRecPolygonBackgroundPtr;
-typedef PointerMField<PolygonBackgroundPtr,
+typedef PointerMField<PolygonBackground *,
                       UnrecordedRefCountPolicy> MFUnrecPolygonBackgroundPtr;
-typedef PointerMField<PolygonBackgroundPtr,
+typedef PointerMField<PolygonBackground *,
                       WeakRefCountPolicy      > MFWeakPolygonBackgroundPtr;
-typedef PointerMField<PolygonBackgroundPtr,
+typedef PointerMField<PolygonBackground *,
                       NoRefCountPolicy        > MFUncountedPolygonBackgroundPtr;
 #endif
 

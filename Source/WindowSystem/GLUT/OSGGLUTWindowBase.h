@@ -168,13 +168,13 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GLUTWindowTransitPtr create          (void);
-    static  GLUTWindowPtr        createEmpty     (void);
+    static  GLUTWindowTransitPtr  create          (void);
+    static  GLUTWindow           *createEmpty     (void);
 
-    static  GLUTWindowTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GLUTWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GLUTWindowPtr        createEmptyLocal(
+    static  GLUTWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

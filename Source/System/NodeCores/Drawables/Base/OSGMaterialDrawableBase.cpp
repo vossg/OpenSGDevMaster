@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var MaterialPtr     MaterialDrawableBase::_sfMaterial
+/*! \var Material *      MaterialDrawableBase::_sfMaterial
     The material used to render the Drawable.
 */
 
@@ -222,13 +222,13 @@ void MaterialDrawableBase::copyFromBin(BinaryDataHandler &pMem,
 
 MaterialDrawableBase::MaterialDrawableBase(void) :
     Inherited(),
-    _sfMaterial               (NullFC)
+    _sfMaterial               (NULL)
 {
 }
 
 MaterialDrawableBase::MaterialDrawableBase(const MaterialDrawableBase &source) :
     Inherited(source),
-    _sfMaterial               (NullFC)
+    _sfMaterial               (NULL)
 {
 }
 
@@ -298,24 +298,24 @@ void MaterialDrawableBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<MaterialDrawable *>(this)->setMaterial(NullFC);
+    static_cast<MaterialDrawable *>(this)->setMaterial(NULL);
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialDrawablePtr>::_type("MaterialDrawablePtr", "DrawablePtr");
+DataType FieldTraits<MaterialDrawable *>::_type("MaterialDrawablePtr", "DrawablePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MaterialDrawablePtr)
+OSG_FIELDTRAITS_GETTYPE(MaterialDrawable *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MaterialDrawablePtr, 
+                           MaterialDrawable *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MaterialDrawablePtr, 
+                           MaterialDrawable *, 
                            0);
 
 OSG_END_NAMESPACE

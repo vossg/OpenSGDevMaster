@@ -76,7 +76,7 @@ OSG::UInt16 ShaderParameterChunkBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ShaderParameterChunk::_mfParameters field.
 inline
-ShaderParameterPtr ShaderParameterChunkBase::getParameters(const UInt32 index) const
+ShaderParameter * ShaderParameterChunkBase::getParameters(const UInt32 index) const
 {
     return _mfParameters[index];
 }

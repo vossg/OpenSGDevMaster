@@ -340,7 +340,7 @@ WIN32WindowTransitPtr WIN32WindowBase::create(void)
 {
     WIN32WindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -356,7 +356,7 @@ WIN32WindowTransitPtr WIN32WindowBase::createLocal(BitVector bFlags)
 {
     WIN32WindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -368,9 +368,9 @@ WIN32WindowTransitPtr WIN32WindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-WIN32WindowPtr WIN32WindowBase::createEmpty(void)
+WIN32Window *WIN32WindowBase::createEmpty(void)
 {
-    WIN32WindowPtr returnValue;
+    WIN32Window *returnValue;
 
     newPtr<WIN32Window>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -380,9 +380,9 @@ WIN32WindowPtr WIN32WindowBase::createEmpty(void)
     return returnValue;
 }
 
-WIN32WindowPtr WIN32WindowBase::createEmptyLocal(BitVector bFlags)
+WIN32Window *WIN32WindowBase::createEmptyLocal(BitVector bFlags)
 {
-    WIN32WindowPtr returnValue;
+    WIN32Window *returnValue;
 
     newPtr<WIN32Window>(returnValue, bFlags);
 
@@ -393,7 +393,7 @@ WIN32WindowPtr WIN32WindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr WIN32WindowBase::shallowCopy(void) const
 {
-    WIN32WindowPtr tmpPtr;
+    WIN32Window *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const WIN32Window *>(this), 
@@ -409,7 +409,7 @@ FieldContainerTransitPtr WIN32WindowBase::shallowCopy(void) const
 FieldContainerTransitPtr WIN32WindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    WIN32WindowPtr tmpPtr;
+    WIN32Window *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const WIN32Window *>(this), bFlags);
 
@@ -532,9 +532,9 @@ void WIN32WindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr WIN32WindowBase::createAspectCopy(void) const
+FieldContainer *WIN32WindowBase::createAspectCopy(void) const
 {
-    WIN32WindowPtr returnValue;
+    WIN32Window *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const WIN32Window *>(this));
@@ -552,17 +552,17 @@ void WIN32WindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<WIN32WindowPtr>::_type("WIN32WindowPtr", "WindowPtr");
+DataType FieldTraits<WIN32Window *>::_type("WIN32WindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(WIN32WindowPtr)
+OSG_FIELDTRAITS_GETTYPE(WIN32Window *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           WIN32WindowPtr, 
+                           WIN32Window *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           WIN32WindowPtr, 
+                           WIN32Window *, 
                            0);
 
 OSG_END_NAMESPACE

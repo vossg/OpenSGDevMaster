@@ -90,7 +90,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var StateChunkPtr   ChunkMaterialBase::_mfChunks
+/*! \var StateChunk *    ChunkMaterialBase::_mfChunks
     
 */
 
@@ -243,7 +243,7 @@ MFInt32             *ChunkMaterialBase::getMFSlots          (void)
 
 
 
-void ChunkMaterialBase::pushToChunks(const StateChunkPtr value)
+void ChunkMaterialBase::pushToChunks(StateChunk * const value)
 {
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -281,7 +281,7 @@ void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
     }
 }
 
-void ChunkMaterialBase::removeFromChunks(const StateChunkPtr value)
+void ChunkMaterialBase::removeFromChunks(StateChunk * const value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 
@@ -359,7 +359,7 @@ ChunkMaterialTransitPtr ChunkMaterialBase::create(void)
 {
     ChunkMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -375,7 +375,7 @@ ChunkMaterialTransitPtr ChunkMaterialBase::createLocal(BitVector bFlags)
 {
     ChunkMaterialTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -387,9 +387,9 @@ ChunkMaterialTransitPtr ChunkMaterialBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ChunkMaterialPtr ChunkMaterialBase::createEmpty(void)
+ChunkMaterial *ChunkMaterialBase::createEmpty(void)
 {
-    ChunkMaterialPtr returnValue;
+    ChunkMaterial *returnValue;
 
     newPtr<ChunkMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -399,9 +399,9 @@ ChunkMaterialPtr ChunkMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-ChunkMaterialPtr ChunkMaterialBase::createEmptyLocal(BitVector bFlags)
+ChunkMaterial *ChunkMaterialBase::createEmptyLocal(BitVector bFlags)
 {
-    ChunkMaterialPtr returnValue;
+    ChunkMaterial *returnValue;
 
     newPtr<ChunkMaterial>(returnValue, bFlags);
 
@@ -412,7 +412,7 @@ ChunkMaterialPtr ChunkMaterialBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ChunkMaterialBase::shallowCopy(void) const
 {
-    ChunkMaterialPtr tmpPtr;
+    ChunkMaterial *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ChunkMaterial *>(this), 
@@ -428,7 +428,7 @@ FieldContainerTransitPtr ChunkMaterialBase::shallowCopy(void) const
 FieldContainerTransitPtr ChunkMaterialBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ChunkMaterialPtr tmpPtr;
+    ChunkMaterial *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ChunkMaterial *>(this), bFlags);
 
@@ -551,9 +551,9 @@ void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ChunkMaterialBase::createAspectCopy(void) const
+FieldContainer *ChunkMaterialBase::createAspectCopy(void) const
 {
-    ChunkMaterialPtr returnValue;
+    ChunkMaterial *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ChunkMaterial *>(this));
@@ -581,17 +581,17 @@ void ChunkMaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkMaterialPtr>::_type("ChunkMaterialPtr", "MaterialPtr");
+DataType FieldTraits<ChunkMaterial *>::_type("ChunkMaterialPtr", "MaterialPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ChunkMaterialPtr)
+OSG_FIELDTRAITS_GETTYPE(ChunkMaterial *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ChunkMaterialPtr, 
+                           ChunkMaterial *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ChunkMaterialPtr, 
+                           ChunkMaterial *, 
                            0);
 
 OSG_END_NAMESPACE

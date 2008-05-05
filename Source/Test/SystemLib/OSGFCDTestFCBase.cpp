@@ -594,7 +594,7 @@ FCDTestFCTransitPtr FCDTestFCBase::create(void)
 {
     FCDTestFCTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -610,7 +610,7 @@ FCDTestFCTransitPtr FCDTestFCBase::createLocal(BitVector bFlags)
 {
     FCDTestFCTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -622,9 +622,9 @@ FCDTestFCTransitPtr FCDTestFCBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FCDTestFCPtr FCDTestFCBase::createEmpty(void)
+FCDTestFC *FCDTestFCBase::createEmpty(void)
 {
-    FCDTestFCPtr returnValue;
+    FCDTestFC *returnValue;
 
     newPtr<FCDTestFC>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -634,9 +634,9 @@ FCDTestFCPtr FCDTestFCBase::createEmpty(void)
     return returnValue;
 }
 
-FCDTestFCPtr FCDTestFCBase::createEmptyLocal(BitVector bFlags)
+FCDTestFC *FCDTestFCBase::createEmptyLocal(BitVector bFlags)
 {
-    FCDTestFCPtr returnValue;
+    FCDTestFC *returnValue;
 
     newPtr<FCDTestFC>(returnValue, bFlags);
 
@@ -647,7 +647,7 @@ FCDTestFCPtr FCDTestFCBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr FCDTestFCBase::shallowCopy(void) const
 {
-    FCDTestFCPtr tmpPtr;
+    FCDTestFC *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const FCDTestFC *>(this), 
@@ -663,7 +663,7 @@ FieldContainerTransitPtr FCDTestFCBase::shallowCopy(void) const
 FieldContainerTransitPtr FCDTestFCBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    FCDTestFCPtr tmpPtr;
+    FCDTestFC *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const FCDTestFC *>(this), bFlags);
 
@@ -890,9 +890,9 @@ void FCDTestFCBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FCDTestFCBase::createAspectCopy(void) const
+FieldContainer *FCDTestFCBase::createAspectCopy(void) const
 {
-    FCDTestFCPtr returnValue;
+    FCDTestFC *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const FCDTestFC *>(this));
@@ -931,33 +931,33 @@ void FCDTestFCBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDTestFCPtr>::_type("FCDTestFCPtr", "NodeCorePtr");
+DataType FieldTraits<FCDTestFC *>::_type("FCDTestFCPtr", "NodeCorePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(FCDTestFCPtr)
+OSG_FIELDTRAITS_GETTYPE(FCDTestFC *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FCDTestFCPtr, 
+                           FCDTestFC *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FCDTestFCPtr, 
+                           FCDTestFC *, 
                            0);
 
-DataType &FieldTraits< FCDTestFCPtr, 1 >::getType(void)
+DataType &FieldTraits< FCDTestFC *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<FCDTestFCPtr, 0>::getType();
+    return FieldTraits<FCDTestFC *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      FCDTestFCPtr,       
+                      FCDTestFC *,       
                       UnrecordedRefCountPolicy,  
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      FCDTestFCPtr,       
+                      FCDTestFC *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

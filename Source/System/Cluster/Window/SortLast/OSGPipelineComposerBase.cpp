@@ -394,7 +394,7 @@ PipelineComposerTransitPtr PipelineComposerBase::create(void)
 {
     PipelineComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -410,7 +410,7 @@ PipelineComposerTransitPtr PipelineComposerBase::createLocal(BitVector bFlags)
 {
     PipelineComposerTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -422,9 +422,9 @@ PipelineComposerTransitPtr PipelineComposerBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PipelineComposerPtr PipelineComposerBase::createEmpty(void)
+PipelineComposer *PipelineComposerBase::createEmpty(void)
 {
-    PipelineComposerPtr returnValue;
+    PipelineComposer *returnValue;
 
     newPtr<PipelineComposer>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -434,9 +434,9 @@ PipelineComposerPtr PipelineComposerBase::createEmpty(void)
     return returnValue;
 }
 
-PipelineComposerPtr PipelineComposerBase::createEmptyLocal(BitVector bFlags)
+PipelineComposer *PipelineComposerBase::createEmptyLocal(BitVector bFlags)
 {
-    PipelineComposerPtr returnValue;
+    PipelineComposer *returnValue;
 
     newPtr<PipelineComposer>(returnValue, bFlags);
 
@@ -447,7 +447,7 @@ PipelineComposerPtr PipelineComposerBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PipelineComposerBase::shallowCopy(void) const
 {
-    PipelineComposerPtr tmpPtr;
+    PipelineComposer *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PipelineComposer *>(this), 
@@ -463,7 +463,7 @@ FieldContainerTransitPtr PipelineComposerBase::shallowCopy(void) const
 FieldContainerTransitPtr PipelineComposerBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PipelineComposerPtr tmpPtr;
+    PipelineComposer *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PipelineComposer *>(this), bFlags);
 
@@ -610,9 +610,9 @@ void PipelineComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PipelineComposerBase::createAspectCopy(void) const
+FieldContainer *PipelineComposerBase::createAspectCopy(void) const
 {
-    PipelineComposerPtr returnValue;
+    PipelineComposer *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PipelineComposer *>(this));
@@ -630,7 +630,7 @@ void PipelineComposerBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PipelineComposerPtr>::_type("PipelineComposerPtr", "ImageComposerPtr");
+DataType FieldTraits<PipelineComposer *>::_type("PipelineComposerPtr", "ImageComposerPtr");
 #endif
 
 

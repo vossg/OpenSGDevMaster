@@ -126,13 +126,13 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DepthClearBackgroundTransitPtr create          (void);
-    static  DepthClearBackgroundPtr        createEmpty     (void);
+    static  DepthClearBackgroundTransitPtr  create          (void);
+    static  DepthClearBackground           *createEmpty     (void);
 
-    static  DepthClearBackgroundTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  DepthClearBackgroundTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  DepthClearBackgroundPtr        createEmptyLocal(
+    static  DepthClearBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -210,7 +210,7 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

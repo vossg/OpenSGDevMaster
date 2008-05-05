@@ -164,7 +164,7 @@ PassiveWindowTransitPtr PassiveWindowBase::create(void)
 {
     PassiveWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -180,7 +180,7 @@ PassiveWindowTransitPtr PassiveWindowBase::createLocal(BitVector bFlags)
 {
     PassiveWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -192,9 +192,9 @@ PassiveWindowTransitPtr PassiveWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PassiveWindowPtr PassiveWindowBase::createEmpty(void)
+PassiveWindow *PassiveWindowBase::createEmpty(void)
 {
-    PassiveWindowPtr returnValue;
+    PassiveWindow *returnValue;
 
     newPtr<PassiveWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -204,9 +204,9 @@ PassiveWindowPtr PassiveWindowBase::createEmpty(void)
     return returnValue;
 }
 
-PassiveWindowPtr PassiveWindowBase::createEmptyLocal(BitVector bFlags)
+PassiveWindow *PassiveWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    PassiveWindowPtr returnValue;
+    PassiveWindow *returnValue;
 
     newPtr<PassiveWindow>(returnValue, bFlags);
 
@@ -217,7 +217,7 @@ PassiveWindowPtr PassiveWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr PassiveWindowBase::shallowCopy(void) const
 {
-    PassiveWindowPtr tmpPtr;
+    PassiveWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const PassiveWindow *>(this), 
@@ -233,7 +233,7 @@ FieldContainerTransitPtr PassiveWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr PassiveWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    PassiveWindowPtr tmpPtr;
+    PassiveWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const PassiveWindow *>(this), bFlags);
 
@@ -284,9 +284,9 @@ void PassiveWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr PassiveWindowBase::createAspectCopy(void) const
+FieldContainer *PassiveWindowBase::createAspectCopy(void) const
 {
-    PassiveWindowPtr returnValue;
+    PassiveWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const PassiveWindow *>(this));
@@ -304,17 +304,17 @@ void PassiveWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveWindowPtr>::_type("PassiveWindowPtr", "WindowPtr");
+DataType FieldTraits<PassiveWindow *>::_type("PassiveWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PassiveWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(PassiveWindow *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PassiveWindowPtr, 
+                           PassiveWindow *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PassiveWindowPtr, 
+                           PassiveWindow *, 
                            0);
 
 OSG_END_NAMESPACE

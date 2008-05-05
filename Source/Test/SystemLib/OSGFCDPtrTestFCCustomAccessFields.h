@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(FCDPtrTestFCCustomAccess);
 #endif
 
 template <>
-struct FieldTraits<FCDPtrTestFCCustomAccessPtr> :
-    public FieldTraitsFCPtrBase<FCDPtrTestFCCustomAccessPtr>
+struct FieldTraits<FCDPtrTestFCCustomAccess *> :
+    public FieldTraitsFCPtrBase<FCDPtrTestFCCustomAccess *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<FCDPtrTestFCCustomAccessPtr> :
 
   public:
 
-    typedef FieldTraits<FCDPtrTestFCCustomAccessPtr>  Self;
+    typedef FieldTraits<FCDPtrTestFCCustomAccess *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<FCDPtrTestFCCustomAccessPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFCDPtrTestFCCustomAccessPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFCDPtrTestFCCustomAccessPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFCDPtrTestFCCustomAccessPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFCDPtrTestFCCustomAccessPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFCDPtrTestFCCustomAccessPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFCDPtrTestFCCustomAccessPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFCDPtrTestFCCustomAccessPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFCDPtrTestFCCustomAccessPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<FCDPtrTestFCCustomAccessPtr, 0>::getMName<NoRefCountPol
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       RecordedRefCountPolicy  > SFRecFCDPtrTestFCCustomAccessPtr;
-typedef PointerSField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       UnrecordedRefCountPolicy> SFUnrecFCDPtrTestFCCustomAccessPtr;
-typedef PointerSField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       WeakRefCountPolicy      > SFWeakFCDPtrTestFCCustomAccessPtr;
-typedef PointerSField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       NoRefCountPolicy        > SFUncountedFCDPtrTestFCCustomAccessPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<FCDPtrTestFCCustomAccessPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       RecordedRefCountPolicy  > MFRecFCDPtrTestFCCustomAccessPtr;
-typedef PointerMField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       UnrecordedRefCountPolicy> MFUnrecFCDPtrTestFCCustomAccessPtr;
-typedef PointerMField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       WeakRefCountPolicy      > MFWeakFCDPtrTestFCCustomAccessPtr;
-typedef PointerMField<FCDPtrTestFCCustomAccessPtr,
+typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       NoRefCountPolicy        > MFUncountedFCDPtrTestFCCustomAccessPtr;
 #endif
 

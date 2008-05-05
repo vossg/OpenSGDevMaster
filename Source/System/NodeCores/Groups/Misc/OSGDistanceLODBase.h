@@ -185,13 +185,13 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DistanceLODTransitPtr create          (void);
-    static  DistanceLODPtr        createEmpty     (void);
+    static  DistanceLODTransitPtr  create          (void);
+    static  DistanceLOD           *createEmpty     (void);
 
-    static  DistanceLODTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  DistanceLODTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  DistanceLODPtr        createEmptyLocal(
+    static  DistanceLOD            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -281,7 +281,7 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

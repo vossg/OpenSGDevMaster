@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(DistanceLOD);
 #endif
 
 template <>
-struct FieldTraits<DistanceLODPtr> :
-    public FieldTraitsFCPtrBase<DistanceLODPtr>
+struct FieldTraits<DistanceLOD *> :
+    public FieldTraitsFCPtrBase<DistanceLOD *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<DistanceLODPtr> :
 
   public:
 
-    typedef FieldTraits<DistanceLODPtr>  Self;
+    typedef FieldTraits<DistanceLOD *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

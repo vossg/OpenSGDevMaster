@@ -159,7 +159,7 @@ TwoSidedLightingChunkTransitPtr TwoSidedLightingChunkBase::create(void)
 {
     TwoSidedLightingChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -175,7 +175,7 @@ TwoSidedLightingChunkTransitPtr TwoSidedLightingChunkBase::createLocal(BitVector
 {
     TwoSidedLightingChunkTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -187,9 +187,9 @@ TwoSidedLightingChunkTransitPtr TwoSidedLightingChunkBase::createLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmpty(void)
+TwoSidedLightingChunk *TwoSidedLightingChunkBase::createEmpty(void)
 {
-    TwoSidedLightingChunkPtr returnValue;
+    TwoSidedLightingChunk *returnValue;
 
     newPtr<TwoSidedLightingChunk>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -199,9 +199,9 @@ TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmpty(void)
     return returnValue;
 }
 
-TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmptyLocal(BitVector bFlags)
+TwoSidedLightingChunk *TwoSidedLightingChunkBase::createEmptyLocal(BitVector bFlags)
 {
-    TwoSidedLightingChunkPtr returnValue;
+    TwoSidedLightingChunk *returnValue;
 
     newPtr<TwoSidedLightingChunk>(returnValue, bFlags);
 
@@ -212,7 +212,7 @@ TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmptyLocal(BitVector b
 
 FieldContainerTransitPtr TwoSidedLightingChunkBase::shallowCopy(void) const
 {
-    TwoSidedLightingChunkPtr tmpPtr;
+    TwoSidedLightingChunk *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const TwoSidedLightingChunk *>(this), 
@@ -228,7 +228,7 @@ FieldContainerTransitPtr TwoSidedLightingChunkBase::shallowCopy(void) const
 FieldContainerTransitPtr TwoSidedLightingChunkBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TwoSidedLightingChunkPtr tmpPtr;
+    TwoSidedLightingChunk *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const TwoSidedLightingChunk *>(this), bFlags);
 
@@ -279,9 +279,9 @@ void TwoSidedLightingChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr TwoSidedLightingChunkBase::createAspectCopy(void) const
+FieldContainer *TwoSidedLightingChunkBase::createAspectCopy(void) const
 {
-    TwoSidedLightingChunkPtr returnValue;
+    TwoSidedLightingChunk *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const TwoSidedLightingChunk *>(this));
@@ -299,7 +299,7 @@ void TwoSidedLightingChunkBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TwoSidedLightingChunkPtr>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr");
+DataType FieldTraits<TwoSidedLightingChunk *>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr");
 #endif
 
 

@@ -202,13 +202,13 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BinarySwapComposerTransitPtr create          (void);
-    static  BinarySwapComposerPtr        createEmpty     (void);
+    static  BinarySwapComposerTransitPtr  create          (void);
+    static  BinarySwapComposer           *createEmpty     (void);
 
-    static  BinarySwapComposerTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  BinarySwapComposerTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  BinarySwapComposerPtr        createEmptyLocal(
+    static  BinarySwapComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -301,7 +301,7 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(TileCameraDecorator);
 #endif
 
 template <>
-struct FieldTraits<TileCameraDecoratorPtr> :
-    public FieldTraitsFCPtrBase<TileCameraDecoratorPtr>
+struct FieldTraits<TileCameraDecorator *> :
+    public FieldTraitsFCPtrBase<TileCameraDecorator *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<TileCameraDecoratorPtr> :
 
   public:
 
-    typedef FieldTraits<TileCameraDecoratorPtr>  Self;
+    typedef FieldTraits<TileCameraDecorator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<TileCameraDecoratorPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTileCameraDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TileCameraDecorator *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTileCameraDecoratorPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<TileCameraDecoratorPtr, 0>::getMName<NoRefCountPolicy>(
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldSingle */
 
-typedef PointerSField<TileCameraDecoratorPtr,
+typedef PointerSField<TileCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecTileCameraDecoratorPtr;
-typedef PointerSField<TileCameraDecoratorPtr,
+typedef PointerSField<TileCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecTileCameraDecoratorPtr;
-typedef PointerSField<TileCameraDecoratorPtr,
+typedef PointerSField<TileCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakTileCameraDecoratorPtr;
-typedef PointerSField<TileCameraDecoratorPtr,
+typedef PointerSField<TileCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedTileCameraDecoratorPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<TileCameraDecoratorPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpWindowFieldMulti */
 
-typedef PointerMField<TileCameraDecoratorPtr,
+typedef PointerMField<TileCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecTileCameraDecoratorPtr;
-typedef PointerMField<TileCameraDecoratorPtr,
+typedef PointerMField<TileCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecTileCameraDecoratorPtr;
-typedef PointerMField<TileCameraDecoratorPtr,
+typedef PointerMField<TileCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakTileCameraDecoratorPtr;
-typedef PointerMField<TileCameraDecoratorPtr,
+typedef PointerMField<TileCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedTileCameraDecoratorPtr;
 #endif
 
