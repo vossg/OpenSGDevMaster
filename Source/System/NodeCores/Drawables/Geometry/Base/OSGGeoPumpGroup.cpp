@@ -141,8 +141,8 @@ GeoPumpGroup::PropertyCharacteristics
 {
     PropertyCharacteristics val = 0;
     
-    Int16 natt = geo->getProperties().size();
-    Int16 nind = geo->getPropIndices().size();
+    Int16 natt = geo->getMFProperties ()->size();
+    Int16 nind = geo->getMFPropIndices()->size();
     
     // Check for single- and multi-indexed
     GeoIntegralPropertyPtr ind = NullFC;

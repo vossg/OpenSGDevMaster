@@ -130,16 +130,16 @@ void SimpleStatisticsForeground::dump(UInt32, const BitVector) const
 void SimpleStatisticsForeground::addElement(StatElemDescBase &desc,
                                             const char *format)
 {
-    editElementIDs().push_back(desc.getID());
-    editFormats().push_back(format ? format : "");
+    editMFElementIDs()->push_back(desc.getID());
+    editMFFormats   ()->push_back(format ? format : "");
 }
 
 /*! Convenience function to add an element and format.
 */
 void SimpleStatisticsForeground::addElement(Int32 id, const char *format)
 {
-    editElementIDs().push_back(id);
-    editFormats().push_back(format ? format : "");
+    editMFElementIDs()->push_back(id);
+    editMFFormats   ()->push_back(format ? format : "");
 }
 
 /*! Convenience function to add a line of text.
@@ -153,8 +153,8 @@ void SimpleStatisticsForeground::addText(const char *text)
 */
 void SimpleStatisticsForeground::clearElems(void)
 {
-    editElementIDs().clear();
-    editFormats().clear();
+    editMFElementIDs()->clear();
+    editMFFormats   ()->clear();
 
     if(getCollector() != NULL)
     {
@@ -215,7 +215,8 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     if(_face == 0)
         initText(getFamily(), getSize());
 
-    if ((getCollector() == NULL) || (!getCollector()->getNumOfElems() && !getElementIDs().size()))
+    if ((getCollector() == NULL) || 
+        (!getCollector()->getNumOfElems() && !getMFElementIDs()->size()))
         return; // nothing to do
 
     Real32  pw = Real32(pPort->getPixelWidth ());
@@ -252,20 +253,20 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     StatCollector *col = this->getCollector();
     StatElem      *el;
 
-    if(getElementIDs().size() != 0)
+    if(getMFElementIDs()->size() != 0)
     {
-        for(UInt32 i = 0; i < getElementIDs().size(); ++i)
+        for(UInt32 i = 0; i < getMFElementIDs()->size(); ++i)
         {
-            Int32 id(getElementIDs()[i]);
+            Int32 id(getElementIDs(i));
             el = ((id >= 0) ? col->getElem(id) : 0);
 
             stat.resize(stat.size() + 1);
             std::vector < std::string >::iterator str = stat.end() - 1;
 
             const char  *format = NULL;
-            if(i < getFormats().size() && getFormats()[i].length())
+            if(i < getMFFormats()->size() && getFormats(i).length())
             {
-              format = getFormats()[i].c_str();
+                format = getFormats(i).c_str();
             }
 
             if (el)

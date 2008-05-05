@@ -761,7 +761,7 @@ void QuadTreeTerrain::propagateD2Errors()
         p2x = 0, p2z = 0, 
         p3x = 0, p3z = 0;
     
-    MFReal32 &em = editHeightError(); // shortcut
+    MFReal32 *em = editMFHeightError(); // shortcut
     
 
     //--- iterate through all levels ------------------------------------------
@@ -814,12 +814,12 @@ void QuadTreeTerrain::propagateD2Errors()
                 
                 //--- propagate to 3 parents -----------------------------
 
-                Real32 d2K_EMthis = D2K * em[centerZ * getWidth() + centerX];
+                Real32 d2K_EMthis = D2K * (*em)[centerZ * getWidth() + centerX];
                 
                 //--- to real father -------------------------------------
 
                 p1     = p1z * getWidth() + p1x;
-                em[p1] = osgMax(em[p1], d2K_EMthis);
+                (*em)[p1] = osgMax((*em)[p1], d2K_EMthis);
                 
                 //--- other 2 "parents" ----------------------------------
 
@@ -829,7 +829,7 @@ void QuadTreeTerrain::propagateD2Errors()
                    p2z < getWidth()    ) 
                 {
                     p2     = p2z * getWidth() + p2x;
-                    em[p2] = osgMax(em[p2], d2K_EMthis);
+                    (*em)[p2] = osgMax((*em)[p2], d2K_EMthis);
                 }
 
                 if(p3x >= 0          &&  
@@ -838,7 +838,7 @@ void QuadTreeTerrain::propagateD2Errors()
                    p3z < getWidth()    ) 
                 {
                     p3     = p3z * getWidth() + p3x;
-                    em[p3] = osgMax(em[p3], d2K_EMthis);
+                    (*em)[p3] = osgMax((*em)[p3], d2K_EMthis);
                 }
                 
                 centerZ += width;                  // advance zPos

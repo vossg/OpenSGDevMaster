@@ -145,7 +145,7 @@ OSBImageElement::read(const std::string &typeName)
         readFieldsContinue(fieldName, "", "");
 
         // read out-of-line image data
-        if(img->getPixel().empty())
+        if(img->getMFPixel()->empty())
         {
             const std::string &fileName = img->getName();
             img = ImageFileHandler::the()->read(fileName.c_str());

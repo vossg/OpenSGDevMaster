@@ -110,9 +110,9 @@ class OSG_STATE_DLLMAPPING ProgramChunk : public ProgramChunkBase
                                      Int16        index, 
                                const Vec4f       &value );
     
-    const Vec4f &getParameter (      Int16        index );
-    const Vec4f &getParameter (const char        *name  );
-    const Vec4f &getParameter (const std::string &name  );
+    const Vec4f  getParameter (      Int16        index );
+    const Vec4f  getParameter (const char        *name  );
+    const Vec4f  getParameter (const std::string &name  );
 
           bool   setParameter (      Int16        index, 
                                const Vec4f       &value );

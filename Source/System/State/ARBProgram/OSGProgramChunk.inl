@@ -75,13 +75,13 @@ bool ProgramChunk::addParameter(const char   *name,
 }
 
 inline 
-const Vec4f &ProgramChunk::getParameter(const char *name)
+const Vec4f ProgramChunk::getParameter(const char *name)
 {
     return getParameter(findParameter(name));
 }
 
 inline 
-const Vec4f &ProgramChunk::getParameter(const std::string &name)
+const Vec4f ProgramChunk::getParameter(const std::string &name)
 {
     return getParameter(findParameter(name.c_str()));
 }

@@ -305,10 +305,10 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
     UInt32 vpHeight;
 
     // duplicate viewports
-    for(cv=0,sv=0;cv<getPort().size();cv++)
+    for(cv=0,sv=0;cv<getMFPort()->size();cv++)
     {
-        clientPort = getPort()[cv];
-        if(serverWindow->getPort().size() <= sv)
+        clientPort = getPort(cv);
+        if(serverWindow->getMFPort()->size() <= sv)
         {
             // create new port
             //serverPort = StereoBufferViewport::create();
@@ -321,16 +321,17 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
         }
         else
         {
-            serverPort = serverWindow->getPort()[sv];
+            serverPort = serverWindow->getPort(sv);
             deco=dynamic_cast<TileCameraDecoratorPtr>(serverPort->getCamera());
-            if(serverWindow->getPort()[sv]->getType() != 
+            if(serverWindow->getPort(sv)->getType() != 
                clientPort->getType())
             {
                 // there is a viewport with the wrong type
                 serverPort = dynamic_pointer_cast<Viewport>(
                     clientPort->shallowCopy());
 
-                serverWindow->replacePort(sv, serverPort);//[sv] = serverPort;
+                serverWindow->replacePort(sv, 
+                                          serverPort);//[sv] = serverPort;
                 serverPort->setCamera(deco);
             }
             else
@@ -342,17 +343,17 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
         }
 
         // duplicate values
-        regionStart=cv * getServers().size() * 4 + id * 4;
+        regionStart=cv * getMFServers()->size() * 4 + id * 4;
         serverPort->setSize( 
-            Real32(getRegion()[regionStart+0] + clientPort->getPixelLeft()),
-            Real32(getRegion()[regionStart+1] + clientPort->getPixelBottom()),
-            Real32(getRegion()[regionStart+2] + clientPort->getPixelLeft()),
-            Real32(getRegion()[regionStart+3] + clientPort->getPixelBottom()));
+            Real32(getRegion(regionStart+0) + clientPort->getPixelLeft()),
+            Real32(getRegion(regionStart+1) + clientPort->getPixelBottom()),
+            Real32(getRegion(regionStart+2) + clientPort->getPixelLeft()),
+            Real32(getRegion(regionStart+3) + clientPort->getPixelBottom()));
 
         serverPort->setRoot      ( clientPort->getRoot()       );
         serverPort->setBackground( clientPort->getBackground() );
 
-        serverPort->assignForegrounds(clientPort->getForegrounds());
+        serverPort->assignForegrounds(*(clientPort->getMFForegrounds()));
 
         serverPort->setTravMask  ( clientPort->getTravMask()   );
 
@@ -362,16 +363,16 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
 
         deco->setFullWidth ( vpWidth );
         deco->setFullHeight( vpHeight );
-        deco->setSize( getRegion()[ regionStart+0 ]/(float)vpWidth,
-                       getRegion()[ regionStart+1 ]/(float)vpHeight,
-                       getRegion()[ regionStart+2 ]/(float)vpWidth,
-                       getRegion()[ regionStart+3 ]/(float)vpHeight );
+        deco->setSize( getRegion( regionStart+0 )/(float)vpWidth,
+                       getRegion( regionStart+1 )/(float)vpHeight,
+                       getRegion( regionStart+2 )/(float)vpWidth,
+                       getRegion( regionStart+3 )/(float)vpHeight );
         deco->setDecoratee( clientPort->getCamera() );
 
         sv++;
     }
     // remove unused ports
-    while(serverWindow->getPort().size()>sv)
+    while(serverWindow->getMFPort()->size()>sv)
     {
         serverWindow->subPort(sv);
     }
@@ -405,9 +406,9 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
     serverWindow->activate();
     serverWindow->frameInit();
     action->setWindow( serverWindow );
-    for(sv=0;sv<serverWindow->getPort().size();++sv)
+    for(sv=0;sv<serverWindow->getMFPort()->size();++sv)
     {
-        ViewportPtr vp=serverWindow->getPort()[sv];
+        ViewportPtr vp=serverWindow->getPort(sv);
         vp->render( action );
 
         // send resulting image
@@ -513,7 +514,7 @@ void SortFirstWindow::clientPreSync( void )
     UInt32 cv;
     TileLoadBalancer::ResultT region;
     
-    editRegion().clear();
+    editMFRegion()->clear();
 #if USE_VPORT_SLICES
     for(cv=0;cv<getPort().size();cv++)
     {
@@ -527,18 +528,18 @@ void SortFirstWindow::clientPreSync( void )
         }
     }
 #else
-    for(cv=0;cv<getPort().size();cv++)
+    for(cv=0;cv<getMFPort()->size();cv++)
     {
-        _tileLoadBalancer->update( getPort()[cv]->getRoot() );
-        _tileLoadBalancer->balance(getPort()[cv],
+        _tileLoadBalancer->update( getPort(cv)->getRoot() );
+        _tileLoadBalancer->balance(getPort(cv),
                               false,
                               region);
-        for(i=0;i<getServers().size();i++)
+        for(i=0;i<getMFServers()->size();i++)
         {
-            editRegion().push_back(region[i].x1);
-            editRegion().push_back(region[i].y1);
-            editRegion().push_back(region[i].x2);
-            editRegion().push_back(region[i].y2);
+            editMFRegion()->push_back(region[i].x1);
+            editMFRegion()->push_back(region[i].y1);
+            editMFRegion()->push_back(region[i].x2);
+            editMFRegion()->push_back(region[i].y2);
         }
     }
 #endif
@@ -575,9 +576,9 @@ void SortFirstWindow::clientSwap( void )
         if(getClientWindow()!=NullFC)
         {
             // receive all viewports
-            for(cv=0;cv<getPort().size();++cv)
+            for(cv=0;cv<getMFPort()->size();++cv)
             {
-                ViewportPtr vp=getPort()[cv];
+                ViewportPtr vp=getPort(cv);
 
                 // activate the appropriate viewport to receive image
                 vp->activate();

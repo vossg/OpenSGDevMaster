@@ -1233,12 +1233,12 @@ int doMain(int argc,char **argv)
     }
     
     if(!autostart.empty())
-        clusterWindow->editAutostart().push_back(autostart);
+        clusterWindow->editMFAutostart()->push_back(autostart);
     
     for(i=0 ; i<servers.size() ; ++i)
-        clusterWindow->editServers().push_back(servers[i]);
+        clusterWindow->editMFServers()->push_back(servers[i]);
     if(cols < 0)
-        cols = clusterWindow->getServers().size() / rows;
+        cols = clusterWindow->getMFServers()->size() / rows;
     switch(type)
     {
         case 'M': 

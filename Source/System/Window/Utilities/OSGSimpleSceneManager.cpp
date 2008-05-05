@@ -473,9 +473,9 @@ void SimpleSceneManager::setCamera(CameraPtr camera)
     camera->setFar (_camera->getFar());
 
 
-    for(UInt32 i=0;i<_win->getPort().size();++i)
+    for(UInt32 i=0;i<_win->getMFPort()->size();++i)
     {
-        ViewportPtr vp = _win->getPort()[i];
+        ViewportPtr vp = _win->getPort(i);
 
         if(vp != NullFC)
         {
@@ -597,7 +597,7 @@ void SimpleSceneManager::initialize(void)
     _camera->setFar  (10000.f);
 
     // need a viewport?
-    if(_win->getPort().size() == 0)
+    if(_win->getMFPort()->size() == 0)
     {
         SolidBackgroundUnrecPtr bg = SolidBackground::create();
 
@@ -1053,7 +1053,7 @@ Line SimpleSceneManager::calcViewRay(Int16 x, Int16 y)
 {
     Line l;
 
-    _camera->calcViewRay(l, x, y, *_win->getPort()[0]);
+    _camera->calcViewRay(l, x, y, *_win->getPort(0));
 
     return l;
 }

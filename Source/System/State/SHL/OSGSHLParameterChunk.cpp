@@ -229,7 +229,7 @@ bool SHLParameterChunk::operator == (const StateChunk &other) const
     if(!tother)
         return false;
 
-    if(getParameters().size() != tother->getParameters().size())
+    if(getMFParameters()->size() != tother->getMFParameters()->size())
         return false;
 
     return true;

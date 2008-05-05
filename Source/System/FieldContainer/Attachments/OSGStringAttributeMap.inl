@@ -47,7 +47,7 @@ OSG_BEGIN_NAMESPACE
 
 inline const MFString& StringAttributeMap::getKeys() const
 {
-    return StringAttributeMapBase::getKeys();
+    return *StringAttributeMapBase::getMFKeys();
 }
 
 /*! Queries this attribute map attachment to determine if it includes the
@@ -95,24 +95,24 @@ inline const std::string StringAttributeMap::getAttribute(const std::string& key
 
 inline std::string& StringAttributeMap::operator[](const std::string& key)
 {
-    MFString& keys   = this->StringAttributeMapBase::editKeys();
-    MFString& values = this->StringAttributeMapBase::editValues();
+    MFString *keys   = this->StringAttributeMapBase::editMFKeys();
+    MFString *values = this->StringAttributeMapBase::editMFValues();
 
     unsigned int index(0);
-    for (MFString::iterator i = keys.begin(); 
-            i != keys.end(); ++i, ++index )
+    for (MFString::iterator i = keys->begin(); 
+            i != keys->end(); ++i, ++index )
     {
         if ( *i == key )
         {
-            return values[index];
+            return (*values)[index];
         }
     }
 
-    keys.push_back(key);
-    values.push_back(std::string(""));
+    keys->push_back(key);
+    values->push_back(std::string(""));
 
     // The value we want to return is at the end of _mfValues.
-    return values[values.size() - 1];
+    return (*values)[values->size() - 1];
 }
 
 OSG_END_NAMESPACE

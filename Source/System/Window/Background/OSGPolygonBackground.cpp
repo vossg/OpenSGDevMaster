@@ -127,12 +127,12 @@ void PolygonBackground::clear(DrawEnv *pEnv)
         return;
     }
         
-    if(getPositions().size() == 0 ||
-       getPositions().size() != getTexCoords().size())
+    if(getMFPositions()->size() == 0 ||
+       getMFPositions()->size() != getMFTexCoords()->size())
     {
         FWARNING(("PolygonBackground::clear: positions and texcoords have "
                   "different/ invalid sizes (%d vs. %d)!\n", 
-                  getPositions().size(), getTexCoords().size()));
+                  getMFPositions()->size(), getMFTexCoords()->size()));
         return;
     }
        
@@ -243,12 +243,12 @@ void PolygonBackground::clear(DrawEnv *pEnv)
 
     getMaterial()->getState()->activate(pEnv);
     
-    const Vec3f *tc  = &getTexCoords()[0];
-    const Pnt2f *pos = &getPositions()[0];
+    const Vec3f *tc  = &getMFTexCoords()->front();
+    const Pnt2f *pos = &getMFPositions()->front();
     
     glBegin(GL_POLYGON);
     
-    for (UInt16 i=0; i<getPositions().size(); i++)
+    for (UInt16 i=0; i < getMFPositions()->size(); i++)
     {
         glTexCoord3fv( tc[i].getValues() );
         glVertex2f( mapCoordinate(pos[i][0], Real32(pEnv->getPixelWidth()),

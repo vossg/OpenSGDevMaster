@@ -99,10 +99,10 @@ bool ShaderParameterAccess::subParameter(const char *name)
 
 void ShaderParameterAccess::updateMap(void)
 {
-    if(_mapsize == _parameters.getParameters().size())
+    if(_mapsize == _parameters.getMFParameters()->size())
         return;
     
-    UInt32 size = _parameters.getParameters().size();
+    UInt32 size = _parameters.getMFParameters()->size();
 
     _parametermap.clear();
 
@@ -110,7 +110,7 @@ void ShaderParameterAccess::updateMap(void)
     {
         _parametermap.insert(
             std::pair<std::string, 
-                      UInt32     >(_parameters.getParameters()[i]->getName(), 
+                      UInt32     >(_parameters.getParameters(i)->getName(), 
                                    i));
     }
 

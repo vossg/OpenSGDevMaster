@@ -86,6 +86,7 @@ inline
     return _@!field.VarName!@.getValue();
 }
 
+              @@if !field.ptrFieldCustomAccess
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
             @@if field.PassFieldMask
@@ -97,41 +98,9 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
 {
     editSField(@!field.Name!@FieldMask);
 
-            @@if field.linkMParent
-
-    if(_@!field.VarName!@.getValue() != NullFC)
-    {
-        _@!field.VarName!@.getValue()->subParent(this);
-    }
-
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-    if(_@!field.VarName!@.getValue() != NullFC)
-    {
-        _@!field.VarName!@.getValue()->setParent(NullFC);
-    }
-
-            @@endif // field.linkSParent
     _@!field.VarName!@.setValue(value);
-            @@if field.linkMParent
-
-    if(_@!field.VarName!@.getValue() != NullFC)
-    {
-        _@!field.VarName!@.getValue()->addParent(this, @!field.Name!@FieldMask);
-    }
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-
-    if(_@!field.VarName!@.getValue() != NullFC)
-    {
-        _@!field.VarName!@.getValue()->setParent(this, @!field.Name!@FieldMask);
-    }
-            @@endif // field.linkSParent
-            @@if field.PassFieldMask
-    _@!field.VarName!@.getValue().setParentFieldPos(uiStoredInFieldId);
-            @@endif // field.PassFieldMask
-
 }
+@@endif
         @@else // field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 
@@ -145,7 +114,7 @@ inline
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
-const @!field.FullType!@ &@!Classname!@Base::get@!field.Name!@(void) const
+const @!field.FullType!@ @!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@.getValue();
 }
@@ -179,7 +148,7 @@ inline
             @@if field.isPtrField
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@else // field.isPtrField
-const @!field.FullType!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
+const @!field.FullType!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@endif // field.isPtrField
 {
     return _@!field.VarName!@[index];
@@ -192,15 +161,6 @@ inline
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
     return _@!field.VarName!@[index];
-}
-
-//! Get the @!Classname!@::_@!field.VarName!@ field.
-inline
-@!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::edit@!field.Name!@(void)
-{
-    editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
-
-    return _@!field.VarName!@;
 }
 
                 @@if CompatOneSix
@@ -221,13 +181,6 @@ inline
                 @@endif // CompatOneSix
 
             @@endif // !field.isPtrField
-
-//! Get the @!Classname!@::_@!field.VarName!@ field.
-inline
-const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
-{
-    return _@!field.VarName!@;
-}
 
         @@endif //!field.noAccess
         @@EndMFFieldLoop@@

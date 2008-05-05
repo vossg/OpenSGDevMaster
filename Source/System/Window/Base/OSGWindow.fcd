@@ -51,7 +51,7 @@ init(void), activate(void), deactivate(void) and swap(void).
         removeFromMFieldIndexAs="subPort"
         removeFromMFieldObjectAs="subPort"
         clearFieldAs="clearPorts"        
-        checkNilPtr="true"
+        ptrFieldAccess = "nullCheck"
         linkParentField="Parent"
 	>
 	</Field>

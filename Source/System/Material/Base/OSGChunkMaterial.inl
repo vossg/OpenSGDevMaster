@@ -42,10 +42,12 @@ const StateChunkPtr ChunkMaterial::getChunk (const UInt32 index) const
     return Inherited::getChunks(index);
 }
 
+#if 0
 inline
 const MFUnrecStateChunkPtr &ChunkMaterial::getChunks(void) const
 {
     return Inherited::getChunks();
 }
+#endif
 
 OSG_END_NAMESPACE

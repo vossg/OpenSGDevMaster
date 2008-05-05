@@ -298,7 +298,7 @@ void Viewport::render(DrawActionBase *action)
     
     oEnv.setWindow(action->getWindow());
     
-    for(UInt16 i=0; i < getForegrounds().size(); i++)
+    for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
         getForegrounds(i)->draw(&oEnv, this);
 
 #if 0 // Have to check GV
@@ -342,7 +342,7 @@ void Viewport::render(RenderActionBase *action)
 
     oEnv.setWindow(action->getWindow());
 
-    for(UInt16 i=0; i < getForegrounds().size(); i++)
+    for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
         getForegrounds(i)->draw(&oEnv, this);
 
 #if 0 // Have to check GV

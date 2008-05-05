@@ -120,7 +120,7 @@ static void connectCluster(void)
     if(_cluster_win != NullFC)
         return;
 
-    ViewportPtr clientvp = _client_win->getPort()[0];
+    ViewportPtr clientvp = _client_win->getPort(0);
     
     // create the viewports for the cluster just a simple one ...
     ViewportUnrecPtr vp = Viewport::create();
@@ -137,7 +137,7 @@ static void connectCluster(void)
     // otherwise the changes will not be transfered over the network.
 
     for(UInt32 i=0;i<_pipenames.size();++i)
-        _cluster_win->editServers().push_back(_pipenames[i]);
+        _cluster_win->editMFServers()->push_back(_pipenames[i]);
     // dummy size for navigator
     _cluster_win->setSize(300,300);
     _cluster_win->addPort(vp);

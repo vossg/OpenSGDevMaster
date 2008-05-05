@@ -218,6 +218,18 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
         return NULL;
     }
 }
+//! Get the @!Classname!@::_@!field.VarName!@ field.
+@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void) 
+{
+    if(_sfDecoratee.getValue() != NullFC)
+    {
+        return getDecoratee()->edit@!field.CARD!@@!field.Name!@();
+    }
+    else
+    {
+        return NULL;
+    }
+}
         @@else // field.isPtrField
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
@@ -265,6 +277,34 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 {
     return &_@!field.VarName!@;
 }
+            @@if field.ptrFieldStandardAccess
+
+@!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name:15!@(void)
+{
+            @@if field.isSField  
+    editSField(@!field.Name!@FieldMask);
+            @@else
+    editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+            @@endif
+
+    return &_@!field.VarName!@;
+}
+            @@endif
+            @@if field.isSField  
+                @@if field.ptrFieldNullCheckAccess
+
+@!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name:15!@(void)
+{
+            @@if field.isSField  
+    editSField(@!field.Name!@FieldMask);
+            @@else
+    editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
+            @@endif
+
+    return &_@!field.VarName!@;
+}
+                @@endif
+            @@endif
         @@else // field.isPtrField
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
@@ -310,22 +350,7 @@ void @!Classname!@Base::@!field.PushToField!@(const @!field.Type!@ value)
             @@endif // field.checkNilPtr
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-    //addRef(value);
-
     _mf@!field.Name!@.push_back(value);
-            @@if !field.checkNilPtr
-
-//    if(value == NullFC)
-//        return;
-            @@endif // field.checkNilPtr
-            @@if field.linkMParent
-
-//    value->addParent(this, @!field.Name!@FieldId);
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-
-//    value->setParent(this, @!field.Name!@FieldId);
-            @@endif // field.linkSParent
 }
 
         @@endif // field.writePushToField
@@ -361,24 +386,9 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(      UInt32         uiIndex,
 
     MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin_nc();
 
-    //addRef(value);
-
     fieldIt += uiIndex;
 
     _mf@!field.Name!@.insert(fieldIt, value);
-            @@if !field.checkNilPtr
-
-//    if(value == NullFC)
-//        return;
-            @@endif // !field.checkNilPtr
-            @@if field.linkMParent
-
-//    value->addParent(this, @!field.Name!@FieldId);
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-
-//    value->setParent(this, @!field.Name!@FieldId);
-            @@endif // field.linkSParent
 }
 
         @@endif // field.writeInsertIntoMField
@@ -396,40 +406,7 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(      UInt32         uiIn
 
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-            @@if field.linkMParent
-
-//    if(_mf@!field.Name!@[uiIndex] != NullFC)
-//    {
-//        _mf@!field.Name!@[uiIndex]->subParent(this);
-//    }
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-
-//    if(_mf@!field.Name!@[uiIndex] != NullFC)
-//    {
-//        _mf@!field.Name!@[uiIndex]->setParent(this, @!field.Name!@FieldId);
-//    }
-            @@endif // field.linkSParent
-
-//    addRef(value);
-//    subRef(_mf@!field.Name!@[uiIndex]);
-
-//    _mf@!field.Name!@[uiIndex] = value;
-
-      _mf@!field.Name!@.replace(uiIndex, value);
-            @@if !field.checkNilPtr
-
-//    if(value == NullFC)
-//        return;
-            @@endif // !field.checkNilPtr
-            @@if field.linkMParent
-
-//    value->addParent(this, @!field.Name!@FieldId);
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-
-//    value->setParent(this, @!field.Name!@FieldId);
-            @@endif // field.linkSParent
+    _mf@!field.Name!@.replace(uiIndex, value);
 }
 
         @@endif // field.writeReplaceInMFieldIndex
@@ -448,43 +425,7 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(const @!field.Type!@ pOl
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-            @@if field.linkMParent
-
-//        if(pOldElem != NullFC)
-//        {
-//            pOldElem->subParent(this);
-//        }
-
-                @@if !field.checkNilPtr
-//        if(pNewElem != NullFC)
-//        {
-//            pNewElem->addParent(this, @!field.Name!@FieldMask);
-//        }
-                @@else // !field.checkNilPtr
-//        pNewElem->addParent(this, @!field.Name!@FieldMask);
-                @@endif
-
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-//        if(pOldElem != NullFC)
-//        {
-//            pOldElem->setParent(NullFC, @!field.Name!@FieldMask);
-//        }
-
-//        if(pNewElem != NullFC)
-//        {
-//            pNewElem->setParent(this, @!field.Name!@FieldMask);
-//        }
-
-            @@endif // field.linkSParent
-//        MF@!field.TypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mf@!field.Name!@.replace(elemIdx, pNewElem);
+        _mf@!field.Name!@.replace(elemIdx, pNewElem);
     }
 }
 
@@ -500,25 +441,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
 
         fieldIt += uiIndex;
 
-            @@if field.linkMParent
-
-//        if(*fieldIt != NullFC)
-//        {
-//            (*fieldIt)->subParent(this);
-//        }
-
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-//        if(*fieldIt != NullFC)
-//        {
-//            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
-//        }
-
-            @@endif // field.linkSParent
-        //subRef(*fieldIt);
-
             @@if field.isRemoveToSet
-        //*fieldIt = @!field.RemoveTo!@;
         _mf@!field.Name!@.replace(uiIndex, @!field.RemoveTo!@);
             @@else // field.isRemoveToSet
         _mf@!field.Name!@.erase(fieldIt);
@@ -540,25 +463,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(const @!field.Type!@ va
 
         fieldIt += iElemIdx;
 
-            @@if field.linkMParent
-
-//        if(*fieldIt != NullFC)
-//        {
-//            (*fieldIt)->subParent(this);
-//        }
-
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-//        if(*fieldIt != NullFC)
-//        {
-//            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
-//        }
-
-            @@endif // field.linkSParent
-        //subRef(*fieldIt);
-
             @@if field.isRemoveToSet
-        //*fieldIt = @!field.RemoveTo!@;
         _mf@!field.Name!@.replace(iElemIdx, @!field.RemoveTo!@);
             @@else // field.isRemoveToSet
         _mf@!field.Name!@.erase(fieldIt);
@@ -577,22 +482,6 @@ void @!Classname!@Base::@!field.ClearField!@(void)
 
     while(fieldIt != fieldEnd)
     {
-            @@if field.linkMParent
-//        if(*fieldIt != NullFC)
-//        {
-//            (*fieldIt)->subParent(this);
-//        }
-
-            @@endif // field.linkMParent
-            @@if field.linkSParent
-//        if(*fieldIt != NullFC)
-//        {
-//            (*fieldIt)->setParent(NullFC, @!field.Name!@FieldMask);
-//        }
-
-            @@endif // field.linkSParent
-        //subRef(*fieldIt);
-
         _mf@!field.Name!@.replace(fieldIt, @!field.RemoveTo!@);
 
         ++fieldIt;
@@ -993,6 +882,7 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
 
     if(source != NULL)
     {
+        @!Classname!@ *pThis = static_cast<@!Classname!@ *>(this);
     @@BeginFieldLoop@@
         @@if field.isPtrField
         @@if !field.noAccess
@@ -1005,13 +895,13 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
 
         while(@!field.Name!@It != @!field.Name!@End)
         {
-            this->@!field.PushToField!@(*@!field.Name!@It);
+            pThis->@!field.PushToField!@(*@!field.Name!@It);
 
             ++@!field.Name!@It;
         }
             @@else // field.isMField
 
-        this->set@!field.Name!@(source->get@!field.Name!@());
+        pThis->set@!field.Name!@(source->get@!field.Name!@());
             @@endif // field.isMField
         @@endif //!field.noAccess
         @@endif // field.isPtrField
@@ -1190,7 +1080,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
 }
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
-const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(void) const
+const @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@.getValue();
 }
@@ -1309,7 +1199,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
 }
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
-const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(void) const
+const @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {

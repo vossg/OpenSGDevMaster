@@ -739,7 +739,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     // !!! This should be using the global state to reduce state changes
     // and to allow sharing data between objects
 
-    UInt16 nattrib = geo->getProperties().size();
+    UInt16 nattrib = geo->getMFProperties()->size();
 
     for(Int16 i = nattrib - 1; i >= 0; --i)
     {
@@ -913,7 +913,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     GeoIntegralPropertyPtr attribIndex[Geometry::MaxAttribs];
     attribPumpFunc attribFunc[Geometry::MaxAttribs];
 
-    UInt16 nattrib = geo->getProperties().size();
+    UInt16 nattrib = geo->getMFProperties()->size();
     
     for(UInt16 i = 0; i < nattrib; ++i)
     {

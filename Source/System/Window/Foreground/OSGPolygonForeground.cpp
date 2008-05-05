@@ -139,18 +139,18 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     if(getActive() == false)
         return;
 
-    if(getPositions().size() == 0) // nothing to render
+    if(getMFPositions()->size() == 0) // nothing to render
         return;
 
     if(pPort->getPixelWidth()  == 0 ||
        pPort->getPixelHeight() == 0   ) // nothing to render to
         return;
         
-    if(getPositions().size() != getTexCoords().size())
+    if(getMFPositions()->size() != getMFTexCoords()->size())
     {
         FWARNING(("PolygonForeground::draw: positions and texcoords have "
                   "different sizes (%d vs. %d)!\n", 
-                  getPositions().size(), getTexCoords().size()));
+                  getMFPositions()->size(), getMFTexCoords()->size()));
         return;
     }
        
@@ -237,12 +237,12 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 
     getMaterial()->getState()->activate(pEnv);
    
-    const Vec3f *tc  = &(getTexCoords()[0]);
-    const Pnt2f *pos = &(getPositions()[0]);
+    const Vec3f *tc  = &((*getMFTexCoords())[0]);
+    const Pnt2f *pos = &((*getMFPositions())[0]);
     
     glBegin(GL_POLYGON);
     
-    for(UInt16 i = 0; i < getPositions().size(); i++)
+    for(UInt16 i = 0; i < getMFPositions()->size(); i++)
     {
         glTexCoord3fv( tc[i].getValues() );
         glVertex2f( mapCoordinate(pos[i][0], Real32(pPort->getPixelWidth()),

@@ -1,0 +1,458 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="FCDPtrTestFCNullCheckAccess"
+	parent="NodeCore"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+  <!-- SF, multi parent, public -->
+    <Field
+        name = "fieldSFPub_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPub_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPub_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+
+
+
+  <!-- SF, multi parent, protected -->
+    <Field
+        name = "fieldSFPro_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPro_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPro_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+  <!-- SF, multi parent, private -->
+    <Field
+        name = "fieldSFPri_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPri_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFPri_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+  <!-- SF, multi parent, none -->
+    <Field
+        name = "fieldSFNo_ptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFNo_weakptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldSFNo_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+
+
+
+  <!-- MF, multi parent, public -->
+    <Field
+        name = "fieldMFPub_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPub_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPub_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+
+
+  <!-- MF, multi parent, protected -->
+
+    <Field
+        name = "fieldMFPro_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPro_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPro_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+  <!-- MF, multi parent, private -->
+
+    <Field
+        name = "fieldMFPri_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPri_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFPri_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+  <!-- MF, multi parent, none -->
+    <Field
+        name = "fieldMFNo_ptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "pointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFNo_weakptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "weakpointer"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+    <Field
+        name = "fieldMFNo_mpchildptr"
+        type = "FCDTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+        linkParentField="Parents"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+
+
+  <!-- SF, single parent, public -->
+
+    <Field
+        name = "fieldSFPub_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+  <!-- SF, single parent, protected -->
+
+    <Field
+        name = "fieldSFPro_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+  <!-- SF, single parent, private -->
+
+    <Field
+        name = "fieldSFPri_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+  <!-- SF, single parent, none -->
+
+    <Field
+        name = "fieldSFNo_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "single"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+
+  <!-- MF, single parent, public -->
+
+    <Field
+        name = "fieldMFPub_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "public"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+  <!-- MF, single parent, protected -->
+
+    <Field
+        name = "fieldMFPro_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "protected"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+  <!-- MF, single parent, private -->
+
+    <Field
+        name = "fieldMFPri_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "private"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+  <!-- MF, multi parent, none -->
+
+    <Field
+        name = "fieldMFNo_spchildptr"
+        type = "FCDSParTestFC"
+        cardinality = "multi"
+        visibility = "external"
+        default = "0"
+        access = "none"
+        category = "childpointer"
+        linkParentField="Parent"
+        ptrFieldAccess = "nullCheck"
+    >
+    </Field>
+
+</FieldContainer>

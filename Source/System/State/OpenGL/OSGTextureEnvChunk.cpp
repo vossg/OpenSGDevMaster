@@ -186,18 +186,18 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
 
     glErr("textureShader setup: rgba dotprod");
 
-    if(getShaderOffsetMatrix().size() == 4)
+    if(getMFShaderOffsetMatrix()->size() == 4)
     {
         glTexEnvfv(GL_TEXTURE_SHADER_NV, GL_OFFSET_TEXTURE_MATRIX_NV,
-                   &(getShaderOffsetMatrix()[0]));
+                   &((*getMFShaderOffsetMatrix())[0]));
 
         glErr("textureShader setup: offset matrix");
     }
-    else if(getShaderOffsetMatrix().size() != 0)
+    else if(getMFShaderOffsetMatrix()->size() != 0)
     {
         FWARNING(("TextureEnvChunk::handleTextureShader: shaderOffsetMatrix "
                   "has to have 4 entries, not %d!\n",
-                    getShaderOffsetMatrix().size() ));
+                    getMFShaderOffsetMatrix()->size() ));
     }
 
     glTexEnvf(GL_TEXTURE_SHADER_NV, GL_OFFSET_TEXTURE_SCALE_NV,

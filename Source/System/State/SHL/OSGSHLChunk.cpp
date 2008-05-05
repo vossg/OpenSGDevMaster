@@ -484,7 +484,7 @@ void SHLChunk::handleGL(DrawEnv                 *pEnv,
 
         updateProgramParameters(win);
         updateParameters(win,
-                         getParameters(),
+                         *getMFParameters(),
                          true,
                          true /*mode != Window::needrefresh*/);
     }
@@ -787,9 +787,9 @@ void SHLChunk::updateProgram(Window *win)
         win->setGLObjectId(getGLId(), 0);
     }
     // update all parameter locations
-    updateParameterLocations(win, getParameters());
+    updateParameterLocations(win, *getMFParameters());
     // update all parameters.
-    updateParameters(win, getParameters());
+    updateParameters(win, *getMFParameters());
 }
 
 void SHLChunk::updateParameterLocation(Window *win, GLuint program,
@@ -807,7 +807,8 @@ void SHLChunk::updateParameterLocation(Window *win, GLuint program,
         win->getFunction(_funcGetUniformLocation);
 
     // as the location won't change after linking we can store them for speedup.
-    parameter->setLocation(getUniformLocation(program, parameter->getName().c_str()));
+    parameter->setLocation(getUniformLocation(program, 
+                                              parameter->getName().c_str()));
 }
 
 void SHLChunk::updateParameterLocations(
@@ -1147,7 +1148,7 @@ void SHLChunk::updateParameters(
                 //printf("setting: %s %d\n", p->getName().c_str(), p->getValue());
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
-                if(p->getLocation() != -1 && !p->getValue().empty())
+                if(p->getLocation() != -1 && !p->getMFValue()->empty())
 		  ; // XXX uniform1iv(p->getLocation(), p->getValue().size(), &p->getValue()[0]);
                 else
                     FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
@@ -1164,11 +1165,16 @@ void SHLChunk::updateParameters(
                 //printf("setting: %s %f\n", p->getName().c_str(), p->getValue());
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
-                if(p->getLocation() != -1 && !p->getValue().empty())
-                    uniform1fv(p->getLocation(), p->getValue().size(), 
-                               const_cast<Real32 *>(&(p->getValue().front())));
+                if(p->getLocation() != -1 && !p->getMFValue()->empty())
+                    uniform1fv(p->getLocation(), 
+                               p->getMFValue()->size(), 
+                               const_cast<Real32 *>(
+                                   &(p->getMFValue()->front())));
                 else
-                    FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
+                {
+                    FWARNING(("Unknown parameter '%s'!\n", 
+                              p->getName().c_str()));
+                }
             }
             break;
             case ShaderParameter::SHPTypeMVec2f:
@@ -1182,9 +1188,11 @@ void SHLChunk::updateParameters(
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
 
-                if(p->getLocation() != -1 && !p->getValue().empty())
-                    uniform2fv(p->getLocation(), p->getValue().size(), 
-                               const_cast<Real32 *>(p->getValue()[0].getValues()));
+                if(p->getLocation() != -1 && !p->getMFValue()->empty())
+                    uniform2fv(p->getLocation(), 
+                               p->getMFValue()->size(), 
+                               const_cast<Real32 *>(
+                                   (*(p->getMFValue()))[0].getValues()));
                 else
                     FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
             }
@@ -1199,11 +1207,16 @@ void SHLChunk::updateParameters(
 
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
-                if(p->getLocation() != -1 && !p->getValue().empty())
-                    uniform3fv(p->getLocation(), p->getValue().size(), 
-                               const_cast<Real32 *>(p->getValue()[0].getValues()));
+                if(p->getLocation() != -1 && !p->getMFValue()->empty())
+                    uniform3fv(p->getLocation(), 
+                               p->getMFValue()->size(), 
+                               const_cast<Real32 *>(
+                                   (*(p->getMFValue()))[0].getValues()));
                 else
-                    FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
+                {
+                    FWARNING(("Unknown parameter '%s'!\n", 
+                              p->getName().c_str()));
+                }
             }
             break;
             case ShaderParameter::SHPTypeMVec4f:
@@ -1216,11 +1229,16 @@ void SHLChunk::updateParameters(
 
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
-                if(p->getLocation() != -1 && !p->getValue().empty())
-                    uniform4fv(p->getLocation(), p->getValue().size(), 
-                               const_cast<Real32 *>(p->getValue()[0].getValues()));
+                if(p->getLocation() != -1 && !p->getMFValue()->empty())
+                    uniform4fv(p->getLocation(), 
+                               p->getMFValue()->size(), 
+                               const_cast<Real32 *>(
+                                   (*(p->getMFValue()))[0].getValues()));
                 else
-                    FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
+                {
+                    FWARNING(("Unknown parameter '%s'!\n", 
+                              p->getName().c_str()));
+                }
             }
             break;
             case ShaderParameter::SHPTypeMMatrix:
@@ -1233,10 +1251,17 @@ void SHLChunk::updateParameters(
 
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
-                if(p->getLocation() != -1 && !p->getValue().empty())
-                    uniformMatrix4fv(p->getLocation(), p->getValue().size(), GL_FALSE, const_cast<Real32 *>(p->getValue()[0].getValues()));
+                if(p->getLocation() != -1 && !p->getMFValue()->empty())
+                    uniformMatrix4fv(p->getLocation(), 
+                                     p->getMFValue()->size(), 
+                                     GL_FALSE, 
+                                     const_cast<Real32 *>(
+                                         (*(p->getMFValue()))[0].getValues()));
                 else
-                    FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
+                {
+                    FWARNING(("Unknown parameter '%s'!\n", 
+                              p->getName().c_str()));
+                }
             }
             break;
             default:
@@ -1270,12 +1295,14 @@ void SHLChunk::updateProgramParameters(Window *win)
         (OSGGLPROGRAMPARAMETERIEXTPROC) win->getFunction(_funcProgramParameteri);
 
     // set program parameters.
-    const MFGLenum &ppnames = getProgramParameterNames();
-    const MFUInt32 &ppvalues = getProgramParameterValues();
-    for(UInt32 i = 0; i < ppnames.size(); ++i)
+    const MFGLenum *ppnames  = getMFProgramParameterNames();
+    const MFUInt32 *ppvalues = getMFProgramParameterValues();
+
+    for(UInt32 i = 0; i < ppnames->size(); ++i)
     {
-        if(i < ppvalues.size()) {
-            programParameteri(program, ppnames[i], ppvalues[i]);
+        if(i < ppvalues->size()) 
+        {
+            programParameteri(program, (*ppnames)[i], (*ppvalues)[i]);
 		}
     }
 }
@@ -1287,20 +1314,21 @@ void SHLChunk::checkOSGParameters(bool force)
 {
     // ok this can go wrong if you sub and add a parameter
     // between one begin/endEditCP ...
-    if(!force && getParameters().size() == _oldParameterSize)
+    if(!force && getMFParameters()->size() == _oldParameterSize)
         return;
 
-    _oldParameterSize = getParameters().size();
+    _oldParameterSize = getMFParameters()->size();
 
     _osgParametersCallbacks.clear();
-    const MFUnrecChildShaderParameterPtr &parameters = getParameters();
-    for(UInt32 i = 0; i < parameters.size(); ++i)
+    const MFUnrecChildShaderParameterPtr *parameters = getMFParameters();
+
+    for(UInt32 i = 0; i < parameters->size(); ++i)
     {
         //
         // IMPORTANT: If you add a parameter here, add documentation for it
         //            in the class docs at the top of this file
         //
-        ShaderParameterPtr parameter = parameters[i];
+        ShaderParameterPtr parameter = (*parameters)[i];
         if(parameter->getName().size() > 3 &&
            parameter->getName()[0] == 'O' &&
            parameter->getName()[1] == 'S' &&
@@ -1494,21 +1522,21 @@ void SHLChunk::setParameterCallback(parametercbfp fp)
 
 void SHLChunk::addProgramParameter(GLenum name, UInt32 value)
 {
-    editProgramParameterNames ().push_back(name );
-    editProgramParameterValues().push_back(value);
+    editMFProgramParameterNames ()->push_back(name );
+    editMFProgramParameterValues()->push_back(value);
 }
 
 void SHLChunk::subProgramParameter(GLenum name)
 {
-    MFGLenum &ppnames  = editProgramParameterNames ();
-    MFUInt32 &ppvalues = editProgramParameterValues();
+    MFGLenum *ppnames  = editMFProgramParameterNames ();
+    MFUInt32 *ppvalues = editMFProgramParameterValues();
 
-    for(UInt32 i = 0; i < ppnames.size(); ++i)
+    for(UInt32 i = 0; i < ppnames->size(); ++i)
     {
-        if(ppnames[i] == name && i < ppvalues.size())
+        if((*ppnames)[i] == name && i < ppvalues->size())
         {
-            ppnames .erase(ppnames .begin() + i);
-            ppvalues.erase(ppvalues.begin() + i);
+            ppnames ->erase(ppnames ->begin() + i);
+            ppvalues->erase(ppvalues->begin() + i);
 
             break;
         }
@@ -1525,16 +1553,18 @@ void SHLChunk::setProgramParameter(GLenum name, UInt32 value)
 
 UInt32 SHLChunk::getProgramParameter(GLenum name)
 {
-    const MFGLenum &ppnames = getProgramParameterNames();
-    const MFUInt32 &ppvalues = getProgramParameterValues();
+    const MFGLenum *ppnames  = getMFProgramParameterNames();
+    const MFUInt32 *ppvalues = getMFProgramParameterValues();
 
-    for(UInt32 i = 0; i < ppnames.size(); ++i)
+    for(UInt32 i = 0; i < ppnames->size(); ++i)
     {
-        if(ppnames[i] == name && i < ppvalues.size())
-            return ppvalues[i];
+        if((*ppnames)[i] == name && i < ppvalues->size())
+            return (*ppvalues)[i];
     }
-    FWARNING(("SHLChunk::getProgramParameter : Couldn't find program parameter %u!\n",
-              name));
+
+    FWARNING(("SHLChunk::getProgramParameter : Couldn't find program "
+              "parameter %u!\n", name));
+
     return 0;
 }
 
@@ -1542,13 +1572,16 @@ std::vector<std::pair<GLenum, UInt32> > SHLChunk::getProgramParameters(void)
 {
     std::vector<std::pair<GLenum, UInt32> > parameters;
 
-    const MFGLenum &ppnames = getProgramParameterNames();
-    const MFUInt32 &ppvalues = getProgramParameterValues();
+    const MFGLenum *ppnames  = getMFProgramParameterNames();
+    const MFUInt32 *ppvalues = getMFProgramParameterValues();
 
-    for(UInt32 i = 0; i < ppnames.size(); ++i)
+    for(UInt32 i = 0; i < ppnames->size(); ++i)
     {
-        if(i < ppvalues.size())
-            parameters.push_back(std::make_pair(ppnames[i], ppvalues[i]));
+        if(i < ppvalues->size())
+        {
+            parameters.push_back(std::make_pair((*ppnames)[i], 
+                                                (*ppvalues)[i]));
+        }
     }
 
     return parameters;
@@ -1556,8 +1589,8 @@ std::vector<std::pair<GLenum, UInt32> > SHLChunk::getProgramParameters(void)
 
 void SHLChunk::clearProgramParameters(void)
 {
-    editProgramParameterNames ().clear();
-    editProgramParameterValues().clear();
+    editMFProgramParameterNames ()->clear();
+    editMFProgramParameterValues()->clear();
 }
 
 void SHLChunk::updateOSGParameters(DrawEnv *pEnv, 
@@ -2148,10 +2181,12 @@ bool SHLChunk::operator == (const StateChunk &other) const
     if(!tother)
         return false;
 
-    if(getVertexProgram    () != tother->getVertexProgram  () ||
-       getFragmentProgram  () != tother->getFragmentProgram() ||
-       getParameters().size() != tother->getParameters     ().size())
+    if(getVertexProgram       () != tother->getVertexProgram  ()        ||
+       getFragmentProgram     () != tother->getFragmentProgram()        ||
+       getMFParameters()->size() != tother->getMFParameters   ()->size() )
+    {
         return false;
+    }
 
     return true;
 }

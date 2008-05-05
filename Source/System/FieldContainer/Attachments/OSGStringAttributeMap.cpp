@@ -125,26 +125,26 @@ void StringAttributeMap::dump(      UInt32    ,
 void StringAttributeMap::setAttribute(const std::string& key,
                                       const std::string& value)
 {
-    MFString& keys   = this->StringAttributeMapBase::editKeys();
-    MFString& values = this->StringAttributeMapBase::editValues();
+    MFString *keys   = this->StringAttributeMapBase::editMFKeys();
+    MFString *values = this->StringAttributeMapBase::editMFValues();
 
     unsigned int index(0);
 
     // Find the index of key in _mfKeys. This index will be the index of the
     // value associated with key in _mfValues.
-    for ( MFString::iterator i = keys.begin(); i != keys.end(); ++i, ++index )
+    for ( MFString::iterator i = keys->begin(); i != keys->end(); ++i, ++index )
     {
         if ( *i == key )
         {
-           values[index] = value;
+            (*values)[index] = value;
            return;
         }
     }
 
     // key was not found in _mfKeys, so we add key to _mfKeys and value to
     // _mfValues.
-    keys.push_back(key);
-    values.push_back(value);
+    keys->push_back(key);
+    values->push_back(value);
 }
 
 /*! Attempts to look up the value associated with the named key in this
@@ -159,19 +159,19 @@ bool StringAttributeMap::getAttribute(const std::string& key,
 {
     if ( hasAttribute(key) )
     {
-        const MFString& keys   = this->StringAttributeMapBase::getKeys();
-        const MFString& values = this->StringAttributeMapBase::getValues();
+        const MFString *keys   = this->StringAttributeMapBase::getMFKeys();
+        const MFString *values = this->StringAttributeMapBase::getMFValues();
 
         // Find the index of key in _mfKeys. This index will be the index of
         // the value associated with key in _mfValues.
         unsigned int index(0);
         MFString::const_iterator i;
-        for ( i = keys.begin(); i != keys.end(); ++i, ++index )
+        for ( i = keys->begin(); i != keys->end(); ++i, ++index )
         {
             if ( *i == key )
             {
                 // Assign the value associated with key.
-                value = values[index];
+                value = (*values)[index];
                 return true;
             }
         }

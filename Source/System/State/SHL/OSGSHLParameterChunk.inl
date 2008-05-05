@@ -65,7 +65,7 @@ void SHLParameterChunk::updateParameters(Window *win)
         return;
     }
 
-    shl->updateParameters(win, getParameters(), true, true, true);
+    shl->updateParameters(win, *getMFParameters(), true, true, true);
 }
 
 OSG_END_NAMESPACE

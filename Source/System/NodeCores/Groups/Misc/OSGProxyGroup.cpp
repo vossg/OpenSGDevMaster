@@ -246,7 +246,7 @@ void ProxyGroup::startLoading(void)
 {
     if(getConcurrentLoad() == false)
     {
-        if(getInline().size() == 0)
+        if(getMFInline()->size() == 0)
         {
             _loadedRoot = SceneFileHandler::the()->read(
                 getAbsoluteUrl().c_str());
@@ -257,7 +257,8 @@ void ProxyGroup::startLoading(void)
                                         std::ios_base::out   |
                                         std::ios_base::binary);
 
-            tmpStream.write((char*)(&getInline()[0]), getInline().size());
+            tmpStream.write((char*)(&getMFInline()->front()), 
+                                     getMFInline()->size ());
 
             _loadedRoot = SceneFileHandler::the()->read(tmpStream, "osb");
         }
@@ -326,7 +327,7 @@ void ProxyGroup::loadProc(void *)
 
     while(!stopThread)
     {
-        if(g->getInline().size() == 0) 
+        if(g->getMFInline()->size() == 0) 
         {
             g->_loadedRoot=SceneFileHandler::the()->read(
                 g->getAbsoluteUrl().c_str());
@@ -337,7 +338,8 @@ void ProxyGroup::loadProc(void *)
                                         std::ios_base::out   |
                                         std::ios_base::binary);
 
-            tmpStream.write((char*)(&g->getInline()[0]),g->getInline().size());
+            tmpStream.write((char*)(&g->getMFInline()->front()),
+                                     g->getMFInline()->size());
 
             g->_loadedRoot = SceneFileHandler::the()->read(tmpStream, "osb");
         }

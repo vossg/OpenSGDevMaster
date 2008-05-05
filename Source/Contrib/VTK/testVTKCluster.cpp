@@ -1695,15 +1695,15 @@ int doMain(int argc,char **argv)
     }
     
     if(!autostart.empty())
-        clusterWindow->editAutostart().push_back(autostart);
+        clusterWindow->editMFAutostart()->push_back(autostart);
     
     for(i=0 ; i<servers.size() ; ++i)
-        clusterWindow->editServers().push_back(servers[i]);
+        clusterWindow->editMFServers()->push_back(servers[i]);
     switch(type)
     {
         case 'M': 
             multidisplay->setHServers(
-                clusterWindow->getServers().size()/rows);
+                clusterWindow->getMFServers()->size()/rows);
             multidisplay->setVServers(
                 rows);
             break;

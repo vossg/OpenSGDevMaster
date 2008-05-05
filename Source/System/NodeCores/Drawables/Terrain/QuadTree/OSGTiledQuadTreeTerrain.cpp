@@ -236,7 +236,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
                     
                     if(getMaterial() == NullFC) 
                     { // use material of MFHeightTextures
-                        if(getHeightTextures().size() > j*getSizeX()+i && 
+                        if(getMFHeightTextures()->size() > j*getSizeX()+i && 
                            i < getSizeX() && j < getSizeY())
                         {	      
                             terrain->setMaterial(

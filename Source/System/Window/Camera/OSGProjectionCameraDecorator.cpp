@@ -103,18 +103,18 @@ void ProjectionCameraDecorator::dump(      UInt32    ,
 */
 void ProjectionCameraDecorator::updateData(void)
 {
-    if(getSurface().size() != 4)
+    if(getMFSurface()->size() != 4)
     {
         FWARNING(("ProjectionCameraDecorator: only defined for 4 point "
                   "surfaces!\n"));
         return;
     }
 
-    Pnt3f p0(getSurface()[0]);
+    Pnt3f p0(getSurface(0));
     Vec3f d1,d2,n;
     
-    d1 = getSurface()[1] - p0;
-    d2 = getSurface()[3] - p0;
+    d1 = getSurface(1) - p0;
+    d2 = getSurface(3) - p0;
     
     n = d1.cross(d2);
 

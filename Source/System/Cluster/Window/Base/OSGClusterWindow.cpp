@@ -157,23 +157,23 @@ void ClusterWindow::init(void)
     std::string env;
 
     Real32 progress = 0.0f;
-    Real32 progressStep = 1.0f / Real32(getServers().size());
+    Real32 progressStep = 1.0f / Real32(getMFServers()->size());
 
-    if(getAutostart().size())
+    if(getMFAutostart()->size())
     {
         progressStep /= 2;
         std::vector<FILE*>           pipes;
 
-        for(id=0 ; id<getServers().size() ; ++id)
+        for(id=0 ; id<getMFServers()->size() ; ++id)
         {
             std::ostringstream command;
 
-            server    = getServers()[id];
+            server    = (*getMFServers())[id];
             int pos=server.find(":");
             if(pos>=0)
                 server.erase(pos);
 
-            autostart = getAutostart()[id % getAutostart().size()];
+            autostart = (*getMFAutostart())[id % getMFAutostart()->size()];
 
             for(c = 0 ; c < autostart.length() ; ++c)
             {
@@ -184,7 +184,7 @@ void ClusterWindow::init(void)
                             command << server;
                             break;
                         case 'n': 
-                            command << getServers()[id];
+                            command << (*getMFServers())[id];
                             break;
                         case 'i':
                             command << id;
@@ -217,7 +217,7 @@ void ClusterWindow::init(void)
             pipes.push_back(pipe);
         }
 
-        for(id = 0 ; id < getServers().size() ; ++id)
+        for(id = 0 ; id < getMFServers()->size() ; ++id)
         {
             if(pipes[id]) 
             {
@@ -225,12 +225,12 @@ void ClusterWindow::init(void)
                 if(_connectionFP != NULL)
                 {
                     std::string message;
-                    message += "Starting:" + getServers()[id]; 
+                    message += "Starting:" + (*getMFServers())[id]; 
 
                     if(!_connectionFP(message, progress))
                     {
                         // abort, cleanup remaining pipes
-                        for( ; id<getServers().size() ; ++id)
+                        for( ; id<getMFServers()->size() ; ++id)
                         {
                             if(pipes[id]) 
                             {
@@ -245,7 +245,7 @@ void ClusterWindow::init(void)
                     }
                 }
                 SINFO << "Waiting for " 
-                      << getServers()[id] 
+                      << getServers(id) 
                       << " to start."
                       << std::endl;
 
@@ -270,7 +270,7 @@ void ClusterWindow::init(void)
 #else
                 pclose(pipes[id]);
 #endif
-                SINFO << getServers()[id] << " started." << std::endl;
+                SINFO << getServers(id) << " started." << std::endl;
 
                 progress += progressStep;
             }
@@ -278,8 +278,8 @@ void ClusterWindow::init(void)
     }
 
     // connect to all servers
-    for(s = getServers().begin();
-        s!= getServers().end();
+    for(s = getMFServers()->begin();
+        s!= getMFServers()->end();
         s++)
     {
         DgramSocket      serviceSock;
@@ -430,7 +430,7 @@ void ClusterWindow::init(void)
     UInt8 littleEndian = false;
 #endif
 
-    for(UInt32 i=0;i<getServers().size();++i)
+    for(UInt32 i=0;i<getMFServers()->size();++i)
     {
         channel = connection->selectChannel();
         connection->subSelection(channel);
@@ -580,7 +580,7 @@ void ClusterWindow::frameInit(void)
         }
         else
         {
-            editFrameCount()++;
+            setFrameCount(getFrameCount() + 1);
             clientPreSync();
 
             commitChanges();

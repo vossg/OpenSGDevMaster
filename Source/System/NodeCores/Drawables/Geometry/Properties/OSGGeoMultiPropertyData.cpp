@@ -193,8 +193,8 @@ void GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv,
     
         _glBindBufferARB(GL_ARRAY_BUFFER_ARB, id);
         _glBufferDataARB(GL_ARRAY_BUFFER_ARB, 
-                            getIData().size(), 
-                            &getIData()[0], 
+                            _mfIData.size(), 
+                            &_mfIData[0], 
                             GL_STATIC_DRAW_ARB);
         _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
     }

@@ -237,26 +237,26 @@ bool ProgramChunk::addParameter(const char   *name,
     if(index < 0)
         return true;
         
-    if(getParamNames().size() <= UInt16(index))
+    if(getMFParamNames()->size() <= UInt16(index))
     {
-        editParamNames().resize(index + 1);
+        editMFParamNames()->resize(index + 1);
     }
 
-    editParamNames()[index] = name;
+    editParamNames(index) = name;
 
     return false;
 }
     
-const Vec4f& ProgramChunk::getParameter(Int16 index)
+const Vec4f ProgramChunk::getParameter(Int16 index)
 {
     static const Vec4f bad(-1e10,-1e10,-1e10);
     
     if(index < 0)
         return bad;
         
-    if(getParamValues().size() <= UInt16(index))
+    if(getMFParamValues()->size() <= UInt16(index))
     {
-        return editParamValues()[index];
+        return getParamValues(index);
     }
     
     return bad;
@@ -269,12 +269,12 @@ bool ProgramChunk::setParameter(Int16 index, const Vec4f& value)
     if(index < 0)
         return true;
         
-    if(getParamValues().size() <= UInt16(index))
+    if(getMFParamValues()->size() <= UInt16(index))
     {
-        editParamValues().resize(index + 1);
+        editMFParamValues()->resize(index + 1);
     }
 
-    editParamValues()[index] = value;
+    editParamValues(index) = value;
 
     return false;
 }
@@ -285,13 +285,13 @@ Int16 ProgramChunk::findParameter(const std::string &name)
 {
     MField<std::string>::const_iterator it;
     
-    it = std::find(getParamNames().begin(), 
-                   getParamNames().end(), name);
+    it = std::find(getMFParamNames()->begin(), 
+                   getMFParamNames()->end(), name);
 
-    if(it == getParamNames().end())
+    if(it == getMFParamNames()->end())
         return -1;
 
-    return it - getParamNames().begin();
+    return it - getMFParamNames()->begin();
 }
 
 
@@ -435,9 +435,9 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32 osgid,
              
         glErr("ProgramChunk::handleGL: programLocalParameter precheck");
        
-        for(UInt16 i = 0; i < getParamValues().size(); ++i)
+        for(UInt16 i = 0; i < getMFParamValues()->size(); ++i)
         {
-            const Vec4f &val = getParamValues()[i];
+            const Vec4f &val = _mfParamValues[i];
             
             programLocalParameter4fv(target, i, val.getValues());
             
@@ -668,10 +668,9 @@ bool ProgramChunk::operator == (const StateChunk &other) const
     if(tother == this)
         return true;
 
-    if(getProgram()            != tother->getProgram()            ||
-       getParamValues().size() != tother->getParamValues().size() ||
-       getParamNames().size()  != tother->getParamNames().size()
-      )
+    if(getProgram()               != tother->getProgram      ()         ||
+       getMFParamValues()->size() != tother->getMFParamValues()->size() ||
+       getMFParamNames()->size()  != tother->getMFParamNames ()->size()  )
         return false;
 
     // !!! FIXME: implement    

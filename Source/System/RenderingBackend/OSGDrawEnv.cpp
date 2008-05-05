@@ -135,8 +135,8 @@ void DrawEnv::activate(State         *pState,
     Int32                     ind  = 0;
     UInt32                    cind = 0;
 
-    for(  it  = pState->getChunks().begin();
-          it != pState->getChunks().end  ();
+    for(  it  = pState->getMFChunks()->begin();
+          it != pState->getMFChunks()->end  ();
         ++it, ++cind)
     {
         if(overIt != pOverride->end() && overIt->first == cind)
@@ -195,8 +195,8 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    i;
     UInt32                    cind = 0;
 
-    for(  it  = pState->getChunks().begin();
-          it != pState->getChunks().end();
+    for(  it  = pState->getMFChunks()->begin();
+          it != pState->getMFChunks()->end();
         ++it, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
@@ -259,8 +259,8 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    cind = 0;
     StateChunk               *n    = NULL;
 
-    for(  it  = pState->getChunks().begin();
-          it != pState->getChunks().end();
+    for(  it  = pState->getMFChunks()->begin();
+          it != pState->getMFChunks()->end();
         ++it, ++cind)
     {
         StateChunkPtr  o = pOld->getChunk(cind);
@@ -297,7 +297,7 @@ void DrawEnv::changeTo(State         *pState,
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
 
-    for(i = cind; i < pOld->getChunks().size(); ++i)
+    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
         StateChunkPtr o = pOld->getChunk(i);
 
@@ -368,8 +368,8 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    cind = 0;
     StateChunk               *n    = NULL;
 
-    for(  it  = pState->getChunks().begin();
-          it != pState->getChunks().end();
+    for(  it  = pState->getMFChunks()->begin();
+          it != pState->getMFChunks()->end();
         ++it, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
@@ -414,7 +414,7 @@ void DrawEnv::changeTo(State         *pState,
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
 
-    for(i = cind; i < pOld->getChunks().size(); ++i)
+    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
         n = NULL;
@@ -515,8 +515,8 @@ void DrawEnv::deactivate(State         *pState,
     Int32                     ind  = 0;
     UInt32                    cind = 0;
 
-    for(  it  = pState->getChunks().begin();
-          it != pState->getChunks().end  ();
+    for(  it  = pState->getMFChunks()->begin();
+          it != pState->getMFChunks()->end  ();
         ++it, ++cind)
     {
         if(overIt != pOverride->end() && overIt->first == cind)

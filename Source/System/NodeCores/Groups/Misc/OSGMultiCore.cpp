@@ -157,8 +157,11 @@ ActionBase::ResultE MultiCore::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    MFUnrecChildNodeCorePtr::const_iterator coreIt  = this->getCores().begin();
-    MFUnrecChildNodeCorePtr::const_iterator coreEnd = this->getCores().end  ();
+    MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
+        this->getMFCores()->begin();
+
+    MFUnrecChildNodeCorePtr::const_iterator coreEnd = 
+        this->getMFCores()->end  ();
 
     Action::ResultE returnValue = Action::Continue;
 
@@ -182,8 +185,11 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    MFUnrecChildNodeCorePtr::const_iterator coreIt  = this->getCores().begin();
-    MFUnrecChildNodeCorePtr::const_iterator coreEnd = this->getCores().end  ();
+    MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
+        this->getMFCores()->begin();
+
+    MFUnrecChildNodeCorePtr::const_iterator coreEnd = 
+        this->getMFCores()->end  ();
 
     Action::ResultE returnValue = Action::Continue;
 

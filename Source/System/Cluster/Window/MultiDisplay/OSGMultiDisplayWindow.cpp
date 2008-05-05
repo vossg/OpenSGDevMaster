@@ -301,7 +301,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
 
     if(!getHServers())
     {
-        setHServers(getServers().size());
+        setHServers(getMFServers()->size());
     }
     if(!getVServers())
     {
@@ -336,9 +336,9 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
         (float)getHeight();
 
     // duplicate viewports
-    for(cv=0,sv=0;cv<getPort().size();cv++)
+    for(cv=0,sv=0;cv<getMFPort()->size();cv++)
     {
-        clientPort = getPort()[cv];
+        clientPort = getPort(cv);
 
         clientStereoPort = dynamic_cast<StereoBufferViewportPtr>(clientPort);
 
@@ -362,7 +362,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
         r = osgMin(cright ,right ) - left;
         t = osgMin(ctop   ,top   ) - bottom;
 
-        if(window->getPort().size() <= sv)
+        if(window->getMFPort()->size() <= sv)
         {
             serverPort = dynamic_pointer_cast<Viewport>(
                 clientPort->shallowCopy());
@@ -375,12 +375,12 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
         }
         else
         {
-            serverPort = window->getPort()[sv];
+            serverPort = window->getPort(sv);
 
             deco = dynamic_cast<TileCameraDecoratorPtr>(
                 serverPort->getCamera());
 
-            if(window->getPort()[sv]->getType() != clientPort->getType())
+            if(window->getPort(sv)->getType() != clientPort->getType())
             {
                 // there is a viewport with the wrong type
                 //subRef(window->getPort()[sv]);
@@ -388,7 +388,8 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
                 serverPort =
                     dynamic_pointer_cast<Viewport>(clientPort->shallowCopy());
 
-                window->replacePort(sv, serverPort);//[sv] = serverPort;
+                window->replacePort(sv, 
+                                    serverPort);//[sv] = serverPort;
                 serverPort->setCamera(deco);
             }
             else
@@ -430,7 +431,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
     }
 
     // remove unused ports
-    while(window->getPort().size()>sv)
+    while(window->getMFPort()->size()>sv)
     {
         window->subPort(sv);
     }
@@ -487,9 +488,9 @@ void MultiDisplayWindow::clientInit(void)
     }
 
     // check if something changed
-    if(getPort().size() == getClientWindow()->getPort().size())
+    if(getMFPort()->size() == getClientWindow()->getMFPort()->size())
     {
-        for(UInt32 v = 0 ; v < getPort().size() && !changed ; v++)
+        for(UInt32 v = 0 ; v < getMFPort()->size() && !changed ; v++)
         {
             vp  = getPort(v);
 
@@ -501,7 +502,8 @@ void MultiDisplayWindow::clientInit(void)
                 vp->getBottom() != cvp->getBottom() ||
                 vp->getTop() != cvp->getTop() ||
                 vp->getBackground() != cvp->getBackground() ||
-                vp->getForegrounds().size() != cvp->getForegrounds().size() )
+                vp->getMFForegrounds()->size() != 
+                    cvp->getMFForegrounds()->size() )
             {
                 changed = true;
             }
@@ -516,7 +518,7 @@ void MultiDisplayWindow::clientInit(void)
     {
         // remove all viewports
 #if 0
-        while(getClientWindow()->getPort().size())
+        while(getClientWindow()->getMFPort()-size())
         {
             vp = getClientWindow()->getPort(0);
 
@@ -529,7 +531,7 @@ void MultiDisplayWindow::clientInit(void)
         getClientWindow()->clearPorts();
 
         // duplicate viewports
-        for(UInt32 v=0 ; v<getPort().size() ;v++)
+        for(UInt32 v=0 ; v<getMFPort()->size() ;v++)
         {
             ViewportUnrecPtr pTmpPort = 
                 dynamic_pointer_cast<Viewport>(getPort(v)->shallowCopy());

@@ -429,7 +429,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 
     bool createData(const UInt8 *data, 
                           bool   allocMem = true);
-    bool scaleData (      UInt8 *srcData,
+    bool scaleData (const UInt8 *srcData,
                           Int32  srcW, 
                           Int32  srcH, 
                           Int32  srcD,

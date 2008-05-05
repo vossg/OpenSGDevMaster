@@ -206,7 +206,7 @@ StateChunkPtr ChunkMaterial::find(const FieldContainerType &type,
 
         Int32 s = State::AutoSlotReplace;
 
-        if(i < getSlots().size())
+        if(i < getMFSlots()->size())
             s = getSlots(i);
 
         if(s == State::AutoSlotReplace)

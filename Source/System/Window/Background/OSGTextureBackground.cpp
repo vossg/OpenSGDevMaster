@@ -242,7 +242,7 @@ void TextureBackground::clear(DrawEnv  *pEnv)
     }
     if(osgAbs(getRadialDistortion())<Eps)
     {
-	    if(getTexCoords().size() < 4)
+	    if(getMFTexCoords()->size() < 4)
 	    {
 	        // set some default texture coordinates.
 	        glBegin(GL_QUADS);
@@ -259,18 +259,20 @@ void TextureBackground::clear(DrawEnv  *pEnv)
 	    else
 	    {
 	        glBegin(GL_QUADS);
-                glTexCoord2f(getTexCoords()[0].getValues()[0],
-                             getTexCoords()[0].getValues()[1]);
+            {
+                glTexCoord2f(getTexCoords(0).getValues()[0],
+                             getTexCoords(0).getValues()[1]);
                 glVertex3f(0.0f, 0.0f, 0.0f);
-                glTexCoord2f(getTexCoords()[1].getValues()[0],
-                             getTexCoords()[1].getValues()[1]);
+                glTexCoord2f(getTexCoords(1).getValues()[0],
+                             getTexCoords(1).getValues()[1]);
                 glVertex3f(1.0f, 0.0f, 0.0f);
-                glTexCoord2f(getTexCoords()[2].getValues()[0],
-                             getTexCoords()[2].getValues()[1]);
+                glTexCoord2f(getTexCoords(2).getValues()[0],
+                             getTexCoords(2).getValues()[1]);
                 glVertex3f(1.0f, 1.0f, 0.0f);
-                glTexCoord2f(getTexCoords()[3].getValues()[0],
-                             getTexCoords()[3].getValues()[1]);
+                glTexCoord2f(getTexCoords(3).getValues()[0],
+                             getTexCoords(3).getValues()[1]);
                 glVertex3f(0.0f, 1.0f, 0.0f);
+            }
 	        glEnd();
 	    }
     }

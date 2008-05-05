@@ -517,7 +517,7 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
                                                  BBox &bbox,
                                                  Matrix &proj)
 {
-    ViewportPtr viewport = getPort()[port.id];
+    ViewportPtr viewport = getPort(port.id);
 
     Pnt3f vol[2];
     Pnt3f pnt3;
@@ -692,9 +692,9 @@ void BalancedMultiWindow::createLoadGroups(void)
     _cluster.rootNodes.clear();
     _cluster.loadGroups.clear();
     // loop over all viewports
-    for(v = 0 ; v  < getPort().size() ; ++v )
+    for(v = 0 ; v  < getMFPort()->size() ; ++v )
     {
-        viewport = getPort()[v];
+        viewport = getPort(v);
         root = viewport->getRoot();
 
 #ifdef __sun
@@ -833,14 +833,14 @@ void BalancedMultiWindow::collectVisibleViewports(Server &server)
 {
     UInt32 cv,sv=0;
 
-    for(cv = 0 ; cv < getPort().size() ; cv++)
+    for(cv = 0 ; cv < getMFPort()->size() ; cv++)
     {
         if(server.viewports.size() <= sv)
             server.viewports.resize(sv+1); 
         VPort &port = server.viewports[sv];
         port.id = cv;
         port.serverId = server.id;
-        port.root = getPort()[cv]->getRoot();
+        port.root = getPort(cv)->getRoot();
         if(calculateServerPort(port,port.rect))
             sv++;
     }
@@ -867,7 +867,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
 
     if(getHServers() * getVServers() == 0)
     {
-        if(port.serverId != getServers().size())
+        if(port.serverId != getMFServers()->size())
             return false;
         // balanced client rendering
         rows = 1;
@@ -892,7 +892,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     Real32 scaleCWidth  = ((width - getXOverlap()) * (cols - 1) + width) / (float)getWidth();
     Real32 scaleCHeight = ((height - getYOverlap())* (rows - 1) + height)/ (float)getHeight();
     
-    clientPort = getPort()[port.id];
+    clientPort = getPort(port.id);
     cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
     cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
     cright  = (Int32)((clientPort->getPixelRight()+1) * scaleCWidth) -1;
@@ -915,7 +915,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     // verify if the viewport type has changed
     if(port.serverPort != NullFC)
     {
-        if(port.serverPort->getType().getId() != getPort()[port.id]->getType().getId())
+        if(port.serverPort->getType().getId() != getPort(port.id)->getType().getId())
         {
             // this must not happen very frequently, otherwise, memory leak may occur
             //subRefX(port.serverPort->getCamera());
@@ -929,7 +929,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     if(port.serverPort == NullFC)
     {
         ViewportUnrecPtr pTmpPort = 
-            dynamic_pointer_cast<Viewport>(getPort()[port.id]->shallowCopy());
+            dynamic_pointer_cast<Viewport>(getPort(port.id)->shallowCopy());
 
         port.serverPort = pTmpPort;
 
@@ -962,7 +962,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
         serverPort->setBottom(1.0001);
     serverPort->setRoot      ( clientPort->getRoot()       );
     serverPort->setBackground( clientPort->getBackground() );
-    serverPort->assignForegrounds(clientPort->getForegrounds() );
+    serverPort->assignForegrounds(*(clientPort->getMFForegrounds()) );
     serverPort->setTravMask  ( clientPort->getTravMask()   );
     
     // calculate tile parameters
@@ -1095,9 +1095,9 @@ void BalancedMultiWindow::balanceServer(void)
     UInt32 count;
 
     if(getHServers()*getVServers() == 0)
-        count = getServers().size() + 1;
+        count = getMFServers()->size() + 1;
     else
-        count = getServers().size();
+        count = getMFServers()->size();
 
     // clear work packages
     _cluster.workpackages.clear();

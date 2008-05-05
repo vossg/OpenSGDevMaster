@@ -651,7 +651,7 @@ struct SizeTraitSingle : public ParticleTraits
     
     static inline void init(Particles *part, DrawEnv *, dataType &data)
     {
-        data.s = part->getSizes()[0];
+        data.s = (*part->getMFSizes())[0];
     }
     
     static inline bool particle(dataType &, UInt32)
@@ -2812,12 +2812,12 @@ Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
         }
         freeIndex = true;
     }
-    else if (getIndices().size() > 0)
+    else if (getMFIndices()->size() > 0)
     {
-        index  = &getMFIndices()->getValues()[0];
+        index  = &(getMFIndices()->getValues()[0]);
         if(getNumParticles() == -1)
         {
-            length = getIndices().size();
+            length = getMFIndices()->size();
         }
         else
         {
@@ -2862,8 +2862,8 @@ ParticlesDrawer *Particles::findDrawer(void)
     
     // find the parameters' use
     
-    size =   (getSizes().size()         == getPositions()->getSize()) ? part :
-             (getSizes().size()         == 1                        ) ? sing : 
+    size =   (getMFSizes()->size()      == getPositions()->getSize()) ? part :
+             (getMFSizes()->size()      == 1                        ) ? sing : 
                                                                         none;
     normal = (getNormals() != NullFC && 
               getNormals()->getSize()   == getPositions()->getSize()) ? part :
@@ -2880,8 +2880,8 @@ ParticlesDrawer *Particles::findDrawer(void)
              (getColors() != NullFC && 
               getColors()->getSize()    == 1                        ) ? sing : 
                                                                         none;
-    tex =    (getTextureZs().size()     == getPositions()->getSize()) ? part :
-             (getTextureZs().size()     == 1                        ) ? sing : 
+    tex =    (getMFTextureZs()->size()  == getPositions()->getSize()) ? part :
+             (getMFTextureZs()->size()  == 1                        ) ? sing : 
                                                                         none;
     
     // check if the used types are common cases

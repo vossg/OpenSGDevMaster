@@ -46,7 +46,6 @@
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
-        checkNilPtr="false"
         linkParentField="Parents"
 	>
         The attributes used to render the geometry. The order is based on the 
@@ -60,7 +59,6 @@
 		access="public"
         category="childpointer"
         childParentType="FieldContainer"
-        checkNilPtr="false"
         linkParentField="Parents"
 	>
         The indices property contains the index data. See \ref 

@@ -347,7 +347,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
 
-    for(i = cind; i < pOld->getChunks().size(); ++i)
+    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
         StateChunkPtr o = pOld->getChunk(i);
 

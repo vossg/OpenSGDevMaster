@@ -380,7 +380,7 @@ bool Image::setData(const UChar8 *da)
 
 void Image::clearData(void)
 {
-    editPixel().clear();
+    editMFPixel()->clear();
 }
 
 /*! method to update just a subregion of the image data
@@ -2593,14 +2593,15 @@ bool Image::scale(Int32    width,
                   Int32    depth,
                   ImagePtr destination)
 {
-    ImagePtr  destImage;
-    UInt32    sw, sh, sd, dw, dh, dd;
-    Int32     frame, scale, side, mipmap;
-    UChar8   *src, *dest;
-    Int32     oldWidth =getWidth();
-    Int32     oldHeight=getHeight();
-    Int32     oldDepth =getDepth();
-    MFUInt8   srcPixel;
+    ImagePtr       destImage;
+    UInt32         sw, sh, sd, dw, dh, dd;
+    Int32          frame, scale, side, mipmap;
+    const UChar8  *src;
+    UChar8        *dest;
+    Int32          oldWidth =getWidth();
+    Int32          oldHeight=getHeight();
+    Int32          oldDepth =getDepth();
+    const MFUInt8 *srcPixel;
 
     if ( (oldWidth  == width ) &&
          (oldHeight == height) &&
@@ -2627,7 +2628,7 @@ bool Image::scale(Int32    width,
     }
 
     // get pixel
-    srcPixel = getPixel();
+    srcPixel = getMFPixel();
 
     // set image data
 
@@ -2652,7 +2653,7 @@ bool Image::scale(Int32    width,
             for(mipmap = 0; mipmap < getMipMapCount(); mipmap++)
             {
                 // get the memory pointer
-                src = (&srcPixel[0]) +
+                src = (&((*srcPixel)[0])) +
                     (side  * getSideSize ()) +
                     (frame * getFrameSize()) ;
 
@@ -3827,18 +3828,18 @@ bool Image::createData(const UInt8 *data, bool allocMem)
     // copy the data
     if(allocMem && (byteCount = getSize()))
     {
-        if(getPixel().size() != byteCount)
+        if(getMFPixel()->size() != byteCount)
         {
             try
             {
-                if(byteCount < getPixel().size())
+                if(byteCount < getMFPixel()->size())
                 {
-                    editPixel().clear();
+                    editMFPixel()->clear();
                     // free unused memory.
                     MFUInt8 tmp;
-                    tmp.swap(editPixel());
+                    tmp.swap(*editMFPixel());
                 }
-                editPixel().resize(byteCount);
+                editMFPixel()->resize(byteCount);
             }
             catch(...)
             {
@@ -3856,7 +3857,7 @@ bool Image::createData(const UInt8 *data, bool allocMem)
     }
     else
     {
-        editPixel().clear();
+        editMFPixel()->clear();
     }
 
     return (getData() != NULL);
@@ -3864,14 +3865,14 @@ bool Image::createData(const UInt8 *data, bool allocMem)
 
 /*! Internal method to scale image data blocks
  */
-bool Image::scaleData(UInt8 *srcData,
-                      Int32  srcW,
-                      Int32  srcH,
-                      Int32  srcD,
-                      UInt8 *destData,
-                      Int32  destW,
-                      Int32  destH,
-                      Int32  destD   )
+bool Image::scaleData(const UInt8 *srcData,
+                            Int32  srcW,
+                            Int32  srcH,
+                            Int32  srcD,
+                            UInt8 *destData,
+                            Int32  destW,
+                            Int32  destH,
+                            Int32  destD   )
 {
     Real32  sx = Real32(srcW) / Real32(destW);
     Real32  sy = Real32(srcH) / Real32(destH);
@@ -3882,7 +3883,9 @@ bool Image::scaleData(UInt8 *srcData,
     //  Int32 destDize = destW * destH * destD;
 
     Int32   x, y, z, p;
-    UInt8  *slice, *line, *pixel;
+    const UInt8  *slice;
+    const UInt8  *line;
+    const UInt8  *pixel;
 
     if(destW == srcW && destH == srcH && destD == srcD)
     {

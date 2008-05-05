@@ -43,7 +43,8 @@ inline
 void ImageForeground::addImage(ImagePtr image, Pnt2f position)
 {
     pushToImages(image);
-    editPositions().push_back( position );
+
+    editMFPositions()->push_back( position );
 }
 
 

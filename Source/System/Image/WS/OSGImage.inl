@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
 inline 
 bool Image::isValid(void) const
 { 
-    return !getPixel().empty();
+    return !_mfPixel.empty();
 }
 
 /*! returns the data size in bytes. 
@@ -72,11 +72,11 @@ UInt8 *Image::getData(UInt32 mipmapNum,
                       UInt32 frameNum,
                       UInt32 sideNum )
 {
-    if(getPixel().empty())
+    if(_mfPixel->empty())
         return NULL;
 
     UInt8 *data = 
-        (&getPixel()[0]           ) + 
+        (&(_mfPixel[0])           ) + 
         (sideNum  * getSideSize ()) +
         (frameNum * getFrameSize());
     
@@ -94,11 +94,11 @@ const UInt8 *Image::getData(UInt32 mipmapNum,
                             UInt32 frameNum,
                             UInt32 sideNum ) const
 {
-    if(getPixel().empty())
+    if(_mfPixel.empty())
         return NULL;
 
     const UInt8 *data = 
-        (&getPixel()[0]           ) + 
+        (&(_mfPixel[0])           ) + 
         (sideNum  * getSideSize ()) +
         (frameNum * getFrameSize());
     
@@ -115,11 +115,11 @@ UInt8 *Image::editData(UInt32 mipmapNum,
                        UInt32 frameNum,
                        UInt32 sideNum) 
 {
-    if(getPixel().empty())
+    if(_mfPixel.empty())
         return NULL;
 
     UInt8 *data = 
-        (&editPixel()[0]           ) + 
+        (&(_mfPixel[0])           ) + 
         (sideNum  * getSideSize ()) +
         (frameNum * getFrameSize());
     

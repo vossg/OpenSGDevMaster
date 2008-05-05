@@ -234,7 +234,7 @@ void Geometry::setProperty(const GeoVectorPropertyPtr value, UInt16 index)
         _mfProperties.push_back(NullFC);
     }
 
-    replaceInProperties(index, value);
+    _mfProperties.replace(index, value);
 }
 
 /*! Return the vertext property data stored at index. */
@@ -261,7 +261,7 @@ void Geometry::setIndex(const GeoIntegralPropertyPtr value, UInt16 index)
         _mfPropIndices.push_back(NullFC);
     }
 
-    replaceInPropIndices(index, value);
+    _mfPropIndices.replace(index, value);
 }
 
 /*! Return the list of indices currently being used for the vertex attributes

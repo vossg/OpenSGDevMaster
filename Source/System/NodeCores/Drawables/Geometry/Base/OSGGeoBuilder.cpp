@@ -114,7 +114,7 @@ GeoVectorPropertyPtr GeoBuilder::getProperty(UInt32 index)
 {
     GeoVectorPropertyUnrecPtr att;
 
-    if(index >= _geo->getProperties().size() ||
+    if(index >= _geo->getMFProperties()->size() ||
        _geo->getProperty(index) == NullFC)
     {
         att = dynamic_pointer_cast<GeoVectorProperty>(
@@ -137,7 +137,7 @@ UInt32 GeoBuilder::finishVertex(void)
 {
     UInt32 possize = _geo->getProperty(Geometry::PositionsIndex)->size();
 
-    for(UInt16 i = 1; i < _geo->getProperties().size(); ++i)
+    for(UInt16 i = 1; i < _geo->getMFProperties()->size(); ++i)
     {
         if(_geo->getProperty(i) != NullFC)
         {

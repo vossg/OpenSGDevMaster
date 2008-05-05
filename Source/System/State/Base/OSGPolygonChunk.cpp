@@ -353,25 +353,25 @@ bool PolygonChunk::operator ==(const StateChunk &other) const
     if(tother == this)
         return true;
 
-    if(getCullFace()       != tother->getCullFace()      ||
-       getFrontFace()      != tother->getFrontFace()     ||
-       getSmooth()         != tother->getSmooth()        ||
-       getFrontMode()      != tother->getFrontMode()     ||
-       getBackMode()       != tother->getBackMode()      ||
-       getOffsetPoint()    != tother->getOffsetPoint()   ||
-       getOffsetLine()     != tother->getOffsetLine()    ||
-       getOffsetFill()     != tother->getOffsetFill()    ||
-       getOffsetFactor()   != tother->getOffsetFactor()  ||
-       getOffsetBias()     != tother->getOffsetBias()    ||
-       getStipple().size() != tother->getStipple().size()
+    if(getCullFace()          != tother->getCullFace()      ||
+       getFrontFace()         != tother->getFrontFace()     ||
+       getSmooth()            != tother->getSmooth()        ||
+       getFrontMode()         != tother->getFrontMode()     ||
+       getBackMode()          != tother->getBackMode()      ||
+       getOffsetPoint()       != tother->getOffsetPoint()   ||
+       getOffsetLine()        != tother->getOffsetLine()    ||
+       getOffsetFill()        != tother->getOffsetFill()    ||
+       getOffsetFactor()      != tother->getOffsetFactor()  ||
+       getOffsetBias()        != tother->getOffsetBias()    ||
+       getMFStipple()->size() != tother->getMFStipple()->size()
       )
         return false;
 
     // would need to compare the whole stipple data
     // cheap trick: if != 0 take as different
 
-    if(        getStipple().size() != 0 ||
-       tother->getStipple().size() != 0
+    if(        getMFStipple()->size() != 0 ||
+       tother->getMFStipple()->size() != 0
       )
         return false;
 

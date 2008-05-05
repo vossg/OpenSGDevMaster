@@ -921,7 +921,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     GeoIntegralPropertyPtr attribIndex[Geometry::MaxAttribs];
     attribPumpFunc attribFunc[Geometry::MaxAttribs];
 
-    UInt16 nattrib = geo->getProperties().size();
+    UInt16 nattrib = geo->getMFProperties()->size();
     
     for(UInt16 i = 0; i < nattrib; ++i)
     {

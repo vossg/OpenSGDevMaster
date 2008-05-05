@@ -55,7 +55,7 @@ const StateChunkClass *GeoMultiPropertyData::getStaticClass(void)
 inline
 const UInt8 *GeoMultiPropertyData::getData(void) const
 {
-    return &getIData(0);
+    return &_mfIData[0];
 }
 
 inline
@@ -67,13 +67,13 @@ UInt8 *GeoMultiPropertyData::editData(void)
 inline 
 void GeoMultiPropertyData::setSize(UInt32 size)
 {
-    editIData().resize(size);
+    editMFIData()->resize(size);
 }
 
 inline 
 UInt32 GeoMultiPropertyData::getSize(void) const
 {
-    return getIData().size();
+    return getMFIData()->size();
 }
 
 

@@ -41,8 +41,8 @@
 OSG_BEGIN_NAMESPACE
 
 template<class ParameterType, class ValueType> inline
-bool ShaderParameterAccess::setParameter(const Char8     *name, 
-                                         const ValueType &value)
+bool ShaderParameterAccess::setSParameter(const Char8     *name, 
+                                          const ValueType &value)
 {
     typedef typename ParameterType::ObjPtr      ParamPtr;
     typedef typename ParameterType::ObjUnrecPtr ParamUnrecPtr;
@@ -60,7 +60,7 @@ bool ShaderParameterAccess::setParameter(const Char8     *name,
         //    ParameterType::Ptr::dcast(_parameters[(*it).second]);
 
         ParamPtr p = dynamic_cast<ParamPtr>(
-            _parameters.getParameters()[(*it).second]);
+            _parameters.getParameters((*it).second));
 
         if(p == NullFC)
         {
@@ -85,9 +85,9 @@ bool ShaderParameterAccess::setParameter(const Char8     *name,
             _parametermap.insert(
                 std::pair<std::string, 
                           UInt32>(name, 
-                                  _parameters.getParameters().size() - 1));
+                                  _parameters.getMFParameters()->size() - 1));
 
-            _mapsize = _parameters.getParameters().size();
+            _mapsize = _parameters.getMFParameters()->size();
         }
     }
 
@@ -111,7 +111,7 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
     if(it != _parametermap.end())
     {
         ParamPtr p = dynamic_cast<ParamPtr>(
-            _parameters.getParameters()[(*it).second]);
+            _parameters.getParameters((*it).second));
 
         if(p == NullFC)
         {
@@ -121,7 +121,7 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
             return false;
         }
 
-        p->editValue() = value;
+        *(p->editMFValue()) = value;
     }
     else
     {
@@ -131,23 +131,23 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
         {
             p->setName(name );
 
-            p->editValue() = value;
+            *(p->editMFValue()) = value;
 
             _parameters.addParameter(p);
 
             _parametermap.insert(
                 std::pair<std::string, 
                           UInt32>(name, 
-                                  _parameters.getParameters().size()-1));
+                                  _parameters.getMFParameters()->size()-1));
 
-            _mapsize = _parameters.getParameters().size();
+            _mapsize = _parameters.getMFParameters()->size();
         }
     }
     return true;
 }
 
 template<class ParameterType, class ValueType> inline
-bool ShaderParameterAccess::getParameter(const Char8 *name, ValueType &value)
+bool ShaderParameterAccess::getSParameter(const Char8 *name, ValueType &value)
 {
     typedef typename ParameterType::ObjPtr ParamPtr;
 
@@ -161,7 +161,7 @@ bool ShaderParameterAccess::getParameter(const Char8 *name, ValueType &value)
     if(it != _parametermap.end())
     {
         ParamPtr p = dynamic_cast<ParamPtr>(
-            _parameters.getParameters()[(*it).second]);
+            _parameters.getParameters((*it).second));
 
         if(p == NullFC)
         {
@@ -172,6 +172,44 @@ bool ShaderParameterAccess::getParameter(const Char8 *name, ValueType &value)
         }
 
         value = p->getValue();
+    }
+    else
+    {
+        FINFO(("ShaderParameterAccess::getParameter : Parameter '%s' "
+               "doesn't exist!\n", name));
+
+        return false;
+    }
+
+    return true;
+}
+
+template<class ParameterType, class ValueType> inline
+bool ShaderParameterAccess::getMParameter(const Char8 *name, ValueType &value)
+{
+    typedef typename ParameterType::ObjPtr ParamPtr;
+
+    if(name == NULL)
+        return false;
+
+    updateMap();
+
+    parameterIt it = _parametermap.find(name);
+    
+    if(it != _parametermap.end())
+    {
+        ParamPtr p = dynamic_cast<ParamPtr>(
+            _parameters.getParameters((*it).second));
+
+        if(p == NullFC)
+        {
+            FWARNING(("ShaderParameterAccess::getParameter : Parameter "
+                      "'%s' has wrong type!\n", name));
+
+            return false;
+        }
+
+        value = *(p->getMFValue());
     }
     else
     {

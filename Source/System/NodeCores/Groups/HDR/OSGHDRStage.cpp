@@ -361,7 +361,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     pSceneFBO->setColorAttachment(pSceneTexBuffer, 0);
     pSceneFBO->setDepthAttachment(pDepthBuffer      );
     
-    pSceneFBO->editDrawBuffers().push_back(GL_COLOR_ATTACHMENT0_EXT);
+    pSceneFBO->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
     
     setRenderTarget(pSceneFBO);
     
@@ -406,7 +406,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     
     pShrinkFBO->setColorAttachment(pShrinkTexBuffer, 0);
     
-    pShrinkFBO->editDrawBuffers().push_back(GL_COLOR_ATTACHMENT0_EXT);
+    pShrinkFBO->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
     
     returnValue->setShrinkRenderTarget(pShrinkFBO);
 
@@ -691,9 +691,9 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     FrameBufferObjectPtr pBlurTarget = pData->getBlurRenderTarget();
 
-    pBlurTarget->editDrawBuffers().clear();
+    pBlurTarget->editMFDrawBuffers()->clear();
 
-    pBlurTarget->editDrawBuffers().push_back(GL_COLOR_ATTACHMENT0_EXT);
+    pBlurTarget->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
 
     pBlurTarget->activate(pEnv);
 

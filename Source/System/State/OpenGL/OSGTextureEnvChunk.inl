@@ -54,12 +54,12 @@ inline
 void TextureEnvChunk::setShaderOffsetMatrix(Real32 m11, Real32 m12, 
                                             Real32 m21, Real32 m22)
 {
-    editShaderOffsetMatrix().resize(4);
+    editMFShaderOffsetMatrix()->resize(4);
 
-    editShaderOffsetMatrix()[0] = m11;
-    editShaderOffsetMatrix()[1] = m12;
-    editShaderOffsetMatrix()[2] = m21;
-    editShaderOffsetMatrix()[3] = m22;
+    editShaderOffsetMatrix(0) = m11;
+    editShaderOffsetMatrix(1) = m12;
+    editShaderOffsetMatrix(2) = m21;
+    editShaderOffsetMatrix(3) = m22;
 }
 
 

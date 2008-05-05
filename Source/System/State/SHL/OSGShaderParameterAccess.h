@@ -74,12 +74,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterAccess
     /*! \{                                                                 */
   
     template<class ParameterType, class ValueType> 
-    bool setParameter(const Char8 *name, const ValueType &value);
+    bool setSParameter(const Char8 *name, const ValueType &value);
     template<class ParameterType, class ValueType> 
     bool setMParameter(const char *name, const ValueType &value);
 
     template<class ParameterType, class ValueType> 
-    bool getParameter(const Char8 *name, ValueType &value);
+    bool getSParameter(const Char8 *name, ValueType &value);
+    template<class ParameterType, class ValueType> 
+    bool getMParameter(const Char8 *name, ValueType &value);
 
     bool subParameter(const Char8 *name);
     

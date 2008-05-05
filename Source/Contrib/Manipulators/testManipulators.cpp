@@ -66,7 +66,7 @@ int main(int argc, char **argv)
     mgr->showAll();
 
     mama->setTarget( interN );
-    mama->setViewport( mgr->getWindow()->getPort()[0] );
+    mama->setViewport( mgr->getWindow()->getPort(0) );
 
     commitChanges();
 
