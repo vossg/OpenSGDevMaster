@@ -9,8 +9,8 @@ OSG_USING_NAMESPACE
 OSG_BEGIN_NAMESPACE
 
 ModelRequest::ModelRequest()
-   : mParent(NullFC)
-   , mModel (NullFC)
+   : mParent(NULL)
+   , mModel (NULL)
 {;}
 
 ModelRequest::~ModelRequest()
@@ -30,7 +30,7 @@ void ModelRequest::execute()
    VerifyGraphOp* vop = new VerifyGraphOp;
    vop->setRepair(true);
    vop->setVerbose(true);
-   NodePtr node(mModel);
+   Node *node(mModel);
    vop->traverse(node);
    subRef(vop);
 #endif

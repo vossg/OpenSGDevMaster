@@ -168,11 +168,11 @@ void VTKMapper::initGeometries(void)
 typedef double vtkReal;
 
 bool VTKMapper::processPrimitive(
-    OSG::GeoPnt3fPropertyPtr   pPoints,
-    OSG::GeoColor4fPropertyPtr pColors,
-    OSG::GeoVec3fPropertyPtr   pNormals,
-    OSG::GeoUInt32PropertyPtr  pLengths,
-    OSG::GeoUInt8PropertyPtr   pTypes,
+    OSG::GeoPnt3fProperty   *pPoints,
+    OSG::GeoColor4fProperty *pColors,
+    OSG::GeoVec3fProperty   *pNormals,
+    OSG::GeoUInt32Property  *pLengths,
+    OSG::GeoUInt8Property   *pTypes,
     
     vtkActor                *actor, 
     vtkCellArray            *primArray,
@@ -405,7 +405,7 @@ void VTKMapper::execute(void)
                 _pActor->GetMapper()->GetInput()->GetMTime());
     }
 
-    if(_sfRoot.getValue() == NullFC)
+    if(_sfRoot.getValue() == NULL)
     {
         initGeometries();
     }
@@ -552,7 +552,7 @@ void VTKMapper::adjustVolume(Volume &volume)
 {
     this->execute();
 
-    if(_sfRoot.getValue() != NullFC)
+    if(_sfRoot.getValue() != NULL)
     {
         _sfRoot.getValue()->updateVolume();
         
@@ -574,7 +574,7 @@ void VTKMapper::dump(      UInt32    uiIndent,
    indentLog(uiIndent + 4, PLOG);
    PLOG << "Root" << std::endl;
 
-   if(_sfRoot.getValue() != OSGNullFC)
+   if(_sfRoot.getValue() != NULL)
    {
        _sfRoot.getValue()->dump(uiIndent + 8, bvFlags);
    }

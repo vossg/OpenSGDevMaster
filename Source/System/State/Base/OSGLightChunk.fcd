@@ -119,7 +119,7 @@ OSG::LightChunk::_sfQuadraticAttenuation).
         category="weakpointer"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
         doRefCount="false"
 	>

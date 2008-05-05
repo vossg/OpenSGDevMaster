@@ -116,9 +116,9 @@ void TileCameraDecorator::getProjection(Matrix &result,
         return;
     }
     
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
 
-    if(camera == NullFC)
+    if(camera == NULL)
     {
         FWARNING(("TileCameraDecorator::getProjection: no decoratee!\n"));
 
@@ -178,9 +178,9 @@ void TileCameraDecorator::getDecoration(Matrix &result,
         return;
     }
 
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
 
-    if(camera == NullFC)
+    if(camera == NULL)
     {
         FWARNING(("TileCameraDecorator::getProjection: no decoratee!\n"));
 

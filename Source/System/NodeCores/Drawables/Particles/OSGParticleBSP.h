@@ -229,10 +229,10 @@ class OSG_DRAWABLE_DLLMAPPING ParticleBSPTree
     /*! \name                 Creation Tools                               */
     /*! \{                                                                 */
 
-    UInt32 doBuild(std::vector<Int32>::iterator begin, 
-                   std::vector<Int32>::iterator end,
-                        UInt32                  nodeindex,
-                        GeoVectorPropertyPtr    pos      ); 
+    UInt32 doBuild(std::vector<Int32>::iterator  begin, 
+                   std::vector<Int32>::iterator  end,
+                        UInt32                   nodeindex,
+                        GeoVectorProperty       *pos      ); 
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

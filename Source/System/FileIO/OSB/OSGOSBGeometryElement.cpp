@@ -94,7 +94,7 @@ OSBGeometryElement::OSBGeometryElement(OSBRootElement *root)
     : Inherited     (root, OSGOSBHeaderVersion200),
       _indexMapping (                            ),
       _indicesId    (0                           ),
-      _indices      (NullFC                      ),
+      _indices      (NULL                        ),
       _indices16Bit (false                       ),
       _indicesPacked(false                       ),
       _version      (OSGOSBHeaderVersion200      )
@@ -163,7 +163,7 @@ OSBGeometryElement::postRead(void)
 /* Writing                                                                 */
 
 void
-OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
+OSBGeometryElement::preWrite(FieldContainer * const fc)
 {
     FDEBUG(("OSBGeometryElement::preWrite\n"));
 
@@ -210,9 +210,9 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
 
             for(UInt32 i = 0; fieldIt != fieldEnd; ++fieldIt, ++i)
             {
-                FieldContainerPtr refedFC = *fieldIt;
+                FieldContainer *refedFC = *fieldIt;
 
-                if(refedFC == NullFC)
+                if(refedFC == NULL)
                     continue;
 
                 UInt32      refedId  = refedFC->getId  ();
@@ -265,9 +265,9 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
 
             for(UInt32 i = 0; fieldIt != fieldEnd; ++fieldIt, ++i)
             {
-                FieldContainerPtr refedFC = *fieldIt;
+                FieldContainer *refedFC = *fieldIt;
 
-                if(refedFC == NullFC)
+                if(refedFC == NULL)
                     continue;
 
                 UInt32      refedId  = refedFC->getId  ();
@@ -302,7 +302,7 @@ OSBGeometryElement::preWrite(const FieldContainerPtr &fc)
             // check if field refers to another FC, i.e. its a field holding
             // FieldContainerPtr or an FieldContainerAttachmentMap
             if(fieldType.getContentType().isDerivedFrom(
-                FieldTraits<FieldContainerPtr>::getType()) == true)
+                FieldTraits<FieldContainer *>::getType()) == true)
             {
                 if(fieldType.getCardinality() == FieldType::SingleField)
                 {
@@ -582,8 +582,8 @@ OSBGeometryElement::postReadV100(void)
     FDEBUG(("OSBGeometryElement::postReadV100\n"));
 
     OSBRootElement  *root             = editRoot();
-    GeometryPtr      geo              =
-        dynamic_cast<GeometryPtr>(getContainer());
+    Geometry        *geo              =
+        dynamic_cast<Geometry*>(getContainer());
     UInt32           indexMappingSize = _indexMapping.size();
 
     if(indexMappingSize <= 1)
@@ -634,18 +634,18 @@ OSBGeometryElement::postReadV100(void)
             // create 16 bit or 32 bit indices
             if(_indices16Bit)
             {
-                GeoUInt16PropertyPtr ui16Indices =
+                GeoUInt16Property *ui16Indices =
                     dynamic_pointer_cast<GeoUInt16Property>(_indices);
 
-                gh.splitMultiIndex<GeoUInt16PropertyPtr>(
+                gh.splitMultiIndex<GeoUInt16Property *>(
                     _indexMapping, ui16Indices, geo);
             }
             else
             {
-                GeoUInt32PropertyPtr ui32Indices =
+                GeoUInt32Property *ui32Indices =
                     dynamic_pointer_cast<GeoUInt32Property>(_indices);
 
-                gh.splitMultiIndex<GeoUInt32PropertyPtr>(
+                gh.splitMultiIndex<GeoUInt32Property *>(
                     _indexMapping, ui32Indices, geo);
             }
         }
@@ -659,7 +659,7 @@ OSBGeometryElement::postReadV100(void)
 
             if(mapIt != root->getIdMap().end())
             {
-                _indices = dynamic_cast<GeoIntegralPropertyPtr>(
+                _indices = dynamic_cast<GeoIntegralProperty *>(
                     FieldContainerFactory::the()->getContainer(mapIt->second));
             }
             else
@@ -671,18 +671,18 @@ OSBGeometryElement::postReadV100(void)
 
             if(_indices->getFormatSize() == sizeof(UInt16))
             {
-                GeoUInt16PropertyPtr ui16Indices =
+                GeoUInt16Property *ui16Indices =
                     dynamic_pointer_cast<GeoUInt16Property>(_indices);
 
-                gh.splitMultiIndex<GeoUInt16PropertyPtr>(
+                gh.splitMultiIndex<GeoUInt16Property *>(
                     _indexMapping, ui16Indices, geo);
             }
             else if(_indices->getFormatSize() == sizeof(UInt32))
             {
-                GeoUInt32PropertyPtr ui32Indices =
+                GeoUInt32Property *ui32Indices =
                     dynamic_pointer_cast<GeoUInt32Property>(_indices);
 
-                gh.splitMultiIndex<GeoUInt32PropertyPtr>(
+                gh.splitMultiIndex<GeoUInt32Property *>(
                     _indexMapping, ui32Indices, geo);
             }
         }

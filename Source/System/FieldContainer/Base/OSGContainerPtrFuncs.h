@@ -139,12 +139,12 @@ typename PtrStripper<Ptr>::ConstObject *getConstCPtr(Ptr objectP);
 
 #ifdef OSG_1_COMPAT
 inline
-void addRefCP(const FieldContainerPtr)
+void addRefCP(FieldContainer * const)
 {
 }
 
 inline
-void subRefCP(const FieldContainerPtr)
+void subRefCP(FieldContainer * const)
 {
 }
 
@@ -170,7 +170,7 @@ void setRefdCPX(StoreT  &pTarget,
 }
 
 template <class OutPtrT> inline
-OutPtrT dynamic_fcptr_cast(const FieldContainerPtr pPtr)
+OutPtrT dynamic_fcptr_cast(FieldContainer * const pPtr)
 {
     return dynamic_cast<OutPtrT>(pPtr);
 }

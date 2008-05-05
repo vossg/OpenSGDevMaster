@@ -23,5 +23,5 @@ int main (int argc, char **argv)
     node_cptr = get_pointer(node_rptr);
 #endif
 
-    node_ptr = NullFC;
+    node_ptr = NULL;
 }

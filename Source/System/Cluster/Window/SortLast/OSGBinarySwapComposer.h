@@ -125,9 +125,9 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
     /*! \name      composition                                             */
     /*! \{                                                                 */
 
-    virtual void open           (                );
-    virtual void composeViewport(ViewportPtr port);
-    virtual void close          (void            );
+    virtual void open           (              );
+    virtual void composeViewport(Viewport *port);
+    virtual void close          (void          );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -198,7 +198,7 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
     void recvFromServers(DepthT &depth,ColorT &color,
                          UInt32 colorType,
                          UInt32 colorFormat,
-                         ViewportPtr port);
+                         Viewport *port);
 
     template<class DepthT,class ColorT>
     void writeCombine(DepthT &depthDummy,ColorT &colorDummy);
@@ -218,7 +218,7 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
                      UInt32 depthFormat,
                      UInt32 colorType,
                      UInt32 colorFormat,
-                     ViewportPtr port);
+                     Viewport *port);
 
     TileBuffer *getTileBuffer(UInt32 x,UInt32 y);
     TileBuffer *getTileReadBuffer(void);

@@ -289,8 +289,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*-------------------------- comparison ---------------------------------*/
 
-    void      overrideMaterial(      Material *pMaterial,
-                               const NodePtr   pNode    );
+    void      overrideMaterial(Material *       pMaterial,
+                               Node     * const pNode    );
 
     Material *getMaterial     (void                     );
 
@@ -304,11 +304,11 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*-------------------------- comparison ---------------------------------*/
 
     // test a single node
-    bool isVisible      (      Node    *pNode);
+    bool isVisible      (Node *       pNode);
     
     // visibility levels
-    bool  pushVisibility(const NodePtr  pNode);
-    void  popVisibility (      void          );
+    bool  pushVisibility(Node * const pNode);
+    void  popVisibility (void              );
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -418,7 +418,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     // Material Override
 
     Material           *_pMaterial;
-    NodePtr             _pMaterialNode;
+    Node               *_pMaterialNode;
     
     // Target
 

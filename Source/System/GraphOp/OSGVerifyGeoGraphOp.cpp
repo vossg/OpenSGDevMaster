@@ -122,7 +122,7 @@ void VerifyGeoGraphOp::setRepair(bool repair)
     _repair = repair;
 }
 
-bool VerifyGeoGraphOp::travNodeEnter(NodePtr node)
+bool VerifyGeoGraphOp::travNodeEnter(Node *node)
 {
     if (!node->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
     {
@@ -132,13 +132,13 @@ bool VerifyGeoGraphOp::travNodeEnter(NodePtr node)
 
     bool _verified = true;
 
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
 
-    if(geo->getTypes() != NullFC && geo->getTypes()->size() == 0)
+    if(geo->getTypes() != NULL && geo->getTypes()->size() == 0)
     {
         if (_repair)
         {
-            //geo->setTypes(NullFC);
+            //geo->setTypes(NULL);
         }
         else
         {
@@ -146,11 +146,11 @@ bool VerifyGeoGraphOp::travNodeEnter(NodePtr node)
         }
     }        
 
-    if(geo->getLengths() != NullFC && geo->getLengths()->size() == 0)
+    if(geo->getLengths() != NULL && geo->getLengths()->size() == 0)
     {
         if (_repair)
         {
-            //geo->setLengths(NullFC);
+            //geo->setLengths(NULL);
         }
         else
         {
@@ -158,80 +158,80 @@ bool VerifyGeoGraphOp::travNodeEnter(NodePtr node)
         }
     }
 
-    if(geo->getPositions() != NullFC && geo->getPositions()->size() == 0)
+    if(geo->getPositions() != NULL && geo->getPositions()->size() == 0)
     {
         if (_repair)
-            geo->setPositions(NullFC);
+            geo->setPositions(NULL);
         else
         {
             _verified = false;
         }
     }
 
-    if(geo->getNormals() != NullFC && geo->getNormals()->size() == 0)
+    if(geo->getNormals() != NULL && geo->getNormals()->size() == 0)
     {
         if (_repair)
-            geo->setNormals(NullFC);
+            geo->setNormals(NULL);
         else
         {
             _verified = false;
         }
     }
 
-    if(geo->getColors() != NullFC && geo->getColors()->size() == 0)
+    if(geo->getColors() != NULL && geo->getColors()->size() == 0)
     {
         if (_repair)
-            geo->setColors(NullFC);
+            geo->setColors(NULL);
         else
         {
             _verified = false;
         }
     }
 
-    if(geo->getSecondaryColors() != NullFC && geo->getSecondaryColors()->size() == 0)
+    if(geo->getSecondaryColors() != NULL && geo->getSecondaryColors()->size() == 0)
     {
         if (_repair)
-            geo->setSecondaryColors(NullFC);
+            geo->setSecondaryColors(NULL);
         else
         {
             _verified = false;
         }
     }
 
-    if(geo->getTexCoords() != NullFC && geo->getTexCoords()->size() == 0)
+    if(geo->getTexCoords() != NULL && geo->getTexCoords()->size() == 0)
     {
         if (_repair)
-            geo->setTexCoords(NullFC);
+            geo->setTexCoords(NULL);
         else
         {
             _verified = false;
         }
     }
 
-    if(geo->getTexCoords1() != NullFC && geo->getTexCoords1()->size() == 0)
+    if(geo->getTexCoords1() != NULL && geo->getTexCoords1()->size() == 0)
     {
         if (_repair)
-            geo->setTexCoords1(NullFC);
+            geo->setTexCoords1(NULL);
         else
         {
             _verified = false;
         }
     }
 
-    if(geo->getTexCoords2() != NullFC && geo->getTexCoords2()->size() == 0)
+    if(geo->getTexCoords2() != NULL && geo->getTexCoords2()->size() == 0)
     {
         if (_repair)
-            geo->setTexCoords2(NullFC);
+            geo->setTexCoords2(NULL);
         else
         {
             _verified = false;
         }
     }
 
-    if(geo->getTexCoords3() != NullFC && geo->getTexCoords3()->size() == 0)
+    if(geo->getTexCoords3() != NULL && geo->getTexCoords3()->size() == 0)
     {
         if (_repair)
-            geo->setTexCoords3(NullFC);
+            geo->setTexCoords3(NULL);
         else
         {
             _verified = false;
@@ -243,7 +243,7 @@ bool VerifyGeoGraphOp::travNodeEnter(NodePtr node)
 
     // PORTME
 #if 0
-    GeoIndicesPtr ind = geo->getIndices();
+    GeoIndices *ind = geo->getIndices();
     UInt16 nmap = geo->getIndexMapping().size();
 
     if (nmap==0) return Action::Continue;
@@ -428,7 +428,7 @@ bool VerifyGeoGraphOp::travNodeEnter(NodePtr node)
         return Action::Quit;
 }
 
-bool VerifyGeoGraphOp::travNodeLeave(NodePtr)
+bool VerifyGeoGraphOp::travNodeLeave(Node *)
 {
     return true;
 }

@@ -209,7 +209,7 @@ class @!Classname!@Base : public @!Parent!@
     @@EndFieldLoop@@
 
     @@if isDecorator
-    @!MethodType:7!@             @!Parent!@Ptr getDecoratee(void) const;
+    @!MethodType:7!@             @!Parent!@ *getDecoratee(void) const;
     @@endif // isDecorator
     @@BeginFieldLoop@@
         @@if field.isPublic
@@ -250,17 +250,17 @@ class @!Classname!@Base : public @!Parent!@
     /*! \{                                                                 */
 
     @@if isDecorator
-    @!MethodType:7!@       void setDecoratee      ( const @!Parent!@Ptr &value );
+    @!MethodType:7!@       void setDecoratee      (@!Parent!@ * const value);
     @@endif // isDecorator
     @@BeginSFFieldLoop@@
         @@if field.isPublic
             @@if field.isPtrField
               @@if !field.ptrFieldCustomAccess
                 @@if field.PassFieldMask
-    @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ value,
+    @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ const value,
                     const UInt16        uiStoredInFieldId = InvalidParentEPos);
                 @@else // field.PassFieldMask
-    @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ value);
+    @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ const value);
                 @@endif // field.PassFieldMask
               @@endif
             @@else // field.isPtrField
@@ -285,26 +285,26 @@ class @!Classname!@Base : public @!Parent!@
         @@if field.isPublic
             @@if field.isPtrField
                 @@if field.ptrFieldStandardAccess 
-    void @!field.PushToField:15!@           (const @!field.Type!@ value   );
-    void @!field.AssignMField:15!@           (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
-    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@ value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
+    void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32               uiIndex );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
     void @!field.ClearField:15!@            (void                          );
 
 
                 @@endif
                 @@if field.ptrFieldNullCheckAccess
-    void @!field.PushToField:15!@           (const @!field.Type!@ value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
     void @!field.ClearField:15!@            (void                          );
-    void @!field.InsertIntoMField:15!@      (      UInt32         uiIndex,
-                                             const @!field.Type!@ value   );
+    void @!field.InsertIntoMField:15!@      (UInt32               uiIndex,
+                                             @!field.Type!@ const value   );
     void @!field.ReplaceInMFieldIndex:15!@  (      UInt32         uiIndex,
-                                             const @!field.Type!@ value   );
-    void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@ pOldElem,
-                                             const @!field.Type!@ pNewElem);
-    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@ value   );
+                                             @!field.Type!@ const value   );
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ const pOldElem,
+                                             @!field.Type!@ const pNewElem);
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32               uiIndex );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
 
 
                 @@endif
@@ -330,13 +330,13 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  @!Classname!@TransitPtr create          (void);
-    static  @!Classname!@Ptr        createEmpty     (void);
+    static  @!Classname!@TransitPtr  create          (void);
+    static  @!Classname!@           *createEmpty     (void);
 
-    static  @!Classname!@TransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  @!Classname!@TransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  @!Classname!@Ptr        createEmptyLocal(
+    static  @!Classname!@            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -405,11 +405,11 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name Parent linking                                               */
     /*! \{                                                                 */
 
-    virtual bool linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId);
-    virtual bool unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId);
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
     
     /*! \}                                                                 */
 @@endif // @!hasParentPtrFields!@
@@ -418,8 +418,8 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name Child linking                                                */
     /*! \{                                                                 */
     
-    virtual bool unlinkChild(const FieldContainerPtr pChild,
-                             const UInt16            childFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
     
     /*! \}                                                                 */
 @@endif // @!hasChildPtrFields!@
@@ -494,7 +494,7 @@ class @!Classname!@Base : public @!Parent!@
         @@if field.isProtected
             @@if field.isPtrField
               @@if !field.ptrFieldCustomAccess
-    @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ value);
+    @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ const value);
               @@endif
             @@else // field.isPtrField
     @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.FullType!@ &value);
@@ -511,26 +511,26 @@ class @!Classname!@Base : public @!Parent!@
         @@if field.isProtected
             @@if field.isPtrField
                 @@if field.ptrFieldStandardAccess 
-    void @!field.PushToField:15!@           (const @!field.Type!@ value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@           (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@ value   );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
     void @!field.ClearField:15!@            (void                          );
 
 
                 @@endif
                 @@if field.ptrFieldNullCheckAccess
-    void @!field.PushToField:15!@           (const @!field.Type!@ value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
     void @!field.ClearField:15!@            (void                          );
-    void @!field.InsertIntoMField:15!@      (      UInt32         uiIndex,
-                                             const @!field.Type!@ value   );
-    void @!field.ReplaceInMFieldIndex:15!@  (      UInt32         uiIndex,
-                                             const @!field.Type!@ value   );
-    void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@ pOldElem,
-                                             const @!field.Type!@ pNewElem);
+    void @!field.InsertIntoMField:15!@      (UInt32         uiIndex,
+                                             @!field.Type!@ const value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32         uiIndex,
+                                             @!field.Type!@ const value   );
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ const pOldElem,
+                                             @!field.Type!@ const pNewElem);
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@ value   );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
 
 
                 @@endif
@@ -569,7 +569,7 @@ class @!Classname!@Base : public @!Parent!@
 @@if !isAbstract
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 @@endif // !isAbstract
 
@@ -657,7 +657,7 @@ class @!Classname!@Base : public @!Parent!@
         @@if field.isPrivate
             @@if field.isPtrField
               @@if !field.ptrFieldCustomAccess
-    @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ value);
+    @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ const value);
               @@endif
             @@else // field.isPtrField
     @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ &value);
@@ -674,26 +674,26 @@ class @!Classname!@Base : public @!Parent!@
         @@if field.isPrivate
             @@if field.isPtrField
                 @@if field.ptrFieldStandardAccess 
-    void @!field.PushToField:15!@           (const @!field.Type!@ value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@           (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@ value   );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
     void @!field.ClearField:15!@            (void                          );
 
 
                 @@endif
                 @@if field.ptrFieldNullCheckAccess
-    void @!field.PushToField:15!@           (const @!field.Type!@ value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
     void @!field.ClearField:15!@            (void                          );
-    void @!field.InsertIntoMField:15!@      (      UInt32         uiIndex,
-                                             const @!field.Type!@ value   );
-    void @!field.ReplaceInMFieldIndex:15!@  (      UInt32         uiIndex,
-                                             const @!field.Type!@ value   );
-    void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@ pOldElem,
-                                             const @!field.Type!@ pNewElem);
+    void @!field.InsertIntoMField:15!@      (UInt32         uiIndex,
+                                             @!field.Type!@ const value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32         uiIndex,
+                                             @!field.Type!@ const value   );
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ const pOldElem,
+                                             @!field.Type!@ const pNewElem);
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@ value   );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
 
 
                 @@endif

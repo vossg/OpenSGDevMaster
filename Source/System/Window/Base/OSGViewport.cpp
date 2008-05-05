@@ -210,9 +210,9 @@ bool Viewport::isFullWindow(void) const
         getPixelRight()  == getParent()->getWidth () - 1;
 }
 
-WindowPtr Viewport::getParent(void) const
+Window *Viewport::getParent(void) const
 {
-    return dynamic_cast<WindowPtr>(_sfParent.getValue());
+    return dynamic_cast<Window *>(_sfParent.getValue());
 }
 
 /*-------------------------- your_category---------------------------------*/
@@ -267,17 +267,17 @@ void Viewport::deactivate(void)
 #ifdef OSG_OLD_RENDER_ACTION
 void Viewport::render(DrawActionBase *action)
 {
-    if(getCamera() == NullFC)
+    if(getCamera() == NULL)
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;
         return;
     }
-    if(getBackground() == NullFC)
+    if(getBackground() == NULL)
     {
         SWARNING << "Viewport::render: no Background!" << std::endl;
         return;
     }
-    if(getRoot() == NullFC)
+    if(getRoot() == NULL)
     {
         SWARNING << "Viewport::render: no root!" << std::endl;
         return;
@@ -311,17 +311,17 @@ void Viewport::render(RenderActionBase *action)
 {
      _pStageValidator->incEventCounter();
  
-    if(getCamera() == NullFC)
+    if(getCamera() == NULL)
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;
         return;
     }
-    if(getBackground() == NullFC)
+    if(getBackground() == NULL)
     {
         SWARNING << "Viewport::render: no Background!" << std::endl;
         return;
     }
-    if(getRoot() == NullFC)
+    if(getRoot() == NULL)
     {
         SWARNING << "Viewport::render: no root!" << std::endl;
         return;

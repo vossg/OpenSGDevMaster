@@ -159,7 +159,7 @@ Action *Action::getPrototype(void)
 Action::Action(void) : 
     _enterFunctors(                            ),
     _leaveFunctors(                            ),
-    _actNode      (OSGNullFC                   ),
+    _actNode      (NULL                        ),
     _actList      (NULL                        ),
     _useNewList   (false                       ),
     _travMask     (TypeTraits<UInt32>::getMax()),
@@ -179,7 +179,7 @@ Action::Action(void) :
 Action::Action(const Action & source) :
     _enterFunctors(source._enterFunctors       ),
     _leaveFunctors(source._leaveFunctors       ),
-    _actNode      (OSGNullFC                   ),
+    _actNode      (NULL                        ),
     _actList      (NULL                        ),
     _useNewList   (false                       ),
     _travMask     (source._travMask            ),
@@ -261,8 +261,8 @@ void Action::registerLeaveFunction(const FieldContainerType &type,
 
 // application entry points
 
-ActionBase::ResultE Action::apply(std::vector<NodePtr>::iterator begin,
-                                  std::vector<NodePtr>::iterator end)
+ActionBase::ResultE Action::apply(std::vector<Node *>::iterator begin,
+                                  std::vector<Node *>::iterator end)
 {
     Action::ResultE res = Continue;
     
@@ -275,7 +275,7 @@ ActionBase::ResultE Action::apply(std::vector<NodePtr>::iterator begin,
     
     for(; begin != end; ++begin)
     {
-        if(*begin == NullFC)
+        if(*begin == NULL)
         {
             SWARNING << "apply: encountered NullNode!" << std::endl;
             return Quit;            
@@ -295,15 +295,15 @@ ActionBase::ResultE Action::apply(std::vector<NodePtr>::iterator begin,
     return res;
 }
 
-ActionBase::ResultE Action::apply(const NodePtr node)
+ActionBase::ResultE Action::apply(Node * const node)
 {
-    if(node == NullFC)
+    if(node == NULL)
     {
         SWARNING << "apply: node is Null!" << std::endl;
         return Quit;            
     }
 
-    std::vector<NodePtr> nodeList;
+    std::vector<Node *> nodeList;
 
     nodeList.push_back(node);
 
@@ -315,9 +315,9 @@ ActionBase::ResultE Action::apply(const NodePtr node)
 
 // recursion calling
 
-ActionBase::ResultE Action::recurse(const NodePtr node)
+ActionBase::ResultE Action::recurse(Node * const node)
 {
-    if(node == NullFC)
+    if(node == NULL)
         return Continue;
 
     if((node->getTravMask() & getTravMask()) == 0)
@@ -328,9 +328,9 @@ ActionBase::ResultE Action::recurse(const NodePtr node)
         return Continue;
 #endif
 
-    NodeCorePtr core = node->getCore();
+    NodeCore *core = node->getCore();
     
-    if(core == NullFC)
+    if(core == NULL)
     {
         SWARNING << "recurse: core is Null,  don't know what to do!" 
                  << std::endl;
@@ -413,11 +413,11 @@ ActionBase::ResultE Action::callNewList(void)
 
     // need to make a copy, because the one in the action is cleared
 
-    std::vector<NodePtr> nodeList;
+    std::vector<Node *> nodeList;
 
     nodeList.swap(_newList);
 
-    std::vector<NodePtr>::iterator it;
+    std::vector<Node *>::iterator it;
 
     _actList = &nodeList;
 
@@ -546,14 +546,14 @@ std::vector<Action::Functor>* Action::getDefaultLeaveFunctors(void)
 
 // default Action function: just call all kids
 
-ActionBase::ResultE Action::_defaultEnterFunction(const NodeCorePtr  , 
-                                                        Action      *)
+ActionBase::ResultE Action::_defaultEnterFunction(NodeCore * const, 
+                                                  Action   *      )
 {
     return Continue;
 }
 
-ActionBase::ResultE Action::_defaultLeaveFunction(const NodeCorePtr  , 
-                                                        Action       *)
+ActionBase::ResultE Action::_defaultLeaveFunction(NodeCore * const, 
+                                                  Action   *      )
 {
     return Continue;
 }
@@ -582,13 +582,13 @@ ActionBase::ResultE doCallLeave(NodePtrConstArg       node,
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
-ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList, 
+ActionBase::ResultE traverse(const std::vector<Node *>  &nodeList, 
                                    TraverseEnterFunctor  func    )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
-    std::vector<NodePtr>::const_iterator it = nodeList.begin();
-    std::vector<NodePtr>::const_iterator en = nodeList.end  ();
+    std::vector<Node *>::const_iterator it = nodeList.begin();
+    std::vector<Node *>::const_iterator en = nodeList.end  ();
     
     for(; it != en; ++it)
     {
@@ -623,8 +623,8 @@ ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
 /*! Simple tree traversal function. Calls func for every node encountered
  */
 
-ActionBase::ResultE traverse(const NodePtr              node, 
-                                   TraverseEnterFunctor func )
+ActionBase::ResultE traverse(Node                 * const node, 
+                             TraverseEnterFunctor         func )
 {
     ActionBase::ResultE res = ActionBase::Continue;
     
@@ -650,14 +650,14 @@ ActionBase::ResultE traverse(const NodePtr              node,
     leave after leaving.
  */
 
-ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList, 
+ActionBase::ResultE traverse(const std::vector<Node *> &nodeList, 
                                    TraverseEnterFunctor  enter, 
                                    TraverseLeaveFunctor  leave )
 {
     ActionBase::ResultE res = ActionBase::Continue;
 
-    std::vector<NodePtr>::const_iterator it = nodeList.begin();
-    std::vector<NodePtr>::const_iterator en = nodeList.end  ();
+    std::vector<Node *>::const_iterator it = nodeList.begin();
+    std::vector<Node *>::const_iterator en = nodeList.end  ();
     
     for(; it != en; ++it)
     {
@@ -695,9 +695,9 @@ ActionBase::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
     leave after leaving.
  */
 
-ActionBase::ResultE traverse(const NodePtr              node, 
-                                   TraverseEnterFunctor enter, 
-                                   TraverseLeaveFunctor leave )
+ActionBase::ResultE traverse(Node                 * const node, 
+                             TraverseEnterFunctor         enter, 
+                             TraverseLeaveFunctor         leave)
 {
     ActionBase::ResultE res = ActionBase::Continue;
     

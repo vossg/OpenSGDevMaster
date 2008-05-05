@@ -107,7 +107,7 @@ OSBNodeElement::postRead(void)
 /* Writing                                                                 */
 
 void
-OSBNodeElement::preWrite(const FieldContainerPtr &fc)
+OSBNodeElement::preWrite(FieldContainer * const fc)
 {
     FDEBUG(("OSBNodeElement::preWrite\n"));
 
@@ -119,9 +119,9 @@ OSBNodeElement::write(void)
 {
     FDEBUG(("OSBNodeElement::write\n"));
 
-    if(getContainer() == NullFC)
+    if(getContainer() == NULL)
     {
-        FWARNING(("OSBNodeElement::write: Attempt to write NullFC.\n"));
+        FWARNING(("OSBNodeElement::write: Attempt to write NULL.\n"));
         return;
     }
 

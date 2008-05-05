@@ -78,7 +78,7 @@ and _sfBottomTexture fields.
 		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	Texture for the back (+Z) side of the sky cube.
@@ -88,7 +88,7 @@ and _sfBottomTexture fields.
 		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	Texture for the bottom (-Y) side of the sky cube.
@@ -98,7 +98,7 @@ and _sfBottomTexture fields.
 		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	Texture for the front (-Z) side of the sky cube.
@@ -108,7 +108,7 @@ and _sfBottomTexture fields.
 		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	Texture for the left (-X) side of the sky cube.
@@ -118,7 +118,7 @@ and _sfBottomTexture fields.
 		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	Texture for the right (+X) side of the sky cube.
@@ -128,7 +128,7 @@ and _sfBottomTexture fields.
 		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	Texture for the top (+Y) side of the sky cube.

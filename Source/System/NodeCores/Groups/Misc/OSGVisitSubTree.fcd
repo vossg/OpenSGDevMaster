@@ -22,7 +22,7 @@ without duplicating the nodes.
                 category="weakpointer"
                 cardinality="single"
                 visibility="external"
-                defaultValue="NullFC"
+                defaultValue="NULL"
                 access="public"
         >
         Reference to the sub-graph to draw in place of this node.

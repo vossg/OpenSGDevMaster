@@ -94,7 +94,7 @@ class OSG_SYSTEM_DLLMAPPING Drawable : public DrawableBase
     /*! \name                     Statistic                                */
     /*! \{                                                                 */
 
-    virtual void fill(DrawableStatsAttachmentPtr oStat) = 0;
+    virtual void fill(DrawableStatsAttachment *pStat) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

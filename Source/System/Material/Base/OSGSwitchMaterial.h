@@ -89,7 +89,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase
 
     virtual void       rebuildState (void            );
 
-    virtual StatePtr   getState     (UInt32 index = 0);
+    virtual State     *getState     (UInt32 index = 0);
     virtual UInt32     getNPasses   (void            ) const;
 
     virtual bool       isTransparent(void            ) const;
@@ -99,13 +99,13 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void        addMaterial       (MaterialPtr mat  );
-    void        subMaterial       (MaterialPtr mat  );
+    void      addMaterial       (Material *mat  );
+    void      subMaterial       (Material *mat  );
 
-    bool        hasMaterial       (MaterialPtr mat  );
+    bool      hasMaterial       (Material *mat  );
 
-    MaterialPtr getMaterial       (UInt32      index);
-    MaterialPtr getCurrentMaterial(void             );
+    Material *getMaterial       (UInt32    index);
+    Material *getCurrentMaterial(void           );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -57,7 +57,7 @@ BitVector ShadowMapEngine::bvLightPassMask   = 0;
 BitVector ShadowMapEngine::bvAmbientPassMask = 0;
 BitVector ShadowMapEngine::bvDiffusePassMask = 0;
 
-ChunkMaterialUnrecPtr ShadowMapEngine::_pLightPassMat = NullFC;
+ChunkMaterialUnrecPtr ShadowMapEngine::_pLightPassMat = NULL;
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
@@ -118,7 +118,7 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
     }
     else if(ePhase == TypeObject::FactoryPost)
     {
-        if(_pLightPassMat == NullFC)
+        if(_pLightPassMat == NULL)
         {
             _pLightPassMat = ChunkMaterial::createLocal();
 
@@ -145,6 +145,6 @@ void ShadowMapEngine::exitMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
 //        OSG::subRefX(_pLightPassMat);       
-        _pLightPassMat = NullFC;
+        _pLightPassMat = NULL;
     }
 }

@@ -80,7 +80,7 @@ A3DSSceneFileType  A3DSSceneFileType::_the(_suffixA,
 NodeTransitPtr A3DSSceneFileType::read(std::istream &is, const Char8 *) const
 {
     if(!is)
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
 
     _materials.clear();
 
@@ -90,7 +90,7 @@ NodeTransitPtr A3DSSceneFileType::read(std::istream &is, const Char8 *) const
     {
         SWARNING << "Couldn't read from stream!" << std::endl;
 
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr  root = Node::create();
@@ -101,7 +101,7 @@ NodeTransitPtr A3DSSceneFileType::read(std::istream &is, const Char8 *) const
     {
         NodeUnrecPtr mesh = createMesh(scene, scene.GetMesh(i));
 
-        if(mesh != NullFC)
+        if(mesh != NULL)
             root->addChild(mesh);
     }
 
@@ -180,7 +180,7 @@ A3DSSceneFileType::~A3DSSceneFileType (void )
 NodeTransitPtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
 {
     if(mesh.GetTriangleCount() == 0)
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
 
     NodeUnrecPtr     node = Node::create();
     GeometryUnrecPtr geo = Geometry::create();
@@ -296,7 +296,7 @@ MaterialTransitPtr A3DSSceneFileType::createMaterial(L3DS   &scene,
     LMap &map = m.GetTextureMap1();
     const char *texname = map.mapName;
 
-    ImageUnrecPtr image = NullFC;
+    ImageUnrecPtr image = NULL;
 
     if(texname != NULL && strlen(texname) > 0)
     {
@@ -354,12 +354,12 @@ MaterialTransitPtr A3DSSceneFileType::createMaterial(L3DS   &scene,
 
     // add a blend chunk for transparency
     if(t > 0.0 || 
-       ( image != NullFC && 
+       ( image != NULL && 
          image->hasAlphaChannel()) )
     {
         BlendChunkUnrecPtr blendc = BlendChunk::create();
         
-        if(image != NullFC && image->isAlphaBinary())
+        if(image != NULL && image->isAlphaBinary())
         {
             blendc->setAlphaFunc(GL_NOTEQUAL);
             blendc->setAlphaValue(0);

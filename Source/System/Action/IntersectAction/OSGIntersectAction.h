@@ -127,7 +127,7 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     
           Vec3f    getHitNormal  (      void                 ) const;
     
-          NodePtr  getHitObject  (      void                 ) const;
+          Node    *getHitObject  (      void                 ) const;
     
           Int32    getHitTriangle(      void                 ) const;
 
@@ -138,7 +138,7 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     Action::ResultE setEnterLeave(Real32   enter, 
                                   Real32   leave   );
     void            setHit       (Real32   t, 
-                                  NodePtr  obj, 
+                                  Node    *obj, 
                                   Int32    triIndex, 
                                   Vec3f   &normal  );
 
@@ -260,7 +260,7 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     Real32  _hitT;
 
     // Hit object   
-    NodePtr _hitObject;
+    Node   *_hitObject;
 
     // Index of the hit triangle ( from TriangleIterator::getIndex() )
     Int32   _hitTriangle;

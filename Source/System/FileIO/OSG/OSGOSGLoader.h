@@ -67,10 +67,10 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*==========================  PRIVATE  ================================*/
   private:
 
-    typedef ScanParseFieldTypeMapper<ScanParseSkel    > Inherited;
+    typedef ScanParseFieldTypeMapper<ScanParseSkel   > Inherited;
     typedef std::map                <std::string,
-                                     FieldContainerPtr> NamedFCMap;
-    typedef OSGLoader                                   Self;
+                                     FieldContainer *> NamedFCMap;
+    typedef OSGLoader                                  Self;
 
   public :
 
@@ -125,7 +125,7 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual      FieldContainerPtr         getReference (const Char8 *szName);
+    virtual FieldContainer *getReference (const Char8 *szName);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -136,13 +136,13 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-          FieldContainerPtr                     _pCurrentFC;
+          FieldContainer                       *_pCurrentFC;
           NodeUnrecPtr                          _pRootNode;
           EditFieldHandlePtr                    _pCurrentField;
     const FieldDescriptionBase                 *_pCurrentFieldDesc;
           NamedFCMap                            _defMap;
 
-          std::stack<      FieldContainerPtr     >  _fcStack;
+          std::stack<      FieldContainer       *>  _fcStack;
           std::stack<      EditFieldHandlePtr    >  _fStack;
           std::stack<const FieldDescriptionBase *>  _fdStack;
     
@@ -151,7 +151,7 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
 
     void              initFieldTypeMapper   (      void                      );
 
-    void              setFieldContainerValue(      FieldContainerPtr pNewNode);
+    void              setFieldContainerValue(      FieldContainer   *pNewNode);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

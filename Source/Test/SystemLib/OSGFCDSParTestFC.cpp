@@ -111,15 +111,15 @@ void FCDSParTestFC::dump(      UInt32    ,
     SLOG << "Dump FCDSParTestFC NI" << std::endl;
 }
 
-void FCDSParTestFC::setParent(const FieldContainerPtr parent, 
-                              const UInt16            uiStoredInFieldId)
+void FCDSParTestFC::setParent(FieldContainer * const parent, 
+                              UInt16           const uiStoredInFieldId)
 {
     editSField(ParentFieldMask);
 
     _sfParent.setValue(parent, uiStoredInFieldId);
 }
 
-FieldContainerPtr FCDSParTestFC::getParent(void) const
+FieldContainer *FCDSParTestFC::getParent(void) const
 {
     return _sfParent.getValue();
 }

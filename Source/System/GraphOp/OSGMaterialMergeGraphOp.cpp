@@ -91,13 +91,13 @@ T next(T t) { // Iterator passed by value.
 }
 
 
-bool isEqual(const FieldContainerPtr a, const FieldContainerPtr b)
+bool isEqual(FieldContainer * const a, FieldContainer * const b)
 {
     // Compare the pointers.
     if(a == b)
         return true;
 
-    if(a == NullFC || b == NullFC)
+    if(a == NULL || b == NULL)
         return false;
 
     if(a->getType() != b->getType())
@@ -221,14 +221,14 @@ bool isEqual(const FieldContainerPtr a, const FieldContainerPtr b)
 }
 
 
-bool equal(MaterialPtr a, MaterialPtr b) {
+bool equal(Material *a, Material *b) {
     // It's too bad Material::operator== doesn't work.
     //return *a == *b;
     return isEqual(a, b);
 }
 
 
-bool MaterialMergeGraphOp::traverse(NodePtr node)
+bool MaterialMergeGraphOp::traverse(Node *node)
 {
     // Find the materials.
     if (!GraphOp::traverse(node)) {
@@ -242,7 +242,7 @@ bool MaterialMergeGraphOp::traverse(NodePtr node)
     MaterialObjectMap::iterator itr = _materialObjects.begin();
     for (; itr != _materialObjects.end(); ++itr)
     {
-        MaterialPtr current = itr->first;
+        Material *current = itr->first;
         MaterialObjectList& currentList = itr->second;
 
         MaterialObjectMap::iterator walker = next(itr);
@@ -292,17 +292,17 @@ std::string MaterialMergeGraphOp::usage(void)
     ;
 }
 
-Action::ResultE MaterialMergeGraphOp::traverseEnter(const NodePtr node)
+Action::ResultE MaterialMergeGraphOp::traverseEnter(Node * const node)
 {
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
-    if (geo != NullFC)
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
+    if (geo != NULL)
     {
         addObject(MaterialObject(geo));
         return Action::Continue;
     }
     
-    MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>(node->getCore());
-    if (mg != NullFC)
+    MaterialGroup *mg = dynamic_cast<MaterialGroup *>(node->getCore());
+    if (mg != NULL)
     {
         addObject(MaterialObject(mg));
         return Action::Continue;
@@ -312,15 +312,15 @@ Action::ResultE MaterialMergeGraphOp::traverseEnter(const NodePtr node)
     return Action::Continue;
 }
 
-Action::ResultE MaterialMergeGraphOp::traverseLeave(const NodePtr node, Action::ResultE res)
+Action::ResultE MaterialMergeGraphOp::traverseLeave(Node * const node, Action::ResultE res)
 {
     return res;
 }
 
 void MaterialMergeGraphOp::addObject(MaterialObject m)
 {
-    MaterialPtr mat = m.getMaterial();
-    if (mat == NullFC)
+    Material *mat = m.getMaterial();
+    if (mat == NULL)
         return;
 
     _materialObjects[mat].push_back(m);

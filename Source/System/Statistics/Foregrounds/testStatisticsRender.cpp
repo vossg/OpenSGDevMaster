@@ -122,8 +122,8 @@ void keyboard(unsigned char k, int, int)
         {
             delete mgr;
 
-            pwin   = NullFC;
-            statfg = NullFC;
+            pwin   = NULL;
+            statfg = NULL;
 
             osgExit();
             exit(0);

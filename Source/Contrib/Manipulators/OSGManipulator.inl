@@ -40,7 +40,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline bool Manipulator::hasSubHandle(const NodePtr& n)
+inline bool Manipulator::hasSubHandle(Node * const n)
 {
     /*
     PLOG << "hasSubHandle(n=" << n << ")\n"

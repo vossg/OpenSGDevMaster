@@ -79,11 +79,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     virtual ImageTransitPtr read (const Char8            *fileName, 
                                   const Char8            *mimeType = 0);
 
-    virtual bool            read (      ImagePtr          pImage,
+    virtual bool            read (      Image            *pImage,
                                   const Char8            *fileName, 
                                   const Char8            *mimeType = 0);
 
-    virtual bool            write(      ConstImagePtr     pImage,
+    virtual bool            write(      Image const      *pImage,
                                   const Char8            *fileName, 
                                   const Char8            *mimeType = 0);
 
@@ -91,11 +91,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     virtual ImageTransitPtr read (      std::istream     &is,
                                   const std::string      &mimeType    );
 
-    virtual bool            read (      ImagePtr          pImage,
+    virtual bool            read (      Image            *pImage,
                                         std::istream     &is,
                                   const std::string      &mimeType    );
 
-    virtual bool            write(      ConstImagePtr     pImage,
+    virtual bool            write(      Image const      *pImage,
                                         std::ostream     &os,
                                   const std::string      &mimeType    );
 
@@ -130,16 +130,16 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     /*! \name                     Storage                                  */
     /*! \{                                                                 */
 
-    virtual UInt64  restore(      ImagePtr          pImage,
+    virtual UInt64  restore(      Image            *pImage,
                             const UChar8           *buffer, 
                                   Int32             memSize = -1);
 
-    virtual UInt64  store  (      ConstImagePtr     pImage, 
+    virtual UInt64  store  (      Image const      *pImage, 
                             const Char8            *mimeType,
                                   UChar8           *buffer, 
                                   Int32             memSize = -1);
 
-    virtual UChar8 *store  (      ConstImagePtr     pImage, 
+    virtual UChar8 *store  (      Image const      *pImage, 
                                   UInt64           &memSize,
                             const Char8            *mimeType = 0);
 

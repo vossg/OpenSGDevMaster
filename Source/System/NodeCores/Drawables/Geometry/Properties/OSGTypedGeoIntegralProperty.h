@@ -228,7 +228,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjPtr createAspectCopy(void) const;
+    virtual ObjCPtr createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */
@@ -399,33 +399,33 @@ OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 /*! \brief Backwards Compatibility Typedefs
 */
 
-typedef GeoIntegralPropertyPtr GeoPTypesPtr;
-typedef GeoIntegralPropertyPtr GeoPLengthsPtr;
+//typedef GeoIntegralPropertyPtr GeoPTypesPtr;
+//typedef GeoIntegralPropertyPtr GeoPLengthsPtr;
 
-typedef GeoIntegralPropertyPtr         GeoIndicesPtr;
-typedef ConstGeoIntegralPropertyPtr    ConstGeoIndicesPtr;
+//typedef GeoIntegralPropertyPtr         GeoIndicesPtr;
+//typedef ConstGeoIntegralPropertyPtr    ConstGeoIndicesPtr;
 
 typedef GeoUInt8Property       GeoPTypesUI8;
 typedef GeoUInt8Property       GeoPLengthsUI8;
 typedef GeoUInt8Property       GeoIndicesUI8;
-typedef GeoUInt8PropertyPtr    GeoPTypesUI8Ptr;
-typedef GeoUInt8PropertyPtr    GeoPLengthsUI8Ptr;
-typedef GeoUInt8PropertyPtr    GeoIndicesUI8Ptr;
+//typedef GeoUInt8PropertyPtr    GeoPTypesUI8Ptr;
+//typedef GeoUInt8PropertyPtr    GeoPLengthsUI8Ptr;
+//typedef GeoUInt8PropertyPtr    GeoIndicesUI8Ptr;
 
 typedef GeoUInt16Property      GeoPTypesUI16;
 typedef GeoUInt16Property      GeoPLengthsUI16;
 typedef GeoUInt16Property      GeoIndicesUI16;
-typedef GeoUInt16PropertyPtr   GeoPTypesUI16Ptr;
-typedef GeoUInt16PropertyPtr   GeoPLengthsUI16Ptr;
-typedef GeoUInt16PropertyPtr   GeoIndicesUI16Ptr;
+//typedef GeoUInt16PropertyPtr   GeoPTypesUI16Ptr;
+//typedef GeoUInt16PropertyPtr   GeoPLengthsUI16Ptr;
+//typedef GeoUInt16PropertyPtr   GeoIndicesUI16Ptr;
 
 #ifndef OSG_WINCE
 typedef GeoUInt32Property      GeoPTypesUI32;
 typedef GeoUInt32Property      GeoPLengthsUI32;
 typedef GeoUInt32Property      GeoIndicesUI32;
-typedef GeoUInt32PropertyPtr   GeoPTypesUI32Ptr;
-typedef GeoUInt32PropertyPtr   GeoPLengthsUI32Ptr;
-typedef GeoUInt32PropertyPtr   GeoIndicesUI32Ptr;
+//typedef GeoUInt32PropertyPtr   GeoPTypesUI32Ptr;
+//typedef GeoUInt32PropertyPtr   GeoPLengthsUI32Ptr;
+//typedef GeoUInt32PropertyPtr   GeoIndicesUI32Ptr;
 #endif
 
 #endif
@@ -435,12 +435,12 @@ typedef GeoUInt32PropertyPtr   GeoIndicesUI32Ptr;
 #ifdef OSG_FLOAT_PROFILE
 #else
 typedef GeoUInt16Property      GeoUIntProperty;
-typedef GeoUInt16PropertyPtr   GeoUIntPropertyPtr;
+//typedef GeoUInt16PropertyPtr   GeoUIntPropertyPtr;
 #endif
 
 #else
 typedef GeoUInt32Property      GeoUIntProperty;
-typedef GeoUInt32PropertyPtr   GeoUIntPropertyPtr;
+//typedef GeoUInt32PropertyPtr   GeoUIntPropertyPtr;
 #endif
  
 OSG_END_NAMESPACE

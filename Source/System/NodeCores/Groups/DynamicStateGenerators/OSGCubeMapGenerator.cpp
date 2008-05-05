@@ -184,7 +184,7 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
             pTarget  = this->getRenderTarget();
         }
 
-        NodePtr pActNode = a->getActNode();
+        Node *pActNode = a->getActNode();
 
         Pnt3f oOrigin;
 
@@ -262,7 +262,7 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                 
                 pPart->calcFrustum();
                 
-                if(this->getBackground() == NullFC)
+                if(this->getBackground() == NULL)
                 {
                     pPart->setBackground(pBack);
                 }
@@ -274,7 +274,7 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                
                 pActNode->setTravMask(0);
                 
-                if(this->getRoot() != NullFC)
+                if(this->getRoot() != NULL)
                 {
                     a->recurse(this->getRoot());
                 }
@@ -331,7 +331,7 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
 
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 
-    TextureObjChunkUnrecPtr   pCubeTex     = NullFC;
+    TextureObjChunkUnrecPtr   pCubeTex     = NULL;
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexture))
     {
@@ -363,7 +363,7 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTex = _sfTexture.getValue();
     }
 
-    TextureEnvChunkUnrecPtr pCubeTexEnv  = NullFC;
+    TextureEnvChunkUnrecPtr pCubeTexEnv  = NULL;
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexEnv))
     {
@@ -372,7 +372,7 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTexEnv->setEnvMode       (GL_REPLACE       );
     }
 
-    TexGenChunkUnrecPtr     pCubeTexGen  = NullFC;
+    TexGenChunkUnrecPtr     pCubeTexGen  = NULL;
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexGen))
     {

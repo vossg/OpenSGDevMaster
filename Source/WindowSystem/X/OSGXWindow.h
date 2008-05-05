@@ -122,11 +122,6 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     void operator =(const XWindow &source);
 };
 
-typedef XWindow *XWindowP;
-
-typedef XWindow::ObjPtr      XWindowPtr;
-typedef XWindow::ConstObjPtr ConstXWindowPtr;
-
 OSG_END_NAMESPACE
 
 #include "OSGXWindow.inl"

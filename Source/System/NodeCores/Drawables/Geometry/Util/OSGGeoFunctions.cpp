@@ -160,7 +160,7 @@ properties.
 \warning This doesn't do anything for nonindexed geometries!
 
 */
-void calcVertexNormals(GeometryPtr geo)
+void calcVertexNormals(Geometry *geo)
 {
     typedef std::set<UInt32> IndexSet;
 
@@ -172,7 +172,7 @@ void calcVertexNormals(GeometryPtr geo)
 
     posIndex = geo->getIndex(Geometry::PositionsIndex);
 
-    if(posIndex == NullFC)
+    if(posIndex == NULL)
     {
         FWARNING(("calcVertexNormals: Geometry is not indexed, ignored!\n"));
         return;
@@ -180,7 +180,7 @@ void calcVertexNormals(GeometryPtr geo)
     
     norms = geo->getNormals();
 
-    if(norms == NullFC)
+    if(norms == NULL)
     {
         norms = GeoVec3fProperty::create();
     }
@@ -191,7 +191,7 @@ void calcVertexNormals(GeometryPtr geo)
     normsIndex = geo->getIndex(Geometry::NormalsIndex);
 
     // No indices reuse positions
-    if(normsIndex == NullFC)
+    if(normsIndex == NULL)
     {
         normsIndex = geo->getIndex(Geometry::PositionsIndex);
     }
@@ -288,8 +288,8 @@ merged.
 \warning This doesn't do anything for nonindexed geometries!
 
 */
-void calcVertexNormals(GeometryPtr geo,
-                       Real32      creaseAngle)
+void calcVertexNormals(Geometry *geo,
+                       Real32    creaseAngle)
 {
     GeoVectorPropertyUnrecPtr   norms;
     GeoVectorPropertyUnrecPtr   positions;
@@ -303,7 +303,7 @@ void calcVertexNormals(GeometryPtr geo,
     }
 
     // Get the positions property
-    if(geo->getProperty(Geometry::PositionsIndex) == NullFC)
+    if(geo->getProperty(Geometry::PositionsIndex) == NULL)
     {
         FINFO(("Geo without positions in calcVertexNormals()\n"));
         return;
@@ -321,7 +321,7 @@ void calcVertexNormals(GeometryPtr geo,
 
     posIndex = geo->getIndex(Geometry::PositionsIndex);
 
-    if(posIndex == NullFC)
+    if(posIndex == NULL)
     {
         FINFO(("Geo without position index in calcVertexNormals()\n"));
         return;
@@ -330,7 +330,7 @@ void calcVertexNormals(GeometryPtr geo,
     norms = geo->getProperty(Geometry::NormalsIndex);
 
     // Get normal property, create if needed
-    if(norms == NullFC)
+    if(norms == NULL)
     {
         norms = GeoVec3fProperty::create();
         
@@ -340,7 +340,7 @@ void calcVertexNormals(GeometryPtr geo,
     normsIndex = geo->getIndex(Geometry::NormalsIndex);
 
     // No indices reuse positions
-    if(normsIndex == NullFC || geo->indexOccurrence(normsIndex) > 1)
+    if(normsIndex == NULL || geo->indexOccurrence(normsIndex) > 1)
     {
         normsIndex = GeoUInt32Property::create();
 
@@ -520,17 +520,17 @@ void calcVertexNormals(GeometryPtr geo,
     }
 }
 
-void calcFaceNormals(GeometryPtr geo)
+void calcFaceNormals(Geometry *geo)
 {
     FFATAL(("calcFaceNormals:: NYI!\n"));
 }
 
 
-void calcVertexTangentsProp(GeometryPtr geo,
-                            UInt32      srcTexProp,
-                            UInt32      srcNormalProp,
-                            UInt32      dstPropTan,
-                            UInt32      dstPropBin)
+void calcVertexTangentsProp(Geometry *geo,
+                            UInt32    srcTexProp,
+                            UInt32    srcNormalProp,
+                            UInt32    dstPropTan,
+                            UInt32    dstPropBin)
 {
     GeoVec4fPropertyUnrecPtr  tangentP;
     GeoVec4fPropertyUnrecPtr  binormalP;
@@ -562,37 +562,37 @@ void calcVertexTangentsProp(GeometryPtr geo,
         return;
     }
 
-    GeoIntegralPropertyPtr posIdx = geo->getIndex(Geometry::PositionsIndex);
+    GeoIntegralProperty *posIdx = geo->getIndex(Geometry::PositionsIndex);
         
     // HACK but without indices it crashes
-    if(posIdx == NullFC || posIdx->size() == 0) 
+    if(posIdx == NULL || posIdx->size() == 0) 
     {
         FFATAL(("Geo without pos indices in calcVertexTangents()\n"));
         return;
     }
     
-    GeoVectorPropertyPtr positions = geo->getPositions();
+    GeoVectorProperty *positions = geo->getPositions();
     
     // Get the positions property
-    if(positions == NullFC) 
+    if(positions == NULL) 
     {
         FFATAL(("Geo without positions in calcVertexTangents()\n"));
         return;
     }
 
-    GeoVectorPropertyPtr srcTexCoords = geo->getProperty(srcTexProp);
+    GeoVectorProperty *srcTexCoords = geo->getProperty(srcTexProp);
     
     // Get the positions property
-    if(srcTexCoords == NullFC) 
+    if(srcTexCoords == NULL) 
     {
         FFATAL(("Geo without srcTexCoords in calcVertexTangents()\n"));
         return;
     }
 
-    GeoVectorPropertyPtr srcNormals = geo->getProperty(srcNormalProp);
+    GeoVectorProperty *srcNormals = geo->getProperty(srcNormalProp);
     
     // Get the positions property
-    if(srcNormals == NullFC) 
+    if(srcNormals == NULL) 
     {
         FFATAL(("Geo without srcNormals in calcVertexTangents()\n"));
         return;
@@ -711,10 +711,10 @@ void calcVertexTangentsProp(GeometryPtr geo,
     }
 }
 
-void calcVertexTangents(GeometryPtr geo,
-                        UInt32      srcTexIndex,
-                        UInt32      dstPropTan,
-                        UInt32      dstPropBin)
+void calcVertexTangents(Geometry *geo,
+                        UInt32    srcTexIndex,
+                        UInt32    dstPropTan,
+                        UInt32    dstPropBin)
 {
     calcVertexTangentsProp(geo,
                            srcTexIndex + Geometry::TexCoordsIndex,
@@ -723,8 +723,8 @@ void calcVertexTangents(GeometryPtr geo,
                            dstPropBin);
 }
 
-void calcVertexTexCoordsProp2D(GeometryPtr geo,
-                               UInt32      propIndex)
+void calcVertexTexCoordsProp2D(Geometry *geo,
+                               UInt32    propIndex)
 {
     struct Key 
     {
@@ -739,7 +739,7 @@ void calcVertexTexCoordsProp2D(GeometryPtr geo,
     GeoVectorPropertyUnrecPtr   posP = geo->getPositions();
     GeoVectorPropertyUnrecPtr   texP;
 
-    if(posP == NullFC || !posP->size() || ip == NullFC || !ip->size())
+    if(posP == NULL || !posP->size() || ip == NULL || !ip->size())
     {
         FFATAL(("Geo without indices/ positions in calcVertexTexCoords()\n"));
         return;
@@ -758,9 +758,9 @@ void calcVertexTexCoordsProp2D(GeometryPtr geo,
           pnI != geo->getMFParents()->end  ();
         ++pnI)
     {
-        NodePtr node = dynamic_cast<NodePtr>(*pnI);
+        Node *node = dynamic_cast<Node *>(*pnI);
 
-        if(node != NullFC)
+        if(node != NULL)
         {
             DynamicVolume &dVol = node->editVolume(true);
 
@@ -831,8 +831,8 @@ void calcVertexTexCoordsProp2D(GeometryPtr geo,
     }
 }
 
-void calcVertexTexCoords(GeometryPtr geo,
-                         UInt32      texIndex)
+void calcVertexTexCoords(Geometry *geo,
+                         UInt32    texIndex)
 {
     calcVertexTexCoordsProp2D(geo, texIndex + Geometry::TexCoordsIndex);
 }
@@ -853,7 +853,7 @@ void calcVertexTexCoords(GeometryPtr geo,
     Note: the \a convex and \a createNormals parameters are ignored right now!
 */
 
-Int32 setIndexFromVRMLData(     GeometryPtr     geoPtr,
+Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
                            std::vector<Int32>  &coordIndex,
                            std::vector<Int32>  &normalIndex,
                            std::vector<Int32>  &colorIndex,
@@ -905,7 +905,7 @@ Int32 setIndexFromVRMLData(     GeometryPtr     geoPtr,
     GeoIntegralPropertyUnrecPtr lensPtr;
     GeoIntegralPropertyUnrecPtr geoTypePtr;
 
-    GeoIntegralPropertyUnrecPtr posIndexPtr  = NullFC;
+    GeoIntegralPropertyUnrecPtr posIndexPtr  = NULL;
 
     Int32 index, i, pi, typei, mapi, primitiveN = 0, vN = 0;
     Int32 pType = 0, localPType;
@@ -934,10 +934,10 @@ Int32 setIndexFromVRMLData(     GeometryPtr     geoPtr,
 
     GeoIntegralPropertyUnrecPtr indexOutBag[4] =
     {
-        NullFC,
-        NullFC,
-        NullFC,
-        NullFC
+        NULL,
+        NULL,
+        NULL,
+        NULL
     };
 
     UInt16 indexOutBagID[4] =
@@ -956,25 +956,25 @@ Int32 setIndexFromVRMLData(     GeometryPtr     geoPtr,
     //----------------------------------------------------------------------
     // get the property pointer and element count
     posPtr = geoPtr->getPositions();
-    pN = ((posPtr == NullFC) ? 0 : posPtr->getSize());
+    pN = ((posPtr == NULL) ? 0 : posPtr->getSize());
 
     normalPtr = geoPtr->getNormals();
-    nN = ((normalPtr == NullFC) ? 0 : normalPtr->getSize());
+    nN = ((normalPtr == NULL) ? 0 : normalPtr->getSize());
 
     colorPtr = geoPtr->getColors();
-    cN = ((colorPtr == NullFC) ? 0 : colorPtr->getSize());
+    cN = ((colorPtr == NULL) ? 0 : colorPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords();
-    tN = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    tN = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords1();
-    tN1 = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    tN1 = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords2();
-    tN2 = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    tN2 = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords3();
-    tN3 = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    tN3 = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     FDEBUG(("vertex attrib count P/N/C/T: %d/%d/%d/%d\n", pN, nN, cN, tN));
 
@@ -1240,7 +1240,7 @@ else
     // check/create the indexPtr/lengthsPtr/geoTypePtr
     posIndexPtr = geoPtr->getIndex(Geometry::PositionsIndex);
 
-    if(posIndexPtr == NullFC)
+    if(posIndexPtr == NULL)
     {
         posIndexPtr = GeoUInt32Property::create();
     }
@@ -1253,7 +1253,7 @@ else
     { 
         indexOutBag[i] = geoPtr->getIndex(indexOutBagID[i]);
         
-        if(indexOutBag[i] != NullFC)
+        if(indexOutBag[i] != NULL)
         {
             indexOutBag[i]->clear();
         }
@@ -1261,7 +1261,7 @@ else
 
     lensPtr = geoPtr->getLengths();
 
-    if(lensPtr == NullFC)
+    if(lensPtr == NULL)
     {
         lensPtr = GeoUInt32Property::create();
     }
@@ -1272,7 +1272,7 @@ else
 
     geoTypePtr = geoPtr->getTypes();
 
-    if(geoTypePtr == NullFC)
+    if(geoTypePtr == NULL)
     {
         geoTypePtr = GeoUInt8Property::create();
     }
@@ -1408,7 +1408,7 @@ else
 
                                         if(index != -1)
                                         {
-                                            if(indexOutBag[typei] == NullFC)
+                                            if(indexOutBag[typei] == NULL)
                                             {
                                                 indexOutBag[typei] = GeoUInt32Property::create();
                                             }
@@ -1438,11 +1438,11 @@ else
     for(UInt32 i = 1; i < 4; ++i)
     {
         if((indexType  [i] == VERTEX_COORD_IT || indexType  [i]         == VERTEX_DUP_IT) &&
-           (indexOutBag[i] == NullFC          || indexOutBag[i]->size() == 0            )   )
+           (indexOutBag[i] == NULL          || indexOutBag[i]->size() == 0            )   )
         {
             geoPtr->setIndex(posIndexPtr, indexOutBagID[i]);
         }
-        else if(indexOutBag[i] != NullFC && indexOutBag[i]->size() != 0)
+        else if(indexOutBag[i] != NULL && indexOutBag[i]->size() != 0)
         {
             geoPtr->setIndex(indexOutBag[i], indexOutBagID[i]);
         }
@@ -1470,7 +1470,7 @@ else
     Note: the \a convex and \a createNormals parameters are ignored right now!
 */
 
-Int32 setIndexFromIndexedX3DData ( GeometryPtr geoPtr,
+Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
                                    std::vector<Int32> &coordIndex,
                                    std::vector<Int32> &normalIndex,
                                    std::vector<Int32> &colorIndex,
@@ -1520,7 +1520,7 @@ Int32 setIndexFromIndexedX3DData ( GeometryPtr geoPtr,
 
     GeoIntegralPropertyUnrecPtr lensPtr;
     GeoIntegralPropertyUnrecPtr geoTypePtr;
-    GeoIntegralPropertyUnrecPtr posIndexPtr  = NullFC;
+    GeoIntegralPropertyUnrecPtr posIndexPtr  = NULL;
 
     //bool faceSet = (primitiveType == GL_POLYGON);
     Int32 index, i, pi, typei, mapi, primitiveN = 0, vN = 0;
@@ -1550,10 +1550,10 @@ Int32 setIndexFromIndexedX3DData ( GeometryPtr geoPtr,
 
     GeoIntegralPropertyUnrecPtr indexOutBag[4] =
     {
-        NullFC,
-        NullFC,
-        NullFC,
-        NullFC
+        NULL,
+        NULL,
+        NULL,
+        NULL
     };
 
     UInt16 indexOutBagID[4] =
@@ -1637,26 +1637,26 @@ Int32 setIndexFromIndexedX3DData ( GeometryPtr geoPtr,
     //----------------------------------------------------------------------
     // get the property pointer and element count
     posPtr = geoPtr->getPositions();
-    pN = ((posPtr == NullFC) ? 0 : posPtr->getSize());
+    pN = ((posPtr == NULL) ? 0 : posPtr->getSize());
 
     normalPtr = geoPtr->getNormals();
-    nN = ((normalPtr == NullFC) ? 0 : normalPtr->getSize());
+    nN = ((normalPtr == NULL) ? 0 : normalPtr->getSize());
 
     colorPtr = geoPtr->getColors();
-    cN = ((colorPtr == NullFC) ? 0 : colorPtr->getSize());
+    cN = ((colorPtr == NULL) ? 0 : colorPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords();
-    tN = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    tN = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
     texCoordN[0] = tN;
 
     texCoordsPtr = geoPtr->getTexCoords1();
-    texCoordN[1] = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    texCoordN[1] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords2();
-    texCoordN[2] = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    texCoordN[2] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     texCoordsPtr = geoPtr->getTexCoords3();
-    texCoordN[3] = ((texCoordsPtr == NullFC) ? 0 : texCoordsPtr->getSize());
+    texCoordN[3] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     FDEBUG(("vertex attrib count P/N/C/T: %d/%d/%d/%d\n", pN, nN, cN, tN));
 
@@ -1908,7 +1908,7 @@ else
 
     posIndexPtr = geoPtr->getIndex(Geometry::PositionsIndex);
 
-    if(posIndexPtr == NullFC)
+    if(posIndexPtr == NULL)
     {
         posIndexPtr = GeoUInt32Property::create();
     }
@@ -1921,18 +1921,18 @@ else
     { 
         indexOutBag[i] = geoPtr->getIndex(indexOutBagID[i]);
         
-        if(indexOutBag[i] != NullFC)
+        if(indexOutBag[i] != NULL)
         {
             indexOutBag[i]->clear();
         }
 
-        geoPtr->setIndex(NullFC, texCoordIdx[i]);
+        geoPtr->setIndex(NULL, texCoordIdx[i]);
     }
 
 
     lensPtr = geoPtr->getLengths();
 
-    if(lensPtr == NullFC)
+    if(lensPtr == NULL)
     {
         lensPtr = GeoUInt32Property::create();
     }
@@ -1943,7 +1943,7 @@ else
 
     geoTypePtr = geoPtr->getTypes();
 
-    if(geoTypePtr == NullFC)
+    if(geoTypePtr == NULL)
     {
         geoTypePtr = GeoUInt8Property::create();
     }
@@ -2069,7 +2069,7 @@ else
                                         
                                 if(index != -1)
                                 {
-                                    if(indexOutBag[typei] == NullFC)
+                                    if(indexOutBag[typei] == NULL)
                                     {
                                         indexOutBag[typei] = 
                                             GeoUInt32Property::create();
@@ -2098,17 +2098,17 @@ else
     for(UInt32 i = 1; i < 4; ++i)
     {
         if((indexType  [i] == VERTEX_COORD_IT || indexType  [i]         == VERTEX_DUP_IT) &&
-           (indexOutBag[i] == NullFC          || indexOutBag[i]->size() == 0            )   )
+           (indexOutBag[i] == NULL          || indexOutBag[i]->size() == 0            )   )
         {
             geoPtr->setIndex(posIndexPtr, indexOutBagID[i]);
         }
-        else if(indexOutBag[i] != NullFC && indexOutBag[i]->size() != 0)
+        else if(indexOutBag[i] != NULL && indexOutBag[i]->size() != 0)
         {
             geoPtr->setIndex(indexOutBag[i], indexOutBagID[i]);
         }
-        else if(indexOutBag[i] != NullFC && indexOutBag[i]->size() == 0)
+        else if(indexOutBag[i] != NULL && indexOutBag[i]->size() == 0)
         {
-            geoPtr->setIndex(NullFC, indexOutBagID[i]);
+            geoPtr->setIndex(NULL, indexOutBagID[i]);
         }
     }
 
@@ -2117,11 +2117,11 @@ else
         if(texCoordN[i] != 0)
         {
             if((indexType  [3] == VERTEX_COORD_IT || indexType  [3]         == VERTEX_DUP_IT) &&
-               (indexOutBag[3] == NullFC          || indexOutBag[3]->size() == 0            )   )
+               (indexOutBag[3] == NULL            || indexOutBag[3]->size() == 0            )   )
             {
                 geoPtr->setIndex(posIndexPtr, texCoordIdx[i]);
             }
-            else if(indexOutBag[3] != NullFC && indexOutBag[3]->size() != 0)
+            else if(indexOutBag[3] != NULL && indexOutBag[3]->size() != 0)
             {
                 geoPtr->setIndex(indexOutBag[3], texCoordIdx[i]);
             }
@@ -2131,22 +2131,22 @@ else
     
     for(UInt32 i = 1; i < 4; ++i)
     {
-        indexOutBag[i] = NullFC;
+        indexOutBag[i] = NULL;
     }
 
     return triCount;
 }
 
 
-Int32 createOptimizedPrimitives(GeometryPtr  geo,
-                                UInt32       iteration,
-                                bool         createStrips,
-                                bool         createFans,
-                                UInt32       minFanEdgeCount,
-                                bool         colorCode,
-                                bool         stitchStrips   )
+Int32 createOptimizedPrimitives(Geometry *geo,
+                                UInt32    iteration,
+                                bool      createStrips,
+                                bool      createFans,
+                                UInt32    minFanEdgeCount,
+                                bool      colorCode,
+                                bool      stitchStrips   )
 {
-    if (geo == NullFC)
+    if (geo == NULL)
     {
         return 0;
     }
@@ -2180,15 +2180,15 @@ Int32 createOptimizedPrimitives(GeometryPtr  geo,
 
     calcPrimitiveCount(geo, triN, lineN, pointN);
 
-    GeoVectorPropertyPtr    posPtr = geo->getPositions();
+    GeoVectorProperty *posPtr = geo->getPositions();
 
-    UInt32 pN = ((posPtr == NullFC) ? 0 : posPtr->getSize());
+    UInt32 pN = ((posPtr == NULL) ? 0 : posPtr->getSize());
 
-    GeoIntegralPropertyPtr posIndexPtr = 
+    GeoIntegralProperty *posIndexPtr = 
         geo->getIndex(Geometry::PositionsIndex);
 
     // Calculate startCost.
-    if(posIndexPtr == NullFC)
+    if(posIndexPtr == NULL)
     {
         startCost = pN;
     }
@@ -2198,7 +2198,7 @@ Int32 createOptimizedPrimitives(GeometryPtr  geo,
     }
 
     // Leave early if we have no indices or positions.
-    if (pN == 0 || posIndexPtr == NullFC)
+    if (pN == 0 || posIndexPtr == NULL)
     {
         return 0;
     }
@@ -2316,7 +2316,7 @@ Int32 createOptimizedPrimitives(GeometryPtr  geo,
 
         lensPtr = geo->getLengths();
 
-        if(lensPtr == NullFC)
+        if(lensPtr == NULL)
         {
             lensPtr = OSG::GeoUInt32Property::create();
 
@@ -2325,7 +2325,7 @@ Int32 createOptimizedPrimitives(GeometryPtr  geo,
 
         geoTypePtr = geo->getTypes();
 
-        if(geoTypePtr == NullFC)
+        if(geoTypePtr == NULL)
         {
             geoTypePtr = OSG::GeoUInt8Property::create();
 
@@ -2507,18 +2507,18 @@ Int32 createOptimizedPrimitives(GeometryPtr  geo,
     return bestCost;
 }
 
-void createConvexPrimitives(GeometryPtr  geo)
+void createConvexPrimitives(Geometry *geo)
 {
     FFATAL(("createConvexPrimitives:: NYI!\n"));
 }
 
-Int32 createSharedIndex(GeometryPtr geoPtr)
+Int32 createSharedIndex(Geometry *geoPtr)
 {
     UInt32 indexSharedCount = 0, dataRemapCount = 0, indexRemapCount = 0;
     UInt32 i, iN, index, si, sN;
     UInt32 indexMapSize, indexBlock = 0, masterDSize;
 
-    GeoVectorPropertyPtr masterProp = NullFC, slaveProp = NullFC;
+    GeoVectorProperty *masterProp = NULL, *slaveProp = NULL;
 
     const UInt8 *masterData;
 
@@ -2542,9 +2542,9 @@ Int32 createSharedIndex(GeometryPtr geoPtr)
 
     Geometry::IndexBag indexBag;
 
-    if(geoPtr != NullFC)
+    if(geoPtr != NULL)
     {
-        if(geoPtr->getPositions() != NullFC)
+        if(geoPtr->getPositions() != NULL)
         {
             // check/create indexPtr
             iN = geoPtr->getPositions()->size();
@@ -2611,7 +2611,7 @@ Int32 createSharedIndex(GeometryPtr geoPtr)
             {
                 slaveProp = geoPtr->getProperty(indexBag[i].second[j]);
 
-                if(slaveProp != NullFC)
+                if(slaveProp != NULL)
                 {
                     slaveDataVec .push_back(slaveProp->getData());
                     slaveDSizeVec.push_back(slaveProp->getFormatSize() *
@@ -2627,7 +2627,7 @@ Int32 createSharedIndex(GeometryPtr geoPtr)
                 }
             }
 
-            GeoIntegralPropertyPtr indexPtr = indexBag[i].first;
+            GeoIntegralProperty *indexPtr = indexBag[i].first;
 
             sN = slaveDataVec.size();
 
@@ -2715,7 +2715,7 @@ Int32 createSharedIndex(GeometryPtr geoPtr)
     return indexRemapCount + dataRemapCount;
 }
 
-Int32 createSingleIndex(GeometryPtr  geo)
+Int32 createSingleIndex(Geometry *geo)
 {
     FFATAL(("createSingleIndex:: NYI!\n"));
     return -1;
@@ -2727,20 +2727,20 @@ Int32 createSingleIndex(GeometryPtr  geo)
 Calculate some basic statistics of the Geometry. 
 
 */
-UInt32 calcPrimitiveCount(GeometryPtr  geo,
-                          UInt32      &triangle,
-                          UInt32      &line,
-                          UInt32      &point)
+UInt32 calcPrimitiveCount(Geometry *geo,
+                          UInt32   &triangle,
+                          UInt32   &line,
+                          UInt32   &point)
 {
-    GeoIntegralPropertyPtr geoTypePtr;
-    GeoIntegralPropertyPtr lensPtr;
+    GeoIntegralProperty *geoTypePtr;
+    GeoIntegralProperty *lensPtr;
 
     UInt32 lN, tN, len, type;
 
     // TODO; should we really reset the values ?
     triangle = line = point = 0;
 
-    if(geo == NullFC)
+    if(geo == NULL)
     {
         FINFO(("No geo in calcPrimitiveCount\n"));
         return 0;
@@ -2748,12 +2748,12 @@ UInt32 calcPrimitiveCount(GeometryPtr  geo,
 
     lensPtr = geo->getLengths();
 
-    lN = (lensPtr == NullFC) ? 0 : lensPtr->getSize();
+    lN = (lensPtr == NULL) ? 0 : lensPtr->getSize();
     
     
     geoTypePtr = geo->getTypes();
 
-    tN = (geoTypePtr == NullFC) ? 0 : geoTypePtr->getSize();
+    tN = (geoTypePtr == NULL) ? 0 : geoTypePtr->getSize();
 
     if((tN == 0) || (lN != 0 && tN != lN) || (lN == 0 && tN != 1))
     {
@@ -2770,9 +2770,9 @@ UInt32 calcPrimitiveCount(GeometryPtr  geo,
         }
         else
         {
-            GeoVectorPropertyPtr pos = geo->getPositions();
+            GeoVectorProperty *pos = geo->getPositions();
             
-            if(pos == NullFC)
+            if(pos == NULL)
             {
                 FINFO(("calcPrimitiveCount: no Points!\n"));
                 return 0;
@@ -2833,8 +2833,8 @@ the normals.
 it just uses them as if.
 
 */
-NodeTransitPtr calcVertexNormalsGeo(GeometryPtr  geo, 
-                                    Real32       length)
+NodeTransitPtr calcVertexNormalsGeo(Geometry *geo, 
+                                    Real32    length)
 {
     GeoPnt3fPropertyUnrecPtr pnts = GeoPnt3fProperty::create();
 
@@ -2897,8 +2897,8 @@ the normals.
 it just uses them as if.
 
 */
-NodeTransitPtr calcFaceNormalsGeo(GeometryPtr  geo, 
-                                  Real32       length)
+NodeTransitPtr calcFaceNormalsGeo(Geometry *geo, 
+                                  Real32    length)
 {
     NodeTransitPtr            p     = Node::create();
     GeometryUnrecPtr          g     = Geometry::create();
@@ -2964,15 +2964,15 @@ NodeTransitPtr calcFaceNormalsGeo(GeometryPtr  geo,
 
 
 OSG_DRAWABLE_DLLMAPPING 
-void    separateProperties      (GeometryPtr  geo)
+void    separateProperties      (Geometry *geo)
 {
     FFATAL(("separateProperties: not implemented yet!\n"));
 }
 
 
 OSG_DRAWABLE_DLLMAPPING 
-void mergeGeometries(std::vector<NodePtr> &nodes,
-                     std::vector<NodePtr> &results)
+void mergeGeometries(std::vector<Node *> &nodes,
+                     std::vector<Node *> &results)
 {
     FFATAL(("mergeGeometries: not implemented yet!\n"));
 }

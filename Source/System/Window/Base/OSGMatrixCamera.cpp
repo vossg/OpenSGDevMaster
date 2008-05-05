@@ -112,7 +112,7 @@ void MatrixCamera::getProjection(Matrix& result, UInt32 OSG_CHECK_ARG(width),
 void MatrixCamera::getViewing(Matrix& result, UInt32 OSG_CHECK_ARG(width), 
                                               UInt32 OSG_CHECK_ARG(height))
 {
-    if(_sfUseBeacon.getValue() == true && _sfBeacon.getValue() != NullFC)
+    if(_sfUseBeacon.getValue() == true && _sfBeacon.getValue() != NULL)
     {
         getBeacon()->getToWorld(result);
         result.invert();

@@ -62,45 +62,45 @@ enum SliceDataType
 };
 
 OSG_SYSTEM_DLLMAPPING
-bool createComposedImage ( std::vector<ImagePtr> srcImageVec,
-                           ImagePtr              dstImage,
-                           SliceDataType sliceDataType = DEPTH_SDT );
+bool createComposedImage ( std::vector<Image *>  srcImageVec,
+                           Image                *dstImage,
+                           SliceDataType         sliceDataType = DEPTH_SDT );
 
 
 OSG_SYSTEM_DLLMAPPING 
-bool createNormalMapFromBump ( ImagePtr srcImage,
-                               ImagePtr dstImage,
+bool createNormalMapFromBump ( Image *srcImage,
+                               Image *dstImage,
                                Vec3f    normalMapScale);
 
 OSG_SYSTEM_DLLMAPPING
-bool createNormalVolume (       ImagePtr     srcImage,
-                                ImagePtr     dstImage,
+bool createNormalVolume (       Image       *srcImage,
+                                Image       *dstImage,
                           const std::string &outputFormat );
 
 OSG_SYSTEM_DLLMAPPING 
-bool create2DPreIntegrationLUT ( ImagePtr dstImage,
-                                 ImagePtr srcImage,
-                                 Real32   thickness = 1.0 );
+bool create2DPreIntegrationLUT ( Image  *dstImage,
+                                 Image  *srcImage,
+                                 Real32  thickness = 1.0 );
 OSG_SYSTEM_DLLMAPPING 
-bool splitRGBA ( ImagePtr rgba,
-                 ImagePtr rgb,
-                 ImagePtr alpha);
+bool splitRGBA ( Image *rgba,
+                 Image *rgb,
+                 Image *alpha);
 
 OSG_SYSTEM_DLLMAPPING 
-bool mergeRGBA ( ImagePtr rgb,
-                 ImagePtr alpha,
-                 ImagePtr rgba);
+bool mergeRGBA ( Image *rgb,
+                 Image *alpha,
+                 Image *rgba);
 
 OSG_SYSTEM_DLLMAPPING
-bool blendImage ( ImagePtr canvas, 
-                  ImagePtr brush,
+bool blendImage ( Image   *canvas, 
+                  Image   *brush,
                   Vec3f    position,
                   Color4f  color, 
                   Real32   alphaScale = 1,
                   Real32   paintZ  = 0 );
 
 OSG_SYSTEM_DLLMAPPING 
-bool createPhongTexture (ImagePtr image,
+bool createPhongTexture (Image   *image,
                          UInt32   size = 512,
                          Real32   specular_exponent = 10,
                          Real32   ka = 0,
@@ -108,7 +108,7 @@ bool createPhongTexture (ImagePtr image,
                          Real32   ks = 1);
 
 OSG_SYSTEM_DLLMAPPING 
-bool createPhongVolume ( ImagePtr image,
+bool createPhongVolume ( Image   *image,
                          Color3f  diffuseColor,
                          Color3f  specularColor,
                          UInt32   lutSize,
@@ -116,11 +116,11 @@ bool createPhongVolume ( ImagePtr image,
                          Real32   lutIncr );
 
 OSG_SYSTEM_DLLMAPPING
-bool createNormalizationCubeMap ( std::vector<ImagePtr> imageVec,
+bool createNormalizationCubeMap ( std::vector<Image *> imageVec,
                                   UInt32 size );
 
 OSG_SYSTEM_DLLMAPPING
-bool createNoise ( ImagePtr image,
+bool createNoise ( Image *image,
                    Image::PixelFormat pixelformat = Image::OSG_RGBA_PF,
                    UInt16 numOctaves = 6,
                    UInt16 size = 128,
@@ -128,20 +128,20 @@ bool createNoise ( ImagePtr image,
                    bool   splitOctaves = false);
 
 OSG_SYSTEM_DLLMAPPING
-bool createGamma(ImagePtr image, 
-                 UInt32   size, 
-                 Real32   gamma);
+bool createGamma(Image  *image, 
+                 UInt32  size, 
+                 Real32  gamma);
 
 OSG_SYSTEM_DLLMAPPING
-bool createVignette(ImagePtr image, 
-                    UInt32   width, 
-                    UInt32   height, 
-                    Real32   r0, 
-                    Real32   r1);
+bool createVignette(Image  *image, 
+                    UInt32  width, 
+                    UInt32  height, 
+                    Real32  r0, 
+                    Real32  r1);
 
 OSG_SYSTEM_DLLMAPPING
-bool convertCrossToCubeMap(ConstImagePtr pIn,
-                           ImagePtr      pOut);
+bool convertCrossToCubeMap(Image const *pIn,
+                           Image       *pOut);
                            
 OSG_END_NAMESPACE
 

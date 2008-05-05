@@ -117,7 +117,7 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
 
     virtual void     rebuildState  (void                       )       = 0;
 
-    virtual StatePtr getState      (UInt32            index = 0);
+    virtual State   *getState      (UInt32            index = 0);
     virtual UInt32   getNPasses    (void                       );
   
     virtual bool     isTransparent (void                       ) const = 0;
@@ -129,11 +129,11 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE renderEnter(const NodeCorePtr &pCore,
-                                                  Action      *pAction);
+    virtual ActionBase::ResultE renderEnter(NodeCore * const  pCore,
+                                            Action           *pAction);
 
-    virtual ActionBase::ResultE renderLeave(const NodeCorePtr &pCore,
-                                                  Action      *pAction);
+    virtual ActionBase::ResultE renderLeave(NodeCore * const  pCore,
+                                            Action           *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -203,14 +203,12 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
 
 typedef Material *MaterialP;
 
-extern OSG_SYSTEM_DLLMAPPING MaterialPtr NullMaterial;
-
 /*---------------------------------------------------------------------*/
 /*! \name                     Material Access                          */
 /*! \{                                                                 */
 
-OSG_SYSTEM_DLLMAPPING MaterialPtr getDefaultMaterial     (void);
-OSG_SYSTEM_DLLMAPPING MaterialPtr getDefaultUnlitMaterial(void);
+OSG_SYSTEM_DLLMAPPING Material *getDefaultMaterial     (void);
+OSG_SYSTEM_DLLMAPPING Material *getDefaultUnlitMaterial(void);
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/

@@ -141,7 +141,7 @@ NodeTransitPtr MoveManipulator::makeHandleGeo()
     return makeCone(0.75, 0.1, 12, true, true);
 }
 
-void MoveManipulator::doMovement(      TransformPtr  t,
+void MoveManipulator::doMovement(      Transform    *t,
                                  const Int32         coord,
                                  const Real32        value,
                                  const Vec3f        &translation,

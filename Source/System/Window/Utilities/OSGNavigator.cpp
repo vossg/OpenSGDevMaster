@@ -158,8 +158,8 @@ Navigator::Navigator() :
     _rRotationAngle(0.04908739f),
     _rMotionFactor(1.f),
     _absolute(true),
-    _vp(NullFC),
-    _cartN(NullFC),
+    _vp(NULL),
+    _cartN(NULL),
     _moved(false),
     _clickCenter(true),
     _clickNoIntersect(false),
@@ -179,8 +179,8 @@ Navigator::Navigator() :
 
 Navigator::~Navigator()
 {
-    _cartN = NullFC;
-    _vp    = NullFC;
+    _cartN = NULL;
+    _vp    = NULL;
 
     subRef(_engine);
     subRef(_trackballEngine);
@@ -244,7 +244,7 @@ void Navigator::idle(Int16 buttons, Int16 x, Int16 y)
 void Navigator::updateCameraTransformation()
 {
     theMatrix.setIdentity();
-    if(_absolute && _cartN != NullFC && _cartN->getParent() != NullFC)
+    if(_absolute && _cartN != NULL && _cartN->getParent() != NULL)
     {
         _cartN->getParent()->getToWorld(theMatrix);
         theMatrix.inverse(theMatrix);
@@ -252,10 +252,10 @@ void Navigator::updateCameraTransformation()
 
     theMatrix.mult(_engine->getMatrix());
 
-    if(_cartN != NullFC)
+    if(_cartN != NULL)
     {
-        TransformPtr t = dynamic_cast<TransformPtr>(_cartN->getCore());
-        if(t == NullFC)
+        Transform *t = dynamic_cast<Transform *>(_cartN->getCore());
+        if(t == NULL)
         {
             FWARNING (("Navigator: updateCamTrans, core is not TransformPtr\n"));
         }
@@ -321,7 +321,7 @@ void Navigator::setMotionFactor(Real32 new_factor)
 
 /*! Set the viewport.
 */
-void Navigator::setViewport(ViewportPtr new_viewport)
+void Navigator::setViewport(Viewport *new_viewport)
 {
     _vp = new_viewport;
     _engine->onViewportChanged(this);
@@ -373,11 +373,11 @@ void Navigator::set(const Matrix & new_matrix)
 
 /*! Set the camera transformation node.
 */
-void Navigator::setCameraTransformation(const NodePtr & new_cartn)
+void Navigator::setCameraTransformation(Node * const new_cartn)
 {
-    if (new_cartn == NullFC)
+    if (new_cartn == NULL)
     {
-        FWARNING (("Set _cartN in Navigator to NullFC\n"));
+        FWARNING (("Set _cartN in Navigator to NULL\n"));
     }
 
     _cartN = new_cartn;
@@ -481,7 +481,7 @@ bool Navigator::getMoved(void)
     return _moved;
 }
 
-ViewportPtr Navigator::getViewport(void)
+Viewport *Navigator::getViewport(void)
 {
     return _vp;
 }
@@ -569,10 +569,10 @@ bool Navigator::calcFromTo(Int16   x,     Int16   y,
 
     if(width <= 0 || height <= 0) return false;
 
-    WindowPtr par = _vp->getParent();
+    Window *par = _vp->getParent();
     Real32 winHeight;
     
-    if(par != NullFC)
+    if(par != NULL)
         winHeight = (Real32)par->getHeight();
     else
         winHeight = height;

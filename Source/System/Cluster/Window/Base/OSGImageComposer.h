@@ -81,22 +81,22 @@ class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
     /*! \name      setup                                                   */
     /*! \{                                                                 */
 
-    void setup(bool             isClient,
-               UInt32           clusterId,
-               WindowPtr        localWindow, 
-               ClusterWindowPtr clusterWindow);
+    void setup(bool           isClient,
+               UInt32         clusterId,
+               Window        *localWindow, 
+               ClusterWindow *clusterWindow);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name      composition                                             */
     /*! \{                                                                 */
 
-    virtual void open           (void            );
-    virtual void startFrame     (void            );
-    virtual void startViewport  (ViewportPtr port);
-    virtual void composeViewport(ViewportPtr port);
-    virtual void composeWindow  (void            );
-    virtual void close          (void            );
+    virtual void open           (void          );
+    virtual void startFrame     (void          );
+    virtual void startViewport  (Viewport *port);
+    virtual void composeViewport(Viewport *port);
+    virtual void composeWindow  (void          );
+    virtual void close          (void          );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,38 +115,38 @@ class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
     /*! \name                  protected variables                         */
     /*! \{                                                                 */
 
-    bool             _isClient;
-    UInt32           _clusterId;
-    UInt32           _clusterSize;
-    UInt32           _serverCount;
-    WindowPtr        _localWindow;
-    ClusterWindowPtr _clusterWindow;
+    bool           _isClient;
+    UInt32         _clusterId;
+    UInt32         _clusterSize;
+    UInt32         _serverCount;
+    Window        *_localWindow;
+    ClusterWindow *_clusterWindow;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  get                                         */
     /*! \{                                                                 */
     
-    bool             isClient     (void);
-    UInt32           clusterId    (void);
-    UInt32           clusterSize  (void);
-    UInt32           serverCount  (void);
-    WindowPtr        localWindow  (void);
-    ClusterWindowPtr clusterWindow(void);
+    bool           isClient     (void);
+    UInt32         clusterId    (void);
+    UInt32         clusterSize  (void);
+    UInt32         serverCount  (void);
+    Window        *localWindow  (void);
+    ClusterWindow *clusterWindow(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  helpers                                     */
     /*! \{                                                                 */
 
-    bool getScreenAlignedBBox(NodePtr        root,
-                              ViewportPtr    vp,
-                              UInt32        &l,
-                              UInt32        &b,
-                              UInt32        &r,
-                              UInt32        &t,
-                              UInt32        &front,
-                              UInt32        &back);
+    bool getScreenAlignedBBox(Node     *root,
+                              Viewport *vp,
+                              UInt32   &l,
+                              UInt32   &b,
+                              UInt32   &r,
+                              UInt32   &t,
+                              UInt32   &front,
+                              UInt32   &back);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

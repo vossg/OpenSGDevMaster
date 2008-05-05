@@ -45,7 +45,7 @@ system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
         category="weakpointer"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
         The object that defines the clip planes's coordinate system. The clip

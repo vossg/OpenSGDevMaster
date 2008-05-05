@@ -78,7 +78,7 @@ T next(T t) // Iterator passed by value.
 }
 
 
-bool MakeTransparentGraphOp::traverse(NodePtr node)
+bool MakeTransparentGraphOp::traverse(Node *node)
 {
     // Find the materials.
     if (!GraphOp::traverse(node)) {
@@ -89,11 +89,11 @@ bool MakeTransparentGraphOp::traverse(NodePtr node)
     MaterialObjectMap::iterator itr = _materialObjects.begin();
     for (; itr != _materialObjects.end(); ++itr)
     {
-        MaterialPtr      oldMaterial = itr->first;
-        MaterialUnrecPtr newMaterial = 
+        Material         *oldMaterial = itr->first;
+        MaterialUnrecPtr  newMaterial = 
             dynamic_pointer_cast<Material>(deepClone(oldMaterial));
 
-        if (newMaterial != NullFC)
+        if (newMaterial != NULL)
         {
             std::cout << "Applying transparency:  ";
 
@@ -137,17 +137,17 @@ std::string MakeTransparentGraphOp::usage(void)
     "  transparency (Real32, 0.5f): transparency value\n";    
 }
 
-Action::ResultE MakeTransparentGraphOp::traverseEnter(const NodePtr node)
+Action::ResultE MakeTransparentGraphOp::traverseEnter(Node * const node)
 {
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
-    if (geo != NullFC)
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
+    if (geo != NULL)
     {
         addObject(MaterialObject(geo));
         return Action::Continue;
     }
 
-    MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>(node->getCore());
-    if (mg != NullFC)
+    MaterialGroup *mg = dynamic_cast<MaterialGroup *>(node->getCore());
+    if (mg != NULL)
     {
         addObject(MaterialObject(mg));
         return Action::Continue;
@@ -158,16 +158,16 @@ Action::ResultE MakeTransparentGraphOp::traverseEnter(const NodePtr node)
 }
 
 Action::ResultE MakeTransparentGraphOp::traverseLeave(
-    const NodePtr         node, 
-          Action::ResultE res )
+    Node * const    node, 
+    Action::ResultE res )
 {
     return res;
 }
 
 void MakeTransparentGraphOp::addObject(MaterialObject m)
 {
-    MaterialPtr mat = m.getMaterial();
-    if (mat == NullFC)
+    Material *mat = m.getMaterial();
+    if (mat == NULL)
         return;
 
     _materialObjects[mat].push_back(m);
@@ -183,12 +183,12 @@ struct Type2Type {
 
 
 template<typename Chunk>
-typename Chunk::ObjUnrecPtr getOrAddChunk(ChunkMaterialPtr cm,
+typename Chunk::ObjUnrecPtr getOrAddChunk(ChunkMaterial *cm,
                                      Type2Type<Chunk> = Type2Type<Chunk>()) {
-    OSG::StateChunkPtr stateChunk = cm->find(Chunk::getClassType());
+    OSG::StateChunk *stateChunk = cm->find(Chunk::getClassType());
 
     typename Chunk::ObjUnrecPtr chunk = 
-        dynamic_cast<typename Chunk::ObjPtr>(stateChunk);
+        dynamic_cast<typename Chunk::ObjCPtr>(stateChunk);
 
     if (!chunk) {
         chunk = Chunk::create();
@@ -198,24 +198,24 @@ typename Chunk::ObjUnrecPtr getOrAddChunk(ChunkMaterialPtr cm,
 }
 
 
-void MakeTransparentGraphOp::applyTransparency(MaterialPtr m) {
+void MakeTransparentGraphOp::applyTransparency(Material *m) {
  
-    SimpleMaterialPtr sm = dynamic_cast<SimpleMaterialPtr>(m);
-    if (sm != NullFC) {
+    SimpleMaterial *sm = dynamic_cast<SimpleMaterial *>(m);
+    if (sm != NULL) {
         std::cout << "SimpleMaterial" << std::endl;
         sm->setTransparency(1.0f - (1.0f - sm->getTransparency()) * 
                             _transparency);
         sm->setColorMaterial(GL_NONE);
 
-        PolygonChunkPtr polygonChunk = getOrAddChunk<PolygonChunk>(sm);
+        PolygonChunk *polygonChunk = getOrAddChunk<PolygonChunk>(sm);
         polygonChunk->setCullFace(GL_BACK);
         return;
     }
 
-    ChunkMaterialPtr cm = dynamic_cast<ChunkMaterialPtr>(m);
-    if (cm != NullFC) {
+    ChunkMaterial *cm = dynamic_cast<ChunkMaterial *>(m);
+    if (cm != NULL) {
         std::cout << "ChunkMaterial" << std::endl;
-        BlendChunkPtr blendChunk = getOrAddChunk<BlendChunk>(cm);
+        BlendChunk *blendChunk = getOrAddChunk<BlendChunk>(cm);
         blendChunk->setColor(Color4f(1, 1, 1, _transparency));
         blendChunk->setSrcFactor(GL_SRC_ALPHA);
         blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);

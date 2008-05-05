@@ -43,7 +43,7 @@ Baseclass for all Manipulators
 		type="ViewportPtr"
 		cardinality="single"
 		visibility="internal"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		header="OSGViewport.h"
 		access="public"
 	>

@@ -222,7 +222,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjPtr createAspectCopy(void) const;
+    virtual ObjCPtr createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */
@@ -276,9 +276,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     void operator =(const TestFC &source);
 };
 
-typedef TestFC::ObjPtr      TestFCPtr;
 typedef TestFC::ObjUnrecPtr TestFCUnrecPtr;
-typedef TestFC::ConstObjPtr ConstTestFCPtr;
 
 OSG_END_NAMESPACE
 

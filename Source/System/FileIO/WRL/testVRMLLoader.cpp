@@ -25,7 +25,7 @@ int main (int argc, char **argv)
             
             vFile.push_back(file);
             OSG::commitChanges();
-            file = NullFC;
+            file = NULL;
         }
 
 #if 0
@@ -37,7 +37,7 @@ int main (int argc, char **argv)
             fprintf(stderr, "[%d] : ", i);
             
             if(OSG::FieldContainerFactory::the()->getContainerStore()[i] != 
-               OSGNullFC)
+               OSGNULL)
             {
                 fprintf(stderr, "%s\n", 
                         OSG::FieldContainerFactory::the()->
@@ -45,7 +45,7 @@ int main (int argc, char **argv)
             }
             else
             {
-                fprintf(stderr, "NullFC\n");
+                fprintf(stderr, "NULL\n");
             }
         }
 #endif
@@ -54,7 +54,7 @@ int main (int argc, char **argv)
 
         for(OSG::UInt32 i = 0; i < vFile.size(); ++i)
         {
-            vFile[i] = NullFC;
+            vFile[i] = NULL;
         }
     }
 
@@ -68,7 +68,7 @@ int main (int argc, char **argv)
     {
         fprintf(stderr, "[%d] : ", i);
 
-        if(OSG::FieldContainerFactory::the()->getContainer(i) != OSGNullFC)
+        if(OSG::FieldContainerFactory::the()->getContainer(i) != OSGNULL)
         {
             fprintf(stderr, "%s\n", 
                     OSG::FieldContainerFactory::the()->
@@ -76,7 +76,7 @@ int main (int argc, char **argv)
         }
         else
         {
-            fprintf(stderr, "NullFC\n");
+            fprintf(stderr, "NULL\n");
         }
     }
 #endif

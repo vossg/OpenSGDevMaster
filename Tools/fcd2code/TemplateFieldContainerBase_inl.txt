@@ -90,10 +90,10 @@ inline
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
             @@if field.PassFieldMask
-void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value,
-                             const UInt16      uiStoredInFieldId)
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value,
+                             const UInt16                      uiStoredInFieldId)
             @@else // field.PassFieldMask
-void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
             @@endif // field.PassFieldMask
 {
     editSField(@!field.Name!@FieldMask);
@@ -188,13 +188,13 @@ inline
 @@else // !isDecorator
 
 inline
-@!Parent!@Ptr @!Classname!@Base::getDecoratee(void) const
+@!Parent!@ *@!Classname!@Base::getDecoratee(void) const
 {
     return _sfDecoratee.getValue();
 }
 
 inline
-void @!Classname!@Base::setDecoratee(const @!Parent!@Ptr &value)
+void @!Classname!@Base::setDecoratee(@!Parent!@ * const value)
 {
     editSField(DecorateeFieldMask);
 

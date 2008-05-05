@@ -59,16 +59,16 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup  */
 
-typedef PointerSField<FieldContainerPtr,
+typedef PointerSField<FieldContainer *,
                       RecordedRefCountPolicy  > SFRecFieldContainerPtr;
 
-typedef PointerSField<FieldContainerPtr,
+typedef PointerSField<FieldContainer *,
                       UnrecordedRefCountPolicy> SFUnrecFieldContainerPtr;
 
-typedef PointerSField<FieldContainerPtr,
+typedef PointerSField<FieldContainer *,
                       WeakRefCountPolicy      > SFWeakFieldContainerPtr;
 
-typedef PointerSField<FieldContainerPtr,
+typedef PointerSField<FieldContainer *,
                       NoRefCountPolicy        > SFUncountedFieldContainerPtr;
 
 #endif
@@ -77,7 +77,7 @@ typedef PointerSField<FieldContainerPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef ParentPointerSField<FieldContainerPtr, 
+typedef ParentPointerSField<FieldContainer *, 
                             NoRefCountPolicy,
                             1                > SFParentFieldContainerPtr;
 #endif

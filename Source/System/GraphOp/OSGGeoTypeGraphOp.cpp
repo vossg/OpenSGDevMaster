@@ -69,16 +69,16 @@ GraphOp* GeoTypeGraphOp::create()
 }
 
 
-bool GeoTypeGraphOp::travNodeEnter(NodePtr node)
+bool GeoTypeGraphOp::travNodeEnter(Node *node)
 {
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
 
-    if(geo == NullFC)
+    if(geo == NULL)
     {
         return true;
     }
 
-    GeoVectorPropertyPtr positions = geo->getPositions();
+    GeoVectorProperty *positions = geo->getPositions();
 
     // amz
 #if 0
@@ -195,7 +195,7 @@ bool GeoTypeGraphOp::travNodeEnter(NodePtr node)
 }
 
 
-bool GeoTypeGraphOp::travNodeLeave(NodePtr)
+bool GeoTypeGraphOp::travNodeLeave(Node *)
 {
     return true;
 }

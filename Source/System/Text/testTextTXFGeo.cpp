@@ -577,7 +577,7 @@ void updateScene()
     textNode->setCore(geo);
 #else
     NodeUnrecPtr textNode = face->makeNode(layoutResult, scale);
-    GeometryUnrecPtr geo = dynamic_cast<GeometryPtr>(textNode->getCore());
+    GeometryUnrecPtr geo = dynamic_cast<Geometry *>(textNode->getCore());
 #endif
     NodeUnrecPtr transNodePtr = Node::create();
     TransformUnrecPtr transPtr = Transform::create();
@@ -731,8 +731,8 @@ void keyboard(unsigned char k, int x, int y)
         {
             delete mgr;
 
-            scene  = NullFC;
-            statfg = NullFC;
+            scene  = NULL;
+            statfg = NULL;
 
             osgExit();
             exit(0);

@@ -105,7 +105,7 @@ VisitSubTree::~VisitSubTree(void)
 
 void VisitSubTree::adjustVolume(Volume &volume)
 {
-    if(getSubTreeRoot() != NullFC)
+    if(getSubTreeRoot() != NULL)
     {
         getSubTreeRoot()->updateVolume();
 

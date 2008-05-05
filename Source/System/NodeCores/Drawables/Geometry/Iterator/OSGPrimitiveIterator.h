@@ -78,8 +78,8 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
 
     PrimitiveIterator(const PrimitiveIterator &source);
 
-    PrimitiveIterator(      ConstGeometryPtr   geo);
-    PrimitiveIterator(const NodePtr            geo);
+    PrimitiveIterator(Geometry const *       geo);
+    PrimitiveIterator(Node           * const geo);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -93,8 +93,8 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \name                       Set                                    */
     /*! \{                                                                 */
 
-    void setGeo(      ConstGeometryPtr geo);
-    void setGeo(const NodePtr          geo);
+    void setGeo(Geometry const *       geo);
+    void setGeo(Node           * const geo);
 
     void setToBegin(void);
     void setToEnd  (void);
@@ -104,14 +104,14 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \name                       Get                                    */
     /*! \{                                                                 */
 
-    inline bool         isAtEnd                (void       ) const;
+    inline bool            isAtEnd                (void       ) const;
 
-    inline Int32        getIndex               (Int32 which) const;
-    inline Int32        getIndex               (void       ) const;
-    inline UInt32       getLength              (void       ) const;
-    inline UInt32       getType                (void       ) const;
+    inline Int32           getIndex               (Int32 which) const;
+    inline Int32           getIndex               (void       ) const;
+    inline UInt32          getLength              (void       ) const;
+    inline UInt32          getType                (void       ) const;
 
-    inline ConstGeometryPtr getGeometry       (void        ) const;
+    inline Geometry const *getGeometry       (void        ) const;
 
     inline Int32        getPropertyIndex      (Int32 att, Int32 which) const;
     
@@ -178,7 +178,7 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \name                       Data                                   */
     /*! \{                                                                 */
 
-    ConstGeometryPtr _geo;
+    Geometry const  *_geo;
     bool             _ended;
     UInt32           _primIndex;
     UInt32           _actPointIndex;
@@ -186,10 +186,10 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     UInt32           _actPrimLength;
     
     // Some local copies for faster access
-    GeoIntegralPropertyPtr  _types;
-    GeoIntegralPropertyPtr  _lengths;
-    GeoIntegralPropertyPtr  _inds [Geometry::MaxAttribs];
-    GeoVectorPropertyPtr    _props[Geometry::MaxAttribs];
+    GeoIntegralProperty  *_types;
+    GeoIntegralProperty  *_lengths;
+    GeoIntegralProperty  *_inds [Geometry::MaxAttribs];
+    GeoVectorProperty    *_props[Geometry::MaxAttribs];
     
     /*! \}                                                                 */
 };

@@ -131,11 +131,11 @@ static inline void setGenFunc(      GLenum   coord,
                                     GLenum   gen, 
                                     GLenum   func, 
                               const Vec4f   &plane, 
-                                    NodePtr  beacon, 
+                                    Node    *beacon, 
                                     Matrix  &cameraMat)
 {
 #ifndef OSG_WINCE
-	if(beacon != NullFC)
+	if(beacon != NULL)
     {
         Matrixr beaconMat;
         beacon->getToWorld(beaconMat);
@@ -232,16 +232,16 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
 
 static inline void changeGenFunc(      GLenum   oldfunc, 
-                                       NodePtr  oldbeacon, 
+                                       Node    *oldbeacon, 
                                        GLenum   coord, 
                                        GLenum   gen, 
                                        GLenum   func, 
                                  const Vec4f   &plane, 
-                                       NodePtr  beacon, 
+                                       Node    *beacon, 
                                        Matrix  &cameraMat)
 {
 #ifndef OSG_WINCE
-	if(beacon != NullFC)
+	if(beacon != NULL)
     {
         Matrix beaconMat;
         beacon->getToWorld(beaconMat);
@@ -251,7 +251,7 @@ static inline void changeGenFunc(      GLenum   oldfunc,
         glTexGenfv(coord, GL_EYE_PLANE, (GLfloat*)plane.getValues());
         glTexGeni(coord, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
         glPopMatrix();
-        if(oldfunc == GL_NONE && oldbeacon == NullFC) 
+        if(oldfunc == GL_NONE && oldbeacon == NULL) 
             glEnable(gen);
     }
     else if(func != GL_NONE)                                         
@@ -263,10 +263,10 @@ static inline void changeGenFunc(      GLenum   oldfunc,
         else if(func == GL_EYE_LINEAR)
             glTexGenfv(coord, GL_EYE_PLANE, (GLfloat*)plane.getValues());
             
-        if(oldfunc == GL_NONE && oldbeacon == NullFC) 
+        if(oldfunc == GL_NONE && oldbeacon == NULL) 
             glEnable(gen);
     }
-    else if(oldfunc != GL_NONE || oldbeacon != NullFC) 
+    else if(oldfunc != GL_NONE || oldbeacon != NULL) 
         glDisable(gen);  
 #endif
 }
@@ -386,16 +386,16 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     TextureBaseChunk::activateTexture(win, idx);
 
-    if(getGenFuncS() != GL_NONE || getSBeacon() != NullFC)
+    if(getGenFuncS() != GL_NONE || getSBeacon() != NULL)
         glDisable(GL_TEXTURE_GEN_S);
 
-    if(getGenFuncT() != GL_NONE || getTBeacon() != NullFC)
+    if(getGenFuncT() != GL_NONE || getTBeacon() != NULL)
         glDisable(GL_TEXTURE_GEN_T);
 
-    if(getGenFuncR() != GL_NONE || getRBeacon() != NullFC)
+    if(getGenFuncR() != GL_NONE || getRBeacon() != NULL)
         glDisable(GL_TEXTURE_GEN_R);
 
-    if(getGenFuncQ() != GL_NONE || getQBeacon() != NullFC)
+    if(getGenFuncQ() != GL_NONE || getQBeacon() != NULL)
         glDisable(GL_TEXTURE_GEN_Q);
 
     glErr("TexGenChunk::deactivate");

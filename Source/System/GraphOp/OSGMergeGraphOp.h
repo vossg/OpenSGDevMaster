@@ -76,7 +76,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(NodePtr node);
+    bool traverse(Node *node);
 
     //virtual const std::string getName(void) { return _name; };
 
@@ -110,21 +110,21 @@ private:
     bool _texcoord2_is_vector;
     bool _texcoord3_is_vector;
 
-    bool mergeOnce(NodePtr node);
+    bool mergeOnce(Node *node);
 
-    void makeExcludeList        (      NodePtr node);
-    void processGroups          (const NodePtr node);
-    void processTransformations (const NodePtr node);
-    void processGeometries      (const NodePtr node);
+    void makeExcludeList        (Node *       node);
+    void processGroups          (Node * const node);
+    void processTransformations (Node * const node);
+    void processGeometries      (Node * const node);
 
-    bool isLeaf        (const NodePtr node);
-    bool isGroup       (const NodePtr node);
+    bool isLeaf        (Node * const node);
+    bool isGroup       (Node * const node);
 
-    Action::ResultE excludeListEnter(const NodePtr node);
-    Action::ResultE excludeListLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE excludeListEnter(Node * const node);
+    Action::ResultE excludeListLeave(Node * const node, Action::ResultE res);
 
-    Action::ResultE traverseEnter(const NodePtr node);
-    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node);
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };
 
 typedef MergeGraphOp *MergeGraphOpP;

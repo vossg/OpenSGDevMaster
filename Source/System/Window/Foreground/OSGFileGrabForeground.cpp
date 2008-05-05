@@ -109,7 +109,7 @@ void FileGrabForeground::draw(DrawEnv  *pEnv,
     }
     
     // do we have an image yet? If not, create one.
-    if(getImage() == NullFC)
+    if(getImage() == NULL)
     {
             ImageUnrecPtr iPtr = Image::create();
 
@@ -125,7 +125,7 @@ void FileGrabForeground::draw(DrawEnv  *pEnv,
 
     sprintf(name, getName().c_str(), getFrame());
         
-    ImagePtr i = getImage();
+    Image *i = getImage();
 
     ImageFileHandler::the()->write(i, name);
     

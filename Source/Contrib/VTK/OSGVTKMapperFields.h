@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(VTKMapper);
 #endif
 
 template <>
-struct FieldTraits<VTKMapperPtr> :
-    public FieldTraitsFCPtrBase<VTKMapperPtr>
+struct FieldTraits<VTKMapper *> :
+    public FieldTraitsFCPtrBase<VTKMapper *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<VTKMapperPtr> :
 
   public:
 
-    typedef FieldTraits<VTKMapperPtr>  Self;
+    typedef FieldTraits<VTKMapper *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<VTKMapperPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakVTKMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKMapper *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdVTKMapperPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<VTKMapperPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldSingle */
 
-typedef PointerSField<VTKMapperPtr,
+typedef PointerSField<VTKMapper *,
                       RecordedRefCountPolicy  > SFRecVTKMapperPtr;
-typedef PointerSField<VTKMapperPtr,
+typedef PointerSField<VTKMapper *,
                       UnrecordedRefCountPolicy> SFUnrecVTKMapperPtr;
-typedef PointerSField<VTKMapperPtr,
+typedef PointerSField<VTKMapper *,
                       WeakRefCountPolicy      > SFWeakVTKMapperPtr;
-typedef PointerSField<VTKMapperPtr,
+typedef PointerSField<VTKMapper *,
                       NoRefCountPolicy        > SFUncountedVTKMapperPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<VTKMapperPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldMulti */
 
-typedef PointerMField<VTKMapperPtr,
+typedef PointerMField<VTKMapper *,
                       RecordedRefCountPolicy  > MFRecVTKMapperPtr;
-typedef PointerMField<VTKMapperPtr,
+typedef PointerMField<VTKMapper *,
                       UnrecordedRefCountPolicy> MFUnrecVTKMapperPtr;
-typedef PointerMField<VTKMapperPtr,
+typedef PointerMField<VTKMapper *,
                       WeakRefCountPolicy      > MFWeakVTKMapperPtr;
-typedef PointerMField<VTKMapperPtr,
+typedef PointerMField<VTKMapper *,
                       NoRefCountPolicy        > MFUncountedVTKMapperPtr;
 #endif
 

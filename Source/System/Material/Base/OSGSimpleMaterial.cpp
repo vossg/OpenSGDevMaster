@@ -76,14 +76,14 @@ OSG_USING_NAMESPACE
 
 void SimpleMaterial::prepareLocalChunks(void)
 {
-    if(_materialChunk == NullFC)
+    if(_materialChunk == NULL)
     {
         _materialChunk = MaterialChunk::createLocal();
 
 //        addRefX(_materialChunk);
     }
 
-    if(_blendChunk == NullFC)
+    if(_blendChunk == NULL)
     {
         _blendChunk    = BlendChunk   ::createLocal();
 
@@ -108,10 +108,10 @@ void SimpleMaterial::resolveLinks(void)
     Inherited::resolveLinks();
 
     //subRefLocalVarX(_materialChunk);
-    _materialChunk = NullFC;
+    _materialChunk = NULL;
 
     //subRefLocalVarX(_blendChunk   );    
-    _blendChunk = NullFC;
+    _blendChunk = NULL;
 }
 
 /***************************************************************************\
@@ -125,9 +125,9 @@ void SimpleMaterial::resolveLinks(void)
 /*------------- constructors & destructors --------------------------------*/
 
 SimpleMaterial::SimpleMaterial(void) :
-     Inherited    (      ),
-    _materialChunk(NullFC),
-    _blendChunk   (NullFC)
+     Inherited    (    ),
+    _materialChunk(NULL),
+    _blendChunk   (NULL)
 {
 }
 
@@ -159,7 +159,7 @@ void SimpleMaterial::rebuildState(void)
 
 	Real  alpha = 1.f - _sfTransparency.getValue();
 
-    if(_pState != NullFC)
+    if(_pState != NULL)
     {
         _pState->clearChunks();
     }

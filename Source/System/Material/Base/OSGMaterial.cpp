@@ -82,10 +82,6 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-OSG_BEGIN_NAMESPACE
-OSG_SYSTEM_DLLMAPPING MaterialPtr NullMaterial;
-OSG_END_NAMESPACE
-
 const Int32 Material::NoStateSorting               = 0x7fffffff;
 const Int32 Material::TransparencyAutoDetection    = 0;
 const Int32 Material::TransparencyForceTransparent = 1;
@@ -109,7 +105,7 @@ void Material::resolveLinks(void)
     Inherited::resolveLinks();
 
 //    subRefLocalVarX(_pState);
-    _pState = NullFC;
+    _pState = NULL;
 }
 
 /***************************************************************************\
@@ -144,7 +140,7 @@ Material::~Material(void)
 }
 
 
-StatePtr Material::getState(UInt32)
+State *Material::getState(UInt32)
 {
     return _pState;
 }
@@ -177,14 +173,14 @@ void Material::dump(      UInt32    ,
 //   Inherited::dump(uiIndent, bvFlags);
 }
 
-ActionBase::ResultE Material::renderEnter(const NodeCorePtr &pCore,
-                                                Action      *pAction)
+ActionBase::ResultE Material::renderEnter(NodeCore * const pCore,
+                                          Action   *       pAction)
 {
     return Action::Continue;
 }
 
-ActionBase::ResultE Material::renderLeave(const NodeCorePtr &pCore,
-                                                  Action      *pAction)
+ActionBase::ResultE Material::renderLeave(NodeCore * const pCore,
+                                          Action   *       pAction)
 {
     return Action::Continue;
 }
@@ -232,9 +228,9 @@ static SimpleMaterialMTRecPtr _defaultMaterial;
     an arbitrary material is needed.
 */
 
-MaterialPtr getDefaultMaterial(void)
+Material *getDefaultMaterial(void)
 {
-    if(_defaultMaterial == NullFC)
+    if(_defaultMaterial == NULL)
     {
         _defaultMaterial = SimpleMaterial::create();
 
@@ -263,9 +259,9 @@ static SimpleMaterialMTRecPtr _defaultUnlitMaterial;
     an arbitrary unlit material is needed.
 */
 
-MaterialPtr getDefaultUnlitMaterial(void)
+Material *getDefaultUnlitMaterial(void)
 {
-    if(_defaultUnlitMaterial == NullFC)
+    if(_defaultUnlitMaterial == NULL)
     {
         _defaultUnlitMaterial = SimpleMaterial::create();
 
@@ -286,7 +282,7 @@ bool subRefDefaultMaterial     (void)
 {
 //    subRefX(_defaultMaterial);
 
-    _defaultMaterial = NullFC;
+    _defaultMaterial = NULL;
 
     return true;
 }
@@ -295,7 +291,7 @@ bool subRefDefaultUnlitMaterial(void)
 {
 //    subRefX(_defaultUnlitMaterial);
 
-    _defaultUnlitMaterial = NullFC;
+    _defaultUnlitMaterial = NULL;
 
     return true;
 }

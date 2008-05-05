@@ -149,9 +149,9 @@ void Particles::dump(      UInt32    ,
 
 void Particles::adjustVolume( Volume & volume )
 {
-    GeoVectorPropertyPtr pos = getPositions();
+    GeoVectorProperty *pos = getPositions();
 
-    if ( pos == NullFC )
+    if ( pos == NULL )
         return;                 // Node has no particles, no volume
 
     volume.setValid();
@@ -237,7 +237,7 @@ void Particles::adjustVolume( Volume & volume )
     }
 }
 
-void Particles::fill(DrawableStatsAttachmentPtr pStat)
+void Particles::fill(DrawableStatsAttachment *pStat)
 {
     SWARNING << "Particles::fill stats NYI "
              << std::endl;
@@ -338,9 +338,9 @@ struct ColTraitSingle : public ColTraitBase
     
     static inline void init(Particles *part, DrawEnv *, dataType &)
     {
-        GeoVectorPropertyPtr col = part->getColors();
+        GeoVectorProperty *col = part->getColors();
  
-        if(col != NullFC)
+        if(col != NULL)
         {
             pumpFunc col_func;
 
@@ -384,7 +384,7 @@ struct ColTraitParticle : public ColTraitBase
     
     static inline void init(Particles *part, DrawEnv *, dataType &data)
     {
-        GeoVectorPropertyPtr col = part->getColors();
+        GeoVectorProperty *col = part->getColors();
 
         data.data = col->getData();
         if((data.stride = col->getStride()) == 0)
@@ -426,11 +426,11 @@ struct ColTraitGeneric : public ColTraitBase
     
     static inline void init(Particles *part, DrawEnv *, dataType &data)
     {
-        GeoVectorPropertyPtr col = part->getColors();
+        GeoVectorProperty *col = part->getColors();
         
         data.perParticle = false;
         
-        if(col != NullFC)
+        if(col != NULL)
         {
             data.data = col->getData();
             if((data.stride = col->getStride()) == 0)
@@ -481,7 +481,7 @@ struct PosTraitNone : public ParticleTraits
     dataType;
     
     static inline void init(Particles *, DrawEnv *, dataType &data,
-        GeoVectorPropertyPtr pos)
+        GeoVectorProperty *pos)
     {
     }
     
@@ -510,13 +510,13 @@ struct PosTraitGeneric : public ParticleTraits
 {
     typedef struct
     {
-        GeoVectorPropertyPtr pos;
-        Pnt3f                p;
+        GeoVectorProperty *pos;
+        Pnt3f              p;
     }
     dataType;
     
     static inline void init(Particles *, DrawEnv *, dataType &data,
-        GeoVectorPropertyPtr pos)
+        GeoVectorProperty *pos)
     {
         data.pos = pos;
     }
@@ -555,12 +555,12 @@ struct PosTrait3f : public ParticleTraits
         const Pnt3f   *p;
     };
     
-    static inline void init(Particles            *, 
-                            DrawEnv              *, 
-                            dataType             &data,
-                            GeoVectorPropertyPtr  pos)
+    static inline void init(Particles         *, 
+                            DrawEnv           *, 
+                            dataType          &data,
+                            GeoVectorProperty *pos)
     {
-        GeoPnt3fPropertyPtr pos3f = dynamic_cast<GeoPnt3fPropertyPtr>(pos);
+        GeoPnt3fProperty *pos3f = dynamic_cast<GeoPnt3fProperty *>(pos);
  
         data.pos  = pos3f->getFieldPtr();
     }
@@ -860,9 +860,9 @@ struct NormalTraitGeneric : public ParticleTraits
 {
     typedef struct
     {
-        GeoVectorPropertyPtr norms;
-        Vec3f                n;
-        bool                 perParticle;
+        GeoVectorProperty *norms;
+        Vec3f              n;
+        bool               perParticle;
     }
     dataType;
     
@@ -872,7 +872,7 @@ struct NormalTraitGeneric : public ParticleTraits
         
         data.perParticle = false;
         
-        if(data.norms != NullFC)
+        if(data.norms != NULL)
         {
             if(data.norms->size() == 1)
             {
@@ -924,14 +924,14 @@ struct NormalTraitGeneric3f : public ParticleTraits
     
     static inline void init(Particles *part, DrawEnv *, dataType &data)
     {
-        GeoVec3fPropertyPtr norms3f = 
-            dynamic_cast<GeoVec3fPropertyPtr>(part->getNormals());
+        GeoVec3fProperty *norms3f = 
+            dynamic_cast<GeoVec3fProperty *>(part->getNormals());
         
         data.norms = norms3f->getFieldPtr();
         
         data.perParticle = false;
         
-        if(norms3f != NullFC)
+        if(norms3f != NULL)
         {
             if(norms3f->getSize() == 1)
             {
@@ -1037,7 +1037,7 @@ struct drawViewDirQuads : public ParticlesDrawer
         d4 = -1.0f * camera[0] +  1.0f * camera[1];
 
         // some variables for faster access
-        GeoVectorPropertyPtr  pos  = part->getPositions();
+        GeoVectorProperty *pos  = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1138,7 +1138,7 @@ struct drawViewDirQuads : public ParticlesDrawer
         d4 = -1.0f * camera[0] +  1.0f * camera[1];
 
         // some variables for faster access
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1242,7 +1242,7 @@ struct drawViewerQuads : public ParticlesDrawer
         Vec4f d;
         
         // some variables for faster access
-        GeoVectorPropertyPtr pos  = part->getPositions();
+        GeoVectorProperty *pos  = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1367,7 +1367,7 @@ struct drawViewerQuads : public ParticlesDrawer
         Vec4f d;
         
         // some variables for faster access
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1457,7 +1457,7 @@ struct drawLines : public ParticlesDrawer
     virtual void draw(Particles *part, DrawEnv *pEnv, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorPropertyPtr  pos  = part->getPositions();
+        GeoVectorProperty *pos  = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1514,7 +1514,7 @@ struct drawLines : public ParticlesDrawer
                              const Int32 *index, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorPropertyPtr  pos  = part->getPositions();
+        GeoVectorProperty *pos  = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1583,7 +1583,7 @@ struct drawPoints : public ParticlesDrawer
     virtual void draw(Particles *part, DrawEnv *pEnv, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorPropertyPtr  pos  = part->getPositions();
+        GeoVectorProperty *pos  = part->getPositions();
 
         // init traits
         typename posTrait::dataType posData;
@@ -1632,7 +1632,7 @@ struct drawPoints : public ParticlesDrawer
                              const Int32 *index, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorPropertyPtr  pos  = part->getPositions();
+        GeoVectorProperty *pos  = part->getPositions();
 
         // init traits
         typename posTrait::dataType posData;
@@ -1805,7 +1805,7 @@ struct drawObjects : public ParticlesDrawer
     virtual void draw(Particles *part, DrawEnv *pEnv, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename geoTrait::dataType geoData;
@@ -1886,7 +1886,7 @@ struct drawObjects : public ParticlesDrawer
                              const Int32 *index, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename geoTrait::dataType geoData;
@@ -2000,7 +2000,7 @@ struct drawViewerObjects : public ParticlesDrawer
         Pnt3f  vpos(camera[3]);
 
         // some variables for faster access
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename geoTrait::dataType geoData;
@@ -2093,7 +2093,7 @@ struct drawViewerObjects : public ParticlesDrawer
         Pnt3f  vpos(camera[3]);
 
         // some variables for faster access
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename geoTrait::dataType geoData;
@@ -2208,7 +2208,7 @@ struct drawShaderQuads : public ParticlesDrawer
         typename secPosTrait::dataType secPosData;
         secPosTrait::init(part, pEnv, secPosData, part->getSecPositions());
 
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
         
         glBegin(GL_QUADS);
 
@@ -2294,7 +2294,7 @@ struct drawShaderQuads : public ParticlesDrawer
         typename secPosTrait::dataType secPosData;
         secPosTrait::init(part, pEnv, secPosData, part->getSecPositions());
 
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
         
         glBegin(GL_QUADS);
 
@@ -2385,7 +2385,7 @@ struct drawShaderStrips : public ParticlesDrawer
         typename secPosTrait::dataType secPosData;
         secPosTrait::init(part, pEnv, secPosData, part->getSecPositions());
 
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         Int32 i;
 
@@ -2474,7 +2474,7 @@ struct drawShaderStrips : public ParticlesDrawer
         typename secPosTrait::dataType secPosData;
         secPosTrait::init(part, pEnv, secPosData, part->getSecPositions());
 
-        GeoVectorPropertyPtr pos = part->getPositions();
+        GeoVectorProperty *pos = part->getPositions();
 
         Int32 i;
  
@@ -2581,8 +2581,8 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
                             Int32   *index)
 { 
     // some variables for faster access
-          GeoVectorPropertyPtr  pos     = getPositions();
-    const MFInt32              *indices = getMFIndices();
+          GeoVectorProperty *pos     = getPositions();
+    const MFInt32           *indices = getMFIndices();
  
     // get ModelView matrix to define the direction vectors
 //    Matrix camera,toworld;
@@ -2735,22 +2735,22 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
 Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
 {
     // some variables for faster access
-          GeoVectorPropertyPtr pos  = getPositions();
-          GeoVectorPropertyPtr col  = getColors();
-          GeoVectorPropertyPtr norm = getNormals();
-    const MFVec3f         *size = getMFSizes();
+          GeoVectorProperty *pos  = getPositions();
+          GeoVectorProperty *col  = getColors();
+          GeoVectorProperty *norm = getNormals();
+    const MFVec3f           *size = getMFSizes();
  
     if((size   ->size() > 1 && size   ->size() != pos->getSize())  ||
-       (col  != NullFC && col->getSize()  != 1 &&
-                          col->getSize()  != pos->getSize())       ||
-       (norm != NullFC && norm->getSize() != 1 &&
-                          norm->getSize() != pos->getSize())
+       (col  != NULL && col->getSize()  != 1 &&
+                        col->getSize()  != pos->getSize())       ||
+       (norm != NULL && norm->getSize() != 1 &&
+                        norm->getSize() != pos->getSize())
       )
     {
         FWARNING(("Particles::draw: inconsistent attributes "
                     "(p:%d s:%d c:%d)!\n",
                     pos->getSize(), size->size(),
-                    (col != NullFC)? (int)col->getSize() : -1));
+                    (col != NULL)? (int)col->getSize() : -1));
         return Action::Continue;
     }
 
@@ -2852,7 +2852,7 @@ Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
 
 ParticlesDrawer *Particles::findDrawer(void)
 {
-    if(getPositions() == NullFC)
+    if(getPositions() == NULL)
         return NULL;
 
     UInt8 mode;
@@ -2865,19 +2865,19 @@ ParticlesDrawer *Particles::findDrawer(void)
     size =   (getMFSizes()->size()      == getPositions()->getSize()) ? part :
              (getMFSizes()->size()      == 1                        ) ? sing : 
                                                                         none;
-    normal = (getNormals() != NullFC && 
+    normal = (getNormals() != NULL && 
               getNormals()->getSize()   == getPositions()->getSize()) ? part :
-             (getNormals() != NullFC && 
+             (getNormals() != NULL && 
               getNormals()->getSize()   == 1                        ) ? sing : 
                                                                         none;
-    secpos = (getSecPositions() != NullFC && 
+    secpos = (getSecPositions() != NULL && 
               getSecPositions()->getSize()== getPositions()->getSize())?part :
-             (getSecPositions() != NullFC && 
+             (getSecPositions() != NULL && 
               getSecPositions()->getSize()== 1                        )?sing : 
                                                                         none;
-    color =  (getColors() != NullFC && 
+    color =  (getColors() != NULL && 
               getColors()->getSize()    == getPositions()->getSize()) ? part :
-             (getColors() != NullFC && 
+             (getColors() != NULL && 
               getColors()->getSize()    == 1                        ) ? sing : 
                                                                         none;
     tex =    (getMFTextureZs()->size()  == getPositions()->getSize()) ? part :
@@ -2887,15 +2887,15 @@ ParticlesDrawer *Particles::findDrawer(void)
     // check if the used types are common cases
     
 /*
-    bool normalIs3f = (getNormals()   != NullFC && 
+    bool normalIs3f = (getNormals()   != NULL && 
                        getNormals()->getFormat()      == GL_FLOAT);
                         
-    bool colorIs3f  = (getColors()    != NullFC && 
+    bool colorIs3f  = (getColors()    != NULL && 
                        getColors()->getFormat()       == GL_FLOAT && 
                        getColors()->getDimension()    == 3);
  */
                         
-    bool posIs3f    = (getPositions() != NullFC && 
+    bool posIs3f    = (getPositions() != NULL && 
                        getPositions()->getFormat()    == GL_FLOAT && 
                        getPositions()->getDimension() == 3);
     

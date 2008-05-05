@@ -87,18 +87,18 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterial : public MultiPassMaterialBase
     virtual StatePtr makeState    (void                    );
 #endif
 
-    virtual void     rebuildState (void                    );
-    virtual StatePtr getState     (UInt32            index );
-    virtual UInt32   getNPasses   (void                    );
+    virtual void    rebuildState (void                    );
+    virtual State  *getState     (UInt32            index );
+    virtual UInt32  getNPasses   (void                    );
 
-    virtual bool     isTransparent(void                    ) const;
+    virtual bool    isTransparent(void                    ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    bool hasMaterial(MaterialPtr pMat);
+    bool hasMaterial(Material *pMat);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -454,7 +454,7 @@ BalancedMultiWindowTransitPtr BalancedMultiWindowBase::create(void)
 {
     BalancedMultiWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -470,7 +470,7 @@ BalancedMultiWindowTransitPtr BalancedMultiWindowBase::createLocal(BitVector bFl
 {
     BalancedMultiWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -482,9 +482,9 @@ BalancedMultiWindowTransitPtr BalancedMultiWindowBase::createLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-BalancedMultiWindowPtr BalancedMultiWindowBase::createEmpty(void)
+BalancedMultiWindow *BalancedMultiWindowBase::createEmpty(void)
 {
-    BalancedMultiWindowPtr returnValue;
+    BalancedMultiWindow *returnValue;
 
     newPtr<BalancedMultiWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -494,9 +494,9 @@ BalancedMultiWindowPtr BalancedMultiWindowBase::createEmpty(void)
     return returnValue;
 }
 
-BalancedMultiWindowPtr BalancedMultiWindowBase::createEmptyLocal(BitVector bFlags)
+BalancedMultiWindow *BalancedMultiWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    BalancedMultiWindowPtr returnValue;
+    BalancedMultiWindow *returnValue;
 
     newPtr<BalancedMultiWindow>(returnValue, bFlags);
 
@@ -507,7 +507,7 @@ BalancedMultiWindowPtr BalancedMultiWindowBase::createEmptyLocal(BitVector bFlag
 
 FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopy(void) const
 {
-    BalancedMultiWindowPtr tmpPtr;
+    BalancedMultiWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const BalancedMultiWindow *>(this), 
@@ -523,7 +523,7 @@ FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    BalancedMultiWindowPtr tmpPtr;
+    BalancedMultiWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const BalancedMultiWindow *>(this), bFlags);
 
@@ -694,9 +694,9 @@ void BalancedMultiWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr BalancedMultiWindowBase::createAspectCopy(void) const
+FieldContainer *BalancedMultiWindowBase::createAspectCopy(void) const
 {
-    BalancedMultiWindowPtr returnValue;
+    BalancedMultiWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const BalancedMultiWindow *>(this));
@@ -714,7 +714,7 @@ void BalancedMultiWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BalancedMultiWindowPtr>::_type("BalancedMultiWindowPtr", "MultiDisplayWindowPtr");
+DataType FieldTraits<BalancedMultiWindow *>::_type("BalancedMultiWindowPtr", "MultiDisplayWindowPtr");
 #endif
 
 

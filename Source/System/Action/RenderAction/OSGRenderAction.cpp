@@ -283,11 +283,11 @@ RenderAction::RenderAction(void) :
     FieldContainerType *pSHLType  = 
         FieldContainerFactory::the()->findType("SHLChunk");
 
-    StateChunkPtr       pSHLProto = NullFC;
+    StateChunk         *pSHLProto = NULL;
 
-    if(pSHLType != NullFC)
+    if(pSHLType != NULL)
     {
-        pSHLProto = dynamic_cast<StateChunkPtr>(pSHLType->getPrototype());
+        pSHLProto = dynamic_cast<StateChunk *>(pSHLType->getPrototype());
     }
 
     
@@ -296,7 +296,7 @@ RenderAction::RenderAction(void) :
     UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
     UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
 
-    if(pSHLProto != NullFC)
+    if(pSHLProto != NULL)
     {
         uiSId = pSHLProto->getClassId();
     }
@@ -454,17 +454,17 @@ UInt32 RenderAction::getCurrentBuffer(void)
 
 /*-------------------------- your_category---------------------------------*/
 
-ActionBase::ResultE RenderAction::recurceNoNodeCallbacks(const NodePtr node)
+ActionBase::ResultE RenderAction::recurceNoNodeCallbacks(Node * const node)
 {
-    if(node == NullFC)
+    if(node == NULL)
         return Continue;
 
     if((node->getTravMask() & getTravMask()) == 0)
         return Continue;
 
-    NodeCorePtr core = node->getCore();
+    NodeCore *core = node->getCore();
 
-    if(core == NullFC)
+    if(core == NULL)
     {
         SWARNING << "recurse: core is Null,  don't know what to do!"
                  << std::endl;
@@ -708,9 +708,9 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func,
     
     for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
     {
-        StatePtr st = pMat->getState(uiPass);
+        State *st = pMat->getState(uiPass);
         
-        if(st != NullFC)
+        if(st != NULL)
         {
             this->dropFunctor(func, 
                               st, 
@@ -719,9 +719,9 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func,
         else
         {
 #ifndef WIN32
-            FINFO(("%s: hit material with NullFC state!\n", __func__));
+            FINFO(("%s: hit material with NULL state!\n", __func__));
 #else
-            FINFO(("Hit material with NullFC state!\n"));
+            FINFO(("Hit material with NULL state!\n"));
 #endif
         }
     }
@@ -767,8 +767,8 @@ const Matrix &RenderAction::topMatrix(void)
     return _pActivePartition->topMatrix();
 }
 
-void RenderAction::overrideMaterial(      Material *pMaterial,
-                                    const NodePtr   pNode    )
+void RenderAction::overrideMaterial(Material *       pMaterial,
+                                    Node     * const pNode    )
 {
     _pActivePartition->overrideMaterial(pMaterial, pNode);
 }

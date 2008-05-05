@@ -67,7 +67,7 @@ ScanParseSkel::ScanParseSkel(void) :
     _bMapTypeIds      (false ),
     _szReferenceHeader(NULL  ),
     _pLexer           (new OSGScanParseLexer),
-    _image            (NullFC),
+    _image            (NULL  ),
     _imageDataPtr     (0     )
 {
 }
@@ -77,7 +77,7 @@ ScanParseSkel::ScanParseSkel(void) :
 
 ScanParseSkel::~ScanParseSkel(void)
 {
-    _image = NullFC;
+    _image = NULL;
 
     delete _pLexer;
 
@@ -380,7 +380,7 @@ void ScanParseSkel::addFloatValue(Real32 f)
     addFieldValue(_pLexer->YYText());
 }
 
-void ScanParseSkel::addImageValue(ImagePtr img)
+void ScanParseSkel::addImageValue(Image *img)
 {
     UInt32 numComponents = img->getComponents();
     std::ostringstream os;
@@ -566,7 +566,7 @@ void ScanParseSkel::appendValue()
 
 void ScanParseSkel::beginImage(Int32 width, Int32 height, Int32 components)
 {
-    if (_image == NullFC)
+    if (_image == NULL)
     {
         _image = Image::create();
 
@@ -615,5 +615,5 @@ void ScanParseSkel::endImage()
 
 //    subRefX(_image);
 
-    _image = NullFC;
+    _image = NULL;
 }

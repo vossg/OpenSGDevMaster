@@ -107,10 +107,10 @@ class OSG_CLUSTER_DLLMAPPING RenderNode
     /*! \name                   performance analysis                       */
     /*! \{                                                                 */
 
-    void   determinePerformance(WindowPtr &prt           );
-    Real32 estimatePerformance (Real32     invisibleFaces,
-                                Real32     visibleFaces,
-                                Real32     pixel         ) const;
+    void   determinePerformance(Window  *prt           );
+    Real32 estimatePerformance (Real32   invisibleFaces,
+                                Real32   visibleFaces,
+                                Real32   pixel         ) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

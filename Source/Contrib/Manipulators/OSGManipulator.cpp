@@ -94,7 +94,7 @@ void Manipulator::initMethod(InitPhase)
 
 Manipulator::Manipulator(void) :
     Inherited(),
-    _activeParent( NullFC ),
+    _activeParent( NULL ),
     _externalUpdateHandler( NULL )
 {
 }
@@ -138,16 +138,16 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
     }
     else if ( (whichField & ParentsFieldMask) == ParentsFieldMask )
     {
-        NodePtr   parent;
+        Node *parent;
 
         if ( !getParents().empty() )
         {
             //std::cout << "parent size= " << parents.getSize() << std::endl;
-            parent = dynamic_cast<NodePtr>(getParents()[0]); // Dangerous! multiple parents?
+            parent = dynamic_cast<Node *>(getParents()[0]); // Dangerous! multiple parents?
         }
         else
         {
-            parent = NullFC;
+            parent = NULL;
         }
 
         //std::cout << "  Parent=       " << parent << std::endl;
@@ -155,7 +155,7 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
 
         if ( parent != _activeParent )
         {
-            if ( NullFC != parent )
+            if ( NULL != parent )
             {
                 // remove old childs from a loaded osb file.
                 while(parent->getNChildren() > 0)
@@ -165,7 +165,7 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
                 addHandleGeo(parent);
             }
 
-            if ( _activeParent != NullFC )
+            if ( _activeParent != NULL )
             {
                 subHandleGeo(_activeParent);
             }
@@ -175,7 +175,7 @@ void Manipulator::changed(ConstFieldMaskArg whichField,
     }
 }
 
-void Manipulator::addHandleGeo(NodePtr n)
+void Manipulator::addHandleGeo(Node *n)
 {
     n->addChild(getTransXNode());
     n->addChild(getTransYNode());
@@ -183,7 +183,7 @@ void Manipulator::addHandleGeo(NodePtr n)
     n->addChild(getAxisLinesN());
 }
 
-void Manipulator::subHandleGeo(NodePtr n)
+void Manipulator::subHandleGeo(Node *n)
 {
     n->subChild(getTransXNode());
     n->subChild(getTransYNode());
@@ -193,10 +193,10 @@ void Manipulator::subHandleGeo(NodePtr n)
 
 void Manipulator::reverseTransform()
 {
-    if ( getTarget() != NullFC )
+    if ( getTarget() != NULL )
     {
-        TransformPtr t = dynamic_cast<TransformPtr>(getTarget()->getCore());
-        Matrix          m,n,o;
+        Transform *t = dynamic_cast<Transform *>(getTarget()->getCore());
+        Matrix     m,n,o;
 
         Vec3f      translation;
         Quaternion rotation;
@@ -250,8 +250,8 @@ void Manipulator::onCreate(const Manipulator* source)
 
     setMaterialZ(pMat);
 
-    SimpleMaterialPtr  simpleMat;
-    GeometryPtr        geo;
+    SimpleMaterial *simpleMat;
+    Geometry       *geo;
 
     setExternalUpdateHandler(NULL);
 
@@ -281,12 +281,12 @@ void Manipulator::onCreate(const Manipulator* source)
     _transHandleXC->setTranslation(Vec3f(getLength()[0], 0, 0)                   );
     _transHandleXC->setRotation   (Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
-    simpleMat = dynamic_cast<SimpleMaterialPtr>(getMaterialX());
+    simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialX());
 
     simpleMat->setDiffuse(Color3f(1, 0, 0));
     simpleMat->setLit    (true            );
 
-    geo = dynamic_cast<GeometryPtr>(getHandleXNode()->getCore());
+    geo = dynamic_cast<Geometry *>(getHandleXNode()->getCore());
     geo->setMaterial(simpleMat);
 
     //
@@ -306,11 +306,11 @@ void Manipulator::onCreate(const Manipulator* source)
     _transHandleYC->setTranslation(Vec3f(0, getLength()[1], 0)                    );
 //    _transHandleYC->setRotation   ( Quaternion(Vec3f(0, 0, 1), osgDegree2Rad(-90)));
 
-    simpleMat = dynamic_cast<SimpleMaterialPtr>(getMaterialY());
+    simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialY());
     simpleMat->setDiffuse(Color3f(0, 1, 0));
     simpleMat->setLit    (true            );
 
-    geo = dynamic_cast<GeometryPtr>(getHandleYNode()->getCore());
+    geo = dynamic_cast<Geometry *>(getHandleYNode()->getCore());
     geo->setMaterial(simpleMat);
 
     //
@@ -330,11 +330,11 @@ void Manipulator::onCreate(const Manipulator* source)
     _transHandleZC->setTranslation(Vec3f(0, 0, getLength()[2])                  );
     _transHandleZC->setRotation   (Quaternion(Vec3f(1, 0, 0), osgDegree2Rad(90)));
 
-    simpleMat = dynamic_cast<SimpleMaterialPtr>(getMaterialZ());
+    simpleMat = dynamic_cast<SimpleMaterial *>(getMaterialZ());
     simpleMat->setDiffuse(Color3f(0, 0, 1));
     simpleMat->setLit    (true            );
 
-    geo = dynamic_cast<GeometryPtr>(getHandleZNode()->getCore());
+    geo = dynamic_cast<Geometry *>(getHandleZNode()->getCore());
     geo->setMaterial(simpleMat);
 
     commitChanges();
@@ -348,21 +348,21 @@ void Manipulator::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    _activeParent  = NullFC;
+    _activeParent  = NULL;
 
-    _transHandleXC = NullFC;
-    _transHandleYC = NullFC;
-    _transHandleZC = NullFC;
+    _transHandleXC = NULL;
+    _transHandleYC = NULL;
+    _transHandleZC = NULL;
 }
 
-Pnt2f Manipulator::calcScreenProjection(const Pnt3f       &p,
-                                        const ViewportPtr &port)
+Pnt2f Manipulator::calcScreenProjection(const Pnt3f    &       p,
+                                              Viewport * const port)
 {
-    CameraPtr  cam;
-    Matrix     proj, projtrans, view;
-    Pnt3f      pnt;
+    Camera  *cam;
+    Matrix   proj, projtrans, view;
+    Pnt3f    pnt;
 
-    if( port != NullFC )
+    if( port != NULL )
     {
         cam = port->getCamera();
 
@@ -386,7 +386,7 @@ Pnt2f Manipulator::calcScreenProjection(const Pnt3f       &p,
     else
     {
         SWARNING << "calcScreenProjection(const Pnt3f&, "
-                    "const ViewportPtr& port="
+                    "Viewport * const port="
                  << port << ")\n";
         return Pnt2f(0.0f, 0.0f);
     }
@@ -404,12 +404,12 @@ void Manipulator::mouseMove(const Int16 x,
     //SLOG << "Manipulator::mouseMove() enter\n" << std::flush;
 
     // get the beacon's core (must be ComponentTransform) and it's center
-    if( getTarget() != NullFC )
+    if( getTarget() != NULL )
     {
         // get transformation of beacon
-        TransformPtr t = dynamic_cast<TransformPtr>(getTarget()->getCore());
+        Transform *t = dynamic_cast<Transform *>(getTarget()->getCore());
 
-        if( t != NullFC )
+        if( t != NULL )
         {
             UInt16     coord(0);          // active coordinate: X=0, Y=1, Z=2
 

@@ -170,10 +170,10 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
     /*! \name      composition                                             */
     /*! \{                                                                 */
 
-    virtual void open           (void            );
-    virtual void startViewport  (ViewportPtr port);
-    virtual void composeViewport(ViewportPtr port);
-    virtual void close          (void            );
+    virtual void open           (void          );
+    virtual void startViewport  (Viewport *port);
+    virtual void composeViewport(Viewport *port);
+    virtual void close          (void          );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -259,7 +259,7 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
 
     template<class DepthT,class ColorT>
     void readBuffer(DepthT &depth,ColorT &color,
-                      ViewportPtr port);
+                    Viewport *port);
     template<class DepthT,class ColorT>
     void composeBuffer(DepthT &depth,ColorT &color);
 

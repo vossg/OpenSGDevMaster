@@ -195,7 +195,7 @@ OSBRootElement::read(const std::string &/*typeName*/)
         elem = OSBElementFactory::the()->acquire(fcTypeName, this);
         elem->read(fcTypeName);
 
-        if(elem->getContainer() != NullFC)
+        if(elem->getContainer() != NULL)
         {
             fcIdSystem = elem->getContainer()->getId();
 
@@ -205,7 +205,7 @@ OSBRootElement::read(const std::string &/*typeName*/)
             editIdMap().insert(
                 FieldContainerIdMap::value_type(fcIdFile, fcIdSystem));
 
-            if(getContainer() == NullFC)
+            if(getContainer() == NULL)
             {
                 setContainer(elem->getContainer());
             }
@@ -295,11 +295,11 @@ OSBRootElement::terminateWrite(void)
     \param[in] fc FieldContainer that is inspected for reachable containers.
  */
 void
-OSBRootElement::preWrite(const FieldContainerPtr &fc)
+OSBRootElement::preWrite(FieldContainer * const fc)
 {
     FDEBUG(("OSBRootElement::preWrite\n"));
 
-    if(fc == NullFC)
+    if(fc == NULL)
         return;
 
     std::string     typeName = fc->getType().getCName();
@@ -363,9 +363,9 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 
     if(bindingIt != bindingEnd)
     {
-        AttachmentPtr          att    = NullFC;
-        AttachmentContainerPtr attCon =
-            dynamic_cast<AttachmentContainerPtr>(ptrField.getContainer());
+        Attachment          *att    = NULL;
+        AttachmentContainer *attCon =
+            dynamic_cast<AttachmentContainer *>(ptrField.getContainer());
 
         for(; (idIt != idEnd) && (bindingIt != bindingEnd); ++idIt, ++bindingIt)
         {
@@ -375,7 +375,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 
                 if(idMapIt != idMapEnd)
                 {
-                    att = dynamic_cast<AttachmentPtr>(
+                    att = dynamic_cast<Attachment *>(
                         FieldContainerFactory::the()->getContainer(
                             idMapIt->second));
                 }
@@ -383,12 +383,12 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
                 {
                     FWARNING(("OSBRootElement::mapPtrField: could not find "
                               "FieldContainer with id [%u]\n", *idIt));
-                    att = NullFC;
+                    att = NULL;
                 }
             }
             else
             {
-                att = NullFC;
+                att = NULL;
             }
 
             FDEBUG(("OSBRootElement::mapPtrField: adding attchment [%u] [%u]\n",
@@ -399,8 +399,8 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
     }
     else
     {
-        FieldContainerPtr  fc       = NullFC;
-        FieldContainerPtr  fieldCon = ptrField.getContainer();
+        FieldContainer    *fc       = NULL;
+        FieldContainer    *fieldCon = ptrField.getContainer();
         UInt32             fieldId  = ptrField.getFieldId();
 
         EditFieldHandlePtr fHandle  = fieldCon->editField(fieldId);
@@ -430,12 +430,12 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
                 {
                     FWARNING(("OSBRootElement::mapPtrField: could not find "
                               "FieldContainer with id [%u]\n", *idIt));
-                    fc = NullFC;
+                    fc = NULL;
                 }
             }
             else
             {
-                fc = NullFC;
+                fc = NULL;
             }
 
             if(pSFHandle != NULL && pSFHandle->isValid())

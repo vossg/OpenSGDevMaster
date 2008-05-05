@@ -79,7 +79,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
     
-    bool traverse(NodePtr root);
+    bool traverse(Node *root);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -108,20 +108,20 @@ protected:
     /*==========================  PRIVATE  ================================*/
 private:
 
-    Action::ResultE traverseEnter(const NodePtr node);
-    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node);
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 
     bool isInList(const std::vector<std::string> &tlist,
-                  const FieldContainerPtr fc);
-    FieldContainerPtr compareFCs(const FieldContainerPtr fc);
-    static bool isEqual(const FieldContainerPtr a,
-                        const FieldContainerPtr b);
+                        FieldContainer * constfc);
+    FieldContainer *compareFCs(FieldContainer * const fc);
+    static bool isEqual(FieldContainer * const a,
+                        FieldContainer * const b);
 
     //static Action::ResultE clearAttachmentParent(NodePtr &node);
     //static Action::ResultE addAttachmentParent(NodePtr &node);
     //static void fillAttachmentParents(const NodePtr &node);
 
-    typedef std::set<FieldContainerPtr> fcsSet;
+    typedef std::set<FieldContainer *> fcsSet;
     typedef std::map<std::string, fcsSet> fcsMap;
     fcsMap      _fctypes;
 
@@ -129,7 +129,7 @@ private:
     std::vector<std::string>            _excludes;
     UInt32                              _share_counter;
 
-    static std::set<FieldContainerPtr>  _added_cores;
+    static std::set<FieldContainer *>  _added_cores;
 };
 
 OSG_END_NAMESPACE

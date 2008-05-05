@@ -104,11 +104,11 @@ class TextLayoutResult;
  * // Create the geometry using the layout information returned
  * // from the previous call to the layout method.
  * Real32 scale = 2.f;  // This is the height of the glyphs
- * GeometryPtr geo = face->makeGeo(layoutResult, scale);
+ * Geometry *geo = face->makeGeo(layoutResult, scale);
  *
  * // Get the texture. You have to map this texture onto the
  * // geometry we created above.
- * ImagePtr img = face->getTexture();
+ * Image *img = face->getTexture();
  *
  * // We do not need the TXF face anymore, so decrement
  * // the reference counter. Do not use the face object anymore!
@@ -139,7 +139,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * @return The texture. Do not modify this texture in
      * any way!
      */
-    inline ImagePtr getTexture() const;
+    inline Image *getTexture() const;
 
     /**
      * Returns information about a glyph.
@@ -205,7 +205,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * @param offset Amount to offset the positions in the layout.
      * @param color  The color to use for the text.  If not specified, then we will not add color container.
      */
-    void fillGeo(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    void fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                  Vec2f offset = Vec2f(0,0), Color3f color = Color3f(-1,-1,-1));
 
     /**
@@ -217,7 +217,7 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * @param color  The color to use for the text.
      * @note  Iff initial fill or add call used non-default color, the color parameter will be used.
      */
-    void addToGeom(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
+    void addToGeom(Geometry *geoPtr, const TextLayoutResult &layoutResult, Real32 scale = 1.f,
                  Vec2f offset = Vec2f(0,0), Color3f color = Color3f(-1,-1,-1));
 
     /**

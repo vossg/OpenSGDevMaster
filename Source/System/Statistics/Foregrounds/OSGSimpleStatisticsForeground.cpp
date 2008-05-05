@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
 /*----------------------- constructors & destructors ----------------------*/
 
 SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
-    Inherited(), _face(0), _texchunk(NullFC), _texenvchunk(NullFC)
+    Inherited(), _face(0), _texchunk(NULL), _texenvchunk(NULL)
 {
     _texenvchunk = TextureEnvChunk::createLocal();
 //    OSG::addRefX(_texenvchunk);
@@ -82,9 +82,9 @@ SimpleStatisticsForeground::SimpleStatisticsForeground(
     if (_face != 0)
         OSG::addRef(_face);
 
-//    if (_texchunk != NullFC)
+//    if (_texchunk != NULL)
 //        OSG::addRefX(_texchunk);
-//    if (_texenvchunk != NullFC)
+//    if (_texenvchunk != NULL)
 //        OSG::addRefX(_texenvchunk);
 }
 
@@ -97,8 +97,8 @@ void SimpleStatisticsForeground::resolveLinks(void)
 {
     Inherited::resolveLinks();
     
-    _texchunk    = NullFC;
-    _texenvchunk = NullFC;
+    _texchunk    = NULL;
+    _texenvchunk = NULL;
     
     OSG::subRef(_face);
 }
@@ -170,10 +170,10 @@ void SimpleStatisticsForeground::initText(const std::string &family, Real32 size
     // Cleanup
     if (_face != 0)
         OSG::subRef(_face);
-//    if (_texchunk != NullFC)
+//    if (_texchunk != NULL)
 //        OSG::subRefX(_texchunk);
 
-    _texchunk = NullFC;
+    _texchunk = NULL;
 
     // Create the font
     if (family.empty() == false)

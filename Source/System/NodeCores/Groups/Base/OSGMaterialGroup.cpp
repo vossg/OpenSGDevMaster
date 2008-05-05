@@ -98,8 +98,8 @@ ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
 
-    if(pAction             != NULL   && 
-       this->getMaterial() != NullFC  )
+    if(pAction             != NULL && 
+       this->getMaterial() != NULL  )
     {
         pAction->overrideMaterial(this->getMaterial(), 
                                   pAction->getActNode());

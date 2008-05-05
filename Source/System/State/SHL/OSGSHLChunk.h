@@ -73,9 +73,9 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                      DrawEnv           *pEnv,
                                      GLuint             program);
 
-    typedef void (*osgparametercbfp)(const ShaderParameterPtr &parameter,
-                                           DrawEnv            *pEnv,
-                                           GLuint              program);
+    typedef void (*osgparametercbfp)(ShaderParameter * const parameter,
+                                           DrawEnv   *       pEnv,
+                                           GLuint            program);
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
@@ -130,9 +130,9 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     void updateProgramParameters(Window *win);
 
-    static void updateParameterLocation(Window *win, 
-                                        GLuint program,
-                                        const ShaderParameterPtr &parameter);
+    static void updateParameterLocation(Window          *       win, 
+                                        GLuint                  program,
+                                        ShaderParameter * const parameter);
 
     void updateParameterLocations(
               Window                         *win,
@@ -326,86 +326,86 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                              bool update = false);
 
 
-    static void updateWorldMatrix        (const ShaderParameterPtr &parameter,
-                                                DrawEnv            *pEnv, 
-                                                GLuint              program);
+    static void updateWorldMatrix        (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv, 
+                                          GLuint                  program  );
 
-    static void updateInvWorldMatrix     (const ShaderParameterPtr &parameter,
-                                                DrawEnv            *pEnv, 
-                                                GLuint              program  );
+    static void updateInvWorldMatrix     (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv, 
+                                          GLuint                  program  );
 
-    static void updateTransInvWorldMatrix(const ShaderParameterPtr &parameter,
-                                                DrawEnv            *pEnv, 
-                                                GLuint              program  );
+    static void updateTransInvWorldMatrix(ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv, 
+                                          GLuint                  program  );
 
-    static void updateCameraOrientation(const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateCameraOrientation  (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateCameraPosition   (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateCameraPosition     (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateViewMatrix       (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateViewMatrix         (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateInvViewMatrix    (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateInvViewMatrix      (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateStereoLeftEye    (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateStereoLeftEye      (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateClusterId        (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateClusterId          (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateActiveLightsMask (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateActiveLightsMask   (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight0Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight0Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight1Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight1Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight2Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight2Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight3Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight3Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight4Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight4Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight5Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight5Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight6Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight6Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
-    static void updateLight7Active     (const ShaderParameterPtr &parameter,
-                                        DrawEnv           *pEnv,
-                                        GLuint             program           );
+    static void updateLight7Active       (ShaderParameter * const parameter,
+                                          DrawEnv         *       pEnv,
+                                          GLuint                  program  );
 
 
     std::vector<std::pair<std::pair<parametercbfp, osgparametercbfp>,
-        ShaderParameterPtr> > _osgParametersCallbacks;
+        ShaderParameter *> > _osgParametersCallbacks;
 
     UInt32                    _oldParameterSize;
 
     userParameterCallbacksMap _userParameterCallbacks;
-    static parametercbfp       _userParametersCallback;
+    static parametercbfp      _userParametersCallback;
 };
 
 typedef SHLChunk *SHLChunkP;

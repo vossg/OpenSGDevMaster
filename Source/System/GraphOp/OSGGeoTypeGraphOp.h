@@ -67,8 +67,8 @@ public:
 protected:
     virtual ~GeoTypeGraphOp(void);
 private:
-    bool travNodeEnter(NodePtr node);
-    bool travNodeLeave(NodePtr node);
+    bool travNodeEnter(Node *node);
+    bool travNodeLeave(Node *node);
 
     OSG::BitVector _filter;
 };

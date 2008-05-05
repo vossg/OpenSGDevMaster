@@ -77,8 +77,8 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     };
 
     /** functor called for changed containers **/
-    typedef boost::function<bool (const FieldContainerPtr, 
-                                        RemoteAspect     *)> Functor;
+    typedef boost::function<bool (FieldContainer * const, 
+                                  RemoteAspect   *      )> Functor;
 
 
     /** Map remote to local id **/
@@ -176,9 +176,9 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     /*! \name                 protected helper functions                   */
     /*! \{                                                                 */
 
-    bool   callCreated  (const FieldContainerPtr node);
-    bool   callDestroyed(const FieldContainerPtr node);
-    bool   callChanged  (const FieldContainerPtr node);
+    bool   callCreated  (FieldContainer * const node);
+    bool   callDestroyed(FieldContainer * const node);
+    bool   callChanged  (FieldContainer * const node);
 
     /*! \}                                                                 */
 
@@ -202,12 +202,12 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     /*! \name                 static elements                              */
     /*! \{                                                                 */
 
-    static bool _defaultCreatedFunction  (const FieldContainerPtr &fcp,
-                                                RemoteAspect      *aspect);
-    static bool _defaultDestroyedFunction(const FieldContainerPtr &fcp,
-                                                RemoteAspect      *aspect);
-    static bool _defaultChangedFunction  (const FieldContainerPtr &fcp,
-                                                RemoteAspect      *aspect);
+    static bool _defaultCreatedFunction  (FieldContainer * const fcp,
+                                          RemoteAspect   *       aspect);
+    static bool _defaultDestroyedFunction(FieldContainer * const fcp,
+                                          RemoteAspect   *       aspect);
+    static bool _defaultChangedFunction  (FieldContainer * const fcp,
+                                          RemoteAspect   *       aspect);
 
     static StatElemDesc<StatTimeElem> statSyncTime;
 

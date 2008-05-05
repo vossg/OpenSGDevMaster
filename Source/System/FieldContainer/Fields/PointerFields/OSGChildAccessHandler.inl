@@ -76,19 +76,19 @@ typename ChildAccessHandler<RefCountPolicyT>::MFieldType * const
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::linkParent(
-    FieldContainerPtr const pParent,
-    UInt16            const childFieldId,
-    FieldContainerPtr const pChild,
-    UInt16            const parentFieldId)
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    FieldContainer * const pChild,
+    UInt16           const parentFieldId)
 {
     pChild->linkParent(pParent, childFieldId, parentFieldId);
 }
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::unlinkParent(
-    FieldContainerPtr const pParent,
-    FieldContainerPtr const pChild,
-    UInt16            const parentFieldId)
+    FieldContainer * const pParent,
+    FieldContainer * const pChild,
+    UInt16           const parentFieldId)
 {
     pChild->unlinkParent(pParent, parentFieldId);
 }
@@ -98,8 +98,8 @@ void ChildAccessHandler<RefCountPolicyT>::unlinkParent(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onAdd(
-    SFieldBaseType    * const pSField, 
-    FieldContainerPtr   const pObj   )
+    SFieldBaseType * const pSField, 
+    FieldContainer * const pObj   )
 {
     if(pObj != NULL)
     {
@@ -114,8 +114,8 @@ void ChildAccessHandler<RefCountPolicyT>::onAdd(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onAdd(
-    MFieldBaseType    * const pMField, 
-    FieldContainerPtr   const pObj   )
+    MFieldBaseType * const pMField, 
+    FieldContainer * const pObj   )
 {
     if(pObj != NULL)
     {
@@ -130,8 +130,8 @@ void ChildAccessHandler<RefCountPolicyT>::onAdd(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSub(
-    SFieldBaseType    * const pSField, 
-    FieldContainerPtr   const pObj   )
+    SFieldBaseType * const pSField, 
+    FieldContainer * const pObj   )
 {
     if(pObj != NULL)
     {
@@ -145,8 +145,8 @@ void ChildAccessHandler<RefCountPolicyT>::onSub(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSub(
-    MFieldBaseType    * const pMField, 
-    FieldContainerPtr   const pObj   )
+    MFieldBaseType * const pMField, 
+    FieldContainer * const pObj   )
 {
     if(pObj != NULL)
     {
@@ -160,9 +160,9 @@ void ChildAccessHandler<RefCountPolicyT>::onSub(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onReplace(
-    SFieldBaseType    * const pSField,
-    FieldContainerPtr   const pOldObj, 
-    FieldContainerPtr   const pNewObj)
+    SFieldBaseType * const pSField,
+    FieldContainer * const pOldObj, 
+    FieldContainer * const pNewObj)
 {
     RefCountPolicyType::addRef(pNewObj);
 
@@ -186,9 +186,9 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onReplace(
-    MFieldBaseType    * const pMField,
-    FieldContainerPtr   const pOldObj,
-    FieldContainerPtr   const pNewObj)
+    MFieldBaseType * const pMField,
+    FieldContainer * const pOldObj,
+    FieldContainer * const pNewObj)
 {
     RefCountPolicyType::addRef(pNewObj);
 
@@ -215,45 +215,45 @@ void ChildAccessHandler<RefCountPolicyT>::onReplace(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSyncAdd(
-    SFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    SFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::addRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSyncAdd(
-    MFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    MFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::addRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSyncSub(
-    SFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    SFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::subRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSyncSub(
-    MFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    MFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::subRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
-    SFieldBaseType    * const pSField,
-    FieldContainerPtr   const pOldObj,
-    FieldContainerPtr   const pNewObj)
+    SFieldBaseType * const pSField,
+    FieldContainer * const pOldObj,
+    FieldContainer * const pNewObj)
 {
     onSyncAdd(pSField, pNewObj);
 
-    if(pOldObj != NullFC)
+    if(pOldObj != NULL)
     {
         Thread::getCurrentChangeList()->addDelayedSubRef<
             RefCountPolicyT>(pOldObj);
@@ -264,13 +264,13 @@ void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
 
 template<typename RefCountPolicyT> inline 
 void ChildAccessHandler<RefCountPolicyT>::onSyncReplace(
-    MFieldBaseType    * const pMField,
-    FieldContainerPtr   const pOldObj,
-    FieldContainerPtr   const pNewObj)
+    MFieldBaseType * const pMField,
+    FieldContainer * const pOldObj,
+    FieldContainer * const pNewObj)
 {
     onSyncAdd(pMField, pNewObj);
 
-    if(pOldObj != NullFC)
+    if(pOldObj != NULL)
     {
         Thread::getCurrentChangeList()->addDelayedSubRef<
             RefCountPolicyT>(pOldObj);

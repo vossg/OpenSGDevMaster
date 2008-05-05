@@ -103,7 +103,7 @@ GraphOp* SplitGraphOp::create()
     return inst;
 }
 
-bool SplitGraphOp::traverse(NodePtr root)
+bool SplitGraphOp::traverse(Node *root)
 {
     return GraphOp::traverse(root);
 }
@@ -144,15 +144,15 @@ void SplitGraphOp::setMaxPolygons(UInt16 max_polygons)
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-Action::ResultE SplitGraphOp::traverseEnter(const NodePtr node)
+Action::ResultE SplitGraphOp::traverseEnter(Node * const node)
 {
     if (isLeaf(node)) return Action::Skip;
 
-    SwitchPtr switch_ = dynamic_cast<SwitchPtr>(node->getCore());
-    if (switch_!=NullFC) return Action::Skip;
+    Switch *switch_ = dynamic_cast<Switch *>(node->getCore());
+    if (switch_!=NULL) return Action::Skip;
     
-    DistanceLODPtr dlod = dynamic_cast<DistanceLODPtr>(node->getCore());
-    if (dlod!=NullFC) return Action::Skip;   
+    DistanceLOD *dlod = dynamic_cast<DistanceLOD *>(node->getCore());
+    if (dlod!=NULL) return Action::Skip;   
     
     return Action::Continue;    
 }
@@ -232,7 +232,7 @@ for (UInt32 k=0; k<LENGTH; k++)                                         \
             t3ni[geoIndex][tex3Ind]=tex3[geoIndex]->size()-1;           \
         }                                                               \
     }                                                                   \
-    if (indices[geoIndex]!=NullFC)                                      \
+    if (indices[geoIndex]!=NULL)                                        \
     {                                                                   \
         if (geos[geoIndex]->getIndexMapping().size()<2)                 \
         {                                                               \
@@ -266,21 +266,21 @@ for (UInt32 k=0; k<LENGTH; k++)                                         \
 }
 
 #define setupAttr( type , arr1 , arr2 , getmethod )                                 \
-if (geo->getmethod()!=NullFC && geo->getmethod()->size()>0)                         \
+if (geo->getmethod()!=NULL && geo->getmethod()->size()>0)                         \
 {                                                                                   \
     arr1[i]    = dynamic_cast<type>(geo->getmethod()->getType().createFieldContainer());   \
     arr2[i]    = new int[geo->getmethod()->size()];                                 \
     for (UInt32 j=0; j<geo->getmethod()->size(); j++)                               \
         arr2[i][j]=-1;                                                              \
-} else { arr2[i]=0; arr1[i]=NullFC; }
+} else { arr2[i]=0; arr1[i]=NULL; }
 
-Action::ResultE SplitGraphOp::traverseLeave(const NodePtr node, Action::ResultE res)
+Action::ResultE SplitGraphOp::traverseLeave(Node * const node, Action::ResultE res)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
 
-    std::vector<NodeUnrecPtr> toAdd;
-    std::vector<NodePtr     > toSub;
+    std::vector<NodeUnrecPtr  > toAdd;
+    std::vector<Node         *> toSub;
 
     for ( ; mfit != mfen; ++mfit )
     {
@@ -302,8 +302,8 @@ Action::ResultE SplitGraphOp::traverseLeave(const NodePtr node, Action::ResultE 
         node->addChild(*vait);
     }
     
-    std::vector<NodePtr>::const_iterator vsit = toSub.begin();
-    std::vector<NodePtr>::const_iterator vsen = toSub.end  ();
+    std::vector<Node *>::const_iterator vsit = toSub.begin();
+    std::vector<Node *>::const_iterator vsen = toSub.end  ();
     
     for ( ; vsit != vsen; ++vsit )
     {
@@ -313,7 +313,7 @@ Action::ResultE SplitGraphOp::traverseLeave(const NodePtr node, Action::ResultE 
     return res;
 }
 
-bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &split)
+bool SplitGraphOp::splitNode(Node * const node, std::vector<NodeUnrecPtr> &split)
 {
     // PORTME
     return false;
@@ -322,11 +322,11 @@ bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &spli
     if (!isLeaf(node) || isInExcludeList(node) ||
         !node->getCore()->getType().isDerivedFrom(Geometry::getClassType())) return false;
 
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
 
-    if ( geo->getPositions() == NullFC || geo->getPositions()->size() == 0 ||
-         geo->getLengths()   == NullFC || geo->getLengths()->size() == 0 ||
-         geo->getTypes()     == NullFC || geo->getTypes()->size() == 0 ) return false;
+    if ( geo->getPositions() == NULL || geo->getPositions()->size() == 0 ||
+         geo->getLengths()   == NULL || geo->getLengths()->size() == 0 ||
+         geo->getTypes()     == NULL || geo->getTypes()->size() == 0 ) return false;
 
     //get all center points
     std::vector<Pnt3f> centers;
@@ -403,18 +403,18 @@ bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &spli
 
     if (ngeos<=1) return false;
 
-    GeometryPtr       *geos    = new GeometryPtr[ngeos];
-    GeoPTypesPtr      *types   = new GeoPTypesPtr[ngeos];
-    GeoPLengthsPtr    *lens    = new GeoPLengthsPtr[ngeos];
-    GeoPositionsPtr   *pnts    = new GeoPositionsPtr[ngeos];
-    GeoNormalsPtr     *normals = new GeoNormalsPtr[ngeos];
-    GeoColorsPtr      *colors  = new GeoColorsPtr[ngeos];
-    GeoColorsPtr      *scolors = new GeoColorsPtr[ngeos];
-    GeoTexCoordsPtr   *tex     = new GeoTexCoordsPtr[ngeos];
-    GeoTexCoordsPtr   *tex1    = new GeoTexCoordsPtr[ngeos];
-    GeoTexCoordsPtr   *tex2    = new GeoTexCoordsPtr[ngeos];
-    GeoTexCoordsPtr   *tex3    = new GeoTexCoordsPtr[ngeos];
-    GeoIndicesPtr     *indices = new GeoIndicesPtr[ngeos];
+    Geometry       **geos    = new Geometry *[ngeos];
+    GeoPTypes      **types   = new GeoPTypes *[ngeos];
+    GeoPLengths    **lens    = new GeoPLengths *[ngeos];
+    GeoPositions   **pnts    = new GeoPositions *[ngeos];
+    GeoNormals     **normals = new GeoNormals *[ngeos];
+    GeoColors      **colors  = new GeoColors *[ngeos];
+    GeoColors      **scolors = new GeoColors *[ngeos];
+    GeoTexCoords   **tex     = new GeoTexCoords *[ngeos];
+    GeoTexCoords   **tex1    = new GeoTexCoords *[ngeos];
+    GeoTexCoords   **tex2    = new GeoTexCoords *[ngeos];
+    GeoTexCoords   **tex3    = new GeoTexCoords *[ngeos];
+    GeoIndices     **indices = new GeoIndices *[ngeos];
 
     int **pni  = new int*[ngeos];
     int **nni  = new int*[ngeos];
@@ -434,24 +434,24 @@ bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &spli
         if(geo->getMFIndexMapping() != NULL)
             geos[i]->getMFIndexMapping()->setValues(*(geo->getMFIndexMapping()));
 
-        types[i]   = dynamic_cast<GeoPTypesPtr>(geo->getTypes()->getType().createFieldContainer());
-        lens[i]    = dynamic_cast<GeoPLengthsPtr>(geo->getLengths()->getType().createFieldContainer());
+        types[i]   = dynamic_cast<GeoPTypes *>(geo->getTypes()->getType().createFieldContainer());
+        lens[i]    = dynamic_cast<GeoPLengths *>(geo->getLengths()->getType().createFieldContainer());
 
-        if (geo->getIndices()!=NullFC)
+        if (geo->getIndices()!=NULL)
         {
-            indices[i]  = dynamic_cast<GeoIndicesPtr>(geo->getIndices()->getType().createFieldContainer());
+            indices[i]  = dynamic_cast<GeoIndices *>(geo->getIndices()->getType().createFieldContainer());
         }
         else
-            indices[i]  = NullFC;
+            indices[i]  = NULL;
 
-        setupAttr( GeoPositionsPtr , pnts    , pni  , getPositions       );
-        setupAttr( GeoNormalsPtr   , normals , nni  , getNormals         );
-        setupAttr( GeoColorsPtr    , colors  , cni  , getColors          );
-        setupAttr( GeoColorsPtr    , scolors , sni  , getSecondaryColors );
-        setupAttr( GeoTexCoordsPtr , tex     , tni  , getTexCoords       );        
-        setupAttr( GeoTexCoordsPtr , tex1    , t1ni , getTexCoords1      );
-        setupAttr( GeoTexCoordsPtr , tex2    , t2ni , getTexCoords2      );
-        setupAttr( GeoTexCoordsPtr , tex3    , t3ni , getTexCoords3      );
+        setupAttr( GeoPositions * , pnts    , pni  , getPositions       );
+        setupAttr( GeoNormals *   , normals , nni  , getNormals         );
+        setupAttr( GeoColors *    , colors  , cni  , getColors          );
+        setupAttr( GeoColors *    , scolors , sni  , getSecondaryColors );
+        setupAttr( GeoTexCoords * , tex     , tni  , getTexCoords       );        
+        setupAttr( GeoTexCoords * , tex1    , t1ni , getTexCoords1      );
+        setupAttr( GeoTexCoords * , tex2    , t2ni , getTexCoords2      );
+        setupAttr( GeoTexCoords * , tex3    , t3ni , getTexCoords3      );
     }
 
     ind=0;
@@ -651,49 +651,49 @@ bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &spli
 
         // Now close the open FCs
 
-        if (indices[i]!=NullFC)
+        if (indices[i]!=NULL)
         {
             geos[i]->setIndices(indices[i]);
         }
 
-        if (normals[i]!=NullFC)
+        if (normals[i]!=NULL)
         {
             geos[i]->setNormals(normals[i]);
         }
 
-        if (colors[i]!=NullFC)
+        if (colors[i]!=NULL)
         {
             geos[i]->setColors(colors[i]);
         }
         
-        if (scolors[i]!=NullFC)
+        if (scolors[i]!=NULL)
         {
             geos[i]->setSecondaryColors(scolors[i]);
         }
         
-        if (tex[i]!=NullFC)
+        if (tex[i]!=NULL)
         {
             geos[i]->setTexCoords(tex[i]);
         }
        
-        if (tex1[i]!=NullFC)
+        if (tex1[i]!=NULL)
         {
             geos[i]->setTexCoords1(tex1[i]);
         }
         
-        if (tex2[i]!=NullFC)
+        if (tex2[i]!=NULL)
         {
             geos[i]->setTexCoords2(tex2[i]);
         }
         
-        if (tex3[i]!=NullFC)
+        if (tex3[i]!=NULL)
         {
             geos[i]->setTexCoords3(tex3[i]);
         }
 
-        if (node->getParent()!=NullFC)
+        if (node->getParent()!=NULL)
         {
-            NodePtr n=Node::create();
+            Node *n=Node::create();
             n->setCore(geos[i]);
             split.push_back(n);
         }
@@ -724,7 +724,7 @@ bool SplitGraphOp::splitNode(const NodePtr node, std::vector<NodeUnrecPtr> &spli
 #endif
 }
 
-bool SplitGraphOp::isLeaf(const NodePtr node)
+bool SplitGraphOp::isLeaf(Node * const node)
 {
     if (node->getMFChildren()->begin()==
         node->getMFChildren()->end()) return true;
@@ -733,7 +733,7 @@ bool SplitGraphOp::isLeaf(const NodePtr node)
 
 /*! checks whether a node is a group and nothing else
 */
-bool SplitGraphOp::isGroup(const NodePtr node)
+bool SplitGraphOp::isGroup(Node * const node)
 {
     if(  node->getCore()->getType().isDerivedFrom( Group::getClassType()              ) &&
         !node->getCore()->getType().isDerivedFrom( Transform::getClassType()          ) &&

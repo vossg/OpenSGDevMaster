@@ -72,9 +72,9 @@ class OSG_DRAWABLE_DLLMAPPING FaceIterator : public PrimitiveIterator
     /*! \{                                                                 */  
 
     FaceIterator(void);
-    FaceIterator(const FaceIterator     &source);
-    FaceIterator(      ConstGeometryPtr  geo);
-    FaceIterator(const NodePtr           geo);
+    FaceIterator(FaceIterator   const &source);
+    FaceIterator(Geometry       const *geo   );
+    FaceIterator(Node         * const  geo   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

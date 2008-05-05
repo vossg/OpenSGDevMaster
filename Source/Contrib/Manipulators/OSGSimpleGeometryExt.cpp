@@ -271,7 +271,7 @@ NodeTransitPtr makeGrid(const Real32   width,
 }
 
 
-NodeTransitPtr makeSelection(NodePtr geoN)
+NodeTransitPtr makeSelection(Node *geoN)
 {
     NodeTransitPtr             transN = Node::create();
     NodeUnrecPtr               node   = Node::create();
@@ -287,7 +287,7 @@ NodeTransitPtr makeSelection(NodePtr geoN)
     return transN;
 }
 
-GeometryTransitPtr makeSelectionGeo(NodePtr geoN)
+GeometryTransitPtr makeSelectionGeo(Node *geoN)
 {
     Pnt3f min, max;
     geoN->getVolume().getBounds(min, max);
@@ -303,10 +303,10 @@ GeometryTransitPtr makeSelectionGeo(NodePtr geoN)
 
     LineChunkUnrecPtr       lineChunk = LineChunk::create();
 
-    GeometryPtr selGeoC = dynamic_cast<GeometryPtr>(geoN->getCore());
-    if( selGeoC != NullFC )
+    Geometry *selGeoC = dynamic_cast<Geometry *>(geoN->getCore());
+    if( selGeoC != NULL )
     {
-         GeoPnt3fPropertyPtr pnts = dynamic_cast<GeoPnt3fPropertyPtr>(selGeoC->getPositions());
+         GeoPnt3fProperty *pnts = dynamic_cast<GeoPnt3fProperty *>(selGeoC->getPositions());
 //        GeoPositions3f::StoredFieldType     *p = pnts->getFieldPtr();
 
 //        GeoPositions3f::StoredFieldType::iterator it;
@@ -349,10 +349,10 @@ GeometryTransitPtr makeSelectionGeo(NodePtr geoN)
 
 PolygonChunkUnrecPtr _gayaPolygonChunk;
 
-PolygonChunkPtr getPolygonChunk(const UInt16 faces,
-                                const UInt16 mode )
+PolygonChunk *getPolygonChunk(const UInt16 faces,
+                              const UInt16 mode )
 {
-    if( _gayaPolygonChunk == NullFC )
+    if( _gayaPolygonChunk == NULL )
     {
         _gayaPolygonChunk = PolygonChunk::create();
 
@@ -371,12 +371,12 @@ PolygonChunkPtr getPolygonChunk(const UInt16 faces,
 
 MaterialChunkRecPtr _gayaMaterialChunk;
 
-MaterialChunkPtr getMaterialChunk(const Color4f &ambientColor,
-                                  const Color4f &diffuseColor,
-                                  const Color4f &specularColor,
-                                  const bool     lit          )
+MaterialChunk *getMaterialChunk(const Color4f &ambientColor,
+                                const Color4f &diffuseColor,
+                                const Color4f &specularColor,
+                                const bool     lit          )
 {
-    if( _gayaMaterialChunk == NullFC )
+    if( _gayaMaterialChunk == NULL )
     {
         _gayaMaterialChunk = MaterialChunk::create();
 
@@ -392,9 +392,9 @@ MaterialChunkPtr getMaterialChunk(const Color4f &ambientColor,
 
 ChunkMaterialRecPtr _gayaSelectionMaterial;
 
-ChunkMaterialPtr getSelectionMaterial()
+ChunkMaterial *getSelectionMaterial()
 {
-    if( _gayaSelectionMaterial == NullFC )
+    if( _gayaSelectionMaterial == NULL )
     {
         _gayaSelectionMaterial = ChunkMaterial::create();
 

@@ -128,8 +128,8 @@ void SortFirstWindow::dump(      UInt32    ,
 /** transfer server cababilities to the client
  *
  **/
-void SortFirstWindow::serverInit(WindowPtr serverWindow,
-                                 UInt32    id)
+void SortFirstWindow::serverInit(Window *serverWindow,
+                                 UInt32   id)
 {
 #if USE_VPORT_SLICES
 
@@ -156,7 +156,7 @@ void SortFirstWindow::serverInit(WindowPtr serverWindow,
  *
  * todo: enamble frustum culling if error is removed
  **/
-void SortFirstWindow::serverRender( WindowPtr serverWindow,
+void SortFirstWindow::serverRender( Window *serverWindow,
                                     UInt32 id,
                                     DrawActionBase *action )
 {
@@ -293,13 +293,13 @@ void SortFirstWindow::serverRender( WindowPtr serverWindow,
 }
 #endif
 
-void SortFirstWindow::serverRender( WindowPtr         serverWindow,
+void SortFirstWindow::serverRender( Window           *serverWindow,
                                     UInt32            id,
                                     RenderActionBase *action )
 {
     TileCameraDecoratorUnrecPtr deco;
     ViewportUnrecPtr serverPort;
-    ViewportPtr clientPort;
+    Viewport *clientPort;
     UInt32 sv,cv,regionStart;
     UInt32 vpWidth;
     UInt32 vpHeight;
@@ -322,7 +322,7 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
         else
         {
             serverPort = serverWindow->getPort(sv);
-            deco=dynamic_cast<TileCameraDecoratorPtr>(serverPort->getCamera());
+            deco=dynamic_cast<TileCameraDecorator *>(serverPort->getCamera());
             if(serverWindow->getPort(sv)->getType() != 
                clientPort->getType())
             {
@@ -336,7 +336,8 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
             }
             else
             {
-                deco=dynamic_cast<TileCameraDecoratorPtr>(serverPort->getCamera());
+                deco=dynamic_cast<TileCameraDecorator *>(
+                    serverPort->getCamera());
             }
             //serverPort = serverWindow->getPort()[sv];
             //deco=TileCameraDecoratorPtr::dcast(serverPort->getCamera());
@@ -408,7 +409,7 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
     action->setWindow( serverWindow );
     for(sv=0;sv<serverWindow->getMFPort()->size();++sv)
     {
-        ViewportPtr vp=serverWindow->getPort(sv);
+        Viewport *vp=serverWindow->getPort(sv);
         vp->render( action );
 
         // send resulting image
@@ -435,7 +436,7 @@ void SortFirstWindow::serverRender( WindowPtr         serverWindow,
 
 /*! send image to client
  */
-void SortFirstWindow::serverSwap( WindowPtr window,
+void SortFirstWindow::serverSwap( Window *window,
                                   UInt32 )
 {
     if(!getCompose())
@@ -489,11 +490,11 @@ void SortFirstWindow::clientInit( void )
 
 void SortFirstWindow::clientPreSync( void )
 {
-    SortFirstWindowPtr ptr=SortFirstWindowPtr(this);
+    SortFirstWindow *ptr=this;
     if(getCompose())
     {
         // get window size from client window
-        if(getClientWindow() != NullFC)
+        if(getClientWindow() != NULL)
         {
             if(getWidth()  != getClientWindow()->getWidth() ||
                getHeight() != getClientWindow()->getHeight())
@@ -573,12 +574,12 @@ void SortFirstWindow::clientSwap( void )
     GroupConnection *connection=getNetwork()->getMainGroupConnection();
     if(getCompose())
     {
-        if(getClientWindow()!=NullFC)
+        if(getClientWindow()!=NULL)
         {
             // receive all viewports
             for(cv=0;cv<getMFPort()->size();++cv)
             {
-                ViewportPtr vp=getPort(cv);
+                Viewport *vp=getPort(cv);
 
                 // activate the appropriate viewport to receive image
                 vp->activate();

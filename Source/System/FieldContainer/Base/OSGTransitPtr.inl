@@ -43,7 +43,7 @@ TransitPtr<ObjectT>::TransitPtr(void) :
 }
 
 template<class ObjectT> inline
-TransitPtr<ObjectT>::TransitPtr(const ObjectPtr pObj) :
+TransitPtr<ObjectT>::TransitPtr(Object * const pObj) :
     _pObj(pObj)
 {
     if(_pObj != NULL)
@@ -108,7 +108,7 @@ typename TransitPtr<ObjectT>::Self &TransitPtr<ObjectT>::operator =(
 
 template<class ObjectT> inline
 typename TransitPtr<ObjectT>::Self &
-    TransitPtr<ObjectT>::operator =(const ObjectPtr  pObj)
+    TransitPtr<ObjectT>::operator =(Object * const pObj)
 {
     if(pObj != NULL)
         pObj->addReferenceUnrecordedX();
@@ -139,21 +139,21 @@ typename TransitPtr<ObjectT>::Self &
 
 
 template<class ObjectT> inline
-typename TransitPtr<ObjectT>::ObjectPtr 
+typename TransitPtr<ObjectT>::Object * 
     TransitPtr<ObjectT>::operator->(void) const
 {
     return _pObj;
 }
 
 template<class ObjectT> inline
-bool TransitPtr<ObjectT>::operator ==(const FieldContainerCPtr rhs)
+bool TransitPtr<ObjectT>::operator ==(FieldContainer * const rhs)
 {
     return _pObj == rhs;
 }
 
 
 template<class ObjectT> inline
-bool TransitPtr<ObjectT>::operator !=(const FieldContainerCPtr rhs)
+bool TransitPtr<ObjectT>::operator !=(FieldContainer * const rhs)
 {
     return !(*this == rhs);
 }
@@ -163,7 +163,7 @@ template<class SourceObjectT> inline
 void TransitPtr<ObjectT>::dynamic_cast_set(
     TransitPtr<SourceObjectT> const &source)
 {
-    ObjectPtr pObj = dynamic_cast<ObjectPtr>(source._pObj);
+    Object *pObj = dynamic_cast<Object *>(source._pObj);
     
     if(pObj != NULL)
     {
@@ -178,7 +178,7 @@ template<class SourceObjectT> inline
 void TransitPtr<ObjectT>::static_cast_set(
     TransitPtr<SourceObjectT> const &source)
 {
-    ObjectPtr pObj = static_cast<ObjectPtr>(source._pObj);
+    Object *pObj = static_cast<Object *>(source._pObj);
     
     if(pObj != NULL)
     {

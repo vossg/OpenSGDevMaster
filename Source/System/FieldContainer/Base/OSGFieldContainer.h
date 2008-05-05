@@ -201,8 +201,8 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    virtual bool unlinkChild (const FieldContainerPtr pChild,
-                              const UInt16            childFieldId);
+    virtual bool unlinkChild (      FieldContainer * const pChild,
+                              const UInt16                 childFieldId);
    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -300,10 +300,10 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    FieldContainerPtr getAspectPtr    (UInt32 uiAspect      ) const;
-    void              setupAspectStore(void                 );
-    void              setupAspectStore(AspectStore *pStore  );
-    AspectStoreP      getAspectStore  (void                 ) const;
+    FieldContainer *getAspectPtr    (UInt32 uiAspect      ) const;
+    void            setupAspectStore(void                 );
+    void            setupAspectStore(AspectStore *pStore  );
+    AspectStoreP    getAspectStore  (void                 ) const;
 #endif
 
     /*! \}                                                                 */
@@ -366,13 +366,13 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-            void registerChangedContainer (void);
+            void            registerChangedContainer (void);
 
     OSG_SYSTEM_DLLMAPPING
-    virtual void registerChangedContainerV(void);
+    virtual void            registerChangedContainerV(void);
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjPtr createAspectCopy(void) const = 0;
+    virtual FieldContainer *createAspectCopy         (void) const = 0;
 #endif
 
 
@@ -382,13 +382,13 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    virtual bool linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId);
+    virtual bool linkParent  (      FieldContainer * const pParent,
+                              const UInt16                 childFieldId,
+                              const UInt16                 parentFieldId);
 
     OSG_SYSTEM_DLLMAPPING
-    virtual bool unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId);
+    virtual bool unlinkParent(      FieldContainer * const pParent,
+                              const UInt16                 parentFieldId);
             
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -396,18 +396,18 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result, 
-                              const          ObjectT         *prototypeP,
-                                             BitVector        bFlags    );
+    static void newPtr       (      typename ObjectT::ObjCPtr &result, 
+                              const          ObjectT          *prototypeP,
+                                             BitVector         bFlags    );
 
     template <class ObjectT>
-    static void newPtr       (      typename ObjectT::ObjPtr &result, 
-                                             BitVector        bFlags);
+    static void newPtr       (      typename ObjectT::ObjCPtr &result, 
+                                             BitVector         bFlags);
 
 #ifdef OSG_MT_CPTR_ASPECT
     template <class ObjectT>
-    static void newAspectCopy(      typename ObjectT::ObjPtr &result,
-                              const          ObjectT         *prototypeP);
+    static void newAspectCopy(      typename ObjectT::ObjCPtr &result,
+                              const          ObjectT          *prototypeP);
 #endif
 
     /*! \}                                                                 */
@@ -483,7 +483,7 @@ void appendTypesString(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(      
-          ConstFieldContainerPtr                       src,
+          FieldContainer const *                       src,
     const std::vector<std::string>                    &shareTypeNames,
 
     const std::vector<std::string>                    &ignoreTypeNames   =
@@ -497,7 +497,7 @@ FieldContainerTransitPtr deepClone(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(
-          ConstFieldContainerPtr                       src,
+          FieldContainer const *                       src,
     const std::vector<UInt16>                         &shareGroupIds,
 
     const std::vector<UInt16>                         &ignoreGroupIds    =
@@ -505,7 +505,7 @@ FieldContainerTransitPtr deepClone(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(      
-          ConstFieldContainerPtr                       src,
+          FieldContainer const *                       src,
     const std::string                                 &shareTypesString,
 
     const std::string                                 &ignoreTypesString =
@@ -513,7 +513,7 @@ FieldContainerTransitPtr deepClone(
 
 OSG_SYSTEM_DLLMAPPING
 FieldContainerTransitPtr deepClone(
-          ConstFieldContainerPtr                       src,
+          FieldContainer const *                       src,
 
     const std::vector<const ReflexiveContainerType *> &shareTypes        =
               std::vector<const ReflexiveContainerType *>(),

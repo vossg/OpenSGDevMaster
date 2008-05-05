@@ -145,7 +145,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
                   std::string         &editName           (void);
             const std::string          getName            (void) const;
 
-                  FieldContainerPtr getContainers     (const UInt32 index) const;
+                  FieldContainer * getContainers     (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,10 +164,10 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToContainers           (const FieldContainerPtr value   );
-    void assignContainers           (const MFUnrecFieldContainerPtr &value);
-    void removeFromContainers (UInt32                uiIndex );
-    void removeFromContainers(const FieldContainerPtr value   );
+    void pushToContainers           (FieldContainer * const value   );
+    void assignContainers          (const MFUnrecFieldContainerPtr &value);
+    void removeFromContainers (UInt32               uiIndex );
+    void removeFromContainers(FieldContainer * const value   );
     void clearContainers            (void                          );
 
 
@@ -188,13 +188,13 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ContainerCollectionTransitPtr create          (void);
-    static  ContainerCollectionPtr        createEmpty     (void);
+    static  ContainerCollectionTransitPtr  create          (void);
+    static  ContainerCollection           *createEmpty     (void);
 
-    static  ContainerCollectionTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  ContainerCollectionTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  ContainerCollectionPtr        createEmptyLocal(
+    static  ContainerCollection            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -285,7 +285,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

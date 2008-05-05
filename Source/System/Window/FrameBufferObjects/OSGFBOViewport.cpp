@@ -67,7 +67,7 @@ Int32 FBOViewport::getPixelLeft(void) const
     if(getLeft() > 1)
         return Int32(getLeft());
     
-    if(getFrameBufferObject() == NullFC)
+    if(getFrameBufferObject() == NULL)
         return Int32(getLeft());
 
     return Int32(getFrameBufferObject()->getWidth() * getLeft());
@@ -79,7 +79,7 @@ Int32 FBOViewport::getPixelRight(void) const
     if(getRight() > 1)
         return Int32(getRight());
  
-    if(getFrameBufferObject() == NullFC)
+    if(getFrameBufferObject() == NULL)
         return Int32(getRight());
    
     // <=1: partial screen, use 1 less to not overlap other windows
@@ -91,7 +91,7 @@ Int32 FBOViewport::getPixelBottom(void) const
     if(getBottom() > 1)
         return Int32(getBottom());
     
-    if(getFrameBufferObject() == NullFC)
+    if(getFrameBufferObject() == NULL)
         return Int32(getBottom());
 
     return Int32(getFrameBufferObject()->getHeight() * getBottom());
@@ -103,7 +103,7 @@ Int32 FBOViewport::getPixelTop(void) const
     if(getTop() > 1)
         return Int32(getTop());
  
-    if(getFrameBufferObject() == NullFC)
+    if(getFrameBufferObject() == NULL)
         return Int32(getTop());
    
     // <=1: partial screen, use 1 less to not overlap other windows
@@ -112,7 +112,7 @@ Int32 FBOViewport::getPixelTop(void) const
 
 bool FBOViewport::isFullWindow(void) const
 {
-    if(getFrameBufferObject() == NullFC)
+    if(getFrameBufferObject() == NULL)
         return true;
 
     return  
@@ -162,7 +162,7 @@ void FBOViewport::dump(      UInt32    ,
 #ifdef OSG_OLD_RENDER_ACTION
 void FBOViewport::render(DrawActionBase *action)
 {
-    if(getFrameBufferObject() != NullFC)
+    if(getFrameBufferObject() != NULL)
     {
         DrawEnv oEnv;
         oEnv.setWindow(action->getWindow());

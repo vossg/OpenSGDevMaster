@@ -213,7 +213,7 @@ NodeTransitPtr SceneFileType::read(
 {
     FWARNING (("STREAM INTERFACE NOT IMPLEMENTED!\n"));
 
-    return NodeTransitPtr(NullFC);
+    return NodeTransitPtr(NULL);
 }
 
 #ifndef OSG_DISABLE_DEPRECATED
@@ -221,22 +221,22 @@ NodeTransitPtr SceneFileType::readFile(const Char8 *) const
 {
     FWARNING (("FILE INTERFACE NOT IMPLEMENTED!\n"));
 
-    return NodeTransitPtr(NullFC);
+    return NodeTransitPtr(NULL);
 }
 #endif
 
 bool SceneFileType::write(
-    const NodePtr      &OSG_CHECK_ARG(node               ),
-          std::ostream &OSG_CHECK_ARG(os                 ),
-    const Char8        *OSG_CHECK_ARG(fileNameOrExtension)) const
+    Node         * const   OSG_CHECK_ARG(node               ),
+    std::ostream          &OSG_CHECK_ARG(os                 ),
+    Char8          const  *OSG_CHECK_ARG(fileNameOrExtension)) const
 {
     FWARNING (("STREAM INTERFACE NOT IMPLEMENTED!\n"));
     return false;
 }
 
 #ifndef OSG_DISABLE_DEPRECATED
-bool SceneFileType::writeFile(const NodePtr &OSG_CHECK_ARG(node    ),
-                              const Char8   *OSG_CHECK_ARG(fileName)) const
+bool SceneFileType::writeFile(Node * const  OSG_CHECK_ARG(node    ),
+                              Char8  const *OSG_CHECK_ARG(fileName)) const
 {
     FWARNING (("FILE INTERFACE NOT IMPLEMENTED!\n"));
     return false;

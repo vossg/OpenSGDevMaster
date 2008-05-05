@@ -61,7 +61,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterServer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ClusterServer(           WindowPtr  window,
+    ClusterServer(           Window    *window,
                   const std::string    &serviceName,
                   const std::string    &connectionType = "StreamSock",
                   const std::string    &address        = "",
@@ -101,8 +101,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterServer
     /*! \name                   window access                              */
     /*! \{                                                                 */
 
-    WindowPtr     getClusterWindow(void);
-    WindowPtr     getServerWindow (void);
+    Window       *getClusterWindow(void);
+    Window       *getServerWindow (void);
 
     RemoteAspect *getRemoteAspect (void) const;
     
@@ -122,8 +122,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterServer
     /*! \name            ClusterWindow changed function                    */
     /*! \{                                                                 */
 
-    bool windowChanged(const FieldContainerPtr &fcp,
-                             RemoteAspect      *   );
+    bool windowChanged(FieldContainer * const fcp,
+                       RemoteAspect   *          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

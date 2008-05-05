@@ -88,8 +88,8 @@ public:
     /*=========================  PROTECTED  ===============================*/
 protected:    
 
-    bool travNodeEnter(NodePtr node);
-    bool travNodeLeave(NodePtr node);       
+    bool travNodeEnter(Node *node);
+    bool travNodeLeave(Node *node);       
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */

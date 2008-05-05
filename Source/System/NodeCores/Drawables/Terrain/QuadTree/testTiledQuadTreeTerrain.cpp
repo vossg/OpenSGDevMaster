@@ -134,14 +134,14 @@ key(unsigned char key, int x, int y)
     {
         case 27:    
             delete mgr;
-            scene = NullFC;
-            terrain = NullFC;
+            scene = NULL;
+            terrain = NULL;
 
             osgExit();
             exit(1);
         case 'a':   mgr->setHighlight( scene );
             break;
-        case 's':   mgr->setHighlight( NullFC );
+        case 's':   mgr->setHighlight( NULL );
             break;
         case ' ': {
             GLint current = GL_LINE;

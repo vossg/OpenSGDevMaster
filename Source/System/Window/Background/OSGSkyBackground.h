@@ -121,7 +121,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
     /*! \{                                                                 */
 
     void drawFace(      DrawEnv             * action, 
-                        TextureBaseChunkPtr   tex, 
+                        TextureBaseChunk    * tex, 
                         StateChunk          *&oldtex, 
                   const Pnt3f                &p1, 
                   const Pnt3f                &p2, 

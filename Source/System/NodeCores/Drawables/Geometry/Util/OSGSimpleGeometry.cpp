@@ -82,9 +82,9 @@ NodeTransitPtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
 {
     GeometryTransitPtr pGeo = makePlaneGeo(xsize, ysize, hor, vert);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -113,7 +113,7 @@ GeometryTransitPtr makePlaneGeo(Real32 xsize, Real32 ysize,
     {
         SWARNING << "makePlane: illegal parameters hor=" << hor << ", vert="
                  << vert << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
@@ -334,9 +334,9 @@ NodeTransitPtr makeConicalFrustum(Real32 height,
                                                     doTop,
                                                     doBottom);
     
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -374,7 +374,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
                  << ", botradius=" << botradius
                  << ", sides=" << sides
                  << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
@@ -526,9 +526,9 @@ NodeTransitPtr makeTorus(Real32 innerRadius,
                                            sides, 
                                            rings);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -562,7 +562,7 @@ GeometryTransitPtr makeTorusGeo(Real32 innerRadius,
                  << ", sides=" << sides
                  << ", rings=" << rings
                  << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
@@ -768,9 +768,9 @@ NodeTransitPtr makeSphere(UInt16 depth, Real32 radius)
 {
     GeometryTransitPtr pGeo = makeSphereGeo(depth, radius);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -969,9 +969,9 @@ NodeTransitPtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
 {
     GeometryTransitPtr pGeo = makeLatLongSphereGeo(latres, longres, radius);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -1003,7 +1003,7 @@ GeometryTransitPtr makeLatLongSphereGeo(UInt16 latres,
                  << ", longres=" << longres
                  << ", radius=" << radius
                  << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
@@ -1107,9 +1107,9 @@ NodeTransitPtr makeLatLongEllipsoid(UInt16 latres,
                                                       rSemiMajorAxis,
                                                       rSemiMinorAxis);
     
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -1143,7 +1143,7 @@ GeometryTransitPtr makeLatLongEllipsoidGeo(UInt16 latres,
                  << ", rSemiMajorAxis=" << rSemiMajorAxis
                  << ", rSemiMinorAxis=" << rSemiMinorAxis
                  << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr   pnts  = GeoPnt3fProperty  ::create();
@@ -1268,9 +1268,9 @@ NodeTransitPtr makeLatLongEllipsoidSeg(UInt16 latres,
                                                          rStopLatRad,
                                                          rStopLongRad );
     
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -1308,7 +1308,7 @@ GeometryTransitPtr makeLatLongEllipsoidGeoSeg(UInt16 latres,
                  << ", rSemiMajorAxis=" << rSemiMajorAxis
                  << ", rSemiMinorAxis=" << rSemiMinorAxis
                  << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr   pnts  = GeoPnt3fProperty  ::create();
@@ -1419,7 +1419,7 @@ GeometryTransitPtr makeEllipsoidAxisGeo(UInt16 latres,
                  << ", rSemiMajorAxis=" << rSemiMajorAxis
                  << ", rSemiMinorAxis=" << rSemiMinorAxis
                  << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr   pnts  = GeoPnt3fProperty  ::create();
@@ -1540,9 +1540,9 @@ NodeTransitPtr makeEllipsoidAxis(UInt16 latres,
                                                    rSemiMajorAxis,
                                                    rSemiMinorAxis);
     
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -1571,9 +1571,9 @@ NodeTransitPtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
 {
     GeometryTransitPtr pGeo = makeBoxGeo(xsize, ysize, zsize, hor, vert, depth);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -1604,7 +1604,7 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
     {
         SWARNING << "makeBox: illegal parameters hor=" << hor << ", vert="
                  << vert << ", depth=" << depth << std::endl;
-        return GeometryTransitPtr(NullFC);
+        return GeometryTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
@@ -1708,9 +1708,9 @@ NodeTransitPtr makeTeapot(UInt16 depth)
 {
     GeometryTransitPtr pGeo = makeTeapotGeo(depth);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();
@@ -2291,9 +2291,9 @@ NodeTransitPtr makeCoordAxis(Real32 length, Real32 lineWidth, bool showAxisName)
 {
     GeometryTransitPtr pGeo = makeCoordAxisGeo(length, lineWidth, showAxisName);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     NodeTransitPtr node = Node::create();

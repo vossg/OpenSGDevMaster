@@ -134,11 +134,11 @@ void DrawableStatsAttachment::reset(void)
 */
 
 DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::calcStatic(
-    DrawablePtr pDrawable)
+    Drawable *pDrawable)
 {
     DrawableStatsAttachmentUnrecPtr st = DrawableStatsAttachment::create();
 
-    if(pDrawable != NullFC)
+    if(pDrawable != NULL)
         pDrawable->fill(st); 
 
     return DrawableStatsAttachmentTransitPtr(st);
@@ -148,7 +148,7 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::calcStatic(
 */
 
 DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::addTo(
-    AttachmentContainerPtr obj)
+    AttachmentContainer *obj)
 {
     DrawableStatsAttachmentTransitPtr st = DrawableStatsAttachment::create();
 
@@ -160,7 +160,7 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachment::addTo(
 /*! Attach the current GeoStatsAttachment to the given \a obj.
  */
 
-void DrawableStatsAttachment::attachTo(AttachmentContainerPtr obj)
+void DrawableStatsAttachment::attachTo(AttachmentContainer *obj)
 {
     if(getParents().size())
     {
@@ -169,8 +169,8 @@ void DrawableStatsAttachment::attachTo(AttachmentContainerPtr obj)
 
         while(getParents().size())
         {
-            AttachmentContainerPtr p =
-                dynamic_cast<AttachmentContainerPtr>(this->getParent(0));
+            AttachmentContainer *p =
+                dynamic_cast<AttachmentContainer *>(this->getParent(0));
 
             p->subAttachment(this);
         }
@@ -192,35 +192,35 @@ void DrawableStatsAttachment::validate(void)
     if(getValid())
         return;
 
-    AttachmentContainerPtr cont =
-        dynamic_cast<AttachmentContainerPtr>(this->getParent(0));
+    AttachmentContainer *cont =
+        dynamic_cast<AttachmentContainer *>(this->getParent(0));
 
     // Called on a non-AttachmentContainer?
-    if(cont == NullFC)
+    if(cont == NULL)
         return;
 
     reset();
 
     // Drawable?
-    DrawablePtr g = dynamic_cast<DrawablePtr>(cont);
+    Drawable *g = dynamic_cast<Drawable *>(cont);
 
-    if(g != NullFC)
+    if(g != NULL)
     {
         //calc(g);
         g->fill(this);
     }
 
     // Node?
-    NodePtr n = dynamic_cast<NodePtr>(cont);
-    if(n != NullFC)
+    Node *n = dynamic_cast<Node *>(cont);
+    if(n != NULL)
     {
         // Validate the core
-        DrawablePtr g = dynamic_cast<DrawablePtr>(n->getCore());
-        if(g != NullFC)
+        Drawable *g = dynamic_cast<Drawable *>(n->getCore());
+        if(g != NULL)
         {
             DrawableStatsAttachmentUnrecPtr s = get(g);
 
-            if(s == NullFC)
+            if(s == NULL)
             {
                 s = DrawableStatsAttachment::addTo(g);
             }
@@ -234,11 +234,11 @@ void DrawableStatsAttachment::validate(void)
         // Validate all the children
         for(UInt32 i = 0; i < n->getNChildren(); ++i)
         {
-            NodePtr c = n->getChild(i);
+            Node *c = n->getChild(i);
 
             DrawableStatsAttachmentUnrecPtr s = get(c);
 
-            if(s == NullFC)
+            if(s == NULL)
             {
                 s = DrawableStatsAttachment::addTo(c);
             }
@@ -252,7 +252,7 @@ void DrawableStatsAttachment::validate(void)
     setValid(true); // Done!
 }
 
-void DrawableStatsAttachment::operator +=(DrawableStatsAttachmentPtr arg)
+void DrawableStatsAttachment::operator +=(DrawableStatsAttachment *arg)
 {
     setVertices               (getVertices()  + arg->getVertices());
     setPoints                 (getPoints()    + arg->getPoints());
@@ -265,7 +265,7 @@ void DrawableStatsAttachment::operator +=(DrawableStatsAttachmentPtr arg)
     setValid(true);
 }
 
-void DrawableStatsAttachment::operator -=(DrawableStatsAttachmentPtr arg)
+void DrawableStatsAttachment::operator -=(DrawableStatsAttachment *arg)
 {
     setVertices               (getVertices()  - arg->getVertices());
     setPoints                 (getPoints()    - arg->getPoints());
@@ -281,27 +281,27 @@ void DrawableStatsAttachment::operator -=(DrawableStatsAttachmentPtr arg)
 
 
 void DrawableStatsAttachment::invalidateFunctor(
-    FieldContainerPtr obj,
-    BitVector         mask)
+    FieldContainer *obj,
+    BitVector       mask)
 {
     invalidate(obj);
 }
 
-void DrawableStatsAttachment::invalidate(FieldContainerPtr obj)
+void DrawableStatsAttachment::invalidate(FieldContainer *obj)
 {
-    if(obj == NullFC)
+    if(obj == NULL)
         return;
 
-    AttachmentContainerPtr cont = dynamic_cast<AttachmentContainerPtr>(obj);
+    AttachmentContainer *cont = dynamic_cast<AttachmentContainer *>(obj);
 
     // Called on a non-AttachmentContainer?
-    if(cont == NullFC)
+    if(cont == NULL)
         return;
 
     // Find the attachment
-    DrawableStatsAttachmentPtr st = get(cont);
+    DrawableStatsAttachment *st = get(cont);
 
-    if(st == NullFC) // Found the end of the chain
+    if(st == NULL) // Found the end of the chain
         return;
 
     // Invalidate it
@@ -311,12 +311,12 @@ void DrawableStatsAttachment::invalidate(FieldContainerPtr obj)
     if(st->getParents().size())
     {
         // Can't have more than 1
-        FieldContainerPtr p = 
-            dynamic_cast<FieldContainerPtr>(st->getParent(0)); 
+        FieldContainer *p = 
+            dynamic_cast<FieldContainer *>(st->getParent(0)); 
 
         // Is this attached to a NodeCore?
-        NodeCorePtr c = dynamic_cast<NodeCorePtr>(p);
-        if(c != NullFC)
+        NodeCore *c = dynamic_cast<NodeCore *>(p);
+        if(c != NULL)
         {
             MFParentFieldContainerPtr::const_iterator pnI;
 
@@ -324,16 +324,19 @@ void DrawableStatsAttachment::invalidate(FieldContainerPtr obj)
                   pnI != c->getMFParents()->end  ();
                 ++pnI)
             {
-                NodePtr node = dynamic_cast<NodePtr>(*pnI);
+                Node *node = dynamic_cast<Node *>(*pnI);
+
                 invalidate(node);
             }
         }
 
         // Is this attached to a Node?
-        NodePtr n = dynamic_cast<NodePtr>(p);
-        if(n != NullFC)
+        Node *n = dynamic_cast<Node *>(p);
+
+        if(n != NULL)
         {
-            NodePtr par = n->getParent();
+            Node *par = n->getParent();
+
             invalidate(par);
         }
     }

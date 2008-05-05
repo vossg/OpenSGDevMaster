@@ -101,7 +101,7 @@ void MultiPassMaterial::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-bool MultiPassMaterial::hasMaterial(MaterialPtr pMat)
+bool MultiPassMaterial::hasMaterial(Material *pMat)
 {
     UInt32 i;
 
@@ -137,7 +137,7 @@ void MultiPassMaterial::draw(DrawFunctor& func, DrawActionBase * action)
 
 StatePtr MultiPassMaterial::makeState(void)
 {
-    return NullFC;
+    return NULL;
 }
 #endif
 
@@ -148,25 +148,25 @@ void MultiPassMaterial::rebuildState(void)
 {
     for(UInt32 i = 0; i < _mfMaterials.size(); ++i)
     {
-        if(_mfMaterials[i] != NullFC)
+        if(_mfMaterials[i] != NULL)
             _mfMaterials[i]->rebuildState();
     }
 }
 
-StatePtr MultiPassMaterial::getState(UInt32 index)
+State *MultiPassMaterial::getState(UInt32 index)
 {
     if(index >= _mfMaterials.size())
     {
         SWARNING << "MultiPassMaterial::getState: index out of range!" 
                  << std::endl;
 
-        return NullFC;
+        return NULL;
     }
 
-    if(_mfMaterials[index] != NullFC)
+    if(_mfMaterials[index] != NULL)
         return _mfMaterials[index]->getState();
 
-    return NullFC;
+    return NULL;
 }
 
 UInt32 MultiPassMaterial::getNPasses(void)
@@ -191,7 +191,7 @@ bool MultiPassMaterial::isTransparent(void) const
 
     // ok just check the first (base) material.
     if(  it                   != matsEnd && 
-       (*it)                  != NullFC  && 
+       (*it)                  != NULL    && 
        (*it)->isTransparent() == true)
     {
         return true;

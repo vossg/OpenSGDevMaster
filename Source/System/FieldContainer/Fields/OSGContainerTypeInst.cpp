@@ -65,51 +65,51 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-DataType FieldTraits<FieldContainerPtr          >::_type(
+DataType FieldTraits<FieldContainer          *>::_type(
     "FieldContainerPtr",
     NULL);
 
-DataType FieldTraits<AttachmentPtr>::_type(
+DataType FieldTraits<Attachment              *>::_type(
     "AttachmentPtr",
     "FieldContainerPtr");
 
-DataType FieldTraits<AttachmentContainerPtr     >::_type(
+DataType FieldTraits<AttachmentContainer     *>::_type(
     "AttachmentContainerPtr",
     "FieldContainerPtr");
 
-DataType FieldTraits<NodeCorePtr                >::_type(
+DataType FieldTraits<NodeCore                *>::_type(
     "NodeCorePtr",
     "AttachmentContainerPtr");
 
-DataType FieldTraits<NodePtr                    >::_type(
+DataType FieldTraits<Node                   *>::_type(
     "NodePtr",
     "AttachmentContainerPtr");
 
-DataType FieldTraits<ChangedFunctorCallback     >::_type(
+DataType FieldTraits<ChangedFunctorCallback  >::_type(
     "ChangedFunctorCallback",
     NULL);
  
-OSG_FIELDTRAITS_GETTYPE   (FieldContainerPtr          )
+OSG_FIELDTRAITS_GETTYPE   (FieldContainer         *)
 
-OSG_FIELDTRAITS_GETTYPE   (AttachmentPtr              )
-OSG_FIELDTRAITS_GETTYPE   (AttachmentContainerPtr     )
-OSG_FIELDTRAITS_GETTYPE   (NodeCorePtr                )
-OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
-OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
+OSG_FIELDTRAITS_GETTYPE   (Attachment             *)
+OSG_FIELDTRAITS_GETTYPE   (AttachmentContainer    *)
+OSG_FIELDTRAITS_GETTYPE   (NodeCore               *)
+OSG_FIELDTRAITS_GETTYPE   (Node                   *)
+OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback  )
 
-DataType &FieldTraits< FieldContainerPtr, 1 >::getType(void)
+DataType &FieldTraits< FieldContainer *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<FieldContainerPtr, 0>::getType();
+    return FieldTraits<FieldContainer *, 0>::getType();
 }
 
-DataType &FieldTraits< NodeCorePtr, 1 >::getType(void)
+DataType &FieldTraits< NodeCore *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<NodeCorePtr, 0>::getType();
+    return FieldTraits<NodeCore *, 0>::getType();
 }
 
-DataType &FieldTraits< NodePtr, 1 >::getType(void)
+DataType &FieldTraits< Node *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<NodePtr, 0>::getType();
+    return FieldTraits<Node *, 0>::getType();
 }
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -117,69 +117,69 @@ DataType &FieldTraits< NodePtr, 1 >::getType(void)
 // FieldContainer
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FieldContainerPtr, 
+                           FieldContainer *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FieldContainerPtr, 
+                           FieldContainer *, 
                            0);
 
 // Node
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           NodePtr, 
+                           Node *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           NodePtr, 
+                           Node *, 
                            0);
 
 // NodeCore
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           NodeCorePtr, 
+                           NodeCore *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           NodeCorePtr, 
+                           NodeCore *, 
                            0);
 
 // AttachmentContainer
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           AttachmentContainerPtr, 
+                           AttachmentContainer *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           AttachmentContainerPtr, 
+                           AttachmentContainer *, 
                            0);
 
 // FieldContainerAttachment
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           AttachmentPtr, 
+                           Attachment *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           AttachmentPtr, 
+                           Attachment *, 
                            0);
 
 // FieldContainerChildNodeCore
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      NodeCorePtr,
+                      NodeCore *,
                       UnrecordedRefCountPolicy, 
                       1);
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      NodeCorePtr,
+                      NodeCore *,
                       UnrecordedRefCountPolicy, 
                       1);
 
 // NodeChildNode
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      NodePtr,
+                      Node *,
                       UnrecordedRefCountPolicy, 
                       1);
 
@@ -187,20 +187,20 @@ OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
 // ParentFieldContainer
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    FieldContainerPtr, 
+                    FieldContainer *, 
                     NoRefCountPolicy,
                     1);
 OSG_MFIELDTYPE_INST(ParentPointerMField, 
-                    FieldContainerPtr, 
+                    FieldContainer *, 
                     NoRefCountPolicy,
                     1);
 
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField, 
-                         FieldContainerPtr, 
+                         FieldContainer *, 
                          NoRefCountPolicy,
                          1);
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField, 
-                         FieldContainerPtr, 
+                         FieldContainer *, 
                          NoRefCountPolicy,
                          1);
 

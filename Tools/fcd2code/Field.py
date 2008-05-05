@@ -147,8 +147,8 @@ class Field(FCDElement):
             self["category"]        = "pointer";
             self["pointertype"]     = "internal";
          
-            Type          = Type + "Ptr";
-            TypeCaps      = self._upcaseFirst(Type);
+            TypeCaps      = self._upcaseFirst(Type + "Ptr");
+            Type          = Type + " *";
             FieldType     = "Unrec" + TypeRaw + "Ptr"; # + "InternalPtr";
             FieldTypeNS   = TypeNS;
             FieldTypeCaps = "Unrec" + TypeRawCaps + "Ptr"; # + "InternalPtr";
@@ -163,8 +163,8 @@ class Field(FCDElement):
             else:
                 self["childparenttype"] = self.getFCD("childParentType")
                 
-            Type          = Type + "Ptr";
-            TypeCaps      = self._upcaseFirst(Type);
+            TypeCaps      = self._upcaseFirst(Type + "Ptr");
+            Type          = Type + " *";
             FieldType     = "Unrec" + "Child" + TypeRaw + "Ptr";
             FieldTypeNS   = TypeNS;
             FieldTypeCaps = "Unrec" + "Child" + TypeRawCaps + "Ptr";
@@ -174,8 +174,8 @@ class Field(FCDElement):
             self["pointertype"]     = "parent";
             self["isParentField"]   = True
          
-            Type          = "Parent" + Type + "Ptr";
             TypeCaps      = self._upcaseFirst(Type);
+            Type          = Type + " *";
             FieldType     = "Parent" + TypeRaw + "Ptr";
             self["FieldTypeRaw"]  = TypeRaw + "Ptr";
             FieldTypeNS   = TypeNS;
@@ -185,8 +185,8 @@ class Field(FCDElement):
             self["category"]        = "pointer";
             self["pointertype"]     = "weak";
          
-            Type          = Type + "Ptr";
-            TypeCaps      = self._upcaseFirst(Type);
+            TypeCaps      = self._upcaseFirst(Type + "Ptr");
+            Type          = Type + " *";
             FieldType     = "Weak" + TypeRaw + "Ptr"; #TypeRaw + "WeakPtr";
             FieldTypeNS   = TypeNS;
             FieldTypeCaps = "Weak" + TypeRawCaps + "Ptr"; #TypeRawCaps + "WeakPtr";
@@ -310,13 +310,16 @@ class Field(FCDElement):
             self["hasDefaultHeader"] = False;
         
         if self.getFCD("defaultValue") != "":
-            self["TypedDefault"] = \
-                self["FullType"] + "(" + \
-                self.getFCD("defaultValue") + ")";
+            if self["category"] == "pointer" and self["cardinality"] == "single": 
+                self["TypedDefault"] = self.getFCD("defaultValue")
+            else:
+                self["TypedDefault"] = \
+                    self["FullType"] + "(" + \
+                    self.getFCD("defaultValue") + ")";
         else:
             if self["category"] == "pointer" and self["cardinality"] == "single":
-#                self["TypedDefault"] = self["TypeNS"] + self["Type"] + "(NullFC)";
-                self["TypedDefault"] = "NullFC";
+#                self["TypedDefault"] = self["TypeNS"] + self["Type"] + "(NULL)";
+                self["TypedDefault"] = "NULL";
             else:
                 self["TypedDefault"] = "";
             

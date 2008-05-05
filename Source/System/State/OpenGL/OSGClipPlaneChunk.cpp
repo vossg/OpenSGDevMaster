@@ -127,7 +127,7 @@ void ClipPlaneChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
     Matrix cameraMat = pEnv->getCameraViewing();
 
-    if(getBeacon() != NullFC) 
+    if(getBeacon() != NULL) 
     {
         getBeacon()->getToWorld(beaconMat);
     }
@@ -180,7 +180,7 @@ void ClipPlaneChunk::changeFrom(DrawEnv    *pEnv,
 
     Matrix cameraMat = pEnv->getCameraViewing();
 
-    if(getBeacon() != NullFC) 
+    if(getBeacon() != NULL) 
     {
         getBeacon()->getToWorld(beaconMat);
     }

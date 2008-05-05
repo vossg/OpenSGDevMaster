@@ -118,10 +118,10 @@ void ImageComposer::dump(      UInt32    ,
 
 /*! initialize the composer
  */
-void ImageComposer::setup(bool             isClient,
-                          UInt32           clusterId,
-                          WindowPtr        localWindow, 
-                          ClusterWindowPtr clusterWindow)
+void ImageComposer::setup(bool           isClient,
+                          UInt32         clusterId,
+                          Window        *localWindow, 
+                          ClusterWindow *clusterWindow)
 {
     _isClient      = isClient;
     _clusterId     = clusterId;
@@ -148,13 +148,13 @@ void ImageComposer::startFrame(void)
 /*! called before rendering to a viewport. This can be used to
   synchronize some actions during rendering
  */
-void ImageComposer::startViewport(ViewportPtr)
+void ImageComposer::startViewport(Viewport *)
 {
 }
 
 /*! compose singel viewport
  */
-void ImageComposer::composeViewport(ViewportPtr port)
+void ImageComposer::composeViewport(Viewport *port)
 {
 }
 
@@ -196,14 +196,14 @@ UInt32 ImageComposer::getUsableServers(void)
     width and hight are given in pixels. depth is given as
     uint32. Returns false if the node is invisible
  */
-bool ImageComposer::getScreenAlignedBBox(NodePtr      node,
-                                         ViewportPtr  vp,
-                                         UInt32      &l,
-                                         UInt32      &b,
-                                         UInt32      &r,
-                                         UInt32      &t,
-                                         UInt32      &front,
-                                         UInt32      &back)
+bool ImageComposer::getScreenAlignedBBox(Node     *node,
+                                         Viewport *vp,
+                                         UInt32   &l,
+                                         UInt32   &b,
+                                         UInt32   &r,
+                                         UInt32   &t,
+                                         UInt32   &front,
+                                         UInt32   &back)
 {
     UInt32 width     = vp->getPixelWidth();
     UInt32 height    = vp->getPixelHeight();

@@ -109,10 +109,10 @@ void ShearedStereoCameraDecorator::getProjection(Matrix &result,
         return;
     }
        
-    PerspectiveCameraPtr cam = 
-        dynamic_cast<PerspectiveCameraPtr>(getDecoratee());
+    PerspectiveCamera *cam = 
+        dynamic_cast<PerspectiveCamera *>(getDecoratee());
     
-    if(cam == NullFC)
+    if(cam == NULL)
     {
         FFATAL(("ShearedStereoCameraDecorator::getProjection: can only"
                 " decorate PerspectiveCameras!\n"));
@@ -144,9 +144,9 @@ void ShearedStereoCameraDecorator::getDecoration(Matrix &result,
         return;
     }
 
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
 
-    if(camera == NullFC)
+    if(camera == NULL)
     {
         FWARNING(("TileCameraDecorator::getProjection: no decoratee!\n"));
 

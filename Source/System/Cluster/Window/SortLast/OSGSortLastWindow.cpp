@@ -71,17 +71,17 @@ Cluster rendering configuration for sort first image composition
 void SortLastWindow::buildGroups(void)
 {
     UInt32            v          = 0;
-    ViewportPtr       vp         = NullFC;
-    NodePtr           root       = NullFC;
+    Viewport         *vp         = NULL;
+    Node             *root       = NULL;
     DrawableListT     drawables;
-    SortLastWindowPtr ptr        = this;
+    SortLastWindow   *ptr        = this;
     UInt32            groupCount = 0;
     bool              rebuild    = false;
 
     // check for new nodes.
     FieldContainerFactoryBase *fcFactory = FieldContainerFactory::the();
 
-    FieldContainerPtr fcPtr;
+    FieldContainer *fcPtr = NULL;
 
     ChangeList::ChangedStoreConstIt createdI;
 
@@ -95,7 +95,7 @@ void SortLastWindow::buildGroups(void)
 
         fcPtr = fcFactory->getContainer(uiId);
 
-        if(fcPtr != NullFC && dynamic_cast<NodePtr>(fcPtr) != NullFC)
+        if(fcPtr != NULL && dynamic_cast<Node *>(fcPtr) != NULL)
             rebuild = true;
     }
 
@@ -105,7 +105,7 @@ void SortLastWindow::buildGroups(void)
 
     groupCount = getMFServers()->size();
 
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
     {
         groupCount = getComposer()->getUsableServers();
         if(getComposer()->getClientRendering())
@@ -119,8 +119,8 @@ void SortLastWindow::buildGroups(void)
 
     for(v = 0; v < getMFPort()->size(); ++v)
     {
-        ViewportPtr  vp         = getPort(v);
-        NodePtr      root       = vp->getRoot();
+        Viewport *vp         = getPort(v);
+        Node     *root       = vp->getRoot();
 
         drawables.clear();
 
@@ -135,11 +135,11 @@ void SortLastWindow::buildGroups(void)
 
 /*! init composition
  */
-void SortLastWindow::serverInit(WindowPtr serverWindow,
-                                UInt32    id)
+void SortLastWindow::serverInit(Window *serverWindow,
+                                UInt32  id)
 {
     // create default composer
-    if(getComposer() == NullFC)
+    if(getComposer() == NULL)
     {
 /*
         FieldContainerPtr fcPtr = 
@@ -148,10 +148,10 @@ void SortLastWindow::serverInit(WindowPtr serverWindow,
 */
     }
 
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
     {
         // init composer
-        ClusterWindowPtr clusterWindow = this;
+        ClusterWindow *clusterWindow = this;
 
         getComposer()->setup(false,
                              id,
@@ -166,15 +166,15 @@ void SortLastWindow::serverInit(WindowPtr serverWindow,
  */
 
 #ifdef OSG_OLD_RENDER_ACTION
-void SortLastWindow::serverRender(WindowPtr       serverWindow,
+void SortLastWindow::serverRender(Window         *serverWindow,
                                   UInt32          id,
                                   DrawActionBase *action      )
 {
-    ViewportPtr serverPort  = NullFC;
-    ViewportPtr clientPort  = NullFC;
-    UInt32      sv          = 0;
-    UInt32      cv          = 0;
-    UInt32      regionStart = 0;
+    Viewport *serverPort  = NULL;
+    Viewport *clientPort  = NULL;
+    UInt32    sv          = 0;
+    UInt32    cv          = 0;
+    UInt32    regionStart = 0;
 
     // duplicate viewports
     for(cv = 0, sv = 0; cv < getPort().size(); ++cv)
@@ -216,12 +216,12 @@ void SortLastWindow::serverRender(WindowPtr       serverWindow,
 
         for(UInt32 f = 0 ; f < serverPort->getForegrounds().size(); ++f)
         {
-            ForegroundPtr fg = clientPort->getForegrounds()[f];
+            Foreground *fg = clientPort->getForegrounds()[f];
 
-            StatisticsForegroundPtr sfg = 
-                dynamic_cast<StatisticsForegroundPtr>(fg);
+            StatisticsForeground *sfg = 
+                dynamic_cast<StatisticsForeground *>(fg);
 
-            if(sfg == NullFC)
+            if(sfg == NULL)
             {
                 serverPort->addForeground(fg);
             }
@@ -247,40 +247,40 @@ void SortLastWindow::serverRender(WindowPtr       serverWindow,
 
     action->setWindow(serverWindow);
 
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
         getComposer()->startFrame();
 
     for(sv = 0; sv < serverWindow->getPort().size(); ++sv)
     {
-        ViewportPtr  vp         = serverWindow->getPort()[sv];
-        NodePtr      root       = vp->getRoot();
+        Viewport *vp         = serverWindow->getPort()[sv];
+        Node     *root       = vp->getRoot();
 
-        if(getComposer() != NullFC)
+        if(getComposer() != NULL)
             getComposer()->startViewport(vp);
 
         // render
         vp->render(action);
 
         // compose single viewport
-        if(getComposer() != NullFC)
+        if(getComposer() != NULL)
             getComposer()->composeViewport(vp);
     }
 
     // compose whole window
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
         getComposer()->composeWindow();
 }
 #endif
 
-void SortLastWindow::serverRender(WindowPtr         serverWindow,
+void SortLastWindow::serverRender(Window           *serverWindow,
                                   UInt32            id,
                                   RenderActionBase *action      )
 {
-    ViewportUnrecPtr serverPort  = NullFC;
-    ViewportPtr      clientPort  = NullFC;
-    UInt32           sv          = 0;
-    UInt32           cv          = 0;
-    UInt32           regionStart = 0;
+    ViewportUnrecPtr  serverPort  = NULL;
+    Viewport         *clientPort  = NULL;
+    UInt32            sv          = 0;
+    UInt32            cv          = 0;
+    UInt32            regionStart = 0;
 
     // duplicate viewports
     for(cv = 0, sv = 0; cv < getMFPort()->size(); ++cv)
@@ -322,12 +322,12 @@ void SortLastWindow::serverRender(WindowPtr         serverWindow,
 
         for(UInt32 f = 0 ; f < serverPort->getMFForegrounds()->size(); ++f)
         {
-            ForegroundPtr fg = clientPort->getForegrounds(f);
+            Foreground *fg = clientPort->getForegrounds(f);
 
-            StatisticsForegroundPtr sfg = 
-                dynamic_cast<StatisticsForegroundPtr>(fg);
+            StatisticsForeground *sfg = 
+                dynamic_cast<StatisticsForeground *>(fg);
 
-            if(sfg == NullFC)
+            if(sfg == NULL)
             {
                 serverPort->addForeground(fg);
             }
@@ -353,36 +353,36 @@ void SortLastWindow::serverRender(WindowPtr         serverWindow,
 
     action->setWindow(serverWindow);
 
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
         getComposer()->startFrame();
 
     for(sv = 0; sv < serverWindow->getMFPort()->size(); ++sv)
     {
-        ViewportPtr  vp         = serverWindow->getPort(sv);
-        NodePtr      root       = vp->getRoot();
+        Viewport *vp         = serverWindow->getPort(sv);
+        Node     *root       = vp->getRoot();
 
-        if(getComposer() != NullFC)
+        if(getComposer() != NULL)
             getComposer()->startViewport(vp);
 
         // render
         vp->render(action);
 
         // compose single viewport
-        if(getComposer() != NullFC)
+        if(getComposer() != NULL)
             getComposer()->composeViewport(vp);
     }
 
     // compose whole window
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
         getComposer()->composeWindow();
 }
 
 /*! swap
  */
-void SortLastWindow::serverSwap( WindowPtr window,
-                                 UInt32 id)
+void SortLastWindow::serverSwap(Window *window,
+                                UInt32  id    )
 {
-    if(getComposer() == NullFC)
+    if(getComposer() == NULL)
     {
         Connection *connection = getNetwork()->getMainConnection();
         // tell client that we are finish
@@ -405,7 +405,7 @@ void SortLastWindow::clientInit( void )
                                               Node::TravMaskFieldMask);
 
     // create default composer
-    if(getComposer() == NullFC)
+    if(getComposer() == NULL)
     {
 /*
         FieldContainerPtr fcPtr = 
@@ -413,9 +413,9 @@ void SortLastWindow::clientInit( void )
         setComposer(ImageComposerPtr::dcast(fcPtr));
 */
     }
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
     {
-        SortLastWindowPtr clusterWindow(this);
+        SortLastWindow *clusterWindow(this);
         getComposer()->setup(true,
                              getMFServers()->size(),
                              getClientWindow(),
@@ -430,7 +430,7 @@ void SortLastWindow::clientInit( void )
  */
 void SortLastWindow::clientPreSync( void )
 {
-    if(getClientWindow()!=NullFC)
+    if(getClientWindow() != NULL)
     {
         UInt32 width =getClientWindow()->getWidth();
         UInt32 height=getClientWindow()->getHeight();
@@ -456,18 +456,18 @@ void SortLastWindow::clientPreSync( void )
  */
 void SortLastWindow::clientRender(DrawActionBase *action)
 {
-    UInt32            p;
-    UInt32            groupId = getServers().size();
-    UInt32            l,b,r,t;
-    UInt32            front,back;
-    SortLastWindowPtr clusterWindow(this);
+    UInt32          p;
+    UInt32          groupId = getServers().size();
+    UInt32          l,b,r,t;
+    UInt32          front,back;
+    SortLastWindow *clusterWindow(this);
 
     if(getServers().size())
     {
         Connection *srcConnection=
             getNetwork()->getConnection(groupId);
         
-        if(getClientWindow()!=NullFC)
+        if(getClientWindow() != NULL)
         {
             setupNodes(groupId);
 /*
@@ -476,7 +476,7 @@ void SortLastWindow::clientRender(DrawActionBase *action)
 */
             action->setWindow(getClientWindow());
 
-            if(getComposer() != NullFC)
+            if(getComposer() != NULL)
                 getComposer()->startFrame();
 
             DrawEnv oEnv;
@@ -486,8 +486,8 @@ void SortLastWindow::clientRender(DrawActionBase *action)
             // render all viewports
             for(p = 0; p < getPort().size() ; ++p)
             {
-                ViewportPtr vp=getPort()[p];
-                if(getComposer() != NullFC)
+                Viewport *vp=getPort()[p];
+                if(getComposer() != NULL)
                 {
                     getComposer()->startViewport(vp);
 
@@ -500,8 +500,8 @@ void SortLastWindow::clientRender(DrawActionBase *action)
 
                     for(UInt16 i=0; i < vp->getForegrounds().size(); i++)
                     {
-                        if(dynamic_cast<StatisticsForegroundPtr>(
-                               vp->getForegrounds(i)) == NullFC)
+                        if(dynamic_cast<StatisticsForeground *>(
+                               vp->getForegrounds(i)) == NULL)
                         {
                             vp->getForegrounds(i)->draw(&oEnv, vp);
                         }
@@ -511,8 +511,8 @@ void SortLastWindow::clientRender(DrawActionBase *action)
 
                     for(UInt16 i=0; i < vp->getForegrounds().size(); i++)
                     {
-                        if(dynamic_cast<StatisticsForegroundPtr>(
-                               vp->getForegrounds(i)) != NullFC)
+                        if(dynamic_cast<StatisticsForeground *>(
+                               vp->getForegrounds(i)) != NULL)
                         {
                             vp->getForegrounds(i)->draw(&oEnv, vp);
                         }
@@ -526,7 +526,7 @@ void SortLastWindow::clientRender(DrawActionBase *action)
             }
 
             // compose whole window
-            if(getComposer() != NullFC)
+            if(getComposer() != NULL)
                 getComposer()->composeWindow();
         }
     }
@@ -535,18 +535,18 @@ void SortLastWindow::clientRender(DrawActionBase *action)
 
 void SortLastWindow::clientRender(RenderActionBase *action)
 {
-    UInt32            p;
-    UInt32            groupId = getMFServers()->size();
-    UInt32            l,b,r,t;
-    UInt32            front,back;
-    SortLastWindowPtr clusterWindow(this);
+    UInt32          p;
+    UInt32          groupId = getMFServers()->size();
+    UInt32          l,b,r,t;
+    UInt32          front,back;
+    SortLastWindow *clusterWindow(this);
 
     if(getMFServers()->size())
     {
         Connection *srcConnection=
             getNetwork()->getConnection(groupId);
         
-        if(getClientWindow()!=NullFC)
+        if(getClientWindow() != NULL)
         {
             setupNodes(groupId);
 /*
@@ -555,7 +555,7 @@ void SortLastWindow::clientRender(RenderActionBase *action)
 */
             action->setWindow(getClientWindow());
 
-            if(getComposer() != NullFC)
+            if(getComposer() != NULL)
                 getComposer()->startFrame();
 
             DrawEnv oEnv;
@@ -565,8 +565,8 @@ void SortLastWindow::clientRender(RenderActionBase *action)
             // render all viewports
             for(p = 0; p < getMFPort()->size() ; ++p)
             {
-                ViewportPtr vp=getPort(p);
-                if(getComposer() != NullFC)
+                Viewport *vp=getPort(p);
+                if(getComposer() != NULL)
                 {
                     getComposer()->startViewport(vp);
 
@@ -579,8 +579,8 @@ void SortLastWindow::clientRender(RenderActionBase *action)
 
                     for(UInt16 i=0; i < vp->getMFForegrounds()->size(); i++)
                     {
-                        if(dynamic_cast<StatisticsForegroundPtr>(
-                               vp->getForegrounds(i)) == NullFC)
+                        if(dynamic_cast<StatisticsForeground *>(
+                               vp->getForegrounds(i)) == NULL)
                         {
                             vp->getForegrounds(i)->draw(&oEnv, vp);
                         }
@@ -590,8 +590,8 @@ void SortLastWindow::clientRender(RenderActionBase *action)
 
                     for(UInt16 i=0; i < vp->getMFForegrounds()->size(); i++)
                     {
-                        if(dynamic_cast<StatisticsForegroundPtr>(
-                               vp->getForegrounds(i)) != NullFC)
+                        if(dynamic_cast<StatisticsForeground *>(
+                               vp->getForegrounds(i)) != NULL)
                         {
                             vp->getForegrounds(i)->draw(&oEnv, vp);
                         }
@@ -605,7 +605,7 @@ void SortLastWindow::clientRender(RenderActionBase *action)
             }
 
             // compose whole window
-            if(getComposer() != NullFC)
+            if(getComposer() != NULL)
                 getComposer()->composeWindow();
         }
     }
@@ -615,7 +615,7 @@ void SortLastWindow::clientRender(RenderActionBase *action)
  */
 void SortLastWindow::clientSwap( void )
 {
-    if(getComposer() == NullFC)
+    if(getComposer() == NULL)
     {
         Connection *connection=getNetwork()->getMainConnection();
         // wait for all servers to finish
@@ -673,35 +673,35 @@ void SortLastWindow::dump(      UInt32    ,
 /*! Collext all drawable nodes
  */
 
-void SortLastWindow::collectDrawables(const NodePtr        node,
-                                            DrawableListT &drawables)
+void SortLastWindow::collectDrawables(Node * const   node,
+                                      DrawableListT &drawables)
 {
-    MaterialPtr mat  = NullFC;
-    NodeCorePtr core = node->getCore();
+    Material *mat  = NULL;
+    NodeCore *core = node->getCore();
 
-    if(core != NullFC)
+    if(core != NULL)
     {
         // handle material groups
-        MaterialGroupPtr matGrp = dynamic_cast<MaterialGroupPtr>(core);
+        MaterialGroup *matGrp = dynamic_cast<MaterialGroup *>(core);
 
-        if(matGrp != NullFC)
+        if(matGrp != NULL)
         {
             mat = matGrp->getMaterial();
 
             // ignore transparent material groups
-            if(mat != NullFC && mat->isTransparent())
+            if(mat != NULL && mat->isTransparent())
                 return;
         }
 
         // handle geometries
-        GeometryPtr geo = dynamic_cast<GeometryPtr>(core);
+        Geometry *geo = dynamic_cast<Geometry *>(core);
 
-        if(geo != NullFC)
+        if(geo != NULL)
         {
             mat = geo->getMaterial();
             // ignore transparent materials
 
-            if(mat == NullFC || mat->isTransparent() == false)
+            if(mat == NULL || mat->isTransparent() == false)
             {
                 DrawableInfo drawableInfo;
 
@@ -719,10 +719,10 @@ void SortLastWindow::collectDrawables(const NodePtr        node,
                 // num of indices
                 drawableInfo.load = 0;
 
-                GeoIntegralPropertyPtr indicesPtr = 
+                GeoIntegralProperty *indicesPtr = 
                     geo->getIndex(Geometry::PositionsIndex);
 
-                if(indicesPtr != NullFC)
+                if(indicesPtr != NULL)
                     drawableInfo.load = indicesPtr->getSize();
 
                 // put to list
@@ -731,9 +731,9 @@ void SortLastWindow::collectDrawables(const NodePtr        node,
         }
 
         // handle poxy groups
-        ProxyGroupPtr proxy = dynamic_cast<ProxyGroupPtr>(core);
+        ProxyGroup *proxy = dynamic_cast<ProxyGroup *>(core);
 
-        if(proxy != NullFC)
+        if(proxy != NULL)
         {
             DrawableInfo drawableInfo;
 
@@ -881,7 +881,7 @@ void SortLastWindow::splitDrawables(DrawableListT &src,
 void SortLastWindow::setupNodes(UInt32 groupId)
 {
     UInt32  v             = 0;
-    NodePtr root          = NullFC;
+    Node   *root          = NULL;
     UInt32  p             = 0;
     UInt32  nI            = 0;
     UInt32  gnI           = 0;
@@ -895,7 +895,7 @@ void SortLastWindow::setupNodes(UInt32 groupId)
 
     // client and no client rendering 
     if(getMFServers()->size() == groupId &&
-       (getComposer() == NullFC ||
+       (getComposer() == NULL ||
         !getComposer()->getClientRendering()))
     {
         for(nI = 0 ; nI < getMFGroupNodes()->size() ; ++nI)
@@ -910,7 +910,7 @@ void SortLastWindow::setupNodes(UInt32 groupId)
         return;
     }
 
-    if(getComposer() != NullFC)
+    if(getComposer() != NULL)
         usableServers = getComposer()->getUsableServers();
 
     // server but not usable, then invalidate all nodes
@@ -930,7 +930,7 @@ void SortLastWindow::setupNodes(UInt32 groupId)
 
     groupCount = usableServers;
 
-    if(getComposer() != NullFC) 
+    if(getComposer() != NULL) 
     {
         groupCount = getComposer()->getUsableServers();
 

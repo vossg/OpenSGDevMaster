@@ -184,8 +184,8 @@
     static ObjTransitPtr createLocal(BitVector bFlags = FCLocal::All)
 
 #define OSG_RC_CREATE_EMPTY_DECL                                              \
-    static ObjPtr createEmpty(void);                                          \
-    static ObjPtr createEmptyLocal(BitVector bFlags = FCLocal::All)
+    static ObjCPtr createEmpty(void);                                         \
+    static ObjCPtr createEmptyLocal(BitVector bFlags = FCLocal::All)
 
 #define OSG_FC_SHALLOWCOPY_DECL                                               \
     virtual OSG::FieldContainerTransitPtr shallowCopy(void) const;            \
@@ -210,7 +210,7 @@
 #define OSG_FC_SHALLOWCOPY_DEF(OSG_CLASS)                                     \
     OSG::FieldContainerTransitPtr OSG_CLASS::shallowCopy(void) const          \
     {                                                                         \
-        ObjPtr tmpPtr;                                                        \
+        ObjCPtr tmpPtr;                                                       \
                                                                               \
         newPtr<Self>(tmpPtr, this, Thread::getCurrentLocalFlags());           \
                                                                               \
@@ -225,7 +225,7 @@
     OSG::FieldContainerTransitPtr                                             \
         OSG_CLASS::shallowCopyLocal(BitVector bvFlags) const                  \
     {                                                                         \
-        ObjPtr    tmpPtr;                                                     \
+        ObjCPtr    tmpPtr;                                                    \
                                                                               \
         newPtr<Self>(tmpPtr, this, bvFlags);                                  \
                                                                               \
@@ -239,7 +239,7 @@
 #define OSG_FB_SHALLOWCOPY_DEF(OSG_CLASS)                                     \
     OSG::FieldBundleP OSG_CLASS::shallowCopy(void) const                      \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         newPtr<Self>(returnValue, this);                                      \
                                                                               \
@@ -251,7 +251,7 @@
     OSG::FieldContainerTransitPtr                                             \
         OSG_CLASS< OSG_TMPL_PARAM >::shallowCopy(void) const                  \
     {                                                                         \
-        ObjPtr tmpPtr;                                                        \
+        ObjCPtr tmpPtr;                                                       \
                                                                               \
         Self::template newPtr<Self>(tmpPtr,                                   \
                                     this,                                     \
@@ -269,7 +269,7 @@
     OSG::FieldContainerTransitPtr                                             \
        OSG_CLASS< OSG_TMPL_PARAM >::shallowCopyLocal(BitVector bvFlags) const \
     {                                                                         \
-        ObjPtr    tmpPtr;                                                     \
+        ObjCPtr    tmpPtr;                                                    \
                                                                               \
         Self::template newPtr<Self>(tmpPtr, this, bvFlags);                   \
                                                                               \
@@ -285,7 +285,7 @@
     OSG::FieldBundleP                                                         \
         OSG_CLASS< OSG_TMPL_PARAM >::shallowCopy(void) const                  \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         Self::template newPtr<Self>(returnValue, this);                       \
                                                                               \
@@ -311,7 +311,7 @@
     {                                                                         \
         ObjTransitPtr fc;                                                     \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopy();                    \
@@ -327,7 +327,7 @@
     {                                                                         \
         ObjTransitPtr fc;                                                     \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopyLocal(bFlags);         \
@@ -345,7 +345,7 @@
     {                                                                         \
         ObjTransitPtr fc;                                                     \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopy();                    \
@@ -362,7 +362,7 @@
     {                                                                         \
         ObjTransitPtr fc;                                                     \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopyLocal(bFlags);         \
@@ -375,12 +375,12 @@
 
 #define OSG_FB_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)             \
     template < class OSG_TMPL_PARAM > INLINE                                  \
-    typename OSG_CLASS < OSG_TMPL_PARAM >::ObjPtr                             \
+    typename OSG_CLASS < OSG_TMPL_PARAM >::ObjCPtr                            \
         OSG_CLASS< OSG_TMPL_PARAM >::create(void)                             \
     {                                                                         \
-        ObjPtr fc;                                                            \
+        ObjCPtr fc;                                                           \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldBundleP temp_ptr =                                         \
              getClassType().getPrototype()->shallowCopy();                    \
@@ -410,7 +410,7 @@
     {                                                                         \
         ObjTransitPtr fc;                                                     \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopy();                    \
@@ -426,7 +426,7 @@
     {                                                                         \
         ObjTransitPtr fc;                                                     \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopyLocal(bFlags);         \
@@ -439,16 +439,16 @@
 
 #define OSG_FB_CREATE_SPECIALIZED_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
     template <> OSG_DLL_EXPORT                                                \
-    OSG_CLASS < OSG_TMPL_PARAM >::ObjPtr                                      \
+    OSG_CLASS < OSG_TMPL_PARAM >::ObjCPtr                                     \
         OSG_CLASS< OSG_TMPL_PARAM >::create(void)                             \
     {                                                                         \
-        ObjPtr fc;                                                            \
+        ObjCPtr fc;                                                           \
                                                                               \
-        if(getClassType().getPrototype() != OSGNullFC)                        \
+        if(getClassType().getPrototype() != NULL)                             \
         {                                                                     \
          OSG::FieldBundleP temp_ptr =                                         \
              getClassType().getPrototype()->shallowCopy();                    \
-         fc = dynamic_cast<Self::ObjPtr>(temp_ptr);                           \
+         fc = dynamic_cast<Self::ObjCPtr>(temp_ptr);                          \
         }                                                                     \
                                                                               \
         return fc;                                                            \
@@ -456,9 +456,9 @@
 
 #define OSG_RC_CREATE_EMPTY_INL_DEF(OSG_CLASS)                                \
     inline                                                                    \
-    OSG_CLASS::ObjPtr OSG_CLASS::createEmpty(void)                            \
+    OSG_CLASS::ObjCPtr OSG_CLASS::createEmpty(void)                           \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         newPtr<Self>(returnValue, Thread::getCurrentLocalFlags());            \
                                                                               \
@@ -469,9 +469,9 @@
     }                                                                         \
                                                                               \
     inline                                                                    \
-    OSG_CLASS::ObjPtr OSG_CLASS::createEmptyLocal(BitVector bvFlags)          \
+    OSG_CLASS::ObjCPtr OSG_CLASS::createEmptyLocal(BitVector bvFlags)         \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         newPtr<Self>(returnValue, bvFlags);                                   \
                                                                               \
@@ -482,10 +482,10 @@
 
 #define OSG_RC_CREATE_EMPTY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)       \
     template < class OSG_TMPL_PARAM > INLINE                                  \
-    typename OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                              \
+    typename OSG_CLASS< OSG_TMPL_PARAM >::ObjCPtr                             \
         OSG_CLASS< OSG_TMPL_PARAM >::createEmpty(void)                        \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         Self::template newPtr<Self>(returnValue,                              \
                                     Thread::getCurrentLocalFlags());          \
@@ -497,10 +497,10 @@
     }                                                                         \
                                                                               \
     template < class OSG_TMPL_PARAM > INLINE                                  \
-    typename OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                              \
+    typename OSG_CLASS< OSG_TMPL_PARAM >::ObjCPtr                             \
         OSG_CLASS< OSG_TMPL_PARAM >::createEmptyLocal(BitVector bvFlags)      \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         Self::template newPtr<Self>(returnValue, bvFlags);                    \
                                                                               \
@@ -517,10 +517,10 @@
 
 #define OSG_RC_CREATE_EMPTY_SPECIALIZED_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)   \
     template < >                                                              \
-    OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                                       \
+    OSG_CLASS< OSG_TMPL_PARAM >::ObjCPtr                                      \
         OSG_CLASS< OSG_TMPL_PARAM >::createEmpty(void)                        \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         Self::newPtr<Self>(returnValue, TypeTraits<BitVector>::BitsClear);    \
                                                                               \
@@ -528,10 +528,10 @@
     }                                                                         \
                                                                               \
     template < >                                                              \
-    OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                                       \
+    OSG_CLASS< OSG_TMPL_PARAM >::ObjCPtr                                      \
         OSG_CLASS< OSG_TMPL_PARAM >::createEmptyLocal(BitVector bvFlags)      \
     {                                                                         \
-        ObjPtr returnValue;                                                   \
+        ObjCPtr returnValue;                                                  \
                                                                               \
         Self::newPtr<Self>(returnValue, bvFlags);                             \
                                                                               \

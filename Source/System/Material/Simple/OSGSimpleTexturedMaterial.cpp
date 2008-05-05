@@ -66,10 +66,10 @@ OSG_USING_NAMESPACE
 /*----------------------- constructors & destructors ----------------------*/
 
 SimpleTexturedMaterial::SimpleTexturedMaterial(void) :
-     Inherited   (      ),
-    _textureChunk(NullFC),
-    _texGenChunk (NullFC),
-    _texEnvChunk (NullFC)
+     Inherited   (    ),
+    _textureChunk(NULL),
+    _texGenChunk (NULL),
+    _texEnvChunk (NULL)
 {
 }
 
@@ -98,9 +98,9 @@ void SimpleTexturedMaterial::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    _textureChunk = NullFC;
-    _texGenChunk  = NullFC;
-    _texEnvChunk  = NullFC;
+    _textureChunk = NULL;
+    _texGenChunk  = NULL;
+    _texEnvChunk  = NULL;
 
 //    subRefLocalVarX(_textureChunk);
 //    subRefLocalVarX(_texGenChunk );
@@ -182,7 +182,7 @@ void SimpleTexturedMaterial::rebuildState(void)
     _pState->addChunk(_texGenChunk );
     _pState->addChunk(_texEnvChunk );
 
-    if(getImage  ()                    != NullFC &&
+    if(getImage  ()                    != NULL   &&
        getImage  ()->hasAlphaChannel() == true   && 
        getEnvMode()                    != GL_DECAL)
     {
@@ -212,7 +212,7 @@ void SimpleTexturedMaterial::rebuildState(void)
 bool SimpleTexturedMaterial::isTransparent(void) const
 {
     return Inherited::isTransparent() ||
-           (getImage()!=NullFC &&
+           (getImage()!=NULL &&
              (getImage()->hasAlphaChannel() && getEnvMode() != GL_DECAL)
           );
 }
@@ -230,21 +230,21 @@ void SimpleTexturedMaterial::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 void SimpleTexturedMaterial::prepareLocalChunks(void)
 {
-    if(_textureChunk == NullFC)
+    if(_textureChunk == NULL)
     {
         _textureChunk = TextureObjChunk::createLocal();
 
 //         addRefX(_textureChunk);
     }
 
-    if(_texGenChunk == NullFC)
+    if(_texGenChunk == NULL)
     {
         _texGenChunk  = TexGenChunk::createLocal();
 
 //        addRefX(_texGenChunk);
     }
 
-    if(_texEnvChunk == NullFC)
+    if(_texEnvChunk == NULL)
     {
         _texEnvChunk  = TextureEnvChunk::createLocal();
 

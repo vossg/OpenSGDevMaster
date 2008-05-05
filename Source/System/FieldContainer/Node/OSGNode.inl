@@ -41,13 +41,13 @@ OSG_BEGIN_NAMESPACE
 OSG_FIELD_CONTAINER_INL_DEF(Node)
 
 inline
-NodeCorePtr Node::getCore(void)
+NodeCore *Node::getCore(void)
 {
     return _sfCore.getValue();
 }
 
 inline
-NodeCorePtr Node::getCore(void) const
+NodeCore *Node::getCore(void) const
 {
     return _sfCore.getValue();
 }
@@ -63,7 +63,7 @@ void Node::setCore(TransitPtr<ObjectT> core)
 }
 
 inline
-void Node::setCore(const NodeCorePtr core)
+void Node::setCore(NodeCore * const core)
 {
     editSField(CoreFieldMask);
 
@@ -71,7 +71,7 @@ void Node::setCore(const NodeCorePtr core)
 }
 
 inline
-NodePtr Node::getParent(void)
+Node *Node::getParent(void)
 {
     return _sfParent.getValue();
 }
@@ -83,7 +83,7 @@ UInt32 Node::getNChildren(void) const
 }
 
 inline
-NodePtr Node::getChild(UInt32 childIndex) const
+Node *Node::getChild(UInt32 childIndex) const
 {
     OSG_ASSERT((childIndex < _mfChildren.size()));
 

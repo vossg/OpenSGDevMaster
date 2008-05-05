@@ -543,9 +543,9 @@ class ParentPointerMField :
     /*! \{                                                                 */
 
     void resize(size_t       newsize, 
-                const_value  t      = NullFC);
+                const_value  t      = NULL);
 
-    void clear (void                        );
+    void clear (void                      );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

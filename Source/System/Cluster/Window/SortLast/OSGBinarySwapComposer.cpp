@@ -153,7 +153,7 @@ void BinarySwapComposer::open()
     }
 }
 
-void BinarySwapComposer::composeViewport(ViewportPtr port)
+void BinarySwapComposer::composeViewport(Viewport *port)
 {
     // setup viewport
     GLint 

@@ -49,41 +49,41 @@ OSG_BEGIN_NAMESPACE
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onAdd(
-    SFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    SFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::addRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onAdd(
-    MFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    MFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::addRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSub(
-    SFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    SFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::subRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSub(
-    MFieldBaseType    * const, 
-    FieldContainerPtr   const pObj)
+    MFieldBaseType * const, 
+    FieldContainer * const pObj)
 {
     RefCountPolicyType::subRef(pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onReplace(
-    SFieldBaseType    * const pSField,
-    FieldContainerPtr   const pOldObj,
-    FieldContainerPtr   const pNewObj)
+    SFieldBaseType * const pSField,
+    FieldContainer * const pOldObj,
+    FieldContainer * const pNewObj)
 {
     onAdd(pSField, pNewObj);
     onSub(pSField, pOldObj);
@@ -91,9 +91,9 @@ void PointerAccessHandler<RefCountPolicyT>::onReplace(
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onReplace(
-    MFieldBaseType    * const pMField,
-    FieldContainerPtr   const pOldObj,
-    FieldContainerPtr   const pNewObj)
+    MFieldBaseType * const pMField,
+    FieldContainer * const pOldObj,
+    FieldContainer * const pNewObj)
 {
     onAdd(pMField, pNewObj);
     onSub(pMField, pOldObj);
@@ -104,26 +104,26 @@ void PointerAccessHandler<RefCountPolicyT>::onReplace(
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSyncAdd(
-    SFieldBaseType    * const pSField, 
-    FieldContainerPtr   const pObj   )
+    SFieldBaseType * const pSField, 
+    FieldContainer * const pObj   )
 {
     onAdd(pSField, pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSyncAdd(
-    MFieldBaseType    * const pMField, 
-    FieldContainerPtr   const pObj   )
+    MFieldBaseType * const pMField, 
+    FieldContainer * const pObj   )
 {
     onAdd(pMField, pObj);
 }
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSyncSub(
-    SFieldBaseType    * const pSField, 
-    FieldContainerPtr   const pObj   )
+    SFieldBaseType * const pSField, 
+    FieldContainer * const pObj   )
 {
-    if(pObj != NullFC)
+    if(pObj != NULL)
     {
         Thread::getCurrentChangeList()->addDelayedSubRef<
             RefCountPolicyT>(pObj);
@@ -134,10 +134,10 @@ void PointerAccessHandler<RefCountPolicyT>::onSyncSub(
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSyncSub(
-    MFieldBaseType    * const pMField, 
-    FieldContainerPtr   const pObj   )
+    MFieldBaseType * const pMField, 
+    FieldContainer * const pObj   )
 {
-    if(pObj != NullFC)
+    if(pObj != NULL)
     {
         Thread::getCurrentChangeList()->addDelayedSubRef<
             RefCountPolicyT>(pObj);
@@ -148,9 +148,9 @@ void PointerAccessHandler<RefCountPolicyT>::onSyncSub(
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSyncReplace(
-    SFieldBaseType    * const pSField,
-    FieldContainerPtr   const pOldObj,
-    FieldContainerPtr   const pNewObj)
+    SFieldBaseType * const pSField,
+    FieldContainer * const pOldObj,
+    FieldContainer * const pNewObj)
 {
     onSyncAdd(pSField, pNewObj);
     onSyncSub(pSField, pOldObj);
@@ -158,9 +158,9 @@ void PointerAccessHandler<RefCountPolicyT>::onSyncReplace(
 
 template<typename RefCountPolicyT> inline 
 void PointerAccessHandler<RefCountPolicyT>::onSyncReplace(
-    MFieldBaseType    * const pMField,
-    FieldContainerPtr   const pOldObj,
-    FieldContainerPtr   const pNewObj)
+    MFieldBaseType * const pMField,
+    FieldContainer * const pOldObj,
+    FieldContainer * const pNewObj)
 {
     onSyncAdd(pMField, pNewObj);
     onSyncSub(pMField, pOldObj);

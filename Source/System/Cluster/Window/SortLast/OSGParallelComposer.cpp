@@ -160,7 +160,7 @@ void ParallelComposer::open(void)
 #endif
 }
 
-void ParallelComposer::composeViewport(ViewportPtr port)
+void ParallelComposer::composeViewport(Viewport *port)
 {
 #ifdef OSG_WITH_PARALLEL
     // setup viewport
@@ -260,7 +260,7 @@ void ParallelComposer::dump(      UInt32    ,
 
 /*----------------------------- helpers ----------------------------------*/
 
-void ParallelComposer::createCtx( ViewportPtr port)
+void ParallelComposer::createCtx( Viewport *port)
 {
 #ifdef OSG_WITH_PARALLEL
     // get needed attributes from viewport

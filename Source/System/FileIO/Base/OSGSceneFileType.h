@@ -125,13 +125,13 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    virtual bool write    (const NodePtr      &node,
-                                 std::ostream &os,
-                           const Char8        *fileNameOrExtension) const;
+    virtual bool write    (Node *       const  node,
+                           std::ostream       &os,
+                           Char8        const *fileNameOrExtension) const;
 
 #ifndef OSG_DISABLE_DEPRECATED
-    virtual bool writeFile(const NodePtr      &node,
-                           const Char8        *fileName           ) const;
+    virtual bool writeFile(Node *       const  node,
+                           Char8        const *fileName           ) const;
 #endif
 
     /*! \}                                                                 */

@@ -274,9 +274,9 @@ void OSGLoader::initFieldTypeMapper(void)
                      ScanParseSkel::OSGsfVolume);
 }
 
-void OSGLoader::setFieldContainerValue(FieldContainerPtr pNewNode)
+void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
 {
-    if(_pCurrentField != NullFC)
+    if(_pCurrentField != NULL)
     {
         FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
             boost::dynamic_pointer_cast<
@@ -318,8 +318,8 @@ void OSGLoader::setFieldContainerValue(FieldContainerPtr pNewNode)
 
 OSGLoader::OSGLoader(void) :
      Inherited        (      ),
-    _pCurrentFC       (NullFC),
-    _pRootNode        (NullFC),
+    _pCurrentFC       (NULL  ),
+    _pRootNode        (NULL  ),
     _pCurrentField    (      ),
     _pCurrentFieldDesc(NULL  ),
     _defMap           (      ),
@@ -344,12 +344,12 @@ OSGLoader::~OSGLoader(void)
 
 NodeTransitPtr OSGLoader::scanStream(std::istream &is)
 {
-    NodeTransitPtr returnValue(NullFC);
+    NodeTransitPtr returnValue(NULL);
 
     if(is)
     {
-        _pRootNode         = NullFC;
-        _pCurrentFC        = NullFC;
+        _pRootNode         = NULL;
+        _pCurrentFC        = NULL;
 
         _pCurrentField.reset();
 
@@ -361,8 +361,8 @@ NodeTransitPtr OSGLoader::scanStream(std::istream &is)
 
         returnValue = _pRootNode;
 
-        _pRootNode  = NullFC;
-        _pCurrentFC = NullFC;
+        _pRootNode  = NULL;
+        _pCurrentFC = NULL;
     }
 
     return returnValue;
@@ -399,13 +399,13 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
     
     PINFO << "  Got ptr " << pNewNode << std::endl;
 
-    if(szNodename != NULL && pNewNode != NullFC)
+    if(szNodename != NULL && pNewNode != NULL)
     {
 #ifdef DO_CHECK
-        AttachmentContainerPtr pAttCon =
+        AttachmentContainer *pAttCon =
             AttachmentContainerPtr::dcast(pNewNode);
 
-        if(pAttCon != NullFC)
+        if(pAttCon != NULL)
         {
             setName(pAttCon, szNodename);
         }
@@ -423,17 +423,17 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
 
     if(_fcStack.size() == 1)
     {
-        NodeUnrecPtr pNode = NullFC;
+        NodeUnrecPtr pNode = NULL;
 
         if(_pCurrentFC->getType().isNode())
         {
-            pNode = dynamic_cast<NodePtr>(_pCurrentFC);
+            pNode = dynamic_cast<Node *>(_pCurrentFC);
         }
         else if(_pCurrentFC->getType().isNodeCore())
         {
             pNode = Node::create();
 
-            pNode->setCore(dynamic_cast<NodeCorePtr>(_pCurrentFC));
+            pNode->setCore(dynamic_cast<NodeCore *>(_pCurrentFC));
         }
         else
         {
@@ -441,7 +441,7 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
                  << "is neither Node nor NodeCore " << std::endl;
         }
 
-        if(_pRootNode == NullFC)
+        if(_pRootNode == NULL)
         {
             GroupUnrecPtr pGroup = Group::create();
 
@@ -466,13 +466,13 @@ void OSGLoader::endNode(void)
 {
     PINFO << "End Node" << std::endl;
 
-    if(_pCurrentFC != NullFC)
+    if(_pCurrentFC != NULL)
     {
         if(_pCurrentFC->getType().isNode() == true)
         {
-            NodePtr pNode = dynamic_cast<NodePtr>(_pCurrentFC);
+            Node *pNode = dynamic_cast<Node *>(_pCurrentFC);
 
-            if(pNode->getCore() == NullFC)
+            if(pNode->getCore() == NULL)
             {
                 GroupUnrecPtr pGroup = Group::create();
 
@@ -489,7 +489,7 @@ void OSGLoader::endNode(void)
     }
     else
     {
-        _pCurrentFC = NullFC;
+        _pCurrentFC = NULL;
     }
 
     if(_sChangedStack.size() != 0)
@@ -508,18 +508,18 @@ void OSGLoader::endNode(void)
 
 void OSGLoader::nullNode(void)
 {
-    setFieldContainerValue(NullFC);
+    setFieldContainerValue(NULL);
 }
 
 void OSGLoader::use(const Char8 *szName)
 {
-    FieldContainerPtr pUseNode;
+    FieldContainer *pUseNode;
 
     // try to find a container with the given name attachment
 
     pUseNode = getReference(szName);
 
-    if(pUseNode == NullFC)
+    if(pUseNode == NULL)
     {
         SLOG << "No FieldContainer found with name " << szName << std::endl;
     }
@@ -551,7 +551,7 @@ UInt32 OSGLoader::getFieldType(const Char8 *szFieldname)
     if(szFieldname == NULL)
         return returnValue;
 
-    if(_pCurrentFC != NullFC)
+    if(_pCurrentFC != NULL)
     {
         pFieldDesc = _pCurrentFC->getFieldDescription(szFieldname);
 
@@ -572,7 +572,7 @@ Int32 OSGLoader::mapExtIntFieldType(const Char8 *szFieldname,
     Int32 returnValue = Inherited::mapExtIntFieldType(szFieldname,
                                                       iFieldTypeId);
 
-    if(returnValue < 0 && szFieldname != NULL && _pCurrentFC != NullFC)
+    if(returnValue < 0 && szFieldname != NULL && _pCurrentFC != NULL)
     {
         FieldDescriptionBase *pFieldDesc = 
             _pCurrentFC->getFieldDescription(szFieldname);
@@ -584,14 +584,14 @@ Int32 OSGLoader::mapExtIntFieldType(const Char8 *szFieldname,
             PINFO << "FieldTypeId invalid, trying to fix. " << std::endl;
             PINFO << oFieldType.getContentType().getCName()
                   << " comparing with "
-                  << FieldTraits<FieldContainerPtr>::getType().getCName()
+                  << FieldTraits<FieldContainer *>::getType().getCName()
                   << std::endl;
 
 
             if(oFieldType.getContentType().isDerivedFrom(
-                   FieldTraits<FieldContainerPtr>::getType()) == true)
+                   FieldTraits<FieldContainer *>::getType()) == true)
             {
-                PINFO << "FieldContainerPtr or derived class, "
+                PINFO << "FieldContainer * or derived class, "
                       << "parsing as Node"
                       << std::endl;
 
@@ -624,7 +624,7 @@ void OSGLoader::beginField(const Char8 *szFieldname,
 
     _pCurrentField.reset();
 
-    if(_pCurrentFC != NullFC)
+    if(_pCurrentFC != NULL)
     {
         _pCurrentField     = _pCurrentFC->editField(szFieldname);
 
@@ -673,14 +673,14 @@ void OSGLoader::endField(void)
     }
 }
 
-FieldContainerPtr OSGLoader::getReference(const Char8 *szName)
+FieldContainer *OSGLoader::getReference(const Char8 *szName)
 {
     // Find a previously DEF'ed FC by its name and return Ptr to it
 
     NamedFCMap::iterator entry = _defMap.find(std::string(szName));
 
     if(entry == _defMap.end())
-        return NullFC;
+        return NULL;
 
     return entry->second; // return the stored FCPtr
 }

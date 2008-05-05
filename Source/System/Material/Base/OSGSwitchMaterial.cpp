@@ -95,9 +95,9 @@ SwitchMaterial::~SwitchMaterial(void)
     // Material::~Material ein subRefCP(_pState) aufgerufen. Dieser 
     // subRefCP wuerde dann nochmal mit dem gleichen ungueltigen pointer 
     // fuer das SwitchMaterial aufgerufen werden und
-    // das kracht natuerlich, deswegen wird er jetzt einfach auf NullFC gesetzt!
+    // das kracht natuerlich, deswegen wird er jetzt einfach auf NULL gesetzt!
 
-    _pState = NullFC;
+    _pState = NULL;
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -109,23 +109,23 @@ void SwitchMaterial::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-void SwitchMaterial::addMaterial(MaterialPtr mat)
+void SwitchMaterial::addMaterial(Material *mat)
 {
-    if(mat == NullFC)
+    if(mat == NULL)
         return;
 
     pushToMaterials(mat);
 }
 
-void SwitchMaterial::subMaterial(MaterialPtr mat)
+void SwitchMaterial::subMaterial(Material *mat)
 {
-    if(mat == NullFC)
+    if(mat == NULL)
         return;
 
     removeFromMaterials(mat);
 }
 
-bool SwitchMaterial::hasMaterial(MaterialPtr mat)
+bool SwitchMaterial::hasMaterial(Material *mat)
 {
     UInt32 i;
 
@@ -138,20 +138,20 @@ bool SwitchMaterial::hasMaterial(MaterialPtr mat)
     return false;
 }
 
-MaterialPtr SwitchMaterial::getMaterial(UInt32 index)
+Material *SwitchMaterial::getMaterial(UInt32 index)
 {
     if(index >= _mfMaterials.size())
     {
         FWARNING(("SwitchMaterial::getMaterial : index %u out of range\n", 
                   index));
 
-        return NullFC;
+        return NULL;
     }
 
     return _mfMaterials[index];
 }
 
-MaterialPtr SwitchMaterial::getCurrentMaterial(void)
+Material *SwitchMaterial::getCurrentMaterial(void)
 {
     UInt32 choice = getChoice();
 
@@ -160,7 +160,7 @@ MaterialPtr SwitchMaterial::getCurrentMaterial(void)
         FWARNING(("SwitchMaterial::getCurrentMaterial : current choice %u "
                   "out of range\n", choice));
 
-        return NullFC;
+        return NULL;
     }
     return _mfMaterials[choice];
 }
@@ -185,7 +185,7 @@ void SwitchMaterial::draw(DrawFunctor &OSG_CHECK_ARG(func), DrawActionBase *OSG_
 /*! Create a OSG::State that represents this Material and return it.
 */
 
-StatePtr SwitchMaterial::makeState(void)
+State *SwitchMaterial::makeState(void)
 {
     UInt32 choice = getChoice();
     if(choice >= _mfMaterials.size())
@@ -194,7 +194,7 @@ StatePtr SwitchMaterial::makeState(void)
             SWARNING << "SwitchMaterial::makeState: choice index (" << choice << ") out of range!" << std::endl;
         if(getSortKey() != OSG::getDefaultMaterial()->getSortKey())
         {
-            SwitchMaterialPtr tmpPtr(*this);
+            SwitchMaterial *tmpPtr(*this);
             beginEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
                 setSortKey(OSG::getDefaultMaterial()->getSortKey());
             endEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
@@ -202,7 +202,7 @@ StatePtr SwitchMaterial::makeState(void)
         return OSG::getDefaultMaterial()->makeState();
     }
 
-    if(_mfMaterials[choice] != NullFC)
+    if(_mfMaterials[choice] != NULL)
     {
         if(getSortKey() != _mfMaterials[choice]->getSortKey())
         {
@@ -252,7 +252,7 @@ void SwitchMaterial::rebuildState(void)
         return;
     }
 
-    if(_mfMaterials[choice] != NullFC)
+    if(_mfMaterials[choice] != NULL)
     {
         if(getSortKey() != _mfMaterials[choice]->getSortKey())
         {
@@ -274,7 +274,7 @@ void SwitchMaterial::rebuildState(void)
     }
 }
 
-StatePtr SwitchMaterial::getState(UInt32 index)
+State *SwitchMaterial::getState(UInt32 index)
 {
     UInt32 choice = getChoice();
 
@@ -286,18 +286,18 @@ StatePtr SwitchMaterial::getState(UInt32 index)
                      << std::endl;
         }
 
-        return NullFC;
+        return NULL;
     }
 
-    if(_mfMaterials[choice] != NullFC)
+    if(_mfMaterials[choice] != NULL)
     {
-        if(_mfMaterials[choice]->getState(index) == NullFC)
+        if(_mfMaterials[choice]->getState(index) == NULL)
             rebuildState();
 
         return _mfMaterials[choice]->getState(index);
     }
 
-    return NullFC;
+    return NULL;
 }
 
 
@@ -317,7 +317,7 @@ UInt32 SwitchMaterial::getNPasses(void) const
         return 1;
     }
 
-    if(_mfMaterials[choice] != NullFC)
+    if(_mfMaterials[choice] != NULL)
         return _mfMaterials[choice]->getNPasses();
 
     return 1;
@@ -341,7 +341,7 @@ bool SwitchMaterial::isTransparent(void) const
         return false;
     }
 
-    if(_mfMaterials[choice] != NullFC)
+    if(_mfMaterials[choice] != NULL)
         return _mfMaterials[choice]->isTransparent();
 
     return false;

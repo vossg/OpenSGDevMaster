@@ -105,7 +105,7 @@ OSBCommonElement::postRead(void)
 /* Writing                                                                 */
 
 void
-OSBCommonElement::preWrite(const FieldContainerPtr &/* fc */)
+OSBCommonElement::preWrite(FieldContainer * const /* fc */)
 {
     // nothing to do.
 }
@@ -328,7 +328,7 @@ OSBCommonElement::readFieldContent(
         isPtrField = true;
     }
     else if(fieldType.getContentType().isDerivedFrom(
-        FieldTraits<FieldContainerPtr>::getType()) == true)
+        FieldTraits<FieldContainer *>::getType()) == true)
     {
         if(fieldType.getClass() == FieldType::ParentPtrField)
         {
@@ -660,9 +660,9 @@ OSBCommonElement::preWritePtrSingleField(const UInt32 fieldId)
     if(sfPtrField == NULL || sfPtrField->isValid() == false)
         return;
 
-    FieldContainerPtr refedFC = (*sfPtrField)->getValue();
+    FieldContainer *refedFC = (*sfPtrField)->getValue();
 
-    if(refedFC == NullFC)
+    if(refedFC == NULL)
         return;
 
     UInt32      refedId  = refedFC->getId  ();
@@ -711,9 +711,9 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
 
     for(; fieldIt != fieldEnd; ++fieldIt)
     {
-        FieldContainerPtr refedFC = *fieldIt;
+        FieldContainer *refedFC = *fieldIt;
 
-        if(refedFC == NullFC)
+        if(refedFC == NULL)
             continue;
 
         UInt32      refedId  = refedFC->getId  ();
@@ -761,9 +761,9 @@ OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerPtr refedFC = mapIt->second;
+        FieldContainer *refedFC = mapIt->second;
 
-        if(refedFC == NullFC)
+        if(refedFC == NULL)
             continue;
 
         UInt32      refedId  = refedFC->getId  ();
@@ -796,7 +796,7 @@ OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
  */
 void
 OSBCommonElement::preWriteFieldContainer(
-    const FieldContainerPtr &fc, const std::string &excludeFields)
+    FieldContainer * const fc, const std::string &excludeFields)
 {
     FDEBUG(("OSBCommonElement::preWriteFieldContainer: "
             "excludeFields: [%s]\n", excludeFields.c_str()));
@@ -838,7 +838,7 @@ OSBCommonElement::preWriteFieldContainer(
             preWriteAttachmentMapField(fieldId);
         }
         else if(fieldType.getContentType().isDerivedFrom(
-            FieldTraits<FieldContainerPtr>::getType()) == true)
+            FieldTraits<FieldContainer *>::getType()) == true)
         {
             if(fieldType.getCardinality() == FieldType::SingleField)
             {
@@ -860,7 +860,7 @@ OSBCommonElement::preWriteFieldContainer(
     \param[in] fc Container to write the header for.
  */
 void
-OSBCommonElement::writeFieldContainerHeader(const FieldContainerPtr &fc)
+OSBCommonElement::writeFieldContainerHeader(FieldContainer * const fc)
 {
     FDEBUG(("OSBCommonElement::writeFieldContainerHeader\n"));
 
@@ -904,7 +904,7 @@ OSBCommonElement::writeFieldContent(const UInt32 fieldId)
     FDEBUG(("OSBCommonElement::writeFieldContent\n"));
 
     BinaryWriteHandler *wh = editRoot()->getWriteHandler();
-    FieldContainerPtr   fc = getContainer();
+    FieldContainer     *fc = getContainer();
 
     const FieldDescriptionBase *fieldDesc = fc->getFieldDescription(fieldId);
     const BitVector             fieldMask = fieldDesc->getFieldMask(       );
@@ -929,8 +929,8 @@ OSBCommonElement::writeFields(
     FDEBUG(("OSBCommonElement::writeFields: "
             "excludeFields: [%s]\n", excludeFields.c_str()));
 
-    FieldContainerPtr fc         = getContainer();
-    UInt32            fieldCount = fc->getType().getNumFieldDescs();
+    FieldContainer *fc         = getContainer();
+    UInt32          fieldCount = fc->getType().getNumFieldDescs();
 
     // go through all fields and write them.
     for(UInt32 fieldId = 1; fieldId <= fieldCount; ++fieldId)
@@ -992,12 +992,12 @@ OSBCommonElement::writeEndMarker(void)
     type of container is to be replaced.
 
     \return A container that can act as replacement for a missing type or
-    NullFC if no such container was found.
+     NULL if no such container was found.
  */
 FieldContainerTransitPtr 
     OSBCommonElement::createReplacementFC(const UInt8 fcPtrType)
 {
-    FieldContainerTransitPtr fc(NullFC);
+    FieldContainerTransitPtr fc(NULL);
 
     switch(fcPtrType)
     {
@@ -1037,7 +1037,7 @@ FieldContainerTransitPtr
     \return One of the constants in this class.
  */
 UInt8
-OSBCommonElement::getFCPtrType(const FieldContainerPtr container)
+OSBCommonElement::getFCPtrType(FieldContainer * const container)
 {
     FieldContainerType &fcType  = container->getType();
     UInt8               ptrType = OSBCommonElement::FCPtrFieldContainer;

@@ -67,8 +67,8 @@ OSG_USING_NAMESPACE
 
 WalkEngine::WalkEngine(void) : 
     Inherited(),
-    _ground(NullFC),
-    _world(NullFC),
+    _ground(NULL),
+    _world(NULL),
     _groundDistance(0.75),
     _wallDistance(0.1),
     _height(0.85),
@@ -89,12 +89,12 @@ WalkEngine::~WalkEngine()
 
 /*------------------------------ set --------------------------------------*/
 
-void WalkEngine::setGround(const NodePtr &new_ground)
+void WalkEngine::setGround(Node * const new_ground)
 {
     _ground=new_ground;
 }
 
-void WalkEngine::setWorld(const NodePtr &new_world)
+void WalkEngine::setWorld(Node * const new_world)
 {
     _world=new_world;
 }
@@ -124,7 +124,7 @@ void WalkEngine::idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav)
 
 void WalkEngine::onViewportChanged(Navigator* nav)
 {
-    ViewportPtr vp = nav->getViewport();
+    Viewport *vp = nav->getViewport();
     setGround(vp->getRoot());
     setWorld (vp->getRoot());
 }

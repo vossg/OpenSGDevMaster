@@ -114,7 +114,7 @@ void ContainerCollection::dump(      UInt32    ,
 /*! Add another container to the collection.
 * @param container  The container to add.
 */
-void ContainerCollection::addContainer(FieldContainerPtr container)
+void ContainerCollection::addContainer(FieldContainer *container)
 {
    /*
    editMField(ContainersFieldMask, _mfContainers);
@@ -126,7 +126,7 @@ void ContainerCollection::addContainer(FieldContainerPtr container)
 
 /*! Remove a container if it is found.
 */
-void ContainerCollection::subContainer(FieldContainerPtr container)
+void ContainerCollection::subContainer(FieldContainer *container)
 {
    removeFromContainers(container);
 }

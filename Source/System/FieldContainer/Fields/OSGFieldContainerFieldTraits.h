@@ -67,8 +67,6 @@ struct FieldTraitsFCPtrBase :
 {
     static const bool bIsPointerField = true;
 
-    typedef FieldContainerPtr ParentContainerPtr;
-
     static const Char8 *getSPName(void)
     {
         return "FieldContainerPtrSFieldBase";   
@@ -79,23 +77,23 @@ struct FieldTraitsFCPtrBase :
         return "FieldContainerPtrMFieldBase";   
     }
 
-    static UInt32 getBinSize(const FieldContainerPtr &)
+    static UInt32 getBinSize(FieldContainer * const &)
     {
         return sizeof(UInt32);
     }
 
-    static UInt32 getBinSize(const FieldContainerPtr *,
-                                   UInt32             uiNumObjects)
+    static UInt32 getBinSize(FieldContainer * const *,
+                             UInt32                  uiNumObjects)
     {
         return sizeof(UInt32) * uiNumObjects;
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
-                          const FieldContainerPtr &pObject)
+    static void copyToBin(BinaryDataHandler         &pMem, 
+                          FieldContainer    * const &pObject)
     {
         UInt32 containerId;
 
-        if(pObject == NullFC)
+        if(pObject == NULL)
         {
             // containerId=0 indicates an Null Ptr
             containerId = 0;
@@ -108,9 +106,9 @@ struct FieldTraitsFCPtrBase :
         pMem.putValue(containerId);
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
-                          const FieldContainerPtr *pObjectStore,
-                                UInt32             uiNumObjects)
+    static void copyToBin(BinaryDataHandler         &pMem, 
+                          FieldContainer    * const *pObjectStore,
+                          UInt32                     uiNumObjects)
     {
         for(UInt32 i = 0; i < uiNumObjects; i++)
         {
@@ -118,8 +116,8 @@ struct FieldTraitsFCPtrBase :
         }
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
-                            FieldContainerPtr &pObject)
+    static void copyFromBin(BinaryDataHandler  &pMem, 
+                            FieldContainer    *&pObject)
     {
         UInt32 containerId;
 
@@ -132,13 +130,13 @@ struct FieldTraitsFCPtrBase :
         }
         else
         {
-            pObject = NullFC;
+            pObject = NULL;
         }
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
-                            FieldContainerPtr *pObjectStore,
-                            UInt32             uiNumObjects)
+    static void copyFromBin(BinaryDataHandler & pMem, 
+                            FieldContainer    **pObjectStore,
+                            UInt32              uiNumObjects)
     {
         for(UInt32 i = 0; i < uiNumObjects; i++)
         {
@@ -154,8 +152,8 @@ struct FieldTraitsFCPtrBase :
 #endif
 
 template <>
-struct FieldTraits<FieldContainerPtr> : 
-    public FieldTraitsFCPtrBase<FieldContainerPtr>
+struct FieldTraits<FieldContainer *> : 
+    public FieldTraitsFCPtrBase<FieldContainer *>
 {
   private:
 
@@ -165,7 +163,7 @@ struct FieldTraits<FieldContainerPtr> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<FieldContainerPtr>  Self;
+    typedef FieldTraits<FieldContainer *>  Self;
 
 
     enum             { Convertible = Self::NotConvertible                 };
@@ -182,31 +180,31 @@ struct FieldTraits<FieldContainerPtr> :
 
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
-                         0                >::getSName<RecordedRefCountPolicy>(
+const Char8 *FieldTraits<FieldContainer *, 
+                         0               >::getSName<RecordedRefCountPolicy>(
                              void)
 {
     return "SFRecFieldContainerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
-                         0                >::getSName<UnrecordedRefCountPolicy>(
+const Char8 *FieldTraits<FieldContainer *, 
+                         0               >::getSName<UnrecordedRefCountPolicy>(
                              void)
 {
     return "SFUnrecFieldContainerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
-                         0                >::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FieldContainer *, 
+                         0               >::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFieldContainerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
-                         0                >::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FieldContainer *, 
+                         0               >::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFieldContainerPtr"; 
 }
@@ -214,7 +212,7 @@ const Char8 *FieldTraits<FieldContainerPtr,
 
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
+const Char8 *FieldTraits<FieldContainer *, 
                          0               >::getMName<RecordedRefCountPolicy>(
                              void)
 {
@@ -222,23 +220,23 @@ const Char8 *FieldTraits<FieldContainerPtr,
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
-                         0                >::getMName<UnrecordedRefCountPolicy>(
+const Char8 *FieldTraits<FieldContainer *, 
+                         0               >::getMName<UnrecordedRefCountPolicy>(
                              void)
 {
     return "MFUnrecFieldContainerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
-                         0                >::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FieldContainer *, 
+                         0               >::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFieldContainerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FieldContainerPtr, 
-                         0                >::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FieldContainer *, 
+                         0               >::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFieldContainerPtr"; 
 }
@@ -256,8 +254,8 @@ const Char8 *FieldTraits<FieldContainerPtr,
 /*! \hideinhierarchy */
 #endif
 template <>
-struct FieldTraits<FieldContainerPtr, 1> : 
-    public FieldTraitsFCPtrBase<FieldContainerPtr, 1>
+struct FieldTraits<FieldContainer *, 1> : 
+    public FieldTraitsFCPtrBase<FieldContainer *, 1>
 {
   private:
 
@@ -267,7 +265,7 @@ struct FieldTraits<FieldContainerPtr, 1> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<FieldContainerPtr, 1>        Self;
+    typedef FieldTraits<FieldContainer *, 1>        Self;
 
 
     enum             { Convertible = Self::NotConvertible };

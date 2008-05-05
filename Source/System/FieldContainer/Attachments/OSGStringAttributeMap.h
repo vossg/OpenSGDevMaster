@@ -140,7 +140,7 @@ typedef StringAttributeMap *StringAttributeMapP;
 /*! \{                                                                 */
 
 StringAttributeMapTransitPtr stringAttributeMap(
-    AttachmentContainerPtr container);
+    AttachmentContainer *container);
 
 /*! \}                                                                 */
 

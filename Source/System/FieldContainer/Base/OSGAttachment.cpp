@@ -128,16 +128,16 @@ Attachment::~Attachment(void)
 OSG_ABSTR_FIELD_CONTAINER_DEF(Attachment)
 
 
-bool Attachment::linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId)
+bool Attachment::linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentsFieldId)
     {
-        FieldContainerPtr pTypedParent =
-             dynamic_cast<FieldContainerPtr>(pParent);
+        FieldContainer *pTypedParent =
+             dynamic_cast<FieldContainer *>(pParent);
         
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             editMField(ParentsFieldMask, _mfParents);
 
@@ -152,15 +152,15 @@ bool Attachment::linkParent  (const FieldContainerPtr pParent,
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
 }
 
-bool Attachment::unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId)
+bool Attachment::unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentsFieldId)
     {
-        FieldContainerPtr pTypedParent =
-            dynamic_cast<FieldContainerPtr>(pParent);
+        FieldContainer *pTypedParent =
+            dynamic_cast<FieldContainer *>(pParent);
             
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             MFParentFieldContainerPtr::iterator pIt = 
                 _mfParents.find_nc(pParent);

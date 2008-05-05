@@ -16,7 +16,7 @@
 		type="SHLChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>

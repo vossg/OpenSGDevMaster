@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
     The name of the container collection.  Can be used to identify collections.
 */
 
-/*! \var FieldContainerPtr ContainerCollectionBase::_mfContainers
+/*! \var FieldContainer * ContainerCollectionBase::_mfContainers
     A list of containers held in the collection.
 */
 
@@ -220,7 +220,7 @@ MFUnrecFieldContainerPtr *ContainerCollectionBase::editMFContainers     (void)
 
 
 
-void ContainerCollectionBase::pushToContainers(const FieldContainerPtr value)
+void ContainerCollectionBase::pushToContainers(FieldContainer * const value)
 {
     editMField(ContainersFieldMask, _mfContainers);
 
@@ -258,7 +258,7 @@ void ContainerCollectionBase::removeFromContainers(UInt32 uiIndex)
     }
 }
 
-void ContainerCollectionBase::removeFromContainers(const FieldContainerPtr value)
+void ContainerCollectionBase::removeFromContainers(FieldContainer * const value)
 {
     Int32 iElemIdx = _mfContainers.findIndex(value);
 
@@ -336,7 +336,7 @@ ContainerCollectionTransitPtr ContainerCollectionBase::create(void)
 {
     ContainerCollectionTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -352,7 +352,7 @@ ContainerCollectionTransitPtr ContainerCollectionBase::createLocal(BitVector bFl
 {
     ContainerCollectionTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -364,9 +364,9 @@ ContainerCollectionTransitPtr ContainerCollectionBase::createLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ContainerCollectionPtr ContainerCollectionBase::createEmpty(void)
+ContainerCollection *ContainerCollectionBase::createEmpty(void)
 {
-    ContainerCollectionPtr returnValue;
+    ContainerCollection *returnValue;
 
     newPtr<ContainerCollection>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -376,9 +376,9 @@ ContainerCollectionPtr ContainerCollectionBase::createEmpty(void)
     return returnValue;
 }
 
-ContainerCollectionPtr ContainerCollectionBase::createEmptyLocal(BitVector bFlags)
+ContainerCollection *ContainerCollectionBase::createEmptyLocal(BitVector bFlags)
 {
-    ContainerCollectionPtr returnValue;
+    ContainerCollection *returnValue;
 
     newPtr<ContainerCollection>(returnValue, bFlags);
 
@@ -389,7 +389,7 @@ ContainerCollectionPtr ContainerCollectionBase::createEmptyLocal(BitVector bFlag
 
 FieldContainerTransitPtr ContainerCollectionBase::shallowCopy(void) const
 {
-    ContainerCollectionPtr tmpPtr;
+    ContainerCollection *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ContainerCollection *>(this), 
@@ -405,7 +405,7 @@ FieldContainerTransitPtr ContainerCollectionBase::shallowCopy(void) const
 FieldContainerTransitPtr ContainerCollectionBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ContainerCollectionPtr tmpPtr;
+    ContainerCollection *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ContainerCollection *>(this), bFlags);
 
@@ -528,9 +528,9 @@ void ContainerCollectionBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ContainerCollectionBase::createAspectCopy(void) const
+FieldContainer *ContainerCollectionBase::createAspectCopy(void) const
 {
-    ContainerCollectionPtr returnValue;
+    ContainerCollection *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ContainerCollection *>(this));
@@ -549,17 +549,17 @@ void ContainerCollectionBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ContainerCollectionPtr>::_type("ContainerCollectionPtr", "AttachmentPtr");
+DataType FieldTraits<ContainerCollection *>::_type("ContainerCollectionPtr", "AttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ContainerCollectionPtr)
+OSG_FIELDTRAITS_GETTYPE(ContainerCollection *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ContainerCollectionPtr, 
+                           ContainerCollection *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ContainerCollectionPtr, 
+                           ContainerCollection *, 
                            0);
 
 OSG_END_NAMESPACE

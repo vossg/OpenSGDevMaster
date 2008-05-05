@@ -82,9 +82,9 @@ void ManipulatorManager::changeManipulator(const ManipulatorType type)
     {
         if ( ! _maniC->getParents().empty() )
         {
-            NodePtr maniN = dynamic_cast<NodePtr>(_maniC->getParents()[0]);
+            Node *maniN = dynamic_cast<Node *>(_maniC->getParents()[0]);
 
-            _maniC = NullFC;
+            _maniC = NULL;
 
             switch (type)
             {
@@ -115,13 +115,13 @@ void ManipulatorManager::changeManipulator(const ManipulatorType type)
     }
 }
 
-void ManipulatorManager::setTarget(const NodePtr &value)
+void ManipulatorManager::setTarget(Node * const value)
 {
     _maniC->setTarget(value);
     _target = value;
 }
 
-void ManipulatorManager::setViewport(const ViewportPtr &value)
+void ManipulatorManager::setViewport(Viewport * const value)
 {
     _maniC->setViewport(value);
     _viewport = value;
@@ -152,7 +152,7 @@ void ManipulatorManager::mouseButtonRelease(const UInt16 button,
     _maniC->mouseButtonRelease(button, x, y);
 }
 
-bool ManipulatorManager::activate(NodePtr n)
+bool ManipulatorManager::activate(Node *n)
 {
     if ( _maniC->hasSubHandle(n) )
     {

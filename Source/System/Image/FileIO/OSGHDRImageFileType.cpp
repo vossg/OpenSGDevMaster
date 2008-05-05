@@ -118,7 +118,7 @@ HDRImageFileType HDRImageFileType::_the( "image/x-hdr",
   the given input stream. Returns true on success.
 */
 
-bool HDRImageFileType::read(      ImagePtr      image, 
+bool HDRImageFileType::read(      Image        *image, 
                                   std::istream &is, 
                             const std::string  &mimetype)
 {
@@ -149,9 +149,9 @@ bool HDRImageFileType::read(      ImagePtr      image,
   Returns true on success.
 */
 
-bool HDRImageFileType::write(      ConstImagePtr     image, 
-                                   std::ostream     &os, 
-                             const std::string      &mimetype)
+bool HDRImageFileType::write(const Image        *image, 
+                                   std::ostream &os, 
+                             const std::string  &mimetype)
 {
     if( (image->getDataType() != Image::OSG_FLOAT32_IMAGEDATA) &&
         (image->getDataType() != Image::OSG_FLOAT16_IMAGEDATA)  )
@@ -222,9 +222,9 @@ bool HDRImageFileType::write(      ConstImagePtr     image,
   Returns the amount of data read.
 */
 
-UInt64 HDRImageFileType::restoreData(      ImagePtr     image, 
-                                     const UChar8      *buffer,
-                                           Int32              )
+UInt64 HDRImageFileType::restoreData(      Image  *image, 
+                                     const UChar8 *buffer,
+                                           Int32         )
 {
     image->setData(buffer);
 
@@ -237,9 +237,9 @@ UInt64 HDRImageFileType::restoreData(      ImagePtr     image,
   Returns the amount of data written.
 */
 
-UInt64 HDRImageFileType::storeData(ConstImagePtr     image, 
-                                   UChar8           *buffer,
-                                   Int32             OSG_CHECK_ARG(memSize))
+UInt64 HDRImageFileType::storeData(const Image  *image, 
+                                         UChar8 *buffer,
+                                         Int32   OSG_CHECK_ARG(memSize))
 {
     UInt32 dataSize = image->getSize();
 

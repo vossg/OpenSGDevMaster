@@ -53,13 +53,13 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorManager
 public:
     enum    ManipulatorType { ROTATE, SCALE, TRANSLATE };
 
-    NodeTransitPtr createManipulator(const ManipulatorType type);
-    void           changeManipulator(const ManipulatorType type);
-    bool           activate         (      NodePtr         n   );
+    NodeTransitPtr createManipulator(const ManipulatorType  type);
+    void           changeManipulator(const ManipulatorType  type);
+    bool           activate         (      Node            *n   );
     
-    void           setTarget        (const NodePtr     &value);
-    void           setViewport      (const ViewportPtr &value);
-    bool           isActive         (      void              );
+    void           setTarget        (      Node     * const value);
+    void           setViewport      (      Viewport * const value);
+    bool           isActive         (      void                  );
     
     void           mouseMove         (const Int16  x,
                                       const Int16  y);

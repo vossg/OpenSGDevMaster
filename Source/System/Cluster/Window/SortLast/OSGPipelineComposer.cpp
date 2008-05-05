@@ -168,7 +168,7 @@ void PipelineComposer::open()
 #endif
 }
 
-void PipelineComposer::startViewport(ViewportPtr)
+void PipelineComposer::startViewport(Viewport *)
 {
     if(getPipelined())
     {
@@ -185,7 +185,7 @@ void PipelineComposer::startViewport(ViewportPtr)
     }
 }
 
-void PipelineComposer::composeViewport(ViewportPtr port)
+void PipelineComposer::composeViewport(Viewport *port)
 {
     UInt32 s;
 

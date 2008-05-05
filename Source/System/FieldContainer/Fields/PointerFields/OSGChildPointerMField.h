@@ -498,9 +498,9 @@ class ChildPointerMField :
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-    ChildPointerMField(const FieldContainerPtr pParent,
-                             UInt16            usChildFieldId,
-                             UInt16            usParentFieldId);
+    ChildPointerMField(FieldContainer * const pParent,
+                       UInt16                 usChildFieldId,
+                       UInt16                 usParentFieldId);
     
 
     /*! \}                                                                 */
@@ -597,7 +597,7 @@ class ChildPointerMField :
     void                   push_back(const_value    value           );
    
     void                   resize   (size_t         newSize,
-                                     const_value    value   = NullFC);
+                                     const_value    value   = NULL  );
 
     void                   reserve  (size_type      newsize         );
 
@@ -608,7 +608,7 @@ class ChildPointerMField :
 #endif
 
     void                   assign   (size_type      newSize,
-                                     const_value    value   = NullFC);
+                                     const_value    value   = NULL  );
 
     template <class InputIteratorT>
     void                   assign   (InputIteratorT first,

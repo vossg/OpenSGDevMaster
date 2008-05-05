@@ -102,7 +102,7 @@ OSG_BEGIN_NAMESPACE
 /*---------------------------- properties ---------------------------------*/
 
 inline 
-MaterialPtr VRMLWriteAction::getMaterial(void) const
+Material *VRMLWriteAction::getMaterial(void) const
 {
   return _material;
 }
@@ -120,16 +120,16 @@ VRMLWriteAction::TraversalMode VRMLWriteAction::getMode(void) const
 }
 
 inline
-bool VRMLWriteAction::isWritten(FieldContainerPtr fc)
+bool VRMLWriteAction::isWritten(FieldContainer *fc)
 {
     return std::find(_writtenFCs.begin(), _writtenFCs.end(), fc) != 
             _writtenFCs.end();
 }
 
 inline
-UInt32 VRMLWriteAction::getIndex(FieldContainerPtr fc)
+UInt32 VRMLWriteAction::getIndex(FieldContainer *fc)
 {
-    std::vector<FieldContainerPtr>::iterator it;
+    std::vector<FieldContainer *>::iterator it;
     
     it =  std::find(_writtenFCs.begin(), _writtenFCs.end(), fc);
     
@@ -137,7 +137,7 @@ UInt32 VRMLWriteAction::getIndex(FieldContainerPtr fc)
 }
 
 inline
-UInt32 VRMLWriteAction::setWritten(FieldContainerPtr fc)
+UInt32 VRMLWriteAction::setWritten(FieldContainer *fc)
 {
     _writtenFCs.push_back(fc);
     

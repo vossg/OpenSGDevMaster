@@ -40,7 +40,7 @@ OSG_BEGIN_NAMESPACE
 /*------------------------------ access -----------------------------------*/
 
 inline 
-void ImageForeground::addImage(ImagePtr image, Pnt2f position)
+void ImageForeground::addImage(Image *image, Pnt2f position)
 {
     pushToImages(image);
 

@@ -163,11 +163,11 @@ bool EditSFieldHandle<SFAttachmentPtrMap>::isPointerField(void) const
 
 inline
 void EditSFieldHandle<SFAttachmentPtrMap>::add(
-    const FieldContainerPtr rhs,
-          UInt32            uiBindings)
+    FieldContainer * const rhs,
+    UInt32                 uiBindings)
 {
-    const AttachmentPtr pVal = 
-        dynamic_cast<const AttachmentPtr>(rhs);
+    Attachment * const pVal = 
+        dynamic_cast<Attachment * const>(rhs);
 
     if(rhs != NULL && pVal == NULL)
         return;
@@ -260,9 +260,9 @@ void EditSFieldHandle<SFAttachmentPtrMap>::shareValues(
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        AttachmentPtr att       = mapIt->second;
-        UInt16        uiBinding = UInt16(mapIt->first &
-                                         0x0000FFFF    );
+        Attachment *att       = mapIt->second;
+        UInt16      uiBinding = UInt16(mapIt->first &
+                                       0x0000FFFF    );
 
         if(_fAddMethod)
         {
@@ -298,7 +298,7 @@ void EditSFieldHandle<SFAttachmentPtrMap>::cloneValues(
         UInt16             uiBinding = UInt16(mapIt->first &
                                               0x0000FFFF    );
 
-        if(att != NullFC)
+        if(att != NULL)
         {
             const FieldContainerType &attType = att->getType();
 

@@ -78,10 +78,10 @@ protected:
     static       A3DSSceneFileType  _the;
 
     A3DSSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
+                            UInt16  suffixByteCount,
+                            bool    override,
+                            UInt32  overridePriority,
+                            UInt32  flags);
 
     A3DSSceneFileType(const A3DSSceneFileType &obj);
 

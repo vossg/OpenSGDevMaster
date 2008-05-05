@@ -191,7 +191,7 @@ void
 OSBGeometryHelper::splitMultiIndex(
     const std::vector<UInt16> &indexMapping,
     const InIndexPtrTypeT      inIndex,
-    const GeometryPtr          geo          )
+          Geometry            * const geo          )
 {
     typedef          InIndexPtrTypeT                       InIndexPtrType;
     typedef typename PtrStripper<OutIndexPtrTypeT>::Object OutIndexType;
@@ -224,7 +224,7 @@ OSBGeometryHelper::splitMultiIndex(
     }
 
     // remove the old indices.
-    geo->setIndices(NullFC);
+    geo->setIndices(NULL);
     geo->resizePropIndices(0);
 
     for(UInt32 i = 0; i < indexMappingSize; ++i)

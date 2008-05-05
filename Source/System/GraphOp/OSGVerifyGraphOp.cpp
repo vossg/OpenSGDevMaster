@@ -130,7 +130,7 @@ void VerifyGraphOp::setVerbose(bool verbose)
     _verbose = verbose;
 }
 
-bool VerifyGraphOp::traverse(NodePtr node)
+bool VerifyGraphOp::traverse(Node *node)
 {
     // Clean up
     
@@ -159,9 +159,9 @@ bool VerifyGraphOp::traverse(NodePtr node)
     return true;
 }
 
-Action::ResultE VerifyGraphOp::traverseEnter(const NodePtr node)
+Action::ResultE VerifyGraphOp::traverseEnter(Node * const node)
 {
-    if(NullFC == node)
+    if(NULL == node)
     {
         FWARNING(("VerifyGraphOp::travNodeEnter: called with NULL node, "
                   "skipping."));
@@ -175,8 +175,8 @@ Action::ResultE VerifyGraphOp::traverseEnter(const NodePtr node)
         node_name = std::string(OSG::getName(node)); 
     }
 
-    NodeCorePtr node_core = node->getCore();
-    if(NullFC == node_core)
+    NodeCore *node_core = node->getCore();
+    if(NULL == node_core)
     {
         _corruptedNodes.push_back(node);
         _numErrors += 1;
@@ -196,9 +196,9 @@ Action::ResultE VerifyGraphOp::traverseEnter(const NodePtr node)
     }
 
     // Check based on core types
-    if(NullFC != node_core)
+    if(NULL != node_core)
     {
-        if(dynamic_cast<GeometryPtr>(node_core) != NullFC)
+        if(dynamic_cast<Geometry *>(node_core) != NULL)
         {
             return verifyGeometry(node);
         }
@@ -207,22 +207,22 @@ Action::ResultE VerifyGraphOp::traverseEnter(const NodePtr node)
     return Action::Continue;
 }
 
-Action::ResultE VerifyGraphOp::traverseLeave(const NodePtr, 
-                                                   Action::ResultE res)
+Action::ResultE VerifyGraphOp::traverseLeave(Node * const, 
+                                             Action::ResultE res)
 {
     return Action::Continue;
 }
 
 
 /** Verify geometry method. */
-Action::ResultE VerifyGraphOp::verifyGeometry(const NodePtr node)
+Action::ResultE VerifyGraphOp::verifyGeometry(Node * const node)
 {
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
 
-    if(geo == NullFC)
+    if(geo == NULL)
         return Action::Continue;
 
-    if(geo->getPositions() == NullFC)
+    if(geo->getPositions() == NULL)
         return Action::Continue;
 
     UInt32 start_errors = _numErrors;
@@ -230,31 +230,31 @@ Action::ResultE VerifyGraphOp::verifyGeometry(const NodePtr node)
     Int32 positions_size = geo->getPositions()->getSize();
 
     Int32 normals_size = 0;
-    if(geo->getNormals() != NullFC)
+    if(geo->getNormals() != NULL)
         normals_size = geo->getNormals()->getSize();
 
     Int32 colors_size = 0;
-    if(geo->getColors() != NullFC)
+    if(geo->getColors() != NULL)
         colors_size = geo->getColors()->getSize();
 
     Int32 secondary_colors_size = 0;
-    if(geo->getSecondaryColors() != NullFC)
+    if(geo->getSecondaryColors() != NULL)
         secondary_colors_size = geo->getSecondaryColors()->getSize();
 
     Int32 texccords_size = 0;
-    if(geo->getTexCoords() != NullFC)
+    if(geo->getTexCoords() != NULL)
         texccords_size = geo->getTexCoords()->getSize();
 
     Int32 texccords1_size = 0;
-    if(geo->getTexCoords1() != NullFC)
+    if(geo->getTexCoords1() != NULL)
         texccords1_size = geo->getTexCoords1()->getSize();
 
     Int32 texccords2_size = 0;
-    if(geo->getTexCoords2() != NullFC)
+    if(geo->getTexCoords2() != NULL)
         texccords2_size = geo->getTexCoords2()->getSize();
 
     Int32 texccords3_size = 0;
-    if(geo->getTexCoords3() != NullFC)
+    if(geo->getTexCoords3() != NULL)
         texccords3_size = geo->getTexCoords3()->getSize();
 
     UInt32 pos_errors = 0;
@@ -294,21 +294,21 @@ Action::ResultE VerifyGraphOp::verifyGeometry(const NodePtr node)
     {
         norm_errors = 0;
         if(_verbose) SINFO << "removed corrupted normals!\n";
-        geo->setNormals(NullFC);
+        geo->setNormals(NULL);
     }
 
     if(col_errors > 0)
     {
         col_errors = 0;
         if(_verbose) SINFO << "removed corrupted colors!\n";
-        geo->setColors(NullFC);
+        geo->setColors(NULL);
     }
 
     if(tex0_errors > 0)
     {
         tex0_errors = 0;
         if(_verbose) SINFO << "removed corrupted tex coords0!\n";
-        geo->setTexCoords(NullFC);
+        geo->setTexCoords(NULL);
     }
 
     _numErrors += (pos_errors + norm_errors + col_errors +
@@ -340,22 +340,22 @@ Action::ResultE VerifyGraphOp::verifyGeometry(const NodePtr node)
 }
 
 
-bool VerifyGraphOp::verifyIndexMap(GeometryPtr geo, bool &repair)
+bool VerifyGraphOp::verifyIndexMap(Geometry *geo, bool &repair)
 {
     repair = false;
     return true;
 
 #if 0
-    if(geo == NullFC)
+    if(geo == NULL)
         return true;
 
-    if(geo->getIndices() == NullFC)
+    if(geo->getIndices() == NULL)
         return true;
 
     if(!geo->getIndexMapping().empty())
         return true;
 
-    if(geo->getPositions() == NullFC)
+    if(geo->getPositions() == NULL)
         return true;
 
     UInt32 positions_size = geo->getPositions()->getSize();
@@ -451,9 +451,9 @@ bool VerifyGraphOp::repairGeometry(void)
             // now replace corrupted geometry core with a group core.
             for (UInt32 j=0;j<_corruptedGeos[i]->getParents().size();++j)
             {
-                NodePtr parent = dynamic_cast<NodePtr>(
+                Node *parent = dynamic_cast<Node *>(
                     _corruptedGeos[i]->getParents()[j]);
-                if (parent != NullFC)
+                if (parent != NULL)
                 {
                     std::string nname;
                     if(OSG::getName(parent) != NULL)

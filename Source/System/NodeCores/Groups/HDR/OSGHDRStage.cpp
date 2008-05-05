@@ -220,7 +220,7 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
                 pPart->setBackground(pBack);
             }
             
-            NodePtr pActNode = a->getActNode();
+            Node *pActNode = a->getActNode();
             
             a->recurceNoNodeCallbacks(pActNode);
         }
@@ -601,9 +601,9 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     return returnValue;
 }
 
-void HDRStage::resizeStageData(HDRStageDataPtr pData,
-                               Int32           iPixelWidth,
-                               Int32           iPixelHeight)
+void HDRStage::resizeStageData(HDRStageData *pData,
+                               Int32         iPixelWidth,
+                               Int32         iPixelHeight)
 {
     FWARNING(("HDRStage resize not implemented ==> wrong results\n"));
 }
@@ -634,7 +634,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
         return;
 
 
-    HDRStageDataPtr pData = pAction->getData<HDRStageData *>(_iDataSlotId);
+    HDRStageData *pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 
     if(pData == NULL)
     {
@@ -652,8 +652,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     // Shrink to w/2 h/2
 
-    FrameBufferObjectPtr pShrinkTarget = pData->getShrinkRenderTarget();
-    ChunkMaterialPtr     pSHM          = pData->getShrinkMaterial();
+    FrameBufferObject *pShrinkTarget = pData->getShrinkRenderTarget();
+    ChunkMaterial     *pSHM          = pData->getShrinkMaterial();
 
 
     pShrinkTarget->activate(pEnv);
@@ -689,7 +689,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     // Shrink to w/4 h/4
 
-    FrameBufferObjectPtr pBlurTarget = pData->getBlurRenderTarget();
+    FrameBufferObject *pBlurTarget = pData->getBlurRenderTarget();
 
     pBlurTarget->editMFDrawBuffers()->clear();
 
@@ -702,7 +702,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
                pEnv->getPixelWidth () / 4,
                pEnv->getPixelHeight() / 4);
 
-    ChunkMaterialPtr  pBLM       = pData->getBlurMaterial();
+    ChunkMaterial    *pBLM       = pData->getBlurMaterial();
 
     State            *pBlurState = pBLM->getState();
 
@@ -801,7 +801,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
                pEnv->getPixelRight (),
                pEnv->getPixelTop   ());
 
-    ChunkMaterialPtr pTCM = pData->getToneMappingMaterial();
+    ChunkMaterial *pTCM = pData->getToneMappingMaterial();
 
     State *pTState = pTCM->getState();
         

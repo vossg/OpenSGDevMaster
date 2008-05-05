@@ -88,7 +88,7 @@ RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
-RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(const ObjectPtr pObj) :
+RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(Object * const pObj) :
     _pObj(NULL)
 {
     RefCountPolicy::setRefd(_pObj, pObj);
@@ -118,7 +118,7 @@ template <class ObjectT,
           class RefCountPolicyT> inline
 typename RefCountPtr<ObjectT, RefCountPolicyT>::Self &
     RefCountPtr<ObjectT, RefCountPolicyT>::operator =(
-        const ObjectPtr objectPtr)
+        Object * const objectPtr)
 {
     if(_pObj != objectPtr)
         RefCountPolicy::setRefd(_pObj, objectPtr);
@@ -162,14 +162,14 @@ typename RefCountPtr<ObjectT, RefCountPolicyT>::Self &
 template <class ObjectT, 
           class RefCountPolicyT> inline
 RefCountPtr<ObjectT, RefCountPolicyT>::operator 
-    typename RefCountPtr<ObjectT, RefCountPolicyT>::ObjectPtr (void) const
+    typename RefCountPtr<ObjectT, RefCountPolicyT>::Object *(void) const
 {
     return RefCountPolicy::validate(_pObj);
 }
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
-typename RefCountPtr<ObjectT, RefCountPolicyT>::ObjectPtr 
+typename RefCountPtr<ObjectT, RefCountPolicyT>::Object * 
     RefCountPtr<ObjectT, RefCountPolicyT>::operator->(void) const
 {
     return RefCountPolicy::validate(_pObj);
@@ -185,7 +185,7 @@ typename RefCountPtr<ObjectT, RefCountPolicyT>::Object &
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
-typename RefCountPtr<ObjectT, RefCountPolicyT>::ObjectPtr 
+typename RefCountPtr<ObjectT, RefCountPolicyT>::Object * 
     RefCountPtr<ObjectT, RefCountPolicyT>::get(void) const
 {
     return RefCountPolicy::validate(_pObj);
@@ -193,7 +193,7 @@ typename RefCountPtr<ObjectT, RefCountPolicyT>::ObjectPtr
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
-void RefCountPtr<ObjectT, RefCountPolicyT>::set(const ObjectPtr objectPtr)
+void RefCountPtr<ObjectT, RefCountPolicyT>::set(Object * const objectPtr)
 {
     if(_pObj != objectPtr)
         RefCountPolicy::setRefd(_pObj, objectPtr);

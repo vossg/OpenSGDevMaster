@@ -327,7 +327,7 @@ void CubeTextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     {
         pColl->getElem(TextureObjChunk::statNTextures)->inc(getGLId());
 
-        if(getImage() != NullFC)
+        if(getImage() != NULL)
         {
             pColl->getElem(TextureObjChunk::statNTexBytes)->add(
                 getGLId(), 
@@ -417,7 +417,7 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
     {
         pColl->getElem(TextureObjChunk::statNTextures)->inc(getGLId());
 
-        if(getImage() != NullFC)
+        if(getImage() != NULL)
         {
             pColl->getElem(TextureObjChunk::statNTexBytes)->add(
                 getGLId(), 

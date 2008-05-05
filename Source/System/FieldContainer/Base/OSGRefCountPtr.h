@@ -77,9 +77,7 @@ class RefCountPtr
     typedef RefCountPtr<Object, 
                         RefCountPolicy>                      Self;
     typedef TransitPtr<ObjectT>                              ObjectTransitPtr;
-                                       
-    OSG_GEN_NAMED_PTR(Object,     Object    );
-     
+                                           
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
@@ -94,9 +92,9 @@ class RefCountPtr
     RefCountPtr(TransitPtr<OtherObjectT> const &other);
 
     explicit
-    RefCountPtr(ObjectTransitPtr        &other);
+    RefCountPtr(ObjectTransitPtr         &other);
 
-    RefCountPtr(const ObjectPtr          pObj );
+    RefCountPtr(Object           * const  pObj );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -110,9 +108,9 @@ class RefCountPtr
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(const Self              &other    );
-    Self &operator =(const ObjectPtr          objectPtr);
-    Self &operator =(const ObjectTransitPtr  &other    );
+    Self &operator =(const Self             &       other    );
+    Self &operator =(      Object           * const objectPtr);
+    Self &operator =(const ObjectTransitPtr &       other    );
 
     template <class OtherObjectT, class OtherRefCountPolicyT>
     Self &operator =(const RefCountPtr<OtherObjectT,
@@ -123,29 +121,29 @@ class RefCountPtr
     /*! \name Conversion                                                   */
     /*! \{                                                                 */
     
-    operator ObjectPtr (void) const;
+    operator Object *(void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
-    ObjectPtr  operator->(void                            ) const;
-    Object    &operator *(void                            ) const;
+    Object *operator->(void) const;
+    Object &operator *(void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    ObjectPtr get (      void                ) const;
-    void      set (const ObjectPtr  objectPtr);
+    Object *get (void                    ) const;
+    void    set (Object * const objectPtr);
     
-    void      swap(      Self      &other    );
+    void    swap(Self   &       other    );
        
 #ifdef REFPTR_UNITTEST
     inline
-    ObjectPtr getRaw(void) const
+    Object *getRaw(void) const
     {
         return _pObj;
     }
@@ -162,7 +160,7 @@ class RefCountPtr
     /*! \name Member                                                       */
     /*! \{                                                                 */
     
-    ObjectPtr _pObj;
+    Object *_pObj;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

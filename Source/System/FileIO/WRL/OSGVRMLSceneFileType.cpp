@@ -92,7 +92,7 @@ const Char8 *VRMLSceneFileType::getName(void) const
 
 NodeTransitPtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
 {
-    NodeTransitPtr root(NullFC);
+    NodeTransitPtr root(NULL);
 
     VRMLFile *loader = new VRMLFile();
 
@@ -108,8 +108,9 @@ NodeTransitPtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
 /*-------------------------------------------------------------------------*/
 /*                               Write                                     */
 
-bool VRMLSceneFileType::write(const NodePtr &node, std::ostream &os,
-                              const Char8 *fileNameOrExtension) const
+bool VRMLSceneFileType::write(Node         * const  node, 
+                              std::ostream         &os,
+                              Char8          const *fileNameOrExtension) const
 {
     // This is a hack but should be safer.
 

@@ -8,8 +8,8 @@ OSG_BEGIN_NAMESPACE
 
 struct TestAttDesc
 {
-    typedef OSG::Attachment    Parent;
-    typedef OSG::AttachmentPtr ParentPtr;
+    typedef OSG::Attachment  Parent;
+    typedef OSG::Attachment *ParentPtr;
     
     // TODO rename it to VRMLGenericAtt ????
     static const OSG::Char8 *getTypeName        (void) { return "TestAtt";    }
@@ -25,7 +25,6 @@ struct TestAttDesc
 };
 
 typedef OSG::DynFieldAttachment<TestAttDesc>  TestAtt;
-typedef TestAtt::ObjPtr                       TestAttPtr;
 typedef TestAtt::ObjRecPtr                    TestAttRecPtr;
 
 OSG_DYNFIELDATTACHMENT_INST(TestAttDesc)
@@ -54,7 +53,7 @@ int main(int argc, char **argv)
             &OSG::TestAtt::getDynamicField ));
 
     
-//    CHECK(tp != OSG::NullFC);
+//    CHECK(tp != OSG::NULL);
 
     OSG::UInt32 fIndex = tp->addField(*pDesc);
 
@@ -78,7 +77,7 @@ int main(int argc, char **argv)
     OSG::SFUnrecFieldContainerPtr::getClassType().dump();
     OSG::MFUnrecFieldContainerPtr::getClassType().dump();
 
-    tp = NullFC;
+    tp = NULL;
 
     return 0;
 }

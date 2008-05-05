@@ -137,7 +137,7 @@ void LightChunk::activate(DrawEnv *pEnv, UInt32 index)
 
     Matrixr tobeacon;
 
-    if(_sfBeacon.getValue() != NullFC)
+    if(_sfBeacon.getValue() != NULL)
     {
         _sfBeacon.getValue()->getToWorld(tobeacon);
     }
@@ -221,7 +221,7 @@ void LightChunk::changeFrom(DrawEnv    *pEnv,
 
     Matrixr tobeacon;
 
-    if(_sfBeacon.getValue() != NullFC)
+    if(_sfBeacon.getValue() != NULL)
     {
         _sfBeacon.getValue()->getToWorld(tobeacon);
     }

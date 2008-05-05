@@ -66,21 +66,21 @@ class OSG_SYSTEM_DLLMAPPING PointerSFieldBase : public Field
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef       Field                                    Inherited;
+    typedef Field                                    Inherited;
 
-    typedef       PointerSFieldBase                        Self;
-    typedef       FieldTraits      <FieldContainerPtr, 0>  SFieldTraits;
+    typedef PointerSFieldBase                        Self;
+    typedef FieldTraits      <FieldContainer *, 0>   SFieldTraits;
     
     // storage
-    typedef       FieldContainerPtr                        StoredType;
-    typedef const FieldContainerPtr                        const_value;
-    typedef       FieldContainerPtr                        value_type;
+    typedef FieldContainer *                         StoredType;
+    typedef FieldContainer * const                   const_value;
+    typedef FieldContainer *                         value_type;
 
-    typedef       EditSFieldHandle <Self      >            EditHandle;
-    typedef       boost::shared_ptr<EditHandle>            EditHandlePtr;
+    typedef EditSFieldHandle <Self      >            EditHandle;
+    typedef boost::shared_ptr<EditHandle>            EditHandlePtr;
 
-    typedef       GetSFieldHandle  <Self     >             GetHandle;
-    typedef       boost::shared_ptr<GetHandle>             GetHandlePtr;
+    typedef GetSFieldHandle  <Self     >             GetHandle;
+    typedef boost::shared_ptr<GetHandle>             GetHandlePtr;
     
     /*---------------------------------------------------------------------*/
 

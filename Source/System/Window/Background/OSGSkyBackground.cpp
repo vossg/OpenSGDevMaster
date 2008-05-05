@@ -101,7 +101,7 @@ void SkyBackground::dump(      UInt32   ,
 /*-------------------------- drawing ---------------------------------*/
 
 void SkyBackground::drawFace(      DrawEnv             * pEnv, 
-                                   TextureBaseChunkPtr   tex, 
+                                   TextureBaseChunk    * tex, 
                                    StateChunk          *&oldtex, 
                              const Pnt3f                &p1, 
                              const Pnt3f                &p2, 
@@ -110,7 +110,7 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
                              const Vec3f               * texCoord)
 {
     
-    if(tex != NullFC)
+    if(tex != NULL)
     {
         if(oldtex != NULL)
         {
@@ -179,7 +179,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
 
     m.multLeft(t);
 
-    if(getBeacon() != NullFC)
+    if(getBeacon() != NULL)
     {
         getBeacon()->getToWorld(t);
         m.mult(t);
@@ -367,7 +367,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
     
     #undef tfac
     #define tfac(t,c)  \
-        defaulttc[(c)*((t) != NullFC && (t)->isCubeTexture() == true)]
+        defaulttc[(c)*((t) != NULL && (t)->isCubeTexture() == true)]
      
     drawFace(pEnv, getBackTexture(),   tchunk,
                                          Pnt3f(0.5, -0.5,  0.5),

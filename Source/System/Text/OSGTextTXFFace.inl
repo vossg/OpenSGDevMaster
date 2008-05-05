@@ -46,7 +46,7 @@ inline Real32 TextTXFFace::getScale() const { return _scale; }
 inline const TextTXFParam &TextTXFFace::getParam() const { return _param; }
 
 
-inline ImagePtr TextTXFFace::getTexture() const { return _texture; }
+inline Image *TextTXFFace::getTexture() const { return _texture; }
 
 
 inline TextTXFFace::TextTXFFace()

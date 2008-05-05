@@ -43,20 +43,20 @@
 OSG_BEGIN_NAMESPACE
 
 inline 
-NodePtr Action::getActNode(void)
+Node *Action::getActNode(void)
 {
     return _actNode;
 }
 
     
 inline 
-void Action::setActNode(const NodePtr node)
+void Action::setActNode(Node * const node)
 {
     _actNode = node;
 }
 
 inline
-NodePtr Action::getNode(int index)
+Node *Action::getNode(int index)
 {
     if(_actList == NULL)
     {
@@ -69,7 +69,7 @@ NodePtr Action::getNode(int index)
 }
 
 inline
-void Action::addNode(const NodePtr node)
+void Action::addNode(Node * const node)
 {
     _newList.push_back(node);
 }
@@ -113,7 +113,7 @@ void Action::setTravMask(UInt32 val)
 // default list.
 
 inline
-ActionBase::ResultE Action::callEnter(const NodeCorePtr core)
+ActionBase::ResultE Action::callEnter(NodeCore * const core)
 {
     ResultE result;
 
@@ -147,7 +147,7 @@ ActionBase::ResultE Action::callEnter(const NodeCorePtr core)
 }
 
 inline
-ActionBase::ResultE Action::callLeave(const NodeCorePtr core)
+ActionBase::ResultE Action::callLeave(NodeCore * const core)
 {
     ResultE result;
 

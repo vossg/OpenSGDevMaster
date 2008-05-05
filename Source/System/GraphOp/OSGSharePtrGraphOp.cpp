@@ -78,7 +78,7 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
  *                           Class variables                               *
 \***************************************************************************/
 
-std::set<FieldContainerPtr> SharePtrGraphOp::_added_cores;
+std::set<FieldContainer *> SharePtrGraphOp::_added_cores;
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -109,7 +109,7 @@ GraphOp *SharePtrGraphOp::create()
     return new SharePtrGraphOp();
 }
 
-bool SharePtrGraphOp::traverse(NodePtr root)
+bool SharePtrGraphOp::traverse(Node *root)
 {
     if(!_includes.empty() && !_excludes.empty())
     {
@@ -213,12 +213,12 @@ void SharePtrGraphOp::setExcludes(const std::string &excludes)
     }
 }
 
-Action::ResultE SharePtrGraphOp::traverseEnter(const NodePtr /*node*/)
+Action::ResultE SharePtrGraphOp::traverseEnter(Node * const /*node*/)
 {
     return Action::Continue;
 }
 
-Action::ResultE SharePtrGraphOp::traverseLeave(const NodePtr /*node*/,
+Action::ResultE SharePtrGraphOp::traverseLeave(Node * const /*node*/,
                                                Action::ResultE /*res*/)
 {
     return Action::Continue;
@@ -229,7 +229,7 @@ Action::ResultE SharePtrGraphOp::traverseLeave(const NodePtr /*node*/,
 \*-------------------------------------------------------------------------*/
 
 bool SharePtrGraphOp::isInList(const std::vector<std::string> &tlist,
-                               const FieldContainerPtr fc)
+                                     FieldContainer * const fc)
 {
     for(UInt32 k=0;k<tlist.size();++k)
     {
@@ -248,9 +248,9 @@ bool SharePtrGraphOp::isInList(const std::vector<std::string> &tlist,
     return false;
 }
 
-FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr fc)
+FieldContainer *SharePtrGraphOp::compareFCs(FieldContainer * const fc)
 {
-    if(fc == NullFC)
+    if(fc == NULL)
         return fc;
 
     const FieldContainerType &type   = fc->getType();
@@ -285,9 +285,9 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr fc)
 
             if(sfPtrHandle != NULL && sfPtrHandle->isValid() == true)
             {
-                FieldContainerPtr ffc  = (*sfPtrHandle)->getValue();
+                FieldContainer *ffc  = (*sfPtrHandle)->getValue();
                 
-                FieldContainerPtr nffc = compareFCs(ffc);
+                FieldContainer *nffc = compareFCs(ffc);
                 
                 if(nffc != ffc)
                 {
@@ -302,9 +302,9 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr fc)
                     ((SFFieldContainerPtr *) fc_field)->setValue(nffc);
                     // for attachments we need to update the parents field!
                     AttachmentPtr attachment = AttachmentPtr::dcast(nffc);
-                    if(attachment != NullFC)
+                    if(attachment != NULL)
                     {
-                        AttachmentPtr attorg = AttachmentPtr::dcast(ffc);
+                        Attachment *attorg = AttachmentPtr::dcast(ffc);
                         attorg->subParent(fc);
 
                         FieldContainerPtr fcb = fc;
@@ -321,9 +321,9 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr fc)
             {
                 for(UInt32 j = 0; j < (*mfPtrHandle)->size(); ++j)
                 {
-                    FieldContainerPtr ffc = (*(*mfPtrHandle))[j];
+                    FieldContainer *ffc = (*(*mfPtrHandle))[j];
                     
-                    FieldContainerPtr nffc = compareFCs(ffc);
+                    FieldContainer *nffc = compareFCs(ffc);
                     
                     if(nffc != ffc)
                     {
@@ -341,7 +341,7 @@ FieldContainerPtr SharePtrGraphOp::compareFCs(const FieldContainerPtr fc)
                         (*(((MFFieldContainerPtr *)fc_field)))[j] = nffc;
                         // for attachments we need to update the parents field!
                         AttachmentPtr attachment = AttachmentPtr::dcast(nffc);
-                        if(attachment != NullFC)
+                        if(attachment != NULL)
                         {
                             AttachmentPtr attorg = AttachmentPtr::dcast(ffc);
                             attorg->subParent(fc);
@@ -439,15 +439,15 @@ static bool compareMField(Field *a, Field *b)
  * \param field container b
  * \return true if equal.
  */
-bool SharePtrGraphOp::isEqual(const FieldContainerPtr a,
-                              const FieldContainerPtr b)
+bool SharePtrGraphOp::isEqual(FieldContainer * const a,
+                              FieldContainer * const b)
 {
 #if 0
     // Compare the pointers.
     if(a == b)
         return true;
 
-    if(a == NullFC || b == NullFC)
+    if(a == NULL || b == NULL)
         return false;
 
     if(a->getType() != b->getType())
@@ -592,7 +592,7 @@ bool SharePtrGraphOp::isEqual(const FieldContainerPtr a,
     if(a == b)
         return true;
 
-    if(a == NullFC || b == NullFC)
+    if(a == NULL || b == NULL)
         return false;
 
     if(a->getType() != b->getType())
@@ -717,14 +717,14 @@ bool SharePtrGraphOp::isEqual(const FieldContainerPtr a,
 }
 
 #if 0
-Action::ResultE SharePtrGraphOp::clearAttachmentParent(NodePtr &node)
+Action::ResultE SharePtrGraphOp::clearAttachmentParent(Node * node)
 {
-    if(node == NullFC)
+    if(node == NULL)
         return Action::Continue;
 
     FieldContainerPtr fc = node->getCore();
 
-    if(fc == NullFC)
+    if(fc == NULL)
         return Action::Continue;
 
     // the core could be shared this would lead to duplicated parent entries.
@@ -756,7 +756,7 @@ Action::ResultE SharePtrGraphOp::clearAttachmentParent(NodePtr &node)
                 AttachmentPtr attachment =
                     AttachmentPtr::dcast(((SFFieldContainerPtr *) fieldPtr)
                     ->getValue());
-                if(attachment != NullFC)
+                if(attachment != NULL)
                 {
                     fc.setParentFieldPos(fDesc->getFieldId());
                     attachment->getParents().clear();
@@ -770,7 +770,7 @@ Action::ResultE SharePtrGraphOp::clearAttachmentParent(NodePtr &node)
                 {
                     AttachmentPtr attachment =
                         AttachmentPtr::dcast((*(mfield))[j]);
-                    if(attachment != NullFC)
+                    if(attachment != NULL)
                     {
                         fc.setParentFieldPos(fDesc->getFieldId());
                         attachment->getParents().clear();
@@ -785,12 +785,12 @@ Action::ResultE SharePtrGraphOp::clearAttachmentParent(NodePtr &node)
 
 Action::ResultE SharePtrGraphOp::addAttachmentParent(NodePtr &node)
 {
-    if(node == NullFC)
+    if(node == NULL)
         return Action::Continue;
 
     FieldContainerPtr fc = node->getCore();
 
-    if(fc == NullFC)
+    if(fc == NULL)
         return Action::Continue;
 
     // the core could be shared this would lead to duplicated parent entries.
@@ -822,7 +822,7 @@ Action::ResultE SharePtrGraphOp::addAttachmentParent(NodePtr &node)
                 AttachmentPtr attachment =
                     AttachmentPtr::dcast(((SFFieldContainerPtr *) fieldPtr)
                     ->getValue());
-                if(attachment != NullFC)
+                if(attachment != NULL)
                 {
                     fc.setParentFieldPos(fDesc->getFieldId());
                     attachment->addParent(fc);
@@ -836,7 +836,7 @@ Action::ResultE SharePtrGraphOp::addAttachmentParent(NodePtr &node)
                 {
                     AttachmentPtr attachment =
                         AttachmentPtr::dcast((*(mfield))[j]);
-                    if(attachment != NullFC)
+                    if(attachment != NULL)
                     {
                         fc.setParentFieldPos(fDesc->getFieldId());
                         attachment->addParent(fc);
@@ -851,7 +851,7 @@ Action::ResultE SharePtrGraphOp::addAttachmentParent(NodePtr &node)
 
 void SharePtrGraphOp::fillAttachmentParents(const NodePtr &node)
 {
-    if(node == NullFC)
+    if(node == NULL)
         return;
 
     _added_cores.clear();

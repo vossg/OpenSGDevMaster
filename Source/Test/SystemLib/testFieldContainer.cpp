@@ -4,7 +4,7 @@
 #include "OSGNodeCore.h"
 #include "OSGTestFC.h"
 
-static void dumpAspect(OSG::TestFCPtr pFC, OSG::UInt32 uiAspect)
+static void dumpAspect(OSG::TestFC *pFC, OSG::UInt32 uiAspect)
 {
     OSG::UInt32 uiCurrAspect= OSG::Thread::getCurrentAspect();
 
@@ -145,7 +145,7 @@ void testSharing(void)
         dumpAspect(pTestFC, i);
     }
 
-    pTestFC = NullFC;
+    pTestFC = NULL;
 }
 
 void testSharing1(void)
@@ -205,7 +205,7 @@ void testSharing1(void)
     }
 
 
-    pTestFC = NullFC;
+    pTestFC = NULL;
 }
 
 void testSharing2(void)
@@ -258,7 +258,7 @@ void testSharing2(void)
 
 
 
-    pTestFC = NullFC;
+    pTestFC = NULL;
 
     applyToAspect(1);
 }
@@ -516,7 +516,7 @@ void testChangeList(void)
         dumpAspect(pTestFC, i);
     }
 
-    pTestFC = NullFC;
+    pTestFC = NULL;
 }
 
 int main (int argc, char **argv)

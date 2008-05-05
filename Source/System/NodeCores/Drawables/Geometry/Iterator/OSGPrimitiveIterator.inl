@@ -95,14 +95,14 @@ UInt32 PrimitiveIterator::getType(void) const
 inline
 Int32 PrimitiveIterator::getPropertyIndex(Int32 att, Int32 which) const
 {
-    if(_props[att] == NullFC)
+    if(_props[att] == NULL)
     {
         return -1;
     }
     
-    GeoIntegralPropertyPtr ind = _inds[att];
+    GeoIntegralProperty *ind = _inds[att];
     
-    if(ind != NullFC)
+    if(ind != NULL)
     {
         return ind->getValue<Int32>(_actPointIndex + which);
     }
@@ -348,7 +348,7 @@ Vec2f PrimitiveIterator::getTexCoords3(Int32 which) const
 /*! Return the geometry the iterator is currently attached to.
 */
 inline
-ConstGeometryPtr PrimitiveIterator::getGeometry(void) const
+Geometry const *PrimitiveIterator::getGeometry(void) const
 {
     return _geo;
 }

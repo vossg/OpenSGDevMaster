@@ -186,7 +186,7 @@ void Camera::getViewing(Matrixr &result,
                         UInt32   OSG_CHECK_ARG(width ),
                         UInt32   OSG_CHECK_ARG(height))
 {
-    if (getBeacon() == NullFC)
+    if (getBeacon() == NULL)
     {
         SWARNING << "Camera::setup: no beacon!" << std::endl;
         return;

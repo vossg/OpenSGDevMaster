@@ -196,31 +196,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 StringAttributeMapTransitPtr stringAttributeMap(
-    AttachmentContainerPtr container)
+    AttachmentContainer *container)
 {
-    if ( NullFC == container )
+    if ( NULL == container )
     {
         FFATAL(("stringAttributeMap: no container?!?\n"));
-        return StringAttributeMapTransitPtr(NullFC);
+        return StringAttributeMapTransitPtr(NULL);
     }
 
-    StringAttributeMapUnrecPtr attr_map   = NullFC;
-    AttachmentPtr              attach_ptr =
+    StringAttributeMapUnrecPtr  attr_map   = NULL;
+    Attachment                 *attach_ptr =
         container->findAttachment(StringAttributeMap::getClassType().getGroupId());
 
-    if ( NullFC == attach_ptr )
+    if ( NULL == attach_ptr )
     {
         attr_map = StringAttributeMap::create();
         container->addAttachment(attr_map);
     }
     else
     {
-        attr_map = dynamic_cast<StringAttributeMapPtr>(attach_ptr);
+        attr_map = dynamic_cast<StringAttributeMap *>(attach_ptr);
 
-        if ( attr_map == NullFC )
+        if ( attr_map == NULL )
         {
             FFATAL(("stringAttributeMap: StringAttributeMap Attachment is not castable to StringAttributeMap?!?\n"));
-            return StringAttributeMapTransitPtr(NullFC);
+            return StringAttributeMapTransitPtr(NULL);
         }
     }
 

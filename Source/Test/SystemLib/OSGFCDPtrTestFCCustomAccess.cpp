@@ -111,40 +111,40 @@ void FCDPtrTestFCCustomAccess::dump(      UInt32    ,
     SLOG << "Dump FCDPtrTestFCCustomAccess NI" << std::endl;
 }
 
-void FCDPtrTestFCCustomAccess::setFieldSFPub_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::setFieldSFPub_ptr(FCDTestFC * const  value)
 {
 }
 
-void FCDPtrTestFCCustomAccess::setFieldSFPub_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::setFieldSFPub_weakptr(FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::setFieldSFPub_mpchildptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::setFieldSFPub_spchildptr(
-    const FCDSParTestFCPtr value)
+    FCDSParTestFC * const value)
 {
 }
 
-void FCDPtrTestFCCustomAccess::pushToFieldMFPub_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::pushToFieldMFPub_ptr(FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPub_weakptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPub_mpchildptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPub_spchildptr(
-    const FCDSParTestFCPtr value)
+    FCDSParTestFC * const value)
 {
 }
 
@@ -164,40 +164,40 @@ void FCDPtrTestFCCustomAccess::clearFieldMFPub_spchildptr(void)
 {
 }
 
-void FCDPtrTestFCCustomAccess::setFieldSFPro_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::setFieldSFPro_ptr(FCDTestFC * const value)
 {
 }
 
-void FCDPtrTestFCCustomAccess::setFieldSFPro_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::setFieldSFPro_weakptr(FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::setFieldSFPro_mpchildptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::setFieldSFPro_spchildptr(
-    const FCDSParTestFCPtr value)
+    FCDSParTestFC * const value)
 {
 }
 
-void FCDPtrTestFCCustomAccess::pushToFieldMFPro_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::pushToFieldMFPro_ptr(FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPro_weakptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPro_mpchildptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPro_spchildptr(
-    const FCDSParTestFCPtr value)
+    FCDSParTestFC * const value)
 {
 }
 
@@ -218,41 +218,41 @@ void FCDPtrTestFCCustomAccess::clearFieldMFPro_spchildptr(void)
 {
 }
 
-void FCDPtrTestFCCustomAccess::setFieldSFPri_ptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::setFieldSFPri_ptr(FCDTestFC * const value)
 {
 }
 
-void FCDPtrTestFCCustomAccess::setFieldSFPri_weakptr(const FCDTestFCPtr value)
+void FCDPtrTestFCCustomAccess::setFieldSFPri_weakptr(FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::setFieldSFPri_mpchildptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::setFieldSFPri_spchildptr(
-    const FCDSParTestFCPtr value)
+    FCDSParTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPri_ptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPri_weakptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPri_mpchildptr(
-    const FCDTestFCPtr value)
+    FCDTestFC * const value)
 {
 }
 
 void FCDPtrTestFCCustomAccess::pushToFieldMFPri_spchildptr(
-    const FCDSParTestFCPtr value)
+    FCDSParTestFC * const value)
 {
 }
 

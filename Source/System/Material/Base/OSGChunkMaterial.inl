@@ -37,7 +37,7 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-const StateChunkPtr ChunkMaterial::getChunk (const UInt32 index) const
+const StateChunk *ChunkMaterial::getChunk (const UInt32 index) const
 {
     return Inherited::getChunks(index);
 }

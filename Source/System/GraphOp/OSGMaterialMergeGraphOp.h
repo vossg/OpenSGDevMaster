@@ -59,24 +59,24 @@ public:
     class MaterialObject
     {
     public:
-        MaterialObject(GeometryPtr geo)
+        MaterialObject(Geometry *geo)
         {
             _geo = geo;
         }
 
-        MaterialObject(MaterialGroupPtr mg)
+        MaterialObject(MaterialGroup *mg)
         {
             _mg = mg;
         }
 
-        MaterialPtr getMaterial() {
-            return (_geo != NullFC
+        Material *getMaterial() {
+            return (_geo != NULL
                     ? _geo->getMaterial()
                     : _mg->getMaterial());
         }
 
-        void setMaterial(MaterialPtr mat) {
-            if (_geo != NullFC)
+        void setMaterial(Material *mat) {
+            if (_geo != NULL)
             {
                 _geo->setMaterial(mat);
             }
@@ -87,8 +87,8 @@ public:
         }
 
     private:
-        GeometryPtr _geo;
-        MaterialGroupPtr _mg;
+        Geometry      *_geo;
+        MaterialGroup *_mg;
     };
 
     static const char *getClassname(void) { return "MaterialMergeGraphOp"; };
@@ -97,7 +97,7 @@ public:
 
     GraphOp* create();
 
-    bool traverse(NodePtr node);
+    bool traverse(Node *node);
 
     void setParams(const std::string params);
     
@@ -107,13 +107,13 @@ protected:
     virtual ~MaterialMergeGraphOp(void);
 
 private:
-    Action::ResultE traverseEnter(const NodePtr node);
-    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node);
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 
     void addObject(MaterialObject m);
 
     typedef std::list<MaterialObject> MaterialObjectList;
-    typedef std::map<MaterialPtr, MaterialObjectList> MaterialObjectMap;
+    typedef std::map<Material *, MaterialObjectList> MaterialObjectMap;
 
     MaterialObjectMap _materialObjects;
 };

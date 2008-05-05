@@ -114,9 +114,9 @@ NodeTransitPtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
     \param[in] os Output stream to write to.
     \return True if the operation succeeded, false otherwise.
  */
-bool NFIOSceneFileType::write(const NodePtr      &node,
-                                    std::ostream &os,
-                              const Char8        *     ) const
+bool NFIOSceneFileType::write(Node         * const  node,
+                              std::ostream         &os,
+                              Char8          const *     ) const
 {
     return OSBDriver::write(node, os, _options);
 }

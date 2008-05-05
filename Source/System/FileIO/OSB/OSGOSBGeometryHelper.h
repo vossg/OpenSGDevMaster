@@ -103,7 +103,7 @@ class OSG_FILEIO_DLLMAPPING OSBGeometryHelper
     template <class OutIndexPtrTypeT, class InIndexPtrTypeT>
     void splitMultiIndex(const std::vector<UInt16>           &indexMapping,
                          const InIndexPtrTypeT                inIndex,
-                         const GeometryPtr                    geo          );
+                               Geometry                      * const geo  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

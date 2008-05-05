@@ -39,7 +39,7 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-FieldContainerPtr FieldContainerType::getPrototype(void) const
+FieldContainer *FieldContainerType::getPrototype(void) const
 {
     return _pPrototype;
 }
@@ -47,7 +47,7 @@ FieldContainerPtr FieldContainerType::getPrototype(void) const
 inline
 bool FieldContainerType::isAbstract(void) const
 {
-    return (_pPrototype != NullFC) ? false : true;
+    return (_pPrototype != NULL) ? false : true;
 }
 
 inline

@@ -169,7 +169,7 @@ OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::postRead(void)
 template <class GeoPropertyTypeT>
 void
 OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::preWrite(
-    const FieldContainerPtr &fc)
+    FieldContainer * const fc)
 {
     FDEBUG(("OSBTypedGeoVectorPropertyElement<>::preWrite\n"));
 

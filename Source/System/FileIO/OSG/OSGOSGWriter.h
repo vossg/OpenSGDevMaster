@@ -81,8 +81,8 @@ class OSG_SYSTEM_DLLMAPPING OSGWriter
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    void write(            FieldContainerPtr  container );
-    void write(std::vector<FieldContainerPtr> containers);
+    void write(            FieldContainer *  container );
+    void write(std::vector<FieldContainer *> containers);
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -97,12 +97,12 @@ class OSG_SYSTEM_DLLMAPPING OSGWriter
         bool        hasName;
         std::string containerName;
         
-        void        setName      (const FieldContainerPtr pFC);
+        void        setName      (FieldContainer * const pFC);
 		             
         FCInfoHelper(void);
     };
     
-    typedef std::map<FieldContainerPtr, FCInfoHelper> FCInfoHelperMap;
+    typedef std::map<FieldContainer *, FCInfoHelper> FCInfoHelperMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -111,12 +111,12 @@ class OSG_SYSTEM_DLLMAPPING OSGWriter
     FCInfoHelperMap                _visitedFCMap;
     OutStream                     &_outStream;
 
-    void visitContainer(const FieldContainerPtr     pFC      );
-    void visitField    (      GetFieldHandlePtr     hF       );
+    void visitContainer(FieldContainer    * const pFC    );
+    void visitField    (GetFieldHandlePtr         hF     );
 
-    void writeContainer(const FieldContainerPtr     pFC      ,
-                              bool                  bIndent  );
-    void writeField    (      GetFieldHandlePtr     hF       );
+    void writeContainer(FieldContainer    * const pFC    ,
+                        bool                      bIndent);
+    void writeField    (GetFieldHandlePtr         hF     );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

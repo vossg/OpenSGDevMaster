@@ -57,13 +57,13 @@ OSG_USING_NAMESPACE
     \param[in] inStream Stream to read data from.
     \param[in] optionStr String that holds the options for the read operation.
 
-    \return On success a NodePtr to the root of the read scene,
-    NullFC otherwise.
+    \return On success a Node * to the root of the read scene,
+     NULL otherwise.
  */
 NodeTransitPtr OSBDriver::read(      std::istream &inStream, 
                                const std::string  &optionStr)
 {
-    NodeTransitPtr  node(NullFC);
+    NodeTransitPtr  node(NULL);
     OSBRootElement *root = dynamic_cast<OSBRootElement *>(
         OSBElementFactory::the()->acquire("RootElement", 0));
 
@@ -73,7 +73,7 @@ NodeTransitPtr OSBDriver::read(      std::istream &inStream,
     root->read    ("");
     root->postRead(  );
 
-    node = dynamic_cast<NodePtr>(root->getContainer());
+    node = dynamic_cast<Node *>(root->getContainer());
 
     root->terminateRead();
 
@@ -91,9 +91,9 @@ NodeTransitPtr OSBDriver::read(      std::istream &inStream,
     \return true.
     \todo Should only return true if write was successful.
  */
-bool OSBDriver::write(const NodePtr       node, 
-                            std::ostream &outStream, 
-                      const std::string  &optionStr)
+bool OSBDriver::write(Node         * const  node, 
+                      std::ostream         &outStream, 
+                      std::string    const &optionStr)
 {
     OSBRootElement *root = dynamic_cast<OSBRootElement *>(
         OSBElementFactory::the()->acquire("RootElement", 0));

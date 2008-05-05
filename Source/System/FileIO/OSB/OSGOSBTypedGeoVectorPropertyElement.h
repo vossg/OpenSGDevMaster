@@ -62,7 +62,7 @@ class OSG_FILEIO_DLLMAPPING OSBTypedGeoVectorPropertyElement
     /*! \{                                                                 */
 
     typedef          GeoPropertyTypeT                  GeoPropertyType;
-    typedef typename GeoPropertyType::ObjPtr           GeoPropertyPtrType;
+    typedef typename GeoPropertyType::ObjCPtr          GeoPropertyPtrType;
     typedef typename GeoPropertyType::ObjUnrecPtr      GeoPropertyUnrecPtrType;
     typedef typename GeoPropertyType::StoredFieldType  GeoPropertyFieldType;
     typedef typename GeoPropertyFieldType::StoredType  VectorType;
@@ -98,8 +98,8 @@ class OSG_FILEIO_DLLMAPPING OSBTypedGeoVectorPropertyElement
     /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual void preWrite(const FieldContainerPtr &fc);
-    virtual void write   (      void                 );
+    virtual void preWrite(FieldContainer * const fc);
+    virtual void write   (void                     );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

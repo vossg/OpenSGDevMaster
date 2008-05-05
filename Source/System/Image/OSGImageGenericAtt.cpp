@@ -64,15 +64,15 @@ OSG_END_NAMESPACE
 
 OSG_BEGIN_NAMESPACE
 
-DataType FieldTraits<ImageGenericAttPtr>::_type("ImageGenericAttPtr",
-                                                "AttachmentPtr");
+DataType FieldTraits<ImageGenericAtt *>::_type("ImageGenericAttPtr",
+                                               "AttachmentPtr");
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ImageGenericAttPtr, 
+                           ImageGenericAtt *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ImageGenericAttPtr, 
+                           ImageGenericAtt *, 
                            0);
 
 OSG_END_NAMESPACE

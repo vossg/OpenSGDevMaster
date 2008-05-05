@@ -65,13 +65,13 @@ UInt32 ImageComposer::serverCount(void)
 }
 
 inline 
-WindowPtr ImageComposer::localWindow(void)
+Window *ImageComposer::localWindow(void)
 {
     return _localWindow;
 }
 
 inline 
-ClusterWindowPtr ImageComposer::clusterWindow(void)
+ClusterWindow *ImageComposer::clusterWindow(void)
 {
     return _clusterWindow;
 }

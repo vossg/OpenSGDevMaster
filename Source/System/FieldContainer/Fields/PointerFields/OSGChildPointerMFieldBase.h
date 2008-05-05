@@ -70,12 +70,12 @@ class ChildPointerMFieldBase :
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
-    typedef       PointerMFieldCommon<AccessHandlerT,
-                                      NamespaceI    > Inherited;
+    typedef PointerMFieldCommon<AccessHandlerT,
+                                NamespaceI    >         Inherited;
 
-    typedef       ChildPointerMFieldBase              Self;
+    typedef ChildPointerMFieldBase                      Self;
 
-    typedef const FieldContainerPtr                   const_value;
+    typedef FieldContainer                      * const const_value;
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -86,9 +86,9 @@ class ChildPointerMFieldBase :
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ChildPointerMFieldBase(const FieldContainerPtr  pParent,
-                                 UInt16             usChildFieldId,
-                                 UInt16             usParentFieldId);
+    ChildPointerMFieldBase(FieldContainer * const pParent,
+                           UInt16                 usChildFieldId,
+                           UInt16                 usParentFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -102,14 +102,9 @@ class ChildPointerMFieldBase :
     /*! \name Child Linking Information                                    */
     /*! \{                                                                 */
     
-    FieldContainerPtr getEnclosingObject(      void                  ) const;
-    void              setEnclosingObject(const FieldContainerPtr pObj);
-    
-    UInt16            getChildFieldId   (      void                  ) const;
-    void              setChildFieldId   (const UInt16 childFieldId   );
-    
-    UInt16            getParentFieldId  (      void                  ) const;
-    void              setParentFieldId  (const UInt16 parentFieldId  );
+    FieldContainer *getEnclosingObject(void) const;
+    UInt16          getChildFieldId   (void) const;
+    UInt16          getParentFieldId  (void) const;
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -120,10 +115,19 @@ class ChildPointerMFieldBase :
     /*! \name Members                                                      */
     /*! \{                                                                 */
   
-    FieldContainerPtr _pEnclosingObj;
-    UInt16            _childFieldId;
-    UInt16            _parentFieldId;
+    FieldContainer *_pEnclosingObj;
+    UInt16          _childFieldId;
+    UInt16          _parentFieldId;
   
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child Linking Information                                    */
+    /*! \{                                                                 */
+    
+    void setEnclosingObject(FieldContainer * const pObj         );
+    void setChildFieldId   (UInt16           const childFieldId );
+    void setParentFieldId  (UInt16           const parentFieldId);
+    
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

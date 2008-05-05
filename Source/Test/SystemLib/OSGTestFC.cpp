@@ -143,9 +143,9 @@ void TestFC::onDestroyAspect(UInt32 uiContainerId,
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-TestFC::ObjPtr TestFC::createAspectCopy(void) const
+TestFC::ObjCPtr TestFC::createAspectCopy(void) const
 {
-    TestFCPtr returnValue; 
+    TestFC *returnValue; 
 
     newAspectCopy(returnValue, 
                   dynamic_cast<const TestFC *>(this)); 

@@ -87,7 +87,7 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
                                      Int16      x,
                                      Int16      y     );
 
-    virtual bool hasSubHandle(const NodePtr& n);
+    virtual bool hasSubHandle(Node * const n);
 
     void setExternalUpdateHandler(ExternalUpdateHandler* h);
 
@@ -133,11 +133,11 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
     /*! \}                                                                 */
 
     virtual NodeTransitPtr makeHandleGeo() = 0;
-    virtual void           addHandleGeo(NodePtr n);
-    virtual void           subHandleGeo(NodePtr n);
+    virtual void           addHandleGeo(Node * n);
+    virtual void           subHandleGeo(Node * n);
     void                   reverseTransform();
 
-    virtual void    doMovement(      TransformPtr t,
+    virtual void    doMovement(      Transform   *t,
                                const Int32        coord,
                                const Real32       value,
                                const Vec3f        &translation,
@@ -145,8 +145,8 @@ class OSG_CONTRIBGUI_DLLMAPPING Manipulator : public ManipulatorBase
                                const Vec3f        &scaleFactor,
                                const Quaternion   &scaleOrientation) = 0;
 
-    Pnt2f calcScreenProjection(const Pnt3f       &,
-                               const ViewportPtr &port);
+    Pnt2f calcScreenProjection(const Pnt3f    &,
+                                     Viewport * const port);
 
     NodeUnrecPtr            _activeParent;
     ExternalUpdateHandler*  _externalUpdateHandler;

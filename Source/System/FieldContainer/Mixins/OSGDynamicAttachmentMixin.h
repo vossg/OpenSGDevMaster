@@ -115,8 +115,8 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*! \name                      Clone                                   */
     /*! \{                                                                 */
 
-    FieldContainerPtr emptyCopy(void);
-    FieldContainerPtr clone    (void);
+    FieldContainer *emptyCopy(void);
+    FieldContainer *clone    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -162,7 +162,7 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjPtr createAspectCopy(void) const;
+    virtual ObjCPtr createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */
@@ -208,8 +208,8 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*!\brief prohibit default functions (move to 'public' if needed) */
     void operator =(const DynFieldAttachment &source);
 
-    void addPointerValue(FieldContainerPtr pVal, UInt32 uiFieldId);
-    void setPointerValue(FieldContainerPtr pVal, UInt32 uiFieldId);
+    void addPointerValue(FieldContainer *pVal, UInt32 uiFieldId);
+    void setPointerValue(FieldContainer *pVal, UInt32 uiFieldId);
 };
 
 OSG_END_NAMESPACE

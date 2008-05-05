@@ -792,8 +792,9 @@ void SHLChunk::updateProgram(Window *win)
     updateParameters(win, *getMFParameters());
 }
 
-void SHLChunk::updateParameterLocation(Window *win, GLuint program,
-                                        const ShaderParameterPtr &parameter)
+void SHLChunk::updateParameterLocation(Window *win, 
+                                       GLuint program,
+                                       ShaderParameter * const parameter)
 {
     if(program == 0)
     {
@@ -833,7 +834,7 @@ void SHLChunk::updateParameterLocations(
 
     for(UInt32 i = 0; i < parameters.size(); ++i)
     {
-        ShaderParameterPtr parameter = parameters[i];
+        ShaderParameter *parameter = parameters[i];
 
         // as the location won't change after linking we can store them for speedup.
         parameter->setLocation(getUniformLocation(program, parameter->getName().c_str()));
@@ -874,7 +875,7 @@ void SHLChunk::updateParameters(
 
     for(UInt32 i = 0; i < parameters.size(); ++i)
     {
-        ShaderParameterPtr parameter = parameters[i];
+        ShaderParameter *parameter = parameters[i];
 
         // ignore special osg parameters
         if(parameter->getName().size() > 3 &&
@@ -902,8 +903,8 @@ void SHLChunk::updateParameters(
         {
             case ShaderParameter::SHPTypeBool:
             {
-                ShaderParameterBoolPtr p =
-                    dynamic_cast<ShaderParameterBoolPtr>(parameter);
+                ShaderParameterBool *p =
+                    dynamic_cast<ShaderParameterBool *>(parameter);
 
                 // get "glUniform1iARB" function pointer
                 OSGGLUNIFORM1IARBPROC uniform1i =
@@ -927,8 +928,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeInt:
             {
-                ShaderParameterIntPtr p =
-                    dynamic_cast<ShaderParameterIntPtr>(parameter);
+                ShaderParameterInt *p =
+                    dynamic_cast<ShaderParameterInt *>(parameter);
 
                 // get "glUniform1iARB" function pointer
                 OSGGLUNIFORM1IARBPROC uniform1i =
@@ -952,8 +953,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeReal:
             {
-                ShaderParameterRealPtr p =
-                    dynamic_cast<ShaderParameterRealPtr>(parameter);
+                ShaderParameterReal *p =
+                    dynamic_cast<ShaderParameterReal *>(parameter);
 
                 // get "glUniform1fARB" function pointer
                 OSGGLUNIFORM1FARBPROC uniform1f =
@@ -977,8 +978,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeVec2f:
             {
-                ShaderParameterVec2fPtr p =
-                    dynamic_cast<ShaderParameterVec2fPtr>(parameter);
+                ShaderParameterVec2f *p =
+                    dynamic_cast<ShaderParameterVec2f *>(parameter);
 
                 // get "glUniform2fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform2fv =
@@ -1004,8 +1005,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeVec3f:
             {
-                ShaderParameterVec3fPtr p =
-                    dynamic_cast<ShaderParameterVec3fPtr>(parameter);
+                ShaderParameterVec3f *p =
+                    dynamic_cast<ShaderParameterVec3f *>(parameter);
 
                 // get "glUniform3fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform3fv =
@@ -1030,8 +1031,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeVec4f:
             {
-                ShaderParameterVec4fPtr p =
-                    dynamic_cast<ShaderParameterVec4fPtr>(parameter);
+                ShaderParameterVec4f *p =
+                    dynamic_cast<ShaderParameterVec4f *>(parameter);
 
                 // get "glUniform4fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform4fv =
@@ -1056,8 +1057,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeMatrix:
             {
-                ShaderParameterMatrixPtr p =
-                    dynamic_cast<ShaderParameterMatrixPtr>(parameter);
+                ShaderParameterMatrix *p =
+                    dynamic_cast<ShaderParameterMatrix *>(parameter);
 
                 // get "glUniformMatrix4fvARB" function pointer
                 OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv =
@@ -1082,8 +1083,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypePnt2f:
             {
-                ShaderParameterPnt2fPtr p =
-                    dynamic_cast<ShaderParameterPnt2fPtr>(parameter);
+                ShaderParameterPnt2f *p =
+                    dynamic_cast<ShaderParameterPnt2f *>(parameter);
 
                 // get "glUniform2fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform2fv =
@@ -1109,8 +1110,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypePnt3f:
             {
-                ShaderParameterPnt3fPtr p =
-                    dynamic_cast<ShaderParameterPnt3fPtr>(parameter);
+                ShaderParameterPnt3f *p =
+                    dynamic_cast<ShaderParameterPnt3f *>(parameter);
 
                 // get "glUniform3fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform3fv =
@@ -1139,8 +1140,8 @@ void SHLChunk::updateParameters(
             // arrays
             case ShaderParameter::SHPTypeMInt:
             {
-                ShaderParameterMIntPtr p = 
-                    dynamic_cast<ShaderParameterMIntPtr>(parameter);
+                ShaderParameterMInt *p = 
+                    dynamic_cast<ShaderParameterMInt *>(parameter);
                 // get "glUniform1ivARB" function pointer
                 OSGGLUNIFORMIVARBPROC uniform1iv = (OSGGLUNIFORMIVARBPROC)
                     win->getFunction(_funcUniform1iv);
@@ -1156,8 +1157,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeMReal:
             {
-                ShaderParameterMRealPtr p = 
-                    dynamic_cast<ShaderParameterMRealPtr>(parameter);
+                ShaderParameterMReal *p = 
+                    dynamic_cast<ShaderParameterMReal *>(parameter);
                 // get "glUniform1fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform1fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform1fv);
@@ -1179,8 +1180,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeMVec2f:
             {
-                ShaderParameterMVec2fPtr p = 
-                    dynamic_cast<ShaderParameterMVec2fPtr>(parameter);
+                ShaderParameterMVec2f *p = 
+                    dynamic_cast<ShaderParameterMVec2f *>(parameter);
                 // get "glUniform2fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform2fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform2fv);
@@ -1199,8 +1200,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeMVec3f:
             {
-                ShaderParameterMVec3fPtr p = 
-                    dynamic_cast<ShaderParameterMVec3fPtr>(parameter);
+                ShaderParameterMVec3f *p = 
+                    dynamic_cast<ShaderParameterMVec3f *>(parameter);
                 // get "glUniform3fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform3fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform3fv);
@@ -1221,8 +1222,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeMVec4f:
             {
-                ShaderParameterMVec4fPtr p = 
-                    dynamic_cast<ShaderParameterMVec4fPtr>(parameter);
+                ShaderParameterMVec4f *p = 
+                    dynamic_cast<ShaderParameterMVec4f *>(parameter);
                 // get "glUniform4fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform4fv = (OSGGLUNIFORMFVARBPROC)
                     win->getFunction(_funcUniform4fv);
@@ -1243,8 +1244,8 @@ void SHLChunk::updateParameters(
             break;
             case ShaderParameter::SHPTypeMMatrix:
             {
-                ShaderParameterMMatrixPtr p = 
-                    dynamic_cast<ShaderParameterMMatrixPtr>(parameter);
+                ShaderParameterMMatrix *p = 
+                    dynamic_cast<ShaderParameterMMatrix *>(parameter);
                 // get "glUniformMatrix4fvARB" function pointer
                 OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
                     win->getFunction(_funcUniformMatrix4fv);
@@ -1328,7 +1329,7 @@ void SHLChunk::checkOSGParameters(bool force)
         // IMPORTANT: If you add a parameter here, add documentation for it
         //            in the class docs at the top of this file
         //
-        ShaderParameterPtr parameter = (*parameters)[i];
+        ShaderParameter *parameter = (*parameters)[i];
         if(parameter->getName().size() > 3 &&
            parameter->getName()[0] == 'O' &&
            parameter->getName()[1] == 'S' &&
@@ -1624,7 +1625,7 @@ void SHLChunk::updateOSGParameters(DrawEnv *pEnv,
             // ok if update is true this means it was called from update()
             // in this case we only need set parameters which use the
             // object transformation (top_matrix())
-            ShaderParameterPtr parameter = _osgParametersCallbacks[i].second;
+            ShaderParameter *parameter = _osgParametersCallbacks[i].second;
             parameter->setFlags(update ? ShaderParameter::SHPFlagUpdate :
                                 ShaderParameter::SHPFlagNone);
             fp(parameter, pEnv, program);
@@ -1632,7 +1633,7 @@ void SHLChunk::updateOSGParameters(DrawEnv *pEnv,
     }
 }
 
-void SHLChunk::updateWorldMatrix(const ShaderParameterPtr &parameter,
+void SHLChunk::updateWorldMatrix(ShaderParameter * const parameter,
                                  DrawEnv *pEnv, GLuint program)
 {
 #ifdef CHECK_OSG_PARRAM
@@ -1660,7 +1661,7 @@ void SHLChunk::updateWorldMatrix(const ShaderParameterPtr &parameter,
 #endif
 }
 
-void SHLChunk::updateInvWorldMatrix(const ShaderParameterPtr &parameter,
+void SHLChunk::updateInvWorldMatrix(ShaderParameter * const parameter,
                                     DrawEnv *pEnv, GLuint program)
 {
 #ifdef CHECK_OSG_PARRAM
@@ -1689,7 +1690,7 @@ void SHLChunk::updateInvWorldMatrix(const ShaderParameterPtr &parameter,
 #endif
 }
 
-void SHLChunk::updateTransInvWorldMatrix(const ShaderParameterPtr &parameter,
+void SHLChunk::updateTransInvWorldMatrix(ShaderParameter * const parameter,
                                          DrawEnv *pEnv, GLuint program)
 {
 #ifdef CHECK_OSG_PARRAM
@@ -1720,9 +1721,9 @@ void SHLChunk::updateTransInvWorldMatrix(const ShaderParameterPtr &parameter,
 }
 
 void SHLChunk::updateCameraOrientation(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
     // the parameter is not object transformation dependend so we can leave now.
     if(parameter->getFlags() & ShaderParameter::SHPFlagUpdate)
@@ -1744,9 +1745,9 @@ void SHLChunk::updateCameraOrientation(
 }
 
 void SHLChunk::updateCameraPosition(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
     if(parameter->getFlags() & ShaderParameter::SHPFlagUpdate)
         return;
@@ -1767,9 +1768,9 @@ void SHLChunk::updateCameraPosition(
 }
 
 void SHLChunk::updateViewMatrix(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
     if(parameter->getFlags() & ShaderParameter::SHPFlagUpdate)
         return;
@@ -1788,9 +1789,9 @@ void SHLChunk::updateViewMatrix(
 }
 
 void SHLChunk::updateInvViewMatrix(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
     if(parameter->getFlags() & ShaderParameter::SHPFlagUpdate)
         return;
@@ -1809,9 +1810,9 @@ void SHLChunk::updateInvViewMatrix(
 }
 
 void SHLChunk::updateStereoLeftEye(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     if(parameter->getFlags() & ShaderParameter::SHPFlagUpdate)
@@ -1827,11 +1828,11 @@ void SHLChunk::updateStereoLeftEye(
     // ok -1 is mono
     Int32 leftEye = -1;
     // now search for a stereo camera decorator and get the eye.
-    CameraPtr camera(*action->getCamera());
-    CameraDecoratorPtr decorator = CameraDecoratorPtr::dcast(camera);
+    Camera *camera(*action->getCamera());
+    CameraDecorator *decorator = CameraDecoratorPtr::dcast(camera);
     while(decorator != NullFC)
     {
-        StereoCameraDecoratorPtr stereoDecorator = StereoCameraDecoratorPtr::dcast(decorator);
+        StereoCameraDecorator *stereoDecorator = StereoCameraDecoratorPtr::dcast(decorator);
         if(stereoDecorator != NullFC)
         {
             if(stereoDecorator->getLeftEye())
@@ -1859,9 +1860,9 @@ void SHLChunk::setClusterId(Int32 id)
 }
 
 void SHLChunk::updateClusterId(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
     if(parameter->getFlags() & ShaderParameter::SHPFlagUpdate)
         return;
@@ -1878,9 +1879,9 @@ void SHLChunk::updateClusterId(
 }
 
 void SHLChunk::updateActiveLightsMask(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -1896,9 +1897,9 @@ void SHLChunk::updateActiveLightsMask(
 }
 
 void SHLChunk::updateLight0Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -1914,9 +1915,9 @@ void SHLChunk::updateLight0Active(
 }
 
 void SHLChunk::updateLight1Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -1932,9 +1933,9 @@ void SHLChunk::updateLight1Active(
 }
 
 void SHLChunk::updateLight2Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -1950,9 +1951,9 @@ void SHLChunk::updateLight2Active(
 }
 
 void SHLChunk::updateLight3Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -1968,9 +1969,9 @@ void SHLChunk::updateLight3Active(
 }
 
 void SHLChunk::updateLight4Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -1986,9 +1987,9 @@ void SHLChunk::updateLight4Active(
 }
 
 void SHLChunk::updateLight5Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -2004,9 +2005,9 @@ void SHLChunk::updateLight5Active(
 }
 
 void SHLChunk::updateLight6Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;
@@ -2022,9 +2023,9 @@ void SHLChunk::updateLight6Active(
 }
 
 void SHLChunk::updateLight7Active(
-    const ShaderParameterPtr &parameter,
-    DrawEnv                        *pEnv,
-    GLuint                          program)
+    ShaderParameter * const  parameter,
+    DrawEnv                 *pEnv,
+    GLuint                   program)
 {
 #ifdef CHECK_OSG_PARRAM
     RenderAction *ract = (RenderAction *) action;

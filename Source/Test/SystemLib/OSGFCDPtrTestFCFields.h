@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(FCDPtrTestFC);
 #endif
 
 template <>
-struct FieldTraits<FCDPtrTestFCPtr> :
-    public FieldTraitsFCPtrBase<FCDPtrTestFCPtr>
+struct FieldTraits<FCDPtrTestFC *> :
+    public FieldTraitsFCPtrBase<FCDPtrTestFC *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<FCDPtrTestFCPtr> :
 
   public:
 
-    typedef FieldTraits<FCDPtrTestFCPtr>  Self;
+    typedef FieldTraits<FCDPtrTestFC *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -107,49 +107,49 @@ struct FieldTraits<FCDPtrTestFCPtr> :
 };
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakFCDPtrTestFCPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<FCDPtrTestFC *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdFCDPtrTestFCPtr"; 
 }
@@ -166,13 +166,13 @@ const Char8 *FieldTraits<FCDPtrTestFCPtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<FCDPtrTestFCPtr,
+typedef PointerSField<FCDPtrTestFC *,
                       RecordedRefCountPolicy  > SFRecFCDPtrTestFCPtr;
-typedef PointerSField<FCDPtrTestFCPtr,
+typedef PointerSField<FCDPtrTestFC *,
                       UnrecordedRefCountPolicy> SFUnrecFCDPtrTestFCPtr;
-typedef PointerSField<FCDPtrTestFCPtr,
+typedef PointerSField<FCDPtrTestFC *,
                       WeakRefCountPolicy      > SFWeakFCDPtrTestFCPtr;
-typedef PointerSField<FCDPtrTestFCPtr,
+typedef PointerSField<FCDPtrTestFC *,
                       NoRefCountPolicy        > SFUncountedFCDPtrTestFCPtr;
 #endif
 
@@ -180,13 +180,13 @@ typedef PointerSField<FCDPtrTestFCPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<FCDPtrTestFCPtr,
+typedef PointerMField<FCDPtrTestFC *,
                       RecordedRefCountPolicy  > MFRecFCDPtrTestFCPtr;
-typedef PointerMField<FCDPtrTestFCPtr,
+typedef PointerMField<FCDPtrTestFC *,
                       UnrecordedRefCountPolicy> MFUnrecFCDPtrTestFCPtr;
-typedef PointerMField<FCDPtrTestFCPtr,
+typedef PointerMField<FCDPtrTestFC *,
                       WeakRefCountPolicy      > MFWeakFCDPtrTestFCPtr;
-typedef PointerMField<FCDPtrTestFCPtr,
+typedef PointerMField<FCDPtrTestFC *,
                       NoRefCountPolicy        > MFUncountedFCDPtrTestFCPtr;
 #endif
 

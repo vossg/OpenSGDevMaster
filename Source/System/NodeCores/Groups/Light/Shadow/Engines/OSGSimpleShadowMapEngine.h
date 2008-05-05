@@ -63,9 +63,9 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngine :
 
   public:
     
-    typedef SimpleShadowMapEngineData         EngineData;
-    typedef SimpleShadowMapEngineDataPtr      EngineDataPtr;
-    typedef SimpleShadowMapEngineDataUnrecPtr EngineDataUnrecPtr;
+    typedef SimpleShadowMapEngineData          EngineData;
+    typedef SimpleShadowMapEngineData         *EngineDataPtr;
+    typedef SimpleShadowMapEngineDataUnrecPtr  EngineDataUnrecPtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -80,11 +80,11 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngine :
     /*! \name                       Render                                 */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(LightPtr               pLight,
-                                           LightTypeE             eType,
+    virtual ActionBase::ResultE runOnEnter(Light        *pLight,
+                                           LightTypeE    eType,
                                            RenderAction *pAction);
-    virtual ActionBase::ResultE runOnLeave(LightPtr               pLight,
-                                           LightTypeE             eType,
+    virtual ActionBase::ResultE runOnLeave(Light        *pLight,
+                                           LightTypeE    eType,
                                            RenderAction *pAction);
 
     /*! \}                                                                 */
@@ -133,27 +133,27 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngine :
     /*! \name                       Action Callbacks                       */
     /*! \{                                                                 */
 
-    void lightRenderEnter(LightPtr       pLight,
+    void lightRenderEnter(Light         *pLight,
                           RenderAction  *pAction);
     
-    void setupCamera     (LightPtr       pLight,
+    void setupCamera     (Light         *pLight,
                           LightTypeE     eType,
                           RenderAction  *pAction,
                           EngineDataPtr  pEngineData);
-    void setupLightChunk (LightPtr       pLight,
+    void setupLightChunk (Light         *pLight,
                           LightTypeE     eType,
                           RenderAction  *pAction,
                           EngineDataPtr  pEngineData);
 
-    void doLightPass     (LightPtr       pLight,
+    void doLightPass     (Light         *pLight,
                           RenderAction  *pAction,
                           EngineDataPtr  pEngineData);
-    void doAmbientPass   (LightPtr       pLight,
+    void doAmbientPass   (Light         *pLight,
                           RenderAction  *pAction,
                           EngineDataPtr  pEngineData);
-    void doFinalPass     (LightPtr      pLight,
-                          RenderAction *pAction,
-                          EngineDataPtr pEngineData);
+    void doFinalPass     (Light         *pLight,
+                          RenderAction  *pAction,
+                          EngineDataPtr  pEngineData);
                      
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -86,7 +86,7 @@ FieldContainerType::FieldContainerType(
 
 
     _baseType        (IsFieldContainer  ),
-    _pPrototype      (NullFC            ),
+    _pPrototype      (NULL              ),
     _fPrototypeCreate(fPrototypeCreate  ),
     _fInitMethod     (fInitMethod       ),
     _fExitMethod     (fExitMethod       ),
@@ -111,7 +111,7 @@ FieldContainerType::FieldContainerType(const FieldContainerType &source) :
     _fcdXML          (source._fcdXML     ),
     _typeDoc         (source._typeDoc    )
 {
-    if(_pPrototype != NullFC)
+    if(_pPrototype != NULL)
         _pPrototype->addReferenceX();
 }
 
@@ -135,17 +135,17 @@ FieldContainerTransitPtr FieldContainerType::createContainer(void) const
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerCPtr FieldContainerType::createAspectCopy(
+FieldContainer *FieldContainerType::createAspectCopy(
     UInt32 uiContainerId) const
 {
-    FieldContainerPtr fc = NullFC;
+    FieldContainer *fc = NULL;
 
     if(isAbstract() == false)
     {
         fc = _pPrototype->createAspectCopy();       
     }
 
-    if(fc != NullFC)
+    if(fc != NULL)
         fc->setId(uiContainerId);
 
     return fc;
@@ -186,7 +186,7 @@ void FieldContainerType::terminate(void)
     if(_pPrototype != NULL)
     {
         _pPrototype->subReferenceX();
-        _pPrototype = NullFC;
+        _pPrototype = NULL;
     }
 
     if(_fExitMethod != NULL)
@@ -203,7 +203,7 @@ bool FieldContainerType::initialize(InitPhase ePhase)
 
 bool FieldContainerType::initPrototype(void)
 {
-    if(_fPrototypeCreate != NULL && _pPrototype == NullFC)
+    if(_fPrototypeCreate != NULL && _pPrototype == NULL)
     {
         _pPrototype = _fPrototypeCreate(FCLocal::All);
 
@@ -268,7 +268,7 @@ void FieldContainerType::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
          << ", groupId: "
          << _uiGroupId
          << ", abstract: "
-         << ((_pPrototype != NullFC) ? "false" : "true")
+         << ((_pPrototype != NULL) ? "false" : "true")
          << " "
          << _vDescVec.size()
          << std::endl;

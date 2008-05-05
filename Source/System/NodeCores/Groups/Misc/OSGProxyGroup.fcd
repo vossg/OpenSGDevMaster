@@ -40,7 +40,7 @@ inline.
 		type="NodePtr"
 		cardinality="single"
 		visibility="internal"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>

@@ -91,7 +91,7 @@ class PointerMFieldCommon : public PointerMFieldBase
     typedef          PointerMFieldCommon                 Self;
 
     typedef          FieldTraitsFCPtrBase<
-                         FieldContainerPtr, 
+                         FieldContainer *, 
                          NamespaceI       >              PtrBaseTraitsType;
 
     /*! \}                                                                 */

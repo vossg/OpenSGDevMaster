@@ -129,7 +129,7 @@ ProxyGroup::~ProxyGroup(void)
 
 void ProxyGroup::resolveLinks(void)
 {
-    _loadedRoot = NullFC;
+    _loadedRoot = NULL;
 }
 
 /*! 
@@ -145,7 +145,7 @@ void ProxyGroup::adjustVolume(Volume &volume)
     if(getEnabled() == false)
         return;
 
-    if(getState() == LOADED && getRoot() != NullFC)
+    if(getState() == LOADED && getRoot() != NULL)
     {
         volume.extendBy(getRoot()->getVolume());
     }
@@ -177,7 +177,7 @@ ActionBase::ResultE ProxyGroup::render(Action *action)
 
     if(getState() == LOAD_THREAD_FINISHED)
     {
-        if(_loadedRoot != NullFC)
+        if(_loadedRoot != NULL)
         {
             _loadThread = NULL;
 
@@ -317,7 +317,7 @@ void ProxyGroup::loadProc(void *)
 {
     bool stopThread = false;
 
-    ProxyGroupPtr g;
+    ProxyGroup *g;
 
     _loadLock->acquire();
 

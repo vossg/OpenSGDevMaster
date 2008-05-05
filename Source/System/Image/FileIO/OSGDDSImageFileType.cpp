@@ -319,9 +319,9 @@ bool DDSImageFileType::getSwapCubeMap(void)
     the given stream. Returns true on success.
  */
 
-bool DDSImageFileType::read(      ImagePtr          pImage, 
-                                  std::istream     &is, 
-                            const std::string      &mimetype)
+bool DDSImageFileType::read(      Image        *pImage, 
+                                  std::istream &is, 
+                            const std::string  &mimetype)
 {
     bool validImage = false;
     
@@ -452,9 +452,9 @@ bool DDSImageFileType::read(      ImagePtr          pImage,
   Returns true on success.
  */
 
-bool DDSImageFileType::write(      ConstImagePtr  , 
-                                   std::ostream     &, 
-                             const std::string      &)
+bool DDSImageFileType::write(const Image        *, 
+                                   std::ostream &, 
+                             const std::string  &)
 {
     SWARNING << getMimeType()
              << " write is not implemented "

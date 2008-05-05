@@ -143,10 +143,10 @@ void ContainerChangeEntry::commitChanges(void)
 #ifdef OSG_ENABLE_VALGRIND_CHECKS
     VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
 #endif
-    FieldContainerPtr pTmp =
+    FieldContainer *pTmp =
         FieldContainerFactory::the()->getContainer(uiContainerId);
 
-    if(pTmp != NullFC)
+    if(pTmp != NULL)
     {
 #ifndef SILENT
         fprintf(stderr, "Commit for %u %s\n",
@@ -366,11 +366,11 @@ void ChangeList::commitChangesAndClear(void)
 void ChangeList::doApply(bool bClear)
 {
 #ifdef OSG_MT_CPTR_ASPECT
-    FieldContainerPtr   pSrc = NULL;
-    FieldContainerPtr   pDst = NULL;
+    FieldContainer      *pSrc  = NULL;
+    FieldContainer      *pDst  = NULL;
 
-    ChangedStoreConstIt ccIt  = _createdStore.begin();
-    ChangedStoreConstIt ccEnd = _createdStore.end  ();
+    ChangedStoreConstIt  ccIt  = _createdStore.begin();
+    ChangedStoreConstIt  ccEnd = _createdStore.end  ();
 
 
     while(ccIt != ccEnd)
@@ -574,10 +574,10 @@ void ChangeList::doClear(void)
         return;
     }
 
-    ChangedStoreIt      cIt  = _changedStore.begin();
-    ChangedStoreConstIt cEnd = _changedStore.end  ();
+    ChangedStoreIt       cIt  = _changedStore.begin();
+    ChangedStoreConstIt  cEnd = _changedStore.end  ();
 
-    FieldContainerPtr   pDst = NULL;
+    FieldContainer      *pDst = NULL;
 
     while(cIt != cEnd)
     {
@@ -661,10 +661,10 @@ void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
 
     for(UInt32 i = uiFieldContainerId; i < uiNumContainers; ++i)
     {
-        FieldContainerPtr pContainer = 
+        FieldContainer *pContainer = 
             FieldContainerFactory::the()->getContainer(i);
 
-        if(pContainer != NullFC)
+        if(pContainer != NULL)
         {
             this->addCreated(i, TypeTraits<BitVector>::BitsClear);
 
@@ -696,25 +696,25 @@ void ChangeList::setAspectTo(UInt32 uiNewAspect)
 
 
 template<> OSG_DLL_EXPORT 
-void ChangeList::addDelayedSubRef<NoRefCountPolicy>(FieldContainerPtr)
+void ChangeList::addDelayedSubRef<NoRefCountPolicy>(FieldContainer *)
 {
 }
 
 template<> OSG_DLL_EXPORT 
-void ChangeList::addDelayedSubRef<RecordedRefCountPolicy>(FieldContainerPtr pFC)
+void ChangeList::addDelayedSubRef<RecordedRefCountPolicy>(FieldContainer *pFC)
 {
     _vDelayedRecSubRefs.push_back(pFC);
 }
 
 template<> OSG_DLL_EXPORT 
 void ChangeList::addDelayedSubRef<UnrecordedRefCountPolicy>(
-    FieldContainerPtr pFC)
+    FieldContainer *pFC)
 {
     _vDelayedUnrecSubRefs.push_back(pFC);
 }
 
 template<> OSG_DLL_EXPORT 
-void ChangeList::addDelayedSubRef<WeakRefCountPolicy>(FieldContainerPtr pFC)
+void ChangeList::addDelayedSubRef<WeakRefCountPolicy>(FieldContainer *pFC)
 {
     _vDelayedWeakSubRefs.push_back(pFC);
 }
@@ -722,10 +722,10 @@ void ChangeList::addDelayedSubRef<WeakRefCountPolicy>(FieldContainerPtr pFC)
 void ChangeList::commitDelayedSubRefs(void)
 {
     // Unrec
-    std::vector<FieldContainerPtr>::      iterator vIt  = 
+    std::vector<FieldContainer *>::      iterator vIt  = 
         _vDelayedUnrecSubRefs.begin();
 
-    std::vector<FieldContainerPtr>::const_iterator vEnd = 
+    std::vector<FieldContainer *>::const_iterator vEnd = 
         _vDelayedUnrecSubRefs.end  ();
 
     while(vIt != vEnd)
@@ -802,7 +802,7 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        FieldContainerPtr pTmp =
+        FieldContainer *pTmp =
             FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
 
         std::string szTmp("Unknown");
@@ -843,7 +843,7 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        FieldContainerPtr pTmp =
+        FieldContainer *pTmp =
             FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
 
         std::string szTmp("Unknown");
@@ -884,7 +884,7 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
-        FieldContainerPtr pTmp =
+        FieldContainer *pTmp =
             FieldContainerFactory::the()->getContainer((*cIt)->uiContainerId);
 
         BitVector tmpChanges = 0xDEADBEEF;

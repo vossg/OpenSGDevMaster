@@ -62,7 +62,7 @@ class OSG_UTIL_DLLMAPPING StatisticsDefaultFontBase
      * Returns the texture object chunk that keeps the texture for the
 	 * default font.
      */
-    inline TextureObjChunkPtr getTexture() const;
+    inline TextureObjChunk *getTexture() const;
 
     /*==========================  PRIVATE  ================================*/
   private:

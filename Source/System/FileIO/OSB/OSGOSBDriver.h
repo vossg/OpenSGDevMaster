@@ -54,9 +54,9 @@ class OSG_FILEIO_DLLMAPPING OSBDriver
     static NodeTransitPtr read (      std::istream &inStream,
                                 const std::string  &options   );
 
-    static bool           write(const NodePtr       node,
-                                      std::ostream &outStream,
-                                const std::string  &options   );
+    static bool           write(Node         * const  node,
+                                std::ostream         &outStream,
+                                std::string    const &options   );
 };
 
 OSG_END_NAMESPACE

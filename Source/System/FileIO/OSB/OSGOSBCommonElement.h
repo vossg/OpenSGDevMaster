@@ -99,8 +99,8 @@ class OSG_FILEIO_DLLMAPPING OSBCommonElement : public OSBElementBase
     /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual void preWrite(const FieldContainerPtr &fc) = 0;
-    virtual void write   (      void                 ) = 0;
+    virtual void preWrite(FieldContainer * const fc) = 0;
+    virtual void write   (void                     ) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -143,10 +143,10 @@ class OSG_FILEIO_DLLMAPPING OSBCommonElement : public OSBElementBase
     /*! \name Prewriting Helper Methods                                    */
     /*! \{                                                                 */
 
-    void preWritePtrSingleField    (const UInt32             fieldId);
-    void preWritePtrMultiField     (const UInt32             fieldId);
-    void preWriteAttachmentMapField(const UInt32             fieldId);
-    void preWriteFieldContainer    (const FieldContainerPtr &fc,
+    void preWritePtrSingleField    (const UInt32                    fieldId);
+    void preWritePtrMultiField     (const UInt32                    fieldId);
+    void preWriteAttachmentMapField(const UInt32                    fieldId);
+    void preWriteFieldContainer    (      FieldContainer * const fc,
                                     const std::string       &excludeFields);
 
     /*! \}                                                                 */
@@ -154,7 +154,7 @@ class OSG_FILEIO_DLLMAPPING OSBCommonElement : public OSBElementBase
     /*! \name Writing Helper Methods                                       */
     /*! \{                                                                 */
 
-    void writeFieldContainerHeader(const FieldContainerPtr &fc            );
+    void writeFieldContainerHeader(FieldContainer * const   fc            );
     void writeFieldHeader         (const std::string       &fieldName,
                                    const std::string       &fieldTypeName,
                                    const UInt32             fieldSize     );
@@ -170,7 +170,7 @@ class OSG_FILEIO_DLLMAPPING OSBCommonElement : public OSBElementBase
 
     FieldContainerTransitPtr 
                       createReplacementFC(const UInt8             fcPtrType);
-    UInt8             getFCPtrType       (const FieldContainerPtr container);
+    UInt8             getFCPtrType       (FieldContainer * const container);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

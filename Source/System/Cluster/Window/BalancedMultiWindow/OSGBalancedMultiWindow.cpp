@@ -104,13 +104,13 @@ void BalancedMultiWindow::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void BalancedMultiWindow::serverInit(WindowPtr serverWindow, UInt32 id)
+void BalancedMultiWindow::serverInit(Window *serverWindow, UInt32 id)
 {
     Inherited::serverInit(serverWindow,id);
 }
 
 #ifdef OSG_OLD_RENDER_ACTION
-void BalancedMultiWindow::serverRender(WindowPtr       serverWindow, 
+void BalancedMultiWindow::serverRender(Window         *serverWindow, 
                                        UInt32          id, 
                                        DrawActionBase *action      )
 {
@@ -287,12 +287,12 @@ void BalancedMultiWindow::clientInit(void)
 
 void BalancedMultiWindow::clientPreSync(void)
 {
-    if(getHServers() * getVServers() == 0 && getClientWindow() != NullFC)
+    if(getHServers() * getVServers() == 0 && getClientWindow() != NULL)
     {
         if(getWidth() != getClientWindow()->getWidth() ||
            getHeight() != getClientWindow()->getHeight()) 
         {
-            ClusterWindowPtr ptr = this;
+            ClusterWindow *ptr = this;
 
             setWidth(getClientWindow()->getWidth());
             setHeight(getClientWindow()->getHeight());
@@ -333,7 +333,7 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
     // local visualization
     _loadTime = 0;
     if(getHServers() * getVServers() == 0 &&
-        getClientWindow() != NullFC)
+        getClientWindow() != NULL)
     {
         _loadTime = -getSystemTime();
         Server &server = _cluster.servers[getServers().size()];
@@ -403,7 +403,7 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
     // do local rendering if not switched off and no parallel 
     // rendering to local window
     if(getHServers() * getVServers() != 0 &&
-       getClientWindow() != NullFC)
+       getClientWindow() != NULL)
     {
         getClientWindow()->renderAllViewports( action );
     }
@@ -517,7 +517,7 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
                                                  BBox &bbox,
                                                  Matrix &proj)
 {
-    ViewportPtr viewport = getPort(port.id);
+    Viewport *viewport = getPort(port.id);
 
     Pnt3f vol[2];
     Pnt3f pnt3;
@@ -663,9 +663,9 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
  */
 void BalancedMultiWindow::createLoadGroups(void)
 {
-    ViewportPtr viewport;
-    NodePtr     root;
-    UInt32      v;
+    Viewport *viewport;
+    Node     *root;
+    UInt32    v;
 
     if(!_rebuildLoadGroups)
     {
@@ -725,7 +725,7 @@ void BalancedMultiWindow::createLoadGroups(void)
     is called for the client and the server. The palancing expects that
     the loadGroup vector is equal on client and server
  */
-void BalancedMultiWindow::collectLoadGroups(NodePtr node,NodePtr root)
+void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
 {
     LoadGroup load;
 #if 0    
@@ -735,15 +735,15 @@ void BalancedMultiWindow::collectLoadGroups(NodePtr node,NodePtr root)
     MFUnrecChildNodePtr::const_iterator child;
 
     // ignore null node
-    if(node == NullFC)
+    if(node == NULL)
         return;
     
-    NodeCorePtr core = node->getCore();
-    if(core != NullFC)
+    NodeCore *core = node->getCore();
+    if(core != NULL)
     {
-        ChunkMaterialPtr mat;
-        GeometryPtr geo;
-        ProxyGroupPtr proxy;
+        ChunkMaterial *mat   = NULL;
+        Geometry      *geo   = NULL;
+        ProxyGroup    *proxy = NULL;
 
         load.root = root;
         load.constant = 0;
@@ -752,37 +752,37 @@ void BalancedMultiWindow::collectLoadGroups(NodePtr node,NodePtr root)
         load.node = node;
 
         // handle poxy groups
-        proxy = dynamic_cast<ProxyGroupPtr>(core);
-        if(proxy != NullFC)
+        proxy = dynamic_cast<ProxyGroup *>(core);
+        if(proxy != NULL)
         {
             load.constant = proxy->getIndices() / MW_INDICES_PER_SEC;
             load.ratio    = proxy->getIndices() / MW_VISIBLE_INDICES_PER_SEC;
         }
-        geo = dynamic_cast<GeometryPtr>(core);
-        if(geo != NullFC)
+        geo = dynamic_cast<Geometry *>(core);
+        if(geo != NULL)
         {
-            GeoIntegralPropertyPtr indices = 
+            GeoIntegralProperty *indices = 
                 geo->getIndex(Geometry::PositionsIndex);
 
-            GeoVectorPropertyPtr positions = geo->getPositions();
+            GeoVectorProperty *positions = geo->getPositions();
 
-            ChunkMaterialPtr mat = 
-                dynamic_cast<ChunkMaterialPtr> (geo->getMaterial ());
+            ChunkMaterial *mat = 
+                dynamic_cast<ChunkMaterial *> (geo->getMaterial ());
 
             // constant geometry setup cost
-            if ((indices != NullFC)) 
+            if ((indices != NULL)) 
             {
                 load.constant = indices->getSize() / MW_INDICES_PER_SEC;
                 load.ratio    = indices->getSize() / MW_VISIBLE_INDICES_PER_SEC;
             }
             else
-                if(positions != NullFC) 
+                if(positions != NULL) 
                 {
                     load.constant = positions->getSize() / MW_INDICES_PER_SEC;
                     load.ratio    = positions->getSize() / MW_VISIBLE_INDICES_PER_SEC;
                 }
             // pixel cost for shaders
-            if (mat != NullFC && mat->find (SHLChunk::getClassType ()) != NullFC)
+            if (mat != NULL && mat->find (SHLChunk::getClassType ()) != NULL)
                 load.pixel =  1.0 / (float)MW_SHADED_PIXEL_PER_SEC;
             else
                 load.pixel = 1.0 / (float)MW_PIXEL_PER_SEC;
@@ -854,7 +854,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
                                               Int32 const (&rect)[4])
 {
     Int32 cleft,cright,ctop,cbottom;
-    ViewportPtr serverPort,clientPort;
+    Viewport *serverPort, *clientPort;
     TileCameraDecoratorUnrecPtr deco;
     UInt32 cv,sv=0;
 
@@ -913,20 +913,20 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     port.rect[TOP]    = osgMin(ctop   ,top   ) - bottom;
 
     // verify if the viewport type has changed
-    if(port.serverPort != NullFC)
+    if(port.serverPort != NULL)
     {
         if(port.serverPort->getType().getId() != getPort(port.id)->getType().getId())
         {
             // this must not happen very frequently, otherwise, memory leak may occur
             //subRefX(port.serverPort->getCamera());
             //subRefX(port.serverPort);
-            port.serverPort = NullFC;
+            port.serverPort = NULL;
         }
 
     }
 
     // create port and deco for visualization, only if necessary
-    if(port.serverPort == NullFC)
+    if(port.serverPort == NULL)
     {
         ViewportUnrecPtr pTmpPort = 
             dynamic_pointer_cast<Viewport>(getPort(port.id)->shallowCopy());
@@ -939,7 +939,8 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     }
     else
     {
-        deco = dynamic_cast<TileCameraDecoratorPtr>(port.serverPort->getCamera());
+        deco = 
+            dynamic_cast<TileCameraDecorator *>(port.serverPort->getCamera());
     }
     // decorate client camera
     deco->setDecoratee( clientPort->getCamera() );
@@ -1720,7 +1721,7 @@ void BalancedMultiWindow::clearViewports(WindowPtr         serverWindow,
 
 /*! store viewport
  */
-void BalancedMultiWindow::storeViewport(Area &area,ViewportPtr vp,
+void BalancedMultiWindow::storeViewport(Area &area,Viewport *vp,
                                         Int32 const (&rect)[4])
 {
     UInt32 x,y,w,h;
@@ -1803,7 +1804,7 @@ void BalancedMultiWindow::drawSendAndRecv(WindowPtr window,
     Connection *conn = getNetwork()->getMainConnection();
 
     // start rendering
-    if(window != NullFC)
+    if(window != NULL)
     {
         window->activate ();
         window->frameInit ();
@@ -2014,10 +2015,10 @@ void BalancedMultiWindow::drawSendAndRecv(WindowPtr window,
 
 /*! preload display lists and textures
  */
-void BalancedMultiWindow::preloadCache(WindowPtr window,
+void BalancedMultiWindow::preloadCache(Window         *window,
                                        DrawActionBase *action)
 {
-    NodePtr root = NullFC;
+    NodePtr root = NULL;
     UInt32 v;
 
     if(!_preloadCache)
@@ -2032,7 +2033,7 @@ void BalancedMultiWindow::preloadCache(WindowPtr window,
         if(root == viewport->getRoot())
             continue;
         root = viewport->getRoot();
-        if(root == NullFC)
+        if(root == NULL)
             continue;
         root->updateVolume();
         window->activate();

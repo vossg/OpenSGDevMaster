@@ -85,7 +85,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     virtual void     draw         (MaterialDrawable *geo,
                                    DrawActionBase   *action);
 
-    virtual StatePtr makeState    (void                    );
+    virtual State   *makeState    (void                    );
 #endif
 
     virtual void     rebuildState (void                    );
@@ -97,26 +97,26 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    bool addChunk(StateChunkPtr chunk, 
-                  Int32         slot = State::AutoSlotReplace);
-    bool subChunk(StateChunkPtr chunk, 
-                  Int32         slot = State::AutoSlotReplace);
+    bool addChunk(StateChunk *chunk, 
+                  Int32       slot = State::AutoSlotReplace);
+    bool subChunk(StateChunk *chunk, 
+                  Int32       slot = State::AutoSlotReplace);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Find                                    */
     /*! \{                                                                 */
 
-    Int32         find(      StateChunkPtr chunk);
-    StateChunkPtr find(const FieldContainerType &type, 
-                             Int32               slot =State::AutoSlotReplace);
+    Int32       find(      StateChunk         *chunk);
+    StateChunk *find(const FieldContainerType &type, 
+                           Int32               slot =State::AutoSlotReplace);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Find                                    */
     /*! \{                                                                 */
 
-    const StateChunkPtr         getChunk (const UInt32 index) const;
+    const StateChunk           *getChunk (const UInt32 index) const;
 #if 0
     const MFUnrecStateChunkPtr &getChunks(      void        ) const;
 #endif
@@ -166,7 +166,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    void addChunks(StatePtr state);
+    void addChunks(State *state);
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

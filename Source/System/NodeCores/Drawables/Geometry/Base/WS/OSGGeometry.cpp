@@ -177,9 +177,9 @@ void Geometry::adjustVolume(Volume & volume)
     volume.setValid();
     volume.setEmpty();
 
-    GeoVectorPropertyPtr pos = getPositions();
+    GeoVectorProperty *pos = getPositions();
 
-    if(pos == NullFC)
+    if(pos == NULL)
         return;                  // Node has no points, no volume
 
     Pnt3f p;
@@ -359,7 +359,7 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     // store glColor.
     Color4f color;
 
-    if(getColors() != NullFC)
+    if(getColors() != NULL)
         glGetFloatv(GL_CURRENT_COLOR, color.getValuesRGBA());
 
     if(getDlistCache() == true)
@@ -403,7 +403,7 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     }
 
     // restore glColor.
-    if(getColors() != NullFC)
+    if(getColors() != NULL)
         glColor4fv(color.getValuesRGBA());
 
 /*
@@ -422,9 +422,9 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
             coll->getElem(Drawable::statNLines)->add(nl);
             coll->getElem(Drawable::statNLines)->add(np);
 
-            if(getIndices() == NullFC)
+            if(getIndices() == NULL)
             {
-                if(getPositions() != NullFC)
+                if(getPositions() != NULL)
                 {
                     is = getPositions()->getSize();
                 }
@@ -541,13 +541,13 @@ void Geometry::dump(      UInt32    ,
     SLOG << "Dump Geometry NI" << std::endl;
 }
 
-UInt32 Geometry::indexOccurrence(const GeoIntegralPropertyPtr value)
+UInt32 Geometry::indexOccurrence(GeoIntegralProperty * const value)
 {
     UInt32 returnValue = 0;
 
     for(UInt32 i = 0; i < _mfPropIndices.size(); ++i)
     {
-        if(_mfPropIndices[i] != NullFC && _mfPropIndices[i] == value)
+        if(_mfPropIndices[i] != NULL && _mfPropIndices[i] == value)
         {
             ++returnValue;
         }
@@ -577,13 +577,13 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void)
     IndexBag returnValue;
     UInt32   i;
 
-    typedef std::pair<GeoIntegralPropertyPtr, 
-                      std::vector<UInt16>   > IndexBagEntry;
+    typedef std::pair<GeoIntegralProperty *, 
+                      std::vector<UInt16>  > IndexBagEntry;
 
     // Find the first valid prop
     for(i = 0; i < _mfPropIndices.size(); ++i)
     {
-        if(_mfPropIndices[i] != NullFC)
+        if(_mfPropIndices[i] != NULL)
         {
             break;
         }
@@ -615,7 +615,7 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void)
             }            
         }
 
-        if(bFoundProp == false && _mfPropIndices[j] != NullFC)
+        if(bFoundProp == false && _mfPropIndices[j] != NULL)
         {
             IndexBagEntry oEntry;
 
@@ -629,9 +629,9 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void)
     return returnValue;
 }
 
-void Geometry::fill(DrawableStatsAttachmentPtr pStat)
+void Geometry::fill(DrawableStatsAttachment *pStat)
 {
-    if(pStat == NullFC)
+    if(pStat == NULL)
     {
         FINFO(("Geometry::fille StatsAttachment::"
                "calc: No attachment given.\n"));
@@ -645,7 +645,7 @@ void Geometry::fill(DrawableStatsAttachmentPtr pStat)
 
     for(UInt16 i = 0; i < Geometry::MaxAttribs; ++i)
     {
-        if(this->getProperty(i) == NullFC)
+        if(this->getProperty(i) == NULL)
             continue;
 
         attBytesPerVertex += this->getProperty(i)->getFormatSize() *
@@ -656,13 +656,13 @@ void Geometry::fill(DrawableStatsAttachmentPtr pStat)
     }
 
 
-    GeoIntegralPropertyPtr geoTypePtr = this->getTypes();
-    GeoIntegralPropertyPtr lensPtr    = this->getLengths();
+    GeoIntegralProperty *geoTypePtr = this->getTypes();
+    GeoIntegralProperty *lensPtr    = this->getLengths();
 
     UInt32 lN, tN, len, type;
 
-    lN = (lensPtr    == NullFC) ? 0 : lensPtr   ->getSize();
-    tN = (geoTypePtr == NullFC) ? 0 : geoTypePtr->getSize();
+    lN = (lensPtr    == NULL) ? 0 : lensPtr   ->getSize();
+    tN = (geoTypePtr == NULL) ? 0 : geoTypePtr->getSize();
 
     if((tN == 0) || (lN != 0 && tN != lN) || (lN == 0 && tN != 1))
     {
@@ -684,9 +684,9 @@ void Geometry::fill(DrawableStatsAttachmentPtr pStat)
         }
         else
         {
-            GeoVectorPropertyPtr pos = this->getPositions();
+            GeoVectorProperty *pos = this->getPositions();
 
-            if(pos == NullFC)
+            if(pos == NULL)
             {
                 FINFO(("GeoStatsAttachment::calc: No Positions!\n"));
                 return;

@@ -169,7 +169,7 @@ RenderPartition::RenderPartition(Mode eMode) :
     _uiKeyGen                (        0),
 
     _pMaterial               (     NULL),
-    _pMaterialNode           (   NullFC),
+    _pMaterialNode           (     NULL),
 
     _pRenderTarget           (     NULL),
     _eDrawBuffer             (  GL_NONE),
@@ -259,7 +259,7 @@ void RenderPartition::reset(Mode eMode)
         
         
         _pMaterial        = NULL;
-        _pMaterialNode    = NullFC;
+        _pMaterialNode    = NULL;
         
         
         _pRenderTarget    = NULL;
@@ -527,12 +527,14 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
     RenderAction *rt = dynamic_cast<RenderAction *>(_oDrawEnv.getAction());
 
-    NodePtr actNode = rt->getActNode();
+    Node         *actNode = rt->getActNode();
     
     // Add Stats
-    DrawableStatsAttachmentPtr st;
+    DrawableStatsAttachment *st;
+
     st = DrawableStatsAttachment::get(actNode);
-    if(st == NullFC)
+
+    if(st == NULL)
     {
         DrawableStatsAttachment::addTo(actNode);
         
@@ -813,7 +815,7 @@ bool RenderPartition::isVisible(Node *pNode)
 }
     
 // visibility levels
-bool RenderPartition::pushVisibility(const NodePtr pNode)
+bool RenderPartition::pushVisibility(Node * const pNode)
 {
     if(getFrustumCulling() == false)
         return true;

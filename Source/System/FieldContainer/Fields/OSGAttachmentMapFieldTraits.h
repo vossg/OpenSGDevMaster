@@ -51,7 +51,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-typedef std::map<UInt32, AttachmentPtr>  AttachmentMap;
+typedef std::map<UInt32, Attachment *>  AttachmentMap;
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -176,11 +176,11 @@ struct FieldTraits<AttachmentMap> :
     static void copyFromBin(BinaryDataHandler &pMem,
                             AttachmentMap     &aMap )
     {
-        AttachmentPtr attPtr;
-        UInt32        key;
-        UInt16        binding;
-        UInt32        fcId;
-        UInt32        size;
+        Attachment *attPtr;
+        UInt32      key;
+        UInt16      binding;
+        UInt32      fcId;
+        UInt32      size;
         
         pMem.getValue(size);
 
@@ -190,7 +190,7 @@ struct FieldTraits<AttachmentMap> :
 
         for(; mapIt != mapEnd; ++mapIt)
         {
-            if((*mapIt).second != NullFC)
+            if((*mapIt).second != NULL)
             {
                 Thread::getCurrentChangeList()->addDelayedSubRef<
                     UnrecordedRefCountPolicy>((*mapIt).second);
@@ -205,7 +205,7 @@ struct FieldTraits<AttachmentMap> :
             pMem.getValue(binding);
             pMem.getValue(fcId   );
             
-            attPtr = dynamic_cast<AttachmentPtr>(
+            attPtr = dynamic_cast<Attachment *>(
                 FieldContainerFactory::the()->getMappedContainer(fcId));
             
             key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;

@@ -153,8 +153,10 @@ void TileGeometryLoad::updateView(Matrix &viewing,
     Real32                       bestScalY;
     UInt32                       bestDirY = 0;
 
-    NodePtr node = dynamic_cast<NodePtr>(FieldContainerFactory::the()->getContainer(_nodeId));
-    if(node == NullFC)
+    Node *node = dynamic_cast<Node *>(
+        FieldContainerFactory::the()->getContainer(_nodeId));
+
+    if(node == NULL)
         return;
 
     // get whole transformation
@@ -295,8 +297,11 @@ void TileGeometryLoad::updateView(Matrix &viewing,
  **/
 void TileGeometryLoad::updateGeometry()
 {
-    NodePtr node = dynamic_cast<NodePtr>(FieldContainerFactory::the()->getContainer(_nodeId));
-    if(node == NullFC)
+    Node *node = 
+        dynamic_cast<Node *>(
+            FieldContainerFactory::the()->getContainer(_nodeId));
+
+    if(node == NULL)
         return;
 
     const OSG::Volume *volume = &(node->getVolume().getInstance());
@@ -306,17 +311,17 @@ void TileGeometryLoad::updateGeometry()
     Pnt3f              pos;
     Real32             min = 0.0,max = 0.0;
     PrimitiveIterator  it;
-    NodeCorePtr        core;
-    GeometryPtr        geo;
+    NodeCore          *core;
+    Geometry          *geo;
     const Real32       sq2 = osgSqrt(2.0f);
     const Real32       sq3 = osgSqrt(3.0f);
 
     _faces = 0;
     core=node->getCore();
-    if(node->getCore() == NullFC)
+    if(node->getCore() == NULL)
         return;
-    geo=dynamic_cast<GeometryPtr>(core);
-    if(geo == NullFC)
+    geo=dynamic_cast<Geometry *>(core);
+    if(geo == NULL)
         return;
 
     // get volume min,max
@@ -476,9 +481,11 @@ bool TileGeometryLoad::isVisible() const
 
 /** Get Node ptr
  **/
-NodePtr TileGeometryLoad::getNode() const
+Node *TileGeometryLoad::getNode() const
 {
-    return dynamic_cast<NodePtr>(FieldContainerFactory::the()->getContainer(_nodeId));
+    return 
+        dynamic_cast<Node *>(
+            FieldContainerFactory::the()->getContainer(_nodeId));
 }
 
 /** Get number of faces in the geometry

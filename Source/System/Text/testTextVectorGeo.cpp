@@ -543,7 +543,7 @@ void updateScene()
     textNode->setCore(geo);
 #else
     NodeUnrecPtr textNode = face->makeNode(layoutResult, scale, 0.5f, 0);
-    GeometryUnrecPtr geo = dynamic_cast<GeometryPtr>(textNode->getCore());
+    GeometryUnrecPtr geo = dynamic_cast<Geometry *>(textNode->getCore());
 #endif
 
     geo->setMaterial(matPtr);
@@ -605,7 +605,7 @@ int main(int argc, char **argv)
     matPtr->setShininess    (30);
     matPtr->setTransparency (0);
     matPtr->setColorMaterial(GL_NONE);
-    matPtr->setImage(NullFC);
+    matPtr->setImage(NULL);
     matPtr->setMinFilter    (GL_NEAREST);
     matPtr->setMagFilter    (GL_NEAREST);
     matPtr->setEnvMode      (GL_MODULATE);
@@ -724,10 +724,10 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
             delete mgr;
 
-            imPtr  = NullFC;
-            matPtr = NullFC;
-            scene  = NullFC;
-            statfg = NullFC;
+            imPtr  = NULL;
+            matPtr = NULL;
+            scene  = NULL;
+            statfg = NULL;
 
             osgExit();
             exit(0);
@@ -754,7 +754,7 @@ void keyboard(unsigned char k, int x, int y)
             if (applyTexture == true)
             {
                 applyTexture = false;
-                matPtr->setImage(NullFC);
+                matPtr->setImage(NULL);
                 glutChangeToMenuEntry(9, "Texture on", COMMAND_TEXTURE_ON);
             }
             else
@@ -916,7 +916,7 @@ void menu(int command)
             break;
         case COMMAND_TEXTURE_OFF:
             applyTexture = false;
-            matPtr->setImage(NullFC);
+            matPtr->setImage(NULL);
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(9, "Texture on", COMMAND_TEXTURE_ON);
             break;

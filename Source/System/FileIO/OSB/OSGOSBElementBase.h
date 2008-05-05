@@ -135,8 +135,8 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     /*! \name State access                                                 */
     /*! \{                                                                 */
 
-    inline FieldContainerPtr getContainer(      void                  );
-    inline void              setContainer(const FieldContainerPtr cont);
+    inline FieldContainer       *getContainer(void                       );
+    inline void                  setContainer(FieldContainer * const cont);
 
     inline const OSBRootElement *getRoot (void) const;
     inline       OSBRootElement *editRoot(void);
@@ -156,8 +156,8 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual void preWrite(const FieldContainerPtr &fc) = 0;
-    virtual void write   (      void                 ) = 0;
+    virtual void preWrite(FieldContainer * const fc) = 0;
+    virtual void write   (      void               ) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -177,10 +177,10 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
         typedef BindingStore::iterator       BindingStoreIt;
         typedef BindingStore::const_iterator BindingStoreConstIt;
 
-        PtrFieldInfo(const FieldContainerPtr fc, UInt32 fieldId);
+        PtrFieldInfo(FieldContainer * const fc, UInt32 fieldId);
         ~PtrFieldInfo(void);
 
-        inline FieldContainerPtr  getContainer(void) const;
+        inline FieldContainer    *getContainer(void) const;
         inline UInt32             getFieldId  (void) const;
 
         inline const PtrIdStore          &getIdStore       (void) const;
@@ -198,7 +198,7 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
         inline       BindingStoreIt       endBindingStore  (void);
 
       private:
-        FieldContainerPtr _fc;
+        FieldContainer   *_fc;
         UInt32            _fieldId;
         PtrIdStore        _ptrIds;
         BindingStore      _bindings;
@@ -212,7 +212,7 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     typedef FieldContainerIdMap::iterator       FieldContainerIdMapIt;
     typedef FieldContainerIdMap::const_iterator FieldContainerIdMapConstIt;
 
-    typedef std::list<FieldContainerPtr>        FieldContainerList;
+    typedef std::list<FieldContainer *>         FieldContainerList;
     typedef FieldContainerList::iterator        FieldContainerListIt;
     typedef FieldContainerList::const_iterator  FieldContainerListConstIt;
 

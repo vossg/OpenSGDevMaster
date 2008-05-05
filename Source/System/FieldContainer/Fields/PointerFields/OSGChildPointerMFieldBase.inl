@@ -50,9 +50,9 @@ OSG_BEGIN_NAMESPACE
 template <typename AccessHandlerT, Int32 NamespaceI> inline
 ChildPointerMFieldBase<AccessHandlerT, 
                        NamespaceI    >::ChildPointerMFieldBase(
-                           const FieldContainerPtr  pParent,
-                                 UInt16             usChildFieldId,
-                                 UInt16             usParentFieldId) : 
+                           FieldContainer * const pParent,
+                           UInt16                 usChildFieldId,
+                           UInt16                 usParentFieldId) : 
      Inherited    (               ),
     _pEnclosingObj(pParent        ),
     _childFieldId (usChildFieldId ),
@@ -74,7 +74,7 @@ ChildPointerMFieldBase<AccessHandlerT,
 /* Child Linking Information                                               */
 
 template <typename AccessHandlerT, Int32 NamespaceI> inline 
-FieldContainerPtr 
+FieldContainer * 
     ChildPointerMFieldBase<AccessHandlerT, 
                            NamespaceI    >::getEnclosingObject(void) const
 {
@@ -84,7 +84,7 @@ FieldContainerPtr
 template <typename AccessHandlerT, Int32 NamespaceI> inline 
 void ChildPointerMFieldBase<AccessHandlerT, 
                             NamespaceI    >::setEnclosingObject(
-                                const FieldContainerPtr pObj)
+                                FieldContainer * const pObj)
 {
     _pEnclosingObj = pObj;
 }

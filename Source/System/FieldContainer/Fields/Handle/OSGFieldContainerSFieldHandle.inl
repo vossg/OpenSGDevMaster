@@ -75,7 +75,7 @@ bool EditSFieldHandle<FieldContainerPtrSFieldBase>::isPointerField(void) const
 
 inline
 void EditSFieldHandle<FieldContainerPtrSFieldBase>::setValue(
-    const FieldContainerPtr rhs)
+    FieldContainer * const rhs)
 {
     // for whatever reason VS2003 does not like == NULL
     if(_fSetMethod)
@@ -338,7 +338,7 @@ const FieldType &EditFCPtrSFieldHandle<FieldT>::getType(void) const
 }
 
 template<class FieldT> inline
-void EditFCPtrSFieldHandle<FieldT>::setValue(const FieldContainerPtr rhs)
+void EditFCPtrSFieldHandle<FieldT>::setValue(FieldContainer * const rhs)
 {
     typename FieldT::const_value pVal = 
         dynamic_cast<typename FieldT::const_value>(rhs);

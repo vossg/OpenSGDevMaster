@@ -77,8 +77,8 @@ class VRMLNodeHelper;
 
 struct VRMLGenericAttDesc
 {
-    typedef Attachment    Parent;
-    typedef AttachmentPtr ParentPtr;
+    typedef Attachment  Parent;
+    typedef Attachment *ParentPtr;
 
     static const Char8 *getTypeName      (void) { return "VRMLGenericAtt"; }
     static const Char8 *getParentTypeName(void) 
@@ -94,7 +94,6 @@ struct VRMLGenericAttDesc
 };
 
 typedef DynFieldAttachment<VRMLGenericAttDesc>  VRMLGenericAtt;
-typedef VRMLGenericAtt::ObjPtr                  VRMLGenericAttPtr;
 typedef VRMLGenericAtt::ObjUnrecPtr             VRMLGenericAttUnrecPtr;
 
 
@@ -280,12 +279,12 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
     /*! \{                                                                 */
 
     virtual 
-        FieldContainerTransitPtr beginNode(const Char8             *szTypename,
-                                           const Char8             *szName,
-                                                 FieldContainerPtr  pCurrentFC);
+        FieldContainerTransitPtr beginNode(const Char8          *szTypename,
+                                           const Char8          *szName,
+                                                 FieldContainer *pCurrentFC);
 
     virtual 
-        void                     endNode  (      FieldContainerPtr            );
+        void                     endNode  (      FieldContainer *          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -310,9 +309,9 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
     /*! \name                      FieldValue                              */
     /*! \{                                                                 */
 
-    virtual void   getFieldAndDesc(      FieldContainerPtr      pFC,
+    virtual void   getFieldAndDesc(      FieldContainer        *pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -327,9 +326,9 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
                                 const Char8                *szFieldVal);
 
     virtual 
-    void setContainerFieldValue(      FieldContainerPtr     pFC,
+    void setContainerFieldValue(      FieldContainer       *pFC,
                                 const FieldDescriptionBase *pFieldDesc,
-                                      FieldContainerPtr     pFieldFC  );
+                                      FieldContainer       *pFieldFC  );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -377,13 +376,13 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr getField(      FieldContainerPtr  pFC1,
-                                     FieldContainerPtr  pFC2,
-                                     VRMLGenericAttPtr  pGenAtt,
-                               const Char8             *szFieldname);
+    GetFieldHandlePtr getField(      FieldContainer        *pFC1,
+                                     FieldContainer        *pFC2,
+                                     VRMLGenericAtt        * pGenAtt,
+                               const Char8                 *szFieldname);
 
-          void        getField(const Char8                * szFieldname,
-                                     FieldContainerPtr     &pFieldFC,
+          void        getField(const Char8                 *szFieldname,
+                                     FieldContainer       *&pFieldFC,
                                      EditFieldHandlePtr    &pField,
                                const FieldDescriptionBase *&pDesc      );
 
@@ -526,9 +525,9 @@ class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
                                    const UInt32                 uiFieldTypeId,
                                    const Char8                * szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -623,9 +622,9 @@ class OSG_FILEIO_DLLMAPPING VRMLTransformHelper : public VRMLNodeHelper
                                    const UInt32                 uiFieldTypeId,
                                    const Char8                * szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -714,7 +713,7 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
 
     virtual void        reset             (      void);
 
-    virtual MaterialPtr getDefaultMaterial(      void);
+    virtual Material   *getDefaultMaterial(      void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -727,9 +726,9 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
 
     virtual void endProtoInterface(      void);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr       pFC,
+    virtual void getFieldAndDesc  (      FieldContainer        * pFC,
                                    const Char8                 * szFieldname,
-                                         FieldContainerPtr      &pFieldFC,
+                                         FieldContainer        *&pFieldFC,
                                          EditFieldHandlePtr     &pField,
                                    const FieldDescriptionBase  *&pDesc);
 
@@ -741,10 +740,10 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
     virtual 
         FieldContainerTransitPtr beginNode(const Char8             *szTypename,
                                            const Char8             *szName,
-                                                 FieldContainerPtr  pCurrentFC);
+                                                 FieldContainer    *pCurrentFC);
 
     virtual 
-        void                     endNode  (      FieldContainerPtr            );
+        void                     endNode  (      FieldContainer *             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -853,9 +852,9 @@ class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
                                    const UInt32  uiFieldTypeId,
                                    const Char8  *szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -865,7 +864,7 @@ class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
     /*! \name                      Node                                    */
     /*! \{                                                                 */
 
-     virtual void endNode(FieldContainerPtr pFC);
+     virtual void endNode(FieldContainer *pFC);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -960,9 +959,9 @@ class OSG_FILEIO_DLLMAPPING VRMLAppearanceHelper : public VRMLNodeHelper
                                    const UInt32              uiFieldTypeId,
                                    const Char8             * szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -971,7 +970,7 @@ class OSG_FILEIO_DLLMAPPING VRMLAppearanceHelper : public VRMLNodeHelper
     /*! \name                      Node                                    */
     /*! \{                                                                 */
 
-    virtual void endNode(FieldContainerPtr);
+    virtual void endNode(FieldContainer *);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1069,9 +1068,9 @@ class OSG_FILEIO_DLLMAPPING VRMLIndexedGeometryHelper :
                                    const UInt32              uiFieldTypeId,
                                    const Char8             * szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -1080,7 +1079,7 @@ class OSG_FILEIO_DLLMAPPING VRMLIndexedGeometryHelper :
     /*! \name                      Node                                    */
     /*! \{                                                                 */
 
-    virtual void endNode(FieldContainerPtr pFC);
+    virtual void endNode(FieldContainer *pFC);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1088,9 +1087,9 @@ class OSG_FILEIO_DLLMAPPING VRMLIndexedGeometryHelper :
     /*! \{                                                                 */
 
     virtual 
-    void setContainerFieldValue(      FieldContainerPtr     pFC,
+    void setContainerFieldValue(      FieldContainer       *pFC,
                                 const FieldDescriptionBase *pFieldDesc,
-                                      FieldContainerPtr     pFieldFC  );
+                                      FieldContainer       *pFieldFC  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1183,9 +1182,9 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryPartHelper : public VRMLNodeHelper
                                    const UInt32              uiFieldTypeId,
                                    const Char8             * szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -1286,9 +1285,9 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
                                    const UInt32              uiFieldTypeId,
                                    const Char8             * szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -1297,7 +1296,7 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
     /*! \name                      Node                                    */
     /*! \{                                                                 */
 
-    virtual void endNode(FieldContainerPtr);
+    virtual void endNode(FieldContainer *);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1392,9 +1391,9 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
                                    const UInt32              uiFieldTypeId,
                                    const Char8             * szFieldName);
 
-    virtual void getFieldAndDesc  (      FieldContainerPtr      pFC,
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
                                    const Char8                * szFieldname,
-                                         FieldContainerPtr     &pFieldFC,
+                                         FieldContainer       *&pFieldFC,
                                          EditFieldHandlePtr    &pField,
                                    const FieldDescriptionBase *&pDesc);
 
@@ -1406,10 +1405,10 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
     virtual 
         FieldContainerTransitPtr beginNode(const Char8             *szTypename,
                                            const Char8             *szName,
-                                                 FieldContainerPtr  pCurrentFC);
+                                                 FieldContainer    *pCurrentFC);
 
     virtual 
-        void                     endNode  (      FieldContainerPtr            );
+        void                     endNode  (      FieldContainer    *          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -167,7 +167,7 @@ NodeTransitPtr SceneFileHandlerBase::read(
           GraphOpSeq   *graphOpSeq         )
 {
     SceneFileType *type  = getFileType(fileNameOrExtension);
-    NodeUnrecPtr   scene = NullFC;
+    NodeUnrecPtr   scene = NULL;
 
     if(!fileNameOrExtension)
     {
@@ -200,7 +200,7 @@ NodeTransitPtr SceneFileHandlerBase::read(
 
                 scene = type->read(unzipper, fileNameOrExtension);
 
-                if(scene != NullFC)
+                if(scene != NULL)
                 {
                     if(unzipper.check_crc() == true)
                     {
@@ -230,7 +230,7 @@ NodeTransitPtr SceneFileHandlerBase::read(
             }
         }
 
-        if(scene != NullFC)
+        if(scene != NULL)
         {
             if(graphOpSeq != NULL)
                 graphOpSeq->run(scene);
@@ -257,7 +257,7 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
     if(fileName == NULL)
     {
         SWARNING << "cannot read NULL file" << std::endl;
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     std::string fullFilePath = initPathHandler(fileName);
@@ -279,18 +279,18 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
             else
             {
                 SWARNING << "Couldn't open file " << fileName << std::endl;
-                return NodeTransitPtr(NullFC);
+                return NodeTransitPtr(NULL);
             }
         }
         else
         {
             SWARNING << "Couldn't open file " << fileName << std::endl;
-            return NodeTransitPtr(NullFC);
+            return NodeTransitPtr(NULL);
         }
     }
 
     SceneFileType *type  = getFileType(fullFilePath.c_str());
-    NodeUnrecPtr   scene = NullFC;
+    NodeUnrecPtr   scene = NULL;
 
     if(type != NULL)
     {
@@ -315,10 +315,10 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
 #ifndef OSG_DISABLE_DEPRECATED
 
         // Ok stream interface didn't work try via filename
-        if(scene == NullFC)
+        if(scene == NULL)
             scene = type->readFile(fullFilePath.c_str());
 
-        if(scene != NullFC)
+        if(scene != NULL)
         {
             if(graphOpSeq != NULL)
                 graphOpSeq->run(scene);
@@ -331,7 +331,7 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
         }
 #endif
 
-        if(scene != NullFC && graphOpSeq != NULL)
+        if(scene != NULL && graphOpSeq != NULL)
         {
             SINFO    << "Running GraphOps..." << std::endl;
             graphOpSeq->run(scene);
@@ -358,10 +358,10 @@ SceneFileHandlerBase::FileIOReadCBF SceneFileHandlerBase::getReadCB(void)
     return _readFP;
 }
 
-bool SceneFileHandlerBase::write(const NodePtr      &node,
-                                       std::ostream &os,
-                                 const Char8        *fileNameOrExtension,
-                                       bool          compress)
+bool SceneFileHandlerBase::write(Node         * const  node,
+                                 std::ostream         &os,
+                                 Char8          const *fileNameOrExtension,
+                                 bool                  compress           )
 {
     bool           retCode = false;
     SceneFileType *type    = getFileType(fileNameOrExtension);
@@ -408,9 +408,9 @@ bool SceneFileHandlerBase::write(const NodePtr      &node,
     return retCode;
 }
 
-bool SceneFileHandlerBase::write(const NodePtr &node,
-                                 const Char8   *fileName,
-                                       bool     compress)
+bool SceneFileHandlerBase::write(Node  * const  node,
+                                 Char8   const *fileName,
+                                 bool           compress)
 {
     bool           retCode = false;
     SceneFileType *type    = getFileType(fileName);

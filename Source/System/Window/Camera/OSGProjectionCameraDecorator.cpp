@@ -137,7 +137,7 @@ void ProjectionCameraDecorator::getViewing(Matrix &result,
                                            UInt32  OSG_CHECK_ARG(width ),
                                            UInt32  OSG_CHECK_ARG(height))
 {
-    if(getUser() == NullFC)
+    if(getUser() == NULL)
     {
         FWARNING(("ProjectionCameraDecorator::getViewing: no user!"));
 
@@ -155,9 +155,9 @@ void ProjectionCameraDecorator::getProjection(Matrix &result,
                                               UInt32  OSG_CHECK_ARG(width ),
                                               UInt32  OSG_CHECK_ARG(height))
 {
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
     
-    if(camera == NullFC)
+    if(camera == NULL)
     {
         FWARNING(("ProjectionCameraDecorator::getProjection: no "
                   "decoratee!\n"));
@@ -208,9 +208,9 @@ void ProjectionCameraDecorator::getProjectionTranslation(
     UInt32  OSG_CHECK_ARG(width ),
     UInt32  OSG_CHECK_ARG(height))
 {
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
     
-    if(camera == NullFC)
+    if(camera == NULL)
     {
         FFATAL(("ProjectionCameraDecorator::getProjectionTranslation: "
                 "no decoratee!\n"));

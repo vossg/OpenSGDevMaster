@@ -108,7 +108,7 @@ OSBGenericElement::read(const std::string &typeName)
     setContainer(FieldContainerUnrecPtr(
         FieldContainerFactory::the()->createContainer(typeName.c_str())));
 
-    if(getContainer() == NullFC)
+    if(getContainer() == NULL)
     {
         FWARNING(("OSBGenericElement::read: Skipping unknown "
                   "FieldContainer [%s].\n", typeName.c_str()));
@@ -131,7 +131,7 @@ OSBGenericElement::postRead(void)
 /* Writing                                                                 */
 
 void
-OSBGenericElement::preWrite(const FieldContainerPtr &fc)
+OSBGenericElement::preWrite(FieldContainer * const fc)
 {
     FDEBUG(("OSBGenericElement::preWrite\n"));
 
@@ -143,9 +143,9 @@ OSBGenericElement::write(void)
 {
     FDEBUG(("OSBGenericElement::write\n"));
 
-    if(getContainer() == NullFC)
+    if(getContainer() == NULL)
     {
-        FWARNING(("OSBGenericElement::write: Attempt to write NullFC.\n"));
+        FWARNING(("OSBGenericElement::write: Attempt to write NULL.\n"));
         return;
     }
 

@@ -69,11 +69,11 @@ class OSG_IMGFILEIO_DLLMAPPING HDRImageFileType : public ImageFileType
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read (      ImagePtr          image,
+    virtual bool read (      Image            *image,
                              std::istream     &is, 
                        const std::string      &mimeType);
 
-    virtual bool write(      ConstImagePtr     image,
+    virtual bool write(const Image            *image,
                              std::ostream     &os, 
                        const std::string      &mimeType);
 
@@ -96,11 +96,11 @@ class OSG_IMGFILEIO_DLLMAPPING HDRImageFileType : public ImageFileType
     /*! \name                     Buffer                                   */
     /*! \{                                                                 */
 
-    virtual UInt64 restoreData(      ImagePtr          image, 
+    virtual UInt64 restoreData(      Image            *image, 
                                const UChar8           *buffer,
                                      Int32             memSize = -1);
 
-    virtual UInt64 storeData  (      ConstImagePtr     image, 
+    virtual UInt64 storeData  (const Image            *image, 
                                      UChar8           *buffer,
                                      Int32             memSize = -1);
     /*! \}                                                                 */

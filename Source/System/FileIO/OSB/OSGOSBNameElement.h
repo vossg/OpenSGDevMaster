@@ -89,8 +89,8 @@ class OSG_FILEIO_DLLMAPPING OSBNameElement : public OSBCommonElement
     /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual void preWrite(const FieldContainerPtr &fc);
-    virtual void write   (      void                 );
+    virtual void preWrite(FieldContainer * const fc);
+    virtual void write   (void                     );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

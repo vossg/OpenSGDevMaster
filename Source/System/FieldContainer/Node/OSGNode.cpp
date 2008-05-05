@@ -182,9 +182,9 @@ OSG_FIELD_CONTAINER_DEF(Node)
 /*-------------------------------------------------------------------------*/
 /*                             Children                                    */
 
-void Node::addChild(const NodePtr childP)
+void Node::addChild(Node * const childP)
 {
-    if(childP != NullFC)
+    if(childP != NULL)
     {
         // do the ref early, to prevent destroys on getParent(a)->addChild(a)
 
@@ -196,7 +196,7 @@ void Node::addChild(const NodePtr childP)
 
 void Node::addChild(NodeTransitPtr childP)
 {
-    if(childP != NullFC)
+    if(childP != NULL)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
@@ -216,11 +216,11 @@ void Node::addChild(NodeTransitPtr childP)
 * \param childIndex  The location in the list to put the new child.
 * \param childP  Pointer to the child to insert.
 */
-void Node::insertChild(UInt32 childIndex, const NodePtr childP)
+void Node::insertChild(UInt32 childIndex, Node * const childP)
 {
     OSG_ASSERT((childIndex <= getNChildren()) && "Child index out of range");
 
-    if(childP != NullFC)
+    if(childP != NULL)
     {
  
         editMField(ChildrenFieldMask, _mfChildren);
@@ -233,9 +233,9 @@ void Node::insertChild(UInt32 childIndex, const NodePtr childP)
     }
 }
 
-void Node::replaceChild(UInt32 childIndex, const NodePtr childP)
+void Node::replaceChild(UInt32 childIndex, Node * const childP)
 {
-    if(childP     != NullFC                  && 
+    if(childP     != NULL                    && 
        childIndex <  _mfChildren.size()      && 
        childP     != _mfChildren[childIndex]  )
     {
@@ -247,10 +247,10 @@ void Node::replaceChild(UInt32 childIndex, const NodePtr childP)
 
 //! return true on success, false on child not found
 
-bool Node::replaceChildBy(const NodePtr childP,
-                          const NodePtr newChildP)
+bool Node::replaceChildBy(Node * const childP,
+                          Node * const newChildP)
 {
-    if(newChildP != NullFC && childP != newChildP)
+    if(newChildP != NULL && childP != newChildP)
     {
         Int32 childIdx = findChild(childP);
 
@@ -268,7 +268,7 @@ bool Node::replaceChildBy(const NodePtr childP,
     return false;
 }
 
-Int32 Node::findChild(const NodePtr childP) const
+Int32 Node::findChild(Node * const childP) const
 {
     UInt32 index;
 
@@ -288,7 +288,7 @@ Int32 Node::findChild(const NodePtr childP) const
     }
 }
 
-void Node::subChild(const NodePtr childP)
+void Node::subChild(Node * const childP)
 {
     Int32 childIdx = findChild(childP);
 
@@ -438,7 +438,7 @@ Matrixr Node::getToWorld(void)
 
 void Node::getToWorld(Matrixr &result)
 {
-    if(getParent() != NullFC)
+    if(getParent() != NULL)
     {
         getParent()->getToWorld(result);
     }
@@ -447,7 +447,7 @@ void Node::getToWorld(Matrixr &result)
         result.setIdentity();
     }
 
-    if(getCore() != NullFC)
+    if(getCore() != NULL)
         getCore()->accumulateMatrix(result);
 }
 
@@ -458,7 +458,7 @@ void Node::getWorldVolume(DynamicVolume &result)
 {
     Matrixr m;
 
-    if(getParent() != NullFC)
+    if(getParent() != NULL)
     {
         getParent()->getToWorld(m);
     }
@@ -501,7 +501,7 @@ void Node::updateVolume(void)
     }
 
     // test for null core. Shouldn't happen, but just in case...
-    if(getCore() != NullFC)
+    if(getCore() != NULL)
     {
         getCore()->adjustVolume(vol.getInstance());
     }
@@ -520,11 +520,11 @@ Node::Node(void) :
      Inherited (                            ),
     _sfVolume  (                            ),
     _sfTravMask(TypeTraits<UInt32>::getMax()),
-    _sfParent  (NullFC                      ),
+    _sfParent  (NULL                        ),
     _mfChildren(this, 
                 ChildrenFieldId, 
                 Node::ParentFieldId         ),
-    _sfCore    (NullFC, 
+    _sfCore    (NULL, 
                 this, 
                 CoreFieldId,
                 NodeCore::ParentsFieldId    )
@@ -540,12 +540,12 @@ Node::Node(const Node &source) :
 
     _sfTravMask   (source._sfTravMask       ),
 
-    _sfParent     (NullFC                   ),
+    _sfParent     (NULL                     ),
     _mfChildren   (this, 
                    ChildrenFieldId, 
                    Node::ParentFieldId      ),
 
-    _sfCore       (NullFC, 
+    _sfCore       (NULL, 
                    this, 
                    CoreFieldId, 
                    NodeCore::ParentsFieldId )
@@ -561,19 +561,19 @@ Node::~Node(void)
 {
 }
 
-bool Node::linkParent  (const FieldContainerPtr pParent,
-                        const UInt16            childFieldId,
-                        const UInt16            parentFieldId)
+bool Node::linkParent  (FieldContainer * const pParent,
+                        UInt16           const childFieldId,
+                        UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentFieldId)
     {    
-        NodePtr pTypedParent = dynamic_cast<NodePtr>(pParent);
+        Node *pTypedParent = dynamic_cast<Node *>(pParent);
                 
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
-            NodePtr pOldParent      = _sfParent.getValue         ();
+            Node *pOldParent      = _sfParent.getValue         ();
             
-            if(pOldParent != NullFC)
+            if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, ParentFieldId);
             }
@@ -591,18 +591,18 @@ bool Node::linkParent  (const FieldContainerPtr pParent,
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
 }
 
-bool Node::unlinkParent(const FieldContainerPtr pParent,
-                        const UInt16            parentFieldId)
+bool Node::unlinkParent(FieldContainer * const pParent,
+                        UInt16           const parentFieldId)
 {
     if(parentFieldId == ParentFieldId)
     {    
-        NodePtr pTypedParent = dynamic_cast<NodePtr>(pParent);
+        Node *pTypedParent = dynamic_cast<Node *>(pParent);
                 
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             editSField(ParentFieldMask);
 
-            _sfParent.setValue(NullFC);
+            _sfParent.setValue(NULL);
             
             return true;
         }
@@ -613,8 +613,8 @@ bool Node::unlinkParent(const FieldContainerPtr pParent,
     return Inherited::unlinkParent(pParent, parentFieldId);
 }
             
-bool Node::unlinkChild (const FieldContainerPtr pChild,
-                        const UInt16            childFieldId )
+bool Node::unlinkChild (FieldContainer * const pChild,
+                        UInt16           const childFieldId )
 {
     if(childFieldId == ChildrenFieldId)
     {
@@ -622,9 +622,9 @@ bool Node::unlinkChild (const FieldContainerPtr pChild,
                this, this->getId(), pChild, 
                pChild != NULL ? pChild->getId() : 0));
                
-        NodePtr pTypedChild = dynamic_cast< NodePtr >(pChild);
+        Node *pTypedChild = dynamic_cast<Node *>(pChild);
         
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             MFUnrecChildNodePtr::iterator pI = _mfChildren.find_nc(pTypedChild);
             
@@ -648,15 +648,15 @@ bool Node::unlinkChild (const FieldContainerPtr pChild,
     
     if(childFieldId == CoreFieldId)
     {
-        NodeCorePtr pTypedChild = dynamic_cast< NodeCorePtr >(pChild);
+        NodeCore *pTypedChild = dynamic_cast<NodeCore *>(pChild);
         
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             if(pTypedChild == getCore())
             {
                 editSField(CoreFieldMask);
 
-                _sfCore.setValue(NullFC);
+                _sfCore.setValue(NULL);
             
                 return true;
             }
@@ -685,7 +685,7 @@ void Node::invalidateVolume(void)
 
         _sfVolume.getValue().instanceChanged();
 
-        if(getParent() != NullFC)
+        if(getParent() != NULL)
         {
             getParent()->invalidateVolume();
         }
@@ -705,7 +705,7 @@ void Node::changed(ConstFieldMaskArg whichField,
 
     if(whichField & TravMaskFieldMask)
     {
-        if(getParent() != NullFC)
+        if(getParent() != NULL)
         {
             getParent()->invalidateVolume();
         }
@@ -733,7 +733,7 @@ void Node::dump(      UInt32    uiIndent,
          << " attachments | "
          << "Parent : " << std::hex;
 
-    if(_sfParent.getValue() != NullFC)
+    if(_sfParent.getValue() != NULL)
     {
         PLOG << _sfParent.getValue()->getId() << " | ";
     }
@@ -748,7 +748,7 @@ void Node::dump(      UInt32    uiIndent,
 
     PLOG << "[" << std::endl;
 
-    if(_sfCore.getValue() != NullFC)
+    if(_sfCore.getValue() != NULL)
     {
         _sfCore.getValue()->dump(uiIndent + 4, bvFlags);
     }
@@ -822,9 +822,9 @@ const MFUnrecChildNodePtr *Node::getMFChildren(void) const
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-Node::ObjPtr Node::createAspectCopy(void) const
+Node *Node::createAspectCopy(void) const
 {
-    NodePtr returnValue;
+    Node *returnValue = NULL;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Node *>(this));
@@ -909,7 +909,7 @@ EditFieldHandlePtr Node::editHandleCore(void)
              &_sfCore, 
              this->getType().getFieldDesc(CoreFieldId)));
 
-    typedef void (Node::*SetCoreF)(const NodeCorePtr);
+    typedef void (Node::*SetCoreF)(NodeCore * const);
     
     SetCoreF fFunc = &Node::setCore;
 
@@ -937,7 +937,7 @@ EditFieldHandlePtr Node::editHandleChildren(void)
              &_mfChildren, 
              this->getType().getFieldDesc(ChildrenFieldId)));
 
-    typedef void (Node::*AddChildF)(const NodePtr);
+    typedef void (Node::*AddChildF)(Node * const);
 
     AddChildF fFunc = &Node::addChild;
 
@@ -962,7 +962,7 @@ void Node::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    _sfCore.setValue(NullFC);
+    _sfCore.setValue(NULL);
 
     _mfChildren.clear();
 }
@@ -984,7 +984,7 @@ void Node::resolveLinks(void)
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr cloneTree(      ConstNodePtr              rootNode,
+NodeTransitPtr cloneTree(const Node                     *rootNode,
                          const std::vector<std::string> &cloneTypeNames,
                          const std::vector<std::string> &ignoreTypeNames,
                          const std::vector<std::string> &cloneGroupNames,
@@ -1015,7 +1015,7 @@ NodeTransitPtr cloneTree(      ConstNodePtr              rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr cloneTree(      ConstNodePtr         rootNode,
+NodeTransitPtr cloneTree(const Node                *rootNode,
                          const std::vector<UInt16> &cloneGroupIds,
                          const std::vector<UInt16> &ignoreGroupIds)
 {
@@ -1039,7 +1039,7 @@ NodeTransitPtr cloneTree(      ConstNodePtr         rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr cloneTree(      ConstNodePtr     rootNode,
+NodeTransitPtr cloneTree(const Node            *rootNode,
                          const std::string     &cloneTypesString,
                          const std::string     &ignoreTypesString)
 {
@@ -1070,7 +1070,7 @@ NodeTransitPtr cloneTree(      ConstNodePtr     rootNode,
  */
 
 NodeTransitPtr cloneTree(      
-          ConstNodePtr                                 rootNode,
+    const Node                                        *rootNode,
     const std::vector<const ReflexiveContainerType *> &cloneTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &cloneGroupIds,
@@ -1078,10 +1078,10 @@ NodeTransitPtr cloneTree(
 {
     NodeUnrecPtr rootClone(NULL);
 
-    if(rootNode != NullFC)
+    if(rootNode != NULL)
     {
-        NodeUnrecPtr childClone;
-        NodeCorePtr  core       = rootNode->getCore();
+        NodeUnrecPtr  childClone;
+        NodeCore     *core       = rootNode->getCore();
 
         rootClone = Node::create();
         rootClone->setTravMask(rootNode->getTravMask());
@@ -1090,9 +1090,9 @@ NodeTransitPtr cloneTree(
                          cloneTypes,    ignoreTypes,
                          cloneGroupIds, ignoreGroupIds);
 
-        if(core != NullFC)
+        if(core != NULL)
         {
-                  NodeCoreUnrecPtr    coreClone  = NullFC;
+                  NodeCoreUnrecPtr    coreClone  = NULL;
             const FieldContainerType &coreType   = core->getType();
 
             // test if core type should NOT be ignored
@@ -1155,7 +1155,7 @@ NodeTransitPtr cloneTree(
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr deepCloneTree(      ConstNodePtr              rootNode,
+NodeTransitPtr deepCloneTree(const Node                     *rootNode,
                              const std::vector<std::string> &shareTypeNames,
                              const std::vector<std::string> &ignoreTypeNames,
                              const std::vector<std::string> &shareGroupNames,
@@ -1186,7 +1186,7 @@ NodeTransitPtr deepCloneTree(      ConstNodePtr              rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr deepCloneTree(      ConstNodePtr         rootNode,
+NodeTransitPtr deepCloneTree(const Node                *rootNode,
                              const std::vector<UInt16> &shareGroupIds,
                              const std::vector<UInt16> &ignoreGroupIds)
 {
@@ -1210,7 +1210,7 @@ NodeTransitPtr deepCloneTree(      ConstNodePtr         rootNode,
     \return The root Node of the cloned scene.
  */
 
-NodeTransitPtr deepCloneTree(      ConstNodePtr     rootNode,
+NodeTransitPtr deepCloneTree(const Node            *rootNode,
                              const std::string     &shareTypesString,
                              const std::string     &ignoreTypesString)
 {
@@ -1241,7 +1241,7 @@ NodeTransitPtr deepCloneTree(      ConstNodePtr     rootNode,
  */
 
 NodeTransitPtr deepCloneTree(      
-          ConstNodePtr                                 rootNode,
+    const Node                                        *rootNode,
     const std::vector<const ReflexiveContainerType *> &shareTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &shareGroupIds,
@@ -1249,10 +1249,10 @@ NodeTransitPtr deepCloneTree(
 {
     NodeUnrecPtr rootClone(NULL);
 
-    if(rootNode != NullFC)
+    if(rootNode != NULL)
     {
-        NodeUnrecPtr childClone;
-        NodeCorePtr  core       = rootNode->getCore();
+        NodeUnrecPtr  childClone;
+        NodeCore     *core       = rootNode->getCore();
 
         rootClone = Node::create();
         rootClone->setTravMask(rootNode->getTravMask());
@@ -1261,7 +1261,7 @@ NodeTransitPtr deepCloneTree(
                              shareTypes,    ignoreTypes,
                              shareGroupIds, ignoreGroupIds);
 
-        if(core != NullFC)
+        if(core != NULL)
         {
                   NodeCoreUnrecPtr    coreClone(NULL);
             const FieldContainerType &coreType   = core->getType();

@@ -70,11 +70,20 @@ class ChildPointerSFieldBase
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
        
-    typedef       PointerSFieldCommon   <AccessHandlerT,
-                                         NamespaceI    > Inherited;
-    typedef       ChildPointerSFieldBase                 Self;
+    typedef PointerSFieldCommon   <AccessHandlerT,
+                                   NamespaceI    > Inherited;
+    typedef ChildPointerSFieldBase                 Self;
     
-    typedef const FieldContainerPtr                      const_value;
+    typedef FieldContainer * const                 const_value;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child Linking Information                                    */
+    /*! \{                                                                 */
+
+    FieldContainer *getEnclosingObject(void) const;
+    UInt16          getChildFieldId   (void) const;
+    UInt16          getParentFieldId  (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -85,14 +94,14 @@ class ChildPointerSFieldBase
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ChildPointerSFieldBase(const FieldContainerPtr  pParent,
-                                 UInt16             usChildFieldId,
-                                 UInt16             usParentFieldId);
+    ChildPointerSFieldBase(FieldContainer * const  pParent,
+                           UInt16                  usChildFieldId,
+                           UInt16                  usParentFieldId);
 
-    ChildPointerSFieldBase(      const_value        value,
-                           const FieldContainerPtr  pParent,
-                                 UInt16             usChildFieldId,
-                                 UInt16             usParentFieldId);
+    ChildPointerSFieldBase(const_value            value,
+                           FieldContainer * const pParent,
+                           UInt16                 usChildFieldId,
+                           UInt16                 usParentFieldId);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -106,23 +115,18 @@ class ChildPointerSFieldBase
     /*! \name Child Linking Information                                    */
     /*! \{                                                                 */
     
-    FieldContainerPtr getEnclosingObject(      void                   ) const;
-    void              setEnclosingObject(const FieldContainerPtr pObj );
-    
-    UInt16            getChildFieldId   (      void                   ) const;
-    void              setChildFieldId   (const UInt16 childFieldId    );
-    
-    UInt16            getParentFieldId  (      void                   ) const;
-    void              setParentFieldId  (const UInt16 usParentFieldId );
+    void setEnclosingObject(FieldContainer * const pObj           );
+    void setChildFieldId   (UInt16           const childFieldId   );
+    void setParentFieldId  (UInt16           const usParentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Members                                                      */
     /*! \{                                                                 */
   
-    FieldContainerPtr _pEnclosingObj;
-    UInt16            _childFieldId;
-    UInt16            _usParentFieldId;
+    FieldContainer *_pEnclosingObj;
+    UInt16          _childFieldId;
+    UInt16          _usParentFieldId;
   
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

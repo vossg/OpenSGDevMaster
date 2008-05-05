@@ -43,10 +43,10 @@ OSG::UInt64 getNumAllocatedFieldContainers()
                    i<OSG::FieldContainerFactory::the()->getNumContainers(); 
                    i++)
    {
-       OSG::FieldContainerPtr fcp = 
+       OSG::FieldContainer *fcp = 
            OSG::FieldContainerFactory::the()->getContainer(i);
 
-      if (fcp != NullFC)
+      if (fcp != NULL)
       {
          num_allocated_fcs += 1;
       }
@@ -63,7 +63,7 @@ void findModels(std::string dirname)
    if (!fs::exists(dir_path))
    { 
       std::cerr << "ERROR: path does not exist: " << dirname << std::endl; 
-      gScene = NodePtr(NullFC);
+      gScene = static_cast<Node *>(NULL);
       osgExit();
       exit(-1);
    }
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
     if (argc < 2)
     {
        std::cout << "Specify a directory to load models from." << std::endl;
-       gScene = NodePtr(NullFC);
+       gScene = static_cast<Node *>(NULL);
        osgExit();
        exit(-1);
     }
@@ -186,7 +186,7 @@ void keyboard(unsigned char k, int , int )
         case 27:
         {
             delete mgr;
-            gScene = NodePtr(NullFC);
+            gScene = static_cast<Node *>(NULL);
             OSG::osgExit();
             exit(0);
         }

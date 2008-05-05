@@ -86,14 +86,14 @@ protected:
 
     virtual ~SingleTypeGraphOp(void);
 
-    virtual bool travNodeEnter(NodePtr node) = 0; // only called for Type type objects 
-    virtual bool travNodeLeave(NodePtr node) = 0; // only called for Type type objects 
+    virtual bool travNodeEnter(Node *node) = 0; // only called for Type type objects 
+    virtual bool travNodeLeave(Node *node) = 0; // only called for Type type objects 
         
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 private:
-    Action::ResultE traverseEnter(const NodePtr node);
-    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node);
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };
 
 OSG_END_NAMESPACE

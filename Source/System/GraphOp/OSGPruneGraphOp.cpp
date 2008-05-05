@@ -128,12 +128,12 @@ std::string PruneGraphOp::usage(void)
     "                    removed\n";
 }
 
-Action::ResultE PruneGraphOp::traverseEnter(const NodePtr node)
+Action::ResultE PruneGraphOp::traverseEnter(Node * const node)
 {
     return isTooSmall(node) ? Action::Skip : Action::Continue;
 }
 
-Action::ResultE PruneGraphOp::traverseLeave(const NodePtr node, Action::ResultE res)
+Action::ResultE PruneGraphOp::traverseLeave(Node * const node, Action::ResultE res)
 {
     for (UInt32 i = 0; i < node->getNChildren(); ++i) {
         if (isTooSmall(node->getChild(i))) {
@@ -145,11 +145,11 @@ Action::ResultE PruneGraphOp::traverseLeave(const NodePtr node, Action::ResultE 
     return res;
 }
 
-bool PruneGraphOp::isTooSmall(const NodePtr node) {
+bool PruneGraphOp::isTooSmall(Node * const node) {
     return getSize(node) < _size;
 }
 
-float PruneGraphOp::getSize(const NodePtr node) {
+float PruneGraphOp::getSize(Node * const node) {
     const DynamicVolume& dv = node->editVolume(true);
     if (_method == VOLUME) {
         return dv.getScalarVolume();

@@ -68,7 +68,7 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     typedef AttachmentContainer                 Self;
 
     typedef Attachment                          AttachmentObj;
-    typedef AttachmentPtr                       AttachmentObjPtr;
+    typedef Attachment                         *AttachmentObjCPtr;
     typedef SFAttachmentPtrMap                  SFAttachmentObjPtrMap;
 
     typedef SFAttachmentObjPtrMap::StoredType   AttachmentObjPtrMap;
@@ -119,22 +119,22 @@ class OSG_SYSTEM_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void             addAttachment (const AttachmentObjPtr   attachmentP,
-                                          UInt16             binding    = 0);
+    void             addAttachment (Attachment * const attachmentP,
+                                    UInt16             binding    = 0);
 
-    void             subAttachment (const AttachmentObjPtr   attachmentP,
-                                          UInt16             binding    = 0);
+    void             subAttachment (Attachment * const attachmentP,
+                                    UInt16             binding    = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    AttachmentObjPtr findAttachment(      UInt32             groupId,
-                                          UInt16             binding = 0) const;
+    Attachment *findAttachment(      UInt32             groupId,
+                                     UInt16             binding = 0) const;
 
-    AttachmentObjPtr findAttachment(const FieldContainerType &type,
-                                          UInt16              binding= 0) const;
+    Attachment *findAttachment(const FieldContainerType &type,
+                                     UInt16              binding= 0) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -248,8 +248,8 @@ OSG_GEN_CONTAINERPTR(AttachmentContainer);
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -263,8 +263,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
     const std::vector<UInt16>                     &cloneGroupIds,
 
     const std::vector<UInt16>                     &ignoreGroupIds    =
@@ -272,8 +272,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
     const std::string                             &cloneTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -281,8 +281,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void cloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
 
     const std::vector<const ReflexiveContainerType *> &cloneTypes    =
               std::vector<const ReflexiveContainerType *>(),
@@ -298,8 +298,8 @@ void cloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -313,8 +313,8 @@ void deepCloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
     const std::vector<UInt16>                     &cloneGroupIds,
 
     const std::vector<UInt16>                     &ignoreGroupIds    =
@@ -322,8 +322,8 @@ void deepCloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
     const std::string                             &cloneTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -331,8 +331,8 @@ void deepCloneAttachments(
 
 OSG_SYSTEM_DLLMAPPING
 void deepCloneAttachments(
-          ConstAttachmentContainerPtr              src,
-          AttachmentContainerPtr                   dst,
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
 
     const std::vector<const ReflexiveContainerType *> &shareTypes    =
               std::vector<const ReflexiveContainerType *>(),

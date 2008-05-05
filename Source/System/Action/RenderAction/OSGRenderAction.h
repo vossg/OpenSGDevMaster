@@ -134,7 +134,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- your_category -------------------------------*/
 
-    ResultE recurceNoNodeCallbacks(const NodePtr node);
+    ResultE recurceNoNodeCallbacks(Node * const node);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -190,8 +190,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    void      overrideMaterial(      Material *pMaterial,
-                               const NodePtr   pNode    );
+    void      overrideMaterial(Material *       pMaterial,
+                               Node     * const pNode    );
 
     Material *getMaterial     (      void               );
 
@@ -427,11 +427,11 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 //   Exported Types
 //---------------------------------------------------------------------------
 
-Action::ResultE MaterialDrawableRenderEnter(const NodeCorePtr &pCore,
-                                                  Action      *action);
+Action::ResultE MaterialDrawableRenderEnter(NodeCore * const pCore,
+                                            Action   *       action);
 
-Action::ResultE MaterialDrawableRenderLeave(const NodeCorePtr &pCore,
-                                                  Action      *action);
+Action::ResultE MaterialDrawableRenderLeave(NodeCore * const pCore,
+                                            Action   *       action);
 
 OSG_END_NAMESPACE
 

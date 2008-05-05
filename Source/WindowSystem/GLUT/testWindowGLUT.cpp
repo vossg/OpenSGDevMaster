@@ -213,16 +213,16 @@ void key(unsigned char key, int x, int y)
     switch ( key )
     {
         case 27:    
-            root        = NullFC;
-            file        = NullFC;
-            cam         = NullFC;
-            vp          = NullFC;
-            win         = NullFC;
-            cam_trans   = NullFC;
-            scene_trans = NullFC;
-            pPoly       = NullFC;
-            pCOver      = NullFC;
-            gwin        = NullFC;
+            root        = NULL;
+            file        = NULL;
+            cam         = NULL;
+            vp          = NULL;
+            win         = NULL;
+            cam_trans   = NULL;
+            scene_trans = NULL;
+            pPoly       = NULL;
+            pCOver      = NULL;
+            gwin        = NULL;
 
             delete rentravact;
 
@@ -389,12 +389,12 @@ int init(int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NullFC;
+    NodeUnrecPtr file = NULL;
     
     if(argc > 1)
         file = SceneFileHandler::the()->read(argv[1], NULL);
     
-    if ( file == NullFC )
+    if ( file == NULL )
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
 
@@ -405,12 +405,12 @@ int init(int argc, char **argv)
 #if 0
     GeometryPtr pGeo = cast_dynamic<GeometryPtr>(file->getCore());
     
-    if(pGeo == NullFC && file->getNChildren() != 0)
+    if(pGeo == NULL && file->getNChildren() != 0)
     {
         pGeo = cast_dynamic<GeometryPtr>(file->getChild(0)->getCore());
     }
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
         fprintf(stderr, "no geo\n");
     }

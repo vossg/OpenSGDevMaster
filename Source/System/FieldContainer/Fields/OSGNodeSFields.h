@@ -50,13 +50,13 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef PointerSField<NodePtr, 
+typedef PointerSField<Node *, 
                       RecordedRefCountPolicy  > SFRecNodePtr;
-typedef PointerSField<NodePtr, 
+typedef PointerSField<Node *, 
                       UnrecordedRefCountPolicy> SFUnrecNodePtr;
-typedef PointerSField<NodePtr, 
+typedef PointerSField<Node *, 
                       WeakRefCountPolicy      > SFWeakNodePtr;
-typedef PointerSField<NodePtr, 
+typedef PointerSField<Node *, 
                       NoRefCountPolicy        > SFUncountedNodePtr;
 
 

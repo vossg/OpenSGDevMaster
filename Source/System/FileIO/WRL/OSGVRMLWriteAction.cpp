@@ -301,12 +301,12 @@ VRMLWriteAction *VRMLWriteAction::getPrototype( void )
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-ActionBase::ResultE VRMLWriteAction::writeGroupEnter(const NodeCorePtr , 
-                                                     Action     *pAction)
+ActionBase::ResultE VRMLWriteAction::writeGroupEnter(NodeCore * const , 
+                                                     Action   *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
-    NodePtr pNode = pAction->getActNode();
+    Node *pNode = pAction->getActNode();
 
     if(pWriter == NULL)
     {
@@ -330,7 +330,7 @@ ActionBase::ResultE VRMLWriteAction::writeGroupEnter(const NodeCorePtr ,
 
         pWriter->updateProgress();
 
-        NodeCorePtr pCore = pNode->getCore();
+        NodeCore *pCore = pNode->getCore();
 
         FCInfo *pInfo     = pWriter->getInfo(pNode);
         FCInfo *pCoreInfo = pWriter->getInfo(pCore);
@@ -388,12 +388,12 @@ ActionBase::ResultE VRMLWriteAction::writeGroupEnter(const NodeCorePtr ,
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeGroupLeave(const NodeCorePtr , 
-                                                 Action              *pAction)
+Action::ResultE VRMLWriteAction::writeGroupLeave(NodeCore * const , 
+                                                 Action   *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
-    NodePtr pNode = pAction->getActNode();
+    Node *pNode = pAction->getActNode();
 
     if(pWriter == NULL)
     {
@@ -433,12 +433,13 @@ Action::ResultE VRMLWriteAction::writeGroupLeave(const NodeCorePtr ,
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeComponentTransformEnter(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeComponentTransformEnter(NodeCore * const, 
+                                                              Action   *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
-    NodePtr pNode = pAction->getActNode();
-    ComponentTransformPtr pTrans = 
-        dynamic_cast<ComponentTransformPtr>(pNode->getCore());
+    Node *pNode = pAction->getActNode();
+    ComponentTransform *pTrans = 
+        dynamic_cast<ComponentTransform *>(pNode->getCore());
 
     Real32 rQX;
     Real32 rQY;
@@ -533,7 +534,8 @@ Action::ResultE VRMLWriteAction::writeComponentTransformEnter(const NodeCorePtr 
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeComponentTransformLeave(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeComponentTransformLeave(NodeCore * const,
+                                                              Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -567,11 +569,12 @@ Action::ResultE VRMLWriteAction::writeComponentTransformLeave(const NodeCorePtr 
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeTransformEnter(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeTransformEnter(NodeCore * const , 
+                                                     Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
-    NodePtr pNode = pAction->getActNode();
-    TransformPtr pTrans = dynamic_cast<TransformPtr>(pNode->getCore());
+    Node *pNode = pAction->getActNode();
+    Transform *pTrans = dynamic_cast<Transform *>(pNode->getCore());
 
     Real32 rQX;
     Real32 rQY;
@@ -672,7 +675,8 @@ Action::ResultE VRMLWriteAction::writeTransformEnter(const NodeCorePtr , Action 
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeTransformLeave(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeTransformLeave(NodeCore * const , 
+                                                     Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -706,16 +710,16 @@ Action::ResultE VRMLWriteAction::writeTransformLeave(const NodeCorePtr , Action 
     return Action::Continue;
 }
 
-void VRMLWriteAction::writePoints(GeometryPtr      pGeo, 
+void VRMLWriteAction::writePoints(Geometry        *pGeo, 
                                   FILE            *pFile,
                                   VRMLWriteAction *pWriter)
 {
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
         return;
 
-    GeoVectorPropertyPtr pPos = pGeo->getPositions();
+    GeoVectorProperty *pPos = pGeo->getPositions();
 
-    if(pPos == NullFC)
+    if(pPos == NULL)
         return;
 
     pWriter->printIndent();
@@ -758,19 +762,19 @@ void VRMLWriteAction::writePoints(GeometryPtr      pGeo,
 
 }
 
-void VRMLWriteAction::writeNormals(GeometryPtr      pGeo, 
+void VRMLWriteAction::writeNormals(Geometry        *pGeo, 
                                    FILE            *pFile,
                                    VRMLWriteAction *pWriter)
 {
     if(0 != (pWriter->getOptions() & VRMLWriteAction::OSGNoNormals))
         return;
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
         return;
 
-    GeoVectorPropertyPtr pNorm = pGeo->getNormals();
+    GeoVectorProperty *pNorm = pGeo->getNormals();
 
-    if(pNorm == NullFC)
+    if(pNorm == NULL)
         return;
 
     pWriter->printIndent();
@@ -812,16 +816,16 @@ void VRMLWriteAction::writeNormals(GeometryPtr      pGeo,
     fprintf(pFile, "}\n");
 }
 
-void VRMLWriteAction::writeColors(GeometryPtr      pGeo, 
+void VRMLWriteAction::writeColors(Geometry        *pGeo, 
                                   FILE            *pFile,
                                   VRMLWriteAction *pWriter)
 {
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
         return;
 
-    GeoVectorPropertyPtr pCol = pGeo->getColors();
+    GeoVectorProperty *pCol = pGeo->getColors();
 
-    if(pCol == NullFC)
+    if(pCol == NULL)
         return;
 
     pWriter->printIndent();
@@ -863,16 +867,16 @@ void VRMLWriteAction::writeColors(GeometryPtr      pGeo,
     fprintf(pFile, "}\n");
 }
 
-void VRMLWriteAction::writeTexCoords(GeometryPtr      pGeo, 
+void VRMLWriteAction::writeTexCoords(Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter)
 {
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
         return;
 
-    GeoVectorPropertyPtr pTex = pGeo->getTexCoords();
+    GeoVectorProperty *pTex = pGeo->getTexCoords();
 
-    if(pTex == NullFC)
+    if(pTex == NULL)
         return;
 
     pWriter->printIndent();
@@ -914,20 +918,20 @@ void VRMLWriteAction::writeTexCoords(GeometryPtr      pGeo,
     fprintf(pFile, "}\n");
 }
 
-void VRMLWriteAction::writeIndex(GeometryPtr      pGeo, 
+void VRMLWriteAction::writeIndex(Geometry        *pGeo, 
                                  FILE            *pFile,
                                  VRMLWriteAction *pWriter)
 {
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
         return;
 
-    GeoIntegralPropertyPtr pIndex  = pGeo->getIndices();
-    GeoIntegralPropertyPtr pTypes  = pGeo->getTypes  ();
-    GeoIntegralPropertyPtr pLength = pGeo->getLengths();
+    GeoIntegralProperty *pIndex  = pGeo->getIndices();
+    GeoIntegralProperty *pTypes  = pGeo->getTypes  ();
+    GeoIntegralProperty *pLength = pGeo->getLengths();
 
-    if((pIndex  == NullFC) ||
-       (pTypes  == NullFC) ||
-       (pLength == NullFC))
+    if((pIndex  == NULL) ||
+       (pTypes  == NULL) ||
+       (pLength == NULL))
     {
         return;
     }
@@ -968,7 +972,7 @@ void VRMLWriteAction::writeIndex(GeometryPtr      pGeo,
     pWriter->printIndent();
     fprintf(pFile, "]\n");
     
-    if(pGeo->getNormals()           != NullFC && 
+    if(pGeo->getNormals()           != NULL   && 
        pGeo->getNormals()->getSize() > 0      &&
        0 == (pWriter->getOptions() & VRMLWriteAction::OSGNoNormals))
     {
@@ -1003,7 +1007,7 @@ void VRMLWriteAction::writeIndex(GeometryPtr      pGeo,
         fprintf(pFile, "]\n");
     }
     
-    if(pGeo->getColors() != NullFC && pGeo->getColors()->getSize() > 0)
+    if(pGeo->getColors() != NULL && pGeo->getColors()->getSize() > 0)
     {
         pWriter->printIndent();
         fprintf(pFile, "colorIndex [\n");
@@ -1035,7 +1039,7 @@ void VRMLWriteAction::writeIndex(GeometryPtr      pGeo,
         fprintf(pFile, "]\n");
     }
     
-    if(pGeo->getTexCoords() != NullFC && pGeo->getTexCoords()->getSize() > 0)
+    if(pGeo->getTexCoords() != NULL && pGeo->getTexCoords()->getSize() > 0)
     {
         pWriter->printIndent();
         fprintf(pFile, "texCoordIndex [\n");
@@ -1068,18 +1072,18 @@ void VRMLWriteAction::writeIndex(GeometryPtr      pGeo,
     }
 }
 
-void VRMLWriteAction::writeLineIndex(GeometryPtr      pGeo, 
+void VRMLWriteAction::writeLineIndex(Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter)
 {
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
         return;
 
-    GeoIntegralPropertyPtr pTypes  = pGeo->getTypes();
-    GeoIntegralPropertyPtr pLength = pGeo->getLengths();
+    GeoIntegralProperty *pTypes  = pGeo->getTypes();
+    GeoIntegralProperty *pLength = pGeo->getLengths();
 
-    if((pTypes  == NullFC) ||
-       (pLength == NullFC))
+    if((pTypes  == NULL) ||
+       (pLength == NULL))
     {
         return;
     }
@@ -1139,7 +1143,7 @@ void VRMLWriteAction::writeLineIndex(GeometryPtr      pGeo,
     fprintf(pFile, "]\n");
 
 
-    if(pGeo->getColors() != NullFC && pGeo->getColors()->getSize() > 0)
+    if(pGeo->getColors() != NULL && pGeo->getColors()->getSize() > 0)
     {
         pWriter->printIndent();
         fprintf(pFile, "colorIndex [\n");
@@ -1191,21 +1195,21 @@ void VRMLWriteAction::writeLineIndex(GeometryPtr      pGeo,
     }
 }
 
-void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo, 
+void VRMLWriteAction::writeMaterial(Geometry        *pGeo, 
                                     FILE            *pFile,
                                     VRMLWriteAction *pWriter)
 {
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
         return;
 
-    MaterialPtr pMat;
+    Material *pMat;
     
     pMat = pWriter->getMaterial();
     
-    if(pMat == NullFC)
+    if(pMat == NULL)
         pMat = pGeo->getMaterial();
 
-    if(pMat == NullFC)
+    if(pMat == NULL)
         pMat = OSG::getDefaultMaterial();
 
     if(pWriter->isWritten(pMat))
@@ -1216,17 +1220,17 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
     }
 
     pMat->rebuildState();
-    StatePtr st = pMat->getState();
+    State *st = pMat->getState();
     
-    StateChunkPtr sChunk =
+    StateChunk *sChunk =
         st->getChunk(MaterialChunk::getStaticClassId());
     
-    if(sChunk == NullFC)
+    if(sChunk == NULL)
         return;
     
-    MaterialChunkPtr mChunk = dynamic_cast<MaterialChunkPtr>(sChunk);
+    MaterialChunk *mChunk = dynamic_cast<MaterialChunk *>(sChunk);
     
-    if(mChunk == NullFC)
+    if(mChunk == NULL)
         return;
 
     pWriter->printIndent();
@@ -1304,9 +1308,9 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
 
     sChunk = st->getChunk(TextureObjChunk::getStaticClassId());    
 
-    TextureObjChunkPtr pTChunk = dynamic_cast<TextureObjChunkPtr>(sChunk);
+    TextureObjChunk *pTChunk = dynamic_cast<TextureObjChunk *>(sChunk);
 
-    if(pTChunk != NullFC)
+    if(pTChunk != NULL)
     {
         if(pWriter->isWritten(pTChunk))
         {
@@ -1315,9 +1319,9 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
         }
         else
         {
-            ImagePtr pImage = pTChunk->getImage();
+            Image *pImage = pTChunk->getImage();
 
-            if(pImage != NullFC)
+            if(pImage != NULL)
             {
                 if(pWriter->getOptions() & 
                                    VRMLWriteAction::OSGPixelTextures)
@@ -1429,7 +1433,7 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
 
     TextureTransformChunkPtr pTTChunk = dynamic_cast<TextureTransformChunkPtr>(sChunk);
 
-    if(pTTChunk != NullFC)
+    if(pTTChunk != NULL)
     {
     }
  */
@@ -1440,8 +1444,8 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
     fprintf(pFile, "}\n");
 }
 
-bool VRMLWriteAction::writeGeoCommon(NodePtr          pNode,
-                                     GeometryPtr      pGeo, 
+bool VRMLWriteAction::writeGeoCommon(Node            *pNode,
+                                     Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter,
                                      const Char8     *setTypename)
@@ -1511,8 +1515,8 @@ bool VRMLWriteAction::writeGeoCommon(NodePtr          pNode,
 #endif
 }
 
-void VRMLWriteAction::writePointSet(NodePtr          pNode,
-                                    GeometryPtr      pGeo, 
+void VRMLWriteAction::writePointSet(Node            *pNode,
+                                    Geometry        *pGeo, 
                                     FILE            *pFile,
                                     VRMLWriteAction *pWriter)
 {
@@ -1533,8 +1537,8 @@ void VRMLWriteAction::writePointSet(NodePtr          pNode,
     }
 }
 
-void VRMLWriteAction::writeLineSet(NodePtr          pNode,
-                                   GeometryPtr      pGeo, 
+void VRMLWriteAction::writeLineSet(Node            *pNode,
+                                   Geometry        *pGeo, 
                                    FILE            *pFile,
                                    VRMLWriteAction *pWriter,
                                    bool             )
@@ -1561,8 +1565,8 @@ void VRMLWriteAction::writeLineSet(NodePtr          pNode,
     }
 }
 
-void VRMLWriteAction::writeFaceSet(NodePtr          pNode,
-                                   GeometryPtr      pGeo, 
+void VRMLWriteAction::writeFaceSet(Node            *pNode,
+                                   Geometry        *pGeo, 
                                    FILE            *pFile,
                                    VRMLWriteAction *pWriter,
                                    bool             )
@@ -1594,14 +1598,15 @@ void VRMLWriteAction::writeFaceSet(NodePtr          pNode,
 }
 
 
-Action::ResultE VRMLWriteAction::writeGeoEnter(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeGeoEnter(NodeCore * const , 
+                                               Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
-    NodePtr pNode = pAction->getActNode();
-    GeometryPtr pGeo = dynamic_cast<GeometryPtr>(pNode->getCore());
+    Node *pNode = pAction->getActNode();
+    Geometry *pGeo = dynamic_cast<Geometry *>(pNode->getCore());
 
-    if(pWriter == NULL || pGeo == NullFC)
+    if(pWriter == NULL || pGeo == NULL)
     {
         return Action::Quit;
     }
@@ -1702,7 +1707,8 @@ Action::ResultE VRMLWriteAction::writeGeoEnter(const NodeCorePtr , Action *pActi
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeGeoLeave(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeGeoLeave(NodeCore * const , 
+                                               Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
@@ -1731,16 +1737,17 @@ Action::ResultE VRMLWriteAction::writeGeoLeave(const NodeCorePtr , Action *pActi
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeMatGroupEnter(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeMatGroupEnter(NodeCore * const , 
+                                                    Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
 
-    NodePtr pNode = pAction->getActNode();
+    Node *pNode = pAction->getActNode();
 
-    MaterialGroupPtr pMatGroup = 
-        dynamic_cast<MaterialGroupPtr>(pNode->getCore());
+    MaterialGroup *pMatGroup = 
+        dynamic_cast<MaterialGroup *>(pNode->getCore());
 
-    if(pWriter == NULL || pMatGroup == NullFC)
+    if(pWriter == NULL || pMatGroup == NULL)
     {
         return Action::Quit;
     }
@@ -1752,7 +1759,8 @@ Action::ResultE VRMLWriteAction::writeMatGroupEnter(const NodeCorePtr , Action *
     return Action::Continue;
 }
 
-Action::ResultE VRMLWriteAction::writeMatGroupLeave(const NodeCorePtr , Action *pAction)
+Action::ResultE VRMLWriteAction::writeMatGroupLeave(NodeCore * const , 
+                                                    Action *pAction)
 {
     VRMLWriteAction *pWriter = dynamic_cast<VRMLWriteAction *>(pAction);
  
@@ -1764,7 +1772,7 @@ Action::ResultE VRMLWriteAction::writeMatGroupLeave(const NodeCorePtr , Action *
     
     FDEBUG(("Write MatGroup Leave 0x%04x\n", pWriter->getMode()));
    
-    pWriter->setMaterial(NullFC);
+    pWriter->setMaterial(NULL);
     
     return Action::Continue;
 }
@@ -1862,12 +1870,12 @@ bool VRMLWriteAction::isCurrentUse(void)
     return _currentUse;
 }
 
-void VRMLWriteAction::addNodeUse(NodePtr &pNode)
+void VRMLWriteAction::addNodeUse(Node * pNode)
 { 
-    if(pNode == NullFC)
+    if(pNode == NULL)
         return;
 
-    NodeCorePtr pCore = pNode->getCore();
+    NodeCore *pCore = pNode->getCore();
 
     if(_vFCInfos.find(pNode->getId()) == _vFCInfos.end())
         _vFCInfos.insert(std::make_pair(pNode->getId(), new FCInfo));
@@ -1878,30 +1886,30 @@ void VRMLWriteAction::addNodeUse(NodePtr &pNode)
     FCInfo *pInfoNode = _vFCInfos[pNode->getId()];
     FCInfo *pInfoCore = _vFCInfos[pCore->getId()];
 
-    NamePtr pNodename =
-        dynamic_cast<NamePtr>(pNode->findAttachment(
+    Name *pNodename =
+        dynamic_cast<Name *>(pNode->findAttachment(
             Name::getClassType().getGroupId()));
 
-    NamePtr pCorename =
-        dynamic_cast<NamePtr>(pCore->findAttachment(
+    Name *pCorename =
+        dynamic_cast<Name *>(pCore->findAttachment(
             Name::getClassType().getGroupId()));
 
     pInfoNode->incUse();
     pInfoCore->incUse();
 
-    if(pNodename != NullFC)
+    if(pNodename != NULL)
     {
         pInfoNode->setName(pNodename->getFieldPtr()->getValue().c_str());
     }
 
-    if(pCorename != NullFC)
+    if(pCorename != NULL)
     {
         pInfoCore->setName(pCorename->getFieldPtr()->getValue().c_str());
     }
 
     if(pInfoCore->getUse() > 1)
     {
-        if(pCorename != NullFC)
+        if(pCorename != NULL)
         {
             pInfoCore->buildName(pCore->getTypeName(), 
                                  pCore->getId());
@@ -1911,9 +1919,9 @@ void VRMLWriteAction::addNodeUse(NodePtr &pNode)
     ++_nodeCount;
 }
 
-void VRMLWriteAction::addContainerUse(FieldContainerPtr pContainer)
+void VRMLWriteAction::addContainerUse(FieldContainer *pContainer)
 {
-    if(pContainer == NullFC)
+    if(pContainer == NULL)
         return;
 
     if(_vFCInfos.find(pContainer->getId()) == _vFCInfos.end())
@@ -1938,9 +1946,9 @@ void VRMLWriteAction::clearInfos(void)
 }
 
 VRMLWriteAction::FCInfo *VRMLWriteAction::getInfo(
-    FieldContainerPtr pContainer)
+    FieldContainer *pContainer)
 {
-    if(pContainer == NullFC)
+    if(pContainer == NULL)
         return NULL;
 
     if(_vFCInfos.find(pContainer->getId()) == _vFCInfos.end())
@@ -1970,7 +1978,7 @@ void VRMLWriteAction::updateProgress(void)
 
 VRMLWriteAction::VRMLWriteAction(void) :
      Inherited       (            ),
-    _material        (NullFC      ),
+    _material        (NULL        ),
     _uiIndent        (0           ),
     _pFile           (NULL        ),
     _eTraversalMode  (OSGCollectFC),
@@ -2039,7 +2047,7 @@ VRMLWriteAction::~VRMLWriteAction(void)
 
 /*---------------------------- properties ---------------------------------*/
     
-void VRMLWriteAction::setMaterial(MaterialPtr material)
+void VRMLWriteAction::setMaterial(Material *material)
 {
     _material = material;
 }
@@ -2082,7 +2090,7 @@ UInt32 VRMLWriteAction::getOptions(void)
     return _uiOptions;
 }
 
-Action::ResultE VRMLWriteAction::write(NodePtr node)
+Action::ResultE VRMLWriteAction::write(Node *node)
 {
     Action::ResultE returnValue = Action::Continue;
     
@@ -2092,7 +2100,7 @@ Action::ResultE VRMLWriteAction::write(NodePtr node)
 
     _writtenFCs.clear();
     
-    setMaterial(NullFC);
+    setMaterial(NULL);
 
     SceneFileHandler::the()->updateWriteProgress(0);
     _nodeCount = 0;
@@ -2184,13 +2192,13 @@ std::vector<VRMLWriteAction::Functor> *
     return _defaultLeaveFunctors;
 }
 
-Action::ResultE VRMLWriteAction::apply(std::vector<NodePtr>::iterator begin, 
-                                       std::vector<NodePtr>::iterator end)
+Action::ResultE VRMLWriteAction::apply(std::vector<Node *>::iterator begin, 
+                                       std::vector<Node *>::iterator end)
 {
     return Inherited::apply(begin, end);
 }
 
-Action::ResultE VRMLWriteAction::apply(NodePtr node)
+Action::ResultE VRMLWriteAction::apply(Node *node)
 {
     return Inherited::apply(node);
 }

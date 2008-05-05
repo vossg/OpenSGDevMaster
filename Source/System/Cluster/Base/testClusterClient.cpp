@@ -98,20 +98,20 @@ bool                          pipelinedBufferRead = false;
 
 void cleanup(void)
 {
-    root                 = NullFC;
-    cam_trans            = NullFC;
-    cam                  = NullFC;
-    clusterWindow        = NullFC;
-    clientWindow         = NullFC;
-    sortfirst            = NullFC;
-    sortlast             = NullFC;
+    root                 = NULL;
+    cam_trans            = NULL;
+    cam                  = NULL;
+    clusterWindow        = NULL;
+    clientWindow         = NULL;
+    sortfirst            = NULL;
+    sortlast             = NULL;
 #ifdef FRAMEINTERLEAVE
-    frameinterleave      = NullFC;
+    frameinterleave      = NULL;
 #endif
-    multidisplay         = NullFC;
-    balancedmultidisplay = NullFC;
-    polygonChunk         = NullFC;
-    bkgnd                = NullFC;
+    multidisplay         = NULL;
+    balancedmultidisplay = NULL;
+    polygonChunk         = NULL;
+    bkgnd                = NULL;
 
     osgExit(); 
 }
@@ -192,7 +192,7 @@ void displayInfo(int x, int y)
   glPopAttrib();
 }
 
-void prepareSceneGraph(const NodePtr node)
+void prepareSceneGraph(Node * const node)
 {
     if(!prepared)
     {
@@ -201,24 +201,24 @@ void prepareSceneGraph(const NodePtr node)
         prepared = true;
     }
 
-    NodeCorePtr core  =node->getCore();
-    if(core != NullFC)
+    NodeCore *core  =node->getCore();
+    if(core != NULL)
     {
-        GeometryPtr geo   = dynamic_cast<GeometryPtr>(core);
-        if(geo != NullFC)
+        Geometry *geo   = dynamic_cast<Geometry *>(core);
+        if(geo != NULL)
         {
-            MaterialPtr mat = geo->getMaterial();
-            if(mat != NullFC)
+            Material *mat = geo->getMaterial();
+            if(mat != NULL)
             {
-                ChunkMaterialPtr cmat = dynamic_cast<ChunkMaterialPtr>(mat);
-                if(cmat->find(PolygonChunk::getClassType()) == NullFC)
+                ChunkMaterial *cmat = dynamic_cast<ChunkMaterial *>(mat);
+                if(cmat->find(PolygonChunk::getClassType()) == NULL)
                 {
                     cmat->addChunk(polygonChunk);
                 }
             }
             // get num positions
-            GeoVectorPropertyPtr positionsPtr=geo->getPositions();
-            if(positionsPtr != NullFC)
+            GeoVectorProperty *positionsPtr=geo->getPositions();
+            if(positionsPtr != NULL)
                 sum_positions += positionsPtr->getSize();
             // get num triangles
             UInt32 triangle=0;
@@ -231,14 +231,14 @@ void prepareSceneGraph(const NodePtr node)
         }
         else
         {
-            MaterialGroupPtr matGrp = dynamic_cast<MaterialGroupPtr>(core);
-            if(matGrp != NullFC)
+            MaterialGroup *matGrp = dynamic_cast<MaterialGroup *>(core);
+            if(matGrp != NULL)
             {
-                MaterialPtr mat = matGrp->getMaterial();
-                if(mat != NullFC)
+                Material *mat = matGrp->getMaterial();
+                if(mat != NULL)
                 {
-                    ChunkMaterialPtr cmat = dynamic_cast<ChunkMaterialPtr>(mat);
-                    if(cmat->find(PolygonChunk::getClassType()) == NullFC)
+                    ChunkMaterial *cmat = dynamic_cast<ChunkMaterial *>(mat);
+                    if(cmat->find(PolygonChunk::getClassType()) == NULL)
                     {
                         cmat->addChunk(polygonChunk);
                     }
@@ -246,8 +246,8 @@ void prepareSceneGraph(const NodePtr node)
             }
             else
             {
-                ProxyGroupPtr proxy = dynamic_cast<ProxyGroupPtr>(core);
-                if(proxy != NullFC)
+                ProxyGroup *proxy = dynamic_cast<ProxyGroup *>(core);
+                if(proxy != NULL)
                 {
                     sum_triangles += proxy->getTriangles();
                     sum_positions += proxy->getPositions();
@@ -454,9 +454,9 @@ void setHEyeWallParameter(Real32 dsFactor, bool enablecc)
 {
     static char str[1024];
     
-    NameUnrecPtr parameters = dynamic_cast<NamePtr>(clusterWindow->findAttachment(Name::getClassType()));
+    NameUnrecPtr parameters = dynamic_cast<Name *>(clusterWindow->findAttachment(Name::getClassType()));
 
-    if(parameters == NullFC)
+    if(parameters == NULL)
     {
         parameters = Name::create();
         clusterWindow->addAttachment(parameters);
@@ -551,19 +551,19 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             break;
         }
         case 'j':
-            if(sortfirst!=NullFC)
+            if(sortfirst!=NULL)
             {
                 sortfirst->setCompression("JPEG");
             }
             break;
         case 'r':
-            if(sortfirst!=NullFC)
+            if(sortfirst!=NULL)
             {
                 sortfirst->setCompression("RLE");
             }
             break;
         case 'n':
-            if(sortfirst!=NullFC)
+            if(sortfirst!=NULL)
             {
                 sortfirst->editCompression().erase();
             }
@@ -702,7 +702,7 @@ void init(std::vector<std::string> &filenames)
     for(i=0;i<filenames.size();i++)
     {
         file = SceneFileHandler::the()->read(filenames[i].c_str(),0);
-        if(file != NullFC)
+        if(file != NULL)
             scene->addChild(file);
         else
             std::cerr << "Couldn't load file, ignoring " << filenames[i] << std::endl;
@@ -946,7 +946,7 @@ int doMain(int argc,char **argv)
     bool                     compose=false;
 
     std::string              composerType="";
-    ImageComposerPtr         composer=NullFC;
+    ImageComposer           *composer=NULL;
     std::string              autostart;
     
     for(i=1;i<argc;i++)
@@ -1192,21 +1192,21 @@ int doMain(int argc,char **argv)
                 FieldContainerUnrecPtr fcPtr = 
                     FieldContainerFactory::the()->
                     createContainer(composerType.c_str());
-                ImageComposerPtr icPtr = 
-                    dynamic_cast<ImageComposerPtr>(fcPtr.get());
+                ImageComposer *icPtr = 
+                    dynamic_cast<ImageComposer *>(fcPtr.get());
                 
-                if(icPtr != NullFC)
+                if(icPtr != NULL)
                 {
-                    if(dynamic_cast<PipelineComposerPtr>(icPtr) != NullFC)
+                    if(dynamic_cast<PipelineComposer *>(icPtr) != NULL)
                     {
                         if(subtilesize>0)
-                            dynamic_cast<PipelineComposerPtr>(icPtr)->setTileSize(subtilesize);
-                        dynamic_cast<PipelineComposerPtr>(icPtr)->setPipelined(pipelinedBufferRead);
+                            dynamic_cast<PipelineComposer *>(icPtr)->setTileSize(subtilesize);
+                        dynamic_cast<PipelineComposer *>(icPtr)->setPipelined(pipelinedBufferRead);
                     }
-                    if(dynamic_cast<BinarySwapComposerPtr>(icPtr) != NullFC)
+                    if(dynamic_cast<BinarySwapComposer *>(icPtr) != NULL)
                     {
                         if(subtilesize>0)
-                            dynamic_cast<BinarySwapComposerPtr>(icPtr)->setTileSize(subtilesize);
+                            dynamic_cast<BinarySwapComposer *>(icPtr)->setTileSize(subtilesize);
                     }
                     icPtr->setStatistics(info);
 //                        icPtr->setShort(false);

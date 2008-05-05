@@ -108,9 +108,9 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
     if(getActive() == false)
         return;
     
-    ImagePtr i = getImage();
+    Image *i = getImage();
     
-    if(i == NullFC)       // No image, no grab.
+    if(i == NULL)       // No image, no grab.
         return;
 
     UInt32 w = osgMax(2, port->getPixelWidth ());

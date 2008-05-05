@@ -107,7 +107,7 @@ CHDRImageFileType CHDRImageFileType::_the("chdr",
   the given input stream. Returns true on success.
 */
 
-bool CHDRImageFileType::read(      ImagePtr      image, 
+bool CHDRImageFileType::read(      Image        *image, 
                                    std::istream &is, 
                              const std::string  &mimetype)
 {
@@ -117,7 +117,7 @@ bool CHDRImageFileType::read(      ImagePtr      image,
 
     if(returnValue == false)
     {
-        pTmpImage = NullFC;
+        pTmpImage = NULL;
 
         return returnValue;
     }
@@ -126,7 +126,7 @@ bool CHDRImageFileType::read(      ImagePtr      image,
     returnValue = convertCrossToCubeMap(pTmpImage,
                                         image);
 
-    pTmpImage = NullFC;
+    pTmpImage = NULL;
 
     return returnValue;
 }
@@ -137,9 +137,9 @@ bool CHDRImageFileType::read(      ImagePtr      image,
   Returns true on success.
 */
 
-bool CHDRImageFileType::write(      ConstImagePtr     image, 
-                                    std::ostream     &os, 
-                              const std::string      &mimetype)
+bool CHDRImageFileType::write(const Image        *image, 
+                                    std::ostream &os, 
+                              const std::string  &mimetype)
 {
 #if 0
     if(image->getDataType() != Image::OSG_FLOAT32_IMAGEDATA)
@@ -191,9 +191,9 @@ bool CHDRImageFileType::write(      ConstImagePtr     image,
   Returns the amount of data read.
 */
 
-UInt64 CHDRImageFileType::restoreData(      ImagePtr     image, 
-                                      const UChar8      *buffer,
-                                            Int32              )
+UInt64 CHDRImageFileType::restoreData(      Image  *image, 
+                                      const UChar8 *buffer,
+                                            Int32         )
 {
     image->setData(buffer);
 
@@ -206,9 +206,9 @@ UInt64 CHDRImageFileType::restoreData(      ImagePtr     image,
   Returns the amount of data written.
 */
 
-UInt64 CHDRImageFileType::storeData(ConstImagePtr     image, 
-                                    UChar8           *buffer,
-                                    Int32             OSG_CHECK_ARG(memSize))
+UInt64 CHDRImageFileType::storeData(const Image  *image, 
+                                          UChar8 *buffer,
+                                          Int32   OSG_CHECK_ARG(memSize))
 {
     UInt32 dataSize = image->getSize();
 

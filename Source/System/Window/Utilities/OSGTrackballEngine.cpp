@@ -283,8 +283,8 @@ void TrackballEngine::buttonRelease(Int16, Int16 x, Int16 y, Navigator* nav)
 {
     if (!nav->getMoved() && nav->getClickCenter())
     {
-        ViewportPtr      vp  = nav->getViewport();   
-        IntersectAction* act = IntersectAction::create();
+        Viewport        *vp  = nav->getViewport();   
+        IntersectAction *act = IntersectAction::create();
         Line line;
         vp->getCamera()->calcViewRay(line, x, y, *vp);
 
@@ -466,7 +466,7 @@ void TrackballEngine::updateFinalMatrix()
 }
 
 static void myCalcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,
-                               const ViewportPtr port)
+                               Viewport * const port)
 {
     Matrix proj, projtrans;
 
@@ -489,8 +489,8 @@ static void myCalcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,
 */
 void TrackballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
 {
-    IntersectAction * act = IntersectAction::create();
-    ViewportPtr       vp  = nav->getViewport();
+    IntersectAction *act = IntersectAction::create();
+    Viewport        *vp  = nav->getViewport();
     Line line;
     
     vp->getCamera()->calcViewRay(line, x, y, *vp);
@@ -543,8 +543,8 @@ void TrackballEngine::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
                                  Real32 &distanceX, Real32 &distanceY,
                                  Navigator* nav)
 {
-    Matrix      view = getMatrix();
-    ViewportPtr vp   = nav->getViewport();
+    Matrix    view = getMatrix();
+    Viewport *vp   = nav->getViewport();
 
     Pnt3f from( view[3][0], view[3][1], view[3][2] );
 

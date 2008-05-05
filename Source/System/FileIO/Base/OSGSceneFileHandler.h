@@ -65,15 +65,15 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
 {
     /*==========================  PUBLIC  =================================*/
 
-    typedef NodeTransitPtr (*FileIOReadCBF )(      SceneFileType *type,
-                                                   std::istream  &is, 
-                                             const Char8         *ext );
+    typedef NodeTransitPtr (*FileIOReadCBF )(SceneFileType         *type,
+                                             std::istream          &is, 
+                                             Char8           const *ext );
 
-    typedef bool           (*FileIOWriteCBF)(      SceneFileType *type,
-                                             const NodePtr       &node, 
-                                                   std::ostream  &os,
-                                             const Char8         *ext, 
-                                                   bool           compress);
+    typedef bool           (*FileIOWriteCBF)(SceneFileType *        type,
+                                             Node          * const  node, 
+                                             std::ostream          &os,
+                                             Char8           const *ext, 
+                                             bool                   compress);
 
   public:
 
@@ -134,13 +134,14 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr      &node, 
-                             std::ostream &os, 
-                       const Char8        *ext, 
-                             bool          compress = false);
-    virtual bool write(const NodePtr      &node, 
-                       const Char8        *fileName, 
-                             bool          compress = false);
+    virtual bool write(Node         * const  node, 
+                       std::ostream         &os, 
+                       Char8          const *ext, 
+                       bool                  compress = false);
+
+    virtual bool write(Node         * const  node, 
+                       Char8          const *fileName, 
+                       bool                  compress = false);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               Write Callback                                 */

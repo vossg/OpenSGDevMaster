@@ -105,10 +105,10 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     /*! \name     server window funcitons                                 */
     /*! \{                                                                */
 
-    void serverInit  (WindowPtr       window,
+    void serverInit  (Window         *window,
                       UInt32          id    );
 #ifdef OSG_OLD_RENDER_ACTION
-    void serverRender(WindowPtr       window,
+    void serverRender(Window         *window,
                       UInt32          id,
                       DrawActionBase *action);
 #endif
@@ -294,7 +294,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     // create load groups for all root nodes
     void createLoadGroups(void);
     // collect load for a subtree
-    void collectLoadGroups(NodePtr node,NodePtr root);
+    void collectLoadGroups(Node *node,Node *root);
     // collect visible viewports
     void collectVisibleViewports(Server &server);
     // calculate server viewport
@@ -331,16 +331,16 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
 #endif
 
     // store viewport
-    void storeViewport(Area &area,ViewportPtr vp, Int32 const (&rect)[4]);
+    void storeViewport(Area &area,Viewport *vp, Int32 const (&rect)[4]);
 
 #ifdef OSG_OLD_RENDER_ACTION
     // do rendering and network transfer
-    void drawSendAndRecv(WindowPtr serverWindow,
+    void drawSendAndRecv(Window *serverWindow,
                          DrawActionBase *action,
                          UInt32 id);
 
     // preload display lists and textures
-    void preloadCache(WindowPtr window,
+    void preloadCache(Window *window,
                       DrawActionBase *action);
 #endif
 

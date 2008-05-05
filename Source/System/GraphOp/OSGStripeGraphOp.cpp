@@ -120,18 +120,18 @@ std::string StripeGraphOp::usage(void)
     "  stitch (bool, false): stitch strips using degenerate triangles\n";
 }
 
-bool StripeGraphOp::travNodeEnter(NodePtr node)
+bool StripeGraphOp::travNodeEnter(Node *node)
 {
-    GeometryPtr geo = dynamic_cast<GeometryPtr>(node->getCore());
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
 
-    if(geo != NullFC)
+    if(geo != NULL)
     {
         // Check if it's striped already
         if (!_force)
         {
-            GeoIntegralPropertyPtr t = geo->getTypes();
+            GeoIntegralProperty *t = geo->getTypes();
             
-            if(t != NullFC)
+            if(t != NULL)
             {
                 for(UInt32 i = 0; i < t->size(); ++i)
                 {
@@ -150,7 +150,7 @@ bool StripeGraphOp::travNodeEnter(NodePtr node)
     return true;
 }
 
-bool StripeGraphOp::travNodeLeave(NodePtr)
+bool StripeGraphOp::travNodeLeave(Node *)
 {
     return true;
 }

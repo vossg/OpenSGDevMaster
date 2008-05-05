@@ -26,27 +26,27 @@
 
 using namespace OSG;
 
-RenderAction *rentravact = NullFC;
+RenderAction *rentravact = NULL;
 
-NodeRecPtr  hdrroot = NullFC;
-NodeRecPtr  root    = NullFC;
-NodeRecPtr  file    = NullFC;
+NodeRecPtr  hdrroot = NULL;
+NodeRecPtr  root    = NULL;
+NodeRecPtr  file    = NULL;
 
-PerspectiveCameraRecPtr cam = NullFC;
-ViewportRecPtr          vp  = NullFC;
-WindowRecPtr            win = NullFC;
+PerspectiveCameraRecPtr cam = NULL;
+ViewportRecPtr          vp  = NULL;
+WindowRecPtr            win = NULL;
 
-TransformRecPtr cam_trans   = NullFC;
-TransformRecPtr scene_trans = NullFC;
+TransformRecPtr cam_trans   = NULL;
+TransformRecPtr scene_trans = NULL;
 
 ComponentTransformRecPtr pAnimTrs[6] = 
 {
-    NullFC,
-    NullFC,
-    NullFC,
-    NullFC,
-    NullFC,
-    NullFC
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 Trackball tball;
@@ -99,7 +99,7 @@ void display(void)
 
     for(UInt32 i = 0; i < 6; ++i)
     {
-        if(pAnimTrs[i] != NullFC)
+        if(pAnimTrs[i] != NULL)
         {
             pAnimTrs[i]->editRotation().setValueAsAxisDeg(
                 0.f, 1.f, 0.f, 
@@ -222,23 +222,23 @@ void key(unsigned char key, int x, int y)
 
             delete rentravact;
 
-            hdrroot = NullFC;
-            root    = NullFC;
-            file    = NullFC;
+            hdrroot = NULL;
+            root    = NULL;
+            file    = NULL;
 
-            cam = NullFC;
-            vp  = NullFC;
-            win = NullFC;
+            cam = NULL;
+            vp  = NULL;
+            win = NULL;
 
-            cam_trans   = NullFC;
-            scene_trans = NullFC;
+            cam_trans   = NULL;
+            scene_trans = NULL;
 
-            pAnimTrs[0] = NullFC;
-            pAnimTrs[1] = NullFC;
-            pAnimTrs[2] = NullFC;
-            pAnimTrs[3] = NullFC;
-            pAnimTrs[4] = NullFC;
-            pAnimTrs[5] = NullFC;
+            pAnimTrs[0] = NULL;
+            pAnimTrs[1] = NULL;
+            pAnimTrs[2] = NULL;
+            pAnimTrs[3] = NULL;
+            pAnimTrs[4] = NULL;
+            pAnimTrs[5] = NULL;
             
 
             osgExit(); 
@@ -465,14 +465,14 @@ int doMain (int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NullFC;
+    NodeUnrecPtr file = NULL;
     
     if(argc > 1)
     {
         file = SceneFileHandler::the()->read(argv[1], NULL);
     }
 
-    if(file == NullFC)
+    if(file == NULL)
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
 

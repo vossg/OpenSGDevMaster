@@ -97,9 +97,9 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposer : public ParallelComposerBase
     /*! \name      composition                                             */
     /*! \{                                                                 */
 
-    virtual void open           (                 );
-    virtual void composeViewport(ViewportPtr port );
-    virtual void close          (void             );
+    virtual void open           (               );
+    virtual void composeViewport(Viewport *port );
+    virtual void close          (void           );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,11 +164,11 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposer : public ParallelComposerBase
   private:
   
     // helper functions
-    void            createCtx   ( ViewportPtr port  );
-    void            endFrame    ( UInt32 id         );
-    UInt32          beginFrame  ( void              );
-    void            drawFrame   ( void              );
-    void            renderRead  ( void              );
+    void            createCtx (Viewport *port);
+    void            endFrame  (UInt32    id  );
+    UInt32          beginFrame(void          );
+    void            drawFrame (void          );
+    void            renderRead(void          );
 
     friend class FieldContainer;
     friend class ParallelComposerBase;

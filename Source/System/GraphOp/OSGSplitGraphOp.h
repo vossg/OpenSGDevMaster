@@ -76,7 +76,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(NodePtr root);
+    bool traverse(Node *root);
 
     //virtual const std::string getName(void) { return _name; };
 
@@ -105,12 +105,12 @@ protected:
 private:
     UInt16 _max_polygons;
 
-    bool isLeaf        (const NodePtr node);
-    bool isGroup       (const NodePtr node);
-    bool splitNode     (const NodePtr node, std::vector<NodeUnrecPtr> &split);
+    bool isLeaf        (Node * const node);
+    bool isGroup       (Node * const node);
+    bool splitNode     (Node * const node, std::vector<NodeUnrecPtr> &split);
 
-    Action::ResultE traverseEnter(const NodePtr node);
-    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node);
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };
 
 typedef SplitGraphOp *SplitGraphOpP;

@@ -193,8 +193,8 @@ OSG_USING_NAMESPACE
   added here at creation time and removed at deletion. 
  */
 
-std::vector<WindowPtr              >  OSG::Window::_allWindows;
-UInt32                                OSG::Window::_currentWindowId = 0;
+std::vector<OSG::Window *> OSG::Window::_allWindows;
+UInt32                     OSG::Window::_currentWindowId = 0;
 
 // GLobject handling
 
@@ -398,7 +398,7 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
         }
     }
 
-    std::vector<WindowPtr>::iterator it;
+    std::vector<Window *>::iterator it;
 
     it = std::find(_allWindows.begin(), 
                    _allWindows.end  (), 
@@ -775,11 +775,11 @@ void OSG::Window::refreshGLObject( UInt32 osgId )
         return;
     }
 
-    std::vector<WindowPtr>::iterator winIt;
+    std::vector<Window *>::iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
-        WindowPtr pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = convertToCurrentAspect(*winIt);
 
         if(pWin == NULL)
             continue;
@@ -830,11 +830,11 @@ void OSG::Window::reinitializeGLObject(UInt32 osgId)
         return;
     }
 
-    std::vector<WindowPtr>::iterator winIt;
+    std::vector<Window *>::iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
-        WindowPtr pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = convertToCurrentAspect(*winIt);
 
         if(pWin == NULL)
             continue;
@@ -885,11 +885,11 @@ void OSG::Window::initRegisterGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
-    std::vector<WindowPtr>::iterator winIt;
+    std::vector<Window *>::iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
-        WindowPtr pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = convertToCurrentAspect(*winIt);
 
         if(pWin == NULL)
             continue;
@@ -959,11 +959,11 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
-    std::vector<WindowPtr>::iterator winIt;
+    std::vector<Window *>::iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
-        WindowPtr pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = convertToCurrentAspect(*winIt);
 
         if(pWin == NULL)
             continue;
@@ -1100,7 +1100,7 @@ void OSG::Window::ignoreExtensions(const Char8 *s)
         // Walk all existing windows and remove the ignored extension 
         // from the _extensions vector. Disable it if it was a registered one.
         
-        std::vector<WindowPtr>::iterator winit;
+        std::vector<Window *>::iterator winit;
 
         for(winit = _allWindows.begin(); winit != _allWindows.end(); ++winit)
         {

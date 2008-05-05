@@ -385,7 +385,7 @@ UInt32 JPGImageFileType::getQuality(void)
   the given stream. Returns true on success.
 */
 
-bool JPGImageFileType::read(      ImagePtr      OSG_JPG_ARG(pImage  ), 
+bool JPGImageFileType::read(      Image        *OSG_JPG_ARG(pImage  ), 
                                   std::istream &OSG_JPG_ARG(is      ),
                             const std::string  &OSG_JPG_ARG(mimetype))
 {
@@ -485,9 +485,9 @@ bool JPGImageFileType::read(      ImagePtr      OSG_JPG_ARG(pImage  ),
     Returns true on success.
 */
 
-bool JPGImageFileType::write(      ConstImagePtr     OSG_JPG_ARG(pImage  ), 
-                                   std::ostream     &OSG_JPG_ARG(os      ),
-                             const std::string      &OSG_JPG_ARG(mimetype))
+bool JPGImageFileType::write(const Image        *OSG_JPG_ARG(pImage  ), 
+                                   std::ostream &OSG_JPG_ARG(os      ),
+                             const std::string  &OSG_JPG_ARG(mimetype))
 {
 #ifdef OSG_WITH_JPG
 
@@ -615,9 +615,9 @@ bool JPGImageFileType::validateHeader(const Char8 *fileName,
 }
 
 
-UInt64 JPGImageFileType::restoreData(      ImagePtr     OSG_JPG_ARG(pImage ), 
-                                     const UChar8      *OSG_JPG_ARG(buffer ),
-                                           Int32        OSG_JPG_ARG(memSize))
+UInt64 JPGImageFileType::restoreData(      Image  *OSG_JPG_ARG(pImage ), 
+                                     const UChar8 *OSG_JPG_ARG(buffer ),
+                                           Int32   OSG_JPG_ARG(memSize))
 {
 #ifdef OSG_WITH_JPG
     UInt64 retCode = 0;
@@ -712,9 +712,9 @@ UInt64 JPGImageFileType::restoreData(      ImagePtr     OSG_JPG_ARG(pImage ),
 Tries to restore the image data from the given memblock.
 Returns the amount of data read.
 */
-UInt64 JPGImageFileType::storeData(ConstImagePtr     OSG_JPG_ARG(pImage ), 
-                                   UChar8           *OSG_JPG_ARG(buffer ),
-                                   Int32             OSG_JPG_ARG(memSize))
+UInt64 JPGImageFileType::storeData(const Image  *OSG_JPG_ARG(pImage ), 
+                                         UChar8 *OSG_JPG_ARG(buffer ),
+                                         Int32   OSG_JPG_ARG(memSize))
 {
 #ifdef OSG_WITH_JPG
     if((pImage->getBpp  () != 1 && pImage->getBpp() != 3) ||

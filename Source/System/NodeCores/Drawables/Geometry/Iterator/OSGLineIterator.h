@@ -71,9 +71,9 @@ class OSG_DRAWABLE_DLLMAPPING LineIterator : public PrimitiveIterator
     /*! \{                                                                 */
 
     LineIterator(void);
-    LineIterator(const LineIterator     &source);
-    LineIterator(      ConstGeometryPtr  geo   );
-    LineIterator(const NodePtr           geo   );
+    LineIterator(LineIterator   const &source);
+    LineIterator(Geometry       const *geo   );
+    LineIterator(Node         * const  geo   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

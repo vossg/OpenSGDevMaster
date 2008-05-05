@@ -65,11 +65,11 @@ OSG_BEGIN_NAMESPACE
 #endif
 
 template <>
-struct FieldTraits<AttachmentContainerPtr>
-    : public FieldTraitsFCPtrBase<AttachmentContainerPtr>
+struct FieldTraits<AttachmentContainer *>
+    : public FieldTraitsFCPtrBase<AttachmentContainer *>
 {
-    static  DataType                            _type;
-    typedef FieldTraits<AttachmentContainerPtr>  Self;
+    static  DataType                           _type;
+    typedef FieldTraits<AttachmentContainer *>  Self;
 
 
     enum             { Convertible = Self::NotConvertible              };
@@ -85,7 +85,7 @@ struct FieldTraits<AttachmentContainerPtr>
 };
 
 template<> inline
-const Char8 *FieldTraits<AttachmentContainerPtr, 
+const Char8 *FieldTraits<AttachmentContainer *, 
                          0                  >::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAttachmentContainerPtr"; 
@@ -93,7 +93,7 @@ const Char8 *FieldTraits<AttachmentContainerPtr,
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentContainerPtr, 
+  FieldTraits<AttachmentContainer *, 
               0                >::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAttachmentContainerPtr"; 
@@ -101,7 +101,7 @@ const Char8 *
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentContainerPtr, 
+  FieldTraits<AttachmentContainer *, 
               0                     >::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAttachmentContainerPtr"; 
@@ -109,7 +109,7 @@ const Char8 *
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentContainerPtr, 
+  FieldTraits<AttachmentContainer *, 
               0                     >::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAttachmentContainerPtr"; 
@@ -119,7 +119,7 @@ const Char8 *
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentContainerPtr, 
+  FieldTraits<AttachmentContainer *, 
               0                  >::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAttachmentContainerPtr"; 
@@ -127,7 +127,7 @@ const Char8 *
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentContainerPtr, 
+  FieldTraits<AttachmentContainer *, 
               0                >::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAttachmentContainerPtr"; 
@@ -135,7 +135,7 @@ const Char8 *
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentContainerPtr, 
+  FieldTraits<AttachmentContainer *, 
               0                     >::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAttachmentContainerPtr"; 
@@ -143,7 +143,7 @@ const Char8 *
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentContainerPtr, 
+  FieldTraits<AttachmentContainer *, 
               0                     >::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAttachmentContainerPtr"; 

@@ -90,7 +90,7 @@ Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
 
     if(m == NULL)
     {
-        if(this->getMaterial() != NullFC)
+        if(this->getMaterial() != NULL)
         {
             m = this->getMaterial();
         }
@@ -106,9 +106,9 @@ Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
     
     for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
     {
-        StatePtr st = m->getState(uiPass);
+        State *st = m->getState(uiPass);
         
-        if(st != NullFC)
+        if(st != NULL)
         {
             a->dropFunctor(func, 
                            st, 
@@ -117,9 +117,9 @@ Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
         else
         {
 #ifndef WIN32
-            FINFO(("%s: hit material with NullFC state!\n", __func__));
+            FINFO(("%s: hit material with NULL state!\n", __func__));
 #else
-            FINFO(("Hit material with NullFC state!\n"));
+            FINFO(("Hit material with NULL state!\n"));
 #endif
         }
     }

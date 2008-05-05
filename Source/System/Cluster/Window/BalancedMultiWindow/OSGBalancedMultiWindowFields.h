@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(BalancedMultiWindow);
 #endif
 
 template <>
-struct FieldTraits<BalancedMultiWindowPtr> :
-    public FieldTraitsFCPtrBase<BalancedMultiWindowPtr>
+struct FieldTraits<BalancedMultiWindow *> :
+    public FieldTraitsFCPtrBase<BalancedMultiWindow *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<BalancedMultiWindowPtr> :
 
   public:
 
-    typedef FieldTraits<BalancedMultiWindowPtr>  Self;
+    typedef FieldTraits<BalancedMultiWindow *>  Self;
 
     enum                        { Convertible = NotConvertible };
 };

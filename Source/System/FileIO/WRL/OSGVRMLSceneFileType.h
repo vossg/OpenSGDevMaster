@@ -57,7 +57,7 @@ class OSG_FILEIO_DLLMAPPING VRMLSceneFileType : public SceneFileType
     /*==========================  PUBLIC  =================================*/
   public:
 
-    typedef std::vector<FieldContainerPtr> FCPtrStore;
+    typedef std::vector<FieldContainer *> FCPtrStore;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -92,9 +92,9 @@ class OSG_FILEIO_DLLMAPPING VRMLSceneFileType : public SceneFileType
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr      &node, 
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
+    virtual bool write(Node         * const  node, 
+                       std::ostream         &os,
+                       Char8          const *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

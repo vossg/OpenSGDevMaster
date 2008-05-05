@@ -90,8 +90,8 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    void setGround  (const NodePtr &new_ground);
-    void setWorld   (const NodePtr &new_world );
+    void setGround  (Node * const new_ground);
+    void setWorld   (Node * const new_world );
     
     void setGroundDistance  (Real32 groundDistance);
     void setMinWallDistance (Real32 wallDistance  );
@@ -124,14 +124,14 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
     /*! \name                     Members                                  */
     /*! \{                                                                 */
 
-    NodePtr _ground;
-    NodePtr _world;
+    Node   *_ground;
+    Node   *_world;
 
-    Real32 _groundDistance;
-    Real32 _wallDistance;
-    Real32 _height;
-    Real32 _width;
-    Real32 _fatness;
+    Real32  _groundDistance;
+    Real32  _wallDistance;
+    Real32  _height;
+    Real32  _width;
+    Real32  _fatness;
     
     IntersectAction *_act;
 

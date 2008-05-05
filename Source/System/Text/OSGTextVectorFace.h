@@ -99,7 +99,7 @@ class TextLayoutResult;
  * // from the previous call to the layout method.
  * Real32 scale = 2.f;  // This is the height of the glyphs
  * Real32 depth = 0.5f; // This is the depth of the glyphs
- * GeometryPtr geo = face->makeGeo(layoutResult, scale, depth);
+ * Geometry *geo = face->makeGeo(layoutResult, scale, depth);
  *
  * // We do not need the vector face anymore, so decrement
  * // the reference counter. Do not use the face object anymore!
@@ -143,7 +143,7 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      *                    exceeds the creaseAngle both of the two normals will 
      *                    be attached to the point. Otherwise their mean is used.
      */
-    void fillGeo(GeometryPtr geoPtr, const TextLayoutResult &layoutResult,
+    void fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutResult,
                  Real32 scale = 1.f, Real32 depth = 0.f, UInt32 level = 2, 
                  Real32 creaseAngle = Pi / 4.f);
 

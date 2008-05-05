@@ -276,7 +276,7 @@ void keyboard(unsigned char k, int x, int y)
         case 'q':
             delete _mgr;
 
-            _scene = NullFC;
+            _scene = NULL;
 
             osgExit();
             exit(1);

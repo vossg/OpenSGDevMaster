@@ -597,7 +597,7 @@ template class SingletonHolder<StatisticsDefaultFontBase>;
 //----------------------------------------------------------------------
 StatisticsDefaultFontBase::StatisticsDefaultFontBase():
     _face(0),
-    _texObjChunk(NullFC)
+    _texObjChunk(NULL)
 {
     UInt32 dataSize = sizeof(statisticsDefaultFontData);
 #ifdef OSG_HAS_SSTREAM
@@ -624,7 +624,7 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
 //----------------------------------------------------------------------
 StatisticsDefaultFontBase::~StatisticsDefaultFontBase()
 {
-    _texObjChunk = NullFC;
+    _texObjChunk = NULL;
 
     if (_face != 0)
     {

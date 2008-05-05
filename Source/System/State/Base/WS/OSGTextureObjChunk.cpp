@@ -214,7 +214,7 @@ TextureObjChunk::~TextureObjChunk(void)
 bool TextureObjChunk::isCubeTexture(void)
 {
     return 
-        this->getImage()                 != NullFC && 
+        this->getImage()                 != NULL && 
         this->getImage()->getSideCount() == 6;
 }
 
@@ -372,16 +372,16 @@ void TextureObjChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 
 
-void TextureObjChunk::handleTexture(Window *win,
-                                    UInt32 id,
-                                    GLenum bindtarget,
-                                    GLenum paramtarget,
-                                    GLenum imgtarget,
-                                    Window::GLObjectStatusE mode,
-                                    ImagePtr img,
-                                    Int32    side)
+void TextureObjChunk::handleTexture(Window                  *win,
+                                    UInt32                   id,
+                                    GLenum                   bindtarget,
+                                    GLenum                   paramtarget,
+                                    GLenum                   imgtarget,
+                                    Window::GLObjectStatusE  mode,
+                                    Image                   *img,
+                                    Int32                    side)
 {
-    if( img==NullFC || ! img->getDimension()) // no image ?
+    if( img==NULL || ! img->getDimension()) // no image ?
         return;
 
     if(mode == Window::initialize || mode == Window::reinitialize)
@@ -1435,9 +1435,9 @@ void TextureObjChunk::handleGL(DrawEnv                 *pEnv,
 
         GLenum target;
 
-        ImagePtr img = getImage();
+        Image *img = getImage();
 
-        if (img != NullFC)
+        if (img != NULL)
         {
             if(img->getSideCount() == 1)
             {
@@ -1589,10 +1589,10 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
     win->validateGLObject(getGLId(), pEnv);
 
-    ImagePtr img    = getImage();
-    GLenum   target = getTarget();
+    Image  *img    = getImage();
+    GLenum  target = getTarget();
 
-    if(img == NullFC || ! img->getDimension()) // no image ?
+    if(img == NULL || ! img->getDimension()) // no image ?
         return;
 
     glErr("TextureObjChunk::activate precheck");
@@ -1666,7 +1666,7 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     {
         ImagePtr i = getImage();
         
-        if(i != NullFC)
+        if(i != NULL)
         {
 			Real32 sw=1.f, sh=1.f, sd=1.f,
 				   tw=0.f, th=0.f, td=0.f;
@@ -1765,13 +1765,13 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
     fprintf(stderr, "Change %d %d\n", oldp->_uiChunkId, _uiChunkId);
 #endif
 
-    ImagePtr      img       = getImage();
+    Image        *img       = getImage();
     GLenum        target    = getTarget();
     GLenum        oldtarget = oldp->getTarget();
-    bool          oldused   = (oldp->getImage() != NullFC &&
+    bool          oldused   = (oldp->getImage() != NULL &&
                                oldp->getImage()->getDimension());
 
-    if(img == NullFC || img->getDimension() == 0)
+    if(img == NULL || img->getDimension() == 0)
     {
         oldp->deactivate(pEnv, idx);
         return;
@@ -1934,7 +1934,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
     {
         ImagePtr i = getImage();
         
-        if (i != NullFC)
+        if (i != NULL)
         {
 			Real32 sw=1.f, sh=1.f, sd=1.f,
 				   tw=0.f, th=0.f, td=0.f;
@@ -2070,10 +2070,10 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         return;
     }
 
-    ImagePtr img = getImage();
-    GLenum target = getTarget();
+    Image  *img    = getImage();
+    GLenum  target = getTarget();
 
-    if(img == NullFC || ! img->getDimension())
+    if(img == NULL || ! img->getDimension())
       return;
 
     glErr("TextureObjChunk::deactivate precheck");
@@ -2155,9 +2155,9 @@ GLenum TextureObjChunk::determineTextureTarget(Window *pWindow) const
 {
     GLenum target = GL_NONE;
 
-    ImagePtr img = getImage();
+    Image *img = getImage();
 
-    if(img != NullFC)
+    if(img != NULL)
     {
         target = getTarget();
 

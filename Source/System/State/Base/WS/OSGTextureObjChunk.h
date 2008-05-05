@@ -204,7 +204,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
                        GLenum                   paramtarget,
                        GLenum                   imgtarget,
                        Window::GLObjectStatusE  mode,
-                       ImagePtr                 img,
+                       Image                   *img,
                        Int32                    side = 0);
 
     /*! \}                                                                 */

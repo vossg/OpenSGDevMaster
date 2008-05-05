@@ -121,7 +121,7 @@ void PointerSFieldCommon<AccessHandlerT,
 {
     AccessHandler::onSub(this, _fieldValue);
     
-    _fieldValue = NullFC;
+    _fieldValue = NULL;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -132,7 +132,7 @@ template <class AccessHandlerT, Int32 NamespaceI> inline
 void PointerSFieldCommon<AccessHandlerT,
                          NamespaceI    >::copyFromBin(BinaryDataHandler &pMem)
 {
-    FieldContainerPtr pNewObj;
+    FieldContainer *pNewObj;
     
     PtrBaseTraitsType::copyFromBin  ( pMem, 
                                       pNewObj   );
@@ -152,7 +152,7 @@ template <class AccessHandlerT, Int32 NamespaceI> inline
 void PointerSFieldCommon<AccessHandlerT,
                          NamespaceI     >::syncWith(Self &source)
 {
-    FieldContainerPtr pNewObj = convertToCurrentAspect(source.ptrStoreGet());
+    FieldContainer *pNewObj = convertToCurrentAspect(source.ptrStoreGet());
     
     AccessHandler::onSyncReplace( this, 
                                  _fieldValue, 

@@ -167,22 +167,22 @@ Real32 QuadTreeTerrain::getHeightDataScaled (UInt32 i) const
 
 void QuadTreeTerrain::getVertex(UInt32 i, Pnt3f &point) const
 {
-    GeoPnt3fPropertyPtr pos = 
-        dynamic_cast<GeoPnt3fPropertyPtr>(getHeightVertices());
+    GeoPnt3fProperty *pos = 
+        dynamic_cast<GeoPnt3fProperty *>(getHeightVertices());
 
    point.setValue(pos->getField()[i]);
 }
 const Pnt3f &QuadTreeTerrain::getVertex(UInt32 i) const
 {
-   GeoPnt3fPropertyPtr pos = 
-       dynamic_cast<GeoPnt3fPropertyPtr>(getHeightVertices());
+   GeoPnt3fProperty *pos = 
+       dynamic_cast<GeoPnt3fProperty *>(getHeightVertices());
 
    return pos->getField()[i];
 }
 UInt32 QuadTreeTerrain::getNumVertices(void) const
 {
-   GeoPnt3fPropertyPtr pos = 
-       dynamic_cast<GeoPnt3fPropertyPtr>(getHeightVertices());
+   GeoPnt3fProperty *pos = 
+       dynamic_cast<GeoPnt3fProperty *>(getHeightVertices());
 
    return pos->getField().size();
 }
@@ -529,30 +529,30 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    tex_normal_map->setWrapT(GL_CLAMP);
    //tex_normal_map->setEnvMode(GL_MODULATE);
 
-   ChunkMaterialPtr mat = dynamic_cast<ChunkMaterialPtr>(getMaterial());
+   ChunkMaterial *mat = dynamic_cast<ChunkMaterial *>(getMaterial());
 
 #if 1
 
 #ifndef WITH_SINGLE_SHLCHUNK
-   StateChunkPtr oldSHL  = mat->find(SHLChunk::getClassType());
+   StateChunk *oldSHL  = mat->find(SHLChunk::getClassType());
 
-   if(oldSHL == NullFC) 
+   if(oldSHL == NULL) 
    {
        mat->addChunk(s_shlChunk);
    }
 
-   StateChunkPtr oldSHLP = mat->find(SHLParameterChunk::getClassType());
+   StateChunk *oldSHLP = mat->find(SHLParameterChunk::getClassType());
 
-   if(oldSHLP != NullFC) 
+   if(oldSHLP != NULL) 
    {
        mat->subChunk(oldSHLP);
    }
 
    mat->addChunk(shlp);
 #else
-   StateChunkPtr oldSHL  = mat->find(SHLChunk::getClassType());
+   StateChunk *oldSHL  = mat->find(SHLChunk::getClassType());
 
-   if(oldSHL != NullFC) 
+   if(oldSHL != NULL) 
    {
        mat->subChunk(oldSHL);
    }
@@ -561,17 +561,17 @@ void QuadTreeTerrain::addMaterialChunks(void) const
 #endif
 
 #else
-   StateChunkPtr oldVP  = mat->find(VertexProgramChunk::getClassType());
+   StateChunk *oldVP  = mat->find(VertexProgramChunk::getClassType());
    
-   if(oldVP != NullFC) 
+   if(oldVP != NULL) 
    {
        mat->subChunk(oldVP);
    }
 
    mat->addChunk(vp);
 
-   StateChunkPtr oldFP  = mat->find(FragmentProgramChunk::getClassType());
-   if(oldFP != NullFC) 
+   StateChunk *oldFP  = mat->find(FragmentProgramChunk::getClassType());
+   if(oldFP != NULL) 
    {
        mat->subChunk(oldFP);
    }
@@ -579,9 +579,9 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    mat->addChunk(fp);
 #endif
 
-   StateChunkPtr oldTEX  = mat->find(TextureObjChunk::getClassType(), 1);
+   StateChunk *oldTEX  = mat->find(TextureObjChunk::getClassType(), 1);
 
-   if(oldTEX != NullFC) 
+   if(oldTEX != NULL) 
    {
        mat->subChunk(oldTEX);
    }
@@ -598,7 +598,7 @@ ImageTransitPtr QuadTreeTerrain::createNormalMap () const
 
    UInt8* outData = (UInt8*) out->editData();
 
-   GeoPnt3fPropertyPtr pos = dynamic_cast<GeoPnt3fPropertyPtr>(getPositions());
+   GeoPnt3fProperty *pos = dynamic_cast<GeoPnt3fProperty *>(getPositions());
 
    const Real32  maxData = 0.5f*TypeTraits<UInt8>::getMax();
 
@@ -718,7 +718,7 @@ Real32 QuadTreeTerrain::calcD2Value (Int32 centerX,
   
     // shortcut
     const GeoPnt3fProperty::StoredFieldType &v = 
-        dynamic_cast<GeoPnt3fPropertyPtr>(getHeightVertices())->getField(); 
+        dynamic_cast<GeoPnt3fProperty *>(getHeightVertices())->getField(); 
     
     //--- north, east, south, west errors -------------------------------------
     Real32 nErr = osgAbs( v[n][1] -  (v[nw][1] + v[ne][1]) / 2.0f);
@@ -1360,12 +1360,12 @@ void QuadTreeTerrain::createFanAround (Int32 x,
 #else // WITH_TRIANGLE_FANS
 
     GeoUInt32Property::StoredFieldType &ind = 
-        dynamic_cast<GeoUInt32PropertyPtr>(getIndices())->editField();
+        dynamic_cast<GeoUInt32Property *>(getIndices())->editField();
 
     UInt32 prev = ind.size();
     
     GeoPnt3fProperty::StoredFieldType &pos = 
-        dynamic_cast<GeoPnt3fPropertyPtr>(getPositions())->editField();
+        dynamic_cast<GeoPnt3fProperty *>(getPositions())->editField();
 
     pos[c][1] = hC;
     ind.push_back(c);
@@ -1480,12 +1480,12 @@ void QuadTreeTerrain::createFanAround (Int32 x,
     }
 
     // triangle fan with length (ind.size()-prev)
-    GeoUInt32PropertyPtr len = 
-        dynamic_cast<GeoUInt32PropertyPtr>(getLengths());
+    GeoUInt32Property *len = 
+        dynamic_cast<GeoUInt32Property *>(getLengths());
 
     len->push_back((ind.size()-prev));
 
-    GeoUInt8PropertyPtr  typ = dynamic_cast<GeoUInt8PropertyPtr>(getTypes());
+    GeoUInt8Property *typ = dynamic_cast<GeoUInt8Property *>(getTypes());
 
     typ->push_back(GL_TRIANGLE_FAN);
     SINFO << "added triangle-fan of length " << ind.size()-prev << std::endl;
@@ -1497,7 +1497,7 @@ void QuadTreeTerrain::setInterleaved(Int32 index, Real32 height)
 {
    // add position/tex-coord
     GeoUInt32Property::StoredFieldType &ind = 
-        dynamic_cast<GeoUInt32PropertyPtr>(getIndices())->editField();
+        dynamic_cast<GeoUInt32Property *>(getIndices())->editField();
     
     ind.push_back(index);
 }
@@ -1514,7 +1514,7 @@ Real32 QuadTreeTerrain::getHeight(Int32 index,
                                   Real32 rhSE) 
 {
     const GeoPnt3fProperty::StoredFieldType &vertices = 
-        dynamic_cast<GeoPnt3fPropertyPtr>(getHeightVertices())->getField();
+        dynamic_cast<GeoPnt3fProperty *>(getHeightVertices())->getField();
 
     //--- init vars ------------------------------------------------------------
     Real32 height = vertices[index][1];
@@ -1760,8 +1760,8 @@ Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
         Time startTime = getSystemTime();
         //--- create Terrain Mesh ---------------------------------------------
 
-        GeoUInt32PropertyPtr len = 
-            dynamic_cast<GeoUInt32PropertyPtr>(getLengths());
+        GeoUInt32Property *len = 
+            dynamic_cast<GeoUInt32Property *>(getLengths());
 
         if(getUpdateTerrain() || len->size() == 0) 
         {
@@ -1785,18 +1785,18 @@ Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
                                getWidth()-1, 
                                1);
             
-            GeoUInt8PropertyPtr  typ = 
-                dynamic_cast<GeoUInt8PropertyPtr >(getTypes());
+            GeoUInt8Property *typ = 
+                dynamic_cast<GeoUInt8Property  *>(getTypes());
             
-            GeoUInt32PropertyPtr ind = 
-                dynamic_cast<GeoUInt32PropertyPtr>(getIndices());
+            GeoUInt32Property *ind = 
+                dynamic_cast<GeoUInt32Property *>(getIndices());
             
             len->clear();
             typ->clear();
             ind->clear();
             
             const GeoPnt3fProperty::StoredFieldType &v = 
-                dynamic_cast<GeoPnt3fPropertyPtr>(
+                dynamic_cast<GeoPnt3fProperty *>(
                     getHeightVertices())->getField();
 
             Real32 hNW = v[0][1];
@@ -1850,14 +1850,14 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 {
     // create single SHL chunk, parameters are changed in separate SHL 
     // parameter chunks
-    if(s_shlChunk == NullFC) 
+    if(s_shlChunk == NULL) 
     {
         s_shlChunk = createSHLChunk();
     }
 
     // changed HeightData
     // * update HeightError and HeightQuad
-    if((whichField & HeightDataFieldMask) && getHeightData() != NullFC) 
+    if((whichField & HeightDataFieldMask) && getHeightData() != NULL) 
     {
         if(getHeightData()->getPixelFormat() != Image::OSG_L_PF) 
         {
@@ -1930,7 +1930,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 #if 0
             addRefX(vert);
 
-            if(getHeightVertices() != NullFC) 
+            if(getHeightVertices() != NULL) 
             {
                 subRefX(getHeightVertices());
             }
@@ -1954,7 +1954,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
     }   
 
     if(((whichField & MaterialFieldMask) || 
-        (whichField & PerPixelLightingFieldMask)) && getPositions() != NullFC) 
+        (whichField & PerPixelLightingFieldMask)) && getPositions() != NULL) 
     {
         // create texCoords 
         // Width steps between [0..1.0] for:
@@ -1971,13 +1971,13 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 
         GeoVec2fPropertyUnrecPtr tex;
 
-        if(getTexCoords() == NullFC) 
+        if(getTexCoords() == NULL) 
         {
             tex = GeoVec2fProperty::create();
         } 
         else 
         {
-            tex = dynamic_cast<GeoVec2fPropertyPtr>(getTexCoords());
+            tex = dynamic_cast<GeoVec2fProperty *>(getTexCoords());
         }
 
         UInt32 vnum = 0;
@@ -2001,18 +2001,18 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
        if(getPerPixelLighting()) 
        {
            // modify material
-           if(getMaterial() != NullFC) 
+           if(getMaterial() != NULL) 
            {
                addMaterialChunks();
                
-               setNormals(NullFC);
+               setNormals(NULL);
            }
        } 
        else
        {
            // create vertex normals
-           GeoPnt3fPropertyPtr pos  = 
-               dynamic_cast<GeoPnt3fPropertyPtr>(getPositions());
+           GeoPnt3fProperty *pos  = 
+               dynamic_cast<GeoPnt3fProperty *>(getPositions());
 
            GeoVec3fPropertyUnrecPtr norm = GeoVec3fProperty::create();
            

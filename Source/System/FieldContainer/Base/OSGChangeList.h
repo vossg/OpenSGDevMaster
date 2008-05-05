@@ -225,9 +225,9 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \{                                                                 */
 
     template<typename RefCountPolicy>
-    void addDelayedSubRef    (FieldContainerPtr pFC);
+    void addDelayedSubRef    (FieldContainer *pFC);
 
-    void commitDelayedSubRefs(void                 );
+    void commitDelayedSubRefs(void               );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,25 +252,25 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    ChangeEntryPool                _entryPool;
+    ChangeEntryPool               _entryPool;
 
-    ChangeEntryPoolIt              _currentPoolElement;
-    ChangeEntryStoreIt             _currentEntry;
+    ChangeEntryPoolIt             _currentPoolElement;
+    ChangeEntryStoreIt            _currentEntry;
 
-    ChangedStore                   _changedStore;
-    ChangedStore                   _createdStore;
+    ChangedStore                  _changedStore;
+    ChangedStore                  _createdStore;
 
-    ChangedStore                   _uncommitedChanges;
-    ChangedStore                   _workStore;
+    ChangedStore                  _uncommitedChanges;
+    ChangedStore                  _workStore;
 
-    UInt32                         _uiAspect;
-    Int32                          _iSubRefLevel;
+    UInt32                        _uiAspect;
+    Int32                         _iSubRefLevel;
 
-    bool                           _bExternal;
+    bool                          _bExternal;
     
-    std::vector<FieldContainerPtr> _vDelayedUnrecSubRefs;
-    std::vector<FieldContainerPtr> _vDelayedRecSubRefs;
-    std::vector<FieldContainerPtr> _vDelayedWeakSubRefs;
+    std::vector<FieldContainer *> _vDelayedUnrecSubRefs;
+    std::vector<FieldContainer *> _vDelayedRecSubRefs;
+    std::vector<FieldContainer *> _vDelayedWeakSubRefs;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

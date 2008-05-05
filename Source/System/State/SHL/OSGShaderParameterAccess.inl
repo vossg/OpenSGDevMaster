@@ -44,8 +44,8 @@ template<class ParameterType, class ValueType> inline
 bool ShaderParameterAccess::setSParameter(const Char8     *name, 
                                           const ValueType &value)
 {
-    typedef typename ParameterType::ObjPtr      ParamPtr;
-    typedef typename ParameterType::ObjUnrecPtr ParamUnrecPtr;
+    typedef          ParameterType              *ParamPtr;
+    typedef typename ParameterType::ObjUnrecPtr  ParamUnrecPtr;
 
     if(name == NULL)
         return false;
@@ -62,7 +62,7 @@ bool ShaderParameterAccess::setSParameter(const Char8     *name,
         ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters((*it).second));
 
-        if(p == NullFC)
+        if(p == NULL)
         {
             FWARNING(("ShaderParameterAccess::setParameter : Parameter "
                       "'%s' has wrong type!\n", name));
@@ -75,7 +75,7 @@ bool ShaderParameterAccess::setSParameter(const Char8     *name,
     {
         ParamUnrecPtr p = ParameterType::create();
 
-        if(p != NullFC)
+        if(p != NULL)
         {
             p->setName (name );
             p->setValue(value);
@@ -98,8 +98,8 @@ template<class ParameterType, class ValueType> inline
 bool ShaderParameterAccess::setMParameter(const char      *name, 
                                           const ValueType &value)
 {
-    typedef typename ParameterType::ObjPtr      ParamPtr;
-    typedef typename ParameterType::ObjUnrecPtr ParamUnrecPtr;
+    typedef          ParameterType              *ParamPtr;
+    typedef typename ParameterType::ObjUnrecPtr  ParamUnrecPtr;
 
     if(name == NULL)
         return false;
@@ -113,7 +113,7 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
         ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters((*it).second));
 
-        if(p == NullFC)
+        if(p == NULL)
         {
             FWARNING(("ShaderParameterAccess::setMParameter : Parameter '%s' "
                       "has wrong type!\n", name));
@@ -127,7 +127,7 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
     {
         ParamUnrecPtr p = ParameterType::create();
 
-        if(p != NullFC)
+        if(p != NULL)
         {
             p->setName(name );
 
@@ -149,7 +149,7 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
 template<class ParameterType, class ValueType> inline
 bool ShaderParameterAccess::getSParameter(const Char8 *name, ValueType &value)
 {
-    typedef typename ParameterType::ObjPtr ParamPtr;
+    typedef ParameterType *ParamPtr;
 
     if(name == NULL)
         return false;
@@ -163,7 +163,7 @@ bool ShaderParameterAccess::getSParameter(const Char8 *name, ValueType &value)
         ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters((*it).second));
 
-        if(p == NullFC)
+        if(p == NULL)
         {
             FWARNING(("ShaderParameterAccess::getParameter : Parameter "
                       "'%s' has wrong type!\n", name));
@@ -187,7 +187,7 @@ bool ShaderParameterAccess::getSParameter(const Char8 *name, ValueType &value)
 template<class ParameterType, class ValueType> inline
 bool ShaderParameterAccess::getMParameter(const Char8 *name, ValueType &value)
 {
-    typedef typename ParameterType::ObjPtr ParamPtr;
+    typedef ParameterType *ParamPtr;
 
     if(name == NULL)
         return false;
@@ -201,7 +201,7 @@ bool ShaderParameterAccess::getMParameter(const Char8 *name, ValueType &value)
         ParamPtr p = dynamic_cast<ParamPtr>(
             _parameters.getParameters((*it).second));
 
-        if(p == NullFC)
+        if(p == NULL)
         {
             FWARNING(("ShaderParameterAccess::getParameter : Parameter "
                       "'%s' has wrong type!\n", name));

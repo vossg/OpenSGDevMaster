@@ -74,7 +74,7 @@ PointerMFieldCommon<AccessHandlerT,
 {
     if(source.size() > 0)
     {
-        _ptrStore.resize(source.size(), NullFC);
+        _ptrStore.resize(source.size(), NULL);
 
         PtrStoreItType      sI = _ptrStore.begin();
         PtrStoreConstItType sE = _ptrStore.end  ();
@@ -408,13 +408,13 @@ void PointerMFieldCommon<AccessHandlerT,
         {
             if(n > _ptrStore.size())
             {
-                _ptrStore.resize(n, NullFC);
+                _ptrStore.resize(n, NULL);
             }
             
             PtrStoreItType      sIt  = _ptrStore.begin();
             PtrStoreConstItType sEnd = _ptrStore.end  ();
 
-            FieldContainerPtr tmpVal;
+            FieldContainer *tmpVal;
 
             for(UInt32 i = 0; i < n; ++i)
             {
@@ -471,7 +471,7 @@ void PointerMFieldCommon<AccessHandlerT,
     {
         if(n > _ptrStore.size())
         {
-            _ptrStore.resize(n, NullFC);
+            _ptrStore.resize(n, NULL);
         }
 
         PtrStoreConstItType sIt  = source._ptrStore.begin();
@@ -480,7 +480,7 @@ void PointerMFieldCommon<AccessHandlerT,
         
         for(size_type i = 0; i < n; ++i)
         {
-            FieldContainerPtr pNewObj = convertToCurrentAspect(*sIt);
+            FieldContainer *pNewObj = convertToCurrentAspect(*sIt);
             
             AccessHandler::onSyncReplace(this, *fIt, pNewObj);
             

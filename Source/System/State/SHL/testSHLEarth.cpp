@@ -38,7 +38,7 @@ static SimpleSceneManager *_mgr;
 // The scene
 static NodeRecPtr _scene;
 
-static SHLChunkRecPtr _shl = NullFC;
+static SHLChunkRecPtr _shl = NULL;
 static Int32 _animation = 1;
 
 // forward declaration so we can have the interesting stuff upfront
@@ -245,8 +245,8 @@ void keyboard(unsigned char k, int x, int y)
         case 'q':
             delete _mgr;
 
-            _scene = NullFC; 
-            _shl   = NullFC;
+            _scene = NULL; 
+            _shl   = NULL;
 
             osgExit();
             exit(1);

@@ -89,7 +89,7 @@ void Attachment::setInternal(bool bVal)
 }
 
 inline
-FieldContainerPtr Attachment::getParent(UInt32 uiIdx) const
+FieldContainer *Attachment::getParent(UInt32 uiIdx) const
 {
     if(uiIdx < _mfParents.size())
     {

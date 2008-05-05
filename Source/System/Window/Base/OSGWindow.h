@@ -397,8 +397,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     friend class FieldContainer;
     friend class WindowBase;
 
-    static std::vector<WindowPtr> _allWindows;
-    static UInt32                 _currentWindowId;
+    static std::vector<Window *> _allWindows;
+    static UInt32                _currentWindowId;
 
     //! Does init() not to be called?
     bool    _initNeeded;

@@ -139,7 +139,7 @@ void StageHandlerMixin<ParentT>::pushPartition(
     UInt32                     uiCopyOnPush, 
     RenderPartitionBase::Mode  eMode)
 {
-    StageDataPtr pData = pAction->template getData<StageData *>(_iDataSlotId);
+    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
 
     pAction->pushPartition(uiCopyOnPush, eMode);
 
@@ -157,7 +157,7 @@ template <class ParentT> inline
 void StageHandlerMixin<ParentT>::popPartition(
     RenderActionBase *pAction)
 {
-    StageDataPtr pData = pAction->template getData<StageData *>(_iDataSlotId);
+    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
 
     pAction->popPartition();
 
@@ -174,7 +174,7 @@ template <class ParentT> inline
 void StageHandlerMixin<ParentT>::beginPartitionGroup(
     RenderActionBase *pAction)
 {
-    StageDataPtr pData = pAction->template getData<StageData *>(_iDataSlotId);
+    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
 
     if(pData != NULL)
     {
@@ -193,7 +193,7 @@ template <class ParentT> inline
 void StageHandlerMixin<ParentT>::endPartitionGroup(
     RenderActionBase *pAction)
 {
-    StageDataPtr pData = pAction->template getData<StageData *>(_iDataSlotId);
+    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
 
     if(pData != NULL)
     {
@@ -212,7 +212,7 @@ template <class ParentT> inline
 void StageHandlerMixin<ParentT>::beginPartitions(
     RenderActionBase *pAction)
 {
-    StageDataPtr pData = pAction->template getData<StageData *>(_iDataSlotId);
+    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
 
     if(pData != NULL)
     {
@@ -225,7 +225,7 @@ template <class ParentT> inline
 void StageHandlerMixin<ParentT>::endPartitions(
     RenderActionBase *pAction)
 {
-    StageDataPtr pData = pAction->template getData<StageData *>(_iDataSlotId);
+    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
 
     if(pData != NULL)
     {
@@ -236,11 +236,11 @@ void StageHandlerMixin<ParentT>::endPartitions(
 
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::setData(
-    StageDataPtr      pData, 
+    StageData        *pData, 
     Int32             iDataSlotId,
     RenderActionBase *pAction)
 {
-    StageDataPtr pStoredData = 
+    StageData *pStoredData = 
         pAction->template getData<StageData *>(_iDataSlotId);
 
     if(pStoredData == NULL)

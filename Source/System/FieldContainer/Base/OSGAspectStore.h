@@ -78,13 +78,13 @@ class OSG_SYSTEM_DLLMAPPING AspectStore
     /*! \name                     Access                                   */
     /*! \{                                                                 */
 
-    FieldContainer *getPtr            (      void                        )const;
-    FieldContainer *getPtr            (const UInt32            uiAspect  )const;
-    void            setPtrForAspect   (const FieldContainerPtr pContainer, 
-                                       const UInt32            uiAspect  );
-    void            removePtrForAspect(const UInt32            uiAspect  );
+    FieldContainer *getPtr            (      void                      )const;
+    FieldContainer *getPtr            (const UInt32          uiAspect  )const;
+    void            setPtrForAspect   (      FieldContainer *pContainer, 
+                                       const UInt32          uiAspect  );
+    void            removePtrForAspect(const UInt32          uiAspect  );
 
-    UInt32          getNumAspects     (      void                        )const;
+    UInt32          getNumAspects     (      void                      )const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -100,8 +100,8 @@ class OSG_SYSTEM_DLLMAPPING AspectStore
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    void fillOffsetArray(      AspectOffsetStore &oStore,
-                         const FieldContainerPtr  pRef  );
+    void fillOffsetArray(AspectOffsetStore &       oStore,
+                         FieldContainer    * const pRef  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

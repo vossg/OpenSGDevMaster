@@ -467,7 +467,7 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode *pNode, DrawEnv &denv,
                 if(pcov > _coveredProbThreshold || cbb < 0.001) // If within threshold or reall small
                 {
                     //Get triangles
-                    DrawableStatsAttachmentPtr st =
+                    DrawableStatsAttachment *st =
                             DrawableStatsAttachment::get(pNode->getNode());
                     st->validate();
                     UInt32 triangles = st->getTriangles();
@@ -700,7 +700,7 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv &denv, RenderPartition
                 if(sc != NULL)
                     sc->getElem(statNOccInvisible)->inc();
 
-                DrawableStatsAttachmentPtr st =
+                DrawableStatsAttachment *st =
                         DrawableStatsAttachment::get(pNode->getNode());
                 
                 st->validate();

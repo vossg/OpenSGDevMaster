@@ -87,23 +87,23 @@ SimpleAttachment<NameAttachmentDesc>::TypeObject &
   container is NULL.
  */
 
-const Char8 *getName(const AttachmentContainerPtr pContainer)
+const Char8 *getName(AttachmentContainer * const pContainer)
 {
-    if(pContainer == NullFC)
+    if(pContainer == NULL)
         return NULL;
    
     // Get attachment pointer
-    AttachmentPtr att = 
+    Attachment *att = 
         pContainer->findAttachment(Name::getClassType().getGroupId());
 
-    if(att == NullFC)
+    if(att == NULL)
         return NULL;
    
     // Cast to name pointer                           
 
-    NamePtr name = dynamic_cast<NamePtr>(att);
+    Name *name = dynamic_cast<Name *>(att);
 
-    if(name == NullFC)
+    if(name == NULL)
         return NULL;
    
     return name->getFieldPtr()->getValue().c_str();
@@ -113,10 +113,10 @@ const Char8 *getName(const AttachmentContainerPtr pContainer)
     name attachement yet one is created. 
  */
 
-void setName(const AttachmentContainerPtr  pContainer, 
-             const std::string            &namestring)
+void setName(AttachmentContainer * const  pContainer, 
+             std::string           const &namestring)
 {
-    if(pContainer == NullFC)
+    if(pContainer == NULL)
     {
         FFATAL(("setName: no container?!?"));
         return;
@@ -124,11 +124,11 @@ void setName(const AttachmentContainerPtr  pContainer,
    
     // Get attachment pointer
 
-    NameUnrecPtr  name = NullFC;
-    AttachmentPtr att  = 
+    NameUnrecPtr  name = NULL;
+    Attachment   *att  = 
         pContainer->findAttachment(Name::getClassType().getGroupId());
     
-    if(att == NullFC)
+    if(att == NULL)
     {
         name = Name::create();
 
@@ -136,9 +136,9 @@ void setName(const AttachmentContainerPtr  pContainer,
     }
     else
     {   
-        name = dynamic_cast<NamePtr>(att);
+        name = dynamic_cast<Name *>(att);
 
-        if(name == NullFC)
+        if(name == NULL)
         {
             FFATAL(("setName: Name Attachment is not castable to Name?!?"));
             return;
@@ -155,14 +155,14 @@ void setName(const AttachmentContainerPtr  pContainer,
   name is removed.
  */
 
-void setName(const AttachmentContainerPtr pContainer, const Char8 *name)
+void setName(AttachmentContainer * const pContainer, const Char8 *name)
 {
     if(name == NULL)
     {
-        AttachmentPtr att = 
+        Attachment *att = 
             pContainer->findAttachment(Name::getClassType().getGroupId());
  
-        if(att != NullFC)
+        if(att != NULL)
         {
             pContainer->subAttachment(att);
         }       

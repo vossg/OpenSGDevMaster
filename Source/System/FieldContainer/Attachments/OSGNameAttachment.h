@@ -113,21 +113,21 @@ SimpleAttachment<NameAttachmentDesc>::TypeObject &
  */
 
 OSG_SYSTEM_DLLMAPPING
-const Char8 *getName(const AttachmentContainerPtr  container);
+const Char8 *getName(AttachmentContainer * const container);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-      void   setName(const AttachmentContainerPtr  container, 
-                     const std::string            &name     );
+      void   setName(AttachmentContainer * const  container, 
+                     std::string           const  &name     );
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
 OSG_SYSTEM_DLLMAPPING
-      void   setName(const AttachmentContainerPtr  container, 
-                     const Char8                  *name     );
+      void   setName(AttachmentContainer * const  container, 
+                     Char8                 const *name     );
  
 
 OSG_END_NAMESPACE

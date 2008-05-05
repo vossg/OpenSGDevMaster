@@ -50,9 +50,9 @@ OSG_BEGIN_NAMESPACE
 template <typename AccessHandlerT, Int32 NamespaceI> inline
 ChildPointerSFieldBase<AccessHandlerT, 
                        NamespaceI>::ChildPointerSFieldBase(
-                           const FieldContainerPtr  pParent,
-                                 UInt16             usChildFieldId,
-                                 UInt16             usParentFieldId) :
+                           FieldContainer * const  pParent,
+                           UInt16                  usChildFieldId,
+                           UInt16                  usParentFieldId) :
       Inherited      (               ),
      _pEnclosingObj  (pParent        ),
      _childFieldId   (usChildFieldId ),
@@ -63,10 +63,10 @@ ChildPointerSFieldBase<AccessHandlerT,
 template <typename AccessHandlerT, Int32 NamespaceI> inline
 ChildPointerSFieldBase<AccessHandlerT, 
                        NamespaceI>::ChildPointerSFieldBase(
-                                 const_value        value,
-                           const FieldContainerPtr  pParent,
-                                 UInt16             usChildFieldId,
-                                 UInt16             usParentFieldId) : 
+                           const_value             value,
+                           FieldContainer * const  pParent,
+                           UInt16                  usChildFieldId,
+                           UInt16                  usParentFieldId) : 
      Inherited      (               ),
     _pEnclosingObj  (pParent        ),
     _childFieldId   (usChildFieldId ),
@@ -88,7 +88,7 @@ ChildPointerSFieldBase<AccessHandlerT,
 /* Child Linking Information                                               */
 
 template <typename AccessHandlerT, Int32 NamespaceI> inline 
-FieldContainerPtr 
+FieldContainer * 
     ChildPointerSFieldBase<AccessHandlerT, 
                            NamespaceI    >::getEnclosingObject(void) const
 {
@@ -97,7 +97,7 @@ FieldContainerPtr
 
 template <typename AccessHandlerT, Int32 NamespaceI> inline 
 void ChildPointerSFieldBase<AccessHandlerT, NamespaceI>::setEnclosingObject(
-    const FieldContainerPtr pObj)
+    FieldContainer * const pObj)
 {
     _pEnclosingObj = pObj;
 }

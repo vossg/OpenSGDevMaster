@@ -122,7 +122,7 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
     
     for(i = 0; i < getMFPositions()->size(); i++)
     {
-        if(getImages(i) != NullFC)
+        if(getImages(i) != NULL)
             break;
     }
     
@@ -162,9 +162,9 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
 
     for(i = 0; i < getMFPositions()->size(); i++)
     {
-        ImagePtr img = getImages(i);
+        Image *img = getImages(i);
 
-        if(img == NullFC)
+        if(img == NULL)
             continue;
 
         Pnt2f p = getPositions(i);

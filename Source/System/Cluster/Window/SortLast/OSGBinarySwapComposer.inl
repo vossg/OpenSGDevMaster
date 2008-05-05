@@ -113,7 +113,7 @@ void BinarySwapComposer::recvFromServers(DepthT &depth,
                                          ColorT &color,
                                          UInt32 colorType,
                                          UInt32 colorFormat,
-                                         ViewportPtr port)
+                                         Viewport *port)
 {
     UInt32      missing  = _usableServers;
     TileBuffer *readTile = getTileReadBuffer();
@@ -407,7 +407,7 @@ void BinarySwapComposer::startReader(DepthT &depthMax,
                                      UInt32 depthFormat,
                                      UInt32 colorType,
                                      UInt32 colorFormat,
-                                     ViewportPtr port)
+                                     Viewport *port)
 {
     UInt32      tx,ty,x,y,w,h;
     TileBuffer *tile;

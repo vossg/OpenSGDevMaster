@@ -76,14 +76,14 @@ OSG::UInt16 VTKMapperBase::getClassGroupId(void)
 
 //! Get the value of the VTKMapper::_sfRoot field.
 inline
-NodePtr VTKMapperBase::getRoot(void) const
+Node * VTKMapperBase::getRoot(void) const
 {
     return _sfRoot.getValue();
 }
 
 //! Set the value of the VTKMapper::_sfRoot field.
 inline
-void VTKMapperBase::setRoot(const NodePtr value)
+void VTKMapperBase::setRoot(Node * const value)
 {
     editSField(RootFieldMask);
 
@@ -92,63 +92,63 @@ void VTKMapperBase::setRoot(const NodePtr value)
 
 //! Get the value of the \a index element the VTKMapper::_mfGeoRoots field.
 inline
-NodePtr VTKMapperBase::getGeoRoots(const UInt32 index) const
+Node * VTKMapperBase::getGeoRoots(const UInt32 index) const
 {
     return _mfGeoRoots[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfGeometries field.
 inline
-GeometryPtr VTKMapperBase::getGeometries(const UInt32 index) const
+Geometry * VTKMapperBase::getGeometries(const UInt32 index) const
 {
     return _mfGeometries[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfMaterials field.
 inline
-ChunkMaterialPtr VTKMapperBase::getMaterials(const UInt32 index) const
+ChunkMaterial * VTKMapperBase::getMaterials(const UInt32 index) const
 {
     return _mfMaterials[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfMaterialChunks field.
 inline
-MaterialChunkPtr VTKMapperBase::getMaterialChunks(const UInt32 index) const
+MaterialChunk * VTKMapperBase::getMaterialChunks(const UInt32 index) const
 {
     return _mfMaterialChunks[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfPositions field.
 inline
-GeoPnt3fPropertyPtr VTKMapperBase::getPositions(const UInt32 index) const
+GeoPnt3fProperty * VTKMapperBase::getPositions(const UInt32 index) const
 {
     return _mfPositions[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfLength field.
 inline
-GeoUInt32PropertyPtr VTKMapperBase::getLength(const UInt32 index) const
+GeoUInt32Property * VTKMapperBase::getLength(const UInt32 index) const
 {
     return _mfLength[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfTypes field.
 inline
-GeoUInt8PropertyPtr VTKMapperBase::getTypes(const UInt32 index) const
+GeoUInt8Property * VTKMapperBase::getTypes(const UInt32 index) const
 {
     return _mfTypes[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfColors field.
 inline
-GeoColor4fPropertyPtr VTKMapperBase::getColors(const UInt32 index) const
+GeoColor4fProperty * VTKMapperBase::getColors(const UInt32 index) const
 {
     return _mfColors[index];
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfNormals field.
 inline
-GeoVec3fPropertyPtr VTKMapperBase::getNormals(const UInt32 index) const
+GeoVec3fProperty * VTKMapperBase::getNormals(const UInt32 index) const
 {
     return _mfNormals[index];
 }

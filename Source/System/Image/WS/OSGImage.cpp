@@ -344,7 +344,7 @@ bool Image::set(      UInt32  pF,
     the method should copy or link the pixel data.
  */
 
-bool Image::set(ImagePtr image)
+bool Image::set(Image *image)
 {
     this->set(image->getPixelFormat(),
               image->getWidth      (),
@@ -677,8 +677,8 @@ bool Image::addValue(const char *value)
 /*! It is a simple method to reformat the image pixelFormat (not the size).
     So you can for example convert a RGBA to RGB or RGB to Grey image.
 */
-bool Image::reformat(const Image::PixelFormat pixelFormat,
-                           ImagePtr           destination)
+bool Image::reformat(const Image::PixelFormat  pixelFormat,
+                           Image              *destination)
 {
           UChar8   *data       = NULL;
     const UChar8   *sourceData = NULL;
@@ -693,7 +693,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
         return false;
     }
 
-    if(destination == NullFC)
+    if(destination == NULL)
     {
         dest = Image::create();
 //        addRefX(dest);
@@ -707,7 +707,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
 
     if(getSize()   &&
        pixelFormat &&
-       (destination != NullFC || (pixelFormat != getPixelFormat())))
+       (destination != NULL || (pixelFormat != getPixelFormat())))
     {
 
         dest->set(pixelFormat, getWidth(), getHeight(), getDepth() );
@@ -2019,7 +2019,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
         if (data)
         {
             // rip the data from the local destImage if necessary
-            if(destination == NullFC)
+            if(destination == NULL)
             {
                 this->set(dest);
 //                subRefX(dest);
@@ -2468,11 +2468,11 @@ bool Image::hasAttachment(void) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
+    ImageGenericAtt *att = dynamic_cast<ImageGenericAtt *>(
         img->Inherited::findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
-    if(att != NullFC && att->getType().getNumFieldDescs() > 1)
+    if(att != NULL && att->getType().getNumFieldDescs() > 1)
         return true;
     else
         return false;
@@ -2485,11 +2485,11 @@ UInt32 Image::attachmentCount(void) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
+    ImageGenericAtt *att = dynamic_cast<ImageGenericAtt *>(
         img->Inherited::findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
-    if(att != NullFC)
+    if(att != NULL)
     {
         return att->getType().getNumFieldDescs() -1;
     }
@@ -2505,19 +2505,19 @@ UInt32 Image::attachmentCount(void) const
 void Image::setAttachmentField(const std::string &key,
                                const std::string &data)
 {
-    ImageGenericAttUnrecPtr att(dynamic_cast<ImageGenericAttPtr>(
+    ImageGenericAttUnrecPtr att(dynamic_cast<ImageGenericAtt *>(
         findAttachment(
             ImageGenericAtt::getClassType().getGroupId())));
 
 
-    if(att == NullFC)
+    if(att == NULL)
     {
         att = ImageGenericAtt::create();
 
         addAttachment(att);
     }
 
-    if(att == NullFC)
+    if(att == NULL)
     {
         FWARNING(("Image::setAttachmentField - can not create attachment\n"));
 
@@ -2561,11 +2561,11 @@ const std::string *Image::findAttachmentField(const std::string &key) const
 {
     Image *img=const_cast<Image*>(this);
 
-    ImageGenericAttPtr att = dynamic_cast<ImageGenericAttPtr>(
+    ImageGenericAtt *att = dynamic_cast<ImageGenericAtt *>(
         img->findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
-    if(att != NullFC)
+    if(att != NULL)
     {
         GetFieldHandlePtr field = att->getDynamicFieldByName(key.c_str());
 
@@ -2588,12 +2588,12 @@ const std::string *Image::findAttachmentField(const std::string &key) const
   the optional destination Image.
  */
 
-bool Image::scale(Int32    width,
-                  Int32    height,
-                  Int32    depth,
-                  ImagePtr destination)
+bool Image::scale(Int32  width,
+                  Int32  height,
+                  Int32  depth,
+                  Image *destination)
 {
-    ImagePtr       destImage;
+    Image         *destImage;
     UInt32         sw, sh, sd, dw, dh, dd;
     Int32          frame, scale, side, mipmap;
     const UChar8  *src;
@@ -2607,7 +2607,7 @@ bool Image::scale(Int32    width,
          (oldHeight == height) &&
          (oldDepth  == depth )   ) 
     {
-        if(destination != NullFC)
+        if(destination != NULL)
             *destination = *this;
         
         return true;
@@ -2618,7 +2618,7 @@ bool Image::scale(Int32    width,
         return false;
     }
 
-    if(destination != NullFC)
+    if(destination != NULL)
     {
         destImage = destination;
     }
@@ -2689,7 +2689,7 @@ bool Image::scale(Int32    width,
     the optional destination Image.
  */
 
-bool Image::scaleNextPower2(ImagePtr destination)
+bool Image::scaleNextPower2(Image *destination)
 {
   return scale(osgNextPower2(getWidth ()),
                osgNextPower2(getHeight()),
@@ -2702,13 +2702,13 @@ bool Image::scaleNextPower2(ImagePtr destination)
   the optional destination Image.
  */
 
-bool Image::subImage(Int32    offX,
-                     Int32    offY,
-                     Int32    offZ,
-                     Int32    destW,
-                     Int32    destH,
-                     Int32    destD,
-                     ImagePtr destination)
+bool Image::subImage(Int32  offX,
+                     Int32  offY,
+                     Int32  offZ,
+                     Int32  destW,
+                     Int32  destH,
+                     Int32  destD,
+                     Image *destination)
 {
     ImageUnrecPtr destImage(destination);
     bool          retCode   = true;
@@ -2719,7 +2719,7 @@ bool Image::subImage(Int32    offX,
         return false;
     }
 
-    if(destination == NullFC)
+    if(destination == NULL)
     {
         destImage = Image::create();
 
@@ -2778,7 +2778,7 @@ bool Image::subImage(Int32    offX,
     }
 
     // rip the data from the local destImage if necessary
-    if(destination == NullFC)
+    if(destination == NULL)
     {
         this->set(destImage);
 
@@ -2793,10 +2793,10 @@ bool Image::subImage(Int32    offX,
   the optional destination Image.
  */
 
-bool Image::slice(Int32    offX,
-                  Int32    offY,
-                  Int32    offZ,
-                  ImagePtr destination)
+bool Image::slice(Int32  offX,
+                  Int32  offY,
+                  Int32  offZ,
+                  Image *destination)
 {
     ImageUnrecPtr destImage(destination);
     bool          retCode   = true;
@@ -2808,7 +2808,7 @@ bool Image::slice(Int32    offX,
         return false;
     }
 
-    if(destination == NullFC)
+    if(destination == NULL)
     {
         destImage = Image::create();
 
@@ -2912,7 +2912,7 @@ bool Image::slice(Int32    offX,
     }
 
     // rip the data from the local destImage if necessary
-    if(destination == NullFC)
+    if(destination == NULL)
     {
         this->set(destImage);
 
@@ -2927,7 +2927,7 @@ bool Image::slice(Int32    offX,
   the optional destination Image.
  */
 
-bool Image::createMipmap(Int32 level, ImagePtr destination)
+bool Image::createMipmap(Int32 level, Image *destination)
 {
     struct Offset
     {
@@ -2996,7 +2996,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
         return false;
     }
 
-    if(destImage == NullFC)
+    if(destImage == NULL)
     {
         destImage = Image::create();
 
@@ -3389,7 +3389,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
     }
 
     // rip the data from the local destImage if necessary
-    if(destination == NullFC)
+    if(destination == NULL)
     {
         this->set(destImage);
 

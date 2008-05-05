@@ -594,7 +594,7 @@ void PipelineComposer::writeResult(DepthT &depth,ColorT &color)
 
 template<class DepthT,class ColorT>
 void PipelineComposer::readBuffer(DepthT &depth,ColorT &color,
-                                  ViewportPtr port)
+                                  Viewport *port)
 {
     UInt32      left,bottom,top,right,front,back;
     UInt32      width,height;

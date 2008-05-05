@@ -291,9 +291,9 @@ NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
         for (meshI = meshList.begin(); meshI != meshList.end(); meshI++)
         {
             geoPtr   = Geometry::create();
-            posIndexPtr = NullFC;
-            texIndexPtr = NullFC;
-            normalIndexPtr = NullFC;
+            posIndexPtr = NULL;
+            texIndexPtr = NULL;
+            normalIndexPtr = NULL;
             lensPtr  = GeoUIntProperty::create();
             typePtr  = GeoUInt8Property::create();
 
@@ -378,7 +378,7 @@ NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 }
                 else
                 {
-                    geoPtr->setTexCoords ( NullFC );
+                    geoPtr->setTexCoords ( NULL );
                 }
 
                 if ( (meshIndexMask & 4) && normalPtr->size() > 0 )
@@ -390,10 +390,10 @@ NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 }
                 else
                 {
-                    geoPtr->setNormals   ( NullFC );
+                    geoPtr->setNormals   ( NULL );
                 }
 
-                if (meshI->mtlPtr == NullFC)
+                if (meshI->mtlPtr == NULL)
                 {
                     meshI->mtlPtr = SimpleTexturedMaterial::create();
                     meshI->mtlPtr->setDiffuse( Color3r( .8f, .8f, .8f ) );
@@ -423,9 +423,9 @@ NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                         else
                         {
                             posIndexPtr->push_back(faceI->tieVec[i].index[0]);
-                            if(texIndexPtr != NullFC)
+                            if(texIndexPtr != NULL)
                                 texIndexPtr->push_back(faceI->tieVec[i].index[1]);
-                            if(normalIndexPtr != NullFC)
+                            if(normalIndexPtr != NULL)
                                 normalIndexPtr->push_back(faceI->tieVec[i].index[2]);
                         }
                     }
@@ -447,7 +447,7 @@ NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 // need to port the geometry functions ...
 
 #ifndef OSG_WINCE
-				if(geoPtr->getNormals() == NullFC)
+				if(geoPtr->getNormals() == NULL)
                     calcVertexNormals(geoPtr);
 #endif
 
@@ -457,7 +457,7 @@ NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
     
                 if (meshList.size() > 1)
                 {
-                    if (rootPtr == NullFC)
+                    if (rootPtr == NULL)
                     {
                         rootPtr = Node::create();
 
@@ -485,7 +485,7 @@ NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
     return NodeTransitPtr(rootPtr);
 }
 
-void OBJSceneFileType::write(const NodePtr &node,
+void OBJSceneFileType::write(Node * const  node,
                              std::ostream &os,
                              UInt32 &pIndex,
                              UInt32 &nIndex,
@@ -493,8 +493,8 @@ void OBJSceneFileType::write(const NodePtr &node,
 {
 #ifndef OSG_WINCE
 	UInt32 i,pCount=0,nCount=0,tCount=0;
-    GeometryPtr g = dynamic_cast<GeometryPtr>(node->getCore());
-    if(g != NullFC)
+    Geometry *g = dynamic_cast<Geometry *>(node->getCore());
+    if(g != NULL)
     {
         // HACK separate it in several geometry nodes.
         os << "g Geometry" << std::endl;
@@ -567,7 +567,7 @@ void OBJSceneFileType::write(const NodePtr &node,
 #endif
 }
 
-bool OBJSceneFileType::write(const NodePtr &node, std::ostream &os,
+bool OBJSceneFileType::write(Node * const node, std::ostream &os,
                              const Char8 *fileNameOrExtension) const
 {
     UInt32 pIndex=1;
@@ -788,14 +788,14 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
     }
 
     std::ifstream in(fullFilePath.c_str());
-    SimpleTexturedMaterialUnrecPtr mtlPtr = NullFC;
+    SimpleTexturedMaterialUnrecPtr mtlPtr = NULL;
     Real32 a,b,c;
     std::string elem;
     std::map<std::string, MaterialElem>::const_iterator elemI;
     MaterialElem mtlElem;
     std::map<std::string, OSG::ImageUnrecPtr> imageMap;
     std::map<std::string, OSG::ImageUnrecPtr>::iterator iI;
-    ImageUnrecPtr image = NullFC;
+    ImageUnrecPtr image = NULL;
     bool constDiffuse = false, constAmbient = false, constSpecular = false;
 
     if (in)
@@ -825,7 +825,7 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                 }
                 else
                 {
-                    if (mtlPtr == NullFC)
+                    if (mtlPtr == NULL)
                     {
                         FFATAL (( "Invalid Mtl token: %s, newmtl expected in %s\n",
                                 elem.c_str(), fileName ));
@@ -873,7 +873,7 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                             case MTL_MAP_KD_ME:
                             case MTL_MAP_KA_ME:
                             case MTL_MAP_KS_ME:
-                                image = NullFC;
+                                image = NULL;
                                 in >> elem;
                                 iI = imageMap.find(elem);
                                 if (iI == imageMap.end())
@@ -886,7 +886,7 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                         fullElemPath = elem.c_str();
                                     image = OSG::ImageFileHandler::the()->read(fullElemPath.c_str());
 
-                                    if(image != NullFC)
+                                    if(image != NULL)
                                     {
                                         image->setForceAlphaBinary(
                                             image->calcIsAlphaBinary());
@@ -899,7 +899,7 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                 {
                                     image = iI->second;
                                 }
-                                if (image != NullFC)
+                                if (image != NULL)
                                 {
                                     mtlPtr->setImage(image);
                                     switch (mtlElem)

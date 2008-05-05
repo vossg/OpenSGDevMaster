@@ -611,8 +611,8 @@ void ClusterWindow::setStatistics(StatCollector *statistics)
  */
 bool ClusterWindow::loadCalibration(std::istream &in)
 {
-    ClusterWindowPtr ptr(this);
-    DisplayCalibrationPtr calibPtr;
+    ClusterWindow *ptr(this);
+    DisplayCalibration *calibPtr;
     xmlpp::xmlcontextptr ctxptr(new xmlpp::xmlcontext());
     xmlpp::xmldocument doc(ctxptr);
     xmlpp::xmlnodelist servers;
@@ -1065,7 +1065,7 @@ void ClusterWindow::clientInit(void)
 
 void ClusterWindow::clientPreSync( void )
 {
-    if(getClientWindow() != NullFC)
+    if(getClientWindow() != NULL)
     {
         getClientWindow()->activate ();
         getClientWindow()->frameInit();
@@ -1082,7 +1082,7 @@ void ClusterWindow::clientPreSync( void )
 #ifdef OSG_OLD_RENDER_ACTION
 void ClusterWindow::clientRender(DrawActionBase *action)
 {
-    if(getClientWindow() != NullFC)
+    if(getClientWindow() != NULL)
     {
         getClientWindow()->renderAllViewports(action);
     }
@@ -1091,7 +1091,7 @@ void ClusterWindow::clientRender(DrawActionBase *action)
 
 void ClusterWindow::clientRender(RenderActionBase *action)
 {
-    if(getClientWindow() != NullFC)
+    if(getClientWindow() != NULL)
     {
         getClientWindow()->renderAllViewports(action);
     }
@@ -1105,7 +1105,7 @@ void ClusterWindow::clientRender(RenderActionBase *action)
 
 void ClusterWindow::clientSwap( void )
 {
-    if(getClientWindow() != NullFC)
+    if(getClientWindow() != NULL)
     {
         getClientWindow()->swap     ();
         getClientWindow()->frameExit();
@@ -1194,8 +1194,8 @@ bool ClusterWindow::updateFilter(WindowPtr window, UInt32 id,
  * \param id         server id
  **/
 
-void ClusterWindow::serverInit(WindowPtr,
-                               UInt32   )
+void ClusterWindow::serverInit(Window *,
+                               UInt32  )
 {
 }
 
@@ -1211,9 +1211,9 @@ void ClusterWindow::serverInit(WindowPtr,
  **/
 
 #ifdef OSG_OLD_RENDER_ACTION
-void ClusterWindow::serverRender( WindowPtr window,
-                                  UInt32 id,
-                                  DrawActionBase *action )
+void ClusterWindow::serverRender(Window         *window,
+                                 UInt32          id,
+                                 DrawActionBase *action )
 {
     window->activate();
     window->frameInit();
@@ -1237,20 +1237,20 @@ void ClusterWindow::serverRender( WindowPtr window,
             OSG::RenderOptionsPtr vpRo = OSG::RenderOptionsPtr::dcast(
                 (*portIt)->findAttachment(OSG::RenderOptions::getClassType()));
             // try to find option an attachment at the root node
-            OSG::RenderOptionsPtr rootRo = NullFC;
-            if((*portIt)->getRoot() != NullFC)
+            OSG::RenderOptionsPtr rootRo = NULL;
+            if((*portIt)->getRoot() != NULL)
             {
                 rootRo = OSG::RenderOptionsPtr::dcast(
                     (*portIt)->getRoot()->findAttachment(OSG::RenderOptions::getClassType()));
             }
-            if(rootRo != NullFC)
+            if(rootRo != NULL)
                 ro = rootRo;
             else
-                if(vpRo != NullFC)
+                if(vpRo != NULL)
                     ro = vpRo;
                 else
                     ro = winRo;
-            if(ro != NullFC)
+            if(ro != NULL)
                 ro->activateOptions(ract);
             (*portIt)->render(ract);
             ++portIt;
@@ -1261,7 +1261,7 @@ void ClusterWindow::serverRender( WindowPtr window,
     }
 
     // do calibration
-    DisplayCalibrationPtr calibPtr=NullFC;
+    DisplayCalibrationPtr calibPtr=NULL;
     UInt32 c, p;
     
     // for all viewports
@@ -1289,9 +1289,9 @@ void ClusterWindow::serverRender( WindowPtr window,
 }
 #endif
 
-void ClusterWindow::serverRender( WindowPtr window,
-                                  UInt32 id,
-                                  RenderActionBase *action )
+void ClusterWindow::serverRender(Window           *window,
+                                 UInt32            id,
+                                 RenderActionBase *action )
 {
     window->activate();
     window->frameInit();
@@ -1301,7 +1301,7 @@ void ClusterWindow::serverRender( WindowPtr window,
     // do calibration
     UInt32 c;
 
-    DisplayCalibrationPtr calibPtr = NullFC;
+    DisplayCalibrationPtr calibPtr = NULL;
 
     for(c = 0 ; c < getCalibration().size() ;++c)
     {
@@ -1312,7 +1312,7 @@ void ClusterWindow::serverRender( WindowPtr window,
         }
     }
 
-    if(calibPtr != NullFC)
+    if(calibPtr != NULL)
         calibPtr->calibrate(window,action);
 #endif
 }
@@ -1326,8 +1326,8 @@ void ClusterWindow::serverRender( WindowPtr window,
  * !param id         server id
  * !param connection connection to client
  **/
-void ClusterWindow::serverSwap( WindowPtr window,
-                                UInt32)
+void ClusterWindow::serverSwap(Window *window,
+                               UInt32        )
 {
     window->swap     ();
     window->frameExit();

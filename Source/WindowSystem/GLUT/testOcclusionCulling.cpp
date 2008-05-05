@@ -346,10 +346,10 @@ void keyboard(unsigned char k, int, int)
             delete tact;
             delete debugact;
             
-            scene    = NullFC;
-            mainwin  = NullFC;
-            debugwin = NullFC;
-            statfg   = NullFC;
+            scene    = NULL;
+            mainwin  = NULL;
+            debugwin = NULL;
+            statfg   = NULL;
 
             osgExit();
             exit(0);
@@ -652,7 +652,7 @@ void keyboard(unsigned char k, int, int)
     redisplay();
 }
 
-Action::ResultE initMask(NodePtr n)
+Action::ResultE initMask(Node *n)
 {
     // Make Geometries render in main window, but nowhere else.
     if(n->getCore()->getType().isDerivedFrom(Geometry::getClassType()))

@@ -124,11 +124,6 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     void operator =(const WIN32Window &source);
 };
 
-typedef WIN32Window *WIN32WindowP;
-
-typedef WIN32Window::ObjPtr      WIN32WindowPtr;
-typedef WIN32Window::ConstObjPtr ConstWIN32WindowPtr;
-
 OSG_END_NAMESPACE
 
 #include "OSGWIN32Window.inl"

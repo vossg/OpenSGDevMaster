@@ -59,10 +59,10 @@ TypedGeoVectorProperty<GeoPropertyDesc>::~TypedGeoVectorProperty(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class GeoPropertyDesc> inline
-typename TypedGeoVectorProperty<GeoPropertyDesc>::ObjPtr
+typename TypedGeoVectorProperty<GeoPropertyDesc>::ObjCPtr
     TypedGeoVectorProperty<GeoPropertyDesc>::createAspectCopy(void) const
 {
-    ObjPtr returnValue;
+    ObjCPtr returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Self *>(this));

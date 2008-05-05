@@ -65,8 +65,8 @@ OSG_BEGIN_NAMESPACE
 #endif
 
 template <>
-struct FieldTraits<AttachmentPtr>
-    : public FieldTraitsFCPtrBase<AttachmentPtr>
+struct FieldTraits<Attachment *>
+    : public FieldTraitsFCPtrBase<Attachment *>
 {
   private:
 
@@ -74,7 +74,7 @@ struct FieldTraits<AttachmentPtr>
 
   public:
 
-    typedef FieldTraits<AttachmentPtr>  Self;
+    typedef FieldTraits<Attachment *>  Self;
 
 
     enum             { Convertible = Self::NotConvertible              };
@@ -91,30 +91,30 @@ struct FieldTraits<AttachmentPtr>
 
 
 template<> inline
-const Char8 *FieldTraits<AttachmentPtr, 
-                         0            >::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, 
+                         0           >::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecAttachmentPtr"; 
 }
 
 template<> inline
 const Char8 *
-    FieldTraits<AttachmentPtr, 
-                0            >::getSName<UnrecordedRefCountPolicy>(void)
+    FieldTraits<Attachment *, 
+                0           >::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AttachmentPtr, 
-                         0            >::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, 
+                         0           >::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AttachmentPtr, 
-                         0                >::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, 
+                         0           >::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdAttachmentPtr"; 
 }
@@ -122,30 +122,30 @@ const Char8 *FieldTraits<AttachmentPtr,
 
 
 template<> inline
-const Char8 *FieldTraits<AttachmentPtr, 
-                         0            >::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, 
+                         0           >::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecAttachmentPtr"; 
 }
 
 template<> inline
 const Char8 *
-  FieldTraits<AttachmentPtr, 
-              0            >::getMName<UnrecordedRefCountPolicy>(void)
+  FieldTraits<Attachment *, 
+              0           >::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AttachmentPtr, 
-                         0            >::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, 
+                         0           >::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakAttachmentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<AttachmentPtr, 
-                         0                >::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Attachment *, 
+                         0           >::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdAttachmentPtr"; 
 }

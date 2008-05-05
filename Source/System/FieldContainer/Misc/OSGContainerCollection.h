@@ -74,8 +74,8 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollection : public ContainerCollectionBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void   addContainer(FieldContainerPtr container);
-    void   subContainer(FieldContainerPtr container);
+    void   addContainer(FieldContainer *container);
+    void   subContainer(FieldContainer *container);
     UInt32 getNContainers();
 
     /*! \}                                                                 */

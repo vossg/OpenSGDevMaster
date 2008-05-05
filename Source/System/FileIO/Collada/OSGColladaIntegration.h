@@ -165,7 +165,7 @@ class VisualSceneIntegration : public ColladaIntegrationBase
     static daeElementRef   create         (daeInt bytes);
 	static daeMetaElement *registerElement(void        );
 
-    NodePtr getScene(void);
+    Node *getScene(void);
 
 	virtual void fromCOLLADA(void);
 };
@@ -204,7 +204,7 @@ class NodeIntegration : public ColladaIntegrationBase
     static daeElementRef   create         (daeInt bytes);
 	static daeMetaElement *registerElement(void        );
 
-    NodePtr getNode(void);
+    Node *getNode(void);
 
 	virtual void fromCOLLADA(void);
 };
@@ -275,7 +275,7 @@ class GeometryIntegration : public ColladaIntegrationBase
     typedef std::map   <std::string, GeometryInfo *>            GeoMap;
     typedef std::map   <std::string, GeometryInfo *>::iterator  GeoMapIt;
 
-    typedef std::vector<GeoUInt32PropertyPtr       >            PropVec;
+    typedef std::vector<GeoUInt32Property         *>            PropVec;
 
 
     static daeMetaElement *_pMeta;
@@ -303,8 +303,8 @@ class GeometryIntegration : public ColladaIntegrationBase
     UInt32 SemanticToPropGeoIndex(const Char8          *szSemantic,
                                         bool            bVertexAsPos = false);
 
-    GeoVectorPropertyPtr fillVecProp(UInt32          uiPropIdx,
-                                     daeURI          oSource   );
+    GeoVectorProperty *fillVecProp(UInt32          uiPropIdx,
+                                   daeURI          oSource   );
 
   public:
 
@@ -337,11 +337,11 @@ class GeometryInstanceIntegration : public InstanceIntegration
 
     typedef InstanceIntegration                               Inherited;
 
-    typedef std::map<std::string, ChunkMaterialPtr>           MaterialMap;
-    typedef std::map<std::string, ChunkMaterialPtr>::iterator MaterialMapIt;
+    typedef std::map<std::string, ChunkMaterial *>           MaterialMap;
+    typedef std::map<std::string, ChunkMaterial *>::iterator MaterialMapIt;
 
     typedef std::map<std::string, 
-                     std::vector<UInt32>          >           TexBindingsMap;
+                     std::vector<UInt32>         >           TexBindingsMap;
 
     static daeMetaElement *_pMeta;
    
@@ -395,9 +395,9 @@ class SourceIntegration : public ColladaIntegrationBase
 
 	virtual void fromCOLLADA(void);
 
-    GeoVec3fPropertyPtr getAsVec3fProp(void);
-    GeoPnt3fPropertyPtr getAsPnt3fProp(void);
-    GeoVec2fPropertyPtr getAsVec2fProp(void);
+    GeoVec3fProperty *getAsVec3fProp(void);
+    GeoPnt3fProperty *getAsPnt3fProp(void);
+    GeoVec2fProperty *getAsVec2fProp(void);
 
 };
 
@@ -465,7 +465,7 @@ class EffectIntegration : public ColladaIntegrationBase
 
 	virtual void fromCOLLADA(void);
 
-    ChunkMaterialPtr      getMaterial  (void             );
+    ChunkMaterial        *getMaterial  (void             );
     UInt32                getTexBinding(std::string szRef);
 
     domFx_surface_common *getSurface   (std::string szRef);
@@ -498,7 +498,7 @@ class ImageIntegration : public ColladaIntegrationBase
     static daeElementRef   create         (daeInt bytes);
 	static daeMetaElement *registerElement(void        );
 
-    ImagePtr getImage(void);
+    Image *getImage(void);
 
 	virtual void fromCOLLADA(void);
 };
@@ -533,7 +533,7 @@ class Sampler2DIntegration : public ColladaIntegrationBase
     static daeElementRef   create         (daeInt bytes);
 	static daeMetaElement *registerElement(void        );
 
-    TextureObjChunkPtr getTexObj(void);
+    TextureObjChunk *getTexObj(void);
 
     static void setEffectIntegration(EffectIntegration *pInt);
 
@@ -568,7 +568,7 @@ class SurfaceIntegration : public ColladaIntegrationBase
     static daeElementRef   create         (daeInt bytes);
 	static daeMetaElement *registerElement(void        );
 
-    TextureObjChunkPtr getTexObj(void);
+    TextureObjChunk *getTexObj(void);
 
 	virtual void fromCOLLADA(void);
 };

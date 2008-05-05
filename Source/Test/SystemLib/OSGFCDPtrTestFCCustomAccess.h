@@ -76,15 +76,15 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccess : public FCDPtrTestFCCustom
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void setFieldSFPub_ptr (const FCDTestFCPtr value);
-    void setFieldSFPub_weakptr(const FCDTestFCPtr value);
-    void setFieldSFPub_mpchildptr(const FCDTestFCPtr value);
-    void setFieldSFPub_spchildptr(const FCDSParTestFCPtr value);
+    void setFieldSFPub_ptr (FCDTestFC * const value);
+    void setFieldSFPub_weakptr(FCDTestFC * const value);
+    void setFieldSFPub_mpchildptr(FCDTestFC * const value);
+    void setFieldSFPub_spchildptr(FCDSParTestFC * const value);
 
-    void pushToFieldMFPub_ptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPub_weakptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPub_mpchildptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPub_spchildptr           (const FCDSParTestFCPtr value   );
+    void pushToFieldMFPub_ptr           (FCDTestFC * const value   );
+    void pushToFieldMFPub_weakptr           (FCDTestFC * const value   );
+    void pushToFieldMFPub_mpchildptr           (FCDTestFC * const value   );
+    void pushToFieldMFPub_spchildptr           (FCDSParTestFC * const value   );
 
     void clearFieldMFPub_ptr            (void                          );
     void clearFieldMFPub_weakptr            (void                          );
@@ -125,15 +125,15 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccess : public FCDPtrTestFCCustom
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-    void setFieldSFPro_ptr (const FCDTestFCPtr value);
-    void setFieldSFPro_weakptr(const FCDTestFCPtr value);
-    void setFieldSFPro_mpchildptr(const FCDTestFCPtr value);
-    void setFieldSFPro_spchildptr(const FCDSParTestFCPtr value);
+    void setFieldSFPro_ptr (FCDTestFC * const value);
+    void setFieldSFPro_weakptr(FCDTestFC * const value);
+    void setFieldSFPro_mpchildptr(FCDTestFC * const value);
+    void setFieldSFPro_spchildptr(FCDSParTestFC * const value);
 
-    void pushToFieldMFPro_ptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPro_weakptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPro_mpchildptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPro_spchildptr           (const FCDSParTestFCPtr value   );
+    void pushToFieldMFPro_ptr           (FCDTestFC * const value   );
+    void pushToFieldMFPro_weakptr           (FCDTestFC * const value   );
+    void pushToFieldMFPro_mpchildptr           (FCDTestFC * const value   );
+    void pushToFieldMFPro_spchildptr           (FCDSParTestFC * const value   );
 
     void clearFieldMFPro_ptr            (void                          );
     void clearFieldMFPro_weakptr            (void                          );
@@ -155,15 +155,15 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccess : public FCDPtrTestFCCustom
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
 
-    void setFieldSFPri_ptr (const FCDTestFCPtr value);
-    void setFieldSFPri_weakptr(const FCDTestFCPtr value);
-    void setFieldSFPri_mpchildptr(const FCDTestFCPtr value);
-    void setFieldSFPri_spchildptr(const FCDSParTestFCPtr value);
+    void setFieldSFPri_ptr (FCDTestFC * const value);
+    void setFieldSFPri_weakptr(FCDTestFC * const value);
+    void setFieldSFPri_mpchildptr(FCDTestFC * const value);
+    void setFieldSFPri_spchildptr(FCDSParTestFC * const value);
 
-    void pushToFieldMFPri_ptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPri_weakptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPri_mpchildptr           (const FCDTestFCPtr value   );
-    void pushToFieldMFPri_spchildptr           (const FCDSParTestFCPtr value   );
+    void pushToFieldMFPri_ptr           (FCDTestFC * const value   );
+    void pushToFieldMFPri_weakptr           (FCDTestFC * const value   );
+    void pushToFieldMFPri_mpchildptr           (FCDTestFC * const value   );
+    void pushToFieldMFPri_spchildptr           (FCDSParTestFC * const value   );
 
     void clearFieldMFPri_ptr            (void                          );
     void clearFieldMFPri_weakptr            (void                          );

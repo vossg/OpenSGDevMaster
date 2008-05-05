@@ -162,7 +162,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*=========================  PROTECTED  ===============================*/
   protected:
 
-    typedef std::map<std::string, FieldContainerPtr> NameContainerMap;
+    typedef std::map<std::string, FieldContainer *> NameContainerMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -173,12 +173,12 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
                VRMLNodeHelper *               _pCurrNodeHelper;
     std::stack<VRMLNodeHelper *>              _sNodeHelpers;
 
-               FieldContainerPtr              _pCurrentFC;
-               FieldContainerPtr              _pCurrentFieldFC;
+               FieldContainer                *_pCurrentFC;
+               FieldContainer                *_pCurrentFieldFC;
                EditFieldHandlePtr             _pCurrentField;
     const      FieldDescriptionBase          *_pCurrentFieldDesc;
 
-    std::stack<      FieldContainerPtr     >  _fcStack;
+    std::stack<      FieldContainer       *>  _fcStack;
     std::stack<      EditFieldHandlePtr    >  _fStack;
     std::stack<const FieldDescriptionBase *>  _fdStack;
 
@@ -188,10 +188,10 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     void              initIntExtFieldTypeMapper(void);
     void              initExtIntFieldTypeMapper(void);
 
-    FieldContainerPtr findFCByName             (const Char8  *szName,
-                                                      NodePtr pNode);
+    FieldContainer   *findFCByName             (const Char8  *szName,
+                                                      Node   *pNode);
 
-    FieldContainerPtr findReference            (const Char8 *szName);
+    FieldContainer   *findReference            (const Char8 *szName);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

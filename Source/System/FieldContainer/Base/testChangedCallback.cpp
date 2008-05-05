@@ -9,13 +9,13 @@ class Foo
 {
   public:
 
-    void testCB(OSG::FieldContainerPtr pObj, OSG::BitVector whichField)
+    void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField)
     {
         fprintf(stderr, "Foo::testCB %llx\n", whichField);
     }
 };
 
-void testCB(OSG::FieldContainerPtr pObj, OSG::BitVector whichField)
+void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField)
 {
     fprintf(stderr, "testCB %llx\n", whichField);
 }
@@ -75,5 +75,5 @@ int main (int argc, char **argv)
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
     fprintf(stderr, "Delete\n");
-    pNode = NullFC;
+    pNode = NULL;
 }

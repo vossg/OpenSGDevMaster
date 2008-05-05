@@ -178,7 +178,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
                                   Int32     type        = OSG_UINT8_IMAGEDATA,
                                   bool      allocMem    = true,
                                   Int32     sidecount   = 1                  );
-    bool set               (      ImagePtr  image                            );
+    bool set               (      Image   *image                            );
     bool setData           (const UInt8    *data = 0                         );
     void clearData         (      void                                       );
     bool setSubData        (      Int32     offX, 
@@ -203,8 +203,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \name                     Reformate                                */
     /*! \{                                                                 */
 
-    bool reformat(const PixelFormat pixelFormat,
-                        ImagePtr    destination = NullFC);
+    bool reformat(const PixelFormat  pixelFormat,
+                        Image       *destination = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -219,42 +219,42 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \name                       Scale                                  */
     /*! \{                                                                 */
 
-    bool scale          (Int32    width, 
-                         Int32    height      = 1,
-                         Int32    depth       = 1,
-                         ImagePtr destination = NullFC );
-    bool scaleNextPower2(ImagePtr destination = NullFC );
+    bool scale          (Int32  width, 
+                         Int32  height      = 1,
+                         Int32  depth       = 1,
+                         Image *destination = NULL);
+    bool scaleNextPower2(Image *destination = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      SubImage                                */
     /*! \{                                                                 */
 
-    bool subImage(Int32    offX, 
-                  Int32    offY, 
-                  Int32    offZ,
-                  Int32    destW, 
-                  Int32    destH, 
-                  Int32    destD,
-                  ImagePtr destination = NullFC);
+    bool subImage(Int32  offX, 
+                  Int32  offY, 
+                  Int32  offZ,
+                  Int32  destW, 
+                  Int32  destH, 
+                  Int32  destD,
+                  Image *destination = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Slice                                   */
     /*! \{                                                                 */
 
-    bool slice(Int32    offX = -1, 
-               Int32    offY = -1, 
-               Int32    offZ = -1,
-               ImagePtr destination = NullFC);
+    bool slice(Int32  offX = -1, 
+               Int32  offY = -1, 
+               Int32  offZ = -1,
+               Image *destination = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Mipmap                                  */
     /*! \{                                                                 */
 
-    bool createMipmap(Int32    level       = -1, 
-                      ImagePtr destination = NullFC);
+    bool createMipmap(Int32  level       = -1, 
+                      Image *destination = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

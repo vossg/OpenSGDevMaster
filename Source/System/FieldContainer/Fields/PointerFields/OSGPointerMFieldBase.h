@@ -67,33 +67,33 @@ class OSG_SYSTEM_DLLMAPPING PointerMFieldBase : public Field
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
     
-    typedef       Field                               Inherited;
-    typedef       PointerMFieldBase                   Self;
+    typedef Field                                       Inherited;
+    typedef PointerMFieldBase                           Self;
     
     // storage
-    typedef       FieldContainerPtr                   StoredType;
-    typedef       MFieldVector<StoredType>            StorageType;
+    typedef       FieldContainer                *       StoredType;
+    typedef MFieldVector<StoredType>                    StorageType;
 
-    typedef       StorageType::const_iterator         const_iterator;
-    typedef       StorageType::const_reverse_iterator const_reverse_iterator;
+    typedef StorageType::const_iterator                 const_iterator;
+    typedef StorageType::const_reverse_iterator         const_reverse_iterator;
 
-    typedef       StorageType::const_iterator         StorageConstIt;
+    typedef StorageType::const_iterator                 StorageConstIt;
 
-    typedef const FieldContainerPtr                   const_value;
+    typedef FieldContainer                      * const const_value;
 
-    typedef       StorageType::size_type              size_type;
-    typedef       StorageType::difference_type        difference_type;
+    typedef StorageType::size_type                      size_type;
+    typedef StorageType::difference_type                difference_type;
 
 
-    typedef       FieldTraits<FieldContainerPtr, 0>   MFieldTraits;
+    typedef FieldTraits<FieldContainer *, 0>            MFieldTraits;
 
 
     // handles
-    typedef       EditMFieldHandle <Self      >       EditHandle;
-    typedef       boost::shared_ptr<EditHandle>       EditHandlePtr;
+    typedef EditMFieldHandle <Self      >               EditHandle;
+    typedef boost::shared_ptr<EditHandle>               EditHandlePtr;
 
-    typedef       GetMFieldHandle  <Self     >        GetHandle;
-    typedef       boost::shared_ptr<GetHandle>        GetHandlePtr;
+    typedef GetMFieldHandle  <Self     >                GetHandle;
+    typedef boost::shared_ptr<GetHandle>                GetHandlePtr;
     
     /*---------------------------------------------------------------------*/
 

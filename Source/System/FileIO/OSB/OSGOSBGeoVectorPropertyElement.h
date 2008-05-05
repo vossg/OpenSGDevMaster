@@ -88,8 +88,8 @@ class OSG_FILEIO_DLLMAPPING OSBGeoVectorPropertyElement
     /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual void preWrite(const FieldContainerPtr &fc) = 0;
-    virtual void write   (      void                 ) = 0;
+    virtual void preWrite(FieldContainer * const fc) = 0;
+    virtual void write   (void                     ) = 0;
 
     void  setQuantizeResolution(UInt8 res);
     UInt8 getQuantizeResolution(void     ) const;

@@ -142,10 +142,10 @@ Vec3f IntersectAction::getHitNormal(void) const
 }
 
 inline 
-NodePtr IntersectAction::getHitObject(void) const
+Node *IntersectAction::getHitObject(void) const
 {
     if(! didHit())
-        return NullFC;
+        return NULL;
 
     return _hitObject;
 }

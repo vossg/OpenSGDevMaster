@@ -117,11 +117,11 @@ class OSG_FILEIO_DLLMAPPING OSBRootElement : public OSBCommonElement
     /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-            void initialiseWrite(      std::ostream      &outStream);
-            void terminateWrite (      void                        );
+            void initialiseWrite(std::ostream   &outStream);
+            void terminateWrite (void                     );
 
-    virtual void preWrite       (const FieldContainerPtr &fc       );
-    virtual void write          (      void                        );
+    virtual void preWrite       (FieldContainer * const fc);
+    virtual void write          (void                     );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

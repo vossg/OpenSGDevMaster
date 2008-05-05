@@ -93,9 +93,9 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr      &node, 
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
+    virtual bool write(Node         * const  node, 
+                       std::ostream         &os,
+                       Char8          const *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -189,7 +189,7 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
                    std::map<std::string,
                    SimpleTexturedMaterialUnrecPtr> &mtlMap  ) const;
 
-    void write(const NodePtr &node,
+    void write(Node * const node,
                std::ostream &os,
                UInt32 &pIndex,
                UInt32 &nIndex,

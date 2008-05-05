@@ -109,14 +109,14 @@ class OSG_CLUSTER_DLLMAPPING TileLoadBalancer
     /*! \name                 Load balancing functions                     */
     /*! \{                                                                 */
 
-    void update             (NodePtr           node   );
-    void balance            (ViewportPtr       vp,
+    void update             (Node             *node   );
+    void balance            (Viewport         *vp,
                              bool              shrink,
                              ResultT          &result );
     void addRenderNode      (const RenderNode &rn,UInt32 id);
-    void drawVolumes        (WindowPtr win);
-    void setRegionStatistics(ViewportPtr           vp,
-                             ResultT              &result);
+    void drawVolumes        (Window           *win);
+    void setRegionStatistics(Viewport         *vp,
+                             ResultT          &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -176,7 +176,7 @@ class OSG_CLUSTER_DLLMAPPING TileLoadBalancer
     /*! \{                                                                 */
 
     double runFaceBench(GLuint dlist,UInt32 size,Real32 visible);
-    void updateSubtree (const NodePtr node,TileGeometryLoadMapT &loadMap);
+    void updateSubtree (Node * const node,TileGeometryLoadMapT &loadMap);
     void splitRegion   (UInt32          rnFrom,
                         UInt32          rnTo,
                         RegionLoadVecT &visible,

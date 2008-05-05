@@ -135,8 +135,8 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     
     // rendering state handling
     
-    MaterialPtr    getMaterial(void) const;
-    void           setMaterial(MaterialPtr material);
+    Material      *getMaterial(void) const;
+    void           setMaterial(Material *material);
 
     FILE          *getFilePtr(void) const;
     TraversalMode  getMode   (void) const;
@@ -153,7 +153,7 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
 
     UInt32 getOptions(void            );
 
-    virtual Action::ResultE write(NodePtr node);
+    virtual Action::ResultE write(Node *node);
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -193,10 +193,10 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     virtual std::vector<Functor> *getDefaultEnterFunctors( void );
     virtual std::vector<Functor> *getDefaultLeaveFunctors( void );
 
-    virtual Action::ResultE apply(std::vector<NodePtr>::iterator begin, 
-                                  std::vector<NodePtr>::iterator end);
+    virtual Action::ResultE apply(std::vector<Node *>::iterator begin, 
+                                  std::vector<Node *>::iterator end);
 
-    virtual Action::ResultE apply(NodePtr node);
+    virtual Action::ResultE apply(Node *node);
 
   private:
 
@@ -277,76 +277,76 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     //-----------------------------------------------------------------------
 
 
-    static Action::ResultE writeGroupEnter(const NodeCorePtr pGroup,
+    static Action::ResultE writeGroupEnter(NodeCore * const pGroup,
                                            Action *pAction);
-    static Action::ResultE writeGroupLeave(const NodeCorePtr pGroup,
+    static Action::ResultE writeGroupLeave(NodeCore * const pGroup,
                                            Action *pAction);
 
-    static Action::ResultE writeMatGroupEnter(const NodeCorePtr pGroup,
+    static Action::ResultE writeMatGroupEnter(NodeCore * const pGroup,
                                               Action *pAction);
-    static Action::ResultE writeMatGroupLeave(const NodeCorePtr pGroup,
+    static Action::ResultE writeMatGroupLeave(NodeCore * const pGroup,
                                               Action *pAction);
 
-    static Action::ResultE writeComponentTransformEnter(const NodeCorePtr pGroup,
+    static Action::ResultE writeComponentTransformEnter(NodeCore * const pGroup,
                                                         Action *pAction);
-    static Action::ResultE writeComponentTransformLeave(const NodeCorePtr pGroup,
+    static Action::ResultE writeComponentTransformLeave(NodeCore * const pGroup,
                                                         Action *pAction);
 
-    static Action::ResultE writeTransformEnter(const NodeCorePtr pGroup,
+    static Action::ResultE writeTransformEnter(NodeCore * const pGroup,
                                                Action *pAction);
-    static Action::ResultE writeTransformLeave(const NodeCorePtr pGroup,
+    static Action::ResultE writeTransformLeave(NodeCore * const pGroup,
                                                Action *pAction);
 
-    static void writePoints   (      GeometryPtr      pGeo, 
+    static void writePoints   (      Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter);
-    static void writeNormals  (      GeometryPtr      pGeo, 
+    static void writeNormals  (      Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter);
-    static void writeColors   (      GeometryPtr      pGeo, 
+    static void writeColors   (      Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter);
-    static void writeTexCoords(      GeometryPtr      pGeo, 
-                                     FILE            *pFile,
-                                     VRMLWriteAction *pWriter);
-
-    static void writeIndex    (      GeometryPtr      pGeo, 
+    static void writeTexCoords(      Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter);
 
-    static void writeLineIndex(      GeometryPtr      pGeo, 
+    static void writeIndex    (      Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter);
 
-    static void writeMaterial (      GeometryPtr      pGeo, 
+    static void writeLineIndex(      Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter);
 
-    static bool writeGeoCommon(      NodePtr          pNode,
-                                     GeometryPtr      pGeo, 
+    static void writeMaterial (      Geometry        *pGeo, 
+                                     FILE            *pFile,
+                                     VRMLWriteAction *pWriter);
+
+    static bool writeGeoCommon(      Node            *pNode,
+                                     Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter,
                                const Char8           *setTypename);
 
-    static void writePointSet (      NodePtr          pNode,
-                                     GeometryPtr      pGeo, 
+    static void writePointSet (      Node            *pNode,
+                                     Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter);
 
-    static void writeLineSet  (      NodePtr          pNode,
-                                     GeometryPtr      pGeo, 
+    static void writeLineSet  (      Node            *pNode,
+                                     Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter,
                                      bool             bSinglePrimitiveGeo);
 
-    static void writeFaceSet  (      NodePtr          pNode,
-                                     GeometryPtr      pGeo, 
+    static void writeFaceSet  (      Node            *pNode,
+                                     Geometry        *pGeo, 
                                      FILE            *pFile,
                                      VRMLWriteAction *pWriter,
                                      bool             bSinglePrimitiveGeo);
 
-    static Action::ResultE writeGeoEnter(const NodeCorePtr pGroup, Action *pAction);
-    static Action::ResultE writeGeoLeave(const NodeCorePtr pGroup, Action *pAction);
+    static Action::ResultE writeGeoEnter(NodeCore * const pGroup, Action *pAction);
+    static Action::ResultE writeGeoLeave(NodeCore * const pGroup, Action *pAction);
 
     static bool initializeAction(void);
     static bool terminateAction (void);
@@ -355,7 +355,7 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
-    MaterialPtr          _material;
+    Material            *_material;
 
     UInt32               _uiIndent;
     FILE                *_pFile;
@@ -371,7 +371,7 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     // this is a quick hack to get material sharing to work. 
     // I don't understand the reasoning and design of the FCInfo stuff and 
     // don't have time to do it right. :( DR 040106
-    std::vector<FieldContainerPtr>        _writtenFCs;
+    std::vector<FieldContainer *>        _writtenFCs;
 
     UInt32 _nodeCount;
     UInt32 _currentNodeCount;
@@ -393,26 +393,18 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     void    setCurrentUse  (bool bVal                    );
     bool    isCurrentUse   (void                         );
 
-    void    addNodeUse     (NodePtr           &pNode     );
-    void    addContainerUse(FieldContainerPtr  pContainer);
+    void    addNodeUse     (Node              *pNode     );
+    void    addContainerUse(FieldContainer    *pContainer);
 
     void    clearInfos     (void);
-    FCInfo *getInfo        (FieldContainerPtr pContainer);
+    FCInfo *getInfo        (FieldContainer    *pContainer);
 
     void    updateProgress (void                         );
 
-    inline bool        isWritten (FieldContainerPtr fc);
-    inline UInt32      getIndex  (FieldContainerPtr fc);
-    inline UInt32      setWritten(FieldContainerPtr fc);
+    inline bool        isWritten (FieldContainer *fc);
+    inline UInt32      getIndex  (FieldContainer *fc);
+    inline UInt32      setWritten(FieldContainer *fc);
 };
-
-//---------------------------------------------------------------------------
-//   Exported Types
-//---------------------------------------------------------------------------
-
-// class pointer
-
-typedef VRMLWriteAction *VRMLWriteActionP;
 
 OSG_END_NAMESPACE
 

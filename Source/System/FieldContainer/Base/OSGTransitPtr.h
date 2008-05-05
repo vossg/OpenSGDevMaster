@@ -87,8 +87,6 @@ class TransitPtr
     typedef ObjectT                                          Object;
     typedef TransitPtr<Object>                               Self;
     
-    OSG_GEN_NAMED_PTR(Object,     Object    );
-     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
@@ -99,7 +97,7 @@ class TransitPtr
     TransitPtr(const Self  &other);
    
     explicit
-    TransitPtr(const ObjectPtr pObj );
+    TransitPtr(Object * const pObj);
     
     template<class OtherObjT> explicit 
     TransitPtr(TransitPtr<OtherObjT> const &other);
@@ -116,9 +114,9 @@ class TransitPtr
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(      Self      &other);
-    Self &operator =(const Self      &other);
-    Self &operator =(const ObjectPtr  pObj );
+    Self &operator =(      Self           &other);
+    Self &operator =(const Self           &other);
+    Self &operator =(      Object * const  pObj );
 
     template<class OtherObjT> 
     Self &operator =(TransitPtr<OtherObjT> const &other);
@@ -128,15 +126,15 @@ class TransitPtr
     /*! \name Conversion                                                   */
     /*! \{                                                                 */
 
-    ObjectPtr operator->(void) const;
+    Object *operator->(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
-    bool operator ==(const FieldContainerCPtr rhs);
-    bool operator !=(const FieldContainerCPtr rhs);
+    bool operator ==(FieldContainer * const rhs);
+    bool operator !=(FieldContainer * const rhs);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -145,7 +143,7 @@ class TransitPtr
 
 #ifdef REFPTR_UNITTEST
     inline
-    ObjectPtr getRaw(void) const
+    Object *getRaw(void) const
     {
         return _pObj;
     }
@@ -162,7 +160,7 @@ class TransitPtr
     /*! \name Member                                                       */
     /*! \{                                                                 */
     
-    mutable ObjectPtr _pObj;
+    mutable Object *_pObj;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

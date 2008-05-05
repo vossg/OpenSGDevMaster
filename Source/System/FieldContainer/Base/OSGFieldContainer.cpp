@@ -134,9 +134,9 @@ void FieldContainer::invalidateVolume(void)
     \enddev
  */
 
-bool FieldContainer::linkParent(const FieldContainerPtr pParent,
-                                const UInt16            childFieldId,
-                                const UInt16            parentFieldId) 
+bool FieldContainer::linkParent(FieldContainer * const pParent,
+                                UInt16           const childFieldId,
+                                UInt16           const parentFieldId) 
 {
     return false;
 }
@@ -156,8 +156,8 @@ bool FieldContainer::linkParent(const FieldContainerPtr pParent,
     \enddev
  */
 
-bool FieldContainer::unlinkParent(const FieldContainerPtr pParent,
-                                  const UInt16            parentFieldId) 
+bool FieldContainer::unlinkParent(FieldContainer * const pParent,
+                                  UInt16           const parentFieldId) 
 {
     return false;
 }
@@ -177,8 +177,8 @@ bool FieldContainer::unlinkParent(const FieldContainerPtr pParent,
     \enddev
  */
             
-bool FieldContainer::unlinkChild(const FieldContainerPtr pChild,
-                                 const UInt16            childFieldId) 
+bool FieldContainer::unlinkChild(FieldContainer * const pChild,
+                                 UInt16           const childFieldId) 
 {
     return false;
 }
@@ -319,7 +319,7 @@ void appendTypesString(
  */
 
 FieldContainerTransitPtr deepClone(
-          ConstFieldContainerPtr     src,
+          FieldContainer const      *src,
     const std::vector<std::string>  &shareTypeNames,
     const std::vector<std::string>  &ignoreTypeNames,
     const std::vector<std::string>  &shareGroupNames,
@@ -352,7 +352,7 @@ FieldContainerTransitPtr deepClone(
  */
 
 FieldContainerTransitPtr deepClone(
-          ConstFieldContainerPtr     src,
+          FieldContainer const      *src,
     const std::vector<UInt16>       &shareGroupIds,
     const std::vector<UInt16>       &ignoreGroupIds)
 {
@@ -377,7 +377,7 @@ FieldContainerTransitPtr deepClone(
  */
 
 FieldContainerTransitPtr deepClone(      
-          ConstFieldContainerPtr     src,
+          FieldContainer const      *src,
     const std::string               &shareTypesString,
     const std::string               &ignoreTypesString)
 {
@@ -408,7 +408,7 @@ FieldContainerTransitPtr deepClone(
  */
 
 FieldContainerTransitPtr deepClone(
-          ConstFieldContainerPtr                       src,
+          FieldContainer const                        *src,
     const std::vector<const ReflexiveContainerType *> &shareTypes,
     const std::vector<const ReflexiveContainerType *> &ignoreTypes,
     const std::vector<UInt16>                         &shareGroupIds,

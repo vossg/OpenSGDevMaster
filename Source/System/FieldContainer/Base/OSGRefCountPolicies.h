@@ -46,18 +46,18 @@ OSG_BEGIN_NAMESPACE
 
 struct RecordedRefCountPolicy
 {
-    static void addRef(const FieldContainerPtr objectP)
+    static void addRef(FieldContainer * const objectP)
     {
-        if(objectP != NullFC)
+        if(objectP != NULL)
         {
             objectP->addReferenceX();
 
 //            Thread::getCurrentChangeList()->addAddRefd(objectP->getId());
         }
     }
-    static void subRef(const FieldContainerPtr objectP)
+    static void subRef(FieldContainer * const objectP)
     {
-        if(objectP != NullFC)
+        if(objectP != NULL)
             objectP->subReferenceX();
     }
 
@@ -115,12 +115,12 @@ struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
 
 struct UnrecordedRefCountPolicy
 {
-    static void addRef(const FieldContainerPtr objectP)
+    static void addRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
             objectP->addReferenceUnrecordedX();
     }
-    static void subRef(const FieldContainerPtr objectP)
+    static void subRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
             objectP->subReferenceUnrecordedX();
@@ -160,10 +160,10 @@ struct UnrecordedRefCountPolicy
 
 struct NoRefCountPolicy
 {
-    static void addRef(const FieldContainerPtr)
+    static void addRef(FieldContainer * const)
     {
     }
-    static void subRef(const FieldContainerPtr)
+    static void subRef(FieldContainer * const)
     {
     }
 
@@ -189,12 +189,12 @@ struct NoRefCountPolicy
 
 struct WeakRefCountPolicy
 {
-    static void addRef(const FieldContainerPtr objectP)
+    static void addRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
             objectP->addWeakReference();
     }
-    static void subRef(const FieldContainerPtr objectP)
+    static void subRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
             objectP->subWeakReference();

@@ -93,8 +93,8 @@ struct ClearSlot : public std::unary_function<MFUnrecStateChunkPtr::iterator &,
     { 
 //        subRef(slotPtr);
         
-//        slotPtr = NullFC;
-        _mfChunks.replace(slotIt, NullFC);
+//        slotPtr = NULL;
+        _mfChunks.replace(slotIt, NULL);
     }
 };
 
@@ -191,7 +191,7 @@ void State::rebuildSortKey(void)
     if(uiKey1 != InvalidKey && uiKey1 < uiSizeChunks)
     {
         uiKey1 = 
-            (_mfChunks[uiKey1]              != NullFC && 
+            (_mfChunks[uiKey1]              != NULL  && 
              _mfChunks[uiKey1]->getIgnore() == false   ) ? 
 
             _mfChunks[uiKey1]->getChunkId() : 0;
@@ -204,7 +204,7 @@ void State::rebuildSortKey(void)
     if(uiKey2 != InvalidKey && uiKey2 < uiSizeChunks)
     {
         uiKey2 = 
-            (_mfChunks[uiKey2]              != NullFC &&
+            (_mfChunks[uiKey2]              != NULL  &&
              _mfChunks[uiKey2]->getIgnore() == false   ) ? 
 
             _mfChunks[uiKey2]->getChunkId() : 0;
@@ -217,7 +217,7 @@ void State::rebuildSortKey(void)
     if(uiKey3 != InvalidKey && uiKey3 < uiSizeChunks)
     {
         uiKey3 = 
-            (_mfChunks[uiKey3]              != NullFC &&
+            (_mfChunks[uiKey3]              != NULL  &&
              _mfChunks[uiKey3]->getIgnore() == false   ) ? 
 
             _mfChunks[uiKey3]->getChunkId() : 0;
@@ -270,7 +270,7 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
     {
         std::cerr << StateChunkClass::getName(cind) << "\t";
 
-        if(*it == NullFC)
+        if(*it == NULL)
         {
             std::cerr << "NullChunk" << std::endl;
         }
@@ -296,7 +296,7 @@ void State::activate(DrawEnv *pEnv)
 
     for(cind = 0; cIt != cEnd; ++cIt, ++cind)
     {
-        if(*cIt != NullFC && (*cIt)->getIgnore() == false)
+        if(*cIt != NULL && (*cIt)->getIgnore() == false)
         {
             (*cIt)->activate(pEnv, UInt32(ind));
         }
@@ -321,12 +321,12 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
 
     for(cind = 0; cIt != cEnd; ++cIt, ++cind)
     {
-        StateChunkPtr o = pOld->getChunk(cind);
-        StateChunkPtr n = *cIt;
+        StateChunk *o = pOld->getChunk(cind);
+        StateChunk *n = *cIt;
 
-        if(n != NullFC && n->getIgnore() == false)
+        if(n != NULL && n->getIgnore() == false)
         {
-            if(o != NullFC && o->getIgnore() == false)
+            if(o != NULL && o->getIgnore() == false)
             {
                 n->changeFrom(pEnv, o, UInt32(ind));
             }
@@ -335,7 +335,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
                 n->activate(pEnv, UInt32(ind));
             }
         }
-        else if(o != NullFC && o->getIgnore() == false)
+        else if(o != NULL && o->getIgnore() == false)
         {
             o->deactivate(pEnv, UInt32(ind));
         }
@@ -349,9 +349,9 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
 
     for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
-        StateChunkPtr o = pOld->getChunk(i);
+        StateChunk *o = pOld->getChunk(i);
 
-        if(o != NullFC && o->getIgnore() == false)
+        if(o != NULL && o->getIgnore() == false)
         {
             o->deactivate(pEnv, UInt32(ind));
         }
@@ -377,7 +377,7 @@ void State::deactivate(DrawEnv *pEnv)
 
     for(cind = 0; cIt != cEnd; ++cIt, ++cind)
     {
-        if(*cIt != NullFC && (*cIt)->getIgnore() == false)
+        if(*cIt != NULL && (*cIt)->getIgnore() == false)
             (*cIt)->deactivate(pEnv, UInt32(ind));
 
         if(++ind >= StateChunkClass::getNumSlots(cind))
@@ -406,7 +406,7 @@ void State::deactivate(DrawEnv *pEnv)
     returned.
 */
 
-bool State::addChunk(StateChunkPtr chunk, Int32 index)
+bool State::addChunk(StateChunk *chunk, Int32 index)
 {
     if(index > 0 && index > chunk->getClass()->getNumSlots())
     {
@@ -430,7 +430,7 @@ bool State::addChunk(StateChunkPtr chunk, Int32 index)
 
         for(ci = cindex; ci < cindex + nslots && ci < csize; ++ci)
         {
-            if(_mfChunks[ci] == NullFC)
+            if(_mfChunks[ci] == NULL)
             {
                 break;
             }
@@ -468,7 +468,7 @@ bool State::addChunk(StateChunkPtr chunk, Int32 index)
 
         for(UInt32 i = oldsize; i < newsize; i++)
         {
-            _mfChunks.replace(i, NullFC);
+            _mfChunks.replace(i, NULL);
         }
     }
 
@@ -481,9 +481,9 @@ bool State::addChunk(StateChunkPtr chunk, Int32 index)
     the chunk wasn't found.
 */
 
-bool State::subChunk(StateChunkPtr chunk)
+bool State::subChunk(StateChunk *chunk)
 {
-    if(chunk == NullFC)
+    if(chunk == NULL)
         return true;
         
     UInt32 cindex =  chunk->getClassId();
@@ -516,7 +516,7 @@ bool State::subChunk(StateChunkPtr chunk)
 
     // remove the chunk from the state
 
-    _mfChunks.replace(ci, NullFC);
+    _mfChunks.replace(ci, NULL);
     
     return false;
 }
@@ -536,14 +536,14 @@ bool State::subChunk(UInt32 classid, Int32 index)
         return true;
     }
 
-    if(_mfChunks[classid + index] == NullFC)
+    if(_mfChunks[classid + index] == NULL)
         return true;
 
     editMField(ChunksFieldMask, _mfChunks);
 
     // remove the chunk from the state
 
-    _mfChunks.replace(classid + index, NullFC);
+    _mfChunks.replace(classid + index, NULL);
     
     return false;
 }
@@ -569,7 +569,7 @@ bool State::isTransparent(void) const
 
     for(; it != chunksEnd && returnValue == false; ++it)
     {
-        if((*it) != NullFC)
+        if((*it) != NULL)
         {
             returnValue =(*it)->isTransparent();
         }

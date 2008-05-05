@@ -187,9 +187,9 @@ class OSG_FILEIO_DLLMAPPING ColladaFileType : public SceneFileType
 
     /*------------------------- your_category -------------------------------*/
 
-    virtual bool write(const NodePtr      &node, 
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
+    virtual bool write(Node         * const  node, 
+                       std::ostream         &os,
+                       Char8          const *fileNameOrExtension) const;
 
     /*------------------------- your_category -------------------------------*/
 

@@ -131,7 +131,7 @@ const Char8 *ImageFileType::getOptions(void)
 
 //-------------------------------------------------------------------------
 
-bool ImageFileType::read(ImagePtr pImage, const Char8 *fileName)
+bool ImageFileType::read(Image *pImage, const Char8 *fileName)
 {
     std::ifstream is(fileName, std::ios::binary);
 
@@ -143,7 +143,7 @@ bool ImageFileType::read(ImagePtr pImage, const Char8 *fileName)
 
 //-------------------------------------------------------------------------
 
-bool ImageFileType::write(ConstImagePtr pImage, const Char8 *fileName)
+bool ImageFileType::write(Image const * pImage, const Char8 *fileName)
 {
     std::ofstream os(fileName, std::ios::binary);
 
@@ -177,7 +177,7 @@ bool ImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
   the given input stream. Returns true on success.
 */
 
-bool ImageFileType::read(      ImagePtr      pImage, 
+bool ImageFileType::read(      Image        *pImage, 
                                std::istream &is, 
                          const std::string  &mimetype)
 {
@@ -193,9 +193,9 @@ bool ImageFileType::read(      ImagePtr      pImage,
   Returns true on success.
 */
 
-bool ImageFileType::write(      ConstImagePtr     pImage, 
-                                std::ostream     &os, 
-                          const std::string      &mimetype)
+bool ImageFileType::write(Image         const  *pImage, 
+                          std::ostream         &os, 
+                          std::string   const  &mimetype)
 {
     SWARNING << getMimeType()
              << " write to stream is not implemented"
@@ -270,9 +270,9 @@ void ImageFileType::setOptions(const Char8 *options)
     class. Tries to restore the image data from the given memblock.
 */
 
-UInt64 ImageFileType::restoreData(      ImagePtr , 
-                                  const UChar8   *OSG_CHECK_ARG(buffer ),
-                                        Int32     OSG_CHECK_ARG(memSize))
+UInt64 ImageFileType::restoreData(      Image  * , 
+                                  const UChar8 *OSG_CHECK_ARG(buffer ),
+                                        Int32   OSG_CHECK_ARG(memSize))
 {
     FWARNING(("ImageXFileType::restoreData() not impl. for mimeType %s\n",
               getMimeType()));
@@ -285,9 +285,9 @@ UInt64 ImageFileType::restoreData(      ImagePtr ,
     class. Tries to store the given image data to the given memblock
 */
 
-UInt64 ImageFileType::storeData(ConstImagePtr , 
-                                UChar8        *OSG_CHECK_ARG(buffer ),
-                                Int32          OSG_CHECK_ARG(memSize))
+UInt64 ImageFileType::storeData(Image  const * , 
+                                UChar8       *OSG_CHECK_ARG(buffer ),
+                                Int32         OSG_CHECK_ARG(memSize))
 {
     FWARNING(("ImageXFileType::storeData() not impl. for mimeType %s\n",
               getMimeType()));
@@ -300,9 +300,9 @@ UInt64 ImageFileType::storeData(ConstImagePtr ,
     include a ImageFileType::Head data block.
 */
 
-UInt64 ImageFileType::restore(      ImagePtr  pImage, 
-                              const UChar8   *buffer, 
-                                    Int32     memSize)
+UInt64 ImageFileType::restore(      Image  *pImage, 
+                              const UChar8 *buffer, 
+                                    Int32   memSize)
 {
     unsigned long   imageSize, headSize = sizeof(Head);
     unsigned long   size = 0, attachmentSize;
@@ -312,7 +312,7 @@ UInt64 ImageFileType::restore(      ImagePtr  pImage,
     std::string      mimeType;
     Image::Type     dataType;
 
-    if((pImage != NullFC) && (buffer != NULL) && (memSize >= headSize))
+    if((pImage != NULL) && (buffer != NULL) && (memSize >= headSize))
     {
         // Copy header. Otherwise netToHost would change the original
         // data structur.
@@ -393,10 +393,10 @@ UInt64 ImageFileType::restore(      ImagePtr  pImage,
     as 'mimeType'
 */
 
-UInt64 ImageFileType::store(      ConstImagePtr  pImage, 
-                            const Char8         *mimeType,
-                                  UChar8        *buffer, 
-                                  Int32          memSize)
+UInt64 ImageFileType::store(Image  const *pImage, 
+                            Char8  const *mimeType,
+                            UChar8       *buffer, 
+                            Int32         memSize)
 {
     ImageFileType *type = ImageFileHandler::the()->getFileType(mimeType);
     
@@ -409,9 +409,9 @@ UInt64 ImageFileType::store(      ConstImagePtr  pImage,
     concreate mimeType.
 */
 
-UInt64 ImageFileType::store(ConstImagePtr  pImage,
-                            UChar8        *buffer, 
-                            Int32          memSize)
+UInt64 ImageFileType::store(Image  const *pImage,
+                            UChar8       *buffer, 
+                            Int32         memSize)
 {
     Head            *head;
     unsigned long   dataSize = 0, headSize = sizeof(Head);
@@ -524,7 +524,7 @@ UInt64 ImageFileType::store(ConstImagePtr  pImage,
     specific data block)
 */
 
-UInt64 ImageFileType::maxBufferSize(ConstImagePtr pImage)
+UInt64 ImageFileType::maxBufferSize(Image const * pImage)
 {
     std::string value;
     unsigned long size, attachmentSize;

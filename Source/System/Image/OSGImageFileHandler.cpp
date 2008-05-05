@@ -330,7 +330,7 @@ ImageTransitPtr ImageFileHandlerBase::read(const Char8 *fileName,
     
     if(read(image, fileName, mimeType) == false)
     {
-        image = NullFC;
+        image = NULL;
     }
 
     return ImageTransitPtr(image);
@@ -344,9 +344,9 @@ ImageTransitPtr ImageFileHandlerBase::read(const Char8 *fileName,
     will try to use the fileName suffix to determine the mimeType
 */
 
-bool ImageFileHandlerBase::read(      ImagePtr  pImage, 
-                                const Char8    *fileName,
-                                const Char8    *mimeType)
+bool ImageFileHandlerBase::read(      Image *pImage, 
+                                const Char8 *fileName,
+                                const Char8 *mimeType)
 {
     bool        retCode = false;
     std::string fullFilePath;
@@ -454,9 +454,9 @@ ImageFileHandlerBase::ReadCB ImageFileHandlerBase::getReadCB(void)
     will try to use the fileName suffix to determine the mimeType
 */
 
-bool ImageFileHandlerBase::write(      ConstImagePtr  pImage, 
-                                 const Char8         *fileName,
-                                 const Char8         *mimeType)
+bool ImageFileHandlerBase::write(Image const *pImage, 
+                                 Char8 const *fileName,
+                                 Char8 const *mimeType)
 {
           bool            retCode = false;
           ImageFileType  *type;
@@ -497,7 +497,7 @@ ImageTransitPtr ImageFileHandlerBase::read(      std::istream &is,
     if (read(image, is, mimeType) == false)
     {
         //subRefX(image);
-        image = NullFC;
+        image = NULL;
     }
 
     return ImageTransitPtr(image);
@@ -505,7 +505,7 @@ ImageTransitPtr ImageFileHandlerBase::read(      std::istream &is,
 
 //-------------------------------------------------------------------------
 
-bool ImageFileHandlerBase::read(      ImagePtr      pImage, 
+bool ImageFileHandlerBase::read(      Image        *pImage, 
                                       std::istream &is,
                                 const std::string  &mimeType)
 {
@@ -516,9 +516,9 @@ bool ImageFileHandlerBase::read(      ImagePtr      pImage,
 
 //-------------------------------------------------------------------------
 
-bool ImageFileHandlerBase::write(      ConstImagePtr     pImage, 
-                                       std::ostream     &os,
-                                 const std::string      &mimeType)
+bool ImageFileHandlerBase::write(Image        const *pImage, 
+                                 std::ostream       &os,
+                                 std::string  const &mimeType)
 {
     ImageFileType *type = getFileType(mimeType.c_str());
 
@@ -580,9 +580,9 @@ const Char8 *ImageFileHandlerBase::getOptions(const Char8 *suffix)
     will try to use the fileName suffix to determine the mimeType
 */
 
-UInt64 ImageFileHandlerBase::restore(      ImagePtr     pImage, 
-                                     const UChar8      *buffer,
-                                           Int32        memSize)
+UInt64 ImageFileHandlerBase::restore(      Image  *pImage, 
+                                     const UChar8 *buffer,
+                                           Int32   memSize)
 {
     return ImageFileType::restore(pImage, buffer, memSize);
 }
@@ -595,10 +595,10 @@ UInt64 ImageFileHandlerBase::restore(      ImagePtr     pImage,
     will try to use the fileName suffix to determine the mimeType
 */
 
-UInt64 ImageFileHandlerBase::store(      ConstImagePtr     pImage, 
-                                   const Char8            *mimeType,
-                                         UChar8           *buffer, 
-                                         Int32             memSize )
+UInt64 ImageFileHandlerBase::store(Image  const *pImage, 
+                                   Char8  const *mimeType,
+                                   UChar8       *buffer, 
+                                   Int32         memSize )
 {
     ImageFileType   *type;
     
@@ -617,9 +617,9 @@ UInt64 ImageFileHandlerBase::store(      ConstImagePtr     pImage,
     will try to use the fileName suffix to determine the mimeType
 */
 
-UChar8 *ImageFileHandlerBase::store(      ConstImagePtr     pImage, 
-                                          UInt64           &memSize,
-                                    const Char8            *mimeType)
+UChar8 *ImageFileHandlerBase::store(Image  const *pImage, 
+                                    UInt64       &memSize,
+                                    Char8  const *mimeType)
 {
     ImageFileType   *type = 0;
     UChar8          *mem = 0;

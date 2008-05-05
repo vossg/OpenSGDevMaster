@@ -17,7 +17,7 @@ The state base class. See \ref PageSystemState for the conceptual background.
 		type="StateChunkPtr"
 		cardinality="multi"
 		visibility="external"
-        removeTo="NullFC"
+        removeTo="NULL"
         clearMField="true"
         pushToField=""
         insertIntoMField=""

@@ -108,17 +108,17 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual NodePtr                getRoot            ( void );
-    virtual WindowPtr              getWindow          ( void );
-    virtual NodePtr                getHighlight       ( void );
+    virtual Node                  *getRoot            ( void );
+    virtual Window                *getWindow          ( void );
+    virtual Node                  *getHighlight       ( void );
 #ifdef OSG_OLD_RENDER_ACTION
     virtual DrawActionBase        *getAction          ( void );
 #endif
     virtual RenderAction          *getRenderAction    ( void );
     virtual Navigator             *getNavigator       ( void );
     virtual bool                   getHeadlightState  ( void );
-    virtual DirectionalLightPtr    getHeadlight       ( void );
-    virtual CameraPtr              getCamera          ( void );
+    virtual DirectionalLight      *getHeadlight       ( void );
+    virtual Camera                *getCamera          ( void );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -131,13 +131,13 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
 
     virtual void  setAction        (RenderAction *action    );
 
-    virtual void  setRoot          (NodePtr       root      );
-    virtual void  setWindow        (WindowPtr     win       );
-    virtual void  setHighlight     (NodePtr       obj       );
+    virtual void  setRoot          (Node         *root      );
+    virtual void  setWindow        (Window       *win       );
+    virtual void  setHighlight     (Node         *obj       );
     virtual void  setHeadlight     (bool          on        );
     virtual void  turnHeadlightOn  (void                    );
     virtual void  turnHeadlightOff (void                    );
-    virtual void  setCamera        (CameraPtr     camera    );
+    virtual void  setCamera        (Camera       *camera    );
 
     virtual void setUseTraversalAction(bool s               );
     virtual bool getUseTraversalAction(void                 );

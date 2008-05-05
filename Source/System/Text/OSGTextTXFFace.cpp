@@ -84,7 +84,7 @@ TextTXFFace::~TextTXFFace()
 
     // Delete the texture
 //    OSG::subRefX(_texture);
-    _texture = NullFC;
+    _texture = NULL;
 }
 
 
@@ -138,114 +138,114 @@ const TextTXFGlyph &TextTXFFace::getTXFGlyph(TextGlyph::Index glyphIndex)
 // Fills a geometry with a new text
 // Author: afischle, pdaehne
 //----------------------------------------------------------------------
-void TextTXFFace::fillGeo(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
+void TextTXFFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
                           Vec2f offset, Color3f color)
 {
     // cast the field containers down to the needed type and create them
     // when they have the wrong type
-    GeoPnt3fPropertyPtr posPtr = 
-        dynamic_cast<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
+    GeoPnt3fProperty *posPtr = 
+        dynamic_cast<GeoPnt3fProperty *>(geoPtr->getPositions());
 
-    if (posPtr != NullFC)
+    if (posPtr != NULL)
        posPtr->clear();
 
     // Clear out any existing data and then add to the geom
-    GeoVec3fPropertyPtr normalPtr = 
-        dynamic_cast<GeoVec3fPropertyPtr>(geoPtr->getNormals());
+    GeoVec3fProperty *normalPtr = 
+        dynamic_cast<GeoVec3fProperty *>(geoPtr->getNormals());
 
-    if (normalPtr != NullFC)
+    if (normalPtr != NULL)
        normalPtr->clear();
 
-    GeoVec2fPropertyPtr texPtr = 
-        dynamic_cast<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
+    GeoVec2fProperty *texPtr = 
+        dynamic_cast<GeoVec2fProperty *>(geoPtr->getTexCoords());
 
-    if (texPtr != NullFC)
+    if (texPtr != NULL)
        texPtr->clear();
 
-    GeoColor3fPropertyPtr colorPtr = 
-        dynamic_cast<GeoColor3fPropertyPtr>(geoPtr->getColors());
+    GeoColor3fProperty *colorPtr = 
+        dynamic_cast<GeoColor3fProperty *>(geoPtr->getColors());
 
-    if (NullFC != colorPtr)
+    if (NULL != colorPtr)
        colorPtr->clear();
 
-    GeoUInt32PropertyPtr lensPtr = 
-        dynamic_cast<GeoUInt32PropertyPtr>(geoPtr->getLengths());
+    GeoUInt32Property *lensPtr = 
+        dynamic_cast<GeoUInt32Property *>(geoPtr->getLengths());
 
-    if (lensPtr != NullFC)
+    if (lensPtr != NULL)
        lensPtr->clear();
 
-    GeoUInt8PropertyPtr typesPtr = 
-        dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
+    GeoUInt8Property *typesPtr = 
+        dynamic_cast<GeoUInt8Property *>(geoPtr->getTypes());
 
-    if (typesPtr != NullFC)
+    if (typesPtr != NULL)
        typesPtr->clear();
 
-    geoPtr->setIndices(NullFC);
-    geoPtr->setSecondaryColors(NullFC);
-    geoPtr->setTexCoords1(NullFC);
-    geoPtr->setTexCoords2(NullFC);
-    geoPtr->setTexCoords3(NullFC);
+    geoPtr->setIndices(NULL);
+    geoPtr->setSecondaryColors(NULL);
+    geoPtr->setTexCoords1(NULL);
+    geoPtr->setTexCoords2(NULL);
+    geoPtr->setTexCoords3(NULL);
 
     addToGeom(geoPtr,layoutResult,scale,offset,color);
 }
 
-void TextTXFFace::addToGeom(GeometryPtr geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
+void TextTXFFace::addToGeom(Geometry *geoPtr, const TextLayoutResult &layoutResult, Real32 scale,
                             Vec2f offset, Color3f color)
 {
     // cast the field containers down to the needed type and create them
     // when they have the wrong type
     GeoPnt3fPropertyUnrecPtr posPtr = 
-        dynamic_cast<GeoPnt3fPropertyPtr>(geoPtr->getPositions());
+        dynamic_cast<GeoPnt3fProperty *>(geoPtr->getPositions());
 
     GeoVec3fPropertyUnrecPtr normalPtr = 
-        dynamic_cast<GeoVec3fPropertyPtr>(geoPtr->getNormals());
+        dynamic_cast<GeoVec3fProperty *>(geoPtr->getNormals());
 
     GeoVec2fPropertyUnrecPtr texPtr = 
-        dynamic_cast<GeoVec2fPropertyPtr>(geoPtr->getTexCoords());
+        dynamic_cast<GeoVec2fProperty *>(geoPtr->getTexCoords());
 
     GeoColor3fPropertyUnrecPtr colorPtr = 
-        dynamic_cast<GeoColor3fPropertyPtr>(geoPtr->getColors());
+        dynamic_cast<GeoColor3fProperty *>(geoPtr->getColors());
 
     GeoUInt32PropertyUnrecPtr lensPtr = 
-        dynamic_cast<GeoUInt32PropertyPtr>(geoPtr->getLengths());
+        dynamic_cast<GeoUInt32Property *>(geoPtr->getLengths());
 
     GeoUInt8PropertyUnrecPtr typesPtr = 
-        dynamic_cast<GeoUInt8PropertyPtr>(geoPtr->getTypes());
+        dynamic_cast<GeoUInt8Property *>(geoPtr->getTypes());
 
     // Create color buffer: If Null container AND color is set && we have not potentially added text before
-    if ((colorPtr == NullFC) && (color != OSG::Color3f(-1,-1,-1)) &&
-        ((posPtr == NullFC) && (texPtr == NullFC)) )
+    if ((colorPtr == NULL) && (color != OSG::Color3f(-1,-1,-1)) &&
+        ((posPtr == NULL) && (texPtr == NULL)) )
     {
        colorPtr = GeoColor3fProperty::create();
        geoPtr->setColors(colorPtr);
     }
-    bool use_colors(colorPtr != NullFC);
+    bool use_colors(colorPtr != NULL);
 
-    if (posPtr == NullFC)
+    if (posPtr == NULL)
     {
         posPtr = GeoPnt3fProperty::create();
         geoPtr->setPositions(posPtr);
     }
 
-    if (normalPtr == NullFC)
+    if (normalPtr == NULL)
     {
         normalPtr = GeoVec3fProperty::create();
         geoPtr->setNormals(normalPtr);
     }
 
-    if (texPtr == NullFC)
+    if (texPtr == NULL)
     {
         texPtr = GeoVec2fProperty::create();
         geoPtr->setTexCoords(texPtr);
     }
 
-    if (lensPtr == NullFC)
+    if (lensPtr == NULL)
     {
         lensPtr = GeoUInt32Property::create();
         geoPtr->setLengths(lensPtr);
     }
 
-    if (typesPtr == NullFC)
+    if (typesPtr == NULL)
     {
         typesPtr = GeoUInt8Property::create();
         geoPtr->setTypes(typesPtr);
@@ -620,7 +620,7 @@ bool TextTXFFace::writeToStream(ostream &os) const
     os.write(magicBytes, 4);
 
     // Write the header
-    assert(_texture != NullFC);
+    assert(_texture != NULL);
     writeLong(os, 0x12345678); // endianness
     writeLong(os, 0); // format
     writeLong(os, _texture->getWidth());

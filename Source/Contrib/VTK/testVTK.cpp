@@ -214,13 +214,13 @@ void key(unsigned char key, int x, int y)
     switch ( key )
     {
         case 27:    
-            root        = NullFC;
-            file        = NullFC;
-            cam         = NullFC;
-            vp          = NullFC;
-            win         = NullFC;
-            cam_trans   = NullFC;
-            scene_trans = NullFC;
+            root        = NULL;
+            file        = NULL;
+            cam         = NULL;
+            vp          = NULL;
+            win         = NULL;
+            cam_trans   = NULL;
+            scene_trans = NULL;
             osgExit(); 
             exit(0);
         case 'a':   glDisable( GL_LIGHTING );
@@ -290,8 +290,8 @@ void key(unsigned char key, int x, int y)
     }
 }
 
-void addActor(OSG::NodePtr pRoot,
-              vtkActor    *pActor)
+void addActor(OSG::Node *pRoot,
+              vtkActor  *pActor)
 {
     OSG::NodeUnrecPtr      pTmpNode   = OSG::Node     ::create();
     OSG::VTKMapperUnrecPtr pTmpMapper = OSG::VTKMapper::create();
@@ -305,7 +305,7 @@ void addActor(OSG::NodePtr pRoot,
 
 OSG::NodeTransitPtr initVTK(void)
 {
-    OSG::NodeUnrecPtr returnValue = OSGNullFC;
+    OSG::NodeUnrecPtr returnValue = NULL;
 
     Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
 
@@ -838,13 +838,13 @@ int doMain (int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NullFC;
-    NodeUnrecPtr file1 = NullFC;
+    NodeUnrecPtr file  = NULL;
+    NodeUnrecPtr file1 = NULL;
 
     if ( argc > 1 )
         file1 = SceneFileHandler::the()->read(argv[1]);
     
-    if ( file1 == NullFC )
+    if ( file1 == NULL )
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
         file1 = initVTK();

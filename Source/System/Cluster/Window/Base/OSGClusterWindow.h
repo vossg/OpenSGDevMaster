@@ -179,18 +179,18 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \name      server window funcitons                                 */
     /*! \{                                                                 */
 
-    virtual void serverInit  (WindowPtr         window,
-                              UInt32            id    );
+    virtual void serverInit  (Window         *window,
+                              UInt32          id    );
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void serverRender(WindowPtr         window,
-                              UInt32            id,
+    virtual void serverRender(Window         *window,
+                              UInt32          id,
                               DrawActionBase *action);
 #endif
 
-    virtual void serverRender(WindowPtr         window,
+    virtual void serverRender(Window           *window,
                               UInt32            id,
                               RenderActionBase *action);
-    virtual void serverSwap  (WindowPtr         window,
+    virtual void serverSwap  (Window           *window,
                               UInt32            id    );
 
     /*! \}                                                                 */

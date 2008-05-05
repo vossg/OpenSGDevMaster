@@ -58,9 +58,9 @@ OSG_BEGIN_NAMESPACE
 
 struct FieldContainerFactoryDesc
 {
-    typedef FieldContainerType       ContainerType;
-    typedef FieldContainerPtr        ContainerPtr;
-    typedef FieldContainerTransitPtr ContainerTransitPtr;
+    typedef FieldContainerType        ContainerType;
+    typedef FieldContainer           *ContainerPtr;
+    typedef FieldContainerTransitPtr  ContainerTransitPtr;
 
     static const Char8 *getContainerFactoryLockName(void)
     {
@@ -80,11 +80,11 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
 
   public:
 
-    typedef FieldContainerPtr              ContainerPtr;
+    typedef FieldContainer                *ContainerPtr;
 #ifdef OSG_MT_CPTR_ASPECT
     typedef AspectStoreP                   ContainerHandlerP;
 #else
-    typedef FieldContainerPtr              ContainerHandlerP;
+    typedef FieldContainer                *ContainerHandlerP;
 #endif
 
     typedef std::deque<ContainerHandlerP>  ContainerStore;

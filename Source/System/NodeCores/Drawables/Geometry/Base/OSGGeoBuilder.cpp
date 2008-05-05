@@ -97,11 +97,11 @@ GeoBuilder::~GeoBuilder()
 
 void GeoBuilder::reset(void)
 {
-    _geo = NullFC;
+    _geo = NULL;
 
     _geo = Geometry::create();
 
-    MaterialPtr mat = getDefaultMaterial();
+    Material *mat = getDefaultMaterial();
 
     _geo->setMaterial(mat);
 
@@ -110,12 +110,12 @@ void GeoBuilder::reset(void)
 }
 
 // Property Helper
-GeoVectorPropertyPtr GeoBuilder::getProperty(UInt32 index)
+GeoVectorProperty *GeoBuilder::getProperty(UInt32 index)
 {
     GeoVectorPropertyUnrecPtr att;
 
     if(index >= _geo->getMFProperties()->size() ||
-       _geo->getProperty(index) == NullFC)
+       _geo->getProperty(index) == NULL)
     {
         att = dynamic_pointer_cast<GeoVectorProperty>(
                 FieldContainerFactory::the()->createContainer(
@@ -139,7 +139,7 @@ UInt32 GeoBuilder::finishVertex(void)
 
     for(UInt16 i = 1; i < _geo->getMFProperties()->size(); ++i)
     {
-        if(_geo->getProperty(i) != NullFC)
+        if(_geo->getProperty(i) != NULL)
         {
             GeoVectorProperty::MaxTypeT val;
 
@@ -166,7 +166,7 @@ UInt32 GeoBuilder::finishVertex(void)
 
 void GeoBuilder::addType(Int32 type)
 {
-    if(_geo->getTypes() == NullFC)
+    if(_geo->getTypes() == NULL)
     {
         GeoIntegralPropertyUnrecPtr t = GeoUInt8Property::create();
         _geo->setTypes(t);
@@ -177,7 +177,7 @@ void GeoBuilder::addType(Int32 type)
 
 void GeoBuilder::addLength(UInt32 length)
 {
-    if(_geo->getLengths() == NullFC)
+    if(_geo->getLengths() == NULL)
     {
         GeoIntegralPropertyUnrecPtr l = GeoUInt32Property::create();
         _geo->setLengths(l);
@@ -193,7 +193,7 @@ void GeoBuilder::index(UInt32 index)
         return;
     }
 
-    if(_geo->getIndices() == NullFC)
+    if(_geo->getIndices() == NULL)
     {
         GeoIntegralPropertyUnrecPtr i = GeoUInt32Property::create();
         _geo->setIndices(i);
@@ -300,7 +300,7 @@ void GeoBuilder::quad(UInt32 i1, UInt32 i2, UInt32 i3, UInt32 i4)
 }
 
 
-GeometryPtr GeoBuilder::getGeometry(void)
+Geometry *GeoBuilder::getGeometry(void)
 {
     return _geo;
 }

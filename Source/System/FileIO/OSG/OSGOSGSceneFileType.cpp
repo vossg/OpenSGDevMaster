@@ -124,9 +124,9 @@ NodeTransitPtr OSGSceneFileType::read(std::istream &is, const Char8 *) const
     return returnValue;
 }
 
-bool OSGSceneFileType::write(const NodePtr      &root, 
-                                   std::ostream &os,
-                             const Char8        *) const
+bool OSGSceneFileType::write(Node * const  root, 
+                             std::ostream &os,
+                             Char8  const *    ) const
 {
     if(!os)
     {

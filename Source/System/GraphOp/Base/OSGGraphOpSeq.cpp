@@ -87,7 +87,7 @@ GraphOpSeq::~GraphOpSeq()
     clearGraphOps();
 }
 
-bool GraphOpSeq::run(NodePtr root)
+bool GraphOpSeq::run(Node *root)
 {
     bool res=true;
     std::vector<GraphOp *>::iterator it=_GraphOperators.begin();

@@ -66,7 +66,7 @@ OSG_SYSTEM_DLLMAPPING void drawVolume(const FrustumVolume    &volume);
 OSG_SYSTEM_DLLMAPPING void drawVolume(const CylinderVolume   &volume);
 
 OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 
-                                            NodePtr           node,
+                                            Node             *node,
                                             Color3r           col   );
 
 OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 

@@ -104,7 +104,7 @@ bool TGAImageFileType::readHeader(std::istream &is, TGAHeader &header)
 }
 
 bool TGAImageFileType::readCompressedImageData(std::istream &is, 
-                                               ImagePtr      pImage)
+                                               Image        *pImage)
 {
     UInt32 npix = pImage->getWidth() * pImage->getHeight();
     Int32  rep, len;
@@ -187,7 +187,7 @@ TGAImageFileType TGAImageFileType::_the("image/x-targa",
     the given fileName. Returns true on success.
  */
 
-bool TGAImageFileType::read(      ImagePtr      pImage, 
+bool TGAImageFileType::read(      Image        *pImage, 
                                   std::istream &is, 
                             const std::string  &mimetype)
 {
@@ -336,9 +336,9 @@ bool TGAImageFileType::read(      ImagePtr      pImage,
     Returns true on success.
  */
 
-bool TGAImageFileType::write(      ConstImagePtr     , 
-                                   std::ostream     &, 
-                             const std::string      &)
+bool TGAImageFileType::write(const Image        *, 
+                                   std::ostream &, 
+                             const std::string  &)
 {
     SWARNING << getMimeType() 
              << " write is not compiled into the current binary " 

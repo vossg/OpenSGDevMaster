@@ -86,7 +86,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
 
     void                              reset(void);
 
-    static DrawableStatsAttachmentTransitPtr calcStatic(DrawablePtr pDrawable);
+    static DrawableStatsAttachmentTransitPtr calcStatic(Drawable *pDrawable);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -94,16 +94,16 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
     /*! \{                                                                 */
 
     template<class CntPtr>
-    static DrawableStatsAttachmentPtr get(CntPtr arg);
+    static DrawableStatsAttachment *get(CntPtr arg);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Updating                                  */
     /*! \{                                                                 */
 
-    static DrawableStatsAttachmentTransitPtr addTo(AttachmentContainerPtr obj);
+    static DrawableStatsAttachmentTransitPtr addTo(AttachmentContainer *obj);
 
-    void attachTo(AttachmentContainerPtr obj);
+    void attachTo(AttachmentContainer *obj);
 
     void validate(void);
 
@@ -112,8 +112,8 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
     /*! \name                    Operators                                 */
     /*! \{                                                                 */
 
-    void operator +=(DrawableStatsAttachmentPtr arg);
-    void operator -=(DrawableStatsAttachmentPtr arg);
+    void operator +=(DrawableStatsAttachment *arg);
+    void operator -=(DrawableStatsAttachment *arg);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -148,10 +148,10 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachment :
     /*! \name                  Update Helper                               */
     /*! \{                                                                 */
     
-    static void invalidateFunctor(FieldContainerPtr  obj,
-                                  BitVector          mask);
+    static void invalidateFunctor(FieldContainer *obj,
+                                  BitVector       mask);
     
-    static void invalidate       (FieldContainerPtr  obj );
+    static void invalidate       (FieldContainer *obj );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

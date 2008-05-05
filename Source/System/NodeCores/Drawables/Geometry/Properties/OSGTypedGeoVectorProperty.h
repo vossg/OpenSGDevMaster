@@ -320,7 +320,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjPtr createAspectCopy(void) const;
+    virtual ObjCPtr createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */
@@ -387,8 +387,6 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     static void initMethod(InitPhase ePhase);
     static void exitMethod(InitPhase ePhase);
-
-    static const ObjPtr NullPtr;
 
     static TypeObject  _type;
 };
@@ -631,35 +629,35 @@ makeProp(Color4fx, GL_FIXED,  GLfixed);
 */
 
 // Positions
-typedef GeoVectorPropertyPtr         GeoPositionsPtr;
-typedef ConstGeoVectorPropertyPtr    ConstGeoPositionsPtr;
+//typedef GeoVectorPropertyPtr         GeoPositionsPtr;
+//typedef ConstGeoVectorPropertyPtr    ConstGeoPositionsPtr;
 
 typedef GeoPnt2sProperty    GeoPositions2s;
 typedef GeoPnt3sProperty    GeoPositions3s;
 typedef GeoPnt4sProperty    GeoPositions4s;
-typedef GeoPnt2sPropertyPtr GeoPositions2sPtr;
-typedef GeoPnt3sPropertyPtr GeoPositions3sPtr;
-typedef GeoPnt4sPropertyPtr GeoPositions4sPtr;
+//typedef GeoPnt2sPropertyPtr GeoPositions2sPtr;
+//typedef GeoPnt3sPropertyPtr GeoPositions3sPtr;
+//typedef GeoPnt4sPropertyPtr GeoPositions4sPtr;
 
 #ifndef OSG_WINCE
 typedef GeoPnt2fProperty    GeoPositions2f;
 typedef GeoPnt3fProperty    GeoPositions3f;
 typedef GeoPnt4fProperty    GeoPositions4f;
-typedef GeoPnt2fPropertyPtr GeoPositions2fPtr;
-typedef GeoPnt3fPropertyPtr GeoPositions3fPtr;
-typedef GeoPnt4fPropertyPtr GeoPositions4fPtr;
+//typedef GeoPnt2fPropertyPtr GeoPositions2fPtr;
+//typedef GeoPnt3fPropertyPtr GeoPositions3fPtr;
+//typedef GeoPnt4fPropertyPtr GeoPositions4fPtr;
 
 typedef GeoPnt2dProperty    GeoPositions2d;
 typedef GeoPnt3dProperty    GeoPositions3d;
 typedef GeoPnt4dProperty    GeoPositions4d;
-typedef GeoPnt2dPropertyPtr GeoPositions2dPtr;
-typedef GeoPnt3dPropertyPtr GeoPositions3dPtr;
-typedef GeoPnt4dPropertyPtr GeoPositions4dPtr;
+//typedef GeoPnt2dPropertyPtr GeoPositions2dPtr;
+//typedef GeoPnt3dPropertyPtr GeoPositions3dPtr;
+//typedef GeoPnt4dPropertyPtr GeoPositions4dPtr;
 #endif
 
 // Normals
-typedef GeoVectorPropertyPtr         GeoNormalsPtr;
-typedef ConstGeoVectorPropertyPtr    ConstGeoNormalsPtr;
+//typedef GeoVectorPropertyPtr         GeoNormalsPtr;
+//typedef ConstGeoVectorPropertyPtr    ConstGeoNormalsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoVec3fProperty    GeoNormals3f;
@@ -667,14 +665,14 @@ typedef GeoVec3fProperty    GeoNormals3f;
 typedef GeoVec3sProperty    GeoNormals3s;
 typedef GeoVec3bProperty    GeoNormals3b;
 #ifndef OSG_WINCE
-typedef GeoVec3fPropertyPtr GeoNormals3fPtr;
+//typedef GeoVec3fPropertyPtr GeoNormals3fPtr;
 #endif
-typedef GeoVec3sPropertyPtr GeoNormals3sPtr;
-typedef GeoVec3bPropertyPtr GeoNormals3bPtr;
+//typedef GeoVec3sPropertyPtr GeoNormals3sPtr;
+//typedef GeoVec3bPropertyPtr GeoNormals3bPtr;
 
 // Colors
-typedef GeoVectorPropertyPtr         GeoColorsPtr;
-typedef ConstGeoVectorPropertyPtr    ConstGeoColorsPtr;
+//typedef GeoVectorPropertyPtr         GeoColorsPtr;
+//typedef ConstGeoVectorPropertyPtr    ConstGeoColorsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoColor3fProperty     GeoColors3f;
@@ -683,15 +681,15 @@ typedef GeoColor4fProperty     GeoColors4f;
 typedef GeoColor3ubProperty    GeoColors3ub;
 typedef GeoColor4ubProperty    GeoColors4ub;
 #ifndef OSG_WINCE
-typedef GeoColor3fPropertyPtr  GeoColors3fPtr;
-typedef GeoColor4fPropertyPtr  GeoColors4fPtr;
+//typedef GeoColor3fPropertyPtr  GeoColors3fPtr;
+//typedef GeoColor4fPropertyPtr  GeoColors4fPtr;
 #endif
-typedef GeoColor3ubPropertyPtr GeoColors3ubPtr;
-typedef GeoColor4ubPropertyPtr GeoColors4ubPtr;
+//typedef GeoColor3ubPropertyPtr GeoColors3ubPtr;
+//typedef GeoColor4ubPropertyPtr GeoColors4ubPtr;
 
 // TexCoords
-typedef GeoVectorPropertyPtr         GeoTexCoordsPtr;
-typedef ConstGeoVectorPropertyPtr    ConstGeoTexCoordsPtr;
+//typedef GeoVectorPropertyPtr         GeoTexCoordsPtr;
+//typedef ConstGeoVectorPropertyPtr    ConstGeoTexCoordsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoVec1fProperty     GeoTexCoords1f;
@@ -699,20 +697,20 @@ typedef GeoVec2fProperty     GeoTexCoords2f;
 typedef GeoVec3fProperty     GeoTexCoords3f;
 typedef GeoVec4fProperty     GeoTexCoords4f;
 
-typedef GeoVec1fPropertyPtr  GeoTexCoords1fPtr;
-typedef GeoVec2fPropertyPtr  GeoTexCoords2fPtr;
-typedef GeoVec3fPropertyPtr  GeoTexCoords3fPtr;
-typedef GeoVec4fPropertyPtr  GeoTexCoords4fPtr;
+//typedef GeoVec1fPropertyPtr  GeoTexCoords1fPtr;
+//typedef GeoVec2fPropertyPtr  GeoTexCoords2fPtr;
+//typedef GeoVec3fPropertyPtr  GeoTexCoords3fPtr;
+//typedef GeoVec4fPropertyPtr  GeoTexCoords4fPtr;
 
 typedef GeoVec1dProperty     GeoTexCoords1d;
 typedef GeoVec2dProperty     GeoTexCoords2d;
 typedef GeoVec3dProperty     GeoTexCoords3d;
 typedef GeoVec4dProperty     GeoTexCoords4d;
 
-typedef GeoVec1dPropertyPtr  GeoTexCoords1dPtr;
-typedef GeoVec2dPropertyPtr  GeoTexCoords2dPtr;
-typedef GeoVec3dPropertyPtr  GeoTexCoords3dPtr;
-typedef GeoVec4dPropertyPtr  GeoTexCoords4dPtr;
+//typedef GeoVec1dPropertyPtr  GeoTexCoords1dPtr;
+//typedef GeoVec2dPropertyPtr  GeoTexCoords2dPtr;
+//typedef GeoVec3dPropertyPtr  GeoTexCoords3dPtr;
+//typedef GeoVec4dPropertyPtr  GeoTexCoords4dPtr;
 #endif
 
 #endif
@@ -724,18 +722,18 @@ typedef GeoPnt3fxProperty     GeoPnt3rProperty;
 typedef GeoVec2fxProperty     GeoVec2rProperty;
 typedef GeoVec3fxProperty     GeoVec3rProperty;
 
-typedef GeoPnt3fxPropertyPtr  GeoPnt3rPropertyPtr;
-typedef GeoVec2fxPropertyPtr  GeoVec2rPropertyPtr;
-typedef GeoVec3fxPropertyPtr  GeoVec3rPropertyPtr;
+//typedef GeoPnt3fxPropertyPtr  GeoPnt3rPropertyPtr;
+//typedef GeoVec2fxPropertyPtr  GeoVec2rPropertyPtr;
+//typedef GeoVec3fxPropertyPtr  GeoVec3rPropertyPtr;
 #endif
 #else
 typedef GeoPnt3fProperty      GeoPnt3rProperty;
 typedef GeoVec2fProperty      GeoVec2rProperty;
 typedef GeoVec3fProperty      GeoVec3rProperty;
 
-typedef GeoPnt3fPropertyPtr   GeoPnt3rPropertyPtr;
-typedef GeoVec2fPropertyPtr   GeoVec2rPropertyPtr;
-typedef GeoVec3fPropertyPtr   GeoVec3rPropertyPtr;
+//typedef GeoPnt3fPropertyPtr   GeoPnt3rPropertyPtr;
+//typedef GeoVec2fPropertyPtr   GeoVec2rPropertyPtr;
+//typedef GeoVec3fPropertyPtr   GeoVec3rPropertyPtr;
 
 typedef GeoPnt3fPropertyUnrecPtr   GeoPnt3rPropertyUnrecPtr;
 typedef GeoVec2fPropertyUnrecPtr   GeoVec2rPropertyUnrecPtr;

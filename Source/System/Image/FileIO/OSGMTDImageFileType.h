@@ -70,11 +70,11 @@ class OSG_IMGFILEIO_DLLMAPPING MTDImageFileType : public ImageFileType
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read (      ImagePtr          pImage, 
+    virtual bool read (      Image            *pImage, 
                              std::istream     &is, 
                        const std::string      &mimetype);
 
-    virtual bool write(      ConstImagePtr     pImage, 
+    virtual bool write(const Image            *pImage, 
                              std::ostream     &os, 
                        const std::string      &mimetype);
 
@@ -83,11 +83,11 @@ class OSG_IMGFILEIO_DLLMAPPING MTDImageFileType : public ImageFileType
     /*! \name                     Buffer                                   */
     /*! \{                                                                 */
 
-    virtual UInt64 restoreData(      ImagePtr          pImage, 
+    virtual UInt64 restoreData(      Image            *pImage, 
                                const UChar8           *buffer,
                                      Int32             memSize = -1);
 
-    virtual UInt64 storeData  (      ConstImagePtr     pImage, 
+    virtual UInt64 storeData  (const Image            *pImage, 
                                      UChar8           *buffer,
                                      Int32             memSize = -1);
 

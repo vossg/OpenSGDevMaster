@@ -230,9 +230,9 @@ EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicFieldByName(
 
 
 template <class AttachmentDescT> inline
-FieldContainerPtr DynFieldAttachment<AttachmentDescT>::emptyCopy(void)
+FieldContainer *DynFieldAttachment<AttachmentDescT>::emptyCopy(void)
 {
-    ObjPtr returnValue = DynFieldAttachment<AttachmentDescT>::createEmpty();
+    ObjCPtr returnValue = DynFieldAttachment<AttachmentDescT>::createEmpty();
 
     for(UInt32 i  = Inherited::NextFieldId;
                i <= _localType.getNumFieldDescs();
@@ -245,9 +245,9 @@ FieldContainerPtr DynFieldAttachment<AttachmentDescT>::emptyCopy(void)
 }
 
 template <class AttachmentDescT> inline
-FieldContainerPtr DynFieldAttachment<AttachmentDescT>::clone(void)
+FieldContainer *DynFieldAttachment<AttachmentDescT>::clone(void)
 {
-    ObjPtr returnValue = DynFieldAttachment<AttachmentDescT>::createEmpty();
+    ObjCPtr returnValue = DynFieldAttachment<AttachmentDescT>::createEmpty();
 
     for(UInt32 i  = Inherited::NextFieldId;
                i <= _localType.getNumFieldDescs();
@@ -350,10 +350,10 @@ DynFieldAttachment<AttachmentDescT>::~DynFieldAttachment(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class AttachmentDescT> inline
-typename DynFieldAttachment<AttachmentDescT>::ObjPtr 
+typename DynFieldAttachment<AttachmentDescT>::ObjCPtr 
     DynFieldAttachment<AttachmentDescT>::createAspectCopy(void) const
 {
-    ObjPtr returnValue;
+    ObjCPtr returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const Self *>(this));
@@ -387,8 +387,8 @@ void DynFieldAttachment<AttachmentDescT>::execSync (
 
 template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::addPointerValue(
-    FieldContainerPtr pVal, 
-    UInt32            uiFieldId)
+    FieldContainer *pVal, 
+    UInt32          uiFieldId)
 {
 #if 0
     MFFieldContainerPtr *pField = static_cast<MFFieldContainerPtr *>(
@@ -402,8 +402,8 @@ void DynFieldAttachment<AttachmentDescT>::addPointerValue(
 
 template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::setPointerValue(
-    FieldContainerPtr pVal, 
-    UInt32            uiFieldId)
+    FieldContainer *pVal, 
+    UInt32          uiFieldId)
 {
 #if 0
     SFFieldContainerPtr *pField = static_cast<SFFieldContainerPtr *>(

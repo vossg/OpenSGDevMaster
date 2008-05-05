@@ -65,7 +65,7 @@ OSG_BEGIN_NAMESPACE
 #endif
 
 template <>
-struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
+struct FieldTraits<Node *> : public FieldTraitsFCPtrBase<Node *>
 {
   private:
 
@@ -73,8 +73,7 @@ struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
 
   public:
 
-    typedef FieldTraits<NodePtr, 0>  Self;
-    typedef NodePtr                  ParentContainerPtr;
+    typedef FieldTraits<Node *, 0>   Self;
 
     enum             { Convertible = Self::NotConvertible              };
 
@@ -89,25 +88,25 @@ struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
 };
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdNodePtr"; 
 }
@@ -115,25 +114,25 @@ const Char8 *FieldTraits<NodePtr, 0>::getSName<NoRefCountPolicy>(void)
 
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdNodePtr"; 
 }
@@ -141,14 +140,13 @@ const Char8 *FieldTraits<NodePtr, 0>::getMName<NoRefCountPolicy>(void)
 
 
 template <>
-struct FieldTraits<NodePtr, 1> : public FieldTraitsFCPtrBase<NodePtr, 1>
+struct FieldTraits<Node *, 1> : public FieldTraitsFCPtrBase<Node *, 1>
 {
   private:
 
   public:
 
-    typedef FieldTraits<NodePtr, 1>  Self;
-    typedef NodePtr                  ParentType;
+    typedef FieldTraits<Node *, 1>  Self;
 
     enum             { Convertible = Self::NotConvertible              };
 
@@ -165,25 +163,25 @@ struct FieldTraits<NodePtr, 1> : public FieldTraitsFCPtrBase<NodePtr, 1>
 };
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildNodePtr"; 
 }
@@ -191,25 +189,25 @@ const Char8 *FieldTraits<NodePtr, 1>::getSName<NoRefCountPolicy>(void)
 
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildNodePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<NodePtr, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Node *, 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildNodePtr"; 
 }

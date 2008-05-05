@@ -124,19 +124,19 @@ void SimpleShadowMapEngine::initMethod(InitPhase ePhase)
     }
 }
 
-void SimpleShadowMapEngine::lightRenderEnter(LightPtr      pLight,
+void SimpleShadowMapEngine::lightRenderEnter(Light        *pLight,
                                              RenderAction *pAction)
 {
     if(pLight->getOn() == false)
         return;
 
-    StateChunkPtr pChunk          = pLight->getChunk();
+    StateChunk   *pChunk          = pLight->getChunk();
     
     UInt32        uiSlot          = pChunk->getClassId();
     
     Int32         iLightIndex     = pAction->allocateLightIndex();
 
-    LightChunkPtr pLightChunk     = dynamic_cast<LightChunkPtr>(pChunk);
+    LightChunk   *pLightChunk     = dynamic_cast<LightChunk *>(pChunk);
 
 //    Color4f tmpVal(0.0, 0.0, 0.0, 1.0);
     
@@ -157,20 +157,20 @@ void SimpleShadowMapEngine::lightRenderEnter(LightPtr      pLight,
     }
 }
 
-void SimpleShadowMapEngine::setupCamera(LightPtr       pLight,
+void SimpleShadowMapEngine::setupCamera(Light         *pLight,
                                         LightTypeE     eType,
                                         RenderAction  *pAction,
                                         EngineDataPtr  pEngineData)
 {
     if(eType == Directional)
     {
-        DirectionalLightPtr pDLight = 
-            dynamic_cast<DirectionalLightPtr>(pLight);
+        DirectionalLight *pDLight = 
+            dynamic_cast<DirectionalLight *>(pLight);
 
         MatrixCameraUnrecPtr pCam = 
-            dynamic_cast<MatrixCameraPtr>(pEngineData->getCamera());
+            dynamic_cast<MatrixCamera *>(pEngineData->getCamera());
         
-        if(pCam == NullFC)
+        if(pCam == NULL)
         {
             pCam = MatrixCamera::createLocal();
             
@@ -181,7 +181,7 @@ void SimpleShadowMapEngine::setupCamera(LightPtr       pLight,
         Vec3f   diff;
         Pnt3f   center;
         Matrix  transMatrix;
-        NodePtr pNode = pAction->getActNode();
+        Node   *pNode = pAction->getActNode();
         
 //        tmpDir = DirectionalLightPtr::dcast(_lights[i]);
         
@@ -197,7 +197,7 @@ void SimpleShadowMapEngine::setupCamera(LightPtr       pLight,
         
         Vec3f lightdir = pDLight->getDirection();
         
-        if(pLight->getBeacon() != NullFC)
+        if(pLight->getBeacon() != NULL)
         {
             Matrix m = pLight->getBeacon()->getToWorld();
             
@@ -225,12 +225,12 @@ void SimpleShadowMapEngine::setupCamera(LightPtr       pLight,
     }
     else if(eType == Point)
     {
-        PointLightPtr pPLight = dynamic_cast<PointLightPtr>(pLight);
+        PointLight *pPLight = dynamic_cast<PointLight *>(pLight);
 
         MatrixCameraUnrecPtr pCam = 
-            dynamic_cast<MatrixCameraPtr>(pEngineData->getCamera());
+            dynamic_cast<MatrixCamera *>(pEngineData->getCamera());
         
-        if(pCam == NullFC)
+        if(pCam == NULL)
         {
             pCam = MatrixCamera::createLocal();
             
@@ -244,14 +244,14 @@ void SimpleShadowMapEngine::setupCamera(LightPtr       pLight,
         
         Matrix  transMatrix;
         
-        NodePtr pNode = pAction->getActNode();
+        Node   *pNode = pAction->getActNode();
         
         
         pNode->getVolume().getCenter(center);
         
         Pnt3f lightpos = pPLight->getPosition();
         
-        if(pLight->getBeacon() != NullFC)
+        if(pLight->getBeacon() != NULL)
         {
             Matrix m = pLight->getBeacon()->getToWorld();
             
@@ -290,19 +290,19 @@ void SimpleShadowMapEngine::setupCamera(LightPtr       pLight,
     }
 }
 
-void SimpleShadowMapEngine::setupLightChunk(LightPtr       pLight,
+void SimpleShadowMapEngine::setupLightChunk(Light         *pLight,
                                             LightTypeE     eType,
                                             RenderAction  *pAction,
                                             EngineDataPtr  pEngineData)
 {
     if(eType == Directional)
     {
-        DirectionalLightPtr pDLight = 
-            dynamic_cast<DirectionalLightPtr>(pLight);
+        DirectionalLight *pDLight = 
+            dynamic_cast<DirectionalLight *>(pLight);
 
         LightChunkUnrecPtr  pChunk  = pEngineData->getLightChunk();
 
-        if(pChunk == NullFC)
+        if(pChunk == NULL)
         {
             pChunk = LightChunk::createLocal();
             
@@ -331,11 +331,11 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr       pLight,
     }
     else if(eType == Point)
     {
-        PointLightPtr      pPLight = dynamic_cast<PointLightPtr>(pLight);
+        PointLight         *pPLight = dynamic_cast<PointLight *>(pLight);
 
-        LightChunkUnrecPtr pChunk  = pEngineData->getLightChunk();
+        LightChunkUnrecPtr  pChunk  = pEngineData->getLightChunk();
         
-        if(pChunk == NullFC)
+        if(pChunk == NULL)
         {
             pChunk = LightChunk::createLocal();
             
@@ -368,7 +368,7 @@ void SimpleShadowMapEngine::setupLightChunk(LightPtr       pLight,
 }
 
 
-void SimpleShadowMapEngine::doLightPass(LightPtr       pLight,
+void SimpleShadowMapEngine::doLightPass(Light         *pLight,
                                         RenderAction  *pAction,
                                         EngineDataPtr  pEngineData)
 {
@@ -392,12 +392,12 @@ void SimpleShadowMapEngine::doLightPass(LightPtr       pLight,
         pTarget = pFBO;
     }
 
-    TextureObjChunkPtr    pTexChunk  = pEngineData->getTexChunk();
+    TextureObjChunk       *pTexChunk  = pEngineData->getTexChunk();
     
 
-    TextureBufferUnrecPtr pTexBuffer = pEngineData->getTexBuffer();
+    TextureBufferUnrecPtr  pTexBuffer = pEngineData->getTexBuffer();
 
-    if(pTexBuffer == NullFC)
+    if(pTexBuffer == NULL)
     {
         pTexBuffer = TextureBuffer::createLocal();
         
@@ -409,7 +409,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr       pLight,
 
     PolygonChunkUnrecPtr pPoly = pEngineData->getPolyChunk();
 
-    if(pPoly == NullFC)
+    if(pPoly == NULL)
     {
         pPoly = PolygonChunk::createLocal();
         
@@ -424,7 +424,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr       pLight,
 
     if(pPort != NULL)
     {
-        CameraPtr pCam = pEngineData->getCamera();
+        Camera *pCam = pEngineData->getCamera();
 
 //        pPart->setViewport(pPort         );
         pPart->setWindow  (pAction->getWindow());
@@ -466,7 +466,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr       pLight,
         pPart->setBackground(pBack);
     }
 
-    NodePtr pActNode = pAction->getActNode();
+    Node *pActNode = pAction->getActNode();
 
     pAction->overrideMaterial(_pLightPassMat, pActNode);
 
@@ -487,7 +487,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr       pLight,
     pAction->popPartition();
 }
 
-void SimpleShadowMapEngine::doAmbientPass(LightPtr       pLight,
+void SimpleShadowMapEngine::doAmbientPass(Light         *pLight,
                                           RenderAction  *pAction,
                                           EngineDataPtr  pEngineData)
 {
@@ -499,7 +499,7 @@ void SimpleShadowMapEngine::doAmbientPass(LightPtr       pLight,
                             RenderPartition::CopyFrustum      |
                             RenderPartition::CopyNearFar      ));
     
-    LightChunkPtr pChunk = pEngineData->getLightChunk();
+    LightChunk   *pChunk      = pEngineData->getLightChunk();
 
     UInt32        uiSlot      = pChunk->getClassId();
     
@@ -527,7 +527,7 @@ void SimpleShadowMapEngine::doAmbientPass(LightPtr       pLight,
     pAction->popPartition ();
 }
 
-void SimpleShadowMapEngine::doFinalPass(LightPtr       pLight,
+void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
                                         RenderAction  *pAction,
                                         EngineDataPtr  pEngineData)
 {
@@ -555,7 +555,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr       pLight,
 
     BlendChunkUnrecPtr pBlender      = pEngineData->getBlendChunk();
 
-    if(pBlender == NullFC)
+    if(pBlender == NULL)
     {
         pBlender = BlendChunk::createLocal();
         
@@ -574,7 +574,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr       pLight,
     biasMatrix.setScale(0.5);
     biasMatrix.setTranslate(0.5,0.5,0.5);
     
-    MatrixCameraPtr pCam = dynamic_cast<MatrixCameraPtr>(
+    MatrixCamera *pCam = dynamic_cast<MatrixCamera *>(
         pEngineData->getCamera());
 
     pCam->getProjection(projectionMatrix,
@@ -597,14 +597,14 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr       pLight,
     
     TexGenChunkUnrecPtr pTexGen = pEngineData->getTexGenChunk();
 
-    if(pTexGen == NullFC)
+    if(pTexGen == NULL)
     {
         pTexGen = TexGenChunk::createLocal();
         
         pEngineData->setTexGenChunk(pTexGen);
         
 #if 0
-        NodeUnrecPtr dummy = makeCoredNode<Group>();
+        NodeUnrec *dummy = makeCoredNode<Group>();
         
         pTexGen->setSBeacon(dummy);
         pTexGen->setTBeacon(dummy);
@@ -625,7 +625,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr       pLight,
     
     TextureObjChunkUnrecPtr pTexChunk = pEngineData->getTexChunk();
 
-    if(pTexChunk == NullFC)
+    if(pTexChunk == NULL)
     {
         pTexChunk = TextureObjChunk::createLocal();
         
@@ -694,7 +694,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr       pLight,
 
 
 ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
-    LightPtr      pLight,
+    Light        *pLight,
     LightTypeE    eType,
     RenderAction *pAction)
 {
@@ -773,7 +773,7 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
 }
 
 ActionBase::ResultE SimpleShadowMapEngine::runOnLeave(
-    LightPtr      pLight,
+    Light        *pLight,
     LightTypeE    eType,
     RenderAction *pAction)
 {

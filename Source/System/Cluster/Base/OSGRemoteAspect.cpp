@@ -103,14 +103,14 @@ RemoteAspect::~RemoteAspect(void)
     FieldContainerFactoryBase *pFactory = FieldContainerFactory::the();
     IdSetT::iterator           i;
 
-    FieldContainerPtr       fcPtr;
+    FieldContainer            *fcPtr = NULL;
 
     // subRef received field container
     for(i = _receivedFC.begin(); i != _receivedFC.end(); i++)
     {
         fcPtr = pFactory->getContainer(*i);
 
-        if(fcPtr != NullFC)
+        if(fcPtr != NULL)
         {
             callDestroyed(fcPtr);
 
@@ -123,14 +123,14 @@ RemoteAspect::~RemoteAspect(void)
     {
         fcPtr = pFactory->getContainer(*i);
 
-        if(fcPtr != NullFC)
+        if(fcPtr != NULL)
         {
             do
             {
                 fcPtr->subReferenceUnresolved();
                 fcPtr = pFactory->getContainer(*i);
 
-            } while(fcPtr != NullFC);
+            } while(fcPtr != NULL);
         }
     }
 }
@@ -229,7 +229,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 {
                     UInt64 fullRemoteId = getFullRemoteId(remoteId);
 
-                    FieldContainerUnrecPtr fcPtr(NullFC);
+                    FieldContainerUnrecPtr fcPtr(NULL);
 
                     if(_localFC.find(fullRemoteId) == _localFC.end())
                     {
@@ -282,7 +282,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 if(getLocalId(remoteId,localId))
                 {
 //                    fprintf(stderr, "changed :%d \n", localId);
-                    FieldContainerPtr fcPtr = factory->getContainer(localId);
+                    FieldContainer *fcPtr = factory->getContainer(localId);
                     
                     fcPtr->copyFromBin(connection, mask);
 
@@ -320,7 +320,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 {
 //                    fprintf(stderr, "addref :%d \n", localId);
 
-                    FieldContainerPtr fcPtr = factory->getContainer(localId);
+                    FieldContainer *fcPtr = factory->getContainer(localId);
 
                     FDEBUG(("AddRef: %s ID:%d\n", 
                             fcPtr->getType().getName().str(),
@@ -343,7 +343,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                 {
 //                    fprintf(stderr, "subref :%d \n", localId);
 
-                    FieldContainerPtr fcPtr = factory->getContainer(localId);
+                    FieldContainer *fcPtr = factory->getContainer(localId);
 
                     FDEBUG(("SubRef: %s ID:%d\n", 
                             fcPtr->getType().getName().str(),
@@ -417,7 +417,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
     FieldContainerFactoryBase          *fcFactory = 
         FieldContainerFactory::the();
 
-    FieldContainerPtr                   fcPtr;
+    FieldContainer                     *fcPtr = NULL;
     UInt32                              typeId;
     BitVector                           mask;
     UInt8                               cmd;
@@ -445,7 +445,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
     {
         fcPtr = fcFactory->getContainer((*changedI)->uiContainerId);
 
-        if((fcPtr  == NullFC                                     ) || 
+        if((fcPtr  == NULL                                     ) || 
            (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask & 
                        FCLocal::Cluster                         ))  )
         {
@@ -496,7 +496,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
     {
         fcPtr = fcFactory->getContainer((*changedI)->uiContainerId);
 
-        if((fcPtr  == NullFC                                     ) || 
+        if((fcPtr  == NULL                                      ) || 
            (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask & 
                        FCLocal::Cluster                         ))  )
         {
@@ -672,7 +672,7 @@ void RemoteAspect::setStatistics(StatCollector *statistics)
  *  \see registerCreated
  */
 
-bool RemoteAspect::callCreated(const FieldContainerPtr fcp)
+bool RemoteAspect::callCreated(FieldContainer * const fcp)
 {
     bool    result;
     UInt32  uiFunctorIndex = fcp->getType().getId();
@@ -694,7 +694,7 @@ bool RemoteAspect::callCreated(const FieldContainerPtr fcp)
  *  \see registerDestroyed
  */
 
-bool RemoteAspect::callDestroyed(const FieldContainerPtr fcp)
+bool RemoteAspect::callDestroyed(FieldContainer * const fcp)
 {
     bool    result;
     UInt32  uiFunctorIndex = fcp->getType().getId();
@@ -716,7 +716,7 @@ bool RemoteAspect::callDestroyed(const FieldContainerPtr fcp)
  *  \see registerChanged
  */
 
-bool RemoteAspect::callChanged(const FieldContainerPtr fcp)
+bool RemoteAspect::callChanged(FieldContainer * const fcp)
 {
     bool    result;
     UInt32  uiFunctorIndex = fcp->getType().getId();
@@ -836,8 +836,8 @@ UInt64 RemoteAspect::getFullRemoteId(UInt32 fcId)
 /*! Default create functor
  */
 
-bool RemoteAspect::_defaultCreatedFunction(const FieldContainerPtr &fcp, 
-                                                 RemoteAspect      *   )
+bool RemoteAspect::_defaultCreatedFunction(FieldContainer * const fcp, 
+                                           RemoteAspect   *          )
 {
     FDEBUG(("Created:%s %d\n", 
             fcp->getType().getName().str(),
@@ -849,8 +849,8 @@ bool RemoteAspect::_defaultCreatedFunction(const FieldContainerPtr &fcp,
 /*! Default destroyed functor
  */
 
-bool RemoteAspect::_defaultDestroyedFunction(const FieldContainerPtr &fcp,
-                                                   RemoteAspect      *)
+bool RemoteAspect::_defaultDestroyedFunction(FieldContainer * const fcp,
+                                             RemoteAspect   *          )
 {
     FDEBUG(("Destroyed:%s %d\n",
             fcp->getType().getName().str(),
@@ -862,8 +862,8 @@ bool RemoteAspect::_defaultDestroyedFunction(const FieldContainerPtr &fcp,
 /*! Default changed functor
  */
 
-bool RemoteAspect::_defaultChangedFunction(const FieldContainerPtr &fcp,
-                                                 RemoteAspect      *)
+bool RemoteAspect::_defaultChangedFunction(FieldContainer * const fcp,
+                                           RemoteAspect   *          )
 {
     FDEBUG(("Changed:%s %d\n", 
             fcp->getType().getName().str(),

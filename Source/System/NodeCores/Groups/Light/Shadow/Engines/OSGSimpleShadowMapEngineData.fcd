@@ -19,7 +19,7 @@ Data use for rendering by the SimpleShadowmap stage
 		type="CameraPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>
@@ -28,7 +28,7 @@ Data use for rendering by the SimpleShadowmap stage
 		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>
@@ -37,7 +37,7 @@ Data use for rendering by the SimpleShadowmap stage
 		type="TextureBufferPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>
@@ -46,7 +46,7 @@ Data use for rendering by the SimpleShadowmap stage
 		type="LightChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>
@@ -55,7 +55,7 @@ Data use for rendering by the SimpleShadowmap stage
 		type="BlendChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>
@@ -64,7 +64,7 @@ Data use for rendering by the SimpleShadowmap stage
 		type="TexGenChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>
@@ -73,7 +73,7 @@ Data use for rendering by the SimpleShadowmap stage
 		type="PolygonChunkPtr"
 		cardinality="single"
 		visibility="external"
-		defaultValue="NullFC"
+		defaultValue="NULL"
 		access="public"
 	>
 	</Field>

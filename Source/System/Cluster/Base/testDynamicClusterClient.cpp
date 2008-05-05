@@ -32,9 +32,9 @@ OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager          *_mgr = NULL;
-GLUTWindowRecPtr            _client_win = NullFC;
-MultiDisplayWindowRecPtr    _cluster_win = NullFC;
-NodeRecPtr                  _root = NullFC;
+GLUTWindowRecPtr            _client_win = NULL;
+MultiDisplayWindowRecPtr    _cluster_win = NULL;
+NodeRecPtr                  _root = NULL;
 std::vector<std::string>    _pipenames;
 UInt32                      _first_fc = 0;
 
@@ -117,10 +117,10 @@ int main(int argc, char **argv)
 
 static void connectCluster(void)
 {
-    if(_cluster_win != NullFC)
+    if(_cluster_win != NULL)
         return;
 
-    ViewportPtr clientvp = _client_win->getPort(0);
+    Viewport *clientvp = _client_win->getPort(0);
     
     // create the viewports for the cluster just a simple one ...
     ViewportUnrecPtr vp = Viewport::create();
@@ -166,12 +166,12 @@ static void connectCluster(void)
 
 static void disconnectCluster(void)
 {
-    if(_cluster_win == NullFC)
+    if(_cluster_win == NULL)
         return;
 
     //subRefX(_cluster_win);
 
-    _cluster_win = NullFC;
+    _cluster_win = NULL;
 }
 
 //
@@ -189,7 +189,7 @@ void display(void)
 
     try
     {
-        if(_cluster_win != NullFC)
+        if(_cluster_win != NULL)
         {
             // redraw the server windows
             _cluster_win->render(_mgr->getRenderAction());
@@ -203,7 +203,7 @@ void display(void)
 
 //        subRefX(_cluster_win);
 
-        _cluster_win = NullFC;
+        _cluster_win = NULL;
     } 
     
     commitChanges();
@@ -244,9 +244,9 @@ void keyboard(unsigned char k, int x, int y)
         {
             delete _mgr;
 
-            _client_win  = NullFC;
-            _cluster_win = NullFC;
-            _root        = NullFC;
+            _client_win  = NULL;
+            _cluster_win = NULL;
+            _root        = NULL;
 
             OSG::osgExit();
             exit(0);
@@ -261,7 +261,7 @@ void keyboard(unsigned char k, int x, int y)
         {
             NodeUnrecPtr scene = SceneFileHandler::the()->read("tie.wrl", NULL);
 
-            if(scene != NullFC)
+            if(scene != NULL)
             {
                 _root->addChild(scene);
 

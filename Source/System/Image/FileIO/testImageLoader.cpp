@@ -45,7 +45,7 @@ void updateScene(const std::string &filename)
 {
     // Try to create the new image
     ImageRecPtr imagePtr = ImageFileHandler::the()->read(filename.c_str());
-    if (imagePtr == NullFC)
+    if (imagePtr == NULL)
         return;
 
     // Update information on the screen
@@ -267,8 +267,8 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
         {
             delete mgr;
-            scene  = NullFC;
-            statfg = NullFC;
+            scene  = NULL;
+            statfg = NULL;
             osgExit();
             exit(0);
         }

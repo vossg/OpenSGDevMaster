@@ -91,24 +91,24 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    virtual bool traverse(NodePtr root);
+    virtual bool traverse(Node *root);
 
     const std::string &getName(void);
-    void              setName(const char *name);
+    void               setName(const char *name);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Exclusion                                 */
     /*! \{                                                                 */    
     
-    void addToExcludeList       (const NodePtr      node );
-    void addToExcludeList       (const std::string &name );
-    void removeFromExcludeList  (const NodePtr      node );
-    void removeFromExcludeList  (const std::string &name );
-    void clearExcludeList       (      void              );
-    bool isInExcludeListNodes   (const NodePtr      node );
-    bool isInExcludeListNames   (const std::string &name );
-    bool isInExcludeList        (const NodePtr      node );        
+    void addToExcludeList       (Node        * const   node);
+    void addToExcludeList       (std::string   const  &name);
+    void removeFromExcludeList  (Node        * const   node);
+    void removeFromExcludeList  (std::string   const  &name);
+    void clearExcludeList       (void                      );
+    bool isInExcludeListNodes   (Node        * const   node);
+    bool isInExcludeListNames   (std::string   const  &name);
+    bool isInExcludeList        (Node        * const   node);        
 
     /*! \}                                                                 */
 
@@ -156,11 +156,11 @@ protected:
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    virtual Action::ResultE traverseEnter(const NodePtr         node) = 0;
-    virtual Action::ResultE traverseLeave(const NodePtr         node, 
-                                                Action::ResultE res ) = 0;
+    virtual Action::ResultE traverseEnter(Node            * const node) = 0;
+    virtual Action::ResultE traverseLeave(Node            * const node, 
+                                          Action::ResultE         res ) = 0;
 
-    std::list<ConstNodePtr> _excludeListNodes;
+    std::list<Node const *> _excludeListNodes;
     std::list<std::string >  _excludeListNames;
 
     /*==========================  PRIVATE  ================================*/

@@ -82,11 +82,11 @@ class OSG_IMGFILEIO_DLLMAPPING DDSImageFileType : public ImageFileType
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read (      ImagePtr          pImage, 
+    virtual bool read (      Image            *pImage, 
                              std::istream     &is, 
                        const std::string      &mimetype);
 
-    virtual bool write(      ConstImagePtr     pImage, 
+    virtual bool write(const Image            *pImage, 
                              std::ostream     &os, 
                        const std::string      &mimetype);
 

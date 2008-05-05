@@ -85,19 +85,19 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindow : public MultiDisplayWindowBase
     /*! \name      server window funcitons                                 */
     /*! \{                                                                 */
 
-    virtual void serverInit  (WindowPtr         window,
+    virtual void serverInit  (Window           *window,
                               UInt32            id    );
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void serverRender(WindowPtr         window,
+    virtual void serverRender(Window           *window,
                               UInt32            id,
-                              DrawActionBase *action);
+                              DrawActionBase   *action);
 #endif
 
-    virtual void serverRender(WindowPtr         window,
+    virtual void serverRender(Window           *window,
                               UInt32            id,
                               RenderActionBase *action);
 
-    virtual void serverSwap  (WindowPtr         window,
+    virtual void serverSwap  (Window           *window,
                               UInt32            id    );
 
     /*! \}                                                                 */
@@ -128,8 +128,8 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindow : public MultiDisplayWindowBase
     /*! \name                   Helper                                     */
     /*! \{                                                                 */
 
-    void updateViewport(ViewportPtr serverPort, 
-                        ViewportPtr clientPort); 
+    void updateViewport(Viewport *serverPort, 
+                        Viewport *clientPort); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

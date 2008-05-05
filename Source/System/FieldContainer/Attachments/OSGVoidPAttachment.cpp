@@ -87,23 +87,23 @@ SimpleAttachment<VoidPAttachmentDesc>::TypeObject &
   container is NULL.
  */
 
-void *getVoidP(const AttachmentContainerPtr pContainer)
+void *getVoidP(AttachmentContainer * const pContainer)
 {
-    if(pContainer == NullFC)
+    if(pContainer == NULL)
         return NULL;
    
     // Get attachment pointer
-    AttachmentPtr att = 
+    Attachment *att = 
         pContainer->findAttachment(VoidP::getClassType().getGroupId());
 
-    if(att == NullFC)
+    if(att == NULL)
         return NULL;
    
     // Cast to name pointer                           
 
-    VoidPPtr voidP = dynamic_cast<VoidPPtr>(att);
+    VoidP *voidP = dynamic_cast<VoidP *>(att);
 
-    if(voidP == NullFC)
+    if(voidP == NULL)
         return NULL;
    
     return voidP->getFieldPtr()->getValue();
@@ -114,11 +114,11 @@ void *getVoidP(const AttachmentContainerPtr pContainer)
     name attachement yet one is created. 
  */
 
-void setVoidP(const AttachmentContainerPtr  pContainer, 
-              void                         *pData,
-              bool                          bInternal)
+void setVoidP(AttachmentContainer * const  pContainer, 
+              void                *        pData,
+              bool                         bInternal)
 {
-    if(pContainer == NullFC)
+    if(pContainer == NULL)
     {
         FFATAL(("setVoidP: no container?!?"));
         return;
@@ -126,11 +126,11 @@ void setVoidP(const AttachmentContainerPtr  pContainer,
    
     // Get attachment pointer
 
-    VoidPUnrecPtr voidP = NullFC;
-    AttachmentPtr att   = 
+    VoidPUnrecPtr  voidP = NULL;
+    Attachment    *att   = 
         pContainer->findAttachment(VoidP::getClassType().getGroupId());
     
-    if(att == NullFC)
+    if(att == NULL)
     {
         voidP = VoidP::create();
 
@@ -138,9 +138,9 @@ void setVoidP(const AttachmentContainerPtr  pContainer,
     }
     else
     {   
-        voidP = dynamic_cast<VoidPPtr>(att);
+        voidP = dynamic_cast<VoidP *>(att);
 
-        if(voidP == NullFC)
+        if(voidP == NULL)
         {
             FFATAL(("setVoidP: VoidP Attachment is not castable to Name?!?"));
             return;

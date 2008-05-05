@@ -619,7 +619,7 @@ class PointerMField :
     void                   push_back(const_value    value           );
    
     void                   resize   (size_t         newSize,
-                                     const_value    value   = NullFC);
+                                     const_value    value   = NULL  );
 
     void                   reserve  (size_type      size            );
 
@@ -630,7 +630,7 @@ class PointerMField :
 #endif
 
     void                   assign   (size_type      newSize,
-                                     const_value    value   = NullFC);
+                                     const_value    value   = NULL  );
 
     template <class InputIteratorT>
     void                   assign   (InputIteratorT first,

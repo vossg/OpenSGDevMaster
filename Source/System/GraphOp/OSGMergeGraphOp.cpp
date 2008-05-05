@@ -113,9 +113,9 @@ GraphOp* MergeGraphOp::create()
     return inst;
 }
 
-UInt32 countNodes(const NodePtr node)
+UInt32 countNodes(Node * const node)
 {
-    if (node == NullFC)
+    if (node == NULL)
         return 0;
 
     UInt32 total = 1;
@@ -124,7 +124,7 @@ UInt32 countNodes(const NodePtr node)
     return total;
 }
 
-bool MergeGraphOp::traverse(NodePtr node)
+bool MergeGraphOp::traverse(Node * node)
 {
     // This is a hack and should be treated as such.
     // The fact that it helps means there is something wrong with
@@ -190,9 +190,9 @@ std::string MergeGraphOp::usage(void)
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-bool MergeGraphOp::mergeOnce(NodePtr node)
+bool MergeGraphOp::mergeOnce(Node * node)
 {
-    std::list<ConstNodePtr> tempList;
+    std::list<Node const *> tempList;
     tempList.clear();
     tempList.splice(tempList.end(),_excludeListNodes);
     makeExcludeList(node);
@@ -202,7 +202,7 @@ bool MergeGraphOp::mergeOnce(NodePtr node)
     return result;
 }
 
-void MergeGraphOp::makeExcludeList(NodePtr node)
+void MergeGraphOp::makeExcludeList(Node * node)
 {
     /*
     ::traverse(node,
@@ -220,40 +220,40 @@ void MergeGraphOp::makeExcludeList(NodePtr node)
 }
 
 
-Action::ResultE MergeGraphOp::excludeListEnter(const NodePtr node)
+Action::ResultE MergeGraphOp::excludeListEnter(Node * const node)
 {
-    if (node==NullFC) ; else ;    
+    if (node==NULL) ; else ;    
     return Action::Continue;
 }
 
-Action::ResultE MergeGraphOp::excludeListLeave(const NodePtr node, Action::ResultE res)
+Action::ResultE MergeGraphOp::excludeListLeave(Node * const node, Action::ResultE res)
 {
-    DirectionalLightPtr dlight = dynamic_cast<DirectionalLightPtr>(node->getCore());
-    if (dlight!=NullFC)
+    DirectionalLight *dlight = dynamic_cast<DirectionalLight *>(node->getCore());
+    if (dlight!=NULL)
         addToExcludeList(dlight->getBeacon());
     
-    LightPtr light = dynamic_cast<LightPtr>(node->getCore());
-    if (light!=NullFC)
+    Light *light = dynamic_cast<Light *>(node->getCore());
+    if (light!=NULL)
         addToExcludeList(light->getBeacon());    
     
-    PointLightPtr plight = dynamic_cast<PointLightPtr>(node->getCore());
-    if (plight!=NullFC)
+    PointLight *plight = dynamic_cast<PointLight *>(node->getCore());
+    if (plight!=NULL)
         addToExcludeList(plight->getBeacon());
     
-    SpotLightPtr slight = dynamic_cast<SpotLightPtr>(node->getCore());
-    if (slight!=NullFC)
+    SpotLight *slight = dynamic_cast<SpotLight *>(node->getCore());
+    if (slight!=NULL)
         addToExcludeList(slight->getBeacon());    
     
     return res;
 }
 
-Action::ResultE MergeGraphOp::traverseEnter(const NodePtr node)
+Action::ResultE MergeGraphOp::traverseEnter(Node * const node)
 {
-    SwitchPtr switch_ = dynamic_cast<SwitchPtr>(node->getCore());
-    if (switch_!=NullFC) return Action::Skip;
+    Switch *switch_ = dynamic_cast<Switch *>(node->getCore());
+    if (switch_!=NULL) return Action::Skip;
     
-    DistanceLODPtr dlod = dynamic_cast<DistanceLODPtr>(node->getCore());
-    if (dlod!=NullFC) return Action::Skip;
+    DistanceLOD *dlod = dynamic_cast<DistanceLOD *>(node->getCore());
+    if (dlod!=NULL) return Action::Skip;
     
     //leaf, don't enter, cause no job here
     if (isLeaf(node)) return Action::Skip;
@@ -261,7 +261,7 @@ Action::ResultE MergeGraphOp::traverseEnter(const NodePtr node)
     return Action::Continue;    
 }
 
-Action::ResultE MergeGraphOp::traverseLeave(const NodePtr node, Action::ResultE res)
+Action::ResultE MergeGraphOp::traverseLeave(Node * const node, Action::ResultE res)
 {
     processGroups(node);
     processTransformations(node);
@@ -269,7 +269,7 @@ Action::ResultE MergeGraphOp::traverseLeave(const NodePtr node, Action::ResultE 
     return res;
 }
 
-bool MergeGraphOp::isLeaf(const NodePtr node)
+bool MergeGraphOp::isLeaf(Node * const node)
 {
     if (node->getMFChildren()->begin() ==
         node->getMFChildren()->end  ()) return true;
@@ -278,7 +278,7 @@ bool MergeGraphOp::isLeaf(const NodePtr node)
 
 /*! checks whether a node is a group and nothing else
 */
-bool MergeGraphOp::isGroup(const NodePtr node)
+bool MergeGraphOp::isGroup(Node * const node)
 {
     if(  node->getCore()->getType().isDerivedFrom( Group::getClassType()              ) &&
         !node->getCore()->getType().isDerivedFrom( Transform::getClassType()          ) &&
@@ -291,12 +291,12 @@ bool MergeGraphOp::isGroup(const NodePtr node)
     else return false;
 }
 
-void MergeGraphOp::processGroups(const NodePtr node)
+void MergeGraphOp::processGroups(Node * const node)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
-    std::vector<NodePtr> toAdd;
-    std::vector<NodePtr> toSub;
+    std::vector<Node *> toAdd;
+    std::vector<Node *> toSub;
     
     for ( ; mfit != mfen; ++mfit )
     {
@@ -337,8 +337,8 @@ void MergeGraphOp::processGroups(const NodePtr node)
         else if ((*mfit)->getCore()->getType().isDerivedFrom( 
                      MaterialGroup::getClassType() ))
         {
-            MaterialGroupPtr mg = 
-                dynamic_cast<MaterialGroupPtr>((*mfit)->getCore());
+            MaterialGroup *mg = 
+                dynamic_cast<MaterialGroup *>((*mfit)->getCore());
             
             MFUnrecChildNodePtr::const_iterator it2 = 
                 (*mfit)->getMFChildren()->begin();
@@ -363,8 +363,8 @@ void MergeGraphOp::processGroups(const NodePtr node)
                         else
                         {                                
                             //it is a leaf geometry, so apply the transformation
-                            GeometryPtr geo = 
-                                dynamic_cast<GeometryPtr>((*it2)->getCore());
+                            Geometry *geo = 
+                                dynamic_cast<Geometry *>((*it2)->getCore());
 
                             geo->setMaterial(mg->getMaterial());
 
@@ -387,8 +387,8 @@ void MergeGraphOp::processGroups(const NodePtr node)
         }
     }
     
-    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
-    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
+    std::vector<Node *>::const_iterator vit = toAdd.begin();
+    std::vector<Node *>::const_iterator ven = toAdd.end  ();
     
     for ( ; vit != ven; ++vit )
     {
@@ -404,12 +404,12 @@ void MergeGraphOp::processGroups(const NodePtr node)
     }
 }
 
-void MergeGraphOp::processTransformations(const NodePtr node)
+void MergeGraphOp::processTransformations(Node * const node)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
-    std::vector<NodePtr> toAdd;
-    std::vector<NodePtr> toSub;
+    std::vector<Node *> toAdd;
+    std::vector<Node *> toSub;
     
     for ( ; mfit != mfen; ++mfit )
     {
@@ -447,30 +447,30 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                             else
                             {                                
                                 //it is a leaf geometry, so apply the transformation
-                                GeometryPtr geo_old = 
-                                    dynamic_cast<GeometryPtr>(
+                                Geometry *geo_old = 
+                                    dynamic_cast<Geometry *>(
                                         (*it2)->getCore());
                                 //GeometryPtr geo = geo_old->clone();
                                 GeometryUnrecPtr geo = 
                                     dynamic_pointer_cast<Geometry>(
                                         OSG::deepClone(geo_old, "Material"));
 
-                                TransformPtr  t = 
-                                    dynamic_cast<TransformPtr>(
+                                Transform *t = 
+                                    dynamic_cast<Transform *>(
                                         (*mfit)->getCore());
 
-                                GeoPnt3fPropertyPtr pos  = dynamic_cast<GeoPnt3fPropertyPtr>(geo->getPositions());
-                                GeoVec3fPropertyPtr   norm = dynamic_cast<GeoVec3fPropertyPtr>(geo->getNormals());
-                                GeoColor3fPropertyPtr color = dynamic_cast<GeoColor3fPropertyPtr>(geo->getColors());
-                                GeoColor3fPropertyPtr scolor = dynamic_cast<GeoColor3fPropertyPtr>(geo->getSecondaryColors());
-                                GeoVec3fPropertyPtr texcoord0 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords());
-                                GeoVec3fPropertyPtr texcoord1 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords1());
-                                GeoVec3fPropertyPtr texcoord2 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords2());
-                                GeoVec3fPropertyPtr texcoord3 = dynamic_cast<GeoVec3fPropertyPtr>(geo->getTexCoords3());
+                                GeoPnt3fProperty *pos  = dynamic_cast<GeoPnt3fProperty *>(geo->getPositions());
+                                GeoVec3fProperty *norm = dynamic_cast<GeoVec3fProperty *>(geo->getNormals());
+                                GeoColor3fProperty *color = dynamic_cast<GeoColor3fProperty *>(geo->getColors());
+                                GeoColor3fProperty *scolor = dynamic_cast<GeoColor3fProperty *>(geo->getSecondaryColors());
+                                GeoVec3fProperty *texcoord0 = dynamic_cast<GeoVec3fProperty *>(geo->getTexCoords());
+                                GeoVec3fProperty *texcoord1 = dynamic_cast<GeoVec3fProperty *>(geo->getTexCoords1());
+                                GeoVec3fProperty *texcoord2 = dynamic_cast<GeoVec3fProperty *>(geo->getTexCoords2());
+                                GeoVec3fProperty * texcoord3 = dynamic_cast<GeoVec3fProperty *>(geo->getTexCoords3());
 
                                 Matrix m=t->getMatrix();
 
-                                if (pos!=NullFC) 
+                                if (pos!=NULL) 
                                 {
                                     for (UInt32 i=0; i<pos->getSize(); i++)
                                     {
@@ -480,7 +480,7 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                                     }
                                 }
                                 
-                                if (norm!=NullFC)
+                                if (norm!=NULL)
                                 {
                                     for (UInt32 i=0; i<norm->getSize(); i++)
                                     {
@@ -491,7 +491,7 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                                     }
                                 }
 
-                                if (color!=NullFC && _color_is_vector)
+                                if (color!=NULL && _color_is_vector)
                                 {
                                     for (UInt32 i=0; i<color->getSize(); i++)
                                     {
@@ -505,7 +505,7 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                                     }
                                 }
 
-                                if (scolor!=NullFC && _secondary_color_is_vector)
+                                if (scolor!=NULL && _secondary_color_is_vector)
                                 {
                                     for (UInt32 i=0; i<scolor->getSize(); i++)
                                     {
@@ -519,7 +519,7 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                                     }
                                 }
 
-                                if (texcoord0!=NullFC && _texcoord0_is_vector)
+                                if (texcoord0!=NULL && _texcoord0_is_vector)
                                 {
                                     for (UInt32 i=0; i<texcoord0->getSize(); i++)
                                     {
@@ -530,7 +530,7 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                                     }
                                 }
 
-                                if (texcoord1!=NullFC && _texcoord1_is_vector)
+                                if (texcoord1!=NULL && _texcoord1_is_vector)
                                 {
                                     for (UInt32 i=0; i<texcoord1->getSize(); i++)
                                     {
@@ -541,7 +541,7 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                                     }
                                 }
 
-                                if (texcoord2!=NullFC && _texcoord2_is_vector)
+                                if (texcoord2!=NULL && _texcoord2_is_vector)
                                 {
                                     for (UInt32 i=0; i<texcoord2->getSize(); i++)
                                     {
@@ -552,7 +552,7 @@ void MergeGraphOp::processTransformations(const NodePtr node)
                                     }
                                 }
 
-                                if (texcoord3!=NullFC && _texcoord3_is_vector)
+                                if (texcoord3!=NULL && _texcoord3_is_vector)
                                 {
                                     for (UInt32 i=0; i<texcoord3->getSize(); i++)
                                     {
@@ -589,8 +589,8 @@ void MergeGraphOp::processTransformations(const NodePtr node)
         }
     }
     
-    std::vector<NodePtr>::const_iterator vit = toAdd.begin();
-    std::vector<NodePtr>::const_iterator ven = toAdd.end  ();
+    std::vector<Node *>::const_iterator vit = toAdd.begin();
+    std::vector<Node *>::const_iterator ven = toAdd.end  ();
     
     for ( ; vit != ven; ++vit )
     {
@@ -606,13 +606,13 @@ void MergeGraphOp::processTransformations(const NodePtr node)
     }
 }
 
-void MergeGraphOp::processGeometries(const NodePtr node)
+void MergeGraphOp::processGeometries(Node * const node)
 {
     MFUnrecChildNodePtr::const_iterator mfit = node->getMFChildren()->begin();
     MFUnrecChildNodePtr::const_iterator mfen = node->getMFChildren()->end  ();
 
-    std::vector<NodePtr     > toSub;
-    std::vector<NodeUnrecPtr> toAdd;
+    std::vector<Node        *> toSub;
+    std::vector<NodeUnrecPtr > toAdd;
     
     for ( ; mfit != mfen; ++mfit )
     {
@@ -621,15 +621,15 @@ void MergeGraphOp::processGeometries(const NodePtr node)
         if ((*mfit)->getCore()->getType().isDerivedFrom(
                 Geometry::getClassType()))
         {
-            GeometryPtr geo = dynamic_cast<GeometryPtr>((*mfit)->getCore());
+            Geometry *geo = dynamic_cast<Geometry *>((*mfit)->getCore());
             //if a geometry, try to merge it in another geometry
             //if successfull, delete it.
             //check also if it is added for exclusion
 
             bool inSubList=false;
 
-            std::vector<NodePtr>::const_iterator it3=toSub.begin();
-            std::vector<NodePtr>::const_iterator en3=toSub.end();
+            std::vector<Node *>::const_iterator it3=toSub.begin();
+            std::vector<Node *>::const_iterator en3=toSub.end();
 
             for ( ; it3 != en3; ++it3 ) 
                 if (*it3==*mfit) { inSubList=true; break; }
@@ -638,21 +638,21 @@ void MergeGraphOp::processGeometries(const NodePtr node)
             {
                 //ok, try
                 MFUnrecChildNodePtr::const_iterator it2=mfit+1;
-                GeometryPtr new_geo=NullFC;
+                Geometry *new_geo=NULL;
                 for ( ; it2!=mfen; ++it2)
                 {
                     if (!isInExcludeList(*it2) && (*it2)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
                     {
-                        GeometryPtr geo2 = dynamic_cast<GeometryPtr>((*it2)->getCore());
+                        Geometry *geo2 = dynamic_cast<Geometry *>((*it2)->getCore());
 #ifndef OSG2_MERGE_MISSING
                         if (geo->isMergeable(geo2))
                         {
-                            // HACK merge crashes when indices == NullFC!
-                            if(geo->getIndices() == NullFC)
+                            // HACK merge crashes when indices == NULL!
+                            if(geo->getIndices() == NULL)
                                 OSG::createSharedIndex(geo);
-                            if(geo2->getIndices() == NullFC)
+                            if(geo2->getIndices() == NULL)
                                 OSG::createSharedIndex(geo2);
-                            if (new_geo==NullFC)
+                            if (new_geo==NULL)
                             {
                                 new_geo=Geometry::create();
                                 if (new_geo->merge(geo))
@@ -672,7 +672,7 @@ void MergeGraphOp::processGeometries(const NodePtr node)
 #endif
                     }
                 }
-                if (new_geo!=NullFC)
+                if (new_geo!=NULL)
                 {
                     NodeUnrecPtr new_node=Node::create();
                     new_node->setCore(new_geo);
@@ -695,8 +695,8 @@ void MergeGraphOp::processGeometries(const NodePtr node)
         node->addChild(*ait);
     }
 
-    std::vector<NodePtr>::const_iterator sit = toSub.begin();
-    std::vector<NodePtr>::const_iterator sen = toSub.end  ();
+    std::vector<Node *>::const_iterator sit = toSub.begin();
+    std::vector<Node *>::const_iterator sen = toSub.end  ();
     
     for ( ; sit != sen; ++sit )
     {

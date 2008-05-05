@@ -112,48 +112,54 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                 Property Access                             */
     /*! \{                                                                 */
 
-    inline GeoIntegralPropertyPtr getTypes          (void) const;
-    inline GeoIntegralPropertyPtr getLengths        (void) const;
-    inline GeoVectorPropertyPtr   getPositions      (void) const;
-    inline GeoVectorPropertyPtr   getNormals        (void) const;
-    inline GeoVectorPropertyPtr   getColors         (void) const;
-    inline GeoVectorPropertyPtr   getSecondaryColors(void) const;
-    inline GeoVectorPropertyPtr   getTexCoords      (void) const;
-    inline GeoVectorPropertyPtr   getTexCoords1     (void) const;
-    inline GeoVectorPropertyPtr   getTexCoords2     (void) const;
-    inline GeoVectorPropertyPtr   getTexCoords3     (void) const;
-    inline GeoVectorPropertyPtr   getTexCoords4     (void) const;
-    inline GeoVectorPropertyPtr   getTexCoords5     (void) const;
-    inline GeoVectorPropertyPtr   getTexCoords6     (void) const;
-    inline GeoVectorPropertyPtr   getTexCoords7     (void) const;
+    inline GeoIntegralProperty *getTypes          (void) const;
+    inline GeoIntegralProperty *getLengths        (void) const;
+    inline GeoVectorProperty   *getPositions      (void) const;
+    inline GeoVectorProperty   *getNormals        (void) const;
+    inline GeoVectorProperty   *getColors         (void) const;
+    inline GeoVectorProperty   *getSecondaryColors(void) const;
+    inline GeoVectorProperty   *getTexCoords      (void) const;
+    inline GeoVectorProperty   *getTexCoords1     (void) const;
+    inline GeoVectorProperty   *getTexCoords2     (void) const;
+    inline GeoVectorProperty   *getTexCoords3     (void) const;
+    inline GeoVectorProperty   *getTexCoords4     (void) const;
+    inline GeoVectorProperty   *getTexCoords5     (void) const;
+    inline GeoVectorProperty   *getTexCoords6     (void) const;
+    inline GeoVectorProperty   *getTexCoords7     (void) const;
 
 
-    inline void setPositions      (const GeoVectorPropertyPtr   value);
-    inline void setNormals        (const GeoVectorPropertyPtr   value);
-    inline void setColors         (const GeoVectorPropertyPtr   value);
-    inline void setSecondaryColors(const GeoVectorPropertyPtr   value);
-    inline void setTexCoords      (const GeoVectorPropertyPtr   value);
-    inline void setTexCoords1     (const GeoVectorPropertyPtr   value);
-    inline void setTexCoords2     (const GeoVectorPropertyPtr   value);
-    inline void setTexCoords3     (const GeoVectorPropertyPtr   value);
-    inline void setTexCoords4     (const GeoVectorPropertyPtr   value);
-    inline void setTexCoords5     (const GeoVectorPropertyPtr   value);
-    inline void setTexCoords6     (const GeoVectorPropertyPtr   value);
-    inline void setTexCoords7     (const GeoVectorPropertyPtr   value);
+    inline void setPositions      (GeoVectorProperty   * const   value);
+    inline void setNormals        (GeoVectorProperty   * const   value);
+    inline void setColors         (GeoVectorProperty   * const   value);
+    inline void setSecondaryColors(GeoVectorProperty   * const   value);
+    inline void setTexCoords      (GeoVectorProperty   * const   value);
+    inline void setTexCoords1     (GeoVectorProperty   * const   value);
+    inline void setTexCoords2     (GeoVectorProperty   * const   value);
+    inline void setTexCoords3     (GeoVectorProperty   * const   value);
+    inline void setTexCoords4     (GeoVectorProperty   * const   value);
+    inline void setTexCoords5     (GeoVectorProperty   * const   value);
+    inline void setTexCoords6     (GeoVectorProperty   * const   value);
+    inline void setTexCoords7     (GeoVectorProperty   * const   value);
 
-    void setMaterial       (const MaterialPtr               &value);
+           void setMaterial       (Material            * const   value);
 
 
-    inline void setProperty (const GeoVectorPropertyPtr value, UInt16 index);
+    inline void setProperty       (GeoVectorProperty   * const   value, 
+                                   UInt16                      index);
 
-    inline void setIndex     (const GeoIntegralPropertyPtr value,
-                                    UInt16 index);
+    inline void setIndex          (GeoIntegralProperty * const value,
+                                   UInt16                      index);
 
-    inline GeoVectorPropertyPtr   getProperty(UInt16 index) const;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name           Property/Index MField Changes                      */
+    /*! \{                                                                 */
 
-    inline GeoIntegralPropertyPtr getIndex(UInt16 index) const;
+    inline GeoVectorProperty   *getProperty(UInt16 index) const;
 
-    static const char *mapType          (UInt8 type);
+    inline GeoIntegralProperty *getIndex   (UInt16 index) const;
+
+    static const char          *mapType    (UInt8 type  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -172,17 +178,17 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name          Backwards Compatibility Helpers                     */
     /*! \{                                                                 */
 
-    inline void setIndices(const GeoIntegralPropertyPtr value);
+    inline void setIndices(GeoIntegralProperty * const value);
 
-    inline GeoIntegralPropertyPtr getIndices(void);
+    inline GeoIntegralProperty *getIndices(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name          Backwards Compatibility Helpers                     */
     /*! \{                                                                 */
 
-    UInt32 indexOccurrence(const GeoIntegralPropertyPtr value);
-    bool   isSingleIndex  (void                              );
+    UInt32 indexOccurrence(GeoIntegralProperty * const value);
+    bool   isSingleIndex  (void                             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -244,8 +250,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                    Pump Handling                             */
     /*! \{                                                                 */
 
-    typedef std::vector<std::pair<GeoIntegralPropertyPtr,
-                                  std::vector<UInt16>   > > IndexBag;
+    typedef std::vector<std::pair<GeoIntegralProperty *,
+                                  std::vector<UInt16>  > > IndexBag;
 
     IndexBag getUniqueIndexBag(void);
 
@@ -262,7 +268,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                    Stats                                    */
     /*! \{                                                                 */
 
-    virtual void fill(DrawableStatsAttachmentPtr pStat);
+    virtual void fill(DrawableStatsAttachment *pStat);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

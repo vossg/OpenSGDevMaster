@@ -706,9 +706,9 @@ template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 ChildPointerMField<PtrTypeT,
                    RefCountPolicy, 
                    NamespaceI  >::ChildPointerMField(
-                       const FieldContainerPtr pParent,
-                             UInt16            usChildFieldId,
-                             UInt16            usParentFieldId) : 
+                       FieldContainer * const pParent,
+                       UInt16                 usChildFieldId,
+                       UInt16                 usParentFieldId) : 
     Inherited(pParent, usChildFieldId, usParentFieldId)
 {
 }

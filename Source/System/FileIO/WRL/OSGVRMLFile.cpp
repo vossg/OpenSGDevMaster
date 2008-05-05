@@ -87,13 +87,13 @@ OSG::Time findTime  = 0.;
 VRMLFile::VRMLFile(void) :
     Inherited(),
 
-    _pSceneRootNode     (NullFC),
+    _pSceneRootNode     (NULL),
 
     _pCurrNodeHelper(NULL),
     _sNodeHelpers   (),
 
-    _pCurrentFC       (NullFC),
-    _pCurrentFieldFC  (NullFC),
+    _pCurrentFC       (NULL  ),
+    _pCurrentFieldFC  (NULL  ),
     _pCurrentField    (      ),
     _pCurrentFieldDesc(NULL  ),
 
@@ -123,7 +123,7 @@ NodeTransitPtr VRMLFile::scanStream(std::istream &is)
 {
     startTime = getSystemTime();
 
-    _pSceneRootNode      = NullFC;
+    _pSceneRootNode      = NULL;
 
     _nameFCMap.clear();
 
@@ -140,7 +140,7 @@ NodeTransitPtr VRMLFile::scanStream(std::istream &is)
 
     NodeTransitPtr returnValue(_pSceneRootNode);
 
-    _pSceneRootNode      = NullFC;
+    _pSceneRootNode      = NULL;
 
     FINFO(("Full Time : %lf | Use Time %lf\n",
             getSystemTime() - startTime,
@@ -155,11 +155,11 @@ void VRMLFile::handleError(const Char8 *szErrorText)
     // on an error we destroy the incomplete scene.
 
 #if 0
-    if(_pSceneRootNode != NullFC)
+    if(_pSceneRootNode != NULL)
     {
         subRef(_pSceneRootNode);
 
-        _pSceneRootNode = NullFC;
+        _pSceneRootNode = NULL;
     }
 #endif
 }
@@ -196,11 +196,11 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 
     if(szNodename != NULL)
     {
-        if(pNewNode != NullFC)
+        if(pNewNode != NULL)
         {
             std::string szKey = szNodename;
 
-            AttachmentContainerPtr pAttC = 
+            AttachmentContainer *pAttC = 
                 dynamic_pointer_cast<AttachmentContainer>(pNewNode);
 
             if(pAttC != NULL)
@@ -239,9 +239,9 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 
     if(_fcStack.size() == 1)
     {
-        NodePtr pNode = dynamic_cast<NodePtr>(_pCurrentFC);
+        Node *pNode = dynamic_cast<Node *>(_pCurrentFC);
 
-        if(_pSceneRootNode == NullFC)
+        if(_pSceneRootNode == NULL)
         {
             _pSceneRootNode = Node::create();
 
@@ -280,13 +280,13 @@ void VRMLFile::endNode(void)
         _pCurrNodeHelper = NULL;
     }
 
-    if(_pCurrentFC != NullFC)
+    if(_pCurrentFC != NULL)
     {
         if(_pCurrentFC->getType().isNode() == true)
         {
-            NodePtr pNode = dynamic_cast<NodePtr>(_pCurrentFC);
+            Node *pNode = dynamic_cast<Node *>(_pCurrentFC);
 
-            if(pNode->getCore() == NullFC)
+            if(pNode->getCore() == NULL)
             {
                 pNode->setCore(Group::create());
             }
@@ -301,7 +301,7 @@ void VRMLFile::endNode(void)
     }
     else
     {
-        _pCurrentFC = NullFC;
+        _pCurrentFC = NULL;
     }
 
     if(_pCurrentFieldDesc != NULL)
@@ -449,7 +449,7 @@ UInt32 VRMLFile::getFieldType(const Char8 *szFieldname)
     if(szFieldname == NULL)
         return returnValue;
 
-    _pCurrentFieldFC   = NullFC;
+    _pCurrentFieldFC   = NULL;
     _pCurrentField.reset();
     _pCurrentFieldDesc = NULL;
 
@@ -498,7 +498,7 @@ void VRMLFile::use(const Char8 *szName)
 
     pUsedFC = findReference(szName);
 
-    if(pUsedFC == NullFC)
+    if(pUsedFC == NULL)
     {
         PWARNING << "No fieldContainer with name found to use"
                  << szName
@@ -512,7 +512,7 @@ void VRMLFile::use(const Char8 *szName)
         {
             if(pUsedFC->getType().isNode())
             {
-                NodePtr pRootNode = dynamic_pointer_cast<Node>(pUsedFC);
+                Node *pRootNode = dynamic_pointer_cast<Node>(pUsedFC);
                 
                 pUsedFC = cloneTree(pRootNode);
             }
@@ -544,53 +544,53 @@ void VRMLFile::scanStandardPrototypes(const Char8  *szFilename)
     postStandardProtos();
 }
 
-static Action::ResultE modifyMaterial(const NodePtr node)
+static Action::ResultE modifyMaterial(Node * const node)
 {   
-    MaterialGroupPtr mg = dynamic_cast<MaterialGroupPtr>(node->getCore());
+    MaterialGroup *mg = dynamic_cast<MaterialGroup *>(node->getCore());
     
-    if(mg == NullFC)
+    if(mg == NULL)
         return Action::Continue; 
     
-    ChunkMaterialPtr cmat = dynamic_cast<ChunkMaterialPtr>(mg->getMaterial());
+    ChunkMaterial *cmat = dynamic_cast<ChunkMaterial *>(mg->getMaterial());
     
-    if(cmat == NullFC)
+    if(cmat == NULL)
         return Action::Continue; 
     
-    TextureObjChunkPtr texc = 
-        dynamic_cast<TextureObjChunkPtr>(
+    TextureObjChunk *texc = 
+        dynamic_cast<TextureObjChunk *>(
             cmat->find(TextureObjChunk::getClassType()));
     
-    if(texc == NullFC)
+    if(texc == NULL)
         return Action::Continue;
     
-    MaterialChunkPtr matc = 
-        dynamic_cast<MaterialChunkPtr>(
+    MaterialChunk *matc = 
+        dynamic_cast<MaterialChunk *>(
             cmat->find(MaterialChunk::getClassType()));
 
     TextureEnvChunkUnrecPtr texe = 
-        dynamic_cast<TextureEnvChunkPtr>(
+        dynamic_cast<TextureEnvChunk *>(
             cmat->find(TextureEnvChunk::getClassType()));
     
-    if(texe == NullFC)
+    if(texe == NULL)
     {
         texe = TextureEnvChunk::create();
         cmat->addChunk(texe);
     }
 
-    if(matc == NullFC)
+    if(matc == NULL)
     {
         // no material chunk so we use the replace mode.
         texe->setEnvMode(GL_REPLACE);
         return Action::Continue;
     }
     
-    if(matc != NullFC)
+    if(matc != NULL)
     {
-        ImagePtr img = texc->getImage();
+        Image *img = texc->getImage();
 
         texe->setEnvMode(GL_MODULATE);
 
-        if(img != NullFC && img->getBpp() > 2)
+        if(img != NULL && img->getBpp() > 2)
         {
             // for color textures the texture replaces only the diffuse part.
             matc->setDiffuse(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -598,15 +598,15 @@ static Action::ResultE modifyMaterial(const NodePtr node)
         
         
         // check for textures with alpha
-        if(!matc->isTransparent()           && 
-            img                   != NullFC &&
-            img->getBpp()         ==      4   )
+        if(!matc->isTransparent()         && 
+            img                   != NULL &&
+            img->getBpp()         ==    4   )
         {
             BlendChunkUnrecPtr blendc = 
-                dynamic_cast<BlendChunkPtr>(
+                dynamic_cast<BlendChunk *>(
                     cmat->find(BlendChunk::getClassType()));
 
-            if(blendc == NullFC)
+            if(blendc == NULL)
             {
                 blendc = OSG::BlendChunk::create();
 
@@ -853,14 +853,14 @@ void VRMLFile::initExtIntFieldTypeMapper(void)
 }
 
 /* remove this, if there is a general methode to find containers */
-FieldContainerPtr VRMLFile::findFCByName(const Char8  *szName,
-                                               NodePtr pNode)
+FieldContainer *VRMLFile::findFCByName(const Char8 *szName,
+                                             Node  *pNode)
 {
     MFUnrecNodePtr::const_iterator i;
 
-    NamePtr           pNodename = NullFC;
-    NodeCorePtr       pCore     = NullFC;
-    FieldContainerPtr pFC       = NullFC;
+    Name           *pNodename = NULL;
+    NodeCore       *pCore     = NULL;
+    FieldContainer *pFC       = NULL;
 
 #if 0
     // check if name matches nodename
@@ -907,10 +907,10 @@ FieldContainerPtr VRMLFile::findFCByName(const Char8  *szName,
     return pFC;
 }
 
-FieldContainerPtr VRMLFile::findReference(const Char8 *szName)
+FieldContainer *VRMLFile::findReference(const Char8 *szName)
 {
     // search reference in this file
-    FieldContainerPtr          returnValue = NullFC;
+    FieldContainer            *returnValue = NULL;
 
     std::string                szKey       = szName;
 

@@ -22,7 +22,7 @@ int                 winWidth=0,winHeight=0;
 
 void cleanup(void)
 {
-    window = NullFC;
+    window = NULL;
 
     osgExit();
 }

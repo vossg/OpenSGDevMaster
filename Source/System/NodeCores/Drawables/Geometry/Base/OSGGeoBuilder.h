@@ -155,7 +155,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     /*! \name                  Object Access                               */
     /*! \{                                                                 */
 
-    GeometryPtr getGeometry(void);
+    Geometry *getGeometry(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -164,7 +164,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     /*! \name               Property Helper                               */
     /*! \{                                                                 */
 
-    GeoVectorPropertyPtr getProperty(UInt32 index);
+    GeoVectorProperty *getProperty(UInt32 index);
 
     UInt32 finishVertex(void);
 

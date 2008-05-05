@@ -148,12 +148,12 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    HDRStageDataTransitPtr setupStageData (Int32           iPixelWidth,
-                                           Int32           iPixelHeight);
+    HDRStageDataTransitPtr setupStageData (Int32         iPixelWidth,
+                                           Int32         iPixelHeight);
 
-    void                   resizeStageData(HDRStageDataPtr pData,
-                                           Int32           iPixelWidth,
-                                           Int32           iPixelHeight);
+    void                   resizeStageData(HDRStageData *pData,
+                                           Int32         iPixelWidth,
+                                           Int32         iPixelHeight);
 
 
     /*! \}                                                                 */

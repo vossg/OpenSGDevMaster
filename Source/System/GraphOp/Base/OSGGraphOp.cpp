@@ -94,7 +94,7 @@ GraphOp::~GraphOp(void)
 {
 }
 
-bool GraphOp::traverse(NodePtr node)
+bool GraphOp::traverse(Node *node)
 {
     Action::ResultE res;
     /*
@@ -129,7 +129,7 @@ void GraphOp::setName(const char *name)
 
 /*--------------------------- Exclude List --------------------------------*/
 
-void GraphOp::addToExcludeList(const NodePtr node)
+void GraphOp::addToExcludeList(Node * const node)
 {
     if (!isInExcludeListNodes(node))
         _excludeListNodes.push_back(node);
@@ -141,7 +141,7 @@ void GraphOp::addToExcludeList(const std::string &name)
         _excludeListNames.push_back(name);
 }
 
-void GraphOp::removeFromExcludeList(const NodePtr node)
+void GraphOp::removeFromExcludeList(Node * const node)
 {
     _excludeListNodes.remove(node);
 }
@@ -157,9 +157,9 @@ void GraphOp::clearExcludeList(void)
     _excludeListNodes.clear();
 }
 
-bool GraphOp::isInExcludeListNodes(const NodePtr node)
+bool GraphOp::isInExcludeListNodes(Node * const node)
 {
-    std::list<ConstNodePtr>::iterator list_iter;
+    std::list<Node const *>::iterator list_iter;
     list_iter = std::find(_excludeListNodes.begin(),_excludeListNodes.end(),node);
 
     if (list_iter==_excludeListNodes.end()) 
@@ -179,7 +179,7 @@ bool GraphOp::isInExcludeListNames(const std::string &name)
         return true;
 }
 
-bool GraphOp::isInExcludeList(const NodePtr node)
+bool GraphOp::isInExcludeList(Node * const node)
 {
     if (isInExcludeListNodes(node) || (OSG::getName(node)!=NULL && isInExcludeListNames(OSG::getName(node))))
         return true;

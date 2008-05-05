@@ -73,11 +73,11 @@ protected:
     virtual ~PruneGraphOp(void);
 
 private:
-    Action::ResultE traverseEnter(const NodePtr node);
-    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node);
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 
-    bool isTooSmall(const NodePtr node);
-    float getSize(const NodePtr node);
+    bool isTooSmall(Node * const node);
+    float getSize  (Node * const node);
 
     float _size;
     Method _method;

@@ -65,14 +65,14 @@ OSBElementBase::BinaryReadHandler::skip(UInt32 size)
 /*-------------------------------------------------------------------------*/
 /* State access                                                            */
 
-inline FieldContainerPtr
+inline FieldContainer *
 OSBElementBase::getContainer(void)
 {
     return _container;
 }
 
 inline void
-OSBElementBase::setContainer(const FieldContainerPtr cont)
+OSBElementBase::setContainer(FieldContainer * const cont)
 {
     _container = cont;
 }
@@ -99,7 +99,7 @@ OSBElementBase::getVersion(void) const
 /* OSBElementBase::PtrFieldInfo                                            */
 /*-------------------------------------------------------------------------*/
 
-inline FieldContainerPtr
+inline FieldContainer *
 OSBElementBase::PtrFieldInfo::getContainer(void) const
 {
     return _fc;

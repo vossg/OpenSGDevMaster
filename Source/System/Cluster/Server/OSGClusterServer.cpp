@@ -94,12 +94,12 @@ OSG_USING_NAMESPACE
  * \param servicePort     port to wait for connections
  *
  */
-ClusterServer::ClusterServer(           WindowPtr  window,
-                             const std::string    &serviceName,
-                             const std::string    &connectionType,
-                             const std::string    &address,
-                                        UInt32    servicePort,
-                             const std::string    &serviceGroup):
+ClusterServer::ClusterServer(           Window *window,
+                             const std::string &serviceName,
+                             const std::string &connectionType,
+                             const std::string &address,
+                                        UInt32  servicePort,
+                             const std::string &serviceGroup):
     _window(window),
     _connection(NULL),
     _requestAddress(address),
@@ -139,7 +139,7 @@ ClusterServer::ClusterServer(           WindowPtr  window,
 ClusterServer::~ClusterServer(void)
 {
     //OSG::subRefX(_window);
-    _window = NullFC;
+    _window = NULL;
 
     try
     {
@@ -223,14 +223,14 @@ void ClusterServer::start(void)
 void ClusterServer::stop()
 {
     // get aspect ownership
-    if(_clusterWindow != NullFC)
+    if(_clusterWindow != NULL)
     {
         _aspect = _clusterWindow->getNetwork()->getAspect();
 
         _clusterWindow->getNetwork()->setAspect(NULL);
     }
 
-    _clusterWindow= NullFC;
+    _clusterWindow= NULL;
 
     // destroy connection
 
@@ -289,14 +289,14 @@ void ClusterServer::render(RenderActionBase *action)
 void ClusterServer::doSync(bool applyToChangelist)
 {
     // do we have a cluster window?
-    if(_clusterWindow==NullFC)
+    if(_clusterWindow == NULL)
     {
         do
         {
             // recive 
             _aspect->receiveSync(*_connection,applyToChangelist);
         }
-        while(_clusterWindow==NullFC);
+        while(_clusterWindow == NULL);
 
         // get server id
         for(_serverId = 0;
@@ -386,7 +386,7 @@ void ClusterServer::doSwap(void)
 /*! return the cluster window received from the client 
  */
 
-WindowPtr ClusterServer::getClusterWindow(void)
+Window *ClusterServer::getClusterWindow(void)
 {
     return _clusterWindow;
 }
@@ -394,7 +394,7 @@ WindowPtr ClusterServer::getClusterWindow(void)
 /*! return the window used for rendering
  */
 
-WindowPtr ClusterServer::getServerWindow(void)
+Window *ClusterServer::getServerWindow(void)
 {
     return _window;
 }
@@ -403,13 +403,13 @@ WindowPtr ClusterServer::getServerWindow(void)
     It is called for each change of a ClusterWindow.
  */
 
-bool ClusterServer::windowChanged(const FieldContainerPtr &fcp,
-                                        RemoteAspect      *   )
+bool ClusterServer::windowChanged(FieldContainer * const fcp,
+                                  RemoteAspect   *          )
 {
-    if(_clusterWindow != NullFC)
+    if(_clusterWindow != NULL)
         return true;
     
-    ClusterWindowPtr window = dynamic_cast<ClusterWindowPtr>(fcp);
+    ClusterWindow *window = dynamic_cast<ClusterWindow *>(fcp);
 
     if(window->getMFServers()->size())
     {

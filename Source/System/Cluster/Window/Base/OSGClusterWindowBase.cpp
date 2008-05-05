@@ -115,7 +115,7 @@ OSG_BEGIN_NAMESPACE
     Ethernet interface to be used for server search
 */
 
-/*! \var WindowPtr       ClusterWindowBase::_sfClientWindow
+/*! \var Window *        ClusterWindowBase::_sfClientWindow
     Window for client rendering
 */
 
@@ -127,7 +127,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var ImageComposerPtr ClusterWindowBase::_sfComposer
+/*! \var ImageComposer * ClusterWindowBase::_sfComposer
     
 */
 
@@ -918,7 +918,7 @@ ClusterWindowTransitPtr ClusterWindowBase::create(void)
 {
     ClusterWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -934,7 +934,7 @@ ClusterWindowTransitPtr ClusterWindowBase::createLocal(BitVector bFlags)
 {
     ClusterWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -946,9 +946,9 @@ ClusterWindowTransitPtr ClusterWindowBase::createLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ClusterWindowPtr ClusterWindowBase::createEmpty(void)
+ClusterWindow *ClusterWindowBase::createEmpty(void)
 {
-    ClusterWindowPtr returnValue;
+    ClusterWindow *returnValue;
 
     newPtr<ClusterWindow>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -958,9 +958,9 @@ ClusterWindowPtr ClusterWindowBase::createEmpty(void)
     return returnValue;
 }
 
-ClusterWindowPtr ClusterWindowBase::createEmptyLocal(BitVector bFlags)
+ClusterWindow *ClusterWindowBase::createEmptyLocal(BitVector bFlags)
 {
-    ClusterWindowPtr returnValue;
+    ClusterWindow *returnValue;
 
     newPtr<ClusterWindow>(returnValue, bFlags);
 
@@ -971,7 +971,7 @@ ClusterWindowPtr ClusterWindowBase::createEmptyLocal(BitVector bFlags)
 
 FieldContainerTransitPtr ClusterWindowBase::shallowCopy(void) const
 {
-    ClusterWindowPtr tmpPtr;
+    ClusterWindow *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const ClusterWindow *>(this), 
@@ -987,7 +987,7 @@ FieldContainerTransitPtr ClusterWindowBase::shallowCopy(void) const
 FieldContainerTransitPtr ClusterWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ClusterWindowPtr tmpPtr;
+    ClusterWindow *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const ClusterWindow *>(this), bFlags);
 
@@ -1012,10 +1012,10 @@ ClusterWindowBase::ClusterWindowBase(void) :
     _sfServicePort            (UInt32(8437)),
     _sfServiceAddress         (std::string("224.245.211.234")),
     _sfServiceInterface       (),
-    _sfClientWindow           (NullFC),
+    _sfClientWindow           (NULL),
     _sfInterleave             (UInt32(0)),
     _sfFrameCount             (UInt32(0)),
-    _sfComposer               (NullFC),
+    _sfComposer               (NULL),
     _mfAutostart              ()
 {
 }
@@ -1030,10 +1030,10 @@ ClusterWindowBase::ClusterWindowBase(const ClusterWindowBase &source) :
     _sfServicePort            (source._sfServicePort            ),
     _sfServiceAddress         (source._sfServiceAddress         ),
     _sfServiceInterface       (source._sfServiceInterface       ),
-    _sfClientWindow           (NullFC),
+    _sfClientWindow           (NULL),
     _sfInterleave             (source._sfInterleave             ),
     _sfFrameCount             (source._sfFrameCount             ),
-    _sfComposer               (NullFC),
+    _sfComposer               (NULL),
     _mfAutostart              (source._mfAutostart              )
 {
 }
@@ -1369,9 +1369,9 @@ void ClusterWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr ClusterWindowBase::createAspectCopy(void) const
+FieldContainer *ClusterWindowBase::createAspectCopy(void) const
 {
-    ClusterWindowPtr returnValue;
+    ClusterWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const ClusterWindow *>(this));
@@ -1384,9 +1384,9 @@ void ClusterWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ClusterWindow *>(this)->setClientWindow(NullFC);
+    static_cast<ClusterWindow *>(this)->setClientWindow(NULL);
 
-    static_cast<ClusterWindow *>(this)->setComposer(NullFC);
+    static_cast<ClusterWindow *>(this)->setComposer(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
@@ -1406,17 +1406,17 @@ void ClusterWindowBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ClusterWindowPtr>::_type("ClusterWindowPtr", "WindowPtr");
+DataType FieldTraits<ClusterWindow *>::_type("ClusterWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ClusterWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(ClusterWindow *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ClusterWindowPtr, 
+                           ClusterWindow *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ClusterWindowPtr, 
+                           ClusterWindow *, 
                            0);
 
 OSG_END_NAMESPACE

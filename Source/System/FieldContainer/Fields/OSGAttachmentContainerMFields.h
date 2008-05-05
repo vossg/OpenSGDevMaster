@@ -51,19 +51,19 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup  */
 
 typedef PointerMField<
-          AttachmentContainerPtr,
+          AttachmentContainer *,
           RecordedRefCountPolicy     > MFRecAttachmentContainerPtr;
 
 typedef PointerMField<
-          AttachmentContainerPtr,
+          AttachmentContainer *,
           UnrecordedRefCountPolicy   > MFUnrecAttachmentContainerPtr;
 
 typedef PointerMField<
-          AttachmentContainerPtr,
+          AttachmentContainer *,
           WeakRefCountPolicy         > MFWeakAttachmentContainerPtr;
 
 typedef PointerMField<
-          AttachmentContainerPtr,
+          AttachmentContainer *,
           NoRefCountPolicy           > MFUncountedAttachmentContainerPtr;
 
 #endif

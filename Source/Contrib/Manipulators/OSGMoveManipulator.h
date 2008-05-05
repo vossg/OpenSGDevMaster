@@ -97,7 +97,7 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulator : public MoveManipulatorBase
     /*! \}                                                                 */
 
     virtual NodeTransitPtr makeHandleGeo();
-    virtual void           doMovement(      TransformPtr  t,
+    virtual void           doMovement(      Transform    *t,
                                       const Int32         coord,
                                       const Real32        value,
                                       const Vec3f        &translation,

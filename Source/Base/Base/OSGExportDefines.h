@@ -243,34 +243,34 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     OSG_EXPORT_PTR_MFIELD(CLASS, T1, NoRefCountPolicy,         T3);
 
 
-#define OSG_FIELD_TRAITS_NAME_INST(PTRCLASS)               \
+#define OSG_FIELD_TRAITS_NAME_INST(PTRCLASS, PTRCLASSNAME) \
                                                            \
 template<> inline                                          \
 const Char8 *FieldTraits<                                  \
     PTRCLASS, 0>::getSName<RecordedRefCountPolicy>(void)   \
 {                                                          \
-    return "SFRec"#PTRCLASS;                               \
+    return "SFRec"#PTRCLASSNAME;                           \
 }                                                          \
                                                            \
 template<> inline                                          \
 const Char8 *FieldTraits<                                  \
     PTRCLASS, 0>::getSName<UnrecordedRefCountPolicy>(void) \
 {                                                          \
-    return "SFUnrec"#PTRCLASS;                             \
+    return "SFUnrec"#PTRCLASSNAME;                         \
 }                                                          \
                                                            \
 template<> inline                                          \
 const Char8 *FieldTraits<                                  \
     PTRCLASS, 0>::getSName<WeakRefCountPolicy>(void)       \
 {                                                          \
-    return "SFWeak"#PTRCLASS;                              \
+    return "SFWeak"#PTRCLASSNAME;                          \
 }                                                          \
                                                            \
 template<> inline                                          \
 const Char8 *FieldTraits<                                  \
     PTRCLASS, 0>::getSName<NoRefCountPolicy>(void)         \
 {                                                          \
-    return "SFUnrefd"#PTRCLASS;                            \
+    return "SFUnrefd"#PTRCLASSNAME;                        \
 }                                                          \
                                                            \
 template<> inline                                          \
@@ -284,57 +284,57 @@ template<> inline                                          \
 const Char8 *FieldTraits<                                  \
     PTRCLASS, 0>::getMName<UnrecordedRefCountPolicy>(void) \
 {                                                          \
-    return "MFUnrec"#PTRCLASS;                             \
+    return "MFUnrec"#PTRCLASSNAME;                         \
 }                                                          \
                                                            \
 template<> inline                                          \
 const Char8 *FieldTraits<                                  \
     PTRCLASS, 0>::getMName<WeakRefCountPolicy>(void)       \
 {                                                          \
-    return "MFWeak"#PTRCLASS;                              \
+    return "MFWeak"#PTRCLASSNAME;                          \
 }                                                          \
                                                            \
 template<> inline                                          \
 const Char8 *FieldTraits<                                  \
     PTRCLASS, 0>::getMName<NoRefCountPolicy>(void)         \
 {                                                          \
-    return "MFUnrefd"#PTRCLASS;                            \
+    return "MFUnrefd"#PTRCLASSNAME;                        \
 }
 
 
-#define OSG_FIELDCONTAINER_FIELDS_INST(PTRCLASS)                 \
-                                                                 \
-typedef                                                          \
-  PointerMField<PTRCLASS,                                        \
-                RecordedRefCountPolicy  > MFRec##PTRCLASS;       \
-                                                                 \
-typedef                                                          \
-  PointerMField<PTRCLASS,                                        \
-                UnrecordedRefCountPolicy> MFUnrec##PTRCLASS;     \
-                                                                 \
-typedef                                                          \
-  PointerMField<PTRCLASS,                                        \
-                WeakRefCountPolicy      > MFWeak##PTRCLASS;      \
-                                                                 \
-typedef                                                          \
-  PointerMField<PTRCLASS,                                        \
-                NoRefCountPolicy        > MFUncounted##PTRCLASS; \
-                                                                 \
-typedef                                                          \
-  PointerSField<PTRCLASS,                                        \
-                RecordedRefCountPolicy  > SFRec##PTRCLASS;       \
-                                                                 \
-typedef                                                          \
-  PointerSField<PTRCLASS,                                        \
-                UnrecordedRefCountPolicy> SFUnrec##PTRCLASS;     \
-                                                                 \
-typedef                                                          \
-  PointerSField<PTRCLASS,                                        \
-                WeakRefCountPolicy      > SFWeak##PTRCLASS;      \
-                                                                 \
-typedef                                                          \
-  PointerSField<PTRCLASS,                                        \
-                NoRefCountPolicy        > SFUncounted##PTRCLASS
+#define OSG_FIELDCONTAINER_FIELDS_INST(PTRCLASS, PTRCLASSNAME)       \
+                                                                     \
+typedef                                                              \
+  PointerMField<PTRCLASS,                                            \
+                RecordedRefCountPolicy  > MFRec##PTRCLASSNAME;       \
+                                                                     \
+typedef                                                              \
+  PointerMField<PTRCLASS,                                            \
+                UnrecordedRefCountPolicy> MFUnrec##PTRCLASSNAME;     \
+                                                                     \
+typedef                                                              \
+  PointerMField<PTRCLASS,                                            \
+                WeakRefCountPolicy      > MFWeak##PTRCLASSNAME;      \
+                                                                     \
+typedef                                                              \
+  PointerMField<PTRCLASS,                                            \
+                NoRefCountPolicy        > MFUncounted##PTRCLASSNAME; \
+                                                                     \
+typedef                                                              \
+  PointerSField<PTRCLASS,                                            \
+                RecordedRefCountPolicy  > SFRec##PTRCLASSNAME;       \
+                                                                     \
+typedef                                                              \
+  PointerSField<PTRCLASS,                                            \
+                UnrecordedRefCountPolicy> SFUnrec##PTRCLASSNAME;     \
+                                                                     \
+typedef                                                              \
+  PointerSField<PTRCLASS,                                            \
+                WeakRefCountPolicy      > SFWeak##PTRCLASSNAME;      \
+                                                                     \
+typedef                                                              \
+  PointerSField<PTRCLASS,                                            \
+                NoRefCountPolicy        > SFUncounted##PTRCLASSNAME
 
 
 #endif /* _OSGEXPORTDEFINES_H_ */

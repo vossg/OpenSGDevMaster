@@ -62,11 +62,11 @@ class CoredNodeRefPtr
     /*! \name Types                                                        */
     /*! \{                                                                 */
   
-    typedef CoreT                    Core;
-    typedef CoredNodeRefPtr          Self;
+    typedef CoreT                     Core;
+    typedef CoredNodeRefPtr           Self;
     
-    typedef typename Core::ObjPtr    CorePtr;
-    typedef typename Core::ObjRecPtr CoreRefPtr;
+    typedef          Core            *CorePtr;
+    typedef typename Core::ObjRecPtr  CoreRefPtr;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -75,8 +75,8 @@ class CoredNodeRefPtr
   
              CoredNodeRefPtr(void                    );
              CoredNodeRefPtr(Self        const &pCore);
-    explicit CoredNodeRefPtr(NodePtr            pNode);
-    explicit CoredNodeRefPtr(NodeCorePtr        pCore);
+    explicit CoredNodeRefPtr(Node              *pNode);
+    explicit CoredNodeRefPtr(NodeCore          *pCore);
     explicit CoredNodeRefPtr(CorePtr            pCore);
      
    
@@ -101,21 +101,21 @@ class CoredNodeRefPtr
     
     void coreChanged(void);
   
-    NodePtr node      (void) const;
+    Node   *node      (void) const;
     CorePtr core      (void) const;
     
     CorePtr operator->(void) const;
     
     /* Note: these only work for a RHS */
-    operator NodePtr(void);
-    operator CorePtr(void);
+    operator Node    *(void);
+    operator CorePtr  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(NodePtr        pNode);
+    Self &operator =(Node          *pNode);
     Self &operator =(CorePtr        pCore);
     Self &operator =(Self    const &pCNRP);
 
@@ -126,12 +126,12 @@ class CoredNodeRefPtr
     /*! \name                      Access                                  */
     /*! \{                                                                 */
     
-    void setNode   (const NodePtr     pNode);
+    void setNode   (Node     * const pNode);
     
-    void setCore   (const NodeCorePtr pCore);
-    void setCore   (      CorePtr     pCore);
+    void setCore   (NodeCore * const pCore);
+    void setCore   (CorePtr          pCore);
 
-    void updateNode(      void             );
+    void updateNode(void                  );
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -154,11 +154,11 @@ class CoredNodeMTRefPtr
     /*! \name Types                                                        */
     /*! \{                                                                 */
   
-    typedef CoreT                      Core;
-    typedef CoredNodeMTRefPtr          Self;
+    typedef CoreT                       Core;
+    typedef CoredNodeMTRefPtr           Self;
     
-    typedef typename Core::ObjPtr      CorePtr;
-    typedef typename Core::ObjMTRefPtr CoreMTRefPtr;
+    typedef          Core              *CorePtr;
+    typedef typename Core::ObjMTRefPtr  CoreMTRefPtr;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,8 +167,8 @@ class CoredNodeMTRefPtr
   
              CoredNodeMTRefPtr(void                    );
              CoredNodeMTRefPtr(Self        const &pCore);
-    explicit CoredNodeMTRefPtr(NodePtr            pNode);
-    explicit CoredNodeMTRefPtr(NodeCorePtr        pCore);
+    explicit CoredNodeMTRefPtr(Node              *pNode);
+    explicit CoredNodeMTRefPtr(NodeCore          *pCore);
     explicit CoredNodeMTRefPtr(CorePtr            pCore);
      
    
@@ -193,21 +193,21 @@ class CoredNodeMTRefPtr
     
     void coreChanged(void);
   
-    NodePtr node      (void) const;
-    CorePtr core      (void) const;
+    Node    *node      (void) const;
+    CorePtr  core      (void) const;
     
     CorePtr operator->(void) const;
     
     /* Note: these only work for a RHS */
-    operator NodePtr(void);
-    operator CorePtr(void);
+    operator Node    *(void);
+    operator CorePtr  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(NodePtr        pNode);
+    Self &operator =(Node          *pNode);
     Self &operator =(CorePtr        pCore);
     Self &operator =(Self    const &pCNRP);
 
@@ -218,12 +218,12 @@ class CoredNodeMTRefPtr
     /*! \name                      Access                                  */
     /*! \{                                                                 */
     
-    void setNode   (const NodePtr     pNode);
+    void setNode   (Node     * const pNode);
     
-    void setCore   (const NodeCorePtr pCore);
-    void setCore   (      CorePtr     pCore);
+    void setCore   (NodeCore * const pCore);
+    void setCore   (CorePtr          pCore);
 
-    void updateNode(      void             );
+    void updateNode(void                  );
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

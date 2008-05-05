@@ -55,9 +55,9 @@ UInt32 SHLParameterChunk::getStaticClassId(void)
 inline
 void SHLParameterChunk::updateParameters(Window *win)
 {
-    SHLChunkPtr shl = getSHLChunk();
+    SHLChunk *shl = getSHLChunk();
 
-    if(shl == NullFC)
+    if(shl == NULL)
     {
         FWARNING(("SHLParameterChunk: SHLChunk == NullFC, call "
                   "setSHLChunk()\n"));

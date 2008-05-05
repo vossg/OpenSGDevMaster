@@ -104,17 +104,17 @@ void PassiveViewport::dump(      UInt32    ,
 void PassiveViewport::render(DrawActionBase *action)
 {
 #if 1 // Have to check GV
-    if ( getCamera() == NullFC )
+    if ( getCamera() == NULL )
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;
         return;
     }
-    if ( getBackground() == NullFC )
+    if ( getBackground() == NULL )
     {
         SWARNING << "Viewport::render: no background!" << std::endl;
         return;
     }
-    if ( getRoot() == NullFC )
+    if ( getRoot() == NULL )
     {
         SWARNING << "Viewport::render: no root!" << std::endl;
         return;
@@ -135,17 +135,17 @@ void PassiveViewport::render(DrawActionBase *action)
 void PassiveViewport::render(RenderActionBase *action)
 {
 #if 1 // Have to check GV
-    if ( getCamera() == NullFC )
+    if ( getCamera() == NULL )
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;
         return;
     }
-    if ( getBackground() == NullFC )
+    if ( getBackground() == NULL )
     {
         SWARNING << "Viewport::render: no background!" << std::endl;
         return;
     }
-    if ( getRoot() == NullFC )
+    if ( getRoot() == NULL )
     {
         SWARNING << "Viewport::render: no root!" << std::endl;
         return;

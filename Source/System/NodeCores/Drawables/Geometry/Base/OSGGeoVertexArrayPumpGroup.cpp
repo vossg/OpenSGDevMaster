@@ -433,7 +433,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     UInt32   name##Stride = 0;                                              \
                                                                             \
     name##Ptr = geo->getmethod();                                           \
-    if ( name##Ptr != NullFC )                                              \
+    if ( name##Ptr != NULL )                                                \
     {                                                                       \
         name##Data = name##Ptr->getData();                                  \
         if ( ! ( name##Stride = name##Ptr->getStride() ) )                  \
@@ -453,11 +453,11 @@ static UInt32 NormAttribIDs[numFormats][4];
 // define and initialize the variables needed to access the data
 
 #define pumpInternalSetup( name, typename, getmethod, mandatory )           \
-    GeoIntegralPropertyPtr name##Ptr;                                       \
+    GeoIntegralProperty *name##Ptr;                                         \
     UInt32 name##Ind = 0;                                                   \
                                                                             \
     name##Ptr = geo->getmethod();                                           \
-    if(mandatory && name##Ptr == NullFC)                                    \
+    if(mandatory && name##Ptr == NULL)                                      \
     {                                                                       \
         SWARNING << "masterPump: Geometry " << geo << " has no "            \
                  << #name << "s!" << std::endl;                             \
@@ -468,12 +468,12 @@ static UInt32 NormAttribIDs[numFormats][4];
     attribData[propindex] = NULL;                                           \
     attribStride[propindex];                                                \
     attribInd[propindex] = 0;                                               \
-    attribPtr[propindex] = NullFC;                                          \
-    attribIndex[propindex] = NullFC;                                        \
+    attribPtr[propindex] = NULL;                                            \
+    attribIndex[propindex] = NULL;                                          \
     pumpFunc name##Func = NULL;                                             \
                                                                             \
     attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NullFC)                                      \
+    if(attribPtr[propindex] != NULL)                                        \
     {                                                                       \
         attribIndex[propindex] = geo->getIndex(propindex);                  \
         attribData[propindex] = attribPtr[propindex]->getData();            \
@@ -511,7 +511,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     pumpFunc name##Func;                                                    \
                                                                             \
     attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NullFC)                                      \
+    if(attribPtr[propindex] != NULL)                                        \
     {                                                                       \
         attribIndex[propindex] = geo->getIndex(propindex);                  \
         attribData[propindex] = attribPtr[propindex]->getData();            \
@@ -560,7 +560,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     multiPumpFunc name##Func;                                               \
                                                                             \
     attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NullFC)                                      \
+    if(attribPtr[propindex] != NULL)                                        \
     {                                                                       \
         attribIndex[propindex] = geo->getIndex(propindex);                  \
         attribData[propindex] = attribPtr[propindex]->getData();            \
@@ -611,24 +611,24 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     
     // Setup: get all the data
 
-    pumpInternalSetup( Type, GeoPTypesPtr, getTypes, true );
-    pumpInternalSetup( Length, GeoPLengthsPtr, getLengths, false );
+    pumpInternalSetup( Type, GeoPTypes *, getTypes, true );
+    pumpInternalSetup( Length, GeoPLengths *, getLengths, false );
     
     // check if the node is empty
-    if(TypePtr == NullFC || TypePtr->getSize() == 0)
+    if(TypePtr == NULL || TypePtr->getSize() == 0)
         return;
     
-    const UInt8 *attribData[Geometry::MaxAttribs];
-    UInt32 attribStride[Geometry::MaxAttribs];
-    UInt32 attribInd[Geometry::MaxAttribs];
-    GeoVectorPropertyPtr attribPtr[Geometry::MaxAttribs];
-    GeoIntegralPropertyPtr attribIndex[Geometry::MaxAttribs];
+    const UInt8               *attribData  [Geometry::MaxAttribs];
+          UInt32               attribStride[Geometry::MaxAttribs];
+          UInt32               attribInd   [Geometry::MaxAttribs];
+          GeoVectorProperty   *attribPtr   [Geometry::MaxAttribs];
+          GeoIntegralProperty *attribIndex [Geometry::MaxAttribs];
 
     for(Int16 i = 0; i < Geometry::MaxAttribs; ++i)
     {
-        attribData[i] = NULL;
-        attribPtr[i] = NullFC;
-        attribIndex[i] = NullFC;        
+        attribData [i] = NULL;
+        attribPtr  [i] = NULL;
+        attribIndex[i] = NULL;        
     }
 
     pumpGLSetup        ( Position,   Geometry::PositionsIndex      );
@@ -645,7 +645,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     pumpMultiGLExtSetup( TexCoords7, Geometry::TexCoords7Index     );
     
     // check if the node is empty
-    if(TypePtr == NullFC || TypePtr->getSize() == 0)
+    if(TypePtr == NULL || TypePtr->getSize() == 0)
         return;
 
     // if it's not empty we need positions
@@ -755,7 +755,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     UInt32 nprims;
 
     // no lengths? use all available data for the first type
-    if(LengthPtr == NullFC)
+    if(LengthPtr == NULL)
     {
         if(TypePtr->getSize() != 1)
         {
@@ -766,7 +766,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
         }
         
         nprims = 1;
-        if (attribIndex[Geometry::PositionsIndex] != NullFC)
+        if (attribIndex[Geometry::PositionsIndex] != NULL)
         {
             curlen = attribIndex[Geometry::PositionsIndex]->getSize();
         }
@@ -783,14 +783,14 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     
     UInt32 vertindex = 0;
 
-    if(attribIndex[0] != NullFC)
+    if(attribIndex[0] != NULL)
     {        
         // Indexed, i.e. Single Indexed
 
-        GeoIntegralPropertyPtr index = attribIndex[0];
-        GLenum        indexFormat = index->getFormat();
-        UInt32        indexSize   = index->getSize();
-        UInt32        indexStride = index->getStride() ? 
+        GeoIntegralProperty *index = attribIndex[0];
+        GLenum               indexFormat = index->getFormat();
+        UInt32               indexSize   = index->getSize();
+        UInt32               indexStride = index->getStride() ? 
                                 index->getStride() : index->getFormatSize() *
                                                      index->getDimension();
         const UInt8  *indexData   = index->getData();
@@ -901,17 +901,17 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     pumpInternalSetup( Length, GeoPLengthsPtr, getLengths, false );
        
     // check if the node is empty
-    if(TypePtr == NullFC || TypePtr->getSize() == 0)
+    if(TypePtr == NULL || TypePtr->getSize() == 0)
         return;
 
     // Most of these are only needed for global attribs ...
     
-    const UInt8 *attribData[Geometry::MaxAttribs];
-    UInt32 attribStride[Geometry::MaxAttribs];
-    UInt32 attribInd[Geometry::MaxAttribs];
-    GeoVectorPropertyPtr attribPtr[Geometry::MaxAttribs];
-    GeoIntegralPropertyPtr attribIndex[Geometry::MaxAttribs];
-    attribPumpFunc attribFunc[Geometry::MaxAttribs];
+    const UInt8               *attribData  [Geometry::MaxAttribs];
+          UInt32               attribStride[Geometry::MaxAttribs];
+          UInt32               attribInd   [Geometry::MaxAttribs];
+          GeoVectorProperty   *attribPtr   [Geometry::MaxAttribs];
+          GeoIntegralProperty *attribIndex [Geometry::MaxAttribs];
+          attribPumpFunc       attribFunc  [Geometry::MaxAttribs];
 
     UInt16 nattrib = geo->getMFProperties()->size();
     
@@ -919,7 +919,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     {
         attribInd[i] = 0;
         attribPtr[i] = geo->getProperty(i);
-        if(attribPtr[i] != NullFC)
+        if(attribPtr[i] != NULL)
         {
             attribIndex[i] = geo->getIndex(i);
             attribData[i] = attribPtr[i]->getData();
@@ -1020,7 +1020,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     UInt32 nprims;
 
     // no lengths? use all available data for the first type
-    if(LengthPtr == NullFC)
+    if(LengthPtr == NULL)
     {
         if(TypePtr->getSize() != 1)
         {
@@ -1031,7 +1031,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
         }
         
         nprims = 1;
-        if (attribIndex[0] != NullFC)
+        if (attribIndex[0] != NULL)
         {
             curlen = attribIndex[0]->getSize();
         }
@@ -1049,15 +1049,15 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     UInt32 vertindex = 0;
 
 
-    if(geo->getIndex(0) != NullFC)
+    if(geo->getIndex(0) != NULL)
     {        
         // Single Indexed
 
-        GeoIntegralPropertyPtr index = geo->getIndex(0);
-        const UInt8  *indexData   = index->getData();
-        GLenum        indexFormat = index->getFormat();
-        UInt32        indexSize   = index->getSize();
-        UInt32        indexStride = index->getStride() ? 
+              GeoIntegralProperty *index       = geo->getIndex(0);
+        const UInt8               *indexData   = index->getData();
+              GLenum               indexFormat = index->getFormat();
+              UInt32               indexSize   = index->getSize();
+              UInt32               indexStride = index->getStride() ? 
                 index->getStride() : index->getFormatSize() *
                                      index->getDimension();
         

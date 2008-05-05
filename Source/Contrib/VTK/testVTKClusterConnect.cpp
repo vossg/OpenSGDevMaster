@@ -48,9 +48,9 @@ OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager          *_mgr = NULL;
-GLUTWindowRecPtr               _client_win = NullFC;
-MultiDisplayWindowRecPtr       _cluster_win = NullFC;
-NodeRecPtr                     _root = NullFC;
+GLUTWindowRecPtr               _client_win = NULL;
+MultiDisplayWindowRecPtr       _cluster_win = NULL;
+NodeRecPtr                     _root = NULL;
 std::vector<std::string>    _pipenames;
 UInt32                      _first_fc = 0;
 
@@ -58,8 +58,8 @@ UInt32                      _first_fc = 0;
 int setupGLUT( int *argc, char *argv[] );
 void display(void);
 
-void addActor(OSG::NodePtr pRoot,
-              vtkActor    *pActor)
+void addActor(OSG::Node *pRoot,
+              vtkActor  *pActor)
 {
     OSG::NodeUnrecPtr      pTmpNode   = OSG::Node     ::create();
     OSG::VTKMapperUnrecPtr pTmpMapper = OSG::VTKMapper::create();
@@ -93,7 +93,7 @@ void addActor(OSG::NodePtr pRoot,
 
 OSG::NodeTransitPtr initVTK(void)
 {
-    OSG::NodeUnrecPtr returnValue = OSGNullFC;
+    OSG::NodeUnrecPtr returnValue = NULL;
 
     Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
 
@@ -646,10 +646,10 @@ int main(int argc, char **argv)
 
 static void connectCluster(void)
 {
-    if(_cluster_win != NullFC)
+    if(_cluster_win != NULL)
         return;
 
-    ViewportPtr clientvp = _client_win->getPort(0);
+    Viewport *clientvp = _client_win->getPort(0);
     
     // create the viewports for the cluster just a simple one ...
     ViewportUnrecPtr vp = Viewport::create();
@@ -695,10 +695,10 @@ static void connectCluster(void)
 
 static void disconnectCluster(void)
 {
-    if(_cluster_win == NullFC)
+    if(_cluster_win == NULL)
         return;
 
-    _cluster_win = NullFC;
+    _cluster_win = NULL;
 }
 
 //
@@ -716,7 +716,7 @@ void display(void)
 
     try
     {
-        if(_cluster_win != NullFC)
+        if(_cluster_win != NULL)
         {
             OSG::Thread::getCurrentChangeList()->dump();
 
@@ -730,7 +730,7 @@ void display(void)
         //printf("error: '%s'\n", e.what());
         printf("ClusterServer was killed!\n");
 
-        _cluster_win = NullFC;
+        _cluster_win = NULL;
     } 
     
     commitChanges();
@@ -770,9 +770,9 @@ void keyboard(unsigned char k, int x, int y)
         case 27:    
         {
             delete _mgr;
-            _client_win = NullFC;
-            _cluster_win = NullFC;
-            _root = NullFC;
+            _client_win = NULL;
+            _cluster_win = NULL;
+            _root = NULL;
             OSG::osgExit();
             exit(0);
         }
@@ -786,7 +786,7 @@ void keyboard(unsigned char k, int x, int y)
         {
             NodeUnrecPtr scene = SceneFileHandler::the()->read("tie.wrl");
 
-            if(scene != NullFC)
+            if(scene != NULL)
             {
                 _root->addChild(scene);
 

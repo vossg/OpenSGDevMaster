@@ -146,7 +146,7 @@ void DrawEnv::activate(State         *pState,
         }
         else
         {
-            if(*it != NullFC)
+            if(*it != NULL)
             {
                 (*it)->activate(this, UInt32(ind));
             }
@@ -263,8 +263,8 @@ void DrawEnv::changeTo(State         *pState,
           it != pState->getMFChunks()->end();
         ++it, ++cind)
     {
-        StateChunkPtr  o = pOld->getChunk(cind);
-                       n = *it;
+        StateChunk *o = pOld->getChunk(cind);
+                    n = *it;
 
         if(overIt != pOverride->end() && overIt->first == cind)
         {
@@ -274,7 +274,7 @@ void DrawEnv::changeTo(State         *pState,
 
         if(n != NULL)
         {
-            if(o != NullFC)
+            if(o != NULL)
             {
                 n->changeFrom(this, o, UInt32(ind));
             }
@@ -283,7 +283,7 @@ void DrawEnv::changeTo(State         *pState,
                 n->activate(this, UInt32(ind));
             }
         }
-        else if(o != NullFC)
+        else if(o != NULL)
         {
             o->deactivate(this, UInt32(ind));
         }
@@ -299,7 +299,7 @@ void DrawEnv::changeTo(State         *pState,
 
     for(i = cind; i < pOld->getMFChunks()->size(); ++i)
     {
-        StateChunkPtr o = pOld->getChunk(i);
+        StateChunk *o = pOld->getChunk(i);
 
         n = NULL;
 
@@ -311,7 +311,7 @@ void DrawEnv::changeTo(State         *pState,
 
         if(n != NULL)
         {
-            if(o != NullFC)
+            if(o != NULL)
             {
                 n->changeFrom(this, o, UInt32(ind));
             }
@@ -320,7 +320,7 @@ void DrawEnv::changeTo(State         *pState,
                 n->activate(this, UInt32(ind));
             }
         }
-        else if(o != NullFC)
+        else if(o != NULL)
         {
             o->deactivate(this, UInt32(ind));
         }
@@ -526,7 +526,7 @@ void DrawEnv::deactivate(State         *pState,
         }
         else
         {
-            if(*it != NullFC)
+            if(*it != NULL)
             {
                 (*it)->deactivate(this, UInt32(ind));
             }

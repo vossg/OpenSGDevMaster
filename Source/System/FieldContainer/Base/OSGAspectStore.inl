@@ -71,8 +71,8 @@ FieldContainer *AspectStore::getPtr(void) const
 }
 
 inline
-void AspectStore::setPtrForAspect(const FieldContainerPtr pContainer, 
-                                  const UInt32            uiAspect  )
+void AspectStore::setPtrForAspect(      FieldContainer *pContainer, 
+                                  const UInt32          uiAspect  )
 {
     _vAspects.resize(osgMax<UInt32>(_vAspects.size(), uiAspect + 1), NULL);
     
@@ -138,8 +138,8 @@ AspectStore::AspectStore(const AspectStore &) :
 }
 
 inline
-void AspectStore::fillOffsetArray(      AspectOffsetStore &oStore, 
-                                  const FieldContainerPtr  pRef  )
+void AspectStore::fillOffsetArray(AspectOffsetStore &       oStore, 
+                                  FieldContainer    * const pRef  )
 {
     Char8 *pRefMem = reinterpret_cast<Char8 *>(pRef);
 

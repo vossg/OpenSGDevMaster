@@ -117,7 +117,7 @@ OSG_USING_NAMESPACE
 
 /*! \var SimpleSceneManager::_highlight
     The Node to be highlighted (highlit? ;).  Has to be set by the user.
-    May be NullFC (which is the default), in which case nothing is highlighted.
+    May be NULL (which is the default), in which case nothing is highlighted.
  */
 
 /*! \var SimpleSceneManager::_highlightNode
@@ -188,32 +188,32 @@ OSG_USING_NAMESPACE
  */
 
 SimpleSceneManager::SimpleSceneManager(void) :
-    _win            (NullFC),
-    _root           (NullFC),
-    _foreground     (NullFC),
-    _statforeground (NullFC),
+    _win            (NULL  ),
+    _root           (NULL  ),
+    _foreground     (NULL  ),
+    _statforeground (NULL  ),
     _statstate      (false),
 
-    _highlight      (NullFC),
-    _highlightNode  (NullFC),
-    _highlightPoints(NullFC),
+    _highlight      (NULL  ),
+    _highlightNode  (NULL  ),
+    _highlightPoints(NULL  ),
 
-    _internalRoot   (NullFC),
-    _headlight      (NullFC),
+    _internalRoot   (NULL  ),
+    _headlight      (NULL  ),
 #ifdef OSG_OLD_RENDER_ACTION
     _renderAction   (NULL  ),
     _ownAction      (NULL  ),
 #endif
     _rtaction       (NULL  ),
-    _cart           (NullFC),
-    _camera         (NullFC),
+    _cart           (NULL  ),
+    _camera         (NULL  ),
     _navigator      (      ),
 
     _lastx          (TypeTraits<Int16>::getMax()),
     _lasty          (TypeTraits<Int16>::getMax()),
     _mousebuttons   (0                             ),
     _traversalAction(true                         ),
-    _highlightMaterial(NullFC)
+    _highlightMaterial(NULL)
 {
 }
 
@@ -240,35 +240,35 @@ SimpleSceneManager::~SimpleSceneManager(void)
     if(_rtaction)
         delete _rtaction;
 
-    setRoot(NullFC); // sub root
+    setRoot(NULL); // sub root
 
-    _internalRoot = NullFC;
+    _internalRoot      = NULL;
 
-    _camera            = NullFC;
-    _cart              = NullFC;
-    _headlight         = NullFC;
-    _statforeground    = NullFC;
-    _foreground        = NullFC;
-    _highlightMaterial = NullFC;
-    _highlightPoints   = NullFC;
-    _highlightNode     = NullFC;
-    _highlight         = NullFC;
-    _win               = NullFC;
-    _root              = NullFC;
+    _camera            = NULL;
+    _cart              = NULL;
+    _headlight         = NULL;
+    _statforeground    = NULL;
+    _foreground        = NULL;
+    _highlightMaterial = NULL;
+    _highlightPoints   = NULL;
+    _highlightNode     = NULL;
+    _highlight         = NULL;
+    _win               = NULL;
+    _root              = NULL;
 }
 
 
 
 /*! get the window to be used for display
  */
-WindowPtr SimpleSceneManager::getWindow(void)
+Window *SimpleSceneManager::getWindow(void)
 {
     return _win;
 }
 
 /*! get the root of the displayed tree
  */
-NodePtr SimpleSceneManager::getRoot(void)
+Node *SimpleSceneManager::getRoot(void)
 {
     return _root;
 }
@@ -289,30 +289,30 @@ bool SimpleSceneManager::getHeadlightState(void)
 
 /*! get the headlight
  */
-DirectionalLightPtr SimpleSceneManager::getHeadlight(void)
+DirectionalLight *SimpleSceneManager::getHeadlight(void)
 {
     return _headlight;
 }
 
 /*! get the camera
  */
-CameraPtr SimpleSceneManager::getCamera(void)
+Camera *SimpleSceneManager::getCamera(void)
 {
     return _camera;
 }
 
 /*! set the window to be used for display
  */
-void SimpleSceneManager::setWindow(WindowPtr win)
+void SimpleSceneManager::setWindow(Window *win)
 {
     _win = win;
-    if(_win->getMFPort()->size() > 0 && _win->getPort(0) != NullFC)
+    if(_win->getMFPort()->size() > 0 && _win->getPort(0) != NULL)
         _navigator.setViewport(_win->getPort(0));
 }
 
 /*! get the highlight object
  */
-NodePtr SimpleSceneManager::getHighlight(void)
+Node *SimpleSceneManager::getHighlight(void)
 {
     return _highlight;
 }
@@ -378,23 +378,23 @@ void SimpleSceneManager::setAction(RenderAction *action)
 
 /*! set the root of the displayed tree
  */
-void SimpleSceneManager::setRoot(NodePtr root)
+void SimpleSceneManager::setRoot(Node *root)
 {
-    if(_internalRoot == NullFC)
+    if(_internalRoot == NULL)
     {
         initialize();
     }
 
     if(_root != root)
     {
-        if(_root != NullFC)
+        if(_root != NULL)
         {
             _internalRoot->subChild(_root);
         }
 
         _root = root;
 
-        if(_root != NullFC)
+        if(_root != NULL)
         {
             _internalRoot->addChild(_root);
         }
@@ -405,7 +405,7 @@ void SimpleSceneManager::setRoot(NodePtr root)
  */
 void SimpleSceneManager::setHeadlight(bool on)
 {
-    if(_internalRoot == NullFC)
+    if(_internalRoot == NULL)
     {
         initialize();
     }
@@ -439,22 +439,22 @@ void SimpleSceneManager::turnHeadlightOff(void)
     setHeadlight(false);
 }
 
-void SimpleSceneManager::setCamera(CameraPtr camera)
+void SimpleSceneManager::setCamera(Camera *camera)
 {
-    if(camera == NullFC)
+    if(camera == NULL)
         return;
 
     camera->setBeacon(_camera->getBeacon());
 
-    PerspectiveCameraPtr oldPer  = 
+    PerspectiveCamera *oldPer  = 
         dynamic_pointer_cast<PerspectiveCamera>(_camera);
-    PerspectiveCameraPtr newPer  = 
-        dynamic_cast<PerspectiveCameraPtr>(camera);
+    PerspectiveCamera *newPer  = 
+        dynamic_cast<PerspectiveCamera *>(camera);
 
-    OrthographicCameraPtr oldOrt =
+    OrthographicCamera *oldOrt =
         dynamic_pointer_cast<OrthographicCamera>(_camera);
 
-    OrthographicCameraPtr newOrt = dynamic_cast<OrthographicCameraPtr>(camera);
+    OrthographicCamera *newOrt = dynamic_cast<OrthographicCamera *>(camera);
 
 
     if (oldPer && newPer) {
@@ -475,9 +475,9 @@ void SimpleSceneManager::setCamera(CameraPtr camera)
 
     for(UInt32 i=0;i<_win->getMFPort()->size();++i)
     {
-        ViewportPtr vp = _win->getPort(i);
+        Viewport *vp = _win->getPort(i);
 
-        if(vp != NullFC)
+        if(vp != NULL)
         {
             vp->setCamera(camera);
         }
@@ -492,7 +492,7 @@ void SimpleSceneManager::setCamera(CameraPtr camera)
 
 /*! set the highlight object
  */
-void SimpleSceneManager::setHighlight(NodePtr highlight)
+void SimpleSceneManager::setHighlight(Node *highlight)
 {
     _highlight = highlight;
     highlightChanged();
@@ -502,9 +502,9 @@ void SimpleSceneManager::setHighlight(NodePtr highlight)
  */
 void SimpleSceneManager::setStatistics(bool on)
 {
-    if(_statforeground != NullFC && on != _statstate)
+    if(_statforeground != NULL && on != _statstate)
     {
-        ViewportPtr vp = _win->getPort(0);
+        Viewport *vp = _win->getPort(0);
 
         if(on)
         {
@@ -543,7 +543,7 @@ bool SimpleSceneManager::getStatistics(void)
 void SimpleSceneManager::initialize(void)
 {
     // Check necessary stuff
-    if(_win == NullFC)
+    if(_win == NULL)
     {
         FWARNING(("SimpleSceneManager::initialize: window not set, "
                   "ignoring!\n"));
@@ -587,7 +587,7 @@ void SimpleSceneManager::initialize(void)
 
     _camera->setBeacon(cartN);
 
-    PerspectiveCameraPtr pPerspCam = 
+    PerspectiveCamera *pPerspCam = 
         dynamic_pointer_cast<PerspectiveCamera>(_camera);
 
     if(pPerspCam != NULL)
@@ -726,7 +726,7 @@ void SimpleSceneManager::initialize(void)
  */
 void SimpleSceneManager::showAll(void)
 {
-    if(_root == NullFC)
+    if(_root == NULL)
         return;
 
     OSG::commitChanges();      // Commit the changes so the volumes are up to date.
@@ -744,10 +744,10 @@ void SimpleSceneManager::showAll(void)
         d = max - min;
     }
 
-    PerspectiveCameraPtr  perCam = 
+    PerspectiveCamera *perCam = 
         dynamic_pointer_cast<PerspectiveCamera>(_camera);
 
-    OrthographicCameraPtr ortCam =
+    OrthographicCamera *ortCam =
         dynamic_pointer_cast<OrthographicCamera>(_camera);
 
     Real32 dist = osgMax(d[0],d[1]);
@@ -812,7 +812,7 @@ void SimpleSceneManager::idle(void)
  */
 void SimpleSceneManager::update(void)
 {
-    if (_internalRoot == NullFC)
+    if (_internalRoot == NULL)
     {
         initialize();
         showAll();
@@ -850,13 +850,13 @@ void SimpleSceneManager::highlightChanged(void)
 {
   // FDEBUG (("SimpleSceneManager::updateHightlight() called\n"));
     // init as needed
-    if(_highlightMaterial == NullFC)
+    if(_highlightMaterial == NULL)
     {
         _highlightMaterial = SimpleMaterial::create();
         _highlightMaterial->setDiffuse (Color3f(0,1,0));
         _highlightMaterial->setLit     (false);
     }
-    if(_highlightNode == NullFC)
+    if(_highlightNode == NULL)
     {
         GeoUInt8PropertyUnrecPtr type = GeoUInt8Property::create();
         GeoUInt8Property::StoredFieldType* t = type->editFieldPtr();
@@ -913,16 +913,16 @@ void SimpleSceneManager::highlightChanged(void)
     }
 
     // attach the hightlight node to the root if the highlight is active
-    if(getHighlight() != NullFC)
+    if(getHighlight() != NULL)
     {
-        if(_highlightNode->getParent() == NullFC)
+        if(_highlightNode->getParent() == NULL)
         {
             _internalRoot->addChild(_highlightNode);
         }
     }
     else
     {
-        if(_highlightNode->getParent() != NullFC)
+        if(_highlightNode->getParent() != NULL)
         {
             _internalRoot->subChild(_highlightNode);
         }
@@ -937,7 +937,7 @@ void SimpleSceneManager::highlightChanged(void)
  */
 void SimpleSceneManager::updateHighlight(void)
 {
-    if(_highlight==NullFC)
+    if(_highlight == NULL)
         return;
 
     // FDEBUG (("SimpleSceneManager::updateHightlight() called\n"));

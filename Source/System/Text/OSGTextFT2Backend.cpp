@@ -1349,7 +1349,7 @@ TextFT2TXFFace::TextFT2TXFFace(FT_Face face, const TextTXFParam &param)
 
     // Calculate the positions of the glyphs on the texture
     prepareTexture(param);
-    assert(_texture != NullFC);
+    assert(_texture != NULL);
     assert(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
 
     // Create the texture

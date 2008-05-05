@@ -108,9 +108,9 @@ void MatrixCameraDecorator::getProjection(Matrix &result,
                                           UInt32  width, 
                                           UInt32  height)
 {        
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
 
-    if(camera == NullFC)
+    if(camera == NULL)
     {
         FWARNING(("MatrixCameraDecorator::getProjection: no decoratee!\n"));
 
@@ -129,9 +129,9 @@ void MatrixCameraDecorator::getProjectionTranslation(Matrix &result,
                                                      UInt32  width, 
                                                      UInt32  height)
 {        
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
 
-    if(camera == NullFC)
+    if(camera == NULL)
     {
         FWARNING(("MatrixCameraDecorator::getProjectionTranslation: "
                   "no decoratee!\n"));
@@ -151,9 +151,9 @@ void MatrixCameraDecorator::getViewing(Matrix &result,
                                        UInt32  width,
                                        UInt32  height)
 {        
-    CameraPtr camera = getDecoratee();
+    Camera *camera = getDecoratee();
 
-    if(camera == NullFC)
+    if(camera == NULL)
     {
 
         FWARNING(("MatrixCameraDecorator::getViewing: no decoratee!\n"));

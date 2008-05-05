@@ -276,10 +276,10 @@ Action::ResultE IntersectAction::setEnterLeave(Real32 enter, Real32 leave)
     return Action::Continue;
 }
 
-void IntersectAction::setHit(Real32   t, 
-                             NodePtr  obj, 
-                             Int32    triIndex, 
-                             Vec3f   &normal  )
+void IntersectAction::setHit(Real32  t, 
+                             Node   *obj, 
+                             Int32   triIndex, 
+                             Vec3f  &normal  )
 {
     if(t < 0 || t > _hitT || t > _maxdist)
         return;
@@ -303,7 +303,7 @@ void IntersectAction::scale(Real32 s)
 Action::ResultE IntersectAction::start(void)
 {
     _hitT        = Inf;
-    _hitObject   = NullFC;
+    _hitObject   = NULL;
     _hitTriangle = -1;
     _hit         = false;
 

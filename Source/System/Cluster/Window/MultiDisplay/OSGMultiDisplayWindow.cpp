@@ -123,8 +123,8 @@ void MultiDisplayWindow::dump(      UInt32    ,
      called after the first sync.
  */
 
-void MultiDisplayWindow::serverInit(WindowPtr ,
-                                    UInt32    )
+void MultiDisplayWindow::serverInit(Window * ,
+                                    UInt32   )
 {
 }
 
@@ -287,14 +287,14 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
 }
 #endif
 
-void MultiDisplayWindow::serverRender(WindowPtr         window,
+void MultiDisplayWindow::serverRender(Window           *window,
                                       UInt32            id,
                                       RenderActionBase *action)
 {
     TileCameraDecoratorUnrecPtr deco;
     ViewportUnrecPtr serverPort;
-    ViewportPtr clientPort;
-    StereoBufferViewportPtr clientStereoPort;
+    Viewport * clientPort;
+    StereoBufferViewport *clientStereoPort;
     UInt32 sv,cv;
     Int32 l,r,t,b;
     Int32 cleft,cright,ctop,cbottom;
@@ -340,7 +340,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
     {
         clientPort = getPort(cv);
 
-        clientStereoPort = dynamic_cast<StereoBufferViewportPtr>(clientPort);
+        clientStereoPort = dynamic_cast<StereoBufferViewport *>(clientPort);
 
         cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
         cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
@@ -377,7 +377,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
         {
             serverPort = window->getPort(sv);
 
-            deco = dynamic_cast<TileCameraDecoratorPtr>(
+            deco = dynamic_cast<TileCameraDecorator *>(
                 serverPort->getCamera());
 
             if(window->getPort(sv)->getType() != clientPort->getType())
@@ -394,7 +394,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
             }
             else
             {
-                deco = dynamic_cast<TileCameraDecoratorPtr>(
+                deco = dynamic_cast<TileCameraDecorator *>(
                     serverPort->getCamera());
             }
         }
@@ -442,7 +442,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
 /*! swap server window
  */
 
-void MultiDisplayWindow::serverSwap(WindowPtr window, UInt32 id)
+void MultiDisplayWindow::serverSwap(Window *window, UInt32 id)
 {
     Connection *connection;
     
@@ -478,11 +478,11 @@ void MultiDisplayWindow::serverSwap(WindowPtr window, UInt32 id)
 
 void MultiDisplayWindow::clientInit(void)
 {
-    bool             changed = false;
-    ViewportPtr      vp,cvp;
+    bool      changed = false;
+    Viewport *vp, *cvp;
 
     if(getManageClientViewports() == false ||
-       getClientWindow         () == NullFC)
+       getClientWindow         () == NULL)
     {
         return;
     }
@@ -569,8 +569,8 @@ void MultiDisplayWindow::clientSwap( void )
 /*! update all changed viewport field from the client port
  */
 
-void MultiDisplayWindow::updateViewport(ViewportPtr serverPort,
-                                        ViewportPtr clientPort)
+void MultiDisplayWindow::updateViewport(Viewport *serverPort,
+                                        Viewport *clientPort)
 {
     bool equal;
 
@@ -578,7 +578,7 @@ void MultiDisplayWindow::updateViewport(ViewportPtr serverPort,
     if(serverPort == clientPort)
         return;
 
-    if(serverPort == NullFC || clientPort == NullFC)
+    if(serverPort == NULL || clientPort == NULL)
         return;
 
     if(serverPort->getType() != serverPort->getType())

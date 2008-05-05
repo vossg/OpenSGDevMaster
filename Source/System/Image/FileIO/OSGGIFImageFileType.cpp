@@ -185,7 +185,7 @@ GIFImageFileType GIFImageFileType::_the("image/gif",
     the given fileName. Returns true on success.
 */
 
-bool GIFImageFileType::read(      ImagePtr      OSG_GIF_ARG(pImage), 
+bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage), 
                                   std::istream &OSG_GIF_ARG(is),
                             const std::string  &OSG_GIF_ARG(mimetype))
 {
@@ -515,9 +515,9 @@ bool GIFImageFileType::read(      ImagePtr      OSG_GIF_ARG(pImage),
     Returns true on success.
 */
 
-bool GIFImageFileType::write(      ConstImagePtr  , 
-                                   std::ostream     &, 
-                             const std::string      &)
+bool GIFImageFileType::write(const Image         *  , 
+                                   std::ostream  &, 
+                             const std::string   &)
 {
 #ifdef OSG_WITH_GIF
     SWARNING << getMimeType() << " write is not implemented " << endLog;

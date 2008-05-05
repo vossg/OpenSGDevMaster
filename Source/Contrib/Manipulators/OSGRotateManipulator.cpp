@@ -142,7 +142,7 @@ NodeTransitPtr RotateManipulator::makeHandleGeo()
     return makeSphere(2, 0.2);
 }
 
-void RotateManipulator::doMovement(      TransformPtr  t,
+void RotateManipulator::doMovement(      Transform    *t,
                                    const Int32         coord,
                                    const Real32        value,
                                    const Vec3f        &translation,

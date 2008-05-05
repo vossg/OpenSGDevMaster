@@ -114,10 +114,10 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    NodeCorePtr getCore(      void            );
-    NodeCorePtr getCore(      void            ) const;
+    NodeCore *getCore(void                 );
+    NodeCore *getCore(void                 ) const;
 
-    void        setCore(const NodeCorePtr core);
+    void      setCore(NodeCore * const core);
     
     template <class ObjectT>
     void        setCore(TransitPtr<ObjectT>  core);
@@ -127,35 +127,35 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    NodePtr getParent(void);
+    Node *getParent(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    UInt32  getNChildren  (      void                     ) const;
+    UInt32  getNChildren  (void                      ) const;
 
-    void    addChild      (const NodePtr        childP    );
-    void    addChild      (      NodeTransitPtr childP    );
+    void    addChild      (Node   * const  childP    );
+    void    addChild      (NodeTransitPtr  childP    );
 
-    void    insertChild   (      UInt32         childIndex,
-                           const NodePtr        childP    );
+    void    insertChild   (UInt32          childIndex,
+                           Node   * const  childP    );
 
-    void    replaceChild  (      UInt32         childIndex,
-                           const NodePtr        childP    );
+    void    replaceChild  (UInt32          childIndex,
+                           Node   * const  childP    );
 
-    bool    replaceChildBy(const NodePtr        childP,
-                           const NodePtr        newChildP );
+    bool    replaceChildBy(Node   * const  childP,
+                           Node   * const  newChildP );
 
-    Int32   findChild     (const NodePtr        childP    ) const;
+    Int32   findChild     (Node   * const  childP    ) const;
 
-    void    subChild      (const NodePtr        childP    );
-    void    subChild      (      UInt32         childIndex);
+    void    subChild      (Node   * const  childP    );
+    void    subChild      (UInt32          childIndex);
 
-    NodePtr getChild      (      UInt32         childIndex) const;
+    Node   *getChild      (UInt32          childIndex) const;
 
-    void    clearChildren (      void                     );
+    void    clearChildren (void                      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -307,15 +307,15 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual bool linkParent  (const FieldContainerPtr pParent,
-                              const UInt16            childFieldId,
-                              const UInt16            parentFieldId);
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
 
-    virtual bool unlinkParent(const FieldContainerPtr pParent,
-                              const UInt16            parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
             
-    virtual bool unlinkChild (const FieldContainerPtr pChild,
-                              const UInt16            childFieldId ); 
+    virtual bool unlinkChild (FieldContainer * const pChild,
+                              UInt16           const childFieldId ); 
 
 
     /*! \}                                                                 */
@@ -329,7 +329,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjPtr createAspectCopy(void) const;
+    virtual Node *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */
@@ -394,7 +394,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr cloneTree(      
-          ConstNodePtr                             rootNode,
+    const Node                                    *rootNode,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -408,14 +408,14 @@ NodeTransitPtr cloneTree(
 
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr cloneTree(      
-          ConstNodePtr                             rootNode,
+    const Node                                    *rootNode,
     const std::vector<UInt16>                     &cloneGroupIds,
     const std::vector<UInt16>                     &ignoreGroupIds    =
               std::vector<UInt16>()                                   );
 
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr cloneTree(      
-          ConstNodePtr                             rootNode,
+    const Node                                    *rootNode,
     const std::string                             &cloneTypesString,
     const std::string                             &ignoreTypesString =
               std::string()                                           );
@@ -423,7 +423,7 @@ NodeTransitPtr cloneTree(
 #ifdef OSG_1_COMPAT
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr cloneTree(      
-          ConstNodePtr                                 rootNode,
+    const Node                                        *rootNode,
 
     const std::vector<const ReflexiveContainerType *> &cloneTypes        =
               std::vector<const ReflexiveContainerType *>(),
@@ -439,7 +439,7 @@ NodeTransitPtr cloneTree(
 #else
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr cloneTree(      
-          ConstNodePtr                                 rootNode,
+    const Node                                        *rootNode,
 
     const std::vector<const ReflexiveContainerType *> &cloneTypes        =
               std::vector<const ReflexiveContainerType *>(),
@@ -456,7 +456,7 @@ NodeTransitPtr cloneTree(
 
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr deepCloneTree(
-          ConstNodePtr                             rootNode,
+    const Node                                    *rootNode,
     const std::vector<std::string>                &shareTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames  =
@@ -470,7 +470,7 @@ NodeTransitPtr deepCloneTree(
 
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr deepCloneTree(      
-          ConstNodePtr                             rootNode,
+    const Node                                    *rootNode,
     const std::vector<UInt16>                     &shareGroupIds,
 
     const std::vector<UInt16>                     &ignoreGroupIds   =
@@ -478,7 +478,7 @@ NodeTransitPtr deepCloneTree(
 
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr deepCloneTree(      
-          ConstNodePtr                             rootNode,
+    const Node                                    *rootNode,
     const std::string                             &shareTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -486,7 +486,7 @@ NodeTransitPtr deepCloneTree(
 
 OSG_SYSTEM_DLLMAPPING
 NodeTransitPtr deepCloneTree(      
-          ConstNodePtr                                 rootNode,
+    const Node                                        *rootNode,
 
     const std::vector<const ReflexiveContainerType *> &shareTypes     =
               std::vector<const ReflexiveContainerType *>(),

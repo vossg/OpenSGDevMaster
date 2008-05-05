@@ -45,9 +45,9 @@ OSG_BEGIN_NAMESPACE
 */
 
 template<class CntPtr> inline
-DrawableStatsAttachmentPtr DrawableStatsAttachment::get(CntPtr arg)
+DrawableStatsAttachment *DrawableStatsAttachment::get(CntPtr arg)
 {
-    return dynamic_cast<DrawableStatsAttachmentPtr>(
+    return dynamic_cast<DrawableStatsAttachment *>(
             arg->findAttachment(DrawableStatsAttachment::getClassType()));
 
 }

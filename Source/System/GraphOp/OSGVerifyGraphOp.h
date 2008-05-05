@@ -77,7 +77,7 @@ public:
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(NodePtr node);
+    bool traverse(Node *node);
     
     void setParams(const std::string params);
     void setVerbose(bool verbose);    
@@ -90,8 +90,8 @@ public:
     /*=========================  PROTECTED  ===============================*/
 protected:    
 
-    Action::ResultE traverseEnter(const NodePtr node);
-    Action::ResultE traverseLeave(const NodePtr node, Action::ResultE res);
+    Action::ResultE traverseEnter(Node * const node);
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -105,8 +105,8 @@ private:
 
     /* Some internal helper methods */
     
-    Action::ResultE verifyGeometry(const NodePtr node);
-    bool verifyIndexMap(GeometryPtr geo, bool &repair);
+    Action::ResultE verifyGeometry(Node * const node);
+    bool verifyIndexMap(Geometry *geo, bool &repair);
     bool repairGeometry(void);    
 
     /* Configuration variables */
@@ -118,8 +118,8 @@ private:
     
    UInt32 _numErrors;  /**< The running total of errors found. */
 
-   std::vector<OSG::GeometryPtr> _corruptedGeos;
-   std::vector<OSG::NodePtr>     _corruptedNodes;
+   std::vector<OSG::Geometry *> _corruptedGeos;
+   std::vector<OSG::Node     *> _corruptedNodes;
     
 };
 

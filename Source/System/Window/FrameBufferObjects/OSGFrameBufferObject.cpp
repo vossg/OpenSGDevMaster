@@ -149,8 +149,8 @@ typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
 // regenerate the base file.
 
 void FrameBufferObject::setColorAttachment(
-    FrameBufferAttachmentPtr pAttachment,
-    UInt32                   uiSlot            )
+    FrameBufferAttachment *pAttachment,
+    UInt32                 uiSlot     )
 {
     if(uiSlot >= GL_COLOR_ATTACHMENT0_EXT)
     {
@@ -159,7 +159,7 @@ void FrameBufferObject::setColorAttachment(
 
     if(uiSlot <= _mfColorAttachments.size())
     {
-        _mfColorAttachments.resize(uiSlot + 1, NullFC);
+        _mfColorAttachments.resize(uiSlot + 1, NULL);
     }
 
 //    setRefd(_mfColorAttachments[uiSlot], pAttachment);
@@ -253,7 +253,7 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField,
 
     if(0x0000 != (whichField & (WidthFieldMask | HeightFieldMask)))
     {
-        if(_sfDepthAttachment.getValue() != NullFC)
+        if(_sfDepthAttachment.getValue() != NULL)
         {
             _sfDepthAttachment.getValue()->resize(getWidth (),
                                                   getHeight());
@@ -264,7 +264,7 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField,
 
     if(0x0000 != (whichField & DepthAttachmentFieldMask))
     {
-        if(_sfDepthAttachment.getValue() != NullFC)
+        if(_sfDepthAttachment.getValue() != NULL)
         {
             _sfDepthAttachment.getValue()->resize(getWidth (),
                                                   getHeight());
@@ -409,7 +409,7 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         while(attIt != attEnd && index < iMaxColorAttachments)
         {
-            if(*attIt != NullFC)
+            if(*attIt != NULL)
             {
                 (*attIt)->bind(pEnv, index);
             }
@@ -439,7 +439,7 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
             ++index;
         }
 
-        if(_sfDepthAttachment.getValue() != NullFC)
+        if(_sfDepthAttachment.getValue() != NULL)
         {
             _sfDepthAttachment.getValue()->bind(pEnv, 
                                                 GL_DEPTH_ATTACHMENT_EXT);
@@ -454,7 +454,7 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         glErr("FrameBufferObject::depth");
         
-        if(_sfStencilAttachment.getValue() != NullFC)
+        if(_sfStencilAttachment.getValue() != NULL)
         {
             _sfStencilAttachment.getValue()->bind(pEnv, 
                                                   GL_STENCIL_ATTACHMENT_EXT);
@@ -478,7 +478,7 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         while(attIt != attEnd)
         {
-            if(*attIt != NullFC)
+            if(*attIt != NULL)
             {
                 (*attIt)->validate(pEnv);
             }
@@ -488,12 +488,12 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
             ++attIt;
         }
 
-        if(_sfDepthAttachment.getValue() != NullFC)
+        if(_sfDepthAttachment.getValue() != NULL)
         {
             _sfDepthAttachment.getValue()->validate(pEnv);
         }
 
-        if(_sfStencilAttachment.getValue() != NullFC)
+        if(_sfStencilAttachment.getValue() != NULL)
         {
             _sfStencilAttachment.getValue()->validate(pEnv);
         }

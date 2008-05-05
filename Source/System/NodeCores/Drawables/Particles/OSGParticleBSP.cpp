@@ -376,9 +376,9 @@ void ParticleBSPTree::build(Particles *core)
         return;
     }
     
-    const GeoVectorPropertyPtr pos = core->getPositions();
+    GeoVectorProperty * const pos = core->getPositions();
     
-    if(pos == NullFC)
+    if(pos == NULL)
         return;
 
     const MFInt32 *indices = core->getMFIndices();
@@ -421,7 +421,7 @@ void ParticleBSPTree::build(Particles *core)
 
 struct ParticleCompare : public std::binary_function<Int32, Int32, bool> 
 {
-    ParticleCompare(GeoVectorPropertyPtr pos, UInt8 axis) : 
+    ParticleCompare(GeoVectorProperty *pos, UInt8 axis) : 
         _pos(pos), 
         _axis(axis)
     {}
@@ -435,14 +435,14 @@ struct ParticleCompare : public std::binary_function<Int32, Int32, bool>
         return px[_axis] < py[_axis]; 
     }
     
-    GeoVectorPropertyPtr _pos;
-    UInt8                _axis;
+    GeoVectorProperty *_pos;
+    UInt8              _axis;
 };
     
-UInt32 ParticleBSPTree::doBuild(std::vector<Int32>::iterator begin, 
-                                std::vector<Int32>::iterator end,
-                                     UInt32                  nodeindex,
-                                     GeoVectorPropertyPtr    pos)
+UInt32 ParticleBSPTree::doBuild(std::vector<Int32>::iterator  begin, 
+                                std::vector<Int32>::iterator  end,
+                                     UInt32                   nodeindex,
+                                     GeoVectorProperty       *pos)
 {
     // reached a leaf?
     

@@ -141,7 +141,7 @@ NodeTransitPtr ScaleManipulator::makeHandleGeo()
     return makeCylinder(0.75, 0.1, 12, true, true, true);
 }
 
-void ScaleManipulator::doMovement(      TransformPtr  t,
+void ScaleManipulator::doMovement(      Transform    *t,
                                   const Int32         coord,
                                   const Real32        value,
                                   const Vec3f        &translation,

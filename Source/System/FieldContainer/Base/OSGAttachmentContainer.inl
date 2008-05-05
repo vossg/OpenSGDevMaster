@@ -52,12 +52,11 @@ const Char8 *AttachmentContainer::getClassname(void)
  *                 to determine the slot in the attachment map.
  *
  * Attempt to find attachment in map using key (binding|groupId).
- * If found, return it, else return NullFC
+ * If found, return it, else return NULL
  */
 inline
-AttachmentContainer::AttachmentObjPtr
-    AttachmentContainer::findAttachment(UInt32 groupId,
-                                        UInt16 binding) const
+Attachment *AttachmentContainer::findAttachment(UInt32 groupId,
+                                                UInt16 binding) const
 {
     UInt32 key = (UInt32(groupId) << 16) | binding;
 
@@ -65,7 +64,7 @@ AttachmentContainer::AttachmentObjPtr
 
     if(fcI == _sfAttachments.getValue().end())
     {
-        return NullFC;
+        return NULL;
     }
     else
     {
@@ -81,14 +80,13 @@ AttachmentContainer::AttachmentObjPtr
  *                 to determine the slot in the attachment map.
  *
  * Attempt to find attachment in map using key (binding|groupId).
- * If found, return it, else return NullFC
+ * If found, return it, else return NULL
  */
 
 inline
-AttachmentContainer::AttachmentObjPtr
-    AttachmentContainer::findAttachment(
-        const FieldContainerType &type,
-              UInt16              binding) const
+Attachment *AttachmentContainer::findAttachment(
+    const FieldContainerType &type,
+          UInt16              binding) const
 {
     return findAttachment(type.getGroupId(), binding);
 }

@@ -153,9 +153,9 @@ NodeTransitPtr ColladaFileType::read(
 }
 
 
-bool ColladaFileType::write(const NodePtr      &node, 
-                                  std::ostream &os,
-                            const Char8        *fileNameOrExtension) const
+bool ColladaFileType::write(Node         * const  node, 
+                            std::ostream         &os,
+                            Char8          const *fileNameOrExtension) const
 {
     return true;
 }

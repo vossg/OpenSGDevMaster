@@ -75,20 +75,20 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool addChunk(StateChunkPtr chunk, 
-                  Int32         slot = State::AutoSlotReplace);
+    bool addChunk(StateChunk *chunk, 
+                  Int32       slot = State::AutoSlotReplace);
 
-    bool subChunk(StateChunkPtr chunk, 
-                  Int32         slot = State::AutoSlotReplace);
+    bool subChunk(StateChunk *chunk, 
+                  Int32       slot = State::AutoSlotReplace);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    Int32         find(      StateChunkPtr    chunk);
-    StateChunkPtr find(const StateChunkClass &type, 
-                             Int32            slot =State::AutoSlotReplace);
+    Int32       find(      StateChunk      *chunk);
+    StateChunk *find(const StateChunkClass &type, 
+                           Int32            slot =State::AutoSlotReplace);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

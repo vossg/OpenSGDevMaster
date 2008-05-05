@@ -81,9 +81,9 @@ MTDImageFileType MTDImageFileType::_the("image/x-mtd",
     the given stream. Returns true on success.
  */
 
-bool MTDImageFileType::read(      ImagePtr          pImage, 
-                                  std::istream     &is, 
-                            const std::string      &mimetype)
+bool MTDImageFileType::read(      Image         *pImage, 
+                                  std::istream  &is, 
+                            const std::string   &mimetype)
 {
   bool retCode = false;
   Head head;
@@ -122,9 +122,9 @@ bool MTDImageFileType::read(      ImagePtr          pImage,
 Tries to write the image object to the given stream.
 Returns true on success.
 */
-bool MTDImageFileType::write(      ConstImagePtr     pImage, 
-                                   std::ostream     &os, 
-                             const std::string      &mimetype)
+bool MTDImageFileType::write(const Image        *pImage, 
+                                   std::ostream &os, 
+                             const std::string  &mimetype)
 {
     bool retCode = false;
 
@@ -164,9 +164,9 @@ bool MTDImageFileType::write(      ConstImagePtr     pImage,
 Tries to restore the image data from the given memblock.
 Returns the amount of data read.
 */
-UInt64 MTDImageFileType::restoreData(      ImagePtr          pImage, 
-                                     const UChar8           *buffer,
-                                           Int32                   )
+UInt64 MTDImageFileType::restoreData(      Image  *pImage, 
+                                     const UChar8 *buffer,
+                                           Int32         )
 {
     pImage->setData(buffer);
 
@@ -178,9 +178,9 @@ UInt64 MTDImageFileType::restoreData(      ImagePtr          pImage,
     Returns the amount of data written.
  */
 
-UInt64 MTDImageFileType::storeData(ConstImagePtr     pImage, 
-                                   UChar8           *buffer,
-                                   Int32                   )
+UInt64 MTDImageFileType::storeData(const Image  *pImage, 
+                                         UChar8 *buffer,
+                                         Int32         )
 {
     unsigned dataSize = pImage->getSize();
     const UChar8 *src = pImage->getData();

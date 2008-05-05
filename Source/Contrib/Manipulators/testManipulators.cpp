@@ -15,10 +15,10 @@
 
 OSG_USING_NAMESPACE
 
-NodeRefPtr         scene   = NullFC;
-TransformRefPtr    interTC = NullFC;
-NodeRefPtr         interN  = NullFC;
-NodeRefPtr         maniN   = NullFC;
+NodeRefPtr         scene   = NULL;
+TransformRefPtr    interTC = NULL;
+NodeRefPtr         interN  = NULL;
+NodeRefPtr         maniN   = NULL;
 
 ManipulatorManager *mama;
 SimpleSceneManager *mgr;
@@ -146,10 +146,10 @@ void keyboard(unsigned char k, int x, int y)
     case 27:    
         delete mama;
         delete mgr;
-        scene   = NullFC;
-        interTC = NullFC;
-        interN  = NullFC;
-        maniN   = NullFC;
+        scene   = NULL;
+        interTC = NULL;
+        interN  = NULL;
+        maniN   = NULL;
         osgExit();
         exit(1);
     case ' ':

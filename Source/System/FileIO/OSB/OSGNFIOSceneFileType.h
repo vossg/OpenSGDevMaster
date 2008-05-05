@@ -88,9 +88,9 @@ class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr      &node,
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
+    virtual bool write(Node         * const  node,
+                       std::ostream         &os,
+                       Char8          const *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -110,10 +110,10 @@ class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
     /*! \{                                                                 */
 
     NFIOSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
+                            UInt16  suffixByteCount,
+                            bool    override,
+                            UInt32  overridePriority,
+                            UInt32  flags);
 
     NFIOSceneFileType(const NFIOSceneFileType &obj);
 

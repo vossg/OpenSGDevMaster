@@ -98,7 +98,7 @@ OSGWriter::~OSGWriter(void)
 /*! Write a single FieldContainer with all its "children", i.e. everything
  *  that can be reached via Ptr-Fields.
  */
-void OSGWriter::write(FieldContainerPtr container)
+void OSGWriter::write(FieldContainer *container)
 {
     _visitedFCMap.clear();
 //    _indent.setIndent(0);
@@ -114,14 +114,14 @@ void OSGWriter::write(FieldContainerPtr container)
 /*! Write all FieldContainers in containers with their "children",
  *  i.e. everything that can be reached via Ptr-Fields.
  */
-void OSGWriter::write(std::vector<FieldContainerPtr> containers)
+void OSGWriter::write(std::vector<FieldContainer *> containers)
 {
     _visitedFCMap.clear();
 //    _indent.setIndent(0);
 
     _outStream << "#OSG V1.0 " << "\n";
 
-    std::vector<FieldContainerPtr>::reverse_iterator iter;
+    std::vector<FieldContainer *>::reverse_iterator iter;
 
     for(iter = containers.rbegin(); iter != containers.rend(); ++iter)
     {
@@ -140,23 +140,23 @@ void OSGWriter::write(std::vector<FieldContainerPtr> containers)
  *  the type name and the container id.
  */
 
-void OSGWriter::FCInfoHelper::setName(const FieldContainerPtr pFC)
+void OSGWriter::FCInfoHelper::setName(FieldContainer * const pFC)
 {
     const FieldContainerType& fcType = pFC->getType();
 
 #ifdef FIXME
-    AttachmentContainerPtr pAttCon;
-    NamePtr                pNameAtt;
+    AttachmentContainer *pAttCon;
+    Name                *pNameAtt;
 
     if(fcType.isDerivedFrom(AttachmentContainer::getClassType()))
     {
         pAttCon = AttachmentContainerPtr::dcast(pFC);
-        if(pAttCon != NullFC)
+        if(pAttCon != NULL)
         {
             pNameAtt = NamePtr::dcast(pAttCon->findAttachment(
                 Name::getClassType().getGroupId()));
 
-            if(pNameAtt != NullFC)
+            if(pNameAtt != NULL)
             {
                 containerName = pNameAtt->getFieldPtr()->getValue().c_str();
                 return;
@@ -172,10 +172,10 @@ void OSGWriter::FCInfoHelper::setName(const FieldContainerPtr pFC)
 }
 
 
-void OSGWriter::visitContainer(const FieldContainerPtr pFC)
+void OSGWriter::visitContainer(FieldContainer * const pFC)
 {
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         return;
     }
@@ -212,7 +212,7 @@ void OSGWriter::visitContainer(const FieldContainerPtr pFC)
 
         if(iter == _visitedFCMap.end())
         {
-            SWARNING << "OSGWriter::visitContainer(): FieldContainerPtr "
+            SWARNING << "OSGWriter::visitContainer(): FieldContainer * "
                      << "not found in map" << std::endl;
             return;
         }
@@ -291,10 +291,10 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
 }
 
 
-void OSGWriter::writeContainer(const FieldContainerPtr pFC,
-                                     bool              bIndent)
+void OSGWriter::writeContainer(FieldContainer * const pFC,
+                               bool                   bIndent)
 {
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         return;
     }
@@ -305,7 +305,7 @@ void OSGWriter::writeContainer(const FieldContainerPtr pFC,
 
     if(iter == _visitedFCMap.end())
     {
-        SWARNING << "OSGWriter::writeContainer(): FieldContainerPtr "
+        SWARNING << "OSGWriter::writeContainer(): FieldContainer * "
                  << "not found in map" << std::endl;
         return;
     }
@@ -460,7 +460,7 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 //            const SFFieldContainerPtr* sfFCPtr =
 //                reinterpret_cast<const SFFieldContainerPtr*>(hF.getField());
 
-            if((*sfFCPtr)->getValue() == NullFC)
+            if((*sfFCPtr)->getValue() == NULL)
             {
                 _outStream << " NULL" << EndElemNL;
             }
@@ -487,7 +487,7 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
             for(UInt32 i=0; i < mfSize; i++)
             {
-                if((*(*mfFCPtr))[i] == NullFC)
+                if((*(*mfFCPtr))[i] == NULL)
                 {
                     _outStream << BeginElem
                                << "NULL" 

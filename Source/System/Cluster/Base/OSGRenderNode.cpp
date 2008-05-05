@@ -252,7 +252,7 @@ RenderNode &RenderNode::operator=(const RenderNode &source)
  *         max( visible * visibleFaceCost , pixel * pixelCost)
  *  </pre>
  */
-void RenderNode::determinePerformance(WindowPtr &window)
+void RenderNode::determinePerformance(Window *window)
 {
     int     c;
     double  t;

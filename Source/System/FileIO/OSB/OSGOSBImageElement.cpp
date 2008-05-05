@@ -164,7 +164,7 @@ OSBImageElement::postRead(void)
 /* Writing                                                                 */
 
 void
-OSBImageElement::preWrite(const FieldContainerPtr &fc)
+OSBImageElement::preWrite(FieldContainer * const fc)
 {
     FDEBUG(("OSBImageElement::preWrite\n"));
 
@@ -176,13 +176,13 @@ OSBImageElement::write(void)
 {
     FDEBUG(("OSBImageElement::write\n"));
 
-    if(getContainer() == NullFC)
+    if(getContainer() == NULL)
     {
-        FWARNING(("OSBImageElement::write: Attempt to write NullFC.\n"));
+        FWARNING(("OSBImageElement::write: Attempt to write NULL.\n"));
         return;
     }
 
-    ImagePtr              img   = dynamic_cast<ImagePtr>(getContainer());
+    Image                *img   = dynamic_cast<Image *>(getContainer());
     BinaryWriteHandler   *wh    = editRoot()->getWriteHandler();
     const OSBRootElement *root  = getRoot();
     UInt8                 flags = 0;
@@ -232,7 +232,7 @@ void
 OSBImageElement::readCompressedPixelData(void)
 {
     BinaryReadHandler *rh  = editRoot()->getReadHandler();
-    ImagePtr           img = dynamic_cast<ImagePtr>(getContainer());
+    Image             *img = dynamic_cast<Image *>(getContainer());
 
     std::string        fieldTypeName;
     UInt32             fieldSize;
@@ -272,7 +272,7 @@ OSBImageElement::writeCompressedPixelData(void)
     const OSBRootElement *root = getRoot();
     BinaryWriteHandler   *wh   = editRoot()->getWriteHandler();
 
-    ImagePtr    img       = dynamic_cast<ImagePtr>(getContainer());
+    Image       *img       = dynamic_cast<Image *>(getContainer());
     //std::string imageType = root->getOptions().textureImageType();
     std::string imageType = "jpeg";
 

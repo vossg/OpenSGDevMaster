@@ -136,11 +136,11 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
     void initGeometries(void);
 
 #ifdef OSG_WITH_VTK
-    bool processPrimitive(OSG::GeoPnt3fPropertyPtr   pPoints,
-                          OSG::GeoColor4fPropertyPtr pColors,
-                          OSG::GeoVec3fPropertyPtr   pNormals,
-                          OSG::GeoUInt32PropertyPtr  pLengths,
-                          OSG::GeoUInt8PropertyPtr   pTypes,
+    bool processPrimitive(OSG::GeoPnt3fProperty   *pPoints,
+                          OSG::GeoColor4fProperty *pColors,
+                          OSG::GeoVec3fProperty   *pNormals,
+                          OSG::GeoUInt32Property  *pLengths,
+                          OSG::GeoUInt8Property   *pTypes,
                           
                           vtkActor                *actor, 
                           vtkCellArray            *primArray,
@@ -181,9 +181,6 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
 };
 
 typedef VTKMapper *VTKMapperP;
-
-typedef VTKMapper::ObjPtr      VTKMapperPtr;
-typedef VTKMapper::ConstObjPtr ConstVTKMapperPtr;
 
 OSG_END_NAMESPACE
 

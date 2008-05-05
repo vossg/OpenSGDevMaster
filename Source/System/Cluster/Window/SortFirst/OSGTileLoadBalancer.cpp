@@ -116,14 +116,14 @@ TileLoadBalancer& TileLoadBalancer::operator = (const TileLoadBalancer &source)
 
 /** Update the load balancing information
  **/
-void TileLoadBalancer::update(NodePtr node)
+void TileLoadBalancer::update(Node *node)
 {
     TileGeometryLoadMapT loadMap;
 
     // collect old load objects
     for(TileGeometryLoadLstT::iterator gI=_tileGeometryLoad.begin();gI!=_tileGeometryLoad.end();++gI)
     {
-        if(gI->getNode() != NullFC)
+        if(gI->getNode() != NULL)
             loadMap[gI->getNode()->getId()] = gI;
         else
             gI->setValid(false);
@@ -147,7 +147,7 @@ void TileLoadBalancer::update(NodePtr node)
  *  \param result    resulting regions
  *
  **/
-void TileLoadBalancer::balance(ViewportPtr    vp,
+void TileLoadBalancer::balance(Viewport      *vp,
                                bool           shrink,
                                ResultT       &result)
 {
@@ -237,8 +237,8 @@ void TileLoadBalancer::balance(ViewportPtr    vp,
     }
 }
 
-void TileLoadBalancer::setRegionStatistics(ViewportPtr     vp,
-                                           ResultT        &result)
+void TileLoadBalancer::setRegionStatistics(Viewport *vp,
+                                           ResultT  &result)
 {
     Matrix                         projection,viewing;
     Int32                          width =vp->getPixelWidth();
@@ -313,7 +313,7 @@ void TileLoadBalancer::addRenderNode(const RenderNode &rn,UInt32 id)
 /** Draw recangular volume projection
  *
  **/
-void TileLoadBalancer::drawVolumes(WindowPtr win)
+void TileLoadBalancer::drawVolumes(Window *win)
 {
     glPushMatrix();
     glLoadIdentity();
@@ -347,11 +347,12 @@ void TileLoadBalancer::drawVolumes(WindowPtr win)
 
 /** Add all geometry nodes in the given tree
  **/
-void TileLoadBalancer::updateSubtree(const NodePtr node,TileGeometryLoadMapT &loadMap)
+void TileLoadBalancer::updateSubtree(Node * const node,
+                                     TileGeometryLoadMapT &loadMap)
 {
     // is nodecore a geometry?
-    if(node->getCore() != NullFC &&
-       dynamic_cast<GeometryPtr>(node->getCore()) != NullFC)
+    if(node->getCore() != NULL &&
+       dynamic_cast<Geometry *>(node->getCore()) != NULL)
     {
         // is this a new node
         TileGeometryLoadMapT::iterator mI=loadMap.find(node->getId());

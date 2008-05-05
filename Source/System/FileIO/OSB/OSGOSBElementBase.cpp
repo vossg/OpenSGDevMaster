@@ -175,7 +175,7 @@ OSBElementBase::BinaryWriteHandler::write(MemoryHandle mem, UInt32 size)
     given \a fieldId of the given FieldContainer \a fc.
  */
 OSBElementBase::PtrFieldInfo::PtrFieldInfo(
-    const FieldContainerPtr fc, UInt32 fieldId)
+    FieldContainer * const fc, UInt32 fieldId)
     : _fc      (fc     ),
       _fieldId (fieldId),
       _ptrIds  (       ),
@@ -227,7 +227,7 @@ const std::string OSBElementBase::OSGOSB_HEADER_ID_2  ("OpenSG binary V2.0" );
 /* Constructor                                                             */
 
 OSBElementBase::OSBElementBase(OSBRootElement *root, const UInt16 version)
-    : _container  (NullFC ),
+    : _container  (NULL   ),
       _rootElement(root   ),
       _version    (version)
 {

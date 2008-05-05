@@ -143,7 +143,7 @@ class OSG_UTIL_DLLMAPPING Navigator
     /*! \{                                                                 */
 
     void setMode         (Mode new_mode, bool copyViewParams=false);
-    void setViewport     (ViewportPtr   new_viewport);
+    void setViewport     (Viewport     *new_viewport);
     void setRotationAngle(Real32        new_angle   );
     void setMotionFactor (Real32        new_factor  );
     void setFrom         (Pnt3f         new_from    );
@@ -157,7 +157,7 @@ class OSG_UTIL_DLLMAPPING Navigator
 
     bool setClickNoIntersect (bool state);
 
-    void setCameraTransformation(const NodePtr & new_cartn);
+    void setCameraTransformation(Node * const new_cartn);
 
     void setUserEngine(NavigatorEngine* userEngine);
 
@@ -182,7 +182,7 @@ class OSG_UTIL_DLLMAPPING Navigator
           bool    getMoved(void);
           Int16   getLastX(void);
           Int16   getLastY(void);
-    ViewportPtr   getViewport(void);
+    Viewport     *getViewport(void);
 
     TrackballEngine*  getTrackballNavigator(void);
     FlyEngine*        getFlyNavigator(void);

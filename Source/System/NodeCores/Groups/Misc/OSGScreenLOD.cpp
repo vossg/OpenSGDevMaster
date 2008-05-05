@@ -155,11 +155,11 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
             if (!use_overrides)
             {
                //Get max LOD number of triangles
-               NodePtr pmax = action->getNode(0);
-               DrawableStatsAttachmentPtr st_max = 
+               Node *pmax = action->getNode(0);
+               DrawableStatsAttachment *st_max = 
                    DrawableStatsAttachment::get(pmax);
 
-               if(st_max == NullFC)
+               if(st_max == NULL)
                {
                   DrawableStatsAttachment::addTo(pmax);
                   st_max = DrawableStatsAttachment::get(pmax);
@@ -167,10 +167,10 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
                st_max->validate();
    
                //Get min LOD number of triangles
-               NodePtr pmin = action->getNode(numLevels-1);
-               DrawableStatsAttachmentPtr st_min = 
+               Node *pmin = action->getNode(numLevels-1);
+               DrawableStatsAttachment *st_min = 
                    DrawableStatsAttachment::get(pmin);
-               if(st_min == NullFC)
+               if(st_min == NULL)
                {
                   DrawableStatsAttachment::addTo(pmin);
                   st_min = DrawableStatsAttachment::get(pmin);

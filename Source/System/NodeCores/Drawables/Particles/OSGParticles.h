@@ -116,7 +116,7 @@ class OSG_DRAWABLE_DLLMAPPING Particles : public ParticlesBase
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void fill(DrawableStatsAttachmentPtr pStat);
+    virtual void fill(DrawableStatsAttachment *pStat);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

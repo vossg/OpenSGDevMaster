@@ -130,8 +130,8 @@ PrimitiveIterator::PrimitiveIterator(void) :
     _actPointIndex      (     0),
     _actPrimType        (     0), 
     _actPrimLength      (     0),
-    _types              (NullFC), 
-    _lengths            (NullFC),
+    _types              (NULL  ), 
+    _lengths            (NULL  ),
     _inds               (      ),
     _props              (      )
 {
@@ -142,15 +142,15 @@ PrimitiveIterator::PrimitiveIterator(void) :
     Otherwise, use Geometry::beginPrimitives() resp. Geometry::endPrimitives()
     to create an iterator.
 */
-PrimitiveIterator::PrimitiveIterator(ConstGeometryPtr geo) :
+PrimitiveIterator::PrimitiveIterator(Geometry const * geo) :
     _geo                (      ), 
     _ended              (  true),
     _primIndex          (     0), 
     _actPointIndex      (     0),
     _actPrimType        (     0), 
     _actPrimLength      (     0),
-    _types              (NullFC), 
-    _lengths            (NullFC),
+    _types              (NULL  ), 
+    _lengths            (NULL  ),
     _inds               (      ),
     _props              (      )
 {
@@ -162,15 +162,15 @@ PrimitiveIterator::PrimitiveIterator(ConstGeometryPtr geo) :
     to a specific indexed face. Otherwise, use Geometry::beginPrimitives()
     resp. Geometry::endPrimitives() to create an iterator.
 */
-PrimitiveIterator::PrimitiveIterator(const NodePtr geo) :
+PrimitiveIterator::PrimitiveIterator(Node * const geo) :
     _geo                (      ), 
     _ended              (  true),
     _primIndex          (     0), 
     _actPointIndex      (     0),
     _actPrimType        (     0), 
     _actPrimLength      (     0),
-    _types              (NullFC), 
-    _lengths            (NullFC),
+    _types              (NULL  ), 
+    _lengths            (NULL  ),
     _inds               (      ),
     _props              (      )
 {
@@ -207,9 +207,9 @@ PrimitiveIterator::~PrimitiveIterator(void)
 /*! Switch the iterator to a new geometry. Automatically sets it to the
     beginning.
 */
-void PrimitiveIterator::setGeo(ConstGeometryPtr geo)
+void PrimitiveIterator::setGeo(Geometry const * geo)
 {
-    OSG_ASSERT(geo != NullFC);
+    OSG_ASSERT(geo != NULL);
 
     _geo     = geo;
     _types   = geo->getTypes();
@@ -228,11 +228,11 @@ void PrimitiveIterator::setGeo(ConstGeometryPtr geo)
 /*! Switch the iterator to a new geometry. Automatically sets it to the
     beginning.
 */
-void PrimitiveIterator::setGeo(const NodePtr geo)
+void PrimitiveIterator::setGeo(Node * const geo)
 {
-    GeometryPtr gc = dynamic_cast<GeometryPtr>(geo->getCore());
+    Geometry *gc = dynamic_cast<Geometry *>(geo->getCore());
     
-    if(gc == NullFC)
+    if(gc == NULL)
     {
         FWARNING(("PrimitiveIterator::setGeo: called for NodePtr which "
                   "is not a Geometry!\n"));
@@ -269,11 +269,11 @@ void PrimitiveIterator::operator++()
     else
     {
         _types->getValue(_actPrimType, _primIndex);
-        if(_lengths != NullFC)
+        if(_lengths != NULL)
         {
              _lengths->getValue(_actPrimLength, _primIndex);
         }
-        else if (_geo->getIndex(Geometry::PositionsIndex) != NullFC)
+        else if (_geo->getIndex(Geometry::PositionsIndex) != NULL)
         {
             _actPrimLength = _geo->getIndex(
                                 Geometry::PositionsIndex)->getSize();
@@ -295,14 +295,14 @@ void PrimitiveIterator::setToBegin(void)
     _actPointIndex       = 0;
     _ended               = false;
                   
-    if(_types != NullFC && _types->getSize() > 0)
+    if(_types != NULL && _types->getSize() > 0)
     {
         _types->getValue(_actPrimType, _primIndex);
-        if(_lengths != NullFC)
+        if(_lengths != NULL)
         {
              _lengths->getValue(_actPrimLength, _primIndex);
         }
-        else if (_geo->getIndex(Geometry::PositionsIndex) != NullFC)
+        else if (_geo->getIndex(Geometry::PositionsIndex) != NULL)
         {
             _actPrimLength = _geo->getIndex(
                                 Geometry::PositionsIndex)->getSize();
@@ -324,7 +324,7 @@ void PrimitiveIterator::setToBegin(void)
 */
 void PrimitiveIterator::setToEnd(void)
 {
-    if(_types != NullFC)
+    if(_types != NULL)
         _primIndex = _types->getSize();
     else
         _primIndex = 0;

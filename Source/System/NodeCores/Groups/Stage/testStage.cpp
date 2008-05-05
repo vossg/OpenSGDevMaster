@@ -212,23 +212,23 @@ void key(unsigned char key, int x, int y)
         case 27:   
             delete rentravact;
 
-            root     = NullFC;
-            animRoot = NullFC;
+            root     = NULL;
+            animRoot = NULL;
 
-            file     = NullFC;
+            file     = NULL;
 
-            vpScene  = NullFC;
-            vpPlane  = NullFC;
+            vpScene  = NULL;
+            vpPlane  = NULL;
 
-            win      = NullFC;
+            win      = NULL;
 
-            cam_transScene = NullFC;
-            scene_trans    = NullFC;
+            cam_transScene = NULL;
+            scene_trans    = NULL;
 
-            cam_transPlane = NullFC;
+            cam_transPlane = NULL;
 
-            tx1o           = NullFC;
-            tx1e           = NullFC;
+            tx1o           = NULL;
+            tx1e           = NULL;
 
 
             osgExit(); 
@@ -298,14 +298,14 @@ void initAnimSetup(int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NullFC;
+    NodeUnrecPtr file = NULL;
     
     if(argc > 1)
     {
         file = SceneFileHandler::the()->read(argv[1]);
     }
         
-    if(file == NullFC)
+    if(file == NULL)
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
 
@@ -465,7 +465,7 @@ void initPlaneSetup(void)
 
     // Load the file
 
-    NodeUnrecPtr file = NullFC;
+    NodeUnrecPtr file = NULL;
     
     file = makePlane(10, 10, 5, 5);
     
@@ -474,7 +474,7 @@ void initPlaneSetup(void)
 
     file->dump();
 
-    GeometryUnrecPtr pGeo = dynamic_cast<GeometryPtr>(file->getCore());
+    GeometryUnrecPtr pGeo = dynamic_cast<Geometry *>(file->getCore());
 
     UChar8 imgdata[] =
     {  

@@ -178,7 +178,7 @@ class StageHandlerMixin  : public ParentT
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
-    void setData(StageDataPtr      pData, 
+    void setData(StageData        *pData, 
                  Int32             iDataSlotId,
                  RenderActionBase *pAction    );
 

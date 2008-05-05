@@ -71,9 +71,9 @@ class OSG_DRAWABLE_DLLMAPPING TriangleIterator : public PrimitiveIterator
     /*! \{                                                                 */
 
     TriangleIterator(void);
-    TriangleIterator(const TriangleIterator &source);
-    TriangleIterator(      ConstGeometryPtr  geo);
-    TriangleIterator(const NodePtr           geo);
+    TriangleIterator(TriangleIterator   const &source);
+    TriangleIterator(Geometry           const *geo   );
+    TriangleIterator(Node             * const  geo   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -82,25 +82,25 @@ NodeTransitPtr makeGrid(const Real32   width,
                         const Color3f &color       );
 
 OSG_CONTRIBGUI_DLLMAPPING 
-NodeTransitPtr makeSelection(NodePtr);
+NodeTransitPtr makeSelection(Node *);
 
 OSG_CONTRIBGUI_DLLMAPPING 
-GeometryTransitPtr makeSelectionGeo(NodePtr);
+GeometryTransitPtr makeSelectionGeo(Node *);
 
 
 /*! \brief create a coord-axis
  *  \ingroup SimpleGeometry
  */
 
-PolygonChunkPtr getPolygonChunk(const UInt16 faces = GL_FRONT_AND_BACK, 
-                                const UInt16 mode = GL_LINE);
+PolygonChunk *getPolygonChunk(const UInt16 faces = GL_FRONT_AND_BACK, 
+                              const UInt16 mode = GL_LINE);
 
-MaterialChunkPtr getMaterialChunk(const Color4f &ambientColor,
-                                  const Color4f &diffuseColor,
-                                  const Color4f &specularColor = Color4f(1, 1, 1, 1),
-                                  const bool     lit = false                     );
+MaterialChunk *getMaterialChunk(const Color4f &ambientColor,
+                                const Color4f &diffuseColor,
+                                const Color4f &specularColor = Color4f(1, 1, 1, 1),
+                                const bool     lit = false                     );
 
-ChunkMaterialPtr getSelectionMaterial();
+ChunkMaterial *getSelectionMaterial();
 
 										   
 

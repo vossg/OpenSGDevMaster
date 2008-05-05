@@ -99,7 +99,7 @@ class OSG_CLUSTER_DLLMAPPING TileGeometryLoad
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    NodePtr           getNode() const;
+    Node *            getNode() const;
     const Int32 *     getMin();
     const Int32 *     getMax();
     UInt32            getFaces();
@@ -159,7 +159,7 @@ class OSG_CLUSTER_DLLMAPPING TileGeometryLoad
     /*! \{                                                                 */
 
     UInt32                             _nodeId;
-    GeometryPtr                        _geometry;
+    Geometry                          *_geometry;
     UInt32                             _faces;
     Int32                              _min[2];
     Int32                              _max[2];

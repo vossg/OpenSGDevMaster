@@ -209,7 +209,7 @@ const SFUnrec@!Parent!@Ptr *@!Classname!@Base::getSFDecoratee(void) const
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->get@!field.CARD!@@!field.Name!@();
     }
@@ -221,7 +221,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void) 
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->edit@!field.CARD!@@!field.Name!@();
     }
@@ -233,7 +233,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
         @@else // field.isPtrField
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->edit@!field.CARD!@@!field.Name!@();
     }
@@ -245,7 +245,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 
 const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name!@(void) const
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->get@!field.CARD!@@!field.Name!@();
     }
@@ -341,10 +341,10 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
     @@if field.isPtrField
     @@if !field.noAccess
         @@if field.writePushToField
-void @!Classname!@Base::@!field.PushToField!@(const @!field.Type!@ value)
+void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ const value)
 {
             @@if field.checkNilPtr
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
             @@endif // field.checkNilPtr
@@ -374,11 +374,11 @@ void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!f
 
         @@endif // field.writeAssignMField
         @@if field.writeInsertIntoMField
-void @!Classname!@Base::@!field.InsertIntoMField!@(      UInt32         uiIndex,
-                                                   const @!field.Type!@ value   )
+void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32               uiIndex,
+                                                   @!field.Type!@ const value   )
 {
             @@if field.checkNilPtr
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
             @@endif // field.checkNilPtr
@@ -393,11 +393,11 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(      UInt32         uiIndex,
 
         @@endif // field.writeInsertIntoMField
         @@if field.writeReplaceInMFieldIndex
-void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(      UInt32         uiIndex,
-                                                       const @!field.Type!@ value   )
+void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32               uiIndex,
+                                                       @!field.Type!@ const value   )
 {
             @@if field.checkNilPtr
-    if(value == NullFC)
+    if(value == NULL)
         return;
 
             @@endif // field.checkNilPtr
@@ -411,11 +411,11 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(      UInt32         uiIn
 
         @@endif // field.writeReplaceInMFieldIndex
         @@if field.writeReplaceInMFieldObject
-void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(const @!field.Type!@ pOldElem,
-                                                        const @!field.Type!@ pNewElem)
+void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ const pOldElem,
+                                                        @!field.Type!@ const pNewElem)
 {
             @@if field.checkNilPtr
-    if(pNewElem == NullFC)
+    if(pNewElem == NULL)
         return;
 
             @@endif // field.checkNilPtr
@@ -451,7 +451,7 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
 
         @@endif // field.writeRemoveFromMFieldIndex
         @@if field.writeRemoveFromMFieldObject
-void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(const @!field.Type!@ value)
+void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ const value)
 {
     Int32 iElemIdx = _mf@!field.Name!@.findIndex(value);
 
@@ -569,7 +569,7 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 {
     @!Classname!@TransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -585,7 +585,7 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 {
     @!Classname!@TransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -599,9 +599,9 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
 @@if !isAbstract
 //! create an empty new instance of the class, do not copy the prototype
-@!Classname!@Ptr @!Classname!@Base::createEmpty(void)
+@!Classname!@ *@!Classname!@Base::createEmpty(void)
 {
-    @!Classname!@Ptr returnValue;
+    @!Classname!@ *returnValue;
 
     newPtr<@!Classname!@>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -611,9 +611,9 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
     return returnValue;
 }
 
-@!Classname!@Ptr @!Classname!@Base::createEmptyLocal(BitVector bFlags)
+@!Classname!@ *@!Classname!@Base::createEmptyLocal(BitVector bFlags)
 {
-    @!Classname!@Ptr returnValue;
+    @!Classname!@ *returnValue;
 
     newPtr<@!Classname!@>(returnValue, bFlags);
 
@@ -624,7 +624,7 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
 FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
 {
-    @!Classname!@Ptr tmpPtr;
+    @!Classname!@ *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const @!Classname!@ *>(this), 
@@ -640,7 +640,7 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
 FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
     BitVector bFlags) const
 {
-    @!Classname!@Ptr tmpPtr;
+    @!Classname!@ *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const @!Classname!@ *>(this), bFlags);
 
@@ -694,7 +694,7 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
                           @!field.TypeRaw!@::@!field.linkParentField!@FieldId)@!field.Separator!@
                 @@else
                     @@if field.isSField
-    _@!field.VarName:25!@(NullFC)@!field.Separator!@
+    _@!field.VarName:25!@(NULL)@!field.Separator!@
                     @@else
     _@!field.VarName:25!@()@!field.Separator!@
                     @@endif // isSField
@@ -719,27 +719,27 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
 /* Parent linking                                                          */
 
 bool @!Classname!@Base::linkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            childFieldId,
-    const UInt16            parentFieldId )
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
 {
     @@BeginFieldLoop@@
         @@if field.isParentField
     if(parentFieldId == @!field.Name!@FieldId)
     {
-        @!field.FieldTypeRaw!@ pTypedParent =
-            dynamic_cast< @!field.FieldTypeRaw!@ >(pParent);
+        @!field.Type!@ pTypedParent =
+            dynamic_cast< @!field.Type!@ >(pParent);
         
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             @@if field.isSField
-            @!field.TypeNS!@@!field.FieldTypeRaw!@ pOldParent =
+            @!field.TypeNS!@@!field.Type!@ pOldParent =
                 _@!field.VarName!@.getValue         ();
 
             UInt16 oldChildFieldId =
                 _@!field.VarName!@.getParentFieldPos();
             
-            if(pOldParent != NullFC)
+            if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, oldChildFieldId);
             }
@@ -766,24 +766,24 @@ bool @!Classname!@Base::linkParent(
 }
 
 bool @!Classname!@Base::unlinkParent(
-    const FieldContainerPtr pParent,
-    const UInt16            parentFieldId)
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
 {
     @@BeginFieldLoop@@
         @@if field.isParentField
     if(parentFieldId == @!field.Name!@FieldId)
     {
-        @!field.TypeNS!@@!field.FieldTypeRaw!@ pTypedParent =
-            dynamic_cast< @!field.FieldTypeNS!@@!field.FieldTypeRaw!@ >(pParent);
+        @!field.TypeNS!@@!field.Type!@ pTypedParent =
+            dynamic_cast< @!field.FieldTypeNS!@@!field.Type!@ >(pParent);
             
-        if(pTypedParent != NullFC)
+        if(pTypedParent != NULL)
         {
             @@if field.isSField
             if(_@!field.VarName!@.getValue() == pParent)
             {
                 editSField(@!field.Name!@FieldMask);
 
-                _@!field.VarName!@.setValue(NullFC, 0xFFFF);
+                _@!field.VarName!@.setValue(NULL, 0xFFFF);
                 
                 return true;
             }
@@ -823,8 +823,8 @@ bool @!Classname!@Base::unlinkParent(
 /* Child linking                                                           */
 
 bool @!Classname!@Base::unlinkChild(
-    const FieldContainerPtr pChild,
-    const UInt16            childFieldId)
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
 {
     @@BeginFieldLoop@@
         @@if field.isChildField
@@ -833,14 +833,14 @@ bool @!Classname!@Base::unlinkChild(
         @!field.TypeNS!@@!field.Type!@ pTypedChild =
             dynamic_cast<@!field.TypeNS!@@!field.Type!@>(pChild);
             
-        if(pTypedChild != NullFC)
+        if(pTypedChild != NULL)
         {
             @@if field.isSField
             if(pTypedChild == _@!field.VarName!@.getValue())
             {
                 editSField(@!field.Name!@FieldMask);
 
-                _@!field.VarName!@.setValue(NullFC);
+                _@!field.VarName!@.setValue(NULL);
                 
                 return true;
             }
@@ -1003,9 +1003,9 @@ void @!Classname!@Base::execSyncV(      FieldContainer    &oFrom,
 
 @@if !isAbstract
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr @!Classname!@Base::createAspectCopy(void) const
+FieldContainer *@!Classname!@Base::createAspectCopy(void) const
 {
-    @!Classname!@Ptr returnValue;
+    @!Classname!@ *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const @!Classname!@ *>(this));
@@ -1022,7 +1022,7 @@ void @!Classname!@Base::resolveLinks(void)
     @@if field.isPtrField
     @@if !field.noAccess
 
-    static_cast<@!Classname!@ *>(this)->set@!field.Name!@(NullFC);
+    static_cast<@!Classname!@ *>(this)->set@!field.Name!@(NULL);
     @@endif //!field.noAccess
     @@endif // field.isPtrField
 @@EndSFFieldLoop@@
@@ -1063,7 +1063,7 @@ void @!Classname!@Base::resolveLinks(void)
 }
 
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
-void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
 {
     editSField(@!field.Name!@FieldMask);
 
@@ -1161,7 +1161,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->get@!field.Name!@();
     }
@@ -1172,9 +1172,9 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::
 }
 
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
-void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         getDecoratee()->set@!field.Name!@(value);
     }
@@ -1188,7 +1188,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 @!field.Type!@ &@!Classname!@Base::edit@!field.Name!@(void)
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->edit@!field.Name!@();
     }
@@ -1201,7 +1201,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ value)
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 const @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->get@!field.Name!@();
     }
@@ -1224,7 +1224,7 @@ inline
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         getDecoratee()->set@!field.Name!@(value);
     }
@@ -1244,7 +1244,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
 const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@endif // field.isPtrField
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->get@!field.Name!@(index);
     }
@@ -1257,7 +1257,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
 
 @!field.Type!@ &@!Classname!@Base::edit@!field.Name!@(const UInt32 index)
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->edit@!field.Name!@(index);
     }
@@ -1270,7 +1270,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::edit@!field.Name!@(void)
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->edit@!field.Name!@();
     }
@@ -1284,7 +1284,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::get@!field.Name!@(void) const
 {
-    if(_sfDecoratee.getValue() != NullFC)
+    if(_sfDecoratee.getValue() != NULL)
     {
         return getDecoratee()->get@!field.Name!@();
     }
@@ -1299,36 +1299,36 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::
 @@endif // isDecoratable
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<@!Classname!@Ptr>::_type("@!Classname!@Ptr", "@!Parent!@Ptr");
+DataType FieldTraits<@!Classname!@ *>::_type("@!Classname!@Ptr", "@!Parent!@Ptr");
 #endif
 
 @@if PointerField
-OSG_FIELDTRAITS_GETTYPE(@!Classname!@Ptr)
+OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
 
     @@if SFPointerField
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           @!Classname!@Ptr, 
+                           @!Classname!@ *, 
                            0);
     @@endif // SFPointerField
 
     @@if MFPointerField
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           @!Classname!@Ptr, 
+                           @!Classname!@ *, 
                            0);
     @@endif // MFPointerField
 @@endif // PointerField
 @@if ChildField
 
-DataType &FieldTraits< @!Classname!@Ptr, 1 >::getType(void)
+DataType &FieldTraits< @!Classname!@ *, 1 >::getType(void)
 {                                                           
-    return FieldTraits<@!Classname!@Ptr, 0>::getType();
+    return FieldTraits<@!Classname!@ *, 0>::getType();
 }
 
 @@endif
 @@if ChildSFields
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      @!Classname!@Ptr,       
+                      @!Classname!@ *,       
                       UnrecordedRefCountPolicy,  
                       1);
 
@@ -1336,7 +1336,7 @@ OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
 @@if ChildMFields
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      @!Classname!@Ptr,       
+                      @!Classname!@ *,       
                       UnrecordedRefCountPolicy,  
                       1);
 

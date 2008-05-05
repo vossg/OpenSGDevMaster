@@ -420,7 +420,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     UInt32 name##Stride;                                                    \
                                                                             \
     name##Ptr = geo->getmethod();                                           \
-    if ( name##Ptr != NullFC )                                              \
+    if ( name##Ptr != NULL )                                                \
     {                                                                       \
         name##Data = name##Ptr->getData();                                  \
         if ( ! ( name##Stride = name##Ptr->getStride() ) )                  \
@@ -440,29 +440,29 @@ static UInt32 NormAttribIDs[numFormats][4];
 // define and initialize the variables needed to access the data
 
 #define pumpInternalSetup( name, typename, getmethod, mandatory )           \
-    GeoIntegralPropertyPtr name##Ptr;                                                   \
+    GeoIntegralProperty *name##Ptr;                                         \
     UInt32 name##Ind = 0;                                                   \
                                                                             \
     name##Ptr = geo->getmethod();                                           \
-    if(mandatory && name##Ptr == NullFC)                                    \
+    if(mandatory && name##Ptr == NULL)                                      \
     {                                                                       \
         SWARNING << "masterPump: Geometry " << geo << " has no "            \
                  << #name << "s!" << std::endl;                             \
         return;                                                             \
     }
 
-#define pumpGLSetup( name, propindex )                                       \
+#define pumpGLSetup( name, propindex )                                      \
     const UInt8 * name##Data = NULL;                                        \
     UInt32 name##Stride;                                                    \
     UInt32 name##Ind = 0;                                                   \
-    GeoPropertyPtr name##Ptr = NullFC;                                   \
-    GeoIntegralPropertyPtr name##Index = NullFC;                         \
+    GeoProperty *name##Ptr = NULL;                                          \
+    GeoIntegralProperty *name##Index = NULL;                                \
     pumpFunc name##Func = NULL;                                             \
                                                                             \
     name##Ptr = geo->getProperty(propindex);                                \
-    if(name##Ptr != NullFC)                                                 \
+    if(name##Ptr != NULL)                                                   \
     {                                                                       \
-        name##Index = geo->getIndex(propindex);                              \
+        name##Index = geo->getIndex(propindex);                             \
         name##Data = name##Ptr->getData();                                  \
         if(!(name##Stride = name##Ptr->getStride()))                        \
             name##Stride = name##Ptr->getFormatSize() *                     \
@@ -487,18 +487,18 @@ static UInt32 NormAttribIDs[numFormats][4];
         name##Stride = 0;                                                   \
     }
 
-#define pumpGLExtSetup( name, propindex )                                    \
+#define pumpGLExtSetup( name, propindex )                                   \
     const UInt8 * name##Data;                                               \
     UInt32 name##Stride;                                                    \
     UInt32 name##Ind = 0;                                                   \
-    GeoPropertyPtr name##Ptr;                                            \
-    GeoIntegralPropertyPtr name##Index;                                  \
+    GeoProperty *name##Ptr;                                                 \
+    GeoIntegralProperty *name##Index;                                       \
     pumpFunc name##Func;                                                    \
                                                                             \
     name##Ptr = geo->getProperty(propindex);                                \
-    if(name##Ptr != NullFC)                                                 \
+    if(name##Ptr != NULL)                                                   \
     {                                                                       \
-        name##Index = geo->getIndex(propindex);                              \
+        name##Index = geo->getIndex(propindex);                             \
         name##Data = name##Ptr->getData();                                  \
         if(!(name##Stride = name##Ptr->getStride()))                        \
             name##Stride = name##Ptr->getFormatSize() *                     \
@@ -536,18 +536,18 @@ static UInt32 NormAttribIDs[numFormats][4];
     }
 
 
-#define pumpMultiGLExtSetup( name, propindex )                               \
+#define pumpMultiGLExtSetup( name, propindex )                              \
     const UInt8 * name##Data;                                               \
     UInt32 name##Stride;                                                    \
     UInt32 name##Ind = 0;                                                   \
-    GeoPropertyPtr name##Ptr;                                            \
-    GeoIntegralPropertyPtr name##Index;                                  \
+    GeoProperty *name##Ptr;                                                 \
+    GeoIntegralProperty *name##Index;                                       \
     multiPumpFunc name##Func;                                               \
                                                                             \
     name##Ptr = geo->getProperty(propindex);                                \
-    if(name##Ptr != NullFC)                                                 \
+    if(name##Ptr != NULL)                                                   \
     {                                                                       \
-        name##Index = geo->getIndex(propindex);                              \
+        name##Index = geo->getIndex(propindex);                             \
         name##Data = name##Ptr->getData();                                  \
         if(!(name##Stride = name##Ptr->getStride()))                        \
             name##Stride = name##Ptr->getFormatSize() *                     \
@@ -591,8 +591,8 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     
     // Setup: get all the data
 
-    pumpInternalSetup( Type, GeoPTypesPtr, getTypes, true );
-    pumpInternalSetup( Length, GeoPLengthsPtr, getLengths, false );
+    pumpInternalSetup( Type, GeoPTypes *, getTypes, true );
+    pumpInternalSetup( Length, GeoPLengths *, getLengths, false );
 
     pumpGLSetup        ( Position,   Geometry::PositionsIndex      );
     pumpGLSetup        ( Color,      Geometry::ColorsIndex         );
@@ -608,7 +608,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     pumpMultiGLExtSetup( TexCoords7, Geometry::TexCoords7Index     );
     
     // check if the node is empty
-    if(TypePtr == NullFC || TypePtr->getSize() == 0)
+    if(TypePtr == NULL || TypePtr->getSize() == 0)
         return;
 
     // if it's not empty we need positions
@@ -691,7 +691,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     UInt32 nprims;
 
     // no lengths? use all available data for the first type
-    if(LengthPtr == NullFC)
+    if(LengthPtr == NULL)
     {
         if(TypePtr->getSize() != 1)
         {
@@ -702,7 +702,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
         }
         
         nprims = 1;
-        if (PositionIndex != NullFC)
+        if (PositionIndex != NULL)
         {
             curlen = PositionIndex->getSize();
         }
@@ -730,7 +730,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
         {
             if(ColorData)
             {
-                if (ColorIndex != NullFC)
+                if (ColorIndex != NULL)
                 {
                     ColorFunc(ColorData + ColorStride * 
                               ColorIndex->getValue<UInt32>(vertindex));
@@ -743,7 +743,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
             
             if(NormalData)
             {
-                if (NormalIndex != NullFC)
+                if (NormalIndex != NULL)
                 {
                     NormalFunc(NormalData + NormalStride * 
                                NormalIndex->getValue<UInt32>(vertindex));
@@ -756,7 +756,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
             
             if(win->hasExtension(_extSecondaryColor) && SecColorData)
             {
-                if (SecColorIndex != NullFC)
+                if (SecColorIndex != NULL)
                 {
                     SecColorFunc(SecColorData + SecColorStride * 
                                SecColorIndex->getValue<UInt32>(vertindex));
@@ -769,7 +769,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
             
             if(TexCoordsData)
             {
-                if (TexCoordsIndex != NullFC)
+                if (TexCoordsIndex != NULL)
                 {
                     TexCoordsFunc(TexCoordsData + TexCoordsStride * 
                                  TexCoordsIndex->getValue<UInt32>(vertindex));
@@ -784,7 +784,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
             {
                 if(TexCoords1Data)
                 {
-                    if (TexCoords1Index != NullFC)
+                    if (TexCoords1Index != NULL)
                     {
                         TexCoords1Func(GL_TEXTURE1_ARB, 
                                   TexCoords1Data + TexCoords1Stride * 
@@ -799,7 +799,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
 
                 if(TexCoords2Data)
                 {
-                    if (TexCoords2Index != NullFC)
+                    if (TexCoords2Index != NULL)
                     {
                         TexCoords2Func(GL_TEXTURE2_ARB, 
                                   TexCoords2Data + TexCoords2Stride * 
@@ -814,7 +814,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
 
                 if(TexCoords3Data)
                 {
-                    if (TexCoords3Index != NullFC)
+                    if (TexCoords3Index != NULL)
                     {
                         TexCoords3Func(GL_TEXTURE3_ARB, 
                                   TexCoords3Data + TexCoords3Stride * 
@@ -829,7 +829,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
 
                 if(TexCoords4Data)
                 {
-                    if (TexCoords4Index != NullFC)
+                    if (TexCoords4Index != NULL)
                     {
                         TexCoords4Func(GL_TEXTURE4_ARB, 
                                   TexCoords4Data + TexCoords4Stride * 
@@ -844,7 +844,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
 
                 if(TexCoords5Data)
                 {
-                    if (TexCoords5Index != NullFC)
+                    if (TexCoords5Index != NULL)
                     {
                         TexCoords5Func(GL_TEXTURE5_ARB, 
                                   TexCoords5Data + TexCoords5Stride * 
@@ -859,7 +859,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
 
                 if(TexCoords6Data)
                 {
-                    if (TexCoords6Index != NullFC)
+                    if (TexCoords6Index != NULL)
                     {
                         TexCoords6Func(GL_TEXTURE6_ARB, 
                                   TexCoords6Data + TexCoords6Stride * 
@@ -874,7 +874,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
 
                 if(TexCoords7Data)
                 {
-                    if (TexCoords7Index != NullFC)
+                    if (TexCoords7Index != NULL)
                     {
                         TexCoords7Func(GL_TEXTURE7_ARB, 
                                   TexCoords7Data + TexCoords7Stride * 
@@ -888,7 +888,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
                 }
                 }
             
-            if (PositionIndex != NullFC)
+            if (PositionIndex != NULL)
             {
                 PositionFunc(PositionData + PositionStride * 
                              PositionIndex->getValue<UInt32>(vertindex));
@@ -911,15 +911,15 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     
     // Setup: get all the data
 
-    pumpInternalSetup( Type, GeoPTypesPtr, getTypes, true );
-    pumpInternalSetup( Length, GeoPLengthsPtr, getLengths, false );
+    pumpInternalSetup( Type, GeoPTypes *, getTypes, true );
+    pumpInternalSetup( Length, GeoPLengths *, getLengths, false );
 
-    const UInt8 *attribData[Geometry::MaxAttribs];
-    UInt32 attribStride[Geometry::MaxAttribs];
-    UInt32 attribInd[Geometry::MaxAttribs];
-    GeoVectorPropertyPtr attribPtr[Geometry::MaxAttribs];
-    GeoIntegralPropertyPtr attribIndex[Geometry::MaxAttribs];
-    attribPumpFunc attribFunc[Geometry::MaxAttribs];
+    const UInt8               *attribData  [Geometry::MaxAttribs];
+          UInt32               attribStride[Geometry::MaxAttribs];
+          UInt32               attribInd   [Geometry::MaxAttribs];
+          GeoVectorProperty   *attribPtr   [Geometry::MaxAttribs];
+          GeoIntegralProperty *attribIndex [Geometry::MaxAttribs];
+          attribPumpFunc       attribFunc  [Geometry::MaxAttribs];
 
     UInt16 nattrib = geo->getMFProperties()->size();
     
@@ -927,7 +927,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     {
         attribInd[i] = 0;
         attribPtr[i] = geo->getProperty(i);
-        if(attribPtr[i] != NullFC)
+        if(attribPtr[i] != NULL)
         {
             attribIndex[i] = geo->getIndex(i);
             attribData[i] = attribPtr[i]->getData();
@@ -993,7 +993,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     }
     
     // check if the node is empty
-    if(TypePtr == NullFC || TypePtr->getSize() == 0)
+    if(TypePtr == NULL || TypePtr->getSize() == 0)
         return;
 
     // if it's not empty we need positions
@@ -1020,7 +1020,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     UInt32 nprims;
 
     // no lengths? use all available data for the first type
-    if(LengthPtr == NullFC)
+    if(LengthPtr == NULL)
     {
         if(TypePtr->getSize() != 1)
         {
@@ -1031,7 +1031,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
         }
         
         nprims = 1;
-        if (attribIndex[0] != NullFC)
+        if (attribIndex[0] != NULL)
         {
             curlen = attribIndex[0]->getSize();
         }
@@ -1061,7 +1061,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
             {
                 if(attribData[i])
                 {
-                    if(attribIndex[i] != NullFC)
+                    if(attribIndex[i] != NULL)
                     {
                         attribFunc[i](i, attribData[i] + attribStride[i] *
                                 attribIndex[i]->getValue<UInt32>(vertindex));

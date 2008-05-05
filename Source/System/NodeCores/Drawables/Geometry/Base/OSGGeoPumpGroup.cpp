@@ -145,7 +145,7 @@ GeoPumpGroup::PropertyCharacteristics
     Int16 nind = geo->getMFPropIndices()->size();
     
     // Check for single- and multi-indexed
-    GeoIntegralPropertyPtr ind = NullFC;
+    GeoIntegralProperty *ind = NULL;
     
     bool single = true;
     bool multi  = true;
@@ -154,11 +154,11 @@ GeoPumpGroup::PropertyCharacteristics
     for(Int16 i = 0; i < natt; ++i)
     {
         // Only count actual attributes
-        if(geo->getProperty(i) != NullFC)
+        if(geo->getProperty(i) != NULL)
         {
             if(i < nind)
             {
-                if(geo->getIndex(i) == NullFC)
+                if(geo->getIndex(i) == NULL)
                 {
                     single = false;
                     multi = false;
@@ -167,7 +167,7 @@ GeoPumpGroup::PropertyCharacteristics
                 {
                     nonind = false;
                     
-                    if(ind == NullFC)
+                    if(ind == NULL)
                         ind = geo->getIndex(i);
                     
                     if(geo->getIndex(i) != ind)
@@ -191,9 +191,9 @@ GeoPumpGroup::PropertyCharacteristics
     // To be complete this would also have to check 
     // type compatibility! *DR*
     
-    if(natt > 6 && geo->getProperty(6) != NullFC)
+    if(natt > 6 && geo->getProperty(6) != NULL)
         val |= GeoPumpGroup::NonTraditionalProperties;
-    if(natt > 7 && geo->getProperty(7) != NullFC)
+    if(natt > 7 && geo->getProperty(7) != NULL)
         val |= GeoPumpGroup::NonTraditionalProperties;
         
     return val;

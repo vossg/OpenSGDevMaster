@@ -59,13 +59,17 @@
     typedef RefCountPtr<CLASST, UnrecordedRefCountPolicy> ObjUnrecPtr;   \
     typedef RefCountPtr<CLASST, WeakRefCountPolicy      > ObjWeakPtr;    \
                                                                          \
+    typedef CLASST       *                                ObjCPtr;       \
+    typedef CLASST const *                                ConstObjCPtr;  \
+
+
+
+#if 0
+                                                                         \
     typedef CLASST       *                                ObjPtr;        \
     typedef CLASST const *                                ConstObjPtr;   \
-                                                                         \
-    typedef CLASST       *                                ObjCPtr;       \
-    typedef CLASST const *                                ConstObjCPtr;
 
-
+#endif
 
 
 #define OSG_GEN_CONTAINERPTR(CLASST)                                     \
@@ -81,22 +85,28 @@
     typedef CLASST##RecPtr                         CLASST##RefPtr;       \
     typedef CLASST##MTRecPtr                       CLASST##MTRefPtr;     \
                                                                          \
+
+
+#if 0
+    typedef CLASST       * CLASST##CPtr;                                 \
+    typedef CLASST const * Const##CLASST##CPtr;                          \
+                                                                         \
     typedef CLASST       * CLASST##Ptr;                                  \
     typedef CLASST const * Const##CLASST##Ptr;                           \
-                                                                         \
-    typedef CLASST       * CLASST##CPtr;                                 \
-    typedef CLASST const * Const##CLASST##CPtr;
 
+#endif
 
+#if 0
 #define OSG_GEN_NAMED_PTR(CLASST, NAME)                    \
-    typedef CLASST       * NAME##Ptr;                      \
-    typedef CLASST const * Const##NAME##Ptr;               
+    typedef CLASST       * NAME##CPtr;                     \
+    typedef CLASST const * Const##NAME##CPtr;              
+#endif
 
 
-
+#if 0
 #define NullFC      NULL
 #define OSGNullFC   NULL
-
+#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -152,7 +162,7 @@ class FieldContainerFactoryBase;
 typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 
 typedef boost::function<
-              void (FieldContainerCPtr, ConstFieldMaskArg )> ChangedFunctor;
+              void (FieldContainer *, ConstFieldMaskArg )> ChangedFunctor;
 
 typedef boost::function<void (DrawEnv *)> RenderFunctor;
 

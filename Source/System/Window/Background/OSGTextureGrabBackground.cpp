@@ -116,9 +116,9 @@ void TextureGrabBackground::changed(ConstFieldMaskArg whichField,
 void TextureGrabBackground::clear(DrawEnv *pEnv)
 {   
     // grab the texture
-    TextureObjChunkPtr t = getTexture();
+    TextureObjChunk *t = getTexture();
     
-    if(t == NullFC)       // No texture, no grab.
+    if(t == NULL)       // No texture, no grab.
     {
         Inherited::clear(pEnv);
         return;
@@ -131,7 +131,7 @@ void TextureGrabBackground::clear(DrawEnv *pEnv)
     if(pw < 1 || ph < 1)
         return;
  
-    ImagePtr i = t->getImage();
+    Image *i = t->getImage();
              
     // If image is smaller than 2x2, resize it to vp size
     // the 2x2 is because you can't create 0x0 images

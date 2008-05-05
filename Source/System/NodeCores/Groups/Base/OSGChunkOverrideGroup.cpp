@@ -108,10 +108,10 @@ ChunkOverrideGroup::~ChunkOverrideGroup(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-bool ChunkOverrideGroup::addChunk(StateChunkPtr chunk, 
-                                  Int32         slot)
+bool ChunkOverrideGroup::addChunk(StateChunk *chunk, 
+                                  Int32       slot)
 {
-    if(chunk == NullFC)
+    if(chunk == NULL)
     {
         SWARNING << "addChunk: no chunk given, use subChunk to clear a slot" 
                  << std::endl;
@@ -142,7 +142,7 @@ bool ChunkOverrideGroup::addChunk(StateChunkPtr chunk,
 
         for(ci = cindex; ci < cindex + nslots && ci < csize; ++ci)
         {
-            if(_mfChunks[ci] == NullFC)
+            if(_mfChunks[ci] == NULL)
             {
                 break;
             }
@@ -180,7 +180,7 @@ bool ChunkOverrideGroup::addChunk(StateChunkPtr chunk,
 
         for(UInt32 i = oldsize; i < newsize; i++)
         {
-            _mfChunks.replace(i, NullFC);
+            _mfChunks.replace(i, NULL);
         }
     }
 
@@ -189,10 +189,10 @@ bool ChunkOverrideGroup::addChunk(StateChunkPtr chunk,
     return true;
 }
 
-bool ChunkOverrideGroup::subChunk(StateChunkPtr chunk, 
-                                  Int32         slot)
+bool ChunkOverrideGroup::subChunk(StateChunk *chunk, 
+                                  Int32       slot)
 {
-    if(chunk == NullFC)
+    if(chunk == NULL)
         return false;
         
     UInt32 cindex =  chunk->getClassId();
@@ -229,8 +229,8 @@ bool ChunkOverrideGroup::subChunk(StateChunkPtr chunk,
         
 //        subRef(_mfChunks[ci]);
         
-//        _mfChunks[ci] = NullFC;
-        _mfChunks.replace(ci, NullFC);
+//        _mfChunks[ci] = NULL;
+        _mfChunks.replace(ci, NULL);
     }
     else
     {
@@ -255,14 +255,14 @@ bool ChunkOverrideGroup::subChunk(StateChunkPtr chunk,
         
 //        subRef(_mfChunks[ci]);
         
-//        _mfChunks[ci] = NullFC;
-        _mfChunks.replace(ci, NullFC);
+//        _mfChunks[ci] = NULL;
+        _mfChunks.replace(ci, NULL);
     }
 
     return true;
 }
 
-Int32 ChunkOverrideGroup::find(StateChunkPtr chunk)
+Int32 ChunkOverrideGroup::find(StateChunk *chunk)
 {
     UInt32 i;
     
@@ -275,8 +275,8 @@ Int32 ChunkOverrideGroup::find(StateChunkPtr chunk)
     return -1;
 }
 
-StateChunkPtr ChunkOverrideGroup::find(const StateChunkClass &type, 
-                                             Int32            slot)
+StateChunk *ChunkOverrideGroup::find(const StateChunkClass &type, 
+                                           Int32            slot)
 {
     UInt32 cindex =  type.getId();
     UInt32 csize  = _mfChunks.size();
@@ -289,9 +289,9 @@ StateChunkPtr ChunkOverrideGroup::find(const StateChunkClass &type,
     {
         for(ci = cindex; ci < cindex + nslots && ci < csize; ci++)
         {
-            StateChunkPtr chunk = _mfChunks[ci];
+            StateChunk *chunk = _mfChunks[ci];
 
-            if(chunk != NullFC && *(chunk->getClass()) == type)
+            if(chunk != NULL && *(chunk->getClass()) == type)
             {
                 return chunk;
             }
@@ -304,16 +304,16 @@ StateChunkPtr ChunkOverrideGroup::find(const StateChunkClass &type,
         if(ci    <  cindex + nslots || 
            ci    < _mfChunks.size()  )    
         {
-            StateChunkPtr chunk = _mfChunks[ci];
+            StateChunk *chunk = _mfChunks[ci];
 
-            if(chunk != NullFC && *(chunk->getClass()) == type)
+            if(chunk != NULL && *(chunk->getClass()) == type)
             {
                 return chunk;
             }
         }
     }
 
-    return NullFC;
+    return NULL;
 }
 
 
@@ -345,7 +345,7 @@ ActionBase::ResultE ChunkOverrideGroup::renderEnter(Action *action)
 
         while(chIt != chEnd)
         {
-            if(*chIt != NullFC)
+            if(*chIt != NULL)
                 pAction->addOverride(uiSlot, *chIt);
             
             ++uiSlot;

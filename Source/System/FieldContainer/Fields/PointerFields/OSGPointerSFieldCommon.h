@@ -83,7 +83,7 @@ class PointerSFieldCommon : public PointerSFieldBase
     typedef          AccessHandlerT                      AccessHandler;
 
     typedef          FieldTraitsFCPtrBase<
-                         FieldContainerPtr, 
+                         FieldContainer *, 
                          NamespaceI       >              PtrBaseTraitsType;
 
     /*! \}                                                                 */

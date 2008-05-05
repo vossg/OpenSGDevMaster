@@ -50,16 +50,16 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef PointerSField<AttachmentPtr,
+typedef PointerSField<Attachment *,
                       RecordedRefCountPolicy  > SFRecAttachmentPtr;
 
-typedef PointerSField<AttachmentPtr,
+typedef PointerSField<Attachment *,
                       UnrecordedRefCountPolicy> SFUnrecAttachmentPtr;
 
-typedef PointerSField<AttachmentPtr,
+typedef PointerSField<Attachment *,
                       WeakRefCountPolicy      > SFWeakAttachmentPtr;
 
-typedef PointerSField<AttachmentPtr,
+typedef PointerSField<Attachment *,
                       NoRefCountPolicy        > SFUncountedAttachmentPtr;
 
 #endif

@@ -90,14 +90,14 @@ void Light::setSpecular(Real rRed,
 /*-------------------------------------------------------------------------*/
 /*                             Chunk                                       */
 
-LightChunkPtr Light::getChunk(void)
+LightChunk *Light::getChunk(void)
 {
     return _pChunk;
 }
 
 void Light::makeChunk(void)
 {
-    if(_pChunk == NullFC)
+    if(_pChunk == NULL)
     {
         _pChunk = LightChunk::createLocal();
     }
@@ -134,8 +134,8 @@ void Light::dump(      UInt32    uiIndent,
 /*                            Constructors                                 */
 
 Light::Light(void) :
-     Inherited  (      ),
-    _pChunk     (NullFC)
+     Inherited  (    ),
+    _pChunk     (NULL)
 {
 }
 
@@ -163,19 +163,19 @@ Action::ResultE Light::renderEnter(LightEngine::LightTypeE  eType,
     if(this->getOn() == false)
         return Action::Continue;
 
-    LightEnginePtr pLightEngine = this->getLightEngine();
+    LightEngine *pLightEngine = this->getLightEngine();
 
-    if(pLightEngine != NullFC && pLightEngine->getEnabled() == true)
+    if(pLightEngine != NULL && pLightEngine->getEnabled() == true)
     {
         r = pLightEngine->runOnEnter(this, eType, action);
     }
     else
     {
-        StateChunkPtr pChunk          = this->getChunk();
+        StateChunk *pChunk          = this->getChunk();
         
-        UInt32        uiSlot          = pChunk->getClassId();
+        UInt32      uiSlot          = pChunk->getClassId();
         
-        Int32         iLightIndex     = action->allocateLightIndex();
+        Int32       iLightIndex     = action->allocateLightIndex();
         
         action->pushState();
         
@@ -205,9 +205,9 @@ Action::ResultE Light::renderLeave(LightEngine::LightTypeE  eType,
     if(this->getOn() == false)
         return Action::Continue;
 
-    LightEnginePtr pLightEngine = this->getLightEngine();
+    LightEngine *pLightEngine = this->getLightEngine();
 
-    if(pLightEngine != NullFC && pLightEngine->getEnabled() == true)
+    if(pLightEngine != NULL && pLightEngine->getEnabled() == true)
     {
         r = pLightEngine->runOnLeave(this, eType, a);
     }
@@ -227,7 +227,7 @@ void Light::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    _pChunk = NullFC;
+    _pChunk = NULL;
 }
      
 

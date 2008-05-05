@@ -52,8 +52,8 @@ OSG_BEGIN_NAMESPACE
 
 inline
 PointerSFieldBase::PointerSFieldBase(void) : 
-     Inherited (      ),
-    _fieldValue(NullFC)
+     Inherited (    ),
+    _fieldValue(NULL)
 {
 }
 

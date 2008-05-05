@@ -97,7 +97,7 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
 
     struct DrawableInfo
     {
-        NodePtr  node;
+        Node    *node;
         Vec3f    bMin;
         Vec3f    bMax;
         Real32   load;
@@ -156,7 +156,7 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
     /*! \name      server window funcitons                                 */
     /*! \{                                                                 */
 
-    virtual void serverInit  (WindowPtr         window,
+    virtual void serverInit  (Window           *window,
                               UInt32            id    );
 #ifdef OSG_OLD_RENDER_ACTION
     virtual void serverRender(WindowPtr         window,
@@ -164,11 +164,11 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
                               DrawActionBase   *action);
 #endif
 
-    virtual void serverRender(WindowPtr         window,
+    virtual void serverRender(Window           *window,
                               UInt32            id,
                               RenderActionBase *action);
 
-    virtual void serverSwap  (WindowPtr         window,
+    virtual void serverSwap  (Window           *window,
                               UInt32            id    );
 
     /*! \}                                                                 */
@@ -191,12 +191,12 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindow : public SortLastWindowBase
     /*! \name                   load balancing                             */
     /*! \{                                                                 */
 
-    void collectDrawables(const NodePtr  node,
-                                DrawableListT   &drawables  );
-    void splitDrawables  (      DrawableListT   &src,
-                                UInt32           groups,
-                                bool             cut = false);
-    void setupNodes      (      UInt32           groupId    );
+    void collectDrawables(Node          * const  node,
+                          DrawableListT &        drawables  );
+    void splitDrawables  (DrawableListT &        src,
+                          UInt32                 groups,
+                          bool                   cut = false);
+    void setupNodes      (UInt32                 groupId    );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

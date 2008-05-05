@@ -40,7 +40,7 @@ SimpleSceneManager  *mgr;
 XWindowRecPtr        xwin;
 PassiveWindowRecPtr  pwin;
 
-NodeRecPtr scene = NullFC;
+NodeRecPtr scene = NULL;
 
 // Threading stuff
 
@@ -231,7 +231,7 @@ int wait_for_map_notify(Display *, XEvent *event, char *arg)
     return( event->type == MapNotify && event->xmap.window == (::Window)arg );
 }
 
-Display *openWindow(XWindowPtr xwin, char **argv, int &argc)
+Display *openWindow(XWindow *xwin, char **argv, int &argc)
 {
     static int dblBuf[] = {GLX_RGBA, GLX_DEPTH_SIZE, 16, GLX_DOUBLEBUFFER, 
                            None};
@@ -359,7 +359,7 @@ int main (int argc, char **argv)
     
     FNOTICE(("File read\n"));
     
-    if(scene == NullFC)
+    if(scene == NULL)
     {
         std::cerr << "Error loading " << fileName << "!" << std::endl;
         
@@ -482,9 +482,9 @@ int main (int argc, char **argv)
 
                             delete mgr;
 
-                            xwin  = NullFC;
-                            pwin  = NullFC;
-                            scene = NullFC;
+                            xwin  = NULL;
+                            pwin  = NULL;
+                            scene = NULL;
 
                             osgExit();
 

@@ -91,21 +91,21 @@ class ChildAccessHandler
     /*! \{                                                                 */
     
     static void onAdd    (SFieldBaseType    * const pSField,
-                          FieldContainerPtr   const pObj   );
+                          FieldContainer    * const pObj   );
     static void onAdd    (MFieldBaseType    * const pMField,
-                          FieldContainerPtr   const pObj   );
+                          FieldContainer    * const pObj   );
     
     static void onSub    (SFieldBaseType    * const pSField,
-                          FieldContainerPtr   const pObj   );
+                          FieldContainer    * const pObj   );
     static void onSub    (MFieldBaseType    * const pMField,
-                          FieldContainerPtr   const pObj   );
+                          FieldContainer    * const pObj   );
     
     static void onReplace(SFieldBaseType    * const pSField,
-                          FieldContainerPtr   const pOldObj,
-                          FieldContainerPtr   const pNewObj);
+                          FieldContainer    * const pOldObj,
+                          FieldContainer    * const pNewObj);
     static void onReplace(MFieldBaseType    * const pMField,
-                          FieldContainerPtr   const pOldObj,
-                          FieldContainerPtr   const pNewObj);
+                          FieldContainer    * const pOldObj,
+                          FieldContainer    * const pNewObj);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -113,21 +113,21 @@ class ChildAccessHandler
     /*! \{                                                                 */
     
     static void onSyncAdd    (SFieldBaseType    * const pSField,
-                              FieldContainerPtr   const pObj   );
+                              FieldContainer    * const pObj   );
     static void onSyncAdd    (MFieldBaseType    * const pMField,
-                              FieldContainerPtr   const pObj   );
+                              FieldContainer    * const pObj   );
     
     static void onSyncSub    (SFieldBaseType    * const pSField,
-                              FieldContainerPtr   const pObj   );
+                              FieldContainer    * const pObj   );
     static void onSyncSub    (MFieldBaseType    * const pMField,
-                              FieldContainerPtr   const pObj   );
+                              FieldContainer    * const pObj   );
     
     static void onSyncReplace(SFieldBaseType    * const pSField,
-                              FieldContainerPtr   const pOldObj,
-                              FieldContainerPtr   const pNewObj);
+                              FieldContainer    * const pOldObj,
+                              FieldContainer    * const pNewObj);
     static void onSyncReplace(MFieldBaseType    * const pMField,
-                              FieldContainerPtr   const pOldObj,
-                              FieldContainerPtr   const pNewObj);
+                              FieldContainer    * const pOldObj,
+                              FieldContainer    * const pNewObj);
                             
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,13 +156,13 @@ class ChildAccessHandler
     
 //     static void unlinkChild (FieldContainerPtrConst pChild,
 //                              UInt16 const           parentFieldId );
-    static void linkParent  (FieldContainerPtr const pParent, 
-                             UInt16            const childFieldId,
-                             FieldContainerPtr const pChild,
-                             UInt16            const parentFieldId);
-    static void unlinkParent(FieldContainerPtr const pParent,
-                             FieldContainerPtr const pChild,
-                             UInt16            const parentFieldId);
+    static void linkParent  (FieldContainer * const pParent, 
+                             UInt16           const childFieldId,
+                             FieldContainer * const pChild,
+                             UInt16           const parentFieldId);
+    static void unlinkParent(FieldContainer * const pParent,
+                             FieldContainer * const pChild,
+                             UInt16           const parentFieldId);
                       
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

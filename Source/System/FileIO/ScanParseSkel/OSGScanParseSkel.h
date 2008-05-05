@@ -271,7 +271,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
 
     virtual void addFloatValue(Real32 f);
 
-    virtual void addImageValue(ImagePtr img);
+    virtual void addImageValue(Image *img);
 
     virtual void addInt32Value(Int32 i);
 

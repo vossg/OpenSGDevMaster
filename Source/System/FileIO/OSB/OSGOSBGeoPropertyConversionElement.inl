@@ -191,7 +191,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::postRead(void)
 template <class GeoPropertyTypeT>
 void
 OSBGeoPropertyConversionElement<GeoPropertyTypeT>::preWrite(
-    const FieldContainerPtr &fc)
+    FieldContainer * const fc)
 {
     FFATAL(("OSBGeoPropertyConversionElement<>::preWrite: "
             "This should NEVER be called.\n"));

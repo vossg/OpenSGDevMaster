@@ -56,12 +56,12 @@ class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
 
     typedef EditFieldHandle Inherited;
 
-    typedef boost::function<void(const FieldContainerPtr)> SetMethod;
+    typedef boost::function<void(FieldContainer * const)> SetMethod;
 
     /*==========================  PUBLIC  =================================*/
 
-    FieldContainerPtr _pContainer;
-    SetMethod         _fSetMethod;
+    FieldContainer *_pContainer;
+    SetMethod       _fSetMethod;
 
   public:
 
@@ -80,7 +80,7 @@ class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual void setValue(const FieldContainerPtr rhs);
+    virtual void setValue(FieldContainer * const rhs);
 
     /*---------------------------------------------------------------------*/
 
@@ -219,7 +219,7 @@ class EditFCPtrSFieldHandle :
 
     /*---------------------------------------------------------------------*/
 
-    virtual void setValue(const FieldContainerPtr rhs);
+    virtual void setValue(FieldContainer * const rhs);
 
     /*---------------------------------------------------------------------*/
 

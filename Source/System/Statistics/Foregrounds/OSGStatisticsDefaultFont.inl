@@ -45,7 +45,7 @@ TextTXFFace *StatisticsDefaultFontBase::getFace() const
     return _face;
 }
 
-TextureObjChunkPtr StatisticsDefaultFontBase::getTexture() const
+TextureObjChunk *StatisticsDefaultFontBase::getTexture() const
 {
     return _texObjChunk;
 }

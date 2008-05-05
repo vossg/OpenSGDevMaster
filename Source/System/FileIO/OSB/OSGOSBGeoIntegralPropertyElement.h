@@ -88,8 +88,8 @@ class OSG_FILEIO_DLLMAPPING OSBGeoIntegralPropertyElement
     /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual void preWrite(const FieldContainerPtr &fc) = 0;
-    virtual void write   (      void                 ) = 0;
+    virtual void preWrite(FieldContainer * constfc) = 0;
+    virtual void write   (void                    ) = 0;
 
     void setPackData(bool pack);
     bool getPackData(void     ) const;

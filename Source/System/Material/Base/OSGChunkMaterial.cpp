@@ -108,7 +108,7 @@ void ChunkMaterial::changed(ConstFieldMaskArg whichField,
   State::AutoSlotReplace. 
  */
 
-bool ChunkMaterial::addChunk(StateChunkPtr chunk, Int32 slot)
+bool ChunkMaterial::addChunk(StateChunk *chunk, Int32 slot)
 {
     if(slot != State::AutoSlotReplace)
     {
@@ -138,7 +138,7 @@ bool ChunkMaterial::addChunk(StateChunkPtr chunk, Int32 slot)
 State::AutoSlotReplace, only the given slot will be searched and
 removed if found. Returns true if the chunk couldn't be found. */
 
-bool ChunkMaterial::subChunk(StateChunkPtr chunk, Int32 slot)
+bool ChunkMaterial::subChunk(StateChunk *chunk, Int32 slot)
 {
     UInt32 i;
     
@@ -175,7 +175,7 @@ bool ChunkMaterial::subChunk(StateChunkPtr chunk, Int32 slot)
   if the chunk is not used in the material.
 */
 
-Int32 ChunkMaterial::find(StateChunkPtr chunk)
+Int32 ChunkMaterial::find(StateChunk *chunk)
 {
     UInt32 i;
     
@@ -195,14 +195,14 @@ Int32 ChunkMaterial::find(StateChunkPtr chunk)
   the slot parameter is interpreted as a index.
  */
 
-StateChunkPtr ChunkMaterial::find(const FieldContainerType &type, 
-                                        Int32               slot)
+StateChunk *ChunkMaterial::find(const FieldContainerType &type, 
+                                      Int32               slot)
 {
     UInt32 index = 0;
 
     for(UInt32 i = 0; i < _mfChunks.size(); ++i)
     {
-        StateChunkPtr p = _mfChunks[i];
+        StateChunk *p = _mfChunks[i];
 
         Int32 s = State::AutoSlotReplace;
 
@@ -221,7 +221,7 @@ StateChunkPtr ChunkMaterial::find(const FieldContainerType &type,
         }
     }
 
-    return NullFC;
+    return NULL;
 }
 
 bool ChunkMaterial::operator==(const ChunkMaterial &other)
@@ -252,7 +252,7 @@ void ChunkMaterial::clearChunks(void)
   materials.
 */
 
-void ChunkMaterial::addChunks(StatePtr state)
+void ChunkMaterial::addChunks(State *state)
 {
     UInt32 i;
     
@@ -271,7 +271,7 @@ void ChunkMaterial::rebuildState(void)
 {
     FDEBUG(("ChunkMat::rebuild state\n"));
 
-    if(_pState != NullFC)
+    if(_pState != NULL)
     {
         _pState->clearChunks();
     }

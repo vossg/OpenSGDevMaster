@@ -377,8 +377,8 @@ void keyboard(unsigned char k, int x, int y)
         {
             delete mgr;
 
-            scene  = NullFC;
-            statfg = NullFC;
+            scene  = NULL;
+            statfg = NULL;
 
             osgExit();
             exit(0);

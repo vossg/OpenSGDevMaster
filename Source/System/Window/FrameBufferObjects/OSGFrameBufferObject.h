@@ -86,8 +86,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     /*! \name                      Attachments                             */
     /*! \{                                                                 */
 
-    void setColorAttachment(FrameBufferAttachmentPtr pAttachment,
-                            UInt32                   uiSlot     );
+    void setColorAttachment(FrameBufferAttachment *pAttachment,
+                            UInt32                 uiSlot     );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

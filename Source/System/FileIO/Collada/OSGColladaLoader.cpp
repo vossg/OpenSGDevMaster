@@ -124,7 +124,7 @@ ColladaLoader::~ColladaLoader(void)
 NodeTransitPtr ColladaLoader::read(      std::istream  &is, 
                                    const Char8         *szFileName)
 {
-    NodeTransitPtr returnValue(NullFC);
+    NodeTransitPtr returnValue(NULL);
 
 #ifdef OSG_WITH_COLLADA
     _pPathHandler->clearPathList();

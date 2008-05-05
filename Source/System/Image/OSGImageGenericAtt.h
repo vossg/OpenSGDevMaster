@@ -78,8 +78,8 @@ class FieldDescriptionBase;
 
 struct ImageGenericAttDesc
 {
-    typedef Attachment    Parent;
-    typedef AttachmentPtr ParentPtr;
+    typedef Attachment  Parent;
+    typedef Attachment *ParentPtr;
 
     static const Char8 *getTypeName      (void) { return "ImageGenericAtt"; }
     static const Char8 *getParentTypeName(void) 
@@ -94,8 +94,6 @@ struct ImageGenericAttDesc
 };
 
 typedef DynFieldAttachment<ImageGenericAttDesc>  ImageGenericAtt;
-
-typedef ImageGenericAtt::ObjPtr                  ImageGenericAttPtr;
 typedef RefCountPtr<ImageGenericAtt, 
                     UnrecordedRefCountPolicy>    ImageGenericAttUnrecPtr;
 
@@ -124,11 +122,11 @@ OSG_ABSTR_FC_DLLEXPORT_DECL(DynFieldAttachment,
 #endif
 
 template <>
-struct FieldTraits<ImageGenericAttPtr, 0> : 
-    public FieldTraitsFCPtrBase<ImageGenericAttPtr>
+struct FieldTraits<ImageGenericAtt *, 0> : 
+    public FieldTraitsFCPtrBase<ImageGenericAtt *>
 {
     static  DataType                        _type;
-    typedef FieldTraits<ImageGenericAttPtr>  Self;
+    typedef FieldTraits<ImageGenericAtt *>   Self;
 
     enum                            { Convertible = Self::NotConvertible };
 
@@ -148,28 +146,28 @@ struct FieldTraits<ImageGenericAttPtr, 0> :
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecImageGenericAttPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecImageGenericAttPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getSName<WeakRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakImageGenericAttPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getSName<NoRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdImageGenericAttPtr"; 
 }
@@ -178,28 +176,28 @@ const Char8 *FieldTraits<
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecImageGenericAttPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecImageGenericAttPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getMName<WeakRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakImageGenericAttPtr"; 
 }
 
 template<> inline
 const Char8 *FieldTraits<
-    ImageGenericAttPtr, 0>::getMName<NoRefCountPolicy>(void)
+    ImageGenericAtt *, 0>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdImageGenericAttPtr"; 
 }
@@ -209,13 +207,13 @@ const Char8 *FieldTraits<
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef PointerSField<ImageGenericAttPtr, 
+typedef PointerSField<ImageGenericAtt *, 
                       RecordedRefCountPolicy  > SFRecImageGenericAtPtr;
-typedef PointerSField<ImageGenericAttPtr, 
+typedef PointerSField<ImageGenericAtt *, 
                       UnrecordedRefCountPolicy> SFUnrecImageGenericAtPtr;
-typedef PointerSField<ImageGenericAttPtr, 
+typedef PointerSField<ImageGenericAtt *, 
                       WeakRefCountPolicy      > SFWeakImageGenericAtPtr;
-typedef PointerSField<ImageGenericAttPtr, 
+typedef PointerSField<ImageGenericAtt *, 
                       NoRefCountPolicy        > SFUncountedImageGenericAtPtr;
 
 #endif
@@ -227,13 +225,13 @@ typedef PointerSField<ImageGenericAttPtr,
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef PointerMField<ImageGenericAttPtr, 
+typedef PointerMField<ImageGenericAtt *, 
                       RecordedRefCountPolicy  > MFRecImageGenericAttPtr;
-typedef PointerMField<ImageGenericAttPtr, 
+typedef PointerMField<ImageGenericAtt *, 
                       UnrecordedRefCountPolicy> MFUnrecImageGenericAttPtr;
-typedef PointerMField<ImageGenericAttPtr, 
+typedef PointerMField<ImageGenericAtt *, 
                       WeakRefCountPolicy      > MFWeakImageGenericAttPtr;
-typedef PointerMField<ImageGenericAttPtr, 
+typedef PointerMField<ImageGenericAtt *, 
                       NoRefCountPolicy        > MFUncountedImageGenericAttPtr;
 
 #endif

@@ -60,10 +60,10 @@ TypedGeoIntegralProperty<GeoPropertyDesc>::~TypedGeoIntegralProperty(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class GeoPropertyDesc> inline 
-typename TypedGeoIntegralProperty<GeoPropertyDesc>::ObjPtr 
+typename TypedGeoIntegralProperty<GeoPropertyDesc>::ObjCPtr 
     TypedGeoIntegralProperty<GeoPropertyDesc>::createAspectCopy(void) const
 {
-    ObjPtr returnValue; 
+    ObjCPtr returnValue; 
 
     newAspectCopy(returnValue, 
                   dynamic_cast<const Self *>(this)); 

@@ -19,7 +19,7 @@ Base of a staged rendering.  Tells the renderer to target an FBO for this subtre
                 type="FrameBufferObjectPtr"
                 cardinality="single"
                 visibility="external"
-                defaultValue="NullFC"
+                defaultValue="NULL"
                 access="public"
         >
         The FBO to target for rendering this subtree.

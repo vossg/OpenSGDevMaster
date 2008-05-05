@@ -65,7 +65,7 @@ class DataSlotMixin : public ParentT
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    void setData(FieldContainerPtr pData, Int32 iSlotId);
+    void setData(FieldContainer *pData, Int32 iSlotId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

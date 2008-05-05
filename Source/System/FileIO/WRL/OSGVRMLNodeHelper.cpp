@@ -224,9 +224,9 @@ void VRMLNodeHelper::resetIndent(void)
 
 VRMLNodeHelper::VRMLNodeHelper(void) :
     _bProtoInterfaceDone(false ),
-    _pGenAttProto       (NullFC),
-    _pNodeProto         (NullFC),
-    _pNodeCoreProto     (NullFC),
+    _pGenAttProto       (NULL  ),
+    _pNodeProto         (NULL  ),
+    _pNodeCoreProto     (NULL  ),
 
     OSG_INIT_DESC(_sfVec3fDesc,   
                   SFVec3f,             
@@ -263,9 +263,9 @@ VRMLNodeHelper::~VRMLNodeHelper(void)
 //    subRefX(_pNodeCoreProto);
 //    subRefX(_pGenAttProto  );
     
-    _pNodeProto     = NullFC;
-    _pNodeCoreProto = NullFC;
-    _pGenAttProto   = NullFC;
+    _pNodeProto     = NULL;
+    _pNodeCoreProto = NULL;
+    _pGenAttProto   = NULL;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -283,18 +283,18 @@ void VRMLNodeHelper::reset(void)
 FieldContainerTransitPtr VRMLNodeHelper::beginNode(
     const Char8             *szTypename,
     const Char8             *szName,
-          FieldContainerPtr  pCurrentFC)
+          FieldContainer    *pCurrentFC)
 {
-    FieldContainerUnrecPtr returnValue = NullFC;
-    NodeUnrecPtr           pNode       = NullFC;
-    NodeCoreUnrecPtr       pCore       = NullFC;
-    VRMLGenericAttUnrecPtr pAtt        = NullFC;
+    FieldContainerUnrecPtr returnValue = NULL;
+    NodeUnrecPtr           pNode       = NULL;
+    NodeCoreUnrecPtr       pCore       = NULL;
+    VRMLGenericAttUnrecPtr pAtt        = NULL;
 
-    if(_pNodeProto != NullFC)
+    if(_pNodeProto != NULL)
     {
         returnValue = _pNodeProto->shallowCopy();
 
-        if(_pNodeCoreProto != NullFC)
+        if(_pNodeCoreProto != NULL)
         {
             FieldContainerTransitPtr pCoreClone 
                 = _pNodeCoreProto->shallowCopy();
@@ -305,26 +305,26 @@ FieldContainerTransitPtr VRMLNodeHelper::beginNode(
             pNode->setCore(pCore);
         }
 
-        if(_pGenAttProto != NullFC)
+        if(_pGenAttProto != NULL)
         {
-            FieldContainerPtr pAttClone = _pGenAttProto->clone();
+            FieldContainer *pAttClone = _pGenAttProto->clone();
 
-            pAtt = dynamic_cast<VRMLGenericAttPtr>(pAttClone);
+            pAtt = dynamic_cast<VRMLGenericAtt *>(pAttClone);
 
             OSG_ASSERT(pAttClone == pAtt);
 
-            if(pAtt != NullFC)
+            if(pAtt != NULL)
             {
                 pAtt->setInternal(true);
             }
 
-            if(pCore != NullFC)
+            if(pCore != NULL)
             {
                 pCore->addAttachment(pAtt);
             }
             else
             {
-                AttachmentContainerPtr pAttCnt = 
+                AttachmentContainer *pAttCnt = 
                     dynamic_pointer_cast<AttachmentContainer>(returnValue);
 
                 if(pAttCnt != NULL)
@@ -338,7 +338,7 @@ FieldContainerTransitPtr VRMLNodeHelper::beginNode(
     return FieldContainerTransitPtr(returnValue);
 }
 
-void VRMLNodeHelper::endNode(FieldContainerPtr)
+void VRMLNodeHelper::endNode(FieldContainer *)
 {
 }
 
@@ -379,7 +379,7 @@ bool VRMLNodeHelper::prototypeAddField(const Char8  *szFieldType,
         FieldDescriptionBase *pDesc = getFieldDescription(szFieldName,
                                                           uiFieldTypeId);
 
-        if(pDesc != NULL && _pGenAttProto != NullFC)
+        if(pDesc != NULL && _pGenAttProto != NULL)
         {
             _pGenAttProto->addField(*pDesc);
 
@@ -434,21 +434,21 @@ void VRMLNodeHelper::endProtoInterface(void)
 /*-------------------------------------------------------------------------*/
 /*                                Dump                                     */
 
-void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
+void VRMLNodeHelper::getFieldAndDesc(      FieldContainer       * pFC,
                                      const Char8                * szFieldname,
-                                           FieldContainerPtr     &pFieldFC,
+                                           FieldContainer       *&pFieldFC,
                                            EditFieldHandlePtr    &pField,
                                      const FieldDescriptionBase *&pDesc)
 {
-    FieldContainerPtr pTmpFC    = NullFC;
-    NodePtr           pNode     = NullFC;
-    NodeCorePtr       pNodeCore = NullFC;
+    FieldContainer *pTmpFC    = NULL;
+    Node           *pNode     = NULL;
+    NodeCore       *pNodeCore = NULL;
 
-    pFieldFC = NullFC;
+    pFieldFC = NULL;
     pField.reset();
     pDesc    = NULL;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -477,11 +477,11 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
     {
         if(pFC->getType().isNode() == true)
         {
-            pNode     = dynamic_cast<NodePtr>(pFC);
+            pNode     = dynamic_cast<Node *>(pFC);
             
             pNodeCore = pNode->getCore();
 
-            if(pNodeCore != NullFC)
+            if(pNodeCore != NULL)
             {
                 pDesc = pNodeCore->getFieldDescription(szFieldname);
 
@@ -502,7 +502,7 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
                     pTmpFC = pNode->findAttachment(
                         VRMLGenericAtt::getClassType().getGroupId());
 
-                    if(pTmpFC != NullFC)
+                    if(pTmpFC != NULL)
                     {
                         pDesc = pTmpFC->getFieldDescription(szFieldname);
                     }
@@ -519,7 +519,7 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
                             pNodeCore->findAttachment(
                                 VRMLGenericAtt::getClassType().getGroupId());
                         
-                        if(pTmpFC != NullFC)
+                        if(pTmpFC != NULL)
                         {
                             pDesc = pTmpFC->getFieldDescription(szFieldname);
                         }
@@ -546,7 +546,7 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
                         pNode->findAttachment(
                             VRMLGenericAtt::getClassType().getGroupId());
                     
-                    if(pTmpFC != NullFC)
+                    if(pTmpFC != NULL)
                     {
                         pDesc = pTmpFC->getFieldDescription(szFieldname);
                     }
@@ -567,12 +567,12 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
         }
         else if(pFC->getType().isNodeCore() == true)
         {
-            pNodeCore = dynamic_cast<NodeCorePtr>(pFC);
+            pNodeCore = dynamic_cast<NodeCore *>(pFC);
 
             pTmpFC = pNodeCore->findAttachment(
                 VRMLGenericAtt::getClassType().getGroupId());
 
-            if(pTmpFC != NullFC)
+            if(pTmpFC != NULL)
             {
                 pDesc = pTmpFC->getFieldDescription(szFieldname);
             }
@@ -596,10 +596,10 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
 #endif
 }
 
-GetFieldHandlePtr VRMLNodeHelper::getField(      FieldContainerPtr pFC1,
-                                                 FieldContainerPtr pFC2,
-                                                 VRMLGenericAttPtr pGenAtt,
-                                           const Char8            *szFieldname)
+GetFieldHandlePtr VRMLNodeHelper::getField(      FieldContainer *pFC1,
+                                                 FieldContainer *pFC2,
+                                                 VRMLGenericAtt *pGenAtt,
+                                           const Char8          *szFieldname)
 {
     GetFieldHandlePtr returnValue;
 
@@ -618,7 +618,7 @@ GetFieldHandlePtr VRMLNodeHelper::getField(      FieldContainerPtr pFC1,
     PINFO << "Trying to find field : " << szFieldname << std::endl;
 #endif
 
-    if(pFC1 != NullFC)
+    if(pFC1 != NULL)
     {
         returnValue = pFC1->getField(szFieldname);
     }
@@ -632,7 +632,7 @@ GetFieldHandlePtr VRMLNodeHelper::getField(      FieldContainerPtr pFC1,
 
     if(returnValue == NULL)
     {
-        if(pFC2 != NullFC)
+        if(pFC2 != NULL)
         {
             returnValue = pFC2->getField(szFieldname);
             
@@ -652,7 +652,7 @@ GetFieldHandlePtr VRMLNodeHelper::getField(      FieldContainerPtr pFC1,
         
         if(returnValue == NULL)
         {
-            if(pGenAtt != NullFC)
+            if(pGenAtt != NULL)
             {
                 returnValue = pGenAtt->getField(szFieldname);
             }
@@ -675,11 +675,11 @@ GetFieldHandlePtr VRMLNodeHelper::getField(      FieldContainerPtr pFC1,
 
 
 void VRMLNodeHelper::getField(const Char8                * szFieldname,
-                                    FieldContainerPtr     &pFieldFC,
+                                    FieldContainer       *&pFieldFC,
                                     EditFieldHandlePtr    &pField,
                               const FieldDescriptionBase *&pDesc      )
 {
-    pFieldFC = NullFC;
+    pFieldFC = NULL;
     pField.reset();
     pDesc    = NULL;
 
@@ -698,7 +698,7 @@ void VRMLNodeHelper::getField(const Char8                * szFieldname,
     PINFO << "Trying to find field : " << szFieldname << std::endl;
 #endif
 
-    if(_pNodeProto != NullFC)
+    if(_pNodeProto != NULL)
     {
         pFieldFC = _pNodeProto;
         pField   = _pNodeProto->editField          (szFieldname);
@@ -714,7 +714,7 @@ void VRMLNodeHelper::getField(const Char8                * szFieldname,
 
     if(pDesc == NULL)
     {
-        if(_pNodeCoreProto != NullFC)
+        if(_pNodeCoreProto != NULL)
         {
             pFieldFC = _pNodeCoreProto;
             pField   = _pNodeCoreProto->editField          (szFieldname);
@@ -740,7 +740,7 @@ void VRMLNodeHelper::getField(const Char8                * szFieldname,
 
         if(pDesc == NULL)
         {
-            if(_pGenAttProto != NullFC)
+            if(_pGenAttProto != NULL)
             {
                 pFieldFC = _pGenAttProto;
                 pField   = _pGenAttProto->editField          (szFieldname);
@@ -761,7 +761,7 @@ void VRMLNodeHelper::getField(const Char8                * szFieldname,
 
     if(pDesc == NULL)
     {
-        pFieldFC = NullFC;
+        pFieldFC = NULL;
     }
 
 #ifdef OSG_DEBUG_VRML
@@ -836,12 +836,12 @@ void VRMLNodeHelper::addFieldValue(      EditFieldHandlePtr    pField,
 }
 
 void VRMLNodeHelper::setContainerFieldValue(      
-          FieldContainerPtr     pFC,
+          FieldContainer       *pFC,
     const FieldDescriptionBase *pFieldDesc,
-          FieldContainerPtr     pFieldFC  )
+          FieldContainer       *pFieldFC  )
 {
     if((pFieldDesc != NULL  ) && 
-       (pFieldFC   != NullFC)   )
+       (pFieldFC   != NULL)   )
     {
          FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
             boost::dynamic_pointer_cast<
@@ -1006,16 +1006,16 @@ bool VRMLGroupHelper::prototypeAddField(const Char8  *szFieldType,
 }
 
 void VRMLGroupHelper::getFieldAndDesc(
-          FieldContainerPtr      pFC,
+          FieldContainer       * pFC,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
     if(szFieldname == NULL)
         return;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -1120,16 +1120,16 @@ bool VRMLTransformHelper::prototypeAddField(const Char8  *szFieldType,
 }
 
 void VRMLTransformHelper::getFieldAndDesc(
-          FieldContainerPtr      pFC,
+          FieldContainer       * pFC,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
     if(szFieldname == NULL)
         return;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -1202,8 +1202,8 @@ VRMLMaterialHelper::VRMLMaterialHelper(void) :
     _specularColor          (),
     _transparency           (),
 
-    _pDefMat                (NullFC),
-    _pMat                   (NullFC)
+    _pDefMat                (NULL),
+    _pMat                   (NULL)
 {
 }
 
@@ -1213,7 +1213,7 @@ VRMLMaterialHelper::VRMLMaterialHelper(void) :
 VRMLMaterialHelper::~VRMLMaterialHelper(void)
 {
     //subRefX(_pDefMat);
-    _pDefMat = NullFC;
+    _pDefMat = NULL;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1237,10 +1237,10 @@ void VRMLMaterialHelper::reset(void)
     _specularColor   .setValue(_defaultSpecularColor);
     _transparency    .setValue(_defaultTransparency);
 
-    _pMat = NullFC;
+    _pMat = NULL;
 }
 
-MaterialPtr VRMLMaterialHelper::getDefaultMaterial(void)
+Material *VRMLMaterialHelper::getDefaultMaterial(void)
 {
     return _pDefMat;
 }
@@ -1343,19 +1343,19 @@ void VRMLMaterialHelper::endProtoInterface(void)
 
 
 void VRMLMaterialHelper::getFieldAndDesc(
-          FieldContainerPtr,
+          FieldContainer       *,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
-    pFieldFC = NullFC;
+    pFieldFC = NULL;
     pField.reset();
     pDesc    = NULL;
 
     if(osgStringCaseCmp("ambientIntensity", szFieldname) == 0)
     {
-        pFieldFC = NullFC;
+        pFieldFC = NULL;
 
         if(_bProtoInterfaceDone == false)
         {
@@ -1371,7 +1371,7 @@ void VRMLMaterialHelper::getFieldAndDesc(
     }
     else if(osgStringCaseCmp("diffuseColor", szFieldname) == 0)
     {
-        pFieldFC = NullFC;
+        pFieldFC = NULL;
 
         if(_bProtoInterfaceDone == false)
         {
@@ -1386,7 +1386,7 @@ void VRMLMaterialHelper::getFieldAndDesc(
     }
     else if(osgStringCaseCmp("emissiveColor", szFieldname) == 0)
     {
-        pFieldFC = NullFC;
+        pFieldFC = NULL;
 
         if(_bProtoInterfaceDone == false)
         {
@@ -1401,7 +1401,7 @@ void VRMLMaterialHelper::getFieldAndDesc(
     }
     else if(osgStringCaseCmp("shininess", szFieldname) == 0)
     {
-        pFieldFC = NullFC;
+        pFieldFC = NULL;
 
         if(_bProtoInterfaceDone == false)
         {
@@ -1416,7 +1416,7 @@ void VRMLMaterialHelper::getFieldAndDesc(
     }
     else if(osgStringCaseCmp("specularColor", szFieldname) == 0)
     {
-        pFieldFC = NullFC;
+        pFieldFC = NULL;
 
         if(_bProtoInterfaceDone == false)
         {
@@ -1431,7 +1431,7 @@ void VRMLMaterialHelper::getFieldAndDesc(
     }
     else if(osgStringCaseCmp("transparency", szFieldname) == 0)
     {
-        pFieldFC = NullFC;
+        pFieldFC = NULL;
 
         if(_bProtoInterfaceDone == false)
         {
@@ -1452,7 +1452,7 @@ void VRMLMaterialHelper::getFieldAndDesc(
 FieldContainerTransitPtr VRMLMaterialHelper::beginNode(
     const Char8            *,
     const Char8            *,
-          FieldContainerPtr  )
+          FieldContainer   *  )
 {
     reset();
 
@@ -1461,9 +1461,9 @@ FieldContainerTransitPtr VRMLMaterialHelper::beginNode(
     return FieldContainerTransitPtr(_pMat);
 }
 
-void VRMLMaterialHelper::endNode(FieldContainerPtr)
+void VRMLMaterialHelper::endNode(FieldContainer *)
 {
-    if(_pMat != NullFC)
+    if(_pMat != NULL)
     {
         Color4f cCol;
 
@@ -1637,16 +1637,16 @@ bool VRMLShapeHelper::prototypeAddField(const Char8  *szFieldType,
 }
 
 void VRMLShapeHelper::getFieldAndDesc(
-          FieldContainerPtr      pFC,
+          FieldContainer       * pFC,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
     if(szFieldname == NULL)
         return;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -1686,11 +1686,11 @@ void VRMLShapeHelper::getFieldAndDesc(
               << std::endl;
 #endif
 
-        NodePtr pNode = dynamic_cast<NodePtr>(pFC);
+        Node *pNode = dynamic_cast<Node *>(pFC);
 
-        if(pNode != NullFC)
+        if(pNode != NULL)
         {
-            if(pNode->getCore() != NullFC)
+            if(pNode->getCore() != NULL)
             {
                 pFieldFC = pNode->getCore();
                 pField   = pNode->getCore()->editField("material");
@@ -1724,13 +1724,13 @@ void VRMLShapeHelper::getFieldAndDesc(
 /*                                Node                                     */
 
 
-void VRMLShapeHelper::endNode(FieldContainerPtr pFC)
+void VRMLShapeHelper::endNode(FieldContainer *pFC)
 {
-    if(pFC != NullFC)
+    if(pFC != NULL)
     {
-        NodePtr pNode = dynamic_cast<NodePtr>(pFC);
+        Node *pNode = dynamic_cast<Node *>(pFC);
 
-        if(pNode != NullFC && pNode->getCore() == NullFC)
+        if(pNode != NULL && pNode->getCore() == NULL)
         {
             PWARNING << "warning empty material, using default\n" << std::endl;
 
@@ -1742,13 +1742,13 @@ void VRMLShapeHelper::endNode(FieldContainerPtr pFC)
         }
         else
         {
-            MaterialGroupPtr pMatGroup;
+            MaterialGroup *pMatGroup;
 
-            pMatGroup = dynamic_cast<MaterialGroupPtr>(pNode->getCore());
+            pMatGroup = dynamic_cast<MaterialGroup *>(pNode->getCore());
 
-            if(pMatGroup != NullFC)
+            if(pMatGroup != NULL)
             {
-                if(pMatGroup->getMaterial() == NullFC)
+                if(pMatGroup->getMaterial() == NULL)
                 {
                     pMatGroup->setMaterial(
                         _pMaterialHelper->getDefaultMaterial());
@@ -1867,9 +1867,9 @@ bool VRMLAppearanceHelper::prototypeAddField(const Char8  *szFieldType,
 }
 
 void VRMLAppearanceHelper::getFieldAndDesc(
-          FieldContainerPtr      pFC,
+          FieldContainer       * pFC,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
@@ -1881,7 +1881,7 @@ void VRMLAppearanceHelper::getFieldAndDesc(
           << std::endl;
 #endif
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -1952,34 +1952,34 @@ void VRMLAppearanceHelper::getFieldAndDesc(
 /*                                Node                                     */
 
 
-void VRMLAppearanceHelper::endNode(FieldContainerPtr pFC)
+void VRMLAppearanceHelper::endNode(FieldContainer *pFC)
 {
-    if(pFC != NullFC)
+    if(pFC != NULL)
     {
-        ChunkMaterialPtr pChunkMat = dynamic_cast<ChunkMaterialPtr>(pFC);
+        ChunkMaterial *pChunkMat = dynamic_cast<ChunkMaterial *>(pFC);
 
-        if(pChunkMat != NullFC)
+        if(pChunkMat != NULL)
         {
-            TextureObjChunkPtr pTexC = 
-                dynamic_cast<TextureObjChunkPtr>(
+            TextureObjChunk *pTexC = 
+                dynamic_cast<TextureObjChunk *>(
                     pChunkMat->find(TextureObjChunk::getClassType()));
 
             TextureEnvChunkUnrecPtr pTexE = 
-                dynamic_cast<TextureEnvChunkPtr>(
+                dynamic_cast<TextureEnvChunk *>(
                     pChunkMat->find(TextureEnvChunk::getClassType()));
             
          
 
 
             if ((pChunkMat->isTransparent()           == true)     ||
-                (pTexC                                != NullFC && 
-                 pTexC->getImage()                    != NullFC &&
+                (pTexC                                != NULL && 
+                 pTexC->getImage()                    != NULL &&
                  pTexC->getImage()->hasAlphaChannel() == true    ))
             {
                 BlendChunkUnrecPtr pBlendChunk = OSG::BlendChunk::create();
 
-                if(pTexC                              != NullFC && 
-                   pTexC->getImage()                  != NullFC &&
+                if(pTexC                              != NULL && 
+                   pTexC->getImage()                  != NULL &&
                    pTexC->getImage()->isAlphaBinary() == true)
                 {
                     pBlendChunk->setAlphaFunc(GL_NOTEQUAL);
@@ -1994,20 +1994,20 @@ void VRMLAppearanceHelper::endNode(FieldContainerPtr pFC)
                 pChunkMat->addChunk(pBlendChunk);
             }
 
-            if(pTexC != NullFC)
+            if(pTexC != NULL)
             {
-                if(pTexE == NullFC)
+                if(pTexE == NULL)
                 {
                     pTexE = TextureEnvChunk::create();
 
                     pChunkMat->addChunk(pTexE);
                 }
 
-                MaterialChunkPtr pMatC = 
-                    dynamic_cast<MaterialChunkPtr>(
+                MaterialChunk *pMatC = 
+                    dynamic_cast<MaterialChunk *>(
                         pChunkMat->find(MaterialChunk::getClassType()));
 
-                if(pMatC == NullFC)
+                if(pMatC == NULL)
                 {
                     pTexE->setEnvMode(GL_REPLACE);
                 }
@@ -2153,9 +2153,9 @@ bool VRMLIndexedGeometryHelper::prototypeAddField(const Char8  *szFieldType,
 
 
 void VRMLIndexedGeometryHelper::getFieldAndDesc(
-          FieldContainerPtr      pFC,
+          FieldContainer       * pFC,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
@@ -2169,7 +2169,7 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
     if(szFieldname == NULL)
         return;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -2179,19 +2179,19 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
         return;
     }
 
-    NodePtr pNode = dynamic_cast<NodePtr>(pFC);
+    Node *pNode = dynamic_cast<Node *>(pFC);
 
-    if(pNode == NullFC)
+    if(pNode == NULL)
     {
         PWARNING << "GeoDesc::getFieldAndDesc : No Node" << std::endl;
         return;
     }
 
-    NodeCorePtr pNodeCore = pNode->getCore();
+    NodeCore *pNodeCore = pNode->getCore();
 
-    GeometryPtr pGeo      = dynamic_cast<GeometryPtr>(pNodeCore);
+    Geometry *pGeo      = dynamic_cast<Geometry *>(pNodeCore);
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
         PWARNING << "GeoDesc::getFieldAndDesc : No Geo" << std::endl;
         return;
@@ -2268,33 +2268,33 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
 
 
 
-void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
+void VRMLIndexedGeometryHelper::endNode(FieldContainer *pFC)
 {
-    NodePtr     pNode = NullFC;
-    GeometryPtr pGeo  = NullFC;
+    Node     *pNode = NULL;
+    Geometry *pGeo  = NULL;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         return;
     }
 
-    pNode = dynamic_cast<NodePtr>(pFC);
+    pNode = dynamic_cast<Node *>(pFC);
 
-    if(pNode == NullFC)
+    if(pNode == NULL)
     {
         return;
     }
 
-    pGeo = dynamic_cast<GeometryPtr>(pNode->getCore());
+    pGeo = dynamic_cast<Geometry *>(pNode->getCore());
 
-    if(pGeo == NullFC)
+    if(pGeo == NULL)
     {
         return;
     }
 
           EditFieldHandlePtr    pField;
     const FieldDescriptionBase *pDesc    = NULL;
-          FieldContainerPtr     pDummyFC = NullFC;
+          FieldContainer       *pDummyFC = NULL;
 
 
     MFInt32  *pCoordIndex           = NULL;
@@ -2501,9 +2501,9 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
             //createSharedIndex( pGeo);
 
             //if((0 != (_uiOptions & VRMLFile::CreateNormals) )    &&
-            //   (pGeo->getNormals() == NullFC))
+            //   (pGeo->getNormals() == NULL))
 
-            if(pGeo->getNormals() == NullFC)
+            if(pGeo->getNormals() == NULL)
             {
 #ifdef OSG_DEBUG_VRML
                 indentLog(getIndent(), PINFO);
@@ -2531,7 +2531,7 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
                 ++parentsIt;
             }
-            pGeo = NullFC;
+            pGeo = NULL;
 #endif
         }
     }
@@ -2580,7 +2580,7 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
                 ++parentsIt;
             }
-            pGeo = NullFC;
+            pGeo = NULL;
 #endif
         }
     }
@@ -2595,17 +2595,17 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
 
 
 void VRMLIndexedGeometryHelper::setContainerFieldValue(      
-          FieldContainerPtr     pFC,
+          FieldContainer       *pFC,
     const FieldDescriptionBase *pFieldDesc,
-          FieldContainerPtr     pFieldFC  )
+          FieldContainer       *pFieldFC  )
 {
-    GeometryPtr          pGeo     = 
-        dynamic_cast<GeometryPtr         >(pFieldFC);
+    Geometry          *pGeo     = 
+        dynamic_cast<Geometry          *>(pFieldFC);
 
-    GeoVectorPropertyPtr pVecProp = 
-        dynamic_cast<GeoVectorPropertyPtr>(pFC);
+    GeoVectorProperty *pVecProp = 
+        dynamic_cast<GeoVectorProperty *>(pFC);
 
-    if(pGeo != NullFC && pVecProp != NullFC)
+    if(pGeo != NULL && pVecProp != NULL)
     {
         pGeo->setProperty(pVecProp, _uiPropertyIndex);
     }
@@ -2712,7 +2712,7 @@ void VRMLGeometryPartHelper::init(const Char8 *szName)
     _pNodeProto =
         FieldContainerFactory::the()->createContainer(_szOSGProtoname.c_str());
 
-    if(_pNodeProto == NullFC)
+    if(_pNodeProto == NULL)
     {
         PWARNING << "ERROR no prototype available for "
                  << _szOSGProtoname
@@ -2761,9 +2761,9 @@ bool VRMLGeometryPartHelper::prototypeAddField(const Char8  *szFieldType,
 }
 
 void VRMLGeometryPartHelper::getFieldAndDesc(
-          FieldContainerPtr      pFC,
+          FieldContainer       * pFC,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
@@ -2777,7 +2777,7 @@ void VRMLGeometryPartHelper::getFieldAndDesc(
     if(szFieldname == NULL)
         return;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -2917,7 +2917,7 @@ void VRMLGeometryObjectHelper::init(const Char8 *szName)
 
     _pNodeProto = Node::create();
 
-    if(_pNodeProto == NullFC)
+    if(_pNodeProto == NULL)
     {
         PWARNING << "GeoObjDesc::init : no prototype available" << std::endl;
     }
@@ -2942,9 +2942,9 @@ bool VRMLGeometryObjectHelper::prototypeAddField(const Char8  *szFieldType,
 }
 
 void VRMLGeometryObjectHelper::getFieldAndDesc(
-          FieldContainerPtr      pFC,
+          FieldContainer       * pFC,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
@@ -2958,7 +2958,7 @@ void VRMLGeometryObjectHelper::getFieldAndDesc(
     if(szFieldname == NULL)
         return;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -2986,19 +2986,19 @@ void VRMLGeometryObjectHelper::getFieldAndDesc(
 /*-------------------------------------------------------------------------*/
 /*                                Node                                     */
 
-void VRMLGeometryObjectHelper::endNode(FieldContainerPtr pFC)
+void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
 {
           EditFieldHandlePtr    pField;
     const FieldDescriptionBase *pDesc    = NULL;
-          FieldContainerPtr     pDummyFC = NullFC;
-          NodePtr               pNode    = NullFC;
+          FieldContainer       *pDummyFC = NULL;
+          Node                 *pNode    = NULL;
 
-    if(pFC == NullFC)
+    if(pFC == NULL)
         return;
 
-    pNode = dynamic_cast<NodePtr>(pFC);
+    pNode = dynamic_cast<Node *>(pFC);
 
-    if(pNode == NullFC)
+    if(pNode == NULL)
         return;
 
     if(_eVRMLObjectType == BoxGeo)
@@ -3334,13 +3334,13 @@ bool VRMLImageTextureHelper::prototypeAddField(const Char8  *,
 
 
 void VRMLImageTextureHelper::getFieldAndDesc(
-          FieldContainerPtr,
+          FieldContainer       *,
     const Char8                * szFieldname,
-          FieldContainerPtr     &pFieldFC,
+          FieldContainer       *&pFieldFC,
           EditFieldHandlePtr    &pField,
     const FieldDescriptionBase *&pDesc)
 {
-    pFieldFC = NullFC;
+    pFieldFC = NULL;
     pField.reset();
     pDesc    = NULL;
 
@@ -3391,14 +3391,14 @@ void VRMLImageTextureHelper::getFieldAndDesc(
 FieldContainerTransitPtr VRMLImageTextureHelper::beginNode(
     const Char8       *,
     const Char8       *,
-    FieldContainerPtr  )
+    FieldContainer    *)
 {
     TextureObjChunkTransitPtr returnValue = TextureObjChunk::create();
 
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
     PINFO << "Begin ImageTexture " 
-          << ((returnValue == NullFC) ? "invalid obj" : "valid obj") 
+          << ((returnValue == NULL) ? "invalid obj" : "valid obj") 
           << std::endl;
 
     incIndent();
@@ -3412,16 +3412,16 @@ FieldContainerTransitPtr VRMLImageTextureHelper::beginNode(
     return FieldContainerTransitPtr(returnValue);
 }
 
-void VRMLImageTextureHelper::endNode(FieldContainerPtr pFC)
+void VRMLImageTextureHelper::endNode(FieldContainer *pFC)
 {
-    TextureObjChunkPtr  pTexture = NullFC;
+    TextureObjChunk    *pTexture = NULL;
 
-    ImageUnrecPtr       pImage   = NullFC;
+    ImageUnrecPtr       pImage   = NULL;
 
-    pTexture = dynamic_cast<TextureObjChunkPtr>(pFC);
+    pTexture = dynamic_cast<TextureObjChunk *>(pFC);
 
 
-    if(pTexture != NullFC && _url.size() != 0)
+    if(pTexture != NULL && _url.size() != 0)
     {
 #ifdef OSG_DEBUG_VRML
         PNOTICE << "VRMLImageTextureDesc::endNode : Reading texture "
@@ -3430,7 +3430,7 @@ void VRMLImageTextureHelper::endNode(FieldContainerPtr pFC)
 
         pImage = ImageFileHandler::the()->read(_url[0].c_str());
 
-        if(pImage != NullFC)
+        if(pImage != NULL)
         {
             pImage->setForceAlphaBinary(pImage->calcIsAlphaBinary());
 

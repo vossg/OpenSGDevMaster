@@ -62,85 +62,85 @@ void Geometry::invalidateDlistCache(void)
 //--------------------------
 
 inline
-GeoIntegralPropertyPtr Geometry::getTypes(void) const
+GeoIntegralProperty *Geometry::getTypes(void) const
 {
    return _sfTypes.getValue();
 }
 
 inline
-GeoIntegralPropertyPtr Geometry::getLengths(void) const
+GeoIntegralProperty *Geometry::getLengths(void) const
 {
    return _sfLengths.getValue();
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getPositions(void) const
+GeoVectorProperty *Geometry::getPositions(void) const
 {
    return getProperty(PositionsIndex);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getNormals(void) const
+GeoVectorProperty *Geometry::getNormals(void) const
 {
    return getProperty(NormalsIndex);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getColors(void) const
+GeoVectorProperty *Geometry::getColors(void) const
 {
    return getProperty(ColorsIndex);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getSecondaryColors(void) const
+GeoVectorProperty *Geometry::getSecondaryColors(void) const
 {
    return getProperty(SecondaryColorsIndex);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords(void) const
+GeoVectorProperty *Geometry::getTexCoords(void) const
 {
    return getProperty(TexCoordsIndex);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords1(void) const
+GeoVectorProperty *Geometry::getTexCoords1(void) const
 {
    return getProperty(TexCoords1Index);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords2(void) const
+GeoVectorProperty *Geometry::getTexCoords2(void) const
 {
    return getProperty(TexCoords2Index);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords3(void) const
+GeoVectorProperty *Geometry::getTexCoords3(void) const
 {
    return getProperty(TexCoords3Index);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords4(void) const
+GeoVectorProperty *Geometry::getTexCoords4(void) const
 {
    return getProperty(TexCoords4Index);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords5(void) const
+GeoVectorProperty *Geometry::getTexCoords5(void) const
 {
    return getProperty(TexCoords5Index);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords6(void) const
+GeoVectorProperty *Geometry::getTexCoords6(void) const
 {
    return getProperty(TexCoords6Index);
 }
 
 inline
-GeoVectorPropertyPtr Geometry::getTexCoords7(void) const
+GeoVectorProperty *Geometry::getTexCoords7(void) const
 {
    return getProperty(TexCoords7Index);
 }
@@ -148,73 +148,73 @@ GeoVectorPropertyPtr Geometry::getTexCoords7(void) const
 
 
 inline
-void Geometry::setPositions(const GeoVectorPropertyPtr value)
+void Geometry::setPositions(GeoVectorProperty * const value)
 {
     setProperty(value, PositionsIndex);
 }
 
 inline
-void Geometry::setNormals(const GeoVectorPropertyPtr value)
+void Geometry::setNormals(GeoVectorProperty * const value)
 {
     setProperty(value, NormalsIndex);
 }
 
 inline
-void Geometry::setColors(const GeoVectorPropertyPtr value)
+void Geometry::setColors(GeoVectorProperty * const value)
 {
     setProperty(value, ColorsIndex);
 }
 
 inline
-void Geometry::setSecondaryColors(const GeoVectorPropertyPtr value)
+void Geometry::setSecondaryColors(GeoVectorProperty * const value)
 {
     setProperty(value, SecondaryColorsIndex);
 }
 
 inline
-void Geometry::setTexCoords(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoordsIndex);
 }
 
 inline
-void Geometry::setTexCoords1(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords1(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoords1Index);
 }
 
 inline
-void Geometry::setTexCoords2(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords2(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoords2Index);
 }
 
 inline
-void Geometry::setTexCoords3(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords3(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoords3Index);
 }
 
 inline
-void Geometry::setTexCoords4(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords4(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoords4Index);
 }
 
 inline
-void Geometry::setTexCoords5(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords5(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoords5Index);
 }
 
 inline
-void Geometry::setTexCoords6(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords6(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoords6Index);
 }
 
 inline
-void Geometry::setTexCoords7(const GeoVectorPropertyPtr value)
+void Geometry::setTexCoords7(GeoVectorProperty * const value)
 {
     setProperty(value, TexCoords7Index);
 }
@@ -225,13 +225,13 @@ void Geometry::setTexCoords7(const GeoVectorPropertyPtr value)
 * \param index  The index of the OpenGL vertex attribute to set.
 */
 inline
-void Geometry::setProperty(const GeoVectorPropertyPtr value, UInt16 index)
+void Geometry::setProperty(GeoVectorProperty * const value, UInt16 index)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
     while(_mfProperties.size() <= index)
     {
-        _mfProperties.push_back(NullFC);
+        _mfProperties.push_back(NULL);
     }
 
     _mfProperties.replace(index, value);
@@ -239,10 +239,10 @@ void Geometry::setProperty(const GeoVectorPropertyPtr value, UInt16 index)
 
 /*! Return the vertext property data stored at index. */
 inline
-GeoVectorPropertyPtr Geometry::getProperty(UInt16 index) const
+GeoVectorProperty *Geometry::getProperty(UInt16 index) const
 {
     if(_mfProperties.size() <= index)
-        return NullFC;
+        return NULL;
 
     return _mfProperties[index];
 }
@@ -252,13 +252,13 @@ GeoVectorPropertyPtr Geometry::getProperty(UInt16 index) const
 * \param index   The index of the vertex attribute data
 */
 inline
-void Geometry::setIndex(const GeoIntegralPropertyPtr value, UInt16 index)
+void Geometry::setIndex(GeoIntegralProperty * const value, UInt16 index)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
     while(_mfPropIndices.size() <= index)
     {
-        _mfPropIndices.push_back(NullFC);
+        _mfPropIndices.push_back(NULL);
     }
 
     _mfPropIndices.replace(index, value);
@@ -268,19 +268,19 @@ void Geometry::setIndex(const GeoIntegralPropertyPtr value, UInt16 index)
 * at index index.
 */
 inline
-GeoIntegralPropertyPtr Geometry::getIndex(UInt16 index) const
+GeoIntegralProperty *Geometry::getIndex(UInt16 index) const
 {
     if(_mfPropIndices.size() <= index)
-        return NullFC;
+        return NULL;
 
-    GeoIntegralPropertyPtr p =
-        dynamic_cast<GeoIntegralPropertyPtr>(_mfPropIndices[index]);
+    GeoIntegralProperty *p =
+        dynamic_cast<GeoIntegralProperty *>(_mfPropIndices[index]);
 
     return p;
 }
 
 inline
-void Geometry::setMaterial(const MaterialPtr &value)
+void Geometry::setMaterial(Material * const value)
 {
     editSField(MaterialFieldMask);
 
@@ -314,7 +314,7 @@ inline void Geometry::resizePropIndices(size_t newsize)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    _mfPropIndices.resize(newsize, NullFC);
+    _mfPropIndices.resize(newsize, NULL);
 }
 
 inline void Geometry::reservePropIndices(size_t newsize)
@@ -328,7 +328,7 @@ inline void Geometry::reservePropIndices(size_t newsize)
 
 /*! Set all indices to the same value for all vertex attributes.
 */
-inline void Geometry::setIndices(const GeoIntegralPropertyPtr value)
+inline void Geometry::setIndices(GeoIntegralProperty * const value)
 {
     for(UInt16 i = 0; i < MaxAttribs; ++i)
         setIndex(value, i);
@@ -337,7 +337,7 @@ inline void Geometry::setIndices(const GeoIntegralPropertyPtr value)
 /*! Return the indices of the first set of vertex attributes.
 * Use in combination with setIndices.
 */
-inline GeoIntegralPropertyPtr Geometry::getIndices(void)
+inline GeoIntegralProperty *Geometry::getIndices(void)
 {
     return getIndex(0);
 }

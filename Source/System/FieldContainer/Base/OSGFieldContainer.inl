@@ -488,10 +488,10 @@ const FieldFlags *FieldContainer::getFieldFlags(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-FieldContainerPtr FieldContainer::getAspectPtr(UInt32 uiAspect) const
+FieldContainer *FieldContainer::getAspectPtr(UInt32 uiAspect) const
 {
     if(_pAspectStore == NULL)
-        return NullFC;
+        return NULL;
 
     return _pAspectStore->getPtr(uiAspect);
 }
@@ -704,9 +704,9 @@ const Char8 *FieldContainer::getClassname(void)
 template<class ContainerPtr> inline
 ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
 {
-    if(pFC == OSGNullFC)
+    if(pFC == NULL)
     {
-        return OSGNullFC;
+        return NULL;
     }
     
     ContainerPtr result = 
@@ -719,9 +719,9 @@ ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
 
 
 template <class ObjectT> inline
-void FieldContainer::newPtr(      typename ObjectT::ObjPtr &result, 
-                            const          ObjectT         *pPrototype,
-                                           BitVector        bFlags    )
+void FieldContainer::newPtr(      typename ObjectT::ObjCPtr &result, 
+                            const          ObjectT          *pPrototype,
+                                           BitVector         bFlags    )
 {
     result = new ObjectT(*pPrototype);
 
@@ -739,8 +739,8 @@ void FieldContainer::newPtr(      typename ObjectT::ObjPtr &result,
 }
 
 template <class ObjectT> inline
-void FieldContainer::newPtr(typename ObjectT::ObjPtr &result,
-                                     BitVector        bFlags)
+void FieldContainer::newPtr(typename ObjectT::ObjCPtr &result,
+                                     BitVector         bFlags)
 {
     result = new ObjectT;
 
@@ -759,8 +759,8 @@ void FieldContainer::newPtr(typename ObjectT::ObjPtr &result,
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class ObjectT> inline
-void FieldContainer::newAspectCopy(      typename ObjectT::ObjPtr &result, 
-                                   const          ObjectT         *pPrototype)
+void FieldContainer::newAspectCopy(      typename ObjectT::ObjCPtr &result, 
+                                   const          ObjectT          *pPrototype)
 {
     result = new ObjectT(*pPrototype);
 

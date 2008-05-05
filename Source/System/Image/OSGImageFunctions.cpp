@@ -64,8 +64,8 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------//
 /*! composes multiple images to one */
 
-bool createComposedImage ( std::vector<ImagePtr> imageVec,
-                           ImagePtr              image,
+bool createComposedImage ( std::vector<Image *>  imageVec,
+                           Image                *image,
                            SliceDataType         sliceDataType )
 {
   UInt32 dataSize, i, n = imageVec.size();
@@ -184,11 +184,11 @@ bool createComposedImage ( std::vector<ImagePtr> imageVec,
 //---------------------------------------------------------------------------//
 /*! convert bumpmap to normalmap */
 
-bool createNormalMapFromBump ( ImagePtr image,
-                               ImagePtr dstImg,
-                               Vec3f    normalMapScale)
+bool createNormalMapFromBump ( Image  *image,
+                               Image  *dstImg,
+                               Vec3f   normalMapScale)
 {
-    if (image == NullFC || image->getDepth() > 1 ||
+    if (image == NULL || image->getDepth() > 1 ||
         image->getPixelFormat() != Image::OSG_L_PF)
     {
         FFATAL(("No valid Normalmap given!\n"));
@@ -199,7 +199,7 @@ bool createNormalMapFromBump ( ImagePtr image,
 
     ImageUnrecPtr dst;
 
-    if(dstImg == NullFC)
+    if(dstImg == NULL)
     {
         dst = Image::create();
         cpImg = true;
@@ -295,8 +295,8 @@ bool createNormalMapFromBump ( ImagePtr image,
 //---------------------------------------------------------------------------//
 /*!  creates a Normal Volume from the given data */
 
-bool createNormalVolume (      ImagePtr     inImage,
-                               ImagePtr     outImage,
+bool createNormalVolume (      Image       *inImage,
+                               Image       *outImage,
                          const std::string &outputFormat)
 {
   const Real32 gMax = 441.67295593, gF = 255.0/gMax;
@@ -527,11 +527,11 @@ bool createNormalVolume (      ImagePtr     inImage,
     example in the ShaderX book (www.shaderx.com)
 */
 
-bool create2DPreIntegrationLUT ( ImagePtr dst,
-                                 ImagePtr src,
-                                 Real32   thickness)
+bool create2DPreIntegrationLUT ( Image  *dst,
+                                 Image  *src,
+                                 Real32  thickness)
 {
-    if (src == NullFC || dst == NullFC ||
+    if (src == NULL || dst == NULL ||
         src->getHeight() > 1 || src->getDepth() > 1 ||
         src->getPixelFormat() != Image::OSG_RGBA_PF)
     {
@@ -597,18 +597,18 @@ bool create2DPreIntegrationLUT ( ImagePtr dst,
 //---------------------------------------------------------------------------//
 /*! split RGBA images into RGB and A */
 
-bool splitRGBA(ImagePtr rgba,
-               ImagePtr rgb,
-               ImagePtr alpha)
+bool splitRGBA(Image *rgba,
+               Image *rgb,
+               Image *alpha)
 {
-    if (rgba == NullFC || rgba->getDepth() > 1 ||
+    if (rgba == NULL || rgba->getDepth() > 1 ||
         rgba->getPixelFormat() != Image::OSG_RGBA_PF)
     {
         FFATAL(("No appropriate image given!\n"));
         return false;
     }
 
-    if(rgb == NullFC || alpha == NullFC)
+    if(rgb == NULL || alpha == NULL)
     {
         FFATAL(("No appropriate target given!\n"));
         return false;
@@ -645,11 +645,11 @@ bool splitRGBA(ImagePtr rgba,
 //---------------------------------------------------------------------------//
 /*! merge RGB and A images into RGBA */
 
-bool mergeRGBA(ImagePtr rgb,
-               ImagePtr alpha,
-               ImagePtr rgba)
+bool mergeRGBA(Image *rgb,
+               Image *alpha,
+               Image *rgba)
 {
-    if (rgb == NullFC || alpha == NullFC ||
+    if (rgb == NULL || alpha == NULL ||
         rgb->getDepth() > 1 || alpha->getDepth() > 1 || 
         rgb->getPixelFormat() != Image::OSG_RGB_PF ||
         alpha->getPixelFormat() != Image::OSG_L_PF)
@@ -699,8 +699,8 @@ bool mergeRGBA(ImagePtr rgb,
 //---------------------------------------------------------------------------//
 /*! blend the brush on the canvas image */
 
-bool blendImage ( ImagePtr canvas, 
-                  ImagePtr brush,
+bool blendImage ( Image   *canvas, 
+                  Image   *brush,
                   Vec3f    position,
                   Color4f  color, 
                   Real32   alphaScale,
@@ -855,14 +855,14 @@ bool blendImage ( ImagePtr canvas,
 //---------------------------------------------------------------------------//
 /*! create phong texture */
 
-bool createPhongTexture(ImagePtr image,
+bool createPhongTexture(Image   *image,
                         UInt32   size,
                         Real32   specular_exponent,
                         Real32   ka,
                         Real32   kd,
                         Real32   ks)
 {
-    if(image == NullFC)
+    if(image == NULL)
     {
         FFATAL(("No appropriate target given!\n"));
         return false;
@@ -901,7 +901,7 @@ bool createPhongTexture(ImagePtr image,
 //---------------------------------------------------------------------------//
 /*! create phong Volume */
 
-bool createPhongVolume ( ImagePtr image,
+bool createPhongVolume ( Image   *image,
                          Color3f  diffuseColor,
                          Color3f  specularColor,
                          UInt32   lutSize,
@@ -917,7 +917,7 @@ bool createPhongVolume ( ImagePtr image,
 	OSG::UInt8 *ds;
 	OSG::Real32 min = OSG::Inf, max = -OSG::Inf;
 	
-    if(image == NullFC)
+    if(image == NULL)
     {
         FFATAL(("No appropriate target given!\n"));
         return false;
@@ -963,7 +963,7 @@ bool createPhongVolume ( ImagePtr image,
 //---------------------------------------------------------------------------//
 /*! create normalization cube map */
 
-bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
+bool createNormalizationCubeMap(std::vector<Image *> imageVec,
                                 UInt32 size)
 {
     int i, j;
@@ -976,7 +976,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
 
     for (i=0; i<6; i++)
     {
-        if (imageVec[i] == NullFC)
+        if (imageVec[i] == NULL)
         {
             FFATAL(("Image[%d] is Null\n", i));
             return false;
@@ -991,7 +991,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
     float size2 = size / 2.0f;
     float offset = 0.5f;
 
-    ImagePtr imagePosX = imageVec[0];
+    Image *imagePosX = imageVec[0];
     
     // pos x  
         imagePosX->set(Image::OSG_RGB_PF, size, size);
@@ -1012,7 +1012,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
             }
         }
 
-    ImagePtr imageNegX = imageVec[1];
+    Image *imageNegX = imageVec[1];
     
     // neg x
         imageNegX->set(Image::OSG_RGB_PF, size, size);
@@ -1033,7 +1033,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
             }
         }
 
-    ImagePtr imagePosY = imageVec[2];
+    Image *imagePosY = imageVec[2];
             
     // pos y
         imagePosY->set(Image::OSG_RGB_PF, size, size);
@@ -1054,7 +1054,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
             }
         }
 
-    ImagePtr imageNegY = imageVec[3];
+    Image *imageNegY = imageVec[3];
     
     // neg y
         imageNegY->set(Image::OSG_RGB_PF, size, size);
@@ -1075,7 +1075,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
             }
         }
 
-    ImagePtr imagePosZ = imageVec[4];
+    Image *imagePosZ = imageVec[4];
     
     // pos z    
         imagePosZ->set(Image::OSG_RGB_PF, size, size);
@@ -1096,7 +1096,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
             }
         }
 
-    ImagePtr imageNegZ = imageVec[5];
+    Image *imageNegZ = imageVec[5];
     
     //negz
         imageNegZ->set(Image::OSG_RGB_PF, size, size);
@@ -1396,7 +1396,7 @@ Real32 noise(Real32 vec[], Int32 len)
     Based on code my 
  */
 
-bool createNoise(ImagePtr image,
+bool createNoise(Image *image,
                  Image::PixelFormat pixelformat,
                  UInt16 numOctaves,
                  UInt16 size,
@@ -1408,7 +1408,7 @@ bool createNoise(ImagePtr image,
     unsigned char  *data, *ptr = NULL;
     bool ok = true;
 
-    if (image == NullFC)
+    if (image == NULL)
     {
         FFATAL (("No output image given\n"));
         return false;
@@ -1493,9 +1493,9 @@ bool createNoise(ImagePtr image,
 }
 
 
-bool createGamma(ImagePtr pImg, UInt32 size, Real32 gamma)
+bool createGamma(Image *pImg, UInt32 size, Real32 gamma)
 {
-    if(pImg == NullFC)
+    if(pImg == NULL)
     {
         FFATAL (("No output image given\n"));
         return false;
@@ -1523,13 +1523,13 @@ bool createGamma(ImagePtr pImg, UInt32 size, Real32 gamma)
     return true;
 }
 
-bool createVignette(ImagePtr pImg, 
-                    UInt32   width, 
-                    UInt32   height, 
-                    Real32   r0, 
-                    Real32   r1    )
+bool createVignette(Image  *pImg, 
+                    UInt32  width, 
+                    UInt32  height, 
+                    Real32  r0, 
+                    Real32  r1    )
 {
-    if(pImg == NullFC)
+    if(pImg == NULL)
     {
         FFATAL (("No output image given\n"));
         return false;
@@ -1583,8 +1583,8 @@ bool createVignette(ImagePtr pImg,
     return true;
 }
 
-bool convertCrossToCubeMap(ConstImagePtr pIn,
-                           ImagePtr      pOut)
+bool convertCrossToCubeMap(Image const *pIn,
+                           Image       *pOut)
 {
     if(pIn == NULL || pOut == NULL)
     {
