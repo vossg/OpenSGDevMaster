@@ -167,28 +167,26 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
                   std::string         &getMessage         (void);
 #endif
                   std::string         &editMessage        (void);
-            const std::string         &getMessage         (void) const;
+            const std::string          getMessage         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getNumPartitions   (void);
 #endif
                   Int32               &editNumPartitions  (void);
-            const Int32               &getNumPartitions   (void) const;
+            const Int32                getNumPartitions   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getOrder           (const UInt32 index);
                   MFInt32             &getOrder          (void);
 #endif
                   Int32               &editOrder          (const UInt32 index);
-            const Int32               &getOrder           (const UInt32 index) const;
-                  MFInt32             &editOrder          (void);
-            const MFInt32             &getOrder          (void) const;
+            const Int32                getOrder           (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getUseGroup        (void);
 #endif
                   bool                &editUseGroup       (void);
-            const bool                &getUseGroup        (void) const;
+            const bool                 getUseGroup        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -203,7 +201,6 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

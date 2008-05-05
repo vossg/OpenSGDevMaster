@@ -85,7 +85,7 @@ Real32 &SimpleStageBase::editLeft(void)
 
 //! Get the value of the SimpleStage::_sfLeft field.
 inline
-const Real32 &SimpleStageBase::getLeft(void) const
+const Real32 SimpleStageBase::getLeft(void) const
 {
     return _sfLeft.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &SimpleStageBase::editRight(void)
 
 //! Get the value of the SimpleStage::_sfRight field.
 inline
-const Real32 &SimpleStageBase::getRight(void) const
+const Real32 SimpleStageBase::getRight(void) const
 {
     return _sfRight.getValue();
 }
@@ -151,7 +151,7 @@ Real32 &SimpleStageBase::editBottom(void)
 
 //! Get the value of the SimpleStage::_sfBottom field.
 inline
-const Real32 &SimpleStageBase::getBottom(void) const
+const Real32 SimpleStageBase::getBottom(void) const
 {
     return _sfBottom.getValue();
 }
@@ -184,7 +184,7 @@ Real32 &SimpleStageBase::editTop(void)
 
 //! Get the value of the SimpleStage::_sfTop field.
 inline
-const Real32 &SimpleStageBase::getTop(void) const
+const Real32 SimpleStageBase::getTop(void) const
 {
     return _sfTop.getValue();
 }
@@ -220,7 +220,6 @@ void SimpleStageBase::setCamera(const CameraPtr value)
     editSField(CameraFieldMask);
 
     _sfCamera.setValue(value);
-
 }
 
 //! Get the value of the SimpleStage::_sfBackground field.
@@ -237,7 +236,6 @@ void SimpleStageBase::setBackground(const BackgroundPtr value)
     editSField(BackgroundFieldMask);
 
     _sfBackground.setValue(value);
-
 }
 
 

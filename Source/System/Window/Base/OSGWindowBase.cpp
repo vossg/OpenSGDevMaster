@@ -296,7 +296,7 @@ WindowBase::TypeObject WindowBase::_type(
     "        removeFromMFieldIndexAs=\"subPort\"\n"
     "        removeFromMFieldObjectAs=\"subPort\"\n"
     "        clearFieldAs=\"clearPorts\"        \n"
-    "        checkNilPtr=\"true\"\n"
+    "        ptrFieldAccess = \"nullCheck\"\n"
     "        linkParentField=\"Parent\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -533,8 +533,6 @@ void WindowBase::addPort(const ViewportPtr value)
 
     editMField(PortFieldMask, _mfPort);
 
-    //addRef(value);
-
     _mfPort.push_back(value);
 }
 
@@ -565,8 +563,6 @@ void WindowBase::insertPort(      UInt32         uiIndex,
 
     MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
-    //addRef(value);
-
     fieldIt += uiIndex;
 
     _mfPort.insert(fieldIt, value);
@@ -583,13 +579,7 @@ void WindowBase::replacePort(      UInt32         uiIndex,
 
     editMField(PortFieldMask, _mfPort);
 
-
-//    addRef(value);
-//    subRef(_mfPort[uiIndex]);
-
-//    _mfPort[uiIndex] = value;
-
-      _mfPort.replace(uiIndex, value);
+    _mfPort.replace(uiIndex, value);
 }
 
 void WindowBase::replacePortBy(const ViewportPtr pOldElem,
@@ -604,14 +594,7 @@ void WindowBase::replacePortBy(const ViewportPtr pOldElem,
     {
         editMField(PortFieldMask, _mfPort);
 
-//        MFViewportPtr::iterator fieldIt = _mfPort.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfPort.replace(elemIdx, pNewElem);
+        _mfPort.replace(elemIdx, pNewElem);
     }
 }
 
@@ -624,8 +607,6 @@ void WindowBase::subPort(UInt32 uiIndex)
         MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfPort.erase(fieldIt);
     }
@@ -642,8 +623,6 @@ void WindowBase::subPort(const ViewportPtr value)
         MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfPort.erase(fieldIt);
     }
@@ -865,6 +844,7 @@ void WindowBase::onCreate(const Window *source)
 
     if(source != NULL)
     {
+        Window *pThis = static_cast<Window *>(this);
 
         MFUnrecChildViewportPtr::const_iterator PortIt  =
             source->_mfPort.begin();
@@ -873,7 +853,7 @@ void WindowBase::onCreate(const Window *source)
 
         while(PortIt != PortEnd)
         {
-            this->addPort(*PortIt);
+            pThis->addPort(*PortIt);
 
             ++PortIt;
         }

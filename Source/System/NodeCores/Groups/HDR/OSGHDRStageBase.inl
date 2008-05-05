@@ -85,7 +85,7 @@ Real32 &HDRStageBase::editExposure(void)
 
 //! Get the value of the HDRStage::_sfExposure field.
 inline
-const Real32 &HDRStageBase::getExposure(void) const
+const Real32 HDRStageBase::getExposure(void) const
 {
     return _sfExposure.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &HDRStageBase::editBlurWidth(void)
 
 //! Get the value of the HDRStage::_sfBlurWidth field.
 inline
-const Real32 &HDRStageBase::getBlurWidth(void) const
+const Real32 HDRStageBase::getBlurWidth(void) const
 {
     return _sfBlurWidth.getValue();
 }
@@ -151,7 +151,7 @@ Real32 &HDRStageBase::editBlurAmount(void)
 
 //! Get the value of the HDRStage::_sfBlurAmount field.
 inline
-const Real32 &HDRStageBase::getBlurAmount(void) const
+const Real32 HDRStageBase::getBlurAmount(void) const
 {
     return _sfBlurAmount.getValue();
 }
@@ -184,7 +184,7 @@ Real32 &HDRStageBase::editEffectAmount(void)
 
 //! Get the value of the HDRStage::_sfEffectAmount field.
 inline
-const Real32 &HDRStageBase::getEffectAmount(void) const
+const Real32 HDRStageBase::getEffectAmount(void) const
 {
     return _sfEffectAmount.getValue();
 }
@@ -217,7 +217,7 @@ Real32 &HDRStageBase::editGamma(void)
 
 //! Get the value of the HDRStage::_sfGamma field.
 inline
-const Real32 &HDRStageBase::getGamma(void) const
+const Real32 HDRStageBase::getGamma(void) const
 {
     return _sfGamma.getValue();
 }
@@ -250,7 +250,7 @@ GLenum &HDRStageBase::editBufferFormat(void)
 
 //! Get the value of the HDRStage::_sfBufferFormat field.
 inline
-const GLenum &HDRStageBase::getBufferFormat(void) const
+const GLenum HDRStageBase::getBufferFormat(void) const
 {
     return _sfBufferFormat.getValue();
 }

@@ -402,6 +402,13 @@ const SFUnrecMaterialPtr *PolygonBackgroundBase::getSFMaterial(void) const
     return &_sfMaterial;
 }
 
+SFUnrecMaterialPtr  *PolygonBackgroundBase::editSFMaterial       (void)
+{
+    editSField(MaterialFieldMask);
+
+    return &_sfMaterial;
+}
+
 MFVec3f *PolygonBackgroundBase::editMFTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
@@ -853,8 +860,9 @@ void PolygonBackgroundBase::onCreate(const PolygonBackground *source)
 
     if(source != NULL)
     {
+        PolygonBackground *pThis = static_cast<PolygonBackground *>(this);
 
-        this->setMaterial(source->getMaterial());
+        pThis->setMaterial(source->getMaterial());
     }
 }
 

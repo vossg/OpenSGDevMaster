@@ -649,6 +649,13 @@ const SFWeakNodePtr *LightChunkBase::getSFBeacon(void) const
     return &_sfBeacon;
 }
 
+SFWeakNodePtr       *LightChunkBase::editSFBeacon         (void)
+{
+    editSField(BeaconFieldMask);
+
+    return &_sfBeacon;
+}
+
 
 
 
@@ -943,8 +950,9 @@ void LightChunkBase::onCreate(const LightChunk *source)
 
     if(source != NULL)
     {
+        LightChunk *pThis = static_cast<LightChunk *>(this);
 
-        this->setBeacon(source->getBeacon());
+        pThis->setBeacon(source->getBeacon());
     }
 }
 

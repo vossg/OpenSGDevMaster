@@ -148,15 +148,13 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
                   MFInt32             &getElementIDs     (void);
 #endif
                   Int32               &editElementIDs     (const UInt32 index);
-            const Int32               &getElementIDs      (const UInt32 index) const;
-                  MFInt32             &editElementIDs     (void);
-            const MFInt32             &getElementIDs     (void) const;
+            const Int32                getElementIDs      (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   StatCollectorP      &getCollector       (void);
 #endif
                   StatCollectorP      &editCollector      (void);
-            const StatCollectorP      &getCollector       (void) const;
+            const StatCollectorP       getCollector       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,7 +167,6 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

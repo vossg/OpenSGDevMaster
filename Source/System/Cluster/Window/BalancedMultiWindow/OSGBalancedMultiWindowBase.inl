@@ -85,7 +85,7 @@ bool &BalancedMultiWindowBase::editBalance(void)
 
 //! Get the value of the BalancedMultiWindow::_sfBalance field.
 inline
-const bool &BalancedMultiWindowBase::getBalance(void) const
+const bool BalancedMultiWindowBase::getBalance(void) const
 {
     return _sfBalance.getValue();
 }
@@ -118,7 +118,7 @@ bool &BalancedMultiWindowBase::editBestCut(void)
 
 //! Get the value of the BalancedMultiWindow::_sfBestCut field.
 inline
-const bool &BalancedMultiWindowBase::getBestCut(void) const
+const bool BalancedMultiWindowBase::getBestCut(void) const
 {
     return _sfBestCut.getValue();
 }
@@ -151,7 +151,7 @@ bool &BalancedMultiWindowBase::editShowBalancing(void)
 
 //! Get the value of the BalancedMultiWindow::_sfShowBalancing field.
 inline
-const bool &BalancedMultiWindowBase::getShowBalancing(void) const
+const bool BalancedMultiWindowBase::getShowBalancing(void) const
 {
     return _sfShowBalancing.getValue();
 }
@@ -184,7 +184,7 @@ UInt32 &BalancedMultiWindowBase::editTileSize(void)
 
 //! Get the value of the BalancedMultiWindow::_sfTileSize field.
 inline
-const UInt32 &BalancedMultiWindowBase::getTileSize(void) const
+const UInt32 BalancedMultiWindowBase::getTileSize(void) const
 {
     return _sfTileSize.getValue();
 }
@@ -217,7 +217,7 @@ bool &BalancedMultiWindowBase::editShort(void)
 
 //! Get the value of the BalancedMultiWindow::_sfShort field.
 inline
-const bool &BalancedMultiWindowBase::getShort(void) const
+const bool BalancedMultiWindowBase::getShort(void) const
 {
     return _sfShort.getValue();
 }

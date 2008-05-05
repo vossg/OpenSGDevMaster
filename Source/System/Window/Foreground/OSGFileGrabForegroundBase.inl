@@ -85,7 +85,7 @@ std::string &FileGrabForegroundBase::editName(void)
 
 //! Get the value of the FileGrabForeground::_sfName field.
 inline
-const std::string &FileGrabForegroundBase::getName(void) const
+const std::string FileGrabForegroundBase::getName(void) const
 {
     return _sfName.getValue();
 }
@@ -118,7 +118,7 @@ UInt32 &FileGrabForegroundBase::editFrame(void)
 
 //! Get the value of the FileGrabForeground::_sfFrame field.
 inline
-const UInt32 &FileGrabForegroundBase::getFrame(void) const
+const UInt32 FileGrabForegroundBase::getFrame(void) const
 {
     return _sfFrame.getValue();
 }
@@ -151,7 +151,7 @@ bool &FileGrabForegroundBase::editIncrement(void)
 
 //! Get the value of the FileGrabForeground::_sfIncrement field.
 inline
-const bool &FileGrabForegroundBase::getIncrement(void) const
+const bool FileGrabForegroundBase::getIncrement(void) const
 {
     return _sfIncrement.getValue();
 }

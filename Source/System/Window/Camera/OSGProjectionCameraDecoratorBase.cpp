@@ -358,6 +358,13 @@ const SFUnrecNodePtr *ProjectionCameraDecoratorBase::getSFUser(void) const
     return &_sfUser;
 }
 
+SFUnrecNodePtr      *ProjectionCameraDecoratorBase::editSFUser           (void)
+{
+    editSField(UserFieldMask);
+
+    return &_sfUser;
+}
+
 MFPnt3f *ProjectionCameraDecoratorBase::editMFSurface(void)
 {
     editMField(SurfaceFieldMask, _mfSurface);
@@ -710,8 +717,9 @@ void ProjectionCameraDecoratorBase::onCreate(const ProjectionCameraDecorator *so
 
     if(source != NULL)
     {
+        ProjectionCameraDecorator *pThis = static_cast<ProjectionCameraDecorator *>(this);
 
-        this->setUser(source->getUser());
+        pThis->setUser(source->getUser());
     }
 }
 

@@ -157,19 +157,19 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
                   EGLDisplay          &getDisplay         (void);
 #endif
                   EGLDisplay          &editDisplay        (void);
-            const EGLDisplay          &getDisplay         (void) const;
+            const EGLDisplay           getDisplay         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   EGLSurface          &getWindow          (void);
 #endif
                   EGLSurface          &editWindow         (void);
-            const EGLSurface          &getWindow          (void) const;
+            const EGLSurface           getWindow          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   EGLContext          &getContext         (void);
 #endif
                   EGLContext          &editContext        (void);
-            const EGLContext          &getContext         (void) const;
+            const EGLContext           getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

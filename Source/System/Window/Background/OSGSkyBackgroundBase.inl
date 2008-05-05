@@ -85,7 +85,7 @@ UInt32 &SkyBackgroundBase::editSphereRes(void)
 
 //! Get the value of the SkyBackground::_sfSphereRes field.
 inline
-const UInt32 &SkyBackgroundBase::getSphereRes(void) const
+const UInt32 SkyBackgroundBase::getSphereRes(void) const
 {
     return _sfSphereRes.getValue();
 }
@@ -121,7 +121,6 @@ void SkyBackgroundBase::setBackTexture(const TextureBaseChunkPtr value)
     editSField(BackTextureFieldMask);
 
     _sfBackTexture.setValue(value);
-
 }
 
 //! Get the value of the SkyBackground::_sfBottomTexture field.
@@ -138,7 +137,6 @@ void SkyBackgroundBase::setBottomTexture(const TextureBaseChunkPtr value)
     editSField(BottomTextureFieldMask);
 
     _sfBottomTexture.setValue(value);
-
 }
 
 //! Get the value of the SkyBackground::_sfFrontTexture field.
@@ -155,7 +153,6 @@ void SkyBackgroundBase::setFrontTexture(const TextureBaseChunkPtr value)
     editSField(FrontTextureFieldMask);
 
     _sfFrontTexture.setValue(value);
-
 }
 
 //! Get the value of the SkyBackground::_sfLeftTexture field.
@@ -172,7 +169,6 @@ void SkyBackgroundBase::setLeftTexture(const TextureBaseChunkPtr value)
     editSField(LeftTextureFieldMask);
 
     _sfLeftTexture.setValue(value);
-
 }
 
 //! Get the value of the SkyBackground::_sfRightTexture field.
@@ -189,7 +185,6 @@ void SkyBackgroundBase::setRightTexture(const TextureBaseChunkPtr value)
     editSField(RightTextureFieldMask);
 
     _sfRightTexture.setValue(value);
-
 }
 
 //! Get the value of the SkyBackground::_sfTopTexture field.
@@ -206,7 +201,6 @@ void SkyBackgroundBase::setTopTexture(const TextureBaseChunkPtr value)
     editSField(TopTextureFieldMask);
 
     _sfTopTexture.setValue(value);
-
 }
 //! Get the value of the SkyBackground::_sfBoxInside field.
 
@@ -220,7 +214,7 @@ bool &SkyBackgroundBase::editBoxInside(void)
 
 //! Get the value of the SkyBackground::_sfBoxInside field.
 inline
-const bool &SkyBackgroundBase::getBoxInside(void) const
+const bool SkyBackgroundBase::getBoxInside(void) const
 {
     return _sfBoxInside.getValue();
 }
@@ -256,12 +250,11 @@ void SkyBackgroundBase::setBeacon(const NodePtr value)
     editSField(BeaconFieldMask);
 
     _sfBeacon.setValue(value);
-
 }
 
 //! Get the value of the \a index element the SkyBackground::_mfSkyColor field.
 inline
-const Color4f &SkyBackgroundBase::getSkyColor(const UInt32 index) const
+const Color4f SkyBackgroundBase::getSkyColor(const UInt32 index) const
 {
     return _mfSkyColor[index];
 }
@@ -272,15 +265,6 @@ Color4f &SkyBackgroundBase::editSkyColor(const UInt32 index)
     editMField(SkyColorFieldMask, _mfSkyColor);
 
     return _mfSkyColor[index];
-}
-
-//! Get the SkyBackground::_mfSkyColor field.
-inline
-MFColor4f &SkyBackgroundBase::editSkyColor(void)
-{
-    editMField(SkyColorFieldMask, _mfSkyColor);
-
-    return _mfSkyColor;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -299,16 +283,9 @@ MFColor4f           &SkyBackgroundBase::getSkyColor       (void)
 #endif
 
 
-//! Get the SkyBackground::_mfSkyColor field.
-inline
-const MFColor4f &SkyBackgroundBase::getSkyColor(void) const
-{
-    return _mfSkyColor;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfSkyAngle field.
 inline
-const Real32 &SkyBackgroundBase::getSkyAngle(const UInt32 index) const
+const Real32 SkyBackgroundBase::getSkyAngle(const UInt32 index) const
 {
     return _mfSkyAngle[index];
 }
@@ -319,15 +296,6 @@ Real32 &SkyBackgroundBase::editSkyAngle(const UInt32 index)
     editMField(SkyAngleFieldMask, _mfSkyAngle);
 
     return _mfSkyAngle[index];
-}
-
-//! Get the SkyBackground::_mfSkyAngle field.
-inline
-MFReal32 &SkyBackgroundBase::editSkyAngle(void)
-{
-    editMField(SkyAngleFieldMask, _mfSkyAngle);
-
-    return _mfSkyAngle;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -346,16 +314,9 @@ MFReal32            &SkyBackgroundBase::getSkyAngle       (void)
 #endif
 
 
-//! Get the SkyBackground::_mfSkyAngle field.
-inline
-const MFReal32 &SkyBackgroundBase::getSkyAngle(void) const
-{
-    return _mfSkyAngle;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfGroundColor field.
 inline
-const Color4f &SkyBackgroundBase::getGroundColor(const UInt32 index) const
+const Color4f SkyBackgroundBase::getGroundColor(const UInt32 index) const
 {
     return _mfGroundColor[index];
 }
@@ -366,15 +327,6 @@ Color4f &SkyBackgroundBase::editGroundColor(const UInt32 index)
     editMField(GroundColorFieldMask, _mfGroundColor);
 
     return _mfGroundColor[index];
-}
-
-//! Get the SkyBackground::_mfGroundColor field.
-inline
-MFColor4f &SkyBackgroundBase::editGroundColor(void)
-{
-    editMField(GroundColorFieldMask, _mfGroundColor);
-
-    return _mfGroundColor;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -393,16 +345,9 @@ MFColor4f           &SkyBackgroundBase::getGroundColor    (void)
 #endif
 
 
-//! Get the SkyBackground::_mfGroundColor field.
-inline
-const MFColor4f &SkyBackgroundBase::getGroundColor(void) const
-{
-    return _mfGroundColor;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfGroundAngle field.
 inline
-const Real32 &SkyBackgroundBase::getGroundAngle(const UInt32 index) const
+const Real32 SkyBackgroundBase::getGroundAngle(const UInt32 index) const
 {
     return _mfGroundAngle[index];
 }
@@ -413,15 +358,6 @@ Real32 &SkyBackgroundBase::editGroundAngle(const UInt32 index)
     editMField(GroundAngleFieldMask, _mfGroundAngle);
 
     return _mfGroundAngle[index];
-}
-
-//! Get the SkyBackground::_mfGroundAngle field.
-inline
-MFReal32 &SkyBackgroundBase::editGroundAngle(void)
-{
-    editMField(GroundAngleFieldMask, _mfGroundAngle);
-
-    return _mfGroundAngle;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -440,16 +376,9 @@ MFReal32            &SkyBackgroundBase::getGroundAngle    (void)
 #endif
 
 
-//! Get the SkyBackground::_mfGroundAngle field.
-inline
-const MFReal32 &SkyBackgroundBase::getGroundAngle(void) const
-{
-    return _mfGroundAngle;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfTopTexCoord field.
 inline
-const Vec3f &SkyBackgroundBase::getTopTexCoord(const UInt32 index) const
+const Vec3f SkyBackgroundBase::getTopTexCoord(const UInt32 index) const
 {
     return _mfTopTexCoord[index];
 }
@@ -460,15 +389,6 @@ Vec3f &SkyBackgroundBase::editTopTexCoord(const UInt32 index)
     editMField(TopTexCoordFieldMask, _mfTopTexCoord);
 
     return _mfTopTexCoord[index];
-}
-
-//! Get the SkyBackground::_mfTopTexCoord field.
-inline
-MFVec3f &SkyBackgroundBase::editTopTexCoord(void)
-{
-    editMField(TopTexCoordFieldMask, _mfTopTexCoord);
-
-    return _mfTopTexCoord;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -487,16 +407,9 @@ MFVec3f             &SkyBackgroundBase::getTopTexCoord    (void)
 #endif
 
 
-//! Get the SkyBackground::_mfTopTexCoord field.
-inline
-const MFVec3f &SkyBackgroundBase::getTopTexCoord(void) const
-{
-    return _mfTopTexCoord;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfBottomTexCoord field.
 inline
-const Vec3f &SkyBackgroundBase::getBottomTexCoord(const UInt32 index) const
+const Vec3f SkyBackgroundBase::getBottomTexCoord(const UInt32 index) const
 {
     return _mfBottomTexCoord[index];
 }
@@ -507,15 +420,6 @@ Vec3f &SkyBackgroundBase::editBottomTexCoord(const UInt32 index)
     editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
 
     return _mfBottomTexCoord[index];
-}
-
-//! Get the SkyBackground::_mfBottomTexCoord field.
-inline
-MFVec3f &SkyBackgroundBase::editBottomTexCoord(void)
-{
-    editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
-
-    return _mfBottomTexCoord;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -534,16 +438,9 @@ MFVec3f             &SkyBackgroundBase::getBottomTexCoord (void)
 #endif
 
 
-//! Get the SkyBackground::_mfBottomTexCoord field.
-inline
-const MFVec3f &SkyBackgroundBase::getBottomTexCoord(void) const
-{
-    return _mfBottomTexCoord;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfRightTexCoord field.
 inline
-const Vec3f &SkyBackgroundBase::getRightTexCoord(const UInt32 index) const
+const Vec3f SkyBackgroundBase::getRightTexCoord(const UInt32 index) const
 {
     return _mfRightTexCoord[index];
 }
@@ -554,15 +451,6 @@ Vec3f &SkyBackgroundBase::editRightTexCoord(const UInt32 index)
     editMField(RightTexCoordFieldMask, _mfRightTexCoord);
 
     return _mfRightTexCoord[index];
-}
-
-//! Get the SkyBackground::_mfRightTexCoord field.
-inline
-MFVec3f &SkyBackgroundBase::editRightTexCoord(void)
-{
-    editMField(RightTexCoordFieldMask, _mfRightTexCoord);
-
-    return _mfRightTexCoord;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -581,16 +469,9 @@ MFVec3f             &SkyBackgroundBase::getRightTexCoord  (void)
 #endif
 
 
-//! Get the SkyBackground::_mfRightTexCoord field.
-inline
-const MFVec3f &SkyBackgroundBase::getRightTexCoord(void) const
-{
-    return _mfRightTexCoord;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfLeftTexCoord field.
 inline
-const Vec3f &SkyBackgroundBase::getLeftTexCoord(const UInt32 index) const
+const Vec3f SkyBackgroundBase::getLeftTexCoord(const UInt32 index) const
 {
     return _mfLeftTexCoord[index];
 }
@@ -601,15 +482,6 @@ Vec3f &SkyBackgroundBase::editLeftTexCoord(const UInt32 index)
     editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
 
     return _mfLeftTexCoord[index];
-}
-
-//! Get the SkyBackground::_mfLeftTexCoord field.
-inline
-MFVec3f &SkyBackgroundBase::editLeftTexCoord(void)
-{
-    editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
-
-    return _mfLeftTexCoord;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -628,16 +500,9 @@ MFVec3f             &SkyBackgroundBase::getLeftTexCoord   (void)
 #endif
 
 
-//! Get the SkyBackground::_mfLeftTexCoord field.
-inline
-const MFVec3f &SkyBackgroundBase::getLeftTexCoord(void) const
-{
-    return _mfLeftTexCoord;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfFrontTexCoord field.
 inline
-const Vec3f &SkyBackgroundBase::getFrontTexCoord(const UInt32 index) const
+const Vec3f SkyBackgroundBase::getFrontTexCoord(const UInt32 index) const
 {
     return _mfFrontTexCoord[index];
 }
@@ -648,15 +513,6 @@ Vec3f &SkyBackgroundBase::editFrontTexCoord(const UInt32 index)
     editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
 
     return _mfFrontTexCoord[index];
-}
-
-//! Get the SkyBackground::_mfFrontTexCoord field.
-inline
-MFVec3f &SkyBackgroundBase::editFrontTexCoord(void)
-{
-    editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
-
-    return _mfFrontTexCoord;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -675,16 +531,9 @@ MFVec3f             &SkyBackgroundBase::getFrontTexCoord  (void)
 #endif
 
 
-//! Get the SkyBackground::_mfFrontTexCoord field.
-inline
-const MFVec3f &SkyBackgroundBase::getFrontTexCoord(void) const
-{
-    return _mfFrontTexCoord;
-}
-
 //! Get the value of the \a index element the SkyBackground::_mfBackTexCoord field.
 inline
-const Vec3f &SkyBackgroundBase::getBackTexCoord(const UInt32 index) const
+const Vec3f SkyBackgroundBase::getBackTexCoord(const UInt32 index) const
 {
     return _mfBackTexCoord[index];
 }
@@ -695,15 +544,6 @@ Vec3f &SkyBackgroundBase::editBackTexCoord(const UInt32 index)
     editMField(BackTexCoordFieldMask, _mfBackTexCoord);
 
     return _mfBackTexCoord[index];
-}
-
-//! Get the SkyBackground::_mfBackTexCoord field.
-inline
-MFVec3f &SkyBackgroundBase::editBackTexCoord(void)
-{
-    editMField(BackTexCoordFieldMask, _mfBackTexCoord);
-
-    return _mfBackTexCoord;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -721,13 +561,6 @@ MFVec3f             &SkyBackgroundBase::getBackTexCoord   (void)
 
 #endif
 
-
-//! Get the SkyBackground::_mfBackTexCoord field.
-inline
-const MFVec3f &SkyBackgroundBase::getBackTexCoord(void) const
-{
-    return _mfBackTexCoord;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

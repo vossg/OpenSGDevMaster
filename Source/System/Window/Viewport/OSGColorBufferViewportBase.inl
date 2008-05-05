@@ -85,7 +85,7 @@ bool &ColorBufferViewportBase::editRed(void)
 
 //! Get the value of the ColorBufferViewport::_sfRed field.
 inline
-const bool &ColorBufferViewportBase::getRed(void) const
+const bool ColorBufferViewportBase::getRed(void) const
 {
     return _sfRed.getValue();
 }
@@ -118,7 +118,7 @@ bool &ColorBufferViewportBase::editBlue(void)
 
 //! Get the value of the ColorBufferViewport::_sfBlue field.
 inline
-const bool &ColorBufferViewportBase::getBlue(void) const
+const bool ColorBufferViewportBase::getBlue(void) const
 {
     return _sfBlue.getValue();
 }
@@ -151,7 +151,7 @@ bool &ColorBufferViewportBase::editGreen(void)
 
 //! Get the value of the ColorBufferViewport::_sfGreen field.
 inline
-const bool &ColorBufferViewportBase::getGreen(void) const
+const bool ColorBufferViewportBase::getGreen(void) const
 {
     return _sfGreen.getValue();
 }
@@ -184,7 +184,7 @@ bool &ColorBufferViewportBase::editAlpha(void)
 
 //! Get the value of the ColorBufferViewport::_sfAlpha field.
 inline
-const bool &ColorBufferViewportBase::getAlpha(void) const
+const bool ColorBufferViewportBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }

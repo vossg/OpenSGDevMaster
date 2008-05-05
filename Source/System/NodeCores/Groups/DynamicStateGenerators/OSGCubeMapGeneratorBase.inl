@@ -88,7 +88,6 @@ void CubeMapGeneratorBase::setRoot(const NodePtr value)
     editSField(RootFieldMask);
 
     _sfRoot.setValue(value);
-
 }
 
 //! Get the value of the CubeMapGenerator::_sfTexture field.
@@ -105,7 +104,6 @@ void CubeMapGeneratorBase::setTexture(const TextureObjChunkPtr value)
     editSField(TextureFieldMask);
 
     _sfTexture.setValue(value);
-
 }
 //! Get the value of the CubeMapGenerator::_sfTextureSize field.
 
@@ -119,7 +117,7 @@ Vec2s &CubeMapGeneratorBase::editTextureSize(void)
 
 //! Get the value of the CubeMapGenerator::_sfTextureSize field.
 inline
-const Vec2s &CubeMapGeneratorBase::getTextureSize(void) const
+const Vec2s CubeMapGeneratorBase::getTextureSize(void) const
 {
     return _sfTextureSize.getValue();
 }
@@ -152,7 +150,7 @@ GLenum &CubeMapGeneratorBase::editTextureFormat(void)
 
 //! Get the value of the CubeMapGenerator::_sfTextureFormat field.
 inline
-const GLenum &CubeMapGeneratorBase::getTextureFormat(void) const
+const GLenum CubeMapGeneratorBase::getTextureFormat(void) const
 {
     return _sfTextureFormat.getValue();
 }
@@ -188,7 +186,6 @@ void CubeMapGeneratorBase::setBeacon(const NodePtr value)
     editSField(BeaconFieldMask);
 
     _sfBeacon.setValue(value);
-
 }
 //! Get the value of the CubeMapGenerator::_sfOrigin field.
 
@@ -202,7 +199,7 @@ Pnt3f &CubeMapGeneratorBase::editOrigin(void)
 
 //! Get the value of the CubeMapGenerator::_sfOrigin field.
 inline
-const Pnt3f &CubeMapGeneratorBase::getOrigin(void) const
+const Pnt3f CubeMapGeneratorBase::getOrigin(void) const
 {
     return _sfOrigin.getValue();
 }
@@ -235,7 +232,7 @@ UInt32 &CubeMapGeneratorBase::editOriginMode(void)
 
 //! Get the value of the CubeMapGenerator::_sfOriginMode field.
 inline
-const UInt32 &CubeMapGeneratorBase::getOriginMode(void) const
+const UInt32 CubeMapGeneratorBase::getOriginMode(void) const
 {
     return _sfOriginMode.getValue();
 }
@@ -268,7 +265,7 @@ UInt32 &CubeMapGeneratorBase::editTexUnit(void)
 
 //! Get the value of the CubeMapGenerator::_sfTexUnit field.
 inline
-const UInt32 &CubeMapGeneratorBase::getTexUnit(void) const
+const UInt32 CubeMapGeneratorBase::getTexUnit(void) const
 {
     return _sfTexUnit.getValue();
 }
@@ -301,7 +298,7 @@ UInt32 &CubeMapGeneratorBase::editSetupMode(void)
 
 //! Get the value of the CubeMapGenerator::_sfSetupMode field.
 inline
-const UInt32 &CubeMapGeneratorBase::getSetupMode(void) const
+const UInt32 CubeMapGeneratorBase::getSetupMode(void) const
 {
     return _sfSetupMode.getValue();
 }
@@ -337,7 +334,6 @@ void CubeMapGeneratorBase::setBackground(const BackgroundPtr value)
     editSField(BackgroundFieldMask);
 
     _sfBackground.setValue(value);
-
 }
 
 //! Get the value of the \a index element the CubeMapGenerator::_mfExclude field.
@@ -345,13 +341,6 @@ inline
 NodePtr CubeMapGeneratorBase::getExclude(const UInt32 index) const
 {
     return _mfExclude[index];
-}
-
-//! Get the CubeMapGenerator::_mfExclude field.
-inline
-const MFUnrecNodePtr &CubeMapGeneratorBase::getExclude(void) const
-{
-    return _mfExclude;
 }
 
 

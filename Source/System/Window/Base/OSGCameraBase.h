@@ -133,7 +133,8 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-    virtual const SFWeakNodePtr       *getSFBeacon          (void) const;
+    virtual const SFWeakNodePtr       *getSFBeacon         (void) const;
+    virtual       SFWeakNodePtr       *editSFBeacon         (void);
 
 #ifdef OSG_1_GET_COMPAT
     virtual       SFReal32            *getSFNear            (void);
@@ -154,13 +155,13 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
     virtual       Real32              &getNear            (void);
 #endif
     virtual       Real32              &editNear           (void);
-    virtual const Real32              &getNear            (void) const;
+    virtual const Real32               getNear            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
     virtual       Real32              &getFar             (void);
 #endif
     virtual       Real32              &editFar            (void);
-    virtual const Real32              &getFar             (void) const;
+    virtual const Real32               getFar             (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -180,6 +181,7 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

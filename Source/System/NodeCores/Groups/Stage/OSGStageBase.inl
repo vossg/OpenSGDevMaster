@@ -88,7 +88,6 @@ void StageBase::setRenderTarget(const FrameBufferObjectPtr value)
     editSField(RenderTargetFieldMask);
 
     _sfRenderTarget.setValue(value);
-
 }
 //! Get the value of the Stage::_sfInheritedTarget field.
 
@@ -102,7 +101,7 @@ bool &StageBase::editInheritedTarget(void)
 
 //! Get the value of the Stage::_sfInheritedTarget field.
 inline
-const bool &StageBase::getInheritedTarget(void) const
+const bool StageBase::getInheritedTarget(void) const
 {
     return _sfInheritedTarget.getValue();
 }

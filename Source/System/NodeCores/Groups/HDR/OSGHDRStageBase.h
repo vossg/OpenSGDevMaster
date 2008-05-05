@@ -187,37 +187,37 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
                   Real32              &getExposure        (void);
 #endif
                   Real32              &editExposure       (void);
-            const Real32              &getExposure        (void) const;
+            const Real32               getExposure        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getBlurWidth       (void);
 #endif
                   Real32              &editBlurWidth      (void);
-            const Real32              &getBlurWidth       (void) const;
+            const Real32               getBlurWidth       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getBlurAmount      (void);
 #endif
                   Real32              &editBlurAmount     (void);
-            const Real32              &getBlurAmount      (void) const;
+            const Real32               getBlurAmount      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getEffectAmount    (void);
 #endif
                   Real32              &editEffectAmount   (void);
-            const Real32              &getEffectAmount    (void) const;
+            const Real32               getEffectAmount    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getGamma           (void);
 #endif
                   Real32              &editGamma          (void);
-            const Real32              &getGamma           (void) const;
+            const Real32               getGamma           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getBufferFormat    (void);
 #endif
                   GLenum              &editBufferFormat   (void);
-            const GLenum              &getBufferFormat    (void) const;
+            const GLenum               getBufferFormat    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,6 +235,7 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

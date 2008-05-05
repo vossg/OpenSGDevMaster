@@ -157,19 +157,19 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
                   std::string         &getVertexProgram   (void);
 #endif
                   std::string         &editVertexProgram  (void);
-            const std::string         &getVertexProgram   (void) const;
+            const std::string          getVertexProgram   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getFragmentProgram (void);
 #endif
                   std::string         &editFragmentProgram(void);
-            const std::string         &getFragmentProgram (void) const;
+            const std::string          getFragmentProgram (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getGeometryProgram (void);
 #endif
                   std::string         &editGeometryProgram(void);
-            const std::string         &getGeometryProgram (void) const;
+            const std::string          getGeometryProgram (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

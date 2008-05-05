@@ -137,7 +137,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterPnt2fBase : public ShaderParameter
                   Pnt2f               &getValue           (void);
 #endif
                   Pnt2f               &editValue          (void);
-            const Pnt2f               &getValue           (void) const;
+            const Pnt2f                getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterPnt2fBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

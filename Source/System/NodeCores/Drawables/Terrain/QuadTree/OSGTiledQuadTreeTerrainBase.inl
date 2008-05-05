@@ -85,7 +85,7 @@ UInt32 &TiledQuadTreeTerrainBase::editSizeX(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfSizeX field.
 inline
-const UInt32 &TiledQuadTreeTerrainBase::getSizeX(void) const
+const UInt32 TiledQuadTreeTerrainBase::getSizeX(void) const
 {
     return _sfSizeX.getValue();
 }
@@ -118,7 +118,7 @@ UInt32 &TiledQuadTreeTerrainBase::editSizeY(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfSizeY field.
 inline
-const UInt32 &TiledQuadTreeTerrainBase::getSizeY(void) const
+const UInt32 TiledQuadTreeTerrainBase::getSizeY(void) const
 {
     return _sfSizeY.getValue();
 }
@@ -151,7 +151,7 @@ Real32 &TiledQuadTreeTerrainBase::editHeightScale(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfHeightScale field.
 inline
-const Real32 &TiledQuadTreeTerrainBase::getHeightScale(void) const
+const Real32 TiledQuadTreeTerrainBase::getHeightScale(void) const
 {
     return _sfHeightScale.getValue();
 }
@@ -184,7 +184,7 @@ Real32 &TiledQuadTreeTerrainBase::editVertexSpacing(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfVertexSpacing field.
 inline
-const Real32 &TiledQuadTreeTerrainBase::getVertexSpacing(void) const
+const Real32 TiledQuadTreeTerrainBase::getVertexSpacing(void) const
 {
     return _sfVertexSpacing.getValue();
 }
@@ -217,7 +217,7 @@ bool &TiledQuadTreeTerrainBase::editGeoMorphing(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfGeoMorphing field.
 inline
-const bool &TiledQuadTreeTerrainBase::getGeoMorphing(void) const
+const bool TiledQuadTreeTerrainBase::getGeoMorphing(void) const
 {
     return _sfGeoMorphing.getValue();
 }
@@ -250,7 +250,7 @@ Real32 &TiledQuadTreeTerrainBase::editDetail(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfDetail field.
 inline
-const Real32 &TiledQuadTreeTerrainBase::getDetail(void) const
+const Real32 TiledQuadTreeTerrainBase::getDetail(void) const
 {
     return _sfDetail.getValue();
 }
@@ -283,7 +283,7 @@ Int32 &TiledQuadTreeTerrainBase::editCurrentX(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfCurrentX field.
 inline
-const Int32 &TiledQuadTreeTerrainBase::getCurrentX(void) const
+const Int32 TiledQuadTreeTerrainBase::getCurrentX(void) const
 {
     return _sfCurrentX.getValue();
 }
@@ -316,7 +316,7 @@ Int32 &TiledQuadTreeTerrainBase::editCurrentY(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfCurrentY field.
 inline
-const Int32 &TiledQuadTreeTerrainBase::getCurrentY(void) const
+const Int32 TiledQuadTreeTerrainBase::getCurrentY(void) const
 {
     return _sfCurrentY.getValue();
 }
@@ -349,7 +349,7 @@ Int32 &TiledQuadTreeTerrainBase::editSizeROI(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfSizeROI field.
 inline
-const Int32 &TiledQuadTreeTerrainBase::getSizeROI(void) const
+const Int32 TiledQuadTreeTerrainBase::getSizeROI(void) const
 {
     return _sfSizeROI.getValue();
 }
@@ -382,7 +382,7 @@ bool &TiledQuadTreeTerrainBase::editUpdate(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfUpdate field.
 inline
-const bool &TiledQuadTreeTerrainBase::getUpdate(void) const
+const bool TiledQuadTreeTerrainBase::getUpdate(void) const
 {
     return _sfUpdate.getValue();
 }
@@ -415,7 +415,7 @@ bool &TiledQuadTreeTerrainBase::editUpdateTerrain(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfUpdateTerrain field.
 inline
-const bool &TiledQuadTreeTerrainBase::getUpdateTerrain(void) const
+const bool TiledQuadTreeTerrainBase::getUpdateTerrain(void) const
 {
     return _sfUpdateTerrain.getValue();
 }
@@ -448,7 +448,7 @@ bool &TiledQuadTreeTerrainBase::editPerPixelLighting(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfPerPixelLighting field.
 inline
-const bool &TiledQuadTreeTerrainBase::getPerPixelLighting(void) const
+const bool TiledQuadTreeTerrainBase::getPerPixelLighting(void) const
 {
     return _sfPerPixelLighting.getValue();
 }
@@ -477,25 +477,11 @@ ImagePtr TiledQuadTreeTerrainBase::getHeightTiles(const UInt32 index) const
     return _mfHeightTiles[index];
 }
 
-//! Get the TiledQuadTreeTerrain::_mfHeightTiles field.
-inline
-const MFUnrecImagePtr &TiledQuadTreeTerrainBase::getHeightTiles(void) const
-{
-    return _mfHeightTiles;
-}
-
 //! Get the value of the \a index element the TiledQuadTreeTerrain::_mfHeightTextures field.
 inline
 MaterialPtr TiledQuadTreeTerrainBase::getHeightTextures(const UInt32 index) const
 {
     return _mfHeightTextures[index];
-}
-
-//! Get the TiledQuadTreeTerrain::_mfHeightTextures field.
-inline
-const MFUnrecMaterialPtr &TiledQuadTreeTerrainBase::getHeightTextures(void) const
-{
-    return _mfHeightTextures;
 }
 
 

@@ -85,7 +85,7 @@ Int32 &BackgroundBase::editClearStencilBit(void)
 
 //! Get the value of the Background::_sfClearStencilBit field.
 inline
-const Int32 &BackgroundBase::getClearStencilBit(void) const
+const Int32 BackgroundBase::getClearStencilBit(void) const
 {
     return _sfClearStencilBit.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &BackgroundBase::editDepth(void)
 
 //! Get the value of the Background::_sfDepth field.
 inline
-const Real32 &BackgroundBase::getDepth(void) const
+const Real32 BackgroundBase::getDepth(void) const
 {
     return _sfDepth.getValue();
 }
@@ -151,7 +151,7 @@ bool &BackgroundBase::editClearDepth(void)
 
 //! Get the value of the Background::_sfClearDepth field.
 inline
-const bool &BackgroundBase::getClearDepth(void) const
+const bool BackgroundBase::getClearDepth(void) const
 {
     return _sfClearDepth.getValue();
 }
@@ -184,7 +184,7 @@ bool &BackgroundBase::editClearColor(void)
 
 //! Get the value of the Background::_sfClearColor field.
 inline
-const bool &BackgroundBase::getClearColor(void) const
+const bool BackgroundBase::getClearColor(void) const
 {
     return _sfClearColor.getValue();
 }

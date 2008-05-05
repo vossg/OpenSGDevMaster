@@ -85,7 +85,7 @@ Real32 &ShaderParameterRealBase::editValue(void)
 
 //! Get the value of the ShaderParameterReal::_sfValue field.
 inline
-const Real32 &ShaderParameterRealBase::getValue(void) const
+const Real32 ShaderParameterRealBase::getValue(void) const
 {
     return _sfValue.getValue();
 }

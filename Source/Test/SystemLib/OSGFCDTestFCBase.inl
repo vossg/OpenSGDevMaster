@@ -85,7 +85,7 @@ UInt32 &FCDTestFCBase::editFieldSFPub(void)
 
 //! Get the value of the FCDTestFC::_sfFieldSFPub field.
 inline
-const UInt32 &FCDTestFCBase::getFieldSFPub(void) const
+const UInt32 FCDTestFCBase::getFieldSFPub(void) const
 {
     return _sfFieldSFPub.getValue();
 }
@@ -118,7 +118,7 @@ UInt32 &FCDTestFCBase::editFieldSFPro(void)
 
 //! Get the value of the FCDTestFC::_sfFieldSFPro field.
 inline
-const UInt32 &FCDTestFCBase::getFieldSFPro(void) const
+const UInt32 FCDTestFCBase::getFieldSFPro(void) const
 {
     return _sfFieldSFPro.getValue();
 }
@@ -151,7 +151,7 @@ UInt32 &FCDTestFCBase::editFieldSFPri(void)
 
 //! Get the value of the FCDTestFC::_sfFieldSFPri field.
 inline
-const UInt32 &FCDTestFCBase::getFieldSFPri(void) const
+const UInt32 FCDTestFCBase::getFieldSFPri(void) const
 {
     return _sfFieldSFPri.getValue();
 }
@@ -175,7 +175,7 @@ void FCDTestFCBase::setFieldSFPri(const UInt32 &value)
 
 //! Get the value of the \a index element the FCDTestFC::_mfFieldMFPub field.
 inline
-const UInt32 &FCDTestFCBase::getFieldMFPub(const UInt32 index) const
+const UInt32 FCDTestFCBase::getFieldMFPub(const UInt32 index) const
 {
     return _mfFieldMFPub[index];
 }
@@ -186,15 +186,6 @@ UInt32 &FCDTestFCBase::editFieldMFPub(const UInt32 index)
     editMField(FieldMFPubFieldMask, _mfFieldMFPub);
 
     return _mfFieldMFPub[index];
-}
-
-//! Get the FCDTestFC::_mfFieldMFPub field.
-inline
-MFUInt32 &FCDTestFCBase::editFieldMFPub(void)
-{
-    editMField(FieldMFPubFieldMask, _mfFieldMFPub);
-
-    return _mfFieldMFPub;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -213,16 +204,9 @@ MFUInt32            &FCDTestFCBase::getFieldMFPub     (void)
 #endif
 
 
-//! Get the FCDTestFC::_mfFieldMFPub field.
-inline
-const MFUInt32 &FCDTestFCBase::getFieldMFPub(void) const
-{
-    return _mfFieldMFPub;
-}
-
 //! Get the value of the \a index element the FCDTestFC::_mfFieldMFPro field.
 inline
-const UInt32 &FCDTestFCBase::getFieldMFPro(const UInt32 index) const
+const UInt32 FCDTestFCBase::getFieldMFPro(const UInt32 index) const
 {
     return _mfFieldMFPro[index];
 }
@@ -233,15 +217,6 @@ UInt32 &FCDTestFCBase::editFieldMFPro(const UInt32 index)
     editMField(FieldMFProFieldMask, _mfFieldMFPro);
 
     return _mfFieldMFPro[index];
-}
-
-//! Get the FCDTestFC::_mfFieldMFPro field.
-inline
-MFUInt32 &FCDTestFCBase::editFieldMFPro(void)
-{
-    editMField(FieldMFProFieldMask, _mfFieldMFPro);
-
-    return _mfFieldMFPro;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -260,16 +235,9 @@ MFUInt32            &FCDTestFCBase::getFieldMFPro     (void)
 #endif
 
 
-//! Get the FCDTestFC::_mfFieldMFPro field.
-inline
-const MFUInt32 &FCDTestFCBase::getFieldMFPro(void) const
-{
-    return _mfFieldMFPro;
-}
-
 //! Get the value of the \a index element the FCDTestFC::_mfFieldMFPri field.
 inline
-const UInt32 &FCDTestFCBase::getFieldMFPri(const UInt32 index) const
+const UInt32 FCDTestFCBase::getFieldMFPri(const UInt32 index) const
 {
     return _mfFieldMFPri[index];
 }
@@ -280,15 +248,6 @@ UInt32 &FCDTestFCBase::editFieldMFPri(const UInt32 index)
     editMField(FieldMFPriFieldMask, _mfFieldMFPri);
 
     return _mfFieldMFPri[index];
-}
-
-//! Get the FCDTestFC::_mfFieldMFPri field.
-inline
-MFUInt32 &FCDTestFCBase::editFieldMFPri(void)
-{
-    editMField(FieldMFPriFieldMask, _mfFieldMFPri);
-
-    return _mfFieldMFPri;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -306,13 +265,6 @@ MFUInt32            &FCDTestFCBase::getFieldMFPri     (void)
 
 #endif
 
-
-//! Get the FCDTestFC::_mfFieldMFPri field.
-inline
-const MFUInt32 &FCDTestFCBase::getFieldMFPri(void) const
-{
-    return _mfFieldMFPri;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

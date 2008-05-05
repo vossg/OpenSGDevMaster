@@ -88,7 +88,6 @@ void VTKMapperBase::setRoot(const NodePtr value)
     editSField(RootFieldMask);
 
     _sfRoot.setValue(value);
-
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfGeoRoots field.
@@ -98,25 +97,11 @@ NodePtr VTKMapperBase::getGeoRoots(const UInt32 index) const
     return _mfGeoRoots[index];
 }
 
-//! Get the VTKMapper::_mfGeoRoots field.
-inline
-const MFUnrecNodePtr &VTKMapperBase::getGeoRoots(void) const
-{
-    return _mfGeoRoots;
-}
-
 //! Get the value of the \a index element the VTKMapper::_mfGeometries field.
 inline
 GeometryPtr VTKMapperBase::getGeometries(const UInt32 index) const
 {
     return _mfGeometries[index];
-}
-
-//! Get the VTKMapper::_mfGeometries field.
-inline
-const MFUnrecGeometryPtr &VTKMapperBase::getGeometries(void) const
-{
-    return _mfGeometries;
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfMaterials field.
@@ -126,25 +111,11 @@ ChunkMaterialPtr VTKMapperBase::getMaterials(const UInt32 index) const
     return _mfMaterials[index];
 }
 
-//! Get the VTKMapper::_mfMaterials field.
-inline
-const MFUnrecChunkMaterialPtr &VTKMapperBase::getMaterials(void) const
-{
-    return _mfMaterials;
-}
-
 //! Get the value of the \a index element the VTKMapper::_mfMaterialChunks field.
 inline
 MaterialChunkPtr VTKMapperBase::getMaterialChunks(const UInt32 index) const
 {
     return _mfMaterialChunks[index];
-}
-
-//! Get the VTKMapper::_mfMaterialChunks field.
-inline
-const MFUnrecMaterialChunkPtr &VTKMapperBase::getMaterialChunks(void) const
-{
-    return _mfMaterialChunks;
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfPositions field.
@@ -154,25 +125,11 @@ GeoPnt3fPropertyPtr VTKMapperBase::getPositions(const UInt32 index) const
     return _mfPositions[index];
 }
 
-//! Get the VTKMapper::_mfPositions field.
-inline
-const MFUnrecGeoPnt3fPropertyPtr &VTKMapperBase::getPositions(void) const
-{
-    return _mfPositions;
-}
-
 //! Get the value of the \a index element the VTKMapper::_mfLength field.
 inline
 GeoUInt32PropertyPtr VTKMapperBase::getLength(const UInt32 index) const
 {
     return _mfLength[index];
-}
-
-//! Get the VTKMapper::_mfLength field.
-inline
-const MFUnrecGeoUInt32PropertyPtr &VTKMapperBase::getLength(void) const
-{
-    return _mfLength;
 }
 
 //! Get the value of the \a index element the VTKMapper::_mfTypes field.
@@ -182,13 +139,6 @@ GeoUInt8PropertyPtr VTKMapperBase::getTypes(const UInt32 index) const
     return _mfTypes[index];
 }
 
-//! Get the VTKMapper::_mfTypes field.
-inline
-const MFUnrecGeoUInt8PropertyPtr &VTKMapperBase::getTypes(void) const
-{
-    return _mfTypes;
-}
-
 //! Get the value of the \a index element the VTKMapper::_mfColors field.
 inline
 GeoColor4fPropertyPtr VTKMapperBase::getColors(const UInt32 index) const
@@ -196,25 +146,11 @@ GeoColor4fPropertyPtr VTKMapperBase::getColors(const UInt32 index) const
     return _mfColors[index];
 }
 
-//! Get the VTKMapper::_mfColors field.
-inline
-const MFUnrecGeoColor4fPropertyPtr &VTKMapperBase::getColors(void) const
-{
-    return _mfColors;
-}
-
 //! Get the value of the \a index element the VTKMapper::_mfNormals field.
 inline
 GeoVec3fPropertyPtr VTKMapperBase::getNormals(const UInt32 index) const
 {
     return _mfNormals[index];
-}
-
-//! Get the VTKMapper::_mfNormals field.
-inline
-const MFUnrecGeoVec3fPropertyPtr &VTKMapperBase::getNormals(void) const
-{
-    return _mfNormals;
 }
 
 

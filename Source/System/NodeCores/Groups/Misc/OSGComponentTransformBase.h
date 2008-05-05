@@ -177,31 +177,31 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
                   Vec3r               &getCenter          (void);
 #endif
                   Vec3r               &editCenter         (void);
-            const Vec3r               &getCenter          (void) const;
+            const Vec3r                getCenter          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Quaternionr         &getRotation        (void);
 #endif
                   Quaternionr         &editRotation       (void);
-            const Quaternionr         &getRotation        (void) const;
+            const Quaternionr          getRotation        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3r               &getScale           (void);
 #endif
                   Vec3r               &editScale          (void);
-            const Vec3r               &getScale           (void) const;
+            const Vec3r                getScale           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Quaternionr         &getScaleOrientation (void);
 #endif
                   Quaternionr         &editScaleOrientation(void);
-            const Quaternionr         &getScaleOrientation (void) const;
+            const Quaternionr          getScaleOrientation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3r               &getTranslation     (void);
 #endif
                   Vec3r               &editTranslation    (void);
-            const Vec3r               &getTranslation     (void) const;
+            const Vec3r                getTranslation     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,6 +218,7 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

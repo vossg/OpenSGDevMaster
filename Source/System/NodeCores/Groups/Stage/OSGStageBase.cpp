@@ -201,6 +201,13 @@ const SFUnrecFrameBufferObjectPtr *StageBase::getSFRenderTarget(void) const
     return &_sfRenderTarget;
 }
 
+SFUnrecFrameBufferObjectPtr *StageBase::editSFRenderTarget   (void)
+{
+    editSField(RenderTargetFieldMask);
+
+    return &_sfRenderTarget;
+}
+
 SFBool *StageBase::editSFInheritedTarget(void)
 {
     editSField(InheritedTargetFieldMask);
@@ -388,8 +395,9 @@ void StageBase::onCreate(const Stage *source)
 
     if(source != NULL)
     {
+        Stage *pThis = static_cast<Stage *>(this);
 
-        this->setRenderTarget(source->getRenderTarget());
+        pThis->setRenderTarget(source->getRenderTarget());
     }
 }
 

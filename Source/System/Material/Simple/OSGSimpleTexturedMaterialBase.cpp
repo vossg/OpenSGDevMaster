@@ -333,6 +333,13 @@ const SFUnrecImagePtr *SimpleTexturedMaterialBase::getSFImage(void) const
     return &_sfImage;
 }
 
+SFUnrecImagePtr     *SimpleTexturedMaterialBase::editSFImage          (void)
+{
+    editSField(ImageFieldMask);
+
+    return &_sfImage;
+}
+
 SFGLenum *SimpleTexturedMaterialBase::editSFMinFilter(void)
 {
     editSField(MinFilterFieldMask);
@@ -619,8 +626,9 @@ void SimpleTexturedMaterialBase::onCreate(const SimpleTexturedMaterial *source)
 
     if(source != NULL)
     {
+        SimpleTexturedMaterial *pThis = static_cast<SimpleTexturedMaterial *>(this);
 
-        this->setImage(source->getImage());
+        pThis->setImage(source->getImage());
     }
 }
 

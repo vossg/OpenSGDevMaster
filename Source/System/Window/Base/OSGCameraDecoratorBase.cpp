@@ -206,6 +206,18 @@ const SFWeakNodePtr *CameraDecoratorBase::getSFBeacon(void) const
         return NULL;
     }
 }
+//! Get the CameraDecorator::_sfBeacon field.
+SFWeakNodePtr *CameraDecoratorBase::editSFBeacon(void) 
+{
+    if(_sfDecoratee.getValue() != NullFC)
+    {
+        return getDecoratee()->editSFBeacon();
+    }
+    else
+    {
+        return NULL;
+    }
+}
 
 SFReal32 *CameraDecoratorBase::editSFNear(void)
 {
@@ -338,8 +350,9 @@ void CameraDecoratorBase::onCreate(const CameraDecorator *source)
 
     if(source != NULL)
     {
+        CameraDecorator *pThis = static_cast<CameraDecorator *>(this);
 
-        this->setBeacon(source->getBeacon());
+        pThis->setBeacon(source->getBeacon());
     }
 }
 
@@ -507,7 +520,7 @@ Real32 &CameraDecoratorBase::editNear(void)
 }
 
 //! Get the value of the CameraDecorator::_sfNear field.
-const Real32 &CameraDecoratorBase::getNear(void) const
+const Real32 CameraDecoratorBase::getNear(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {
@@ -554,7 +567,7 @@ Real32 &CameraDecoratorBase::editFar(void)
 }
 
 //! Get the value of the CameraDecorator::_sfFar field.
-const Real32 &CameraDecoratorBase::getFar(void) const
+const Real32 CameraDecoratorBase::getFar(void) const
 {
     if(_sfDecoratee.getValue() != NullFC)
     {

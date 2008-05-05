@@ -178,6 +178,13 @@ const SFUnrecMaterialPtr *MaterialGroupBase::getSFMaterial(void) const
     return &_sfMaterial;
 }
 
+SFUnrecMaterialPtr  *MaterialGroupBase::editSFMaterial       (void)
+{
+    editSField(MaterialFieldMask);
+
+    return &_sfMaterial;
+}
+
 
 
 
@@ -332,8 +339,9 @@ void MaterialGroupBase::onCreate(const MaterialGroup *source)
 
     if(source != NULL)
     {
+        MaterialGroup *pThis = static_cast<MaterialGroup *>(this);
 
-        this->setMaterial(source->getMaterial());
+        pThis->setMaterial(source->getMaterial());
     }
 }
 

@@ -287,6 +287,13 @@ const SFWeakNodePtr *ClipPlaneChunkBase::getSFBeacon(void) const
     return &_sfBeacon;
 }
 
+SFWeakNodePtr       *ClipPlaneChunkBase::editSFBeacon         (void)
+{
+    editSField(BeaconFieldMask);
+
+    return &_sfBeacon;
+}
+
 
 
 
@@ -469,8 +476,9 @@ void ClipPlaneChunkBase::onCreate(const ClipPlaneChunk *source)
 
     if(source != NULL)
     {
+        ClipPlaneChunk *pThis = static_cast<ClipPlaneChunk *>(this);
 
-        this->setBeacon(source->getBeacon());
+        pThis->setBeacon(source->getBeacon());
     }
 }
 

@@ -215,6 +215,13 @@ const MFUnrecStateChunkPtr *ChunkMaterialBase::getMFChunks(void) const
     return &_mfChunks;
 }
 
+MFUnrecStateChunkPtr *ChunkMaterialBase::editMFChunks         (void)
+{
+    editMField(ChunksFieldMask, _mfChunks);
+
+    return &_mfChunks;
+}
+
 MFInt32 *ChunkMaterialBase::editMFSlots(void)
 {
     editMField(SlotsFieldMask, _mfSlots);
@@ -238,12 +245,7 @@ MFInt32             *ChunkMaterialBase::getMFSlots          (void)
 
 void ChunkMaterialBase::pushToChunks(const StateChunkPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ChunksFieldMask, _mfChunks);
-
-    //addRef(value);
 
     _mfChunks.push_back(value);
 }
@@ -265,66 +267,6 @@ void ChunkMaterialBase::assignChunks   (const MFUnrecStateChunkPtr &value)
     }
 }
 
-void ChunkMaterialBase::insertIntoChunks(      UInt32         uiIndex,
-                                                   const StateChunkPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ChunksFieldMask, _mfChunks);
-
-    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfChunks.insert(fieldIt, value);
-}
-
-void ChunkMaterialBase::replaceInChunks(      UInt32         uiIndex,
-                                                       const StateChunkPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfChunks.size())
-        return;
-
-    editMField(ChunksFieldMask, _mfChunks);
-
-
-//    addRef(value);
-//    subRef(_mfChunks[uiIndex]);
-
-//    _mfChunks[uiIndex] = value;
-
-      _mfChunks.replace(uiIndex, value);
-}
-
-void ChunkMaterialBase::replaceInChunks(const StateChunkPtr pOldElem,
-                                                        const StateChunkPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfChunks.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-//        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfChunks.replace(elemIdx, pNewElem);
-    }
-}
-
 void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
 {
     if(uiIndex < _mfChunks.size())
@@ -334,8 +276,6 @@ void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
         MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -352,8 +292,6 @@ void ChunkMaterialBase::removeFromChunks(const StateChunkPtr value)
         MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -532,6 +470,7 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
 
     if(source != NULL)
     {
+        ChunkMaterial *pThis = static_cast<ChunkMaterial *>(this);
 
         MFUnrecStateChunkPtr::const_iterator ChunksIt  =
             source->_mfChunks.begin();
@@ -540,7 +479,7 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
 
         while(ChunksIt != ChunksEnd)
         {
-            this->pushToChunks(*ChunksIt);
+            pThis->pushToChunks(*ChunksIt);
 
             ++ChunksIt;
         }

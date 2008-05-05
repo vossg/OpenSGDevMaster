@@ -205,6 +205,13 @@ const SFUnrecImagePtr *GrabForegroundBase::getSFImage(void) const
     return &_sfImage;
 }
 
+SFUnrecImagePtr     *GrabForegroundBase::editSFImage          (void)
+{
+    editSField(ImageFieldMask);
+
+    return &_sfImage;
+}
+
 SFBool *GrabForegroundBase::editSFAutoResize(void)
 {
     editSField(AutoResizeFieldMask);
@@ -392,8 +399,9 @@ void GrabForegroundBase::onCreate(const GrabForeground *source)
 
     if(source != NULL)
     {
+        GrabForeground *pThis = static_cast<GrabForeground *>(this);
 
-        this->setImage(source->getImage());
+        pThis->setImage(source->getImage());
     }
 }
 

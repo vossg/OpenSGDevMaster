@@ -141,7 +141,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);
-            const std::string         &getName            (void) const;
+            const std::string          getName            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -159,6 +159,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

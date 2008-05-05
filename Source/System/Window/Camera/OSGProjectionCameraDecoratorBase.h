@@ -149,7 +149,8 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecNodePtr      *getSFUser            (void) const;
+            const SFUnrecNodePtr      *getSFUser           (void) const;
+                  SFUnrecNodePtr      *editSFUser           (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFPnt3f             *getMFSurface         (void);
@@ -177,21 +178,19 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
                   MFPnt3f             &getSurface        (void);
 #endif
                   Pnt3f               &editSurface        (const UInt32 index);
-            const Pnt3f               &getSurface         (const UInt32 index) const;
-                  MFPnt3f             &editSurface        (void);
-            const MFPnt3f             &getSurface        (void) const;
+            const Pnt3f                getSurface         (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getWidth           (void);
 #endif
                   Real32              &editWidth          (void);
-            const Real32              &getWidth           (void) const;
+            const Real32               getWidth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getHeight          (void);
 #endif
                   Real32              &editHeight         (void);
-            const Real32              &getHeight          (void) const;
+            const Real32               getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -211,7 +210,6 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -318,42 +316,24 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPlane             *getSFLeft            (void);
-#endif
                   SFPlane             *editSFLeft           (void);
             const SFPlane             *getSFLeft            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPlane             *getSFBottom          (void);
-#endif
                   SFPlane             *editSFBottom         (void);
             const SFPlane             *getSFBottom          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPlane             *getSFNormal          (void);
-#endif
                   SFPlane             *editSFNormal         (void);
             const SFPlane             *getSFNormal          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Plane               &getLeft            (void);
-#endif
                   Plane               &editLeft           (void);
-            const Plane               &getLeft            (void) const;
+            const Plane                getLeft            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Plane               &getBottom          (void);
-#endif
                   Plane               &editBottom         (void);
-            const Plane               &getBottom          (void) const;
+            const Plane                getBottom          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Plane               &getNormal          (void);
-#endif
                   Plane               &editNormal         (void);
-            const Plane               &getNormal          (void) const;
+            const Plane                getNormal          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -368,6 +348,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

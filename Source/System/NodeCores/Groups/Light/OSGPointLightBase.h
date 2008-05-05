@@ -137,7 +137,7 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
                   Pnt3r               &getPosition        (void);
 #endif
                   Pnt3r               &editPosition       (void);
-            const Pnt3r               &getPosition        (void) const;
+            const Pnt3r                getPosition        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

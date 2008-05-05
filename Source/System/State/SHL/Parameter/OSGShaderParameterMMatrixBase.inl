@@ -76,7 +76,7 @@ OSG::UInt16 ShaderParameterMMatrixBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ShaderParameterMMatrix::_mfValue field.
 inline
-const Matrix &ShaderParameterMMatrixBase::getValue(const UInt32 index) const
+const Matrix ShaderParameterMMatrixBase::getValue(const UInt32 index) const
 {
     return _mfValue[index];
 }
@@ -87,15 +87,6 @@ Matrix &ShaderParameterMMatrixBase::editValue(const UInt32 index)
     editMField(ValueFieldMask, _mfValue);
 
     return _mfValue[index];
-}
-
-//! Get the ShaderParameterMMatrix::_mfValue field.
-inline
-MFMatrix &ShaderParameterMMatrixBase::editValue(void)
-{
-    editMField(ValueFieldMask, _mfValue);
-
-    return _mfValue;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -113,13 +104,6 @@ MFMatrix            &ShaderParameterMMatrixBase::getValue          (void)
 
 #endif
 
-
-//! Get the ShaderParameterMMatrix::_mfValue field.
-inline
-const MFMatrix &ShaderParameterMMatrixBase::getValue(void) const
-{
-    return _mfValue;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

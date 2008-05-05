@@ -347,6 +347,13 @@ const SFUnrecTextureBaseChunkPtr *TextureBackgroundBase::getSFTexture(void) cons
     return &_sfTexture;
 }
 
+SFUnrecTextureBaseChunkPtr *TextureBackgroundBase::editSFTexture        (void)
+{
+    editSField(TextureFieldMask);
+
+    return &_sfTexture;
+}
+
 MFPnt2f *TextureBackgroundBase::editMFTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
@@ -680,8 +687,9 @@ void TextureBackgroundBase::onCreate(const TextureBackground *source)
 
     if(source != NULL)
     {
+        TextureBackground *pThis = static_cast<TextureBackground *>(this);
 
-        this->setTexture(source->getTexture());
+        pThis->setTexture(source->getTexture());
     }
 }
 

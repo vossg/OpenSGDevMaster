@@ -85,7 +85,7 @@ Int32 &SimpleShadowMapEngineBase::editForceTextureUnit(void)
 
 //! Get the value of the SimpleShadowMapEngine::_sfForceTextureUnit field.
 inline
-const Int32 &SimpleShadowMapEngineBase::getForceTextureUnit(void) const
+const Int32 SimpleShadowMapEngineBase::getForceTextureUnit(void) const
 {
     return _sfForceTextureUnit.getValue();
 }

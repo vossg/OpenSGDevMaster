@@ -88,7 +88,6 @@ void TextureChunkBase::setImage(const ImagePtr value)
     editSField(ImageFieldMask);
 
     _sfImage.setValue(value);
-
 }
 //! Get the value of the TextureChunk::_sfInternalFormat field.
 
@@ -102,7 +101,7 @@ GLenum &TextureChunkBase::editInternalFormat(void)
 
 //! Get the value of the TextureChunk::_sfInternalFormat field.
 inline
-const GLenum &TextureChunkBase::getInternalFormat(void) const
+const GLenum TextureChunkBase::getInternalFormat(void) const
 {
     return _sfInternalFormat.getValue();
 }
@@ -135,7 +134,7 @@ GLenum &TextureChunkBase::editExternalFormat(void)
 
 //! Get the value of the TextureChunk::_sfExternalFormat field.
 inline
-const GLenum &TextureChunkBase::getExternalFormat(void) const
+const GLenum TextureChunkBase::getExternalFormat(void) const
 {
     return _sfExternalFormat.getValue();
 }
@@ -168,7 +167,7 @@ bool &TextureChunkBase::editScale(void)
 
 //! Get the value of the TextureChunk::_sfScale field.
 inline
-const bool &TextureChunkBase::getScale(void) const
+const bool TextureChunkBase::getScale(void) const
 {
     return _sfScale.getValue();
 }
@@ -201,7 +200,7 @@ UInt32 &TextureChunkBase::editFrame(void)
 
 //! Get the value of the TextureChunk::_sfFrame field.
 inline
-const UInt32 &TextureChunkBase::getFrame(void) const
+const UInt32 TextureChunkBase::getFrame(void) const
 {
     return _sfFrame.getValue();
 }
@@ -234,7 +233,7 @@ GLenum &TextureChunkBase::editMinFilter(void)
 
 //! Get the value of the TextureChunk::_sfMinFilter field.
 inline
-const GLenum &TextureChunkBase::getMinFilter(void) const
+const GLenum TextureChunkBase::getMinFilter(void) const
 {
     return _sfMinFilter.getValue();
 }
@@ -267,7 +266,7 @@ GLenum &TextureChunkBase::editMagFilter(void)
 
 //! Get the value of the TextureChunk::_sfMagFilter field.
 inline
-const GLenum &TextureChunkBase::getMagFilter(void) const
+const GLenum TextureChunkBase::getMagFilter(void) const
 {
     return _sfMagFilter.getValue();
 }
@@ -300,7 +299,7 @@ GLenum &TextureChunkBase::editWrapS(void)
 
 //! Get the value of the TextureChunk::_sfWrapS field.
 inline
-const GLenum &TextureChunkBase::getWrapS(void) const
+const GLenum TextureChunkBase::getWrapS(void) const
 {
     return _sfWrapS.getValue();
 }
@@ -333,7 +332,7 @@ GLenum &TextureChunkBase::editWrapT(void)
 
 //! Get the value of the TextureChunk::_sfWrapT field.
 inline
-const GLenum &TextureChunkBase::getWrapT(void) const
+const GLenum TextureChunkBase::getWrapT(void) const
 {
     return _sfWrapT.getValue();
 }
@@ -366,7 +365,7 @@ GLenum &TextureChunkBase::editWrapR(void)
 
 //! Get the value of the TextureChunk::_sfWrapR field.
 inline
-const GLenum &TextureChunkBase::getWrapR(void) const
+const GLenum TextureChunkBase::getWrapR(void) const
 {
     return _sfWrapR.getValue();
 }
@@ -399,7 +398,7 @@ GLenum &TextureChunkBase::editEnvMode(void)
 
 //! Get the value of the TextureChunk::_sfEnvMode field.
 inline
-const GLenum &TextureChunkBase::getEnvMode(void) const
+const GLenum TextureChunkBase::getEnvMode(void) const
 {
     return _sfEnvMode.getValue();
 }
@@ -432,7 +431,7 @@ Color4f &TextureChunkBase::editEnvColor(void)
 
 //! Get the value of the TextureChunk::_sfEnvColor field.
 inline
-const Color4f &TextureChunkBase::getEnvColor(void) const
+const Color4f TextureChunkBase::getEnvColor(void) const
 {
     return _sfEnvColor.getValue();
 }
@@ -465,7 +464,7 @@ GLenum &TextureChunkBase::editEnvCombineRGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvCombineRGB field.
 inline
-const GLenum &TextureChunkBase::getEnvCombineRGB(void) const
+const GLenum TextureChunkBase::getEnvCombineRGB(void) const
 {
     return _sfEnvCombineRGB.getValue();
 }
@@ -498,7 +497,7 @@ GLenum &TextureChunkBase::editEnvCombineAlpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvCombineAlpha field.
 inline
-const GLenum &TextureChunkBase::getEnvCombineAlpha(void) const
+const GLenum TextureChunkBase::getEnvCombineAlpha(void) const
 {
     return _sfEnvCombineAlpha.getValue();
 }
@@ -531,7 +530,7 @@ Real32 &TextureChunkBase::editEnvScaleRGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvScaleRGB field.
 inline
-const Real32 &TextureChunkBase::getEnvScaleRGB(void) const
+const Real32 TextureChunkBase::getEnvScaleRGB(void) const
 {
     return _sfEnvScaleRGB.getValue();
 }
@@ -564,7 +563,7 @@ Real32 &TextureChunkBase::editEnvScaleAlpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvScaleAlpha field.
 inline
-const Real32 &TextureChunkBase::getEnvScaleAlpha(void) const
+const Real32 TextureChunkBase::getEnvScaleAlpha(void) const
 {
     return _sfEnvScaleAlpha.getValue();
 }
@@ -597,7 +596,7 @@ GLenum &TextureChunkBase::editEnvSource0RGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvSource0RGB field.
 inline
-const GLenum &TextureChunkBase::getEnvSource0RGB(void) const
+const GLenum TextureChunkBase::getEnvSource0RGB(void) const
 {
     return _sfEnvSource0RGB.getValue();
 }
@@ -630,7 +629,7 @@ GLenum &TextureChunkBase::editEnvSource1RGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvSource1RGB field.
 inline
-const GLenum &TextureChunkBase::getEnvSource1RGB(void) const
+const GLenum TextureChunkBase::getEnvSource1RGB(void) const
 {
     return _sfEnvSource1RGB.getValue();
 }
@@ -663,7 +662,7 @@ GLenum &TextureChunkBase::editEnvSource2RGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvSource2RGB field.
 inline
-const GLenum &TextureChunkBase::getEnvSource2RGB(void) const
+const GLenum TextureChunkBase::getEnvSource2RGB(void) const
 {
     return _sfEnvSource2RGB.getValue();
 }
@@ -696,7 +695,7 @@ GLenum &TextureChunkBase::editEnvSource0Alpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvSource0Alpha field.
 inline
-const GLenum &TextureChunkBase::getEnvSource0Alpha(void) const
+const GLenum TextureChunkBase::getEnvSource0Alpha(void) const
 {
     return _sfEnvSource0Alpha.getValue();
 }
@@ -729,7 +728,7 @@ GLenum &TextureChunkBase::editEnvSource1Alpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvSource1Alpha field.
 inline
-const GLenum &TextureChunkBase::getEnvSource1Alpha(void) const
+const GLenum TextureChunkBase::getEnvSource1Alpha(void) const
 {
     return _sfEnvSource1Alpha.getValue();
 }
@@ -762,7 +761,7 @@ GLenum &TextureChunkBase::editEnvSource2Alpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvSource2Alpha field.
 inline
-const GLenum &TextureChunkBase::getEnvSource2Alpha(void) const
+const GLenum TextureChunkBase::getEnvSource2Alpha(void) const
 {
     return _sfEnvSource2Alpha.getValue();
 }
@@ -795,7 +794,7 @@ GLenum &TextureChunkBase::editEnvOperand0RGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvOperand0RGB field.
 inline
-const GLenum &TextureChunkBase::getEnvOperand0RGB(void) const
+const GLenum TextureChunkBase::getEnvOperand0RGB(void) const
 {
     return _sfEnvOperand0RGB.getValue();
 }
@@ -828,7 +827,7 @@ GLenum &TextureChunkBase::editEnvOperand1RGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvOperand1RGB field.
 inline
-const GLenum &TextureChunkBase::getEnvOperand1RGB(void) const
+const GLenum TextureChunkBase::getEnvOperand1RGB(void) const
 {
     return _sfEnvOperand1RGB.getValue();
 }
@@ -861,7 +860,7 @@ GLenum &TextureChunkBase::editEnvOperand2RGB(void)
 
 //! Get the value of the TextureChunk::_sfEnvOperand2RGB field.
 inline
-const GLenum &TextureChunkBase::getEnvOperand2RGB(void) const
+const GLenum TextureChunkBase::getEnvOperand2RGB(void) const
 {
     return _sfEnvOperand2RGB.getValue();
 }
@@ -894,7 +893,7 @@ GLenum &TextureChunkBase::editEnvOperand0Alpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvOperand0Alpha field.
 inline
-const GLenum &TextureChunkBase::getEnvOperand0Alpha(void) const
+const GLenum TextureChunkBase::getEnvOperand0Alpha(void) const
 {
     return _sfEnvOperand0Alpha.getValue();
 }
@@ -927,7 +926,7 @@ GLenum &TextureChunkBase::editEnvOperand1Alpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvOperand1Alpha field.
 inline
-const GLenum &TextureChunkBase::getEnvOperand1Alpha(void) const
+const GLenum TextureChunkBase::getEnvOperand1Alpha(void) const
 {
     return _sfEnvOperand1Alpha.getValue();
 }
@@ -960,7 +959,7 @@ GLenum &TextureChunkBase::editEnvOperand2Alpha(void)
 
 //! Get the value of the TextureChunk::_sfEnvOperand2Alpha field.
 inline
-const GLenum &TextureChunkBase::getEnvOperand2Alpha(void) const
+const GLenum TextureChunkBase::getEnvOperand2Alpha(void) const
 {
     return _sfEnvOperand2Alpha.getValue();
 }
@@ -993,7 +992,7 @@ GLenum &TextureChunkBase::editGLId(void)
 
 //! Get the value of the TextureChunk::_sfGLId field.
 inline
-const GLenum &TextureChunkBase::getGLId(void) const
+const GLenum TextureChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
@@ -1026,7 +1025,7 @@ Int32 &TextureChunkBase::editIgnoreGLForAspect(void)
 
 //! Get the value of the TextureChunk::_sfIgnoreGLForAspect field.
 inline
-const Int32 &TextureChunkBase::getIgnoreGLForAspect(void) const
+const Int32 TextureChunkBase::getIgnoreGLForAspect(void) const
 {
     return _sfIgnoreGLForAspect.getValue();
 }
@@ -1059,7 +1058,7 @@ bool &TextureChunkBase::editPointSprite(void)
 
 //! Get the value of the TextureChunk::_sfPointSprite field.
 inline
-const bool &TextureChunkBase::getPointSprite(void) const
+const bool TextureChunkBase::getPointSprite(void) const
 {
     return _sfPointSprite.getValue();
 }
@@ -1092,7 +1091,7 @@ Real32 &TextureChunkBase::editPriority(void)
 
 //! Get the value of the TextureChunk::_sfPriority field.
 inline
-const Real32 &TextureChunkBase::getPriority(void) const
+const Real32 TextureChunkBase::getPriority(void) const
 {
     return _sfPriority.getValue();
 }
@@ -1125,7 +1124,7 @@ GLenum &TextureChunkBase::editShaderOperation(void)
 
 //! Get the value of the TextureChunk::_sfShaderOperation field.
 inline
-const GLenum &TextureChunkBase::getShaderOperation(void) const
+const GLenum TextureChunkBase::getShaderOperation(void) const
 {
     return _sfShaderOperation.getValue();
 }
@@ -1158,7 +1157,7 @@ GLenum &TextureChunkBase::editShaderInput(void)
 
 //! Get the value of the TextureChunk::_sfShaderInput field.
 inline
-const GLenum &TextureChunkBase::getShaderInput(void) const
+const GLenum TextureChunkBase::getShaderInput(void) const
 {
     return _sfShaderInput.getValue();
 }
@@ -1191,7 +1190,7 @@ Real32 &TextureChunkBase::editShaderOffsetScale(void)
 
 //! Get the value of the TextureChunk::_sfShaderOffsetScale field.
 inline
-const Real32 &TextureChunkBase::getShaderOffsetScale(void) const
+const Real32 TextureChunkBase::getShaderOffsetScale(void) const
 {
     return _sfShaderOffsetScale.getValue();
 }
@@ -1224,7 +1223,7 @@ Real32 &TextureChunkBase::editShaderOffsetBias(void)
 
 //! Get the value of the TextureChunk::_sfShaderOffsetBias field.
 inline
-const Real32 &TextureChunkBase::getShaderOffsetBias(void) const
+const Real32 TextureChunkBase::getShaderOffsetBias(void) const
 {
     return _sfShaderOffsetBias.getValue();
 }
@@ -1257,7 +1256,7 @@ GLenum &TextureChunkBase::editShaderRGBADotProduct(void)
 
 //! Get the value of the TextureChunk::_sfShaderRGBADotProduct field.
 inline
-const GLenum &TextureChunkBase::getShaderRGBADotProduct(void) const
+const GLenum TextureChunkBase::getShaderRGBADotProduct(void) const
 {
     return _sfShaderRGBADotProduct.getValue();
 }
@@ -1290,7 +1289,7 @@ UInt8 &TextureChunkBase::editShaderCullModes(void)
 
 //! Get the value of the TextureChunk::_sfShaderCullModes field.
 inline
-const UInt8 &TextureChunkBase::getShaderCullModes(void) const
+const UInt8 TextureChunkBase::getShaderCullModes(void) const
 {
     return _sfShaderCullModes.getValue();
 }
@@ -1323,7 +1322,7 @@ Vec3f &TextureChunkBase::editShaderConstEye(void)
 
 //! Get the value of the TextureChunk::_sfShaderConstEye field.
 inline
-const Vec3f &TextureChunkBase::getShaderConstEye(void) const
+const Vec3f TextureChunkBase::getShaderConstEye(void) const
 {
     return _sfShaderConstEye.getValue();
 }
@@ -1356,7 +1355,7 @@ Real32 &TextureChunkBase::editLodBias(void)
 
 //! Get the value of the TextureChunk::_sfLodBias field.
 inline
-const Real32 &TextureChunkBase::getLodBias(void) const
+const Real32 TextureChunkBase::getLodBias(void) const
 {
     return _sfLodBias.getValue();
 }
@@ -1389,7 +1388,7 @@ Int32 &TextureChunkBase::editDirtyLeft(void)
 
 //! Get the value of the TextureChunk::_sfDirtyLeft field.
 inline
-const Int32 &TextureChunkBase::getDirtyLeft(void) const
+const Int32 TextureChunkBase::getDirtyLeft(void) const
 {
     return _sfDirtyLeft.getValue();
 }
@@ -1422,7 +1421,7 @@ Int32 &TextureChunkBase::editDirtyMinX(void)
 
 //! Get the value of the TextureChunk::_sfDirtyMinX field.
 inline
-const Int32 &TextureChunkBase::getDirtyMinX(void) const
+const Int32 TextureChunkBase::getDirtyMinX(void) const
 {
     return _sfDirtyMinX.getValue();
 }
@@ -1455,7 +1454,7 @@ Int32 &TextureChunkBase::editDirtyMaxX(void)
 
 //! Get the value of the TextureChunk::_sfDirtyMaxX field.
 inline
-const Int32 &TextureChunkBase::getDirtyMaxX(void) const
+const Int32 TextureChunkBase::getDirtyMaxX(void) const
 {
     return _sfDirtyMaxX.getValue();
 }
@@ -1488,7 +1487,7 @@ Int32 &TextureChunkBase::editDirtyMinY(void)
 
 //! Get the value of the TextureChunk::_sfDirtyMinY field.
 inline
-const Int32 &TextureChunkBase::getDirtyMinY(void) const
+const Int32 TextureChunkBase::getDirtyMinY(void) const
 {
     return _sfDirtyMinY.getValue();
 }
@@ -1521,7 +1520,7 @@ Int32 &TextureChunkBase::editDirtyMaxY(void)
 
 //! Get the value of the TextureChunk::_sfDirtyMaxY field.
 inline
-const Int32 &TextureChunkBase::getDirtyMaxY(void) const
+const Int32 TextureChunkBase::getDirtyMaxY(void) const
 {
     return _sfDirtyMaxY.getValue();
 }
@@ -1554,7 +1553,7 @@ Int32 &TextureChunkBase::editDirtyMinZ(void)
 
 //! Get the value of the TextureChunk::_sfDirtyMinZ field.
 inline
-const Int32 &TextureChunkBase::getDirtyMinZ(void) const
+const Int32 TextureChunkBase::getDirtyMinZ(void) const
 {
     return _sfDirtyMinZ.getValue();
 }
@@ -1587,7 +1586,7 @@ Int32 &TextureChunkBase::editDirtyMaxZ(void)
 
 //! Get the value of the TextureChunk::_sfDirtyMaxZ field.
 inline
-const Int32 &TextureChunkBase::getDirtyMaxZ(void) const
+const Int32 TextureChunkBase::getDirtyMaxZ(void) const
 {
     return _sfDirtyMaxZ.getValue();
 }
@@ -1620,7 +1619,7 @@ Real32 &TextureChunkBase::editAnisotropy(void)
 
 //! Get the value of the TextureChunk::_sfAnisotropy field.
 inline
-const Real32 &TextureChunkBase::getAnisotropy(void) const
+const Real32 TextureChunkBase::getAnisotropy(void) const
 {
     return _sfAnisotropy.getValue();
 }
@@ -1653,7 +1652,7 @@ Color4f &TextureChunkBase::editBorderColor(void)
 
 //! Get the value of the TextureChunk::_sfBorderColor field.
 inline
-const Color4f &TextureChunkBase::getBorderColor(void) const
+const Color4f TextureChunkBase::getBorderColor(void) const
 {
     return _sfBorderColor.getValue();
 }
@@ -1686,7 +1685,7 @@ GLenum &TextureChunkBase::editCompareMode(void)
 
 //! Get the value of the TextureChunk::_sfCompareMode field.
 inline
-const GLenum &TextureChunkBase::getCompareMode(void) const
+const GLenum TextureChunkBase::getCompareMode(void) const
 {
     return _sfCompareMode.getValue();
 }
@@ -1719,7 +1718,7 @@ GLenum &TextureChunkBase::editCompareFunc(void)
 
 //! Get the value of the TextureChunk::_sfCompareFunc field.
 inline
-const GLenum &TextureChunkBase::getCompareFunc(void) const
+const GLenum TextureChunkBase::getCompareFunc(void) const
 {
     return _sfCompareFunc.getValue();
 }
@@ -1752,7 +1751,7 @@ GLenum &TextureChunkBase::editDepthMode(void)
 
 //! Get the value of the TextureChunk::_sfDepthMode field.
 inline
-const GLenum &TextureChunkBase::getDepthMode(void) const
+const GLenum TextureChunkBase::getDepthMode(void) const
 {
     return _sfDepthMode.getValue();
 }
@@ -1785,7 +1784,7 @@ UInt32 &TextureChunkBase::editBorderWidth(void)
 
 //! Get the value of the TextureChunk::_sfBorderWidth field.
 inline
-const UInt32 &TextureChunkBase::getBorderWidth(void) const
+const UInt32 TextureChunkBase::getBorderWidth(void) const
 {
     return _sfBorderWidth.getValue();
 }
@@ -1818,7 +1817,7 @@ UInt32 &TextureChunkBase::editNPOTMatrixScale(void)
 
 //! Get the value of the TextureChunk::_sfNPOTMatrixScale field.
 inline
-const UInt32 &TextureChunkBase::getNPOTMatrixScale(void) const
+const UInt32 TextureChunkBase::getNPOTMatrixScale(void) const
 {
     return _sfNPOTMatrixScale.getValue();
 }
@@ -1842,7 +1841,7 @@ void TextureChunkBase::setNPOTMatrixScale(const UInt32 &value)
 
 //! Get the value of the \a index element the TextureChunk::_mfShaderOffsetMatrix field.
 inline
-const Real32 &TextureChunkBase::getShaderOffsetMatrix(const UInt32 index) const
+const Real32 TextureChunkBase::getShaderOffsetMatrix(const UInt32 index) const
 {
     return _mfShaderOffsetMatrix[index];
 }
@@ -1853,15 +1852,6 @@ Real32 &TextureChunkBase::editShaderOffsetMatrix(const UInt32 index)
     editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
 
     return _mfShaderOffsetMatrix[index];
-}
-
-//! Get the TextureChunk::_mfShaderOffsetMatrix field.
-inline
-MFReal32 &TextureChunkBase::editShaderOffsetMatrix(void)
-{
-    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
-
-    return _mfShaderOffsetMatrix;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1879,13 +1869,6 @@ MFReal32            &TextureChunkBase::getShaderOffsetMatrix(void)
 
 #endif
 
-
-//! Get the TextureChunk::_mfShaderOffsetMatrix field.
-inline
-const MFReal32 &TextureChunkBase::getShaderOffsetMatrix(void) const
-{
-    return _mfShaderOffsetMatrix;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -137,7 +137,7 @@ class OSG_SYSTEM_DLLMAPPING LightEngineBase : public AttachmentContainer
                   bool                &getEnabled         (void);
 #endif
                   bool                &editEnabled        (void);
-            const bool                &getEnabled         (void) const;
+            const bool                 getEnabled         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_SYSTEM_DLLMAPPING LightEngineBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

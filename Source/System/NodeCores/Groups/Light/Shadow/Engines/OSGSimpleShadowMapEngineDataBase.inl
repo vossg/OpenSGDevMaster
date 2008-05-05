@@ -88,7 +88,6 @@ void SimpleShadowMapEngineDataBase::setCamera(const CameraPtr value)
     editSField(CameraFieldMask);
 
     _sfCamera.setValue(value);
-
 }
 
 //! Get the value of the SimpleShadowMapEngineData::_sfTexChunk field.
@@ -105,7 +104,6 @@ void SimpleShadowMapEngineDataBase::setTexChunk(const TextureObjChunkPtr value)
     editSField(TexChunkFieldMask);
 
     _sfTexChunk.setValue(value);
-
 }
 
 //! Get the value of the SimpleShadowMapEngineData::_sfTexBuffer field.
@@ -122,7 +120,6 @@ void SimpleShadowMapEngineDataBase::setTexBuffer(const TextureBufferPtr value)
     editSField(TexBufferFieldMask);
 
     _sfTexBuffer.setValue(value);
-
 }
 
 //! Get the value of the SimpleShadowMapEngineData::_sfLightChunk field.
@@ -139,7 +136,6 @@ void SimpleShadowMapEngineDataBase::setLightChunk(const LightChunkPtr value)
     editSField(LightChunkFieldMask);
 
     _sfLightChunk.setValue(value);
-
 }
 
 //! Get the value of the SimpleShadowMapEngineData::_sfBlendChunk field.
@@ -156,7 +152,6 @@ void SimpleShadowMapEngineDataBase::setBlendChunk(const BlendChunkPtr value)
     editSField(BlendChunkFieldMask);
 
     _sfBlendChunk.setValue(value);
-
 }
 
 //! Get the value of the SimpleShadowMapEngineData::_sfTexGenChunk field.
@@ -173,7 +168,6 @@ void SimpleShadowMapEngineDataBase::setTexGenChunk(const TexGenChunkPtr value)
     editSField(TexGenChunkFieldMask);
 
     _sfTexGenChunk.setValue(value);
-
 }
 
 //! Get the value of the SimpleShadowMapEngineData::_sfPolyChunk field.
@@ -190,7 +184,6 @@ void SimpleShadowMapEngineDataBase::setPolyChunk(const PolygonChunkPtr value)
     editSField(PolyChunkFieldMask);
 
     _sfPolyChunk.setValue(value);
-
 }
 
 

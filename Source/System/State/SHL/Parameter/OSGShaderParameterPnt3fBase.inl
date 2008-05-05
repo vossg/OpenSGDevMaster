@@ -85,7 +85,7 @@ Pnt3f &ShaderParameterPnt3fBase::editValue(void)
 
 //! Get the value of the ShaderParameterPnt3f::_sfValue field.
 inline
-const Pnt3f &ShaderParameterPnt3fBase::getValue(void) const
+const Pnt3f ShaderParameterPnt3fBase::getValue(void) const
 {
     return _sfValue.getValue();
 }

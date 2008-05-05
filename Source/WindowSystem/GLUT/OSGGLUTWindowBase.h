@@ -137,7 +137,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
                   Int32               &getGlutId          (void);
 #endif
                   Int32               &editGlutId         (void);
-            const Int32               &getGlutId          (void) const;
+            const Int32                getGlutId          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

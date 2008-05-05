@@ -85,7 +85,7 @@ UInt32 &ParticlesBase::editMode(void)
 
 //! Get the value of the Particles::_sfMode field.
 inline
-const UInt32 &ParticlesBase::getMode(void) const
+const UInt32 ParticlesBase::getMode(void) const
 {
     return _sfMode.getValue();
 }
@@ -121,7 +121,6 @@ void ParticlesBase::setPositions(const GeoVectorPropertyPtr value)
     editSField(PositionsFieldMask);
 
     _sfPositions.setValue(value);
-
 }
 
 //! Get the value of the Particles::_sfSecPositions field.
@@ -138,7 +137,6 @@ void ParticlesBase::setSecPositions(const GeoVectorPropertyPtr value)
     editSField(SecPositionsFieldMask);
 
     _sfSecPositions.setValue(value);
-
 }
 
 //! Get the value of the Particles::_sfColors field.
@@ -155,7 +153,6 @@ void ParticlesBase::setColors(const GeoVectorPropertyPtr value)
     editSField(ColorsFieldMask);
 
     _sfColors.setValue(value);
-
 }
 
 //! Get the value of the Particles::_sfNormals field.
@@ -172,7 +169,6 @@ void ParticlesBase::setNormals(const GeoVectorPropertyPtr value)
     editSField(NormalsFieldMask);
 
     _sfNormals.setValue(value);
-
 }
 //! Get the value of the Particles::_sfDrawOrder field.
 
@@ -186,7 +182,7 @@ UInt32 &ParticlesBase::editDrawOrder(void)
 
 //! Get the value of the Particles::_sfDrawOrder field.
 inline
-const UInt32 &ParticlesBase::getDrawOrder(void) const
+const UInt32 ParticlesBase::getDrawOrder(void) const
 {
     return _sfDrawOrder.getValue();
 }
@@ -219,7 +215,7 @@ bool &ParticlesBase::editDynamic(void)
 
 //! Get the value of the Particles::_sfDynamic field.
 inline
-const bool &ParticlesBase::getDynamic(void) const
+const bool ParticlesBase::getDynamic(void) const
 {
     return _sfDynamic.getValue();
 }
@@ -252,7 +248,7 @@ UInt32 &ParticlesBase::editPump(void)
 
 //! Get the value of the Particles::_sfPump field.
 inline
-const UInt32 &ParticlesBase::getPump(void) const
+const UInt32 ParticlesBase::getPump(void) const
 {
     return _sfPump.getValue();
 }
@@ -285,7 +281,7 @@ ParticleBSPTree &ParticlesBase::editBsp(void)
 
 //! Get the value of the Particles::_sfBsp field.
 inline
-const ParticleBSPTree &ParticlesBase::getBsp(void) const
+const ParticleBSPTree ParticlesBase::getBsp(void) const
 {
     return _sfBsp.getValue();
 }
@@ -318,7 +314,7 @@ Int32 &ParticlesBase::editNumParticles(void)
 
 //! Get the value of the Particles::_sfNumParticles field.
 inline
-const Int32 &ParticlesBase::getNumParticles(void) const
+const Int32 ParticlesBase::getNumParticles(void) const
 {
     return _sfNumParticles.getValue();
 }
@@ -342,7 +338,7 @@ void ParticlesBase::setNumParticles(const Int32 &value)
 
 //! Get the value of the \a index element the Particles::_mfSizes field.
 inline
-const Vec3f &ParticlesBase::getSizes(const UInt32 index) const
+const Vec3f ParticlesBase::getSizes(const UInt32 index) const
 {
     return _mfSizes[index];
 }
@@ -353,15 +349,6 @@ Vec3f &ParticlesBase::editSizes(const UInt32 index)
     editMField(SizesFieldMask, _mfSizes);
 
     return _mfSizes[index];
-}
-
-//! Get the Particles::_mfSizes field.
-inline
-MFVec3f &ParticlesBase::editSizes(void)
-{
-    editMField(SizesFieldMask, _mfSizes);
-
-    return _mfSizes;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -380,16 +367,9 @@ MFVec3f             &ParticlesBase::getSizes          (void)
 #endif
 
 
-//! Get the Particles::_mfSizes field.
-inline
-const MFVec3f &ParticlesBase::getSizes(void) const
-{
-    return _mfSizes;
-}
-
 //! Get the value of the \a index element the Particles::_mfIndices field.
 inline
-const Int32 &ParticlesBase::getIndices(const UInt32 index) const
+const Int32 ParticlesBase::getIndices(const UInt32 index) const
 {
     return _mfIndices[index];
 }
@@ -400,15 +380,6 @@ Int32 &ParticlesBase::editIndices(const UInt32 index)
     editMField(IndicesFieldMask, _mfIndices);
 
     return _mfIndices[index];
-}
-
-//! Get the Particles::_mfIndices field.
-inline
-MFInt32 &ParticlesBase::editIndices(void)
-{
-    editMField(IndicesFieldMask, _mfIndices);
-
-    return _mfIndices;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -427,16 +398,9 @@ MFInt32             &ParticlesBase::getIndices        (void)
 #endif
 
 
-//! Get the Particles::_mfIndices field.
-inline
-const MFInt32 &ParticlesBase::getIndices(void) const
-{
-    return _mfIndices;
-}
-
 //! Get the value of the \a index element the Particles::_mfTextureZs field.
 inline
-const Real32 &ParticlesBase::getTextureZs(const UInt32 index) const
+const Real32 ParticlesBase::getTextureZs(const UInt32 index) const
 {
     return _mfTextureZs[index];
 }
@@ -447,15 +411,6 @@ Real32 &ParticlesBase::editTextureZs(const UInt32 index)
     editMField(TextureZsFieldMask, _mfTextureZs);
 
     return _mfTextureZs[index];
-}
-
-//! Get the Particles::_mfTextureZs field.
-inline
-MFReal32 &ParticlesBase::editTextureZs(void)
-{
-    editMField(TextureZsFieldMask, _mfTextureZs);
-
-    return _mfTextureZs;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -473,13 +428,6 @@ MFReal32            &ParticlesBase::getTextureZs      (void)
 
 #endif
 
-
-//! Get the Particles::_mfTextureZs field.
-inline
-const MFReal32 &ParticlesBase::getTextureZs(void) const
-{
-    return _mfTextureZs;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

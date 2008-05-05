@@ -85,7 +85,7 @@ bool &SHLChunkBase::editCgFrontEnd(void)
 
 //! Get the value of the SHLChunk::_sfCgFrontEnd field.
 inline
-const bool &SHLChunkBase::getCgFrontEnd(void) const
+const bool SHLChunkBase::getCgFrontEnd(void) const
 {
     return _sfCgFrontEnd.getValue();
 }
@@ -118,7 +118,7 @@ bool &SHLChunkBase::editPointSize(void)
 
 //! Get the value of the SHLChunk::_sfPointSize field.
 inline
-const bool &SHLChunkBase::getPointSize(void) const
+const bool SHLChunkBase::getPointSize(void) const
 {
     return _sfPointSize.getValue();
 }
@@ -151,7 +151,7 @@ UInt32 &SHLChunkBase::editGLId(void)
 
 //! Get the value of the SHLChunk::_sfGLId field.
 inline
-const UInt32 &SHLChunkBase::getGLId(void) const
+const UInt32 SHLChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
@@ -175,7 +175,7 @@ void SHLChunkBase::setGLId(const UInt32 &value)
 
 //! Get the value of the \a index element the SHLChunk::_mfProgramParameterNames field.
 inline
-const GLenum &SHLChunkBase::getProgramParameterNames(const UInt32 index) const
+const GLenum SHLChunkBase::getProgramParameterNames(const UInt32 index) const
 {
     return _mfProgramParameterNames[index];
 }
@@ -186,15 +186,6 @@ GLenum &SHLChunkBase::editProgramParameterNames(const UInt32 index)
     editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
 
     return _mfProgramParameterNames[index];
-}
-
-//! Get the SHLChunk::_mfProgramParameterNames field.
-inline
-MFGLenum &SHLChunkBase::editProgramParameterNames(void)
-{
-    editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
-
-    return _mfProgramParameterNames;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -213,16 +204,9 @@ MFGLenum            &SHLChunkBase::getProgramParameterNames(void)
 #endif
 
 
-//! Get the SHLChunk::_mfProgramParameterNames field.
-inline
-const MFGLenum &SHLChunkBase::getProgramParameterNames(void) const
-{
-    return _mfProgramParameterNames;
-}
-
 //! Get the value of the \a index element the SHLChunk::_mfProgramParameterValues field.
 inline
-const UInt32 &SHLChunkBase::getProgramParameterValues(const UInt32 index) const
+const UInt32 SHLChunkBase::getProgramParameterValues(const UInt32 index) const
 {
     return _mfProgramParameterValues[index];
 }
@@ -233,15 +217,6 @@ UInt32 &SHLChunkBase::editProgramParameterValues(const UInt32 index)
     editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
 
     return _mfProgramParameterValues[index];
-}
-
-//! Get the SHLChunk::_mfProgramParameterValues field.
-inline
-MFUInt32 &SHLChunkBase::editProgramParameterValues(void)
-{
-    editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
-
-    return _mfProgramParameterValues;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -259,13 +234,6 @@ MFUInt32            &SHLChunkBase::getProgramParameterValues(void)
 
 #endif
 
-
-//! Get the SHLChunk::_mfProgramParameterValues field.
-inline
-const MFUInt32 &SHLChunkBase::getProgramParameterValues(void) const
-{
-    return _mfProgramParameterValues;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

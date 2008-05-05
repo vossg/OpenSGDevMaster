@@ -85,7 +85,7 @@ Color4r &LightChunkBase::editDiffuse(void)
 
 //! Get the value of the LightChunk::_sfDiffuse field.
 inline
-const Color4r &LightChunkBase::getDiffuse(void) const
+const Color4r LightChunkBase::getDiffuse(void) const
 {
     return _sfDiffuse.getValue();
 }
@@ -118,7 +118,7 @@ Color4r &LightChunkBase::editAmbient(void)
 
 //! Get the value of the LightChunk::_sfAmbient field.
 inline
-const Color4r &LightChunkBase::getAmbient(void) const
+const Color4r LightChunkBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
@@ -151,7 +151,7 @@ Color4r &LightChunkBase::editSpecular(void)
 
 //! Get the value of the LightChunk::_sfSpecular field.
 inline
-const Color4r &LightChunkBase::getSpecular(void) const
+const Color4r LightChunkBase::getSpecular(void) const
 {
     return _sfSpecular.getValue();
 }
@@ -184,7 +184,7 @@ Vec4r &LightChunkBase::editPosition(void)
 
 //! Get the value of the LightChunk::_sfPosition field.
 inline
-const Vec4r &LightChunkBase::getPosition(void) const
+const Vec4r LightChunkBase::getPosition(void) const
 {
     return _sfPosition.getValue();
 }
@@ -217,7 +217,7 @@ Vec3r &LightChunkBase::editDirection(void)
 
 //! Get the value of the LightChunk::_sfDirection field.
 inline
-const Vec3r &LightChunkBase::getDirection(void) const
+const Vec3r LightChunkBase::getDirection(void) const
 {
     return _sfDirection.getValue();
 }
@@ -250,7 +250,7 @@ Real &LightChunkBase::editExponent(void)
 
 //! Get the value of the LightChunk::_sfExponent field.
 inline
-const Real &LightChunkBase::getExponent(void) const
+const Real LightChunkBase::getExponent(void) const
 {
     return _sfExponent.getValue();
 }
@@ -283,7 +283,7 @@ Real &LightChunkBase::editCutoff(void)
 
 //! Get the value of the LightChunk::_sfCutoff field.
 inline
-const Real &LightChunkBase::getCutoff(void) const
+const Real LightChunkBase::getCutoff(void) const
 {
     return _sfCutoff.getValue();
 }
@@ -316,7 +316,7 @@ Real &LightChunkBase::editConstantAttenuation(void)
 
 //! Get the value of the LightChunk::_sfConstantAttenuation field.
 inline
-const Real &LightChunkBase::getConstantAttenuation(void) const
+const Real LightChunkBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
@@ -349,7 +349,7 @@ Real &LightChunkBase::editLinearAttenuation(void)
 
 //! Get the value of the LightChunk::_sfLinearAttenuation field.
 inline
-const Real &LightChunkBase::getLinearAttenuation(void) const
+const Real LightChunkBase::getLinearAttenuation(void) const
 {
     return _sfLinearAttenuation.getValue();
 }
@@ -382,7 +382,7 @@ Real &LightChunkBase::editQuadraticAttenuation(void)
 
 //! Get the value of the LightChunk::_sfQuadraticAttenuation field.
 inline
-const Real &LightChunkBase::getQuadraticAttenuation(void) const
+const Real LightChunkBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
@@ -418,7 +418,6 @@ void LightChunkBase::setBeacon(const NodePtr value)
     editSField(BeaconFieldMask);
 
     _sfBeacon.setValue(value);
-
 }
 
 

@@ -177,31 +177,31 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindowBase : public MultiDisplayWindow
                   bool                &getBalance         (void);
 #endif
                   bool                &editBalance        (void);
-            const bool                &getBalance         (void) const;
+            const bool                 getBalance         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getBestCut         (void);
 #endif
                   bool                &editBestCut        (void);
-            const bool                &getBestCut         (void) const;
+            const bool                 getBestCut         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getShowBalancing   (void);
 #endif
                   bool                &editShowBalancing  (void);
-            const bool                &getShowBalancing   (void) const;
+            const bool                 getShowBalancing   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTileSize        (void);
 #endif
                   UInt32              &editTileSize       (void);
-            const UInt32              &getTileSize        (void) const;
+            const UInt32               getTileSize        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getShort           (void);
 #endif
                   bool                &editShort          (void);
-            const bool                &getShort           (void) const;
+            const bool                 getShort           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,6 +218,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindowBase : public MultiDisplayWindow
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

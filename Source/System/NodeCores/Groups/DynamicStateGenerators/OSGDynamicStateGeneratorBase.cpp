@@ -175,6 +175,13 @@ const SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::getSFRenderTarget(
     return &_sfRenderTarget;
 }
 
+SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::editSFRenderTarget   (void)
+{
+    editSField(RenderTargetFieldMask);
+
+    return &_sfRenderTarget;
+}
+
 
 
 
@@ -329,8 +336,9 @@ void DynamicStateGeneratorBase::onCreate(const DynamicStateGenerator *source)
 
     if(source != NULL)
     {
+        DynamicStateGenerator *pThis = static_cast<DynamicStateGenerator *>(this);
 
-        this->setRenderTarget(source->getRenderTarget());
+        pThis->setRenderTarget(source->getRenderTarget());
     }
 }
 

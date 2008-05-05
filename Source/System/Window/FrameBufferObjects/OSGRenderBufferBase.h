@@ -147,13 +147,13 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
                   GLenum              &getGLId            (void);
 #endif
                   GLenum              &editGLId           (void);
-            const GLenum              &getGLId            (void) const;
+            const GLenum               getGLId            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getInternalFormat  (void);
 #endif
                   GLenum              &editInternalFormat (void);
-            const GLenum              &getInternalFormat  (void) const;
+            const GLenum               getInternalFormat  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

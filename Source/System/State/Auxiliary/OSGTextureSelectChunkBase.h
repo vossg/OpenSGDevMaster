@@ -135,17 +135,17 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
 #endif
                   SFUInt32            *editSFChoice         (void);
             const SFUInt32            *getSFChoice          (void) const;
-            const MFUnrecTextureBaseChunkPtr *getMFTextures        (void) const;
+            const MFUnrecTextureBaseChunkPtr *getMFTextures       (void) const;
+                  MFUnrecTextureBaseChunkPtr *editMFTextures       (void);
 
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getChoice          (void);
 #endif
                   UInt32              &editChoice         (void);
-            const UInt32              &getChoice          (void) const;
+            const UInt32               getChoice          (void) const;
 
                   TextureBaseChunkPtr getTextures       (const UInt32 index) const;
-            const MFUnrecTextureBaseChunkPtr &getTextures       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -166,12 +166,6 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
 
     void pushToTextures            (const TextureBaseChunkPtr value   );
     void assignTextures            (const MFUnrecTextureBaseChunkPtr &value);
-    void insertIntoTextures      (      UInt32         uiIndex,
-                                             const TextureBaseChunkPtr value   );
-    void replaceInTextures  (      UInt32         uiIndex,
-                                             const TextureBaseChunkPtr value   );
-    void replaceInTextures (const TextureBaseChunkPtr pOldElem,
-                                             const TextureBaseChunkPtr pNewElem);
     void removeFromTextures (UInt32                uiIndex );
     void removeFromTextures(const TextureBaseChunkPtr value   );
     void clearTextures              (void                          );

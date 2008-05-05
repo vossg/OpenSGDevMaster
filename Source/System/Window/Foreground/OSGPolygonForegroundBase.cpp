@@ -403,6 +403,13 @@ const SFUnrecMaterialPtr *PolygonForegroundBase::getSFMaterial(void) const
     return &_sfMaterial;
 }
 
+SFUnrecMaterialPtr  *PolygonForegroundBase::editSFMaterial       (void)
+{
+    editSField(MaterialFieldMask);
+
+    return &_sfMaterial;
+}
+
 MFPnt2f *PolygonForegroundBase::editMFPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
@@ -821,8 +828,9 @@ void PolygonForegroundBase::onCreate(const PolygonForeground *source)
 
     if(source != NULL)
     {
+        PolygonForeground *pThis = static_cast<PolygonForeground *>(this);
 
-        this->setMaterial(source->getMaterial());
+        pThis->setMaterial(source->getMaterial());
     }
 }
 

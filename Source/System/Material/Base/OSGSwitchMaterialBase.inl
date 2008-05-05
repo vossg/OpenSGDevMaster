@@ -85,7 +85,7 @@ UInt32 &SwitchMaterialBase::editChoice(void)
 
 //! Get the value of the SwitchMaterial::_sfChoice field.
 inline
-const UInt32 &SwitchMaterialBase::getChoice(void) const
+const UInt32 SwitchMaterialBase::getChoice(void) const
 {
     return _sfChoice.getValue();
 }
@@ -112,13 +112,6 @@ inline
 MaterialPtr SwitchMaterialBase::getMaterials(const UInt32 index) const
 {
     return _mfMaterials[index];
-}
-
-//! Get the SwitchMaterial::_mfMaterials field.
-inline
-const MFUnrecMaterialPtr &SwitchMaterialBase::getMaterials(void) const
-{
-    return _mfMaterials;
 }
 
 

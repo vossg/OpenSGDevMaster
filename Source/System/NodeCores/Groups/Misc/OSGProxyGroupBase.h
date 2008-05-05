@@ -181,7 +181,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 #endif
                   SFString            *editSFUrl            (void);
             const SFString            *getSFUrl             (void) const;
-            const SFUnrecNodePtr      *getSFRoot            (void) const;
+            const SFUnrecNodePtr      *getSFRoot           (void) const;
+                  SFUnrecNodePtr      *editSFRoot           (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFState           (void);
@@ -236,13 +237,13 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
                   bool                &getEnabled         (void);
 #endif
                   bool                &editEnabled        (void);
-            const bool                &getEnabled         (void) const;
+            const bool                 getEnabled         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getUrl             (void);
 #endif
                   std::string         &editUrl            (void);
-            const std::string         &getUrl             (void) const;
+            const std::string          getUrl             (void) const;
 
                   NodePtr getRoot           (void) const;
 
@@ -250,52 +251,50 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
                   UInt32              &getState           (void);
 #endif
                   UInt32              &editState          (void);
-            const UInt32              &getState           (void) const;
+            const UInt32               getState           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getConcurrentLoad  (void);
 #endif
                   bool                &editConcurrentLoad (void);
-            const bool                &getConcurrentLoad  (void) const;
+            const bool                 getConcurrentLoad  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   DynamicVolume       &getVolume          (void);
 #endif
                   DynamicVolume       &editVolume         (void);
-            const DynamicVolume       &getVolume          (void) const;
+            const DynamicVolume        getVolume          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getIndices         (void);
 #endif
                   UInt32              &editIndices        (void);
-            const UInt32              &getIndices         (void) const;
+            const UInt32               getIndices         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTriangles       (void);
 #endif
                   UInt32              &editTriangles      (void);
-            const UInt32              &getTriangles       (void) const;
+            const UInt32               getTriangles       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getPositions       (void);
 #endif
                   UInt32              &editPositions      (void);
-            const UInt32              &getPositions       (void) const;
+            const UInt32               getPositions       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getGeometries      (void);
 #endif
                   UInt32              &editGeometries     (void);
-            const UInt32              &getGeometries      (void) const;
+            const UInt32               getGeometries      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getInline          (const UInt32 index);
                   MFUInt8             &getInline         (void);
 #endif
                   UInt8               &editInline         (const UInt32 index);
-            const UInt8               &getInline          (const UInt32 index) const;
-                  MFUInt8             &editInline         (void);
-            const MFUInt8             &getInline         (void) const;
+            const UInt8                getInline          (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -322,7 +321,6 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -444,18 +442,12 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFAbsoluteUrl     (void);
-#endif
                   SFString            *editSFAbsoluteUrl    (void);
             const SFString            *getSFAbsoluteUrl     (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getAbsoluteUrl     (void);
-#endif
                   std::string         &editAbsoluteUrl    (void);
-            const std::string         &getAbsoluteUrl     (void) const;
+            const std::string          getAbsoluteUrl     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -468,6 +460,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

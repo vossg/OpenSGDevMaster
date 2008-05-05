@@ -120,13 +120,13 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
 
     UInt16 i;
     
-    for(i = 0; i < getPositions().size(); i++)
+    for(i = 0; i < getMFPositions()->size(); i++)
     {
         if(getImages(i) != NullFC)
             break;
     }
     
-    if(i == getPositions().size())   // all images == NULL?
+    if(i == getMFPositions()->size())   // all images == NULL?
         return; 
         
     glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
@@ -160,7 +160,7 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
         vpHeight = 1.0/vp->getPixelHeight();
     }
 
-    for(i = 0; i < getPositions().size(); i++)
+    for(i = 0; i < getMFPositions()->size(); i++)
     {
         ImagePtr img = getImages(i);
 

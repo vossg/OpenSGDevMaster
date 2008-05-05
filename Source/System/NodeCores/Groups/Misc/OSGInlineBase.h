@@ -148,15 +148,13 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
                   MFString            &getUrl            (void);
 #endif
                   std::string         &editUrl            (const UInt32 index);
-            const std::string         &getUrl             (const UInt32 index) const;
-                  MFString            &editUrl            (void);
-            const MFString            &getUrl            (void) const;
+            const std::string          getUrl             (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getLoaded          (void);
 #endif
                   bool                &editLoaded         (void);
-            const bool                &getLoaded          (void) const;
+            const bool                 getLoaded          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,7 +167,6 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -177,31 +177,31 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
                   UInt32              &getHServers        (void);
 #endif
                   UInt32              &editHServers       (void);
-            const UInt32              &getHServers        (void) const;
+            const UInt32               getHServers        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getVServers        (void);
 #endif
                   UInt32              &editVServers       (void);
-            const UInt32              &getVServers        (void) const;
+            const UInt32               getVServers        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getManageClientViewports (void);
 #endif
                   bool                &editManageClientViewports(void);
-            const bool                &getManageClientViewports (void) const;
+            const bool                 getManageClientViewports (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getXOverlap        (void);
 #endif
                   Int32               &editXOverlap       (void);
-            const Int32               &getXOverlap        (void) const;
+            const Int32                getXOverlap        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getYOverlap        (void);
 #endif
                   Int32               &editYOverlap       (void);
-            const Int32               &getYOverlap        (void) const;
+            const Int32                getYOverlap        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,6 +218,7 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

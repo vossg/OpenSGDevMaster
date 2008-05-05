@@ -85,7 +85,7 @@ Pnt3r &PointLightBase::editPosition(void)
 
 //! Get the value of the PointLight::_sfPosition field.
 inline
-const Pnt3r &PointLightBase::getPosition(void) const
+const Pnt3r PointLightBase::getPosition(void) const
 {
     return _sfPosition.getValue();
 }

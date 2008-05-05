@@ -137,7 +137,7 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
                   Matrixr             &getMatrix          (void);
 #endif
                   Matrixr             &editMatrix         (void);
-            const Matrixr             &getMatrix          (void) const;
+            const Matrixr              getMatrix          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

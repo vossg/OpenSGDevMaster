@@ -147,13 +147,13 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
                   bool                &getEnabled         (void);
 #endif
                   bool                &editEnabled        (void);
-            const bool                &getEnabled         (void) const;
+            const bool                 getEnabled         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getStatistics      (void);
 #endif
                   bool                &editStatistics     (void);
-            const bool                &getStatistics      (void) const;
+            const bool                 getStatistics      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

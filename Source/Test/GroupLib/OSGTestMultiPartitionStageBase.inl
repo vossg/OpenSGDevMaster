@@ -85,7 +85,7 @@ std::string &TestMultiPartitionStageBase::editMessage(void)
 
 //! Get the value of the TestMultiPartitionStage::_sfMessage field.
 inline
-const std::string &TestMultiPartitionStageBase::getMessage(void) const
+const std::string TestMultiPartitionStageBase::getMessage(void) const
 {
     return _sfMessage.getValue();
 }
@@ -118,7 +118,7 @@ Int32 &TestMultiPartitionStageBase::editNumPartitions(void)
 
 //! Get the value of the TestMultiPartitionStage::_sfNumPartitions field.
 inline
-const Int32 &TestMultiPartitionStageBase::getNumPartitions(void) const
+const Int32 TestMultiPartitionStageBase::getNumPartitions(void) const
 {
     return _sfNumPartitions.getValue();
 }
@@ -151,7 +151,7 @@ bool &TestMultiPartitionStageBase::editUseGroup(void)
 
 //! Get the value of the TestMultiPartitionStage::_sfUseGroup field.
 inline
-const bool &TestMultiPartitionStageBase::getUseGroup(void) const
+const bool TestMultiPartitionStageBase::getUseGroup(void) const
 {
     return _sfUseGroup.getValue();
 }
@@ -175,7 +175,7 @@ void TestMultiPartitionStageBase::setUseGroup(const bool &value)
 
 //! Get the value of the \a index element the TestMultiPartitionStage::_mfOrder field.
 inline
-const Int32 &TestMultiPartitionStageBase::getOrder(const UInt32 index) const
+const Int32 TestMultiPartitionStageBase::getOrder(const UInt32 index) const
 {
     return _mfOrder[index];
 }
@@ -186,15 +186,6 @@ Int32 &TestMultiPartitionStageBase::editOrder(const UInt32 index)
     editMField(OrderFieldMask, _mfOrder);
 
     return _mfOrder[index];
-}
-
-//! Get the TestMultiPartitionStage::_mfOrder field.
-inline
-MFInt32 &TestMultiPartitionStageBase::editOrder(void)
-{
-    editMField(OrderFieldMask, _mfOrder);
-
-    return _mfOrder;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -212,13 +203,6 @@ MFInt32             &TestMultiPartitionStageBase::getOrder          (void)
 
 #endif
 
-
-//! Get the TestMultiPartitionStage::_mfOrder field.
-inline
-const MFInt32 &TestMultiPartitionStageBase::getOrder(void) const
-{
-    return _mfOrder;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

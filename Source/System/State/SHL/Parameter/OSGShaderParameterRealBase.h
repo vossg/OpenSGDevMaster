@@ -137,7 +137,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
                   Real32              &getValue           (void);
 #endif
                   Real32              &editValue          (void);
-            const Real32              &getValue           (void) const;
+            const Real32               getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -155,15 +155,18 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 #endif
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
-            const MFUnrecFrameBufferAttachmentPtr *getMFColorAttachments (void) const;
+            const MFUnrecFrameBufferAttachmentPtr *getMFColorAttachments(void) const;
+                  MFUnrecFrameBufferAttachmentPtr *editMFColorAttachments(void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFGLenum            *getMFDrawBuffers     (void);
 #endif
                   MFGLenum            *editMFDrawBuffers    (void);
             const MFGLenum            *getMFDrawBuffers     (void) const;
-            const SFUnrecFrameBufferAttachmentPtr *getSFDepthAttachment (void) const;
-            const SFUnrecFrameBufferAttachmentPtr *getSFStencilAttachment (void) const;
+            const SFUnrecFrameBufferAttachmentPtr *getSFDepthAttachment(void) const;
+                  SFUnrecFrameBufferAttachmentPtr *editSFDepthAttachment(void);
+            const SFUnrecFrameBufferAttachmentPtr *getSFStencilAttachment(void) const;
+                  SFUnrecFrameBufferAttachmentPtr *editSFStencilAttachment(void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt16            *getSFWidth           (void);
@@ -182,19 +185,16 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   GLenum              &getGLId            (void);
 #endif
                   GLenum              &editGLId           (void);
-            const GLenum              &getGLId            (void) const;
+            const GLenum               getGLId            (void) const;
 
                   FrameBufferAttachmentPtr getColorAttachments(const UInt32 index) const;
-            const MFUnrecFrameBufferAttachmentPtr &getColorAttachments(void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getDrawBuffers     (const UInt32 index);
                   MFGLenum            &getDrawBuffers    (void);
 #endif
                   GLenum              &editDrawBuffers    (const UInt32 index);
-            const GLenum              &getDrawBuffers     (const UInt32 index) const;
-                  MFGLenum            &editDrawBuffers    (void);
-            const MFGLenum            &getDrawBuffers    (void) const;
+            const GLenum               getDrawBuffers     (const UInt32 index) const;
 
                   FrameBufferAttachmentPtr getDepthAttachment(void) const;
 
@@ -204,13 +204,13 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   UInt16              &getWidth           (void);
 #endif
                   UInt16              &editWidth          (void);
-            const UInt16              &getWidth           (void) const;
+            const UInt16               getWidth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getHeight          (void);
 #endif
                   UInt16              &editHeight         (void);
-            const UInt16              &getHeight          (void) const;
+            const UInt16               getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,17 +235,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
     void pushToColorAttachments           (const FrameBufferAttachmentPtr value   );
     void assignColorAttachments           (const MFUnrecFrameBufferAttachmentPtr &value);
-    void insertIntoColorAttachments      (      UInt32         uiIndex,
-                                             const FrameBufferAttachmentPtr value   );
-    void replaceInColorAttachments  (      UInt32         uiIndex,
-                                             const FrameBufferAttachmentPtr value   );
-    void replaceInColorAttachments (const FrameBufferAttachmentPtr pOldElem,
-                                             const FrameBufferAttachmentPtr pNewElem);
     void removeFromColorAttachments (UInt32                uiIndex );
     void removeFromColorAttachments(const FrameBufferAttachmentPtr value   );
     void clearColorAttachments            (void                          );
-
-
 
 
     /*! \}                                                                 */

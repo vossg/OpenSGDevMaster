@@ -137,7 +137,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecAlgorithmPtr *getSFAlgorithm       (void) const;
+            const SFUnrecAlgorithmPtr *getSFAlgorithm      (void) const;
+                  SFUnrecAlgorithmPtr *editSFAlgorithm      (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFProjectionMode  (void);
@@ -164,19 +165,19 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
                   UInt32              &getProjectionMode  (void);
 #endif
                   UInt32              &editProjectionMode (void);
-            const UInt32              &getProjectionMode  (void) const;
+            const UInt32               getProjectionMode  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getCopyViewing     (void);
 #endif
                   bool                &editCopyViewing    (void);
-            const bool                &getCopyViewing     (void) const;
+            const bool                 getCopyViewing     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getProjectionMatrix (void);
 #endif
                   Matrix              &editProjectionMatrix(void);
-            const Matrix              &getProjectionMatrix (void) const;
+            const Matrix               getProjectionMatrix (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -197,6 +198,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

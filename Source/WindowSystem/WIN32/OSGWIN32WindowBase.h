@@ -157,19 +157,19 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
                   HWND                &getHwnd            (void);
 #endif
                   HWND                &editHwnd           (void);
-            const HWND                &getHwnd            (void) const;
+            const HWND                 getHwnd            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   HDC                 &getHdc             (void);
 #endif
                   HDC                 &editHdc            (void);
-            const HDC                 &getHdc             (void) const;
+            const HDC                  getHdc             (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   HGLRC               &getHglrc           (void);
 #endif
                   HGLRC               &editHglrc          (void);
-            const HGLRC               &getHglrc           (void) const;
+            const HGLRC                getHglrc           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

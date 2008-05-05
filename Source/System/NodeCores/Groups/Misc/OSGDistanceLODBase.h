@@ -147,16 +147,14 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
                   Pnt3f               &getCenter          (void);
 #endif
                   Pnt3f               &editCenter         (void);
-            const Pnt3f               &getCenter          (void) const;
+            const Pnt3f                getCenter          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getRange           (const UInt32 index);
                   MFReal32            &getRange          (void);
 #endif
                   Real32              &editRange          (const UInt32 index);
-            const Real32              &getRange           (const UInt32 index) const;
-                  MFReal32            &editRange          (void);
-            const MFReal32            &getRange          (void) const;
+            const Real32               getRange           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,7 +167,6 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

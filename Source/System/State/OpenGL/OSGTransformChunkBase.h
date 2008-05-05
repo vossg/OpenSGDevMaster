@@ -137,7 +137,7 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
                   Matrix              &getMatrix          (void);
 #endif
                   Matrix              &editMatrix         (void);
-            const Matrix              &getMatrix          (void) const;
+            const Matrix               getMatrix          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

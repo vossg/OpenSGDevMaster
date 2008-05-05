@@ -88,7 +88,6 @@ void TextureGrabBackgroundBase::setTexture(const TextureObjChunkPtr value)
     editSField(TextureFieldMask);
 
     _sfTexture.setValue(value);
-
 }
 //! Get the value of the TextureGrabBackground::_sfAutoResize field.
 
@@ -102,7 +101,7 @@ bool &TextureGrabBackgroundBase::editAutoResize(void)
 
 //! Get the value of the TextureGrabBackground::_sfAutoResize field.
 inline
-const bool &TextureGrabBackgroundBase::getAutoResize(void) const
+const bool TextureGrabBackgroundBase::getAutoResize(void) const
 {
     return _sfAutoResize.getValue();
 }
@@ -135,7 +134,7 @@ GLenum &TextureGrabBackgroundBase::editBindTarget(void)
 
 //! Get the value of the TextureGrabBackground::_sfBindTarget field.
 inline
-const GLenum &TextureGrabBackgroundBase::getBindTarget(void) const
+const GLenum TextureGrabBackgroundBase::getBindTarget(void) const
 {
     return _sfBindTarget.getValue();
 }
@@ -168,7 +167,7 @@ GLenum &TextureGrabBackgroundBase::editCopyTarget(void)
 
 //! Get the value of the TextureGrabBackground::_sfCopyTarget field.
 inline
-const GLenum &TextureGrabBackgroundBase::getCopyTarget(void) const
+const GLenum TextureGrabBackgroundBase::getCopyTarget(void) const
 {
     return _sfCopyTarget.getValue();
 }

@@ -88,7 +88,6 @@ void GrabForegroundBase::setImage(const ImagePtr value)
     editSField(ImageFieldMask);
 
     _sfImage.setValue(value);
-
 }
 //! Get the value of the GrabForeground::_sfAutoResize field.
 
@@ -102,7 +101,7 @@ bool &GrabForegroundBase::editAutoResize(void)
 
 //! Get the value of the GrabForeground::_sfAutoResize field.
 inline
-const bool &GrabForegroundBase::getAutoResize(void) const
+const bool GrabForegroundBase::getAutoResize(void) const
 {
     return _sfAutoResize.getValue();
 }

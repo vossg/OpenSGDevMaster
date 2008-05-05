@@ -1800,6 +1800,13 @@ const SFUnrecImagePtr *TextureChunkBase::getSFImage(void) const
     return &_sfImage;
 }
 
+SFUnrecImagePtr     *TextureChunkBase::editSFImage          (void)
+{
+    editSField(ImageFieldMask);
+
+    return &_sfImage;
+}
+
 SFGLenum *TextureChunkBase::editSFInternalFormat(void)
 {
     editSField(InternalFormatFieldMask);
@@ -3736,8 +3743,9 @@ void TextureChunkBase::onCreate(const TextureChunk *source)
 
     if(source != NULL)
     {
+        TextureChunk *pThis = static_cast<TextureChunk *>(this);
 
-        this->setImage(source->getImage());
+        pThis->setImage(source->getImage());
     }
 }
 

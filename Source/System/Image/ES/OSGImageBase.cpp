@@ -1505,6 +1505,7 @@ void ImageBase::onCreate(const Image *source)
 
     if(source != NULL)
     {
+        Image *pThis = static_cast<Image *>(this);
     }
 }
 

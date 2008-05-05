@@ -176,16 +176,18 @@ const MFUnrecMaterialPtr *MultiPassMaterialBase::getMFMaterials(void) const
     return &_mfMaterials;
 }
 
+MFUnrecMaterialPtr  *MultiPassMaterialBase::editMFMaterials      (void)
+{
+    editMField(MaterialsFieldMask, _mfMaterials);
+
+    return &_mfMaterials;
+}
+
 
 
 void MultiPassMaterialBase::addMaterial(const MaterialPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(MaterialsFieldMask, _mfMaterials);
-
-    //addRef(value);
 
     _mfMaterials.push_back(value);
 }
@@ -207,66 +209,6 @@ void MultiPassMaterialBase::assignMaterialsFrom(const MFUnrecMaterialPtr &value)
     }
 }
 
-void MultiPassMaterialBase::insertMaterial(      UInt32         uiIndex,
-                                                   const MaterialPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(MaterialsFieldMask, _mfMaterials);
-
-    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfMaterials.insert(fieldIt, value);
-}
-
-void MultiPassMaterialBase::replaceMaterial(      UInt32         uiIndex,
-                                                       const MaterialPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfMaterials.size())
-        return;
-
-    editMField(MaterialsFieldMask, _mfMaterials);
-
-
-//    addRef(value);
-//    subRef(_mfMaterials[uiIndex]);
-
-//    _mfMaterials[uiIndex] = value;
-
-      _mfMaterials.replace(uiIndex, value);
-}
-
-void MultiPassMaterialBase::replaceMaterial(const MaterialPtr pOldElem,
-                                                        const MaterialPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfMaterials.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(MaterialsFieldMask, _mfMaterials);
-
-//        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfMaterials.replace(elemIdx, pNewElem);
-    }
-}
-
 void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
 {
     if(uiIndex < _mfMaterials.size())
@@ -276,8 +218,6 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
         MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -294,8 +234,6 @@ void MultiPassMaterialBase::subMaterial(const MaterialPtr value)
         MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -460,6 +398,7 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
 
     if(source != NULL)
     {
+        MultiPassMaterial *pThis = static_cast<MultiPassMaterial *>(this);
 
         MFUnrecMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
@@ -468,7 +407,7 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
 
         while(MaterialsIt != MaterialsEnd)
         {
-            this->addMaterial(*MaterialsIt);
+            pThis->addMaterial(*MaterialsIt);
 
             ++MaterialsIt;
         }

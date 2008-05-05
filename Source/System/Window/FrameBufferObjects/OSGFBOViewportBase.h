@@ -125,7 +125,8 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecFrameBufferObjectPtr *getSFFrameBufferObject (void) const;
+            const SFUnrecFrameBufferObjectPtr *getSFFrameBufferObject(void) const;
+                  SFUnrecFrameBufferObjectPtr *editSFFrameBufferObject(void);
 
 
                   FrameBufferObjectPtr getFrameBufferObject(void) const;
@@ -146,6 +147,7 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

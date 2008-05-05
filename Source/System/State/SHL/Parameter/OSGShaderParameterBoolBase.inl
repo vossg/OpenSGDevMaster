@@ -85,7 +85,7 @@ bool &ShaderParameterBoolBase::editValue(void)
 
 //! Get the value of the ShaderParameterBool::_sfValue field.
 inline
-const bool &ShaderParameterBoolBase::getValue(void) const
+const bool ShaderParameterBoolBase::getValue(void) const
 {
     return _sfValue.getValue();
 }

@@ -168,6 +168,13 @@ const SFUnrecMaterialPtr *MaterialDrawableBase::getSFMaterial(void) const
     return &_sfMaterial;
 }
 
+SFUnrecMaterialPtr  *MaterialDrawableBase::editSFMaterial       (void)
+{
+    editSField(MaterialFieldMask);
+
+    return &_sfMaterial;
+}
+
 
 
 
@@ -238,8 +245,9 @@ void MaterialDrawableBase::onCreate(const MaterialDrawable *source)
 
     if(source != NULL)
     {
+        MaterialDrawable *pThis = static_cast<MaterialDrawable *>(this);
 
-        this->setMaterial(source->getMaterial());
+        pThis->setMaterial(source->getMaterial());
     }
 }
 

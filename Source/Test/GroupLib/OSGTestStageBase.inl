@@ -85,7 +85,7 @@ std::string &TestStageBase::editMessage(void)
 
 //! Get the value of the TestStage::_sfMessage field.
 inline
-const std::string &TestStageBase::getMessage(void) const
+const std::string TestStageBase::getMessage(void) const
 {
     return _sfMessage.getValue();
 }

@@ -198,6 +198,13 @@ const MFUnrecMaterialPtr *SwitchMaterialBase::getMFMaterials(void) const
     return &_mfMaterials;
 }
 
+MFUnrecMaterialPtr  *SwitchMaterialBase::editMFMaterials      (void)
+{
+    editMField(MaterialsFieldMask, _mfMaterials);
+
+    return &_mfMaterials;
+}
+
 SFUInt32 *SwitchMaterialBase::editSFChoice(void)
 {
     editSField(ChoiceFieldMask);
@@ -221,12 +228,7 @@ SFUInt32            *SwitchMaterialBase::getSFChoice         (void)
 
 void SwitchMaterialBase::pushToMaterials(const MaterialPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(MaterialsFieldMask, _mfMaterials);
-
-    //addRef(value);
 
     _mfMaterials.push_back(value);
 }
@@ -248,66 +250,6 @@ void SwitchMaterialBase::assignMaterials(const MFUnrecMaterialPtr &value)
     }
 }
 
-void SwitchMaterialBase::insertIntoMaterials(      UInt32         uiIndex,
-                                                   const MaterialPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(MaterialsFieldMask, _mfMaterials);
-
-    MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfMaterials.insert(fieldIt, value);
-}
-
-void SwitchMaterialBase::replaceInMaterials(      UInt32         uiIndex,
-                                                       const MaterialPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfMaterials.size())
-        return;
-
-    editMField(MaterialsFieldMask, _mfMaterials);
-
-
-//    addRef(value);
-//    subRef(_mfMaterials[uiIndex]);
-
-//    _mfMaterials[uiIndex] = value;
-
-      _mfMaterials.replace(uiIndex, value);
-}
-
-void SwitchMaterialBase::replaceInMaterials(const MaterialPtr pOldElem,
-                                                        const MaterialPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfMaterials.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(MaterialsFieldMask, _mfMaterials);
-
-//        MFMaterialPtr::iterator fieldIt = _mfMaterials.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfMaterials.replace(elemIdx, pNewElem);
-    }
-}
-
 void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
 {
     if(uiIndex < _mfMaterials.size())
@@ -317,8 +259,6 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
         MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -335,8 +275,6 @@ void SwitchMaterialBase::removeFromMaterials(const MaterialPtr value)
         MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfMaterials.erase(fieldIt);
     }
@@ -515,6 +453,7 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
 
     if(source != NULL)
     {
+        SwitchMaterial *pThis = static_cast<SwitchMaterial *>(this);
 
         MFUnrecMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
@@ -523,7 +462,7 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
 
         while(MaterialsIt != MaterialsEnd)
         {
-            this->pushToMaterials(*MaterialsIt);
+            pThis->pushToMaterials(*MaterialsIt);
 
             ++MaterialsIt;
         }

@@ -225,68 +225,69 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
 #endif
                   SFReal              *editSFQuadraticAttenuation(void);
             const SFReal              *getSFQuadraticAttenuation (void) const;
-            const SFWeakNodePtr       *getSFBeacon          (void) const;
+            const SFWeakNodePtr       *getSFBeacon         (void) const;
+                  SFWeakNodePtr       *editSFBeacon         (void);
 
 
 #ifdef OSG_1_GET_COMPAT
                   Color4r             &getDiffuse         (void);
 #endif
                   Color4r             &editDiffuse        (void);
-            const Color4r             &getDiffuse         (void) const;
+            const Color4r              getDiffuse         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4r             &getAmbient         (void);
 #endif
                   Color4r             &editAmbient        (void);
-            const Color4r             &getAmbient         (void) const;
+            const Color4r              getAmbient         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4r             &getSpecular        (void);
 #endif
                   Color4r             &editSpecular       (void);
-            const Color4r             &getSpecular        (void) const;
+            const Color4r              getSpecular        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec4r               &getPosition        (void);
 #endif
                   Vec4r               &editPosition       (void);
-            const Vec4r               &getPosition        (void) const;
+            const Vec4r                getPosition        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3r               &getDirection       (void);
 #endif
                   Vec3r               &editDirection      (void);
-            const Vec3r               &getDirection       (void) const;
+            const Vec3r                getDirection       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getExponent        (void);
 #endif
                   Real                &editExponent       (void);
-            const Real                &getExponent        (void) const;
+            const Real                 getExponent        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getCutoff          (void);
 #endif
                   Real                &editCutoff         (void);
-            const Real                &getCutoff          (void) const;
+            const Real                 getCutoff          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getConstantAttenuation (void);
 #endif
                   Real                &editConstantAttenuation(void);
-            const Real                &getConstantAttenuation (void) const;
+            const Real                 getConstantAttenuation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getLinearAttenuation (void);
 #endif
                   Real                &editLinearAttenuation(void);
-            const Real                &getLinearAttenuation (void) const;
+            const Real                 getLinearAttenuation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getQuadraticAttenuation (void);
 #endif
                   Real                &editQuadraticAttenuation(void);
-            const Real                &getQuadraticAttenuation (void) const;
+            const Real                 getQuadraticAttenuation (void) const;
 
                   NodePtr getBeacon         (void) const;
 
@@ -316,6 +317,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -157,19 +157,19 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);
-            const std::string         &getName            (void) const;
+            const std::string          getName            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getFrame           (void);
 #endif
                   UInt32              &editFrame          (void);
-            const UInt32              &getFrame           (void) const;
+            const UInt32               getFrame           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getIncrement       (void);
 #endif
                   bool                &editIncrement      (void);
-            const bool                &getIncrement       (void) const;
+            const bool                 getIncrement       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -180,16 +180,18 @@ const MFUnrecChildShaderParameterPtr *ShaderParameterChunkBase::getMFParameters(
     return &_mfParameters;
 }
 
+MFUnrecChildShaderParameterPtr *ShaderParameterChunkBase::editMFParameters     (void)
+{
+    editMField(ParametersFieldMask, _mfParameters);
+
+    return &_mfParameters;
+}
+
 
 
 void ShaderParameterChunkBase::addParameter(const ShaderParameterPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ParametersFieldMask, _mfParameters);
-
-    //addRef(value);
 
     _mfParameters.push_back(value);
 }
@@ -211,66 +213,6 @@ void ShaderParameterChunkBase::assignParameters(const MFUnrecChildShaderParamete
     }
 }
 
-void ShaderParameterChunkBase::insertParameter(      UInt32         uiIndex,
-                                                   const ShaderParameterPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ParametersFieldMask, _mfParameters);
-
-    MFUnrecChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfParameters.insert(fieldIt, value);
-}
-
-void ShaderParameterChunkBase::replaceParameter(      UInt32         uiIndex,
-                                                       const ShaderParameterPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfParameters.size())
-        return;
-
-    editMField(ParametersFieldMask, _mfParameters);
-
-
-//    addRef(value);
-//    subRef(_mfParameters[uiIndex]);
-
-//    _mfParameters[uiIndex] = value;
-
-      _mfParameters.replace(uiIndex, value);
-}
-
-void ShaderParameterChunkBase::replaceParameterBy(const ShaderParameterPtr pOldElem,
-                                                        const ShaderParameterPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfParameters.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ParametersFieldMask, _mfParameters);
-
-//        MFShaderParameterPtr::iterator fieldIt = _mfParameters.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfParameters.replace(elemIdx, pNewElem);
-    }
-}
-
 void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
 {
     if(uiIndex < _mfParameters.size())
@@ -280,8 +222,6 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
         MFUnrecChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfParameters.erase(fieldIt);
     }
@@ -298,8 +238,6 @@ void ShaderParameterChunkBase::subParameter(const ShaderParameterPtr value)
         MFUnrecChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfParameters.erase(fieldIt);
     }
@@ -423,6 +361,7 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
 
     if(source != NULL)
     {
+        ShaderParameterChunk *pThis = static_cast<ShaderParameterChunk *>(this);
 
         MFUnrecChildShaderParameterPtr::const_iterator ParametersIt  =
             source->_mfParameters.begin();
@@ -431,7 +370,7 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
 
         while(ParametersIt != ParametersEnd)
         {
-            this->addParameter(*ParametersIt);
+            pThis->addParameter(*ParametersIt);
 
             ++ParametersIt;
         }

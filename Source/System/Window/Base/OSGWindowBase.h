@@ -165,7 +165,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 #endif
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
-            const MFUnrecChildViewportPtr *getMFPort            (void) const;
+            const MFUnrecChildViewportPtr *getMFPort           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFResizePending   (void);
@@ -184,28 +184,27 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   UInt16              &getWidth           (void);
 #endif
                   UInt16              &editWidth          (void);
-            const UInt16              &getWidth           (void) const;
+            const UInt16               getWidth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getHeight          (void);
 #endif
                   UInt16              &editHeight         (void);
-            const UInt16              &getHeight          (void) const;
+            const UInt16               getHeight          (void) const;
 
                   ViewportPtr getPort           (const UInt32 index) const;
-            const MFUnrecChildViewportPtr &getPort           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getResizePending   (void);
 #endif
                   bool                &editResizePending  (void);
-            const bool                &getResizePending   (void) const;
+            const bool                 getResizePending   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getDrawerId        (void);
 #endif
                   UInt32              &editDrawerId       (void);
-            const UInt32              &getDrawerId        (void) const;
+            const UInt32               getDrawerId        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,7 +227,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void addPort                   (const ViewportPtr value   );
-    void assignPort                (const MFUnrecChildViewportPtr &value);
+    void assignPort               (const MFUnrecChildViewportPtr &value);
+    void clearPorts                 (void                          );
     void insertPort           (      UInt32         uiIndex,
                                              const ViewportPtr value   );
     void replacePort      (      UInt32         uiIndex,
@@ -237,7 +237,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                                              const ViewportPtr pNewElem);
     void subPort         (UInt32                uiIndex );
     void subPort        (const ViewportPtr value   );
-    void clearPorts                 (void                          );
 
 
     /*! \}                                                                 */
@@ -333,48 +332,24 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFGlObjectEventCounter (void);
-#endif
                   SFUInt32            *editSFGlObjectEventCounter(void);
             const SFUInt32            *getSFGlObjectEventCounter (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFGlObjectLastRefresh (void);
-#endif
                   MFUInt32            *editMFGlObjectLastRefresh(void);
             const MFUInt32            *getMFGlObjectLastRefresh (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFGlObjectLastReinitialize (void);
-#endif
                   MFUInt32            *editMFGlObjectLastReinitialize(void);
             const MFUInt32            *getMFGlObjectLastReinitialize (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGlObjectEventCounter (void);
-#endif
                   UInt32              &editGlObjectEventCounter(void);
-            const UInt32              &getGlObjectEventCounter (void) const;
+            const UInt32               getGlObjectEventCounter (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGlObjectLastRefresh (const UInt32 index);
-                  MFUInt32            &getGlObjectLastRefresh(void);
-#endif
                   UInt32              &editGlObjectLastRefresh(const UInt32 index);
-            const UInt32              &getGlObjectLastRefresh (const UInt32 index) const;
-                  MFUInt32            &editGlObjectLastRefresh(void);
-            const MFUInt32            &getGlObjectLastRefresh (void) const;
+            const UInt32               getGlObjectLastRefresh (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGlObjectLastReinitialize (const UInt32 index);
-                  MFUInt32            &getGlObjectLastReinitialize(void);
-#endif
                   UInt32              &editGlObjectLastReinitialize(const UInt32 index);
-            const UInt32              &getGlObjectLastReinitialize (const UInt32 index) const;
-                  MFUInt32            &editGlObjectLastReinitialize(void);
-            const MFUInt32            &getGlObjectLastReinitialize (void) const;
+            const UInt32               getGlObjectLastReinitialize (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -387,9 +362,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

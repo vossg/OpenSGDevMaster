@@ -157,19 +157,19 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
                   Int32               &getPartitionRangeBegin (void);
 #endif
                   Int32               &editPartitionRangeBegin(void);
-            const Int32               &getPartitionRangeBegin (void) const;
+            const Int32                getPartitionRangeBegin (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getPartitionRangeEnd (void);
 #endif
                   Int32               &editPartitionRangeEnd(void);
-            const Int32               &getPartitionRangeEnd (void) const;
+            const Int32                getPartitionRangeEnd (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getGroupMode       (void);
 #endif
                   Int32               &editGroupMode      (void);
-            const Int32               &getGroupMode       (void) const;
+            const Int32                getGroupMode       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

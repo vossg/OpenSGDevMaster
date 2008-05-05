@@ -167,25 +167,25 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
                   Real32              &getWidth           (void);
 #endif
                   Real32              &editWidth          (void);
-            const Real32              &getWidth           (void) const;
+            const Real32               getWidth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getStippleRepeat   (void);
 #endif
                   Int32               &editStippleRepeat  (void);
-            const Int32               &getStippleRepeat   (void) const;
+            const Int32                getStippleRepeat   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getStipplePattern  (void);
 #endif
                   UInt16              &editStipplePattern (void);
-            const UInt16              &getStipplePattern  (void) const;
+            const UInt16               getStipplePattern  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getSmooth          (void);
 #endif
                   bool                &editSmooth         (void);
-            const bool                &getSmooth          (void) const;
+            const bool                 getSmooth          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,6 +201,7 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

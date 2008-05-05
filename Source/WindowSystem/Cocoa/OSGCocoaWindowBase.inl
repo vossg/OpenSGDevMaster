@@ -85,7 +85,7 @@ NSOpenGLContextP &CocoaWindowBase::editContext(void)
 
 //! Get the value of the CocoaWindow::_sfContext field.
 inline
-const NSOpenGLContextP &CocoaWindowBase::getContext(void) const
+const NSOpenGLContextP CocoaWindowBase::getContext(void) const
 {
     return _sfContext.getValue();
 }

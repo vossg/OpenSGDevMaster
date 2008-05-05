@@ -149,7 +149,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecGeoMultiPropertyDataPtr *getSFContainer       (void) const;
+            const SFUnrecGeoMultiPropertyDataPtr *getSFContainer      (void) const;
+                  SFUnrecGeoMultiPropertyDataPtr *editSFContainer      (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFOffset          (void);
@@ -194,37 +195,37 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
                   UInt32              &getOffset          (void);
 #endif
                   UInt32              &editOffset         (void);
-            const UInt32              &getOffset          (void) const;
+            const UInt32               getOffset          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getIFormat         (void);
 #endif
                   GLenum              &editIFormat        (void);
-            const GLenum              &getIFormat         (void) const;
+            const GLenum               getIFormat         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getIDimension      (void);
 #endif
                   UInt32              &editIDimension     (void);
-            const UInt32              &getIDimension      (void) const;
+            const UInt32               getIDimension      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getISize           (void);
 #endif
                   UInt32              &editISize          (void);
-            const UInt32              &getISize           (void) const;
+            const UInt32               getISize           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getINormalize      (void);
 #endif
                   bool                &editINormalize     (void);
-            const bool                &getINormalize      (void) const;
+            const bool                 getINormalize      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getIStride         (void);
 #endif
                   UInt32              &editIStride        (void);
-            const UInt32              &getIStride         (void) const;
+            const UInt32               getIStride         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -248,6 +249,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

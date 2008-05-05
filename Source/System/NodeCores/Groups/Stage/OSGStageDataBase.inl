@@ -85,7 +85,7 @@ Int32 &StageDataBase::editPartitionRangeBegin(void)
 
 //! Get the value of the StageData::_sfPartitionRangeBegin field.
 inline
-const Int32 &StageDataBase::getPartitionRangeBegin(void) const
+const Int32 StageDataBase::getPartitionRangeBegin(void) const
 {
     return _sfPartitionRangeBegin.getValue();
 }
@@ -118,7 +118,7 @@ Int32 &StageDataBase::editPartitionRangeEnd(void)
 
 //! Get the value of the StageData::_sfPartitionRangeEnd field.
 inline
-const Int32 &StageDataBase::getPartitionRangeEnd(void) const
+const Int32 StageDataBase::getPartitionRangeEnd(void) const
 {
     return _sfPartitionRangeEnd.getValue();
 }
@@ -151,7 +151,7 @@ Int32 &StageDataBase::editGroupMode(void)
 
 //! Get the value of the StageData::_sfGroupMode field.
 inline
-const Int32 &StageDataBase::getGroupMode(void) const
+const Int32 StageDataBase::getGroupMode(void) const
 {
     return _sfGroupMode.getValue();
 }

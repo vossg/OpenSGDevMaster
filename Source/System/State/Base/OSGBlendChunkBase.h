@@ -207,49 +207,49 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
                   GLenum              &getSrcFactor       (void);
 #endif
                   GLenum              &editSrcFactor      (void);
-            const GLenum              &getSrcFactor       (void) const;
+            const GLenum               getSrcFactor       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getDestFactor      (void);
 #endif
                   GLenum              &editDestFactor     (void);
-            const GLenum              &getDestFactor      (void) const;
+            const GLenum               getDestFactor      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getEquation        (void);
 #endif
                   GLenum              &editEquation       (void);
-            const GLenum              &getEquation        (void) const;
+            const GLenum               getEquation        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getColor           (void);
 #endif
                   Color4f             &editColor          (void);
-            const Color4f             &getColor           (void) const;
+            const Color4f              getColor           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getAlphaFunc       (void);
 #endif
                   GLenum              &editAlphaFunc      (void);
-            const GLenum              &getAlphaFunc       (void) const;
+            const GLenum               getAlphaFunc       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getAlphaValue      (void);
 #endif
                   Real32              &editAlphaValue     (void);
-            const Real32              &getAlphaValue      (void) const;
+            const Real32               getAlphaValue      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getAlphaSrcFactor  (void);
 #endif
                   GLenum              &editAlphaSrcFactor (void);
-            const GLenum              &getAlphaSrcFactor  (void) const;
+            const GLenum               getAlphaSrcFactor  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getAlphaDestFactor (void);
 #endif
                   GLenum              &editAlphaDestFactor(void);
-            const GLenum              &getAlphaDestFactor (void) const;
+            const GLenum               getAlphaDestFactor (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,6 +269,7 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

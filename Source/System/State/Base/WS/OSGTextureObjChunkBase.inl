@@ -88,7 +88,6 @@ void TextureObjChunkBase::setImage(const ImagePtr value)
     editSField(ImageFieldMask);
 
     _sfImage.setValue(value);
-
 }
 //! Get the value of the TextureObjChunk::_sfInternalFormat field.
 
@@ -102,7 +101,7 @@ GLenum &TextureObjChunkBase::editInternalFormat(void)
 
 //! Get the value of the TextureObjChunk::_sfInternalFormat field.
 inline
-const GLenum &TextureObjChunkBase::getInternalFormat(void) const
+const GLenum TextureObjChunkBase::getInternalFormat(void) const
 {
     return _sfInternalFormat.getValue();
 }
@@ -135,7 +134,7 @@ GLenum &TextureObjChunkBase::editExternalFormat(void)
 
 //! Get the value of the TextureObjChunk::_sfExternalFormat field.
 inline
-const GLenum &TextureObjChunkBase::getExternalFormat(void) const
+const GLenum TextureObjChunkBase::getExternalFormat(void) const
 {
     return _sfExternalFormat.getValue();
 }
@@ -168,7 +167,7 @@ bool &TextureObjChunkBase::editScale(void)
 
 //! Get the value of the TextureObjChunk::_sfScale field.
 inline
-const bool &TextureObjChunkBase::getScale(void) const
+const bool TextureObjChunkBase::getScale(void) const
 {
     return _sfScale.getValue();
 }
@@ -201,7 +200,7 @@ UInt32 &TextureObjChunkBase::editFrame(void)
 
 //! Get the value of the TextureObjChunk::_sfFrame field.
 inline
-const UInt32 &TextureObjChunkBase::getFrame(void) const
+const UInt32 TextureObjChunkBase::getFrame(void) const
 {
     return _sfFrame.getValue();
 }
@@ -234,7 +233,7 @@ GLenum &TextureObjChunkBase::editMinFilter(void)
 
 //! Get the value of the TextureObjChunk::_sfMinFilter field.
 inline
-const GLenum &TextureObjChunkBase::getMinFilter(void) const
+const GLenum TextureObjChunkBase::getMinFilter(void) const
 {
     return _sfMinFilter.getValue();
 }
@@ -267,7 +266,7 @@ GLenum &TextureObjChunkBase::editMagFilter(void)
 
 //! Get the value of the TextureObjChunk::_sfMagFilter field.
 inline
-const GLenum &TextureObjChunkBase::getMagFilter(void) const
+const GLenum TextureObjChunkBase::getMagFilter(void) const
 {
     return _sfMagFilter.getValue();
 }
@@ -300,7 +299,7 @@ GLenum &TextureObjChunkBase::editWrapS(void)
 
 //! Get the value of the TextureObjChunk::_sfWrapS field.
 inline
-const GLenum &TextureObjChunkBase::getWrapS(void) const
+const GLenum TextureObjChunkBase::getWrapS(void) const
 {
     return _sfWrapS.getValue();
 }
@@ -333,7 +332,7 @@ GLenum &TextureObjChunkBase::editWrapT(void)
 
 //! Get the value of the TextureObjChunk::_sfWrapT field.
 inline
-const GLenum &TextureObjChunkBase::getWrapT(void) const
+const GLenum TextureObjChunkBase::getWrapT(void) const
 {
     return _sfWrapT.getValue();
 }
@@ -366,7 +365,7 @@ GLenum &TextureObjChunkBase::editWrapR(void)
 
 //! Get the value of the TextureObjChunk::_sfWrapR field.
 inline
-const GLenum &TextureObjChunkBase::getWrapR(void) const
+const GLenum TextureObjChunkBase::getWrapR(void) const
 {
     return _sfWrapR.getValue();
 }
@@ -399,7 +398,7 @@ GLenum &TextureObjChunkBase::editGLId(void)
 
 //! Get the value of the TextureObjChunk::_sfGLId field.
 inline
-const GLenum &TextureObjChunkBase::getGLId(void) const
+const GLenum TextureObjChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
@@ -432,7 +431,7 @@ Int32 &TextureObjChunkBase::editIgnoreGLForAspect(void)
 
 //! Get the value of the TextureObjChunk::_sfIgnoreGLForAspect field.
 inline
-const Int32 &TextureObjChunkBase::getIgnoreGLForAspect(void) const
+const Int32 TextureObjChunkBase::getIgnoreGLForAspect(void) const
 {
     return _sfIgnoreGLForAspect.getValue();
 }
@@ -465,7 +464,7 @@ Real32 &TextureObjChunkBase::editPriority(void)
 
 //! Get the value of the TextureObjChunk::_sfPriority field.
 inline
-const Real32 &TextureObjChunkBase::getPriority(void) const
+const Real32 TextureObjChunkBase::getPriority(void) const
 {
     return _sfPriority.getValue();
 }
@@ -498,7 +497,7 @@ Int32 &TextureObjChunkBase::editDirtyLeft(void)
 
 //! Get the value of the TextureObjChunk::_sfDirtyLeft field.
 inline
-const Int32 &TextureObjChunkBase::getDirtyLeft(void) const
+const Int32 TextureObjChunkBase::getDirtyLeft(void) const
 {
     return _sfDirtyLeft.getValue();
 }
@@ -531,7 +530,7 @@ Int32 &TextureObjChunkBase::editDirtyMinX(void)
 
 //! Get the value of the TextureObjChunk::_sfDirtyMinX field.
 inline
-const Int32 &TextureObjChunkBase::getDirtyMinX(void) const
+const Int32 TextureObjChunkBase::getDirtyMinX(void) const
 {
     return _sfDirtyMinX.getValue();
 }
@@ -564,7 +563,7 @@ Int32 &TextureObjChunkBase::editDirtyMaxX(void)
 
 //! Get the value of the TextureObjChunk::_sfDirtyMaxX field.
 inline
-const Int32 &TextureObjChunkBase::getDirtyMaxX(void) const
+const Int32 TextureObjChunkBase::getDirtyMaxX(void) const
 {
     return _sfDirtyMaxX.getValue();
 }
@@ -597,7 +596,7 @@ Int32 &TextureObjChunkBase::editDirtyMinY(void)
 
 //! Get the value of the TextureObjChunk::_sfDirtyMinY field.
 inline
-const Int32 &TextureObjChunkBase::getDirtyMinY(void) const
+const Int32 TextureObjChunkBase::getDirtyMinY(void) const
 {
     return _sfDirtyMinY.getValue();
 }
@@ -630,7 +629,7 @@ Int32 &TextureObjChunkBase::editDirtyMaxY(void)
 
 //! Get the value of the TextureObjChunk::_sfDirtyMaxY field.
 inline
-const Int32 &TextureObjChunkBase::getDirtyMaxY(void) const
+const Int32 TextureObjChunkBase::getDirtyMaxY(void) const
 {
     return _sfDirtyMaxY.getValue();
 }
@@ -663,7 +662,7 @@ Int32 &TextureObjChunkBase::editDirtyMinZ(void)
 
 //! Get the value of the TextureObjChunk::_sfDirtyMinZ field.
 inline
-const Int32 &TextureObjChunkBase::getDirtyMinZ(void) const
+const Int32 TextureObjChunkBase::getDirtyMinZ(void) const
 {
     return _sfDirtyMinZ.getValue();
 }
@@ -696,7 +695,7 @@ Int32 &TextureObjChunkBase::editDirtyMaxZ(void)
 
 //! Get the value of the TextureObjChunk::_sfDirtyMaxZ field.
 inline
-const Int32 &TextureObjChunkBase::getDirtyMaxZ(void) const
+const Int32 TextureObjChunkBase::getDirtyMaxZ(void) const
 {
     return _sfDirtyMaxZ.getValue();
 }
@@ -729,7 +728,7 @@ Real32 &TextureObjChunkBase::editAnisotropy(void)
 
 //! Get the value of the TextureObjChunk::_sfAnisotropy field.
 inline
-const Real32 &TextureObjChunkBase::getAnisotropy(void) const
+const Real32 TextureObjChunkBase::getAnisotropy(void) const
 {
     return _sfAnisotropy.getValue();
 }
@@ -762,7 +761,7 @@ Color4f &TextureObjChunkBase::editBorderColor(void)
 
 //! Get the value of the TextureObjChunk::_sfBorderColor field.
 inline
-const Color4f &TextureObjChunkBase::getBorderColor(void) const
+const Color4f TextureObjChunkBase::getBorderColor(void) const
 {
     return _sfBorderColor.getValue();
 }
@@ -795,7 +794,7 @@ GLenum &TextureObjChunkBase::editCompareMode(void)
 
 //! Get the value of the TextureObjChunk::_sfCompareMode field.
 inline
-const GLenum &TextureObjChunkBase::getCompareMode(void) const
+const GLenum TextureObjChunkBase::getCompareMode(void) const
 {
     return _sfCompareMode.getValue();
 }
@@ -828,7 +827,7 @@ GLenum &TextureObjChunkBase::editCompareFunc(void)
 
 //! Get the value of the TextureObjChunk::_sfCompareFunc field.
 inline
-const GLenum &TextureObjChunkBase::getCompareFunc(void) const
+const GLenum TextureObjChunkBase::getCompareFunc(void) const
 {
     return _sfCompareFunc.getValue();
 }
@@ -861,7 +860,7 @@ GLenum &TextureObjChunkBase::editDepthMode(void)
 
 //! Get the value of the TextureObjChunk::_sfDepthMode field.
 inline
-const GLenum &TextureObjChunkBase::getDepthMode(void) const
+const GLenum TextureObjChunkBase::getDepthMode(void) const
 {
     return _sfDepthMode.getValue();
 }
@@ -894,7 +893,7 @@ UInt32 &TextureObjChunkBase::editBorderWidth(void)
 
 //! Get the value of the TextureObjChunk::_sfBorderWidth field.
 inline
-const UInt32 &TextureObjChunkBase::getBorderWidth(void) const
+const UInt32 TextureObjChunkBase::getBorderWidth(void) const
 {
     return _sfBorderWidth.getValue();
 }
@@ -927,7 +926,7 @@ UInt32 &TextureObjChunkBase::editNPOTMatrixScale(void)
 
 //! Get the value of the TextureObjChunk::_sfNPOTMatrixScale field.
 inline
-const UInt32 &TextureObjChunkBase::getNPOTMatrixScale(void) const
+const UInt32 TextureObjChunkBase::getNPOTMatrixScale(void) const
 {
     return _sfNPOTMatrixScale.getValue();
 }

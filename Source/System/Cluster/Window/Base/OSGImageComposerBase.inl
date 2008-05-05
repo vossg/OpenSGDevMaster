@@ -85,7 +85,7 @@ bool &ImageComposerBase::editEnabled(void)
 
 //! Get the value of the ImageComposer::_sfEnabled field.
 inline
-const bool &ImageComposerBase::getEnabled(void) const
+const bool ImageComposerBase::getEnabled(void) const
 {
     return _sfEnabled.getValue();
 }
@@ -118,7 +118,7 @@ bool &ImageComposerBase::editStatistics(void)
 
 //! Get the value of the ImageComposer::_sfStatistics field.
 inline
-const bool &ImageComposerBase::getStatistics(void) const
+const bool ImageComposerBase::getStatistics(void) const
 {
     return _sfStatistics.getValue();
 }

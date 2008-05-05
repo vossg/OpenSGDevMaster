@@ -353,6 +353,13 @@ const MFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getMFColorAttachme
     return &_mfColorAttachments;
 }
 
+MFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editMFColorAttachments(void)
+{
+    editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
+
+    return &_mfColorAttachments;
+}
+
 MFGLenum *FrameBufferObjectBase::editMFDrawBuffers(void)
 {
     editMField(DrawBuffersFieldMask, _mfDrawBuffers);
@@ -378,9 +385,23 @@ const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFDepthAttachme
     return &_sfDepthAttachment;
 }
 
+SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFDepthAttachment(void)
+{
+    editSField(DepthAttachmentFieldMask);
+
+    return &_sfDepthAttachment;
+}
+
 //! Get the FrameBufferObject::_sfStencilAttachment field.
 const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFStencilAttachment(void) const
 {
+    return &_sfStencilAttachment;
+}
+
+SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFStencilAttachment(void)
+{
+    editSField(StencilAttachmentFieldMask);
+
     return &_sfStencilAttachment;
 }
 
@@ -426,12 +447,7 @@ SFUInt16            *FrameBufferObjectBase::getSFHeight         (void)
 
 void FrameBufferObjectBase::pushToColorAttachments(const FrameBufferAttachmentPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
-
-    //addRef(value);
 
     _mfColorAttachments.push_back(value);
 }
@@ -453,66 +469,6 @@ void FrameBufferObjectBase::assignColorAttachments(const MFUnrecFrameBufferAttac
     }
 }
 
-void FrameBufferObjectBase::insertIntoColorAttachments(      UInt32         uiIndex,
-                                                   const FrameBufferAttachmentPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
-
-    MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfColorAttachments.insert(fieldIt, value);
-}
-
-void FrameBufferObjectBase::replaceInColorAttachments(      UInt32         uiIndex,
-                                                       const FrameBufferAttachmentPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfColorAttachments.size())
-        return;
-
-    editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
-
-
-//    addRef(value);
-//    subRef(_mfColorAttachments[uiIndex]);
-
-//    _mfColorAttachments[uiIndex] = value;
-
-      _mfColorAttachments.replace(uiIndex, value);
-}
-
-void FrameBufferObjectBase::replaceInColorAttachments(const FrameBufferAttachmentPtr pOldElem,
-                                                        const FrameBufferAttachmentPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfColorAttachments.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
-
-//        MFFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfColorAttachments.replace(elemIdx, pNewElem);
-    }
-}
-
 void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
 {
     if(uiIndex < _mfColorAttachments.size())
@@ -522,8 +478,6 @@ void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
         MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfColorAttachments.erase(fieldIt);
     }
@@ -540,8 +494,6 @@ void FrameBufferObjectBase::removeFromColorAttachments(const FrameBufferAttachme
         MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfColorAttachments.erase(fieldIt);
     }
@@ -790,6 +742,7 @@ void FrameBufferObjectBase::onCreate(const FrameBufferObject *source)
 
     if(source != NULL)
     {
+        FrameBufferObject *pThis = static_cast<FrameBufferObject *>(this);
 
         MFUnrecFrameBufferAttachmentPtr::const_iterator ColorAttachmentsIt  =
             source->_mfColorAttachments.begin();
@@ -798,14 +751,14 @@ void FrameBufferObjectBase::onCreate(const FrameBufferObject *source)
 
         while(ColorAttachmentsIt != ColorAttachmentsEnd)
         {
-            this->pushToColorAttachments(*ColorAttachmentsIt);
+            pThis->pushToColorAttachments(*ColorAttachmentsIt);
 
             ++ColorAttachmentsIt;
         }
 
-        this->setDepthAttachment(source->getDepthAttachment());
+        pThis->setDepthAttachment(source->getDepthAttachment());
 
-        this->setStencilAttachment(source->getStencilAttachment());
+        pThis->setStencilAttachment(source->getStencilAttachment());
     }
 }
 

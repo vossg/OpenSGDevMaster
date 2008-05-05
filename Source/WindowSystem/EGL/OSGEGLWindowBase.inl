@@ -85,7 +85,7 @@ EGLDisplay &EGLWindowBase::editDisplay(void)
 
 //! Get the value of the EGLWindow::_sfDisplay field.
 inline
-const EGLDisplay &EGLWindowBase::getDisplay(void) const
+const EGLDisplay EGLWindowBase::getDisplay(void) const
 {
     return _sfDisplay.getValue();
 }
@@ -118,7 +118,7 @@ EGLSurface &EGLWindowBase::editWindow(void)
 
 //! Get the value of the EGLWindow::_sfWindow field.
 inline
-const EGLSurface &EGLWindowBase::getWindow(void) const
+const EGLSurface EGLWindowBase::getWindow(void) const
 {
     return _sfWindow.getValue();
 }
@@ -151,7 +151,7 @@ EGLContext &EGLWindowBase::editContext(void)
 
 //! Get the value of the EGLWindow::_sfContext field.
 inline
-const EGLContext &EGLWindowBase::getContext(void) const
+const EGLContext EGLWindowBase::getContext(void) const
 {
     return _sfContext.getValue();
 }

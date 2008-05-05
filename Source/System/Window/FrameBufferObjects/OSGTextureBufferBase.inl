@@ -88,7 +88,6 @@ void TextureBufferBase::setTexture(const TextureObjChunkPtr value)
     editSField(TextureFieldMask);
 
     _sfTexture.setValue(value);
-
 }
 //! Get the value of the TextureBuffer::_sfTexTarget field.
 
@@ -102,7 +101,7 @@ GLenum &TextureBufferBase::editTexTarget(void)
 
 //! Get the value of the TextureBuffer::_sfTexTarget field.
 inline
-const GLenum &TextureBufferBase::getTexTarget(void) const
+const GLenum TextureBufferBase::getTexTarget(void) const
 {
     return _sfTexTarget.getValue();
 }
@@ -135,7 +134,7 @@ UInt32 &TextureBufferBase::editLevel(void)
 
 //! Get the value of the TextureBuffer::_sfLevel field.
 inline
-const UInt32 &TextureBufferBase::getLevel(void) const
+const UInt32 TextureBufferBase::getLevel(void) const
 {
     return _sfLevel.getValue();
 }
@@ -168,7 +167,7 @@ UInt32 &TextureBufferBase::editZoffset(void)
 
 //! Get the value of the TextureBuffer::_sfZoffset field.
 inline
-const UInt32 &TextureBufferBase::getZoffset(void) const
+const UInt32 TextureBufferBase::getZoffset(void) const
 {
     return _sfZoffset.getValue();
 }

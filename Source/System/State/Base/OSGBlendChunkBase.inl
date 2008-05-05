@@ -85,7 +85,7 @@ GLenum &BlendChunkBase::editSrcFactor(void)
 
 //! Get the value of the BlendChunk::_sfSrcFactor field.
 inline
-const GLenum &BlendChunkBase::getSrcFactor(void) const
+const GLenum BlendChunkBase::getSrcFactor(void) const
 {
     return _sfSrcFactor.getValue();
 }
@@ -118,7 +118,7 @@ GLenum &BlendChunkBase::editDestFactor(void)
 
 //! Get the value of the BlendChunk::_sfDestFactor field.
 inline
-const GLenum &BlendChunkBase::getDestFactor(void) const
+const GLenum BlendChunkBase::getDestFactor(void) const
 {
     return _sfDestFactor.getValue();
 }
@@ -151,7 +151,7 @@ GLenum &BlendChunkBase::editEquation(void)
 
 //! Get the value of the BlendChunk::_sfEquation field.
 inline
-const GLenum &BlendChunkBase::getEquation(void) const
+const GLenum BlendChunkBase::getEquation(void) const
 {
     return _sfEquation.getValue();
 }
@@ -184,7 +184,7 @@ Color4f &BlendChunkBase::editColor(void)
 
 //! Get the value of the BlendChunk::_sfColor field.
 inline
-const Color4f &BlendChunkBase::getColor(void) const
+const Color4f BlendChunkBase::getColor(void) const
 {
     return _sfColor.getValue();
 }
@@ -217,7 +217,7 @@ GLenum &BlendChunkBase::editAlphaFunc(void)
 
 //! Get the value of the BlendChunk::_sfAlphaFunc field.
 inline
-const GLenum &BlendChunkBase::getAlphaFunc(void) const
+const GLenum BlendChunkBase::getAlphaFunc(void) const
 {
     return _sfAlphaFunc.getValue();
 }
@@ -250,7 +250,7 @@ Real32 &BlendChunkBase::editAlphaValue(void)
 
 //! Get the value of the BlendChunk::_sfAlphaValue field.
 inline
-const Real32 &BlendChunkBase::getAlphaValue(void) const
+const Real32 BlendChunkBase::getAlphaValue(void) const
 {
     return _sfAlphaValue.getValue();
 }
@@ -283,7 +283,7 @@ GLenum &BlendChunkBase::editAlphaSrcFactor(void)
 
 //! Get the value of the BlendChunk::_sfAlphaSrcFactor field.
 inline
-const GLenum &BlendChunkBase::getAlphaSrcFactor(void) const
+const GLenum BlendChunkBase::getAlphaSrcFactor(void) const
 {
     return _sfAlphaSrcFactor.getValue();
 }
@@ -316,7 +316,7 @@ GLenum &BlendChunkBase::editAlphaDestFactor(void)
 
 //! Get the value of the BlendChunk::_sfAlphaDestFactor field.
 inline
-const GLenum &BlendChunkBase::getAlphaDestFactor(void) const
+const GLenum BlendChunkBase::getAlphaDestFactor(void) const
 {
     return _sfAlphaDestFactor.getValue();
 }

@@ -165,9 +165,12 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecNodePtr      *getSFRoot            (void) const;
-            const MFUnrecNodePtr      *getMFExclude         (void) const;
-            const SFUnrecTextureObjChunkPtr *getSFTexture         (void) const;
+            const SFUnrecNodePtr      *getSFRoot           (void) const;
+                  SFUnrecNodePtr      *editSFRoot           (void);
+            const MFUnrecNodePtr      *getMFExclude        (void) const;
+                  MFUnrecNodePtr      *editMFExclude        (void);
+            const SFUnrecTextureObjChunkPtr *getSFTexture        (void) const;
+                  SFUnrecTextureObjChunkPtr *editSFTexture        (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFVec2s             *getSFTextureSize     (void);
@@ -180,7 +183,8 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 #endif
                   SFGLenum            *editSFTextureFormat  (void);
             const SFGLenum            *getSFTextureFormat   (void) const;
-            const SFWeakNodePtr       *getSFBeacon          (void) const;
+            const SFWeakNodePtr       *getSFBeacon         (void) const;
+                  SFWeakNodePtr       *editSFBeacon         (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFPnt3f             *getSFOrigin          (void);
@@ -205,13 +209,13 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 #endif
                   SFUInt32            *editSFSetupMode      (void);
             const SFUInt32            *getSFSetupMode       (void) const;
-            const SFUnrecBackgroundPtr *getSFBackground      (void) const;
+            const SFUnrecBackgroundPtr *getSFBackground     (void) const;
+                  SFUnrecBackgroundPtr *editSFBackground     (void);
 
 
                   NodePtr getRoot           (void) const;
 
                   NodePtr getExclude        (const UInt32 index) const;
-            const MFUnrecNodePtr      &getExclude        (void) const;
 
                   TextureObjChunkPtr getTexture        (void) const;
 
@@ -219,13 +223,13 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                   Vec2s               &getTextureSize     (void);
 #endif
                   Vec2s               &editTextureSize    (void);
-            const Vec2s               &getTextureSize     (void) const;
+            const Vec2s                getTextureSize     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getTextureFormat   (void);
 #endif
                   GLenum              &editTextureFormat  (void);
-            const GLenum              &getTextureFormat   (void) const;
+            const GLenum               getTextureFormat   (void) const;
 
                   NodePtr getBeacon         (void) const;
 
@@ -233,25 +237,25 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                   Pnt3f               &getOrigin          (void);
 #endif
                   Pnt3f               &editOrigin         (void);
-            const Pnt3f               &getOrigin          (void) const;
+            const Pnt3f                getOrigin          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getOriginMode      (void);
 #endif
                   UInt32              &editOriginMode     (void);
-            const UInt32              &getOriginMode      (void) const;
+            const UInt32               getOriginMode      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTexUnit         (void);
 #endif
                   UInt32              &editTexUnit        (void);
-            const UInt32              &getTexUnit         (void) const;
+            const UInt32               getTexUnit         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getSetupMode       (void);
 #endif
                   UInt32              &editSetupMode      (void);
-            const UInt32              &getSetupMode       (void) const;
+            const UInt32               getSetupMode       (void) const;
 
                   BackgroundPtr getBackground     (void) const;
 
@@ -283,12 +287,6 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 
     void pushToExclude             (const NodePtr value   );
     void assignExclude             (const MFUnrecNodePtr    &value);
-    void insertIntoExclude      (      UInt32         uiIndex,
-                                             const NodePtr value   );
-    void replaceInExclude  (      UInt32         uiIndex,
-                                             const NodePtr value   );
-    void replaceInExclude (const NodePtr pOldElem,
-                                             const NodePtr pNewElem);
     void removeFromExclude (UInt32                uiIndex );
     void removeFromExclude(const NodePtr value   );
     void clearExclude               (void                          );

@@ -85,7 +85,7 @@ bool &LightEngineBase::editEnabled(void)
 
 //! Get the value of the LightEngine::_sfEnabled field.
 inline
-const bool &LightEngineBase::getEnabled(void) const
+const bool LightEngineBase::getEnabled(void) const
 {
     return _sfEnabled.getValue();
 }

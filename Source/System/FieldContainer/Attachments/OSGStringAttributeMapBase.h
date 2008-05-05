@@ -213,36 +213,18 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  MFString            *getMFKeys            (void);
-#endif
                   MFString            *editMFKeys           (void);
             const MFString            *getMFKeys            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFString            *getMFValues          (void);
-#endif
                   MFString            *editMFValues         (void);
             const MFString            *getMFValues          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getKeys            (const UInt32 index);
-                  MFString            &getKeys           (void);
-#endif
                   std::string         &editKeys           (const UInt32 index);
-            const std::string         &getKeys            (const UInt32 index) const;
-                  MFString            &editKeys           (void);
-            const MFString            &getKeys            (void) const;
+            const std::string          getKeys            (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getValues          (const UInt32 index);
-                  MFString            &getValues         (void);
-#endif
                   std::string         &editValues         (const UInt32 index);
-            const std::string         &getValues          (const UInt32 index) const;
-                  MFString            &editValues         (void);
-            const MFString            &getValues          (void) const;
+            const std::string          getValues          (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -254,9 +236,6 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

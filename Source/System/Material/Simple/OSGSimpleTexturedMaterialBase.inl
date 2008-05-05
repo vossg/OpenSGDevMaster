@@ -88,7 +88,6 @@ void SimpleTexturedMaterialBase::setImage(const ImagePtr value)
     editSField(ImageFieldMask);
 
     _sfImage.setValue(value);
-
 }
 //! Get the value of the SimpleTexturedMaterial::_sfMinFilter field.
 
@@ -102,7 +101,7 @@ GLenum &SimpleTexturedMaterialBase::editMinFilter(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfMinFilter field.
 inline
-const GLenum &SimpleTexturedMaterialBase::getMinFilter(void) const
+const GLenum SimpleTexturedMaterialBase::getMinFilter(void) const
 {
     return _sfMinFilter.getValue();
 }
@@ -135,7 +134,7 @@ GLenum &SimpleTexturedMaterialBase::editMagFilter(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfMagFilter field.
 inline
-const GLenum &SimpleTexturedMaterialBase::getMagFilter(void) const
+const GLenum SimpleTexturedMaterialBase::getMagFilter(void) const
 {
     return _sfMagFilter.getValue();
 }
@@ -168,7 +167,7 @@ GLenum &SimpleTexturedMaterialBase::editEnvMode(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfEnvMode field.
 inline
-const GLenum &SimpleTexturedMaterialBase::getEnvMode(void) const
+const GLenum SimpleTexturedMaterialBase::getEnvMode(void) const
 {
     return _sfEnvMode.getValue();
 }
@@ -201,7 +200,7 @@ bool &SimpleTexturedMaterialBase::editEnvMap(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfEnvMap field.
 inline
-const bool &SimpleTexturedMaterialBase::getEnvMap(void) const
+const bool SimpleTexturedMaterialBase::getEnvMap(void) const
 {
     return _sfEnvMap.getValue();
 }

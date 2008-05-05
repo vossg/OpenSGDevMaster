@@ -157,19 +157,19 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
                   Vec3r               &getDirection       (void);
 #endif
                   Vec3r               &editDirection      (void);
-            const Vec3r               &getDirection       (void) const;
+            const Vec3r                getDirection       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getSpotExponent    (void);
 #endif
                   Real                &editSpotExponent   (void);
-            const Real                &getSpotExponent    (void) const;
+            const Real                 getSpotExponent    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getSpotCutOff      (void);
 #endif
                   Real                &editSpotCutOff     (void);
-            const Real                &getSpotCutOff      (void) const;
+            const Real                 getSpotCutOff      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

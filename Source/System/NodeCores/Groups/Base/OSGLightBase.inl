@@ -85,7 +85,7 @@ Color4r &LightBase::editAmbient(void)
 
 //! Get the value of the Light::_sfAmbient field.
 inline
-const Color4r &LightBase::getAmbient(void) const
+const Color4r LightBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
@@ -118,7 +118,7 @@ Color4r &LightBase::editDiffuse(void)
 
 //! Get the value of the Light::_sfDiffuse field.
 inline
-const Color4r &LightBase::getDiffuse(void) const
+const Color4r LightBase::getDiffuse(void) const
 {
     return _sfDiffuse.getValue();
 }
@@ -151,7 +151,7 @@ Color4r &LightBase::editSpecular(void)
 
 //! Get the value of the Light::_sfSpecular field.
 inline
-const Color4r &LightBase::getSpecular(void) const
+const Color4r LightBase::getSpecular(void) const
 {
     return _sfSpecular.getValue();
 }
@@ -187,7 +187,6 @@ void LightBase::setBeacon(const NodePtr value)
     editSField(BeaconFieldMask);
 
     _sfBeacon.setValue(value);
-
 }
 //! Get the value of the Light::_sfOn field.
 
@@ -201,7 +200,7 @@ bool &LightBase::editOn(void)
 
 //! Get the value of the Light::_sfOn field.
 inline
-const bool &LightBase::getOn(void) const
+const bool LightBase::getOn(void) const
 {
     return _sfOn.getValue();
 }
@@ -234,7 +233,7 @@ Real &LightBase::editConstantAttenuation(void)
 
 //! Get the value of the Light::_sfConstantAttenuation field.
 inline
-const Real &LightBase::getConstantAttenuation(void) const
+const Real LightBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
@@ -267,7 +266,7 @@ Real &LightBase::editLinearAttenuation(void)
 
 //! Get the value of the Light::_sfLinearAttenuation field.
 inline
-const Real &LightBase::getLinearAttenuation(void) const
+const Real LightBase::getLinearAttenuation(void) const
 {
     return _sfLinearAttenuation.getValue();
 }
@@ -300,7 +299,7 @@ Real &LightBase::editQuadraticAttenuation(void)
 
 //! Get the value of the Light::_sfQuadraticAttenuation field.
 inline
-const Real &LightBase::getQuadraticAttenuation(void) const
+const Real LightBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
@@ -336,7 +335,6 @@ void LightBase::setLightEngine(const LightEnginePtr value)
     editSField(LightEngineFieldMask);
 
     _sfLightEngine.setValue(value);
-
 }
 
 

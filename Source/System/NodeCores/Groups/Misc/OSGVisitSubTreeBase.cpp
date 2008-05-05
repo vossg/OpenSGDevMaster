@@ -188,6 +188,13 @@ const SFWeakNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
     return &_sfSubTreeRoot;
 }
 
+SFWeakNodePtr       *VisitSubTreeBase::editSFSubTreeRoot    (void)
+{
+    editSField(SubTreeRootFieldMask);
+
+    return &_sfSubTreeRoot;
+}
+
 
 
 
@@ -342,8 +349,9 @@ void VisitSubTreeBase::onCreate(const VisitSubTree *source)
 
     if(source != NULL)
     {
+        VisitSubTree *pThis = static_cast<VisitSubTree *>(this);
 
-        this->setSubTreeRoot(source->getSubTreeRoot());
+        pThis->setSubTreeRoot(source->getSubTreeRoot());
     }
 }
 

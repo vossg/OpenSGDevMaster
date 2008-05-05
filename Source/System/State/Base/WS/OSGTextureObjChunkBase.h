@@ -229,7 +229,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecChildImagePtr *getSFImage           (void) const;
+            const SFUnrecChildImagePtr *getSFImage          (void) const;
+                  SFUnrecChildImagePtr *editSFImage          (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFInternalFormat  (void);
@@ -394,157 +395,157 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
                   GLenum              &getInternalFormat  (void);
 #endif
                   GLenum              &editInternalFormat (void);
-            const GLenum              &getInternalFormat  (void) const;
+            const GLenum               getInternalFormat  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getExternalFormat  (void);
 #endif
                   GLenum              &editExternalFormat (void);
-            const GLenum              &getExternalFormat  (void) const;
+            const GLenum               getExternalFormat  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getScale           (void);
 #endif
                   bool                &editScale          (void);
-            const bool                &getScale           (void) const;
+            const bool                 getScale           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getFrame           (void);
 #endif
                   UInt32              &editFrame          (void);
-            const UInt32              &getFrame           (void) const;
+            const UInt32               getFrame           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getMinFilter       (void);
 #endif
                   GLenum              &editMinFilter      (void);
-            const GLenum              &getMinFilter       (void) const;
+            const GLenum               getMinFilter       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getMagFilter       (void);
 #endif
                   GLenum              &editMagFilter      (void);
-            const GLenum              &getMagFilter       (void) const;
+            const GLenum               getMagFilter       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getWrapS           (void);
 #endif
                   GLenum              &editWrapS          (void);
-            const GLenum              &getWrapS           (void) const;
+            const GLenum               getWrapS           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getWrapT           (void);
 #endif
                   GLenum              &editWrapT          (void);
-            const GLenum              &getWrapT           (void) const;
+            const GLenum               getWrapT           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getWrapR           (void);
 #endif
                   GLenum              &editWrapR          (void);
-            const GLenum              &getWrapR           (void) const;
+            const GLenum               getWrapR           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getGLId            (void);
 #endif
                   GLenum              &editGLId           (void);
-            const GLenum              &getGLId            (void) const;
+            const GLenum               getGLId            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getIgnoreGLForAspect (void);
 #endif
                   Int32               &editIgnoreGLForAspect(void);
-            const Int32               &getIgnoreGLForAspect (void) const;
+            const Int32                getIgnoreGLForAspect (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getPriority        (void);
 #endif
                   Real32              &editPriority       (void);
-            const Real32              &getPriority        (void) const;
+            const Real32               getPriority        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyLeft       (void);
 #endif
                   Int32               &editDirtyLeft      (void);
-            const Int32               &getDirtyLeft       (void) const;
+            const Int32                getDirtyLeft       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyMinX       (void);
 #endif
                   Int32               &editDirtyMinX      (void);
-            const Int32               &getDirtyMinX       (void) const;
+            const Int32                getDirtyMinX       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyMaxX       (void);
 #endif
                   Int32               &editDirtyMaxX      (void);
-            const Int32               &getDirtyMaxX       (void) const;
+            const Int32                getDirtyMaxX       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyMinY       (void);
 #endif
                   Int32               &editDirtyMinY      (void);
-            const Int32               &getDirtyMinY       (void) const;
+            const Int32                getDirtyMinY       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyMaxY       (void);
 #endif
                   Int32               &editDirtyMaxY      (void);
-            const Int32               &getDirtyMaxY       (void) const;
+            const Int32                getDirtyMaxY       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyMinZ       (void);
 #endif
                   Int32               &editDirtyMinZ      (void);
-            const Int32               &getDirtyMinZ       (void) const;
+            const Int32                getDirtyMinZ       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDirtyMaxZ       (void);
 #endif
                   Int32               &editDirtyMaxZ      (void);
-            const Int32               &getDirtyMaxZ       (void) const;
+            const Int32                getDirtyMaxZ       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getAnisotropy      (void);
 #endif
                   Real32              &editAnisotropy     (void);
-            const Real32              &getAnisotropy      (void) const;
+            const Real32               getAnisotropy      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getBorderColor     (void);
 #endif
                   Color4f             &editBorderColor    (void);
-            const Color4f             &getBorderColor     (void) const;
+            const Color4f              getBorderColor     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getCompareMode     (void);
 #endif
                   GLenum              &editCompareMode    (void);
-            const GLenum              &getCompareMode     (void) const;
+            const GLenum               getCompareMode     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getCompareFunc     (void);
 #endif
                   GLenum              &editCompareFunc    (void);
-            const GLenum              &getCompareFunc     (void) const;
+            const GLenum               getCompareFunc     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getDepthMode       (void);
 #endif
                   GLenum              &editDepthMode      (void);
-            const GLenum              &getDepthMode       (void) const;
+            const GLenum               getDepthMode       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getBorderWidth     (void);
 #endif
                   UInt32              &editBorderWidth    (void);
-            const UInt32              &getBorderWidth     (void) const;
+            const UInt32               getBorderWidth     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getNPOTMatrixScale (void);
 #endif
                   UInt32              &editNPOTMatrixScale(void);
-            const UInt32              &getNPOTMatrixScale (void) const;
+            const UInt32               getNPOTMatrixScale (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -588,6 +589,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

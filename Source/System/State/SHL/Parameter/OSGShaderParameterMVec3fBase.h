@@ -138,9 +138,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec3fBase : public ShaderParameter
                   MFVec3f             &getValue          (void);
 #endif
                   Vec3f               &editValue          (const UInt32 index);
-            const Vec3f               &getValue           (const UInt32 index) const;
-                  MFVec3f             &editValue          (void);
-            const MFVec3f             &getValue          (void) const;
+            const Vec3f                getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -152,7 +150,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec3fBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

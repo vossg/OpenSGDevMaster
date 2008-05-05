@@ -337,127 +337,127 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
                   bool                &getStatistic       (void);
 #endif
                   bool                &editStatistic      (void);
-            const bool                &getStatistic       (void) const;
+            const bool                 getStatistic       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getPolygonMode     (void);
 #endif
                   GLenum              &editPolygonMode    (void);
-            const GLenum              &getPolygonMode     (void) const;
+            const GLenum               getPolygonMode     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getTwoSidedLighting (void);
 #endif
                   bool                &editTwoSidedLighting(void);
-            const bool                &getTwoSidedLighting (void) const;
+            const bool                 getTwoSidedLighting (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getSpecTexLighting (void);
 #endif
                   bool                &editSpecTexLighting(void);
-            const bool                &getSpecTexLighting (void) const;
+            const bool                 getSpecTexLighting (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getSortTrans       (void);
 #endif
                   bool                &editSortTrans      (void);
-            const bool                &getSortTrans       (void) const;
+            const bool                 getSortTrans       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getZWriteTrans     (void);
 #endif
                   bool                &editZWriteTrans    (void);
-            const bool                &getZWriteTrans     (void) const;
+            const bool                 getZWriteTrans     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getLocalLights     (void);
 #endif
                   bool                &editLocalLights    (void);
-            const bool                &getLocalLights     (void) const;
+            const bool                 getLocalLights     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getCorrectTwoSidedLighting (void);
 #endif
                   bool                &editCorrectTwoSidedLighting(void);
-            const bool                &getCorrectTwoSidedLighting (void) const;
+            const bool                 getCorrectTwoSidedLighting (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getOcclusionCulling (void);
 #endif
                   bool                &editOcclusionCulling(void);
-            const bool                &getOcclusionCulling (void) const;
+            const bool                 getOcclusionCulling (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getOcclusionCullingMode (void);
 #endif
                   Int32               &editOcclusionCullingMode(void);
-            const Int32               &getOcclusionCullingMode (void) const;
+            const Int32                getOcclusionCullingMode (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getOcclusionCullingPixels (void);
 #endif
                   UInt32              &editOcclusionCullingPixels(void);
-            const UInt32              &getOcclusionCullingPixels (void) const;
+            const UInt32               getOcclusionCullingPixels (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getAntialiasing    (void);
 #endif
                   bool                &editAntialiasing   (void);
-            const bool                &getAntialiasing    (void) const;
+            const bool                 getAntialiasing    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getAntialiasingDistance (void);
 #endif
                   Real32              &editAntialiasingDistance(void);
-            const Real32              &getAntialiasingDistance (void) const;
+            const Real32               getAntialiasingDistance (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getAntialiasingScale (void);
 #endif
                   Real32              &editAntialiasingScale(void);
-            const Real32              &getAntialiasingScale (void) const;
+            const Real32               getAntialiasingScale (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getAntialiasingTrigger (void);
 #endif
                   UInt32              &editAntialiasingTrigger(void);
-            const UInt32              &getAntialiasingTrigger (void) const;
+            const UInt32               getAntialiasingTrigger (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getFrustumCulling  (void);
 #endif
                   bool                &editFrustumCulling (void);
-            const bool                &getFrustumCulling  (void) const;
+            const bool                 getFrustumCulling  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getBackfaceCulling (void);
 #endif
                   bool                &editBackfaceCulling(void);
-            const bool                &getBackfaceCulling (void) const;
+            const bool                 getBackfaceCulling (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getSmallFeatureCulling (void);
 #endif
                   bool                &editSmallFeatureCulling(void);
-            const bool                &getSmallFeatureCulling (void) const;
+            const bool                 getSmallFeatureCulling (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getSmallFeaturePixels (void);
 #endif
                   Real32              &editSmallFeaturePixels(void);
-            const Real32              &getSmallFeaturePixels (void) const;
+            const Real32               getSmallFeaturePixels (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getSmallFeatureThreshold (void);
 #endif
                   UInt32              &editSmallFeatureThreshold(void);
-            const UInt32              &getSmallFeatureThreshold (void) const;
+            const UInt32               getSmallFeatureThreshold (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getFirstFrame      (void);
 #endif
                   bool                &editFirstFrame     (void);
-            const bool                &getFirstFrame      (void) const;
+            const bool                 getFirstFrame      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -490,6 +490,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

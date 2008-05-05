@@ -149,10 +149,14 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecChildGeoIntegralPropertyPtr *getSFTypes           (void) const;
-            const SFUnrecChildGeoIntegralPropertyPtr *getSFLengths         (void) const;
-            const MFUnrecChildGeoVectorPropertyPtr *getMFProperties      (void) const;
-            const MFUnrecChildGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
+            const SFUnrecChildGeoIntegralPropertyPtr *getSFTypes          (void) const;
+                  SFUnrecChildGeoIntegralPropertyPtr *editSFTypes          (void);
+            const SFUnrecChildGeoIntegralPropertyPtr *getSFLengths        (void) const;
+                  SFUnrecChildGeoIntegralPropertyPtr *editSFLengths        (void);
+            const MFUnrecChildGeoVectorPropertyPtr *getMFProperties     (void) const;
+                  MFUnrecChildGeoVectorPropertyPtr *editMFProperties     (void);
+            const MFUnrecChildGeoIntegralPropertyPtr *getMFPropIndices    (void) const;
+                  MFUnrecChildGeoIntegralPropertyPtr *editMFPropIndices    (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFDlistCache      (void);
@@ -166,16 +170,14 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   GeoIntegralPropertyPtr getLengths        (void) const;
 
                   GeoVectorPropertyPtr getProperties     (const UInt32 index) const;
-            const MFUnrecChildGeoVectorPropertyPtr &getProperties     (void) const;
 
                   GeoIntegralPropertyPtr getPropIndices    (const UInt32 index) const;
-            const MFUnrecChildGeoIntegralPropertyPtr &getPropIndices    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getDlistCache      (void);
 #endif
                   bool                &editDlistCache     (void);
-            const bool                &getDlistCache      (void) const;
+            const bool                 getDlistCache      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -198,26 +200,13 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
     void pushToProperties           (const GeoVectorPropertyPtr value   );
     void assignProperties           (const MFUnrecChildGeoVectorPropertyPtr &value);
-    void insertIntoProperties      (      UInt32         uiIndex,
-                                             const GeoVectorPropertyPtr value   );
-    void replaceInProperties  (      UInt32         uiIndex,
-                                             const GeoVectorPropertyPtr value   );
-    void replaceInProperties (const GeoVectorPropertyPtr pOldElem,
-                                             const GeoVectorPropertyPtr pNewElem);
     void removeFromProperties (UInt32                uiIndex );
     void removeFromProperties(const GeoVectorPropertyPtr value   );
     void clearProperties            (void                          );
 
 
-
     void pushToPropIndices           (const GeoIntegralPropertyPtr value   );
     void assignPropIndices           (const MFUnrecChildGeoIntegralPropertyPtr &value);
-    void insertIntoPropIndices      (      UInt32         uiIndex,
-                                             const GeoIntegralPropertyPtr value   );
-    void replaceInPropIndices  (      UInt32         uiIndex,
-                                             const GeoIntegralPropertyPtr value   );
-    void replaceInPropIndices (const GeoIntegralPropertyPtr pOldElem,
-                                             const GeoIntegralPropertyPtr pNewElem);
     void removeFromPropIndices (UInt32                uiIndex );
     void removeFromPropIndices(const GeoIntegralPropertyPtr value   );
     void clearPropIndices            (void                          );
@@ -336,30 +325,18 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFClassicGLId     (void);
-#endif
                   SFInt32             *editSFClassicGLId    (void);
             const SFInt32             *getSFClassicGLId     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFAttGLId         (void);
-#endif
                   SFInt32             *editSFAttGLId        (void);
             const SFInt32             *getSFAttGLId         (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getClassicGLId     (void);
-#endif
                   Int32               &editClassicGLId    (void);
-            const Int32               &getClassicGLId     (void) const;
+            const Int32                getClassicGLId     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getAttGLId         (void);
-#endif
                   Int32               &editAttGLId        (void);
-            const Int32               &getAttGLId         (void) const;
+            const Int32                getAttGLId         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -373,6 +350,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

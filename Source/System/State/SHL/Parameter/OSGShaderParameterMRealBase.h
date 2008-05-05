@@ -138,9 +138,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
                   MFReal32            &getValue          (void);
 #endif
                   Real32              &editValue          (const UInt32 index);
-            const Real32              &getValue           (const UInt32 index) const;
-                  MFReal32            &editValue          (void);
-            const MFReal32            &getValue          (void) const;
+            const Real32               getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -152,7 +150,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

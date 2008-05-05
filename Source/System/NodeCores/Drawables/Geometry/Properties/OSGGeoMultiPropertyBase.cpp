@@ -338,6 +338,13 @@ const SFUnrecGeoMultiPropertyDataPtr *GeoMultiPropertyBase::getSFContainer(void)
     return &_sfContainer;
 }
 
+SFUnrecGeoMultiPropertyDataPtr *GeoMultiPropertyBase::editSFContainer      (void)
+{
+    editSField(ContainerFieldMask);
+
+    return &_sfContainer;
+}
+
 SFUInt32 *GeoMultiPropertyBase::editSFOffset(void)
 {
     editSField(OffsetFieldMask);
@@ -690,8 +697,9 @@ void GeoMultiPropertyBase::onCreate(const GeoMultiProperty *source)
 
     if(source != NULL)
     {
+        GeoMultiProperty *pThis = static_cast<GeoMultiProperty *>(this);
 
-        this->setContainer(source->getContainer());
+        pThis->setContainer(source->getContainer());
     }
 }
 

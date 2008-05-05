@@ -175,7 +175,8 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
 #endif
                   SFColor4r           *editSFSpecular       (void);
             const SFColor4r           *getSFSpecular        (void) const;
-            const SFWeakNodePtr       *getSFBeacon          (void) const;
+            const SFWeakNodePtr       *getSFBeacon         (void) const;
+                  SFWeakNodePtr       *editSFBeacon         (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFOn              (void);
@@ -200,26 +201,27 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
 #endif
                   SFReal              *editSFQuadraticAttenuation(void);
             const SFReal              *getSFQuadraticAttenuation (void) const;
-            const SFUnrecLightEnginePtr *getSFLightEngine     (void) const;
+            const SFUnrecLightEnginePtr *getSFLightEngine    (void) const;
+                  SFUnrecLightEnginePtr *editSFLightEngine    (void);
 
 
 #ifdef OSG_1_GET_COMPAT
                   Color4r             &getAmbient         (void);
 #endif
                   Color4r             &editAmbient        (void);
-            const Color4r             &getAmbient         (void) const;
+            const Color4r              getAmbient         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4r             &getDiffuse         (void);
 #endif
                   Color4r             &editDiffuse        (void);
-            const Color4r             &getDiffuse         (void) const;
+            const Color4r              getDiffuse         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4r             &getSpecular        (void);
 #endif
                   Color4r             &editSpecular       (void);
-            const Color4r             &getSpecular        (void) const;
+            const Color4r              getSpecular        (void) const;
 
                   NodePtr getBeacon         (void) const;
 
@@ -227,25 +229,25 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
                   bool                &getOn              (void);
 #endif
                   bool                &editOn             (void);
-            const bool                &getOn              (void) const;
+            const bool                 getOn              (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getConstantAttenuation (void);
 #endif
                   Real                &editConstantAttenuation(void);
-            const Real                &getConstantAttenuation (void) const;
+            const Real                 getConstantAttenuation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getLinearAttenuation (void);
 #endif
                   Real                &editLinearAttenuation(void);
-            const Real                &getLinearAttenuation (void) const;
+            const Real                 getLinearAttenuation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getQuadraticAttenuation (void);
 #endif
                   Real                &editQuadraticAttenuation(void);
-            const Real                &getQuadraticAttenuation (void) const;
+            const Real                 getQuadraticAttenuation (void) const;
 
                   LightEnginePtr getLightEngine    (void) const;
 
@@ -273,6 +275,7 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -85,7 +85,7 @@ Real32 &OrthographicCameraBase::editVerticalSize(void)
 
 //! Get the value of the OrthographicCamera::_sfVerticalSize field.
 inline
-const Real32 &OrthographicCameraBase::getVerticalSize(void) const
+const Real32 OrthographicCameraBase::getVerticalSize(void) const
 {
     return _sfVerticalSize.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &OrthographicCameraBase::editAspect(void)
 
 //! Get the value of the OrthographicCamera::_sfAspect field.
 inline
-const Real32 &OrthographicCameraBase::getAspect(void) const
+const Real32 OrthographicCameraBase::getAspect(void) const
 {
     return _sfAspect.getValue();
 }

@@ -85,7 +85,7 @@ Color3r &SimpleMaterialBase::editAmbient(void)
 
 //! Get the value of the SimpleMaterial::_sfAmbient field.
 inline
-const Color3r &SimpleMaterialBase::getAmbient(void) const
+const Color3r SimpleMaterialBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
@@ -118,7 +118,7 @@ Color3r &SimpleMaterialBase::editDiffuse(void)
 
 //! Get the value of the SimpleMaterial::_sfDiffuse field.
 inline
-const Color3r &SimpleMaterialBase::getDiffuse(void) const
+const Color3r SimpleMaterialBase::getDiffuse(void) const
 {
     return _sfDiffuse.getValue();
 }
@@ -151,7 +151,7 @@ Color3r &SimpleMaterialBase::editSpecular(void)
 
 //! Get the value of the SimpleMaterial::_sfSpecular field.
 inline
-const Color3r &SimpleMaterialBase::getSpecular(void) const
+const Color3r SimpleMaterialBase::getSpecular(void) const
 {
     return _sfSpecular.getValue();
 }
@@ -184,7 +184,7 @@ Real &SimpleMaterialBase::editShininess(void)
 
 //! Get the value of the SimpleMaterial::_sfShininess field.
 inline
-const Real &SimpleMaterialBase::getShininess(void) const
+const Real SimpleMaterialBase::getShininess(void) const
 {
     return _sfShininess.getValue();
 }
@@ -217,7 +217,7 @@ Color3r &SimpleMaterialBase::editEmission(void)
 
 //! Get the value of the SimpleMaterial::_sfEmission field.
 inline
-const Color3r &SimpleMaterialBase::getEmission(void) const
+const Color3r SimpleMaterialBase::getEmission(void) const
 {
     return _sfEmission.getValue();
 }
@@ -250,7 +250,7 @@ Real &SimpleMaterialBase::editTransparency(void)
 
 //! Get the value of the SimpleMaterial::_sfTransparency field.
 inline
-const Real &SimpleMaterialBase::getTransparency(void) const
+const Real SimpleMaterialBase::getTransparency(void) const
 {
     return _sfTransparency.getValue();
 }
@@ -283,7 +283,7 @@ bool &SimpleMaterialBase::editLit(void)
 
 //! Get the value of the SimpleMaterial::_sfLit field.
 inline
-const bool &SimpleMaterialBase::getLit(void) const
+const bool SimpleMaterialBase::getLit(void) const
 {
     return _sfLit.getValue();
 }
@@ -316,7 +316,7 @@ GLenum &SimpleMaterialBase::editColorMaterial(void)
 
 //! Get the value of the SimpleMaterial::_sfColorMaterial field.
 inline
-const GLenum &SimpleMaterialBase::getColorMaterial(void) const
+const GLenum SimpleMaterialBase::getColorMaterial(void) const
 {
     return _sfColorMaterial.getValue();
 }

@@ -274,7 +274,6 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
-    "        checkNilPtr=\"false\"\n"
     "        linkParentField=\"Parents\"\n"
     "\t>\n"
     "        The attributes used to render the geometry. The order is based on the \n"
@@ -288,7 +287,6 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\t\taccess=\"public\"\n"
     "        category=\"childpointer\"\n"
     "        childParentType=\"FieldContainer\"\n"
-    "        checkNilPtr=\"false\"\n"
     "        linkParentField=\"Parents\"\n"
     "\t>\n"
     "        The indices property contains the index data. See \\ref \n"
@@ -356,9 +354,23 @@ const SFUnrecChildGeoIntegralPropertyPtr *GeometryBase::getSFTypes(void) const
     return &_sfTypes;
 }
 
+SFUnrecChildGeoIntegralPropertyPtr *GeometryBase::editSFTypes          (void)
+{
+    editSField(TypesFieldMask);
+
+    return &_sfTypes;
+}
+
 //! Get the Geometry::_sfLengths field.
 const SFUnrecChildGeoIntegralPropertyPtr *GeometryBase::getSFLengths(void) const
 {
+    return &_sfLengths;
+}
+
+SFUnrecChildGeoIntegralPropertyPtr *GeometryBase::editSFLengths        (void)
+{
+    editSField(LengthsFieldMask);
+
     return &_sfLengths;
 }
 
@@ -368,9 +380,23 @@ const MFUnrecChildGeoVectorPropertyPtr *GeometryBase::getMFProperties(void) cons
     return &_mfProperties;
 }
 
+MFUnrecChildGeoVectorPropertyPtr *GeometryBase::editMFProperties     (void)
+{
+    editMField(PropertiesFieldMask, _mfProperties);
+
+    return &_mfProperties;
+}
+
 //! Get the Geometry::_mfPropIndices field.
 const MFUnrecChildGeoIntegralPropertyPtr *GeometryBase::getMFPropIndices(void) const
 {
+    return &_mfPropIndices;
+}
+
+MFUnrecChildGeoIntegralPropertyPtr *GeometryBase::editMFPropIndices    (void)
+{
+    editMField(PropIndicesFieldMask, _mfPropIndices);
+
     return &_mfPropIndices;
 }
 
@@ -437,12 +463,7 @@ void GeometryBase::pushToProperties(const GeoVectorPropertyPtr value)
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
-    //addRef(value);
-
     _mfProperties.push_back(value);
-
-//    if(value == NullFC)
-//        return;
 }
 
 void GeometryBase::assignProperties(const MFUnrecChildGeoVectorPropertyPtr &value)
@@ -462,63 +483,6 @@ void GeometryBase::assignProperties(const MFUnrecChildGeoVectorPropertyPtr &valu
     }
 }
 
-void GeometryBase::insertIntoProperties(      UInt32         uiIndex,
-                                                   const GeoVectorPropertyPtr value   )
-{
-    editMField(PropertiesFieldMask, _mfProperties);
-
-    MFUnrecChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfProperties.insert(fieldIt, value);
-
-//    if(value == NullFC)
-//        return;
-}
-
-void GeometryBase::replaceInProperties(      UInt32         uiIndex,
-                                                       const GeoVectorPropertyPtr value   )
-{
-    if(uiIndex >= _mfProperties.size())
-        return;
-
-    editMField(PropertiesFieldMask, _mfProperties);
-
-
-//    addRef(value);
-//    subRef(_mfProperties[uiIndex]);
-
-//    _mfProperties[uiIndex] = value;
-
-      _mfProperties.replace(uiIndex, value);
-
-//    if(value == NullFC)
-//        return;
-}
-
-void GeometryBase::replaceInProperties(const GeoVectorPropertyPtr pOldElem,
-                                                        const GeoVectorPropertyPtr pNewElem)
-{
-    Int32  elemIdx = _mfProperties.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(PropertiesFieldMask, _mfProperties);
-
-//        MFGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfProperties.replace(elemIdx, pNewElem);
-    }
-}
-
 void GeometryBase::removeFromProperties(UInt32 uiIndex)
 {
     if(uiIndex < _mfProperties.size())
@@ -528,8 +492,6 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
         MFUnrecChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfProperties.erase(fieldIt);
     }
@@ -547,8 +509,6 @@ void GeometryBase::removeFromProperties(const GeoVectorPropertyPtr value)
 
         fieldIt += iElemIdx;
 
-        //subRef(*fieldIt);
-
         _mfProperties.erase(fieldIt);
     }
 }
@@ -564,12 +524,7 @@ void GeometryBase::pushToPropIndices(const GeoIntegralPropertyPtr value)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
-    //addRef(value);
-
     _mfPropIndices.push_back(value);
-
-//    if(value == NullFC)
-//        return;
 }
 
 void GeometryBase::assignPropIndices(const MFUnrecChildGeoIntegralPropertyPtr &value)
@@ -589,63 +544,6 @@ void GeometryBase::assignPropIndices(const MFUnrecChildGeoIntegralPropertyPtr &v
     }
 }
 
-void GeometryBase::insertIntoPropIndices(      UInt32         uiIndex,
-                                                   const GeoIntegralPropertyPtr value   )
-{
-    editMField(PropIndicesFieldMask, _mfPropIndices);
-
-    MFUnrecChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfPropIndices.insert(fieldIt, value);
-
-//    if(value == NullFC)
-//        return;
-}
-
-void GeometryBase::replaceInPropIndices(      UInt32         uiIndex,
-                                                       const GeoIntegralPropertyPtr value   )
-{
-    if(uiIndex >= _mfPropIndices.size())
-        return;
-
-    editMField(PropIndicesFieldMask, _mfPropIndices);
-
-
-//    addRef(value);
-//    subRef(_mfPropIndices[uiIndex]);
-
-//    _mfPropIndices[uiIndex] = value;
-
-      _mfPropIndices.replace(uiIndex, value);
-
-//    if(value == NullFC)
-//        return;
-}
-
-void GeometryBase::replaceInPropIndices(const GeoIntegralPropertyPtr pOldElem,
-                                                        const GeoIntegralPropertyPtr pNewElem)
-{
-    Int32  elemIdx = _mfPropIndices.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(PropIndicesFieldMask, _mfPropIndices);
-
-//        MFGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfPropIndices.replace(elemIdx, pNewElem);
-    }
-}
-
 void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
 {
     if(uiIndex < _mfPropIndices.size())
@@ -655,8 +553,6 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
         MFUnrecChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfPropIndices.erase(fieldIt);
     }
@@ -673,8 +569,6 @@ void GeometryBase::removeFromPropIndices(const GeoIntegralPropertyPtr value)
         MFUnrecChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfPropIndices.erase(fieldIt);
     }
@@ -1056,10 +950,11 @@ void GeometryBase::onCreate(const Geometry *source)
 
     if(source != NULL)
     {
+        Geometry *pThis = static_cast<Geometry *>(this);
 
-        this->setTypes(source->getTypes());
+        pThis->setTypes(source->getTypes());
 
-        this->setLengths(source->getLengths());
+        pThis->setLengths(source->getLengths());
 
         MFUnrecChildGeoVectorPropertyPtr::const_iterator PropertiesIt  =
             source->_mfProperties.begin();
@@ -1068,7 +963,7 @@ void GeometryBase::onCreate(const Geometry *source)
 
         while(PropertiesIt != PropertiesEnd)
         {
-            this->pushToProperties(*PropertiesIt);
+            pThis->pushToProperties(*PropertiesIt);
 
             ++PropertiesIt;
         }
@@ -1080,7 +975,7 @@ void GeometryBase::onCreate(const Geometry *source)
 
         while(PropIndicesIt != PropIndicesEnd)
         {
-            this->pushToPropIndices(*PropIndicesIt);
+            pThis->pushToPropIndices(*PropIndicesIt);
 
             ++PropIndicesIt;
         }

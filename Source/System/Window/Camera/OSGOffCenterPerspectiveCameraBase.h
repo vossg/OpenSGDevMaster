@@ -137,7 +137,7 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
                   Vec2f               &getPrincipalPoint  (void);
 #endif
                   Vec2f               &editPrincipalPoint (void);
-            const Vec2f               &getPrincipalPoint  (void) const;
+            const Vec2f                getPrincipalPoint  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

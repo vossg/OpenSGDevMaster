@@ -85,7 +85,7 @@ std::string &ShaderParameterBase::editName(void)
 
 //! Get the value of the ShaderParameter::_sfName field.
 inline
-const std::string &ShaderParameterBase::getName(void) const
+const std::string ShaderParameterBase::getName(void) const
 {
     return _sfName.getValue();
 }

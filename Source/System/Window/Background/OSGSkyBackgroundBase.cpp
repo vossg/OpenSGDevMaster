@@ -778,9 +778,23 @@ const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFBackTexture(void) cons
     return &_sfBackTexture;
 }
 
+SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFBackTexture    (void)
+{
+    editSField(BackTextureFieldMask);
+
+    return &_sfBackTexture;
+}
+
 //! Get the SkyBackground::_sfBottomTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFBottomTexture(void) const
 {
+    return &_sfBottomTexture;
+}
+
+SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFBottomTexture  (void)
+{
+    editSField(BottomTextureFieldMask);
+
     return &_sfBottomTexture;
 }
 
@@ -790,9 +804,23 @@ const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFFrontTexture(void) con
     return &_sfFrontTexture;
 }
 
+SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFFrontTexture   (void)
+{
+    editSField(FrontTextureFieldMask);
+
+    return &_sfFrontTexture;
+}
+
 //! Get the SkyBackground::_sfLeftTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFLeftTexture(void) const
 {
+    return &_sfLeftTexture;
+}
+
+SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFLeftTexture    (void)
+{
+    editSField(LeftTextureFieldMask);
+
     return &_sfLeftTexture;
 }
 
@@ -802,9 +830,23 @@ const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFRightTexture(void) con
     return &_sfRightTexture;
 }
 
+SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFRightTexture   (void)
+{
+    editSField(RightTextureFieldMask);
+
+    return &_sfRightTexture;
+}
+
 //! Get the SkyBackground::_sfTopTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFTopTexture(void) const
 {
+    return &_sfTopTexture;
+}
+
+SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFTopTexture     (void)
+{
+    editSField(TopTextureFieldMask);
+
     return &_sfTopTexture;
 }
 
@@ -944,6 +986,13 @@ MFVec3f             *SkyBackgroundBase::getMFBackTexCoord   (void)
 //! Get the SkyBackground::_sfBeacon field.
 const SFWeakNodePtr *SkyBackgroundBase::getSFBeacon(void) const
 {
+    return &_sfBeacon;
+}
+
+SFWeakNodePtr       *SkyBackgroundBase::editSFBeacon         (void)
+{
+    editSField(BeaconFieldMask);
+
     return &_sfBeacon;
 }
 
@@ -1353,20 +1402,21 @@ void SkyBackgroundBase::onCreate(const SkyBackground *source)
 
     if(source != NULL)
     {
+        SkyBackground *pThis = static_cast<SkyBackground *>(this);
 
-        this->setBackTexture(source->getBackTexture());
+        pThis->setBackTexture(source->getBackTexture());
 
-        this->setBottomTexture(source->getBottomTexture());
+        pThis->setBottomTexture(source->getBottomTexture());
 
-        this->setFrontTexture(source->getFrontTexture());
+        pThis->setFrontTexture(source->getFrontTexture());
 
-        this->setLeftTexture(source->getLeftTexture());
+        pThis->setLeftTexture(source->getLeftTexture());
 
-        this->setRightTexture(source->getRightTexture());
+        pThis->setRightTexture(source->getRightTexture());
 
-        this->setTopTexture(source->getTopTexture());
+        pThis->setTopTexture(source->getTopTexture());
 
-        this->setBeacon(source->getBeacon());
+        pThis->setBeacon(source->getBeacon());
     }
 }
 

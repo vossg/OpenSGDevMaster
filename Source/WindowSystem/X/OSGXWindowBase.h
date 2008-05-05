@@ -157,19 +157,19 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
                   DisplayP            &getDisplay         (void);
 #endif
                   DisplayP            &editDisplay        (void);
-            const DisplayP            &getDisplay         (void) const;
+            const DisplayP             getDisplay         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   X11Window           &getWindow          (void);
 #endif
                   X11Window           &editWindow         (void);
-            const X11Window           &getWindow          (void) const;
+            const X11Window            getWindow          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLXContext          &getContext         (void);
 #endif
                   GLXContext          &editContext        (void);
-            const GLXContext          &getContext         (void) const;
+            const GLXContext           getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

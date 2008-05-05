@@ -85,7 +85,7 @@ std::string &SortFirstWindowBase::editCompression(void)
 
 //! Get the value of the SortFirstWindow::_sfCompression field.
 inline
-const std::string &SortFirstWindowBase::getCompression(void) const
+const std::string SortFirstWindowBase::getCompression(void) const
 {
     return _sfCompression.getValue();
 }
@@ -118,7 +118,7 @@ UInt32 &SortFirstWindowBase::editSubtileSize(void)
 
 //! Get the value of the SortFirstWindow::_sfSubtileSize field.
 inline
-const UInt32 &SortFirstWindowBase::getSubtileSize(void) const
+const UInt32 SortFirstWindowBase::getSubtileSize(void) const
 {
     return _sfSubtileSize.getValue();
 }
@@ -151,7 +151,7 @@ bool &SortFirstWindowBase::editCompose(void)
 
 //! Get the value of the SortFirstWindow::_sfCompose field.
 inline
-const bool &SortFirstWindowBase::getCompose(void) const
+const bool SortFirstWindowBase::getCompose(void) const
 {
     return _sfCompose.getValue();
 }
@@ -184,7 +184,7 @@ bool &SortFirstWindowBase::editUseFaceDistribution(void)
 
 //! Get the value of the SortFirstWindow::_sfUseFaceDistribution field.
 inline
-const bool &SortFirstWindowBase::getUseFaceDistribution(void) const
+const bool SortFirstWindowBase::getUseFaceDistribution(void) const
 {
     return _sfUseFaceDistribution.getValue();
 }
@@ -208,7 +208,7 @@ void SortFirstWindowBase::setUseFaceDistribution(const bool &value)
 
 //! Get the value of the \a index element the SortFirstWindow::_mfRegion field.
 inline
-const UInt32 &SortFirstWindowBase::getRegion(const UInt32 index) const
+const UInt32 SortFirstWindowBase::getRegion(const UInt32 index) const
 {
     return _mfRegion[index];
 }
@@ -219,15 +219,6 @@ UInt32 &SortFirstWindowBase::editRegion(const UInt32 index)
     editMField(RegionFieldMask, _mfRegion);
 
     return _mfRegion[index];
-}
-
-//! Get the SortFirstWindow::_mfRegion field.
-inline
-MFUInt32 &SortFirstWindowBase::editRegion(void)
-{
-    editMField(RegionFieldMask, _mfRegion);
-
-    return _mfRegion;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -245,13 +236,6 @@ MFUInt32            &SortFirstWindowBase::getRegion         (void)
 
 #endif
 
-
-//! Get the SortFirstWindow::_mfRegion field.
-inline
-const MFUInt32 &SortFirstWindowBase::getRegion(void) const
-{
-    return _mfRegion;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

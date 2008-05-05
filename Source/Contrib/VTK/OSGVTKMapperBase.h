@@ -161,46 +161,47 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecNodePtr      *getSFRoot            (void) const;
-            const MFUnrecNodePtr      *getMFGeoRoots        (void) const;
-            const MFUnrecGeometryPtr  *getMFGeometries      (void) const;
-            const MFUnrecChunkMaterialPtr *getMFMaterials       (void) const;
-            const MFUnrecMaterialChunkPtr *getMFMaterialChunks  (void) const;
-            const MFUnrecGeoPnt3fPropertyPtr *getMFPositions       (void) const;
-            const MFUnrecGeoUInt32PropertyPtr *getMFLength          (void) const;
-            const MFUnrecGeoUInt8PropertyPtr *getMFTypes           (void) const;
-            const MFUnrecGeoColor4fPropertyPtr *getMFColors          (void) const;
-            const MFUnrecGeoVec3fPropertyPtr *getMFNormals         (void) const;
+            const SFUnrecNodePtr      *getSFRoot           (void) const;
+                  SFUnrecNodePtr      *editSFRoot           (void);
+            const MFUnrecNodePtr      *getMFGeoRoots       (void) const;
+                  MFUnrecNodePtr      *editMFGeoRoots       (void);
+            const MFUnrecGeometryPtr  *getMFGeometries     (void) const;
+                  MFUnrecGeometryPtr  *editMFGeometries     (void);
+            const MFUnrecChunkMaterialPtr *getMFMaterials      (void) const;
+                  MFUnrecChunkMaterialPtr *editMFMaterials      (void);
+            const MFUnrecMaterialChunkPtr *getMFMaterialChunks (void) const;
+                  MFUnrecMaterialChunkPtr *editMFMaterialChunks (void);
+            const MFUnrecGeoPnt3fPropertyPtr *getMFPositions      (void) const;
+                  MFUnrecGeoPnt3fPropertyPtr *editMFPositions      (void);
+            const MFUnrecGeoUInt32PropertyPtr *getMFLength         (void) const;
+                  MFUnrecGeoUInt32PropertyPtr *editMFLength         (void);
+            const MFUnrecGeoUInt8PropertyPtr *getMFTypes          (void) const;
+                  MFUnrecGeoUInt8PropertyPtr *editMFTypes          (void);
+            const MFUnrecGeoColor4fPropertyPtr *getMFColors         (void) const;
+                  MFUnrecGeoColor4fPropertyPtr *editMFColors         (void);
+            const MFUnrecGeoVec3fPropertyPtr *getMFNormals        (void) const;
+                  MFUnrecGeoVec3fPropertyPtr *editMFNormals        (void);
 
 
                   NodePtr getRoot           (void) const;
 
                   NodePtr getGeoRoots       (const UInt32 index) const;
-            const MFUnrecNodePtr      &getGeoRoots       (void) const;
 
                   GeometryPtr getGeometries     (const UInt32 index) const;
-            const MFUnrecGeometryPtr  &getGeometries     (void) const;
 
                   ChunkMaterialPtr getMaterials      (const UInt32 index) const;
-            const MFUnrecChunkMaterialPtr &getMaterials      (void) const;
 
                   MaterialChunkPtr getMaterialChunks (const UInt32 index) const;
-            const MFUnrecMaterialChunkPtr &getMaterialChunks (void) const;
 
                   GeoPnt3fPropertyPtr getPositions      (const UInt32 index) const;
-            const MFUnrecGeoPnt3fPropertyPtr &getPositions      (void) const;
 
                   GeoUInt32PropertyPtr getLength         (const UInt32 index) const;
-            const MFUnrecGeoUInt32PropertyPtr &getLength         (void) const;
 
                   GeoUInt8PropertyPtr getTypes          (const UInt32 index) const;
-            const MFUnrecGeoUInt8PropertyPtr &getTypes          (void) const;
 
                   GeoColor4fPropertyPtr getColors         (const UInt32 index) const;
-            const MFUnrecGeoColor4fPropertyPtr &getColors         (void) const;
 
                   GeoVec3fPropertyPtr getNormals        (const UInt32 index) const;
-            const MFUnrecGeoVec3fPropertyPtr &getNormals        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,124 +222,62 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 
     void pushToGeoRoots            (const NodePtr value   );
     void assignGeoRoots            (const MFUnrecNodePtr    &value);
-    void insertIntoGeoRoots      (      UInt32         uiIndex,
-                                             const NodePtr value   );
-    void replaceInGeoRoots  (      UInt32         uiIndex,
-                                             const NodePtr value   );
-    void replaceInGeoRoots (const NodePtr pOldElem,
-                                             const NodePtr pNewElem);
     void removeFromGeoRoots (UInt32                uiIndex );
     void removeFromGeoRoots(const NodePtr value   );
     void clearGeoRoots              (void                          );
 
 
-
     void pushToGeometries           (const GeometryPtr value   );
     void assignGeometries           (const MFUnrecGeometryPtr &value);
-    void insertIntoGeometries      (      UInt32         uiIndex,
-                                             const GeometryPtr value   );
-    void replaceInGeometries  (      UInt32         uiIndex,
-                                             const GeometryPtr value   );
-    void replaceInGeometries (const GeometryPtr pOldElem,
-                                             const GeometryPtr pNewElem);
     void removeFromGeometries (UInt32                uiIndex );
     void removeFromGeometries(const GeometryPtr value   );
     void clearGeometries            (void                          );
 
 
-
     void pushToMaterials           (const ChunkMaterialPtr value   );
     void assignMaterials           (const MFUnrecChunkMaterialPtr &value);
-    void insertIntoMaterials      (      UInt32         uiIndex,
-                                             const ChunkMaterialPtr value   );
-    void replaceInMaterials  (      UInt32         uiIndex,
-                                             const ChunkMaterialPtr value   );
-    void replaceInMaterials (const ChunkMaterialPtr pOldElem,
-                                             const ChunkMaterialPtr pNewElem);
     void removeFromMaterials (UInt32                uiIndex );
     void removeFromMaterials(const ChunkMaterialPtr value   );
     void clearMaterials             (void                          );
 
 
-
     void pushToMaterialChunks           (const MaterialChunkPtr value   );
     void assignMaterialChunks           (const MFUnrecMaterialChunkPtr &value);
-    void insertIntoMaterialChunks      (      UInt32         uiIndex,
-                                             const MaterialChunkPtr value   );
-    void replaceInMaterialChunks  (      UInt32         uiIndex,
-                                             const MaterialChunkPtr value   );
-    void replaceInMaterialChunks (const MaterialChunkPtr pOldElem,
-                                             const MaterialChunkPtr pNewElem);
     void removeFromMaterialChunks (UInt32                uiIndex );
     void removeFromMaterialChunks(const MaterialChunkPtr value   );
     void clearMaterialChunks            (void                          );
 
 
-
     void pushToPositions           (const GeoPnt3fPropertyPtr value   );
     void assignPositions           (const MFUnrecGeoPnt3fPropertyPtr &value);
-    void insertIntoPositions      (      UInt32         uiIndex,
-                                             const GeoPnt3fPropertyPtr value   );
-    void replaceInPositions  (      UInt32         uiIndex,
-                                             const GeoPnt3fPropertyPtr value   );
-    void replaceInPositions (const GeoPnt3fPropertyPtr pOldElem,
-                                             const GeoPnt3fPropertyPtr pNewElem);
     void removeFromPositions (UInt32                uiIndex );
     void removeFromPositions(const GeoPnt3fPropertyPtr value   );
     void clearPositions             (void                          );
 
 
-
     void pushToLength              (const GeoUInt32PropertyPtr value   );
     void assignLength              (const MFUnrecGeoUInt32PropertyPtr &value);
-    void insertIntoLength      (      UInt32         uiIndex,
-                                             const GeoUInt32PropertyPtr value   );
-    void replaceInLength  (      UInt32         uiIndex,
-                                             const GeoUInt32PropertyPtr value   );
-    void replaceInLength (const GeoUInt32PropertyPtr pOldElem,
-                                             const GeoUInt32PropertyPtr pNewElem);
     void removeFromLength (UInt32                uiIndex );
     void removeFromLength(const GeoUInt32PropertyPtr value   );
     void clearLength                (void                          );
 
 
-
     void pushToTypes               (const GeoUInt8PropertyPtr value   );
     void assignTypes               (const MFUnrecGeoUInt8PropertyPtr &value);
-    void insertIntoTypes      (      UInt32         uiIndex,
-                                             const GeoUInt8PropertyPtr value   );
-    void replaceInTypes   (      UInt32         uiIndex,
-                                             const GeoUInt8PropertyPtr value   );
-    void replaceInTypes  (const GeoUInt8PropertyPtr pOldElem,
-                                             const GeoUInt8PropertyPtr pNewElem);
     void removeFromTypes (UInt32                uiIndex );
     void removeFromTypes(const GeoUInt8PropertyPtr value   );
     void clearTypes                 (void                          );
 
 
-
     void pushToColors              (const GeoColor4fPropertyPtr value   );
     void assignColors              (const MFUnrecGeoColor4fPropertyPtr &value);
-    void insertIntoColors      (      UInt32         uiIndex,
-                                             const GeoColor4fPropertyPtr value   );
-    void replaceInColors  (      UInt32         uiIndex,
-                                             const GeoColor4fPropertyPtr value   );
-    void replaceInColors (const GeoColor4fPropertyPtr pOldElem,
-                                             const GeoColor4fPropertyPtr pNewElem);
     void removeFromColors (UInt32                uiIndex );
     void removeFromColors(const GeoColor4fPropertyPtr value   );
     void clearColors                (void                          );
 
 
-
     void pushToNormals             (const GeoVec3fPropertyPtr value   );
     void assignNormals             (const MFUnrecGeoVec3fPropertyPtr &value);
-    void insertIntoNormals      (      UInt32         uiIndex,
-                                             const GeoVec3fPropertyPtr value   );
-    void replaceInNormals  (      UInt32         uiIndex,
-                                             const GeoVec3fPropertyPtr value   );
-    void replaceInNormals (const GeoVec3fPropertyPtr pOldElem,
-                                             const GeoVec3fPropertyPtr pNewElem);
     void removeFromNormals (UInt32                uiIndex );
     void removeFromNormals(const GeoVec3fPropertyPtr value   );
     void clearNormals               (void                          );

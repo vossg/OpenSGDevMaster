@@ -147,13 +147,13 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
                   bool                &getLeftBuffer      (void);
 #endif
                   bool                &editLeftBuffer     (void);
-            const bool                &getLeftBuffer      (void) const;
+            const bool                 getLeftBuffer      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getRightBuffer     (void);
 #endif
                   bool                &editRightBuffer    (void);
-            const bool                &getRightBuffer     (void) const;
+            const bool                 getRightBuffer     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

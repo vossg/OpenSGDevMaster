@@ -245,6 +245,13 @@ const SFUnrecAlgorithmPtr *AlgorithmStageBase::getSFAlgorithm(void) const
     return &_sfAlgorithm;
 }
 
+SFUnrecAlgorithmPtr *AlgorithmStageBase::editSFAlgorithm      (void)
+{
+    editSField(AlgorithmFieldMask);
+
+    return &_sfAlgorithm;
+}
+
 SFUInt32 *AlgorithmStageBase::editSFProjectionMode(void)
 {
     editSField(ProjectionModeFieldMask);
@@ -498,8 +505,9 @@ void AlgorithmStageBase::onCreate(const AlgorithmStage *source)
 
     if(source != NULL)
     {
+        AlgorithmStage *pThis = static_cast<AlgorithmStage *>(this);
 
-        this->setAlgorithm(source->getAlgorithm());
+        pThis->setAlgorithm(source->getAlgorithm());
     }
 }
 

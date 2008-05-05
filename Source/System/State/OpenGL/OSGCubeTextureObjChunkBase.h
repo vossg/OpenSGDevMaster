@@ -145,11 +145,16 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecImagePtr     *getSFPosZImage       (void) const;
-            const SFUnrecImagePtr     *getSFPosXImage       (void) const;
-            const SFUnrecImagePtr     *getSFNegXImage       (void) const;
-            const SFUnrecImagePtr     *getSFPosYImage       (void) const;
-            const SFUnrecImagePtr     *getSFNegYImage       (void) const;
+            const SFUnrecImagePtr     *getSFPosZImage      (void) const;
+                  SFUnrecImagePtr     *editSFPosZImage      (void);
+            const SFUnrecImagePtr     *getSFPosXImage      (void) const;
+                  SFUnrecImagePtr     *editSFPosXImage      (void);
+            const SFUnrecImagePtr     *getSFNegXImage      (void) const;
+                  SFUnrecImagePtr     *editSFNegXImage      (void);
+            const SFUnrecImagePtr     *getSFPosYImage      (void) const;
+                  SFUnrecImagePtr     *editSFPosYImage      (void);
+            const SFUnrecImagePtr     *getSFNegYImage      (void) const;
+                  SFUnrecImagePtr     *editSFNegYImage      (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFIsReflectionMap (void);
@@ -172,7 +177,7 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
                   bool                &getIsReflectionMap (void);
 #endif
                   bool                &editIsReflectionMap(void);
-            const bool                &getIsReflectionMap (void) const;
+            const bool                 getIsReflectionMap (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -195,6 +200,7 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

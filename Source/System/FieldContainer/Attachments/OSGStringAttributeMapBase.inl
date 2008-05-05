@@ -76,7 +76,7 @@ OSG::UInt16 StringAttributeMapBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the StringAttributeMap::_mfKeys field.
 inline
-const std::string &StringAttributeMapBase::getKeys(const UInt32 index) const
+const std::string StringAttributeMapBase::getKeys(const UInt32 index) const
 {
     return _mfKeys[index];
 }
@@ -87,15 +87,6 @@ std::string &StringAttributeMapBase::editKeys(const UInt32 index)
     editMField(KeysFieldMask, _mfKeys);
 
     return _mfKeys[index];
-}
-
-//! Get the StringAttributeMap::_mfKeys field.
-inline
-MFString &StringAttributeMapBase::editKeys(void)
-{
-    editMField(KeysFieldMask, _mfKeys);
-
-    return _mfKeys;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -114,16 +105,9 @@ MFString            &StringAttributeMapBase::getKeys           (void)
 #endif
 
 
-//! Get the StringAttributeMap::_mfKeys field.
-inline
-const MFString &StringAttributeMapBase::getKeys(void) const
-{
-    return _mfKeys;
-}
-
 //! Get the value of the \a index element the StringAttributeMap::_mfValues field.
 inline
-const std::string &StringAttributeMapBase::getValues(const UInt32 index) const
+const std::string StringAttributeMapBase::getValues(const UInt32 index) const
 {
     return _mfValues[index];
 }
@@ -134,15 +118,6 @@ std::string &StringAttributeMapBase::editValues(const UInt32 index)
     editMField(ValuesFieldMask, _mfValues);
 
     return _mfValues[index];
-}
-
-//! Get the StringAttributeMap::_mfValues field.
-inline
-MFString &StringAttributeMapBase::editValues(void)
-{
-    editMField(ValuesFieldMask, _mfValues);
-
-    return _mfValues;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -160,13 +135,6 @@ MFString            &StringAttributeMapBase::getValues         (void)
 
 #endif
 
-
-//! Get the StringAttributeMap::_mfValues field.
-inline
-const MFString &StringAttributeMapBase::getValues(void) const
-{
-    return _mfValues;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

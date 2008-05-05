@@ -138,9 +138,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
                   MFInt32             &getValue          (void);
 #endif
                   Int32               &editValue          (const UInt32 index);
-            const Int32               &getValue           (const UInt32 index) const;
-                  MFInt32             &editValue          (void);
-            const MFInt32             &getValue          (void) const;
+            const Int32                getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -152,7 +150,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

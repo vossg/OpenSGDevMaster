@@ -85,7 +85,7 @@ Vec4f &ClipPlaneChunkBase::editEquation(void)
 
 //! Get the value of the ClipPlaneChunk::_sfEquation field.
 inline
-const Vec4f &ClipPlaneChunkBase::getEquation(void) const
+const Vec4f ClipPlaneChunkBase::getEquation(void) const
 {
     return _sfEquation.getValue();
 }
@@ -118,7 +118,7 @@ bool &ClipPlaneChunkBase::editEnable(void)
 
 //! Get the value of the ClipPlaneChunk::_sfEnable field.
 inline
-const bool &ClipPlaneChunkBase::getEnable(void) const
+const bool ClipPlaneChunkBase::getEnable(void) const
 {
     return _sfEnable.getValue();
 }
@@ -154,7 +154,6 @@ void ClipPlaneChunkBase::setBeacon(const NodePtr value)
     editSField(BeaconFieldMask);
 
     _sfBeacon.setValue(value);
-
 }
 
 

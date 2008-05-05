@@ -137,7 +137,8 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecTextureObjChunkPtr *getSFTexture         (void) const;
+            const SFUnrecTextureObjChunkPtr *getSFTexture        (void) const;
+                  SFUnrecTextureObjChunkPtr *editSFTexture        (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFAutoResize      (void);
@@ -164,19 +165,19 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
                   bool                &getAutoResize      (void);
 #endif
                   bool                &editAutoResize     (void);
-            const bool                &getAutoResize      (void) const;
+            const bool                 getAutoResize      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getBindTarget      (void);
 #endif
                   GLenum              &editBindTarget     (void);
-            const GLenum              &getBindTarget      (void) const;
+            const GLenum               getBindTarget      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getCopyTarget      (void);
 #endif
                   GLenum              &editCopyTarget     (void);
-            const GLenum              &getCopyTarget      (void) const;
+            const GLenum               getCopyTarget      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -197,6 +198,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

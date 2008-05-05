@@ -167,25 +167,25 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
                   bool                &getMaskR           (void);
 #endif
                   bool                &editMaskR          (void);
-            const bool                &getMaskR           (void) const;
+            const bool                 getMaskR           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getMaskG           (void);
 #endif
                   bool                &editMaskG          (void);
-            const bool                &getMaskG           (void) const;
+            const bool                 getMaskG           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getMaskB           (void);
 #endif
                   bool                &editMaskB          (void);
-            const bool                &getMaskB           (void) const;
+            const bool                 getMaskB           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getMaskA           (void);
 #endif
                   bool                &editMaskA          (void);
-            const bool                &getMaskA           (void) const;
+            const bool                 getMaskA           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,6 +201,7 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

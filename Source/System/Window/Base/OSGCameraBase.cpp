@@ -232,6 +232,13 @@ const SFWeakNodePtr *CameraBase::getSFBeacon(void) const
     return &_sfBeacon;
 }
 
+SFWeakNodePtr       *CameraBase::editSFBeacon         (void)
+{
+    editSField(BeaconFieldMask);
+
+    return &_sfBeacon;
+}
+
 SFReal32 *CameraBase::editSFNear(void)
 {
     editSField(NearFieldMask);
@@ -368,8 +375,9 @@ void CameraBase::onCreate(const Camera *source)
 
     if(source != NULL)
     {
+        Camera *pThis = static_cast<Camera *>(this);
 
-        this->setBeacon(source->getBeacon());
+        pThis->setBeacon(source->getBeacon());
     }
 }
 
@@ -495,7 +503,7 @@ Real32 &CameraBase::editNear(void)
 }
 
 //! Get the value of the Camera::_sfNear field.
-const Real32 &CameraBase::getNear(void) const
+const Real32 CameraBase::getNear(void) const
 {
     return _sfNear.getValue();
 }
@@ -524,7 +532,7 @@ Real32 &CameraBase::editFar(void)
 }
 
 //! Get the value of the Camera::_sfFar field.
-const Real32 &CameraBase::getFar(void) const
+const Real32 CameraBase::getFar(void) const
 {
     return _sfFar.getValue();
 }

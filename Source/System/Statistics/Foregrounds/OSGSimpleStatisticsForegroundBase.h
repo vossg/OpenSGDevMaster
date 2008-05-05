@@ -248,75 +248,73 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
                   MFString            &getFormats        (void);
 #endif
                   std::string         &editFormats        (const UInt32 index);
-            const std::string         &getFormats         (const UInt32 index) const;
-                  MFString            &editFormats        (void);
-            const MFString            &getFormats        (void) const;
+            const std::string          getFormats         (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getSize            (void);
 #endif
                   Real32              &editSize           (void);
-            const Real32              &getSize            (void) const;
+            const Real32               getSize            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getColor           (void);
 #endif
                   Color4f             &editColor          (void);
-            const Color4f             &getColor           (void) const;
+            const Color4f              getColor           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getShadowColor     (void);
 #endif
                   Color4f             &editShadowColor    (void);
-            const Color4f             &getShadowColor     (void) const;
+            const Color4f              getShadowColor     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getBgColor         (void);
 #endif
                   Color4f             &editBgColor        (void);
-            const Color4f             &getBgColor         (void) const;
+            const Color4f              getBgColor         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getFamily          (void);
 #endif
                   std::string         &editFamily         (void);
-            const std::string         &getFamily          (void) const;
+            const std::string          getFamily          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2f               &getShadowOffset    (void);
 #endif
                   Vec2f               &editShadowOffset   (void);
-            const Vec2f               &getShadowOffset    (void) const;
+            const Vec2f                getShadowOffset    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getHorizontalAlign (void);
 #endif
                   UInt8               &editHorizontalAlign(void);
-            const UInt8               &getHorizontalAlign (void) const;
+            const UInt8                getHorizontalAlign (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getVerticalAlign   (void);
 #endif
                   UInt8               &editVerticalAlign  (void);
-            const UInt8               &getVerticalAlign   (void) const;
+            const UInt8                getVerticalAlign   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getBorderColor     (void);
 #endif
                   Color4f             &editBorderColor    (void);
-            const Color4f             &getBorderColor     (void) const;
+            const Color4f              getBorderColor     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2f               &getBorderOffset    (void);
 #endif
                   Vec2f               &editBorderOffset   (void);
-            const Vec2f               &getBorderOffset    (void) const;
+            const Vec2f                getBorderOffset    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2f               &getTextMargin      (void);
 #endif
                   Vec2f               &editTextMargin     (void);
-            const Vec2f               &getTextMargin      (void) const;
+            const Vec2f                getTextMargin      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,7 +337,6 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

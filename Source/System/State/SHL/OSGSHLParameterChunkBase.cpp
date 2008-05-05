@@ -169,6 +169,13 @@ const SFUnrecSHLChunkPtr *SHLParameterChunkBase::getSFSHLChunk(void) const
     return &_sfSHLChunk;
 }
 
+SFUnrecSHLChunkPtr  *SHLParameterChunkBase::editSFSHLChunk       (void)
+{
+    editSField(SHLChunkFieldMask);
+
+    return &_sfSHLChunk;
+}
+
 
 
 
@@ -323,8 +330,9 @@ void SHLParameterChunkBase::onCreate(const SHLParameterChunk *source)
 
     if(source != NULL)
     {
+        SHLParameterChunk *pThis = static_cast<SHLParameterChunk *>(this);
 
-        this->setSHLChunk(source->getSHLChunk());
+        pThis->setSHLChunk(source->getSHLChunk());
     }
 }
 

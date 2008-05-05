@@ -137,7 +137,7 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
                   AGLContext          &getContext         (void);
 #endif
                   AGLContext          &editContext        (void);
-            const AGLContext          &getContext         (void) const;
+            const AGLContext           getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -155,7 +155,8 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
 #endif
                   SFColor4f           *editSFColor          (void);
             const SFColor4f           *getSFColor           (void) const;
-            const SFUnrecTextureBaseChunkPtr *getSFTexture         (void) const;
+            const SFUnrecTextureBaseChunkPtr *getSFTexture        (void) const;
+                  SFUnrecTextureBaseChunkPtr *editSFTexture        (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFPnt2f             *getMFTexCoords       (void);
@@ -192,7 +193,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
                   Color4f             &getColor           (void);
 #endif
                   Color4f             &editColor          (void);
-            const Color4f             &getColor           (void) const;
+            const Color4f              getColor           (void) const;
 
                   TextureBaseChunkPtr getTexture        (void) const;
 
@@ -201,33 +202,31 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
                   MFPnt2f             &getTexCoords      (void);
 #endif
                   Pnt2f               &editTexCoords      (const UInt32 index);
-            const Pnt2f               &getTexCoords       (const UInt32 index) const;
-                  MFPnt2f             &editTexCoords      (void);
-            const MFPnt2f             &getTexCoords      (void) const;
+            const Pnt2f                getTexCoords       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getRadialDistortion (void);
 #endif
                   Real32              &editRadialDistortion(void);
-            const Real32              &getRadialDistortion (void) const;
+            const Real32               getRadialDistortion (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2f               &getCenterOfDistortion (void);
 #endif
                   Vec2f               &editCenterOfDistortion(void);
-            const Vec2f               &getCenterOfDistortion (void) const;
+            const Vec2f                getCenterOfDistortion (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getHor             (void);
 #endif
                   UInt16              &editHor            (void);
-            const UInt16              &getHor             (void) const;
+            const UInt16               getHor             (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getVert            (void);
 #endif
                   UInt16              &editVert           (void);
-            const UInt16              &getVert            (void) const;
+            const UInt16               getVert            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -250,7 +249,6 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -85,7 +85,7 @@ Real32 &PointChunkBase::editSize(void)
 
 //! Get the value of the PointChunk::_sfSize field.
 inline
-const Real32 &PointChunkBase::getSize(void) const
+const Real32 PointChunkBase::getSize(void) const
 {
     return _sfSize.getValue();
 }
@@ -118,7 +118,7 @@ bool &PointChunkBase::editSmooth(void)
 
 //! Get the value of the PointChunk::_sfSmooth field.
 inline
-const bool &PointChunkBase::getSmooth(void) const
+const bool PointChunkBase::getSmooth(void) const
 {
     return _sfSmooth.getValue();
 }
@@ -151,7 +151,7 @@ Real32 &PointChunkBase::editMinSize(void)
 
 //! Get the value of the PointChunk::_sfMinSize field.
 inline
-const Real32 &PointChunkBase::getMinSize(void) const
+const Real32 PointChunkBase::getMinSize(void) const
 {
     return _sfMinSize.getValue();
 }
@@ -184,7 +184,7 @@ Real32 &PointChunkBase::editMaxSize(void)
 
 //! Get the value of the PointChunk::_sfMaxSize field.
 inline
-const Real32 &PointChunkBase::getMaxSize(void) const
+const Real32 PointChunkBase::getMaxSize(void) const
 {
     return _sfMaxSize.getValue();
 }
@@ -217,7 +217,7 @@ Real32 &PointChunkBase::editConstantAttenuation(void)
 
 //! Get the value of the PointChunk::_sfConstantAttenuation field.
 inline
-const Real32 &PointChunkBase::getConstantAttenuation(void) const
+const Real32 PointChunkBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
@@ -250,7 +250,7 @@ Real32 &PointChunkBase::editLinearAttenuation(void)
 
 //! Get the value of the PointChunk::_sfLinearAttenuation field.
 inline
-const Real32 &PointChunkBase::getLinearAttenuation(void) const
+const Real32 PointChunkBase::getLinearAttenuation(void) const
 {
     return _sfLinearAttenuation.getValue();
 }
@@ -283,7 +283,7 @@ Real32 &PointChunkBase::editQuadraticAttenuation(void)
 
 //! Get the value of the PointChunk::_sfQuadraticAttenuation field.
 inline
-const Real32 &PointChunkBase::getQuadraticAttenuation(void) const
+const Real32 PointChunkBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
@@ -316,7 +316,7 @@ Real32 &PointChunkBase::editFadeThreshold(void)
 
 //! Get the value of the PointChunk::_sfFadeThreshold field.
 inline
-const Real32 &PointChunkBase::getFadeThreshold(void) const
+const Real32 PointChunkBase::getFadeThreshold(void) const
 {
     return _sfFadeThreshold.getValue();
 }
@@ -349,7 +349,7 @@ bool &PointChunkBase::editSprite(void)
 
 //! Get the value of the PointChunk::_sfSprite field.
 inline
-const bool &PointChunkBase::getSprite(void) const
+const bool PointChunkBase::getSprite(void) const
 {
     return _sfSprite.getValue();
 }
@@ -382,7 +382,7 @@ GLenum &PointChunkBase::editRMode(void)
 
 //! Get the value of the PointChunk::_sfRMode field.
 inline
-const GLenum &PointChunkBase::getRMode(void) const
+const GLenum PointChunkBase::getRMode(void) const
 {
     return _sfRMode.getValue();
 }

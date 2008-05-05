@@ -133,7 +133,8 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecNodePtr      *getMFGroupNodes      (void) const;
+            const MFUnrecNodePtr      *getMFGroupNodes     (void) const;
+                  MFUnrecNodePtr      *editMFGroupNodes     (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFUInt32            *getMFGroupLengths    (void);
@@ -149,22 +150,19 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
 
 
                   NodePtr getGroupNodes     (const UInt32 index) const;
-            const MFUnrecNodePtr      &getGroupNodes     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getGroupLengths    (const UInt32 index);
                   MFUInt32            &getGroupLengths   (void);
 #endif
                   UInt32              &editGroupLengths   (const UInt32 index);
-            const UInt32              &getGroupLengths    (const UInt32 index) const;
-                  MFUInt32            &editGroupLengths   (void);
-            const MFUInt32            &getGroupLengths   (void) const;
+            const UInt32               getGroupLengths    (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getGroupsChanged   (void);
 #endif
                   bool                &editGroupsChanged  (void);
-            const bool                &getGroupsChanged   (void) const;
+            const bool                 getGroupsChanged   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -185,17 +183,9 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
 
     void pushToGroupNodes           (const NodePtr value   );
     void assignGroupNodes           (const MFUnrecNodePtr    &value);
-    void insertIntoGroupNodes      (      UInt32         uiIndex,
-                                             const NodePtr value   );
-    void replaceInGroupNodes  (      UInt32         uiIndex,
-                                             const NodePtr value   );
-    void replaceInGroupNodes (const NodePtr pOldElem,
-                                             const NodePtr pNewElem);
     void removeFromGroupNodes (UInt32                uiIndex );
     void removeFromGroupNodes(const NodePtr value   );
     void clearGroupNodes            (void                          );
-
-
 
 
     /*! \}                                                                 */

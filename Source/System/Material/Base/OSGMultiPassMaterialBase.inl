@@ -81,13 +81,6 @@ MaterialPtr MultiPassMaterialBase::getMaterials(const UInt32 index) const
     return _mfMaterials[index];
 }
 
-//! Get the MultiPassMaterial::_mfMaterials field.
-inline
-const MFUnrecMaterialPtr &MultiPassMaterialBase::getMaterials(void) const
-{
-    return _mfMaterials;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

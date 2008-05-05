@@ -88,7 +88,6 @@ void MaterialDrawableBase::setMaterial(const MaterialPtr value)
     editSField(MaterialFieldMask);
 
     _sfMaterial.setValue(value);
-
 }
 
 

@@ -88,7 +88,6 @@ void ProjectionCameraDecoratorBase::setUser(const NodePtr value)
     editSField(UserFieldMask);
 
     _sfUser.setValue(value);
-
 }
 //! Get the value of the ProjectionCameraDecorator::_sfLeft field.
 
@@ -102,7 +101,7 @@ Plane &ProjectionCameraDecoratorBase::editLeft(void)
 
 //! Get the value of the ProjectionCameraDecorator::_sfLeft field.
 inline
-const Plane &ProjectionCameraDecoratorBase::getLeft(void) const
+const Plane ProjectionCameraDecoratorBase::getLeft(void) const
 {
     return _sfLeft.getValue();
 }
@@ -135,7 +134,7 @@ Plane &ProjectionCameraDecoratorBase::editBottom(void)
 
 //! Get the value of the ProjectionCameraDecorator::_sfBottom field.
 inline
-const Plane &ProjectionCameraDecoratorBase::getBottom(void) const
+const Plane ProjectionCameraDecoratorBase::getBottom(void) const
 {
     return _sfBottom.getValue();
 }
@@ -168,7 +167,7 @@ Plane &ProjectionCameraDecoratorBase::editNormal(void)
 
 //! Get the value of the ProjectionCameraDecorator::_sfNormal field.
 inline
-const Plane &ProjectionCameraDecoratorBase::getNormal(void) const
+const Plane ProjectionCameraDecoratorBase::getNormal(void) const
 {
     return _sfNormal.getValue();
 }
@@ -201,7 +200,7 @@ Real32 &ProjectionCameraDecoratorBase::editWidth(void)
 
 //! Get the value of the ProjectionCameraDecorator::_sfWidth field.
 inline
-const Real32 &ProjectionCameraDecoratorBase::getWidth(void) const
+const Real32 ProjectionCameraDecoratorBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
@@ -234,7 +233,7 @@ Real32 &ProjectionCameraDecoratorBase::editHeight(void)
 
 //! Get the value of the ProjectionCameraDecorator::_sfHeight field.
 inline
-const Real32 &ProjectionCameraDecoratorBase::getHeight(void) const
+const Real32 ProjectionCameraDecoratorBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
@@ -258,7 +257,7 @@ void ProjectionCameraDecoratorBase::setHeight(const Real32 &value)
 
 //! Get the value of the \a index element the ProjectionCameraDecorator::_mfSurface field.
 inline
-const Pnt3f &ProjectionCameraDecoratorBase::getSurface(const UInt32 index) const
+const Pnt3f ProjectionCameraDecoratorBase::getSurface(const UInt32 index) const
 {
     return _mfSurface[index];
 }
@@ -269,15 +268,6 @@ Pnt3f &ProjectionCameraDecoratorBase::editSurface(const UInt32 index)
     editMField(SurfaceFieldMask, _mfSurface);
 
     return _mfSurface[index];
-}
-
-//! Get the ProjectionCameraDecorator::_mfSurface field.
-inline
-MFPnt3f &ProjectionCameraDecoratorBase::editSurface(void)
-{
-    editMField(SurfaceFieldMask, _mfSurface);
-
-    return _mfSurface;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -295,13 +285,6 @@ MFPnt3f             &ProjectionCameraDecoratorBase::getSurface        (void)
 
 #endif
 
-
-//! Get the ProjectionCameraDecorator::_mfSurface field.
-inline
-const MFPnt3f &ProjectionCameraDecoratorBase::getSurface(void) const
-{
-    return _mfSurface;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -85,7 +85,7 @@ HWND &WIN32WindowBase::editHwnd(void)
 
 //! Get the value of the WIN32Window::_sfHwnd field.
 inline
-const HWND &WIN32WindowBase::getHwnd(void) const
+const HWND WIN32WindowBase::getHwnd(void) const
 {
     return _sfHwnd.getValue();
 }
@@ -118,7 +118,7 @@ HDC &WIN32WindowBase::editHdc(void)
 
 //! Get the value of the WIN32Window::_sfHdc field.
 inline
-const HDC &WIN32WindowBase::getHdc(void) const
+const HDC WIN32WindowBase::getHdc(void) const
 {
     return _sfHdc.getValue();
 }
@@ -151,7 +151,7 @@ HGLRC &WIN32WindowBase::editHglrc(void)
 
 //! Get the value of the WIN32Window::_sfHglrc field.
 inline
-const HGLRC &WIN32WindowBase::getHglrc(void) const
+const HGLRC WIN32WindowBase::getHglrc(void) const
 {
     return _sfHglrc.getValue();
 }

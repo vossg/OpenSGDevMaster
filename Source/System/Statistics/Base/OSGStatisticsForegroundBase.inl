@@ -85,7 +85,7 @@ StatCollectorP &StatisticsForegroundBase::editCollector(void)
 
 //! Get the value of the StatisticsForeground::_sfCollector field.
 inline
-const StatCollectorP &StatisticsForegroundBase::getCollector(void) const
+const StatCollectorP StatisticsForegroundBase::getCollector(void) const
 {
     return _sfCollector.getValue();
 }
@@ -109,7 +109,7 @@ void StatisticsForegroundBase::setCollector(const StatCollectorP &value)
 
 //! Get the value of the \a index element the StatisticsForeground::_mfElementIDs field.
 inline
-const Int32 &StatisticsForegroundBase::getElementIDs(const UInt32 index) const
+const Int32 StatisticsForegroundBase::getElementIDs(const UInt32 index) const
 {
     return _mfElementIDs[index];
 }
@@ -120,15 +120,6 @@ Int32 &StatisticsForegroundBase::editElementIDs(const UInt32 index)
     editMField(ElementIDsFieldMask, _mfElementIDs);
 
     return _mfElementIDs[index];
-}
-
-//! Get the StatisticsForeground::_mfElementIDs field.
-inline
-MFInt32 &StatisticsForegroundBase::editElementIDs(void)
-{
-    editMField(ElementIDsFieldMask, _mfElementIDs);
-
-    return _mfElementIDs;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -146,13 +137,6 @@ MFInt32             &StatisticsForegroundBase::getElementIDs     (void)
 
 #endif
 
-
-//! Get the StatisticsForeground::_mfElementIDs field.
-inline
-const MFInt32 &StatisticsForegroundBase::getElementIDs(void) const
-{
-    return _mfElementIDs;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

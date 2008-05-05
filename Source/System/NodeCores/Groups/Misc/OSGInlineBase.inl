@@ -85,7 +85,7 @@ bool &InlineBase::editLoaded(void)
 
 //! Get the value of the Inline::_sfLoaded field.
 inline
-const bool &InlineBase::getLoaded(void) const
+const bool InlineBase::getLoaded(void) const
 {
     return _sfLoaded.getValue();
 }
@@ -109,7 +109,7 @@ void InlineBase::setLoaded(const bool &value)
 
 //! Get the value of the \a index element the Inline::_mfUrl field.
 inline
-const std::string &InlineBase::getUrl(const UInt32 index) const
+const std::string InlineBase::getUrl(const UInt32 index) const
 {
     return _mfUrl[index];
 }
@@ -120,15 +120,6 @@ std::string &InlineBase::editUrl(const UInt32 index)
     editMField(UrlFieldMask, _mfUrl);
 
     return _mfUrl[index];
-}
-
-//! Get the Inline::_mfUrl field.
-inline
-MFString &InlineBase::editUrl(void)
-{
-    editMField(UrlFieldMask, _mfUrl);
-
-    return _mfUrl;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -146,13 +137,6 @@ MFString            &InlineBase::getUrl            (void)
 
 #endif
 
-
-//! Get the Inline::_mfUrl field.
-inline
-const MFString &InlineBase::getUrl(void) const
-{
-    return _mfUrl;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

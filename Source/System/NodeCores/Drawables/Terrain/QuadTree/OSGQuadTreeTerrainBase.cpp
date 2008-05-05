@@ -762,6 +762,13 @@ const SFUnrecImagePtr *QuadTreeTerrainBase::getSFHeightData(void) const
     return &_sfHeightData;
 }
 
+SFUnrecImagePtr     *QuadTreeTerrainBase::editSFHeightData     (void)
+{
+    editSField(HeightDataFieldMask);
+
+    return &_sfHeightData;
+}
+
 SFReal32 *QuadTreeTerrainBase::editSFHeightScale(void)
 {
     editSField(HeightScaleFieldMask);
@@ -917,6 +924,13 @@ SFReal32            *QuadTreeTerrainBase::getSFVertexSpacing  (void)
 //! Get the QuadTreeTerrain::_sfHeightVertices field.
 const SFUnrecGeoVectorPropertyPtr *QuadTreeTerrainBase::getSFHeightVertices(void) const
 {
+    return &_sfHeightVertices;
+}
+
+SFUnrecGeoVectorPropertyPtr *QuadTreeTerrainBase::editSFHeightVertices (void)
+{
+    editSField(HeightVerticesFieldMask);
+
     return &_sfHeightVertices;
 }
 
@@ -1662,10 +1676,11 @@ void QuadTreeTerrainBase::onCreate(const QuadTreeTerrain *source)
 
     if(source != NULL)
     {
+        QuadTreeTerrain *pThis = static_cast<QuadTreeTerrain *>(this);
 
-        this->setHeightData(source->getHeightData());
+        pThis->setHeightData(source->getHeightData());
 
-        this->setHeightVertices(source->getHeightVertices());
+        pThis->setHeightVertices(source->getHeightVertices());
     }
 }
 

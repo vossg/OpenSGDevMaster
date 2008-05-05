@@ -85,7 +85,7 @@ Color4r &MaterialChunkBase::editDiffuse(void)
 
 //! Get the value of the MaterialChunk::_sfDiffuse field.
 inline
-const Color4r &MaterialChunkBase::getDiffuse(void) const
+const Color4r MaterialChunkBase::getDiffuse(void) const
 {
     return _sfDiffuse.getValue();
 }
@@ -118,7 +118,7 @@ Color4r &MaterialChunkBase::editAmbient(void)
 
 //! Get the value of the MaterialChunk::_sfAmbient field.
 inline
-const Color4r &MaterialChunkBase::getAmbient(void) const
+const Color4r MaterialChunkBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
@@ -151,7 +151,7 @@ Color4r &MaterialChunkBase::editSpecular(void)
 
 //! Get the value of the MaterialChunk::_sfSpecular field.
 inline
-const Color4r &MaterialChunkBase::getSpecular(void) const
+const Color4r MaterialChunkBase::getSpecular(void) const
 {
     return _sfSpecular.getValue();
 }
@@ -184,7 +184,7 @@ Color4r &MaterialChunkBase::editEmission(void)
 
 //! Get the value of the MaterialChunk::_sfEmission field.
 inline
-const Color4r &MaterialChunkBase::getEmission(void) const
+const Color4r MaterialChunkBase::getEmission(void) const
 {
     return _sfEmission.getValue();
 }
@@ -217,7 +217,7 @@ Real &MaterialChunkBase::editShininess(void)
 
 //! Get the value of the MaterialChunk::_sfShininess field.
 inline
-const Real &MaterialChunkBase::getShininess(void) const
+const Real MaterialChunkBase::getShininess(void) const
 {
     return _sfShininess.getValue();
 }
@@ -250,7 +250,7 @@ bool &MaterialChunkBase::editLit(void)
 
 //! Get the value of the MaterialChunk::_sfLit field.
 inline
-const bool &MaterialChunkBase::getLit(void) const
+const bool MaterialChunkBase::getLit(void) const
 {
     return _sfLit.getValue();
 }
@@ -283,7 +283,7 @@ GLenum &MaterialChunkBase::editColorMaterial(void)
 
 //! Get the value of the MaterialChunk::_sfColorMaterial field.
 inline
-const GLenum &MaterialChunkBase::getColorMaterial(void) const
+const GLenum MaterialChunkBase::getColorMaterial(void) const
 {
     return _sfColorMaterial.getValue();
 }
@@ -316,7 +316,7 @@ bool &MaterialChunkBase::editBackMaterial(void)
 
 //! Get the value of the MaterialChunk::_sfBackMaterial field.
 inline
-const bool &MaterialChunkBase::getBackMaterial(void) const
+const bool MaterialChunkBase::getBackMaterial(void) const
 {
     return _sfBackMaterial.getValue();
 }
@@ -349,7 +349,7 @@ Color4r &MaterialChunkBase::editBackDiffuse(void)
 
 //! Get the value of the MaterialChunk::_sfBackDiffuse field.
 inline
-const Color4r &MaterialChunkBase::getBackDiffuse(void) const
+const Color4r MaterialChunkBase::getBackDiffuse(void) const
 {
     return _sfBackDiffuse.getValue();
 }
@@ -382,7 +382,7 @@ Color4r &MaterialChunkBase::editBackAmbient(void)
 
 //! Get the value of the MaterialChunk::_sfBackAmbient field.
 inline
-const Color4r &MaterialChunkBase::getBackAmbient(void) const
+const Color4r MaterialChunkBase::getBackAmbient(void) const
 {
     return _sfBackAmbient.getValue();
 }
@@ -415,7 +415,7 @@ Color4r &MaterialChunkBase::editBackSpecular(void)
 
 //! Get the value of the MaterialChunk::_sfBackSpecular field.
 inline
-const Color4r &MaterialChunkBase::getBackSpecular(void) const
+const Color4r MaterialChunkBase::getBackSpecular(void) const
 {
     return _sfBackSpecular.getValue();
 }
@@ -448,7 +448,7 @@ Color4r &MaterialChunkBase::editBackEmission(void)
 
 //! Get the value of the MaterialChunk::_sfBackEmission field.
 inline
-const Color4r &MaterialChunkBase::getBackEmission(void) const
+const Color4r MaterialChunkBase::getBackEmission(void) const
 {
     return _sfBackEmission.getValue();
 }
@@ -481,7 +481,7 @@ Real &MaterialChunkBase::editBackShininess(void)
 
 //! Get the value of the MaterialChunk::_sfBackShininess field.
 inline
-const Real &MaterialChunkBase::getBackShininess(void) const
+const Real MaterialChunkBase::getBackShininess(void) const
 {
     return _sfBackShininess.getValue();
 }
@@ -514,7 +514,7 @@ GLenum &MaterialChunkBase::editBackColorMaterial(void)
 
 //! Get the value of the MaterialChunk::_sfBackColorMaterial field.
 inline
-const GLenum &MaterialChunkBase::getBackColorMaterial(void) const
+const GLenum MaterialChunkBase::getBackColorMaterial(void) const
 {
     return _sfBackColorMaterial.getValue();
 }

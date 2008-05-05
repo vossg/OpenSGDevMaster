@@ -137,7 +137,7 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
                   Int32               &getChoice          (void);
 #endif
                   Int32               &editChoice         (void);
-            const Int32               &getChoice          (void) const;
+            const Int32                getChoice          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -125,7 +125,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecMaterialPtr  *getSFMaterial        (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterial       (void) const;
+                  SFUnrecMaterialPtr  *editSFMaterial       (void);
 
 
                   MaterialPtr getMaterial       (void) const;
@@ -146,6 +147,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

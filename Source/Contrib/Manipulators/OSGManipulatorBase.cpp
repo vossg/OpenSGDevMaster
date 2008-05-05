@@ -559,9 +559,23 @@ const SFUnrecNodePtr *ManipulatorBase::getSFTarget(void) const
     return &_sfTarget;
 }
 
+SFUnrecNodePtr      *ManipulatorBase::editSFTarget         (void)
+{
+    editSField(TargetFieldMask);
+
+    return &_sfTarget;
+}
+
 //! Get the Manipulator::_sfActiveSubHandle field.
 const SFUnrecNodePtr *ManipulatorBase::getSFActiveSubHandle(void) const
 {
+    return &_sfActiveSubHandle;
+}
+
+SFUnrecNodePtr      *ManipulatorBase::editSFActiveSubHandle(void)
+{
+    editSField(ActiveSubHandleFieldMask);
+
     return &_sfActiveSubHandle;
 }
 
@@ -587,6 +601,13 @@ SFPnt2f             *ManipulatorBase::getSFLastMousePos   (void)
 //! Get the Manipulator::_sfViewport field.
 const SFUnrecViewportPtr *ManipulatorBase::getSFViewport(void) const
 {
+    return &_sfViewport;
+}
+
+SFUnrecViewportPtr  *ManipulatorBase::editSFViewport       (void)
+{
+    editSField(ViewportFieldMask);
+
     return &_sfViewport;
 }
 
@@ -634,9 +655,23 @@ const SFUnrecNodePtr *ManipulatorBase::getSFHandleXNode(void) const
     return &_sfHandleXNode;
 }
 
+SFUnrecNodePtr      *ManipulatorBase::editSFHandleXNode    (void)
+{
+    editSField(HandleXNodeFieldMask);
+
+    return &_sfHandleXNode;
+}
+
 //! Get the Manipulator::_sfHandleYNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFHandleYNode(void) const
 {
+    return &_sfHandleYNode;
+}
+
+SFUnrecNodePtr      *ManipulatorBase::editSFHandleYNode    (void)
+{
+    editSField(HandleYNodeFieldMask);
+
     return &_sfHandleYNode;
 }
 
@@ -646,9 +681,23 @@ const SFUnrecNodePtr *ManipulatorBase::getSFHandleZNode(void) const
     return &_sfHandleZNode;
 }
 
+SFUnrecNodePtr      *ManipulatorBase::editSFHandleZNode    (void)
+{
+    editSField(HandleZNodeFieldMask);
+
+    return &_sfHandleZNode;
+}
+
 //! Get the Manipulator::_sfTransXNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFTransXNode(void) const
 {
+    return &_sfTransXNode;
+}
+
+SFUnrecNodePtr      *ManipulatorBase::editSFTransXNode     (void)
+{
+    editSField(TransXNodeFieldMask);
+
     return &_sfTransXNode;
 }
 
@@ -658,9 +707,23 @@ const SFUnrecNodePtr *ManipulatorBase::getSFTransYNode(void) const
     return &_sfTransYNode;
 }
 
+SFUnrecNodePtr      *ManipulatorBase::editSFTransYNode     (void)
+{
+    editSField(TransYNodeFieldMask);
+
+    return &_sfTransYNode;
+}
+
 //! Get the Manipulator::_sfTransZNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFTransZNode(void) const
 {
+    return &_sfTransZNode;
+}
+
+SFUnrecNodePtr      *ManipulatorBase::editSFTransZNode     (void)
+{
+    editSField(TransZNodeFieldMask);
+
     return &_sfTransZNode;
 }
 
@@ -670,9 +733,23 @@ const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialX(void) const
     return &_sfMaterialX;
 }
 
+SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialX      (void)
+{
+    editSField(MaterialXFieldMask);
+
+    return &_sfMaterialX;
+}
+
 //! Get the Manipulator::_sfMaterialY field.
 const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialY(void) const
 {
+    return &_sfMaterialY;
+}
+
+SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialY      (void)
+{
+    editSField(MaterialYFieldMask);
+
     return &_sfMaterialY;
 }
 
@@ -682,9 +759,23 @@ const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialZ(void) const
     return &_sfMaterialZ;
 }
 
+SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialZ      (void)
+{
+    editSField(MaterialZFieldMask);
+
+    return &_sfMaterialZ;
+}
+
 //! Get the Manipulator::_sfAxisLinesN field.
 const SFUnrecNodePtr *ManipulatorBase::getSFAxisLinesN(void) const
 {
+    return &_sfAxisLinesN;
+}
+
+SFUnrecNodePtr      *ManipulatorBase::editSFAxisLinesN     (void)
+{
+    editSField(AxisLinesNFieldMask);
+
     return &_sfAxisLinesN;
 }
 
@@ -968,32 +1059,33 @@ void ManipulatorBase::onCreate(const Manipulator *source)
 
     if(source != NULL)
     {
+        Manipulator *pThis = static_cast<Manipulator *>(this);
 
-        this->setTarget(source->getTarget());
+        pThis->setTarget(source->getTarget());
 
-        this->setActiveSubHandle(source->getActiveSubHandle());
+        pThis->setActiveSubHandle(source->getActiveSubHandle());
 
-        this->setViewport(source->getViewport());
+        pThis->setViewport(source->getViewport());
 
-        this->setHandleXNode(source->getHandleXNode());
+        pThis->setHandleXNode(source->getHandleXNode());
 
-        this->setHandleYNode(source->getHandleYNode());
+        pThis->setHandleYNode(source->getHandleYNode());
 
-        this->setHandleZNode(source->getHandleZNode());
+        pThis->setHandleZNode(source->getHandleZNode());
 
-        this->setTransXNode(source->getTransXNode());
+        pThis->setTransXNode(source->getTransXNode());
 
-        this->setTransYNode(source->getTransYNode());
+        pThis->setTransYNode(source->getTransYNode());
 
-        this->setTransZNode(source->getTransZNode());
+        pThis->setTransZNode(source->getTransZNode());
 
-        this->setMaterialX(source->getMaterialX());
+        pThis->setMaterialX(source->getMaterialX());
 
-        this->setMaterialY(source->getMaterialY());
+        pThis->setMaterialY(source->getMaterialY());
 
-        this->setMaterialZ(source->getMaterialZ());
+        pThis->setMaterialZ(source->getMaterialZ());
 
-        this->setAxisLinesN(source->getAxisLinesN());
+        pThis->setAxisLinesN(source->getAxisLinesN());
     }
 }
 

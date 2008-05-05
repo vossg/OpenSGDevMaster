@@ -85,7 +85,7 @@ GLenum &TexGenChunkBase::editGenFuncS(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncS field.
 inline
-const GLenum &TexGenChunkBase::getGenFuncS(void) const
+const GLenum TexGenChunkBase::getGenFuncS(void) const
 {
     return _sfGenFuncS.getValue();
 }
@@ -118,7 +118,7 @@ GLenum &TexGenChunkBase::editGenFuncT(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncT field.
 inline
-const GLenum &TexGenChunkBase::getGenFuncT(void) const
+const GLenum TexGenChunkBase::getGenFuncT(void) const
 {
     return _sfGenFuncT.getValue();
 }
@@ -151,7 +151,7 @@ GLenum &TexGenChunkBase::editGenFuncR(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncR field.
 inline
-const GLenum &TexGenChunkBase::getGenFuncR(void) const
+const GLenum TexGenChunkBase::getGenFuncR(void) const
 {
     return _sfGenFuncR.getValue();
 }
@@ -184,7 +184,7 @@ GLenum &TexGenChunkBase::editGenFuncQ(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncQ field.
 inline
-const GLenum &TexGenChunkBase::getGenFuncQ(void) const
+const GLenum TexGenChunkBase::getGenFuncQ(void) const
 {
     return _sfGenFuncQ.getValue();
 }
@@ -217,7 +217,7 @@ Vec4f &TexGenChunkBase::editGenFuncSPlane(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncSPlane field.
 inline
-const Vec4f &TexGenChunkBase::getGenFuncSPlane(void) const
+const Vec4f TexGenChunkBase::getGenFuncSPlane(void) const
 {
     return _sfGenFuncSPlane.getValue();
 }
@@ -250,7 +250,7 @@ Vec4f &TexGenChunkBase::editGenFuncTPlane(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncTPlane field.
 inline
-const Vec4f &TexGenChunkBase::getGenFuncTPlane(void) const
+const Vec4f TexGenChunkBase::getGenFuncTPlane(void) const
 {
     return _sfGenFuncTPlane.getValue();
 }
@@ -283,7 +283,7 @@ Vec4f &TexGenChunkBase::editGenFuncRPlane(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncRPlane field.
 inline
-const Vec4f &TexGenChunkBase::getGenFuncRPlane(void) const
+const Vec4f TexGenChunkBase::getGenFuncRPlane(void) const
 {
     return _sfGenFuncRPlane.getValue();
 }
@@ -316,7 +316,7 @@ Vec4f &TexGenChunkBase::editGenFuncQPlane(void)
 
 //! Get the value of the TexGenChunk::_sfGenFuncQPlane field.
 inline
-const Vec4f &TexGenChunkBase::getGenFuncQPlane(void) const
+const Vec4f TexGenChunkBase::getGenFuncQPlane(void) const
 {
     return _sfGenFuncQPlane.getValue();
 }
@@ -352,7 +352,6 @@ void TexGenChunkBase::setSBeacon(const NodePtr value)
     editSField(SBeaconFieldMask);
 
     _sfSBeacon.setValue(value);
-
 }
 
 //! Get the value of the TexGenChunk::_sfTBeacon field.
@@ -369,7 +368,6 @@ void TexGenChunkBase::setTBeacon(const NodePtr value)
     editSField(TBeaconFieldMask);
 
     _sfTBeacon.setValue(value);
-
 }
 
 //! Get the value of the TexGenChunk::_sfRBeacon field.
@@ -386,7 +384,6 @@ void TexGenChunkBase::setRBeacon(const NodePtr value)
     editSField(RBeaconFieldMask);
 
     _sfRBeacon.setValue(value);
-
 }
 
 //! Get the value of the TexGenChunk::_sfQBeacon field.
@@ -403,7 +400,6 @@ void TexGenChunkBase::setQBeacon(const NodePtr value)
     editSField(QBeaconFieldMask);
 
     _sfQBeacon.setValue(value);
-
 }
 
 

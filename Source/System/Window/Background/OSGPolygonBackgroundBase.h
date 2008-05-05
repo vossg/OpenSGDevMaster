@@ -161,7 +161,8 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecMaterialPtr  *getSFMaterial        (void) const;
+            const SFUnrecMaterialPtr  *getSFMaterial       (void) const;
+                  SFUnrecMaterialPtr  *editSFMaterial       (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFTexCoords       (void);
@@ -225,60 +226,56 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
                   MFVec3f             &getTexCoords      (void);
 #endif
                   Vec3f               &editTexCoords      (const UInt32 index);
-            const Vec3f               &getTexCoords       (const UInt32 index) const;
-                  MFVec3f             &editTexCoords      (void);
-            const MFVec3f             &getTexCoords      (void) const;
+            const Vec3f                getTexCoords       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getPositions       (const UInt32 index);
                   MFPnt2f             &getPositions      (void);
 #endif
                   Pnt2f               &editPositions      (const UInt32 index);
-            const Pnt2f               &getPositions       (const UInt32 index) const;
-                  MFPnt2f             &editPositions      (void);
-            const MFPnt2f             &getPositions      (void) const;
+            const Pnt2f                getPositions       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getNormalizedX     (void);
 #endif
                   bool                &editNormalizedX    (void);
-            const bool                &getNormalizedX     (void) const;
+            const bool                 getNormalizedX     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getNormalizedY     (void);
 #endif
                   bool                &editNormalizedY    (void);
-            const bool                &getNormalizedY     (void) const;
+            const bool                 getNormalizedY     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getAspectHeight    (void);
 #endif
                   UInt16              &editAspectHeight   (void);
-            const UInt16              &getAspectHeight    (void) const;
+            const UInt16               getAspectHeight    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt16              &getAspectWidth     (void);
 #endif
                   UInt16              &editAspectWidth    (void);
-            const UInt16              &getAspectWidth     (void) const;
+            const UInt16               getAspectWidth     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getScale           (void);
 #endif
                   Real32              &editScale          (void);
-            const Real32              &getScale           (void) const;
+            const Real32               getScale           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getCleanup         (void);
 #endif
                   bool                &editCleanup        (void);
-            const bool                &getCleanup         (void) const;
+            const bool                 getCleanup         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getTile            (void);
 #endif
                   bool                &editTile           (void);
-            const bool                &getTile            (void) const;
+            const bool                 getTile            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,9 +300,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

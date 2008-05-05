@@ -217,6 +217,13 @@ const MFUnrecNodePtr *SortLastWindowBase::getMFGroupNodes(void) const
     return &_mfGroupNodes;
 }
 
+MFUnrecNodePtr      *SortLastWindowBase::editMFGroupNodes     (void)
+{
+    editMField(GroupNodesFieldMask, _mfGroupNodes);
+
+    return &_mfGroupNodes;
+}
+
 MFUInt32 *SortLastWindowBase::editMFGroupLengths(void)
 {
     editMField(GroupLengthsFieldMask, _mfGroupLengths);
@@ -259,12 +266,7 @@ SFBool              *SortLastWindowBase::getSFGroupsChanged  (void)
 
 void SortLastWindowBase::pushToGroupNodes(const NodePtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(GroupNodesFieldMask, _mfGroupNodes);
-
-    //addRef(value);
 
     _mfGroupNodes.push_back(value);
 }
@@ -286,66 +288,6 @@ void SortLastWindowBase::assignGroupNodes(const MFUnrecNodePtr    &value)
     }
 }
 
-void SortLastWindowBase::insertIntoGroupNodes(      UInt32         uiIndex,
-                                                   const NodePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(GroupNodesFieldMask, _mfGroupNodes);
-
-    MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfGroupNodes.insert(fieldIt, value);
-}
-
-void SortLastWindowBase::replaceInGroupNodes(      UInt32         uiIndex,
-                                                       const NodePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfGroupNodes.size())
-        return;
-
-    editMField(GroupNodesFieldMask, _mfGroupNodes);
-
-
-//    addRef(value);
-//    subRef(_mfGroupNodes[uiIndex]);
-
-//    _mfGroupNodes[uiIndex] = value;
-
-      _mfGroupNodes.replace(uiIndex, value);
-}
-
-void SortLastWindowBase::replaceInGroupNodes(const NodePtr pOldElem,
-                                                        const NodePtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfGroupNodes.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(GroupNodesFieldMask, _mfGroupNodes);
-
-//        MFNodePtr::iterator fieldIt = _mfGroupNodes.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfGroupNodes.replace(elemIdx, pNewElem);
-    }
-}
-
 void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
 {
     if(uiIndex < _mfGroupNodes.size())
@@ -355,8 +297,6 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
         MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfGroupNodes.erase(fieldIt);
     }
@@ -373,8 +313,6 @@ void SortLastWindowBase::removeFromGroupNodes(const NodePtr value)
         MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfGroupNodes.erase(fieldIt);
     }
@@ -567,6 +505,7 @@ void SortLastWindowBase::onCreate(const SortLastWindow *source)
 
     if(source != NULL)
     {
+        SortLastWindow *pThis = static_cast<SortLastWindow *>(this);
 
         MFUnrecNodePtr::const_iterator GroupNodesIt  =
             source->_mfGroupNodes.begin();
@@ -575,7 +514,7 @@ void SortLastWindowBase::onCreate(const SortLastWindow *source)
 
         while(GroupNodesIt != GroupNodesEnd)
         {
-            this->pushToGroupNodes(*GroupNodesIt);
+            pThis->pushToGroupNodes(*GroupNodesIt);
 
             ++GroupNodesIt;
         }

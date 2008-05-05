@@ -137,7 +137,7 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
                   CGLContextObj       &getContext         (void);
 #endif
                   CGLContextObj       &editContext        (void);
-            const CGLContextObj       &getContext         (void) const;
+            const CGLContextObj        getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

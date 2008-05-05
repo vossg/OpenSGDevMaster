@@ -88,7 +88,6 @@ void PolygonBackgroundBase::setMaterial(const MaterialPtr value)
     editSField(MaterialFieldMask);
 
     _sfMaterial.setValue(value);
-
 }
 //! Get the value of the PolygonBackground::_sfNormalizedX field.
 
@@ -102,7 +101,7 @@ bool &PolygonBackgroundBase::editNormalizedX(void)
 
 //! Get the value of the PolygonBackground::_sfNormalizedX field.
 inline
-const bool &PolygonBackgroundBase::getNormalizedX(void) const
+const bool PolygonBackgroundBase::getNormalizedX(void) const
 {
     return _sfNormalizedX.getValue();
 }
@@ -135,7 +134,7 @@ bool &PolygonBackgroundBase::editNormalizedY(void)
 
 //! Get the value of the PolygonBackground::_sfNormalizedY field.
 inline
-const bool &PolygonBackgroundBase::getNormalizedY(void) const
+const bool PolygonBackgroundBase::getNormalizedY(void) const
 {
     return _sfNormalizedY.getValue();
 }
@@ -168,7 +167,7 @@ UInt16 &PolygonBackgroundBase::editAspectHeight(void)
 
 //! Get the value of the PolygonBackground::_sfAspectHeight field.
 inline
-const UInt16 &PolygonBackgroundBase::getAspectHeight(void) const
+const UInt16 PolygonBackgroundBase::getAspectHeight(void) const
 {
     return _sfAspectHeight.getValue();
 }
@@ -201,7 +200,7 @@ UInt16 &PolygonBackgroundBase::editAspectWidth(void)
 
 //! Get the value of the PolygonBackground::_sfAspectWidth field.
 inline
-const UInt16 &PolygonBackgroundBase::getAspectWidth(void) const
+const UInt16 PolygonBackgroundBase::getAspectWidth(void) const
 {
     return _sfAspectWidth.getValue();
 }
@@ -234,7 +233,7 @@ Real32 &PolygonBackgroundBase::editScale(void)
 
 //! Get the value of the PolygonBackground::_sfScale field.
 inline
-const Real32 &PolygonBackgroundBase::getScale(void) const
+const Real32 PolygonBackgroundBase::getScale(void) const
 {
     return _sfScale.getValue();
 }
@@ -267,7 +266,7 @@ bool &PolygonBackgroundBase::editCleanup(void)
 
 //! Get the value of the PolygonBackground::_sfCleanup field.
 inline
-const bool &PolygonBackgroundBase::getCleanup(void) const
+const bool PolygonBackgroundBase::getCleanup(void) const
 {
     return _sfCleanup.getValue();
 }
@@ -300,7 +299,7 @@ bool &PolygonBackgroundBase::editTile(void)
 
 //! Get the value of the PolygonBackground::_sfTile field.
 inline
-const bool &PolygonBackgroundBase::getTile(void) const
+const bool PolygonBackgroundBase::getTile(void) const
 {
     return _sfTile.getValue();
 }
@@ -324,7 +323,7 @@ void PolygonBackgroundBase::setTile(const bool &value)
 
 //! Get the value of the \a index element the PolygonBackground::_mfTexCoords field.
 inline
-const Vec3f &PolygonBackgroundBase::getTexCoords(const UInt32 index) const
+const Vec3f PolygonBackgroundBase::getTexCoords(const UInt32 index) const
 {
     return _mfTexCoords[index];
 }
@@ -335,15 +334,6 @@ Vec3f &PolygonBackgroundBase::editTexCoords(const UInt32 index)
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
     return _mfTexCoords[index];
-}
-
-//! Get the PolygonBackground::_mfTexCoords field.
-inline
-MFVec3f &PolygonBackgroundBase::editTexCoords(void)
-{
-    editMField(TexCoordsFieldMask, _mfTexCoords);
-
-    return _mfTexCoords;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -362,16 +352,9 @@ MFVec3f             &PolygonBackgroundBase::getTexCoords      (void)
 #endif
 
 
-//! Get the PolygonBackground::_mfTexCoords field.
-inline
-const MFVec3f &PolygonBackgroundBase::getTexCoords(void) const
-{
-    return _mfTexCoords;
-}
-
 //! Get the value of the \a index element the PolygonBackground::_mfPositions field.
 inline
-const Pnt2f &PolygonBackgroundBase::getPositions(const UInt32 index) const
+const Pnt2f PolygonBackgroundBase::getPositions(const UInt32 index) const
 {
     return _mfPositions[index];
 }
@@ -382,15 +365,6 @@ Pnt2f &PolygonBackgroundBase::editPositions(const UInt32 index)
     editMField(PositionsFieldMask, _mfPositions);
 
     return _mfPositions[index];
-}
-
-//! Get the PolygonBackground::_mfPositions field.
-inline
-MFPnt2f &PolygonBackgroundBase::editPositions(void)
-{
-    editMField(PositionsFieldMask, _mfPositions);
-
-    return _mfPositions;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -408,13 +382,6 @@ MFPnt2f             &PolygonBackgroundBase::getPositions      (void)
 
 #endif
 
-
-//! Get the PolygonBackground::_mfPositions field.
-inline
-const MFPnt2f &PolygonBackgroundBase::getPositions(void) const
-{
-    return _mfPositions;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -81,13 +81,6 @@ NodeCorePtr MultiCoreBase::getCores(const UInt32 index) const
     return _mfCores[index];
 }
 
-//! Get the MultiCore::_mfCores field.
-inline
-const MFUnrecChildNodeCorePtr &MultiCoreBase::getCores(void) const
-{
-    return _mfCores;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

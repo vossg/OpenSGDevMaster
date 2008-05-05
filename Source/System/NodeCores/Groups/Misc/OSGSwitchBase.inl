@@ -85,7 +85,7 @@ Int32 &SwitchBase::editChoice(void)
 
 //! Get the value of the Switch::_sfChoice field.
 inline
-const Int32 &SwitchBase::getChoice(void) const
+const Int32 SwitchBase::getChoice(void) const
 {
     return _sfChoice.getValue();
 }

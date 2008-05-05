@@ -217,7 +217,8 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecImagePtr     *getSFHeightData      (void) const;
+            const SFUnrecImagePtr     *getSFHeightData     (void) const;
+                  SFUnrecImagePtr     *editSFHeightData     (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFHeightScale     (void);
@@ -328,109 +329,105 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
                   Real32              &getHeightScale     (void);
 #endif
                   Real32              &editHeightScale    (void);
-            const Real32              &getHeightScale     (void) const;
+            const Real32               getHeightScale     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getHeightError     (const UInt32 index);
                   MFReal32            &getHeightError    (void);
 #endif
                   Real32              &editHeightError    (const UInt32 index);
-            const Real32              &getHeightError     (const UInt32 index) const;
-                  MFReal32            &editHeightError    (void);
-            const MFReal32            &getHeightError    (void) const;
+            const Real32               getHeightError     (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getHeightQuad      (const UInt32 index);
                   MFReal32            &getHeightQuad     (void);
 #endif
                   Real32              &editHeightQuad     (const UInt32 index);
-            const Real32              &getHeightQuad      (const UInt32 index) const;
-                  MFReal32            &editHeightQuad     (void);
-            const MFReal32            &getHeightQuad     (void) const;
+            const Real32               getHeightQuad      (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getDetail          (void);
 #endif
                   Real32              &editDetail         (void);
-            const Real32              &getDetail          (void) const;
+            const Real32               getDetail          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getBorderDetail    (void);
 #endif
                   Int32               &editBorderDetail   (void);
-            const Int32               &getBorderDetail    (void) const;
+            const Int32                getBorderDetail    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getVertexSpacing   (void);
 #endif
                   Real32              &editVertexSpacing  (void);
-            const Real32              &getVertexSpacing   (void) const;
+            const Real32               getVertexSpacing   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getGeoMorphing     (void);
 #endif
                   bool                &editGeoMorphing    (void);
-            const bool                &getGeoMorphing     (void) const;
+            const bool                 getGeoMorphing     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt3f               &getEyePoint        (void);
 #endif
                   Pnt3f               &editEyePoint       (void);
-            const Pnt3f               &getEyePoint        (void) const;
+            const Pnt3f                getEyePoint        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getEyePointValid   (void);
 #endif
                   bool                &editEyePointValid  (void);
-            const bool                &getEyePointValid   (void) const;
+            const bool                 getEyePointValid   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOriginX         (void);
 #endif
                   Real32              &editOriginX        (void);
-            const Real32              &getOriginX         (void) const;
+            const Real32               getOriginX         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOriginY         (void);
 #endif
                   Real32              &editOriginY        (void);
-            const Real32              &getOriginY         (void) const;
+            const Real32               getOriginY         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOriginTexX      (void);
 #endif
                   Real32              &editOriginTexX     (void);
-            const Real32              &getOriginTexX      (void) const;
+            const Real32               getOriginTexX      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOriginTexY      (void);
 #endif
                   Real32              &editOriginTexY     (void);
-            const Real32              &getOriginTexY      (void) const;
+            const Real32               getOriginTexY      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getTexSpacing      (void);
 #endif
                   Real32              &editTexSpacing     (void);
-            const Real32              &getTexSpacing      (void) const;
+            const Real32               getTexSpacing      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getTexYSpacing     (void);
 #endif
                   Real32              &editTexYSpacing    (void);
-            const Real32              &getTexYSpacing     (void) const;
+            const Real32               getTexYSpacing     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getUpdateTerrain   (void);
 #endif
                   bool                &editUpdateTerrain  (void);
-            const bool                &getUpdateTerrain   (void) const;
+            const bool                 getUpdateTerrain   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getPerPixelLighting (void);
 #endif
                   bool                &editPerPixelLighting(void);
-            const bool                &getPerPixelLighting (void) const;
+            const bool                 getPerPixelLighting (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -463,9 +460,6 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -623,69 +617,40 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFWidth           (void);
-#endif
                   SFUInt32            *editSFWidth          (void);
             const SFUInt32            *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFLevel           (void);
-#endif
                   SFUInt32            *editSFLevel          (void);
             const SFUInt32            *getSFLevel           (void) const;
             const SFUnrecGeoVectorPropertyPtr *getSFHeightVertices  (void) const;
+                  SFUnrecGeoVectorPropertyPtr *editSFHeightVertices (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPnt3f             *getSFBoundMin        (void);
-#endif
                   SFPnt3f             *editSFBoundMin       (void);
             const SFPnt3f             *getSFBoundMin        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPnt3f             *getSFBoundMax        (void);
-#endif
                   SFPnt3f             *editSFBoundMax       (void);
             const SFPnt3f             *getSFBoundMax        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFEyeHeight       (void);
-#endif
                   SFReal32            *editSFEyeHeight      (void);
             const SFReal32            *getSFEyeHeight       (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getWidth           (void);
-#endif
                   UInt32              &editWidth          (void);
-            const UInt32              &getWidth           (void) const;
+            const UInt32               getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getLevel           (void);
-#endif
                   UInt32              &editLevel          (void);
-            const UInt32              &getLevel           (void) const;
+            const UInt32               getLevel           (void) const;
 
                   GeoVectorPropertyPtr getHeightVertices (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt3f               &getBoundMin        (void);
-#endif
                   Pnt3f               &editBoundMin       (void);
-            const Pnt3f               &getBoundMin        (void) const;
+            const Pnt3f                getBoundMin        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt3f               &getBoundMax        (void);
-#endif
                   Pnt3f               &editBoundMax       (void);
-            const Pnt3f               &getBoundMax        (void) const;
+            const Pnt3f                getBoundMax        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getEyeHeight       (void);
-#endif
                   Real32              &editEyeHeight      (void);
-            const Real32              &getEyeHeight       (void) const;
+            const Real32               getEyeHeight       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -703,6 +668,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

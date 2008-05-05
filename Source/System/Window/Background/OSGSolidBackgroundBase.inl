@@ -85,7 +85,7 @@ Color3r &SolidBackgroundBase::editColor(void)
 
 //! Get the value of the SolidBackground::_sfColor field.
 inline
-const Color3r &SolidBackgroundBase::getColor(void) const
+const Color3r SolidBackgroundBase::getColor(void) const
 {
     return _sfColor.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &SolidBackgroundBase::editAlpha(void)
 
 //! Get the value of the SolidBackground::_sfAlpha field.
 inline
-const Real32 &SolidBackgroundBase::getAlpha(void) const
+const Real32 SolidBackgroundBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }

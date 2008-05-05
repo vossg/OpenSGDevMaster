@@ -85,7 +85,7 @@ GLenum &StencilChunkBase::editStencilFunc(void)
 
 //! Get the value of the StencilChunk::_sfStencilFunc field.
 inline
-const GLenum &StencilChunkBase::getStencilFunc(void) const
+const GLenum StencilChunkBase::getStencilFunc(void) const
 {
     return _sfStencilFunc.getValue();
 }
@@ -118,7 +118,7 @@ Int32 &StencilChunkBase::editStencilValue(void)
 
 //! Get the value of the StencilChunk::_sfStencilValue field.
 inline
-const Int32 &StencilChunkBase::getStencilValue(void) const
+const Int32 StencilChunkBase::getStencilValue(void) const
 {
     return _sfStencilValue.getValue();
 }
@@ -151,7 +151,7 @@ UInt32 &StencilChunkBase::editStencilMask(void)
 
 //! Get the value of the StencilChunk::_sfStencilMask field.
 inline
-const UInt32 &StencilChunkBase::getStencilMask(void) const
+const UInt32 StencilChunkBase::getStencilMask(void) const
 {
     return _sfStencilMask.getValue();
 }
@@ -184,7 +184,7 @@ GLenum &StencilChunkBase::editStencilOpFail(void)
 
 //! Get the value of the StencilChunk::_sfStencilOpFail field.
 inline
-const GLenum &StencilChunkBase::getStencilOpFail(void) const
+const GLenum StencilChunkBase::getStencilOpFail(void) const
 {
     return _sfStencilOpFail.getValue();
 }
@@ -217,7 +217,7 @@ GLenum &StencilChunkBase::editStencilOpZFail(void)
 
 //! Get the value of the StencilChunk::_sfStencilOpZFail field.
 inline
-const GLenum &StencilChunkBase::getStencilOpZFail(void) const
+const GLenum StencilChunkBase::getStencilOpZFail(void) const
 {
     return _sfStencilOpZFail.getValue();
 }
@@ -250,7 +250,7 @@ GLenum &StencilChunkBase::editStencilOpZPass(void)
 
 //! Get the value of the StencilChunk::_sfStencilOpZPass field.
 inline
-const GLenum &StencilChunkBase::getStencilOpZPass(void) const
+const GLenum StencilChunkBase::getStencilOpZPass(void) const
 {
     return _sfStencilOpZPass.getValue();
 }
@@ -283,7 +283,7 @@ Int32 &StencilChunkBase::editClearBuffer(void)
 
 //! Get the value of the StencilChunk::_sfClearBuffer field.
 inline
-const Int32 &StencilChunkBase::getClearBuffer(void) const
+const Int32 StencilChunkBase::getClearBuffer(void) const
 {
     return _sfClearBuffer.getValue();
 }
@@ -316,7 +316,7 @@ UInt32 &StencilChunkBase::editBitMask(void)
 
 //! Get the value of the StencilChunk::_sfBitMask field.
 inline
-const UInt32 &StencilChunkBase::getBitMask(void) const
+const UInt32 StencilChunkBase::getBitMask(void) const
 {
     return _sfBitMask.getValue();
 }

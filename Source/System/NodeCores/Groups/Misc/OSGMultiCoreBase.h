@@ -125,11 +125,11 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecChildNodeCorePtr *getMFCores           (void) const;
+            const MFUnrecChildNodeCorePtr *getMFCores          (void) const;
+                  MFUnrecChildNodeCorePtr *editMFCores          (void);
 
 
                   NodeCorePtr getCores          (const UInt32 index) const;
-            const MFUnrecChildNodeCorePtr &getCores          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -149,12 +149,6 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
 
     void addCore                   (const NodeCorePtr value   );
     void assignCoresFrom           (const MFUnrecChildNodeCorePtr &value);
-    void insertCore           (      UInt32         uiIndex,
-                                             const NodeCorePtr value   );
-    void replaceCore      (      UInt32         uiIndex,
-                                             const NodeCorePtr value   );
-    void replaceCore     (const NodeCorePtr pOldElem,
-                                             const NodeCorePtr pNewElem);
     void subCore         (UInt32                uiIndex );
     void subCore        (const NodeCorePtr value   );
     void clearCores                 (void                          );

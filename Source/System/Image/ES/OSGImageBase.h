@@ -325,118 +325,116 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                   Int32               &getDimension       (void);
 #endif
                   Int32               &editDimension      (void);
-            const Int32               &getDimension       (void) const;
+            const Int32                getDimension       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getWidth           (void);
 #endif
                   Int32               &editWidth          (void);
-            const Int32               &getWidth           (void) const;
+            const Int32                getWidth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getHeight          (void);
 #endif
                   Int32               &editHeight         (void);
-            const Int32               &getHeight          (void) const;
+            const Int32                getHeight          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDepth           (void);
 #endif
                   Int32               &editDepth          (void);
-            const Int32               &getDepth           (void) const;
+            const Int32                getDepth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getBpp             (void);
 #endif
                   Int32               &editBpp            (void);
-            const Int32               &getBpp             (void) const;
+            const Int32                getBpp             (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getMipMapCount     (void);
 #endif
                   Int32               &editMipMapCount    (void);
-            const Int32               &getMipMapCount     (void) const;
+            const Int32                getMipMapCount     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getFrameCount      (void);
 #endif
                   Int32               &editFrameCount     (void);
-            const Int32               &getFrameCount      (void) const;
+            const Int32                getFrameCount      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Time                &getFrameDelay      (void);
 #endif
                   Time                &editFrameDelay     (void);
-            const Time                &getFrameDelay      (void) const;
+            const Time                 getFrameDelay      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getPixelFormat     (void);
 #endif
                   UInt32              &editPixelFormat    (void);
-            const UInt32              &getPixelFormat     (void) const;
+            const UInt32               getPixelFormat     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getPixel           (const UInt32 index);
                   MFUInt8             &getPixel          (void);
 #endif
                   UInt8               &editPixel          (const UInt32 index);
-            const UInt8               &getPixel           (const UInt32 index) const;
-                  MFUInt8             &editPixel          (void);
-            const MFUInt8             &getPixel          (void) const;
+            const UInt8                getPixel           (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getFrameSize       (void);
 #endif
                   Int32               &editFrameSize      (void);
-            const Int32               &getFrameSize       (void) const;
+            const Int32                getFrameSize       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);
-            const std::string         &getName            (void) const;
+            const std::string          getName            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getDataType        (void);
 #endif
                   Int32               &editDataType       (void);
-            const Int32               &getDataType        (void) const;
+            const Int32                getDataType        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getSideCount       (void);
 #endif
                   Int32               &editSideCount      (void);
-            const Int32               &getSideCount       (void) const;
+            const Int32                getSideCount       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getSideSize        (void);
 #endif
                   Int32               &editSideSize       (void);
-            const Int32               &getSideSize        (void) const;
+            const Int32                getSideSize        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getForceCompressedData (void);
 #endif
                   bool                &editForceCompressedData(void);
-            const bool                &getForceCompressedData (void) const;
+            const bool                 getForceCompressedData (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getForceAlphaChannel (void);
 #endif
                   bool                &editForceAlphaChannel(void);
-            const bool                &getForceAlphaChannel (void) const;
+            const bool                 getForceAlphaChannel (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getForceColorChannel (void);
 #endif
                   bool                &editForceColorChannel(void);
-            const bool                &getForceColorChannel (void) const;
+            const bool                 getForceColorChannel (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getForceAlphaBinary (void);
 #endif
                   bool                &editForceAlphaBinary(void);
-            const bool                &getForceAlphaBinary (void) const;
+            const bool                 getForceAlphaBinary (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -471,7 +469,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -620,18 +617,12 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFComponentSize   (void);
-#endif
                   SFInt32             *editSFComponentSize  (void);
             const SFInt32             *getSFComponentSize   (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getComponentSize   (void);
-#endif
                   Int32               &editComponentSize  (void);
-            const Int32               &getComponentSize   (void) const;
+            const Int32                getComponentSize   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -644,6 +635,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

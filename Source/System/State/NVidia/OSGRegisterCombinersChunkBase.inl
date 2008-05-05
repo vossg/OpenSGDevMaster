@@ -85,7 +85,7 @@ Color4f &RegisterCombinersChunkBase::editColor0(void)
 
 //! Get the value of the RegisterCombinersChunk::_sfColor0 field.
 inline
-const Color4f &RegisterCombinersChunkBase::getColor0(void) const
+const Color4f RegisterCombinersChunkBase::getColor0(void) const
 {
     return _sfColor0.getValue();
 }
@@ -118,7 +118,7 @@ Color4f &RegisterCombinersChunkBase::editColor1(void)
 
 //! Get the value of the RegisterCombinersChunk::_sfColor1 field.
 inline
-const Color4f &RegisterCombinersChunkBase::getColor1(void) const
+const Color4f RegisterCombinersChunkBase::getColor1(void) const
 {
     return _sfColor1.getValue();
 }
@@ -151,7 +151,7 @@ bool &RegisterCombinersChunkBase::editColorSumClamp(void)
 
 //! Get the value of the RegisterCombinersChunk::_sfColorSumClamp field.
 inline
-const bool &RegisterCombinersChunkBase::getColorSumClamp(void) const
+const bool RegisterCombinersChunkBase::getColorSumClamp(void) const
 {
     return _sfColorSumClamp.getValue();
 }
@@ -184,7 +184,7 @@ UInt8 &RegisterCombinersChunkBase::editPerStageConstants(void)
 
 //! Get the value of the RegisterCombinersChunk::_sfPerStageConstants field.
 inline
-const UInt8 &RegisterCombinersChunkBase::getPerStageConstants(void) const
+const UInt8 RegisterCombinersChunkBase::getPerStageConstants(void) const
 {
     return _sfPerStageConstants.getValue();
 }
@@ -208,7 +208,7 @@ void RegisterCombinersChunkBase::setPerStageConstants(const UInt8 &value)
 
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableArgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableArgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableArgb(const UInt32 index) const
 {
     return _mfVariableArgb[index];
 }
@@ -219,15 +219,6 @@ GLenum &RegisterCombinersChunkBase::editVariableArgb(const UInt32 index)
     editMField(VariableArgbFieldMask, _mfVariableArgb);
 
     return _mfVariableArgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableArgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableArgb(void)
-{
-    editMField(VariableArgbFieldMask, _mfVariableArgb);
-
-    return _mfVariableArgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -246,16 +237,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableArgb   (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableArgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableArgb(void) const
-{
-    return _mfVariableArgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableBrgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableBrgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableBrgb(const UInt32 index) const
 {
     return _mfVariableBrgb[index];
 }
@@ -266,15 +250,6 @@ GLenum &RegisterCombinersChunkBase::editVariableBrgb(const UInt32 index)
     editMField(VariableBrgbFieldMask, _mfVariableBrgb);
 
     return _mfVariableBrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableBrgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableBrgb(void)
-{
-    editMField(VariableBrgbFieldMask, _mfVariableBrgb);
-
-    return _mfVariableBrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -293,16 +268,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableBrgb   (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableBrgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableBrgb(void) const
-{
-    return _mfVariableBrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableCrgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableCrgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableCrgb(const UInt32 index) const
 {
     return _mfVariableCrgb[index];
 }
@@ -313,15 +281,6 @@ GLenum &RegisterCombinersChunkBase::editVariableCrgb(const UInt32 index)
     editMField(VariableCrgbFieldMask, _mfVariableCrgb);
 
     return _mfVariableCrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableCrgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableCrgb(void)
-{
-    editMField(VariableCrgbFieldMask, _mfVariableCrgb);
-
-    return _mfVariableCrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -340,16 +299,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableCrgb   (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableCrgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableCrgb(void) const
-{
-    return _mfVariableCrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableDrgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableDrgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableDrgb(const UInt32 index) const
 {
     return _mfVariableDrgb[index];
 }
@@ -360,15 +312,6 @@ GLenum &RegisterCombinersChunkBase::editVariableDrgb(const UInt32 index)
     editMField(VariableDrgbFieldMask, _mfVariableDrgb);
 
     return _mfVariableDrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableDrgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableDrgb(void)
-{
-    editMField(VariableDrgbFieldMask, _mfVariableDrgb);
-
-    return _mfVariableDrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -387,16 +330,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableDrgb   (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableDrgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableDrgb(void) const
-{
-    return _mfVariableDrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableAalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableAalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableAalpha(const UInt32 index) const
 {
     return _mfVariableAalpha[index];
 }
@@ -407,15 +343,6 @@ GLenum &RegisterCombinersChunkBase::editVariableAalpha(const UInt32 index)
     editMField(VariableAalphaFieldMask, _mfVariableAalpha);
 
     return _mfVariableAalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableAalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableAalpha(void)
-{
-    editMField(VariableAalphaFieldMask, _mfVariableAalpha);
-
-    return _mfVariableAalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -434,16 +361,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableAalpha (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableAalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableAalpha(void) const
-{
-    return _mfVariableAalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableBalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableBalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableBalpha(const UInt32 index) const
 {
     return _mfVariableBalpha[index];
 }
@@ -454,15 +374,6 @@ GLenum &RegisterCombinersChunkBase::editVariableBalpha(const UInt32 index)
     editMField(VariableBalphaFieldMask, _mfVariableBalpha);
 
     return _mfVariableBalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableBalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableBalpha(void)
-{
-    editMField(VariableBalphaFieldMask, _mfVariableBalpha);
-
-    return _mfVariableBalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -481,16 +392,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableBalpha (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableBalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableBalpha(void) const
-{
-    return _mfVariableBalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableCalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableCalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableCalpha(const UInt32 index) const
 {
     return _mfVariableCalpha[index];
 }
@@ -501,15 +405,6 @@ GLenum &RegisterCombinersChunkBase::editVariableCalpha(const UInt32 index)
     editMField(VariableCalphaFieldMask, _mfVariableCalpha);
 
     return _mfVariableCalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableCalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableCalpha(void)
-{
-    editMField(VariableCalphaFieldMask, _mfVariableCalpha);
-
-    return _mfVariableCalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -528,16 +423,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableCalpha (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableCalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableCalpha(void) const
-{
-    return _mfVariableCalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableDalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableDalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableDalpha(const UInt32 index) const
 {
     return _mfVariableDalpha[index];
 }
@@ -548,15 +436,6 @@ GLenum &RegisterCombinersChunkBase::editVariableDalpha(const UInt32 index)
     editMField(VariableDalphaFieldMask, _mfVariableDalpha);
 
     return _mfVariableDalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableDalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableDalpha(void)
-{
-    editMField(VariableDalphaFieldMask, _mfVariableDalpha);
-
-    return _mfVariableDalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -575,16 +454,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableDalpha (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableDalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableDalpha(void) const
-{
-    return _mfVariableDalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfOutputABrgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getOutputABrgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getOutputABrgb(const UInt32 index) const
 {
     return _mfOutputABrgb[index];
 }
@@ -595,15 +467,6 @@ GLenum &RegisterCombinersChunkBase::editOutputABrgb(const UInt32 index)
     editMField(OutputABrgbFieldMask, _mfOutputABrgb);
 
     return _mfOutputABrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfOutputABrgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editOutputABrgb(void)
-{
-    editMField(OutputABrgbFieldMask, _mfOutputABrgb);
-
-    return _mfOutputABrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -622,16 +485,9 @@ MFGLenum            &RegisterCombinersChunkBase::getOutputABrgb    (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfOutputABrgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getOutputABrgb(void) const
-{
-    return _mfOutputABrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfOutputCDrgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getOutputCDrgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getOutputCDrgb(const UInt32 index) const
 {
     return _mfOutputCDrgb[index];
 }
@@ -642,15 +498,6 @@ GLenum &RegisterCombinersChunkBase::editOutputCDrgb(const UInt32 index)
     editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
 
     return _mfOutputCDrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfOutputCDrgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editOutputCDrgb(void)
-{
-    editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
-
-    return _mfOutputCDrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -669,16 +516,9 @@ MFGLenum            &RegisterCombinersChunkBase::getOutputCDrgb    (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfOutputCDrgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getOutputCDrgb(void) const
-{
-    return _mfOutputCDrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfOutputSumrgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getOutputSumrgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getOutputSumrgb(const UInt32 index) const
 {
     return _mfOutputSumrgb[index];
 }
@@ -689,15 +529,6 @@ GLenum &RegisterCombinersChunkBase::editOutputSumrgb(const UInt32 index)
     editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
 
     return _mfOutputSumrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfOutputSumrgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editOutputSumrgb(void)
-{
-    editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
-
-    return _mfOutputSumrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -716,16 +547,9 @@ MFGLenum            &RegisterCombinersChunkBase::getOutputSumrgb   (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfOutputSumrgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getOutputSumrgb(void) const
-{
-    return _mfOutputSumrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfScalergb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getScalergb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getScalergb(const UInt32 index) const
 {
     return _mfScalergb[index];
 }
@@ -736,15 +560,6 @@ GLenum &RegisterCombinersChunkBase::editScalergb(const UInt32 index)
     editMField(ScalergbFieldMask, _mfScalergb);
 
     return _mfScalergb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfScalergb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editScalergb(void)
-{
-    editMField(ScalergbFieldMask, _mfScalergb);
-
-    return _mfScalergb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -763,16 +578,9 @@ MFGLenum            &RegisterCombinersChunkBase::getScalergb       (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfScalergb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getScalergb(void) const
-{
-    return _mfScalergb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfBiasrgb field.
 inline
-const GLenum &RegisterCombinersChunkBase::getBiasrgb(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getBiasrgb(const UInt32 index) const
 {
     return _mfBiasrgb[index];
 }
@@ -783,15 +591,6 @@ GLenum &RegisterCombinersChunkBase::editBiasrgb(const UInt32 index)
     editMField(BiasrgbFieldMask, _mfBiasrgb);
 
     return _mfBiasrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfBiasrgb field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editBiasrgb(void)
-{
-    editMField(BiasrgbFieldMask, _mfBiasrgb);
-
-    return _mfBiasrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -810,16 +609,9 @@ MFGLenum            &RegisterCombinersChunkBase::getBiasrgb        (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfBiasrgb field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getBiasrgb(void) const
-{
-    return _mfBiasrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfOutputABalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getOutputABalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getOutputABalpha(const UInt32 index) const
 {
     return _mfOutputABalpha[index];
 }
@@ -830,15 +622,6 @@ GLenum &RegisterCombinersChunkBase::editOutputABalpha(const UInt32 index)
     editMField(OutputABalphaFieldMask, _mfOutputABalpha);
 
     return _mfOutputABalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfOutputABalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editOutputABalpha(void)
-{
-    editMField(OutputABalphaFieldMask, _mfOutputABalpha);
-
-    return _mfOutputABalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -857,16 +640,9 @@ MFGLenum            &RegisterCombinersChunkBase::getOutputABalpha  (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfOutputABalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getOutputABalpha(void) const
-{
-    return _mfOutputABalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfOutputCDalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getOutputCDalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getOutputCDalpha(const UInt32 index) const
 {
     return _mfOutputCDalpha[index];
 }
@@ -877,15 +653,6 @@ GLenum &RegisterCombinersChunkBase::editOutputCDalpha(const UInt32 index)
     editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
 
     return _mfOutputCDalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfOutputCDalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editOutputCDalpha(void)
-{
-    editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
-
-    return _mfOutputCDalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -904,16 +671,9 @@ MFGLenum            &RegisterCombinersChunkBase::getOutputCDalpha  (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfOutputCDalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getOutputCDalpha(void) const
-{
-    return _mfOutputCDalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfOutputSumalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getOutputSumalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getOutputSumalpha(const UInt32 index) const
 {
     return _mfOutputSumalpha[index];
 }
@@ -924,15 +684,6 @@ GLenum &RegisterCombinersChunkBase::editOutputSumalpha(const UInt32 index)
     editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
 
     return _mfOutputSumalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfOutputSumalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editOutputSumalpha(void)
-{
-    editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
-
-    return _mfOutputSumalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -951,16 +702,9 @@ MFGLenum            &RegisterCombinersChunkBase::getOutputSumalpha (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfOutputSumalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getOutputSumalpha(void) const
-{
-    return _mfOutputSumalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfDotABrgb field.
 inline
-const UInt8 &RegisterCombinersChunkBase::getDotABrgb(const UInt32 index) const
+const UInt8 RegisterCombinersChunkBase::getDotABrgb(const UInt32 index) const
 {
     return _mfDotABrgb[index];
 }
@@ -971,15 +715,6 @@ UInt8 &RegisterCombinersChunkBase::editDotABrgb(const UInt32 index)
     editMField(DotABrgbFieldMask, _mfDotABrgb);
 
     return _mfDotABrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfDotABrgb field.
-inline
-MFUInt8 &RegisterCombinersChunkBase::editDotABrgb(void)
-{
-    editMField(DotABrgbFieldMask, _mfDotABrgb);
-
-    return _mfDotABrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -998,16 +733,9 @@ MFUInt8             &RegisterCombinersChunkBase::getDotABrgb       (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfDotABrgb field.
-inline
-const MFUInt8 &RegisterCombinersChunkBase::getDotABrgb(void) const
-{
-    return _mfDotABrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfDotCDrgb field.
 inline
-const UInt8 &RegisterCombinersChunkBase::getDotCDrgb(const UInt32 index) const
+const UInt8 RegisterCombinersChunkBase::getDotCDrgb(const UInt32 index) const
 {
     return _mfDotCDrgb[index];
 }
@@ -1018,15 +746,6 @@ UInt8 &RegisterCombinersChunkBase::editDotCDrgb(const UInt32 index)
     editMField(DotCDrgbFieldMask, _mfDotCDrgb);
 
     return _mfDotCDrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfDotCDrgb field.
-inline
-MFUInt8 &RegisterCombinersChunkBase::editDotCDrgb(void)
-{
-    editMField(DotCDrgbFieldMask, _mfDotCDrgb);
-
-    return _mfDotCDrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1045,16 +764,9 @@ MFUInt8             &RegisterCombinersChunkBase::getDotCDrgb       (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfDotCDrgb field.
-inline
-const MFUInt8 &RegisterCombinersChunkBase::getDotCDrgb(void) const
-{
-    return _mfDotCDrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfMuxSumrgb field.
 inline
-const UInt8 &RegisterCombinersChunkBase::getMuxSumrgb(const UInt32 index) const
+const UInt8 RegisterCombinersChunkBase::getMuxSumrgb(const UInt32 index) const
 {
     return _mfMuxSumrgb[index];
 }
@@ -1065,15 +777,6 @@ UInt8 &RegisterCombinersChunkBase::editMuxSumrgb(const UInt32 index)
     editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
 
     return _mfMuxSumrgb[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfMuxSumrgb field.
-inline
-MFUInt8 &RegisterCombinersChunkBase::editMuxSumrgb(void)
-{
-    editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
-
-    return _mfMuxSumrgb;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1092,16 +795,9 @@ MFUInt8             &RegisterCombinersChunkBase::getMuxSumrgb      (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfMuxSumrgb field.
-inline
-const MFUInt8 &RegisterCombinersChunkBase::getMuxSumrgb(void) const
-{
-    return _mfMuxSumrgb;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfScalealpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getScalealpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getScalealpha(const UInt32 index) const
 {
     return _mfScalealpha[index];
 }
@@ -1112,15 +808,6 @@ GLenum &RegisterCombinersChunkBase::editScalealpha(const UInt32 index)
     editMField(ScalealphaFieldMask, _mfScalealpha);
 
     return _mfScalealpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfScalealpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editScalealpha(void)
-{
-    editMField(ScalealphaFieldMask, _mfScalealpha);
-
-    return _mfScalealpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1139,16 +826,9 @@ MFGLenum            &RegisterCombinersChunkBase::getScalealpha     (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfScalealpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getScalealpha(void) const
-{
-    return _mfScalealpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfBiasalpha field.
 inline
-const GLenum &RegisterCombinersChunkBase::getBiasalpha(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getBiasalpha(const UInt32 index) const
 {
     return _mfBiasalpha[index];
 }
@@ -1159,15 +839,6 @@ GLenum &RegisterCombinersChunkBase::editBiasalpha(const UInt32 index)
     editMField(BiasalphaFieldMask, _mfBiasalpha);
 
     return _mfBiasalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfBiasalpha field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editBiasalpha(void)
-{
-    editMField(BiasalphaFieldMask, _mfBiasalpha);
-
-    return _mfBiasalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1186,16 +857,9 @@ MFGLenum            &RegisterCombinersChunkBase::getBiasalpha      (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfBiasalpha field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getBiasalpha(void) const
-{
-    return _mfBiasalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfMuxSumalpha field.
 inline
-const UInt8 &RegisterCombinersChunkBase::getMuxSumalpha(const UInt32 index) const
+const UInt8 RegisterCombinersChunkBase::getMuxSumalpha(const UInt32 index) const
 {
     return _mfMuxSumalpha[index];
 }
@@ -1206,15 +870,6 @@ UInt8 &RegisterCombinersChunkBase::editMuxSumalpha(const UInt32 index)
     editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
 
     return _mfMuxSumalpha[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfMuxSumalpha field.
-inline
-MFUInt8 &RegisterCombinersChunkBase::editMuxSumalpha(void)
-{
-    editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
-
-    return _mfMuxSumalpha;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1233,16 +888,9 @@ MFUInt8             &RegisterCombinersChunkBase::getMuxSumalpha    (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfMuxSumalpha field.
-inline
-const MFUInt8 &RegisterCombinersChunkBase::getMuxSumalpha(void) const
-{
-    return _mfMuxSumalpha;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableE field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableE(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableE(const UInt32 index) const
 {
     return _mfVariableE[index];
 }
@@ -1253,15 +901,6 @@ GLenum &RegisterCombinersChunkBase::editVariableE(const UInt32 index)
     editMField(VariableEFieldMask, _mfVariableE);
 
     return _mfVariableE[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableE field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableE(void)
-{
-    editMField(VariableEFieldMask, _mfVariableE);
-
-    return _mfVariableE;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1280,16 +919,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableE      (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableE field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableE(void) const
-{
-    return _mfVariableE;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableF field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableF(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableF(const UInt32 index) const
 {
     return _mfVariableF[index];
 }
@@ -1300,15 +932,6 @@ GLenum &RegisterCombinersChunkBase::editVariableF(const UInt32 index)
     editMField(VariableFFieldMask, _mfVariableF);
 
     return _mfVariableF[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableF field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableF(void)
-{
-    editMField(VariableFFieldMask, _mfVariableF);
-
-    return _mfVariableF;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1327,16 +950,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableF      (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableF field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableF(void) const
-{
-    return _mfVariableF;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfVariableG field.
 inline
-const GLenum &RegisterCombinersChunkBase::getVariableG(const UInt32 index) const
+const GLenum RegisterCombinersChunkBase::getVariableG(const UInt32 index) const
 {
     return _mfVariableG[index];
 }
@@ -1347,15 +963,6 @@ GLenum &RegisterCombinersChunkBase::editVariableG(const UInt32 index)
     editMField(VariableGFieldMask, _mfVariableG);
 
     return _mfVariableG[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfVariableG field.
-inline
-MFGLenum &RegisterCombinersChunkBase::editVariableG(void)
-{
-    editMField(VariableGFieldMask, _mfVariableG);
-
-    return _mfVariableG;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1374,16 +981,9 @@ MFGLenum            &RegisterCombinersChunkBase::getVariableG      (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfVariableG field.
-inline
-const MFGLenum &RegisterCombinersChunkBase::getVariableG(void) const
-{
-    return _mfVariableG;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfCombinerColor0 field.
 inline
-const Color4f &RegisterCombinersChunkBase::getCombinerColor0(const UInt32 index) const
+const Color4f RegisterCombinersChunkBase::getCombinerColor0(const UInt32 index) const
 {
     return _mfCombinerColor0[index];
 }
@@ -1394,15 +994,6 @@ Color4f &RegisterCombinersChunkBase::editCombinerColor0(const UInt32 index)
     editMField(CombinerColor0FieldMask, _mfCombinerColor0);
 
     return _mfCombinerColor0[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfCombinerColor0 field.
-inline
-MFColor4f &RegisterCombinersChunkBase::editCombinerColor0(void)
-{
-    editMField(CombinerColor0FieldMask, _mfCombinerColor0);
-
-    return _mfCombinerColor0;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1421,16 +1012,9 @@ MFColor4f           &RegisterCombinersChunkBase::getCombinerColor0 (void)
 #endif
 
 
-//! Get the RegisterCombinersChunk::_mfCombinerColor0 field.
-inline
-const MFColor4f &RegisterCombinersChunkBase::getCombinerColor0(void) const
-{
-    return _mfCombinerColor0;
-}
-
 //! Get the value of the \a index element the RegisterCombinersChunk::_mfCombinerColor1 field.
 inline
-const Color4f &RegisterCombinersChunkBase::getCombinerColor1(const UInt32 index) const
+const Color4f RegisterCombinersChunkBase::getCombinerColor1(const UInt32 index) const
 {
     return _mfCombinerColor1[index];
 }
@@ -1441,15 +1025,6 @@ Color4f &RegisterCombinersChunkBase::editCombinerColor1(const UInt32 index)
     editMField(CombinerColor1FieldMask, _mfCombinerColor1);
 
     return _mfCombinerColor1[index];
-}
-
-//! Get the RegisterCombinersChunk::_mfCombinerColor1 field.
-inline
-MFColor4f &RegisterCombinersChunkBase::editCombinerColor1(void)
-{
-    editMField(CombinerColor1FieldMask, _mfCombinerColor1);
-
-    return _mfCombinerColor1;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -1467,13 +1042,6 @@ MFColor4f           &RegisterCombinersChunkBase::getCombinerColor1 (void)
 
 #endif
 
-
-//! Get the RegisterCombinersChunk::_mfCombinerColor1 field.
-inline
-const MFColor4f &RegisterCombinersChunkBase::getCombinerColor1(void) const
-{
-    return _mfCombinerColor1;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

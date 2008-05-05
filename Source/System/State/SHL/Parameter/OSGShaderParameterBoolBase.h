@@ -137,7 +137,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBoolBase : public ShaderParameter
                   bool                &getValue           (void);
 #endif
                   bool                &editValue          (void);
-            const bool                &getValue           (void) const;
+            const bool                 getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBoolBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

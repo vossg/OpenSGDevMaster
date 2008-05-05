@@ -137,7 +137,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
                   Vec3r               &getDirection       (void);
 #endif
                   Vec3r               &editDirection      (void);
-            const Vec3r               &getDirection       (void) const;
+            const Vec3r                getDirection       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

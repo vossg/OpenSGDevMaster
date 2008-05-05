@@ -217,59 +217,63 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
 #endif
                   SFVec4f             *editSFGenFuncQPlane  (void);
             const SFVec4f             *getSFGenFuncQPlane   (void) const;
-            const SFWeakNodePtr       *getSFSBeacon         (void) const;
-            const SFWeakNodePtr       *getSFTBeacon         (void) const;
-            const SFWeakNodePtr       *getSFRBeacon         (void) const;
-            const SFWeakNodePtr       *getSFQBeacon         (void) const;
+            const SFWeakNodePtr       *getSFSBeacon        (void) const;
+                  SFWeakNodePtr       *editSFSBeacon        (void);
+            const SFWeakNodePtr       *getSFTBeacon        (void) const;
+                  SFWeakNodePtr       *editSFTBeacon        (void);
+            const SFWeakNodePtr       *getSFRBeacon        (void) const;
+                  SFWeakNodePtr       *editSFRBeacon        (void);
+            const SFWeakNodePtr       *getSFQBeacon        (void) const;
+                  SFWeakNodePtr       *editSFQBeacon        (void);
 
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getGenFuncS        (void);
 #endif
                   GLenum              &editGenFuncS       (void);
-            const GLenum              &getGenFuncS        (void) const;
+            const GLenum               getGenFuncS        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getGenFuncT        (void);
 #endif
                   GLenum              &editGenFuncT       (void);
-            const GLenum              &getGenFuncT        (void) const;
+            const GLenum               getGenFuncT        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getGenFuncR        (void);
 #endif
                   GLenum              &editGenFuncR       (void);
-            const GLenum              &getGenFuncR        (void) const;
+            const GLenum               getGenFuncR        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getGenFuncQ        (void);
 #endif
                   GLenum              &editGenFuncQ       (void);
-            const GLenum              &getGenFuncQ        (void) const;
+            const GLenum               getGenFuncQ        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec4f               &getGenFuncSPlane   (void);
 #endif
                   Vec4f               &editGenFuncSPlane  (void);
-            const Vec4f               &getGenFuncSPlane   (void) const;
+            const Vec4f                getGenFuncSPlane   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec4f               &getGenFuncTPlane   (void);
 #endif
                   Vec4f               &editGenFuncTPlane  (void);
-            const Vec4f               &getGenFuncTPlane   (void) const;
+            const Vec4f                getGenFuncTPlane   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec4f               &getGenFuncRPlane   (void);
 #endif
                   Vec4f               &editGenFuncRPlane  (void);
-            const Vec4f               &getGenFuncRPlane   (void) const;
+            const Vec4f                getGenFuncRPlane   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec4f               &getGenFuncQPlane   (void);
 #endif
                   Vec4f               &editGenFuncQPlane  (void);
-            const Vec4f               &getGenFuncQPlane   (void) const;
+            const Vec4f                getGenFuncQPlane   (void) const;
 
                   NodePtr getSBeacon        (void) const;
 
@@ -306,6 +310,7 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

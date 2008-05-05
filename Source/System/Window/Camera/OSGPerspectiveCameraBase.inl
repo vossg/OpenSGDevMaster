@@ -85,7 +85,7 @@ Real32 &PerspectiveCameraBase::editFov(void)
 
 //! Get the value of the PerspectiveCamera::_sfFov field.
 inline
-const Real32 &PerspectiveCameraBase::getFov(void) const
+const Real32 PerspectiveCameraBase::getFov(void) const
 {
     return _sfFov.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &PerspectiveCameraBase::editAspect(void)
 
 //! Get the value of the PerspectiveCamera::_sfAspect field.
 inline
-const Real32 &PerspectiveCameraBase::getAspect(void) const
+const Real32 PerspectiveCameraBase::getAspect(void) const
 {
     return _sfAspect.getValue();
 }

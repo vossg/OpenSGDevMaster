@@ -147,13 +147,13 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
                   Int32               &getSortKey         (void);
 #endif
                   Int32               &editSortKey        (void);
-            const Int32               &getSortKey         (void) const;
+            const Int32                getSortKey         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getTransparencyMode (void);
 #endif
                   Int32               &editTransparencyMode(void);
-            const Int32               &getTransparencyMode (void) const;
+            const Int32                getTransparencyMode (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

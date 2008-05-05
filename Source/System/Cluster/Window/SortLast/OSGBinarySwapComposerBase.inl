@@ -85,7 +85,7 @@ bool &BinarySwapComposerBase::editShort(void)
 
 //! Get the value of the BinarySwapComposer::_sfShort field.
 inline
-const bool &BinarySwapComposerBase::getShort(void) const
+const bool BinarySwapComposerBase::getShort(void) const
 {
     return _sfShort.getValue();
 }
@@ -118,7 +118,7 @@ bool &BinarySwapComposerBase::editAlpha(void)
 
 //! Get the value of the BinarySwapComposer::_sfAlpha field.
 inline
-const bool &BinarySwapComposerBase::getAlpha(void) const
+const bool BinarySwapComposerBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
@@ -151,7 +151,7 @@ UInt32 &BinarySwapComposerBase::editTileSize(void)
 
 //! Get the value of the BinarySwapComposer::_sfTileSize field.
 inline
-const UInt32 &BinarySwapComposerBase::getTileSize(void) const
+const UInt32 BinarySwapComposerBase::getTileSize(void) const
 {
     return _sfTileSize.getValue();
 }

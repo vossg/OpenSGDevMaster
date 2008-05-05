@@ -177,33 +177,35 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
 #endif
                   SFReal32            *editSFTop            (void);
             const SFReal32            *getSFTop             (void) const;
-            const SFUnrecCameraPtr    *getSFCamera          (void) const;
-            const SFUnrecBackgroundPtr *getSFBackground      (void) const;
+            const SFUnrecCameraPtr    *getSFCamera         (void) const;
+                  SFUnrecCameraPtr    *editSFCamera         (void);
+            const SFUnrecBackgroundPtr *getSFBackground     (void) const;
+                  SFUnrecBackgroundPtr *editSFBackground     (void);
 
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getLeft            (void);
 #endif
                   Real32              &editLeft           (void);
-            const Real32              &getLeft            (void) const;
+            const Real32               getLeft            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getRight           (void);
 #endif
                   Real32              &editRight          (void);
-            const Real32              &getRight           (void) const;
+            const Real32               getRight           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getBottom          (void);
 #endif
                   Real32              &editBottom         (void);
-            const Real32              &getBottom          (void) const;
+            const Real32               getBottom          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getTop             (void);
 #endif
                   Real32              &editTop            (void);
-            const Real32              &getTop             (void) const;
+            const Real32               getTop             (void) const;
 
                   CameraPtr getCamera         (void) const;
 
@@ -230,6 +232,7 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

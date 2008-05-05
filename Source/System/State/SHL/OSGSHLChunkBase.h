@@ -177,37 +177,33 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
                   bool                &getCgFrontEnd      (void);
 #endif
                   bool                &editCgFrontEnd     (void);
-            const bool                &getCgFrontEnd      (void) const;
+            const bool                 getCgFrontEnd      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getPointSize       (void);
 #endif
                   bool                &editPointSize      (void);
-            const bool                &getPointSize       (void) const;
+            const bool                 getPointSize       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getProgramParameterNames (const UInt32 index);
                   MFGLenum            &getProgramParameterNames(void);
 #endif
                   GLenum              &editProgramParameterNames(const UInt32 index);
-            const GLenum              &getProgramParameterNames (const UInt32 index) const;
-                  MFGLenum            &editProgramParameterNames(void);
-            const MFGLenum            &getProgramParameterNames(void) const;
+            const GLenum               getProgramParameterNames (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getProgramParameterValues (const UInt32 index);
                   MFUInt32            &getProgramParameterValues(void);
 #endif
                   UInt32              &editProgramParameterValues(const UInt32 index);
-            const UInt32              &getProgramParameterValues (const UInt32 index) const;
-                  MFUInt32            &editProgramParameterValues(void);
-            const MFUInt32            &getProgramParameterValues(void) const;
+            const UInt32               getProgramParameterValues (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getGLId            (void);
 #endif
                   UInt32              &editGLId           (void);
-            const UInt32              &getGLId            (void) const;
+            const UInt32               getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,9 +218,6 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

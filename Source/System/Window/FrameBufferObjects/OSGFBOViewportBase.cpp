@@ -175,6 +175,13 @@ const SFUnrecFrameBufferObjectPtr *FBOViewportBase::getSFFrameBufferObject(void)
     return &_sfFrameBufferObject;
 }
 
+SFUnrecFrameBufferObjectPtr *FBOViewportBase::editSFFrameBufferObject(void)
+{
+    editSField(FrameBufferObjectFieldMask);
+
+    return &_sfFrameBufferObject;
+}
+
 
 
 
@@ -329,8 +336,9 @@ void FBOViewportBase::onCreate(const FBOViewport *source)
 
     if(source != NULL)
     {
+        FBOViewport *pThis = static_cast<FBOViewport *>(this);
 
-        this->setFrameBufferObject(source->getFrameBufferObject());
+        pThis->setFrameBufferObject(source->getFrameBufferObject());
     }
 }
 

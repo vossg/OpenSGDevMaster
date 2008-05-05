@@ -189,10 +189,14 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 #endif
                   SFReal32            *editSFTop            (void);
             const SFReal32            *getSFTop             (void) const;
-            const SFUnrecCameraPtr    *getSFCamera          (void) const;
-            const SFUnrecNodePtr      *getSFRoot            (void) const;
-            const SFUnrecBackgroundPtr *getSFBackground      (void) const;
-            const MFUnrecForegroundPtr *getMFForegrounds     (void) const;
+            const SFUnrecCameraPtr    *getSFCamera         (void) const;
+                  SFUnrecCameraPtr    *editSFCamera         (void);
+            const SFUnrecNodePtr      *getSFRoot           (void) const;
+                  SFUnrecNodePtr      *editSFRoot           (void);
+            const SFUnrecBackgroundPtr *getSFBackground     (void) const;
+                  SFUnrecBackgroundPtr *editSFBackground     (void);
+            const MFUnrecForegroundPtr *getMFForegrounds    (void) const;
+                  MFUnrecForegroundPtr *editMFForegrounds    (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFTravMask        (void);
@@ -211,25 +215,25 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   Real32              &getLeft            (void);
 #endif
                   Real32              &editLeft           (void);
-            const Real32              &getLeft            (void) const;
+            const Real32               getLeft            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getRight           (void);
 #endif
                   Real32              &editRight          (void);
-            const Real32              &getRight           (void) const;
+            const Real32               getRight           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getBottom          (void);
 #endif
                   Real32              &editBottom         (void);
-            const Real32              &getBottom          (void) const;
+            const Real32               getBottom          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getTop             (void);
 #endif
                   Real32              &editTop            (void);
-            const Real32              &getTop             (void) const;
+            const Real32               getTop             (void) const;
 
                   CameraPtr getCamera         (void) const;
 
@@ -238,19 +242,18 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   BackgroundPtr getBackground     (void) const;
 
                   ForegroundPtr getForegrounds    (const UInt32 index) const;
-            const MFUnrecForegroundPtr &getForegrounds    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTravMask        (void);
 #endif
                   UInt32              &editTravMask       (void);
-            const UInt32              &getTravMask        (void) const;
+            const UInt32               getTravMask        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getDrawTime        (void);
 #endif
                   Real32              &editDrawTime       (void);
-            const Real32              &getDrawTime        (void) const;
+            const Real32               getDrawTime        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -279,12 +282,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 
     void addForeground             (const ForegroundPtr value   );
     void assignForegrounds           (const MFUnrecForegroundPtr &value);
-    void insertIntoForegrounds      (      UInt32         uiIndex,
-                                             const ForegroundPtr value   );
-    void replaceInForegrounds  (      UInt32         uiIndex,
-                                             const ForegroundPtr value   );
-    void replaceInForegrounds (const ForegroundPtr pOldElem,
-                                             const ForegroundPtr pNewElem);
     void removeFromForegrounds (UInt32                uiIndex );
     void removeFromForegrounds(const ForegroundPtr value   );
     void clearForegrounds            (void                          );

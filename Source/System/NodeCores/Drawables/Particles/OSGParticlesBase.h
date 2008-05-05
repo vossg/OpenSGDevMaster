@@ -179,16 +179,20 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 #endif
                   SFUInt32            *editSFMode           (void);
             const SFUInt32            *getSFMode            (void) const;
-            const SFUnrecChildGeoVectorPropertyPtr *getSFPositions       (void) const;
+            const SFUnrecChildGeoVectorPropertyPtr *getSFPositions      (void) const;
+                  SFUnrecChildGeoVectorPropertyPtr *editSFPositions      (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFVec3f             *getMFSizes           (void);
 #endif
                   MFVec3f             *editMFSizes          (void);
             const MFVec3f             *getMFSizes           (void) const;
-            const SFUnrecChildGeoVectorPropertyPtr *getSFSecPositions    (void) const;
-            const SFUnrecChildGeoVectorPropertyPtr *getSFColors          (void) const;
-            const SFUnrecChildGeoVectorPropertyPtr *getSFNormals         (void) const;
+            const SFUnrecChildGeoVectorPropertyPtr *getSFSecPositions   (void) const;
+                  SFUnrecChildGeoVectorPropertyPtr *editSFSecPositions   (void);
+            const SFUnrecChildGeoVectorPropertyPtr *getSFColors         (void) const;
+                  SFUnrecChildGeoVectorPropertyPtr *editSFColors         (void);
+            const SFUnrecChildGeoVectorPropertyPtr *getSFNormals        (void) const;
+                  SFUnrecChildGeoVectorPropertyPtr *editSFNormals        (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFInt32             *getMFIndices         (void);
@@ -231,7 +235,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
                   UInt32              &getMode            (void);
 #endif
                   UInt32              &editMode           (void);
-            const UInt32              &getMode            (void) const;
+            const UInt32               getMode            (void) const;
 
                   GeoVectorPropertyPtr getPositions      (void) const;
 
@@ -240,9 +244,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
                   MFVec3f             &getSizes          (void);
 #endif
                   Vec3f               &editSizes          (const UInt32 index);
-            const Vec3f               &getSizes           (const UInt32 index) const;
-                  MFVec3f             &editSizes          (void);
-            const MFVec3f             &getSizes          (void) const;
+            const Vec3f                getSizes           (const UInt32 index) const;
 
                   GeoVectorPropertyPtr getSecPositions   (void) const;
 
@@ -255,42 +257,38 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
                   MFInt32             &getIndices        (void);
 #endif
                   Int32               &editIndices        (const UInt32 index);
-            const Int32               &getIndices         (const UInt32 index) const;
-                  MFInt32             &editIndices        (void);
-            const MFInt32             &getIndices        (void) const;
+            const Int32                getIndices         (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getTextureZs       (const UInt32 index);
                   MFReal32            &getTextureZs      (void);
 #endif
                   Real32              &editTextureZs      (const UInt32 index);
-            const Real32              &getTextureZs       (const UInt32 index) const;
-                  MFReal32            &editTextureZs      (void);
-            const MFReal32            &getTextureZs      (void) const;
+            const Real32               getTextureZs       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getDrawOrder       (void);
 #endif
                   UInt32              &editDrawOrder      (void);
-            const UInt32              &getDrawOrder       (void) const;
+            const UInt32               getDrawOrder       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getDynamic         (void);
 #endif
                   bool                &editDynamic        (void);
-            const bool                &getDynamic         (void) const;
+            const bool                 getDynamic         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   ParticleBSPTree     &getBsp             (void);
 #endif
                   ParticleBSPTree     &editBsp            (void);
-            const ParticleBSPTree     &getBsp             (void) const;
+            const ParticleBSPTree      getBsp             (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getNumParticles    (void);
 #endif
                   Int32               &editNumParticles   (void);
-            const Int32               &getNumParticles    (void) const;
+            const Int32                getNumParticles    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -316,11 +314,6 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -507,17 +500,11 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFPump            (void);
-#endif
                   SFUInt32            *editSFPump           (void);
             const SFUInt32            *getSFPump            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getPump           (void);
-#endif
                   UInt32              &editPump           (void);
-            const UInt32              &getPump           (void) const;
+            const UInt32               getPump           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -530,6 +517,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 

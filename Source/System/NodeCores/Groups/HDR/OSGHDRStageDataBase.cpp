@@ -378,9 +378,23 @@ const SFUnrecChunkMaterialPtr *HDRStageDataBase::getSFToneMappingMaterial(void) 
     return &_sfToneMappingMaterial;
 }
 
+SFUnrecChunkMaterialPtr *HDRStageDataBase::editSFToneMappingMaterial(void)
+{
+    editSField(ToneMappingMaterialFieldMask);
+
+    return &_sfToneMappingMaterial;
+}
+
 //! Get the HDRStageData::_sfBlurRenderTarget field.
 const SFUnrecFrameBufferObjectPtr *HDRStageDataBase::getSFBlurRenderTarget(void) const
 {
+    return &_sfBlurRenderTarget;
+}
+
+SFUnrecFrameBufferObjectPtr *HDRStageDataBase::editSFBlurRenderTarget(void)
+{
+    editSField(BlurRenderTargetFieldMask);
+
     return &_sfBlurRenderTarget;
 }
 
@@ -390,15 +404,36 @@ const SFUnrecChunkMaterialPtr *HDRStageDataBase::getSFBlurMaterial(void) const
     return &_sfBlurMaterial;
 }
 
+SFUnrecChunkMaterialPtr *HDRStageDataBase::editSFBlurMaterial   (void)
+{
+    editSField(BlurMaterialFieldMask);
+
+    return &_sfBlurMaterial;
+}
+
 //! Get the HDRStageData::_sfHBlurShader field.
 const SFUnrecSHLChunkPtr *HDRStageDataBase::getSFHBlurShader(void) const
 {
     return &_sfHBlurShader;
 }
 
+SFUnrecSHLChunkPtr  *HDRStageDataBase::editSFHBlurShader    (void)
+{
+    editSField(HBlurShaderFieldMask);
+
+    return &_sfHBlurShader;
+}
+
 //! Get the HDRStageData::_sfVBlurShader field.
 const SFUnrecSHLChunkPtr *HDRStageDataBase::getSFVBlurShader(void) const
 {
+    return &_sfVBlurShader;
+}
+
+SFUnrecSHLChunkPtr  *HDRStageDataBase::editSFVBlurShader    (void)
+{
+    editSField(VBlurShaderFieldMask);
+
     return &_sfVBlurShader;
 }
 
@@ -446,9 +481,23 @@ const SFUnrecFrameBufferObjectPtr *HDRStageDataBase::getSFShrinkRenderTarget(voi
     return &_sfShrinkRenderTarget;
 }
 
+SFUnrecFrameBufferObjectPtr *HDRStageDataBase::editSFShrinkRenderTarget(void)
+{
+    editSField(ShrinkRenderTargetFieldMask);
+
+    return &_sfShrinkRenderTarget;
+}
+
 //! Get the HDRStageData::_sfShrinkMaterial field.
 const SFUnrecChunkMaterialPtr *HDRStageDataBase::getSFShrinkMaterial(void) const
 {
+    return &_sfShrinkMaterial;
+}
+
+SFUnrecChunkMaterialPtr *HDRStageDataBase::editSFShrinkMaterial (void)
+{
+    editSField(ShrinkMaterialFieldMask);
+
     return &_sfShrinkMaterial;
 }
 
@@ -718,20 +767,21 @@ void HDRStageDataBase::onCreate(const HDRStageData *source)
 
     if(source != NULL)
     {
+        HDRStageData *pThis = static_cast<HDRStageData *>(this);
 
-        this->setToneMappingMaterial(source->getToneMappingMaterial());
+        pThis->setToneMappingMaterial(source->getToneMappingMaterial());
 
-        this->setBlurRenderTarget(source->getBlurRenderTarget());
+        pThis->setBlurRenderTarget(source->getBlurRenderTarget());
 
-        this->setBlurMaterial(source->getBlurMaterial());
+        pThis->setBlurMaterial(source->getBlurMaterial());
 
-        this->setHBlurShader(source->getHBlurShader());
+        pThis->setHBlurShader(source->getHBlurShader());
 
-        this->setVBlurShader(source->getVBlurShader());
+        pThis->setVBlurShader(source->getVBlurShader());
 
-        this->setShrinkRenderTarget(source->getShrinkRenderTarget());
+        pThis->setShrinkRenderTarget(source->getShrinkRenderTarget());
 
-        this->setShrinkMaterial(source->getShrinkMaterial());
+        pThis->setShrinkMaterial(source->getShrinkMaterial());
     }
 }
 

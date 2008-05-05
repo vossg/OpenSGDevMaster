@@ -147,13 +147,13 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
                   bool                &getLeftEye         (void);
 #endif
                   bool                &editLeftEye        (void);
-            const bool                &getLeftEye         (void) const;
+            const bool                 getLeftEye         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getEyeSeparation   (void);
 #endif
                   Real32              &editEyeSeparation  (void);
-            const Real32              &getEyeSeparation   (void) const;
+            const Real32               getEyeSeparation   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

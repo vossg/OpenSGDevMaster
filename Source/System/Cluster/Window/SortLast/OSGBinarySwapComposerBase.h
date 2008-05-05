@@ -157,19 +157,19 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
                   bool                &getShort           (void);
 #endif
                   bool                &editShort          (void);
-            const bool                &getShort           (void) const;
+            const bool                 getShort           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getAlpha           (void);
 #endif
                   bool                &editAlpha          (void);
-            const bool                &getAlpha           (void) const;
+            const bool                 getAlpha           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTileSize        (void);
 #endif
                   UInt32              &editTileSize       (void);
-            const UInt32              &getTileSize        (void) const;
+            const UInt32               getTileSize        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

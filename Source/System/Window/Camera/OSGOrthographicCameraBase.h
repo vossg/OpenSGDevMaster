@@ -147,13 +147,13 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
                   Real32              &getVerticalSize    (void);
 #endif
                   Real32              &editVerticalSize   (void);
-            const Real32              &getVerticalSize    (void) const;
+            const Real32               getVerticalSize    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getAspect          (void);
 #endif
                   Real32              &editAspect         (void);
-            const Real32              &getAspect          (void) const;
+            const Real32               getAspect          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

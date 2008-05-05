@@ -85,7 +85,7 @@ bool &GeoPropertyBase::editUseVBO(void)
 
 //! Get the value of the GeoProperty::_sfUseVBO field.
 inline
-const bool &GeoPropertyBase::getUseVBO(void) const
+const bool GeoPropertyBase::getUseVBO(void) const
 {
     return _sfUseVBO.getValue();
 }
@@ -118,7 +118,7 @@ UInt32 &GeoPropertyBase::editGLId(void)
 
 //! Get the value of the GeoProperty::_sfGLId field.
 inline
-const UInt32 &GeoPropertyBase::getGLId(void) const
+const UInt32 GeoPropertyBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
@@ -151,7 +151,7 @@ Int32 &GeoPropertyBase::editUsage(void)
 
 //! Get the value of the GeoProperty::_sfUsage field.
 inline
-const Int32 &GeoPropertyBase::getUsage(void) const
+const Int32 GeoPropertyBase::getUsage(void) const
 {
     return _sfUsage.getValue();
 }

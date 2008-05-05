@@ -137,7 +137,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public Attachment
                   bool                &getIgnore          (void);
 #endif
                   bool                &editIgnore         (void);
-            const bool                &getIgnore          (void) const;
+            const bool                 getIgnore          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public Attachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

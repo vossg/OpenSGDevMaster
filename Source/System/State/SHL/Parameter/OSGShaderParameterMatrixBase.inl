@@ -85,7 +85,7 @@ Matrix &ShaderParameterMatrixBase::editValue(void)
 
 //! Get the value of the ShaderParameterMatrix::_sfValue field.
 inline
-const Matrix &ShaderParameterMatrixBase::getValue(void) const
+const Matrix ShaderParameterMatrixBase::getValue(void) const
 {
     return _sfValue.getValue();
 }

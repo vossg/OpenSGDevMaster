@@ -221,7 +221,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 #endif
                   SFString            *editSFServiceInterface(void);
             const SFString            *getSFServiceInterface (void) const;
-            const SFUnrecWindowPtr    *getSFClientWindow    (void) const;
+            const SFUnrecWindowPtr    *getSFClientWindow   (void) const;
+                  SFUnrecWindowPtr    *editSFClientWindow   (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFInterleave      (void);
@@ -234,7 +235,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 #endif
                   SFUInt32            *editSFFrameCount     (void);
             const SFUInt32            *getSFFrameCount      (void) const;
-            const SFUnrecImageComposerPtr *getSFComposer        (void) const;
+            const SFUnrecImageComposerPtr *getSFComposer       (void) const;
+                  SFUnrecImageComposerPtr *editSFComposer       (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFString            *getMFAutostart       (void);
@@ -248,51 +250,49 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   MFString            &getServers        (void);
 #endif
                   std::string         &editServers        (const UInt32 index);
-            const std::string         &getServers         (const UInt32 index) const;
-                  MFString            &editServers        (void);
-            const MFString            &getServers        (void) const;
+            const std::string          getServers         (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getConnectionType  (void);
 #endif
                   std::string         &editConnectionType (void);
-            const std::string         &getConnectionType  (void) const;
+            const std::string          getConnectionType  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getConnectionInterface (void);
 #endif
                   std::string         &editConnectionInterface(void);
-            const std::string         &getConnectionInterface (void) const;
+            const std::string          getConnectionInterface (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getConnectionDestination (void);
 #endif
                   std::string         &editConnectionDestination(void);
-            const std::string         &getConnectionDestination (void) const;
+            const std::string          getConnectionDestination (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getConnectionParams (void);
 #endif
                   std::string         &editConnectionParams(void);
-            const std::string         &getConnectionParams (void) const;
+            const std::string          getConnectionParams (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getServicePort     (void);
 #endif
                   UInt32              &editServicePort    (void);
-            const UInt32              &getServicePort     (void) const;
+            const UInt32               getServicePort     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getServiceAddress  (void);
 #endif
                   std::string         &editServiceAddress (void);
-            const std::string         &getServiceAddress  (void) const;
+            const std::string          getServiceAddress  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getServiceInterface (void);
 #endif
                   std::string         &editServiceInterface(void);
-            const std::string         &getServiceInterface (void) const;
+            const std::string          getServiceInterface (void) const;
 
                   WindowPtr getClientWindow   (void) const;
 
@@ -300,13 +300,13 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   UInt32              &getInterleave      (void);
 #endif
                   UInt32              &editInterleave     (void);
-            const UInt32              &getInterleave      (void) const;
+            const UInt32               getInterleave      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getFrameCount      (void);
 #endif
                   UInt32              &editFrameCount     (void);
-            const UInt32              &getFrameCount      (void) const;
+            const UInt32               getFrameCount      (void) const;
 
                   ImageComposerPtr getComposer       (void) const;
 
@@ -315,9 +315,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   MFString            &getAutostart      (void);
 #endif
                   std::string         &editAutostart      (const UInt32 index);
-            const std::string         &getAutostart       (const UInt32 index) const;
-                  MFString            &editAutostart      (void);
-            const MFString            &getAutostart      (void) const;
+            const std::string          getAutostart       (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -345,9 +343,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

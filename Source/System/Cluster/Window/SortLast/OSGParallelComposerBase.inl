@@ -85,7 +85,7 @@ bool &ParallelComposerBase::editShort(void)
 
 //! Get the value of the ParallelComposer::_sfShort field.
 inline
-const bool &ParallelComposerBase::getShort(void) const
+const bool ParallelComposerBase::getShort(void) const
 {
     return _sfShort.getValue();
 }
@@ -118,7 +118,7 @@ bool &ParallelComposerBase::editAlpha(void)
 
 //! Get the value of the ParallelComposer::_sfAlpha field.
 inline
-const bool &ParallelComposerBase::getAlpha(void) const
+const bool ParallelComposerBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
@@ -151,7 +151,7 @@ std::string &ParallelComposerBase::editPcLibPath(void)
 
 //! Get the value of the ParallelComposer::_sfPcLibPath field.
 inline
-const std::string &ParallelComposerBase::getPcLibPath(void) const
+const std::string ParallelComposerBase::getPcLibPath(void) const
 {
     return _sfPcLibPath.getValue();
 }

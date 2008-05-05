@@ -81,16 +81,9 @@ ImagePtr ImageForegroundBase::getImages(const UInt32 index) const
     return _mfImages[index];
 }
 
-//! Get the ImageForeground::_mfImages field.
-inline
-const MFUnrecImagePtr &ImageForegroundBase::getImages(void) const
-{
-    return _mfImages;
-}
-
 //! Get the value of the \a index element the ImageForeground::_mfPositions field.
 inline
-const Pnt2f &ImageForegroundBase::getPositions(const UInt32 index) const
+const Pnt2f ImageForegroundBase::getPositions(const UInt32 index) const
 {
     return _mfPositions[index];
 }
@@ -101,15 +94,6 @@ Pnt2f &ImageForegroundBase::editPositions(const UInt32 index)
     editMField(PositionsFieldMask, _mfPositions);
 
     return _mfPositions[index];
-}
-
-//! Get the ImageForeground::_mfPositions field.
-inline
-MFPnt2f &ImageForegroundBase::editPositions(void)
-{
-    editMField(PositionsFieldMask, _mfPositions);
-
-    return _mfPositions;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -127,13 +111,6 @@ MFPnt2f             &ImageForegroundBase::getPositions      (void)
 
 #endif
 
-
-//! Get the ImageForeground::_mfPositions field.
-inline
-const MFPnt2f &ImageForegroundBase::getPositions(void) const
-{
-    return _mfPositions;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

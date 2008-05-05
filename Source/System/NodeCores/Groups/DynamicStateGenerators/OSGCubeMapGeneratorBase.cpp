@@ -425,15 +425,36 @@ const SFUnrecNodePtr *CubeMapGeneratorBase::getSFRoot(void) const
     return &_sfRoot;
 }
 
+SFUnrecNodePtr      *CubeMapGeneratorBase::editSFRoot           (void)
+{
+    editSField(RootFieldMask);
+
+    return &_sfRoot;
+}
+
 //! Get the CubeMapGenerator::_mfExclude field.
 const MFUnrecNodePtr *CubeMapGeneratorBase::getMFExclude(void) const
 {
     return &_mfExclude;
 }
 
+MFUnrecNodePtr      *CubeMapGeneratorBase::editMFExclude        (void)
+{
+    editMField(ExcludeFieldMask, _mfExclude);
+
+    return &_mfExclude;
+}
+
 //! Get the CubeMapGenerator::_sfTexture field.
 const SFUnrecTextureObjChunkPtr *CubeMapGeneratorBase::getSFTexture(void) const
 {
+    return &_sfTexture;
+}
+
+SFUnrecTextureObjChunkPtr *CubeMapGeneratorBase::editSFTexture        (void)
+{
+    editSField(TextureFieldMask);
+
     return &_sfTexture;
 }
 
@@ -478,6 +499,13 @@ SFGLenum            *CubeMapGeneratorBase::getSFTextureFormat  (void)
 //! Get the CubeMapGenerator::_sfBeacon field.
 const SFWeakNodePtr *CubeMapGeneratorBase::getSFBeacon(void) const
 {
+    return &_sfBeacon;
+}
+
+SFWeakNodePtr       *CubeMapGeneratorBase::editSFBeacon         (void)
+{
+    editSField(BeaconFieldMask);
+
     return &_sfBeacon;
 }
 
@@ -563,16 +591,18 @@ const SFUnrecBackgroundPtr *CubeMapGeneratorBase::getSFBackground(void) const
     return &_sfBackground;
 }
 
+SFUnrecBackgroundPtr *CubeMapGeneratorBase::editSFBackground     (void)
+{
+    editSField(BackgroundFieldMask);
+
+    return &_sfBackground;
+}
+
 
 
 void CubeMapGeneratorBase::pushToExclude(const NodePtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ExcludeFieldMask, _mfExclude);
-
-    //addRef(value);
 
     _mfExclude.push_back(value);
 }
@@ -594,66 +624,6 @@ void CubeMapGeneratorBase::assignExclude  (const MFUnrecNodePtr    &value)
     }
 }
 
-void CubeMapGeneratorBase::insertIntoExclude(      UInt32         uiIndex,
-                                                   const NodePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ExcludeFieldMask, _mfExclude);
-
-    MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfExclude.insert(fieldIt, value);
-}
-
-void CubeMapGeneratorBase::replaceInExclude(      UInt32         uiIndex,
-                                                       const NodePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfExclude.size())
-        return;
-
-    editMField(ExcludeFieldMask, _mfExclude);
-
-
-//    addRef(value);
-//    subRef(_mfExclude[uiIndex]);
-
-//    _mfExclude[uiIndex] = value;
-
-      _mfExclude.replace(uiIndex, value);
-}
-
-void CubeMapGeneratorBase::replaceInExclude(const NodePtr pOldElem,
-                                                        const NodePtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfExclude.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ExcludeFieldMask, _mfExclude);
-
-//        MFNodePtr::iterator fieldIt = _mfExclude.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfExclude.replace(elemIdx, pNewElem);
-    }
-}
-
 void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
 {
     if(uiIndex < _mfExclude.size())
@@ -663,8 +633,6 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
         MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfExclude.erase(fieldIt);
     }
@@ -681,8 +649,6 @@ void CubeMapGeneratorBase::removeFromExclude(const NodePtr value)
         MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfExclude.erase(fieldIt);
     }
@@ -987,8 +953,9 @@ void CubeMapGeneratorBase::onCreate(const CubeMapGenerator *source)
 
     if(source != NULL)
     {
+        CubeMapGenerator *pThis = static_cast<CubeMapGenerator *>(this);
 
-        this->setRoot(source->getRoot());
+        pThis->setRoot(source->getRoot());
 
         MFUnrecNodePtr::const_iterator ExcludeIt  =
             source->_mfExclude.begin();
@@ -997,16 +964,16 @@ void CubeMapGeneratorBase::onCreate(const CubeMapGenerator *source)
 
         while(ExcludeIt != ExcludeEnd)
         {
-            this->pushToExclude(*ExcludeIt);
+            pThis->pushToExclude(*ExcludeIt);
 
             ++ExcludeIt;
         }
 
-        this->setTexture(source->getTexture());
+        pThis->setTexture(source->getTexture());
 
-        this->setBeacon(source->getBeacon());
+        pThis->setBeacon(source->getBeacon());
 
-        this->setBackground(source->getBackground());
+        pThis->setBackground(source->getBackground());
     }
 }
 

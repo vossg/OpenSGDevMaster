@@ -85,7 +85,7 @@ std::string &ContainerCollectionBase::editName(void)
 
 //! Get the value of the ContainerCollection::_sfName field.
 inline
-const std::string &ContainerCollectionBase::getName(void) const
+const std::string ContainerCollectionBase::getName(void) const
 {
     return _sfName.getValue();
 }
@@ -112,13 +112,6 @@ inline
 FieldContainerPtr ContainerCollectionBase::getContainers(const UInt32 index) const
 {
     return _mfContainers[index];
-}
-
-//! Get the ContainerCollection::_mfContainers field.
-inline
-const MFUnrecFieldContainerPtr &ContainerCollectionBase::getContainers(void) const
-{
-    return _mfContainers;
 }
 
 

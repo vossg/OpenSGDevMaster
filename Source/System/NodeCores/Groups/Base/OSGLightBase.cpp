@@ -451,6 +451,13 @@ const SFWeakNodePtr *LightBase::getSFBeacon(void) const
     return &_sfBeacon;
 }
 
+SFWeakNodePtr       *LightBase::editSFBeacon         (void)
+{
+    editSField(BeaconFieldMask);
+
+    return &_sfBeacon;
+}
+
 SFBool *LightBase::editSFOn(void)
 {
     editSField(OnFieldMask);
@@ -530,6 +537,13 @@ SFReal              *LightBase::getSFQuadraticAttenuation(void)
 //! Get the Light::_sfLightEngine field.
 const SFUnrecLightEnginePtr *LightBase::getSFLightEngine(void) const
 {
+    return &_sfLightEngine;
+}
+
+SFUnrecLightEnginePtr *LightBase::editSFLightEngine    (void)
+{
+    editSField(LightEngineFieldMask);
+
     return &_sfLightEngine;
 }
 
@@ -715,10 +729,11 @@ void LightBase::onCreate(const Light *source)
 
     if(source != NULL)
     {
+        Light *pThis = static_cast<Light *>(this);
 
-        this->setBeacon(source->getBeacon());
+        pThis->setBeacon(source->getBeacon());
 
-        this->setLightEngine(source->getLightEngine());
+        pThis->setLightEngine(source->getLightEngine());
     }
 }
 

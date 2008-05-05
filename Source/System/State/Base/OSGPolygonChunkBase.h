@@ -237,70 +237,68 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
                   GLenum              &getCullFace        (void);
 #endif
                   GLenum              &editCullFace       (void);
-            const GLenum              &getCullFace        (void) const;
+            const GLenum               getCullFace        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getFrontFace       (void);
 #endif
                   GLenum              &editFrontFace      (void);
-            const GLenum              &getFrontFace       (void) const;
+            const GLenum               getFrontFace       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getFrontMode       (void);
 #endif
                   GLenum              &editFrontMode      (void);
-            const GLenum              &getFrontMode       (void) const;
+            const GLenum               getFrontMode       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getBackMode        (void);
 #endif
                   GLenum              &editBackMode       (void);
-            const GLenum              &getBackMode        (void) const;
+            const GLenum               getBackMode        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getSmooth          (void);
 #endif
                   bool                &editSmooth         (void);
-            const bool                &getSmooth          (void) const;
+            const bool                 getSmooth          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetFactor    (void);
 #endif
                   Real32              &editOffsetFactor   (void);
-            const Real32              &getOffsetFactor    (void) const;
+            const Real32               getOffsetFactor    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetBias      (void);
 #endif
                   Real32              &editOffsetBias     (void);
-            const Real32              &getOffsetBias      (void) const;
+            const Real32               getOffsetBias      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getOffsetPoint     (void);
 #endif
                   bool                &editOffsetPoint    (void);
-            const bool                &getOffsetPoint     (void) const;
+            const bool                 getOffsetPoint     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getOffsetLine      (void);
 #endif
                   bool                &editOffsetLine     (void);
-            const bool                &getOffsetLine      (void) const;
+            const bool                 getOffsetLine      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getOffsetFill      (void);
 #endif
                   bool                &editOffsetFill     (void);
-            const bool                &getOffsetFill      (void) const;
+            const bool                 getOffsetFill      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getStipple         (const UInt32 index);
                   MFInt32             &getStipple        (void);
 #endif
                   Int32               &editStipple        (const UInt32 index);
-            const Int32               &getStipple         (const UInt32 index) const;
-                  MFInt32             &editStipple        (void);
-            const MFInt32             &getStipple        (void) const;
+            const Int32                getStipple         (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -322,7 +320,6 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

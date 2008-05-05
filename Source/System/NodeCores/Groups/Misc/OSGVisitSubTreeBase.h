@@ -125,7 +125,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFWeakNodePtr       *getSFSubTreeRoot     (void) const;
+            const SFWeakNodePtr       *getSFSubTreeRoot    (void) const;
+                  SFWeakNodePtr       *editSFSubTreeRoot    (void);
 
 
                   NodePtr getSubTreeRoot    (void) const;
@@ -146,6 +147,7 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

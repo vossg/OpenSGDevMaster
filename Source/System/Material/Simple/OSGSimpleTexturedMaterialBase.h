@@ -141,7 +141,8 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecImagePtr     *getSFImage           (void) const;
+            const SFUnrecImagePtr     *getSFImage          (void) const;
+                  SFUnrecImagePtr     *editSFImage          (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFMinFilter       (void);
@@ -174,25 +175,25 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
                   GLenum              &getMinFilter       (void);
 #endif
                   GLenum              &editMinFilter      (void);
-            const GLenum              &getMinFilter       (void) const;
+            const GLenum               getMinFilter       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getMagFilter       (void);
 #endif
                   GLenum              &editMagFilter      (void);
-            const GLenum              &getMagFilter       (void) const;
+            const GLenum               getMagFilter       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getEnvMode         (void);
 #endif
                   GLenum              &editEnvMode        (void);
-            const GLenum              &getEnvMode         (void) const;
+            const GLenum               getEnvMode         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getEnvMap          (void);
 #endif
                   bool                &editEnvMap         (void);
-            const bool                &getEnvMap          (void) const;
+            const bool                 getEnvMap          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,6 +215,7 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

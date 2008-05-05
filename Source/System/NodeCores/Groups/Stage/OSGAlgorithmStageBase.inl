@@ -88,7 +88,6 @@ void AlgorithmStageBase::setAlgorithm(const AlgorithmPtr value)
     editSField(AlgorithmFieldMask);
 
     _sfAlgorithm.setValue(value);
-
 }
 //! Get the value of the AlgorithmStage::_sfProjectionMode field.
 
@@ -102,7 +101,7 @@ UInt32 &AlgorithmStageBase::editProjectionMode(void)
 
 //! Get the value of the AlgorithmStage::_sfProjectionMode field.
 inline
-const UInt32 &AlgorithmStageBase::getProjectionMode(void) const
+const UInt32 AlgorithmStageBase::getProjectionMode(void) const
 {
     return _sfProjectionMode.getValue();
 }
@@ -135,7 +134,7 @@ bool &AlgorithmStageBase::editCopyViewing(void)
 
 //! Get the value of the AlgorithmStage::_sfCopyViewing field.
 inline
-const bool &AlgorithmStageBase::getCopyViewing(void) const
+const bool AlgorithmStageBase::getCopyViewing(void) const
 {
     return _sfCopyViewing.getValue();
 }
@@ -168,7 +167,7 @@ Matrix &AlgorithmStageBase::editProjectionMatrix(void)
 
 //! Get the value of the AlgorithmStage::_sfProjectionMatrix field.
 inline
-const Matrix &AlgorithmStageBase::getProjectionMatrix(void) const
+const Matrix AlgorithmStageBase::getProjectionMatrix(void) const
 {
     return _sfProjectionMatrix.getValue();
 }

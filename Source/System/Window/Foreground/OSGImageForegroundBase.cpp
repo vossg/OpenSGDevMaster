@@ -211,6 +211,13 @@ const MFUnrecImagePtr *ImageForegroundBase::getMFImages(void) const
     return &_mfImages;
 }
 
+MFUnrecImagePtr     *ImageForegroundBase::editMFImages         (void)
+{
+    editMField(ImagesFieldMask, _mfImages);
+
+    return &_mfImages;
+}
+
 MFPnt2f *ImageForegroundBase::editMFPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
@@ -234,12 +241,7 @@ MFPnt2f             *ImageForegroundBase::getMFPositions      (void)
 
 void ImageForegroundBase::pushToImages(const ImagePtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ImagesFieldMask, _mfImages);
-
-    //addRef(value);
 
     _mfImages.push_back(value);
 }
@@ -261,66 +263,6 @@ void ImageForegroundBase::assignImages   (const MFUnrecImagePtr   &value)
     }
 }
 
-void ImageForegroundBase::insertIntoImages(      UInt32         uiIndex,
-                                                   const ImagePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ImagesFieldMask, _mfImages);
-
-    MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfImages.insert(fieldIt, value);
-}
-
-void ImageForegroundBase::replaceInImages(      UInt32         uiIndex,
-                                                       const ImagePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfImages.size())
-        return;
-
-    editMField(ImagesFieldMask, _mfImages);
-
-
-//    addRef(value);
-//    subRef(_mfImages[uiIndex]);
-
-//    _mfImages[uiIndex] = value;
-
-      _mfImages.replace(uiIndex, value);
-}
-
-void ImageForegroundBase::replaceInImages(const ImagePtr pOldElem,
-                                                        const ImagePtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfImages.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ImagesFieldMask, _mfImages);
-
-//        MFImagePtr::iterator fieldIt = _mfImages.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfImages.replace(elemIdx, pNewElem);
-    }
-}
-
 void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
 {
     if(uiIndex < _mfImages.size())
@@ -330,8 +272,6 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
         MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfImages.erase(fieldIt);
     }
@@ -348,8 +288,6 @@ void ImageForegroundBase::removeFromImages(const ImagePtr value)
         MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfImages.erase(fieldIt);
     }
@@ -528,6 +466,7 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
 
     if(source != NULL)
     {
+        ImageForeground *pThis = static_cast<ImageForeground *>(this);
 
         MFUnrecImagePtr::const_iterator ImagesIt  =
             source->_mfImages.begin();
@@ -536,7 +475,7 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
 
         while(ImagesIt != ImagesEnd)
         {
-            this->pushToImages(*ImagesIt);
+            pThis->pushToImages(*ImagesIt);
 
             ++ImagesIt;
         }

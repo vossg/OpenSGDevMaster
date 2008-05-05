@@ -147,13 +147,13 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
                   Real32              &getZeroParallaxDistance (void);
 #endif
                   Real32              &editZeroParallaxDistance(void);
-            const Real32              &getZeroParallaxDistance (void) const;
+            const Real32               getZeroParallaxDistance (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOverlap         (void);
 #endif
                   Real32              &editOverlap        (void);
-            const Real32              &getOverlap         (void) const;
+            const Real32               getOverlap         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

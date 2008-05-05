@@ -652,6 +652,13 @@ const SFUnrecWindowPtr *ClusterWindowBase::getSFClientWindow(void) const
     return &_sfClientWindow;
 }
 
+SFUnrecWindowPtr    *ClusterWindowBase::editSFClientWindow   (void)
+{
+    editSField(ClientWindowFieldMask);
+
+    return &_sfClientWindow;
+}
+
 SFUInt32 *ClusterWindowBase::editSFInterleave(void)
 {
     editSField(InterleaveFieldMask);
@@ -693,6 +700,13 @@ SFUInt32            *ClusterWindowBase::getSFFrameCount     (void)
 //! Get the ClusterWindow::_sfComposer field.
 const SFUnrecImageComposerPtr *ClusterWindowBase::getSFComposer(void) const
 {
+    return &_sfComposer;
+}
+
+SFUnrecImageComposerPtr *ClusterWindowBase::editSFComposer       (void)
+{
+    editSField(ComposerFieldMask);
+
     return &_sfComposer;
 }
 
@@ -1037,10 +1051,11 @@ void ClusterWindowBase::onCreate(const ClusterWindow *source)
 
     if(source != NULL)
     {
+        ClusterWindow *pThis = static_cast<ClusterWindow *>(this);
 
-        this->setClientWindow(source->getClientWindow());
+        pThis->setClientWindow(source->getClientWindow());
 
-        this->setComposer(source->getComposer());
+        pThis->setComposer(source->getComposer());
     }
 }
 

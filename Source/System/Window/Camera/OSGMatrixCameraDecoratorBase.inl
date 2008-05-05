@@ -85,7 +85,7 @@ Matrix &MatrixCameraDecoratorBase::editPreViewing(void)
 
 //! Get the value of the MatrixCameraDecorator::_sfPreViewing field.
 inline
-const Matrix &MatrixCameraDecoratorBase::getPreViewing(void) const
+const Matrix MatrixCameraDecoratorBase::getPreViewing(void) const
 {
     return _sfPreViewing.getValue();
 }
@@ -118,7 +118,7 @@ Matrix &MatrixCameraDecoratorBase::editPostViewing(void)
 
 //! Get the value of the MatrixCameraDecorator::_sfPostViewing field.
 inline
-const Matrix &MatrixCameraDecoratorBase::getPostViewing(void) const
+const Matrix MatrixCameraDecoratorBase::getPostViewing(void) const
 {
     return _sfPostViewing.getValue();
 }
@@ -151,7 +151,7 @@ Matrix &MatrixCameraDecoratorBase::editPreProjectionTranslation(void)
 
 //! Get the value of the MatrixCameraDecorator::_sfPreProjectionTranslation field.
 inline
-const Matrix &MatrixCameraDecoratorBase::getPreProjectionTranslation(void) const
+const Matrix MatrixCameraDecoratorBase::getPreProjectionTranslation(void) const
 {
     return _sfPreProjectionTranslation.getValue();
 }
@@ -184,7 +184,7 @@ Matrix &MatrixCameraDecoratorBase::editPostProjectionTranslation(void)
 
 //! Get the value of the MatrixCameraDecorator::_sfPostProjectionTranslation field.
 inline
-const Matrix &MatrixCameraDecoratorBase::getPostProjectionTranslation(void) const
+const Matrix MatrixCameraDecoratorBase::getPostProjectionTranslation(void) const
 {
     return _sfPostProjectionTranslation.getValue();
 }
@@ -217,7 +217,7 @@ Matrix &MatrixCameraDecoratorBase::editPreProjection(void)
 
 //! Get the value of the MatrixCameraDecorator::_sfPreProjection field.
 inline
-const Matrix &MatrixCameraDecoratorBase::getPreProjection(void) const
+const Matrix MatrixCameraDecoratorBase::getPreProjection(void) const
 {
     return _sfPreProjection.getValue();
 }
@@ -250,7 +250,7 @@ Matrix &MatrixCameraDecoratorBase::editPostProjection(void)
 
 //! Get the value of the MatrixCameraDecorator::_sfPostProjection field.
 inline
-const Matrix &MatrixCameraDecoratorBase::getPostProjection(void) const
+const Matrix MatrixCameraDecoratorBase::getPostProjection(void) const
 {
     return _sfPostProjection.getValue();
 }

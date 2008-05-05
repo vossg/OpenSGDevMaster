@@ -85,7 +85,7 @@ GLenum &TextureObjRefChunkBase::editGLId(void)
 
 //! Get the value of the TextureObjRefChunk::_sfGLId field.
 inline
-const GLenum &TextureObjRefChunkBase::getGLId(void) const
+const GLenum TextureObjRefChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }

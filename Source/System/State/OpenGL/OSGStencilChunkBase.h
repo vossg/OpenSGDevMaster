@@ -207,49 +207,49 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
                   GLenum              &getStencilFunc     (void);
 #endif
                   GLenum              &editStencilFunc    (void);
-            const GLenum              &getStencilFunc     (void) const;
+            const GLenum               getStencilFunc     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getStencilValue    (void);
 #endif
                   Int32               &editStencilValue   (void);
-            const Int32               &getStencilValue    (void) const;
+            const Int32                getStencilValue    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getStencilMask     (void);
 #endif
                   UInt32              &editStencilMask    (void);
-            const UInt32              &getStencilMask     (void) const;
+            const UInt32               getStencilMask     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getStencilOpFail   (void);
 #endif
                   GLenum              &editStencilOpFail  (void);
-            const GLenum              &getStencilOpFail   (void) const;
+            const GLenum               getStencilOpFail   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getStencilOpZFail  (void);
 #endif
                   GLenum              &editStencilOpZFail (void);
-            const GLenum              &getStencilOpZFail  (void) const;
+            const GLenum               getStencilOpZFail  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getStencilOpZPass  (void);
 #endif
                   GLenum              &editStencilOpZPass (void);
-            const GLenum              &getStencilOpZPass  (void) const;
+            const GLenum               getStencilOpZPass  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getClearBuffer     (void);
 #endif
                   Int32               &editClearBuffer    (void);
-            const Int32               &getClearBuffer     (void) const;
+            const Int32                getClearBuffer     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getBitMask         (void);
 #endif
                   UInt32              &editBitMask        (void);
-            const UInt32              &getBitMask         (void) const;
+            const UInt32               getBitMask         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,6 +269,7 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -81,13 +81,6 @@ StateChunkPtr StateBase::getChunks(const UInt32 index) const
     return _mfChunks[index];
 }
 
-//! Get the State::_mfChunks field.
-inline
-const MFUnrecStateChunkPtr &StateBase::getChunks(void) const
-{
-    return _mfChunks;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

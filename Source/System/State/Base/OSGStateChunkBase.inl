@@ -85,7 +85,7 @@ bool &StateChunkBase::editIgnore(void)
 
 //! Get the value of the StateChunk::_sfIgnore field.
 inline
-const bool &StateChunkBase::getIgnore(void) const
+const bool StateChunkBase::getIgnore(void) const
 {
     return _sfIgnore.getValue();
 }

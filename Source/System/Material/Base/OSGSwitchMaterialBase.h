@@ -129,7 +129,8 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecMaterialPtr  *getMFMaterials       (void) const;
+            const MFUnrecMaterialPtr  *getMFMaterials      (void) const;
+                  MFUnrecMaterialPtr  *editMFMaterials      (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFChoice          (void);
@@ -139,13 +140,12 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
 
 
                   MaterialPtr getMaterials      (const UInt32 index) const;
-            const MFUnrecMaterialPtr  &getMaterials      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getChoice          (void);
 #endif
                   UInt32              &editChoice         (void);
-            const UInt32              &getChoice          (void) const;
+            const UInt32               getChoice          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -166,12 +166,6 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
 
     void pushToMaterials           (const MaterialPtr value   );
     void assignMaterials           (const MFUnrecMaterialPtr &value);
-    void insertIntoMaterials      (      UInt32         uiIndex,
-                                             const MaterialPtr value   );
-    void replaceInMaterials  (      UInt32         uiIndex,
-                                             const MaterialPtr value   );
-    void replaceInMaterials (const MaterialPtr pOldElem,
-                                             const MaterialPtr pNewElem);
     void removeFromMaterials (UInt32                uiIndex );
     void removeFromMaterials(const MaterialPtr value   );
     void clearMaterials             (void                          );

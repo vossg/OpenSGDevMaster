@@ -361,6 +361,7 @@ void ShaderParameterBase::onCreate(const ShaderParameter *source)
 
     if(source != NULL)
     {
+        ShaderParameter *pThis = static_cast<ShaderParameter *>(this);
     }
 }
 

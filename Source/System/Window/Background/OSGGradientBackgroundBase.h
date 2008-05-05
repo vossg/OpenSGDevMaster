@@ -213,36 +213,18 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  MFColor3f           *getMFColor           (void);
-#endif
                   MFColor3f           *editMFColor          (void);
             const MFColor3f           *getMFColor           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFReal32            *getMFPosition        (void);
-#endif
                   MFReal32            *editMFPosition       (void);
             const MFReal32            *getMFPosition        (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Color3f             &getColor           (const UInt32 index);
-                  MFColor3f           &getColor          (void);
-#endif
                   Color3f             &editColor          (const UInt32 index);
-            const Color3f             &getColor           (const UInt32 index) const;
-                  MFColor3f           &editColor          (void);
-            const MFColor3f           &getColor           (void) const;
+            const Color3f              getColor           (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getPosition        (const UInt32 index);
-                  MFReal32            &getPosition       (void);
-#endif
                   Real32              &editPosition       (const UInt32 index);
-            const Real32              &getPosition        (const UInt32 index) const;
-                  MFReal32            &editPosition       (void);
-            const MFReal32            &getPosition        (void) const;
+            const Real32               getPosition        (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -254,9 +236,6 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

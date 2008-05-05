@@ -129,7 +129,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecImagePtr     *getMFImages          (void) const;
+            const MFUnrecImagePtr     *getMFImages         (void) const;
+                  MFUnrecImagePtr     *editMFImages         (void);
 
 #ifdef OSG_1_GET_COMPAT
                   MFPnt2f             *getMFPositions       (void);
@@ -139,16 +140,13 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
 
                   ImagePtr getImages         (const UInt32 index) const;
-            const MFUnrecImagePtr     &getImages         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Pnt2f               &getPositions       (const UInt32 index);
                   MFPnt2f             &getPositions      (void);
 #endif
                   Pnt2f               &editPositions      (const UInt32 index);
-            const Pnt2f               &getPositions       (const UInt32 index) const;
-                  MFPnt2f             &editPositions      (void);
-            const MFPnt2f             &getPositions      (void) const;
+            const Pnt2f                getPositions       (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -168,17 +166,9 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
     void pushToImages              (const ImagePtr value   );
     void assignImages              (const MFUnrecImagePtr   &value);
-    void insertIntoImages      (      UInt32         uiIndex,
-                                             const ImagePtr value   );
-    void replaceInImages  (      UInt32         uiIndex,
-                                             const ImagePtr value   );
-    void replaceInImages (const ImagePtr pOldElem,
-                                             const ImagePtr pNewElem);
     void removeFromImages (UInt32                uiIndex );
     void removeFromImages(const ImagePtr value   );
     void clearImages                (void                          );
-
-
 
 
     /*! \}                                                                 */

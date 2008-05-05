@@ -85,7 +85,7 @@ std::string &ShaderChunkBase::editVertexProgram(void)
 
 //! Get the value of the ShaderChunk::_sfVertexProgram field.
 inline
-const std::string &ShaderChunkBase::getVertexProgram(void) const
+const std::string ShaderChunkBase::getVertexProgram(void) const
 {
     return _sfVertexProgram.getValue();
 }
@@ -118,7 +118,7 @@ std::string &ShaderChunkBase::editFragmentProgram(void)
 
 //! Get the value of the ShaderChunk::_sfFragmentProgram field.
 inline
-const std::string &ShaderChunkBase::getFragmentProgram(void) const
+const std::string ShaderChunkBase::getFragmentProgram(void) const
 {
     return _sfFragmentProgram.getValue();
 }
@@ -151,7 +151,7 @@ std::string &ShaderChunkBase::editGeometryProgram(void)
 
 //! Get the value of the ShaderChunk::_sfGeometryProgram field.
 inline
-const std::string &ShaderChunkBase::getGeometryProgram(void) const
+const std::string ShaderChunkBase::getGeometryProgram(void) const
 {
     return _sfGeometryProgram.getValue();
 }

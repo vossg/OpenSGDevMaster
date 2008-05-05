@@ -85,7 +85,7 @@ std::string &ProgramChunkBase::editProgram(void)
 
 //! Get the value of the ProgramChunk::_sfProgram field.
 inline
-const std::string &ProgramChunkBase::getProgram(void) const
+const std::string ProgramChunkBase::getProgram(void) const
 {
     return _sfProgram.getValue();
 }
@@ -118,7 +118,7 @@ UInt32 &ProgramChunkBase::editGLId(void)
 
 //! Get the value of the ProgramChunk::_sfGLId field.
 inline
-const UInt32 &ProgramChunkBase::getGLId(void) const
+const UInt32 ProgramChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
@@ -142,7 +142,7 @@ void ProgramChunkBase::setGLId(const UInt32 &value)
 
 //! Get the value of the \a index element the ProgramChunk::_mfParamValues field.
 inline
-const Vec4f &ProgramChunkBase::getParamValues(const UInt32 index) const
+const Vec4f ProgramChunkBase::getParamValues(const UInt32 index) const
 {
     return _mfParamValues[index];
 }
@@ -153,15 +153,6 @@ Vec4f &ProgramChunkBase::editParamValues(const UInt32 index)
     editMField(ParamValuesFieldMask, _mfParamValues);
 
     return _mfParamValues[index];
-}
-
-//! Get the ProgramChunk::_mfParamValues field.
-inline
-MFVec4f &ProgramChunkBase::editParamValues(void)
-{
-    editMField(ParamValuesFieldMask, _mfParamValues);
-
-    return _mfParamValues;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -180,16 +171,9 @@ MFVec4f             &ProgramChunkBase::getParamValues    (void)
 #endif
 
 
-//! Get the ProgramChunk::_mfParamValues field.
-inline
-const MFVec4f &ProgramChunkBase::getParamValues(void) const
-{
-    return _mfParamValues;
-}
-
 //! Get the value of the \a index element the ProgramChunk::_mfParamNames field.
 inline
-const std::string &ProgramChunkBase::getParamNames(const UInt32 index) const
+const std::string ProgramChunkBase::getParamNames(const UInt32 index) const
 {
     return _mfParamNames[index];
 }
@@ -200,15 +184,6 @@ std::string &ProgramChunkBase::editParamNames(const UInt32 index)
     editMField(ParamNamesFieldMask, _mfParamNames);
 
     return _mfParamNames[index];
-}
-
-//! Get the ProgramChunk::_mfParamNames field.
-inline
-MFString &ProgramChunkBase::editParamNames(void)
-{
-    editMField(ParamNamesFieldMask, _mfParamNames);
-
-    return _mfParamNames;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -226,13 +201,6 @@ MFString            &ProgramChunkBase::getParamNames     (void)
 
 #endif
 
-
-//! Get the ProgramChunk::_mfParamNames field.
-inline
-const MFString &ProgramChunkBase::getParamNames(void) const
-{
-    return _mfParamNames;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

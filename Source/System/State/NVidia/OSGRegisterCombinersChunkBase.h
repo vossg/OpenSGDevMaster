@@ -437,268 +437,214 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
                   Color4f             &getColor0          (void);
 #endif
                   Color4f             &editColor0         (void);
-            const Color4f             &getColor0          (void) const;
+            const Color4f              getColor0          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getColor1          (void);
 #endif
                   Color4f             &editColor1         (void);
-            const Color4f             &getColor1          (void) const;
+            const Color4f              getColor1          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getColorSumClamp   (void);
 #endif
                   bool                &editColorSumClamp  (void);
-            const bool                &getColorSumClamp   (void) const;
+            const bool                 getColorSumClamp   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableArgb    (const UInt32 index);
                   MFGLenum            &getVariableArgb   (void);
 #endif
                   GLenum              &editVariableArgb   (const UInt32 index);
-            const GLenum              &getVariableArgb    (const UInt32 index) const;
-                  MFGLenum            &editVariableArgb   (void);
-            const MFGLenum            &getVariableArgb   (void) const;
+            const GLenum               getVariableArgb    (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableBrgb    (const UInt32 index);
                   MFGLenum            &getVariableBrgb   (void);
 #endif
                   GLenum              &editVariableBrgb   (const UInt32 index);
-            const GLenum              &getVariableBrgb    (const UInt32 index) const;
-                  MFGLenum            &editVariableBrgb   (void);
-            const MFGLenum            &getVariableBrgb   (void) const;
+            const GLenum               getVariableBrgb    (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableCrgb    (const UInt32 index);
                   MFGLenum            &getVariableCrgb   (void);
 #endif
                   GLenum              &editVariableCrgb   (const UInt32 index);
-            const GLenum              &getVariableCrgb    (const UInt32 index) const;
-                  MFGLenum            &editVariableCrgb   (void);
-            const MFGLenum            &getVariableCrgb   (void) const;
+            const GLenum               getVariableCrgb    (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableDrgb    (const UInt32 index);
                   MFGLenum            &getVariableDrgb   (void);
 #endif
                   GLenum              &editVariableDrgb   (const UInt32 index);
-            const GLenum              &getVariableDrgb    (const UInt32 index) const;
-                  MFGLenum            &editVariableDrgb   (void);
-            const MFGLenum            &getVariableDrgb   (void) const;
+            const GLenum               getVariableDrgb    (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableAalpha  (const UInt32 index);
                   MFGLenum            &getVariableAalpha (void);
 #endif
                   GLenum              &editVariableAalpha (const UInt32 index);
-            const GLenum              &getVariableAalpha  (const UInt32 index) const;
-                  MFGLenum            &editVariableAalpha (void);
-            const MFGLenum            &getVariableAalpha (void) const;
+            const GLenum               getVariableAalpha  (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableBalpha  (const UInt32 index);
                   MFGLenum            &getVariableBalpha (void);
 #endif
                   GLenum              &editVariableBalpha (const UInt32 index);
-            const GLenum              &getVariableBalpha  (const UInt32 index) const;
-                  MFGLenum            &editVariableBalpha (void);
-            const MFGLenum            &getVariableBalpha (void) const;
+            const GLenum               getVariableBalpha  (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableCalpha  (const UInt32 index);
                   MFGLenum            &getVariableCalpha (void);
 #endif
                   GLenum              &editVariableCalpha (const UInt32 index);
-            const GLenum              &getVariableCalpha  (const UInt32 index) const;
-                  MFGLenum            &editVariableCalpha (void);
-            const MFGLenum            &getVariableCalpha (void) const;
+            const GLenum               getVariableCalpha  (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableDalpha  (const UInt32 index);
                   MFGLenum            &getVariableDalpha (void);
 #endif
                   GLenum              &editVariableDalpha (const UInt32 index);
-            const GLenum              &getVariableDalpha  (const UInt32 index) const;
-                  MFGLenum            &editVariableDalpha (void);
-            const MFGLenum            &getVariableDalpha (void) const;
+            const GLenum               getVariableDalpha  (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getOutputABrgb     (const UInt32 index);
                   MFGLenum            &getOutputABrgb    (void);
 #endif
                   GLenum              &editOutputABrgb    (const UInt32 index);
-            const GLenum              &getOutputABrgb     (const UInt32 index) const;
-                  MFGLenum            &editOutputABrgb    (void);
-            const MFGLenum            &getOutputABrgb    (void) const;
+            const GLenum               getOutputABrgb     (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getOutputCDrgb     (const UInt32 index);
                   MFGLenum            &getOutputCDrgb    (void);
 #endif
                   GLenum              &editOutputCDrgb    (const UInt32 index);
-            const GLenum              &getOutputCDrgb     (const UInt32 index) const;
-                  MFGLenum            &editOutputCDrgb    (void);
-            const MFGLenum            &getOutputCDrgb    (void) const;
+            const GLenum               getOutputCDrgb     (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getOutputSumrgb    (const UInt32 index);
                   MFGLenum            &getOutputSumrgb   (void);
 #endif
                   GLenum              &editOutputSumrgb   (const UInt32 index);
-            const GLenum              &getOutputSumrgb    (const UInt32 index) const;
-                  MFGLenum            &editOutputSumrgb   (void);
-            const MFGLenum            &getOutputSumrgb   (void) const;
+            const GLenum               getOutputSumrgb    (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getScalergb        (const UInt32 index);
                   MFGLenum            &getScalergb       (void);
 #endif
                   GLenum              &editScalergb       (const UInt32 index);
-            const GLenum              &getScalergb        (const UInt32 index) const;
-                  MFGLenum            &editScalergb       (void);
-            const MFGLenum            &getScalergb       (void) const;
+            const GLenum               getScalergb        (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getBiasrgb         (const UInt32 index);
                   MFGLenum            &getBiasrgb        (void);
 #endif
                   GLenum              &editBiasrgb        (const UInt32 index);
-            const GLenum              &getBiasrgb         (const UInt32 index) const;
-                  MFGLenum            &editBiasrgb        (void);
-            const MFGLenum            &getBiasrgb        (void) const;
+            const GLenum               getBiasrgb         (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getOutputABalpha   (const UInt32 index);
                   MFGLenum            &getOutputABalpha  (void);
 #endif
                   GLenum              &editOutputABalpha  (const UInt32 index);
-            const GLenum              &getOutputABalpha   (const UInt32 index) const;
-                  MFGLenum            &editOutputABalpha  (void);
-            const MFGLenum            &getOutputABalpha  (void) const;
+            const GLenum               getOutputABalpha   (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getOutputCDalpha   (const UInt32 index);
                   MFGLenum            &getOutputCDalpha  (void);
 #endif
                   GLenum              &editOutputCDalpha  (const UInt32 index);
-            const GLenum              &getOutputCDalpha   (const UInt32 index) const;
-                  MFGLenum            &editOutputCDalpha  (void);
-            const MFGLenum            &getOutputCDalpha  (void) const;
+            const GLenum               getOutputCDalpha   (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getOutputSumalpha  (const UInt32 index);
                   MFGLenum            &getOutputSumalpha (void);
 #endif
                   GLenum              &editOutputSumalpha (const UInt32 index);
-            const GLenum              &getOutputSumalpha  (const UInt32 index) const;
-                  MFGLenum            &editOutputSumalpha (void);
-            const MFGLenum            &getOutputSumalpha (void) const;
+            const GLenum               getOutputSumalpha  (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getDotABrgb        (const UInt32 index);
                   MFUInt8             &getDotABrgb       (void);
 #endif
                   UInt8               &editDotABrgb       (const UInt32 index);
-            const UInt8               &getDotABrgb        (const UInt32 index) const;
-                  MFUInt8             &editDotABrgb       (void);
-            const MFUInt8             &getDotABrgb       (void) const;
+            const UInt8                getDotABrgb        (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getDotCDrgb        (const UInt32 index);
                   MFUInt8             &getDotCDrgb       (void);
 #endif
                   UInt8               &editDotCDrgb       (const UInt32 index);
-            const UInt8               &getDotCDrgb        (const UInt32 index) const;
-                  MFUInt8             &editDotCDrgb       (void);
-            const MFUInt8             &getDotCDrgb       (void) const;
+            const UInt8                getDotCDrgb        (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getMuxSumrgb       (const UInt32 index);
                   MFUInt8             &getMuxSumrgb      (void);
 #endif
                   UInt8               &editMuxSumrgb      (const UInt32 index);
-            const UInt8               &getMuxSumrgb       (const UInt32 index) const;
-                  MFUInt8             &editMuxSumrgb      (void);
-            const MFUInt8             &getMuxSumrgb      (void) const;
+            const UInt8                getMuxSumrgb       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getScalealpha      (const UInt32 index);
                   MFGLenum            &getScalealpha     (void);
 #endif
                   GLenum              &editScalealpha     (const UInt32 index);
-            const GLenum              &getScalealpha      (const UInt32 index) const;
-                  MFGLenum            &editScalealpha     (void);
-            const MFGLenum            &getScalealpha     (void) const;
+            const GLenum               getScalealpha      (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getBiasalpha       (const UInt32 index);
                   MFGLenum            &getBiasalpha      (void);
 #endif
                   GLenum              &editBiasalpha      (const UInt32 index);
-            const GLenum              &getBiasalpha       (const UInt32 index) const;
-                  MFGLenum            &editBiasalpha      (void);
-            const MFGLenum            &getBiasalpha      (void) const;
+            const GLenum               getBiasalpha       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getMuxSumalpha     (const UInt32 index);
                   MFUInt8             &getMuxSumalpha    (void);
 #endif
                   UInt8               &editMuxSumalpha    (const UInt32 index);
-            const UInt8               &getMuxSumalpha     (const UInt32 index) const;
-                  MFUInt8             &editMuxSumalpha    (void);
-            const MFUInt8             &getMuxSumalpha    (void) const;
+            const UInt8                getMuxSumalpha     (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableE       (const UInt32 index);
                   MFGLenum            &getVariableE      (void);
 #endif
                   GLenum              &editVariableE      (const UInt32 index);
-            const GLenum              &getVariableE       (const UInt32 index) const;
-                  MFGLenum            &editVariableE      (void);
-            const MFGLenum            &getVariableE      (void) const;
+            const GLenum               getVariableE       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableF       (const UInt32 index);
                   MFGLenum            &getVariableF      (void);
 #endif
                   GLenum              &editVariableF      (const UInt32 index);
-            const GLenum              &getVariableF       (const UInt32 index) const;
-                  MFGLenum            &editVariableF      (void);
-            const MFGLenum            &getVariableF      (void) const;
+            const GLenum               getVariableF       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getVariableG       (const UInt32 index);
                   MFGLenum            &getVariableG      (void);
 #endif
                   GLenum              &editVariableG      (const UInt32 index);
-            const GLenum              &getVariableG       (const UInt32 index) const;
-                  MFGLenum            &editVariableG      (void);
-            const MFGLenum            &getVariableG      (void) const;
+            const GLenum               getVariableG       (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getCombinerColor0  (const UInt32 index);
                   MFColor4f           &getCombinerColor0 (void);
 #endif
                   Color4f             &editCombinerColor0 (const UInt32 index);
-            const Color4f             &getCombinerColor0  (const UInt32 index) const;
-                  MFColor4f           &editCombinerColor0 (void);
-            const MFColor4f           &getCombinerColor0 (void) const;
+            const Color4f              getCombinerColor0  (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getCombinerColor1  (const UInt32 index);
                   MFColor4f           &getCombinerColor1 (void);
 #endif
                   Color4f             &editCombinerColor1 (const UInt32 index);
-            const Color4f             &getCombinerColor1  (const UInt32 index) const;
-                  MFColor4f           &editCombinerColor1 (void);
-            const MFColor4f           &getCombinerColor1 (void) const;
+            const Color4f              getCombinerColor1  (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt8               &getPerStageConstants (void);
 #endif
                   UInt8               &editPerStageConstants(void);
-            const UInt8               &getPerStageConstants (void) const;
+            const UInt8                getPerStageConstants (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -714,59 +660,6 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

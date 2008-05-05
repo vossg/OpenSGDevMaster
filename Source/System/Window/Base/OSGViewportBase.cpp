@@ -601,9 +601,23 @@ const SFUnrecCameraPtr *ViewportBase::getSFCamera(void) const
     return &_sfCamera;
 }
 
+SFUnrecCameraPtr    *ViewportBase::editSFCamera         (void)
+{
+    editSField(CameraFieldMask);
+
+    return &_sfCamera;
+}
+
 //! Get the Viewport::_sfRoot field.
 const SFUnrecNodePtr *ViewportBase::getSFRoot(void) const
 {
+    return &_sfRoot;
+}
+
+SFUnrecNodePtr      *ViewportBase::editSFRoot           (void)
+{
+    editSField(RootFieldMask);
+
     return &_sfRoot;
 }
 
@@ -613,9 +627,23 @@ const SFUnrecBackgroundPtr *ViewportBase::getSFBackground(void) const
     return &_sfBackground;
 }
 
+SFUnrecBackgroundPtr *ViewportBase::editSFBackground     (void)
+{
+    editSField(BackgroundFieldMask);
+
+    return &_sfBackground;
+}
+
 //! Get the Viewport::_mfForegrounds field.
 const MFUnrecForegroundPtr *ViewportBase::getMFForegrounds(void) const
 {
+    return &_mfForegrounds;
+}
+
+MFUnrecForegroundPtr *ViewportBase::editMFForegrounds    (void)
+{
+    editMField(ForegroundsFieldMask, _mfForegrounds);
+
     return &_mfForegrounds;
 }
 
@@ -661,12 +689,7 @@ SFReal32            *ViewportBase::getSFDrawTime       (void)
 
 void ViewportBase::addForeground(const ForegroundPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ForegroundsFieldMask, _mfForegrounds);
-
-    //addRef(value);
 
     _mfForegrounds.push_back(value);
 }
@@ -688,66 +711,6 @@ void ViewportBase::assignForegrounds(const MFUnrecForegroundPtr &value)
     }
 }
 
-void ViewportBase::insertIntoForegrounds(      UInt32         uiIndex,
-                                                   const ForegroundPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ForegroundsFieldMask, _mfForegrounds);
-
-    MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfForegrounds.insert(fieldIt, value);
-}
-
-void ViewportBase::replaceInForegrounds(      UInt32         uiIndex,
-                                                       const ForegroundPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfForegrounds.size())
-        return;
-
-    editMField(ForegroundsFieldMask, _mfForegrounds);
-
-
-//    addRef(value);
-//    subRef(_mfForegrounds[uiIndex]);
-
-//    _mfForegrounds[uiIndex] = value;
-
-      _mfForegrounds.replace(uiIndex, value);
-}
-
-void ViewportBase::replaceInForegrounds(const ForegroundPtr pOldElem,
-                                                        const ForegroundPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfForegrounds.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ForegroundsFieldMask, _mfForegrounds);
-
-//        MFForegroundPtr::iterator fieldIt = _mfForegrounds.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfForegrounds.replace(elemIdx, pNewElem);
-    }
-}
-
 void ViewportBase::removeFromForegrounds(UInt32 uiIndex)
 {
     if(uiIndex < _mfForegrounds.size())
@@ -757,8 +720,6 @@ void ViewportBase::removeFromForegrounds(UInt32 uiIndex)
         MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfForegrounds.erase(fieldIt);
     }
@@ -775,8 +736,6 @@ void ViewportBase::removeFromForegrounds(const ForegroundPtr value)
         MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfForegrounds.erase(fieldIt);
     }
@@ -1152,12 +1111,13 @@ void ViewportBase::onCreate(const Viewport *source)
 
     if(source != NULL)
     {
+        Viewport *pThis = static_cast<Viewport *>(this);
 
-        this->setCamera(source->getCamera());
+        pThis->setCamera(source->getCamera());
 
-        this->setRoot(source->getRoot());
+        pThis->setRoot(source->getRoot());
 
-        this->setBackground(source->getBackground());
+        pThis->setBackground(source->getBackground());
 
         MFUnrecForegroundPtr::const_iterator ForegroundsIt  =
             source->_mfForegrounds.begin();
@@ -1166,7 +1126,7 @@ void ViewportBase::onCreate(const Viewport *source)
 
         while(ForegroundsIt != ForegroundsEnd)
         {
-            this->addForeground(*ForegroundsIt);
+            pThis->addForeground(*ForegroundsIt);
 
             ++ForegroundsIt;
         }

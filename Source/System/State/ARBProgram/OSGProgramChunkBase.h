@@ -161,25 +161,21 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
                   std::string         &getProgram         (void);
 #endif
                   std::string         &editProgram        (void);
-            const std::string         &getProgram         (void) const;
+            const std::string          getProgram         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec4f               &getParamValues     (const UInt32 index);
                   MFVec4f             &getParamValues    (void);
 #endif
                   Vec4f               &editParamValues    (const UInt32 index);
-            const Vec4f               &getParamValues     (const UInt32 index) const;
-                  MFVec4f             &editParamValues    (void);
-            const MFVec4f             &getParamValues    (void) const;
+            const Vec4f                getParamValues     (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getParamNames      (const UInt32 index);
                   MFString            &getParamNames     (void);
 #endif
                   std::string         &editParamNames     (const UInt32 index);
-            const std::string         &getParamNames      (const UInt32 index) const;
-                  MFString            &editParamNames     (void);
-            const MFString            &getParamNames     (void) const;
+            const std::string          getParamNames      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -192,9 +188,6 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -268,18 +261,12 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFGLId            (void);
-#endif
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGLId            (void);
-#endif
                   UInt32              &editGLId           (void);
-            const UInt32              &getGLId            (void) const;
+            const UInt32               getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -292,6 +279,7 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

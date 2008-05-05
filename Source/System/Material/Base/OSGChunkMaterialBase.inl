@@ -81,16 +81,9 @@ StateChunkPtr ChunkMaterialBase::getChunks(const UInt32 index) const
     return _mfChunks[index];
 }
 
-//! Get the ChunkMaterial::_mfChunks field.
-inline
-const MFUnrecStateChunkPtr &ChunkMaterialBase::getChunks(void) const
-{
-    return _mfChunks;
-}
-
 //! Get the value of the \a index element the ChunkMaterial::_mfSlots field.
 inline
-const Int32 &ChunkMaterialBase::getSlots(const UInt32 index) const
+const Int32 ChunkMaterialBase::getSlots(const UInt32 index) const
 {
     return _mfSlots[index];
 }
@@ -101,15 +94,6 @@ Int32 &ChunkMaterialBase::editSlots(const UInt32 index)
     editMField(SlotsFieldMask, _mfSlots);
 
     return _mfSlots[index];
-}
-
-//! Get the ChunkMaterial::_mfSlots field.
-inline
-MFInt32 &ChunkMaterialBase::editSlots(void)
-{
-    editMField(SlotsFieldMask, _mfSlots);
-
-    return _mfSlots;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -127,13 +111,6 @@ MFInt32             &ChunkMaterialBase::getSlots          (void)
 
 #endif
 
-
-//! Get the ChunkMaterial::_mfSlots field.
-inline
-const MFInt32 &ChunkMaterialBase::getSlots(void) const
-{
-    return _mfSlots;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

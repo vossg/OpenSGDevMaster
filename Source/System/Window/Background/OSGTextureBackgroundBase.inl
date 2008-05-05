@@ -85,7 +85,7 @@ Color4f &TextureBackgroundBase::editColor(void)
 
 //! Get the value of the TextureBackground::_sfColor field.
 inline
-const Color4f &TextureBackgroundBase::getColor(void) const
+const Color4f TextureBackgroundBase::getColor(void) const
 {
     return _sfColor.getValue();
 }
@@ -121,7 +121,6 @@ void TextureBackgroundBase::setTexture(const TextureBaseChunkPtr value)
     editSField(TextureFieldMask);
 
     _sfTexture.setValue(value);
-
 }
 //! Get the value of the TextureBackground::_sfRadialDistortion field.
 
@@ -135,7 +134,7 @@ Real32 &TextureBackgroundBase::editRadialDistortion(void)
 
 //! Get the value of the TextureBackground::_sfRadialDistortion field.
 inline
-const Real32 &TextureBackgroundBase::getRadialDistortion(void) const
+const Real32 TextureBackgroundBase::getRadialDistortion(void) const
 {
     return _sfRadialDistortion.getValue();
 }
@@ -168,7 +167,7 @@ Vec2f &TextureBackgroundBase::editCenterOfDistortion(void)
 
 //! Get the value of the TextureBackground::_sfCenterOfDistortion field.
 inline
-const Vec2f &TextureBackgroundBase::getCenterOfDistortion(void) const
+const Vec2f TextureBackgroundBase::getCenterOfDistortion(void) const
 {
     return _sfCenterOfDistortion.getValue();
 }
@@ -201,7 +200,7 @@ UInt16 &TextureBackgroundBase::editHor(void)
 
 //! Get the value of the TextureBackground::_sfHor field.
 inline
-const UInt16 &TextureBackgroundBase::getHor(void) const
+const UInt16 TextureBackgroundBase::getHor(void) const
 {
     return _sfHor.getValue();
 }
@@ -234,7 +233,7 @@ UInt16 &TextureBackgroundBase::editVert(void)
 
 //! Get the value of the TextureBackground::_sfVert field.
 inline
-const UInt16 &TextureBackgroundBase::getVert(void) const
+const UInt16 TextureBackgroundBase::getVert(void) const
 {
     return _sfVert.getValue();
 }
@@ -258,7 +257,7 @@ void TextureBackgroundBase::setVert(const UInt16 &value)
 
 //! Get the value of the \a index element the TextureBackground::_mfTexCoords field.
 inline
-const Pnt2f &TextureBackgroundBase::getTexCoords(const UInt32 index) const
+const Pnt2f TextureBackgroundBase::getTexCoords(const UInt32 index) const
 {
     return _mfTexCoords[index];
 }
@@ -269,15 +268,6 @@ Pnt2f &TextureBackgroundBase::editTexCoords(const UInt32 index)
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
     return _mfTexCoords[index];
-}
-
-//! Get the TextureBackground::_mfTexCoords field.
-inline
-MFPnt2f &TextureBackgroundBase::editTexCoords(void)
-{
-    editMField(TexCoordsFieldMask, _mfTexCoords);
-
-    return _mfTexCoords;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -295,13 +285,6 @@ MFPnt2f             &TextureBackgroundBase::getTexCoords      (void)
 
 #endif
 
-
-//! Get the TextureBackground::_mfTexCoords field.
-inline
-const MFPnt2f &TextureBackgroundBase::getTexCoords(void) const
-{
-    return _mfTexCoords;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -493,6 +493,13 @@ const SFUnrecNodePtr *ProxyGroupBase::getSFRoot(void) const
     return &_sfRoot;
 }
 
+SFUnrecNodePtr      *ProxyGroupBase::editSFRoot           (void)
+{
+    editSField(RootFieldMask);
+
+    return &_sfRoot;
+}
+
 SFUInt32 *ProxyGroupBase::editSFState(void)
 {
     editSField(StateFieldMask);
@@ -972,8 +979,9 @@ void ProxyGroupBase::onCreate(const ProxyGroup *source)
 
     if(source != NULL)
     {
+        ProxyGroup *pThis = static_cast<ProxyGroup *>(this);
 
-        this->setRoot(source->getRoot());
+        pThis->setRoot(source->getRoot());
     }
 }
 

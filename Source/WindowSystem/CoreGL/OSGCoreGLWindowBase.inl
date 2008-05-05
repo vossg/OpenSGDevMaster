@@ -85,7 +85,7 @@ CGLContextObj &CoreGLWindowBase::editContext(void)
 
 //! Get the value of the CoreGLWindow::_sfContext field.
 inline
-const CGLContextObj &CoreGLWindowBase::getContext(void) const
+const CGLContextObj CoreGLWindowBase::getContext(void) const
 {
     return _sfContext.getValue();
 }

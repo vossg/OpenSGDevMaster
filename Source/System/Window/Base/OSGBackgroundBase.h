@@ -167,25 +167,25 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
                   Int32               &getClearStencilBit (void);
 #endif
                   Int32               &editClearStencilBit(void);
-            const Int32               &getClearStencilBit (void) const;
+            const Int32                getClearStencilBit (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getDepth           (void);
 #endif
                   Real32              &editDepth          (void);
-            const Real32              &getDepth           (void) const;
+            const Real32               getDepth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getClearDepth      (void);
 #endif
                   bool                &editClearDepth     (void);
-            const bool                &getClearDepth      (void) const;
+            const bool                 getClearDepth      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getClearColor      (void);
 #endif
                   bool                &editClearColor     (void);
-            const bool                &getClearColor      (void) const;
+            const bool                 getClearColor      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,6 +201,7 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

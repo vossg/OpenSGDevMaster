@@ -331,9 +331,23 @@ const SFUnrecImagePtr *CubeTextureChunkBase::getSFPosZImage(void) const
     return &_sfPosZImage;
 }
 
+SFUnrecImagePtr     *CubeTextureChunkBase::editSFPosZImage      (void)
+{
+    editSField(PosZImageFieldMask);
+
+    return &_sfPosZImage;
+}
+
 //! Get the CubeTextureChunk::_sfPosXImage field.
 const SFUnrecImagePtr *CubeTextureChunkBase::getSFPosXImage(void) const
 {
+    return &_sfPosXImage;
+}
+
+SFUnrecImagePtr     *CubeTextureChunkBase::editSFPosXImage      (void)
+{
+    editSField(PosXImageFieldMask);
+
     return &_sfPosXImage;
 }
 
@@ -343,15 +357,36 @@ const SFUnrecImagePtr *CubeTextureChunkBase::getSFNegXImage(void) const
     return &_sfNegXImage;
 }
 
+SFUnrecImagePtr     *CubeTextureChunkBase::editSFNegXImage      (void)
+{
+    editSField(NegXImageFieldMask);
+
+    return &_sfNegXImage;
+}
+
 //! Get the CubeTextureChunk::_sfPosYImage field.
 const SFUnrecImagePtr *CubeTextureChunkBase::getSFPosYImage(void) const
 {
     return &_sfPosYImage;
 }
 
+SFUnrecImagePtr     *CubeTextureChunkBase::editSFPosYImage      (void)
+{
+    editSField(PosYImageFieldMask);
+
+    return &_sfPosYImage;
+}
+
 //! Get the CubeTextureChunk::_sfNegYImage field.
 const SFUnrecImagePtr *CubeTextureChunkBase::getSFNegYImage(void) const
 {
+    return &_sfNegYImage;
+}
+
+SFUnrecImagePtr     *CubeTextureChunkBase::editSFNegYImage      (void)
+{
+    editSField(NegYImageFieldMask);
+
     return &_sfNegYImage;
 }
 
@@ -598,16 +633,17 @@ void CubeTextureChunkBase::onCreate(const CubeTextureChunk *source)
 
     if(source != NULL)
     {
+        CubeTextureChunk *pThis = static_cast<CubeTextureChunk *>(this);
 
-        this->setPosZImage(source->getPosZImage());
+        pThis->setPosZImage(source->getPosZImage());
 
-        this->setPosXImage(source->getPosXImage());
+        pThis->setPosXImage(source->getPosXImage());
 
-        this->setNegXImage(source->getNegXImage());
+        pThis->setNegXImage(source->getNegXImage());
 
-        this->setPosYImage(source->getPosYImage());
+        pThis->setPosYImage(source->getPosYImage());
 
-        this->setNegYImage(source->getNegYImage());
+        pThis->setNegYImage(source->getNegYImage());
     }
 }
 

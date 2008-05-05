@@ -85,7 +85,7 @@ Int32 &MaterialBase::editSortKey(void)
 
 //! Get the value of the Material::_sfSortKey field.
 inline
-const Int32 &MaterialBase::getSortKey(void) const
+const Int32 MaterialBase::getSortKey(void) const
 {
     return _sfSortKey.getValue();
 }
@@ -118,7 +118,7 @@ Int32 &MaterialBase::editTransparencyMode(void)
 
 //! Get the value of the Material::_sfTransparencyMode field.
 inline
-const Int32 &MaterialBase::getTransparencyMode(void) const
+const Int32 MaterialBase::getTransparencyMode(void) const
 {
     return _sfTransparencyMode.getValue();
 }

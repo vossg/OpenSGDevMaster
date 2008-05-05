@@ -85,7 +85,7 @@ UInt16 &WindowBase::editWidth(void)
 
 //! Get the value of the Window::_sfWidth field.
 inline
-const UInt16 &WindowBase::getWidth(void) const
+const UInt16 WindowBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
@@ -118,7 +118,7 @@ UInt16 &WindowBase::editHeight(void)
 
 //! Get the value of the Window::_sfHeight field.
 inline
-const UInt16 &WindowBase::getHeight(void) const
+const UInt16 WindowBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
@@ -151,7 +151,7 @@ bool &WindowBase::editResizePending(void)
 
 //! Get the value of the Window::_sfResizePending field.
 inline
-const bool &WindowBase::getResizePending(void) const
+const bool WindowBase::getResizePending(void) const
 {
     return _sfResizePending.getValue();
 }
@@ -184,7 +184,7 @@ UInt32 &WindowBase::editGlObjectEventCounter(void)
 
 //! Get the value of the Window::_sfGlObjectEventCounter field.
 inline
-const UInt32 &WindowBase::getGlObjectEventCounter(void) const
+const UInt32 WindowBase::getGlObjectEventCounter(void) const
 {
     return _sfGlObjectEventCounter.getValue();
 }
@@ -217,7 +217,7 @@ UInt32 &WindowBase::editDrawerId(void)
 
 //! Get the value of the Window::_sfDrawerId field.
 inline
-const UInt32 &WindowBase::getDrawerId(void) const
+const UInt32 WindowBase::getDrawerId(void) const
 {
     return _sfDrawerId.getValue();
 }
@@ -246,16 +246,9 @@ ViewportPtr WindowBase::getPort(const UInt32 index) const
     return _mfPort[index];
 }
 
-//! Get the Window::_mfPort field.
-inline
-const MFUnrecChildViewportPtr &WindowBase::getPort(void) const
-{
-    return _mfPort;
-}
-
 //! Get the value of the \a index element the Window::_mfGlObjectLastRefresh field.
 inline
-const UInt32 &WindowBase::getGlObjectLastRefresh(const UInt32 index) const
+const UInt32 WindowBase::getGlObjectLastRefresh(const UInt32 index) const
 {
     return _mfGlObjectLastRefresh[index];
 }
@@ -266,15 +259,6 @@ UInt32 &WindowBase::editGlObjectLastRefresh(const UInt32 index)
     editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
 
     return _mfGlObjectLastRefresh[index];
-}
-
-//! Get the Window::_mfGlObjectLastRefresh field.
-inline
-MFUInt32 &WindowBase::editGlObjectLastRefresh(void)
-{
-    editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
-
-    return _mfGlObjectLastRefresh;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -293,16 +277,9 @@ MFUInt32            &WindowBase::getGlObjectLastRefresh(void)
 #endif
 
 
-//! Get the Window::_mfGlObjectLastRefresh field.
-inline
-const MFUInt32 &WindowBase::getGlObjectLastRefresh(void) const
-{
-    return _mfGlObjectLastRefresh;
-}
-
 //! Get the value of the \a index element the Window::_mfGlObjectLastReinitialize field.
 inline
-const UInt32 &WindowBase::getGlObjectLastReinitialize(const UInt32 index) const
+const UInt32 WindowBase::getGlObjectLastReinitialize(const UInt32 index) const
 {
     return _mfGlObjectLastReinitialize[index];
 }
@@ -313,15 +290,6 @@ UInt32 &WindowBase::editGlObjectLastReinitialize(const UInt32 index)
     editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
 
     return _mfGlObjectLastReinitialize[index];
-}
-
-//! Get the Window::_mfGlObjectLastReinitialize field.
-inline
-MFUInt32 &WindowBase::editGlObjectLastReinitialize(void)
-{
-    editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
-
-    return _mfGlObjectLastReinitialize;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -339,13 +307,6 @@ MFUInt32            &WindowBase::getGlObjectLastReinitialize(void)
 
 #endif
 
-
-//! Get the Window::_mfGlObjectLastReinitialize field.
-inline
-const MFUInt32 &WindowBase::getGlObjectLastReinitialize(void) const
-{
-    return _mfGlObjectLastReinitialize;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

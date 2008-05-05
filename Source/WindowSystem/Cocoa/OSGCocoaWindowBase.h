@@ -137,7 +137,7 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
                   NSOpenGLContextP    &getContext         (void);
 #endif
                   NSOpenGLContextP    &editContext        (void);
-            const NSOpenGLContextP    &getContext         (void) const;
+            const NSOpenGLContextP     getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

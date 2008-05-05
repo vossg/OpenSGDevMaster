@@ -227,61 +227,61 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
                   Real32              &getSize            (void);
 #endif
                   Real32              &editSize           (void);
-            const Real32              &getSize            (void) const;
+            const Real32               getSize            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getSmooth          (void);
 #endif
                   bool                &editSmooth         (void);
-            const bool                &getSmooth          (void) const;
+            const bool                 getSmooth          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getMinSize         (void);
 #endif
                   Real32              &editMinSize        (void);
-            const Real32              &getMinSize         (void) const;
+            const Real32               getMinSize         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getMaxSize         (void);
 #endif
                   Real32              &editMaxSize        (void);
-            const Real32              &getMaxSize         (void) const;
+            const Real32               getMaxSize         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getConstantAttenuation (void);
 #endif
                   Real32              &editConstantAttenuation(void);
-            const Real32              &getConstantAttenuation (void) const;
+            const Real32               getConstantAttenuation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getLinearAttenuation (void);
 #endif
                   Real32              &editLinearAttenuation(void);
-            const Real32              &getLinearAttenuation (void) const;
+            const Real32               getLinearAttenuation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getQuadraticAttenuation (void);
 #endif
                   Real32              &editQuadraticAttenuation(void);
-            const Real32              &getQuadraticAttenuation (void) const;
+            const Real32               getQuadraticAttenuation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getFadeThreshold   (void);
 #endif
                   Real32              &editFadeThreshold  (void);
-            const Real32              &getFadeThreshold   (void) const;
+            const Real32               getFadeThreshold   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getSprite          (void);
 #endif
                   bool                &editSprite         (void);
-            const bool                &getSprite          (void) const;
+            const bool                 getSprite          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getRMode           (void);
 #endif
                   GLenum              &editRMode          (void);
-            const GLenum              &getRMode           (void) const;
+            const GLenum               getRMode           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,6 +303,7 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

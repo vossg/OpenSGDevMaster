@@ -85,7 +85,7 @@ GLenum &FrameBufferObjectBase::editGLId(void)
 
 //! Get the value of the FrameBufferObject::_sfGLId field.
 inline
-const GLenum &FrameBufferObjectBase::getGLId(void) const
+const GLenum FrameBufferObjectBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
@@ -121,7 +121,6 @@ void FrameBufferObjectBase::setDepthAttachment(const FrameBufferAttachmentPtr va
     editSField(DepthAttachmentFieldMask);
 
     _sfDepthAttachment.setValue(value);
-
 }
 
 //! Get the value of the FrameBufferObject::_sfStencilAttachment field.
@@ -138,7 +137,6 @@ void FrameBufferObjectBase::setStencilAttachment(const FrameBufferAttachmentPtr 
     editSField(StencilAttachmentFieldMask);
 
     _sfStencilAttachment.setValue(value);
-
 }
 //! Get the value of the FrameBufferObject::_sfWidth field.
 
@@ -152,7 +150,7 @@ UInt16 &FrameBufferObjectBase::editWidth(void)
 
 //! Get the value of the FrameBufferObject::_sfWidth field.
 inline
-const UInt16 &FrameBufferObjectBase::getWidth(void) const
+const UInt16 FrameBufferObjectBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
@@ -185,7 +183,7 @@ UInt16 &FrameBufferObjectBase::editHeight(void)
 
 //! Get the value of the FrameBufferObject::_sfHeight field.
 inline
-const UInt16 &FrameBufferObjectBase::getHeight(void) const
+const UInt16 FrameBufferObjectBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
@@ -214,16 +212,9 @@ FrameBufferAttachmentPtr FrameBufferObjectBase::getColorAttachments(const UInt32
     return _mfColorAttachments[index];
 }
 
-//! Get the FrameBufferObject::_mfColorAttachments field.
-inline
-const MFUnrecFrameBufferAttachmentPtr &FrameBufferObjectBase::getColorAttachments(void) const
-{
-    return _mfColorAttachments;
-}
-
 //! Get the value of the \a index element the FrameBufferObject::_mfDrawBuffers field.
 inline
-const GLenum &FrameBufferObjectBase::getDrawBuffers(const UInt32 index) const
+const GLenum FrameBufferObjectBase::getDrawBuffers(const UInt32 index) const
 {
     return _mfDrawBuffers[index];
 }
@@ -234,15 +225,6 @@ GLenum &FrameBufferObjectBase::editDrawBuffers(const UInt32 index)
     editMField(DrawBuffersFieldMask, _mfDrawBuffers);
 
     return _mfDrawBuffers[index];
-}
-
-//! Get the FrameBufferObject::_mfDrawBuffers field.
-inline
-MFGLenum &FrameBufferObjectBase::editDrawBuffers(void)
-{
-    editMField(DrawBuffersFieldMask, _mfDrawBuffers);
-
-    return _mfDrawBuffers;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -260,13 +242,6 @@ MFGLenum            &FrameBufferObjectBase::getDrawBuffers    (void)
 
 #endif
 
-
-//! Get the FrameBufferObject::_mfDrawBuffers field.
-inline
-const MFGLenum &FrameBufferObjectBase::getDrawBuffers(void) const
-{
-    return _mfDrawBuffers;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

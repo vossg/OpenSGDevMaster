@@ -207,49 +207,49 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
                   Color3r             &getAmbient         (void);
 #endif
                   Color3r             &editAmbient        (void);
-            const Color3r             &getAmbient         (void) const;
+            const Color3r              getAmbient         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color3r             &getDiffuse         (void);
 #endif
                   Color3r             &editDiffuse        (void);
-            const Color3r             &getDiffuse         (void) const;
+            const Color3r              getDiffuse         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color3r             &getSpecular        (void);
 #endif
                   Color3r             &editSpecular       (void);
-            const Color3r             &getSpecular        (void) const;
+            const Color3r              getSpecular        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getShininess       (void);
 #endif
                   Real                &editShininess      (void);
-            const Real                &getShininess       (void) const;
+            const Real                 getShininess       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color3r             &getEmission        (void);
 #endif
                   Color3r             &editEmission       (void);
-            const Color3r             &getEmission        (void) const;
+            const Color3r              getEmission        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real                &getTransparency    (void);
 #endif
                   Real                &editTransparency   (void);
-            const Real                &getTransparency    (void) const;
+            const Real                 getTransparency    (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getLit             (void);
 #endif
                   bool                &editLit            (void);
-            const bool                &getLit             (void) const;
+            const bool                 getLit             (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getColorMaterial   (void);
 #endif
                   GLenum              &editColorMaterial  (void);
-            const GLenum              &getColorMaterial   (void) const;
+            const GLenum               getColorMaterial   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,6 +269,7 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

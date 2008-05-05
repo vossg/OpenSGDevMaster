@@ -125,7 +125,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecSHLChunkPtr  *getSFSHLChunk        (void) const;
+            const SFUnrecSHLChunkPtr  *getSFSHLChunk       (void) const;
+                  SFUnrecSHLChunkPtr  *editSFSHLChunk       (void);
 
 
                   SHLChunkPtr getSHLChunk       (void) const;
@@ -146,6 +147,7 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

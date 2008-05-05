@@ -85,7 +85,7 @@ UInt32 &DrawableStatsAttachmentBase::editVertices(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfVertices field.
 inline
-const UInt32 &DrawableStatsAttachmentBase::getVertices(void) const
+const UInt32 DrawableStatsAttachmentBase::getVertices(void) const
 {
     return _sfVertices.getValue();
 }
@@ -118,7 +118,7 @@ UInt32 &DrawableStatsAttachmentBase::editPoints(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfPoints field.
 inline
-const UInt32 &DrawableStatsAttachmentBase::getPoints(void) const
+const UInt32 DrawableStatsAttachmentBase::getPoints(void) const
 {
     return _sfPoints.getValue();
 }
@@ -151,7 +151,7 @@ UInt32 &DrawableStatsAttachmentBase::editLines(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfLines field.
 inline
-const UInt32 &DrawableStatsAttachmentBase::getLines(void) const
+const UInt32 DrawableStatsAttachmentBase::getLines(void) const
 {
     return _sfLines.getValue();
 }
@@ -184,7 +184,7 @@ UInt32 &DrawableStatsAttachmentBase::editTriangles(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfTriangles field.
 inline
-const UInt32 &DrawableStatsAttachmentBase::getTriangles(void) const
+const UInt32 DrawableStatsAttachmentBase::getTriangles(void) const
 {
     return _sfTriangles.getValue();
 }
@@ -217,7 +217,7 @@ UInt32 &DrawableStatsAttachmentBase::editProcessedAttributeBytes(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfProcessedAttributeBytes field.
 inline
-const UInt32 &DrawableStatsAttachmentBase::getProcessedAttributeBytes(void) const
+const UInt32 DrawableStatsAttachmentBase::getProcessedAttributeBytes(void) const
 {
     return _sfProcessedAttributeBytes.getValue();
 }
@@ -250,7 +250,7 @@ UInt32 &DrawableStatsAttachmentBase::editStoredAttributeBytes(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfStoredAttributeBytes field.
 inline
-const UInt32 &DrawableStatsAttachmentBase::getStoredAttributeBytes(void) const
+const UInt32 DrawableStatsAttachmentBase::getStoredAttributeBytes(void) const
 {
     return _sfStoredAttributeBytes.getValue();
 }
@@ -283,7 +283,7 @@ bool &DrawableStatsAttachmentBase::editValid(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfValid field.
 inline
-const bool &DrawableStatsAttachmentBase::getValid(void) const
+const bool DrawableStatsAttachmentBase::getValid(void) const
 {
     return _sfValid.getValue();
 }

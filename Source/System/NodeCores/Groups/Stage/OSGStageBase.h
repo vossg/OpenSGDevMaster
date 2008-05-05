@@ -131,7 +131,8 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget    (void) const;
+            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget   (void) const;
+                  SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFInheritedTarget (void);
@@ -146,7 +147,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
                   bool                &getInheritedTarget (void);
 #endif
                   bool                &editInheritedTarget(void);
-            const bool                &getInheritedTarget (void) const;
+            const bool                 getInheritedTarget (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,6 +166,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

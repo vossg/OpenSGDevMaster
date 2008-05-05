@@ -88,7 +88,6 @@ void GeoMultiPropertyBase::setContainer(const GeoMultiPropertyDataPtr value)
     editSField(ContainerFieldMask);
 
     _sfContainer.setValue(value);
-
 }
 //! Get the value of the GeoMultiProperty::_sfOffset field.
 
@@ -102,7 +101,7 @@ UInt32 &GeoMultiPropertyBase::editOffset(void)
 
 //! Get the value of the GeoMultiProperty::_sfOffset field.
 inline
-const UInt32 &GeoMultiPropertyBase::getOffset(void) const
+const UInt32 GeoMultiPropertyBase::getOffset(void) const
 {
     return _sfOffset.getValue();
 }
@@ -135,7 +134,7 @@ GLenum &GeoMultiPropertyBase::editIFormat(void)
 
 //! Get the value of the GeoMultiProperty::_sfIFormat field.
 inline
-const GLenum &GeoMultiPropertyBase::getIFormat(void) const
+const GLenum GeoMultiPropertyBase::getIFormat(void) const
 {
     return _sfIFormat.getValue();
 }
@@ -168,7 +167,7 @@ UInt32 &GeoMultiPropertyBase::editIDimension(void)
 
 //! Get the value of the GeoMultiProperty::_sfIDimension field.
 inline
-const UInt32 &GeoMultiPropertyBase::getIDimension(void) const
+const UInt32 GeoMultiPropertyBase::getIDimension(void) const
 {
     return _sfIDimension.getValue();
 }
@@ -201,7 +200,7 @@ UInt32 &GeoMultiPropertyBase::editISize(void)
 
 //! Get the value of the GeoMultiProperty::_sfISize field.
 inline
-const UInt32 &GeoMultiPropertyBase::getISize(void) const
+const UInt32 GeoMultiPropertyBase::getISize(void) const
 {
     return _sfISize.getValue();
 }
@@ -234,7 +233,7 @@ bool &GeoMultiPropertyBase::editINormalize(void)
 
 //! Get the value of the GeoMultiProperty::_sfINormalize field.
 inline
-const bool &GeoMultiPropertyBase::getINormalize(void) const
+const bool GeoMultiPropertyBase::getINormalize(void) const
 {
     return _sfINormalize.getValue();
 }
@@ -267,7 +266,7 @@ UInt32 &GeoMultiPropertyBase::editIStride(void)
 
 //! Get the value of the GeoMultiProperty::_sfIStride field.
 inline
-const UInt32 &GeoMultiPropertyBase::getIStride(void) const
+const UInt32 GeoMultiPropertyBase::getIStride(void) const
 {
     return _sfIStride.getValue();
 }

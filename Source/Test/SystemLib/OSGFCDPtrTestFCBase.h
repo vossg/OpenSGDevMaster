@@ -249,14 +249,22 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecFCDTestFCPtr *getSFFieldSFPub_ptr  (void) const;
-            const SFWeakFCDTestFCPtr  *getSFFieldSFPub_weakptr (void) const;
-            const SFUnrecChildFCDTestFCPtr *getSFFieldSFPub_mpchildptr (void) const;
-            const MFUnrecFCDTestFCPtr *getMFFieldMFPub_ptr  (void) const;
-            const MFWeakFCDTestFCPtr  *getMFFieldMFPub_weakptr (void) const;
-            const MFUnrecChildFCDTestFCPtr *getMFFieldMFPub_mpchildptr (void) const;
-            const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPub_spchildptr (void) const;
-            const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPub_spchildptr (void) const;
+            const SFUnrecFCDTestFCPtr *getSFFieldSFPub_ptr (void) const;
+                  SFUnrecFCDTestFCPtr *editSFFieldSFPub_ptr (void);
+            const SFWeakFCDTestFCPtr  *getSFFieldSFPub_weakptr(void) const;
+                  SFWeakFCDTestFCPtr  *editSFFieldSFPub_weakptr(void);
+            const SFUnrecChildFCDTestFCPtr *getSFFieldSFPub_mpchildptr(void) const;
+                  SFUnrecChildFCDTestFCPtr *editSFFieldSFPub_mpchildptr(void);
+            const MFUnrecFCDTestFCPtr *getMFFieldMFPub_ptr (void) const;
+                  MFUnrecFCDTestFCPtr *editMFFieldMFPub_ptr (void);
+            const MFWeakFCDTestFCPtr  *getMFFieldMFPub_weakptr(void) const;
+                  MFWeakFCDTestFCPtr  *editMFFieldMFPub_weakptr(void);
+            const MFUnrecChildFCDTestFCPtr *getMFFieldMFPub_mpchildptr(void) const;
+                  MFUnrecChildFCDTestFCPtr *editMFFieldMFPub_mpchildptr(void);
+            const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPub_spchildptr(void) const;
+                  SFUnrecChildFCDSParTestFCPtr *editSFFieldSFPub_spchildptr(void);
+            const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPub_spchildptr(void) const;
+                  MFUnrecChildFCDSParTestFCPtr *editMFFieldMFPub_spchildptr(void);
 
 
                   FCDTestFCPtr getFieldSFPub_ptr (void) const;
@@ -266,18 +274,14 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
                   FCDTestFCPtr getFieldSFPub_mpchildptr(void) const;
 
                   FCDTestFCPtr getFieldMFPub_ptr (const UInt32 index) const;
-            const MFUnrecFCDTestFCPtr &getFieldMFPub_ptr (void) const;
 
                   FCDTestFCPtr getFieldMFPub_weakptr(const UInt32 index) const;
-            const MFWeakFCDTestFCPtr  &getFieldMFPub_weakptr(void) const;
 
                   FCDTestFCPtr getFieldMFPub_mpchildptr(const UInt32 index) const;
-            const MFUnrecChildFCDTestFCPtr &getFieldMFPub_mpchildptr(void) const;
 
                   FCDSParTestFCPtr getFieldSFPub_spchildptr(void) const;
 
                   FCDSParTestFCPtr getFieldMFPub_spchildptr(const UInt32 index) const;
-            const MFUnrecChildFCDSParTestFCPtr &getFieldMFPub_spchildptr(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -301,54 +305,27 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     void pushToFieldMFPub_ptr           (const FCDTestFCPtr value   );
     void assignFieldMFPub_ptr           (const MFUnrecFCDTestFCPtr &value);
-    void insertIntoFieldMFPub_ptr      (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPub_ptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPub_ptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
     void removeFromFieldMFPub_ptr (UInt32                uiIndex );
     void removeFromFieldMFPub_ptr(const FCDTestFCPtr value   );
     void clearFieldMFPub_ptr            (void                          );
 
 
-
     void pushToFieldMFPub_weakptr           (const FCDTestFCPtr value   );
     void assignFieldMFPub_weakptr           (const MFWeakFCDTestFCPtr &value);
-    void insertIntoFieldMFPub_weakptr      (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPub_weakptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPub_weakptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
     void removeFromFieldMFPub_weakptr (UInt32                uiIndex );
     void removeFromFieldMFPub_weakptr(const FCDTestFCPtr value   );
     void clearFieldMFPub_weakptr            (void                          );
 
 
-
     void pushToFieldMFPub_mpchildptr           (const FCDTestFCPtr value   );
     void assignFieldMFPub_mpchildptr           (const MFUnrecChildFCDTestFCPtr &value);
-    void insertIntoFieldMFPub_mpchildptr      (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPub_mpchildptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPub_mpchildptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
     void removeFromFieldMFPub_mpchildptr (UInt32                uiIndex );
     void removeFromFieldMFPub_mpchildptr(const FCDTestFCPtr value   );
     void clearFieldMFPub_mpchildptr            (void                          );
 
 
-
     void pushToFieldMFPub_spchildptr           (const FCDSParTestFCPtr value   );
     void assignFieldMFPub_spchildptr           (const MFUnrecChildFCDSParTestFCPtr &value);
-    void insertIntoFieldMFPub_spchildptr      (      UInt32         uiIndex,
-                                             const FCDSParTestFCPtr value   );
-    void replaceInFieldMFPub_spchildptr  (      UInt32         uiIndex,
-                                             const FCDSParTestFCPtr value   );
-    void replaceInFieldMFPub_spchildptr (const FCDSParTestFCPtr pOldElem,
-                                             const FCDSParTestFCPtr pNewElem);
     void removeFromFieldMFPub_spchildptr (UInt32                uiIndex );
     void removeFromFieldMFPub_spchildptr(const FCDSParTestFCPtr value   );
     void clearFieldMFPub_spchildptr            (void                          );
@@ -534,13 +511,21 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
     /*! \{                                                                 */
 
             const SFUnrecFCDTestFCPtr *getSFFieldSFPro_ptr  (void) const;
+                  SFUnrecFCDTestFCPtr *editSFFieldSFPro_ptr (void);
             const SFWeakFCDTestFCPtr  *getSFFieldSFPro_weakptr (void) const;
+                  SFWeakFCDTestFCPtr  *editSFFieldSFPro_weakptr(void);
             const SFUnrecChildFCDTestFCPtr *getSFFieldSFPro_mpchildptr (void) const;
+                  SFUnrecChildFCDTestFCPtr *editSFFieldSFPro_mpchildptr(void);
             const MFUnrecFCDTestFCPtr *getMFFieldMFPro_ptr  (void) const;
+                  MFUnrecFCDTestFCPtr *editMFFieldMFPro_ptr (void);
             const MFWeakFCDTestFCPtr  *getMFFieldMFPro_weakptr (void) const;
+                  MFWeakFCDTestFCPtr  *editMFFieldMFPro_weakptr(void);
             const MFUnrecChildFCDTestFCPtr *getMFFieldMFPro_mpchildptr (void) const;
+                  MFUnrecChildFCDTestFCPtr *editMFFieldMFPro_mpchildptr(void);
             const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPro_spchildptr (void) const;
+                  SFUnrecChildFCDSParTestFCPtr *editSFFieldSFPro_spchildptr(void);
             const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPro_spchildptr (void) const;
+                  MFUnrecChildFCDSParTestFCPtr *editMFFieldMFPro_spchildptr(void);
 
 
                   FCDTestFCPtr getFieldSFPro_ptr (void) const;
@@ -550,18 +535,14 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
                   FCDTestFCPtr getFieldSFPro_mpchildptr(void) const;
 
                   FCDTestFCPtr getFieldMFPro_ptr (const UInt32 index) const;
-            const MFUnrecFCDTestFCPtr &getFieldMFPro_ptr  (void) const;
 
                   FCDTestFCPtr getFieldMFPro_weakptr(const UInt32 index) const;
-            const MFWeakFCDTestFCPtr  &getFieldMFPro_weakptr (void) const;
 
                   FCDTestFCPtr getFieldMFPro_mpchildptr(const UInt32 index) const;
-            const MFUnrecChildFCDTestFCPtr &getFieldMFPro_mpchildptr (void) const;
 
                   FCDSParTestFCPtr getFieldSFPro_spchildptr(void) const;
 
                   FCDSParTestFCPtr getFieldMFPro_spchildptr(const UInt32 index) const;
-            const MFUnrecChildFCDSParTestFCPtr &getFieldMFPro_spchildptr (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -580,12 +561,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     void pushToFieldMFPro_ptr           (const FCDTestFCPtr value   );
     void assignFieldMFPro_ptr           (const MFUnrecFCDTestFCPtr &value);
-    void insertIntoFieldMFPro_ptr      (      UInt32        uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPro_ptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPro_ptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
     void removeFromFieldMFPro_ptr (UInt32                uiIndex );
     void removeFromFieldMFPro_ptr(const FCDTestFCPtr value   );
     void clearFieldMFPro_ptr            (void                          );
@@ -593,12 +568,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     void pushToFieldMFPro_weakptr           (const FCDTestFCPtr value   );
     void assignFieldMFPro_weakptr           (const MFWeakFCDTestFCPtr &value);
-    void insertIntoFieldMFPro_weakptr      (      UInt32        uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPro_weakptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPro_weakptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
     void removeFromFieldMFPro_weakptr (UInt32                uiIndex );
     void removeFromFieldMFPro_weakptr(const FCDTestFCPtr value   );
     void clearFieldMFPro_weakptr            (void                          );
@@ -606,12 +575,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     void pushToFieldMFPro_mpchildptr           (const FCDTestFCPtr value   );
     void assignFieldMFPro_mpchildptr           (const MFUnrecChildFCDTestFCPtr &value);
-    void insertIntoFieldMFPro_mpchildptr      (      UInt32        uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPro_mpchildptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPro_mpchildptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
     void removeFromFieldMFPro_mpchildptr (UInt32                uiIndex );
     void removeFromFieldMFPro_mpchildptr(const FCDTestFCPtr value   );
     void clearFieldMFPro_mpchildptr            (void                          );
@@ -619,15 +582,10 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
 
     void pushToFieldMFPro_spchildptr           (const FCDSParTestFCPtr value   );
     void assignFieldMFPro_spchildptr           (const MFUnrecChildFCDSParTestFCPtr &value);
-    void insertIntoFieldMFPro_spchildptr      (      UInt32        uiIndex,
-                                             const FCDSParTestFCPtr value   );
-    void replaceInFieldMFPro_spchildptr  (      UInt32         uiIndex,
-                                             const FCDSParTestFCPtr value   );
-    void replaceInFieldMFPro_spchildptr (const FCDSParTestFCPtr pOldElem,
-                                             const FCDSParTestFCPtr pNewElem);
     void removeFromFieldMFPro_spchildptr (UInt32                uiIndex );
     void removeFromFieldMFPro_spchildptr(const FCDSParTestFCPtr value   );
     void clearFieldMFPro_spchildptr            (void                          );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -697,13 +655,21 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
     /*! \{                                                                 */
 
             const SFUnrecFCDTestFCPtr *getSFFieldSFPri_ptr  (void) const;
+                  SFUnrecFCDTestFCPtr *editSFFieldSFPri_ptr (void);
             const SFWeakFCDTestFCPtr  *getSFFieldSFPri_weakptr (void) const;
+                  SFWeakFCDTestFCPtr  *editSFFieldSFPri_weakptr(void);
             const SFUnrecChildFCDTestFCPtr *getSFFieldSFPri_mpchildptr (void) const;
+                  SFUnrecChildFCDTestFCPtr *editSFFieldSFPri_mpchildptr(void);
             const MFUnrecFCDTestFCPtr *getMFFieldMFPri_ptr  (void) const;
+                  MFUnrecFCDTestFCPtr *editMFFieldMFPri_ptr (void);
             const MFWeakFCDTestFCPtr  *getMFFieldMFPri_weakptr (void) const;
+                  MFWeakFCDTestFCPtr  *editMFFieldMFPri_weakptr(void);
             const MFUnrecChildFCDTestFCPtr *getMFFieldMFPri_mpchildptr (void) const;
+                  MFUnrecChildFCDTestFCPtr *editMFFieldMFPri_mpchildptr(void);
             const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPri_spchildptr (void) const;
+                  SFUnrecChildFCDSParTestFCPtr *editSFFieldSFPri_spchildptr(void);
             const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPri_spchildptr (void) const;
+                  MFUnrecChildFCDSParTestFCPtr *editMFFieldMFPri_spchildptr(void);
 
                   FCDTestFCPtr getFieldSFPri_ptr (void) const;
 
@@ -712,18 +678,14 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
                   FCDTestFCPtr getFieldSFPri_mpchildptr(void) const;
 
                   FCDTestFCPtr getFieldMFPri_ptr (const UInt32 index) const;
-            const MFUnrecFCDTestFCPtr &getFieldMFPri_ptr (void) const;
 
                   FCDTestFCPtr getFieldMFPri_weakptr(const UInt32 index) const;
-            const MFWeakFCDTestFCPtr  &getFieldMFPri_weakptr(void) const;
 
                   FCDTestFCPtr getFieldMFPri_mpchildptr(const UInt32 index) const;
-            const MFUnrecChildFCDTestFCPtr &getFieldMFPri_mpchildptr(void) const;
 
                   FCDSParTestFCPtr getFieldSFPri_spchildptr(void) const;
 
                   FCDSParTestFCPtr getFieldMFPri_spchildptr(const UInt32 index) const;
-            const MFUnrecChildFCDSParTestFCPtr &getFieldMFPri_spchildptr(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -741,55 +703,32 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCBase : public NodeCore
     /*! \{                                                                 */
 
     void pushToFieldMFPri_ptr           (const FCDTestFCPtr value   );
-    void assignFieldMFPri_ptr           (const MFUnrecFCDTestFCPtr &value   );
-    void insertIntoFieldMFPri_ptr      (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPri_ptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPri_ptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
+    void assignFieldMFPri_ptr           (const MFUnrecFCDTestFCPtr &value);
     void removeFromFieldMFPri_ptr (UInt32                uiIndex );
     void removeFromFieldMFPri_ptr(const FCDTestFCPtr value   );
     void clearFieldMFPri_ptr            (void                          );
 
 
     void pushToFieldMFPri_weakptr           (const FCDTestFCPtr value   );
-    void assignFieldMFPri_weakptr           (const MFWeakFCDTestFCPtr &value   );
-    void insertIntoFieldMFPri_weakptr      (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPri_weakptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPri_weakptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
+    void assignFieldMFPri_weakptr           (const MFWeakFCDTestFCPtr &value);
     void removeFromFieldMFPri_weakptr (UInt32                uiIndex );
     void removeFromFieldMFPri_weakptr(const FCDTestFCPtr value   );
     void clearFieldMFPri_weakptr            (void                          );
 
 
     void pushToFieldMFPri_mpchildptr           (const FCDTestFCPtr value   );
-    void assignFieldMFPri_mpchildptr           (const MFUnrecChildFCDTestFCPtr &value   );
-    void insertIntoFieldMFPri_mpchildptr      (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPri_mpchildptr  (      UInt32         uiIndex,
-                                             const FCDTestFCPtr value   );
-    void replaceInFieldMFPri_mpchildptr (const FCDTestFCPtr pOldElem,
-                                             const FCDTestFCPtr pNewElem);
+    void assignFieldMFPri_mpchildptr           (const MFUnrecChildFCDTestFCPtr &value);
     void removeFromFieldMFPri_mpchildptr (UInt32                uiIndex );
     void removeFromFieldMFPri_mpchildptr(const FCDTestFCPtr value   );
     void clearFieldMFPri_mpchildptr            (void                          );
 
 
     void pushToFieldMFPri_spchildptr           (const FCDSParTestFCPtr value   );
-    void assignFieldMFPri_spchildptr           (const MFUnrecChildFCDSParTestFCPtr &value   );
-    void insertIntoFieldMFPri_spchildptr      (      UInt32         uiIndex,
-                                             const FCDSParTestFCPtr value   );
-    void replaceInFieldMFPri_spchildptr  (      UInt32         uiIndex,
-                                             const FCDSParTestFCPtr value   );
-    void replaceInFieldMFPri_spchildptr (const FCDSParTestFCPtr pOldElem,
-                                             const FCDSParTestFCPtr pNewElem);
+    void assignFieldMFPri_spchildptr           (const MFUnrecChildFCDSParTestFCPtr &value);
     void removeFromFieldMFPri_spchildptr (UInt32                uiIndex );
     void removeFromFieldMFPri_spchildptr(const FCDSParTestFCPtr value   );
     void clearFieldMFPri_spchildptr            (void                          );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

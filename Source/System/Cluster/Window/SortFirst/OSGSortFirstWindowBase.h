@@ -177,34 +177,32 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
                   std::string         &getCompression     (void);
 #endif
                   std::string         &editCompression    (void);
-            const std::string         &getCompression     (void) const;
+            const std::string          getCompression     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getSubtileSize     (void);
 #endif
                   UInt32              &editSubtileSize    (void);
-            const UInt32              &getSubtileSize     (void) const;
+            const UInt32               getSubtileSize     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getCompose         (void);
 #endif
                   bool                &editCompose        (void);
-            const bool                &getCompose         (void) const;
+            const bool                 getCompose         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getRegion          (const UInt32 index);
                   MFUInt32            &getRegion         (void);
 #endif
                   UInt32              &editRegion         (const UInt32 index);
-            const UInt32              &getRegion          (const UInt32 index) const;
-                  MFUInt32            &editRegion         (void);
-            const MFUInt32            &getRegion         (void) const;
+            const UInt32               getRegion          (const UInt32 index) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getUseFaceDistribution (void);
 #endif
                   bool                &editUseFaceDistribution(void);
-            const bool                &getUseFaceDistribution (void) const;
+            const bool                 getUseFaceDistribution (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -220,7 +218,6 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

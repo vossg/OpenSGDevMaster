@@ -85,7 +85,7 @@ Matrixr &TransformBase::editMatrix(void)
 
 //! Get the value of the Transform::_sfMatrix field.
 inline
-const Matrixr &TransformBase::getMatrix(void) const
+const Matrixr TransformBase::getMatrix(void) const
 {
     return _sfMatrix.getValue();
 }

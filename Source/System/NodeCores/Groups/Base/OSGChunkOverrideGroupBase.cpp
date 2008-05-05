@@ -177,16 +177,18 @@ const MFUnrecStateChunkPtr *ChunkOverrideGroupBase::getMFChunks(void) const
     return &_mfChunks;
 }
 
+MFUnrecStateChunkPtr *ChunkOverrideGroupBase::editMFChunks         (void)
+{
+    editMField(ChunksFieldMask, _mfChunks);
+
+    return &_mfChunks;
+}
+
 
 
 void ChunkOverrideGroupBase::pushToChunks(const StateChunkPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ChunksFieldMask, _mfChunks);
-
-    //addRef(value);
 
     _mfChunks.push_back(value);
 }
@@ -208,66 +210,6 @@ void ChunkOverrideGroupBase::assignChunks   (const MFUnrecStateChunkPtr &value)
     }
 }
 
-void ChunkOverrideGroupBase::insertIntoChunks(      UInt32         uiIndex,
-                                                   const StateChunkPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ChunksFieldMask, _mfChunks);
-
-    MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfChunks.insert(fieldIt, value);
-}
-
-void ChunkOverrideGroupBase::replaceInChunks(      UInt32         uiIndex,
-                                                       const StateChunkPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfChunks.size())
-        return;
-
-    editMField(ChunksFieldMask, _mfChunks);
-
-
-//    addRef(value);
-//    subRef(_mfChunks[uiIndex]);
-
-//    _mfChunks[uiIndex] = value;
-
-      _mfChunks.replace(uiIndex, value);
-}
-
-void ChunkOverrideGroupBase::replaceInChunks(const StateChunkPtr pOldElem,
-                                                        const StateChunkPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfChunks.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-//        MFStateChunkPtr::iterator fieldIt = _mfChunks.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfChunks.replace(elemIdx, pNewElem);
-    }
-}
-
 void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
 {
     if(uiIndex < _mfChunks.size())
@@ -277,8 +219,6 @@ void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
         MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -295,8 +235,6 @@ void ChunkOverrideGroupBase::removeFromChunks(const StateChunkPtr value)
         MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfChunks.erase(fieldIt);
     }
@@ -461,6 +399,7 @@ void ChunkOverrideGroupBase::onCreate(const ChunkOverrideGroup *source)
 
     if(source != NULL)
     {
+        ChunkOverrideGroup *pThis = static_cast<ChunkOverrideGroup *>(this);
 
         MFUnrecStateChunkPtr::const_iterator ChunksIt  =
             source->_mfChunks.begin();
@@ -469,7 +408,7 @@ void ChunkOverrideGroupBase::onCreate(const ChunkOverrideGroup *source)
 
         while(ChunksIt != ChunksEnd)
         {
-            this->pushToChunks(*ChunksIt);
+            pThis->pushToChunks(*ChunksIt);
 
             ++ChunksIt;
         }

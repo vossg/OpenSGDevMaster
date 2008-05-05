@@ -157,19 +157,19 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
                   bool                &getShort           (void);
 #endif
                   bool                &editShort          (void);
-            const bool                &getShort           (void) const;
+            const bool                 getShort           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getAlpha           (void);
 #endif
                   bool                &editAlpha          (void);
-            const bool                &getAlpha           (void) const;
+            const bool                 getAlpha           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getPcLibPath       (void);
 #endif
                   std::string         &editPcLibPath      (void);
-            const std::string         &getPcLibPath       (void) const;
+            const std::string          getPcLibPath       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

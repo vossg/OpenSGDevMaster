@@ -197,43 +197,43 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
                   UInt32              &getVertices        (void);
 #endif
                   UInt32              &editVertices       (void);
-            const UInt32              &getVertices        (void) const;
+            const UInt32               getVertices        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getPoints          (void);
 #endif
                   UInt32              &editPoints         (void);
-            const UInt32              &getPoints          (void) const;
+            const UInt32               getPoints          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getLines           (void);
 #endif
                   UInt32              &editLines          (void);
-            const UInt32              &getLines           (void) const;
+            const UInt32               getLines           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getTriangles       (void);
 #endif
                   UInt32              &editTriangles      (void);
-            const UInt32              &getTriangles       (void) const;
+            const UInt32               getTriangles       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getProcessedAttributeBytes (void);
 #endif
                   UInt32              &editProcessedAttributeBytes(void);
-            const UInt32              &getProcessedAttributeBytes (void) const;
+            const UInt32               getProcessedAttributeBytes (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getStoredAttributeBytes (void);
 #endif
                   UInt32              &editStoredAttributeBytes(void);
-            const UInt32              &getStoredAttributeBytes (void) const;
+            const UInt32               getStoredAttributeBytes (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getValid           (void);
 #endif
                   bool                &editValid          (void);
-            const bool                &getValid           (void) const;
+            const bool                 getValid           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,6 +252,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

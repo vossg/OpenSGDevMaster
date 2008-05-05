@@ -553,6 +553,13 @@ const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFPositions(void) cons
     return &_sfPositions;
 }
 
+SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFPositions      (void)
+{
+    editSField(PositionsFieldMask);
+
+    return &_sfPositions;
+}
+
 MFVec3f *ParticlesBase::editMFSizes(void)
 {
     editMField(SizesFieldMask, _mfSizes);
@@ -578,15 +585,36 @@ const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFSecPositions(void) c
     return &_sfSecPositions;
 }
 
+SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFSecPositions   (void)
+{
+    editSField(SecPositionsFieldMask);
+
+    return &_sfSecPositions;
+}
+
 //! Get the Particles::_sfColors field.
 const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFColors(void) const
 {
     return &_sfColors;
 }
 
+SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFColors         (void)
+{
+    editSField(ColorsFieldMask);
+
+    return &_sfColors;
+}
+
 //! Get the Particles::_sfNormals field.
 const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFNormals(void) const
 {
+    return &_sfNormals;
+}
+
+SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFNormals        (void)
+{
+    editSField(NormalsFieldMask);
+
     return &_sfNormals;
 }
 
@@ -1172,14 +1200,15 @@ void ParticlesBase::onCreate(const Particles *source)
 
     if(source != NULL)
     {
+        Particles *pThis = static_cast<Particles *>(this);
 
-        this->setPositions(source->getPositions());
+        pThis->setPositions(source->getPositions());
 
-        this->setSecPositions(source->getSecPositions());
+        pThis->setSecPositions(source->getSecPositions());
 
-        this->setColors(source->getColors());
+        pThis->setColors(source->getColors());
 
-        this->setNormals(source->getNormals());
+        pThis->setNormals(source->getNormals());
     }
 }
 

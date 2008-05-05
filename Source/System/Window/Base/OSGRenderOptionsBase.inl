@@ -85,7 +85,7 @@ bool &RenderOptionsBase::editStatistic(void)
 
 //! Get the value of the RenderOptions::_sfStatistic field.
 inline
-const bool &RenderOptionsBase::getStatistic(void) const
+const bool RenderOptionsBase::getStatistic(void) const
 {
     return _sfStatistic.getValue();
 }
@@ -118,7 +118,7 @@ GLenum &RenderOptionsBase::editPolygonMode(void)
 
 //! Get the value of the RenderOptions::_sfPolygonMode field.
 inline
-const GLenum &RenderOptionsBase::getPolygonMode(void) const
+const GLenum RenderOptionsBase::getPolygonMode(void) const
 {
     return _sfPolygonMode.getValue();
 }
@@ -151,7 +151,7 @@ bool &RenderOptionsBase::editTwoSidedLighting(void)
 
 //! Get the value of the RenderOptions::_sfTwoSidedLighting field.
 inline
-const bool &RenderOptionsBase::getTwoSidedLighting(void) const
+const bool RenderOptionsBase::getTwoSidedLighting(void) const
 {
     return _sfTwoSidedLighting.getValue();
 }
@@ -184,7 +184,7 @@ bool &RenderOptionsBase::editSpecTexLighting(void)
 
 //! Get the value of the RenderOptions::_sfSpecTexLighting field.
 inline
-const bool &RenderOptionsBase::getSpecTexLighting(void) const
+const bool RenderOptionsBase::getSpecTexLighting(void) const
 {
     return _sfSpecTexLighting.getValue();
 }
@@ -217,7 +217,7 @@ bool &RenderOptionsBase::editSortTrans(void)
 
 //! Get the value of the RenderOptions::_sfSortTrans field.
 inline
-const bool &RenderOptionsBase::getSortTrans(void) const
+const bool RenderOptionsBase::getSortTrans(void) const
 {
     return _sfSortTrans.getValue();
 }
@@ -250,7 +250,7 @@ bool &RenderOptionsBase::editZWriteTrans(void)
 
 //! Get the value of the RenderOptions::_sfZWriteTrans field.
 inline
-const bool &RenderOptionsBase::getZWriteTrans(void) const
+const bool RenderOptionsBase::getZWriteTrans(void) const
 {
     return _sfZWriteTrans.getValue();
 }
@@ -283,7 +283,7 @@ bool &RenderOptionsBase::editLocalLights(void)
 
 //! Get the value of the RenderOptions::_sfLocalLights field.
 inline
-const bool &RenderOptionsBase::getLocalLights(void) const
+const bool RenderOptionsBase::getLocalLights(void) const
 {
     return _sfLocalLights.getValue();
 }
@@ -316,7 +316,7 @@ bool &RenderOptionsBase::editCorrectTwoSidedLighting(void)
 
 //! Get the value of the RenderOptions::_sfCorrectTwoSidedLighting field.
 inline
-const bool &RenderOptionsBase::getCorrectTwoSidedLighting(void) const
+const bool RenderOptionsBase::getCorrectTwoSidedLighting(void) const
 {
     return _sfCorrectTwoSidedLighting.getValue();
 }
@@ -349,7 +349,7 @@ bool &RenderOptionsBase::editOcclusionCulling(void)
 
 //! Get the value of the RenderOptions::_sfOcclusionCulling field.
 inline
-const bool &RenderOptionsBase::getOcclusionCulling(void) const
+const bool RenderOptionsBase::getOcclusionCulling(void) const
 {
     return _sfOcclusionCulling.getValue();
 }
@@ -382,7 +382,7 @@ Int32 &RenderOptionsBase::editOcclusionCullingMode(void)
 
 //! Get the value of the RenderOptions::_sfOcclusionCullingMode field.
 inline
-const Int32 &RenderOptionsBase::getOcclusionCullingMode(void) const
+const Int32 RenderOptionsBase::getOcclusionCullingMode(void) const
 {
     return _sfOcclusionCullingMode.getValue();
 }
@@ -415,7 +415,7 @@ UInt32 &RenderOptionsBase::editOcclusionCullingPixels(void)
 
 //! Get the value of the RenderOptions::_sfOcclusionCullingPixels field.
 inline
-const UInt32 &RenderOptionsBase::getOcclusionCullingPixels(void) const
+const UInt32 RenderOptionsBase::getOcclusionCullingPixels(void) const
 {
     return _sfOcclusionCullingPixels.getValue();
 }
@@ -448,7 +448,7 @@ bool &RenderOptionsBase::editAntialiasing(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasing field.
 inline
-const bool &RenderOptionsBase::getAntialiasing(void) const
+const bool RenderOptionsBase::getAntialiasing(void) const
 {
     return _sfAntialiasing.getValue();
 }
@@ -481,7 +481,7 @@ Real32 &RenderOptionsBase::editAntialiasingDistance(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasingDistance field.
 inline
-const Real32 &RenderOptionsBase::getAntialiasingDistance(void) const
+const Real32 RenderOptionsBase::getAntialiasingDistance(void) const
 {
     return _sfAntialiasingDistance.getValue();
 }
@@ -514,7 +514,7 @@ Real32 &RenderOptionsBase::editAntialiasingScale(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasingScale field.
 inline
-const Real32 &RenderOptionsBase::getAntialiasingScale(void) const
+const Real32 RenderOptionsBase::getAntialiasingScale(void) const
 {
     return _sfAntialiasingScale.getValue();
 }
@@ -547,7 +547,7 @@ UInt32 &RenderOptionsBase::editAntialiasingTrigger(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasingTrigger field.
 inline
-const UInt32 &RenderOptionsBase::getAntialiasingTrigger(void) const
+const UInt32 RenderOptionsBase::getAntialiasingTrigger(void) const
 {
     return _sfAntialiasingTrigger.getValue();
 }
@@ -580,7 +580,7 @@ bool &RenderOptionsBase::editFrustumCulling(void)
 
 //! Get the value of the RenderOptions::_sfFrustumCulling field.
 inline
-const bool &RenderOptionsBase::getFrustumCulling(void) const
+const bool RenderOptionsBase::getFrustumCulling(void) const
 {
     return _sfFrustumCulling.getValue();
 }
@@ -613,7 +613,7 @@ bool &RenderOptionsBase::editBackfaceCulling(void)
 
 //! Get the value of the RenderOptions::_sfBackfaceCulling field.
 inline
-const bool &RenderOptionsBase::getBackfaceCulling(void) const
+const bool RenderOptionsBase::getBackfaceCulling(void) const
 {
     return _sfBackfaceCulling.getValue();
 }
@@ -646,7 +646,7 @@ bool &RenderOptionsBase::editSmallFeatureCulling(void)
 
 //! Get the value of the RenderOptions::_sfSmallFeatureCulling field.
 inline
-const bool &RenderOptionsBase::getSmallFeatureCulling(void) const
+const bool RenderOptionsBase::getSmallFeatureCulling(void) const
 {
     return _sfSmallFeatureCulling.getValue();
 }
@@ -679,7 +679,7 @@ Real32 &RenderOptionsBase::editSmallFeaturePixels(void)
 
 //! Get the value of the RenderOptions::_sfSmallFeaturePixels field.
 inline
-const Real32 &RenderOptionsBase::getSmallFeaturePixels(void) const
+const Real32 RenderOptionsBase::getSmallFeaturePixels(void) const
 {
     return _sfSmallFeaturePixels.getValue();
 }
@@ -712,7 +712,7 @@ UInt32 &RenderOptionsBase::editSmallFeatureThreshold(void)
 
 //! Get the value of the RenderOptions::_sfSmallFeatureThreshold field.
 inline
-const UInt32 &RenderOptionsBase::getSmallFeatureThreshold(void) const
+const UInt32 RenderOptionsBase::getSmallFeatureThreshold(void) const
 {
     return _sfSmallFeatureThreshold.getValue();
 }
@@ -745,7 +745,7 @@ bool &RenderOptionsBase::editFirstFrame(void)
 
 //! Get the value of the RenderOptions::_sfFirstFrame field.
 inline
-const bool &RenderOptionsBase::getFirstFrame(void) const
+const bool RenderOptionsBase::getFirstFrame(void) const
 {
     return _sfFirstFrame.getValue();
 }

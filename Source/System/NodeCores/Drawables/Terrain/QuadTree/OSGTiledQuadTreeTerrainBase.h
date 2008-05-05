@@ -177,8 +177,10 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecImagePtr     *getMFHeightTiles     (void) const;
-            const MFUnrecMaterialPtr  *getMFHeightTextures  (void) const;
+            const MFUnrecImagePtr     *getMFHeightTiles    (void) const;
+                  MFUnrecImagePtr     *editMFHeightTiles    (void);
+            const MFUnrecMaterialPtr  *getMFHeightTextures (void) const;
+                  MFUnrecMaterialPtr  *editMFHeightTextures (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFSizeX           (void);
@@ -254,82 +256,80 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
 
 
                   ImagePtr getHeightTiles    (const UInt32 index) const;
-            const MFUnrecImagePtr     &getHeightTiles    (void) const;
 
                   MaterialPtr getHeightTextures (const UInt32 index) const;
-            const MFUnrecMaterialPtr  &getHeightTextures (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getSizeX           (void);
 #endif
                   UInt32              &editSizeX          (void);
-            const UInt32              &getSizeX           (void) const;
+            const UInt32               getSizeX           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getSizeY           (void);
 #endif
                   UInt32              &editSizeY          (void);
-            const UInt32              &getSizeY           (void) const;
+            const UInt32               getSizeY           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getHeightScale     (void);
 #endif
                   Real32              &editHeightScale    (void);
-            const Real32              &getHeightScale     (void) const;
+            const Real32               getHeightScale     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getVertexSpacing   (void);
 #endif
                   Real32              &editVertexSpacing  (void);
-            const Real32              &getVertexSpacing   (void) const;
+            const Real32               getVertexSpacing   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getGeoMorphing     (void);
 #endif
                   bool                &editGeoMorphing    (void);
-            const bool                &getGeoMorphing     (void) const;
+            const bool                 getGeoMorphing     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getDetail          (void);
 #endif
                   Real32              &editDetail         (void);
-            const Real32              &getDetail          (void) const;
+            const Real32               getDetail          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getCurrentX        (void);
 #endif
                   Int32               &editCurrentX       (void);
-            const Int32               &getCurrentX        (void) const;
+            const Int32                getCurrentX        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getCurrentY        (void);
 #endif
                   Int32               &editCurrentY       (void);
-            const Int32               &getCurrentY        (void) const;
+            const Int32                getCurrentY        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getSizeROI         (void);
 #endif
                   Int32               &editSizeROI        (void);
-            const Int32               &getSizeROI         (void) const;
+            const Int32                getSizeROI         (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getUpdate          (void);
 #endif
                   bool                &editUpdate         (void);
-            const bool                &getUpdate          (void) const;
+            const bool                 getUpdate          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getUpdateTerrain   (void);
 #endif
                   bool                &editUpdateTerrain  (void);
-            const bool                &getUpdateTerrain   (void) const;
+            const bool                 getUpdateTerrain   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getPerPixelLighting (void);
 #endif
                   bool                &editPerPixelLighting(void);
-            const bool                &getPerPixelLighting (void) const;
+            const bool                 getPerPixelLighting (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -361,26 +361,13 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
 
     void pushToHeightTiles           (const ImagePtr value   );
     void assignHeightTiles           (const MFUnrecImagePtr   &value);
-    void insertIntoHeightTiles      (      UInt32         uiIndex,
-                                             const ImagePtr value   );
-    void replaceInHeightTiles  (      UInt32         uiIndex,
-                                             const ImagePtr value   );
-    void replaceInHeightTiles (const ImagePtr pOldElem,
-                                             const ImagePtr pNewElem);
     void removeFromHeightTiles (UInt32                uiIndex );
     void removeFromHeightTiles(const ImagePtr value   );
     void clearHeightTiles            (void                          );
 
 
-
     void pushToHeightTextures           (const MaterialPtr value   );
     void assignHeightTextures           (const MFUnrecMaterialPtr &value);
-    void insertIntoHeightTextures      (      UInt32         uiIndex,
-                                             const MaterialPtr value   );
-    void replaceInHeightTextures  (      UInt32         uiIndex,
-                                             const MaterialPtr value   );
-    void replaceInHeightTextures (const MaterialPtr pOldElem,
-                                             const MaterialPtr pNewElem);
     void removeFromHeightTextures (UInt32                uiIndex );
     void removeFromHeightTextures(const MaterialPtr value   );
     void clearHeightTextures            (void                          );

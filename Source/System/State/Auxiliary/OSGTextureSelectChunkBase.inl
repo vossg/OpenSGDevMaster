@@ -85,7 +85,7 @@ UInt32 &TextureSelectChunkBase::editChoice(void)
 
 //! Get the value of the TextureSelectChunk::_sfChoice field.
 inline
-const UInt32 &TextureSelectChunkBase::getChoice(void) const
+const UInt32 TextureSelectChunkBase::getChoice(void) const
 {
     return _sfChoice.getValue();
 }
@@ -112,13 +112,6 @@ inline
 TextureBaseChunkPtr TextureSelectChunkBase::getTextures(const UInt32 index) const
 {
     return _mfTextures[index];
-}
-
-//! Get the TextureSelectChunk::_mfTextures field.
-inline
-const MFUnrecTextureBaseChunkPtr &TextureSelectChunkBase::getTextures(void) const
-{
-    return _mfTextures;
 }
 
 

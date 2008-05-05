@@ -85,7 +85,7 @@ bool &StereoBufferViewportBase::editLeftBuffer(void)
 
 //! Get the value of the StereoBufferViewport::_sfLeftBuffer field.
 inline
-const bool &StereoBufferViewportBase::getLeftBuffer(void) const
+const bool StereoBufferViewportBase::getLeftBuffer(void) const
 {
     return _sfLeftBuffer.getValue();
 }
@@ -118,7 +118,7 @@ bool &StereoBufferViewportBase::editRightBuffer(void)
 
 //! Get the value of the StereoBufferViewport::_sfRightBuffer field.
 inline
-const bool &StereoBufferViewportBase::getRightBuffer(void) const
+const bool StereoBufferViewportBase::getRightBuffer(void) const
 {
     return _sfRightBuffer.getValue();
 }

@@ -85,7 +85,7 @@ Int32 &ImageBase::editDimension(void)
 
 //! Get the value of the Image::_sfDimension field.
 inline
-const Int32 &ImageBase::getDimension(void) const
+const Int32 ImageBase::getDimension(void) const
 {
     return _sfDimension.getValue();
 }
@@ -118,7 +118,7 @@ Int32 &ImageBase::editWidth(void)
 
 //! Get the value of the Image::_sfWidth field.
 inline
-const Int32 &ImageBase::getWidth(void) const
+const Int32 ImageBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
@@ -151,7 +151,7 @@ Int32 &ImageBase::editHeight(void)
 
 //! Get the value of the Image::_sfHeight field.
 inline
-const Int32 &ImageBase::getHeight(void) const
+const Int32 ImageBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
@@ -184,7 +184,7 @@ Int32 &ImageBase::editDepth(void)
 
 //! Get the value of the Image::_sfDepth field.
 inline
-const Int32 &ImageBase::getDepth(void) const
+const Int32 ImageBase::getDepth(void) const
 {
     return _sfDepth.getValue();
 }
@@ -217,7 +217,7 @@ Int32 &ImageBase::editBpp(void)
 
 //! Get the value of the Image::_sfBpp field.
 inline
-const Int32 &ImageBase::getBpp(void) const
+const Int32 ImageBase::getBpp(void) const
 {
     return _sfBpp.getValue();
 }
@@ -250,7 +250,7 @@ Int32 &ImageBase::editMipMapCount(void)
 
 //! Get the value of the Image::_sfMipMapCount field.
 inline
-const Int32 &ImageBase::getMipMapCount(void) const
+const Int32 ImageBase::getMipMapCount(void) const
 {
     return _sfMipMapCount.getValue();
 }
@@ -283,7 +283,7 @@ Int32 &ImageBase::editFrameCount(void)
 
 //! Get the value of the Image::_sfFrameCount field.
 inline
-const Int32 &ImageBase::getFrameCount(void) const
+const Int32 ImageBase::getFrameCount(void) const
 {
     return _sfFrameCount.getValue();
 }
@@ -316,7 +316,7 @@ Time &ImageBase::editFrameDelay(void)
 
 //! Get the value of the Image::_sfFrameDelay field.
 inline
-const Time &ImageBase::getFrameDelay(void) const
+const Time ImageBase::getFrameDelay(void) const
 {
     return _sfFrameDelay.getValue();
 }
@@ -349,7 +349,7 @@ UInt32 &ImageBase::editPixelFormat(void)
 
 //! Get the value of the Image::_sfPixelFormat field.
 inline
-const UInt32 &ImageBase::getPixelFormat(void) const
+const UInt32 ImageBase::getPixelFormat(void) const
 {
     return _sfPixelFormat.getValue();
 }
@@ -382,7 +382,7 @@ Int32 &ImageBase::editFrameSize(void)
 
 //! Get the value of the Image::_sfFrameSize field.
 inline
-const Int32 &ImageBase::getFrameSize(void) const
+const Int32 ImageBase::getFrameSize(void) const
 {
     return _sfFrameSize.getValue();
 }
@@ -415,7 +415,7 @@ std::string &ImageBase::editName(void)
 
 //! Get the value of the Image::_sfName field.
 inline
-const std::string &ImageBase::getName(void) const
+const std::string ImageBase::getName(void) const
 {
     return _sfName.getValue();
 }
@@ -448,7 +448,7 @@ Int32 &ImageBase::editDataType(void)
 
 //! Get the value of the Image::_sfDataType field.
 inline
-const Int32 &ImageBase::getDataType(void) const
+const Int32 ImageBase::getDataType(void) const
 {
     return _sfDataType.getValue();
 }
@@ -481,7 +481,7 @@ Int32 &ImageBase::editComponentSize(void)
 
 //! Get the value of the Image::_sfComponentSize field.
 inline
-const Int32 &ImageBase::getComponentSize(void) const
+const Int32 ImageBase::getComponentSize(void) const
 {
     return _sfComponentSize.getValue();
 }
@@ -514,7 +514,7 @@ Int32 &ImageBase::editSideCount(void)
 
 //! Get the value of the Image::_sfSideCount field.
 inline
-const Int32 &ImageBase::getSideCount(void) const
+const Int32 ImageBase::getSideCount(void) const
 {
     return _sfSideCount.getValue();
 }
@@ -547,7 +547,7 @@ Int32 &ImageBase::editSideSize(void)
 
 //! Get the value of the Image::_sfSideSize field.
 inline
-const Int32 &ImageBase::getSideSize(void) const
+const Int32 ImageBase::getSideSize(void) const
 {
     return _sfSideSize.getValue();
 }
@@ -580,7 +580,7 @@ bool &ImageBase::editForceCompressedData(void)
 
 //! Get the value of the Image::_sfForceCompressedData field.
 inline
-const bool &ImageBase::getForceCompressedData(void) const
+const bool ImageBase::getForceCompressedData(void) const
 {
     return _sfForceCompressedData.getValue();
 }
@@ -613,7 +613,7 @@ bool &ImageBase::editForceAlphaChannel(void)
 
 //! Get the value of the Image::_sfForceAlphaChannel field.
 inline
-const bool &ImageBase::getForceAlphaChannel(void) const
+const bool ImageBase::getForceAlphaChannel(void) const
 {
     return _sfForceAlphaChannel.getValue();
 }
@@ -646,7 +646,7 @@ bool &ImageBase::editForceColorChannel(void)
 
 //! Get the value of the Image::_sfForceColorChannel field.
 inline
-const bool &ImageBase::getForceColorChannel(void) const
+const bool ImageBase::getForceColorChannel(void) const
 {
     return _sfForceColorChannel.getValue();
 }
@@ -679,7 +679,7 @@ bool &ImageBase::editForceAlphaBinary(void)
 
 //! Get the value of the Image::_sfForceAlphaBinary field.
 inline
-const bool &ImageBase::getForceAlphaBinary(void) const
+const bool ImageBase::getForceAlphaBinary(void) const
 {
     return _sfForceAlphaBinary.getValue();
 }
@@ -703,7 +703,7 @@ void ImageBase::setForceAlphaBinary(const bool &value)
 
 //! Get the value of the \a index element the Image::_mfPixel field.
 inline
-const UInt8 &ImageBase::getPixel(const UInt32 index) const
+const UInt8 ImageBase::getPixel(const UInt32 index) const
 {
     return _mfPixel[index];
 }
@@ -714,15 +714,6 @@ UInt8 &ImageBase::editPixel(const UInt32 index)
     editMField(PixelFieldMask, _mfPixel);
 
     return _mfPixel[index];
-}
-
-//! Get the Image::_mfPixel field.
-inline
-MFUInt8 &ImageBase::editPixel(void)
-{
-    editMField(PixelFieldMask, _mfPixel);
-
-    return _mfPixel;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -740,13 +731,6 @@ MFUInt8             &ImageBase::getPixel          (void)
 
 #endif
 
-
-//! Get the Image::_mfPixel field.
-inline
-const MFUInt8 &ImageBase::getPixel(void) const
-{
-    return _mfPixel;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

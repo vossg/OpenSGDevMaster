@@ -85,7 +85,7 @@ Real32 &ShearedStereoCameraDecoratorBase::editZeroParallaxDistance(void)
 
 //! Get the value of the ShearedStereoCameraDecorator::_sfZeroParallaxDistance field.
 inline
-const Real32 &ShearedStereoCameraDecoratorBase::getZeroParallaxDistance(void) const
+const Real32 ShearedStereoCameraDecoratorBase::getZeroParallaxDistance(void) const
 {
     return _sfZeroParallaxDistance.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &ShearedStereoCameraDecoratorBase::editOverlap(void)
 
 //! Get the value of the ShearedStereoCameraDecorator::_sfOverlap field.
 inline
-const Real32 &ShearedStereoCameraDecoratorBase::getOverlap(void) const
+const Real32 ShearedStereoCameraDecoratorBase::getOverlap(void) const
 {
     return _sfOverlap.getValue();
 }

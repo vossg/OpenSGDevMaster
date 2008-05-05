@@ -88,7 +88,6 @@ void QuadTreeTerrainBase::setHeightData(const ImagePtr value)
     editSField(HeightDataFieldMask);
 
     _sfHeightData.setValue(value);
-
 }
 //! Get the value of the QuadTreeTerrain::_sfHeightScale field.
 
@@ -102,7 +101,7 @@ Real32 &QuadTreeTerrainBase::editHeightScale(void)
 
 //! Get the value of the QuadTreeTerrain::_sfHeightScale field.
 inline
-const Real32 &QuadTreeTerrainBase::getHeightScale(void) const
+const Real32 QuadTreeTerrainBase::getHeightScale(void) const
 {
     return _sfHeightScale.getValue();
 }
@@ -135,7 +134,7 @@ UInt32 &QuadTreeTerrainBase::editWidth(void)
 
 //! Get the value of the QuadTreeTerrain::_sfWidth field.
 inline
-const UInt32 &QuadTreeTerrainBase::getWidth(void) const
+const UInt32 QuadTreeTerrainBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
@@ -168,7 +167,7 @@ UInt32 &QuadTreeTerrainBase::editLevel(void)
 
 //! Get the value of the QuadTreeTerrain::_sfLevel field.
 inline
-const UInt32 &QuadTreeTerrainBase::getLevel(void) const
+const UInt32 QuadTreeTerrainBase::getLevel(void) const
 {
     return _sfLevel.getValue();
 }
@@ -201,7 +200,7 @@ Real32 &QuadTreeTerrainBase::editDetail(void)
 
 //! Get the value of the QuadTreeTerrain::_sfDetail field.
 inline
-const Real32 &QuadTreeTerrainBase::getDetail(void) const
+const Real32 QuadTreeTerrainBase::getDetail(void) const
 {
     return _sfDetail.getValue();
 }
@@ -234,7 +233,7 @@ Int32 &QuadTreeTerrainBase::editBorderDetail(void)
 
 //! Get the value of the QuadTreeTerrain::_sfBorderDetail field.
 inline
-const Int32 &QuadTreeTerrainBase::getBorderDetail(void) const
+const Int32 QuadTreeTerrainBase::getBorderDetail(void) const
 {
     return _sfBorderDetail.getValue();
 }
@@ -267,7 +266,7 @@ Real32 &QuadTreeTerrainBase::editVertexSpacing(void)
 
 //! Get the value of the QuadTreeTerrain::_sfVertexSpacing field.
 inline
-const Real32 &QuadTreeTerrainBase::getVertexSpacing(void) const
+const Real32 QuadTreeTerrainBase::getVertexSpacing(void) const
 {
     return _sfVertexSpacing.getValue();
 }
@@ -303,7 +302,6 @@ void QuadTreeTerrainBase::setHeightVertices(const GeoVectorPropertyPtr value)
     editSField(HeightVerticesFieldMask);
 
     _sfHeightVertices.setValue(value);
-
 }
 //! Get the value of the QuadTreeTerrain::_sfGeoMorphing field.
 
@@ -317,7 +315,7 @@ bool &QuadTreeTerrainBase::editGeoMorphing(void)
 
 //! Get the value of the QuadTreeTerrain::_sfGeoMorphing field.
 inline
-const bool &QuadTreeTerrainBase::getGeoMorphing(void) const
+const bool QuadTreeTerrainBase::getGeoMorphing(void) const
 {
     return _sfGeoMorphing.getValue();
 }
@@ -350,7 +348,7 @@ Pnt3f &QuadTreeTerrainBase::editBoundMin(void)
 
 //! Get the value of the QuadTreeTerrain::_sfBoundMin field.
 inline
-const Pnt3f &QuadTreeTerrainBase::getBoundMin(void) const
+const Pnt3f QuadTreeTerrainBase::getBoundMin(void) const
 {
     return _sfBoundMin.getValue();
 }
@@ -383,7 +381,7 @@ Pnt3f &QuadTreeTerrainBase::editBoundMax(void)
 
 //! Get the value of the QuadTreeTerrain::_sfBoundMax field.
 inline
-const Pnt3f &QuadTreeTerrainBase::getBoundMax(void) const
+const Pnt3f QuadTreeTerrainBase::getBoundMax(void) const
 {
     return _sfBoundMax.getValue();
 }
@@ -416,7 +414,7 @@ Pnt3f &QuadTreeTerrainBase::editEyePoint(void)
 
 //! Get the value of the QuadTreeTerrain::_sfEyePoint field.
 inline
-const Pnt3f &QuadTreeTerrainBase::getEyePoint(void) const
+const Pnt3f QuadTreeTerrainBase::getEyePoint(void) const
 {
     return _sfEyePoint.getValue();
 }
@@ -449,7 +447,7 @@ Real32 &QuadTreeTerrainBase::editEyeHeight(void)
 
 //! Get the value of the QuadTreeTerrain::_sfEyeHeight field.
 inline
-const Real32 &QuadTreeTerrainBase::getEyeHeight(void) const
+const Real32 QuadTreeTerrainBase::getEyeHeight(void) const
 {
     return _sfEyeHeight.getValue();
 }
@@ -482,7 +480,7 @@ bool &QuadTreeTerrainBase::editEyePointValid(void)
 
 //! Get the value of the QuadTreeTerrain::_sfEyePointValid field.
 inline
-const bool &QuadTreeTerrainBase::getEyePointValid(void) const
+const bool QuadTreeTerrainBase::getEyePointValid(void) const
 {
     return _sfEyePointValid.getValue();
 }
@@ -515,7 +513,7 @@ Real32 &QuadTreeTerrainBase::editOriginX(void)
 
 //! Get the value of the QuadTreeTerrain::_sfOriginX field.
 inline
-const Real32 &QuadTreeTerrainBase::getOriginX(void) const
+const Real32 QuadTreeTerrainBase::getOriginX(void) const
 {
     return _sfOriginX.getValue();
 }
@@ -548,7 +546,7 @@ Real32 &QuadTreeTerrainBase::editOriginY(void)
 
 //! Get the value of the QuadTreeTerrain::_sfOriginY field.
 inline
-const Real32 &QuadTreeTerrainBase::getOriginY(void) const
+const Real32 QuadTreeTerrainBase::getOriginY(void) const
 {
     return _sfOriginY.getValue();
 }
@@ -581,7 +579,7 @@ Real32 &QuadTreeTerrainBase::editOriginTexX(void)
 
 //! Get the value of the QuadTreeTerrain::_sfOriginTexX field.
 inline
-const Real32 &QuadTreeTerrainBase::getOriginTexX(void) const
+const Real32 QuadTreeTerrainBase::getOriginTexX(void) const
 {
     return _sfOriginTexX.getValue();
 }
@@ -614,7 +612,7 @@ Real32 &QuadTreeTerrainBase::editOriginTexY(void)
 
 //! Get the value of the QuadTreeTerrain::_sfOriginTexY field.
 inline
-const Real32 &QuadTreeTerrainBase::getOriginTexY(void) const
+const Real32 QuadTreeTerrainBase::getOriginTexY(void) const
 {
     return _sfOriginTexY.getValue();
 }
@@ -647,7 +645,7 @@ Real32 &QuadTreeTerrainBase::editTexSpacing(void)
 
 //! Get the value of the QuadTreeTerrain::_sfTexSpacing field.
 inline
-const Real32 &QuadTreeTerrainBase::getTexSpacing(void) const
+const Real32 QuadTreeTerrainBase::getTexSpacing(void) const
 {
     return _sfTexSpacing.getValue();
 }
@@ -680,7 +678,7 @@ Real32 &QuadTreeTerrainBase::editTexYSpacing(void)
 
 //! Get the value of the QuadTreeTerrain::_sfTexYSpacing field.
 inline
-const Real32 &QuadTreeTerrainBase::getTexYSpacing(void) const
+const Real32 QuadTreeTerrainBase::getTexYSpacing(void) const
 {
     return _sfTexYSpacing.getValue();
 }
@@ -713,7 +711,7 @@ bool &QuadTreeTerrainBase::editUpdateTerrain(void)
 
 //! Get the value of the QuadTreeTerrain::_sfUpdateTerrain field.
 inline
-const bool &QuadTreeTerrainBase::getUpdateTerrain(void) const
+const bool QuadTreeTerrainBase::getUpdateTerrain(void) const
 {
     return _sfUpdateTerrain.getValue();
 }
@@ -746,7 +744,7 @@ bool &QuadTreeTerrainBase::editPerPixelLighting(void)
 
 //! Get the value of the QuadTreeTerrain::_sfPerPixelLighting field.
 inline
-const bool &QuadTreeTerrainBase::getPerPixelLighting(void) const
+const bool QuadTreeTerrainBase::getPerPixelLighting(void) const
 {
     return _sfPerPixelLighting.getValue();
 }
@@ -770,7 +768,7 @@ void QuadTreeTerrainBase::setPerPixelLighting(const bool &value)
 
 //! Get the value of the \a index element the QuadTreeTerrain::_mfHeightError field.
 inline
-const Real32 &QuadTreeTerrainBase::getHeightError(const UInt32 index) const
+const Real32 QuadTreeTerrainBase::getHeightError(const UInt32 index) const
 {
     return _mfHeightError[index];
 }
@@ -781,15 +779,6 @@ Real32 &QuadTreeTerrainBase::editHeightError(const UInt32 index)
     editMField(HeightErrorFieldMask, _mfHeightError);
 
     return _mfHeightError[index];
-}
-
-//! Get the QuadTreeTerrain::_mfHeightError field.
-inline
-MFReal32 &QuadTreeTerrainBase::editHeightError(void)
-{
-    editMField(HeightErrorFieldMask, _mfHeightError);
-
-    return _mfHeightError;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -808,16 +797,9 @@ MFReal32            &QuadTreeTerrainBase::getHeightError    (void)
 #endif
 
 
-//! Get the QuadTreeTerrain::_mfHeightError field.
-inline
-const MFReal32 &QuadTreeTerrainBase::getHeightError(void) const
-{
-    return _mfHeightError;
-}
-
 //! Get the value of the \a index element the QuadTreeTerrain::_mfHeightQuad field.
 inline
-const Real32 &QuadTreeTerrainBase::getHeightQuad(const UInt32 index) const
+const Real32 QuadTreeTerrainBase::getHeightQuad(const UInt32 index) const
 {
     return _mfHeightQuad[index];
 }
@@ -828,15 +810,6 @@ Real32 &QuadTreeTerrainBase::editHeightQuad(const UInt32 index)
     editMField(HeightQuadFieldMask, _mfHeightQuad);
 
     return _mfHeightQuad[index];
-}
-
-//! Get the QuadTreeTerrain::_mfHeightQuad field.
-inline
-MFReal32 &QuadTreeTerrainBase::editHeightQuad(void)
-{
-    editMField(HeightQuadFieldMask, _mfHeightQuad);
-
-    return _mfHeightQuad;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -854,13 +827,6 @@ MFReal32            &QuadTreeTerrainBase::getHeightQuad     (void)
 
 #endif
 
-
-//! Get the QuadTreeTerrain::_mfHeightQuad field.
-inline
-const MFReal32 &QuadTreeTerrainBase::getHeightQuad(void) const
-{
-    return _mfHeightQuad;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

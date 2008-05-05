@@ -391,6 +391,7 @@ void FCDSParTestFCBase::onCreate(const FCDSParTestFC *source)
 
     if(source != NULL)
     {
+        FCDSParTestFC *pThis = static_cast<FCDSParTestFC *>(this);
     }
 }
 

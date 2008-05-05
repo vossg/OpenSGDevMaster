@@ -149,13 +149,20 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecCameraPtr    *getSFCamera          (void) const;
-            const SFUnrecTextureObjChunkPtr *getSFTexChunk        (void) const;
-            const SFUnrecTextureBufferPtr *getSFTexBuffer       (void) const;
-            const SFUnrecLightChunkPtr *getSFLightChunk      (void) const;
-            const SFUnrecBlendChunkPtr *getSFBlendChunk      (void) const;
-            const SFUnrecTexGenChunkPtr *getSFTexGenChunk     (void) const;
-            const SFUnrecPolygonChunkPtr *getSFPolyChunk       (void) const;
+            const SFUnrecCameraPtr    *getSFCamera         (void) const;
+                  SFUnrecCameraPtr    *editSFCamera         (void);
+            const SFUnrecTextureObjChunkPtr *getSFTexChunk       (void) const;
+                  SFUnrecTextureObjChunkPtr *editSFTexChunk       (void);
+            const SFUnrecTextureBufferPtr *getSFTexBuffer      (void) const;
+                  SFUnrecTextureBufferPtr *editSFTexBuffer      (void);
+            const SFUnrecLightChunkPtr *getSFLightChunk     (void) const;
+                  SFUnrecLightChunkPtr *editSFLightChunk     (void);
+            const SFUnrecBlendChunkPtr *getSFBlendChunk     (void) const;
+                  SFUnrecBlendChunkPtr *editSFBlendChunk     (void);
+            const SFUnrecTexGenChunkPtr *getSFTexGenChunk    (void) const;
+                  SFUnrecTexGenChunkPtr *editSFTexGenChunk    (void);
+            const SFUnrecPolygonChunkPtr *getSFPolyChunk      (void) const;
+                  SFUnrecPolygonChunkPtr *editSFPolyChunk      (void);
 
 
                   CameraPtr getCamera         (void) const;
@@ -194,6 +201,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

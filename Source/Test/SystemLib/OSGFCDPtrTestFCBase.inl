@@ -88,7 +88,6 @@ void FCDPtrTestFCBase::setFieldSFPub_ptr(const FCDTestFCPtr value)
     editSField(FieldSFPub_ptrFieldMask);
 
     _sfFieldSFPub_ptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPub_weakptr field.
@@ -105,7 +104,6 @@ void FCDPtrTestFCBase::setFieldSFPub_weakptr(const FCDTestFCPtr value)
     editSField(FieldSFPub_weakptrFieldMask);
 
     _sfFieldSFPub_weakptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPub_mpchildptr field.
@@ -122,7 +120,6 @@ void FCDPtrTestFCBase::setFieldSFPub_mpchildptr(const FCDTestFCPtr value)
     editSField(FieldSFPub_mpchildptrFieldMask);
 
     _sfFieldSFPub_mpchildptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPro_ptr field.
@@ -139,7 +136,6 @@ void FCDPtrTestFCBase::setFieldSFPro_ptr(const FCDTestFCPtr value)
     editSField(FieldSFPro_ptrFieldMask);
 
     _sfFieldSFPro_ptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPro_weakptr field.
@@ -156,7 +152,6 @@ void FCDPtrTestFCBase::setFieldSFPro_weakptr(const FCDTestFCPtr value)
     editSField(FieldSFPro_weakptrFieldMask);
 
     _sfFieldSFPro_weakptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPro_mpchildptr field.
@@ -173,7 +168,6 @@ void FCDPtrTestFCBase::setFieldSFPro_mpchildptr(const FCDTestFCPtr value)
     editSField(FieldSFPro_mpchildptrFieldMask);
 
     _sfFieldSFPro_mpchildptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPri_ptr field.
@@ -190,7 +184,6 @@ void FCDPtrTestFCBase::setFieldSFPri_ptr(const FCDTestFCPtr value)
     editSField(FieldSFPri_ptrFieldMask);
 
     _sfFieldSFPri_ptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPri_weakptr field.
@@ -207,7 +200,6 @@ void FCDPtrTestFCBase::setFieldSFPri_weakptr(const FCDTestFCPtr value)
     editSField(FieldSFPri_weakptrFieldMask);
 
     _sfFieldSFPri_weakptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPri_mpchildptr field.
@@ -224,7 +216,6 @@ void FCDPtrTestFCBase::setFieldSFPri_mpchildptr(const FCDTestFCPtr value)
     editSField(FieldSFPri_mpchildptrFieldMask);
 
     _sfFieldSFPri_mpchildptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPub_spchildptr field.
@@ -241,7 +232,6 @@ void FCDPtrTestFCBase::setFieldSFPub_spchildptr(const FCDSParTestFCPtr value)
     editSField(FieldSFPub_spchildptrFieldMask);
 
     _sfFieldSFPub_spchildptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPro_spchildptr field.
@@ -258,7 +248,6 @@ void FCDPtrTestFCBase::setFieldSFPro_spchildptr(const FCDSParTestFCPtr value)
     editSField(FieldSFPro_spchildptrFieldMask);
 
     _sfFieldSFPro_spchildptr.setValue(value);
-
 }
 
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPri_spchildptr field.
@@ -275,7 +264,6 @@ void FCDPtrTestFCBase::setFieldSFPri_spchildptr(const FCDSParTestFCPtr value)
     editSField(FieldSFPri_spchildptrFieldMask);
 
     _sfFieldSFPri_spchildptr.setValue(value);
-
 }
 
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPub_ptr field.
@@ -285,25 +273,11 @@ FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPub_ptr(const UInt32 index) const
     return _mfFieldMFPub_ptr[index];
 }
 
-//! Get the FCDPtrTestFC::_mfFieldMFPub_ptr field.
-inline
-const MFUnrecFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_ptr(void) const
-{
-    return _mfFieldMFPub_ptr;
-}
-
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPub_weakptr field.
 inline
 FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPub_weakptr(const UInt32 index) const
 {
     return _mfFieldMFPub_weakptr[index];
-}
-
-//! Get the FCDPtrTestFC::_mfFieldMFPub_weakptr field.
-inline
-const MFWeakFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_weakptr(void) const
-{
-    return _mfFieldMFPub_weakptr;
 }
 
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPub_mpchildptr field.
@@ -313,25 +287,11 @@ FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPub_mpchildptr(const UInt32 index) cons
     return _mfFieldMFPub_mpchildptr[index];
 }
 
-//! Get the FCDPtrTestFC::_mfFieldMFPub_mpchildptr field.
-inline
-const MFUnrecChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_mpchildptr(void) const
-{
-    return _mfFieldMFPub_mpchildptr;
-}
-
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPro_ptr field.
 inline
 FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPro_ptr(const UInt32 index) const
 {
     return _mfFieldMFPro_ptr[index];
-}
-
-//! Get the FCDPtrTestFC::_mfFieldMFPro_ptr field.
-inline
-const MFUnrecFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_ptr(void) const
-{
-    return _mfFieldMFPro_ptr;
 }
 
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPro_weakptr field.
@@ -341,25 +301,11 @@ FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPro_weakptr(const UInt32 index) const
     return _mfFieldMFPro_weakptr[index];
 }
 
-//! Get the FCDPtrTestFC::_mfFieldMFPro_weakptr field.
-inline
-const MFWeakFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_weakptr(void) const
-{
-    return _mfFieldMFPro_weakptr;
-}
-
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPro_mpchildptr field.
 inline
 FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPro_mpchildptr(const UInt32 index) const
 {
     return _mfFieldMFPro_mpchildptr[index];
-}
-
-//! Get the FCDPtrTestFC::_mfFieldMFPro_mpchildptr field.
-inline
-const MFUnrecChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_mpchildptr(void) const
-{
-    return _mfFieldMFPro_mpchildptr;
 }
 
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_ptr field.
@@ -369,25 +315,11 @@ FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPri_ptr(const UInt32 index) const
     return _mfFieldMFPri_ptr[index];
 }
 
-//! Get the FCDPtrTestFC::_mfFieldMFPri_ptr field.
-inline
-const MFUnrecFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_ptr(void) const
-{
-    return _mfFieldMFPri_ptr;
-}
-
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_weakptr field.
 inline
 FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPri_weakptr(const UInt32 index) const
 {
     return _mfFieldMFPri_weakptr[index];
-}
-
-//! Get the FCDPtrTestFC::_mfFieldMFPri_weakptr field.
-inline
-const MFWeakFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_weakptr(void) const
-{
-    return _mfFieldMFPri_weakptr;
 }
 
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_mpchildptr field.
@@ -397,25 +329,11 @@ FCDTestFCPtr FCDPtrTestFCBase::getFieldMFPri_mpchildptr(const UInt32 index) cons
     return _mfFieldMFPri_mpchildptr[index];
 }
 
-//! Get the FCDPtrTestFC::_mfFieldMFPri_mpchildptr field.
-inline
-const MFUnrecChildFCDTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_mpchildptr(void) const
-{
-    return _mfFieldMFPri_mpchildptr;
-}
-
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPub_spchildptr field.
 inline
 FCDSParTestFCPtr FCDPtrTestFCBase::getFieldMFPub_spchildptr(const UInt32 index) const
 {
     return _mfFieldMFPub_spchildptr[index];
-}
-
-//! Get the FCDPtrTestFC::_mfFieldMFPub_spchildptr field.
-inline
-const MFUnrecChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPub_spchildptr(void) const
-{
-    return _mfFieldMFPub_spchildptr;
 }
 
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPro_spchildptr field.
@@ -425,25 +343,11 @@ FCDSParTestFCPtr FCDPtrTestFCBase::getFieldMFPro_spchildptr(const UInt32 index) 
     return _mfFieldMFPro_spchildptr[index];
 }
 
-//! Get the FCDPtrTestFC::_mfFieldMFPro_spchildptr field.
-inline
-const MFUnrecChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPro_spchildptr(void) const
-{
-    return _mfFieldMFPro_spchildptr;
-}
-
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_spchildptr field.
 inline
 FCDSParTestFCPtr FCDPtrTestFCBase::getFieldMFPri_spchildptr(const UInt32 index) const
 {
     return _mfFieldMFPri_spchildptr[index];
-}
-
-//! Get the FCDPtrTestFC::_mfFieldMFPri_spchildptr field.
-inline
-const MFUnrecChildFCDSParTestFCPtr &FCDPtrTestFCBase::getFieldMFPri_spchildptr(void) const
-{
-    return _mfFieldMFPri_spchildptr;
 }
 
 

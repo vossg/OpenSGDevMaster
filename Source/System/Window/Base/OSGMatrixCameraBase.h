@@ -157,19 +157,19 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
                   Matrix              &getProjectionMatrix (void);
 #endif
                   Matrix              &editProjectionMatrix(void);
-            const Matrix              &getProjectionMatrix (void) const;
+            const Matrix               getProjectionMatrix (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getModelviewMatrix (void);
 #endif
                   Matrix              &editModelviewMatrix(void);
-            const Matrix              &getModelviewMatrix (void) const;
+            const Matrix               getModelviewMatrix (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getUseBeacon       (void);
 #endif
                   bool                &editUseBeacon      (void);
-            const bool                &getUseBeacon       (void) const;
+            const bool                 getUseBeacon       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,6 +184,7 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

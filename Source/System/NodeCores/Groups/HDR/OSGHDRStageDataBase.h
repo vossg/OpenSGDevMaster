@@ -157,11 +157,16 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecChunkMaterialPtr *getSFToneMappingMaterial (void) const;
-            const SFUnrecFrameBufferObjectPtr *getSFBlurRenderTarget (void) const;
-            const SFUnrecChunkMaterialPtr *getSFBlurMaterial    (void) const;
-            const SFUnrecSHLChunkPtr  *getSFHBlurShader     (void) const;
-            const SFUnrecSHLChunkPtr  *getSFVBlurShader     (void) const;
+            const SFUnrecChunkMaterialPtr *getSFToneMappingMaterial(void) const;
+                  SFUnrecChunkMaterialPtr *editSFToneMappingMaterial(void);
+            const SFUnrecFrameBufferObjectPtr *getSFBlurRenderTarget(void) const;
+                  SFUnrecFrameBufferObjectPtr *editSFBlurRenderTarget(void);
+            const SFUnrecChunkMaterialPtr *getSFBlurMaterial   (void) const;
+                  SFUnrecChunkMaterialPtr *editSFBlurMaterial   (void);
+            const SFUnrecSHLChunkPtr  *getSFHBlurShader    (void) const;
+                  SFUnrecSHLChunkPtr  *editSFHBlurShader    (void);
+            const SFUnrecSHLChunkPtr  *getSFVBlurShader    (void) const;
+                  SFUnrecSHLChunkPtr  *editSFVBlurShader    (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFWidth           (void);
@@ -174,8 +179,10 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
 #endif
                   SFUInt32            *editSFHeight         (void);
             const SFUInt32            *getSFHeight          (void) const;
-            const SFUnrecFrameBufferObjectPtr *getSFShrinkRenderTarget (void) const;
-            const SFUnrecChunkMaterialPtr *getSFShrinkMaterial  (void) const;
+            const SFUnrecFrameBufferObjectPtr *getSFShrinkRenderTarget(void) const;
+                  SFUnrecFrameBufferObjectPtr *editSFShrinkRenderTarget(void);
+            const SFUnrecChunkMaterialPtr *getSFShrinkMaterial (void) const;
+                  SFUnrecChunkMaterialPtr *editSFShrinkMaterial (void);
 
 
                   ChunkMaterialPtr getToneMappingMaterial(void) const;
@@ -192,13 +199,13 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
                   UInt32              &getWidth           (void);
 #endif
                   UInt32              &editWidth          (void);
-            const UInt32              &getWidth           (void) const;
+            const UInt32               getWidth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getHeight          (void);
 #endif
                   UInt32              &editHeight         (void);
-            const UInt32              &getHeight          (void) const;
+            const UInt32               getHeight          (void) const;
 
                   FrameBufferObjectPtr getShrinkRenderTarget(void) const;
 
@@ -228,6 +235,7 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

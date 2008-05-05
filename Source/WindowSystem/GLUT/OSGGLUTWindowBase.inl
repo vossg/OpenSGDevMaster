@@ -85,7 +85,7 @@ Int32 &GLUTWindowBase::editGlutId(void)
 
 //! Get the value of the GLUTWindow::_sfGlutId field.
 inline
-const Int32 &GLUTWindowBase::getGlutId(void) const
+const Int32 GLUTWindowBase::getGlutId(void) const
 {
     return _sfGlutId.getValue();
 }

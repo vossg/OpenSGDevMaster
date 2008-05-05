@@ -85,7 +85,7 @@ GLenum &PolygonChunkBase::editCullFace(void)
 
 //! Get the value of the PolygonChunk::_sfCullFace field.
 inline
-const GLenum &PolygonChunkBase::getCullFace(void) const
+const GLenum PolygonChunkBase::getCullFace(void) const
 {
     return _sfCullFace.getValue();
 }
@@ -118,7 +118,7 @@ GLenum &PolygonChunkBase::editFrontFace(void)
 
 //! Get the value of the PolygonChunk::_sfFrontFace field.
 inline
-const GLenum &PolygonChunkBase::getFrontFace(void) const
+const GLenum PolygonChunkBase::getFrontFace(void) const
 {
     return _sfFrontFace.getValue();
 }
@@ -151,7 +151,7 @@ GLenum &PolygonChunkBase::editFrontMode(void)
 
 //! Get the value of the PolygonChunk::_sfFrontMode field.
 inline
-const GLenum &PolygonChunkBase::getFrontMode(void) const
+const GLenum PolygonChunkBase::getFrontMode(void) const
 {
     return _sfFrontMode.getValue();
 }
@@ -184,7 +184,7 @@ GLenum &PolygonChunkBase::editBackMode(void)
 
 //! Get the value of the PolygonChunk::_sfBackMode field.
 inline
-const GLenum &PolygonChunkBase::getBackMode(void) const
+const GLenum PolygonChunkBase::getBackMode(void) const
 {
     return _sfBackMode.getValue();
 }
@@ -217,7 +217,7 @@ bool &PolygonChunkBase::editSmooth(void)
 
 //! Get the value of the PolygonChunk::_sfSmooth field.
 inline
-const bool &PolygonChunkBase::getSmooth(void) const
+const bool PolygonChunkBase::getSmooth(void) const
 {
     return _sfSmooth.getValue();
 }
@@ -250,7 +250,7 @@ Real32 &PolygonChunkBase::editOffsetFactor(void)
 
 //! Get the value of the PolygonChunk::_sfOffsetFactor field.
 inline
-const Real32 &PolygonChunkBase::getOffsetFactor(void) const
+const Real32 PolygonChunkBase::getOffsetFactor(void) const
 {
     return _sfOffsetFactor.getValue();
 }
@@ -283,7 +283,7 @@ Real32 &PolygonChunkBase::editOffsetBias(void)
 
 //! Get the value of the PolygonChunk::_sfOffsetBias field.
 inline
-const Real32 &PolygonChunkBase::getOffsetBias(void) const
+const Real32 PolygonChunkBase::getOffsetBias(void) const
 {
     return _sfOffsetBias.getValue();
 }
@@ -316,7 +316,7 @@ bool &PolygonChunkBase::editOffsetPoint(void)
 
 //! Get the value of the PolygonChunk::_sfOffsetPoint field.
 inline
-const bool &PolygonChunkBase::getOffsetPoint(void) const
+const bool PolygonChunkBase::getOffsetPoint(void) const
 {
     return _sfOffsetPoint.getValue();
 }
@@ -349,7 +349,7 @@ bool &PolygonChunkBase::editOffsetLine(void)
 
 //! Get the value of the PolygonChunk::_sfOffsetLine field.
 inline
-const bool &PolygonChunkBase::getOffsetLine(void) const
+const bool PolygonChunkBase::getOffsetLine(void) const
 {
     return _sfOffsetLine.getValue();
 }
@@ -382,7 +382,7 @@ bool &PolygonChunkBase::editOffsetFill(void)
 
 //! Get the value of the PolygonChunk::_sfOffsetFill field.
 inline
-const bool &PolygonChunkBase::getOffsetFill(void) const
+const bool PolygonChunkBase::getOffsetFill(void) const
 {
     return _sfOffsetFill.getValue();
 }
@@ -406,7 +406,7 @@ void PolygonChunkBase::setOffsetFill(const bool &value)
 
 //! Get the value of the \a index element the PolygonChunk::_mfStipple field.
 inline
-const Int32 &PolygonChunkBase::getStipple(const UInt32 index) const
+const Int32 PolygonChunkBase::getStipple(const UInt32 index) const
 {
     return _mfStipple[index];
 }
@@ -417,15 +417,6 @@ Int32 &PolygonChunkBase::editStipple(const UInt32 index)
     editMField(StippleFieldMask, _mfStipple);
 
     return _mfStipple[index];
-}
-
-//! Get the PolygonChunk::_mfStipple field.
-inline
-MFInt32 &PolygonChunkBase::editStipple(void)
-{
-    editMField(StippleFieldMask, _mfStipple);
-
-    return _mfStipple;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -443,13 +434,6 @@ MFInt32             &PolygonChunkBase::getStipple        (void)
 
 #endif
 
-
-//! Get the PolygonChunk::_mfStipple field.
-inline
-const MFInt32 &PolygonChunkBase::getStipple(void) const
-{
-    return _mfStipple;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

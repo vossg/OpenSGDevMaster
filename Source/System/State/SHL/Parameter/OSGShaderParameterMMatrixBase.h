@@ -138,9 +138,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMMatrixBase : public ShaderParameter
                   MFMatrix            &getValue          (void);
 #endif
                   Matrix              &editValue          (const UInt32 index);
-            const Matrix              &getValue           (const UInt32 index) const;
-                  MFMatrix            &editValue          (void);
-            const MFMatrix            &getValue          (void) const;
+            const Matrix               getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -152,7 +150,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterMMatrixBase : public ShaderParameter
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

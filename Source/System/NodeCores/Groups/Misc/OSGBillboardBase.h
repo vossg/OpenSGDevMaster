@@ -177,31 +177,31 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
                   Vec3f               &getAxisOfRotation  (void);
 #endif
                   Vec3f               &editAxisOfRotation (void);
-            const Vec3f               &getAxisOfRotation  (void) const;
+            const Vec3f                getAxisOfRotation  (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getFocusOnCamera   (void);
 #endif
                   bool                &editFocusOnCamera  (void);
-            const bool                &getFocusOnCamera   (void) const;
+            const bool                 getFocusOnCamera   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getAlignToScreen   (void);
 #endif
                   bool                &editAlignToScreen  (void);
-            const bool                &getAlignToScreen   (void) const;
+            const bool                 getAlignToScreen   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getMinAngle        (void);
 #endif
                   Real32              &editMinAngle       (void);
-            const Real32              &getMinAngle        (void) const;
+            const Real32               getMinAngle        (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getMaxAngle        (void);
 #endif
                   Real32              &editMaxAngle       (void);
-            const Real32              &getMaxAngle        (void) const;
+            const Real32               getMaxAngle        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,6 +218,7 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -85,7 +85,7 @@ bool &SortLastWindowBase::editGroupsChanged(void)
 
 //! Get the value of the SortLastWindow::_sfGroupsChanged field.
 inline
-const bool &SortLastWindowBase::getGroupsChanged(void) const
+const bool SortLastWindowBase::getGroupsChanged(void) const
 {
     return _sfGroupsChanged.getValue();
 }
@@ -114,16 +114,9 @@ NodePtr SortLastWindowBase::getGroupNodes(const UInt32 index) const
     return _mfGroupNodes[index];
 }
 
-//! Get the SortLastWindow::_mfGroupNodes field.
-inline
-const MFUnrecNodePtr &SortLastWindowBase::getGroupNodes(void) const
-{
-    return _mfGroupNodes;
-}
-
 //! Get the value of the \a index element the SortLastWindow::_mfGroupLengths field.
 inline
-const UInt32 &SortLastWindowBase::getGroupLengths(const UInt32 index) const
+const UInt32 SortLastWindowBase::getGroupLengths(const UInt32 index) const
 {
     return _mfGroupLengths[index];
 }
@@ -134,15 +127,6 @@ UInt32 &SortLastWindowBase::editGroupLengths(const UInt32 index)
     editMField(GroupLengthsFieldMask, _mfGroupLengths);
 
     return _mfGroupLengths[index];
-}
-
-//! Get the SortLastWindow::_mfGroupLengths field.
-inline
-MFUInt32 &SortLastWindowBase::editGroupLengths(void)
-{
-    editMField(GroupLengthsFieldMask, _mfGroupLengths);
-
-    return _mfGroupLengths;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -160,13 +144,6 @@ MFUInt32            &SortLastWindowBase::getGroupLengths   (void)
 
 #endif
 
-
-//! Get the SortLastWindow::_mfGroupLengths field.
-inline
-const MFUInt32 &SortLastWindowBase::getGroupLengths(void) const
-{
-    return _mfGroupLengths;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

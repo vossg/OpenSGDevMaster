@@ -88,7 +88,6 @@ void GeometryBase::setTypes(const GeoIntegralPropertyPtr value)
     editSField(TypesFieldMask);
 
     _sfTypes.setValue(value);
-
 }
 
 //! Get the value of the Geometry::_sfLengths field.
@@ -105,7 +104,6 @@ void GeometryBase::setLengths(const GeoIntegralPropertyPtr value)
     editSField(LengthsFieldMask);
 
     _sfLengths.setValue(value);
-
 }
 //! Get the value of the Geometry::_sfClassicGLId field.
 
@@ -119,7 +117,7 @@ Int32 &GeometryBase::editClassicGLId(void)
 
 //! Get the value of the Geometry::_sfClassicGLId field.
 inline
-const Int32 &GeometryBase::getClassicGLId(void) const
+const Int32 GeometryBase::getClassicGLId(void) const
 {
     return _sfClassicGLId.getValue();
 }
@@ -152,7 +150,7 @@ Int32 &GeometryBase::editAttGLId(void)
 
 //! Get the value of the Geometry::_sfAttGLId field.
 inline
-const Int32 &GeometryBase::getAttGLId(void) const
+const Int32 GeometryBase::getAttGLId(void) const
 {
     return _sfAttGLId.getValue();
 }
@@ -181,25 +179,11 @@ GeoVectorPropertyPtr GeometryBase::getProperties(const UInt32 index) const
     return _mfProperties[index];
 }
 
-//! Get the Geometry::_mfProperties field.
-inline
-const MFUnrecChildGeoVectorPropertyPtr &GeometryBase::getProperties(void) const
-{
-    return _mfProperties;
-}
-
 //! Get the value of the \a index element the Geometry::_mfPropIndices field.
 inline
 GeoIntegralPropertyPtr GeometryBase::getPropIndices(const UInt32 index) const
 {
     return _mfPropIndices[index];
-}
-
-//! Get the Geometry::_mfPropIndices field.
-inline
-const MFUnrecChildGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
-{
-    return _mfPropIndices;
 }
 
 

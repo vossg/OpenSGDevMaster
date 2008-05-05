@@ -85,7 +85,7 @@ Matrix &MatrixCameraBase::editProjectionMatrix(void)
 
 //! Get the value of the MatrixCamera::_sfProjectionMatrix field.
 inline
-const Matrix &MatrixCameraBase::getProjectionMatrix(void) const
+const Matrix MatrixCameraBase::getProjectionMatrix(void) const
 {
     return _sfProjectionMatrix.getValue();
 }
@@ -118,7 +118,7 @@ Matrix &MatrixCameraBase::editModelviewMatrix(void)
 
 //! Get the value of the MatrixCamera::_sfModelviewMatrix field.
 inline
-const Matrix &MatrixCameraBase::getModelviewMatrix(void) const
+const Matrix MatrixCameraBase::getModelviewMatrix(void) const
 {
     return _sfModelviewMatrix.getValue();
 }
@@ -151,7 +151,7 @@ bool &MatrixCameraBase::editUseBeacon(void)
 
 //! Get the value of the MatrixCamera::_sfUseBeacon field.
 inline
-const bool &MatrixCameraBase::getUseBeacon(void) const
+const bool MatrixCameraBase::getUseBeacon(void) const
 {
     return _sfUseBeacon.getValue();
 }

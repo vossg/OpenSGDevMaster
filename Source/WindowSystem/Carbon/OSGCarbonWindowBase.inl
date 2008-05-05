@@ -85,7 +85,7 @@ AGLContext &CarbonWindowBase::editContext(void)
 
 //! Get the value of the CarbonWindow::_sfContext field.
 inline
-const AGLContext &CarbonWindowBase::getContext(void) const
+const AGLContext CarbonWindowBase::getContext(void) const
 {
     return _sfContext.getValue();
 }

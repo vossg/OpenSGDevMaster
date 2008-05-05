@@ -81,13 +81,6 @@ ShaderParameterPtr ShaderParameterChunkBase::getParameters(const UInt32 index) c
     return _mfParameters[index];
 }
 
-//! Get the ShaderParameterChunk::_mfParameters field.
-inline
-const MFUnrecChildShaderParameterPtr &ShaderParameterChunkBase::getParameters(void) const
-{
-    return _mfParameters;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

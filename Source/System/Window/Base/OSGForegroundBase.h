@@ -137,7 +137,7 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
                   bool                &getActive          (void);
 #endif
                   bool                &editActive         (void);
-            const bool                &getActive          (void) const;
+            const bool                 getActive          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

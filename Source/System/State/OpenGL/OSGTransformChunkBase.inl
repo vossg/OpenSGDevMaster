@@ -85,7 +85,7 @@ Matrix &TransformChunkBase::editMatrix(void)
 
 //! Get the value of the TransformChunk::_sfMatrix field.
 inline
-const Matrix &TransformChunkBase::getMatrix(void) const
+const Matrix TransformChunkBase::getMatrix(void) const
 {
     return _sfMatrix.getValue();
 }

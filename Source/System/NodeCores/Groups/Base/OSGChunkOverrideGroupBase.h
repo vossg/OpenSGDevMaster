@@ -207,10 +207,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \{                                                                 */
 
             const MFUnrecStateChunkPtr *getMFChunks          (void) const;
+                  MFUnrecStateChunkPtr *editMFChunks         (void);
 
 
                   StateChunkPtr getChunks         (const UInt32 index) const;
-            const MFUnrecStateChunkPtr &getChunks          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -225,15 +225,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
 
     void pushToChunks              (const StateChunkPtr value   );
     void assignChunks              (const MFUnrecStateChunkPtr &value);
-    void insertIntoChunks      (      UInt32        uiIndex,
-                                             const StateChunkPtr value   );
-    void replaceInChunks  (      UInt32         uiIndex,
-                                             const StateChunkPtr value   );
-    void replaceInChunks (const StateChunkPtr pOldElem,
-                                             const StateChunkPtr pNewElem);
     void removeFromChunks (UInt32                uiIndex );
     void removeFromChunks(const StateChunkPtr value   );
     void clearChunks                (void                          );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

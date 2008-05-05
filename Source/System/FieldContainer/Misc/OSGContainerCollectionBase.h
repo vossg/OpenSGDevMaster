@@ -135,17 +135,17 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
 #endif
                   SFString            *editSFName           (void);
             const SFString            *getSFName            (void) const;
-            const MFUnrecFieldContainerPtr *getMFContainers      (void) const;
+            const MFUnrecFieldContainerPtr *getMFContainers     (void) const;
+                  MFUnrecFieldContainerPtr *editMFContainers     (void);
 
 
 #ifdef OSG_1_GET_COMPAT
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);
-            const std::string         &getName            (void) const;
+            const std::string          getName            (void) const;
 
                   FieldContainerPtr getContainers     (const UInt32 index) const;
-            const MFUnrecFieldContainerPtr &getContainers     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -166,12 +166,6 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
 
     void pushToContainers           (const FieldContainerPtr value   );
     void assignContainers           (const MFUnrecFieldContainerPtr &value);
-    void insertIntoContainers      (      UInt32         uiIndex,
-                                             const FieldContainerPtr value   );
-    void replaceInContainers  (      UInt32         uiIndex,
-                                             const FieldContainerPtr value   );
-    void replaceInContainers (const FieldContainerPtr pOldElem,
-                                             const FieldContainerPtr pNewElem);
     void removeFromContainers (UInt32                uiIndex );
     void removeFromContainers(const FieldContainerPtr value   );
     void clearContainers            (void                          );

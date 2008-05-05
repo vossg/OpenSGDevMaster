@@ -211,16 +211,18 @@ const MFUnrecFieldContainerPtr *ContainerCollectionBase::getMFContainers(void) c
     return &_mfContainers;
 }
 
+MFUnrecFieldContainerPtr *ContainerCollectionBase::editMFContainers     (void)
+{
+    editMField(ContainersFieldMask, _mfContainers);
+
+    return &_mfContainers;
+}
+
 
 
 void ContainerCollectionBase::pushToContainers(const FieldContainerPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(ContainersFieldMask, _mfContainers);
-
-    //addRef(value);
 
     _mfContainers.push_back(value);
 }
@@ -242,66 +244,6 @@ void ContainerCollectionBase::assignContainers(const MFUnrecFieldContainerPtr &v
     }
 }
 
-void ContainerCollectionBase::insertIntoContainers(      UInt32         uiIndex,
-                                                   const FieldContainerPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(ContainersFieldMask, _mfContainers);
-
-    MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfContainers.insert(fieldIt, value);
-}
-
-void ContainerCollectionBase::replaceInContainers(      UInt32         uiIndex,
-                                                       const FieldContainerPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfContainers.size())
-        return;
-
-    editMField(ContainersFieldMask, _mfContainers);
-
-
-//    addRef(value);
-//    subRef(_mfContainers[uiIndex]);
-
-//    _mfContainers[uiIndex] = value;
-
-      _mfContainers.replace(uiIndex, value);
-}
-
-void ContainerCollectionBase::replaceInContainers(const FieldContainerPtr pOldElem,
-                                                        const FieldContainerPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfContainers.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(ContainersFieldMask, _mfContainers);
-
-//        MFFieldContainerPtr::iterator fieldIt = _mfContainers.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfContainers.replace(elemIdx, pNewElem);
-    }
-}
-
 void ContainerCollectionBase::removeFromContainers(UInt32 uiIndex)
 {
     if(uiIndex < _mfContainers.size())
@@ -311,8 +253,6 @@ void ContainerCollectionBase::removeFromContainers(UInt32 uiIndex)
         MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfContainers.erase(fieldIt);
     }
@@ -329,8 +269,6 @@ void ContainerCollectionBase::removeFromContainers(const FieldContainerPtr value
         MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfContainers.erase(fieldIt);
     }
@@ -509,6 +447,7 @@ void ContainerCollectionBase::onCreate(const ContainerCollection *source)
 
     if(source != NULL)
     {
+        ContainerCollection *pThis = static_cast<ContainerCollection *>(this);
 
         MFUnrecFieldContainerPtr::const_iterator ContainersIt  =
             source->_mfContainers.begin();
@@ -517,7 +456,7 @@ void ContainerCollectionBase::onCreate(const ContainerCollection *source)
 
         while(ContainersIt != ContainersEnd)
         {
-            this->pushToContainers(*ContainersIt);
+            pThis->pushToContainers(*ContainersIt);
 
             ++ContainersIt;
         }

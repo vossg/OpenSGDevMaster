@@ -76,7 +76,7 @@ OSG::UInt16 ShaderParameterMIntBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ShaderParameterMInt::_mfValue field.
 inline
-const Int32 &ShaderParameterMIntBase::getValue(const UInt32 index) const
+const Int32 ShaderParameterMIntBase::getValue(const UInt32 index) const
 {
     return _mfValue[index];
 }
@@ -87,15 +87,6 @@ Int32 &ShaderParameterMIntBase::editValue(const UInt32 index)
     editMField(ValueFieldMask, _mfValue);
 
     return _mfValue[index];
-}
-
-//! Get the ShaderParameterMInt::_mfValue field.
-inline
-MFInt32 &ShaderParameterMIntBase::editValue(void)
-{
-    editMField(ValueFieldMask, _mfValue);
-
-    return _mfValue;
 }
 
 #ifdef OSG_1_GET_COMPAT
@@ -113,13 +104,6 @@ MFInt32             &ShaderParameterMIntBase::getValue          (void)
 
 #endif
 
-
-//! Get the ShaderParameterMInt::_mfValue field.
-inline
-const MFInt32 &ShaderParameterMIntBase::getValue(void) const
-{
-    return _mfValue;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

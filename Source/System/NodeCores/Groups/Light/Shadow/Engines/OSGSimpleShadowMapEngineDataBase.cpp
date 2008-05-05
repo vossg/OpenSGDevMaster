@@ -328,9 +328,23 @@ const SFUnrecCameraPtr *SimpleShadowMapEngineDataBase::getSFCamera(void) const
     return &_sfCamera;
 }
 
+SFUnrecCameraPtr    *SimpleShadowMapEngineDataBase::editSFCamera         (void)
+{
+    editSField(CameraFieldMask);
+
+    return &_sfCamera;
+}
+
 //! Get the SimpleShadowMapEngineData::_sfTexChunk field.
 const SFUnrecTextureObjChunkPtr *SimpleShadowMapEngineDataBase::getSFTexChunk(void) const
 {
+    return &_sfTexChunk;
+}
+
+SFUnrecTextureObjChunkPtr *SimpleShadowMapEngineDataBase::editSFTexChunk       (void)
+{
+    editSField(TexChunkFieldMask);
+
     return &_sfTexChunk;
 }
 
@@ -340,9 +354,23 @@ const SFUnrecTextureBufferPtr *SimpleShadowMapEngineDataBase::getSFTexBuffer(voi
     return &_sfTexBuffer;
 }
 
+SFUnrecTextureBufferPtr *SimpleShadowMapEngineDataBase::editSFTexBuffer      (void)
+{
+    editSField(TexBufferFieldMask);
+
+    return &_sfTexBuffer;
+}
+
 //! Get the SimpleShadowMapEngineData::_sfLightChunk field.
 const SFUnrecLightChunkPtr *SimpleShadowMapEngineDataBase::getSFLightChunk(void) const
 {
+    return &_sfLightChunk;
+}
+
+SFUnrecLightChunkPtr *SimpleShadowMapEngineDataBase::editSFLightChunk     (void)
+{
+    editSField(LightChunkFieldMask);
+
     return &_sfLightChunk;
 }
 
@@ -352,15 +380,36 @@ const SFUnrecBlendChunkPtr *SimpleShadowMapEngineDataBase::getSFBlendChunk(void)
     return &_sfBlendChunk;
 }
 
+SFUnrecBlendChunkPtr *SimpleShadowMapEngineDataBase::editSFBlendChunk     (void)
+{
+    editSField(BlendChunkFieldMask);
+
+    return &_sfBlendChunk;
+}
+
 //! Get the SimpleShadowMapEngineData::_sfTexGenChunk field.
 const SFUnrecTexGenChunkPtr *SimpleShadowMapEngineDataBase::getSFTexGenChunk(void) const
 {
     return &_sfTexGenChunk;
 }
 
+SFUnrecTexGenChunkPtr *SimpleShadowMapEngineDataBase::editSFTexGenChunk    (void)
+{
+    editSField(TexGenChunkFieldMask);
+
+    return &_sfTexGenChunk;
+}
+
 //! Get the SimpleShadowMapEngineData::_sfPolyChunk field.
 const SFUnrecPolygonChunkPtr *SimpleShadowMapEngineDataBase::getSFPolyChunk(void) const
 {
+    return &_sfPolyChunk;
+}
+
+SFUnrecPolygonChunkPtr *SimpleShadowMapEngineDataBase::editSFPolyChunk      (void)
+{
+    editSField(PolyChunkFieldMask);
+
     return &_sfPolyChunk;
 }
 
@@ -602,20 +651,21 @@ void SimpleShadowMapEngineDataBase::onCreate(const SimpleShadowMapEngineData *so
 
     if(source != NULL)
     {
+        SimpleShadowMapEngineData *pThis = static_cast<SimpleShadowMapEngineData *>(this);
 
-        this->setCamera(source->getCamera());
+        pThis->setCamera(source->getCamera());
 
-        this->setTexChunk(source->getTexChunk());
+        pThis->setTexChunk(source->getTexChunk());
 
-        this->setTexBuffer(source->getTexBuffer());
+        pThis->setTexBuffer(source->getTexBuffer());
 
-        this->setLightChunk(source->getLightChunk());
+        pThis->setLightChunk(source->getLightChunk());
 
-        this->setBlendChunk(source->getBlendChunk());
+        pThis->setBlendChunk(source->getBlendChunk());
 
-        this->setTexGenChunk(source->getTexGenChunk());
+        pThis->setTexGenChunk(source->getTexGenChunk());
 
-        this->setPolyChunk(source->getPolyChunk());
+        pThis->setPolyChunk(source->getPolyChunk());
     }
 }
 

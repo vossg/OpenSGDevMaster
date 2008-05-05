@@ -137,7 +137,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
                   Int32               &getForceTextureUnit (void);
 #endif
                   Int32               &editForceTextureUnit(void);
-            const Int32               &getForceTextureUnit (void) const;
+            const Int32                getForceTextureUnit (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

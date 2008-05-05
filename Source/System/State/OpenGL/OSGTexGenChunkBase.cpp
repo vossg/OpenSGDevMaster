@@ -647,9 +647,23 @@ const SFWeakNodePtr *TexGenChunkBase::getSFSBeacon(void) const
     return &_sfSBeacon;
 }
 
+SFWeakNodePtr       *TexGenChunkBase::editSFSBeacon        (void)
+{
+    editSField(SBeaconFieldMask);
+
+    return &_sfSBeacon;
+}
+
 //! Get the TexGenChunk::_sfTBeacon field.
 const SFWeakNodePtr *TexGenChunkBase::getSFTBeacon(void) const
 {
+    return &_sfTBeacon;
+}
+
+SFWeakNodePtr       *TexGenChunkBase::editSFTBeacon        (void)
+{
+    editSField(TBeaconFieldMask);
+
     return &_sfTBeacon;
 }
 
@@ -659,9 +673,23 @@ const SFWeakNodePtr *TexGenChunkBase::getSFRBeacon(void) const
     return &_sfRBeacon;
 }
 
+SFWeakNodePtr       *TexGenChunkBase::editSFRBeacon        (void)
+{
+    editSField(RBeaconFieldMask);
+
+    return &_sfRBeacon;
+}
+
 //! Get the TexGenChunk::_sfQBeacon field.
 const SFWeakNodePtr *TexGenChunkBase::getSFQBeacon(void) const
 {
+    return &_sfQBeacon;
+}
+
+SFWeakNodePtr       *TexGenChunkBase::editSFQBeacon        (void)
+{
+    editSField(QBeaconFieldMask);
+
     return &_sfQBeacon;
 }
 
@@ -973,14 +1001,15 @@ void TexGenChunkBase::onCreate(const TexGenChunk *source)
 
     if(source != NULL)
     {
+        TexGenChunk *pThis = static_cast<TexGenChunk *>(this);
 
-        this->setSBeacon(source->getSBeacon());
+        pThis->setSBeacon(source->getSBeacon());
 
-        this->setTBeacon(source->getTBeacon());
+        pThis->setTBeacon(source->getTBeacon());
 
-        this->setRBeacon(source->getRBeacon());
+        pThis->setRBeacon(source->getRBeacon());
 
-        this->setQBeacon(source->getQBeacon());
+        pThis->setQBeacon(source->getQBeacon());
     }
 }
 

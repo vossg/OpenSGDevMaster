@@ -88,7 +88,6 @@ void ShadowMapEngineBase::setRenderTarget(const FrameBufferObjectPtr value)
     editSField(RenderTargetFieldMask);
 
     _sfRenderTarget.setValue(value);
-
 }
 //! Get the value of the ShadowMapEngine::_sfWidth field.
 
@@ -102,7 +101,7 @@ Int32 &ShadowMapEngineBase::editWidth(void)
 
 //! Get the value of the ShadowMapEngine::_sfWidth field.
 inline
-const Int32 &ShadowMapEngineBase::getWidth(void) const
+const Int32 ShadowMapEngineBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
@@ -135,7 +134,7 @@ Int32 &ShadowMapEngineBase::editHeight(void)
 
 //! Get the value of the ShadowMapEngine::_sfHeight field.
 inline
-const Int32 &ShadowMapEngineBase::getHeight(void) const
+const Int32 ShadowMapEngineBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
@@ -168,7 +167,7 @@ Color4f &ShadowMapEngineBase::editShadowColor(void)
 
 //! Get the value of the ShadowMapEngine::_sfShadowColor field.
 inline
-const Color4f &ShadowMapEngineBase::getShadowColor(void) const
+const Color4f ShadowMapEngineBase::getShadowColor(void) const
 {
     return _sfShadowColor.getValue();
 }
@@ -201,7 +200,7 @@ Real32 &ShadowMapEngineBase::editOffsetBias(void)
 
 //! Get the value of the ShadowMapEngine::_sfOffsetBias field.
 inline
-const Real32 &ShadowMapEngineBase::getOffsetBias(void) const
+const Real32 ShadowMapEngineBase::getOffsetBias(void) const
 {
     return _sfOffsetBias.getValue();
 }
@@ -234,7 +233,7 @@ Real32 &ShadowMapEngineBase::editOffsetFactor(void)
 
 //! Get the value of the ShadowMapEngine::_sfOffsetFactor field.
 inline
-const Real32 &ShadowMapEngineBase::getOffsetFactor(void) const
+const Real32 ShadowMapEngineBase::getOffsetFactor(void) const
 {
     return _sfOffsetFactor.getValue();
 }

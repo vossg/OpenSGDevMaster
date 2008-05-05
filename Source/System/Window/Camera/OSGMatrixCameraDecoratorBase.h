@@ -187,37 +187,37 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
                   Matrix              &getPreViewing      (void);
 #endif
                   Matrix              &editPreViewing     (void);
-            const Matrix              &getPreViewing      (void) const;
+            const Matrix               getPreViewing      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getPostViewing     (void);
 #endif
                   Matrix              &editPostViewing    (void);
-            const Matrix              &getPostViewing     (void) const;
+            const Matrix               getPostViewing     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getPreProjectionTranslation (void);
 #endif
                   Matrix              &editPreProjectionTranslation(void);
-            const Matrix              &getPreProjectionTranslation (void) const;
+            const Matrix               getPreProjectionTranslation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getPostProjectionTranslation (void);
 #endif
                   Matrix              &editPostProjectionTranslation(void);
-            const Matrix              &getPostProjectionTranslation (void) const;
+            const Matrix               getPostProjectionTranslation (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getPreProjection   (void);
 #endif
                   Matrix              &editPreProjection  (void);
-            const Matrix              &getPreProjection   (void) const;
+            const Matrix               getPreProjection   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Matrix              &getPostProjection  (void);
 #endif
                   Matrix              &editPostProjection (void);
-            const Matrix              &getPostProjection  (void) const;
+            const Matrix               getPostProjection  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,6 +235,7 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

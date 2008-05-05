@@ -85,7 +85,7 @@ Real32 &ViewportBase::editLeft(void)
 
 //! Get the value of the Viewport::_sfLeft field.
 inline
-const Real32 &ViewportBase::getLeft(void) const
+const Real32 ViewportBase::getLeft(void) const
 {
     return _sfLeft.getValue();
 }
@@ -118,7 +118,7 @@ Real32 &ViewportBase::editRight(void)
 
 //! Get the value of the Viewport::_sfRight field.
 inline
-const Real32 &ViewportBase::getRight(void) const
+const Real32 ViewportBase::getRight(void) const
 {
     return _sfRight.getValue();
 }
@@ -151,7 +151,7 @@ Real32 &ViewportBase::editBottom(void)
 
 //! Get the value of the Viewport::_sfBottom field.
 inline
-const Real32 &ViewportBase::getBottom(void) const
+const Real32 ViewportBase::getBottom(void) const
 {
     return _sfBottom.getValue();
 }
@@ -184,7 +184,7 @@ Real32 &ViewportBase::editTop(void)
 
 //! Get the value of the Viewport::_sfTop field.
 inline
-const Real32 &ViewportBase::getTop(void) const
+const Real32 ViewportBase::getTop(void) const
 {
     return _sfTop.getValue();
 }
@@ -220,7 +220,6 @@ void ViewportBase::setCamera(const CameraPtr value)
     editSField(CameraFieldMask);
 
     _sfCamera.setValue(value);
-
 }
 
 //! Get the value of the Viewport::_sfRoot field.
@@ -237,7 +236,6 @@ void ViewportBase::setRoot(const NodePtr value)
     editSField(RootFieldMask);
 
     _sfRoot.setValue(value);
-
 }
 
 //! Get the value of the Viewport::_sfBackground field.
@@ -254,7 +252,6 @@ void ViewportBase::setBackground(const BackgroundPtr value)
     editSField(BackgroundFieldMask);
 
     _sfBackground.setValue(value);
-
 }
 //! Get the value of the Viewport::_sfTravMask field.
 
@@ -268,7 +265,7 @@ UInt32 &ViewportBase::editTravMask(void)
 
 //! Get the value of the Viewport::_sfTravMask field.
 inline
-const UInt32 &ViewportBase::getTravMask(void) const
+const UInt32 ViewportBase::getTravMask(void) const
 {
     return _sfTravMask.getValue();
 }
@@ -301,7 +298,7 @@ Real32 &ViewportBase::editDrawTime(void)
 
 //! Get the value of the Viewport::_sfDrawTime field.
 inline
-const Real32 &ViewportBase::getDrawTime(void) const
+const Real32 ViewportBase::getDrawTime(void) const
 {
     return _sfDrawTime.getValue();
 }
@@ -328,13 +325,6 @@ inline
 ForegroundPtr ViewportBase::getForegrounds(const UInt32 index) const
 {
     return _mfForegrounds[index];
-}
-
-//! Get the Viewport::_mfForegrounds field.
-inline
-const MFUnrecForegroundPtr &ViewportBase::getForegrounds(void) const
-{
-    return _mfForegrounds;
 }
 
 

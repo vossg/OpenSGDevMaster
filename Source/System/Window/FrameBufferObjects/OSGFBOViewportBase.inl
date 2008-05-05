@@ -88,7 +88,6 @@ void FBOViewportBase::setFrameBufferObject(const FrameBufferObjectPtr value)
     editSField(FrameBufferObjectFieldMask);
 
     _sfFrameBufferObject.setValue(value);
-
 }
 
 

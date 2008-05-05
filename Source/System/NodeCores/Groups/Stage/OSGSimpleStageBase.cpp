@@ -452,9 +452,23 @@ const SFUnrecCameraPtr *SimpleStageBase::getSFCamera(void) const
     return &_sfCamera;
 }
 
+SFUnrecCameraPtr    *SimpleStageBase::editSFCamera         (void)
+{
+    editSField(CameraFieldMask);
+
+    return &_sfCamera;
+}
+
 //! Get the SimpleStage::_sfBackground field.
 const SFUnrecBackgroundPtr *SimpleStageBase::getSFBackground(void) const
 {
+    return &_sfBackground;
+}
+
+SFUnrecBackgroundPtr *SimpleStageBase::editSFBackground     (void)
+{
+    editSField(BackgroundFieldMask);
+
     return &_sfBackground;
 }
 
@@ -712,10 +726,11 @@ void SimpleStageBase::onCreate(const SimpleStage *source)
 
     if(source != NULL)
     {
+        SimpleStage *pThis = static_cast<SimpleStage *>(this);
 
-        this->setCamera(source->getCamera());
+        pThis->setCamera(source->getCamera());
 
-        this->setBackground(source->getBackground());
+        pThis->setBackground(source->getBackground());
     }
 }
 

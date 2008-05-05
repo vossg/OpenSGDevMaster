@@ -85,7 +85,7 @@ std::string &ShaderParameterStringBase::editValue(void)
 
 //! Get the value of the ShaderParameterString::_sfValue field.
 inline
-const std::string &ShaderParameterStringBase::getValue(void) const
+const std::string ShaderParameterStringBase::getValue(void) const
 {
     return _sfValue.getValue();
 }

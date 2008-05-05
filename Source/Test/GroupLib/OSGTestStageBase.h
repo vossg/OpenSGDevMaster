@@ -137,7 +137,7 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
                   std::string         &getMessage         (void);
 #endif
                   std::string         &editMessage        (void);
-            const std::string         &getMessage         (void) const;
+            const std::string          getMessage         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,6 +150,7 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -147,13 +147,13 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
                   Color3r             &getColor           (void);
 #endif
                   Color3r             &editColor          (void);
-            const Color3r             &getColor           (void) const;
+            const Color3r              getColor           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getAlpha           (void);
 #endif
                   Real32              &editAlpha          (void);
-            const Real32              &getAlpha           (void) const;
+            const Real32               getAlpha           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,6 +167,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

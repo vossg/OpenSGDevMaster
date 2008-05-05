@@ -178,16 +178,18 @@ const MFUnrecChildNodeCorePtr *MultiCoreBase::getMFCores(void) const
     return &_mfCores;
 }
 
+MFUnrecChildNodeCorePtr *MultiCoreBase::editMFCores          (void)
+{
+    editMField(CoresFieldMask, _mfCores);
+
+    return &_mfCores;
+}
+
 
 
 void MultiCoreBase::addCore(const NodeCorePtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(CoresFieldMask, _mfCores);
-
-    //addRef(value);
 
     _mfCores.push_back(value);
 }
@@ -209,66 +211,6 @@ void MultiCoreBase::assignCoresFrom(const MFUnrecChildNodeCorePtr &value)
     }
 }
 
-void MultiCoreBase::insertCore(      UInt32         uiIndex,
-                                                   const NodeCorePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(CoresFieldMask, _mfCores);
-
-    MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfCores.insert(fieldIt, value);
-}
-
-void MultiCoreBase::replaceCore(      UInt32         uiIndex,
-                                                       const NodeCorePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfCores.size())
-        return;
-
-    editMField(CoresFieldMask, _mfCores);
-
-
-//    addRef(value);
-//    subRef(_mfCores[uiIndex]);
-
-//    _mfCores[uiIndex] = value;
-
-      _mfCores.replace(uiIndex, value);
-}
-
-void MultiCoreBase::replaceCore(const NodeCorePtr pOldElem,
-                                                        const NodeCorePtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfCores.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(CoresFieldMask, _mfCores);
-
-//        MFNodeCorePtr::iterator fieldIt = _mfCores.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfCores.replace(elemIdx, pNewElem);
-    }
-}
-
 void MultiCoreBase::subCore(UInt32 uiIndex)
 {
     if(uiIndex < _mfCores.size())
@@ -278,8 +220,6 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
         MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfCores.erase(fieldIt);
     }
@@ -296,8 +236,6 @@ void MultiCoreBase::subCore(const NodeCorePtr value)
         MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfCores.erase(fieldIt);
     }
@@ -505,6 +443,7 @@ void MultiCoreBase::onCreate(const MultiCore *source)
 
     if(source != NULL)
     {
+        MultiCore *pThis = static_cast<MultiCore *>(this);
 
         MFUnrecChildNodeCorePtr::const_iterator CoresIt  =
             source->_mfCores.begin();
@@ -513,7 +452,7 @@ void MultiCoreBase::onCreate(const MultiCore *source)
 
         while(CoresIt != CoresEnd)
         {
-            this->addCore(*CoresIt);
+            pThis->addCore(*CoresIt);
 
             ++CoresIt;
         }

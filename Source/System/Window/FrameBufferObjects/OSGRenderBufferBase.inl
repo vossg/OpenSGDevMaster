@@ -85,7 +85,7 @@ GLenum &RenderBufferBase::editGLId(void)
 
 //! Get the value of the RenderBuffer::_sfGLId field.
 inline
-const GLenum &RenderBufferBase::getGLId(void) const
+const GLenum RenderBufferBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
@@ -118,7 +118,7 @@ GLenum &RenderBufferBase::editInternalFormat(void)
 
 //! Get the value of the RenderBuffer::_sfInternalFormat field.
 inline
-const GLenum &RenderBufferBase::getInternalFormat(void) const
+const GLenum RenderBufferBase::getInternalFormat(void) const
 {
     return _sfInternalFormat.getValue();
 }

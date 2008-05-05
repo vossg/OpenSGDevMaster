@@ -85,7 +85,7 @@ bool &ColorMaskChunkBase::editMaskR(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskR field.
 inline
-const bool &ColorMaskChunkBase::getMaskR(void) const
+const bool ColorMaskChunkBase::getMaskR(void) const
 {
     return _sfMaskR.getValue();
 }
@@ -118,7 +118,7 @@ bool &ColorMaskChunkBase::editMaskG(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskG field.
 inline
-const bool &ColorMaskChunkBase::getMaskG(void) const
+const bool ColorMaskChunkBase::getMaskG(void) const
 {
     return _sfMaskG.getValue();
 }
@@ -151,7 +151,7 @@ bool &ColorMaskChunkBase::editMaskB(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskB field.
 inline
-const bool &ColorMaskChunkBase::getMaskB(void) const
+const bool ColorMaskChunkBase::getMaskB(void) const
 {
     return _sfMaskB.getValue();
 }
@@ -184,7 +184,7 @@ bool &ColorMaskChunkBase::editMaskA(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskA field.
 inline
-const bool &ColorMaskChunkBase::getMaskA(void) const
+const bool ColorMaskChunkBase::getMaskA(void) const
 {
     return _sfMaskA.getValue();
 }

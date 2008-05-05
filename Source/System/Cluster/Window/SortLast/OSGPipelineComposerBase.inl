@@ -85,7 +85,7 @@ bool &PipelineComposerBase::editShort(void)
 
 //! Get the value of the PipelineComposer::_sfShort field.
 inline
-const bool &PipelineComposerBase::getShort(void) const
+const bool PipelineComposerBase::getShort(void) const
 {
     return _sfShort.getValue();
 }
@@ -118,7 +118,7 @@ bool &PipelineComposerBase::editAlpha(void)
 
 //! Get the value of the PipelineComposer::_sfAlpha field.
 inline
-const bool &PipelineComposerBase::getAlpha(void) const
+const bool PipelineComposerBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
@@ -151,7 +151,7 @@ UInt32 &PipelineComposerBase::editTileSize(void)
 
 //! Get the value of the PipelineComposer::_sfTileSize field.
 inline
-const UInt32 &PipelineComposerBase::getTileSize(void) const
+const UInt32 PipelineComposerBase::getTileSize(void) const
 {
     return _sfTileSize.getValue();
 }
@@ -184,7 +184,7 @@ bool &PipelineComposerBase::editPipelined(void)
 
 //! Get the value of the PipelineComposer::_sfPipelined field.
 inline
-const bool &PipelineComposerBase::getPipelined(void) const
+const bool PipelineComposerBase::getPipelined(void) const
 {
     return _sfPipelined.getValue();
 }

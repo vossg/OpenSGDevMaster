@@ -185,9 +185,12 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecNodePtr      *getSFTarget          (void) const;
-            const SFUnrecNodePtr      *getSFActiveSubHandle (void) const;
-            const SFUnrecViewportPtr  *getSFViewport        (void) const;
+            const SFUnrecNodePtr      *getSFTarget         (void) const;
+                  SFUnrecNodePtr      *editSFTarget         (void);
+            const SFUnrecNodePtr      *getSFActiveSubHandle(void) const;
+                  SFUnrecNodePtr      *editSFActiveSubHandle(void);
+            const SFUnrecViewportPtr  *getSFViewport       (void) const;
+                  SFUnrecViewportPtr  *editSFViewport       (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFActive          (void);
@@ -200,16 +203,26 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 #endif
                   SFVec3f             *editSFLength         (void);
             const SFVec3f             *getSFLength          (void) const;
-            const SFUnrecNodePtr      *getSFHandleXNode     (void) const;
-            const SFUnrecNodePtr      *getSFHandleYNode     (void) const;
-            const SFUnrecNodePtr      *getSFHandleZNode     (void) const;
-            const SFUnrecNodePtr      *getSFTransXNode      (void) const;
-            const SFUnrecNodePtr      *getSFTransYNode      (void) const;
-            const SFUnrecNodePtr      *getSFTransZNode      (void) const;
-            const SFUnrecMaterialPtr  *getSFMaterialX       (void) const;
-            const SFUnrecMaterialPtr  *getSFMaterialY       (void) const;
-            const SFUnrecMaterialPtr  *getSFMaterialZ       (void) const;
-            const SFUnrecNodePtr      *getSFAxisLinesN      (void) const;
+            const SFUnrecNodePtr      *getSFHandleXNode    (void) const;
+                  SFUnrecNodePtr      *editSFHandleXNode    (void);
+            const SFUnrecNodePtr      *getSFHandleYNode    (void) const;
+                  SFUnrecNodePtr      *editSFHandleYNode    (void);
+            const SFUnrecNodePtr      *getSFHandleZNode    (void) const;
+                  SFUnrecNodePtr      *editSFHandleZNode    (void);
+            const SFUnrecNodePtr      *getSFTransXNode     (void) const;
+                  SFUnrecNodePtr      *editSFTransXNode     (void);
+            const SFUnrecNodePtr      *getSFTransYNode     (void) const;
+                  SFUnrecNodePtr      *editSFTransYNode     (void);
+            const SFUnrecNodePtr      *getSFTransZNode     (void) const;
+                  SFUnrecNodePtr      *editSFTransZNode     (void);
+            const SFUnrecMaterialPtr  *getSFMaterialX      (void) const;
+                  SFUnrecMaterialPtr  *editSFMaterialX      (void);
+            const SFUnrecMaterialPtr  *getSFMaterialY      (void) const;
+                  SFUnrecMaterialPtr  *editSFMaterialY      (void);
+            const SFUnrecMaterialPtr  *getSFMaterialZ      (void) const;
+                  SFUnrecMaterialPtr  *editSFMaterialZ      (void);
+            const SFUnrecNodePtr      *getSFAxisLinesN     (void) const;
+                  SFUnrecNodePtr      *editSFAxisLinesN     (void);
 
 
                   NodePtr getTarget         (void) const;
@@ -222,13 +235,13 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
                   bool                &getActive          (void);
 #endif
                   bool                &editActive         (void);
-            const bool                &getActive          (void) const;
+            const bool                 getActive          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec3f               &getLength          (void);
 #endif
                   Vec3f               &editLength         (void);
-            const Vec3f               &getLength          (void) const;
+            const Vec3f                getLength          (void) const;
 
                   NodePtr getHandleXNode    (void) const;
 
@@ -280,6 +293,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -389,18 +403,12 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPnt2f             *getSFLastMousePos    (void);
-#endif
                   SFPnt2f             *editSFLastMousePos   (void);
             const SFPnt2f             *getSFLastMousePos    (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt2f               &getLastMousePos    (void);
-#endif
                   Pnt2f               &editLastMousePos   (void);
-            const Pnt2f               &getLastMousePos    (void) const;
+            const Pnt2f                getLastMousePos    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -413,6 +421,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

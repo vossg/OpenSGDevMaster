@@ -259,6 +259,13 @@ const SFUnrecTextureObjChunkPtr *TextureGrabForegroundBase::getSFTexture(void) c
     return &_sfTexture;
 }
 
+SFUnrecTextureObjChunkPtr *TextureGrabForegroundBase::editSFTexture        (void)
+{
+    editSField(TextureFieldMask);
+
+    return &_sfTexture;
+}
+
 SFBool *TextureGrabForegroundBase::editSFAutoResize(void)
 {
     editSField(AutoResizeFieldMask);
@@ -512,8 +519,9 @@ void TextureGrabForegroundBase::onCreate(const TextureGrabForeground *source)
 
     if(source != NULL)
     {
+        TextureGrabForeground *pThis = static_cast<TextureGrabForeground *>(this);
 
-        this->setTexture(source->getTexture());
+        pThis->setTexture(source->getTexture());
     }
 }
 

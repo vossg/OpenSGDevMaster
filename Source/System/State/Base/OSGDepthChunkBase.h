@@ -177,31 +177,31 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
                   bool                &getEnable          (void);
 #endif
                   bool                &editEnable         (void);
-            const bool                &getEnable          (void) const;
+            const bool                 getEnable          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   GLenum              &getFunc            (void);
 #endif
                   GLenum              &editFunc           (void);
-            const GLenum              &getFunc            (void) const;
+            const GLenum               getFunc            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getNear            (void);
 #endif
                   Real32              &editNear           (void);
-            const Real32              &getNear            (void) const;
+            const Real32               getNear            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getFar             (void);
 #endif
                   Real32              &editFar            (void);
-            const Real32              &getFar             (void) const;
+            const Real32               getFar             (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getReadOnly        (void);
 #endif
                   bool                &editReadOnly       (void);
-            const bool                &getReadOnly        (void) const;
+            const bool                 getReadOnly        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,6 +218,7 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

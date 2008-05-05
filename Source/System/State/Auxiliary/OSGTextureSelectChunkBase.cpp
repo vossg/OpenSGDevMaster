@@ -230,16 +230,18 @@ const MFUnrecTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) co
     return &_mfTextures;
 }
 
+MFUnrecTextureBaseChunkPtr *TextureSelectChunkBase::editMFTextures       (void)
+{
+    editMField(TexturesFieldMask, _mfTextures);
+
+    return &_mfTextures;
+}
+
 
 
 void TextureSelectChunkBase::pushToTextures(const TextureBaseChunkPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(TexturesFieldMask, _mfTextures);
-
-    //addRef(value);
 
     _mfTextures.push_back(value);
 }
@@ -261,66 +263,6 @@ void TextureSelectChunkBase::assignTextures (const MFUnrecTextureBaseChunkPtr &v
     }
 }
 
-void TextureSelectChunkBase::insertIntoTextures(      UInt32         uiIndex,
-                                                   const TextureBaseChunkPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(TexturesFieldMask, _mfTextures);
-
-    MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfTextures.insert(fieldIt, value);
-}
-
-void TextureSelectChunkBase::replaceInTextures(      UInt32         uiIndex,
-                                                       const TextureBaseChunkPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfTextures.size())
-        return;
-
-    editMField(TexturesFieldMask, _mfTextures);
-
-
-//    addRef(value);
-//    subRef(_mfTextures[uiIndex]);
-
-//    _mfTextures[uiIndex] = value;
-
-      _mfTextures.replace(uiIndex, value);
-}
-
-void TextureSelectChunkBase::replaceInTextures(const TextureBaseChunkPtr pOldElem,
-                                                        const TextureBaseChunkPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfTextures.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(TexturesFieldMask, _mfTextures);
-
-//        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfTextures.replace(elemIdx, pNewElem);
-    }
-}
-
 void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
 {
     if(uiIndex < _mfTextures.size())
@@ -330,8 +272,6 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
         MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfTextures.erase(fieldIt);
     }
@@ -348,8 +288,6 @@ void TextureSelectChunkBase::removeFromTextures(const TextureBaseChunkPtr value)
         MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfTextures.erase(fieldIt);
     }
@@ -528,6 +466,7 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
 
     if(source != NULL)
     {
+        TextureSelectChunk *pThis = static_cast<TextureSelectChunk *>(this);
 
         MFUnrecTextureBaseChunkPtr::const_iterator TexturesIt  =
             source->_mfTextures.begin();
@@ -536,7 +475,7 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
 
         while(TexturesIt != TexturesEnd)
         {
-            this->pushToTextures(*TexturesIt);
+            pThis->pushToTextures(*TexturesIt);
 
             ++TexturesIt;
         }

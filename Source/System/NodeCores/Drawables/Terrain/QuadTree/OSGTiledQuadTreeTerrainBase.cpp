@@ -503,9 +503,23 @@ const MFUnrecImagePtr *TiledQuadTreeTerrainBase::getMFHeightTiles(void) const
     return &_mfHeightTiles;
 }
 
+MFUnrecImagePtr     *TiledQuadTreeTerrainBase::editMFHeightTiles    (void)
+{
+    editMField(HeightTilesFieldMask, _mfHeightTiles);
+
+    return &_mfHeightTiles;
+}
+
 //! Get the TiledQuadTreeTerrain::_mfHeightTextures field.
 const MFUnrecMaterialPtr *TiledQuadTreeTerrainBase::getMFHeightTextures(void) const
 {
+    return &_mfHeightTextures;
+}
+
+MFUnrecMaterialPtr  *TiledQuadTreeTerrainBase::editMFHeightTextures (void)
+{
+    editMField(HeightTexturesFieldMask, _mfHeightTextures);
+
     return &_mfHeightTextures;
 }
 
@@ -741,12 +755,7 @@ SFBool              *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
 
 void TiledQuadTreeTerrainBase::pushToHeightTiles(const ImagePtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(HeightTilesFieldMask, _mfHeightTiles);
-
-    //addRef(value);
 
     _mfHeightTiles.push_back(value);
 }
@@ -768,66 +777,6 @@ void TiledQuadTreeTerrainBase::assignHeightTiles(const MFUnrecImagePtr   &value)
     }
 }
 
-void TiledQuadTreeTerrainBase::insertIntoHeightTiles(      UInt32         uiIndex,
-                                                   const ImagePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(HeightTilesFieldMask, _mfHeightTiles);
-
-    MFUnrecImagePtr::iterator fieldIt = _mfHeightTiles.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfHeightTiles.insert(fieldIt, value);
-}
-
-void TiledQuadTreeTerrainBase::replaceInHeightTiles(      UInt32         uiIndex,
-                                                       const ImagePtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfHeightTiles.size())
-        return;
-
-    editMField(HeightTilesFieldMask, _mfHeightTiles);
-
-
-//    addRef(value);
-//    subRef(_mfHeightTiles[uiIndex]);
-
-//    _mfHeightTiles[uiIndex] = value;
-
-      _mfHeightTiles.replace(uiIndex, value);
-}
-
-void TiledQuadTreeTerrainBase::replaceInHeightTiles(const ImagePtr pOldElem,
-                                                        const ImagePtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfHeightTiles.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(HeightTilesFieldMask, _mfHeightTiles);
-
-//        MFImagePtr::iterator fieldIt = _mfHeightTiles.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfHeightTiles.replace(elemIdx, pNewElem);
-    }
-}
-
 void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
 {
     if(uiIndex < _mfHeightTiles.size())
@@ -837,8 +786,6 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
         MFUnrecImagePtr::iterator fieldIt = _mfHeightTiles.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfHeightTiles.erase(fieldIt);
     }
@@ -856,8 +803,6 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(const ImagePtr value)
 
         fieldIt += iElemIdx;
 
-        //subRef(*fieldIt);
-
         _mfHeightTiles.erase(fieldIt);
     }
 }
@@ -871,12 +816,7 @@ void TiledQuadTreeTerrainBase::clearHeightTiles(void)
 
 void TiledQuadTreeTerrainBase::pushToHeightTextures(const MaterialPtr value)
 {
-    if(value == NullFC)
-        return;
-
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
-
-    //addRef(value);
 
     _mfHeightTextures.push_back(value);
 }
@@ -898,66 +838,6 @@ void TiledQuadTreeTerrainBase::assignHeightTextures(const MFUnrecMaterialPtr &va
     }
 }
 
-void TiledQuadTreeTerrainBase::insertIntoHeightTextures(      UInt32         uiIndex,
-                                                   const MaterialPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    editMField(HeightTexturesFieldMask, _mfHeightTextures);
-
-    MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin_nc();
-
-    //addRef(value);
-
-    fieldIt += uiIndex;
-
-    _mfHeightTextures.insert(fieldIt, value);
-}
-
-void TiledQuadTreeTerrainBase::replaceInHeightTextures(      UInt32         uiIndex,
-                                                       const MaterialPtr value   )
-{
-    if(value == NullFC)
-        return;
-
-    if(uiIndex >= _mfHeightTextures.size())
-        return;
-
-    editMField(HeightTexturesFieldMask, _mfHeightTextures);
-
-
-//    addRef(value);
-//    subRef(_mfHeightTextures[uiIndex]);
-
-//    _mfHeightTextures[uiIndex] = value;
-
-      _mfHeightTextures.replace(uiIndex, value);
-}
-
-void TiledQuadTreeTerrainBase::replaceInHeightTextures(const MaterialPtr pOldElem,
-                                                        const MaterialPtr pNewElem)
-{
-    if(pNewElem == NullFC)
-        return;
-
-    Int32  elemIdx = _mfHeightTextures.findIndex(pOldElem);
-
-    if(elemIdx != -1)
-    {
-        editMField(HeightTexturesFieldMask, _mfHeightTextures);
-
-//        MFMaterialPtr::iterator fieldIt = _mfHeightTextures.begin();
-
-//        fieldIt += elemIdx;
-//        addRef(pNewElem);
-//        subRef(pOldElem);
-
-//        (*fieldIt) = pNewElem;
-          _mfHeightTextures.replace(elemIdx, pNewElem);
-    }
-}
-
 void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
 {
     if(uiIndex < _mfHeightTextures.size())
@@ -967,8 +847,6 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
         MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin_nc();
 
         fieldIt += uiIndex;
-
-        //subRef(*fieldIt);
 
         _mfHeightTextures.erase(fieldIt);
     }
@@ -985,8 +863,6 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(const MaterialPtr value)
         MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin_nc();
 
         fieldIt += iElemIdx;
-
-        //subRef(*fieldIt);
 
         _mfHeightTextures.erase(fieldIt);
     }
@@ -1333,6 +1209,7 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
 
     if(source != NULL)
     {
+        TiledQuadTreeTerrain *pThis = static_cast<TiledQuadTreeTerrain *>(this);
 
         MFUnrecImagePtr::const_iterator HeightTilesIt  =
             source->_mfHeightTiles.begin();
@@ -1341,7 +1218,7 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
 
         while(HeightTilesIt != HeightTilesEnd)
         {
-            this->pushToHeightTiles(*HeightTilesIt);
+            pThis->pushToHeightTiles(*HeightTilesIt);
 
             ++HeightTilesIt;
         }
@@ -1353,7 +1230,7 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
 
         while(HeightTexturesIt != HeightTexturesEnd)
         {
-            this->pushToHeightTextures(*HeightTexturesIt);
+            pThis->pushToHeightTextures(*HeightTexturesIt);
 
             ++HeightTexturesIt;
         }

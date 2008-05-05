@@ -85,7 +85,7 @@ Int32 &ShaderParameterIntBase::editValue(void)
 
 //! Get the value of the ShaderParameterInt::_sfValue field.
 inline
-const Int32 &ShaderParameterIntBase::getValue(void) const
+const Int32 ShaderParameterIntBase::getValue(void) const
 {
     return _sfValue.getValue();
 }

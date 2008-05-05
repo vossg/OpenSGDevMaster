@@ -88,7 +88,6 @@ void ManipulatorBase::setTarget(const NodePtr value)
     editSField(TargetFieldMask);
 
     _sfTarget.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfActiveSubHandle field.
@@ -105,7 +104,6 @@ void ManipulatorBase::setActiveSubHandle(const NodePtr value)
     editSField(ActiveSubHandleFieldMask);
 
     _sfActiveSubHandle.setValue(value);
-
 }
 //! Get the value of the Manipulator::_sfLastMousePos field.
 
@@ -119,7 +117,7 @@ Pnt2f &ManipulatorBase::editLastMousePos(void)
 
 //! Get the value of the Manipulator::_sfLastMousePos field.
 inline
-const Pnt2f &ManipulatorBase::getLastMousePos(void) const
+const Pnt2f ManipulatorBase::getLastMousePos(void) const
 {
     return _sfLastMousePos.getValue();
 }
@@ -155,7 +153,6 @@ void ManipulatorBase::setViewport(const ViewportPtr value)
     editSField(ViewportFieldMask);
 
     _sfViewport.setValue(value);
-
 }
 //! Get the value of the Manipulator::_sfActive field.
 
@@ -169,7 +166,7 @@ bool &ManipulatorBase::editActive(void)
 
 //! Get the value of the Manipulator::_sfActive field.
 inline
-const bool &ManipulatorBase::getActive(void) const
+const bool ManipulatorBase::getActive(void) const
 {
     return _sfActive.getValue();
 }
@@ -202,7 +199,7 @@ Vec3f &ManipulatorBase::editLength(void)
 
 //! Get the value of the Manipulator::_sfLength field.
 inline
-const Vec3f &ManipulatorBase::getLength(void) const
+const Vec3f ManipulatorBase::getLength(void) const
 {
     return _sfLength.getValue();
 }
@@ -238,7 +235,6 @@ void ManipulatorBase::setHandleXNode(const NodePtr value)
     editSField(HandleXNodeFieldMask);
 
     _sfHandleXNode.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfHandleYNode field.
@@ -255,7 +251,6 @@ void ManipulatorBase::setHandleYNode(const NodePtr value)
     editSField(HandleYNodeFieldMask);
 
     _sfHandleYNode.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfHandleZNode field.
@@ -272,7 +267,6 @@ void ManipulatorBase::setHandleZNode(const NodePtr value)
     editSField(HandleZNodeFieldMask);
 
     _sfHandleZNode.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfTransXNode field.
@@ -289,7 +283,6 @@ void ManipulatorBase::setTransXNode(const NodePtr value)
     editSField(TransXNodeFieldMask);
 
     _sfTransXNode.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfTransYNode field.
@@ -306,7 +299,6 @@ void ManipulatorBase::setTransYNode(const NodePtr value)
     editSField(TransYNodeFieldMask);
 
     _sfTransYNode.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfTransZNode field.
@@ -323,7 +315,6 @@ void ManipulatorBase::setTransZNode(const NodePtr value)
     editSField(TransZNodeFieldMask);
 
     _sfTransZNode.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfMaterialX field.
@@ -340,7 +331,6 @@ void ManipulatorBase::setMaterialX(const MaterialPtr value)
     editSField(MaterialXFieldMask);
 
     _sfMaterialX.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfMaterialY field.
@@ -357,7 +347,6 @@ void ManipulatorBase::setMaterialY(const MaterialPtr value)
     editSField(MaterialYFieldMask);
 
     _sfMaterialY.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfMaterialZ field.
@@ -374,7 +363,6 @@ void ManipulatorBase::setMaterialZ(const MaterialPtr value)
     editSField(MaterialZFieldMask);
 
     _sfMaterialZ.setValue(value);
-
 }
 
 //! Get the value of the Manipulator::_sfAxisLinesN field.
@@ -391,7 +379,6 @@ void ManipulatorBase::setAxisLinesN(const NodePtr value)
     editSField(AxisLinesNFieldMask);
 
     _sfAxisLinesN.setValue(value);
-
 }
 
 

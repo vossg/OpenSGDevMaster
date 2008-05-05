@@ -256,6 +256,13 @@ const SFUnrecTextureObjChunkPtr *TextureBufferBase::getSFTexture(void) const
     return &_sfTexture;
 }
 
+SFUnrecTextureObjChunkPtr *TextureBufferBase::editSFTexture        (void)
+{
+    editSField(TextureFieldMask);
+
+    return &_sfTexture;
+}
+
 SFGLenum *TextureBufferBase::editSFTexTarget(void)
 {
     editSField(TexTargetFieldMask);
@@ -509,8 +516,9 @@ void TextureBufferBase::onCreate(const TextureBuffer *source)
 
     if(source != NULL)
     {
+        TextureBuffer *pThis = static_cast<TextureBuffer *>(this);
 
-        this->setTexture(source->getTexture());
+        pThis->setTexture(source->getTexture());
     }
 }
 

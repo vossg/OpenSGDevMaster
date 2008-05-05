@@ -214,25 +214,16 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \{                                                                 */
 
             const MFUnrecStateChunkPtr *getMFChunks          (void) const;
+                  MFUnrecStateChunkPtr *editMFChunks         (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  MFInt32             *getMFSlots           (void);
-#endif
                   MFInt32             *editMFSlots          (void);
             const MFInt32             *getMFSlots           (void) const;
 
 
                   StateChunkPtr getChunks         (const UInt32 index) const;
-            const MFUnrecStateChunkPtr &getChunks          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getSlots           (const UInt32 index);
-                  MFInt32             &getSlots          (void);
-#endif
                   Int32               &editSlots          (const UInt32 index);
-            const Int32               &getSlots           (const UInt32 index) const;
-                  MFInt32             &editSlots          (void);
-            const MFInt32             &getSlots           (void) const;
+            const Int32                getSlots           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -247,16 +238,9 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
 
     void pushToChunks              (const StateChunkPtr value   );
     void assignChunks              (const MFUnrecStateChunkPtr &value);
-    void insertIntoChunks      (      UInt32        uiIndex,
-                                             const StateChunkPtr value   );
-    void replaceInChunks  (      UInt32         uiIndex,
-                                             const StateChunkPtr value   );
-    void replaceInChunks (const StateChunkPtr pOldElem,
-                                             const StateChunkPtr pNewElem);
     void removeFromChunks (UInt32                uiIndex );
     void removeFromChunks(const StateChunkPtr value   );
     void clearChunks                (void                          );
-
 
 
     /*! \}                                                                 */

@@ -85,7 +85,7 @@ bool &TextureTransformChunkBase::editUseCameraBeacon(void)
 
 //! Get the value of the TextureTransformChunk::_sfUseCameraBeacon field.
 inline
-const bool &TextureTransformChunkBase::getUseCameraBeacon(void) const
+const bool TextureTransformChunkBase::getUseCameraBeacon(void) const
 {
     return _sfUseCameraBeacon.getValue();
 }

@@ -85,7 +85,7 @@ bool &ForegroundBase::editActive(void)
 
 //! Get the value of the Foreground::_sfActive field.
 inline
-const bool &ForegroundBase::getActive(void) const
+const bool ForegroundBase::getActive(void) const
 {
     return _sfActive.getValue();
 }

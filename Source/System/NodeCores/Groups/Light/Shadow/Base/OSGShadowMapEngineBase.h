@@ -147,7 +147,8 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget    (void) const;
+            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget   (void) const;
+                  SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
 
 #ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFWidth           (void);
@@ -186,31 +187,31 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
                   Int32               &getWidth           (void);
 #endif
                   Int32               &editWidth          (void);
-            const Int32               &getWidth           (void) const;
+            const Int32                getWidth           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Int32               &getHeight          (void);
 #endif
                   Int32               &editHeight         (void);
-            const Int32               &getHeight          (void) const;
+            const Int32                getHeight          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Color4f             &getShadowColor     (void);
 #endif
                   Color4f             &editShadowColor    (void);
-            const Color4f             &getShadowColor     (void) const;
+            const Color4f              getShadowColor     (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetBias      (void);
 #endif
                   Real32              &editOffsetBias     (void);
-            const Real32              &getOffsetBias      (void) const;
+            const Real32               getOffsetBias      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetFactor    (void);
 #endif
                   Real32              &editOffsetFactor   (void);
-            const Real32              &getOffsetFactor    (void) const;
+            const Real32               getOffsetFactor    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -233,6 +234,7 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

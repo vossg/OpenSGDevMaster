@@ -85,7 +85,7 @@ Vec2f &ShaderParameterVec2fBase::editValue(void)
 
 //! Get the value of the ShaderParameterVec2f::_sfValue field.
 inline
-const Vec2f &ShaderParameterVec2fBase::getValue(void) const
+const Vec2f ShaderParameterVec2fBase::getValue(void) const
 {
     return _sfValue.getValue();
 }

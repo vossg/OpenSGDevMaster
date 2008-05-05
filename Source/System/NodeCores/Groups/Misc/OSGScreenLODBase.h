@@ -138,9 +138,7 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
                   MFReal32            &getCoverageOverride(void);
 #endif
                   Real32              &editCoverageOverride(const UInt32 index);
-            const Real32              &getCoverageOverride (const UInt32 index) const;
-                  MFReal32            &editCoverageOverride(void);
-            const MFReal32            &getCoverageOverride(void) const;
+            const Real32               getCoverageOverride (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -152,7 +150,6 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

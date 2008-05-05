@@ -171,16 +171,14 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
                   UInt32              &getFieldSFPub      (void);
 #endif
                   UInt32              &editFieldSFPub     (void);
-            const UInt32              &getFieldSFPub      (void) const;
+            const UInt32               getFieldSFPub      (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getFieldMFPub      (const UInt32 index);
                   MFUInt32            &getFieldMFPub     (void);
 #endif
                   UInt32              &editFieldMFPub     (const UInt32 index);
-            const UInt32              &getFieldMFPub      (const UInt32 index) const;
-                  MFUInt32            &editFieldMFPub     (void);
-            const MFUInt32            &getFieldMFPub     (void) const;
+            const UInt32               getFieldMFPub      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -193,7 +191,6 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -300,33 +297,18 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFFieldSFPro      (void);
-#endif
                   SFUInt32            *editSFFieldSFPro     (void);
             const SFUInt32            *getSFFieldSFPro      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFFieldMFPro      (void);
-#endif
                   MFUInt32            *editMFFieldMFPro     (void);
             const MFUInt32            *getMFFieldMFPro      (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFieldSFPro      (void);
-#endif
                   UInt32              &editFieldSFPro     (void);
-            const UInt32              &getFieldSFPro      (void) const;
+            const UInt32               getFieldSFPro      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFieldMFPro      (const UInt32 index);
-                  MFUInt32            &getFieldMFPro     (void);
-#endif
                   UInt32              &editFieldMFPro     (const UInt32 index);
-            const UInt32              &getFieldMFPro      (const UInt32 index) const;
-                  MFUInt32            &editFieldMFPro     (void);
-            const MFUInt32            &getFieldMFPro      (void) const;
+            const UInt32               getFieldMFPro      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,7 +321,6 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -403,32 +384,17 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFFieldSFPri      (void);
-#endif
                   SFUInt32            *editSFFieldSFPri     (void);
             const SFUInt32            *getSFFieldSFPri      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFFieldMFPri      (void);
-#endif
                   MFUInt32            *editMFFieldMFPri     (void);
             const MFUInt32            *getMFFieldMFPri      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFieldSFPri     (void);
-#endif
                   UInt32              &editFieldSFPri     (void);
-            const UInt32              &getFieldSFPri     (void) const;
+            const UInt32               getFieldSFPri     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFieldMFPri      (const UInt32 index);
-                  MFUInt32            &getFieldMFPri     (void);
-#endif
                   UInt32              &editFieldMFPri     (const UInt32 index);
-            const UInt32              &getFieldMFPri      (const UInt32 index) const;
-                  MFUInt32            &editFieldMFPri     (void);
-            const MFUInt32            &getFieldMFPri     (void) const;
+            const UInt32               getFieldMFPri      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -441,7 +407,6 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -167,25 +167,25 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
                   bool                &getRed             (void);
 #endif
                   bool                &editRed            (void);
-            const bool                &getRed             (void) const;
+            const bool                 getRed             (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getBlue            (void);
 #endif
                   bool                &editBlue           (void);
-            const bool                &getBlue            (void) const;
+            const bool                 getBlue            (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getGreen           (void);
 #endif
                   bool                &editGreen          (void);
-            const bool                &getGreen           (void) const;
+            const bool                 getGreen           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getAlpha           (void);
 #endif
                   bool                &editAlpha          (void);
-            const bool                &getAlpha           (void) const;
+            const bool                 getAlpha           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,6 +201,7 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -296,6 +296,13 @@ const SFUnrecFrameBufferObjectPtr *ShadowMapEngineBase::getSFRenderTarget(void) 
     return &_sfRenderTarget;
 }
 
+SFUnrecFrameBufferObjectPtr *ShadowMapEngineBase::editSFRenderTarget   (void)
+{
+    editSField(RenderTargetFieldMask);
+
+    return &_sfRenderTarget;
+}
+
 SFInt32 *ShadowMapEngineBase::editSFWidth(void)
 {
     editSField(WidthFieldMask);
@@ -531,8 +538,9 @@ void ShadowMapEngineBase::onCreate(const ShadowMapEngine *source)
 
     if(source != NULL)
     {
+        ShadowMapEngine *pThis = static_cast<ShadowMapEngine *>(this);
 
-        this->setRenderTarget(source->getRenderTarget());
+        pThis->setRenderTarget(source->getRenderTarget());
     }
 }
 
