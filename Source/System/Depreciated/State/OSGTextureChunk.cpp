@@ -223,7 +223,7 @@ TextureChunk::~TextureChunk(void)
 bool TextureChunk::isCubeTexture(void)
 {
     return 
-        this->getImage()                 != NullFC && 
+        this->getImage()                 != NULL && 
         this->getImage()->getSideCount() == 6;
 }
 
@@ -245,7 +245,7 @@ void TextureChunk::changed(ConstFieldMaskArg whichField,
     {
         if(getGLId() == 0)
         {
-            TextureChunkPtr tmpPtr(*this);
+            TextureChunk *tmpPtr(*this);
 
             beginEditCP(tmpPtr, TextureChunk::GLIdFieldMask);
             
@@ -406,18 +406,18 @@ void TextureChunk::handleTextureShader(Window *win, GLenum bindtarget)
 
     glErr("textureShader setup: rgba dotprod");
 
-    if(getShaderOffsetMatrix().size() == 4)
+    if(getMFShaderOffsetMatrix()->size() == 4)
     {
         glTexEnvfv(GL_TEXTURE_SHADER_NV, GL_OFFSET_TEXTURE_MATRIX_NV,
-                    (GLfloat*)&(getShaderOffsetMatrix()[0]));
+                    (GLfloat*)&(getMFShaderOffsetMatrix()->front()));
 
         glErr("textureShader setup: offset matrix");
     }
-    else if(getShaderOffsetMatrix().size() != 0)
+    else if(getMFShaderOffsetMatrix()->size() != 0)
     {
         FWARNING(("TextureChunk::handleTextureShader: shaderOffsetMatrix has"
                     " to have 4 entries, not %d!\n",
-                    getShaderOffsetMatrix().size() ));
+                    getMFShaderOffsetMatrix()->size() ));
     }
 
     glTexEnvf(GL_TEXTURE_SHADER_NV, GL_OFFSET_TEXTURE_SCALE_NV,
@@ -496,10 +496,10 @@ void TextureChunk::handleTexture(Window *win,
                                  GLenum paramtarget,
                                  GLenum imgtarget,
                                  Window::GLObjectStatusE mode, 
-                                 ImagePtr img,
+                                 Image *img,
                                  Int32    side)
 {
-    if( img==NullFC || ! img->getDimension()) // no image ?
+    if( img==NULL || ! img->getDimension()) // no image ?
         return;
 
     if(mode == Window::initialize || mode == Window::reinitialize)
@@ -1554,9 +1554,9 @@ void TextureChunk::handleGL(DrawEnv                 *pEnv,
 
         GLenum target;
 
-        ImagePtr img = getImage();
+        Image *img = getImage();
 
-        if (img != NullFC)
+        if (img != NULL)
         {
             if(img->getSideCount() == 1)
             {
@@ -1712,10 +1712,10 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
     win->validateGLObject(getGLId(), pEnv);
 
-    ImagePtr img = getImage();
+    Image *img = getImage();
     GLenum target = getTarget();
 
-    if( img == NullFC || ! img->getDimension()) // no image ?
+    if( img == NULL || ! img->getDimension()) // no image ?
         return;
 
     glErr("TextureChunk::activate precheck");
@@ -1825,9 +1825,9 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
 	
     if (idx < static_cast<UInt32>(ntexcoords) && !getScale() && NpotMatScale )
     {
-        ImagePtr i = getImage();
+        Image *i = getImage();
         
-        if(i != NullFC)
+        if(i != NULL)
         {
 			Real32 sw=1.f, sh=1.f, sd=1.f,
 				   tw=0.f, th=0.f, td=0.f;
@@ -1925,13 +1925,13 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
     fprintf(stderr, "Change %d %d\n", oldp->_uiChunkId, _uiChunkId);
 #endif
 
-    ImagePtr      img       = getImage();
+    Image        *img       = getImage();
     GLenum        target    = getTarget();
     GLenum        oldtarget = oldp->getTarget();
-    bool          oldused   = (oldp->getImage() != NullFC &&
+    bool          oldused   = (oldp->getImage() != NULL &&
                                oldp->getImage()->getDimension());
     
-    if(img == NullFC || img->getDimension() == 0)
+    if(img == NULL || img->getDimension() == 0)
     {
         oldp->deactivate(pEnv, idx);
         return;
@@ -2147,9 +2147,9 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
     if ( idx < static_cast<UInt32>(ntexcoords) &&
         !getScale() && NpotMatScale )
     {
-        ImagePtr i = getImage();
+        Image *i = getImage();
         
-        if (i != NullFC)
+        if (i != NULL)
         {
 			Real32 sw=1.f, sh=1.f, sd=1.f,
 				   tw=0.f, th=0.f, td=0.f;
@@ -2284,10 +2284,10 @@ void TextureChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    ImagePtr img = getImage();
+    Image  *img = getImage();
     GLenum target = getTarget();
 
-    if(img == NullFC || ! img->getDimension())
+    if(img == NULL || ! img->getDimension())
       return;
 
     glErr("TextureChunk::deactivate precheck");
@@ -2399,9 +2399,9 @@ GLenum TextureChunk::determineTextureTarget(Window *pWindow) const
 {
     GLenum target = GL_NONE;
 
-    ImagePtr img = getImage();
+    Image *img = getImage();
     
-    if(img != NullFC)
+    if(img != NULL)
     {
         target = getTarget();
         

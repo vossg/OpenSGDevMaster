@@ -209,7 +209,7 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
                        GLenum                   paramtarget,
                        GLenum                   imgtarget, 
                        Window::GLObjectStatusE  mode, 
-                       ImagePtr                 img,
+                       Image                   *img,
                        Int32                    side = 0);
 
     void handleTextureShader(Window *win, GLenum bindtarget);
