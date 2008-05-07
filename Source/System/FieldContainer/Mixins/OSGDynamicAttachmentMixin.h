@@ -80,8 +80,6 @@ class DynFieldAttachment : public AttachmentDescT::Parent
 
     OSG_GEN_INTERNALPTR(Self);
 
-    typedef typename AttachmentDescT::ParentPtr           ParentPtrType;
-
     typedef typename Inherited::TypeObject                TypeObject;
     typedef typename TypeObject::InitPhase                InitPhase;
 

@@ -69,24 +69,24 @@ struct FileFixture
 
 TEST_FIXTURE(FileFixture, CreateOSBFile)
 {
-   OSG::NodePtr n = OSG::Node::create();
+   OSG::NodeUnrecPtr n = OSG::Node::create();
    n->setCore(OSG::Group::create());
 
    CHECK(!bf::exists(test_file));
    OSG::SceneFileHandler::the()->write(n, test_file.native_file_string().c_str());
    CHECK(bf::exists(test_file));
 
-   OSG::NodePtr new_n =
+   OSG::NodeUnrecPtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSGNullFC);
+   CHECK(new_n != NULL);
 }
 
 TEST_FIXTURE(FileFixture, CreateOSBTree)
 {
    // Test larger tree
-   OSG::NodePtr base_node  = OSG::Node::create();
+   OSG::NodeUnrecPtr base_node  = OSG::Node::create();
    base_node->setCore(OSG::Group::create());
-   OSG::NodePtr child_node = OSG::Node::create();
+   OSG::NodeUnrecPtr child_node = OSG::Node::create();
    child_node->setCore(OSG::Group::create());
 
    base_node->addChild(child_node);
@@ -95,20 +95,20 @@ TEST_FIXTURE(FileFixture, CreateOSBTree)
    OSG::SceneFileHandler::the()->write(base_node, test_file.native_file_string().c_str());
    CHECK(bf::exists(test_file));
 
-   OSG::NodePtr new_n =
+   OSG::NodeUnrecPtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSGNullFC);
-   CHECK(new_n->getCore() != OSGNullFC);
+   CHECK(new_n != NULL);
+   CHECK(new_n->getCore() != NULL);
    CHECK(new_n->getNChildren() == 1);
-   CHECK(new_n->getChild(0) != OSGNullFC);
-   CHECK(new_n->getChild(0)->getCore() != OSGNullFC);
+   CHECK(new_n->getChild(0) != NULL);
+   CHECK(new_n->getChild(0)->getCore() != NULL);
 }
 
 
 TEST_FIXTURE(FileFixture, TestNameRetention)
 {
    std::string start_name("node");
-   OSG::NodePtr n = OSG::Node::create();
+   OSG::NodeUnrecPtr n = OSG::Node::create();
    OSG::setName(n, start_name);
    n->setCore(OSG::Group::create());
 
@@ -116,9 +116,9 @@ TEST_FIXTURE(FileFixture, TestNameRetention)
    OSG::SceneFileHandler::the()->write(n, test_file.native_file_string().c_str());
    CHECK(bf::exists(test_file));
 
-   OSG::NodePtr new_n =
+   OSG::NodeUnrecPtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSGNullFC);
+   CHECK(new_n != NULL);
    CHECK(OSG::getName(new_n) != NULL);
    std::string cur_name = std::string(OSG::getName(new_n));
 

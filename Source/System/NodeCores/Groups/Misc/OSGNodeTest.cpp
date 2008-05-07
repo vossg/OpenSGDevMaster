@@ -40,7 +40,7 @@
 
 #include <OpenSG/OSGNode.h>
 #include <OpenSG/OSGNameAttachment.h>
-#include <OpenSG/OSGFieldContainerAttachment.h>
+#include <OpenSG/OSGAttachment.h>
 #include <OpenSG/OSGDynamicAttachmentMixin.h>
 
 #include <OpenSG/OSGBillboard.h>
@@ -55,14 +55,13 @@ OSG_BEGIN_NAMESPACE
 
 struct TestAttDesc
 {
-    typedef OSG::FieldContainerAttachment    Parent;
-    typedef OSG::FieldContainerAttachmentPtr ParentPtr;
+    typedef OSG::Attachment    Parent;
     
     // TODO rename it to VRMLGenericAtt ????
     static const OSG::Char8 *getTypeName        (void) { return "TestAtt";    }
     static const OSG::Char8 *getParentTypeName  (void) 
     {
-        return "FieldContainerAttachment"; 
+        return "Attachment"; 
     }
     static const OSG::Char8 *getGroupName       (void) { return "TestGenAtt"; }
     
@@ -72,7 +71,10 @@ struct TestAttDesc
 };
 
 typedef OSG::DynFieldAttachment<TestAttDesc>  TestAtt;
-typedef TestAtt::ObjPtr                       TestAttPtr;
+typedef TestAtt::ObjTransitPtr                TestAttTransitPtr;
+typedef TestAtt::ObjRecPtr                    TestAttRecPtr;
+typedef TestAtt::ObjUnrecPtr                  TestAttUnrecPtr;
+typedef TestAtt::ObjWeakPtr                   TestAttWeakPtr;
 
 OSG_DYNFIELDATTACHMENT_INST(TestAttDesc)
 
@@ -83,20 +85,20 @@ SUITE(NodeTests)
 
 TEST(CreateNode)
 {
-   OSG::NodePtr n = OSG::Node::create();
-   CHECK(n != OSGNullFC);
+   OSG::NodeUnrecPtr n = OSG::Node::create();
+   CHECK(n != NULL);
 }
 
 // --- Cloning --- //
 TEST(TreeCloningName)
 {
-    OSG::NodePtr root = OSG::Node::create();
-    OSG::NodePtr child_node = OSG::Node::create();
+    OSG::NodeUnrecPtr root       = OSG::Node::create();
+    OSG::NodeUnrecPtr child_node = OSG::Node::create();
     root->addChild(child_node);
     OSG::setName(root, "root");
     OSG::setName(child_node, "child_node");
 
-    OSG::NodePtr new_root = OSG::cloneTree(root);
+    OSG::NodeUnrecPtr new_root = OSG::cloneTree(root);
 
     CHECK(new_root->getNChildren() == 1);
     CHECK(new_root != root);
@@ -148,35 +150,35 @@ struct CloneFixture
         s02Node->addChild(g06Node);
     }
 
-    OSG::GroupPtr     g01Core;
-    OSG::SwitchPtr    s01Core;
-    OSG::TransformPtr t01Core;
-    OSG::GroupPtr     g02Core;
-    OSG::BillboardPtr b01Core;
-    OSG::GroupPtr     g03Core;
-    OSG::GroupPtr     g04Core;
-    OSG::BillboardPtr b02Core;
-    OSG::SwitchPtr    s02Core;
-    OSG::GroupPtr     g05Core;
-    OSG::GroupPtr     g06Core;
+    OSG::GroupRecPtr     g01Core;
+    OSG::SwitchRecPtr    s01Core;
+    OSG::TransformRecPtr t01Core;
+    OSG::GroupRecPtr     g02Core;
+    OSG::BillboardRecPtr b01Core;
+    OSG::GroupRecPtr     g03Core;
+    OSG::GroupRecPtr     g04Core;
+    OSG::BillboardRecPtr b02Core;
+    OSG::SwitchRecPtr    s02Core;
+    OSG::GroupRecPtr     g05Core;
+    OSG::GroupRecPtr     g06Core;
 
-    OSG::NodePtr      g01Node;
-    OSG::NodePtr      s01Node;
-    OSG::NodePtr      t01Node;
-    OSG::NodePtr      g02Node;
-    OSG::NodePtr      b01Node;
-    OSG::NodePtr      g03Node;
-    OSG::NodePtr      g04Node;
-    OSG::NodePtr      b02Node;
-    OSG::NodePtr      s02Node;
-    OSG::NodePtr      g05Node;
-    OSG::NodePtr      g06Node;
+    OSG::NodeRecPtr      g01Node;
+    OSG::NodeRecPtr      s01Node;
+    OSG::NodeRecPtr      t01Node;
+    OSG::NodeRecPtr      g02Node;
+    OSG::NodeRecPtr      b01Node;
+    OSG::NodeRecPtr      g03Node;
+    OSG::NodeRecPtr      g04Node;
+    OSG::NodeRecPtr      b02Node;
+    OSG::NodeRecPtr      s02Node;
+    OSG::NodeRecPtr      g05Node;
+    OSG::NodeRecPtr      g06Node;
 };
 
 TEST_FIXTURE(CloneFixture, CloneTree)
 {
     // test cloneTree - all shared
-    OSG::NodePtr clone01 = OSG::cloneTree(g01Node);
+    OSG::NodeUnrecPtr clone01 = OSG::cloneTree(g01Node);
 
     CHECK(clone01                                      != g01Node);
     CHECK(clone01->getCore()                           == g01Core);
@@ -185,7 +187,7 @@ TEST_FIXTURE(CloneFixture, CloneTree)
     CHECK(clone01->getChild(2)->getCore()              == g02Core);
 
     // test cloneTree - clone Switch
-    OSG::NodePtr clone02 = OSG::cloneTree(g01Node, "Switch", "");
+    OSG::NodeUnrecPtr clone02 = OSG::cloneTree(g01Node, "Switch", "");
 
     CHECK(clone02->getCore()                           == g01Core);
     CHECK(clone02->getChild(0)->getCore()              != s01Core);
@@ -195,19 +197,19 @@ TEST_FIXTURE(CloneFixture, CloneTree)
     CHECK(clone02->getChild(2)->getCore()              == g02Core);
 
     // test cloneTree - clone Billboard, ignore Switch
-    OSG::NodePtr clone03 = OSG::cloneTree(g01Node, "Billboard", "Switch");
+    OSG::NodeUnrecPtr clone03 = OSG::cloneTree(g01Node, "Billboard", "Switch");
 
     CHECK(clone03->getCore() == g01Core);
     CHECK(clone03->getChild(0)->getChild(0)->getCore() != b01Core);
-    CHECK(clone03->getChild(0)->getCore() == OSGNullFC);
+    CHECK(clone03->getChild(0)->getCore() == NULL);
     CHECK(clone03->getChild(2)->getChild(0)->getCore() != b02Core);
-    CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSGNullFC);
+    CHECK(clone03->getChild(2)->getChild(1)->getCore() == NULL);
 }
 
 TEST_FIXTURE(CloneFixture, DeepCloneTree)
 {
     // test deepCloneTree - all cloned
-    OSG::NodePtr clone01 = OSG::deepCloneTree(g01Node);
+    OSG::NodeUnrecPtr clone01 = OSG::deepCloneTree(g01Node);
 
     CHECK(clone01                         != g01Node);
     CHECK(clone01->getCore()              != g01Core);
@@ -219,25 +221,25 @@ TEST_FIXTURE(CloneFixture, DeepCloneTree)
                             "Switch")     == 0                                    );
 
     // test deepCloneTree - share Switch
-    OSG::NodePtr clone02 = OSG::deepCloneTree(g01Node, "Switch");
+    OSG::NodeUnrecPtr clone02 = OSG::deepCloneTree(g01Node, "Switch");
 
     CHECK(clone02->getCore()              != g01Core);
     CHECK(clone02->getChild(0)            != s01Node);
     CHECK(clone02->getChild(0)->getCore() == s01Core);
 
     // test deepCloneTree - share Billboard, ignore Switch
-    OSG::NodePtr clone03 = OSG::deepCloneTree(g01Node, "Billboard", "Switch");
+    OSG::NodeUnrecPtr clone03 = OSG::deepCloneTree(g01Node, "Billboard", "Switch");
 
     CHECK(clone03->getCore()                           != g01Core);
-    CHECK(clone03->getChild(0)->getCore()              == OSGNullFC);
+    CHECK(clone03->getChild(0)->getCore()              == NULL);
     CHECK(clone03->getChild(0)->getChild(0)->getCore() == b01Core);
     CHECK(clone03->getChild(2)->getChild(0)->getCore() == b02Core);
-    CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSGNullFC);
+    CHECK(clone03->getChild(2)->getChild(1)->getCore() == NULL);
 }
 
 TEST(DynFieldAttachment)
 {
-    OSG::TestAttPtr pT = OSG::TestAtt::create();
+    OSG::TestAttUnrecPtr pT = OSG::TestAtt::create();
 
     OSG::FieldDescriptionBase *pDesc = NULL;
 
@@ -254,7 +256,7 @@ TEST(DynFieldAttachment)
         static_cast<OSG::FieldIndexGetMethodSig >(
             &OSG::TestAtt::getDynamicField ));
 
-    CHECK(pT != OSGNullFC);
+    CHECK(pT != NULL);
 
     OSG::UInt32 fIndex = pT->addField(*pDesc);
 

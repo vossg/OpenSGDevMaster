@@ -50,26 +50,26 @@ SUITE(FieldContainerTests)
 
 TEST(refCountAndRefPtr)
 {
-    OSG::NodePtr np = OSG::Node::create();
-    CHECK(np->getRefCount() == 0);
-    CHECK(np->getWeakRefCount() == 0);
+    OSG::NodeUnrecPtr np = OSG::Node::create();
+    CHECK_EQUAL(1, np->getRefCount()    );
+    CHECK_EQUAL(0, np->getWeakRefCount());
 
-    OSG::UInt32 node_id = getContainerId(np);
+    OSG::UInt32 node_id = np->getId();
     CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == np);
 
-    OSG::NodeRefPtr r;
+    OSG::NodeUnrecPtr r;
     CHECK(!r);
 
     r = np;
     CHECK(r);
     CHECK(r.get() == np);
-    CHECK(np->getRefCount() == 1);
+    CHECK_EQUAL(2, np->getRefCount());
 
     {
-    OSG::NodeRefPtr r2(np);
-    CHECK(r2);
-    CHECK(r2.get() == np);
-    CHECK(np->getRefCount() == 2);
+        OSG::NodeUnrecPtr r2(np);
+        CHECK(r2);
+        CHECK(r2.get() == np);
+        CHECK_EQUAL(3, np->getRefCount());
     }
 }
 
@@ -140,16 +140,16 @@ TEST(appendTypesString)
 TEST(checkMemoryCleanup)
 {
    // Check to make sure the memory is cleaned up correctly with an FCPtr
-   OSG::NodeRefPtr  node(OSG::Node::create());
-   OSG::UInt32   node_id   = OSG::getContainerId(node.get());
-   OSG::Int32    ref_count = getRefCount(node.get());
+   OSG::NodeUnrecPtr  node(OSG::Node::create());
+   OSG::UInt32   node_id   = node->getId();
+   OSG::Int32    ref_count = node->getRefCount();
    OSG::commitChanges();
-   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) != OSGNullFC);
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) != NULL);
 
    // Now release the ref and check that it was collected
-   node = OSGNullFC;
+   node = NULL;
    OSG::commitChanges();
-   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSGNullFC);
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == NULL);
 }
 
 
@@ -159,15 +159,15 @@ TEST(testUncommittedChangesRegression)
 {
    // The idea here is to try to force a subref/addref change using an old
    // entry that would contain invalid data
-   OSG::NodeRefPtr outer_node(OSG::Node::create());
-   OSG::NodeRefPtr outer_node2(OSG::Node::create());
+   OSG::NodeUnrecPtr outer_node(OSG::Node::create());
+   OSG::NodeUnrecPtr outer_node2(OSG::Node::create());
    for(unsigned i=0;i<100;i++)
    {
       if ((i%5) == 0)
-      { outer_node = OSG::NodeRefPtr(OSG::Node::create()); }
+      { outer_node = OSG::NodeUnrecPtr(OSG::Node::create()); }
 
-      OSG::NodeRefPtr temp_node = outer_node2;
-      OSG::NodeRefPtr temp_node2 = outer_node2;
+      OSG::NodeUnrecPtr temp_node = outer_node2;
+      OSG::NodeUnrecPtr temp_node2 = outer_node2;
 
       OSG::commitChanges();
       OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
@@ -233,7 +233,7 @@ TEST(checkDanglingFcPtrFreelist)
    // Allocate and deallocate some memory
    for (unsigned i=0; i<1000;i++)
    {
-      OSG::NodeRefPtr       n(OSG::Node::create());
+      OSG::NodeUnrecPtr       n(OSG::Node::create());
    }
 
    // Now try some things that should fail

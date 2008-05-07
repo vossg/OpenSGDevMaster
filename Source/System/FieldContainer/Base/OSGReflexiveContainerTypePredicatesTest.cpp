@@ -46,7 +46,7 @@
 #include <OpenSG/OSGReflexiveContainerTypePredicates.h>
 
 #include <OpenSG/OSGAttachmentContainer.h>
-#include <OpenSG/OSGFieldContainerAttachment.h>
+#include <OpenSG/OSGAttachment.h>
 #include <OpenSG/OSGNode.h>
 #include <OpenSG/OSGNodeCore.h>
 

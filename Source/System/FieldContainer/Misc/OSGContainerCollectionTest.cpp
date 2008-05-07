@@ -38,128 +38,131 @@
 
 // Unit tests for vec classes
 
-#include <OpenSG/OSGContainerPool.h>
+#include <OpenSG/OSGContainerCollection.h>
 #include <OpenSG/OSGNode.h>
 #include <OpenSG/OSGGroup.h>
 #include <OpenSG/OSGBlendChunk.h>
 
 #include <OpenSG/OSGNameAttachment.h>
 
-SUITE(ContainerPoolTests)
+SUITE(ContainerCollectionTests)
 {
 
 TEST(CreatePool)
 {
-    OSG::ContainerPoolPtr cp = OSG::ContainerPool::create();
-    CHECK(cp != OSGNullFC);
+    OSG::ContainerCollectionUnrecPtr cc = OSG::ContainerCollection::create();
+    CHECK(cc != NULL);
 }
 
 TEST(SettingName)
 {
-    OSG::ContainerPoolPtr cp1(OSG::ContainerPool::create()),
-                          cp2(OSG::ContainerPool::create()),
-                          cp3(OSG::ContainerPool::create());
+    OSG::ContainerCollectionUnrecPtr cc1(OSG::ContainerCollection::create()),
+                                cc2(OSG::ContainerCollection::create()),
+                                cc3(OSG::ContainerCollection::create());
     
-    CHECK(cp1 != OSGNullFC);
-    CHECK(cp2 != OSGNullFC);
-    CHECK(cp3 != OSGNullFC);
+    CHECK(cc1 != NULL);
+    CHECK(cc2 != NULL);
+    CHECK(cc3 != NULL);
     
-    CHECK(cp1 != cp2);
-    CHECK(cp1 != cp3);
-    CHECK(cp2 != cp3);
+    CHECK(cc1 != cc2);
+    CHECK(cc1 != cc3);
+    CHECK(cc2 != cc3);
     
-    cp1->setName("cp1");
-    cp2->setName("cp2");
-    cp3->setName("cp3");
+    cc1->setName("cc1");
+    cc2->setName("cc2");
+    cc3->setName("cc3");
     
-    CHECK(cp1->getName() == "cp1");
-    CHECK(cp2->getName() == "cp2");
-    CHECK(cp3->getName() == "cp3");
+    CHECK(cc1->getName() == "cc1");
+    CHECK(cc2->getName() == "cc2");
+    CHECK(cc3->getName() == "cc3");
     
-    CHECK(cp1->getName() != "cp2");
-    CHECK(cp1->getName() != "cp3");
+    CHECK(cc1->getName() != "cc2");
+    CHECK(cc1->getName() != "cc3");
 }
 
 
 TEST(UsePool)
 {
-    OSG::ContainerPoolPtr cp = OSG::ContainerPool::create();
-    CHECK(cp != OSGNullFC);
+    OSG::ContainerCollectionUnrecPtr cc = OSG::ContainerCollection::create();
+    CHECK(cc != NULL);
     
-    OSG::GroupPtr      t  = OSG::Group     ::create();
-    OSG::NodePtr       n  = OSG::Node      ::create();
-    OSG::BlendChunkPtr bc = OSG::BlendChunk::create();
+    OSG::GroupUnrecPtr      t  = OSG::Group     ::create();
+    OSG::NodeUnrecPtr       n  = OSG::Node      ::create();
+    OSG::BlendChunkUnrecPtr bc = OSG::BlendChunk::create();
     
-    cp->setName("cp container");
-    cp->addContainer(t);
-    cp->addContainer(n);
-    cp->addContainer(bc);
+    cc->setName("cc container");
+    cc->addContainer(t);
+    cc->addContainer(n);
+    cc->addContainer(bc);
     
-    CHECK(cp->getNContainers() == 3);
-    CHECK(cp->getContainers().size() == 3);
+    CHECK_EQUAL(3, cc->getNContainers());
+    CHECK_EQUAL(3, cc->getMFContainers()->size());
     
-    OSG::FieldContainerPtr t_ptr  = cp->getContainers(0);
-    OSG::FieldContainerPtr n_ptr  = cp->getContainers(1);
-    OSG::FieldContainerPtr bc_ptr = cp->getContainers(2);
+    OSG::FieldContainerUnrecPtr t_ptr  = cc->getContainers(0);
+    OSG::FieldContainerUnrecPtr n_ptr  = cc->getContainers(1);
+    OSG::FieldContainerUnrecPtr bc_ptr = cc->getContainers(2);
     
     CHECK(true);
     
     // Test removal
-    cp->subContainer(t);
-    CHECK(cp->getNContainers() == 2);
+    cc->subContainer(t);
+    CHECK_EQUAL(2, cc->getNContainers());
     
-    cp->subContainer(n);
-    CHECK(cp->getNContainers() == 1);
+    cc->subContainer(n);
+    CHECK_EQUAL(1, cc->getNContainers());
     
-    cp->subContainer(bc);
-    CHECK(cp->getNContainers() == 0);
+    cc->subContainer(bc);
+    CHECK_EQUAL(0, cc->getNContainers());
     
     // Try it as an attachment
-    OSG::NodePtr root_node = OSG::Node::create();
+    OSG::NodeUnrecPtr root_node = OSG::Node::create();
     
-    OSG::ContainerPoolPtr cp2;
-    CHECK(root_node->findAttachment(OSG::ContainerPool::getClassType()) == OSGNullFC);
+    OSG::ContainerCollectionUnrecPtr cc2;
+    CHECK(root_node->findAttachment(OSG::ContainerCollection::getClassType()) == NULL);
     
-    root_node->addAttachment(cp);
+    root_node->addAttachment(cc);
     
     // now find it
-    cp2 = dynamic_cast<OSG::ContainerPoolPtr>(
-            root_node->findAttachment(OSG::ContainerPool::getClassType()));
-    CHECK(cp2 != OSGNullFC);
-    CHECK(cp2 == cp);
+    cc2 = dynamic_cast<OSG::ContainerCollection::ObjCPtr>(
+            root_node->findAttachment(OSG::ContainerCollection::getClassType()));
+    CHECK(cc2 != NULL);
+    CHECK(cc2 == cc);
     
     // Name it and find it by name
-    OSG::ContainerPoolPtr named_cp = OSG::ContainerPool::create();
-    named_cp->setName("MyPool");
+    OSG::ContainerCollectionUnrecPtr named_cc = OSG::ContainerCollection::create();
+    named_cc->setName("MyPool");
     
     for(unsigned i=0;i<10;i++)
     {
         if(i%2)
         {
-            root_node->addAttachment(OSG::ContainerPool::create(), i);
+            OSG::ContainerCollectionUnrecPtr new_cc =
+                OSG::ContainerCollection::create();
+        
+            root_node->addAttachment(new_cc, i);
         }
     }
-    root_node->addAttachment(named_cp, 7);
+    root_node->addAttachment(named_cc, 7);
     
     unsigned x = 0;
-    OSG::ContainerPoolPtr cp3(OSGNullFC);
+    OSG::ContainerCollectionUnrecPtr cc3(NULL);
     
-    while(OSGNullFC == cp3)
+    while(NULL == cc3)
     {
-        OSG::ContainerPoolPtr temp_cp;
-        temp_cp = dynamic_cast<OSG::ContainerPoolPtr>(
-                root_node->findAttachment(OSG::ContainerPool::getClassType(), x));
-        if((OSGNullFC != temp_cp) && (temp_cp->getName() == "MyPool"))
+        OSG::ContainerCollectionUnrecPtr temp_cc;
+        temp_cc = dynamic_cast<OSG::ContainerCollection::ObjCPtr>(
+                root_node->findAttachment(OSG::ContainerCollection::getClassType(), x));
+        if((NULL != temp_cc) && (temp_cc->getName() == "MyPool"))
         {
-            cp3 = temp_cp;
-            CHECK(cp3 == named_cp);
+            cc3 = temp_cc;
+            CHECK(cc3 == named_cc);
             break;
         }
         x++;
     }
     
     CHECK_EQUAL(7, x);
-    CHECK_EQUAL(cp3->getName(), "MyPool");
+    CHECK_EQUAL("MyPool", cc3->getName());
 }
 
 } // SUITE

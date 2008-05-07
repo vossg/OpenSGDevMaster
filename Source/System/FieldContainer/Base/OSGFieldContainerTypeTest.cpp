@@ -49,14 +49,14 @@ SUITE(FieldContainerTypeTests)
 
 TEST(CreateType)
 {
-   OSG::NodePtr n = OSG::Node::create();
+   OSG::NodeUnrecPtr n = OSG::Node::create();
    OSG::FieldContainerType& n_type(n->getType());
-   CHECK(n != OSGNullFC);
+   CHECK(n != NULL);
 }
 
 TEST(GetDocs)
 {
-   OSG::GroupPtr tc = OSG::Group::create();
+   OSG::GroupUnrecPtr tc = OSG::Group::create();
    OSG::FieldContainerType& group_type = tc->getType();
 
    std::string fcd_xml = group_type.getFcdXML();
@@ -68,7 +68,7 @@ TEST(GetDocs)
 
 TEST(GetFieldDocs)
 {
-   OSG::GroupPtr tc = OSG::Group::create();
+   OSG::GroupUnrecPtr tc = OSG::Group::create();
    OSG::FieldContainerType& group_type(tc->getType());
 
    unsigned num_field_descs = group_type.getNumFieldDescs();

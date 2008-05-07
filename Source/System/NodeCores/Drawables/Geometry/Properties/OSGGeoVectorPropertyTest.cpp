@@ -48,7 +48,7 @@ struct GeoVectorPropertyFixture
         p3f_0(1.0, 2.0, 3.0),
         p3f_1(2.0, 3.0, 4.0),
         p3f_2(3.0, 4.0, 5.0),
-        propP3f(OSGNullFC)
+        propP3f()
     {
         propP3f = OSG::GeoPnt3fProperty::create();
 
@@ -65,13 +65,13 @@ struct GeoVectorPropertyFixture
     const OSG::Pnt3f p3f_1;
     const OSG::Pnt3f p3f_2;
 
-    OSG::GeoPnt3fPropertyPtr propP3f;
+    OSG::GeoPnt3fPropertyUnrecPtr propP3f;
 };
 
 
 TEST_FIXTURE(GeoVectorPropertyFixture, GeoVectorProperty_Pnt3f)
 {
-    OSG::GeoVectorPropertyPtr prop = propP3f;  // throw away static type info
+    OSG::GeoVectorPropertyUnrecPtr prop = propP3f;  // throw away static type info
     OSG::Pnt2f  p2f;
     OSG::Pnt2d  p2d;
     OSG::Pnt2ub p2ub;
