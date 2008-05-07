@@ -43,42 +43,44 @@
 #include <OpenSG/OSGGeoProperties.h>
 #include <OpenSG/OSGFieldContainerFactory.h>
 #include <OpenSG/OSGTypedGeoVectorProperty.h>
+#include <OpenSG/OSGSimpleGeometry.h>
+#include <OpenSG/OSGTransform.h>
 
 SUITE(GeometryTests)
 {
 
 TEST(CreateGeometry)
 {
-    OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSGNullFC);
+    OSG::GeometryUnrecPtr g = OSG::Geometry::create();
+    CHECK(g != NULL);
 }
 
 TEST(TestInitialValues)
 {
-    OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSGNullFC);
+    OSG::GeometryUnrecPtr g = OSG::Geometry::create();
+    CHECK(g != NULL);
 
     for(unsigned i=0;i<OSG::Geometry::MaxAttribs;i++)
     {
-        CHECK(g->getProperty(i) == OSGNullFC);
-        CHECK(g->getIndex(i) == OSGNullFC);
+        CHECK(g->getProperty(i) == NULL);
+        CHECK(g->getIndex(i) == NULL);
     }
 
-    CHECK(g->getMaterial() == OSGNullFC);
+    CHECK(g->getMaterial() == NULL);
 }
 
 // Test using the generic vector interfaces on geometry
 TEST(TestGenericInterfaces)
 {
-    OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSGNullFC);
+    OSG::GeometryUnrecPtr g = OSG::Geometry::create();
+    CHECK(g != NULL);
 
-    OSG::GeoPnt3fPropertyPtr  pnts  = OSG::GeoPnt3fProperty ::create();
+    OSG::GeoPnt3fPropertyUnrecPtr  pnts  = OSG::GeoPnt3fProperty ::create();
     pnts->addValue(OSG::Pnt3f(0,0,0));
 
     g->setPositions(pnts);
 
-    OSG::GeoVectorPropertyPtr pnts_g = g->getPositions();
+    OSG::GeoVectorPropertyUnrecPtr pnts_g = g->getPositions();
     pnts_g->setValue(OSG::Pnt3f(1,1,1), 0);
     pnts_g->setValue(OSG::Pnt3s(1,1,1), 0);
     pnts_g->setValue(OSG::Pnt2f(1,1  ), 0);
@@ -93,8 +95,8 @@ TEST(TestGenericInterfaces)
 TEST(TestSettingVecAttribs)
 {
     // Test setting attributes to all possible value types
-    OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSGNullFC);
+    OSG::GeometryUnrecPtr g = OSG::Geometry::create();
+    CHECK(g != NULL);
 
     // Copied-and-macroed from OSGTypedGeoVectorPropertyFields
     char* allowed_vec_prop_types[] =
@@ -227,13 +229,13 @@ TEST(TestSettingVecAttribs)
         "GeoColor4fProperty"
     };
 
-    OSG::GeoVectorPropertyPtr att;
+    OSG::GeoVectorPropertyUnrecPtr att;
 
     unsigned num_vec_props = sizeof(allowed_vec_prop_types) / sizeof(char*);
 
     for(unsigned i = 0; i < num_vec_props;++i)
     {
-        att = dynamic_cast<OSG::GeoVectorPropertyPtr>(
+        att = OSG::dynamic_pointer_cast<OSG::GeoVectorProperty>(
                     OSG::FieldContainerFactory::the()->createContainer(
                         allowed_vec_prop_types[i]));
         unsigned prop_index = i % 16;
@@ -241,6 +243,82 @@ TEST(TestSettingVecAttribs)
         CHECK(true);
     }
 
+}
+
+TEST(GeometryAsInnerNodesBoundingVolume)
+{
+    // pNGeo0:[Geometry]
+    //   |
+    //   +-------------------------------------+
+    //   |                                     |
+    // pNTrans1:pTrans1[Transform]           pNTran2:pTrans2[Transform]
+    //   |                                     |
+    // pNGeo1:[Geometry]                     pNGeo2:[Geometry]
+    
+    OSG::NodeUnrecPtr pNGeo0 = OSG::makeBox(2.0, 2.0, 4.0, 1, 1, 1);
+    OSG::NodeUnrecPtr pNGeo1 = OSG::makeBox(2.0, 2.0, 2.0, 1, 1, 1);
+    OSG::NodeUnrecPtr pNGeo2 = OSG::makeBox(2.0, 2.0, 2.0, 1, 1, 1);
+    
+    OSG::NodeUnrecPtr      pNTrans1 = OSG::Node::create();
+    OSG::TransformUnrecPtr pTrans1  = OSG::Transform::create();
+    OSG::NodeUnrecPtr      pNTrans2 = OSG::Node::create();
+    OSG::TransformUnrecPtr pTrans2  = OSG::Transform::create();
+    
+    pNTrans1->setCore (pTrans1);
+    pNTrans1->addChild(pNGeo1 );
+    pNTrans2->setCore (pTrans2);
+    pNTrans2->addChild(pNGeo2 );
+    
+    pNGeo0->addChild(pNTrans1);
+    pNGeo0->addChild(pNTrans2);
+    
+    OSG::Matrix mat1;
+    OSG::Matrix mat2;
+    
+    mat1.setTranslate(OSG::Vec3f(  3.0, 0.0, 0.0));
+    mat2.setTranslate(OSG::Vec3f(- 3.0, 0.0, 0.0));
+    
+    pTrans1->editSFMatrix()->setValue(mat1);
+    pTrans2->editSFMatrix()->setValue(mat2);
+    
+    OSG::commitChanges();
+    
+    OSG::DynamicVolume bbox;
+    OSG::Pnt3f         min;
+    OSG::Pnt3f         max;
+    
+    pNGeo1->getWorldVolume(bbox);
+    bbox.getBounds(min, max);
+       
+    CHECK_CLOSE( 2.0, min[0], 1e-6);
+    CHECK_CLOSE(-1.0, min[1], 1e-6);
+    CHECK_CLOSE(-1.0, min[2], 1e-6);
+    
+    CHECK_CLOSE( 4.0, max[0], 1e-6);
+    CHECK_CLOSE( 1.0, max[1], 1e-6);
+    CHECK_CLOSE( 1.0, max[2], 1e-6);
+    
+    pNGeo2->getWorldVolume(bbox);
+    bbox.getBounds(min, max);
+        
+    CHECK_CLOSE(-4.0, min[0], 1e-6);
+    CHECK_CLOSE(-1.0, min[1], 1e-6);
+    CHECK_CLOSE(-1.0, min[2], 1e-6);
+    
+    CHECK_CLOSE(-2.0, max[0], 1e-6);
+    CHECK_CLOSE( 1.0, max[1], 1e-6);
+    CHECK_CLOSE( 1.0, max[2], 1e-6);
+    
+    pNGeo0->getWorldVolume(bbox);
+    bbox.getBounds(min, max);
+    
+    CHECK_CLOSE(-4.0, min[0], 1e-6);
+    CHECK_CLOSE(-1.0, min[1], 1e-6);
+    CHECK_CLOSE(-2.0, min[2], 1e-6);
+    
+    CHECK_CLOSE( 4.0, max[0], 1e-6);
+    CHECK_CLOSE( 1.0, max[1], 1e-6);
+    CHECK_CLOSE( 2.0, max[2], 1e-6);
 }
 
 } // SUITE

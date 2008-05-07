@@ -174,21 +174,19 @@ void Geometry::onDestroy(UInt32)
 
 void Geometry::adjustVolume(Volume & volume)
 {
-    volume.setValid();
-    volume.setEmpty();
-
     GeoVectorProperty *pos = getPositions();
 
     if(pos == NULL)
         return;                  // Node has no points, no volume
 
-    Pnt3f p;
+    volume.setValid();
+        
+    PrimitiveIterator it  = this->beginPrimitives();
+    PrimitiveIterator end = this->endPrimitives  ();
 
-    PrimitiveIterator it,end = this->endPrimitives();
-
-    for(it = this->beginPrimitives(); it != end; ++it)
+    for(; it != end; ++it)
     {
-        for(UInt32 v=0; v < it.getLength(); ++v)
+        for(UInt32 v = 0; v < it.getLength(); ++v)
         {
             volume.extendBy(it.getPosition(v));
         }
