@@ -90,9 +90,10 @@ class RefCountPtr
 
     template <class OtherObjectT>
     RefCountPtr(TransitPtr<OtherObjectT> const &other);
-
-    explicit
-    RefCountPtr(ObjectTransitPtr         &other);
+    
+    template <class OtherObjectT, class OtherRefCountPolicyT>
+    RefCountPtr(RefCountPtr<OtherObjectT,
+                            OtherRefCountPolicyT> const &other);
 
     RefCountPtr(Object           * const  pObj );
     
