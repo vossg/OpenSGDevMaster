@@ -273,8 +273,8 @@ OSBImageElement::writeCompressedPixelData(void)
     BinaryWriteHandler   *wh   = editRoot()->getWriteHandler();
 
     Image       *img       = dynamic_cast<Image *>(getContainer());
-    //std::string imageType = root->getOptions().textureImageType();
-    std::string imageType = "jpeg";
+    std::string imageType = root->getOptions().texturesImageType();
+//     std::string imageType = "jpeg";
 
     std::vector<UInt8> buffer;
     UInt32             factor = 1;
@@ -284,18 +284,18 @@ OSBImageElement::writeCompressedPixelData(void)
         factor = 3;
 
     // some extra space is needed for the image header
-    UInt32 bufferSize = 0;
-//        ImageFileHandler::the().getDefaultType()->maxBufferSize(img) * factor +
-//            16384;
+    UInt32 bufferSize =
+       ImageFileHandler::the()->getDefaultType()->maxBufferSize(img) * factor +
+           16384;
 
     buffer.resize(bufferSize);
-//    UInt64 compressedSize = img->store(imageType.c_str(), &buffer.front());
-    UInt64 compressedSize = 0;
+    UInt64 compressedSize = img->store(imageType.c_str(), &buffer.front());
+//     UInt64 compressedSize = 0;
 
     UInt32 byteSize  = static_cast<UInt32>(compressedSize);
     UInt32 fieldSize = sizeof(UInt32) + sizeof(UInt8) * byteSize;
 
-    wh->putValue(fieldSize);
-    wh->putValue(byteSize );
+    wh->putValue (fieldSize                );
+    wh->putValue (byteSize                 );
     wh->putValues(&buffer.front(), byteSize);
 }

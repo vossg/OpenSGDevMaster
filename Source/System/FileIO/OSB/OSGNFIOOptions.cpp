@@ -68,15 +68,16 @@ OSG_USING_NAMESPACE
 
 /*----------------------------- constructors  -----------------------------*/
 
-NFIOOptions::NFIOOptions(void) :
-_inlineTextures(true),
-_compressTextures(false),
-_texturesCompressionQuality(75),
-_quantizePositions(Quantizer::QRES_OFF),
-_quantizeNormals(Quantizer::QRES_OFF),
-_quantizeTexCoords(Quantizer::QRES_OFF),
-_packIndices(false),
-_unpack16BitIndices(true)
+NFIOOptions::NFIOOptions(void)
+    : _inlineTextures(true),
+      _compressTextures(false),
+      _texturesCompressionQuality(75),
+      _texturesImageType("jpeg"),
+      _quantizePositions(Quantizer::QRES_OFF),
+      _quantizeNormals(Quantizer::QRES_OFF),
+      _quantizeTexCoords(Quantizer::QRES_OFF),
+      _packIndices(false),
+      _unpack16BitIndices(true)
 {
 }
 
@@ -94,6 +95,7 @@ void NFIOOptions::init(const std::string &options)
     _inlineTextures = true;
     _compressTextures = false;
     _texturesCompressionQuality = 75;
+    _texturesImageType = "jpeg",
     _quantizePositions = Quantizer::QRES_OFF;
     _quantizeNormals = Quantizer::QRES_OFF;
     _quantizeTexCoords = Quantizer::QRES_OFF;
@@ -118,6 +120,10 @@ void NFIOOptions::init(const std::string &options)
     if((i=options.find(option)) != std::string::npos)
         _texturesCompressionQuality = getInteger(options.substr(i+option.size()));
     
+    option = "texturesImageType=";
+    if((i = options.find(option)) != std::string::npos)
+        _texturesImageType = getString(options.substr(i + option.size()));
+        
     if(options.find("quantizePositions=0") != std::string::npos)
         _quantizePositions = Quantizer::QRES_OFF;
     if(options.find("quantizePositions=8") != std::string::npos)
@@ -173,6 +179,11 @@ UInt32 NFIOOptions::texturesCompressionQuality(void) const
     return _texturesCompressionQuality;
 }
 
+std::string NFIOOptions::texturesImageType(void) const
+{
+    return _texturesImageType;
+}
+
 UInt8 NFIOOptions::quantizePositions(void) const
 {
     return _quantizePositions;
@@ -212,4 +223,15 @@ Int32 NFIOOptions::getInteger(const std::string &str)
     Int32 r;
     ss >> r;
     return r;
+}
+
+std::string NFIOOptions::getString(const std::string &str)
+{
+    std::string rstr;
+    UInt32 i = 0;
+    while(i < str.length() && str[i] != ',')
+    {
+        rstr += str[i++];
+    }
+    return rstr;
 }
