@@ -112,6 +112,7 @@ OSBImageElement::read(const std::string &typeName)
 
         if(flags & FlagPixelDataCompressedMask)
         {
+            // compressed inline texture
             std::string endMarker = "'pixel'";
             std::string fieldName = readFields("", endMarker);
 
@@ -120,14 +121,18 @@ OSBImageElement::read(const std::string &typeName)
                 readCompressedPixelData();
             }
         }
-        else if(flags & FlagPixelDataOutOfLineMask)
+        else
         {
+            // read fields stored in file
             readFields("", "");
-
-            // read out-of-line image data
-            const std::string &fileName = img->getName();
-            img = ImageFileHandler::the()->read(fileName.c_str());
-            setContainer(img);
+            
+            if(flags & FlagPixelDataOutOfLineMask)
+            {
+                // read out-of-line image data
+                const std::string &fileName = img->getName();
+                img = ImageFileHandler::the()->read(fileName.c_str());
+                setContainer(img);
+            }
         }
     }
     else if(_version >= OSGOSBHeaderVersion100)
@@ -273,7 +278,7 @@ OSBImageElement::writeCompressedPixelData(void)
     BinaryWriteHandler   *wh   = editRoot()->getWriteHandler();
 
     Image       *img       = dynamic_cast<Image *>(getContainer());
-    std::string imageType = root->getOptions().texturesImageType();
+    std::string  imageType = root->getOptions().texturesImageType();
 //     std::string imageType = "jpeg";
 
     std::vector<UInt8> buffer;
