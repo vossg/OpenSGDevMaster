@@ -43,6 +43,17 @@
 #include <OpenSG/OSGNameAttachment.h>
 #include <OpenSG/OSGSceneFileHandler.h>
 
+#include <OpenSG/OSGGeometry.h>
+#include <OpenSG/OSGSimpleGeometry.h>
+#include <OpenSG/OSGImage.h>
+#include <OpenSG/OSGChunkMaterial.h>
+#include <OpenSG/OSGTextureObjChunk.h>
+#include <OpenSG/OSGTextureEnvChunk.h>
+
+#ifndef OSG_DISABLE_DEPRECATED
+#include <OpenSG/OSGTextureChunk.h>
+#endif
+
 #include <boost/filesystem/operations.hpp>
 
 namespace bf = boost::filesystem;
@@ -124,5 +135,97 @@ TEST_FIXTURE(FileFixture, TestNameRetention)
 
    CHECK(cur_name == start_name);
 }
+
+#ifndef OSG_DISABLE_DEPRECATED
+TEST_FIXTURE(FileFixture, TextureChunkIO)
+{
+    OSG::NodeUnrecPtr          n   = OSG::Node::create();
+    OSG::GeometryUnrecPtr      geo = OSG::makeBoxGeo(2.0, 2.0, 2.0, 1, 1, 1);
+    OSG::ChunkMaterialUnrecPtr mat = OSG::ChunkMaterial::create();
+    
+    OSG::ImageUnrecPtr img = OSG::Image::create();
+    img->set(OSG::Image::OSG_RGBA_PF, 2, 2);
+    
+    img->editData()[0 * 2 * 4 + 0 * 4 + 0] = 255;
+    img->editData()[0 * 2 * 4 + 0 * 4 + 1] =   0;
+    img->editData()[0 * 2 * 4 + 0 * 4 + 2] =   0;
+    img->editData()[0 * 2 * 4 + 0 * 4 + 3] = 255;
+    
+    img->editData()[0 * 2 * 4 + 1 * 4 + 0] = 255;
+    img->editData()[0 * 2 * 4 + 1 * 4 + 1] = 255;
+    img->editData()[0 * 2 * 4 + 1 * 4 + 2] =   0;
+    img->editData()[0 * 2 * 4 + 1 * 4 + 3] = 255;
+    
+    img->editData()[1 * 2 * 4 + 0 * 4 + 0] =   0;
+    img->editData()[1 * 2 * 4 + 0 * 4 + 1] =   0;
+    img->editData()[1 * 2 * 4 + 0 * 4 + 2] = 255;
+    img->editData()[1 * 2 * 4 + 0 * 4 + 3] = 255;
+    
+    img->editData()[1 * 2 * 4 + 1 * 4 + 0] =   0;
+    img->editData()[1 * 2 * 4 + 1 * 4 + 1] = 255;
+    img->editData()[1 * 2 * 4 + 1 * 4 + 2] = 255;
+    img->editData()[1 * 2 * 4 + 1 * 4 + 3] = 255;
+    
+    OSG::TextureChunkUnrecPtr tex = OSG::TextureChunk::create();
+    tex->setImage(img);
+    
+    mat->addChunk(tex);
+    geo->setMaterial(mat);
+    
+    n->setCore(geo);
+    
+    OSG::SceneFileHandler::the()->write(n, test_file.native_file_string().c_str());
+    
+    OSG::NodeUnrecPtr n2 =
+        OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
+        
+    CHECK(n2 != NULL);
+    
+    CHECK(n2->getCore() != NULL);
+    OSG::GeometryUnrecPtr      geo2 =
+        dynamic_cast<OSG::Geometry *>(n2->getCore());
+    CHECK(geo2 != NULL);
+    
+    CHECK(geo2->getMaterial() != NULL);
+    OSG::ChunkMaterialUnrecPtr mat2 =
+        dynamic_cast<OSG::ChunkMaterial *>(geo2->getMaterial());
+    CHECK(mat2 != NULL);    
+    
+    CHECK(mat2->getChunk(0) != NULL);
+    const OSG::TextureChunk *tex2 =
+        dynamic_cast<const OSG::TextureChunk *>(mat2->getChunk(0));
+    const OSG::TextureObjChunk *texObj =
+        dynamic_cast<const OSG::TextureObjChunk *>(mat2->getChunk(0));
+    const OSG::TextureEnvChunk *texEnv =
+        dynamic_cast<const OSG::TextureEnvChunk *>(mat2->getChunk(1));
+    CHECK(tex2   == NULL);    
+    CHECK(texObj != NULL);
+    CHECK(texEnv != NULL);
+    
+    CHECK(texObj->getImage() != NULL);
+    OSG::Image *img2 = texObj->getImage();
+    CHECK(img2 != NULL);
+    
+    CHECK_EQUAL(255, img2->getData()[0 * 2 * 4 + 0 * 4 + 0]);
+    CHECK_EQUAL(  0, img2->getData()[0 * 2 * 4 + 0 * 4 + 1]);
+    CHECK_EQUAL(  0, img2->getData()[0 * 2 * 4 + 0 * 4 + 2]);
+    CHECK_EQUAL(255, img2->getData()[0 * 2 * 4 + 0 * 4 + 3]);
+    
+    CHECK_EQUAL(255, img2->getData()[0 * 2 * 4 + 1 * 4 + 0]);
+    CHECK_EQUAL(255, img2->getData()[0 * 2 * 4 + 1 * 4 + 1]);
+    CHECK_EQUAL(  0, img2->getData()[0 * 2 * 4 + 1 * 4 + 2]);
+    CHECK_EQUAL(255, img2->getData()[0 * 2 * 4 + 1 * 4 + 3]);
+    
+    CHECK_EQUAL(  0, img2->getData()[1 * 2 * 4 + 0 * 4 + 0]);
+    CHECK_EQUAL(  0, img2->getData()[1 * 2 * 4 + 0 * 4 + 1]);
+    CHECK_EQUAL(255, img2->getData()[1 * 2 * 4 + 0 * 4 + 2]);
+    CHECK_EQUAL(255, img2->getData()[1 * 2 * 4 + 0 * 4 + 3]);
+    
+    CHECK_EQUAL(  0, img2->getData()[1 * 2 * 4 + 1 * 4 + 0]);
+    CHECK_EQUAL(255, img2->getData()[1 * 2 * 4 + 1 * 4 + 1]);
+    CHECK_EQUAL(255, img2->getData()[1 * 2 * 4 + 1 * 4 + 2]);
+    CHECK_EQUAL(255, img2->getData()[1 * 2 * 4 + 1 * 4 + 3]);
+}
+#endif // OSG_DISABLE_DEPRECATED
 
 } // SUITE

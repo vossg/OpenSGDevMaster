@@ -322,7 +322,8 @@ OSBCommonElement::readFieldContent(
         return false;
     }
 
-    if(fieldDesc->getName() == "attachments")
+    if(fieldType.getContentType().isDerivedFrom(
+        FieldTraits<AttachmentMap>::getType()) == true)
     {
         ptrFieldIt = readAttachmentMapField(fieldId, fieldSize);
         isPtrField = true;
@@ -628,7 +629,8 @@ OSBCommonElement::readAttachmentMapField(
             FDEBUG(("OSBCommonElement::readAttachmentMapField: "
                     "attachment [%u], id [%u].\n", i, ptrId));
                     
-            pfi.editIdStore().push_back(ptrId);
+            pfi.editBindingStore().push_back(0    );
+            pfi.editIdStore     ().push_back(ptrId);
         }
     }
 

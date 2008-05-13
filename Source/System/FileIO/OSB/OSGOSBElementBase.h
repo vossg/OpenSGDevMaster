@@ -141,6 +141,9 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
     inline const OSBRootElement *getRoot (void) const;
     inline       OSBRootElement *editRoot(void);
 
+    inline UInt32 getFCIdFile(void           ) const;
+    inline void   setFCIdFile(UInt32 fcIdFile);
+    
     inline UInt16 getVersion(void) const;
 
     /*! \}                                                                 */
@@ -226,6 +229,7 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
 
     FieldContainerUnrecPtr  _container;
     OSBRootElement         *_rootElement;
+    UInt32                  _fcIdFile;
     UInt16                  _version;
 
     /*!\brief prohibit default function (move to 'public' if needed)       */

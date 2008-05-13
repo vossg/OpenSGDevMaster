@@ -229,6 +229,7 @@ const std::string OSBElementBase::OSGOSB_HEADER_ID_2  ("OpenSG binary V2.0" );
 OSBElementBase::OSBElementBase(OSBRootElement *root, const UInt16 version)
     : _container  (NULL   ),
       _rootElement(root   ),
+      _fcIdFile   (0      ),
       _version    (version)
 {
 }

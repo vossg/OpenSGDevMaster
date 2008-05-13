@@ -89,6 +89,18 @@ OSBElementBase::editRoot(void)
     return _rootElement;
 }
 
+inline UInt32
+OSBElementBase::getFCIdFile(void) const
+{
+    return _fcIdFile;
+}
+
+inline void
+OSBElementBase::setFCIdFile(UInt32 fcIdFile)
+{
+    _fcIdFile = fcIdFile;
+}
+
 inline UInt16
 OSBElementBase::getVersion(void) const
 {

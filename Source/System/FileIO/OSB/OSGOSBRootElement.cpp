@@ -127,7 +127,7 @@ OSBRootElement::terminateRead(void)
     _readHandler = 0;
 }
 
-/*! Reads from the stream set by a preceding call to initualiseRead. Since the
+/*! Reads from the stream set by a preceding call to initialiseRead. Since the
     root element is the first one created it reads the file header and
     creates the elements to read the data following the header.
 
@@ -193,7 +193,8 @@ OSBRootElement::read(const std::string &/*typeName*/)
             break;
 
         elem = OSBElementFactory::the()->acquire(fcTypeName, this);
-        elem->read(fcTypeName);
+        elem->setFCIdFile(fcIdFile  );
+        elem->read       (fcTypeName);
 
         if(elem->getContainer() != NULL)
         {
@@ -307,8 +308,9 @@ OSBRootElement::preWrite(FieldContainer * const fc)
         typeName, this);
 
     editElementList().push_back(elem);
-    elem->setContainer(fc);
-    elem->preWrite    (fc);
+    elem->setContainer(fc         );
+    elem->setFCIdFile (fc->getId());
+    elem->preWrite    (fc         );
 }
 
 /*! Writes the containers collected with the previous call to preWrite to the
@@ -351,15 +353,15 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 {
     FDEBUG(("OSBRootElement::mapPtrField\n"));
 
-    const FieldContainerIdMap        &idMap = getIdMap();
-    PtrFieldInfo::PtrIdStoreConstIt   idIt  = ptrField.beginIdStore();
-    PtrFieldInfo::PtrIdStoreConstIt   idEnd = ptrField.endIdStore  ();
+    PtrFieldInfo::PtrIdStoreConstIt   idIt       = ptrField.beginIdStore();
+    PtrFieldInfo::PtrIdStoreConstIt   idEnd      = ptrField.endIdStore  ();
 
     PtrFieldInfo::BindingStoreConstIt bindingIt  = ptrField.beginBindingStore();
     PtrFieldInfo::BindingStoreConstIt bindingEnd = ptrField.endBindingStore  ();
 
-    FieldContainerIdMapConstIt idMapIt;
-    FieldContainerIdMapConstIt idMapEnd = idMap.end();
+    const FieldContainerIdMap        &idMap      = getIdMap();
+    FieldContainerIdMapConstIt        idMapIt;
+    FieldContainerIdMapConstIt        idMapEnd   = idMap.end();
 
     if(bindingIt != bindingEnd)
     {
