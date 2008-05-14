@@ -105,6 +105,8 @@ NodeTransitPtr A3DSSceneFileType::read(std::istream &is, const Char8 *) const
             root->addChild(mesh);
     }
 
+    _materials.clear();
+    
     return root;
 }
 

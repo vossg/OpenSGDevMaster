@@ -104,7 +104,6 @@ void Material::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-//    subRefLocalVarX(_pState);
     _pState = NULL;
 }
 
@@ -234,12 +233,10 @@ Material *getDefaultMaterial(void)
     {
         _defaultMaterial = SimpleMaterial::create();
 
-		_defaultMaterial->setDiffuse  (Color3r(.7f,.7f,.5f));
-		_defaultMaterial->setAmbient  (Color3r(0.1f,0.1f,0.1f));
-		_defaultMaterial->setSpecular (Color3r(1.f,1.f,1.f));
+        _defaultMaterial->setDiffuse  (Color3r(.7f,.7f,.5f));
+        _defaultMaterial->setAmbient  (Color3r(0.1f,0.1f,0.1f));
+        _defaultMaterial->setSpecular (Color3r(1.f,1.f,1.f));
         _defaultMaterial->setShininess(20.f);
-
-//        addRefX(_defaultMaterial);
 
         addPreFactoryExitFunction(subRefDefaultMaterial);
 
@@ -265,23 +262,19 @@ Material *getDefaultUnlitMaterial(void)
     {
         _defaultUnlitMaterial = SimpleMaterial::create();
 
-		_defaultUnlitMaterial->setDiffuse(Color3r(1.f,1.f,.5f));
+        _defaultUnlitMaterial->setDiffuse(Color3r(1.f,1.f,.5f));
         _defaultUnlitMaterial->setLit(false);
-
-//        addRefX(_defaultUnlitMaterial);
 
         addPreFactoryExitFunction(subRefDefaultUnlitMaterial);
 
         _defaultUnlitMaterial->rebuildState();
-	}
+    }
     
     return _defaultUnlitMaterial;
 }
 
 bool subRefDefaultMaterial     (void)
 {
-//    subRefX(_defaultMaterial);
-
     _defaultMaterial = NULL;
 
     return true;
@@ -289,8 +282,6 @@ bool subRefDefaultMaterial     (void)
 
 bool subRefDefaultUnlitMaterial(void)
 {
-//    subRefX(_defaultUnlitMaterial);
-
     _defaultUnlitMaterial = NULL;
 
     return true;

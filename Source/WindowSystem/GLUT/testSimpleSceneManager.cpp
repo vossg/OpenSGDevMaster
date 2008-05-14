@@ -38,45 +38,47 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // load the scene
-
-    NodeUnrecPtr scene;
+    {
+        // the connection between GLUT and OpenSG
+        GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
     
-    if(argc < 2)
-    {
-        FWARNING(("No file given!\n"));
-        FWARNING(("Supported file formats:\n"));
+        // load the scene
+    
+        NodeUnrecPtr scene;
         
-        SceneFileHandler::the()->print();
-        scene = makeTorus(.5, 2, 16, 16);
+        if(argc < 2)
+        {
+            FWARNING(("No file given!\n"));
+            FWARNING(("Supported file formats:\n"));
+            
+            SceneFileHandler::the()->print();
+            scene = makeTorus(.5, 2, 16, 16);
+        }
+        else
+        {
+            /*
+                All scene file loading is handled via the SceneFileHandler.
+            */
+            scene = SceneFileHandler::the()->read(argv[1], NULL);
+        }
+    
+        //scene->dump();
+    
+        OSG::commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+        mgr->setUseTraversalAction(true);
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();  
     }
-    else
-    {
-        /*
-            All scene file loading is handled via the SceneFileHandler.
-        */
-        scene = SceneFileHandler::the()->read(argv[1], NULL);
-    }
-
-    //scene->dump();
-
-    OSG::commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-    mgr->setUseTraversalAction(true);
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
 
     // GLUT main loop
     glutMainLoop();
@@ -130,7 +132,6 @@ void keyboard(unsigned char k, int , int )
     {
         case 27:
             delete mgr;
-            
 
             OSG::osgExit();
             exit(0);
