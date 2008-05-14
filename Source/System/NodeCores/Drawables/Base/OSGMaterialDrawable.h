@@ -72,7 +72,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
 
     virtual Action::ResultE drawPrimitives     (DrawEnv *pEnv  );
 
-            Action::ResultE renderActionHandler(Action  *action);
+            Action::ResultE renderActionEnterHandler(Action  *action);
+            Action::ResultE renderActionLeaveHandler(Action  *action);
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

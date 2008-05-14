@@ -105,7 +105,13 @@ void QuadTreeTerrain::initMethod(InitPhase ePhase)
     {
         RenderAction::registerEnterDefault(
             QuadTreeTerrain::getClassType(), 
-            reinterpret_cast<Action::Callback>(&QuadTreeTerrain::renderEnter));
+            reinterpret_cast<Action::Callback>(
+                &QuadTreeTerrain::renderEnter));
+            
+        RenderAction::registerLeaveDefault(
+            QuadTreeTerrain::getClassType(),
+            reinterpret_cast<Action::Callback>(
+                &QuadTreeTerrain::renderActionLeaveHandler));
     }
 }
 
@@ -1733,7 +1739,7 @@ Action::ResultE QuadTreeTerrain::renderEnter (Action* action)
 //                << std::endl;
     }
     
-    return Inherited::renderActionHandler(action);
+    return Inherited::renderActionEnterHandler(action);
 }
 #endif
 
@@ -1748,7 +1754,7 @@ Action::ResultE QuadTreeTerrain::renderEnter (Action* action)
                         da->getActivePartition()->topMatrix());
     
     
-    return Inherited::renderActionHandler(action);
+    return Inherited::renderActionEnterHandler(action);
 }
 
 Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,

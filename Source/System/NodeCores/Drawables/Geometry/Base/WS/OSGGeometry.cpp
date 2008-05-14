@@ -91,7 +91,12 @@ void Geometry::initMethod(InitPhase ePhase)
         RenderAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
-                &MaterialDrawable::renderActionHandler));
+                &MaterialDrawable::renderActionEnterHandler));
+                
+        RenderAction::registerLeaveDefault(
+            getClassType(),
+            reinterpret_cast<Action::Callback>(
+                &MaterialDrawable::renderActionLeaveHandler));
     }
 }
 

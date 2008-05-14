@@ -86,7 +86,12 @@ void Particles::initMethod(InitPhase ePhase)
         RenderAction::registerEnterDefault(
             Particles::getClassType(),
             reinterpret_cast<Action::Callback>(
-                &MaterialDrawable::renderActionHandler));
+                &MaterialDrawable::renderActionEnterHandler));
+                
+        RenderAction::registerLeaveDefault(
+            Particles::getClassType(),
+            reinterpret_cast<Action::Callback>(
+                &MaterialDrawable::renderActionLeaveHandler));
 
         _extMultitexture            = 
             Window::registerExtension("GL_ARB_multitexture");

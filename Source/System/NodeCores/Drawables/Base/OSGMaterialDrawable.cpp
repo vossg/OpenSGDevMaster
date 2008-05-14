@@ -78,7 +78,7 @@ MaterialDrawable::~MaterialDrawable(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
+Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
     
@@ -124,6 +124,17 @@ Action::ResultE MaterialDrawable::renderActionHandler(Action *action)
         }
     }
 
+    a->pushVisibility();
+    
+    return Action::Continue;
+}
+
+Action::ResultE MaterialDrawable::renderActionLeaveHandler(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+    
+    a->popVisibility();
+    
     return Action::Continue;
 }
 
