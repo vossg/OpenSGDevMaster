@@ -367,6 +367,12 @@ if ARGUMENTS.has_key("options_file"):
       print "Options file '%s' not found.. will continue with default '%s'" % \
       (opt_file, option_filename)
 
+# Check if the GL subdir should be used - can not be done with the regular options
+# stuff as sca_opts.StandardPackageOption for glut depends on this value
+if ARGUMENTS.has_key("disable_glut_glsubdir") and ARGUMENTS["disable_glut_glsubdir"] == True:
+    glsubdir = ""
+else:
+    glsubdir = "GL/"
 
 # Setup the directories used for sconf processing
 common_env["CONFIGUREDIR"] = '.sconf_temp_'+platform+'_'+common_env.subst('$CXX')
@@ -481,7 +487,7 @@ optional_libs_options["png"] = sca_opts.StandardPackageOption(
 
 optional_libs_options["glut"] = sca_opts.StandardPackageOption(
     "glut", "Location of the GLUT library", library = glut_libname,
-    header = "GL/glut.h", required = False)
+    header = glsubdir + "glut.h", required = False)
 
 optional_libs_options["X"] = sca_opts.StandardPackageOption(
     "X", "Location of the X library", library = 'X11',
