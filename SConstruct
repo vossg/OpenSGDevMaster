@@ -369,7 +369,7 @@ if ARGUMENTS.has_key("options_file"):
 
 # Check if the GL subdir should be used - can not be done with the regular options
 # stuff as sca_opts.StandardPackageOption for glut depends on this value
-if ARGUMENTS.has_key("disable_glut_glsubdir") and ARGUMENTS["disable_glut_glsubdir"] == True:
+if ARGUMENTS.has_key("disable_glut_glsubdir") and ARGUMENTS["disable_glut_glsubdir"]:
     glsubdir = ""
 else:
     glsubdir = "GL/"
