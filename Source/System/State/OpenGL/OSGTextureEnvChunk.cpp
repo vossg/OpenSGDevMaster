@@ -160,7 +160,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     glErr("textureShader precheck");
 
     glTexEnvi(GL_TEXTURE_SHADER_NV, GL_SHADER_OPERATION_NV,
-                getShaderOperation());
+              getShaderOperation());
 
     glErr("textureShader setup: operation");
 
@@ -174,15 +174,19 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     }
 
     if(getShaderInput() != GL_NONE)
+    {
         glTexEnvi(GL_TEXTURE_SHADER_NV, GL_PREVIOUS_TEXTURE_INPUT_NV,
                     getShaderInput());
+    }
 
     glErr("textureShader setup: input");
 
     if(getShaderRGBADotProduct() != GL_NONE)
+    {
         glTexEnvi(GL_TEXTURE_SHADER_NV, 
                   GL_RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV,
                   getShaderRGBADotProduct());
+    }
 
     glErr("textureShader setup: rgba dotprod");
 
@@ -211,6 +215,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     glErr("textureShader setup: offset bias");
 
     GLint cullmodes[4];
+
     if(getShaderCullModes() & 0x1)
     {
         cullmodes[0] = GL_GEQUAL;
@@ -248,7 +253,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     }
 
     glTexEnviv(GL_TEXTURE_SHADER_NV, GL_CULL_MODES_NV,
-                    cullmodes);
+               cullmodes);
 
     glErr("textureShader setup: cull modes");
 
@@ -358,9 +363,9 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return;
 
 #ifdef GL_NV_point_sprite
-    if(idx < static_cast<UInt32>(ntexcoords))
+    if(getPointSprite() && win->hasExtension(_nvPointSprite))
     {
-        if(getPointSprite() && win->hasExtension(_nvPointSprite))
+        if(idx < static_cast<UInt32>(ntexcoords))
         {
             glTexEnvi(GL_POINT_SPRITE_NV, GL_COORD_REPLACE_NV, GL_TRUE);
         }
@@ -493,42 +498,40 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
 
     Window *win = pEnv->getWindow();   
 
-    if(TextureBaseChunk::activateTexture(win, idx))
-        return; // trying to use too many textures
+    Real32 nteximages, ntexcoords;
 
-    UInt32 nteximages, ntexcoords, ntexunits;
-
-    Real32 dummy = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
-
-    if(dummy == Window::unknownConstant)
-    {
-        ntexunits = 1;
-    }
-    else
-    {
-        ntexunits = static_cast<UInt32>(dummy);
-    }
-   
-    
-    if((dummy = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
+    if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
        Window::unknownConstant)
     {
-        ntexcoords = ntexunits;
+        nteximages = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
+
+        // sgi doesn't support GL_MAX_TEXTURE_UNITS_ARB!
+        if(nteximages == Window::unknownConstant)
+            nteximages = 1.0f;
     }
-    else
+
+    if((ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
+       Window::unknownConstant)
     {
-        ntexcoords = static_cast<UInt32>(dummy);
+        ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
+
+        // sgi doesn't support GL_MAX_TEXTURE_UNITS_ARB!
+        if(ntexcoords == Window::unknownConstant)
+            ntexcoords = 1.0f;
     }
 
     if(idx >= nteximages)
     {
 #ifdef OSG_DEBUG
-        FWARNING(("TextureEnvChunk::activate: Trying to bind image unit %d,"
+        FWARNING(("TextureEnvChunk::changeFrom: Trying to bind image unit %d,"
                   " but Window %p only supports %d!\n",
                   idx, win, nteximages));
 #endif
         return;        
     }
+
+    if(TextureBaseChunk::activateTexture(win, idx))
+        return; // trying to use too many textures
 
 #ifdef GL_NV_point_sprite
     if(idx < ntexcoords)
@@ -552,6 +555,12 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
                   getLodBias());
     }
 #endif
+
+    Real32 ntexunits = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
+
+    // sgi doesn't support GL_MAX_TEXTURE_UNITS_ARB!
+    if(ntexunits == Window::unknownConstant)
+        ntexunits = 1.0f;
 
 	if(idx < ntexunits)
     {
@@ -670,6 +679,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     Window *win = pEnv->getWindow();   
 
     Real32 nteximages, ntexcoords;
+
     if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
        Window::unknownConstant )
     {
