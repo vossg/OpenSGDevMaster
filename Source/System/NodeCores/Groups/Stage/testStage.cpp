@@ -59,9 +59,9 @@ NodeRecPtr  file;
 FBOViewportRecPtr vpScene;
 ViewportRecPtr    vpPlane;
 
-WindowRecPtr    win;
+GLUTWindowRecPtr  win;
 
-Vec3f        sceneTrans;
+Vec3f           sceneTrans;
 TransformRecPtr cam_transScene;
 TransformRecPtr scene_trans;
 
@@ -230,6 +230,7 @@ void key(unsigned char key, int x, int y)
             tx1o           = NULL;
             tx1e           = NULL;
 
+            commitChangesAndClear();
 
             osgExit(); 
             exit(0);
@@ -602,18 +603,14 @@ int main (int argc, char **argv)
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
 
-    GLUTWindowUnrecPtr gwin;
-
     GLint glvp[4];
 
     glGetIntegerv(GL_VIEWPORT, glvp);
 
-    gwin = GLUTWindow::create();
-
-    gwin->setGlutId(winid           );
-    gwin->setSize(glvp[2], glvp[3]);
-
-    win = gwin;
+    win = GLUTWindow::create();
+    
+    win->setGlutId(winid           );
+    win->setSize(glvp[2], glvp[3]);
 
 //    win->addPort(vpScene);
     win->addPort(vpPlane);
