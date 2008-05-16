@@ -12,3 +12,6 @@ else:
         stop_traversal = False
     else:
         stop_traversal = True
+
+    if opts.GetOption('extra_warning_level').getValue() == 'gv':
+       stop_traversal = True
