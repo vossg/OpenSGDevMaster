@@ -44,9 +44,6 @@
 SUITE(ReferenceCountTests)
 {
 
-// TODO: XXX At the moment parent pointers are uncounted instead of weak, 
-//           so we skip the weak ref count checks for now
-
 TEST(BasicStructure)
 {
     // Basic case, two nodes, each with it's own core.
