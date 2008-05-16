@@ -41,8 +41,6 @@
 #include <OpenSG/OSGMatrix.h>
 #include <OpenSG/OSGQuaternion.h>
 
-#include <iostream>
-
 OSG_USING_NAMESPACE
 
 SUITE(MatrixTests)
@@ -101,28 +99,12 @@ TEST(MatrixDecomposition)
     mSO1_S1_SO1i = mSO1;
     mSO1_S1_SO1i.mult(mS1);
     mSO1_S1_SO1i.mult(mSO1i);
-   
-    std::cerr << "mSO1_S1_SO1i =\n" << mSO1_S1_SO1i << std::endl;
-    
+      
     // decompose m1 and build m2 from components
     m1.getTransform(vT2, qR2, vS2, qSO2);
-    
-    std::cerr << "vT1  = " << vT1 << "\n"
-              << "vS1  = " << vS1 << "\n"
-              << "qR1  = " << qR1 << "\n"
-              << "qSO1 = " << qSO1 << std::endl;
-    
-    std::cerr << "m1 =\n" << m1 << std::endl;
-    std::cerr << "vT2  = " << vT2 << "\n"
-              << "vS2  = " << vS2 << "\n"
-              << "qR2  = " << qR2 << "\n"
-              << "qSO2 = " << qSO2 << std::endl;
-    
+        
     m2.setTransform(vT2, qR2, vS2, qSO2);
-    
-    std::cerr << "m2 =\n" << m2 << std::endl;
-    
-    
+        
     Matrix4f mSO2;
     Matrix4f mSO2i;
     Matrix4f mS2;
@@ -140,9 +122,6 @@ TEST(MatrixDecomposition)
     mSO2_S2_SO2i.mult(mS2);
     mSO2_S2_SO2i.mult(mSO2i);
    
-    std::cerr << "mSO2_S2_SO2i =\n" << mSO2_S2_SO2i << std::endl;
-        
-    
     // test ||m1 - m2|| <= 1.0e-6
     m1.addScaled(m2, -1.0);
         
