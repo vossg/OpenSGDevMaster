@@ -575,7 +575,7 @@ bool Node::linkParent  (FieldContainer * const pParent,
             
             if(pOldParent != NULL)
             {
-                pOldParent->unlinkChild(this, ParentFieldId);
+                pOldParent->unlinkChild(this, ChildrenFieldId);
             }
             
             editSField(ParentFieldMask);
