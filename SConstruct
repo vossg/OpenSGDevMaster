@@ -966,7 +966,7 @@ if not SConsAddons.Util.hasHelpFlag():
                       '@VERSION@'          : opensg_version_string,
                       '@LIBRARY_UTIL_SRC@' : file(pj('Tools','scons-build','LibraryUtils.py')).read()}
             # Install two scripts so we have one with osg2 in the name to let users be sure they get the right version
-            for n in ["osg-config","osg2-config"]:
+            for n in ["osg2-config"]:
                osg_config = common_env.SubstBuilder(pj(paths['bin'],n),
                                                     'osg-config.in', submap=submap)
                common_env.AddPostAction(osg_config, Chmod('$TARGET', 0755))
