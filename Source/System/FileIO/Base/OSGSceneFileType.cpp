@@ -82,12 +82,11 @@ SceneFileType::SceneFileType(const Char8  *suffixArray[],
                                    UInt16  suffixByteCount,
                                    bool    override,
                                    UInt32  overridePriority,
-                                   UInt32  flags) :
-    _suffixList      (                ),
-    _override        (override        ),
-    _overridePriority(overridePriority),
-    _flags           (flags           ),
-    _options         (                )
+                                   UInt32  flags)
+    : Inherited        (flags           ),
+      _suffixList      (                ),
+      _override        (override        ),
+      _overridePriority(overridePriority)
 {
     FINFO(( "Init %s Scene File Type %d\n", suffixArray[0], this ));
 
@@ -110,11 +109,10 @@ SceneFileType::SceneFileType(const Char8  *suffixArray[],
 //---------------------------------------------------------
 
 SceneFileType::SceneFileType(const SceneFileType &obj) :
+    Inherited        (obj                  ),
     _suffixList      (obj._suffixList      ),
     _override        (obj._override        ),
-    _overridePriority(obj._overridePriority),
-    _flags           (obj._flags),
-    _options         (obj._options)
+    _overridePriority(obj._overridePriority)
 {
     SWARNING << "In SceneFileType copy constructor" << std::endl;
 }
@@ -126,23 +124,6 @@ SceneFileType::~SceneFileType(void)
 	if(GlobalSystemState != Shutdown)
         SceneFileHandler::the()->subSceneFileType(*this);
 #endif
-}
-
-//---------------------------------------------------------
-
-/*! Set the options string.
-* \param[in] options  String of options.
-*
-* The meaning of the options flags are specific to each loader but
-* most loaders use a general syntax of:
-*
-*  "enable_option  param_option=value"
-*
-* where the options can be in any order and whitespace is ignored.
-*/
-void SceneFileType::setOptions(const Char8 *options)
-{
-    _options = options;
 }
 
 //---------------------------------------------------------
@@ -186,23 +167,6 @@ bool SceneFileType::doOverride(void)
 UInt32 SceneFileType::getOverridePriority(void)
 {
     return _overridePriority;
-}
-
-//---------------------------------------------------------
-
-UInt32 SceneFileType::getFlags(void)
-{
-    return _flags;
-}
-
-//---------------------------------------------------------
-
-/** Return the current options string for the loader.
- * \see setOptions
- */
-const Char8 *SceneFileType::getOptions(void)
-{
-    return _options.c_str();
 }
 
 //---------------------------------------------------------

@@ -41,6 +41,7 @@
 
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
+#include "OSGIOFileTypeBase.h"
 #include "OSGNode.h"
 
 #include <iostream>
@@ -51,12 +52,12 @@ OSG_BEGIN_NAMESPACE
 class OSG_FILEIO_DLLMAPPING OSBDriver
 {
   public:
-    static NodeTransitPtr read (      std::istream &inStream,
-                                const std::string  &options   );
+    static NodeTransitPtr read (      std::istream              &inStream,
+                                const IOFileTypeBase::OptionSet &options   );
 
-    static bool           write(Node         * const  node,
-                                std::ostream         &outStream,
-                                std::string    const &options   );
+    static bool           write(      Node              * const  node,
+                                      std::ostream              &outStream,
+                                const IOFileTypeBase::OptionSet &options   );
 };
 
 OSG_END_NAMESPACE

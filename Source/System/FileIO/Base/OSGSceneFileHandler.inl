@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2007 by the OpenSG Forum                    *
+ *                   Copyright (C) 2008 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,77 +36,66 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGOSBDriver.h"
+OSG_BEGIN_NAMESPACE
 
-#include "OSGOSBElementFactory.h"
-#include "OSGOSBRootElement.h"
-
-OSG_USING_NAMESPACE
-
-/*-------------------------------------------------------------------------*/
-/* OSBDriver                                                              */
-/*-------------------------------------------------------------------------*/
-
-/*! \class OSG::OSBDriver
-    This is the interface used by OSG::NFIOSceneFileType to access the
-    functionality of the OSB IO (OpenSG Binary IO) subsystem.
+/*! Attempts to set option \a name to \a value for the SceneFileHandler that
+    handles files with the given \a suffix.
+    If successful \c true is returned, false otherwise.
+    For the operation to succeed a \c boost::lexical_cast<> from the given type
+    has to succeed, usually that means an appropriate overload of
+    \c operator<< has to be available.
+    
+    \param[in] suffix File extension to choose the scene file type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \param[in] value Value of the option.
+    \return Whether the value was set successfully.
  */
-
-/*! Reads from \a inStream which must provide access to an ".osb" file.
-
-    \param[in] inStream Stream to read data from.
-    \param[in] optionStr String that holds the options for the read operation.
-
-    \return On success a Node * to the root of the read scene,
-     NULL otherwise.
- */
-NodeTransitPtr OSBDriver::read(      std::istream              &inStream, 
-                               const IOFileTypeBase::OptionSet &options  )
+template <class ValueTypeT>
+inline bool
+    SceneFileHandlerBase::setOptionAs(
+        const std::string &suffix,
+        const std::string &name,
+        const ValueTypeT  &value  )
 {
-    NodeTransitPtr  node(NULL);
-    OSBRootElement *root = dynamic_cast<OSBRootElement *>(
-        OSBElementFactory::the()->acquire("RootElement", 0));
-
-    root->initialiseRead(inStream);
-    root->editOptions   (        ).init(options);
-
-    root->read    ("");
-    root->postRead(  );
-
-    node = dynamic_cast<Node *>(root->getContainer());
-
-    root->terminateRead();
-
-    OSBElementFactory::the()->release(root);
-
-    return node;
+    bool           retVal = false;
+    SceneFileType *type   = getFileType(suffix.c_str());
+    
+    if(type != NULL)
+    {
+        retVal = type->setOptionAs<ValueTypeT>(name, value);
+    }
+    
+    return retVal;
 }
 
-/*! Writes the scene with root \a node to \a outStream in OSB format.
-
-    \param[in] node Root of scene to write.
-    \param[in] outStream Stream to write data to.
-    \param[in] optionStr String that holds the options for the write operation.
-
-    \return true.
-    \todo Should only return true if write was successful.
+/*! Retrieves the option \a name from the SceneFileType that handles files
+    with the given \a suffix and stores its value in \a value.
+    Returns \c true if successful, \c false otherwise in which case \a value has
+    an undefined value.
+    
+    \param[in] suffix File extension to choose the scene file type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \param[out] value Value the option.
+    \return Whether the option is present for the given SceneFileType.
  */
-bool OSBDriver::write(      Node              * const  node, 
-                            std::ostream              &outStream, 
-                      const IOFileTypeBase::OptionSet &options   )
+template <class ValueTypeT>
+inline bool 
+    SceneFileHandlerBase::getOptionAs(
+        const std::string &suffix,
+        const std::string &name,
+              ValueTypeT  &value  )
 {
-    OSBRootElement *root = dynamic_cast<OSBRootElement *>(
-        OSBElementFactory::the()->acquire("RootElement", 0));
-
-    root->initialiseWrite(outStream);
-    root->editOptions    (         ).init(options);
-
-    root->preWrite(node);
-    root->write   (    );
-
-    root->terminateWrite();
-
-    OSBElementFactory::the()->release(root);
-
-    return true;
+    bool           retVal = false;
+    SceneFileType *type   = getFileType(suffix.c_str());
+    
+    if(type != NULL)
+    {
+        retVal = type->getOptionAs<ValueTypeT>(name, value);
+    }
+    
+    return retVal;
 }
+
+OSG_END_NAMESPACE

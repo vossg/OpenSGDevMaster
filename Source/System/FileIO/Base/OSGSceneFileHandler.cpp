@@ -534,41 +534,88 @@ void SceneFileHandlerBase::setDefaultGraphOp(GraphOpSeq *graphOpSeq)
     setRefd(_defaultgraphOpSeq, graphOpSeq);
 }
 
-/*! Set the options for the loader of the given file type.
-* \param[in] suffix  A valid suffix for getFileType.
-* \param[in] options  The new set of options to use.
-* \see SceneFileType::setOptions
-*/
-bool SceneFileHandlerBase::setOptions(const Char8 *suffix,
-                                      const Char8 *options)
+/*-------------------------------------------------------------------------*/
+/* Options                                                                 */
+
+/*! Sets the option \a name to \a value for the SceneFileType that handles
+    files with the given \a suffix.
+    Returns \c true if the option was set successfully, \c false otherwise. 
+    
+    \param[in] suffix File extension to choose the scene file type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \param[in] value Value of the option.
+    \return Whether the value was set successfully.
+ */
+bool
+    SceneFileHandlerBase::setOption(
+        const std::string &suffix,
+        const std::string &name,
+        const std::string &value  )
 {
-    if(suffix == NULL)
-        return false;
-
-    SceneFileType *type = getFileType(suffix);
-
-    if(type == NULL)
-        return false;
-
-    type->setOptions(options);
-
-    return true;
+    bool           retVal = false;
+    SceneFileType *type   = getFileType(suffix.c_str());
+    
+    if(type != NULL)
+    {
+        type->setOption(name, value);
+        retVal = true;
+    }
+    
+    return retVal;    
 }
 
-/*! Return the current options for the loader of the given file type.
-* \param[in] suffix  A valid suffix for getFileType.
-*/
-const Char8 *SceneFileHandlerBase::getOptions(const Char8 *suffix)
+/*! Removes the option \a name from the ImageFileType that handles files
+    with the given \a suffix. If the option is not present \c false is
+    returned, \c true otherwise.
+
+    \param[in] suffix File extension to choose the scene file type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \return Whether the option was successfully removed.
+ */
+bool
+    SceneFileHandlerBase::unsetOption(
+        const std::string &suffix,
+        const std::string &name   )
 {
-    if(suffix == NULL)
-        return NULL;
+    bool           retVal = false;
+    SceneFileType *type   = getFileType(suffix.c_str());
+    
+    if(type != NULL)
+    {
+        retVal = type->unsetOption(name);
+    }
+    
+    return retVal;
+}
 
-    SceneFileType *type = getFileType(suffix);
-
-    if(type == NULL)
-        return NULL;
-
-    return type->getOptions();
+/*! Retrieves the option \a name from the SceneFileType that handles files
+    with the given \a suffix and stores its value in \a value.
+    Returns \c true if successful, \c false otherwise in which case \a value has
+    an undefined value.
+    
+    \param[in] suffix File extension to choose the scene file type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \param[out] value Value the option.
+    \return Whether the option is present for the given SceneFileType.
+ */
+bool
+    SceneFileHandlerBase::getOption(
+        const std::string &suffix,
+        const std::string &name,
+              std::string &value  )
+{
+    bool           retVal = false;
+    SceneFileType *type   = getFileType(suffix.c_str());
+    
+    if(type != NULL)
+    {
+        retVal = type->getOption(name, value);
+    }
+    
+    return retVal;
 }
 
 void SceneFileHandlerBase::print (void )

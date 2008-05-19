@@ -92,15 +92,15 @@ NFIOOptions::~NFIOOptions(void)
 void NFIOOptions::init(const std::string &options)
 {
     // init default parameters
-    _inlineTextures = true;
-    _compressTextures = false;
+    _inlineTextures             = true;
+    _compressTextures           = false;
     _texturesCompressionQuality = 75;
-    _texturesImageType = "jpeg",
-    _quantizePositions = Quantizer::QRES_OFF;
-    _quantizeNormals = Quantizer::QRES_OFF;
-    _quantizeTexCoords = Quantizer::QRES_OFF;
-    _packIndices = false;
-    _unpack16BitIndices = false;
+    _texturesImageType          = "jpeg",
+    _quantizePositions          = Quantizer::QRES_OFF;
+    _quantizeNormals            = Quantizer::QRES_OFF;
+    _quantizeTexCoords          = Quantizer::QRES_OFF;
+    _packIndices                = false;
+    _unpack16BitIndices         = false;
     
     std::string option;
     std::string::size_type i = 0;
@@ -160,6 +160,53 @@ void NFIOOptions::init(const std::string &options)
         _unpack16BitIndices = true;
     if(options.find("unpack16BitIndices=false") != std::string::npos)
         _unpack16BitIndices = false;
+}
+
+void NFIOOptions::init(const OptionSet &options)
+{
+    // init default parameters
+    _inlineTextures             = true;
+    _compressTextures           = false;
+    _texturesCompressionQuality = 75;
+    _texturesImageType          = "jpeg",
+    _quantizePositions          = Quantizer::QRES_OFF;
+    _quantizeNormals            = Quantizer::QRES_OFF;
+    _quantizeTexCoords          = Quantizer::QRES_OFF;
+    _packIndices                = false;
+    _unpack16BitIndices         = false;
+    
+    OptionSet::const_iterator oIt  = options.begin();
+    OptionSet::const_iterator oEnd = options.end  ();
+    
+    for(; oIt != oEnd; ++oIt)
+    {
+        if(oIt->first == "inlineTextures")
+            _inlineTextures = getBoolOption(oIt->second);
+        
+        if(oIt->first == "compressTextures")
+            _compressTextures = getBoolOption(oIt->second);
+            
+        if(oIt->first == "texturesCompressionQuality")
+            _texturesCompressionQuality = getValue<UInt32>(oIt->second, 75);
+            
+        if(oIt->first == "texturesImageType")
+            _texturesImageType = getValue<std::string>(oIt->second, "jpeg");
+            
+        if(oIt->first == "quantizePositions")
+            _quantizePositions = getQuantizeOption(oIt->second);
+
+        if(oIt->first == "quantizeNormals")
+            _quantizeNormals = getQuantizeOption(oIt->second);
+            
+        if(oIt->first == "quantizeTexCoords")
+            _quantizeTexCoords = getQuantizeOption(oIt->second);
+            
+        if(oIt->first == "packIndices")
+            _packIndices = getBoolOption(oIt->second);
+            
+        if(oIt->first == "unpack16BitIndices")
+            _unpack16BitIndices = getBoolOption(oIt->second);
+    }
 }
 
 /*------------------------------ options--- -------------------------------*/
@@ -234,4 +281,62 @@ std::string NFIOOptions::getString(const std::string &str)
         rstr += str[i++];
     }
     return rstr;
+}
+
+bool NFIOOptions::getBoolOption(const IOOption &option)
+{
+    bool retVal = true;
+
+    if(!option.optValue.empty())
+    {
+        try
+        {
+            retVal = boost::lexical_cast<bool>(option.optValue);
+        }
+        catch(boost::bad_lexical_cast &)
+        {
+            retVal = false;
+        }
+    }
+    
+    return retVal;
+}
+
+UInt8 NFIOOptions::getQuantizeOption(const IOOption &option)
+{
+    UInt8 retVal = Quantizer::QRES_OFF;
+    
+    if(!option.optValue.empty())
+    {
+        UInt8 quanRes;
+    
+        try
+        {
+            quanRes = boost::lexical_cast<UInt8>(option.optValue);
+        }
+        catch(boost::bad_lexical_cast &)
+        {
+            quanRes = Quantizer::QRES_OFF;
+        }
+        
+        switch(quanRes)
+        {
+        case 0:     retVal = Quantizer::QRES_OFF;
+                    break;
+                    
+        case 8:     retVal = Quantizer::QRES_8BIT;
+                    break;
+                    
+        case 16:    retVal = Quantizer::QRES_16BIT;
+                    break;
+                    
+        case 24:    retVal = Quantizer::QRES_24BIT;
+                    break;
+                    
+        default:    retVal = Quantizer::QRES_OFF;
+                    break;
+        }
+    }
+    
+    return retVal;
 }

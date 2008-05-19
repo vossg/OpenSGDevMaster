@@ -168,12 +168,27 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Options                                    */
+    /*! \name Options                                                      */
     /*! \{                                                                 */
 
-    virtual       bool   setOptions(const Char8 *suffix, 
-                                    const Char8 *options);
-    virtual const Char8 *getOptions(const Char8 *suffix);
+    template <class ValueTypeT>
+    bool              setOptionAs(const std::string &suffix,
+                                  const std::string &name,
+                                  const ValueTypeT  &value  );
+    bool              setOption  (const std::string &suffix,
+                                  const std::string &name,
+                                  const std::string &value  );
+    
+    bool              unsetOption(const std::string &suffix,
+                                  const std::string &name   );
+    
+    template <class ValueTypeT>
+    bool              getOptionAs(const std::string &suffix,
+                                  const std::string &name,
+                                        ValueTypeT  &value  );
+    bool              getOption  (const std::string &suffix,
+                                  const std::string &name,
+                                        std::string &value  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -276,5 +291,7 @@ typedef SingletonHolder<SceneFileHandlerBase> SceneFileHandler;
 typedef SceneFileHandler* SceneFileHandlerP;
 
 OSG_END_NAMESPACE
+
+#include "OSGSceneFileHandler.inl"
 
 #endif // OSGIMAGEFILEHANDLER_CLASS_DECLARATION

@@ -113,23 +113,6 @@ const Char8 *ImageFileType::getMimeType(void) const
 }
 
 //-------------------------------------------------------------------------
-/*! Get method for the flags indicating read/write support. Most image types
-    only support reading.
-*/
-
-UInt32 ImageFileType::getFlags(void) const
-{
-    return _flags;
-}
-
-//-------------------------------------------------------------------------
-
-const Char8 *ImageFileType::getOptions(void)
-{
-    return _options.c_str();
-}
-
-//-------------------------------------------------------------------------
 
 bool ImageFileType::read(Image *pImage, const Char8 *fileName)
 {
@@ -225,9 +208,11 @@ ImageFileType::ImageFileType(const char   *mimeType,
                              const Char8  *suffixArray[], 
                                    UInt16  suffixByteCount,
                                    UInt32  flags)
+
+    : Inherited(flags)
 {
     Int32 suffixCount = suffixByteCount / sizeof(const Char8 *);
-    Int32 i = 0;
+    Int32 i           = 0;
     std::list<std::string>::iterator sI;
 
     if (!mimeType) 
@@ -244,9 +229,7 @@ ImageFileType::ImageFileType(const char   *mimeType,
         sI->assign(suffixArray[i++]);
         SINFO << "add image suffix: " << *sI << endLog;
     }
-
-    _flags = flags;
-    
+        
     ImageFileHandler::the()->addImageFileType(*this);
 }
 
@@ -256,13 +239,6 @@ ImageFileType::ImageFileType(const char   *mimeType,
 
 ImageFileType::~ImageFileType(void)
 {
-}
-
-//-------------------------------------------------------------------------
-
-void ImageFileType::setOptions(const Char8 *options)
-{
-    _options = options;
 }
 
 //-------------------------------------------------------------------------
@@ -307,9 +283,9 @@ UInt64 ImageFileType::restore(      Image  *pImage,
     unsigned long   imageSize, headSize = sizeof(Head);
     unsigned long   size = 0, attachmentSize;
     Head            head;
-    const UChar8    *data = buffer ? (buffer + headSize) : 0;
-    ImageFileType   *type;
-    std::string      mimeType;
+    const UChar8   *data = buffer ? (buffer + headSize) : 0;
+    ImageFileType  *type;
+    std::string     mimeType;
     Image::Type     dataType;
 
     if((pImage != NULL) && (buffer != NULL) && (memSize >= headSize))

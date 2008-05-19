@@ -122,11 +122,15 @@ bool VRMLSceneFileType::write(Node         * const  node,
     VRMLWriteAction *pWriter = VRMLWriteAction::create();
 
     // parse options
-    if(_options.find("inlineTextures=true") != std::string::npos)
-        pWriter->addOptions(VRMLWriteAction::OSGPixelTextures);
-    else if(_options.find("inlineTextures=false") != std::string::npos)
-        pWriter->subOptions(VRMLWriteAction::OSGPixelTextures);
-
+    bool inlineTex = false;
+    if(getOptionAs<bool>("inlineTextures", inlineTex))
+    {
+        if(inlineTex)
+            pWriter->addOptions(VRMLWriteAction::OSGPixelTextures);
+        else
+            pWriter->subOptions(VRMLWriteAction::OSGPixelTextures);
+    }
+    
     pWriter->open(fileNameOrExtension);
 
     pWriter->write(node);

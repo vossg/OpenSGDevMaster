@@ -42,9 +42,11 @@
 #pragma once
 #endif
 
-#include <string>
-
 #include "OSGBaseTypes.h"
+#include "OSGIOFileTypeBase.h"
+
+#include <string>
+#include <boost/lexical_cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -56,7 +58,14 @@ class NFIOOptions
 {
     /*==========================  PUBLIC  =================================*/
   public:
-
+    /*---------------------------------------------------------------------*/
+    /*! \name Public Types                                                 */
+    /*! \{                                                                 */
+    
+    typedef IOFileTypeBase::IOOption  IOOption;
+    typedef IOFileTypeBase::OptionSet OptionSet;
+    
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructor                                 */
     /*! \{                                                                 */
@@ -76,6 +85,7 @@ class NFIOOptions
     /*! \{                                                                 */
   
     void init(const std::string &options);
+    void init(const OptionSet   &options);
   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -104,6 +114,13 @@ private:
     Int32       getInteger(const std::string &str);
     std::string getString (const std::string &str);
 
+    bool        getBoolOption    (const IOOption   &option);
+    UInt8       getQuantizeOption(const IOOption   &option);
+    
+    template <class ValueTypeT>
+    ValueTypeT  getValue         (const IOOption   &option,
+                                  const ValueTypeT &defaultValue);
+    
     bool        _inlineTextures;
     bool        _compressTextures;
     UInt32      _texturesCompressionQuality;
@@ -118,5 +135,7 @@ private:
 };
 
 OSG_END_NAMESPACE
+
+#include "OSGNFIOOptions.inl"
 
 #endif /* _OSGNFIOOPTIONS_H_ */

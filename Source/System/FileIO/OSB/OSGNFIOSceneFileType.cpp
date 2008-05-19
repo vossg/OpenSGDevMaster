@@ -97,7 +97,7 @@ NFIOSceneFileType::~NFIOSceneFileType(void)
  */
 NodeTransitPtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
 {
-    return OSBDriver::read(is, _options);
+    return OSBDriver::read(is, getOptions());
 }
 
 #ifdef __sgi
@@ -118,7 +118,7 @@ bool NFIOSceneFileType::write(Node         * const  node,
                               std::ostream         &os,
                               Char8          const *     ) const
 {
-    return OSBDriver::write(node, os, _options);
+    return OSBDriver::write(node, os, getOptions());
 }
 
 /*-------------------------------------------------------------------------*/

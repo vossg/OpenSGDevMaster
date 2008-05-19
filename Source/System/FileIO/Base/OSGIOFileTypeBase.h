@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2000 by the OpenSG Forum                    *
+ *                   Copyright (C) 2008 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,134 +36,117 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSCENEFILETYPE_H_
-#define _OSGSCENEFILETYPE_H_
-#ifdef  __sgi
-#pragma  once
+#ifndef _OSGIOFILETYPEBASE_H_
+#define _OSGIOFILETYPEBASE_H_
+#ifdef __sgi
+#pragma once
 #endif
 
-#include "OSGIOFileTypeBase.h"
+#include "OSGConfig.h"
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
-#include "OSGIDString.h"
-#include "OSGNode.h"
+#include "OSGLog.h"
 
-#include <list>
-#include <iostream>
+#include <boost/lexical_cast.hpp>
+#include <map>
+#include <stack>
 #include <string>
 
 OSG_BEGIN_NAMESPACE
 
-/*!\ingroup GrpSystemDrawablesGeometrymetryLoaderLib
- * \brief OSGSceneFileType
- */
-
-class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
+class OSG_SYSTEM_DLLMAPPING IOFileTypeBase
 {
     /*==========================  PUBLIC  =================================*/
   public:
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
-
-    typedef IOFileTypeBase Inherited;
-    typedef SceneFileType  Self;
+    
+    typedef IOFileTypeBase Self;
+    
+    enum
+    {
+        OSG_READ_SUPPORTED  = 1,  /**< The file type supports reading. */
+        OSG_WRITE_SUPPORTED = 2   /**< The file type supports writing. */
+    };
+    
+    struct IOOption
+    {
+        IOOption(void                                             );
+        IOOption(const IOOption    &other                         );
+        IOOption(const std::string &name, const std::string &value);
+    
+        std::string optName;
+        std::string optValue;
+    };
+  
+    typedef std::map  <std::string, IOOption> OptionSet;
+    typedef std::stack<OptionSet            > OptionStack;
+  
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Flags                                                        */
+    /*! \{                                                                 */
+    
+    UInt32 getFlags(void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Class Get                                  */
+    /*! \name Option Handling                                              */
     /*! \{                                                                 */
-
-    virtual const Char8 *getName(void) const = 0;
     
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~SceneFileType(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
-    /*! \{                                                                 */
-
-    virtual std::list<IDString> &suffixList         (void);
-
-            bool                 doOverride         (void);
-            UInt32               getOverridePriority(void);
+    void              pushOptions(bool               copyTop = true);
+    void              popOptions (void                             );
     
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
-    /*! \{                                                                 */
-
-    virtual NodeTransitPtr read    (std::istream &is,
-                                    const Char8  *fileNameOrExtension) const;
-
-#ifndef OSG_DISABLE_DEPRECATED
-    virtual NodeTransitPtr readFile(const Char8 *fileName) const;
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
-    /*! \{                                                                 */
-
-    virtual bool write    (Node *       const  node,
-                           std::ostream       &os,
-                           Char8        const *fileNameOrExtension) const;
-
-#ifndef OSG_DISABLE_DEPRECATED
-    virtual bool writeFile(Node *       const  node,
-                           Char8        const *fileName           ) const;
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Debug                                      */
-    /*! \{                                                                 */
-
-    void print(void);
-
+    OptionSet const  &getOptions (void                             ) const;
+    OptionSet        &editOptions(void                             );
+    
+    bool              hasOption  (const std::string &name          ) const;
+                                  
+    template <class ValueTypeT>
+    bool              setOptionAs(const std::string &name,
+                                  const ValueTypeT  &value         );
+    void              setOption  (const std::string &name,
+                                  const std::string &value         );
+                                  
+    bool              unsetOption(const std::string &name          );
+                                  
+    template <class ValueTypeT>
+    bool              getOptionAs(const std::string &name,
+                                        ValueTypeT  &value         ) const;
+    bool              getOption  (const std::string &name,
+                                        std::string &value         ) const;
+        
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
   protected:
-
     /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
+    /*! \name Constructors                                                 */
     /*! \{                                                                 */
-
-    std::list<IDString> _suffixList;   /*! List of valid suffixes for this loader. */
-
-    bool                _override;           /*! If true loader can override others. */
-    UInt32              _overridePriority;   /*! The priority for overriding. */
-
+  
+    IOFileTypeBase(UInt32 const  flags);
+    IOFileTypeBase(Self   const &other);
+    
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructor                                                   */
+    /*! \{                                                                 */
+    
+    virtual ~IOFileTypeBase(void);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name Members                                                      */
     /*! \{                                                                 */
-
-    SceneFileType(const Char8  *suffixArray[],
-                        UInt16  suffixByteCount,
-                        bool    override,
-                        UInt32  overridePriority,
-                        UInt32  flags = OSG_READ_SUPPORTED);
-
-    SceneFileType(const SceneFileType &obj);
-
+    
+    UInt32       _flags;
+    OptionStack  _optStack;
+    
     /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-
-  private:
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const SceneFileType &source);
+    /*---------------------------------------------------------------------*/
 };
-
-typedef SceneFileType* SceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGSCENEFILETYPE_H_
+#include "OSGIOFileTypeBase.inl"
+
+#endif // _OSGIOFILETYPEBASE_H_

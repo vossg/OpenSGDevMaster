@@ -41,6 +41,7 @@
 
 #include <list>
 
+#include "OSGIOFileTypeBase.h"
 #include "OSGImage.h"
 
 OSG_BEGIN_NAMESPACE
@@ -49,13 +50,18 @@ OSG_BEGIN_NAMESPACE
 all concrete ImageFileTypes. See \ref PageSystemImage for detailed description.
 */
 
-class OSG_SYSTEM_DLLMAPPING ImageFileType 
+class OSG_SYSTEM_DLLMAPPING ImageFileType : public IOFileTypeBase
 {
-
-    /*==========================  PUBLIC  =================================*/
-    
+    /*==========================  PUBLIC  =================================*/   
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Public Types                                                 */
+    /*! \{                                                                 */
     
+    typedef IOFileTypeBase Inherited;
+    typedef ImageFileType  Self;
+    
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Flags                                    */
     /*! \{                                                                 */
@@ -72,14 +78,7 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
     /*! \{                                                                 */
 
     virtual ~ImageFileType(void);
-
-     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Set                                        */
-    /*! \{                                                                 */
     
-    void setOptions(const Char8 *options);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Get  Methods                              */
@@ -89,10 +88,6 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
 
     const std::list<std::string> &getSuffixList(void) const;
     
-    virtual    UInt32             getFlags     (void) const;
-
-    const      Char8             *getOptions   (void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Read/Write                                 */
@@ -198,8 +193,6 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
         bool hostToNet(void);
     };
 
-    std::string _options;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Default Constructor                           */
@@ -226,8 +219,6 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
     std::list<std::string> _suffixList;
 
          IDString          _mimeType;
-
-         UInt32            _flags;
 };
 
 typedef ImageFileType *ImageFileTypeP;

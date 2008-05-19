@@ -543,35 +543,87 @@ void ImageFileHandlerBase::setPathHandler(PathHandler *pPathHandler)
     _pPathHandler = pPathHandler;
 }
 
-bool ImageFileHandlerBase::setOptions(const Char8 *suffix, 
-                                      const Char8 *options)
+/*! Sets the option \a name to \a value for the ImageFileType that handles
+    files with the given \a suffix.
+    Returns \c true if the option was set successfully, \c false otherwise. 
+    
+    \param[in] suffix File extension to choose the image type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \param[in] value Value of the option.
+    \return Whether the value was set successfully.
+ */
+bool
+    ImageFileHandlerBase::setOption(
+        const std::string &suffix,
+        const std::string &name,
+        const std::string &value  )
 {
-    if(suffix == NULL)
-        return false;
+    bool           retVal = false;
+    ImageFileType *type   = getFileType(suffix.c_str());
     
-    ImageFileType *type = getFileType(suffix);
-
-    if(type == NULL)
-        return false;
+    if(type != NULL)
+    {
+        type->setOption(name, value);
+        retVal = true;
+    }
     
-    type->setOptions(options);
-    
-    return true;
+    return retVal;    
 }
 
-const Char8 *ImageFileHandlerBase::getOptions(const Char8 *suffix)
+/*! Removes the option \a name from the ImageFileType that handles files
+    with the given \a suffix. If the option is not present \c false is
+    returned, \c true otherwise.
+
+    \param[in] suffix File extension to choose the image file type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \return Whether the option was successfully removed.
+ */
+bool
+    ImageFileHandlerBase::unsetOption(
+        const std::string &suffix,
+        const std::string &name   )
 {
-    if(suffix == NULL)
-        return NULL;
+    bool           retVal = false;
+    ImageFileType *type   = getFileType(suffix.c_str());
     
-    ImageFileType *type = getFileType(suffix);
+    if(type != NULL)
+    {
+        retVal = type->unsetOption(name);
+    }
     
-    if(type == NULL)
-        return NULL;
-    
-    return type->getOptions();
+    return retVal;
 }
 
+/*! Retrieves the option \a name from the ImageFileType that handles files
+    with the given \a suffix and stores its value in \a value.
+    Returns \c true if successful, \c false otherwise in which case \a value has
+    an undefined value.
+    
+    \param[in] suffix File extension to choose the image type
+                      this option applies to.
+    \param[in] name Name of the option.
+    \param[out] value Value the option.
+    \return Whether the option is present for the given ImageFileType.
+ */
+bool
+    ImageFileHandlerBase::getOption(
+        const std::string &suffix,
+        const std::string &name,
+              std::string &value  )
+{
+    bool           retVal = false;
+    ImageFileType *type   = getFileType(suffix.c_str());
+    
+    if(type != NULL)
+    {
+        retVal = type->getOption(name, value);
+    }
+    
+    return retVal;
+}
+    
 //-------------------------------------------------------------------------
 /*! Tries to restore the raster data from
     the given memblock into the given Image. 
