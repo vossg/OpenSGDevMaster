@@ -188,10 +188,16 @@ typedef EditFieldHandlePtr(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod )(
     UInt32) const;
 
-template<class TargetT, class SourceT>
+template <class TargetT, class SourceT>
 TargetT *dynamic_pointer_cast(SourceT *pIn)
 {
     return dynamic_cast<TargetT *>(pIn);
+}
+
+template <class TargetT, class SourceT>
+TargetT *static_pointer_cast(SourceT *pIn)
+{
+    return static_cast<TargetT *>(pIn);
 }
 
 namespace FCLocal
