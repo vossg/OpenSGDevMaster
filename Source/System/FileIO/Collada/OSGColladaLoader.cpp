@@ -60,6 +60,63 @@
 #include "dae.h"
 #include "modules/daeSTLDatabase.h"
 #include "dom/domCOLLADA.h"
+
+namespace
+{
+
+// The following functions are adapted from COLLADA DOM 2.1 functions of the
+// same name. The code from COLLADA DOM is released under the terms of the
+// SCEA shared source license 1.0. More information about this license and
+// its terms can be found at the following page:
+//
+//    http://www.collada.org/mediawiki/index.php/COLLADA_FAQ
+//
+// The full text of the SCEA shared source license can be found with the
+// COLLADA DOM source code.
+
+std::string replace(const std::string& s, const std::string& replace,
+                    const std::string& replaceWith)
+{
+    if (replace.empty())
+    {
+        return s;
+    }
+
+    std::string result;
+    size_t pos1 = 0, pos2 = s.find(replace);
+    while (pos2 != std::string::npos)
+    {
+        result += s.substr(pos1, pos2-pos1);
+        result += replaceWith;
+        pos1 = pos2 + replace.length();
+        pos2 = s.find(replace, pos1);
+    }
+
+    result += s.substr(pos1, s.length()-pos1);
+    return result;
+}
+
+std::string nativePathToUri(const std::string& nativePath)
+{
+    std::string uri = nativePath;
+
+#ifdef WIN32
+    // Convert "c:\" to "/c:/"
+    if (uri.length() >= 2  &&  isalpha(uri[0])  &&  uri[1] == ':')
+    {
+        uri.insert(0, "/");
+    }
+    // Convert backslashes to forward slashes
+    uri = replace(uri, "\\", "/");
+#endif
+
+    // Convert spaces to %20
+    uri = replace(uri, " ", "%20");
+
+    return uri;
+}
+
+}
 #endif
 
 OSG_USING_NAMESPACE
@@ -144,7 +201,7 @@ NodeTransitPtr ColladaLoader::read(      std::istream  &is,
 
     initColladaIntegration();
   
-    Int32 iError = pInput->load(szFileName);
+    Int32 iError = pInput->load(nativePathToUri(szFileName).c_str());
 
     if(iError != DAE_OK)
     {
