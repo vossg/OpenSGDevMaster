@@ -61,8 +61,10 @@ CoredNodeRefPtr<CoreT>::CoredNodeRefPtr(Node *pNode) :
     _pNode(),
     _pCore()
 {
-    setNode(pNode                                   );
-    setCore(dynamic_cast<CorePtr>(_pNode->getCore()));
+    setNode(pNode);
+    
+    if(pNode != NULL)
+        setCore(dynamic_cast<CorePtr>(_pNode->getCore()));
 }
 
 template<class CoreT> inline
@@ -92,6 +94,16 @@ CoredNodeRefPtr<CoreT>::CoredNodeRefPtr(Self const &pCore) :
 {
     setCore(pCore._pCore);
     setNode(pCore._pNode);
+}
+
+template<class CoreT> inline
+CoredNodeRefPtr<CoreT>::CoredNodeRefPtr(CoreTransitPtr pCore) : 
+    _pNode(),
+    _pCore()
+{
+    _pCore = pCore;
+
+    updateNode();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -217,6 +229,18 @@ inline typename CoredNodeRefPtr<CoreT>::Self &
     return *this;
 }
 
+template<class CoreT>
+inline typename CoredNodeRefPtr<CoreT>::Self &
+    CoredNodeRefPtr<CoreT>::operator =(CoreTransitPtr pCore)
+{
+    if(_pCore != pCore)
+        _pCore = pCore;
+
+    updateNode();
+
+    return *this;
+}
+
 /*-------------------------------------------------------------------------*/
 /* Access                                                                  */
 
@@ -305,6 +329,16 @@ CoredNodeMTRefPtr<CoreT>::CoredNodeMTRefPtr(Self const &pCore) :
 {
     setCore(pCore._pCore);
     setNode(pCore._pNode);
+}
+
+template<class CoreT> inline
+CoredNodeMTRefPtr<CoreT>::CoredNodeMTRefPtr(CoreTransitPtr pCore) : 
+    _pNode(),
+    _pCore()
+{
+    _pCore = pCore;
+
+    updateNode();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -426,6 +460,18 @@ typename CoredNodeMTRefPtr<CoreT>::Self &
 {
     setNode(pCNRP._pNode);
     setCore(pCNRP._pCore);
+
+    return *this;
+}
+
+template<class CoreT>
+inline typename CoredNodeMTRefPtr<CoreT>::Self &
+    CoredNodeMTRefPtr<CoreT>::operator =(CoreTransitPtr pCore)
+{
+    if(_pCore != pCore)
+        _pCore = pCore;
+
+    updateNode();
 
     return *this;
 }

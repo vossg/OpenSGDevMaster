@@ -62,12 +62,13 @@ class CoredNodeRefPtr
     /*! \name Types                                                        */
     /*! \{                                                                 */
   
-    typedef CoreT                     Core;
-    typedef CoredNodeRefPtr           Self;
+    typedef CoreT                         Core;
+    typedef CoredNodeRefPtr               Self;
     
-    typedef          Core            *CorePtr;
-    typedef typename Core::ObjRecPtr  CoreRefPtr;
-    
+    typedef          Core                *CorePtr;
+    typedef typename Core::ObjRecPtr      CoreRefPtr;
+    typedef typename Core::ObjTransitPtr  CoreTransitPtr;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -78,7 +79,7 @@ class CoredNodeRefPtr
     explicit CoredNodeRefPtr(Node              *pNode);
     explicit CoredNodeRefPtr(NodeCore          *pCore);
     explicit CoredNodeRefPtr(CorePtr            pCore);
-     
+    explicit CoredNodeRefPtr(CoreTransitPtr     pCore);
    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,9 +116,10 @@ class CoredNodeRefPtr
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(Node          *pNode);
-    Self &operator =(CorePtr        pCore);
-    Self &operator =(Self    const &pCNRP);
+    Self &operator =(Node           *pNode);
+    Self &operator =(CorePtr         pCore);
+    Self &operator =(CoreTransitPtr  pCore);
+    Self &operator =(Self    const  &pCNRP);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/ 
@@ -154,11 +156,12 @@ class CoredNodeMTRefPtr
     /*! \name Types                                                        */
     /*! \{                                                                 */
   
-    typedef CoreT                       Core;
-    typedef CoredNodeMTRefPtr           Self;
+    typedef CoreT                         Core;
+    typedef CoredNodeMTRefPtr             Self;
     
-    typedef          Core              *CorePtr;
-    typedef typename Core::ObjMTRefPtr  CoreMTRefPtr;
+    typedef          Core                *CorePtr;
+    typedef typename Core::ObjMTRefPtr    CoreMTRefPtr;
+    typedef typename Core::ObjTransitPtr  CoreTransitPtr;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -170,7 +173,8 @@ class CoredNodeMTRefPtr
     explicit CoredNodeMTRefPtr(Node              *pNode);
     explicit CoredNodeMTRefPtr(NodeCore          *pCore);
     explicit CoredNodeMTRefPtr(CorePtr            pCore);
-     
+    explicit CoredNodeMTRefPtr(CoreTransitPtr     pCore);
+ 
    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -209,6 +213,7 @@ class CoredNodeMTRefPtr
     
     Self &operator =(Node          *pNode);
     Self &operator =(CorePtr        pCore);
+    Self &operator =(CoreTransitPtr pCore);
     Self &operator =(Self    const &pCNRP);
 
     /*! \}                                                                 */
