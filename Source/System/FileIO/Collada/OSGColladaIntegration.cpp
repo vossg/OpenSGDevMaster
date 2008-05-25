@@ -414,11 +414,11 @@ bool NodeIntegration::handleMatrix(daeElementRef pElem)
     fprintf(stderr, "Handle Matrix\n");
 #endif
 
-    if(_pTransform == NullFC)
+    if(_pTransform == NULL)
     {
         _pTransform = Transform::create();
 
-        OSG::addRef(_pTransform);
+//        OSG::addRef(_pTransform);
 
         _pNode->setCore(_pTransform);
     }
@@ -723,9 +723,9 @@ void NodeInstanceIntegration::fromCOLLADA(void)
     _pNode = Node::create();
     _pNode->setCore(Group::create());
 
-    NodePtr source_node = pNodeInt->getNode();
+    NodeUnrecPtr source_node = pNodeInt->getNode();
 
-    if ( source_node != NullFC )
+    if ( source_node != NULL )
     {
         _pNode->addChild(cloneTree(source_node));
     }
@@ -1486,8 +1486,8 @@ void GeometryIntegration::handleTristrips(domInputLocal_Array &aVertexInput,
 {
     domInputLocalOffset_Array &aInput   = pTristrips->getInput_array();
 
-    GeoUInt32PropertyPtr       pLengths = NullFC;
-    GeoUInt8PropertyPtr        pTypes   = NullFC;
+    GeoUInt32PropertyUnrecPtr  pLengths = NULL;
+    GeoUInt8PropertyUnrecPtr   pTypes   = NULL;
 
     PropVec                    aProps;
 
@@ -1536,8 +1536,8 @@ void GeometryIntegration::handleTrifans(domInputLocal_Array &aVertexInput,
 {
     domInputLocalOffset_Array &aInput   = pTrifans->getInput_array();
 
-    GeoUInt32PropertyPtr       pLengths = NullFC;
-    GeoUInt8PropertyPtr        pTypes   = NullFC;
+    GeoUInt32PropertyUnrecPtr  pLengths = NULL;
+    GeoUInt8PropertyUnrecPtr   pTypes   = NULL;
 
     PropVec                    aProps;
 
@@ -1586,8 +1586,8 @@ void GeometryIntegration::handleLines(domInputLocal_Array &aVertexInput,
 {
     domInputLocalOffset_Array &aInput   = pLines->getInput_array();
 
-    GeoUInt32PropertyPtr       pLengths = NullFC;
-    GeoUInt8PropertyPtr        pTypes   = NullFC;
+    GeoUInt32PropertyUnrecPtr  pLengths = NULL;
+    GeoUInt8PropertyUnrecPtr   pTypes   = NULL;
 
     PropVec                    aProps;
 
@@ -1628,8 +1628,8 @@ void GeometryIntegration::handleLinestrips(domInputLocal_Array &aVertexInput,
 {
     domInputLocalOffset_Array &aInput   = pLinestrips->getInput_array();
 
-    GeoUInt32PropertyPtr       pLengths = NullFC;
-    GeoUInt8PropertyPtr        pTypes   = NullFC;
+    GeoUInt32PropertyUnrecPtr  pLengths = NULL;
+    GeoUInt8PropertyUnrecPtr   pTypes   = NULL;
 
     PropVec                    aProps;
 
