@@ -65,6 +65,7 @@
 #include "OSGTransform.h"
 #include "OSGImage.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGMaterialChunk.h"
 
 #include "dae/daeIntegrationObject.h"
 #include "dae/daeMetaElement.h"
@@ -467,12 +468,12 @@ class EffectIntegration : public ColladaIntegrationBase
            std::map   <std::string, 
                        domFx_sampler2D_common *> _mSamplerMap;
 
-    void handleSimpleColor  (DomColor          *pDiffuse,
-                             DomColor          *pAmbient,
-                             DomColor          *pSpecular,
-                             DomColor          *pEmission,
-                             Real32             fShininess,
-                             Real32             fTransparency);
+    MaterialChunkTransitPtr handleSimpleColor  (DomColor *pDiffuse,
+                                                DomColor *pAmbient,
+                                                DomColor *pSpecular,
+                                                DomColor *pEmission,
+                                                Real32    fShininess,
+                                                Real32    fTransparency);
 
     template<class T>
     void setupSimpleColorAndTex    (T           pTechT,

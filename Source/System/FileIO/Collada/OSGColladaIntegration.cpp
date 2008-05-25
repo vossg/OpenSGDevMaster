@@ -59,7 +59,6 @@
 
 #include "OSGGroup.h"
 #include "OSGMaterialGroup.h"
-#include "OSGMaterialChunk.h"
 #include "OSGImageFileHandler.h"
 #include "OSGTextureEnvChunk.h"
 
@@ -76,6 +75,8 @@
 
 #include "dae/daeSmartRef.h"
 #include "dae/daeMetaElementAttribute.h"
+
+//#define OSG_DEBUG_PRINT 1
 
 OSG_USING_NAMESPACE
 
@@ -814,8 +815,8 @@ void GeometryInstanceIntegration::updateGeoTexBindings(
             {
 #ifdef OSG_DEBUG_PRINT
                 fprintf(stderr, "Got %p %p for %d\n",
-                        pPropIdxPair.first,
-                        pPropIdxPair.second,
+                        pPropIdxPair.first.get(),
+                        pPropIdxPair.second.get(),
                         texIt->second[i]);
                 
                 fprintf(stderr, "Idx : %s\n", 
@@ -1261,11 +1262,11 @@ void GeometryIntegration::setupGeometry(
                                 aInput[i]->getSemantic());
 
                         fprintf(stderr, "    %p : %s\n",
-                                newPair.first, 
+                                newPair.first.get(), 
                                 newPair.first->getType().getCName());
                                 
                         fprintf(stderr, "    %p : %s\n",
-                                newPair.second, 
+                                newPair.second.get(), 
                                 newPair.second->getType().getCName());
 #endif                                
                     }
@@ -2146,18 +2147,19 @@ GeoVec2fProperty *SourceIntegration::getAsVec2fProp(void)
 
 daeMetaElement *EffectIntegration::_pMeta = NULL;
 
-void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
-                                          DomColor *pAmbient,
-                                          DomColor *pSpecular,
-                                          DomColor *pEmission,
-                                          Real32    fShininess,
-                                          Real32    fTransparency)
+MaterialChunkTransitPtr EffectIntegration::handleSimpleColor(
+    DomColor *pDiffuse,
+    DomColor *pAmbient,
+    DomColor *pSpecular,
+    DomColor *pEmission,
+    Real32    fShininess,
+    Real32    fTransparency)
 {
     MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
 
     Color4f colVal;
 
-    colVal[3] = fTransparency;
+//    colVal[3] = 1.f - fTransparency;
 
     if(pDiffuse != NULL)
     {
@@ -2166,9 +2168,12 @@ void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
         colVal[0] = color[0];
         colVal[1] = color[1];
         colVal[2] = color[2];
+        colVal[3] = color[3];
 
         pMatChunk->setDiffuse(colVal);
     }
+
+
 
     if(pAmbient != NULL)
     {
@@ -2177,9 +2182,12 @@ void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
         colVal[0] = color[0];
         colVal[1] = color[1];
         colVal[2] = color[2];
+        colVal[3] = color[3];
 
         pMatChunk->setAmbient(colVal);
     }
+
+
 
     if(pSpecular != NULL)
     {
@@ -2188,6 +2196,7 @@ void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
         colVal[0] = color[0];
         colVal[1] = color[1];
         colVal[2] = color[2];
+        colVal[3] = color[3];
 
         pMatChunk->setSpecular(colVal);
     }
@@ -2213,6 +2222,8 @@ void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
     pMatChunk->setShininess(fShininess);
 
     _pMaterial->addChunk(pMatChunk);
+
+    return MaterialChunkTransitPtr(pMatChunk);
 }
 
 void EffectIntegration::fillElements(
@@ -2269,12 +2280,12 @@ void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
     if(pTransparency != NULL && pTransparency->getFloat() != NULL)
         rTransparency = pTransparency->getFloat()->getValue();
     
-    handleSimpleColor(pDiffuseCol,
-                      pAmbientCol,
-                      pSpecularCol,
-                      pEmissionCol,
-                      rShininess,
-                      rTransparency);
+    MaterialChunkTransitPtr pMatChunk = handleSimpleColor(pDiffuseCol,
+                                                          pAmbientCol,
+                                                          pSpecularCol,
+                                                          pEmissionCol,
+                                                          rShininess,
+                                                          rTransparency);
 
     UInt32 _uiCurrTex = 0;
 
@@ -2389,6 +2400,14 @@ void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
         fprintf(stderr, "got texture %s\n",
                 pDiffuseTex->getTexture());
 #endif
+        Color4f colVal;
+
+        colVal[0] = 0.8f;
+        colVal[1] = 0.8f;
+        colVal[2] = 0.8f;
+        colVal[3] = 1.0f;
+
+        pMatChunk->setDiffuse(colVal);
 
         std::map<std::string, 
                  domFx_sampler2D_common *>::iterator samplerIt;
@@ -3014,7 +3033,7 @@ void Sampler2DIntegration::fromCOLLADA(void)
     }
 
 #ifdef OSG_DEBUG_PRINT
-    fprintf(stderr, "Got surf tex obj %p\n", _pTexObj);
+    fprintf(stderr, "Got surf tex obj %p\n", _pTexObj.get());
 #endif
 }
 
@@ -3120,12 +3139,15 @@ void SurfaceIntegration::fromCOLLADA(void)
     
     daeElement *pImageElem = 
         pCommonInit->getValue().getElement();
-    
+
 #ifdef OSG_DEBUG_PRINT
     fprintf(stderr, "%p %d\n",
             pImageElem,
             pCommonInit->getValue().getState());
 #endif
+
+    if(pImageElem == NULL)
+        return;
 
     ImageIntegration *pImageInt = 
         dynamic_cast<ImageIntegration *>(pImageElem->getIntObject());
