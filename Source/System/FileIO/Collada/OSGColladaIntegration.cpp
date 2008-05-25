@@ -888,188 +888,189 @@ void GeometryInstanceIntegration::fromCOLLADA(void)
 
     pGeoInt->fromCOLLADAChecked();
 
-    const domBind_materialRef pMatBindings = pInstGeo->getBind_material();
-
-    if(pMatBindings == NULL)
-    {
-        fprintf(stderr, "No material\n");
-        return;
-    }
-
     _pNode = Node::create();
 
     _pNode->setCore(Group::create());
 
-    
-    domTechnique_Array &aTechnique = pMatBindings->getTechnique_array(); 
+    const domBind_materialRef pMatBindings = pInstGeo->getBind_material();
 
-    bool bMatHandled = false;
-        
-#ifdef OSG_DEBUG_PRINT
-    fprintf(stderr, "Num Tech %d\n", aTechnique.getCount());
-#endif
-
-    if(aTechnique.getCount() != 0)
+    if(pMatBindings != NULL)
     {
-        for(UInt32 i = 0; i < aTechnique.getCount(); ++i)
-        {
-            daeElementRefArray &aTechniqueCont = aTechnique[i]->getContents();
-            
-            for(UInt32 j = 0; j < aTechniqueCont.getCount(); ++j)
-            {
-                daeElement *pElem = aTechniqueCont[i];
-                
+        domTechnique_Array &aTechnique = pMatBindings->getTechnique_array();
+
+        bool bMatHandled = false;
+
 #ifdef OSG_DEBUG_PRINT
-                fprintf(stderr, "elem %p %s %s\n", 
-                        &*pElem, 
-                        pElem->getTypeName(),
-                        pElem->getElementName());
+        fprintf(stderr, "Num Tech %d\n", aTechnique.getCount());
 #endif
+
+        if(aTechnique.getCount() != 0)
+        {
+            for(UInt32 i = 0; i < aTechnique.getCount(); ++i)
+            {
+                daeElementRefArray &aTechniqueCont =
+                    aTechnique[i]->getContents();
+
+                for(UInt32 j = 0; j < aTechniqueCont.getCount(); ++j)
+                {
+                    daeElement *pElem = aTechniqueCont[i];
+
+#ifdef OSG_DEBUG_PRINT
+                    fprintf(stderr, "elem %p %s %s\n",
+                            &*pElem,
+                            pElem->getTypeName(),
+                            pElem->getElementName());
+#endif
+                }
             }
         }
-    }
 
 
-    if(bMatHandled == false)
-    {
-        domBind_material::domTechnique_commonRef pTechnique = 
-            pMatBindings->getTechnique_common();
+        if(bMatHandled == false)
+        {
+            domBind_material::domTechnique_commonRef pTechnique =
+                pMatBindings->getTechnique_common();
 
-        domInstance_material_Array &aInstMat = 
+            domInstance_material_Array &aInstMat =
                 pTechnique->getInstance_material_array();
 
 #ifdef OSG_DEBUG_PRINT
-        fprintf(stderr, "Got %d comm tech mat inst\n", aInstMat.getCount());
+            fprintf(stderr, "Got %d comm tech mat inst\n",
+                    aInstMat.getCount());
 #endif
 
-        for(UInt32 i = 0; i < aInstMat.getCount(); ++i)
-        {
-#ifdef OSG_DEBUG_PRINT
-            fprintf(stderr, "%s %s\n", 
-                    aInstMat[i]->getSymbol(),
-                    aInstMat[i]->getTarget().getURI());
-#endif
-
-            daeElementRef pElem = aInstMat[i]->getTarget().getElement();
-
-            domMaterial *pMat = 
-                dynamic_cast<domMaterial *>(
-                    static_cast<daeElement *>(pElem));
-
-            if(pMat == NULL)
-                continue;
-
-            const domInstance_effectRef pEffect =
-                pMat->getInstance_effect();
-
-            xsAnyURI oEffectURI = pEffect->getUrl();
-            
-#ifdef OSG_DEBUG_PRINT
-            fprintf(stderr, "uri %s %d\n", 
-                    oEffectURI.getURI(), 
-                    oEffectURI.getState());
-#endif
-
-            daeElementRef pEffectElem = oEffectURI.getElement();
-
-#ifdef OSG_DEBUG_PRINT
-            fprintf(stderr, "elem %p %s %s\n", 
-                    &*pEffectElem, 
-                    pEffectElem->getTypeName(),
-                    pEffectElem->getElementName());
-#endif
-
-            EffectIntegration *pEffectInt = 
-                dynamic_cast<EffectIntegration *>(pEffectElem->getIntObject());
-
-#ifdef OSG_DEBUG_PRINT
-            fprintf(stderr, "Got Eff Integration %p\n",
-                    pEffectInt);
-#endif
-
-            pEffectInt->fromCOLLADAChecked();
-
-            std::string effectKey = aInstMat[i]->getSymbol();
-
-            _mMatMap[effectKey] = pEffectInt->getMaterial();
-
-
-#ifdef OSG_DEBUG_PRINT
-            fprintf(stderr, "%d bonds\n", 
-                    aInstMat[i]->getBind_array().getCount());
-#endif
-
-            for(UInt32 j = 0; j < aInstMat[i]->getBind_array().getCount(); ++j)
+            for(UInt32 i = 0; i < aInstMat.getCount(); ++i)
             {
-                std::string szTarget = 
-                    aInstMat[i]->getBind_array()[j]->getTarget();
+#ifdef OSG_DEBUG_PRINT
+                fprintf(stderr, "%s %s\n",
+                        aInstMat[i]->getSymbol(),
+                        aInstMat[i]->getTarget().getURI());
+#endif
 
-                if(aInstMat[i]->getBind_array()[j]->getTarget()[0] == '#')
+                daeElementRef pElem = aInstMat[i]->getTarget().getElement();
+
+                domMaterial *pMat =
+                    dynamic_cast<domMaterial *>(
+                        static_cast<daeElement *>(pElem));
+
+                if(pMat == NULL)
+                    continue;
+
+                const domInstance_effectRef pEffect =
+                    pMat->getInstance_effect();
+
+                xsAnyURI oEffectURI = pEffect->getUrl();
+
+#ifdef OSG_DEBUG_PRINT
+                fprintf(stderr, "uri %s %d\n",
+                        oEffectURI.getURI(),
+                        oEffectURI.getState());
+#endif
+
+                daeElementRef pEffectElem = oEffectURI.getElement();
+
+#ifdef OSG_DEBUG_PRINT
+                fprintf(stderr, "elem %p %s %s\n",
+                        &*pEffectElem,
+                        pEffectElem->getTypeName(),
+                        pEffectElem->getElementName());
+#endif
+
+                EffectIntegration *pEffectInt =
+                    dynamic_cast<EffectIntegration *>(
+                        pEffectElem->getIntObject());
+
+#ifdef OSG_DEBUG_PRINT
+                fprintf(stderr, "Got Eff Integration %p\n",
+                        pEffectInt);
+#endif
+
+                pEffectInt->fromCOLLADAChecked();
+
+                std::string effectKey = aInstMat[i]->getSymbol();
+
+                _mMatMap[effectKey] = pEffectInt->getMaterial();
+
+#ifdef OSG_DEBUG_PRINT
+                fprintf(stderr, "%d bonds\n",
+                        aInstMat[i]->getBind_array().getCount());
+#endif
+
+                for(UInt32 j = 0;
+                           j < aInstMat[i]->getBind_array().getCount();
+                         ++j)
                 {
-                    szTarget.erase(0, 1);
+                    std::string szTarget =
+                        aInstMat[i]->getBind_array()[j]->getTarget();
+
+                    if(aInstMat[i]->getBind_array()[j]->getTarget()[0] == '#')
+                    {
+                        szTarget.erase(0, 1);
+                    }
+
+#ifdef OSG_DEBUG_PRINT
+                    fprintf(stderr, "Bind : %s %s\n",
+                            aInstMat[i]->getBind_array()[j]->getSemantic(),
+                            szTarget.c_str());
+#endif
+
+                    UInt32 uiTexIdx = pEffectInt->getTexBinding(
+                        aInstMat[i]->getBind_array()[j]->getSemantic());
+
+                    _mTexBindingsMap[szTarget].push_back(uiTexIdx);
+
+#ifdef OSG_DEBUG_PRINT
+                    fprintf(stderr, "Bound %s -> %d\n",
+                            szTarget.c_str(),
+                            uiTexIdx);
+#endif
                 }
 
 #ifdef OSG_DEBUG_PRINT
-                fprintf(stderr, "Bind : %s %s\n",
-                        aInstMat[i]->getBind_array()[j]->getSemantic(),
-                        szTarget.c_str());
+                fprintf(stderr, "%d vertex bonds\n",
+                        aInstMat[i]->getBind_vertex_input_array().getCount());
 #endif
 
-                UInt32 uiTexIdx = pEffectInt->getTexBinding(
-                    aInstMat[i]->getBind_array()[j]->getSemantic());
-
-                _mTexBindingsMap[szTarget].push_back(uiTexIdx);
-
-#ifdef OSG_DEBUG_PRINT
-                fprintf(stderr, "Bound %s -> %d\n",
-                        szTarget.c_str(),
-                        uiTexIdx);
-#endif                       
-            }
-
-#ifdef OSG_DEBUG_PRINT
-            fprintf(stderr, "%d vertex bonds\n", 
-                    aInstMat[i]->getBind_vertex_input_array().getCount());
-#endif
-
-            for(UInt32 j = 0; 
+                for(UInt32 j = 0;
                       j < aInstMat[i]->getBind_vertex_input_array().getCount();
                     ++j)
-            {
-                std::string szTarget = 
-                    aInstMat[i]->
-                        getBind_vertex_input_array()[j]->getInput_semantic();
-
-                if(szTarget[0] == '#')
                 {
-                    szTarget.erase(0, 1);
-                }
+                    std::string szTarget =
+                        aInstMat[i]->
+                            getBind_vertex_input_array()[j]->
+                                getInput_semantic();
+
+                    if(szTarget[0] == '#')
+                    {
+                        szTarget.erase(0, 1);
+                    }
 
 #ifdef OSG_DEBUG_PRINT
-                fprintf(stderr, "Bind : %s %s\n",
-                        aInstMat[i]->
-                            getBind_vertex_input_array()[j]->getSemantic(),
-                        szTarget.c_str());
+                    fprintf(stderr, "Bind : %s %s\n",
+                            aInstMat[i]->
+                                getBind_vertex_input_array()[j]->getSemantic(),
+                            szTarget.c_str());
 #endif
 
-                UInt32 uiTexIdx = pEffectInt->getTexBinding(
-                    aInstMat[i]->
-                        getBind_vertex_input_array()[j]->getSemantic());
+                    UInt32 uiTexIdx = pEffectInt->getTexBinding(
+                        aInstMat[i]->
+                            getBind_vertex_input_array()[j]->getSemantic());
 
-                if(uiTexIdx != 0xFFFF)
-                {
-                    _mTexBindingsMap[szTarget].push_back(uiTexIdx);
-                }
+                    if(uiTexIdx != 0xFFFF)
+                    {
+                        _mTexBindingsMap[szTarget].push_back(uiTexIdx);
+                    }
 
 #ifdef OSG_DEBUG_PRINT
-                fprintf(stderr, "Bound %s -> %d\n",
-                        szTarget.c_str(),
-                        uiTexIdx);
-#endif                        
+                    fprintf(stderr, "Bound %s -> %d\n",
+                            szTarget.c_str(),
+                            uiTexIdx);
+#endif
+                }
             }
         }
     }
-    
+
 
     GeometryIntegration::MatGeoMapIt geoIt  = pGeoInt->beginGeo();
     GeometryIntegration::MatGeoMapIt geoEnd = pGeoInt->endGeo  ();
