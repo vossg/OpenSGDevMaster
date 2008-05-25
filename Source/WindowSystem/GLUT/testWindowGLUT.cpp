@@ -100,6 +100,7 @@ display(void)
 
 //    std::cerr << m1 << std::endl;
     
+    m1 = tball.getFullTrackballMatrix();
 
     if(move_obj == true)
     {
@@ -343,7 +344,7 @@ int init(int argc, char **argv)
 //    glEnable( GL_LIGHTING );
 //    glEnable( GL_LIGHT0 );
 //    glFrontFace(GL_CW);
-    
+    glEnable(GL_CULL_FACE);
 
     // OSG
 
@@ -375,7 +376,7 @@ int init(int argc, char **argv)
 //    dlight->setCore( Group::create() );
     
     dl->setAmbient( .0, .0, .0, 1 );
-    dl->setDiffuse( .8, .8, .8, .8 );
+    dl->setDiffuse( .8, .8, .8, 1. );
     dl->setDirection(0,0,1);
     dl->setBeacon( b1n);
 
