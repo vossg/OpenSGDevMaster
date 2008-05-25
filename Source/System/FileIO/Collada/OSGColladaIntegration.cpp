@@ -402,6 +402,48 @@ bool NodeIntegration::handleScale(daeElementRef pElem)
     return true;
 }
 
+bool NodeIntegration::handleMatrix(daeElementRef pElem)
+{
+    domMatrix *pMatrix =
+        dynamic_cast<domMatrix *>(static_cast<daeElement *>(pElem));
+
+    if(pMatrix == NULL)
+        return false;
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "Handle Matrix\n");
+#endif
+
+    if(_pTransform == NullFC)
+    {
+        _pTransform = Transform::create();
+
+        OSG::addRef(_pTransform);
+
+        _pNode->setCore(_pTransform);
+    }
+
+    Matrix mTr(pMatrix->getValue()[0],      // rVal00
+               pMatrix->getValue()[1],      // rVal10
+               pMatrix->getValue()[2],      // rVal20
+               pMatrix->getValue()[3],      // rVal30
+               pMatrix->getValue()[4],      // rVal01
+               pMatrix->getValue()[5],      // rVal11
+               pMatrix->getValue()[6],      // rVal21
+               pMatrix->getValue()[7],      // rVal31
+               pMatrix->getValue()[8],      // rVal02
+               pMatrix->getValue()[9],      // rVal12
+               pMatrix->getValue()[10],     // rVal22
+               pMatrix->getValue()[11],     // rVal32
+               pMatrix->getValue()[12],     // rVal03
+               pMatrix->getValue()[13],     // rVal13
+               pMatrix->getValue()[14],     // rVal23
+               pMatrix->getValue()[15]);    // rVal33
+
+    _pTransform->editMatrix().mult(mTr);
+
+    return true;
+}
 
 bool NodeIntegration::handleInstance(daeElementRef pElem)
 {
@@ -533,10 +575,14 @@ void NodeIntegration::fromCOLLADA(void)
             if(handleScale(elem) == true)
                 continue;
 
+            if(handleMatrix(elem) == true)
+                continue;
+
             if(handleInstance(elem) == true)
                 continue;
-		}
-	}
+
+        }
+    }
 
     if(_pNode->getCore() == NULL)
         _pNode->setCore(Group::create());
@@ -575,6 +621,113 @@ NodeTransitPtr InstanceIntegration::getInstance(void)
         ++_uiCount;
 
         return cloneTree(_pNode);
+    }
+}
+
+//---------------------------------------------------------------------------
+//  NodeInstanceIntegration
+//---------------------------------------------------------------------------
+
+daeMetaElement *NodeInstanceIntegration::_pMeta = NULL;
+
+NodeInstanceIntegration::NodeInstanceIntegration(void) :
+     Inherited()
+{
+}
+
+NodeInstanceIntegration::~NodeInstanceIntegration(void)
+{
+}
+
+daeElementRef NodeInstanceIntegration::create(daeInt bytes)
+{
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "NodeInstanceIntegration::create %p\n", (void *)bytes);
+#endif
+
+    NodeInstanceIntegrationRef ref = new(bytes) NodeInstanceIntegration;
+
+    return ref;
+}
+
+daeMetaElement *NodeInstanceIntegration::registerElement(void)
+{
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "NodeInstanceIntegration::regElem\n");
+#endif
+
+    if(_pMeta != NULL )
+        return _pMeta;
+    
+
+    _pMeta = new daeMetaElement;
+
+    _pMeta->setName("NodeInstanceIntegration");
+    _pMeta->registerClass(NodeInstanceIntegration::create, &_pMeta);
+
+    domInstance_node::_Meta->setMetaIntegration(_pMeta);
+
+    _pMeta->setElementSize(sizeof(NodeInstanceIntegration));
+    _pMeta->validate();
+
+    return _pMeta;
+}
+
+void NodeInstanceIntegration::fromCOLLADA(void)
+{
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "NodeInstanceIntegration::fromCollada for %s %p %p\n", 
+            _pElement->getTypeName(),
+            this,
+            &(*_pElement));
+#endif
+
+    domInstance_node *pInstNode = dynamic_cast<domInstance_node *>(_pElement);
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "got dom node %p\n", pInstNode);
+#endif
+
+    if(pInstNode == NULL)
+        return;
+
+    daeURI oUri = pInstNode->getUrl();
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "uri %s %d\n", oUri.getURI(), oUri.getState());
+#endif
+
+    daeElementRef pElem = oUri.getElement();
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "elem %p %s %s\n", 
+            &*pElem, 
+            pElem->getTypeName(),
+            pElem->getElementName());
+#endif
+
+    domNode *pNode = dynamic_cast<domNode *>(static_cast<daeElement *>(pElem));
+
+    if(pNode == NULL)
+        return;
+
+    NodeIntegration *pNodeInt =
+        dynamic_cast<NodeIntegration *>(pNode->getIntObject());
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "Got node %p %p\n", pNode, pNodeInt);
+#endif
+
+    pNodeInt->fromCOLLADAChecked();
+
+    _pNode = Node::create();
+    _pNode->setCore(Group::create());
+
+    NodePtr source_node = pNodeInt->getNode();
+
+    if ( source_node != NullFC )
+    {
+        _pNode->addChild(cloneTree(source_node));
     }
 }
 
@@ -723,11 +876,11 @@ void GeometryInstanceIntegration::fromCOLLADA(void)
     domGeometry         *pGeo    = dynamic_cast<domGeometry         *>(
         static_cast<daeElement *>(pElem));
 
-    GeometryIntegration *pGeoInt = dynamic_cast<GeometryIntegration *>(
-        pGeo->getIntObject());
-
     if(pGeo == NULL)
         return;
+
+    GeometryIntegration *pGeoInt = dynamic_cast<GeometryIntegration *>(
+        pGeo->getIntObject());
 
 #ifdef OSG_DEBUG_PRINT
     fprintf(stderr, "Got geo %p %p\n", pGeo, pGeoInt);
@@ -1327,6 +1480,198 @@ void GeometryIntegration::handleTriangles(domInputLocal_Array &aVertexInput,
 #endif
 }
 
+void GeometryIntegration::handleTristrips(domInputLocal_Array &aVertexInput,
+                                          domTristripsRef     &pTristrips  )
+{
+    domInputLocalOffset_Array &aInput   = pTristrips->getInput_array();
+
+    GeoUInt32PropertyPtr       pLengths = NullFC;
+    GeoUInt8PropertyPtr        pTypes   = NullFC;
+
+    PropVec                    aProps;
+
+    setupGeometry(pTristrips->getMaterial(),
+                  aVertexInput,
+                  aInput,
+                  pLengths,
+                  pTypes,
+                  aProps);
+
+    domP_Array &oPArray = pTristrips->getP_array();
+
+    UInt32 uiCurr   = 0;
+    UInt32 uiLength = 0;
+
+    for(UInt32 i = 0; i < oPArray.getCount(); ++i)
+    {
+        domListOfUInts &oPList = oPArray[i]->getValue();
+
+        for(UInt32 i = 0; i < oPList.getCount(); ++i)
+        {
+            aProps[uiCurr]->push_back(oPList[i]);
+
+            uiCurr++;
+
+            if(uiCurr == aProps.size())
+            {
+                  uiCurr = 0;
+                ++uiLength;
+            }
+        }
+
+        pTypes  ->push_back(GL_TRIANGLE_STRIP);
+        pLengths->push_back(uiLength         );
+
+        uiLength = 0;
+    }
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "P %s\n", pTristrips->getMaterial());
+#endif
+}
+
+void GeometryIntegration::handleTrifans(domInputLocal_Array &aVertexInput,
+                                        domTrifansRef       &pTrifans    )
+{
+    domInputLocalOffset_Array &aInput   = pTrifans->getInput_array();
+
+    GeoUInt32PropertyPtr       pLengths = NullFC;
+    GeoUInt8PropertyPtr        pTypes   = NullFC;
+
+    PropVec                    aProps;
+
+    setupGeometry(pTrifans->getMaterial(),
+                  aVertexInput,
+                  aInput,
+                  pLengths,
+                  pTypes,
+                  aProps);
+
+    domP_Array &oPArray = pTrifans->getP_array();
+
+    UInt32 uiCurr   = 0;
+    UInt32 uiLength = 0;
+
+    for(UInt32 i = 0; i < oPArray.getCount(); ++i)
+    {
+        domListOfUInts &oPList = oPArray[i]->getValue();
+
+        for(UInt32 i = 0; i < oPList.getCount(); ++i)
+        {
+            aProps[uiCurr]->push_back(oPList[i]);
+
+            uiCurr++;
+
+            if(uiCurr == aProps.size())
+            {
+                  uiCurr = 0;
+                ++uiLength;
+            }
+        }
+
+        pTypes  ->push_back(GL_TRIANGLE_STRIP);
+        pLengths->push_back(uiLength         );
+
+        uiLength = 0;
+    }
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "P %s\n", pTrifans->getMaterial());
+#endif
+}
+
+void GeometryIntegration::handleLines(domInputLocal_Array &aVertexInput,
+                                      domLinesRef     &pLines          )
+{
+    domInputLocalOffset_Array &aInput   = pLines->getInput_array();
+
+    GeoUInt32PropertyPtr       pLengths = NullFC;
+    GeoUInt8PropertyPtr        pTypes   = NullFC;
+
+    PropVec                    aProps;
+
+    setupGeometry(pLines->getMaterial(),
+                  aVertexInput,
+                  aInput,
+                  pLengths,
+                  pTypes,
+                  aProps);
+
+    domListOfUInts &oPList   = pLines->getP()->getValue();
+    UInt32          uiCurr   = 0;
+    UInt32          uiLength = 0;
+
+    for(UInt32 i = 0; i < oPList.getCount(); ++i)
+    {
+        aProps[uiCurr]->push_back(oPList[i]);
+
+        uiCurr++;
+
+        if(uiCurr == aProps.size())
+        {
+              uiCurr = 0;
+            ++uiLength;
+        }
+    }
+
+    pTypes  ->push_back(GL_LINES);
+    pLengths->push_back(uiLength);
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "P %s\n", pLines->getMaterial());
+#endif
+}
+
+void GeometryIntegration::handleLinestrips(domInputLocal_Array &aVertexInput,
+                                           domLinestripsRef     &pLinestrips)
+{
+    domInputLocalOffset_Array &aInput   = pLinestrips->getInput_array();
+
+    GeoUInt32PropertyPtr       pLengths = NullFC;
+    GeoUInt8PropertyPtr        pTypes   = NullFC;
+
+    PropVec                    aProps;
+
+    setupGeometry(pLinestrips->getMaterial(),
+                  aVertexInput,
+                  aInput,
+                  pLengths,
+                  pTypes,
+                  aProps);
+
+    domP_Array &oPArray = pLinestrips->getP_array();
+
+    UInt32 uiCurr   = 0;
+    UInt32 uiLength = 0;
+
+    for(UInt32 i = 0; i < oPArray.getCount(); ++i)
+    {
+        domListOfUInts &oPList   = oPArray[i]->getValue();
+
+        for(UInt32 i = 0; i < oPList.getCount(); ++i)
+        {
+            aProps[uiCurr]->push_back(oPList[i]);
+
+            uiCurr++;
+
+            if(uiCurr == aProps.size())
+            {
+                  uiCurr = 0;
+                ++uiLength;
+            }
+        }
+
+        pTypes  ->push_back(GL_LINE_STRIP);
+        pLengths->push_back(uiLength     );
+
+        uiLength = 0;
+    }
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "P %s\n", pLinestrips->getMaterial());
+#endif
+}
+
 UInt32 GeometryIntegration::SemanticToPropGeoIndex(
     const char *szSemantic,
           bool  bVertexAsPos)
@@ -1571,7 +1916,49 @@ void GeometryIntegration::fromCOLLADA(void)
         handleTriangles(oVertexInput, aTriList[i]);
     }
 
-    
+    domTristrips_Array &aTristripList = pMesh->getTristrips_array();
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "got %d tristrips\n", aTristripList.getCount());
+#endif
+
+    for(UInt32 i = 0; i < aTristripList.getCount(); ++i)
+    {
+        handleTristrips(oVertexInput, aTristripList[i]);
+    }
+
+    domTrifans_Array &aTrifanList = pMesh->getTrifans_array();
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "got %d trifans\n", aTrifanList.getCount());
+#endif
+
+    for(UInt32 i = 0; i < aTrifanList.getCount(); ++i)
+    {
+        handleTrifans(oVertexInput, aTrifanList[i]);
+    }
+
+    domLines_Array &aLineList = pMesh->getLines_array();
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "got %d lines\n", aLineList.getCount());
+#endif
+
+    for(UInt32 i = 0; i < aLineList.getCount(); ++i)
+    {
+        handleLines(oVertexInput, aLineList[i]);
+    }
+
+    domLinestrips_Array &aLinestripList = pMesh->getLinestrips_array();
+
+#ifdef OSG_DEBUG_PRINT
+    fprintf(stderr, "got %d linestrips\n", aLinestripList.getCount());
+#endif
+
+    for(UInt32 i = 0; i < aLinestripList.getCount(); ++i)
+    {
+        handleLinestrips(oVertexInput, aLinestripList[i]);
+    }
 }
 
 
@@ -2775,6 +3162,7 @@ void initColladaIntegration(void)
 
     VisualSceneIntegration     ::registerElement();
     NodeIntegration            ::registerElement();
+    NodeInstanceIntegration    ::registerElement();
     GeometryInstanceIntegration::registerElement();
     GeometryIntegration        ::registerElement();
     SourceIntegration          ::registerElement();

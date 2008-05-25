@@ -194,6 +194,7 @@ class NodeIntegration : public ColladaIntegrationBase
     bool handleTranslate(daeElementRef pElem);
     bool handleRotate   (daeElementRef pElem);
     bool handleScale    (daeElementRef pElem);
+    bool handleMatrix   (daeElementRef pElem);
     bool handleInstance (daeElementRef pElem);
 
   public:
@@ -234,6 +235,34 @@ class InstanceIntegration : public ColladaIntegrationBase
 
     NodeTransitPtr getInstance(void);
 };
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpFoundationLoader
+ */
+
+class NodeInstanceIntegration : public InstanceIntegration
+{
+  protected:
+
+    typedef InstanceIntegration                               Inherited;
+
+    static daeMetaElement *_pMeta;
+   
+  public:
+
+    NodeInstanceIntegration(void);
+    ~NodeInstanceIntegration(void);
+
+    static daeElementRef   create         (daeInt bytes);
+    static daeMetaElement *registerElement(void        );
+
+    virtual void fromCOLLADA(void);
+};
+
+typedef daeSmartRef<NodeInstanceIntegration> NodeInstanceIntegrationRef;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -299,6 +328,14 @@ class GeometryIntegration : public ColladaIntegrationBase
                                         domPolylistRef      &pPoly       );
     void   handleTriangles       (      domInputLocal_Array &aVertexInput,
                                         domTrianglesRef     &pTriangles  );
+    void   handleTristrips       (      domInputLocal_Array &aVertexInput,
+                                        domTristripsRef     &pTristrips  );
+    void   handleTrifans         (      domInputLocal_Array &aVertexInput,
+                                        domTrifansRef       &pTrifans    );
+    void   handleLines           (      domInputLocal_Array &aVertexInput,
+                                        domLinesRef         &pLines      );
+    void   handleLinestrips      (      domInputLocal_Array &aVertexInput,
+                                        domLinestripsRef    &pLinestrips );
 
     UInt32 SemanticToPropGeoIndex(const Char8          *szSemantic,
                                         bool            bVertexAsPos = false);
