@@ -24,7 +24,7 @@
 #include <OSGRemoteAspect.h>
 #include <OSGFieldContainerFactory.h>
 
-#include "OSGVTKMapper.h"
+#include "OSGVTKPolyDataMapper.h"
 
 #include "vtkStructuredGridReader.h"
 #include "vtkStructuredGrid.h"
@@ -61,29 +61,30 @@ void display(void);
 void addActor(OSG::Node *pRoot,
               vtkActor  *pActor)
 {
-    OSG::NodeUnrecPtr      pTmpNode   = OSG::Node     ::create();
-    OSG::VTKMapperUnrecPtr pTmpMapper = OSG::VTKMapper::create();
+    OSG::NodeUnrecPtr              pTmpNode   = OSG::Node     ::create();
+    OSG::VTKPolyDataMapperUnrecPtr pTmpMapper = 
+        OSG::VTKPolyDataMapper::create();
 
     pTmpMapper->setActor(pActor    );
     pTmpNode  ->setCore (pTmpMapper);
     pRoot     ->addChild(pTmpNode  );
 
     fprintf(stderr, "%016llx\n",
-            OSG::VTKMapper::ChangedCallbacksFieldMask);
+            OSG::VTKPolyDataMapper::ChangedCallbacksFieldMask);
     fprintf(stderr, "%016llx\n",
-            OSG::VTKMapper::AttachmentsFieldMask);
+            OSG::VTKPolyDataMapper::AttachmentsFieldMask);
     fprintf(stderr, "%016llx\n",
-            OSG::VTKMapper::ParentsFieldMask);
+            OSG::VTKPolyDataMapper::ParentsFieldMask);
     fprintf(stderr, "%016llx\n",
-            OSG::VTKMapper::RootFieldMask);
+            OSG::VTKPolyDataMapper::RootFieldMask);
     fprintf(stderr, "%016llx\n",
-            OSG::VTKMapper::GeoRootsFieldMask);
+            OSG::VTKPolyDataMapper::GeoRootsFieldMask);
     fprintf(stderr, "%016llx\n",
-            OSG::VTKMapper::NormalsFieldMask);
+            OSG::VTKPolyDataMapper::NormalsFieldMask);
 
     fprintf(stderr, "%016llx %016llx\n",
-            (OSG::VTKMapper::GeoRootsFieldMask),
-           ~(OSG::VTKMapper::GeoRootsFieldMask));
+            (OSG::VTKPolyDataMapper::GeoRootsFieldMask),
+           ~(OSG::VTKPolyDataMapper::GeoRootsFieldMask));
 
     fprintf(stderr, "%016llx\n",
             pTmpMapper->getFieldFlags()->_bClusterLocalFlags);
@@ -579,7 +580,7 @@ int doMain(int argc, char **argv)
     // OSG init
     osgInit(argc,argv);
 
-    OSG::VTKMapper::getClassType().dump();
+    OSG::VTKPolyDataMapper::getClassType().dump();
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);

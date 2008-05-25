@@ -32,7 +32,7 @@
 #include "OSGPerspectiveCamera.h"
 #include "OSGSolidBackground.h"
 //#include "OSGUniformBackground.h"
-#include "OSGVTKMapper.h"
+#include "OSGVTKPolyDataMapper.h"
 
 #include "OSGTrackball.h"
 #include "OSGOSGWriter.h"
@@ -293,8 +293,9 @@ void key(unsigned char key, int x, int y)
 void addActor(OSG::Node *pRoot,
               vtkActor  *pActor)
 {
-    OSG::NodeUnrecPtr      pTmpNode   = OSG::Node     ::create();
-    OSG::VTKMapperUnrecPtr pTmpMapper = OSG::VTKMapper::create();
+    OSG::NodeUnrecPtr              pTmpNode   = OSG::Node     ::create();
+    OSG::VTKPolyDataMapperUnrecPtr pTmpMapper = 
+        OSG::VTKPolyDataMapper::create();
 
     pTmpMapper->setActor(pActor    );
     pTmpNode  ->setCore (pTmpMapper);

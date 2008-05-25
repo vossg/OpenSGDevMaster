@@ -50,7 +50,7 @@
 #include <OSGIntersectActor.h>
 #endif
 
-#include "OSGVTKMapper.h"
+#include "OSGVTKPolyDataMapper.h"
 #include "OSGVolume.h"
 #include "OSGGeometry.h"
 #include "OSGChunkMaterial.h"
@@ -78,16 +78,16 @@
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
-// OSGVTKMapperBase.cpp file.
-// To modify it, please change the .fcd file (OSGVTKMapper.fcd) and
+// OSGVTKPolyDataMapperBase.cpp file.
+// To modify it, please change the .fcd file (OSGVTKPolyDataMapper.fcd) and
 // regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void VTKMapper::changed(ConstFieldMaskArg whichField, 
-                        UInt32            origin,
-                        BitVector         details)
+void VTKPolyDataMapper::changed(ConstFieldMaskArg whichField, 
+                                UInt32            origin,
+                                BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
@@ -95,7 +95,7 @@ void VTKMapper::changed(ConstFieldMaskArg whichField,
 /*-------------------------------------------------------------------------*/
 /*                               Helper                                    */
 
-void VTKMapper::initGeometries(void)
+void VTKPolyDataMapper::initGeometries(void)
 {
     NodeUnrecPtr pRoot = Node::create();
     
@@ -167,7 +167,7 @@ void VTKMapper::initGeometries(void)
 #ifdef OSG_WITH_VTK
 typedef double vtkReal;
 
-bool VTKMapper::processPrimitive(
+bool VTKPolyDataMapper::processPrimitive(
     OSG::GeoPnt3fProperty   *pPoints,
     OSG::GeoColor4fProperty *pColors,
     OSG::GeoVec3fProperty   *pNormals,
@@ -373,7 +373,7 @@ bool VTKMapper::processPrimitive(
 }
 #endif
 
-void VTKMapper::execute(void)
+void VTKPolyDataMapper::execute(void)
 {
 #ifdef OSG_WITH_VTK
     if(_pActor == NULL)
@@ -533,7 +533,7 @@ void VTKMapper::execute(void)
 }
 
 #ifdef OSG_WITH_VTK
-void VTKMapper::setActor(vtkActor *pActor)
+void VTKPolyDataMapper::setActor(vtkActor *pActor)
 {
     if(_pActor != NULL)
         _pActor->UnRegister(NULL);
@@ -548,7 +548,7 @@ void VTKMapper::setActor(vtkActor *pActor)
 #endif
 
 
-void VTKMapper::adjustVolume(Volume &volume)
+void VTKPolyDataMapper::adjustVolume(Volume &volume)
 {
     this->execute();
 
@@ -563,8 +563,8 @@ void VTKMapper::adjustVolume(Volume &volume)
 /*-------------------------------------------------------------------------*/
 /*                                Dump                                     */
 
-void VTKMapper::dump(      UInt32    uiIndent, 
-                     const BitVector bvFlags ) const
+void VTKPolyDataMapper::dump(      UInt32    uiIndent, 
+                             const BitVector bvFlags ) const
 {
    Inherited::dump(uiIndent, bvFlags);
 
@@ -591,7 +591,7 @@ void VTKMapper::dump(      UInt32    uiIndent,
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-VTKMapper::VTKMapper(void) :
+VTKPolyDataMapper::VTKPolyDataMapper(void) :
      Inherited   (    )
 #ifdef OSG_WITH_VTK
    ,_pActor      (NULL),
@@ -601,7 +601,7 @@ VTKMapper::VTKMapper(void) :
 {
 }
 
-VTKMapper::VTKMapper(const VTKMapper &source) :
+VTKPolyDataMapper::VTKPolyDataMapper(const VTKPolyDataMapper &source) :
      Inherited   (source)
 #ifdef OSG_WITH_VTK
    ,_pActor      (NULL  ),
@@ -614,11 +614,11 @@ VTKMapper::VTKMapper(const VTKMapper &source) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-VTKMapper::~VTKMapper(void)
+VTKPolyDataMapper::~VTKPolyDataMapper(void)
 {
 }
 
-void VTKMapper::resolveLinks(void)
+void VTKPolyDataMapper::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
@@ -631,7 +631,7 @@ void VTKMapper::resolveLinks(void)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-ActionBase::ResultE VTKMapper::renderEnter(Action *action)
+ActionBase::ResultE VTKPolyDataMapper::renderEnter(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
     
@@ -654,7 +654,7 @@ ActionBase::ResultE VTKMapper::renderEnter(Action *action)
     return ActionBase::Continue;
 }
 
-ActionBase::ResultE VTKMapper::renderLeave(Action *action)
+ActionBase::ResultE VTKPolyDataMapper::renderLeave(Action *action)
 {
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
@@ -665,7 +665,7 @@ ActionBase::ResultE VTKMapper::renderLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-ActionBase::ResultE VTKMapper::intersectEnter(Action *action)
+ActionBase::ResultE VTKPolyDataMapper::intersectEnter(Action *action)
 {
 /*
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -686,7 +686,7 @@ ActionBase::ResultE VTKMapper::intersectEnter(Action *action)
     return ActionBase::Continue; 
 }
 
-ActionBase::ResultE VTKMapper::intersectLeave(Action *action)
+ActionBase::ResultE VTKPolyDataMapper::intersectLeave(Action *action)
 {
 /*
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -710,7 +710,7 @@ ActionBase::ResultE VTKMapper::intersectLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                                Init                                     */
 
-void VTKMapper::initMethod(InitPhase ePhase)
+void VTKPolyDataMapper::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -718,19 +718,23 @@ void VTKMapper::initMethod(InitPhase ePhase)
     {
         IntersectAction::registerEnterDefault( 
             getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::intersectEnter));
+            reinterpret_cast<
+                Action::Callback>(&VTKPolyDataMapper::intersectEnter));
         
         IntersectAction::registerLeaveDefault( 
             getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::intersectLeave));
+            reinterpret_cast<
+                Action::Callback>(&VTKPolyDataMapper::intersectLeave));
         
         
         RenderAction::registerEnterDefault(
             getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::renderEnter));
+            reinterpret_cast<
+                Action::Callback>(&VTKPolyDataMapper::renderEnter));
         
         RenderAction::registerLeaveDefault(
             getClassType(), 
-            reinterpret_cast<Action::Callback>(&VTKMapper::renderLeave));
+            reinterpret_cast<
+                Action::Callback>(&VTKPolyDataMapper::renderLeave));
     }
 }

@@ -36,14 +36,14 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGVTKMAPPER_H_
-#define _OSGVTKMAPPER_H_
+#ifndef _OSGVTKPOLYDATAMAPPER_H_
+#define _OSGVTKPOLYDATAMAPPER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGVTKMapperBase.h"
+#include "OSGVTKPolyDataMapperBase.h"
 #include "OSGMaterialChunk.h"
 
 #ifdef OSG_WITH_VTK
@@ -59,7 +59,7 @@ class vtkCellArray;
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
+class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapper : public VTKPolyDataMapperBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -104,7 +104,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
 
   protected:
 
-    typedef VTKMapperBase Inherited;
+    typedef VTKPolyDataMapperBase Inherited;
 
 #ifdef OSG_WITH_VTK
     vtkActor               *_pActor;
@@ -116,15 +116,15 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    VTKMapper(void);
-    VTKMapper(const VTKMapper &source);
+    VTKPolyDataMapper(void);
+    VTKPolyDataMapper(const VTKPolyDataMapper &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~VTKMapper(void);
+    virtual ~VTKPolyDataMapper(void);
 
     virtual void resolveLinks(void);
 
@@ -172,19 +172,19 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
   private:
 
     friend class FieldContainer;
-    friend class VTKMapperBase;
+    friend class VTKPolyDataMapperBase;
 
     /*---------------------------------------------------------------------*/
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const VTKMapper &source);
+    void operator =(const VTKPolyDataMapper &source);
 };
 
-typedef VTKMapper *VTKMapperP;
+typedef VTKPolyDataMapper *VTKPolyDataMapperP;
 
 OSG_END_NAMESPACE
 
-#include "OSGVTKMapperBase.inl"
-#include "OSGVTKMapper.inl"
+#include "OSGVTKPolyDataMapperBase.inl"
+#include "OSGVTKPolyDataMapper.inl"
 
-#endif /* _OSGVTKMAPPER_H_ */
+#endif /* _OSGVTKPOLYDATAMAPPER_H_ */

@@ -45,13 +45,13 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class VTKMapper!
+ **     class VTKPolyDataMapper!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#define OSG_COMPILEVTKMAPPERINST
+#define OSG_COMPILEVTKPOLYDATAMAPPERINST
 
 #include <cstdlib>
 #include <cstdio>
@@ -72,8 +72,8 @@
 #include <OSGGeoColor4fProperty.h> // Colors Class
 #include <OSGGeoVec3fProperty.h> // Normals Class
 
-#include "OSGVTKMapperBase.h"
-#include "OSGVTKMapper.h"
+#include "OSGVTKPolyDataMapperBase.h"
+#include "OSGVTKPolyDataMapper.h"
 
 #include "boost/bind.hpp"
 
@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::VTKMapper
+/*! \class OSG::VTKPolyDataMapper
     
  */
 
@@ -91,48 +91,48 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var Node *          VTKMapperBase::_sfRoot
+/*! \var Node *          VTKPolyDataMapperBase::_sfRoot
     
 */
 
-/*! \var Node *          VTKMapperBase::_mfGeoRoots
+/*! \var Node *          VTKPolyDataMapperBase::_mfGeoRoots
     
 */
 
-/*! \var Geometry *      VTKMapperBase::_mfGeometries
+/*! \var Geometry *      VTKPolyDataMapperBase::_mfGeometries
     
 */
 
-/*! \var ChunkMaterial * VTKMapperBase::_mfMaterials
+/*! \var ChunkMaterial * VTKPolyDataMapperBase::_mfMaterials
     
 */
 
-/*! \var MaterialChunk * VTKMapperBase::_mfMaterialChunks
+/*! \var MaterialChunk * VTKPolyDataMapperBase::_mfMaterialChunks
     
 */
 
-/*! \var GeoPnt3fProperty * VTKMapperBase::_mfPositions
+/*! \var GeoPnt3fProperty * VTKPolyDataMapperBase::_mfPositions
     
 */
 
-/*! \var GeoUInt32Property * VTKMapperBase::_mfLength
+/*! \var GeoUInt32Property * VTKPolyDataMapperBase::_mfLength
     
 */
 
-/*! \var GeoUInt8Property * VTKMapperBase::_mfTypes
+/*! \var GeoUInt8Property * VTKPolyDataMapperBase::_mfTypes
     
 */
 
-/*! \var GeoColor4fProperty * VTKMapperBase::_mfColors
+/*! \var GeoColor4fProperty * VTKPolyDataMapperBase::_mfColors
     
 */
 
-/*! \var GeoVec3fProperty * VTKMapperBase::_mfNormals
+/*! \var GeoVec3fProperty * VTKPolyDataMapperBase::_mfNormals
     
 */
 
 
-void VTKMapperBase::classDescInserter(TypeObject &oType)
+void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
@@ -144,8 +144,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleRoot),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -156,8 +156,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         GeoRootsFieldId, GeoRootsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleGeoRoots),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleGeoRoots));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleGeoRoots),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleGeoRoots));
 
     oType.addInitialDesc(pDesc);
 
@@ -168,8 +168,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         GeometriesFieldId, GeometriesFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleGeometries),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleGeometries));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleGeometries),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleGeometries));
 
     oType.addInitialDesc(pDesc);
 
@@ -180,8 +180,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleMaterials),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleMaterials));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleMaterials),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 
@@ -192,8 +192,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         MaterialChunksFieldId, MaterialChunksFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleMaterialChunks),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleMaterialChunks));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleMaterialChunks),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleMaterialChunks));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandlePositions),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -216,8 +216,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         LengthFieldId, LengthFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleLength),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleLength));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleLength),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleLength));
 
     oType.addInitialDesc(pDesc);
 
@@ -228,8 +228,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         TypesFieldId, TypesFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleTypes),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleTypes));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleTypes),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleTypes));
 
     oType.addInitialDesc(pDesc);
 
@@ -240,8 +240,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         ColorsFieldId, ColorsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleColors),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleColors));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleColors),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleColors));
 
     oType.addInitialDesc(pDesc);
 
@@ -252,28 +252,28 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
         NormalsFieldId, NormalsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKMapperBase::editHandleNormals),
-        static_cast<FieldGetMethodSig >(&VTKMapperBase::getHandleNormals));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleNormals),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleNormals));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-VTKMapperBase::TypeObject VTKMapperBase::_type(
-    VTKMapperBase::getClassname(),
+VTKPolyDataMapperBase::TypeObject VTKPolyDataMapperBase::_type(
+    VTKPolyDataMapperBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &VTKMapperBase::createEmptyLocal,
-    VTKMapper::initMethod,
-    VTKMapper::exitMethod,
-    (InitalInsertDescFunc) &VTKMapperBase::classDescInserter,
+    (PrototypeCreateF) &VTKPolyDataMapperBase::createEmptyLocal,
+    VTKPolyDataMapper::initMethod,
+    VTKPolyDataMapper::exitMethod,
+    (InitalInsertDescFunc) &VTKPolyDataMapperBase::classDescInserter,
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"VTKMapper\"\n"
+    "\tname=\"VTKPolyDataMapper\"\n"
     "\tparent=\"Group\"\n"
     "\tlibrary=\"ContribVTK\"\n"
     "\tstructure=\"concrete\"\n"
@@ -377,148 +377,148 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &VTKMapperBase::getType(void)
+FieldContainerType &VTKPolyDataMapperBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &VTKMapperBase::getType(void) const
+const FieldContainerType &VTKPolyDataMapperBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 VTKMapperBase::getContainerSize(void) const
+UInt32 VTKPolyDataMapperBase::getContainerSize(void) const
 {
-    return sizeof(VTKMapper);
+    return sizeof(VTKPolyDataMapper);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the VTKMapper::_sfRoot field.
-const SFUnrecNodePtr *VTKMapperBase::getSFRoot(void) const
+//! Get the VTKPolyDataMapper::_sfRoot field.
+const SFUnrecNodePtr *VTKPolyDataMapperBase::getSFRoot(void) const
 {
     return &_sfRoot;
 }
 
-SFUnrecNodePtr      *VTKMapperBase::editSFRoot           (void)
+SFUnrecNodePtr      *VTKPolyDataMapperBase::editSFRoot           (void)
 {
     editSField(RootFieldMask);
 
     return &_sfRoot;
 }
 
-//! Get the VTKMapper::_mfGeoRoots field.
-const MFUnrecNodePtr *VTKMapperBase::getMFGeoRoots(void) const
+//! Get the VTKPolyDataMapper::_mfGeoRoots field.
+const MFUnrecNodePtr *VTKPolyDataMapperBase::getMFGeoRoots(void) const
 {
     return &_mfGeoRoots;
 }
 
-MFUnrecNodePtr      *VTKMapperBase::editMFGeoRoots       (void)
+MFUnrecNodePtr      *VTKPolyDataMapperBase::editMFGeoRoots       (void)
 {
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
     return &_mfGeoRoots;
 }
 
-//! Get the VTKMapper::_mfGeometries field.
-const MFUnrecGeometryPtr *VTKMapperBase::getMFGeometries(void) const
+//! Get the VTKPolyDataMapper::_mfGeometries field.
+const MFUnrecGeometryPtr *VTKPolyDataMapperBase::getMFGeometries(void) const
 {
     return &_mfGeometries;
 }
 
-MFUnrecGeometryPtr  *VTKMapperBase::editMFGeometries     (void)
+MFUnrecGeometryPtr  *VTKPolyDataMapperBase::editMFGeometries     (void)
 {
     editMField(GeometriesFieldMask, _mfGeometries);
 
     return &_mfGeometries;
 }
 
-//! Get the VTKMapper::_mfMaterials field.
-const MFUnrecChunkMaterialPtr *VTKMapperBase::getMFMaterials(void) const
+//! Get the VTKPolyDataMapper::_mfMaterials field.
+const MFUnrecChunkMaterialPtr *VTKPolyDataMapperBase::getMFMaterials(void) const
 {
     return &_mfMaterials;
 }
 
-MFUnrecChunkMaterialPtr *VTKMapperBase::editMFMaterials      (void)
+MFUnrecChunkMaterialPtr *VTKPolyDataMapperBase::editMFMaterials      (void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
     return &_mfMaterials;
 }
 
-//! Get the VTKMapper::_mfMaterialChunks field.
-const MFUnrecMaterialChunkPtr *VTKMapperBase::getMFMaterialChunks(void) const
+//! Get the VTKPolyDataMapper::_mfMaterialChunks field.
+const MFUnrecMaterialChunkPtr *VTKPolyDataMapperBase::getMFMaterialChunks(void) const
 {
     return &_mfMaterialChunks;
 }
 
-MFUnrecMaterialChunkPtr *VTKMapperBase::editMFMaterialChunks (void)
+MFUnrecMaterialChunkPtr *VTKPolyDataMapperBase::editMFMaterialChunks (void)
 {
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
     return &_mfMaterialChunks;
 }
 
-//! Get the VTKMapper::_mfPositions field.
-const MFUnrecGeoPnt3fPropertyPtr *VTKMapperBase::getMFPositions(void) const
+//! Get the VTKPolyDataMapper::_mfPositions field.
+const MFUnrecGeoPnt3fPropertyPtr *VTKPolyDataMapperBase::getMFPositions(void) const
 {
     return &_mfPositions;
 }
 
-MFUnrecGeoPnt3fPropertyPtr *VTKMapperBase::editMFPositions      (void)
+MFUnrecGeoPnt3fPropertyPtr *VTKPolyDataMapperBase::editMFPositions      (void)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
     return &_mfPositions;
 }
 
-//! Get the VTKMapper::_mfLength field.
-const MFUnrecGeoUInt32PropertyPtr *VTKMapperBase::getMFLength(void) const
+//! Get the VTKPolyDataMapper::_mfLength field.
+const MFUnrecGeoUInt32PropertyPtr *VTKPolyDataMapperBase::getMFLength(void) const
 {
     return &_mfLength;
 }
 
-MFUnrecGeoUInt32PropertyPtr *VTKMapperBase::editMFLength         (void)
+MFUnrecGeoUInt32PropertyPtr *VTKPolyDataMapperBase::editMFLength         (void)
 {
     editMField(LengthFieldMask, _mfLength);
 
     return &_mfLength;
 }
 
-//! Get the VTKMapper::_mfTypes field.
-const MFUnrecGeoUInt8PropertyPtr *VTKMapperBase::getMFTypes(void) const
+//! Get the VTKPolyDataMapper::_mfTypes field.
+const MFUnrecGeoUInt8PropertyPtr *VTKPolyDataMapperBase::getMFTypes(void) const
 {
     return &_mfTypes;
 }
 
-MFUnrecGeoUInt8PropertyPtr *VTKMapperBase::editMFTypes          (void)
+MFUnrecGeoUInt8PropertyPtr *VTKPolyDataMapperBase::editMFTypes          (void)
 {
     editMField(TypesFieldMask, _mfTypes);
 
     return &_mfTypes;
 }
 
-//! Get the VTKMapper::_mfColors field.
-const MFUnrecGeoColor4fPropertyPtr *VTKMapperBase::getMFColors(void) const
+//! Get the VTKPolyDataMapper::_mfColors field.
+const MFUnrecGeoColor4fPropertyPtr *VTKPolyDataMapperBase::getMFColors(void) const
 {
     return &_mfColors;
 }
 
-MFUnrecGeoColor4fPropertyPtr *VTKMapperBase::editMFColors         (void)
+MFUnrecGeoColor4fPropertyPtr *VTKPolyDataMapperBase::editMFColors         (void)
 {
     editMField(ColorsFieldMask, _mfColors);
 
     return &_mfColors;
 }
 
-//! Get the VTKMapper::_mfNormals field.
-const MFUnrecGeoVec3fPropertyPtr *VTKMapperBase::getMFNormals(void) const
+//! Get the VTKPolyDataMapper::_mfNormals field.
+const MFUnrecGeoVec3fPropertyPtr *VTKPolyDataMapperBase::getMFNormals(void) const
 {
     return &_mfNormals;
 }
 
-MFUnrecGeoVec3fPropertyPtr *VTKMapperBase::editMFNormals        (void)
+MFUnrecGeoVec3fPropertyPtr *VTKPolyDataMapperBase::editMFNormals        (void)
 {
     editMField(NormalsFieldMask, _mfNormals);
 
@@ -527,21 +527,21 @@ MFUnrecGeoVec3fPropertyPtr *VTKMapperBase::editMFNormals        (void)
 
 
 
-void VTKMapperBase::pushToGeoRoots(Node * const value)
+void VTKPolyDataMapperBase::pushToGeoRoots(Node * const value)
 {
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
     _mfGeoRoots.push_back(value);
 }
 
-void VTKMapperBase::assignGeoRoots (const MFUnrecNodePtr    &value)
+void VTKPolyDataMapperBase::assignGeoRoots (const MFUnrecNodePtr    &value)
 {
     MFUnrecNodePtr   ::const_iterator elemIt  =
         value.begin();
     MFUnrecNodePtr   ::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearGeoRoots();
+    static_cast<VTKPolyDataMapper *>(this)->clearGeoRoots();
 
     while(elemIt != elemEnd)
     {
@@ -551,7 +551,7 @@ void VTKMapperBase::assignGeoRoots (const MFUnrecNodePtr    &value)
     }
 }
 
-void VTKMapperBase::removeFromGeoRoots(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromGeoRoots(UInt32 uiIndex)
 {
     if(uiIndex < _mfGeoRoots.size())
     {
@@ -565,7 +565,7 @@ void VTKMapperBase::removeFromGeoRoots(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromGeoRoots(Node * const value)
+void VTKPolyDataMapperBase::removeFromGeoRoots(Node * const value)
 {
     Int32 iElemIdx = _mfGeoRoots.findIndex(value);
 
@@ -580,7 +580,7 @@ void VTKMapperBase::removeFromGeoRoots(Node * const value)
         _mfGeoRoots.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearGeoRoots(void)
+void VTKPolyDataMapperBase::clearGeoRoots(void)
 {
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
@@ -588,21 +588,21 @@ void VTKMapperBase::clearGeoRoots(void)
     _mfGeoRoots.clear();
 }
 
-void VTKMapperBase::pushToGeometries(Geometry * const value)
+void VTKPolyDataMapperBase::pushToGeometries(Geometry * const value)
 {
     editMField(GeometriesFieldMask, _mfGeometries);
 
     _mfGeometries.push_back(value);
 }
 
-void VTKMapperBase::assignGeometries(const MFUnrecGeometryPtr &value)
+void VTKPolyDataMapperBase::assignGeometries(const MFUnrecGeometryPtr &value)
 {
     MFUnrecGeometryPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecGeometryPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearGeometries();
+    static_cast<VTKPolyDataMapper *>(this)->clearGeometries();
 
     while(elemIt != elemEnd)
     {
@@ -612,7 +612,7 @@ void VTKMapperBase::assignGeometries(const MFUnrecGeometryPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromGeometries(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromGeometries(UInt32 uiIndex)
 {
     if(uiIndex < _mfGeometries.size())
     {
@@ -626,7 +626,7 @@ void VTKMapperBase::removeFromGeometries(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromGeometries(Geometry * const value)
+void VTKPolyDataMapperBase::removeFromGeometries(Geometry * const value)
 {
     Int32 iElemIdx = _mfGeometries.findIndex(value);
 
@@ -641,7 +641,7 @@ void VTKMapperBase::removeFromGeometries(Geometry * const value)
         _mfGeometries.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearGeometries(void)
+void VTKPolyDataMapperBase::clearGeometries(void)
 {
     editMField(GeometriesFieldMask, _mfGeometries);
 
@@ -649,21 +649,21 @@ void VTKMapperBase::clearGeometries(void)
     _mfGeometries.clear();
 }
 
-void VTKMapperBase::pushToMaterials(ChunkMaterial * const value)
+void VTKPolyDataMapperBase::pushToMaterials(ChunkMaterial * const value)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
     _mfMaterials.push_back(value);
 }
 
-void VTKMapperBase::assignMaterials(const MFUnrecChunkMaterialPtr &value)
+void VTKPolyDataMapperBase::assignMaterials(const MFUnrecChunkMaterialPtr &value)
 {
     MFUnrecChunkMaterialPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecChunkMaterialPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearMaterials();
+    static_cast<VTKPolyDataMapper *>(this)->clearMaterials();
 
     while(elemIt != elemEnd)
     {
@@ -673,7 +673,7 @@ void VTKMapperBase::assignMaterials(const MFUnrecChunkMaterialPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromMaterials(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromMaterials(UInt32 uiIndex)
 {
     if(uiIndex < _mfMaterials.size())
     {
@@ -687,7 +687,7 @@ void VTKMapperBase::removeFromMaterials(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromMaterials(ChunkMaterial * const value)
+void VTKPolyDataMapperBase::removeFromMaterials(ChunkMaterial * const value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -702,7 +702,7 @@ void VTKMapperBase::removeFromMaterials(ChunkMaterial * const value)
         _mfMaterials.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearMaterials(void)
+void VTKPolyDataMapperBase::clearMaterials(void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -710,21 +710,21 @@ void VTKMapperBase::clearMaterials(void)
     _mfMaterials.clear();
 }
 
-void VTKMapperBase::pushToMaterialChunks(MaterialChunk * const value)
+void VTKPolyDataMapperBase::pushToMaterialChunks(MaterialChunk * const value)
 {
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
     _mfMaterialChunks.push_back(value);
 }
 
-void VTKMapperBase::assignMaterialChunks(const MFUnrecMaterialChunkPtr &value)
+void VTKPolyDataMapperBase::assignMaterialChunks(const MFUnrecMaterialChunkPtr &value)
 {
     MFUnrecMaterialChunkPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecMaterialChunkPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearMaterialChunks();
+    static_cast<VTKPolyDataMapper *>(this)->clearMaterialChunks();
 
     while(elemIt != elemEnd)
     {
@@ -734,7 +734,7 @@ void VTKMapperBase::assignMaterialChunks(const MFUnrecMaterialChunkPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
 {
     if(uiIndex < _mfMaterialChunks.size())
     {
@@ -748,7 +748,7 @@ void VTKMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromMaterialChunks(MaterialChunk * const value)
+void VTKPolyDataMapperBase::removeFromMaterialChunks(MaterialChunk * const value)
 {
     Int32 iElemIdx = _mfMaterialChunks.findIndex(value);
 
@@ -763,7 +763,7 @@ void VTKMapperBase::removeFromMaterialChunks(MaterialChunk * const value)
         _mfMaterialChunks.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearMaterialChunks(void)
+void VTKPolyDataMapperBase::clearMaterialChunks(void)
 {
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
@@ -771,21 +771,21 @@ void VTKMapperBase::clearMaterialChunks(void)
     _mfMaterialChunks.clear();
 }
 
-void VTKMapperBase::pushToPositions(GeoPnt3fProperty * const value)
+void VTKPolyDataMapperBase::pushToPositions(GeoPnt3fProperty * const value)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
     _mfPositions.push_back(value);
 }
 
-void VTKMapperBase::assignPositions(const MFUnrecGeoPnt3fPropertyPtr &value)
+void VTKPolyDataMapperBase::assignPositions(const MFUnrecGeoPnt3fPropertyPtr &value)
 {
     MFUnrecGeoPnt3fPropertyPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecGeoPnt3fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearPositions();
+    static_cast<VTKPolyDataMapper *>(this)->clearPositions();
 
     while(elemIt != elemEnd)
     {
@@ -795,7 +795,7 @@ void VTKMapperBase::assignPositions(const MFUnrecGeoPnt3fPropertyPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromPositions(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromPositions(UInt32 uiIndex)
 {
     if(uiIndex < _mfPositions.size())
     {
@@ -809,7 +809,7 @@ void VTKMapperBase::removeFromPositions(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromPositions(GeoPnt3fProperty * const value)
+void VTKPolyDataMapperBase::removeFromPositions(GeoPnt3fProperty * const value)
 {
     Int32 iElemIdx = _mfPositions.findIndex(value);
 
@@ -824,7 +824,7 @@ void VTKMapperBase::removeFromPositions(GeoPnt3fProperty * const value)
         _mfPositions.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearPositions(void)
+void VTKPolyDataMapperBase::clearPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -832,21 +832,21 @@ void VTKMapperBase::clearPositions(void)
     _mfPositions.clear();
 }
 
-void VTKMapperBase::pushToLength(GeoUInt32Property * const value)
+void VTKPolyDataMapperBase::pushToLength(GeoUInt32Property * const value)
 {
     editMField(LengthFieldMask, _mfLength);
 
     _mfLength.push_back(value);
 }
 
-void VTKMapperBase::assignLength   (const MFUnrecGeoUInt32PropertyPtr &value)
+void VTKPolyDataMapperBase::assignLength   (const MFUnrecGeoUInt32PropertyPtr &value)
 {
     MFUnrecGeoUInt32PropertyPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecGeoUInt32PropertyPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearLength();
+    static_cast<VTKPolyDataMapper *>(this)->clearLength();
 
     while(elemIt != elemEnd)
     {
@@ -856,7 +856,7 @@ void VTKMapperBase::assignLength   (const MFUnrecGeoUInt32PropertyPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromLength(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromLength(UInt32 uiIndex)
 {
     if(uiIndex < _mfLength.size())
     {
@@ -870,7 +870,7 @@ void VTKMapperBase::removeFromLength(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromLength(GeoUInt32Property * const value)
+void VTKPolyDataMapperBase::removeFromLength(GeoUInt32Property * const value)
 {
     Int32 iElemIdx = _mfLength.findIndex(value);
 
@@ -885,7 +885,7 @@ void VTKMapperBase::removeFromLength(GeoUInt32Property * const value)
         _mfLength.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearLength(void)
+void VTKPolyDataMapperBase::clearLength(void)
 {
     editMField(LengthFieldMask, _mfLength);
 
@@ -893,21 +893,21 @@ void VTKMapperBase::clearLength(void)
     _mfLength.clear();
 }
 
-void VTKMapperBase::pushToTypes(GeoUInt8Property * const value)
+void VTKPolyDataMapperBase::pushToTypes(GeoUInt8Property * const value)
 {
     editMField(TypesFieldMask, _mfTypes);
 
     _mfTypes.push_back(value);
 }
 
-void VTKMapperBase::assignTypes    (const MFUnrecGeoUInt8PropertyPtr &value)
+void VTKPolyDataMapperBase::assignTypes    (const MFUnrecGeoUInt8PropertyPtr &value)
 {
     MFUnrecGeoUInt8PropertyPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecGeoUInt8PropertyPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearTypes();
+    static_cast<VTKPolyDataMapper *>(this)->clearTypes();
 
     while(elemIt != elemEnd)
     {
@@ -917,7 +917,7 @@ void VTKMapperBase::assignTypes    (const MFUnrecGeoUInt8PropertyPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromTypes(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromTypes(UInt32 uiIndex)
 {
     if(uiIndex < _mfTypes.size())
     {
@@ -931,7 +931,7 @@ void VTKMapperBase::removeFromTypes(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromTypes(GeoUInt8Property * const value)
+void VTKPolyDataMapperBase::removeFromTypes(GeoUInt8Property * const value)
 {
     Int32 iElemIdx = _mfTypes.findIndex(value);
 
@@ -946,7 +946,7 @@ void VTKMapperBase::removeFromTypes(GeoUInt8Property * const value)
         _mfTypes.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearTypes(void)
+void VTKPolyDataMapperBase::clearTypes(void)
 {
     editMField(TypesFieldMask, _mfTypes);
 
@@ -954,21 +954,21 @@ void VTKMapperBase::clearTypes(void)
     _mfTypes.clear();
 }
 
-void VTKMapperBase::pushToColors(GeoColor4fProperty * const value)
+void VTKPolyDataMapperBase::pushToColors(GeoColor4fProperty * const value)
 {
     editMField(ColorsFieldMask, _mfColors);
 
     _mfColors.push_back(value);
 }
 
-void VTKMapperBase::assignColors   (const MFUnrecGeoColor4fPropertyPtr &value)
+void VTKPolyDataMapperBase::assignColors   (const MFUnrecGeoColor4fPropertyPtr &value)
 {
     MFUnrecGeoColor4fPropertyPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecGeoColor4fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearColors();
+    static_cast<VTKPolyDataMapper *>(this)->clearColors();
 
     while(elemIt != elemEnd)
     {
@@ -978,7 +978,7 @@ void VTKMapperBase::assignColors   (const MFUnrecGeoColor4fPropertyPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromColors(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromColors(UInt32 uiIndex)
 {
     if(uiIndex < _mfColors.size())
     {
@@ -992,7 +992,7 @@ void VTKMapperBase::removeFromColors(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromColors(GeoColor4fProperty * const value)
+void VTKPolyDataMapperBase::removeFromColors(GeoColor4fProperty * const value)
 {
     Int32 iElemIdx = _mfColors.findIndex(value);
 
@@ -1007,7 +1007,7 @@ void VTKMapperBase::removeFromColors(GeoColor4fProperty * const value)
         _mfColors.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearColors(void)
+void VTKPolyDataMapperBase::clearColors(void)
 {
     editMField(ColorsFieldMask, _mfColors);
 
@@ -1015,21 +1015,21 @@ void VTKMapperBase::clearColors(void)
     _mfColors.clear();
 }
 
-void VTKMapperBase::pushToNormals(GeoVec3fProperty * const value)
+void VTKPolyDataMapperBase::pushToNormals(GeoVec3fProperty * const value)
 {
     editMField(NormalsFieldMask, _mfNormals);
 
     _mfNormals.push_back(value);
 }
 
-void VTKMapperBase::assignNormals  (const MFUnrecGeoVec3fPropertyPtr &value)
+void VTKPolyDataMapperBase::assignNormals  (const MFUnrecGeoVec3fPropertyPtr &value)
 {
     MFUnrecGeoVec3fPropertyPtr::const_iterator elemIt  =
         value.begin();
     MFUnrecGeoVec3fPropertyPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<VTKMapper *>(this)->clearNormals();
+    static_cast<VTKPolyDataMapper *>(this)->clearNormals();
 
     while(elemIt != elemEnd)
     {
@@ -1039,7 +1039,7 @@ void VTKMapperBase::assignNormals  (const MFUnrecGeoVec3fPropertyPtr &value)
     }
 }
 
-void VTKMapperBase::removeFromNormals(UInt32 uiIndex)
+void VTKPolyDataMapperBase::removeFromNormals(UInt32 uiIndex)
 {
     if(uiIndex < _mfNormals.size())
     {
@@ -1053,7 +1053,7 @@ void VTKMapperBase::removeFromNormals(UInt32 uiIndex)
     }
 }
 
-void VTKMapperBase::removeFromNormals(GeoVec3fProperty * const value)
+void VTKPolyDataMapperBase::removeFromNormals(GeoVec3fProperty * const value)
 {
     Int32 iElemIdx = _mfNormals.findIndex(value);
 
@@ -1068,7 +1068,7 @@ void VTKMapperBase::removeFromNormals(GeoVec3fProperty * const value)
         _mfNormals.erase(fieldIt);
     }
 }
-void VTKMapperBase::clearNormals(void)
+void VTKPolyDataMapperBase::clearNormals(void)
 {
     editMField(NormalsFieldMask, _mfNormals);
 
@@ -1080,7 +1080,7 @@ void VTKMapperBase::clearNormals(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VTKMapperBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 VTKPolyDataMapperBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -1128,7 +1128,7 @@ UInt32 VTKMapperBase::getBinSize(ConstFieldMaskArg whichField)
     return returnValue;
 }
 
-void VTKMapperBase::copyToBin(BinaryDataHandler &pMem,
+void VTKPolyDataMapperBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
@@ -1175,7 +1175,7 @@ void VTKMapperBase::copyToBin(BinaryDataHandler &pMem,
     }
 }
 
-void VTKMapperBase::copyFromBin(BinaryDataHandler &pMem,
+void VTKPolyDataMapperBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
@@ -1223,43 +1223,43 @@ void VTKMapperBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-VTKMapperTransitPtr VTKMapperBase::create(void)
+VTKPolyDataMapperTransitPtr VTKPolyDataMapperBase::create(void)
 {
-    VTKMapperTransitPtr fc;
+    VTKPolyDataMapperTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<VTKMapper>(tmpPtr);
+        fc = dynamic_pointer_cast<VTKPolyDataMapper>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-VTKMapperTransitPtr VTKMapperBase::createLocal(BitVector bFlags)
+VTKPolyDataMapperTransitPtr VTKPolyDataMapperBase::createLocal(BitVector bFlags)
 {
-    VTKMapperTransitPtr fc;
+    VTKPolyDataMapperTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<VTKMapper>(tmpPtr);
+        fc = dynamic_pointer_cast<VTKPolyDataMapper>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-VTKMapper *VTKMapperBase::createEmpty(void)
+VTKPolyDataMapper *VTKPolyDataMapperBase::createEmpty(void)
 {
-    VTKMapper *returnValue;
+    VTKPolyDataMapper *returnValue;
 
-    newPtr<VTKMapper>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<VTKPolyDataMapper>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &= 
         ~Thread::getCurrentLocalFlags(); 
@@ -1267,23 +1267,23 @@ VTKMapper *VTKMapperBase::createEmpty(void)
     return returnValue;
 }
 
-VTKMapper *VTKMapperBase::createEmptyLocal(BitVector bFlags)
+VTKPolyDataMapper *VTKPolyDataMapperBase::createEmptyLocal(BitVector bFlags)
 {
-    VTKMapper *returnValue;
+    VTKPolyDataMapper *returnValue;
 
-    newPtr<VTKMapper>(returnValue, bFlags);
+    newPtr<VTKPolyDataMapper>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
 
-FieldContainerTransitPtr VTKMapperBase::shallowCopy(void) const
+FieldContainerTransitPtr VTKPolyDataMapperBase::shallowCopy(void) const
 {
-    VTKMapper *tmpPtr;
+    VTKPolyDataMapper *tmpPtr;
 
     newPtr(tmpPtr, 
-           dynamic_cast<const VTKMapper *>(this), 
+           dynamic_cast<const VTKPolyDataMapper *>(this), 
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -1293,12 +1293,12 @@ FieldContainerTransitPtr VTKMapperBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr VTKMapperBase::shallowCopyLocal(
+FieldContainerTransitPtr VTKPolyDataMapperBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    VTKMapper *tmpPtr;
+    VTKPolyDataMapper *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const VTKMapper *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const VTKPolyDataMapper *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -1311,7 +1311,7 @@ FieldContainerTransitPtr VTKMapperBase::shallowCopyLocal(
 
 /*------------------------- constructors ----------------------------------*/
 
-VTKMapperBase::VTKMapperBase(void) :
+VTKPolyDataMapperBase::VTKPolyDataMapperBase(void) :
     Inherited(),
     _sfRoot                   (NULL),
     _mfGeoRoots               (),
@@ -1326,7 +1326,7 @@ VTKMapperBase::VTKMapperBase(void) :
 {
 }
 
-VTKMapperBase::VTKMapperBase(const VTKMapperBase &source) :
+VTKPolyDataMapperBase::VTKPolyDataMapperBase(const VTKPolyDataMapperBase &source) :
     Inherited(source),
     _sfRoot                   (NULL),
     _mfGeoRoots               (),
@@ -1344,17 +1344,17 @@ VTKMapperBase::VTKMapperBase(const VTKMapperBase &source) :
 
 /*-------------------------- destructors ----------------------------------*/
 
-VTKMapperBase::~VTKMapperBase(void)
+VTKPolyDataMapperBase::~VTKPolyDataMapperBase(void)
 {
 }
 
-void VTKMapperBase::onCreate(const VTKMapper *source)
+void VTKPolyDataMapperBase::onCreate(const VTKPolyDataMapper *source)
 {
     Inherited::onCreate(source);
 
     if(source != NULL)
     {
-        VTKMapper *pThis = static_cast<VTKMapper *>(this);
+        VTKPolyDataMapper *pThis = static_cast<VTKPolyDataMapper *>(this);
 
         pThis->setRoot(source->getRoot());
 
@@ -1468,7 +1468,7 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
     }
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleRoot            (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleRoot            (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
@@ -1478,22 +1478,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleRoot            (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleRoot           (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleRoot           (void)
 {
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfRoot, 
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&VTKMapper::setRoot, 
-                                          static_cast<VTKMapper *>(this), _1));
+    returnValue->setSetMethod(boost::bind(&VTKPolyDataMapper::setRoot, 
+                                          static_cast<VTKPolyDataMapper *>(this), _1));
 
     editSField(RootFieldMask);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleGeoRoots        (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleGeoRoots        (void) const
 {
     MFUnrecNodePtr::GetHandlePtr returnValue(
         new  MFUnrecNodePtr::GetHandle(
@@ -1503,22 +1503,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleGeoRoots        (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleGeoRoots       (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleGeoRoots       (void)
 {
     MFUnrecNodePtr::EditHandlePtr returnValue(
         new  MFUnrecNodePtr::EditHandle(
              &_mfGeoRoots, 
              this->getType().getFieldDesc(GeoRootsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToGeoRoots, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToGeoRoots, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleGeometries      (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleGeometries      (void) const
 {
     MFUnrecGeometryPtr::GetHandlePtr returnValue(
         new  MFUnrecGeometryPtr::GetHandle(
@@ -1528,22 +1528,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleGeometries      (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleGeometries     (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleGeometries     (void)
 {
     MFUnrecGeometryPtr::EditHandlePtr returnValue(
         new  MFUnrecGeometryPtr::EditHandle(
              &_mfGeometries, 
              this->getType().getFieldDesc(GeometriesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToGeometries, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToGeometries, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(GeometriesFieldMask, _mfGeometries);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleMaterials       (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleMaterials       (void) const
 {
     MFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  MFUnrecChunkMaterialPtr::GetHandle(
@@ -1553,22 +1553,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleMaterials       (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleMaterials      (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleMaterials      (void)
 {
     MFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  MFUnrecChunkMaterialPtr::EditHandle(
              &_mfMaterials, 
              this->getType().getFieldDesc(MaterialsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToMaterials, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToMaterials, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleMaterialChunks  (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleMaterialChunks  (void) const
 {
     MFUnrecMaterialChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecMaterialChunkPtr::GetHandle(
@@ -1578,22 +1578,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleMaterialChunks  (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleMaterialChunks (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleMaterialChunks (void)
 {
     MFUnrecMaterialChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecMaterialChunkPtr::EditHandle(
              &_mfMaterialChunks, 
              this->getType().getFieldDesc(MaterialChunksFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToMaterialChunks, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToMaterialChunks, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandlePositions       (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandlePositions       (void) const
 {
     MFUnrecGeoPnt3fPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoPnt3fPropertyPtr::GetHandle(
@@ -1603,22 +1603,22 @@ GetFieldHandlePtr VTKMapperBase::getHandlePositions       (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandlePositions      (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandlePositions      (void)
 {
     MFUnrecGeoPnt3fPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoPnt3fPropertyPtr::EditHandle(
              &_mfPositions, 
              this->getType().getFieldDesc(PositionsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToPositions, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToPositions, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(PositionsFieldMask, _mfPositions);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleLength          (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleLength          (void) const
 {
     MFUnrecGeoUInt32PropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoUInt32PropertyPtr::GetHandle(
@@ -1628,22 +1628,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleLength          (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleLength         (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleLength         (void)
 {
     MFUnrecGeoUInt32PropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoUInt32PropertyPtr::EditHandle(
              &_mfLength, 
              this->getType().getFieldDesc(LengthFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToLength, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToLength, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(LengthFieldMask, _mfLength);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleTypes           (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleTypes           (void) const
 {
     MFUnrecGeoUInt8PropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoUInt8PropertyPtr::GetHandle(
@@ -1653,22 +1653,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleTypes           (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleTypes          (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleTypes          (void)
 {
     MFUnrecGeoUInt8PropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoUInt8PropertyPtr::EditHandle(
              &_mfTypes, 
              this->getType().getFieldDesc(TypesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToTypes, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToTypes, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(TypesFieldMask, _mfTypes);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleColors          (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleColors          (void) const
 {
     MFUnrecGeoColor4fPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoColor4fPropertyPtr::GetHandle(
@@ -1678,22 +1678,22 @@ GetFieldHandlePtr VTKMapperBase::getHandleColors          (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleColors         (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleColors         (void)
 {
     MFUnrecGeoColor4fPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoColor4fPropertyPtr::EditHandle(
              &_mfColors, 
              this->getType().getFieldDesc(ColorsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToColors, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToColors, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(ColorsFieldMask, _mfColors);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VTKMapperBase::getHandleNormals         (void) const
+GetFieldHandlePtr VTKPolyDataMapperBase::getHandleNormals         (void) const
 {
     MFUnrecGeoVec3fPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoVec3fPropertyPtr::GetHandle(
@@ -1703,15 +1703,15 @@ GetFieldHandlePtr VTKMapperBase::getHandleNormals         (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr VTKMapperBase::editHandleNormals        (void)
+EditFieldHandlePtr VTKPolyDataMapperBase::editHandleNormals        (void)
 {
     MFUnrecGeoVec3fPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoVec3fPropertyPtr::EditHandle(
              &_mfNormals, 
              this->getType().getFieldDesc(NormalsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKMapper::pushToNormals, 
-                              static_cast<VTKMapper *>(this), _1));
+    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToNormals, 
+                              static_cast<VTKPolyDataMapper *>(this), _1));
 
     editMField(NormalsFieldMask, _mfNormals);
 
@@ -1720,13 +1720,13 @@ EditFieldHandlePtr VTKMapperBase::editHandleNormals        (void)
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
+void VTKPolyDataMapperBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<VTKMapperBase *>(&oFrom),
+    this->execSync(static_cast<VTKPolyDataMapperBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1736,48 +1736,48 @@ void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *VTKMapperBase::createAspectCopy(void) const
+FieldContainer *VTKPolyDataMapperBase::createAspectCopy(void) const
 {
-    VTKMapper *returnValue;
+    VTKPolyDataMapper *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const VTKMapper *>(this));
+                  dynamic_cast<const VTKPolyDataMapper *>(this));
 
     return returnValue;
 }
 #endif
 
-void VTKMapperBase::resolveLinks(void)
+void VTKPolyDataMapperBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<VTKMapper *>(this)->setRoot(NULL);
+    static_cast<VTKPolyDataMapper *>(this)->setRoot(NULL);
 
 
-    static_cast<VTKMapper *>(this)->clearGeoRoots();
-    static_cast<VTKMapper *>(this)->clearGeometries();
-    static_cast<VTKMapper *>(this)->clearMaterials();
-    static_cast<VTKMapper *>(this)->clearMaterialChunks();
-    static_cast<VTKMapper *>(this)->clearPositions();
-    static_cast<VTKMapper *>(this)->clearLength();
-    static_cast<VTKMapper *>(this)->clearTypes();
-    static_cast<VTKMapper *>(this)->clearColors();
-    static_cast<VTKMapper *>(this)->clearNormals();
+    static_cast<VTKPolyDataMapper *>(this)->clearGeoRoots();
+    static_cast<VTKPolyDataMapper *>(this)->clearGeometries();
+    static_cast<VTKPolyDataMapper *>(this)->clearMaterials();
+    static_cast<VTKPolyDataMapper *>(this)->clearMaterialChunks();
+    static_cast<VTKPolyDataMapper *>(this)->clearPositions();
+    static_cast<VTKPolyDataMapper *>(this)->clearLength();
+    static_cast<VTKPolyDataMapper *>(this)->clearTypes();
+    static_cast<VTKPolyDataMapper *>(this)->clearColors();
+    static_cast<VTKPolyDataMapper *>(this)->clearNormals();
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VTKMapper *>::_type("VTKMapperPtr", "GroupPtr");
+DataType FieldTraits<VTKPolyDataMapper *>::_type("VTKPolyDataMapperPtr", "GroupPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VTKMapper *)
+OSG_FIELDTRAITS_GETTYPE(VTKPolyDataMapper *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           VTKMapper *, 
+                           VTKPolyDataMapper *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           VTKMapper *, 
+                           VTKPolyDataMapper *, 
                            0);
 
 OSG_END_NAMESPACE

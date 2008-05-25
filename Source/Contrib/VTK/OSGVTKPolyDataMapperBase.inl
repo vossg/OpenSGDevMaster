@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class VTKMapper!
+ **     class VTKPolyDataMapper!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,20 +53,20 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &VTKMapperBase::getClassType(void)
+OSG::FieldContainerType &VTKPolyDataMapperBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 VTKMapperBase::getClassTypeId(void)
+OSG::UInt32 VTKPolyDataMapperBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 VTKMapperBase::getClassGroupId(void)
+OSG::UInt16 VTKPolyDataMapperBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
@@ -74,81 +74,81 @@ OSG::UInt16 VTKMapperBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the VTKMapper::_sfRoot field.
+//! Get the value of the VTKPolyDataMapper::_sfRoot field.
 inline
-Node * VTKMapperBase::getRoot(void) const
+Node * VTKPolyDataMapperBase::getRoot(void) const
 {
     return _sfRoot.getValue();
 }
 
-//! Set the value of the VTKMapper::_sfRoot field.
+//! Set the value of the VTKPolyDataMapper::_sfRoot field.
 inline
-void VTKMapperBase::setRoot(Node * const value)
+void VTKPolyDataMapperBase::setRoot(Node * const value)
 {
     editSField(RootFieldMask);
 
     _sfRoot.setValue(value);
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfGeoRoots field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfGeoRoots field.
 inline
-Node * VTKMapperBase::getGeoRoots(const UInt32 index) const
+Node * VTKPolyDataMapperBase::getGeoRoots(const UInt32 index) const
 {
     return _mfGeoRoots[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfGeometries field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfGeometries field.
 inline
-Geometry * VTKMapperBase::getGeometries(const UInt32 index) const
+Geometry * VTKPolyDataMapperBase::getGeometries(const UInt32 index) const
 {
     return _mfGeometries[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfMaterials field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfMaterials field.
 inline
-ChunkMaterial * VTKMapperBase::getMaterials(const UInt32 index) const
+ChunkMaterial * VTKPolyDataMapperBase::getMaterials(const UInt32 index) const
 {
     return _mfMaterials[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfMaterialChunks field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfMaterialChunks field.
 inline
-MaterialChunk * VTKMapperBase::getMaterialChunks(const UInt32 index) const
+MaterialChunk * VTKPolyDataMapperBase::getMaterialChunks(const UInt32 index) const
 {
     return _mfMaterialChunks[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfPositions field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfPositions field.
 inline
-GeoPnt3fProperty * VTKMapperBase::getPositions(const UInt32 index) const
+GeoPnt3fProperty * VTKPolyDataMapperBase::getPositions(const UInt32 index) const
 {
     return _mfPositions[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfLength field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfLength field.
 inline
-GeoUInt32Property * VTKMapperBase::getLength(const UInt32 index) const
+GeoUInt32Property * VTKPolyDataMapperBase::getLength(const UInt32 index) const
 {
     return _mfLength[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfTypes field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfTypes field.
 inline
-GeoUInt8Property * VTKMapperBase::getTypes(const UInt32 index) const
+GeoUInt8Property * VTKPolyDataMapperBase::getTypes(const UInt32 index) const
 {
     return _mfTypes[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfColors field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfColors field.
 inline
-GeoColor4fProperty * VTKMapperBase::getColors(const UInt32 index) const
+GeoColor4fProperty * VTKPolyDataMapperBase::getColors(const UInt32 index) const
 {
     return _mfColors[index];
 }
 
-//! Get the value of the \a index element the VTKMapper::_mfNormals field.
+//! Get the value of the \a index element the VTKPolyDataMapper::_mfNormals field.
 inline
-GeoVec3fProperty * VTKMapperBase::getNormals(const UInt32 index) const
+GeoVec3fProperty * VTKPolyDataMapperBase::getNormals(const UInt32 index) const
 {
     return _mfNormals[index];
 }
@@ -156,7 +156,7 @@ GeoVec3fProperty * VTKMapperBase::getNormals(const UInt32 index) const
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void VTKMapperBase::execSync (      VTKMapperBase *pFrom,
+void VTKPolyDataMapperBase::execSync (      VTKPolyDataMapperBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -225,11 +225,11 @@ void VTKMapperBase::execSync (      VTKMapperBase *pFrom,
 
 
 inline
-Char8 *VTKMapperBase::getClassname(void)
+Char8 *VTKPolyDataMapperBase::getClassname(void)
 {
-    return "VTKMapper";
+    return "VTKPolyDataMapper";
 }
-OSG_GEN_CONTAINERPTR(VTKMapper);
+OSG_GEN_CONTAINERPTR(VTKPolyDataMapper);
 
 OSG_END_NAMESPACE
 

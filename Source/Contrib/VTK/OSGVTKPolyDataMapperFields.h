@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGVTKMAPPERFIELDS_H_
-#define _OSGVTKMAPPERFIELDS_H_
+#ifndef _OSGVTKPOLYDATAMAPPERFIELDS_H_
+#define _OSGVTKPOLYDATAMAPPERFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,12 +64,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-class VTKMapper;
+class VTKPolyDataMapper;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! VTKMapperPtr
+//! VTKPolyDataMapperPtr
 
-OSG_GEN_CONTAINERPTR(VTKMapper);
+OSG_GEN_CONTAINERPTR(VTKPolyDataMapper);
 
 #endif
 
@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(VTKMapper);
 #endif
 
 template <>
-struct FieldTraits<VTKMapper *> :
-    public FieldTraitsFCPtrBase<VTKMapper *>
+struct FieldTraits<VTKPolyDataMapper *> :
+    public FieldTraitsFCPtrBase<VTKPolyDataMapper *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<VTKMapper *> :
 
   public:
 
-    typedef FieldTraits<VTKMapper *>  Self;
+    typedef FieldTraits<VTKPolyDataMapper *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -99,63 +99,63 @@ struct FieldTraits<VTKMapper *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFVTKMapperPtr"; }
+//    static const char *getSName(void) { return "SFVTKPolyDataMapperPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFVTKMapperPtr"; }
+//    static const char *getMName(void) { return "MFVTKPolyDataMapperPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecVTKMapperPtr"; 
+    return "SFRecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecVTKMapperPtr"; 
+    return "SFUnrecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakVTKMapperPtr"; 
+    return "SFWeakVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdVTKMapperPtr"; 
+    return "SFUnrefdVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecVTKMapperPtr"; 
+    return "MFRecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecVTKMapperPtr"; 
+    return "MFUnrecVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakVTKMapperPtr"; 
+    return "MFWeakVTKPolyDataMapperPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<VTKMapper *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdVTKMapperPtr"; 
+    return "MFUnrefdVTKPolyDataMapperPtr"; 
 }
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<VTKMapperPtr, 0>
+/*! \class  FieldTraitsTemplateBase<VTKPolyDataMapperPtr, 0>
     \hideinhierarchy
  */
 #endif
@@ -166,31 +166,31 @@ const Char8 *FieldTraits<VTKMapper *, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldSingle */
 
-typedef PointerSField<VTKMapper *,
-                      RecordedRefCountPolicy  > SFRecVTKMapperPtr;
-typedef PointerSField<VTKMapper *,
-                      UnrecordedRefCountPolicy> SFUnrecVTKMapperPtr;
-typedef PointerSField<VTKMapper *,
-                      WeakRefCountPolicy      > SFWeakVTKMapperPtr;
-typedef PointerSField<VTKMapper *,
-                      NoRefCountPolicy        > SFUncountedVTKMapperPtr;
+typedef PointerSField<VTKPolyDataMapper *,
+                      RecordedRefCountPolicy  > SFRecVTKPolyDataMapperPtr;
+typedef PointerSField<VTKPolyDataMapper *,
+                      UnrecordedRefCountPolicy> SFUnrecVTKPolyDataMapperPtr;
+typedef PointerSField<VTKPolyDataMapper *,
+                      WeakRefCountPolicy      > SFWeakVTKPolyDataMapperPtr;
+typedef PointerSField<VTKPolyDataMapper *,
+                      NoRefCountPolicy        > SFUncountedVTKPolyDataMapperPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribVTKFieldMulti */
 
-typedef PointerMField<VTKMapper *,
-                      RecordedRefCountPolicy  > MFRecVTKMapperPtr;
-typedef PointerMField<VTKMapper *,
-                      UnrecordedRefCountPolicy> MFUnrecVTKMapperPtr;
-typedef PointerMField<VTKMapper *,
-                      WeakRefCountPolicy      > MFWeakVTKMapperPtr;
-typedef PointerMField<VTKMapper *,
-                      NoRefCountPolicy        > MFUncountedVTKMapperPtr;
+typedef PointerMField<VTKPolyDataMapper *,
+                      RecordedRefCountPolicy  > MFRecVTKPolyDataMapperPtr;
+typedef PointerMField<VTKPolyDataMapper *,
+                      UnrecordedRefCountPolicy> MFUnrecVTKPolyDataMapperPtr;
+typedef PointerMField<VTKPolyDataMapper *,
+                      WeakRefCountPolicy      > MFWeakVTKPolyDataMapperPtr;
+typedef PointerMField<VTKPolyDataMapper *,
+                      NoRefCountPolicy        > MFUncountedVTKPolyDataMapperPtr;
 #endif
 
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGVTKMAPPERFIELDS_H_ */
+#endif /* _OSGVTKPOLYDATAMAPPERFIELDS_H_ */

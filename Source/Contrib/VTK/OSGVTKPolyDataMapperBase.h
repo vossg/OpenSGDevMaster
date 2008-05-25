@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class VTKMapper
+ **     class VTKPolyDataMapper
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGVTKMAPPERBASE_H_
-#define _OSGVTKMAPPERBASE_H_
+#ifndef _OSGVTKPOLYDATAMAPPERBASE_H_
+#define _OSGVTKPOLYDATAMAPPERBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -76,15 +76,15 @@
 #include "OSGGeoColor4fPropertyFields.h" // Colors type
 #include "OSGGeoVec3fPropertyFields.h" // Normals type
 
-#include "OSGVTKMapperFields.h"
+#include "OSGVTKPolyDataMapperFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class VTKMapper;
+class VTKPolyDataMapper;
 
-//! \brief VTKMapper Base Class.
+//! \brief VTKPolyDataMapper Base Class.
 
-class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
+class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
 {
   public:
 
@@ -94,7 +94,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(VTKMapper);
+    OSG_GEN_INTERNALPTR(VTKPolyDataMapper);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -300,13 +300,13 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VTKMapperTransitPtr  create          (void);
-    static  VTKMapper           *createEmpty     (void);
+    static  VTKPolyDataMapperTransitPtr  create          (void);
+    static  VTKPolyDataMapper           *createEmpty     (void);
 
-    static  VTKMapperTransitPtr  createLocal     (
+    static  VTKPolyDataMapperTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  VTKMapper            *createEmptyLocal(
+    static  VTKPolyDataMapper            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -348,22 +348,22 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    VTKMapperBase(void);
-    VTKMapperBase(const VTKMapperBase &source);
+    VTKPolyDataMapperBase(void);
+    VTKPolyDataMapperBase(const VTKPolyDataMapperBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~VTKMapperBase(void);
+    virtual ~VTKPolyDataMapperBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const VTKMapper *source = NULL);
+    void onCreate(const VTKPolyDataMapper *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -403,7 +403,7 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      VTKMapperBase *pFrom,
+            void execSync (      VTKPolyDataMapperBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -442,14 +442,14 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const VTKMapperBase &source);
+    void operator =(const VTKPolyDataMapperBase &source);
 };
 
-typedef VTKMapperBase *VTKMapperBaseP;
+typedef VTKPolyDataMapperBase *VTKPolyDataMapperBaseP;
 
-typedef CoredNodeRefPtr  <VTKMapper> VTKMapperNodeRefPtr;
-typedef CoredNodeMTRefPtr<VTKMapper> VTKMapperNodeMTRefPtr;
+typedef CoredNodeRefPtr  <VTKPolyDataMapper> VTKPolyDataMapperNodeRefPtr;
+typedef CoredNodeMTRefPtr<VTKPolyDataMapper> VTKPolyDataMapperNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGVTKMAPPERBASE_H_ */
+#endif /* _OSGVTKPOLYDATAMAPPERBASE_H_ */
