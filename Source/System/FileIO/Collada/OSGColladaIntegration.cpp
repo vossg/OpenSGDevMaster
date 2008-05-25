@@ -420,7 +420,7 @@ bool NodeIntegration::handleInstance(daeElementRef pElem)
 
     if(pInstNode != NULL)
     {
-        pInt = dynamic_cast<InstanceIntegration *>(pInstGeo->getIntObject());
+        pInt = dynamic_cast<InstanceIntegration *>(pInstNode->getIntObject());
     }
 
     if(pInt == NULL)
