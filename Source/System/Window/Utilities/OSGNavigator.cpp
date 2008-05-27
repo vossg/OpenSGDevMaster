@@ -573,7 +573,7 @@ bool Navigator::calcFromTo(Int16   x,     Int16   y,
     Real32 winHeight;
     
     if(par != NULL)
-        winHeight = (Real32)par->getHeight();
+        winHeight = Real32(par->getHeight());
     else
         winHeight = height;
         

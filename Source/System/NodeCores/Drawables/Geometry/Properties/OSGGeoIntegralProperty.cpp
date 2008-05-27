@@ -167,10 +167,10 @@ void GeoIntegralProperty::activate(DrawEnv *pEnv, UInt32 slot)
         win->validateGLObject(getGLId(), pEnv);
 
          // get "glBindBufferARB" function pointer
-        void (OSG_APIENTRY*_glBindBufferARB)
-            (GLenum target, GLuint buffer) =
-            (void (OSG_APIENTRY*)(GLenum target, GLuint buffer))
-            pEnv->getWindow()->getFunction(_funcBindBuffer);
+        void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLuint buffer)>(
+                pEnv->getWindow()->getFunction(_funcBindBuffer));
 
         _glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 
                          win->getGLObjectId(getGLId()));
@@ -195,10 +195,9 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
         return;
 
     // get "glBindBufferARB" function pointer
-    void (OSG_APIENTRY*_glBindBufferARB)
-        (GLenum target, GLuint buffer) =
-        (void (OSG_APIENTRY*)(GLenum target, GLuint buffer))
-        pEnv->getWindow()->getFunction(_funcBindBuffer);
+    void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, GLuint buffer)>(
+            pEnv->getWindow()->getFunction(_funcBindBuffer));
 
     if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {
@@ -223,10 +222,10 @@ void GeoIntegralProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
        getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {
          // get "glBindBufferARB" function pointer
-        void (OSG_APIENTRY*_glBindBufferARB)
-            (GLenum target, GLuint buffer) =
-            (void (OSG_APIENTRY*)(GLenum target, GLuint buffer))
-            pEnv->getWindow()->getFunction(_funcBindBuffer);
+        void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLuint buffer)>(
+                pEnv->getWindow()->getFunction(_funcBindBuffer));
 
         _glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
     }

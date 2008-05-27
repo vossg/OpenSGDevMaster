@@ -180,7 +180,8 @@ bool PNMImageFileType::read(      Image        *pImage,
         {   // image is binary
             for(y = height - 1; y >= 0; y--)
             {
-                in.read((Char8 *) &(imageData[y * lineSize]), lineSize);
+                in.read(reinterpret_cast<Char8 *>(&(imageData[y * lineSize])),
+                        lineSize);
             }
         }
         else
@@ -216,9 +217,9 @@ bool PNMImageFileType::write(const Image         *pImage,
                                    std::ostream  &out, 
                              const std::string   &mimetype)
 {
-    Int16          p, y, x, lineSize;
-    UInt16         bpp = pImage->getBpp();
-    UInt8         *data = 0;
+          Int16    p, y, x, lineSize;
+          UInt16   bpp = pImage->getBpp();
+    const UInt8   *data = 0;
 
     switch(bpp)
     {
@@ -243,7 +244,8 @@ bool PNMImageFileType::write(const Image         *pImage,
 
         for(y = pImage->getHeight() - 1; y >= 0; y--)
         {
-            out.write((char *) (pImage->getData() + (lineSize * y)), 
+            out.write(reinterpret_cast<const char *>(pImage->getData() + 
+                                                     (lineSize * y)), 
                       lineSize);
         }
     }
@@ -254,7 +256,7 @@ bool PNMImageFileType::write(const Image         *pImage,
 
         for(y = pImage->getHeight() - 1; y >= 0; y--)
         {
-            data = (UInt8 *) (pImage->getData() + (lineSize * y));
+            data = (pImage->getData() + (lineSize * y));
 
             for(x = 0; x < pImage->getWidth(); x++)
             {

@@ -619,7 +619,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     }
 
     GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
-        (GLDrawBuffersEXTProcT) win->getFunction(_uiFuncDrawBuffers);
+        reinterpret_cast<GLDrawBuffersEXTProcT>(
+            win->getFunction(_uiFuncDrawBuffers));
 
     glColor3f(1.f, 1.f, 1.f);
     

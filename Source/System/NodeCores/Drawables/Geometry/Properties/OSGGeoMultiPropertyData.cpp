@@ -178,18 +178,21 @@ void GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv,
             mode == Window::needrefresh )
     {
         // get "glBindBufferARB" function pointer
-        void (OSG_APIENTRY*_glBindBufferARB)
-            (GLenum target, GLuint buffer) =
-            (void (OSG_APIENTRY*)(GLenum target, GLuint buffer))
-            win->getFunction(_funcBindBuffer);
+        void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLuint buffer)>(
+                win->getFunction(_funcBindBuffer));
 
         // get "glBufferDataARB" function pointer
-        void (OSG_APIENTRY*_glBufferDataARB)
-            (GLenum target, long size, const void *data,
-                           GLenum usage) =
-            (void (OSG_APIENTRY*)(GLenum target, long size, const void *data,
-                           GLenum usage))
-            win->getFunction(_funcBufferData);
+        void (OSG_APIENTRY*_glBufferDataARB)(GLenum target, 
+                                             long size, 
+                                             const void *data,
+                                             GLenum usage) =
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  long size, 
+                                                  const void *data,
+                                                  GLenum usage)>(
+                win->getFunction(_funcBufferData));
     
         _glBindBufferARB(GL_ARRAY_BUFFER_ARB, id);
         _glBufferDataARB(GL_ARRAY_BUFFER_ARB, 
@@ -219,10 +222,10 @@ void GeoMultiPropertyData::handleDestroyGL(DrawEnv                 *pEnv,
     if(mode == Window::destroy)
     {   
         // get "glDeleteBuffersARB" function pointer
-        void (OSG_APIENTRY*_glDeleteBuffers)
-            (GLsizei n, const GLuint *buffers) =
-            (void (OSG_APIENTRY*)(GLsizei n, const GLuint *buffers))
-            win->getFunction(_funcDeleteBuffers);
+        void (OSG_APIENTRY*_glDeleteBuffers)(GLsizei n, const GLuint *buffers) =
+            reinterpret_cast<void (OSG_APIENTRY*)(GLsizei n, 
+                                                  const GLuint *buffers)>(
+                win->getFunction(_funcDeleteBuffers));
 
         GLuint buf = id;
         _glDeleteBuffers(1, &buf);

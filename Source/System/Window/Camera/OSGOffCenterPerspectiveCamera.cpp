@@ -208,13 +208,13 @@ void OffCenterPerspectiveCamera::getProjection(Matrix &result,
     if(principalPointX == Real32(0) && principalPointY == Real32(0)) 
     {
         MatrixPerspective(result, fov / 2, 
-                          width /(Real32) height * getAspect(), 
+                          width / Real32(height) * getAspect(), 
                           getNear(), getFar());
     } 
     else 
     {
         MatrixPerspectivePrincipalPnt(result, fov / 2, 
-                                      width /(Real32) height * getAspect(), 
+                                      width / Real32(height) * getAspect(), 
                                       getNear(), getFar(),
                                       principalPointX, principalPointY);
     }

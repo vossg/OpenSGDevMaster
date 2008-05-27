@@ -142,8 +142,8 @@ void TextureGrabBackground::clear(DrawEnv *pEnv)
         i->set(i->getPixelFormat(), pw, ph);
     }
     
-    UInt32 w = osgMin((Int32)i->getWidth(),  pw);
-    UInt32 h = osgMin((Int32)i->getHeight(), ph);
+    UInt32 w = osgMin(Int32(i->getWidth ()),  pw);
+    UInt32 h = osgMin(Int32(i->getHeight()), ph);
 
     glErr("TextureGrabBackground::activate precheck");
     

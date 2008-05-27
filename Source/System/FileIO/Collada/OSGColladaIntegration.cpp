@@ -545,14 +545,14 @@ void NodeIntegration::fromCOLLADA(void)
 	if(pMeta->getContents() != NULL) 
     {
 		daeElementRefArray *era = 
-            (daeElementRefArray*) pMeta->getContents()->getWritableMemory(
-                _pElement);
+            reinterpret_cast<daeElementRefArray *>(
+                pMeta->getContents()->getWritableMemory(_pElement));
 
-		int elemCnt = (int) era->getCount();
+		int elemCnt = int(era->getCount());
 
 		for(int i = 0; i < elemCnt; i++) 
         {
-			daeElementRef elem = (daeElementRef) era->get(i);
+			daeElementRef elem = daeElementRef(era->get(i));
 
 #ifdef OSG_DEBUG_PRINT
 			if(elem != NULL) 

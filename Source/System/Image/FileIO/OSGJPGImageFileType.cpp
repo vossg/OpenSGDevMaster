@@ -110,13 +110,14 @@ static boolean istream_fill_input_buffer(j_decompress_ptr cinfo)
 
     sourceManager->is->read(sourceManager->buffer, BUFFERSIZE);
     
-    cinfo->src->next_input_byte = (const JOCTET*)sourceManager->buffer;
+    cinfo->src->next_input_byte = 
+        reinterpret_cast<const JOCTET *>(sourceManager->buffer);
     
     if (sourceManager->is->gcount() == 0)
     {
         /* Insert a fake EOI marker */
-        sourceManager->buffer[0] = (JOCTET) 0xFF;
-        sourceManager->buffer[1] = (JOCTET) JPEG_EOI;
+        sourceManager->buffer[0] = JOCTET(0xFF);
+        sourceManager->buffer[1] = JOCTET(JPEG_EOI);
         cinfo->src->bytes_in_buffer = 2;
     }
     else
@@ -129,7 +130,7 @@ static boolean istream_fill_input_buffer(j_decompress_ptr cinfo)
 
 static void istream_skip_input_data(j_decompress_ptr cinfo, long num_bytes)
 {
-    if ((unsigned long)num_bytes <= cinfo->src->bytes_in_buffer)
+    if (static_cast<unsigned long>(num_bytes) <= cinfo->src->bytes_in_buffer)
     {
         cinfo->src->bytes_in_buffer -= num_bytes;
         cinfo->src->next_input_byte += num_bytes;
@@ -157,9 +158,9 @@ SourceManager::SourceManager(j_decompress_ptr cinfo, std::istream &is)
     pub.bytes_in_buffer = 0; /* forces fill_input_buffer on first read */
     pub.next_input_byte = 0; /* until buffer loaded */
     this->is = &is;
-    buffer = (char*)(*cinfo->mem->alloc_small)((j_common_ptr)cinfo, 
-                                               JPOOL_IMAGE, 
-                                               BUFFERSIZE);
+    buffer = static_cast<char*>((*cinfo->mem->alloc_small)(j_common_ptr(cinfo), 
+                                                           JPOOL_IMAGE, 
+                                                           BUFFERSIZE));
 }
 
 struct DestinationManager
@@ -176,11 +177,11 @@ static void ostream_init_destination(j_compress_ptr cinfo)
         reinterpret_cast<DestinationManager*>(cinfo->dest);
 
     // Allocate the output buffer --- it will be released when done with image
-    dest->buffer = (char*)
-        (*cinfo->mem->alloc_small)((j_common_ptr)cinfo, JPOOL_IMAGE, 
-        BUFFERSIZE * sizeof(char));
+    dest->buffer = static_cast<char *>(
+        (*cinfo->mem->alloc_small)(j_common_ptr(cinfo), JPOOL_IMAGE, 
+                                   BUFFERSIZE * sizeof(char)));
 
-    dest->pub.next_output_byte = (JOCTET*)dest->buffer;
+    dest->pub.next_output_byte = reinterpret_cast<JOCTET *>(dest->buffer);
     dest->pub.free_in_buffer = BUFFERSIZE;
 }
 
@@ -190,11 +191,11 @@ static boolean ostream_empty_output_buffer(j_compress_ptr cinfo)
         reinterpret_cast<DestinationManager*>(cinfo->dest);
 
     destinationManager->os->write(
-        (char*)destinationManager->buffer,
+        static_cast<char *>(destinationManager->buffer),
         BUFFERSIZE);
 
     destinationManager->pub.next_output_byte = 
-        (JOCTET*)destinationManager->buffer;
+        reinterpret_cast<JOCTET *>(destinationManager->buffer);
     destinationManager->pub.free_in_buffer = BUFFERSIZE;
 
     return destinationManager->os->good() != false ? TRUE : FALSE;
@@ -209,7 +210,7 @@ static void ostream_term_destination(j_compress_ptr cinfo)
     // Write any data remaining in the buffer
     if (datacount > 0)
     {
-        dest->os->write((char*)dest->buffer, datacount);
+        dest->os->write(static_cast<char *>(dest->buffer), datacount);
     }
 }
 
@@ -219,9 +220,12 @@ DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os)
     pub.empty_output_buffer = ostream_empty_output_buffer;
     pub.term_destination = ostream_term_destination;
     this->os = &os;
-    buffer = (char*)(*cinfo->mem->alloc_small)((j_common_ptr)cinfo, JPOOL_IMAGE, BUFFERSIZE);
+    buffer = static_cast<char *>(
+        (*cinfo->mem->alloc_small)(j_common_ptr(cinfo), 
+                                   JPOOL_IMAGE, 
+                                   BUFFERSIZE));
     pub.free_in_buffer = BUFFERSIZE;
-    pub.next_output_byte = (JOCTET *) buffer;
+    pub.next_output_byte = reinterpret_cast<JOCTET *>(buffer);
 }
 
 struct osg_jpeg_error_mgr
@@ -239,7 +243,8 @@ static void osg_jpeg_error_exit(j_common_ptr cinfo)
     jpeg_destroy(cinfo);
 
     /* Return control to the setjmp point */
-    struct osg_jpeg_error_mgr *osgerr = (struct osg_jpeg_error_mgr *)cinfo->err;
+    struct osg_jpeg_error_mgr *osgerr = 
+        reinterpret_cast<struct osg_jpeg_error_mgr *>(cinfo->err);
     longjmp(osgerr->setjmp_buffer, 1);
 }
 
@@ -266,8 +271,8 @@ struct jpeg_mem
 /* */
 static void jpeg_mem_init_source(j_decompress_ptr OSG_CHECK_ARG(cinfo))
 {
-    jpeg_mem.src.next_input_byte = (JOCTET *) jpeg_mem.buffer;
-    jpeg_mem.src.bytes_in_buffer = (size_t) jpeg_mem.dataSize;
+    jpeg_mem.src.next_input_byte = static_cast<JOCTET *>(jpeg_mem.buffer);
+    jpeg_mem.src.bytes_in_buffer = size_t(jpeg_mem.dataSize);
 }
 
 /* */
@@ -303,8 +308,8 @@ static void jpeg_mem_term_source(j_decompress_ptr OSG_CHECK_ARG(cinfo))
 /* */
 static void jpeg_mem_init_destination(j_compress_ptr OSG_CHECK_ARG(cinfo))
 {
-    jpeg_mem.dest.next_output_byte = (JOCTET *) jpeg_mem.buffer;
-    jpeg_mem.dest.free_in_buffer = (size_t) jpeg_mem.memSize;
+    jpeg_mem.dest.next_output_byte = static_cast<JOCTET *>(jpeg_mem.buffer);
+    jpeg_mem.dest.free_in_buffer = size_t(jpeg_mem.memSize);
 }
 
 /* */
@@ -319,8 +324,8 @@ static boolean jpeg_mem_empty_output_buffer(
 static void jpeg_mem_term_destination(j_compress_ptr OSG_CHECK_ARG(cinfo))
 {
     jpeg_mem.dataSize = 
-        ((UChar8 *) jpeg_mem.dest.next_output_byte) - 
-        ((UChar8 *) jpeg_mem.buffer);
+        (static_cast<UChar8 *>(jpeg_mem.dest.next_output_byte)) - 
+        (static_cast<UChar8 *>(jpeg_mem.buffer));
 }
 
 /* */
@@ -379,6 +384,22 @@ UInt32 JPGImageFileType::getQuality(void)
     return _quality;
 }
 
+#ifdef OSG_DEBUG_OLD_C_CASTS
+#ifdef jpeg_create_compress
+#undef jpeg_create_compress
+#endif
+#ifdef jpeg_create_decompress
+#undef jpeg_create_decompress
+#endif
+
+#define jpeg_create_compress(cinfo) \
+    jpeg_CreateCompress((cinfo), JPEG_LIB_VERSION, \
+                        size_t(sizeof(struct jpeg_compress_struct)))
+#define jpeg_create_decompress(cinfo) \
+    jpeg_CreateDecompress((cinfo), JPEG_LIB_VERSION, \
+                          size_t(sizeof(struct jpeg_decompress_struct)))
+#endif
+
 //-------------------------------------------------------------------------
 /*!
   Tries to fill the image object with the data read from
@@ -403,12 +424,12 @@ bool JPGImageFileType::read(      Image        *OSG_JPG_ARG(pImage  ),
     jpeg_create_decompress(&cinfo);
 
     SourceManager *sourceManager =
-        new ((*cinfo.mem->alloc_small)((j_common_ptr)&cinfo, 
+        new ((*cinfo.mem->alloc_small)(j_common_ptr(&cinfo), 
                                        JPOOL_IMAGE, 
                                        sizeof(SourceManager)))
         SourceManager(&cinfo, is);
 
-    cinfo.src = (jpeg_source_mgr*)sourceManager;
+    cinfo.src = reinterpret_cast<jpeg_source_mgr *>(sourceManager);
 
     jpeg_read_header(&cinfo, TRUE);
     jpeg_start_decompress(&cinfo);
@@ -522,12 +543,12 @@ bool JPGImageFileType::write(const Image        *OSG_JPG_ARG(pImage  ),
     jpeg_create_compress(&cinfo);
 
     DestinationManager *destinationManager =
-        new ((*cinfo.mem->alloc_small)((j_common_ptr)&cinfo, 
+        new ((*cinfo.mem->alloc_small)(j_common_ptr(&cinfo), 
                                        JPOOL_IMAGE, 
                                        sizeof(DestinationManager)))
         DestinationManager(&cinfo, os);
 
-    cinfo.dest = (jpeg_destination_mgr*)destinationManager;
+    cinfo.dest = reinterpret_cast<jpeg_destination_mgr*>(destinationManager);
 
     cinfo.image_width = pImage->getWidth();
     cinfo.image_height = pImage->getHeight();
@@ -598,7 +619,7 @@ bool JPGImageFileType::validateHeader(const Char8 *fileName,
 
     UInt16 magic = 0;
 
-    fread((void *) &magic, sizeof(magic), 1, file);
+    fread(static_cast<void *>(&magic), sizeof(magic), 1, file);
 
     fclose(file);
 
@@ -675,7 +696,7 @@ UInt64 JPGImageFileType::restoreData(      Image  *OSG_JPG_ARG(pImage ),
         destData = pImage->editData() + imageSize;
         row_stride = cinfo.output_width * cinfo.output_components;
 
-        imagebuffer = (*cinfo.mem->alloc_sarray) ((j_common_ptr) & cinfo, 
+        imagebuffer = (*cinfo.mem->alloc_sarray) (j_common_ptr(&cinfo), 
                                                   JPOOL_IMAGE, 
                                                   row_stride, 
                                                   1);

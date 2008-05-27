@@ -88,7 +88,7 @@ GroupMCastConnection::GroupMCastConnection():
     _mcastSocket.setReadBufferSize(262144);
     // set window size
     _windowSize = _mcastSocket.getReadBufferSize()/(OSG_DGRAM_LEN) - 1;
-    _windowSize = osgMin((UInt32)13,_windowSize);
+    _windowSize = osgMin(UInt32(13),_windowSize);
 }
 
 /*! Destructor
@@ -183,7 +183,7 @@ void GroupMCastConnection::setParams(const std::string &params)
         ss >> ttl;
         if(ttl > 255)
             ttl = 255;
-        _mcastSocket.setTTL((unsigned char) ttl);
+        _mcastSocket.setTTL(static_cast<unsigned char>(ttl));
         FINFO(("GroupMCastConnection::setParams : setting ttl to %u.\n", ttl));
     }
 }
@@ -232,7 +232,7 @@ void GroupMCastConnection::write(MemoryHandle mem,UInt32 size)
 {
     Dgram  *dgram  = NULL;;
     UInt32  pos    = 0;
-    char   *buffer = (char*)mem;
+    char   *buffer = reinterpret_cast<char*>(mem);
 
     if(!_initialized)
         initialize();
@@ -532,7 +532,7 @@ bool GroupMCastConnection::sendQueue(void)
  */
 void GroupMCastConnection::sendQueueThread(void *arg)
 {
-    GroupMCastConnection *the = (GroupMCastConnection *)arg;
+    GroupMCastConnection *the = static_cast<GroupMCastConnection *>(arg);
     try
     {
         the->sendQueue();
@@ -557,7 +557,7 @@ void GroupMCastConnection::initialize()
     std::string   clientHost;
     UInt32        index;
     UInt32        len;
-    UInt32        ackNum = (UInt32) osgSqrt(Real32(_sockets.size()));
+    UInt32        ackNum = UInt32(osgSqrt(Real32(_sockets.size())));
     UInt32        numSource;
     UInt32        sendTo;
     BinaryMessage message;
@@ -623,7 +623,7 @@ void GroupMCastConnection::initialize()
         if((index % ackNum) == 0)
         {
             _waitFor.push_back(_receiver[index]);
-            numSource = osgMin( ackNum-1, (UInt32) _sockets.size()-index-1 );
+            numSource = osgMin( ackNum-1, UInt32(_sockets.size()-index-1) );
             message.putUInt32(numSource);
             for(UInt32 r = index+1 ; r < index+1+numSource ; ++r)
             {
@@ -648,7 +648,7 @@ void GroupMCastConnection::initialize()
     _sendQueueThread=BaseThread::get(threadName);
     _sendQueueThreadRunning = true;
     _sendQueueThreadStop    = false;
-    _sendQueueThread->runFunction( sendQueueThread, (void *) (this) );
+    _sendQueueThread->runFunction( sendQueueThread, static_cast<void *>(this) );
     _initialized = true;
 }
 

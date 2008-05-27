@@ -322,11 +322,11 @@ bool Camera::calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port)
 
     Real32  rx =
         (x - port.getPixelLeft()) /
-        (Real32) port.getPixelWidth() * 2.f - 1.f;
+        Real32(port.getPixelWidth()) * 2.f - 1.f;
 
     Real32 ry = 1.f - (
         ( y - (port.getParent()->getHeight() - port.getPixelTop()) ) /
-        (Real32) port.getPixelHeight()) * 2.f;
+        Real32(port.getPixelHeight())) * 2.f;
 
     Pnt3f from, at;
 

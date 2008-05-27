@@ -91,11 +91,11 @@ Quantizer::Quantizer(Real32 inputMin, Real32 inputMax, UInt8 res)
 #if 1
     // RL
     _inputScale   = 1.0f / (_inputMax - _inputMin);
-    _intervalSize = 1.0f / (Real32)(_resolution - 1);
+    _intervalSize = 1.0f / Real32(_resolution - 1);
 #else
     // TC
     _inputScale   = 1.0f / (_inputMax - _inputMin);
-    _intervalSize = 1.0f / (Real32)(_resolution);
+    _intervalSize = 1.0f / Real32(_resolution);
 #endif
 }
 

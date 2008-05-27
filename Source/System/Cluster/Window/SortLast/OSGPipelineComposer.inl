@@ -63,13 +63,13 @@ UInt32 PipelineComposer::getMinMaxOcclude(DepthT    &depth,
         {
             tile = getComposeTileBuffer(x,y);
 
-            if(tile->depth.min == (DepthT)-1 &&
-               tile->depth.max == (DepthT)-1) {
+            if(tile->depth.min == DepthT(-1) &&
+               tile->depth.max == DepthT(-1)) {
                 if(!reuseEmpty) {
                     reuseEmpty=result;
                     result++;
                     count++;
-                    reuseEmpty->min = (DepthT)-1;
+                    reuseEmpty->min = DepthT(-1);
                     reuseEmpty->max = 0;
                 }
                 reuseEmpty->max++;
@@ -173,10 +173,10 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
         DepthInfo *src = &depthInfoTmp[0];
         DepthInfo *dst = &depthInfo[_composeTilesX * _composeTilesY * channel];
         for(c=0; c<depthCount.min ; ++c) {
-            if(src->min == (DepthT)-1) {
+            if(src->min == DepthT(-1)) {
                 while(src->max--) {
-                    dst->min = (DepthT)-1;
-                    dst->max = (DepthT)-1;
+                    dst->min = DepthT(-1);
+                    dst->max = DepthT(-1);
                     dst->occlude = false;
                     dst++;
                 }
@@ -205,7 +205,7 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
                 _groupInfo[id]->depth = 
                     depthInfo[x+_composeTilesX*y + _composeTilesX*_composeTilesY*id];
 
-                if(_groupInfo[id]->depth.min == (DepthT)(-1))
+                if(_groupInfo[id]->depth.min == DepthT(-1))
                     _statistics.noGeo++;
             }
             // remove occluders
@@ -216,10 +216,10 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
                         if(id1 != id2 &&
                            _groupInfo[id1]->depth.max < 
                            _groupInfo[id2]->depth.min &&
-                           _groupInfo[id2]->depth.min != (DepthT)-1)
+                           _groupInfo[id2]->depth.min != DepthT(-1))
                         {
-                            _groupInfo[id2]->depth.max = (DepthT)-1;
-                            _groupInfo[id2]->depth.min = (DepthT)-1;
+                            _groupInfo[id2]->depth.max = DepthT(-1);
+                            _groupInfo[id2]->depth.min = DepthT(-1);
                             _groupInfo[id2]->depth.occlude = false;
                             _statistics.occluded++;
                         }
@@ -235,7 +235,7 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
             dmin = _groupInfo[0]->depth.min;
             for(id = 1 ; id < count ; ++id)
             {
-                if(_groupInfo[id]->depth.min != (DepthT)(-1))
+                if(_groupInfo[id]->depth.min != DepthT(-1))
                 {
                     if(dmin < _groupInfo[id]->depth.min)
                         _groupInfo[id]->depth.min = dmin;
@@ -252,7 +252,7 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
                 _groupInfo[id]->trans.sendDepth = true;
                 _groupInfo[id]->trans.first = true;
                 _groupInfo[id]->trans.empty = false;
-                if(_groupInfo[id]->depth.min == (DepthT)(-1))
+                if(_groupInfo[id]->depth.min == DepthT(-1))
                 {
                     _groupInfo[id]->trans.empty = true;
                 }        
@@ -459,10 +459,11 @@ void PipelineComposer::serverCompose(DepthT &depth,ColorT &color)
 #endif
 
         tile = getComposeTileBuffer(readTile->header.x,readTile->header.y);
-        srcDepth    = (DepthT*)(readTile->data + tile->colorSize);
-        srcColor    = (ColorT*)(readTile->data);
-        dstDepth    = (DepthT*)(tile->data + tile->colorSize);
-        dstColor    = (ColorT*)(tile->data);
+        srcDepth    = 
+            reinterpret_cast<DepthT*>(readTile->data + tile->colorSize);
+        srcColor    = reinterpret_cast<ColorT*>(readTile->data);
+        dstDepth    = reinterpret_cast<DepthT*>(tile->data + tile->colorSize);
+        dstColor    = reinterpret_cast<ColorT*>(tile->data);
         if(readTile->header.depth)
         {
             // compose with depth
@@ -472,8 +473,8 @@ void PipelineComposer::serverCompose(DepthT &depth,ColorT &color)
 #endif
 
             // compose
-            srcDepthEnd = (DepthT*)(readTile->data + 
-                                    tile->dataSize);
+            srcDepthEnd = reinterpret_cast<DepthT*>(readTile->data + 
+                                                    tile->dataSize);
             while(srcDepth < srcDepthEnd)
             {
 //                *(char*)srcColor -=22;
@@ -498,11 +499,11 @@ void PipelineComposer::serverCompose(DepthT &depth,ColorT &color)
 #endif
 
             // compose
-            dstDepthEnd = (DepthT*)(tile->data + 
-                                    tile->dataSize);
+            dstDepthEnd = reinterpret_cast<DepthT*>(tile->data + 
+                                                    tile->dataSize);
             while(dstDepth < dstDepthEnd)
             {
-                if(*dstDepth == (DepthT)-1)
+                if(*dstDepth == DepthT(-1))
                     *dstColor = *srcColor;
                 dstDepth++;
                 srcColor++;
@@ -651,8 +652,8 @@ void PipelineComposer::readBuffer(DepthT &depth,ColorT &color,
             if(x > right || (x+w) <= left ||
                y > top   || (y+h) <= bottom)
             {
-                tile->depth.min     = (DepthT)-1;
-                tile->depth.max     = (DepthT)-1;
+                tile->depth.min     = DepthT(-1);
+                tile->depth.max     = DepthT(-1);
                 tile->depth.occlude = false;
                 tile->empty = true;
                 _statistics.clipped++;
@@ -730,15 +731,15 @@ void PipelineComposer::readBuffer(DepthT &depth,ColorT &color,
                 occlude  = false;
             }
 #else
-            depthPtr = (DepthT*)(tile->data + tile->colorSize);
+            depthPtr = reinterpret_cast<DepthT*>(tile->data + tile->colorSize);
             // new version
-            occlude = checkDepth<DepthT,(DepthT)-1>(
+            occlude = checkDepth<DepthT, DepthT(-1)>(
                 depthPtr,
                 depthMin,
                 depthMax,
                 w*h);
 #endif
-            if(depthMin == (DepthT)-1)
+            if(depthMin == DepthT(-1))
                 tile->empty = true;
             else
                 tile->empty = false;

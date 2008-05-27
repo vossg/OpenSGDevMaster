@@ -378,7 +378,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
             
             default:
             {
-                SFATAL << "Unknown tag:" << (int) cmd << std::endl;
+                SFATAL << "Unknown tag:" << Int32(cmd) << std::endl;
                 throw RemoteSyncError();
             }
         }
@@ -748,8 +748,8 @@ void RemoteAspect::handleFCMapping(Connection &connection)
           remoteFCI != _remoteFC.end  ();
         ++remoteFCI)
     {
-        remoteId     = (UInt32)(remoteFCI->second);
-        remoteAspect = (UInt32)(remoteFCI->second>>32);
+        remoteId     = UInt32(remoteFCI->second);
+        remoteAspect = UInt32(remoteFCI->second>>32);
 
         cmd = IDMAPPING;
 

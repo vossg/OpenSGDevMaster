@@ -374,8 +374,8 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32 osgid,
         {
             // get "glGenProgramsARB" function pointer
             void (OSG_APIENTRY* genPrograms)(GLsizei n, GLuint *prog) =
-                (void (OSG_APIENTRY*)(GLsizei n, GLuint *prog))
-                win->getFunction(_funcGenPrograms);
+                reinterpret_cast<void (OSG_APIENTRY*)(GLsizei n, GLuint *prog)>(
+                    win->getFunction(_funcGenPrograms));
 
             genPrograms(1, &id);
             win->setGLObjectId(osgid, id);
@@ -383,8 +383,8 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32 osgid,
 
         // get "glBindProgramARB" function pointer
         void (OSG_APIENTRY* bindProgram)(GLenum target, GLuint prog) =
-            (void (OSG_APIENTRY*)(GLenum target, GLuint prog))
-            win->getFunction(_funcBindProgram);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, GLuint prog)>(
+                win->getFunction(_funcBindProgram));
              
         glErr("ProgramChunk::handleGL: bindProgram precheck");
         
@@ -395,11 +395,15 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32 osgid,
         if(mode != Window::needrefresh)
         {
             // get "glProgramStringARB" function pointer
-            void (OSG_APIENTRY* programString)(GLenum target, GLenum format, 
-                        GLsizei lesn, const void *string) =
-                (void (OSG_APIENTRY*)(GLenum target, GLenum format, 
-                        GLsizei len, const void *string))
-                win->getFunction(_funcProgramString);
+            void (OSG_APIENTRY* programString)(GLenum target, 
+                                               GLenum format, 
+                                               GLsizei lesn, 
+                                               const void *string) =
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                      GLenum format, 
+                                                      GLsizei len, 
+                                                      const void *string)>(
+                    win->getFunction(_funcProgramString));
             
             glErr("ProgramChunk::handleGL: programString precheck");
             
@@ -429,9 +433,10 @@ void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32 osgid,
         
         void (OSG_APIENTRY* programLocalParameter4fv)(GLenum target, 
                         GLuint index, const GLfloat *params) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                        GLuint index, const GLfloat *params))
-            win->getFunction(_funcProgramLocalParameter4fv);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLuint index, 
+                                                  const GLfloat *params)>(
+                win->getFunction(_funcProgramLocalParameter4fv));
              
         glErr("ProgramChunk::handleGL: programLocalParameter precheck");
        
@@ -478,8 +483,9 @@ void ProgramChunk::handleDestroyGL(DrawEnv *pEnv, UInt32 osgid,
     {
         // get "glDeleteProgramsARB" function pointer
         void (OSG_APIENTRY* deletePrograms)(GLsizei num, const GLuint *progs) =
-            (void (OSG_APIENTRY*)(GLsizei num, const GLuint *progs))
-            win->getFunction(_funcDeletePrograms);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLsizei num, 
+                                                  const GLuint *progs)>(
+                win->getFunction(_funcDeletePrograms));
 
         deletePrograms(1, &id);
 
@@ -515,8 +521,8 @@ void ProgramChunk::activate(DrawEnv *pEnv, UInt32)
            
     // get "glBindProgramARB" function pointer
     void (OSG_APIENTRY* bindProgram)(GLenum target, GLuint prog) =
-        (void (OSG_APIENTRY*)(GLenum target, GLuint prog))
-        pEnv->getWindow()->getFunction(_funcBindProgram);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, GLuint prog)>(
+            pEnv->getWindow()->getFunction(_funcBindProgram));
              
     glErr("ProgramChunk::activate: bindProgram precheck");
 
@@ -560,8 +566,8 @@ void ProgramChunk::changeFrom(DrawEnv    *pEnv,
            
     // get "glBindProgramARB" function pointer
     void (OSG_APIENTRY* bindProgram)(GLenum target, GLuint prog) =
-        (void (OSG_APIENTRY*)(GLenum target, GLuint prog))
-        pEnv->getWindow()->getFunction(_funcBindProgram);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, GLuint prog)>(
+            pEnv->getWindow()->getFunction(_funcBindProgram));
              
     glErr("ProgramChunk::changeFrom: bindProgram precheck");
 
@@ -593,8 +599,8 @@ void ProgramChunk::deactivate(DrawEnv *pEnv, UInt32)
            
     // get "glBindProgramARB" function pointer
     void (OSG_APIENTRY* bindProgram)(GLenum target, GLuint prog) =
-        (void (OSG_APIENTRY*)(GLenum target, GLuint prog))
-        pEnv->getWindow()->getFunction(_funcBindProgram);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, GLuint prog)>(
+            pEnv->getWindow()->getFunction(_funcBindProgram));
 
              
     glErr("ProgramChunk::deactivate: bindProgram precheck");

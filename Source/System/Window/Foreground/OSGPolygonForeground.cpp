@@ -160,8 +160,9 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     
     if(getAspectHeight() && getAspectWidth())
     {
-        aspectX = ((Real32) pPort->getPixelHeight() / getAspectHeight()) /
-                  ((Real32) pPort->getPixelWidth()  / getAspectWidth());
+        aspectX = 
+            (Real32(pPort->getPixelHeight()) / getAspectHeight()) /
+            (Real32(pPort->getPixelWidth())  / getAspectWidth());
     }
  
     glMatrixMode(GL_MODELVIEW);
@@ -205,11 +206,12 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         if (getAspectHeight() && getAspectWidth() &&
             height != 0 && width != 0)
         {
-            aspectX = ((Real32)height/getAspectHeight()) /
-                      ((Real32)width / getAspectWidth());
+            aspectX = 
+                (Real32(height/getAspectHeight())) /
+                (Real32(width / getAspectWidth()));
 
-            t  = (Real32) width * (1 - aspectX) * 0.5f;
-            t *= (Real32) pPort->getPixelWidth() / width;
+            t  = Real32(width) * (1 - aspectX) * 0.5f;
+            t *= Real32(pPort->getPixelWidth()) / width;
         }
 		
 		Matrix sm;
@@ -221,8 +223,8 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         glTranslatef(t, 0, 0);
         glScalef(aspectX, aspectY, 1);
 
-        float t1 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelWidth();
-        float t2 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelHeight();
+        float t1 = (1 - sFac) * 0.5f * Real32(pPort->getPixelWidth());
+        float t2 = (1 - sFac) * 0.5f * Real32(pPort->getPixelHeight());
         glTranslatef(t1, t2, 0);
         glScalef(sFac,sFac,1);
     }

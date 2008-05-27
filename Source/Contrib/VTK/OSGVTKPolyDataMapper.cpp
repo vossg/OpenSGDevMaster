@@ -182,7 +182,8 @@ bool VTKPolyDataMapper::processPrimitive(
 
   // get polyData from vtkActor
 
-    vtkPolyData *polyData = (vtkPolyData *) actor->GetMapper()->GetInput();
+    vtkPolyData *polyData = 
+        static_cast<vtkPolyData *>(actor->GetMapper()->GetInput());
     
     int numPrimitives = primArray->GetNumberOfCells();
     
@@ -320,9 +321,9 @@ bool VTKPolyDataMapper::processPrimitive(
             vtkReal *aVertex = polyData->GetPoint(pts[i]);
             
             (*pPointField)[vert].setValues(
-                (float) aVertex[0], 
-                (float) aVertex[1], 
-                (float) aVertex[2]);
+                Real32(aVertex[0]), 
+                Real32(aVertex[1]), 
+                Real32(aVertex[2]));
             
             if(colorPerVertex == 1 && colorArray != NULL)
             {
@@ -360,9 +361,9 @@ bool VTKPolyDataMapper::processPrimitive(
             
             if(aNormal != NULL)
             {
-                (*pNormalField)[vert].setValues((float) aNormal[0], 
-                                                (float) aNormal[1], 
-                                                (float) aNormal[2]);
+                (*pNormalField)[vert].setValues(Real32(aNormal[0]), 
+                                                Real32(aNormal[1]), 
+                                                Real32(aNormal[2]));
             }
             
             vert++;
@@ -413,7 +414,8 @@ void VTKPolyDataMapper::execute(void)
     fprintf(stderr, "Mapper::execute %p\n", _pActor);
 
     // get poly data
-    vtkPolyData *polyData = (vtkPolyData *) _pActor->GetMapper()->GetInput();
+    vtkPolyData *polyData = 
+        static_cast<vtkPolyData *>(_pActor->GetMapper()->GetInput());
 
     if(polyData == NULL)
     {

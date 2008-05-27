@@ -121,7 +121,7 @@ void OrthographicCamera::getProjection(Matrixr &result,
         return;
     }
 
-    Real32 a = width /(Real32) height * getAspect();
+    Real32 a = width / Real32(height) * getAspect();
     
     MatrixOrthogonal(result, -vs / 2 * a,  vs / 2 * a, 
                              -vs / 2, vs / 2,

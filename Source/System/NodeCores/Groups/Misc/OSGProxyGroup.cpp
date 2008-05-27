@@ -257,8 +257,9 @@ void ProxyGroup::startLoading(void)
                                         std::ios_base::out   |
                                         std::ios_base::binary);
 
-            tmpStream.write((char*)(&getMFInline()->front()), 
-                                     getMFInline()->size ());
+            tmpStream.write(
+                reinterpret_cast<const char*>(&getMFInline()->front()), 
+                getMFInline()->size ());
 
             _loadedRoot = SceneFileHandler::the()->read(tmpStream, "osb");
         }
@@ -338,8 +339,9 @@ void ProxyGroup::loadProc(void *)
                                         std::ios_base::out   |
                                         std::ios_base::binary);
 
-            tmpStream.write((char*)(&g->getMFInline()->front()),
-                                     g->getMFInline()->size());
+            tmpStream.write(
+                reinterpret_cast<const char *>(&g->getMFInline()->front()),
+                g->getMFInline()->size());
 
             g->_loadedRoot = SceneFileHandler::the()->read(tmpStream, "osb");
         }

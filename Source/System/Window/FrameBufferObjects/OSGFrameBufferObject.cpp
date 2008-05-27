@@ -45,8 +45,8 @@
     GLenum status;                                                     \
                                                                        \
     GLCheckFramebufferStatusEXTProcT glCheckFramebufferStatusEXTProc = \
-        (GLCheckFramebufferStatusEXTProcT) win->getFunction(           \
-                _uiFuncCheckFramebufferStatus);                        \
+        reinterpret_cast<GLCheckFramebufferStatusEXTProcT>(            \
+            win->getFunction(_uiFuncCheckFramebufferStatus));          \
                                                                        \
     status = glCheckFramebufferStatusEXTProc(GL_FRAMEBUFFER_EXT);      \
                                                                   \
@@ -301,7 +301,8 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
     win->validateGLObject(getGLId(), pEnv);
 
     GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
-        (GLBindFramebufferEXTProcT) win->getFunction(_uiFuncBindFramebuffer);
+        reinterpret_cast<GLBindFramebufferEXTProcT>(
+            win->getFunction(_uiFuncBindFramebuffer));
 
     glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, 
                              win->getGLObjectId(getGLId()));
@@ -315,7 +316,8 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
         if(_mfDrawBuffers.size() != 0)
         {
             GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
-                (GLDrawBuffersEXTProcT) win->getFunction(_uiFuncDrawBuffers);
+                reinterpret_cast<GLDrawBuffersEXTProcT>(
+                    win->getFunction(_uiFuncDrawBuffers));
             
             glDrawBuffersEXTProc(_mfDrawBuffers.size(), &(_mfDrawBuffers[0]) );
         }
@@ -328,7 +330,8 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
     else
     {
         GLDrawBuffersEXTProcT glDrawBuffersEXTProc =
-            (GLDrawBuffersEXTProcT) win->getFunction(_uiFuncDrawBuffers);
+            reinterpret_cast<GLDrawBuffersEXTProcT>(
+                win->getFunction(_uiFuncDrawBuffers));
         
         glDrawBuffersEXTProc(1, &eDrawBuffer );
     }
@@ -349,7 +352,8 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 //    FLOG(("FBO DeActivate %p\n", this));
 
     GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
-        (GLBindFramebufferEXTProcT) win->getFunction(_uiFuncBindFramebuffer);
+        reinterpret_cast<GLBindFramebufferEXTProcT>(
+            win->getFunction(_uiFuncBindFramebuffer));
 
     glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, 0);
 }
@@ -367,8 +371,8 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         if(mode == Window::initialize)
         {
             GLGenFramebuffersEXTProcT glGenFramebuffersEXTProc = 
-                (GLGenFramebuffersEXTProcT) win->getFunction(
-                    _uiFuncGenFramebuffers);
+                reinterpret_cast<GLGenFramebuffersEXTProcT>(
+                    win->getFunction(_uiFuncGenFramebuffers));
 
             glGenFramebuffersEXTProc(1, &uiFBOId);
 
@@ -385,14 +389,14 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
     if(mode == Window::initialize || mode == Window::reinitialize)
     {
         GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
-            (GLBindFramebufferEXTProcT) win->getFunction(
-                _uiFuncBindFramebuffer);
+            reinterpret_cast<GLBindFramebufferEXTProcT>(
+                win->getFunction(_uiFuncBindFramebuffer));
 
         glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, uiFBOId);
 
         GLFramebufferRenderbufferEXTProcT glFramebufferRenderbufferEXTProc =
-            (GLFramebufferRenderbufferEXTProcT) win->getFunction(
-                _uiFuncFramebufferRenderbuffer);
+            reinterpret_cast<GLFramebufferRenderbufferEXTProcT>(
+                win->getFunction(_uiFuncFramebufferRenderbuffer));
 
         MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  = 
             _mfColorAttachments.begin();
@@ -513,8 +517,8 @@ void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv,
         if(win->hasExtension(_uiFramebuffer_object_extension) == false)
         {
             GLDeleteFramebuffersEXTProcT glDeleteFramebuffersEXTProc =
-                (GLDeleteFramebuffersEXTProcT) win->getFunction(
-                    _uiFuncDeleteFramebuffers);
+                reinterpret_cast<GLDeleteFramebuffersEXTProcT>(
+                    win->getFunction(_uiFuncDeleteFramebuffers));
             
             glDeleteFramebuffersEXTProc(1, &uiFBOId);
         }

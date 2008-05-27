@@ -123,7 +123,7 @@ void ShearedStereoCameraDecorator::getProjection(Matrix &result,
     
     Matrix trans;
     MatrixStereoPerspective(result, trans, cam->getFov(), 
-                            width / (Real32) height * cam->getAspect(), 
+                            width / Real32(height) * cam->getAspect(), 
                             cam->getNear(), 
                             cam->getFar(),
                             getZeroParallaxDistance(),

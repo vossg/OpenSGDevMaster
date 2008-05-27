@@ -66,8 +66,8 @@ inline
 void TextureBaseChunk::activeTexture(Window *win, UInt16 texture)
 {
     void (OSG_APIENTRY *ActiveTexture)(GLenum target) = 
-        (void (OSG_APIENTRY*)(GLenum target))
-            win->getFunction(_funcActiveTexture);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target)>(
+            win->getFunction(_funcActiveTexture));
 
     ActiveTexture(GL_TEXTURE0 + texture);
 }

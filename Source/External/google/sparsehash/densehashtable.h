@@ -402,7 +402,7 @@ class dense_hashtable {
 
     assert(!table);                  // must set before first use
     // num_buckets was set in constructor even though table was NULL
-    table = (value_type *) malloc(num_buckets * sizeof(*table));
+    table = static_cast<value_type *>(malloc(num_buckets * sizeof(*table)));
     assert(table);
     set_empty(0, num_buckets);
   }
@@ -472,7 +472,7 @@ class dense_hashtable {
     // If we need to change the size of our table, do it now
     const size_type resize_to = min_size(ht.size(), min_buckets_wanted);
     if ( resize_to > bucket_count() ) {      // we don't have enough buckets
-      table = (value_type *) realloc(table, resize_to * sizeof(*table));
+        table = static_cast<value_type *>(realloc(table, resize_to * sizeof(*table)));
       assert(table != NULL);
       set_empty(num_buckets, resize_to);     // empty everything between them
       num_buckets = resize_to;
@@ -589,7 +589,7 @@ class dense_hashtable {
   void clear() {
     num_buckets = min_size(0,0);          // our new size
     reset_thresholds();
-    table = (value_type *) realloc(table, num_buckets * sizeof(*table));
+    table = static_cast<value_type *>(realloc(table, num_buckets * sizeof(*table)));
     assert(table);
     set_empty(0, num_buckets);
     num_elements = 0;
@@ -786,7 +786,7 @@ class dense_hashtable {
     // TODO: read magic number
     // TODO: read num_buckets
     reset_thresholds();
-    table = (value_type *) malloc(num_buckets * sizeof(*table));
+    table = static_cast<value_type *>(malloc(num_buckets * sizeof(*table)));
     assert(table);
     set_empty(0, num_buckets);
     // TODO: read num_elements

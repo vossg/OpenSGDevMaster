@@ -133,7 +133,7 @@ void StreamSocket::open()
     li.l_onoff = 1;
     li.l_linger = 1;
     int rc = setsockopt(_sd, SOL_SOCKET, SO_LINGER, 
-                        (SocketOptT*)&li, sizeof(li));
+                        static_cast<SocketOptT*>(&li), sizeof(li));
 }
 
 /*! close socket
@@ -187,7 +187,7 @@ void StreamSocket::setDelay(bool value)
     int rc,on;
     on=!value;
     rc=setsockopt(_sd, IPPROTO_TCP, TCP_NODELAY, 
-                  (SocketOptT*)&on, sizeof(on));
+                  static_cast<SocketOptT*>(&on), sizeof(on));
     if(rc < 0)
     {
         throw SocketError("setsockopt(,SOCK_STREAM,TCP_NODELAY)");

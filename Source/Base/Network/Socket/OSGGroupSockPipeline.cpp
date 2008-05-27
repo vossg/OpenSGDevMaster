@@ -168,7 +168,7 @@ void GroupSockPipeline::writeBuffer(void)
     UInt32 size = writeBufBegin()->getDataSize();
 
     // write size to header
-    ((SocketBufferHeader*)&_socketWriteBuffer[0])->size =
+    (reinterpret_cast<SocketBufferHeader*>(&_socketWriteBuffer[0]))->size =
         osgHostToNet<UInt32>(size);
 
     if(size)

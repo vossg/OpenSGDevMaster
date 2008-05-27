@@ -286,7 +286,7 @@ static wchar_t utf8Char2Unicode(const char *&str)
     if ((c & 0x80) == 0)
         return c;
     if (((c & 0xc0) == 0x80) || ((c & 0xfe) == 0xfe)) // should never happen
-        return (unsigned char)c;
+        return static_cast<unsigned char>(c);
     char mask = 0xe0, value = 0xc0;
     int i;
     for (i = 1; i < 6; ++i)

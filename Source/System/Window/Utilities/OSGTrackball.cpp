@@ -167,9 +167,9 @@ void Trackball::updateRotation(Real32 rLastX,    Real32 rLastY,
             rTmp = -1.0;
 
         if(_gMode == OSGObject)
-            rPhi = (Real32) -2.0 * osgASin(rTmp);
+            rPhi = Real32(-2.0) * osgASin(rTmp);
         else
-            rPhi = (Real32)  2.0 * osgASin(rTmp);
+            rPhi = Real32( 2.0) * osgASin(rTmp);
 
     }
 

@@ -250,14 +250,17 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                     {
                         colorMapSize = gifData->data.image.cmapSize;
                         colorMap = 
-                            (unsigned char *) gifData->data.image.cmapData;
+                            reinterpret_cast<unsigned char *>(
+                                gifData->data.image.cmapData);
                         
                         // cout << "INFO: Use gifData colorMap" << endl;
                     }
                     else if(gifStream->cmapSize > 0)
                     {
                         colorMapSize = gifStream->cmapSize;
-                        colorMap = (unsigned char *) gifStream->cmapData;
+                        colorMap = 
+                            reinterpret_cast<unsigned char *>(
+                                gifStream->cmapData);
                         
                         // cout << "INFO: Use gifStream colorMap" << endl;
                     }
@@ -565,7 +568,7 @@ bool GIFImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
 
     magic.resize(4);
 
-    fread((void *) &magic[0], 4, 1, file);
+    fread(static_cast<void *>(&magic[0]), 4, 1, file);
 
     fclose(file);
 
@@ -635,7 +638,7 @@ GIFImageFileType::~GIFImageFileType(void)
 #define ReadOK(is, buffer, len)     (is.read(reinterpret_cast<char*>(buffer), \
                                              len).gcount() == len)
 #define MKINT(a, b)                 (((b) << 8) | (a))
-#define NEW(x)                      ((x *) malloc(sizeof(x)))
+#define NEW(x)                      (static_cast<x *>(malloc(sizeof(x))))
 /***************************************************************************
 *
 *  ERROR()    --  should not return
@@ -687,11 +690,11 @@ static GIFStream *GIFRead(std::istream &is)
         GIF_ERROR("error reading magic number");
     }
 
-    if(strncmp((char *) buf, "GIF", 3) != 0)
+    if(strncmp(reinterpret_cast<char *>(buf), "GIF", 3) != 0)
         GIF_ERROR("not a GIF file");
 
-    if((strncmp(((char *) (buf)) + 3, "87a", 3) != 0) &&
-       (strncmp(((char *) (buf)) + 3, "89a", 3) != 0))
+    if((strncmp((reinterpret_cast<char *>(buf)) + 3, "87a", 3) != 0) &&
+       (strncmp((reinterpret_cast<char *>(buf)) + 3, "89a", 3) != 0))
     {
         GIF_ERROR("bad version number, not '87a' or '89a'");
     }
@@ -708,7 +711,7 @@ static GIFStream *GIFRead(std::istream &is)
 
     gifStream->cmapSize = 2 << (buf[4] & 0x07);
     gifStream->colorMapSize = gifStream->cmapSize;
-    gifStream->colorResolution = ((int) (buf[4] & 0x70) >> 3) + 1;
+    gifStream->colorResolution = (int(buf[4] & 0x70) >> 3) + 1;
     gifStream->background = buf[5];
     gifStream->aspectRatio = buf[6];
 
@@ -741,7 +744,7 @@ static GIFStream *GIFRead(std::istream &is)
     {
         if(resetInfo)
         {
-            info.disposal = (GIFDisposalType) 0;
+            info.disposal = static_cast<GIFDisposalType>(0);
             info.inputFlag = 0;
             info.delayTime = 0;
             info.transparent = -1;
@@ -760,7 +763,8 @@ static GIFStream *GIFRead(std::istream &is)
             if(c == 0xf9)
             {       /* graphic control */
                 (void) GetDataBlock(is, buf);
-                info.disposal = (GIFDisposalType) ((buf[0] >> 2) & 0x7);
+                info.disposal = 
+                    static_cast<GIFDisposalType>((buf[0] >> 2) & 0x7);
                 info.inputFlag = (buf[0] >> 1) & 0x1;
                 info.delayTime = MKINT(buf[1], buf[2]);
                 if(BitSet(buf[0], 0x1))
@@ -803,13 +807,13 @@ static GIFStream *GIFRead(std::istream &is)
                     cur->type = gif_comment;
                 }
 
-                text = (char *) malloc(size);
+                text = static_cast<char *>(malloc(size));
 
                 while((n = GetDataBlock(is, buf)) != 0)
                 {
                     if(n + len >= size)
                     {
-                        text = (char *) realloc(text, size += 256);
+                        text = static_cast<char *>(realloc(text, size += 256));
                     }
 
                     memcpy(text + len, buf, n);
@@ -865,8 +869,8 @@ static GIFStream *GIFRead(std::istream &is)
                 cur->data.image.cmapSize = 0;
             }
 
-            cur->data.image.data = (unsigned char *) 
-              malloc(cur->width * cur->height);
+            cur->data.image.data = static_cast<unsigned char *>(
+                malloc(cur->width * cur->height));
             cur->data.image.interlaced = BitSet(buf[8], INTERLACE);
             readImage(is, BitSet(buf[8], INTERLACE), cur->width, cur->height,
                       cur->data.image.data);
@@ -875,7 +879,7 @@ static GIFStream *GIFRead(std::istream &is)
         }
         else
         {
-            INFO_MSG(("bogus character 0x%02x, ignoring", (int) c));
+            INFO_MSG(("bogus character 0x%02x, ignoring", int(c)));
         }
 
         if(cur != NULL)
@@ -1434,7 +1438,7 @@ static int optimizeCMAP(GIFStream *stream)
         **  Quite, I'm doing a bubble sort... ACK!
         */
         qsort(vals, size, sizeof(vals[0]),
-              (int(*) (const void *, const void *)) cvalCMP);
+              reinterpret_cast<int(*) (const void *, const void *)>(cvalCMP));
 
         for(i = 0; i < size; i++)
             if(vals[i].idx != i)
@@ -1629,8 +1633,10 @@ static int GIFWriteFP(FILE *fp, GIFStream *stream, int optimize)
         {
             PUTBYTE('!', fp);
             PUTBYTE(0xfe, fp);
-            putDataBlocks(fp, cur->data.comment.len,
-                          (unsigned char *) cur->data.comment.text);
+            putDataBlocks(
+                fp, 
+                cur->data.comment.len,
+                reinterpret_cast<unsigned char *>(cur->data.comment.text));
         }
         else if(cur->type == gif_text)
         {
@@ -1649,8 +1655,10 @@ static int GIFWriteFP(FILE *fp, GIFStream *stream, int optimize)
             PUTBYTE(cur->data.text.fg, fp);
             PUTBYTE(cur->data.text.bg, fp);
 
-            putDataBlocks(fp, cur->data.text.len,
-                          (unsigned char *) cur->data.text.text);
+            putDataBlocks(
+                fp, 
+                cur->data.text.len,
+                reinterpret_cast<unsigned char *>(cur->data.text.text));
         }
     }
 
@@ -1789,7 +1797,7 @@ static int              n_bits;     /* number of bits/code */
 static int              maxbits;    /* user settable max # bits/code */
 static code_int         maxcode;    /* maximum code, given n_bits */
 static code_int         maxmaxcode; /* should NEVER generate this code */
-#define MAXCODE(n_bits) (((code_int) 1 << (n_bits)) - 1)
+#define MAXCODE(n_bits) ((static_cast<code_int>(1) << (n_bits)) - 1)
 static count_int        htab[HSIZE];
 static unsigned short   codetab[HSIZE];
 #define HashTabOf(i)    htab[i]
@@ -1895,14 +1903,14 @@ static void putImage(FILE *fp, int interlaced, int bpp, int width, int height,
     char_init();                                /* clear the output accumulator */
 
     hshift = 0;
-    for(fcode = (long) hsize; fcode < 65536; fcode *= 2)
+    for(fcode = long(hsize); fcode < 65536; fcode *= 2)
         ++hshift;
     hshift = 8 - hshift;                        /* set hash code range bound */
 
     hsize_reg = hsize;
-    cl_hash((count_int) hsize);                 /* clear hash table */
+    cl_hash(count_int(hsize));                 /* clear hash table */
 
-    output((code_int) ClearCode);
+    output(code_int(ClearCode));
 
     ent = *dp++;
     do
@@ -1964,9 +1972,9 @@ again:
         /*
         **  Now output it...
         */
-        fcode = (long) (((long) c << maxbits) + ent);
+        fcode = long((long(c) << maxbits) + ent);
 
-        i = (((code_int) c << hshift) ^ ent);   /* xor hashing */
+        i = ((code_int(c) << hshift) ^ ent);   /* xor hashing */
         v = HashTabOf(i);
 
         if(v == fcode)
@@ -1996,7 +2004,7 @@ again:
             } while(v > 0);
         }
 
-        output((code_int) ent);
+        output(code_int(ent));
         ent = c;
         if(free_ent < maxmaxcode)
         {
@@ -2012,8 +2020,8 @@ done:
     /*
     ** Put out the final code.
     **/
-    output((code_int) ent);
-    output((code_int) EOFCode);
+    output(code_int(ent));
+    output(code_int(EOFCode));
 
     /*
     **  End block byte
@@ -2054,7 +2062,7 @@ static void output(code_int code)
 
     if(cur_bits > 0)
     {
-        cur_accum |= ((long) code << cur_bits);
+        cur_accum |= (long(code) << cur_bits);
     }
     else
         cur_accum = code;
@@ -2063,7 +2071,7 @@ static void output(code_int code)
 
     while(cur_bits >= 8)
     {
-        char_out((unsigned int) (cur_accum & 0xff));
+        char_out(static_cast<unsigned int>(cur_accum & 0xff));
         cur_accum >>= 8;
         cur_bits -= 8;
     }
@@ -2096,7 +2104,7 @@ static void output(code_int code)
         */
         while(cur_bits > 0)
         {
-            char_out((unsigned int) (cur_accum & 0xff));
+            char_out(static_cast<unsigned int>(cur_accum & 0xff));
             cur_accum >>= 8;
             cur_bits -= 8;
         }
@@ -2112,11 +2120,11 @@ static void output(code_int code)
  */
 static void cl_block(void)
 {
-    cl_hash((count_int) hsize);
+    cl_hash(count_int(hsize));
     free_ent = ClearCode + 2;
     clear_flg = GIF_TRUE;
 
-    output((code_int) ClearCode);
+    output(code_int(ClearCode));
 }
 
 /* */

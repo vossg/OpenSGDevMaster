@@ -1027,8 +1027,8 @@ void QuaternionBase<ValueTypeT>::slerp(const QuaternionBase &rot0,
 
     // build the new quarternion
     for (i = 0; i < 4; i++)
-        result[i] = (ValueTypeT) (scalerot0 * rot0._quat[i] +
-                                     scalerot1 * rot1q[i]);
+        result[i] = ValueTypeT(scalerot0 * rot0._quat[i] +
+                               scalerot1 * rot1q[i]);
 }
 /*! \brief \internal Take the give buffers as quaternions and write the
     result to the current.

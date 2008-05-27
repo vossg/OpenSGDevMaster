@@ -296,18 +296,18 @@ bool ImageComposer::getScreenAlignedBBox(Node     *node,
         if(miny <  0     ) miny = 0;
         if(maxy >= height) maxy = height-1;
 
-        l=(Int32)minx;
-        b=(Int32)miny;
-        r=(Int32)maxx;
-        t=(Int32)maxy;
+        l= Int32(minx);
+        b= Int32(miny);
+        r= Int32(maxx);
+        t= Int32(maxy);
 
 /*
         maxz = 1 / (2.0 / (maxz+1));
         minz = 1 / (2.0 / (minz+1));
 */
 
-        front = (UInt32)( (double)(((UInt64)1)<<32) * (minz+1) / 2);
-        back  = (UInt32)( (double)(((UInt64)1)<<32) * (maxz+1) / 2);
+        front = UInt32( double((UInt64(1))<<32) * (minz+1) / 2);
+        back  = UInt32( double((UInt64(1))<<32) * (maxz+1) / 2);
     }
 
 #if 0

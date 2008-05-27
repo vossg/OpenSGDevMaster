@@ -46,14 +46,14 @@ bool isGZip(std::istream &is)
 {
     const int gz_magic[2] = {0x1f, 0x8b};
 
-    int c1 = (int) is.get();
+    int c1 = int(is.get());
     if(c1 != gz_magic[0])
     {
         is.putback(c1);
         return false;
     }
 
-    int c2 = (int) is.get();
+    int c2 = int(is.get());
     if(c2 != gz_magic[1])
     {
         is.putback(c2);

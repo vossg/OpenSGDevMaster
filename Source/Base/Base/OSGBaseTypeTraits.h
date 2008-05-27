@@ -356,7 +356,7 @@ struct TypeTraits<Int8> : public TypeTraitsTemplateBase<Int8>
 
     static Int8        getPortion   (Real32 val)
     {
-        return (Int8) (val * Real32(getMax()));
+        return Int8(val * Real32(getMax()));
     };
 
 
@@ -442,7 +442,7 @@ struct TypeTraits<UInt16> : public TypeTraitsTemplateBase<UInt16>
 
     static UInt16      getPortion   (Real32 val)
     {
-        return (UInt16) (val * Real32(getMax()));
+        return UInt16(val * Real32(getMax()));
     };
 
 
@@ -527,7 +527,7 @@ struct TypeTraits<Int16> : public TypeTraitsTemplateBase<Int16>
 
     static Int16       getPortion   (Real32 val)
     {
-        return (Int16) (val * Real32(getMax()));
+        return Int16(val * Real32(getMax()));
     };
 
 
@@ -607,7 +607,7 @@ struct TypeTraits<UInt32> : public TypeTraitsTemplateBase<UInt32>
 
     static UInt32      getPortion   (Real32 val)
     {
-        return (UInt32) (val * Real32(getMax()));
+        return UInt32(val * Real32(getMax()));
     };
 
 
@@ -689,7 +689,7 @@ struct TypeTraits<Int32> : public TypeTraitsTemplateBase<Int32>
 
     static Int32       getPortion   (Real32 val)
     {
-        return (Int32) (val * Real32(getMax()));
+        return Int32(val * Real32(getMax()));
     };
 
 
@@ -774,7 +774,7 @@ struct TypeTraits<UInt64> : public TypeTraitsTemplateBase<UInt64>
 
     static UInt64      getPortion   (Real32 val)
     {
-        return (UInt64) (val * Real32(getMax()));
+        return UInt64(val * Real32(getMax()));
     };
 
 
@@ -861,7 +861,7 @@ struct TypeTraits<Int64> : public TypeTraitsTemplateBase<Int64>
 
     static Int64       getPortion   (Real32 val)
     {
-        return (Int64) (val * Real32(getMax()));
+        return Int64(val * Real32(getMax()));
     };
 
 
@@ -971,7 +971,7 @@ struct TypeTraits<Real16> : public TypeTraitsTemplateBase<Real16>
     {
         Char8 buffer[20];
 
-        sprintf(buffer, "%e", (Real32) val);
+        sprintf(buffer, "%e", Real32(val));
 
         out.append(buffer);
     }

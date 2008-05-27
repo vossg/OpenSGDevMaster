@@ -22,8 +22,8 @@ basic_zip_streambuf<charT, traits>::basic_zip_streambuf(ostream_reference ostrea
       _buffer(buffer_size, 0),
       _crc(0)
 {
-    _zip_stream.zalloc = (alloc_func) 0;
-    _zip_stream.zfree = (free_func) 0;
+    _zip_stream.zalloc = NULL;
+    _zip_stream.zfree = NULL;
 
     _zip_stream.next_in = NULL;
     _zip_stream.avail_in = 0;
@@ -123,7 +123,7 @@ std::streamsize basic_zip_streambuf<charT, traits>::flush(void)
             written_byte_size = static_cast<std::streamsize>(_output_buffer.size()) - _zip_stream.avail_out;
             total_written_byte_size += written_byte_size;
             // ouput buffer is full, dumping to ostream
-            _ostream.write( (const char_type*) &(_output_buffer[0]), 
+            _ostream.write( reinterpret_cast<const char_type*>(&(_output_buffer[0])),
                             static_cast<std::streamsize>(written_byte_size/sizeof(char_type)*sizeof(char)));
             
             // checking if some bytes were not written.
@@ -205,7 +205,7 @@ bool basic_zip_streambuf<charT, traits>::zip_to_stream(
 {    
     std::streamsize written_byte_size = 0, total_written_byte_size = 0;
 
-    _zip_stream.next_in = (byte_buffer_type) buffer;
+    _zip_stream.next_in = reinterpret_cast<byte_buffer_type>(buffer);
     _zip_stream.avail_in = static_cast<uInt>(buffer_size * sizeof(char_type));
     _zip_stream.avail_out = static_cast<uInt>(_output_buffer.size());
     _zip_stream.next_out = &_output_buffer[0];
@@ -226,7 +226,7 @@ bool basic_zip_streambuf<charT, traits>::zip_to_stream(
             total_written_byte_size += written_byte_size;
             // ouput buffer is full, dumping to ostream
 
-            _ostream.write((const char_type*) &_output_buffer[0], 
+            _ostream.write(reinterpret_cast<const char_type*>(&_output_buffer[0]), 
                            static_cast<std::streamsize>(written_byte_size / sizeof(char_type)));
                                                 
             // checking if some bytes were not written.
@@ -275,8 +275,8 @@ basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(istream_reference is
       _streamType ( UNKNOWN_ST )
 {
     // setting zalloc, zfree and opaque
-    _zip_stream.zalloc = (alloc_func) 0;
-    _zip_stream.zfree = (free_func) 0;
+    _zip_stream.zalloc = NULL;
+    _zip_stream.zfree = NULL;
 
     _zip_stream.next_in = NULL;
     _zip_stream.avail_in = 0;
@@ -418,7 +418,7 @@ basic_unzip_streambuf<charT, traits>::unzip_from_stream(char_type* buffer,
                                                         std::streamsize buffer_size)
 {
     _zip_stream.next_out  = 
-        (byte_buffer_type) buffer;
+        reinterpret_cast<byte_buffer_type>(buffer);
     _zip_stream.avail_out = 
         static_cast<uInt>(buffer_size * sizeof(char_type));
     size_t count = _zip_stream.avail_in;
@@ -452,7 +452,7 @@ basic_unzip_streambuf<charT, traits>::unzip_from_stream(char_type* buffer,
     while(_err==Z_OK && _zip_stream.avail_out != 0 && count != 0);
 
     // updating crc
-    _crc = crc32(_crc, (byte_buffer_type) buffer,
+    _crc = crc32(_crc, reinterpret_cast<byte_buffer_type>(buffer),
                  buffer_size - _zip_stream.avail_out / sizeof(char_type));
         
     std::streamsize n_read = 
@@ -473,7 +473,7 @@ size_t
 basic_unzip_streambuf<charT, traits>::fill_input_buffer(void)
 {
     _zip_stream.next_in = &_input_buffer[0];
-    _istream.read((char_type*) &_input_buffer[0], 
+    _istream.read(reinterpret_cast<char_type*>(&_input_buffer[0]), 
                   static_cast<std::streamsize>(_input_buffer.size() /
                                                sizeof(char_type)));
         
@@ -592,14 +592,14 @@ basic_zip_ostream<charT,traits>& basic_zip_ostream<charT, traits>::add_footer(vo
     unsigned long crc = this->get_crc();
     for(int n=0;n<4;++n)
     {
-        this->get_ostream().put((int)(crc & 0xff));
+        this->get_ostream().put(int(crc & 0xff));
         crc >>= 8;
     }
 
     unsigned long length = this->get_in_size();
     for(int n=0;n<4;++n)
     {
-        this->get_ostream().put((int)(length & 0xff));
+        this->get_ostream().put(int(length & 0xff));
         length >>= 8;
     }
 
@@ -708,7 +708,7 @@ basic_zip_istream<charT, traits>::check_header(void)
 
     /* Check the gzip magic header */
     zip_stream.next_in = &this->_input_buffer[0];
-    this->get_istream().read( (char*)(&this->_input_buffer[0]), 2 );
+    this->get_istream().read( reinterpret_cast<char*>(&this->_input_buffer[0]), 2 );
     zip_stream.avail_in = this->get_istream().gcount();
 
     if ( (zip_stream.avail_in >= 2) &&
@@ -725,8 +725,8 @@ basic_zip_istream<charT, traits>::check_header(void)
     }
     
     _is_gzip = true;
-    method = (int)this->get_istream().get();
-    flags = (int)this->get_istream().get();
+    method = int(this->get_istream().get());
+    flags  = int(this->get_istream().get());
     if (method != Z_DEFLATED || (flags & detail::gz_reserved) != 0) 
     {
         err = Z_DATA_ERROR;
@@ -740,8 +740,8 @@ basic_zip_istream<charT, traits>::check_header(void)
     if ((flags & detail::gz_extra_field) != 0) 
     { 
         /* skip the extra field */
-        len  =  (uInt)this->get_istream().get();
-        len += ((uInt)this->get_istream().get())<<8;
+        len  =  uInt(this->get_istream().get());
+        len += uInt(this->get_istream().get())<<8;
         /* len is garbage if EOF but the loop below will quit anyway */
         while (len-- != 0 && this->get_istream().get() != EOF) ;
     }
@@ -776,11 +776,11 @@ basic_zip_istream<charT, traits>::read_footer(void)
     {
         _gzip_crc = 0;
         for(int n=0;n<4;++n)
-            _gzip_crc += ((((int) this->get_istream().get()) & 0xff) << (8*n));
+            _gzip_crc += ((int(this->get_istream().get()) & 0xff) << (8*n));
 
         _gzip_data_size = 0;
         for(int n=0;n<4;++n)
             _gzip_data_size += 
-                ((((int) this->get_istream().get()) & 0xff) << (8*n));
+                ((int(this->get_istream().get()) & 0xff) << (8*n));
     }
 }

@@ -364,10 +364,10 @@ void SortFirstWindow::serverRender( Window           *serverWindow,
 
         deco->setFullWidth ( vpWidth );
         deco->setFullHeight( vpHeight );
-        deco->setSize( getRegion( regionStart+0 )/(float)vpWidth,
-                       getRegion( regionStart+1 )/(float)vpHeight,
-                       getRegion( regionStart+2 )/(float)vpWidth,
-                       getRegion( regionStart+3 )/(float)vpHeight );
+        deco->setSize( getRegion( regionStart+0 )/Real32(vpWidth),
+                       getRegion( regionStart+1 )/Real32(vpHeight),
+                       getRegion( regionStart+2 )/Real32(vpWidth),
+                       getRegion( regionStart+3 )/Real32(vpHeight) );
         deco->setDecoratee( clientPort->getCamera() );
 
         sv++;

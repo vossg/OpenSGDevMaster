@@ -619,7 +619,7 @@ struct FieldTraits<DynamicVolume> :
     static void copyToBin(      BinaryDataHandler   &pMem, 
                           const DynamicVolume       &oObject)
     {
-        UInt32 type = (UInt32) (oObject.getType());
+        UInt32 type = UInt32(oObject.getType());
 
         pMem.putValue(type);
 

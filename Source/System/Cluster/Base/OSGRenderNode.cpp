@@ -258,8 +258,8 @@ void RenderNode::determinePerformance(Window *window)
     double  t;
     UInt32  width, height;
 
-    setVendor  ((const char *) glGetString(GL_VENDOR));
-    setRenderer((const char *) glGetString(GL_RENDERER));
+    setVendor  (reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
+    setRenderer(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
 
     // try to find precalculated values
     for(c = 0; _prefefined[c] != NULL; ++c)
@@ -497,7 +497,7 @@ double RenderNode::runFaceBench(float w, int size)
         c++;
     } while(t < .5);
     glPopMatrix();
-    faces = (int) (((vw * w * 2) / size) * (vh / size) * c);
+    faces = Int32(((vw * w * 2) / size) * (vh / size) * c);
 
     // reset projection
     glMatrixMode(GL_PROJECTION);

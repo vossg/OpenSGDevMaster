@@ -408,8 +408,10 @@ void TextureChunk::handleTextureShader(Window *win, GLenum bindtarget)
 
     if(getMFShaderOffsetMatrix()->size() == 4)
     {
-        glTexEnvfv(GL_TEXTURE_SHADER_NV, GL_OFFSET_TEXTURE_MATRIX_NV,
-                    (GLfloat*)&(getMFShaderOffsetMatrix()->front()));
+        glTexEnvfv(GL_TEXTURE_SHADER_NV, 
+                   GL_OFFSET_TEXTURE_MATRIX_NV,
+                   const_cast<GLfloat*>(
+                       &(getMFShaderOffsetMatrix()->front())));
 
         glErr("textureShader setup: offset matrix");
     }
@@ -552,7 +554,7 @@ void TextureChunk::handleTexture(Window *win,
                                         GLenum format, 
                                         GLenum type,
                                         const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
                                   GLint level, 
                                   GLenum internalformat,
                                   GLsizei width, 
@@ -561,19 +563,26 @@ void TextureChunk::handleTexture(Window *win,
                                   GLint border, 
                                   GLenum format, 
                                   GLenum type,
-                                  const GLvoid *pixels))
-            win->getFunction(_funcTexImage3D);
+                                  const GLvoid *pixels)>(
+                                      win->getFunction(_funcTexImage3D));
 
         void (OSG_APIENTRY*TexSubImage3D)
                           (GLenum target, GLint level, GLint xoffset,
                            GLint yoffset, GLint zoffset, GLsizei width,
                            GLsizei height, GLsizei depth, GLenum format,
                            GLenum type, const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, GLint level, GLint xoffset,
-                      GLint yoffset, GLint zoffset, GLsizei width,
-                      GLsizei height, GLsizei depth, GLenum format,
-                      GLenum type, const GLvoid *pixels))
-            win->getFunction(_funcTexSubImage3D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLint xoffset,
+                                                  GLint yoffset, 
+                                                  GLint zoffset, 
+                                                  GLsizei width,
+                                                  GLsizei height, 
+                                                  GLsizei depth, 
+                                                  GLenum format,
+                                                  GLenum type, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcTexSubImage3D));
 
 
         // Compressed texture functions
@@ -583,14 +592,14 @@ void TextureChunk::handleTexture(Window *win,
                                                  GLsizei width, GLint border, 
                                                  GLsizei imageSize, 
                                                  const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLenum internalformat, 
-                                  GLsizei width, 
-                                  GLint border,  
-                                  GLsizei imageSize, 
-                                  const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexImage1D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLenum internalformat, 
+                                                  GLsizei width, 
+                                                  GLint border,  
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexImage1D));
         
         void (OSG_APIENTRY*CompressedTexSubImage1D)(GLenum target, 
                                                     GLint level, 
@@ -599,14 +608,14 @@ void TextureChunk::handleTexture(Window *win,
                                                     GLenum format, 
                                                     GLsizei imageSize, 
                                                     const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLint xoffset, 
-                                  GLsizei width,
-                                  GLenum format, 
-                                  GLsizei imageSize, 
-                                  const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexSubImage1D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLint xoffset, 
+                                                  GLsizei width,
+                                                  GLenum format, 
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexSubImage1D));
         
         void (OSG_APIENTRY*CompressedTexImage2D)(GLenum target, 
                                                  GLint level, 
@@ -616,15 +625,15 @@ void TextureChunk::handleTexture(Window *win,
                                                  GLint border, 
                                                  GLsizei imageSize, 
                                                  const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLenum internalformat, 
-                                  GLsizei width, 
-                                  GLsizei height, 
-                                  GLint border, 
-                                  GLsizei imageSize, 
-                                  const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexImage2D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLenum internalformat, 
+                                                  GLsizei width, 
+                                                  GLsizei height, 
+                                                  GLint border, 
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexImage2D));
         
         void (OSG_APIENTRY*CompressedTexSubImage2D)(GLenum target, 
                                                     GLint level, 
@@ -635,16 +644,16 @@ void TextureChunk::handleTexture(Window *win,
                                                     GLenum format,
                                                     GLsizei imageSize, 
                                                     const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLint xoffset, 
-                                  GLint yoffset, 
-                                  GLsizei width, 
-                                  GLsizei height, 
-                                  GLenum format,
-                                  GLsizei imageSize, 
-                                  const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexSubImage2D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLint xoffset, 
+                                                  GLint yoffset, 
+                                                  GLsizei width, 
+                                                  GLsizei height, 
+                                                  GLenum format,
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexSubImage2D));
 
         void (OSG_APIENTRY*CompressedTexImage3D)(GLenum target, 
                                                  GLint level, 
@@ -655,16 +664,16 @@ void TextureChunk::handleTexture(Window *win,
                                                  GLint border,
                                                  GLsizei imageSize, 
                                                  const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLenum internalformat,
-                                  GLsizei width, 
-                                  GLsizei height, 
-                                  GLsizei depth,
-                                  GLint border,
-                                  GLsizei imageSize, 
-                                  const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexImage3D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLenum internalformat,
+                                                  GLsizei width, 
+                                                  GLsizei height, 
+                                                  GLsizei depth,
+                                                  GLint border,
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexImage3D));
         
         void (OSG_APIENTRY*CompressedTexSubImage3D)(GLenum target, 
                                                     GLint level, 
@@ -677,18 +686,18 @@ void TextureChunk::handleTexture(Window *win,
                                                     GLenum format, 
                                                     GLsizei imageSize, 
                                                     const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLint xoffset, 
-                                  GLint yoffset, 
-                                  GLint zoffset, 
-                                  GLsizei width, 
-                                  GLsizei height, 
-                                  GLsizei depth, 
-                                  GLenum format, 
-                                  GLsizei imageSize, 
-                                  const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexSubImage3D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLint xoffset, 
+                                                  GLint yoffset, 
+                                                  GLint zoffset, 
+                                                  GLsizei width, 
+                                                  GLsizei height, 
+                                                  GLsizei depth, 
+                                                  GLenum format, 
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexSubImage3D));
         
         // as we're not allocating anything here, the same code can be used
         // for reinitialization
@@ -732,7 +741,8 @@ void TextureChunk::handleTexture(Window *win,
 
              glTexParameterfv(paramtarget, 
                               GL_TEXTURE_BORDER_COLOR,
-                              (GLfloat *) getBorderColor().getValuesRGBA());
+                              const_cast<GLfloat *>(
+                                  getBorderColor().getValuesRGBA()));
 
              if(getCompareMode() != GL_NONE &&
                 win->hasExtension(_extShadow))
@@ -982,8 +992,10 @@ void TextureChunk::handleTexture(Window *win,
                                 memset(data, 0, outw * outh * img->getBpp());
 
                                 UInt16 bpl = width * img->getBpp();
-                                UInt8 * src = (UInt8 *) img->getData(0, frame, side);
-                                UInt8 * dest= (UInt8 *) data;
+                                const UInt8 * src = img->getData(0, 
+                                                                 frame, 
+                                                                 side);
+                                UInt8 * dest= static_cast<UInt8 *>(data);
 
                                 for(UInt32 y = 0; y < height; y++)
                                 {
@@ -1337,40 +1349,74 @@ void TextureChunk::handleTexture(Window *win,
                            GLint yoffset, GLint zoffset, GLsizei width,
                            GLsizei height, GLsizei depth, GLenum format,
                            GLenum type, const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, GLint level, GLint xoffset,
-                      GLint yoffset, GLint zoffset, GLsizei width,
-                      GLsizei height, GLsizei depth, GLenum format,
-                      GLenum type, const GLvoid *pixels))
-            win->getFunction(_funcTexSubImage3D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLint xoffset,
+                                                  GLint yoffset, 
+                                                  GLint zoffset, 
+                                                  GLsizei width,
+                                                  GLsizei height, 
+                                                  GLsizei depth, 
+                                                  GLenum format,
+                                                  GLenum type, 
+                                                  const GLvoid *pixels)>(
+               win->getFunction(_funcTexSubImage3D));
 
-        void (OSG_APIENTRY*CompressedTexSubImage1D)
-                          (GLenum target, GLint level, GLint xoffset, GLsizei width,
-                           GLenum format, GLsizei imageSize, const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, GLint level, GLint xoffset, GLsizei width,
-                           GLenum format, GLsizei imageSize, const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexSubImage1D);
+        void (OSG_APIENTRY*CompressedTexSubImage1D)(GLenum target, 
+                                                    GLint level, 
+                                                    GLint xoffset, 
+                                                    GLsizei width,
+                                                    GLenum format, 
+                                                    GLsizei imageSize, 
+                                                    const GLvoid *pixels) =
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLint xoffset, 
+                                                  GLsizei width,
+                                                  GLenum format, 
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexSubImage1D));
 
         void (OSG_APIENTRY*CompressedTexSubImage2D)
                           (GLenum target, GLint level, 
                            GLint xoffset, GLint yoffset, 
                            GLsizei width, GLsizei height, GLenum format,
                            GLsizei imageSize, const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, GLint level, 
-                           GLint xoffset, GLint yoffset, 
-                           GLsizei width, GLsizei height, GLenum format,
-                           GLsizei imageSize, const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexSubImage2D);
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                                  GLint level, 
+                                                  GLint xoffset, 
+                                                  GLint yoffset, 
+                                                  GLsizei width, 
+                                                  GLsizei height, 
+                                                  GLenum format,
+                                                  GLsizei imageSize, 
+                                                  const GLvoid *pixels)>(
+               win->getFunction(_funcCompressedTexSubImage2D));
 
-        void (OSG_APIENTRY*CompressedTexSubImage3D)
-                          (GLenum target, GLint level, 
-                           GLint xoffset, GLint yoffset, GLint zoffset, 
-                           GLsizei width, GLsizei height, GLsizei depth, 
-                           GLenum format, GLsizei imageSize, const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, GLint level, 
-                           GLint xoffset, GLint yoffset, GLint zoffset, 
-                           GLsizei width, GLsizei height, GLsizei depth, 
-                           GLenum format, GLsizei imageSize, const GLvoid *pixels))
-            win->getFunction(_funcCompressedTexSubImage3D);
+        void (OSG_APIENTRY*CompressedTexSubImage3D)(GLenum target, 
+                                                    GLint level, 
+                                                    GLint xoffset, 
+                                                    GLint yoffset, 
+                                                    GLint zoffset, 
+                                                    GLsizei width, 
+                                                    GLsizei height, 
+                                                    GLsizei depth, 
+                                                    GLenum format, 
+                                                    GLsizei imageSize, 
+                                                    const GLvoid *pixels) =
+            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
+                                             GLint level, 
+                                             GLint xoffset, 
+                                             GLint yoffset, 
+                                             GLint zoffset, 
+                                             GLsizei width, 
+                                             GLsizei height, 
+                                             GLsizei depth, 
+                                             GLenum format, 
+                                             GLsizei imageSize, 
+                                             const GLvoid *pixels)>(
+                win->getFunction(_funcCompressedTexSubImage3D));
 
         GLenum externalFormat = img->getPixelFormat();
         GLenum type           = img->getDataType();
@@ -1786,7 +1832,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
         // texture env
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, getEnvMode());
         glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR,
-                    (GLfloat*)getEnvColor().getValuesRGBA());
+                   const_cast<GLfloat*>(getEnvColor().getValuesRGBA()));
 
         if(getEnvMode() == GL_COMBINE_EXT)
         {
@@ -2092,7 +2138,7 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
             glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, getEnvMode());
 
         glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR,
-                        (GLfloat*)getEnvColor().getValuesRGBA());
+                   const_cast<GLfloat*>(getEnvColor().getValuesRGBA()));
 
         if(getEnvMode() == GL_COMBINE_EXT)
         {

@@ -163,8 +163,9 @@ void PolygonBackground::clear(DrawEnv *pEnv)
     
     if (getAspectHeight() && getAspectWidth())
     {
-        aspectX = ((Real32)pEnv->getPixelHeight()/getAspectHeight()) /
-                  ((Real32)pEnv->getPixelWidth() / getAspectWidth());
+        aspectX = 
+            (Real32(pEnv->getPixelHeight()) / getAspectHeight()) /
+            (Real32(pEnv->getPixelWidth ()) / getAspectWidth ());
     }
  
 	glMatrixMode(GL_TEXTURE);
@@ -210,10 +211,12 @@ void PolygonBackground::clear(DrawEnv *pEnv)
         if (getAspectHeight() && getAspectWidth() &&
             height != 0 && width != 0)
         {
-            aspectX = ((Real32)height/getAspectHeight()) /
-                      ((Real32)width / getAspectWidth());
-            t  = (Real32)width * (1 - aspectX) * 0.5f;
-            t *= (Real32)pEnv->getPixelWidth() / width;
+            aspectX = 
+                (Real32(height)/getAspectHeight()) /
+                (Real32(width) / getAspectWidth());
+
+            t  = Real32(width) * (1 - aspectX) * 0.5f;
+            t *= Real32(pEnv->getPixelWidth()) / width;
         }
 		
 		Matrix sm;
@@ -225,8 +228,8 @@ void PolygonBackground::clear(DrawEnv *pEnv)
         glTranslatef(t, 0, 0);
         glScalef(aspectX, aspectY, 1);
 		
-        float t1 = (1 - sFac) * 0.5f * (Real32)pEnv->getPixelWidth();
-        float t2 = (1 - sFac) * 0.5f * (Real32)pEnv->getPixelHeight();
+        float t1 = (1 - sFac) * 0.5f * Real32(pEnv->getPixelWidth ());
+        float t2 = (1 - sFac) * 0.5f * Real32(pEnv->getPixelHeight());
         glTranslatef(t1, t2, 0);
         glScalef(sFac,sFac,1);
     }

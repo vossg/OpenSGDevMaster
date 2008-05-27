@@ -126,7 +126,7 @@ Fixed32 &Fixed32::operator -=(const Fixed32  rhs)
 inline
 Fixed32 &Fixed32::operator *=(const Fixed32 rhs)
 {
-    _value = (Int32)(((Int64)_value * (Int64) rhs._value) >> 16);
+    _value = Int32((Int64(_value) * Int64(rhs._value)) >> 16);
 
     return *this;
 }
@@ -134,7 +134,7 @@ Fixed32 &Fixed32::operator *=(const Fixed32 rhs)
 inline
 Fixed32 &Fixed32::operator /=(const Fixed32 rhs)
 {
-    _value = (Int32)(((Int64) _value << 16) / rhs._value);
+    _value = Int32((Int64(_value) << 16) / rhs._value);
 
     return *this;
 }
@@ -165,8 +165,8 @@ Fixed32  Fixed32::operator * (const Fixed32 rhs) const
 {
     Fixed32 returnValue;
 
-    returnValue._value = (Int32)(((Int64) _value * 
-                                  (Int64) rhs._value) >> 16);
+    returnValue._value = Int32((Int64 (_value) * 
+                                Int64 (rhs._value)) >> 16);
 
     return returnValue;
 }
@@ -176,7 +176,7 @@ Fixed32  Fixed32::operator / (const Fixed32 rhs) const
 {
     Fixed32 returnValue;
 
-    returnValue._value = (Int32)(((Int64) _value << 16) / rhs._value);
+    returnValue._value = Int32((Int64(_value) << 16) / rhs._value);
 
     return returnValue;
 }
@@ -244,7 +244,7 @@ Fixed32 Fixed32::abs(Fixed32 rhs)
 inline
 Real32 Fixed32::toFloat(Fixed32 rhs)
 {
-    return (Real32)(rhs._value) / (Real32)(1 << 16);
+    return Real32(rhs._value) / Real32(1 << 16);
 }
 
 inline

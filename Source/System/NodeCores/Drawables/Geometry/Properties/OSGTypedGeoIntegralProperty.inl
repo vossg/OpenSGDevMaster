@@ -357,7 +357,7 @@ UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::size(void) const
 template <class GeoPropertyDesc> inline
 const UInt8 *TypedGeoIntegralProperty<GeoPropertyDesc>::getData(void) const
 {
-    return (const UInt8 *) &(_field[0]);
+    return reinterpret_cast<const UInt8 *>(&(_field[0]));
 }
 
 /*! Returns a const reference to the stored field.

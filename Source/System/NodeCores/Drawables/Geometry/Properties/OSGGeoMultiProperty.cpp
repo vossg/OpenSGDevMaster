@@ -238,34 +238,40 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
     win->validateGLObject(getContainer()->getGLId(), pEnv);
 
      // get "glBindBufferARB" function pointer
-    void (OSG_APIENTRY*_glBindBufferARB)
-        (GLenum target, GLuint buffer) =
-        (void (OSG_APIENTRY*)(GLenum target, GLuint buffer))
-        pEnv->getWindow()->getFunction(_funcBindBuffer);
+    void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, GLuint buffer)>(
+            pEnv->getWindow()->getFunction(_funcBindBuffer));
     
     _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 
                      win->getGLObjectId(getContainer()->getGLId()));
 
-#define BUFFER_OFFSET(i)     ((char *)NULL + (i))
+#define BUFFER_OFFSET(i)     (static_cast<char *>(NULL) + (i))
 
     if(isGeneric)
     {
-        void (OSG_APIENTRY*_glVertexAttribPointerARB) 
-            (GLuint index, GLint size, GLenum type, GLboolean normalized,
-             GLsizei stride, const GLvoid *pointer)=
-        (void (OSG_APIENTRY*) (GLuint index, GLint size, GLenum type, 
-             GLboolean normalized, GLsizei stride, const GLvoid *pointer))
-            win->getFunction(_funcglVertexAttribPointerARB);
+        void (OSG_APIENTRY*_glVertexAttribPointerARB) (GLuint index, 
+                                                       GLint size, 
+                                                       GLenum type, 
+                                                       GLboolean normalized,
+                                                       GLsizei stride, 
+                                                       const GLvoid *pointer)=
+            reinterpret_cast<void (OSG_APIENTRY*) (GLuint index, 
+                                                   GLint size, 
+                                                   GLenum type, 
+                                                   GLboolean normalized, 
+                                                   GLsizei stride, 
+                                                   const GLvoid *pointer)>(
+                win->getFunction(_funcglVertexAttribPointerARB));
 
         _glVertexAttribPointerARB(slot, getDimension(), 
-            getFormat(), 
-            getNormalize(),
-            getStride(), BUFFER_OFFSET(getOffset()));
+                                  getFormat(), 
+                                  getNormalize(),
+                                  getStride(), 
+                                  BUFFER_OFFSET(getOffset()));
 
-        void (OSG_APIENTRY*_glEnableVertexAttribArrayARB) 
-            (GLuint index)=
-        (void (OSG_APIENTRY*) (GLuint index))
-            win->getFunction(_funcglEnableVertexAttribArrayARB);
+        void (OSG_APIENTRY*_glEnableVertexAttribArrayARB)(GLuint index)=
+            reinterpret_cast<void (OSG_APIENTRY*) (GLuint index)>(
+                win->getFunction(_funcglEnableVertexAttribArrayARB));
 
         _glEnableVertexAttribArrayARB(slot);
     }
@@ -290,9 +296,12 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
                          void (OSG_APIENTRY*_glSecondaryColorPointerEXT)
                               (GLint size,GLenum type,GLsizei stride,
                                const GLvoid *pointer)=
-                        (void (OSG_APIENTRY*)(GLint size,GLenum type,GLsizei stride,
-                               const GLvoid *pointer))
-                         win->getFunction(_funcglSecondaryColorPointer);
+                             reinterpret_cast<void (OSG_APIENTRY*)(
+                                                   GLint size,
+                                                   GLenum type,
+                                                   GLsizei stride,
+                                                   const GLvoid *pointer)>(
+                                win->getFunction(_funcglSecondaryColorPointer));
 
                         _glSecondaryColorPointerEXT(getDimension(),
                                                     getFormat(),
@@ -311,8 +320,9 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
         case 14: case 15: 
                     {
                     void (OSG_APIENTRY*_glClientActiveTextureARB) 
-                        (GLenum type)= (void (OSG_APIENTRY*) (GLenum type))
-                        win->getFunction(_funcglClientActiveTextureARB);
+                        (GLenum type)= 
+                        reinterpret_cast<void (OSG_APIENTRY*) (GLenum type)>(
+                            win->getFunction(_funcglClientActiveTextureARB));
                         
                     _glClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
                     glTexCoordPointer(getDimension(), getFormat(),

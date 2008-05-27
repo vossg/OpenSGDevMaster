@@ -354,7 +354,7 @@ void ExceptionBinaryDataHandler::readBuffer(void) throw (ReadError)
     UInt32             readSize;
 
     // read buffer size
-    read((MemoryHandle) &nsize, sizeof(UInt32));
+    read(reinterpret_cast<MemoryHandle>(&nsize), sizeof(UInt32));
     size = osgNetToHost<UInt32>(nsize);
 
     // read rest of buffer
@@ -418,7 +418,7 @@ void ExceptionBinaryDataHandler::writeBuffer(void)
     // write buffer size
     nsize = osgHostToNet<UInt32>(size);
 
-    write((MemoryHandle) &nsize, sizeof(UInt32));
+    write(reinterpret_cast<MemoryHandle>(&nsize), sizeof(UInt32));
 
     // write buffers
     for(i = writeBufBegin(); i != writeBufEnd(); ++i)

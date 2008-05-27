@@ -859,7 +859,7 @@ void SortLastWindow::splitDrawables(DrawableListT &src,
             {
                 dst2.push_back(src[dIBack]);
 
-                dst2Load += src[dIBack].load*groups/(float)groups2;
+                dst2Load += src[dIBack].load*groups/Real32(groups2);
 
                 dIBack--;
             }
@@ -867,7 +867,7 @@ void SortLastWindow::splitDrawables(DrawableListT &src,
             {
                 dst1.push_back(src[dIFront]);
 
-                dst1Load += src[dIFront].load*groups/(float)groups1;
+                dst1Load += src[dIFront].load*groups/Real32(groups1);
 
                 dIFront++;
             }

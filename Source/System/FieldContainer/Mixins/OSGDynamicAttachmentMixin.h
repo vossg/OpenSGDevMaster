@@ -220,7 +220,7 @@ DynFieldAttachment< DESC >::TypeObject                                        \
         Desc::getParentTypeName(),                                            \
         Desc::getGroupName     (),                                            \
         0,                                                                    \
-        (PrototypeCreateF) &Self::createEmptyLocal,                           \
+        reinterpret_cast<PrototypeCreateF>(&Self::createEmptyLocal),          \
         NULL,                                                                 \
         NULL,                                                                 \
         NULL,                                                                 \

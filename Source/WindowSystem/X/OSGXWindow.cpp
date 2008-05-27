@@ -99,7 +99,12 @@ void XWindow::dump(      UInt32    ,
     SLOG << "Dump XWindow NI" << std::endl;
 }
 
-
+#ifdef OSG_DEBUG_OLD_C_CASTS
+#ifdef DisplayString
+#undef DisplayString
+#endif
+#define DisplayString(dpy)((reinterpret_cast<_XPrivDisplay>(dpy))->display_name)
+#endif
 
 /*! Init the window: create the context and setup the OpenGL.
 */

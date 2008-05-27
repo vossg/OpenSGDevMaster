@@ -65,10 +65,10 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::TypeObject
         Inherited::getClassname(),
         PropDesc ::getGroupName(),
         0,
-        (PrototypeCreateF) &Self::createEmptyLocal,
+        reinterpret_cast<PrototypeCreateF>(&Self::createEmptyLocal),
         &Self::initMethod,
         &Self::exitMethod,
-        (InitalInsertDescFunc) &Self::classDescInserter,
+        reinterpret_cast<InitalInsertDescFunc>(&Self::classDescInserter),
         false,
         0);
 

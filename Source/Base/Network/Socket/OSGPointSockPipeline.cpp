@@ -199,7 +199,7 @@ void PointSockPipeline::readBuffer() throw (ReadError)
     if(len==0)
         throw ReadError("peek got 0 bytes!");
     // read remaining data
-    size=osgNetToHost<UInt32>(((SocketBufferHeader*)&_socketReadBuffer[0])->size);
+    size=osgNetToHost<UInt32>((reinterpret_cast<SocketBufferHeader*>(&_socketReadBuffer[0]))->size);
     len=_prev.recv(&_socketReadBuffer[sizeof(SocketBufferHeader)],
                    size);
 

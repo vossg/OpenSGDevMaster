@@ -110,23 +110,23 @@ void StatTimeElem::putToString(std::string &str, const Char8 *format) const
                 std::string fcopy(format);
                 fcopy.erase((proc - format) + 1, 2);
                 fcopy.insert((proc - format) + 1,".2f");
-                sprintf(temp, fcopy.c_str(), ((double)_time)*1000.);
+                sprintf(temp, fcopy.c_str(), (double(_time))*1000.);
             }
             else if(! strncmp(proc, "%r", 2))
             {
                 std::string fcopy(format);
                 fcopy.erase((proc - format) + 1, 1);
-                sprintf(temp, fcopy.c_str(), 1./(double)_time);
+                sprintf(temp, fcopy.c_str(), 1./double(_time));
             }
             else
             {
-                sprintf(temp, format, (double)_time);
+                sprintf(temp, format, double(_time));
             }
            
         }
         else
         {
-            sprintf(temp, format, (double)_time);
+            sprintf(temp, format, double(_time));
         }
         
         str = temp;

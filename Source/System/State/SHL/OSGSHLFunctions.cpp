@@ -64,7 +64,7 @@ void generateGaussianWeights(Real32               fBlurWidth,
                              std::vector<Real32> &vWeights,
                              Int32               &iFilterWidth)
 {
-    iFilterWidth = (int) floor(3.0f * fBlurWidth) - 1;
+    iFilterWidth = Int32(floor(3.0f * fBlurWidth) - 1);
 
     Int32 size = iFilterWidth * 2 + 1;
 
@@ -74,7 +74,7 @@ void generateGaussianWeights(Real32               fBlurWidth,
 
     for(Int32 x = 0; x < size; x++) 
     {
-        vWeights[x] = gaussian((float) x - iFilterWidth, fBlurWidth);
+        vWeights[x] = gaussian(Real32(x - iFilterWidth), fBlurWidth);
 
         sum += vWeights[x];
     }
@@ -100,7 +100,7 @@ SHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
 
     // calculate new set of weights and offsets
     int nsamples = 2*width+1;
-    int nsamples2 = (int) ceilf(nsamples/2.0f);
+    int nsamples2 = Int32(ceilf(nsamples/2.0f));
     float *weights2 = new float [nsamples2];
     float *offsets = new float [nsamples2];
 

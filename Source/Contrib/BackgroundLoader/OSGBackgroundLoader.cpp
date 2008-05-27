@@ -75,7 +75,8 @@ void BackgroundLoaderBase::start(const OSG::UInt16 numThreads)
    for (OSG::UInt16 i = 0; i < numThreads; i++)
    {
       OSG::Thread* new_thread = dynamic_cast<Thread *>(ThreadManager::the()->getThread(NULL));
-      new_thread->runFunction((Thread::ThreadFuncF)loadProc, Thread::getCurrentAspect(), this);
+      new_thread->runFunction(static_cast<Thread::ThreadFuncF>(loadProc), 
+                              Thread::getCurrentAspect(), this);
       mLoadThreads.push_back(new_thread);
    }
 }

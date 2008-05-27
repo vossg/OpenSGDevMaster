@@ -81,7 +81,8 @@ AttachmentContainer::TypeObject AttachmentContainer::_type(
     NULL,
     NULL,
     NULL,
-    (InitalInsertDescFunc) &AttachmentContainer::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(
+        &AttachmentContainer::classDescInserter),
     false,
     0);
 

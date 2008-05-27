@@ -127,7 +127,7 @@ void DgramSocket::open()
     int on = 1;
     if(::setsockopt(_sd, 
                     SOL_SOCKET, SO_BROADCAST, 
-                    (SocketOptT*)&on, sizeof(on)) < 0)
+                    static_cast<SocketOptT*>(&on), sizeof(on)) < 0)
     {
         throw SocketError("setsockopt(,SOL_SOCKET,SO_BROADCAST)");
     }
@@ -164,7 +164,7 @@ int DgramSocket::recvFrom(void *buf,int size,SocketAddress &from)
     {
 #endif
         len=recvfrom(_sd,
-                     (char*)buf,
+                     static_cast<char*>(buf),
                      size,
                      0,
                      from.getSockAddr(),
@@ -205,7 +205,7 @@ int DgramSocket::peekFrom(void *buf,int size,SocketAddress &from)
     SocketLenT addrLen=from.getSockAddrSize();
 
     len=recvfrom(_sd,
-                 (char*)buf,
+                 static_cast<char*>(buf),
                  size,
                  MSG_PEEK,
                  from.getSockAddr(),
@@ -250,7 +250,8 @@ int DgramSocket::sendTo(const void *buf,int size,const SocketAddress &to)
 
     // send Request
     len=sendto(_sd,
-               (const char*)buf,size,
+               static_cast<const char*>(buf),
+               size,
 #if defined(WIN32) && defined(MSG_NOSIGNAL)
                MSG_NOSIGNAL,
 #else
@@ -304,14 +305,14 @@ void DgramSocket::join(const SocketAddress &group,const SocketAddress &interf)
 
     // group to join
     joinAddr.imr_multiaddr.s_addr =
-        ((sockaddr_in*)group.getSockAddr())->sin_addr.s_addr;
+        (reinterpret_cast<sockaddr_in*>(group.getSockAddr()))->sin_addr.s_addr;
     // interface that joins. (equal to bind address)
     joinAddr.imr_interface =
-        ((struct sockaddr_in*)interf.getSockAddr())->sin_addr;
+        (reinterpret_cast<struct sockaddr_in*>(interf.getSockAddr()))->sin_addr;
     rc=setsockopt(_sd,
                   IPPROTO_IP,
                   IP_ADD_MEMBERSHIP,
-                  (SocketOptT*)&joinAddr,
+                  static_cast<SocketOptT*>(&joinAddr),
                   sizeof(joinAddr));
     if(rc < 0)
     {
@@ -328,14 +329,14 @@ void DgramSocket::leave(const SocketAddress &group,const SocketAddress &interf)
 
     // group to join
     joinAddr.imr_multiaddr.s_addr =
-        ((sockaddr_in*)group.getSockAddr())->sin_addr.s_addr;
+        (reinterpret_cast<sockaddr_in*>(group.getSockAddr()))->sin_addr.s_addr;
     // interface that joins. (equal to bind address)
     joinAddr.imr_interface =
-        ((sockaddr_in*)interf.getSockAddr())->sin_addr;
+        (reinterpret_cast<sockaddr_in*>(interf.getSockAddr()))->sin_addr;
     rc=setsockopt(_sd,
                   IPPROTO_IP,
                   IP_DROP_MEMBERSHIP,
-                  (SocketOptT*)&joinAddr,
+                  static_cast<SocketOptT*>(&joinAddr),
                   sizeof(joinAddr));
     if(rc < 0)
     {
@@ -350,7 +351,8 @@ void DgramSocket::leave(const SocketAddress &group,const SocketAddress &interf)
 void DgramSocket::setTTL(unsigned char ttl)
 {
     int rc=setsockopt(_sd, IPPROTO_IP,IP_MULTICAST_TTL,
-                      (SocketOptT*)&ttl,sizeof(ttl));
+                      static_cast<SocketOptT*>(&ttl),
+                      sizeof(ttl));
     if(rc < 0)
     {
         throw SocketError("setsockopt(IPPROTO_IP,IP_MULTICAST_TTL)");
@@ -365,7 +367,7 @@ void DgramSocket::setMCastInterface(const SocketAddress &interf)
     int rc=setsockopt(_sd,
                       IPPROTO_IP,
                       IP_MULTICAST_IF,
-                      (SocketOptT*)interf.getSockAddr(),
+                      static_cast<SocketOptT*>(interf.getSockAddr()),
                       interf.getSockAddrSize());
     if(rc < 0)
     {

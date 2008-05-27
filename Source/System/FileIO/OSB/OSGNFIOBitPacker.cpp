@@ -73,7 +73,7 @@ BitPacker::BitPacker(UInt32 size, UInt32 max)
 {
     while(true)
     {
-        UInt32 maxValue = (UInt32) (1 << _numBitsToPack) - 1;
+        UInt32 maxValue = UInt32(1 << _numBitsToPack) - 1;
         if (maxValue >= max)
             break;
 
@@ -166,7 +166,7 @@ BitUnpacker::BitUnpacker(const std::vector<UInt8> &buffer, UInt32 max) :
 {
     while(true)
     {
-        UInt32 maxValue = (UInt32) (1 << _numBitsToUnpack) - 1;
+        UInt32 maxValue = UInt32(1 << _numBitsToUnpack) - 1;
         if (maxValue >= max)
             break;
 

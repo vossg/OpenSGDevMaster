@@ -786,7 +786,7 @@ void SimpleSceneManager::useOpenSGLogo(void)
 {
     ImageUnrecPtr lo = Image::create();
 
-    ImageFileType::restore( lo, (UChar8*)LogoData, -1 );
+    ImageFileType::restore( lo, static_cast<UChar8 *>(LogoData), -1 );
 
     _foreground->addImage( lo, Pnt2f( 0,0 ) );
 }

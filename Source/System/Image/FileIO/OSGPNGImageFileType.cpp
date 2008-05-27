@@ -590,7 +590,7 @@ bool PNGImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
 
     magic.resize(4);
 
-    fread((void *) &magic[0], 4, 1, file);
+    fread(static_cast<void *>(&magic[0]), 4, 1, file);
 
     fclose(file);
 
@@ -612,8 +612,10 @@ typedef struct
 static void user_read_data(png_structp png_ptr,
                            png_bytep data, png_size_t length)
 {
-    BufferInfo *bufferInfo = (BufferInfo *) png_get_io_ptr(png_ptr);
-    memcpy((void *) data, (void *) bufferInfo->buffer, length);
+    BufferInfo *bufferInfo = static_cast<BufferInfo *>(png_get_io_ptr(png_ptr));
+    memcpy(static_cast<void *>(data), 
+           static_cast<void *>(bufferInfo->buffer), 
+           length);
     bufferInfo->buffer += length;
     bufferInfo->length += length;
 }
@@ -658,9 +660,9 @@ UInt64 PNGImageFileType::restoreData(      Image  *OSG_PNG_ARG  (pImage ),
     }
 
     BufferInfo bufferInfo;
-    bufferInfo.buffer = (UChar8 *) buffer;
+    bufferInfo.buffer = const_cast<UChar8 *>(buffer);
     bufferInfo.length = 0;
-    png_set_read_fn(png_ptr, (void *) &bufferInfo, user_read_data);
+    png_set_read_fn(png_ptr, static_cast<void *>(&bufferInfo), user_read_data);
 
     png_read_info(png_ptr, info_ptr);
 
@@ -773,8 +775,10 @@ UInt64 PNGImageFileType::restoreData(      Image  *OSG_PNG_ARG  (pImage ),
 static void user_write_data(png_structp png_ptr,
                             png_bytep data, png_size_t length)
 {
-    BufferInfo *bufferInfo = (BufferInfo *) png_get_io_ptr(png_ptr);
-    memcpy((void *) bufferInfo->buffer, (void *) data, length);
+    BufferInfo *bufferInfo = static_cast<BufferInfo *>(png_get_io_ptr(png_ptr));
+    memcpy(static_cast<void *>(bufferInfo->buffer), 
+           static_cast<void *>(data), 
+           length);
     bufferInfo->buffer += length;
     bufferInfo->length += length;
 }
@@ -835,7 +839,7 @@ UInt64 PNGImageFileType::storeData(const Image  *OSG_PNG_ARG  (pImage  ),
     bufferInfo.length = 0;
 
     png_set_write_fn(png_ptr, 
-                     (void *) &bufferInfo, 
+                     static_cast<void *>(&bufferInfo), 
                      user_write_data, 
                      user_flush_data);
 

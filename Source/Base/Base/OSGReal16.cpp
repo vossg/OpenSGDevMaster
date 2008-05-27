@@ -16725,8 +16725,8 @@ namespace
 bool
 Real16::selftest ()
 {
-    testNormalized   ((float)  REAL16_MAX);
-    testNormalized   ((float) -REAL16_MAX);
+    testNormalized   (float ( REAL16_MAX));
+    testNormalized   (float (-REAL16_MAX));
     testNormalized   ( 0.1f);
     testNormalized   (-0.1f);
     testNormalized   ( 0.5f);
@@ -16739,10 +16739,10 @@ Real16::selftest ()
     testNormalized   (-3.0f);
     testNormalized   ( 17.0f);
     testNormalized   (-17.0f);
-    testNormalized   ((float)  REAL16_NRM_MIN);
-    testNormalized   ((float) -REAL16_NRM_MIN);
-    testDenormalized ((float)  REAL16_MIN);
-    testDenormalized ((float) -REAL16_MIN);
+    testNormalized   (float ( REAL16_NRM_MIN));
+    testNormalized   (float (-REAL16_NRM_MIN));
+    testDenormalized (float ( REAL16_MIN));
+    testDenormalized (float (-REAL16_MIN));
     testDenormalized ( 0.0f);
     testDenormalized (-0.0f);
 

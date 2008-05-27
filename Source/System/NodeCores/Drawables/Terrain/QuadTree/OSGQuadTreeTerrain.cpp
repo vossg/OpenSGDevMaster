@@ -149,25 +149,30 @@ Real32 QuadTreeTerrain::getHeightDataScaled (UInt32 i) const
        case Image::OSG_UINT8_IMAGEDATA:
 
            return 
-               ((UInt8*) getHeightData()->getData())[i] /
+               (reinterpret_cast<const UInt8 *>(
+                   getHeightData()->getData()))[i] /
                Real32(TypeTraits<UInt8>::getMax());
 
        case Image::OSG_UINT16_IMAGEDATA:
 
            return 
-               ((UInt16*)getHeightData()->getData())[i] /
+               (reinterpret_cast<const UInt16 *>(
+                   getHeightData()->getData()))[i] /
                Real32(TypeTraits<UInt16>::getMax());
 
        case Image::OSG_UINT32_IMAGEDATA:
            return 
-               ((UInt32*)getHeightData()->getData())[i] /
+               (reinterpret_cast<const UInt32 *>(
+                   getHeightData()->getData()))[i] /
                Real32(TypeTraits<UInt32>::getMax());
 
        case Image::OSG_FLOAT16_IMAGEDATA:
-           return ((Real16*)getHeightData()->getData())[i];
+           return (reinterpret_cast<const Real16 *>(
+                       getHeightData()->getData()))[i];
 
        case Image::OSG_FLOAT32_IMAGEDATA:
-           return ((Real32*)getHeightData()->getData())[i];
+           return (reinterpret_cast<const Real32 *>(
+                       getHeightData()->getData()))[i];
    };
 }
 
@@ -602,7 +607,7 @@ ImageTransitPtr QuadTreeTerrain::createNormalMap () const
     out->set(Image::OSG_RGB_PF, getWidth()-1, getWidth()-1, 1, 
              1, 1, 0.0f, NULL, Image::OSG_UINT8_IMAGEDATA);
 
-   UInt8* outData = (UInt8*) out->editData();
+    UInt8* outData = static_cast<UInt8 *>(out->editData());
 
    GeoPnt3fProperty *pos = dynamic_cast<GeoPnt3fProperty *>(getPositions());
 
@@ -677,7 +682,7 @@ void QuadTreeTerrain::calcD2ErrorMatrixRec(Int32 centerX,
             
             editHeightError(nodeIndex) = 
                 (getBoundMax()[1]-getBoundMin()[1]) / 
-                ((Real32) width * getVertexSpacing());
+                (Real32(width * getVertexSpacing()));
         } 
         else if(level > getLevel()-getBorderDetail() && 
                 ( centerX <= w2               || 
@@ -743,7 +748,7 @@ Real32 QuadTreeTerrain::calcD2Value (Int32 centerX,
     Real32 maxErr = osgMax(osgMax(nErr, eErr),
                            osgMax(osgMax(sErr, wErr), osgMax(d1Err, d2Err)));
     
-    return (maxErr / ((Real32) width * getVertexSpacing()));
+    return (maxErr / (Real32(width * getVertexSpacing())));
 }
 
 
@@ -965,7 +970,7 @@ bool QuadTreeTerrain::renderMeshRec(const FrustumVolume &frustum,
         
         SphereVolume current;
         current.setCenter(point);
-        current.setRadius((Real32) w2 * (Real32) getVertexSpacing() * 5.0f);
+        current.setRadius(Real32(w2) * Real32(getVertexSpacing()) * 5.0f);
         
         if(!OSG::intersect(frustum, current)) 
         {  
@@ -1651,8 +1656,8 @@ Real32 QuadTreeTerrain::getHeightAboveGround (const Pnt3f& eye)
     if      (ez < ulz) {  ez = ulz;  }
     else if (ez > lrz) {  ez = lrz;  }
     
-    Int32 x = (Int32) ((ex - ulx) / getVertexSpacing());
-    Int32 z = (Int32) ((ez - ulz) / getVertexSpacing());
+    Int32 x = Int32((ex - ulx) / getVertexSpacing());
+    Int32 z = Int32((ez - ulz) / getVertexSpacing());
     
     if (x > getWidth() - 1) {  x = getWidth() - 1;  }
     if (z > getWidth() - 1) {  z = getWidth() - 1;  }
@@ -1873,7 +1878,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
         {
             setWidth(getHeightData()->getWidth());
             assert(getHeightData()->getHeight() == getWidth());
-            setLevel((UInt32)(osgLog ((getWidth() - 1.0f)) / osgLog(2.0f)));
+            setLevel(UInt32(osgLog ((getWidth() - 1.0f)) / osgLog(2.0f)));
             
             SLOG << "found data width=" 
                  << getWidth() 
@@ -1964,7 +1969,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
     {
         // create texCoords 
         // Width steps between [0..1.0] for:
-        Real32 sstep = getTexSpacing() / (Real32)getWidth(); 
+        Real32 sstep = getTexSpacing() / Real32(getWidth()); 
 
         Real32 tstep = sstep;
 
@@ -1972,7 +1977,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
         { 
             // it is sufficient to just set field TexSpacing for 
             // isotropic scaling
-            tstep = getTexYSpacing() / (Real32)getWidth();
+            tstep = getTexYSpacing() / Real32(getWidth());
        }
 
         GeoVec2fPropertyUnrecPtr tex;

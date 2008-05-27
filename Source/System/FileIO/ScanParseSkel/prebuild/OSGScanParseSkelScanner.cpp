@@ -71,7 +71,7 @@
  * we want to instead treat it as an 8-bit unsigned char, hence the
  * double cast.
  */
-#define YY_SC_TO_UI(c) ((unsigned int) (unsigned char) c)
+#define YY_SC_TO_UI(c) (static_cast<unsigned int>(static_cast<unsigned char>(c)))
 
 /* Enter a start condition.  This macro really ought to take a parameter,
  * but we do it the disgusting crufty way forced on us by the ()-less
@@ -262,7 +262,7 @@ int yyFlexLexer::yylex()
  */
 #define YY_DO_BEFORE_ACTION \
 	yytext_ptr = yy_bp; \
-	yyleng = (int) (yy_cp - yy_bp); \
+	yyleng = int(yy_cp - yy_bp); \
 	yy_hold_char = *yy_cp; \
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
@@ -806,7 +806,7 @@ YY_MALLOC_DECL
  */
 #ifndef YY_INPUT
 #define YY_INPUT(buf,result,max_size) \
-	if ( (result = LexerInput( (char *) buf, max_size )) < 0 ) \
+	if ( (result = LexerInput( static_cast<char *>(buf), max_size )) < 0 ) \
 		YY_FATAL_ERROR( "input in flex scanner failed" );
 #endif
 
@@ -857,7 +857,6 @@ YY_DECL
 	register int yy_act;
 
 #line 84 "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelScanner.ll"
-
 
 
     if (expectToken != 0)
@@ -914,11 +913,11 @@ yy_match:
 			register YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
-				yy_current_state = (int) yy_def[yy_current_state];
+                    yy_current_state = int(yy_def[yy_current_state]);
 				if ( yy_current_state >= 389 )
-					yy_c = yy_meta[(unsigned int) yy_c];
+					yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
 				}
-			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
+			yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>( yy_c)];
 			*yy_state_ptr++ = yy_current_state;
 			++yy_cp;
 			}
@@ -1525,7 +1524,7 @@ ECHO;
 	case YY_END_OF_BUFFER:
 		{
 		/* Amount of text matched not including the EOB char. */
-		int yy_amount_of_matched_text = (int) (yy_cp - yytext_ptr) - 1;
+		int yy_amount_of_matched_text = int(yy_cp - yytext_ptr) - 1;
 
 		/* Undo the effects of YY_DO_BEFORE_ACTION. */
 		*yy_cp = yy_hold_char;
@@ -1774,7 +1773,7 @@ int yyFlexLexer::yy_get_next_buffer()
 	/* Try to read more data. */
 
 	/* First move last chars to start of buffer. */
-	number_to_move = (int) (yy_c_buf_p - yytext_ptr) - 1;
+	number_to_move = int(yy_c_buf_p - yytext_ptr) - 1;
 
 	for ( i = 0; i < number_to_move; ++i )
 		*(dest++) = *(source++);
@@ -1832,6 +1831,7 @@ int yyFlexLexer::yy_get_next_buffer()
 #endif
 			}
 
+
 		if ( num_to_read > YY_READ_BUF_SIZE )
 			num_to_read = YY_READ_BUF_SIZE;
 
@@ -1887,11 +1887,11 @@ yy_state_type yyFlexLexer::yy_get_previous_state()
 		register YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
-			yy_current_state = (int) yy_def[yy_current_state];
+                yy_current_state = int(yy_def[yy_current_state]);
 			if ( yy_current_state >= 389 )
-				yy_c = yy_meta[(unsigned int) yy_c];
+				yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
 			}
-		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
+		yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
 		*yy_state_ptr++ = yy_current_state;
 		}
 
@@ -1912,11 +1912,11 @@ yy_state_type yyFlexLexer::yy_try_NUL_trans( yy_state_type yy_current_state )
 	register YY_CHAR yy_c = 1;
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
-		yy_current_state = (int) yy_def[yy_current_state];
+            yy_current_state = int(yy_def[yy_current_state]);
 		if ( yy_current_state >= 389 )
-			yy_c = yy_meta[(unsigned int) yy_c];
+			yy_c = yy_meta[static_cast<unsigned int>(yy_c)];
 		}
-	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
+	yy_current_state = yy_nxt[yy_base[yy_current_state] + static_cast<unsigned int>(yy_c)];
 	yy_is_jam = (yy_current_state == 388);
 	if ( ! yy_is_jam )
 		*yy_state_ptr++ = yy_current_state;
@@ -1944,8 +1944,8 @@ void yyFlexLexer::yyunput( int c, register char* yy_bp )
 		while ( source > yy_current_buffer->yy_ch_buf )
 			*--dest = *--source;
 
-		yy_cp += (int) (dest - source);
-		yy_bp += (int) (dest - source);
+		yy_cp += int(dest - source);
+		yy_bp += int(dest - source);
 		yy_current_buffer->yy_n_chars =
 			yy_n_chars = yy_current_buffer->yy_buf_size;
 
@@ -1953,7 +1953,7 @@ void yyFlexLexer::yyunput( int c, register char* yy_bp )
 			YY_FATAL_ERROR( "flex scanner push-back overflow" );
 		}
 
-	*--yy_cp = (char) c;
+	*--yy_cp = char(c);
 
 	if ( c == '\n' )
 		--yylineno;
@@ -2024,7 +2024,7 @@ int yyFlexLexer::yyinput()
 			}
 		}
 
-	c = *(unsigned char *) yy_c_buf_p;	/* cast for 8-bit char's */
+	c = *reinterpret_cast<unsigned char *>(yy_c_buf_p);	/* cast for 8-bit char's */
 	*yy_c_buf_p = '\0';	/* preserve yytext */
 	yy_hold_char = *++yy_c_buf_p;
 
@@ -2082,7 +2082,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer( std::istream* file, int size )
 	{
 	YY_BUFFER_STATE b;
 
-	b = (YY_BUFFER_STATE) yy_flex_alloc( sizeof( struct yy_buffer_state ) );
+	b = YY_BUFFER_STATE(yy_flex_alloc( sizeof( struct yy_buffer_state ) ));
 	if ( ! b )
 		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
 
@@ -2091,7 +2091,7 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer( std::istream* file, int size )
 	/* yy_ch_buf has to be 2 characters longer than the size given because
 	 * we need to put in 2 end-of-buffer characters.
 	 */
-	b->yy_ch_buf = (char *) yy_flex_alloc( b->yy_buf_size + 2 );
+	b->yy_ch_buf = static_cast<char *>(yy_flex_alloc( b->yy_buf_size + 2 ));
 	if ( ! b->yy_ch_buf )
 		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
 
@@ -2109,12 +2109,12 @@ void yyFlexLexer::yy_delete_buffer( YY_BUFFER_STATE b )
 		return;
 
 	if ( b == yy_current_buffer )
-		yy_current_buffer = (YY_BUFFER_STATE) 0;
+		yy_current_buffer = YY_BUFFER_STATE(0);
 
 	if ( b->yy_is_our_buffer )
-		yy_flex_free( (void *) b->yy_ch_buf );
+		yy_flex_free( static_cast<void *>(b->yy_ch_buf) );
 
-	yy_flex_free( (void *) b );
+	yy_flex_free( static_cast<void *>(b) );
 	}
 
 
@@ -2283,7 +2283,7 @@ static void *yy_flex_alloc( size )
 yy_size_t size;
 #endif
 	{
-	return (void *) malloc( size );
+        return static_cast<void *>(malloc( size ));
 	}
 
 #ifdef YY_USE_PROTOS
@@ -2301,7 +2301,7 @@ yy_size_t size;
 	 * any pointer type to void*, and deal with argument conversions
 	 * as though doing an assignment.
 	 */
-	return (void *) realloc( (char *) ptr, size );
+        return static_cast<void *>(realloc( static_cast<char *>(ptr), size ));
 	}
 
 #ifdef YY_USE_PROTOS

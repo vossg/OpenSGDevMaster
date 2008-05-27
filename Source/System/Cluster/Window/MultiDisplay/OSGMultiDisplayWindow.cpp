@@ -330,10 +330,10 @@ void MultiDisplayWindow::serverRender(Window           *window,
     Int32 top    = bottom + height - 1;
     Real64 scaleCWidth  =
         ((width - getXOverlap()) * (getHServers() - 1) + width) /
-        (float)getWidth();
+        float(getWidth());
     Real64 scaleCHeight =
         ((height - getYOverlap())* (getVServers() - 1) + height)/
-        (float)getHeight();
+        float(getHeight());
 
     // duplicate viewports
     for(cv=0,sv=0;cv<getMFPort()->size();cv++)
@@ -342,10 +342,10 @@ void MultiDisplayWindow::serverRender(Window           *window,
 
         clientStereoPort = dynamic_cast<StereoBufferViewport *>(clientPort);
 
-        cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
-        cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
-        cright  = (Int32)((clientPort->getPixelRight()+1) * scaleCWidth) -1;
-        ctop    = (Int32)((clientPort->getPixelTop()+1)   * scaleCHeight)-1;
+        cleft   = Int32(clientPort->getPixelLeft()      * scaleCWidth)   ;
+        cbottom = Int32(clientPort->getPixelBottom()    * scaleCHeight)  ;
+        cright  = Int32((clientPort->getPixelRight()+1) * scaleCWidth) -1;
+        ctop    = Int32((clientPort->getPixelTop()+1)   * scaleCHeight)-1;
 
         if(cright  < left   ||
            cleft   > right  ||
@@ -421,10 +421,10 @@ void MultiDisplayWindow::serverRender(Window           *window,
         // calculate tile parameters
         deco->setFullWidth ( cright-cleft );
         deco->setFullHeight( ctop-cbottom );
-        deco->setSize( ( l+left-cleft     ) / (float)( cright-cleft ),
-                       ( b+bottom-cbottom ) / (float)( ctop-cbottom ),
-                       ( r+left-cleft     ) / (float)( cright-cleft ),
-                       ( t+bottom-cbottom ) / (float)( ctop-cbottom ) );
+        deco->setSize( ( l+left-cleft     ) / float( cright-cleft ),
+                       ( b+bottom-cbottom ) / float( ctop-cbottom ),
+                       ( r+left-cleft     ) / float( cright-cleft ),
+                       ( t+bottom-cbottom ) / float( ctop-cbottom ) );
         deco->setDecoratee( clientPort->getCamera() );
 
         sv++;

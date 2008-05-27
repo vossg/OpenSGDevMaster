@@ -97,10 +97,10 @@ TestFC::TypeObject TestFC::_type(
     Inherited::getClassname(),
     "Test",
     0,
-    (PrototypeCreateF) &TestFC::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TestFC::createEmptyLocal),
     NULL,
     NULL,
-    (InitalInsertDescFunc) &TestFC::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TestFC::classDescInserter),
     false,
     0);
 

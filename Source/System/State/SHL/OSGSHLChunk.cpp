@@ -528,13 +528,14 @@ void SHLChunk::handleDestroyGL(DrawEnv                 *pEnv,
         //printf("Window::destroy: %p %u %x\n", win, id,
         //       win->getGLObjectId(id));
 
-        GLuint program = (GLuint) win->getGLObjectId(id);
+        GLuint program = GLuint(win->getGLObjectId(id));
 
         if(program != 0)
         {
             // get "glDeleteObjectARB" function pointer
             OSGGLDELETEOBJECTARBPROC deleteObject =
-             (OSGGLDELETEOBJECTARBPROC) win->getFunction(_funcDeleteObject);
+                reinterpret_cast<OSGGLDELETEOBJECTARBPROC>(
+                    win->getFunction(_funcDeleteObject));
 
             deleteObject(program);
             win->setGLObjectId(id, 0);
@@ -562,61 +563,61 @@ void SHLChunk::updateProgram(Window *win)
 
     // get "glCreateProgramObjectARB" function pointer
     OSGGLCREATEPROGRAMOBJECTARBPROC createProgramObject =
-        (OSGGLCREATEPROGRAMOBJECTARBPROC)
-            win->getFunction(_funcCreateProgramObject);
+        reinterpret_cast<OSGGLCREATEPROGRAMOBJECTARBPROC>(
+            win->getFunction(_funcCreateProgramObject));
 
     // get "glDeleteObjectARB" function pointer
     OSGGLDELETEOBJECTARBPROC deleteObject =
-        (OSGGLDELETEOBJECTARBPROC)
-            win->getFunction(_funcDeleteObject);
+        reinterpret_cast<OSGGLDELETEOBJECTARBPROC>(
+            win->getFunction(_funcDeleteObject));
 
     // get "glCreateShaderObjectARB" function pointer
     OSGGLCREATESHADEROBJECTARBPROC createShaderObject =
-        (OSGGLCREATESHADEROBJECTARBPROC)
-            win->getFunction(_funcCreateShaderObject);
+        reinterpret_cast<OSGGLCREATESHADEROBJECTARBPROC>(
+            win->getFunction(_funcCreateShaderObject));
 
     // get "glShaderSourceARB" function pointer
     OSGGLSHADERSOURCEARBPROC shaderSource =
-        (OSGGLSHADERSOURCEARBPROC)
-            win->getFunction(_funcShaderSource);
+        reinterpret_cast<OSGGLSHADERSOURCEARBPROC>(
+            win->getFunction(_funcShaderSource));
 
     // get "glCompileShaderARB" function pointer
     OSGGLCOMPILESHADERARBPROC compileShader =
-        (OSGGLCOMPILESHADERARBPROC)
-            win->getFunction(_funcCompileShader);
+        reinterpret_cast<OSGGLCOMPILESHADERARBPROC>(
+            win->getFunction(_funcCompileShader));
 
     // get "glGetObjectParameterivARB" function pointer
     OSGGLGETOBJECTPARAMETERIVARBPROC getObjectParameteriv =
-        (OSGGLGETOBJECTPARAMETERIVARBPROC)
-            win->getFunction(_funcGetObjectParameteriv);
+        reinterpret_cast<OSGGLGETOBJECTPARAMETERIVARBPROC>(
+            win->getFunction(_funcGetObjectParameteriv));
 
     // get "glGetInfoLogARB" function pointer
     OSGGLGETINFOLOGARBPROC getInfoLog =
-        (OSGGLGETINFOLOGARBPROC)
-            win->getFunction(_funcGetInfoLog);
+        reinterpret_cast<OSGGLGETINFOLOGARBPROC>(
+            win->getFunction(_funcGetInfoLog));
 
     // get "glAttachObjectARB" function pointer
     OSGGLATTACHOBJECTARBPROC attachObject =
-        (OSGGLATTACHOBJECTARBPROC)
-            win->getFunction(_funcAttachObject);
+        reinterpret_cast<OSGGLATTACHOBJECTARBPROC>(
+            win->getFunction(_funcAttachObject));
 
     // get "glLinkProgramARB" function pointer
     OSGGLLINKPROGRAMARBPROC linkProgram =
-        (OSGGLLINKPROGRAMARBPROC)
-            win->getFunction(_funcLinkProgram);
+        reinterpret_cast<OSGGLLINKPROGRAMARBPROC>(
+            win->getFunction(_funcLinkProgram));
 
     // get "glUseProgramObjectARB" function pointer
     OSGGLUSEPROGRAMOBJECTARBPROC useProgramObject =
-        (OSGGLUSEPROGRAMOBJECTARBPROC)
-            win->getFunction(_funcUseProgramObject);
+        reinterpret_cast<OSGGLUSEPROGRAMOBJECTARBPROC>(
+            win->getFunction(_funcUseProgramObject));
 
-    GLuint program = (GLuint) win->getGLObjectId(getGLId());
+    GLuint program = GLuint(win->getGLObjectId(getGLId()));
     // delete old program.
     if(program != 0)
         deleteObject(program);
     program = createProgramObject();
     //printf("updateProgram create: %p %u %x\n", win, getGLId(), program);
-    win->setGLObjectId(getGLId(), (UInt32) program);
+    win->setGLObjectId(getGLId(), UInt32(program));
 
     UInt32 vShader = 0;
     GLint has_vertex = 0;
@@ -634,7 +635,7 @@ void SHLChunk::updateProgram(Window *win)
 
         vShader = createShaderObject(shader_type);
         const char *source = getVertexProgram().c_str();
-        shaderSource(vShader, 1, (const char **) &source, 0);
+        shaderSource(vShader, 1, static_cast<const char **>(&source), 0);
 
         int success = 0;
         compileShader(vShader);
@@ -670,16 +671,20 @@ void SHLChunk::updateProgram(Window *win)
 
         fShader = createShaderObject(shader_type);
         const char *source = getFragmentProgram().c_str();
-        shaderSource(fShader, 1, (const char **) &source, 0);
+        shaderSource(fShader, 1, static_cast<const char **>(&source), 0);
 
         compileShader(fShader);
-        getObjectParameteriv(fShader, GL_OBJECT_COMPILE_STATUS_ARB, &has_fragment);
+        getObjectParameteriv(fShader, 
+                             GL_OBJECT_COMPILE_STATUS_ARB, 
+                             &has_fragment);
 
         if(has_fragment == 0)
         {
             char *debug;
             GLint debugLength;
-            getObjectParameteriv(fShader, GL_OBJECT_INFO_LOG_LENGTH_ARB, &debugLength);
+            getObjectParameteriv(fShader, 
+                                 GL_OBJECT_INFO_LOG_LENGTH_ARB, 
+                                 &debugLength);
 
             debug = new char[debugLength];
             getInfoLog(fShader, debugLength, &debugLength, debug);
@@ -701,17 +706,21 @@ void SHLChunk::updateProgram(Window *win)
 
             gShader = createShaderObject(shader_type);
             const char *source = getGeometryProgram().c_str();
-            shaderSource(gShader, 1, (const char **) &source, 0);
+            shaderSource(gShader, 1, static_cast<const char **>(&source), 0);
 
             int success = 0;
             compileShader(gShader);
-            getObjectParameteriv(gShader, GL_OBJECT_COMPILE_STATUS_ARB, &has_geometry);
+            getObjectParameteriv(gShader, 
+                                 GL_OBJECT_COMPILE_STATUS_ARB, 
+                                 &has_geometry);
 
             if(has_geometry == 0)
             {
                 char *debug;
                 GLint debugLength;
-                getObjectParameteriv(gShader, GL_OBJECT_INFO_LOG_LENGTH_ARB, &debugLength);
+                getObjectParameteriv(gShader, 
+                                     GL_OBJECT_INFO_LOG_LENGTH_ARB, 
+                                     &debugLength);
 
                 debug = new char[debugLength];
                 getInfoLog(gShader, debugLength, &debugLength, debug);
@@ -804,8 +813,9 @@ void SHLChunk::updateParameterLocation(Window *win,
     }
 
     // get "glGetUniformLocationARB" function pointer
-    OSGGLGETUNIFORMLOCATIONARBPROC getUniformLocation = (OSGGLGETUNIFORMLOCATIONARBPROC)
-        win->getFunction(_funcGetUniformLocation);
+    OSGGLGETUNIFORMLOCATIONARBPROC getUniformLocation = 
+        reinterpret_cast<OSGGLGETUNIFORMLOCATIONARBPROC>(
+            win->getFunction(_funcGetUniformLocation));
 
     // as the location won't change after linking we can store them for speedup.
     parameter->setLocation(getUniformLocation(program, 
@@ -816,7 +826,7 @@ void SHLChunk::updateParameterLocations(
           Window                         *win,
     const MFUnrecChildShaderParameterPtr &parameters)
 {
-    GLuint program = (GLuint) win->getGLObjectId(getGLId());
+    GLuint program = GLuint(win->getGLObjectId(getGLId()));
 
     if(program == 0)
     {
@@ -829,15 +839,18 @@ void SHLChunk::updateParameterLocations(
         return;
 
     // get "glGetUniformLocationARB" function pointer
-    OSGGLGETUNIFORMLOCATIONARBPROC getUniformLocation = (OSGGLGETUNIFORMLOCATIONARBPROC)
-        win->getFunction(_funcGetUniformLocation);
+    OSGGLGETUNIFORMLOCATIONARBPROC getUniformLocation = 
+        reinterpret_cast<OSGGLGETUNIFORMLOCATIONARBPROC>(
+            win->getFunction(_funcGetUniformLocation));
 
     for(UInt32 i = 0; i < parameters.size(); ++i)
     {
         ShaderParameter *parameter = parameters[i];
 
         // as the location won't change after linking we can store them for speedup.
-        parameter->setLocation(getUniformLocation(program, parameter->getName().c_str()));
+        parameter->setLocation(
+            getUniformLocation(program, 
+                               parameter->getName().c_str()));
     }
 
     // force a update of the osg parameters.
@@ -851,7 +864,7 @@ void SHLChunk::updateParameters(
           bool                            force,
           bool                            keepProgramActive)
 {
-    GLuint program = (GLuint) win->getGLObjectId(getGLId());
+    GLuint program = GLuint(win->getGLObjectId(getGLId()));
 
     if(program == 0)
     {
@@ -867,8 +880,8 @@ void SHLChunk::updateParameters(
 
     // get "glUseProgramObjectARB" function pointer
     OSGGLUSEPROGRAMOBJECTARBPROC useProgramObject =
-        (OSGGLUSEPROGRAMOBJECTARBPROC)
-            win->getFunction(_funcUseProgramObject);
+        reinterpret_cast<OSGGLUSEPROGRAMOBJECTARBPROC>(
+            win->getFunction(_funcUseProgramObject));
 
     if(useProgram)
         useProgramObject(program);
@@ -908,8 +921,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform1iARB" function pointer
                 OSGGLUNIFORM1IARBPROC uniform1i =
-                    (OSGGLUNIFORM1IARBPROC)
-                        win->getFunction(_funcUniform1i);
+                    reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+                        win->getFunction(_funcUniform1i));
 
                 if(p->getLocation() == -1)
                 {
@@ -917,7 +930,7 @@ void SHLChunk::updateParameters(
                 }
                 if(p->getLocation() != -1)
                 {
-                    uniform1i(p->getLocation(), (GLint) p->getValue());
+                    uniform1i(p->getLocation(), GLint(p->getValue()));
                 }
                 else
                 {
@@ -933,8 +946,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform1iARB" function pointer
                 OSGGLUNIFORM1IARBPROC uniform1i =
-                    (OSGGLUNIFORM1IARBPROC)
-                        win->getFunction(_funcUniform1i);
+                    reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+                        win->getFunction(_funcUniform1i));
 
                 if(p->getLocation() == -1)
                 {
@@ -958,8 +971,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform1fARB" function pointer
                 OSGGLUNIFORM1FARBPROC uniform1f =
-                    (OSGGLUNIFORM1FARBPROC)
-                        win->getFunction(_funcUniform1f);
+                    reinterpret_cast<OSGGLUNIFORM1FARBPROC>(
+                        win->getFunction(_funcUniform1f));
 
                 if(p->getLocation() == -1)
                 {
@@ -983,8 +996,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform2fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform2fv =
-                    (OSGGLUNIFORMFVARBPROC)
-                        win->getFunction(_funcUniform2fv);
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform2fv));
 
                 if(p->getLocation() == -1)
                 {
@@ -1010,8 +1023,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform3fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform3fv =
-                    (OSGGLUNIFORMFVARBPROC)
-                        win->getFunction(_funcUniform3fv);
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform3fv));
 
                 if(p->getLocation() == -1)
                 {
@@ -1036,8 +1049,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform4fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform4fv =
-                    (OSGGLUNIFORMFVARBPROC)
-                        win->getFunction(_funcUniform4fv);
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform4fv));
 
                 if(p->getLocation() == -1)
                 {
@@ -1062,8 +1075,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniformMatrix4fvARB" function pointer
                 OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv =
-                    (OSGGLUNIFORMMATRIXFVARBPROC)
-                        win->getFunction(_funcUniformMatrix4fv);
+                    reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+                        win->getFunction(_funcUniformMatrix4fv));
 
                 if(p->getLocation() == -1)
                 {
@@ -1088,8 +1101,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform2fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform2fv =
-                    (OSGGLUNIFORMFVARBPROC)
-                        win->getFunction(_funcUniform2fv);
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform2fv));
 
                 if(p->getLocation() == -1)
                 {
@@ -1115,8 +1128,8 @@ void SHLChunk::updateParameters(
 
                 // get "glUniform3fvARB" function pointer
                 OSGGLUNIFORMFVARBPROC uniform3fv =
-                    (OSGGLUNIFORMFVARBPROC)
-                        win->getFunction(_funcUniform3fv);
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform3fv));
 
                 if(p->getLocation() == -1)
                 {
@@ -1143,8 +1156,9 @@ void SHLChunk::updateParameters(
                 ShaderParameterMInt *p = 
                     dynamic_cast<ShaderParameterMInt *>(parameter);
                 // get "glUniform1ivARB" function pointer
-                OSGGLUNIFORMIVARBPROC uniform1iv = (OSGGLUNIFORMIVARBPROC)
-                    win->getFunction(_funcUniform1iv);
+                OSGGLUNIFORMIVARBPROC uniform1iv = 
+                    reinterpret_cast<OSGGLUNIFORMIVARBPROC>(
+                        win->getFunction(_funcUniform1iv));
     
                 //printf("setting: %s %d\n", p->getName().c_str(), p->getValue());
                 if(p->getLocation() == -1)
@@ -1160,8 +1174,9 @@ void SHLChunk::updateParameters(
                 ShaderParameterMReal *p = 
                     dynamic_cast<ShaderParameterMReal *>(parameter);
                 // get "glUniform1fvARB" function pointer
-                OSGGLUNIFORMFVARBPROC uniform1fv = (OSGGLUNIFORMFVARBPROC)
-                    win->getFunction(_funcUniform1fv);
+                OSGGLUNIFORMFVARBPROC uniform1fv = 
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform1fv));
 
                 //printf("setting: %s %f\n", p->getName().c_str(), p->getValue());
                 if(p->getLocation() == -1)
@@ -1183,8 +1198,9 @@ void SHLChunk::updateParameters(
                 ShaderParameterMVec2f *p = 
                     dynamic_cast<ShaderParameterMVec2f *>(parameter);
                 // get "glUniform2fvARB" function pointer
-                OSGGLUNIFORMFVARBPROC uniform2fv = (OSGGLUNIFORMFVARBPROC)
-                    win->getFunction(_funcUniform2fv);
+                OSGGLUNIFORMFVARBPROC uniform2fv = 
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform2fv));
 
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
@@ -1203,8 +1219,9 @@ void SHLChunk::updateParameters(
                 ShaderParameterMVec3f *p = 
                     dynamic_cast<ShaderParameterMVec3f *>(parameter);
                 // get "glUniform3fvARB" function pointer
-                OSGGLUNIFORMFVARBPROC uniform3fv = (OSGGLUNIFORMFVARBPROC)
-                    win->getFunction(_funcUniform3fv);
+                OSGGLUNIFORMFVARBPROC uniform3fv = 
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform3fv));
 
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
@@ -1225,8 +1242,9 @@ void SHLChunk::updateParameters(
                 ShaderParameterMVec4f *p = 
                     dynamic_cast<ShaderParameterMVec4f *>(parameter);
                 // get "glUniform4fvARB" function pointer
-                OSGGLUNIFORMFVARBPROC uniform4fv = (OSGGLUNIFORMFVARBPROC)
-                    win->getFunction(_funcUniform4fv);
+                OSGGLUNIFORMFVARBPROC uniform4fv = 
+                    reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+                        win->getFunction(_funcUniform4fv));
 
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
@@ -1247,8 +1265,9 @@ void SHLChunk::updateParameters(
                 ShaderParameterMMatrix *p = 
                     dynamic_cast<ShaderParameterMMatrix *>(parameter);
                 // get "glUniformMatrix4fvARB" function pointer
-                OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
-                    win->getFunction(_funcUniformMatrix4fv);
+                OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = 
+                    reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+                        win->getFunction(_funcUniformMatrix4fv));
 
                 if(p->getLocation() == -1)
                     updateParameterLocation(win, program, p);
@@ -1282,7 +1301,7 @@ void SHLChunk::updateProgramParameters(Window *win)
     if(!win->hasExtension(_geometry_extension))
         return;
 
-    GLuint program = (GLuint) win->getGLObjectId(getGLId());
+    GLuint program = GLuint(win->getGLObjectId(getGLId()));
 
     if(program == 0)
     {
@@ -1293,7 +1312,8 @@ void SHLChunk::updateProgramParameters(Window *win)
 
     // get "glProgramParameteriEXT" function pointer
     OSGGLPROGRAMPARAMETERIEXTPROC programParameteri =
-        (OSGGLPROGRAMPARAMETERIEXTPROC) win->getFunction(_funcProgramParameteri);
+        reinterpret_cast<OSGGLPROGRAMPARAMETERIEXTPROC>( 
+            win->getFunction(_funcProgramParameteri));
 
     // set program parameters.
     const MFGLenum *ppnames  = getMFProgramParameterNames();
@@ -1603,8 +1623,8 @@ void SHLChunk::updateOSGParameters(DrawEnv *pEnv,
 
     // get "glGetUniformLocationARB" function pointer
     OSGGLGETUNIFORMLOCATIONARBPROC getUniformLocation =
-        (OSGGLGETUNIFORMLOCATIONARBPROC)
-            pEnv->getWindow()->getFunction(_funcGetUniformLocation);
+        reinterpret_cast<OSGGLGETUNIFORMLOCATIONARBPROC>(
+            pEnv->getWindow()->getFunction(_funcGetUniformLocation));
 
     if(_userParametersCallback != NULL)
         _userParametersCallback(getUniformLocation, pEnv, program);
@@ -1652,8 +1672,10 @@ void SHLChunk::updateWorldMatrix(ShaderParameter * const parameter,
         m = ra->top_matrix();
 
     // get "glUniformMatrix4fvARB" function pointer
-    OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
-        action->getWindow()->getFunction(_funcUniformMatrix4fv);
+    OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = 
+        reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+            action->getWindow()->getFunction(_funcUniformMatrix4fv));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
@@ -1735,8 +1757,8 @@ void SHLChunk::updateCameraOrientation(
 
     // get "glUniformMatrix4fvARB" function pointer
     OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv =
-        (OSGGLUNIFORMMATRIXFVARBPROC)
-            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv);
+        reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv));
 
     if(parameter->getLocation() == -1)
         updateParameterLocation(pEnv->getWindow(), program, parameter);
@@ -1758,8 +1780,8 @@ void SHLChunk::updateCameraPosition(
 
     // get "glUniform3fvARB" function pointer
     OSGGLUNIFORMFVARBPROC uniform3fv =
-        (OSGGLUNIFORMFVARBPROC)
-            pEnv->getWindow()->getFunction(_funcUniform3fv);
+        reinterpret_cast<OSGGLUNIFORMFVARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUniform3fv));
 
     if(parameter->getLocation() == -1)
         updateParameterLocation(pEnv->getWindow(), program, parameter);
@@ -1779,8 +1801,8 @@ void SHLChunk::updateViewMatrix(
 
     // get "glUniformMatrix4fvARB" function pointer
     OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv =
-        (OSGGLUNIFORMMATRIXFVARBPROC)
-            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv);
+        reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv));
 
     if(parameter->getLocation() == -1)
         updateParameterLocation(pEnv->getWindow(), program, parameter);
@@ -1800,8 +1822,8 @@ void SHLChunk::updateInvViewMatrix(
 
     // get "glUniformMatrix4fvARB" function pointer
     OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv =
-        (OSGGLUNIFORMMATRIXFVARBPROC)
-            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv);
+        reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv));
 
     if(parameter->getLocation() == -1)
         updateParameterLocation(pEnv->getWindow(), program, parameter);
@@ -1845,8 +1867,10 @@ void SHLChunk::updateStereoLeftEye(
     }
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
@@ -1869,13 +1893,13 @@ void SHLChunk::updateClusterId(
 
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i =
-        (OSGGLUNIFORM1IARBPROC)
-            pEnv->getWindow()->getFunction(_funcUniform1i);
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
         updateParameterLocation(pEnv->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) _clusterId);
+        uniform1i(parameter->getLocation(), GLint(_clusterId));
 }
 
 void SHLChunk::updateActiveLightsMask(
@@ -1887,12 +1911,14 @@ void SHLChunk::updateActiveLightsMask(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask());
+        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask()));
 #endif
 }
 
@@ -1905,12 +1931,14 @@ void SHLChunk::updateLight0Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 1);
+        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 1));
 #endif
 }
 
@@ -1923,12 +1951,14 @@ void SHLChunk::updateLight1Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 2);
+        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 2));
 #endif
 }
 
@@ -1941,12 +1971,14 @@ void SHLChunk::updateLight2Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 4);
+        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 4));
 #endif
 }
 
@@ -1959,12 +1991,14 @@ void SHLChunk::updateLight3Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 8);
+        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 8));
 #endif
 }
 
@@ -1977,12 +2011,14 @@ void SHLChunk::updateLight4Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 16);
+        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 16));
 #endif
 }
 
@@ -1995,12 +2031,14 @@ void SHLChunk::updateLight5Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 32);
+        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 32));
 #endif
 }
 
@@ -2013,8 +2051,10 @@ void SHLChunk::updateLight6Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
@@ -2031,8 +2071,10 @@ void SHLChunk::updateLight7Active(
     RenderAction *ract = (RenderAction *) action;
 
     // get "glUniform1iARB" function pointer
-    OSGGLUNIFORM1IARBPROC uniform1i = (OSGGLUNIFORM1IARBPROC)
-        action->getWindow()->getFunction(_funcUniform1i);
+    OSGGLUNIFORM1IARBPROC uniform1i = 
+        reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
+            action->getWindow()->getFunction(_funcUniform1i));
+
     if(parameter->getLocation() == -1)
         updateParameterLocation(action->getWindow(), program, parameter);
     if(parameter->getLocation() != -1)
@@ -2046,7 +2088,7 @@ void SHLChunk::update(DrawEnv *pEnv)
 {
     pEnv->getWindow()->validateGLObject(getGLId(), pEnv);
 
-    GLuint program = (GLuint) pEnv->getWindow()->getGLObjectId(getGLId());
+    GLuint program = GLuint(pEnv->getWindow()->getGLObjectId(getGLId()));
     if(program == 0)
         return;
 
@@ -2058,7 +2100,7 @@ void SHLChunk::activate(DrawEnv *pEnv, UInt32 /*idx*/)
     //printf("SHLChunk::activate : %p\n", action->getWindow());
     pEnv->getWindow()->validateGLObject(getGLId(), pEnv);
 
-    GLuint program = (GLuint) pEnv->getWindow()->getGLObjectId(getGLId());
+    GLuint program = GLuint(pEnv->getWindow()->getGLObjectId(getGLId()));
 
     if(program == 0)
         return;
@@ -2066,8 +2108,8 @@ void SHLChunk::activate(DrawEnv *pEnv, UInt32 /*idx*/)
 
     // get "glUseProgramObjectARB" function pointer
     OSGGLUSEPROGRAMOBJECTARBPROC useProgramObject =
-        (OSGGLUSEPROGRAMOBJECTARBPROC)
-            pEnv->getWindow()->getFunction(_funcUseProgramObject);
+        reinterpret_cast<OSGGLUSEPROGRAMOBJECTARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUseProgramObject));
 
     useProgramObject(program);
 
@@ -2108,10 +2150,10 @@ void SHLChunk::changeFrom(DrawEnv    *pEnv,
 
     // get "glUseProgramObjectARB" function pointer
     OSGGLUSEPROGRAMOBJECTARBPROC useProgramObject =
-        (OSGGLUSEPROGRAMOBJECTARBPROC)
-            pEnv->getWindow()->getFunction(_funcUseProgramObject);
+        reinterpret_cast<OSGGLUSEPROGRAMOBJECTARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUseProgramObject));
 
-    GLuint program = (GLuint) pEnv->getWindow()->getGLObjectId(getGLId());
+    GLuint program = GLuint(pEnv->getWindow()->getGLObjectId(getGLId()));
 
     if(program != 0)
     {
@@ -2152,8 +2194,8 @@ void SHLChunk::deactivate(DrawEnv *pEnv, UInt32 /*idx*/)
 
     // get "glUseProgramObjectARB" function pointer
     OSGGLUSEPROGRAMOBJECTARBPROC useProgramObject =
-        (OSGGLUSEPROGRAMOBJECTARBPROC)
-            pEnv->getWindow()->getFunction(_funcUseProgramObject);
+        reinterpret_cast<OSGGLUSEPROGRAMOBJECTARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUseProgramObject));
 
     useProgramObject(0);
 

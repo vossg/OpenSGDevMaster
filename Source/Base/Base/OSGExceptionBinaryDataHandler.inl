@@ -59,7 +59,7 @@ void ExceptionBinaryDataHandler::putValue(const bool &value)
     // platfroms it is one byte long. So we write now always
     // one byte out.
     // put(&value, sizeof(bool));
-    UInt8 temp = (UInt8) value;
+    UInt8 temp = UInt8(value);
     put(&temp, sizeof(UInt8));
 }
 

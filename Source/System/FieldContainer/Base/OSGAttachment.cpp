@@ -97,7 +97,7 @@ Attachment::TypeObject Attachment::_type(
     NULL,
     NULL,
     NULL,
-    (InitalInsertDescFunc) &Attachment::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&Attachment::classDescInserter),
     false,
     0);
 

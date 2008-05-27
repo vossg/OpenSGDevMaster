@@ -278,7 +278,7 @@ static void OSG_APIENTRY gluTessVertexDataCB(void *vertexData, void *polygonData
     TextVectorGlyph::PolygonOutline *outline = reinterpret_cast<TextVectorGlyph::PolygonOutline*>(polygonData);
     
     // Go via 64 bit int to avoid problems on 64 bit machines
-    UInt64 coordIndexHelp = (UInt64)vertexData;
+    UInt64 coordIndexHelp = UInt64(vertexData);
     UInt32 coordIndex = static_cast<UInt32>(coordIndexHelp);
 
     assert(outline != 0);

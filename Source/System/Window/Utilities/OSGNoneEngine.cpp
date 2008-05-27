@@ -80,21 +80,21 @@ NoneEngine::~NoneEngine()
 const Pnt3f& NoneEngine::getFrom(void)
 {
     static Pnt3f returnValue(0.f, 0.f, 0.f);
-    returnValue = (Pnt3f)_noneMatrix[3];
+    returnValue = Pnt3f(_noneMatrix[3]);
     return returnValue;
 }
 
 const Pnt3f& NoneEngine::getAt(void)
 {
     static Pnt3f returnValue(0.f, 0.f, 0.f);
-    returnValue = (Pnt3f)(_noneMatrix[3] - _noneMatrix[2]);
+    returnValue = Pnt3f(_noneMatrix[3] - _noneMatrix[2]);
     return returnValue;
 }
 
 const Vec3f& NoneEngine::getUp(void)
 {
     static Vec3f returnValue(0.f, 0.f, 0.f);
-    returnValue = (Vec3f)_noneMatrix[1];
+    returnValue = Vec3f(_noneMatrix[1]);
     return returnValue;
 }
 
@@ -114,17 +114,21 @@ Real32 NoneEngine::getDistance(void)
 
 void NoneEngine::setFrom(Pnt3f new_from)
 {
-    set(new_from,(Pnt3f)(_noneMatrix[3]-_noneMatrix[2]),(Vec3f)_noneMatrix[1]);
+    set(new_from, 
+        Pnt3f(_noneMatrix[3]-_noneMatrix[2]),
+        Vec3f(_noneMatrix[1]));
 }
 
 void NoneEngine::setAt(Pnt3f new_at)
 {
-    set((Pnt3f)_noneMatrix[3], new_at, (Vec3f)_noneMatrix[1]);
+    set(Pnt3f(_noneMatrix[3]), new_at, Vec3f(_noneMatrix[1]));
 }
 
 void NoneEngine::setUp(Vec3f new_up)
 {
-    set((Pnt3f)_noneMatrix[3],(Pnt3f)(_noneMatrix[3]-_noneMatrix[2]), new_up);
+    set(Pnt3f(_noneMatrix[3]),
+        Pnt3f(_noneMatrix[3]-_noneMatrix[2]), 
+        new_up);
 }
 
 void NoneEngine::set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up)

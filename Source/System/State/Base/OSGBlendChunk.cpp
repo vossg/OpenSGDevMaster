@@ -208,12 +208,12 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
                                                   GLenum,
                                                   GLenum) =
                     
-                    (void (OSG_APIENTRY*)(GLenum,
-                                          GLenum,
-                                          GLenum,
-                                          GLenum))  
-                    pEnv->getWindow()->getFunction(
-                        _funcBlendFuncSeparateExt);
+                    reinterpret_cast<void (OSG_APIENTRY*)(GLenum,
+                                                          GLenum,
+                                                          GLenum,
+                                                          GLenum)>( 
+                        pEnv->getWindow()->getFunction(
+                            _funcBlendFuncSeparateExt));
 
                 blendfuncsep(src, dest, asrc, adest);
             }
@@ -248,11 +248,11 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
                                                GLclampf green,
                                                GLclampf blue,
                                                GLclampf alpha ) =
-                    (void (OSG_APIENTRY*)(GLclampf red,
-                                          GLclampf green,
-                                          GLclampf blue,
-                                          GLclampf alpha))
-                    pEnv->getWindow()->getFunction(_funcBlendColor);
+                    reinterpret_cast<void (OSG_APIENTRY*)(GLclampf red,
+                                                          GLclampf green,
+                                                          GLclampf blue,
+                                                          GLclampf alpha)>(
+                        pEnv->getWindow()->getFunction(_funcBlendColor));
 
                  blendcolor(_sfColor.getValue().red(),
                             _sfColor.getValue().green(),
@@ -269,8 +269,8 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
         {
             // get "glBlendEquation" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                (void (OSG_APIENTRY*)(GLenum mode))
-                pEnv->getWindow()->getFunction(_funcBlendEquation);
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
+                    pEnv->getWindow()->getFunction(_funcBlendEquation));
 
              blendeq(_sfEquation.getValue());
         }
@@ -280,8 +280,8 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
         {
             // get "glBlendEquationEXT" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                (void (OSG_APIENTRY*)(GLenum mode))
-                pEnv->getWindow()->getFunction(_funcBlendEquationExt);
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
+                    pEnv->getWindow()->getFunction(_funcBlendEquationExt));
 
              blendeq(_sfEquation.getValue());
         }
@@ -330,9 +330,12 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
                     // get "glBlendFuncSeparate" function pointer
                     void (OSG_APIENTRY* blendfuncsep)(GLenum,GLenum,
                                                       GLenum,GLenum) =
-                        (void (OSG_APIENTRY*)(GLenum,GLenum,GLenum,GLenum))
-                        pEnv->getWindow()->getFunction(
-                            _funcBlendFuncSeparateExt);
+                        reinterpret_cast<void (OSG_APIENTRY*)(GLenum,
+                                                              GLenum,
+                                                              GLenum,
+                                                              GLenum)>(
+                            pEnv->getWindow()->getFunction(
+                                _funcBlendFuncSeparateExt));
 
                     blendfuncsep(src, dest, asrc, adest);
                 }
@@ -368,11 +371,11 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
                                                GLclampf green,
                                                GLclampf blue,
                                                GLclampf alpha ) =
-                    (void (OSG_APIENTRY*)(GLclampf red,
-                                          GLclampf green,
-                                          GLclampf blue,
-                                          GLclampf alpha))
-                    pEnv->getWindow()->getFunction( _funcBlendColor );
+                    reinterpret_cast<void (OSG_APIENTRY*)(GLclampf red,
+                                                          GLclampf green,
+                                                          GLclampf blue,
+                                                          GLclampf alpha)>(
+                        pEnv->getWindow()->getFunction( _funcBlendColor ));
 
                 blendcolor(_sfColor.getValue().red(),
                            _sfColor.getValue().green(),
@@ -399,8 +402,8 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
         {
             // get "glBlendEquation" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                (void (OSG_APIENTRY*)(GLenum mode))
-                pEnv->getWindow()->getFunction(_funcBlendEquation);
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
+                    pEnv->getWindow()->getFunction(_funcBlendEquation));
 
              blendeq(_sfEquation.getValue());
         }
@@ -410,8 +413,8 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
         {
             // get "glBlendEquationEXT" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                (void (OSG_APIENTRY*)(GLenum mode))
-                pEnv->getWindow()->getFunction(_funcBlendEquationExt);
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
+                    pEnv->getWindow()->getFunction(_funcBlendEquationExt));
 
              blendeq(_sfEquation.getValue());
         }
@@ -454,8 +457,8 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
         {
             // get "glBlendEquation" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                (void (OSG_APIENTRY*)(GLenum mode))
-                pEnv->getWindow()->getFunction(_funcBlendEquation);
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
+                    pEnv->getWindow()->getFunction(_funcBlendEquation));
 
              blendeq(GL_FUNC_ADD);
         }
@@ -465,8 +468,8 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
         {
             // get "glBlendEquationEXT" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
-                (void (OSG_APIENTRY*)(GLenum mode))
-                pEnv->getWindow()->getFunction(_funcBlendEquationExt);
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum mode)>(
+                    pEnv->getWindow()->getFunction(_funcBlendEquationExt));
 
              blendeq(GL_FUNC_ADD_EXT);
         }

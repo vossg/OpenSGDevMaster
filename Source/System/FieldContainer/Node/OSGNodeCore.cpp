@@ -74,7 +74,7 @@ NodeCore::TypeObject NodeCore::_type(
     NULL,
     NULL,
     NULL,
-    (InitalInsertDescFunc) &NodeCore::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&NodeCore::classDescInserter),
     false,
     0,
     "",

@@ -143,7 +143,7 @@ LVector3 SubtractVectors(const LVector3 &a, const LVector3 &b)
 
 float VectorLength(const LVector3 &vec)
 {
-    return (float)sqrt(vec.x*vec.x + vec.y*vec.y+vec.z*vec.z);
+    return float(sqrt(vec.x*vec.x + vec.y*vec.y+vec.z*vec.z));
 }
 
 LVector3 NormalizeVector(const LVector3 &vec)
@@ -1154,13 +1154,13 @@ bool L3DS::Load(std::istream &is)
     m_bufferSize = is.tellg();
     is.seekg(0, std::ios::beg);
 
-    m_buffer = (unsigned char*) calloc(m_bufferSize, 1);
+    m_buffer = static_cast<unsigned char*>(calloc(m_bufferSize, 1));
     if (m_buffer == 0)
     {
         fprintf(stderr, "L3DS::LoadFile - not enough memory (malloc failed)");
         return false;
     }
-    is.read((char *) m_buffer, m_bufferSize);
+    is.read(reinterpret_cast<char *>(m_buffer), m_bufferSize);
     if(is.gcount() != m_bufferSize)
     {
         free(m_buffer);
@@ -1189,7 +1189,7 @@ bool L3DS::Load(const char *filename)
     fseek(f, 0, SEEK_END);
     m_bufferSize = ftell(f);
     fseek(f, 0, SEEK_SET);
-    m_buffer = (unsigned char*) calloc(m_bufferSize, 1);
+    m_buffer = static_cast<unsigned char *>(calloc(m_bufferSize, 1));
     if (m_buffer == 0)
     {
         fprintf(stderr, "L3DS::LoadFile - not enough memory (malloc failed)");
@@ -1217,7 +1217,7 @@ short L3DS::ReadShort()
 {
     if ((m_buffer!=0) && (m_bufferSize != 0) && ((m_pos+2)<m_bufferSize))
     {
-        short *w = (short*)(m_buffer+m_pos);
+        short *w = reinterpret_cast<short *>(m_buffer+m_pos);
         short s = *w;//(short)*(m_buffer+m_pos);
         m_pos += 2;
         return s;
@@ -1230,7 +1230,7 @@ int L3DS::ReadInt()
 {
     if ((m_buffer!=0) && (m_bufferSize != 0) && ((m_pos+4)<m_bufferSize))
     {
-        int *w = (int*)(m_buffer+m_pos);
+        int *w = reinterpret_cast<int *>(m_buffer+m_pos);
         int s = *w;//(int)*(m_buffer+m_pos);
         m_pos += 4;
         return s;
@@ -1243,7 +1243,7 @@ char L3DS::ReadChar()
 {
     if ((m_buffer!=0) && (m_bufferSize != 0) && ((m_pos+1)<m_bufferSize))
     {
-        char s = (char)*(m_buffer+m_pos);
+        char s = char(*(m_buffer+m_pos));
         m_pos += 1;
         return s;
     }
@@ -1255,7 +1255,7 @@ float L3DS::ReadFloat()
 {
     if ((m_buffer!=0) && (m_bufferSize != 0) && ((m_pos+4)<m_bufferSize))
     {
-        float *w = (float*)(m_buffer+m_pos);
+        float *w = reinterpret_cast<float *>(m_buffer+m_pos);
         float s = *w;//(float)*(m_buffer+m_pos);
         m_pos += 4;
         return s;
@@ -1268,7 +1268,7 @@ byte L3DS::ReadByte()
 {
     if ((m_buffer!=0) && (m_bufferSize != 0) && ((m_pos+1)<m_bufferSize))
     {
-        byte s = (byte)*(m_buffer+m_pos);
+        byte s = byte(*(m_buffer+m_pos));
         m_pos += 1;
         return s;
     }
@@ -1686,7 +1686,7 @@ void L3DS::ReadFaceList(const LChunk &chunk, LMesh &mesh)
             break;
         case TRI_SMOOTH_GROUP:
             for (i=0; i<mesh.GetTriangleCount(); i++)
-                mesh.GetTri(i).smoothingGroups = (ulong) ReadInt();
+                mesh.GetTri(i).smoothingGroups = ulong(ReadInt());
             break;
         }
         SkipChunk(ch);

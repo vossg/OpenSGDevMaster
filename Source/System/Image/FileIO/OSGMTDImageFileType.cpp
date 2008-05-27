@@ -87,7 +87,7 @@ bool MTDImageFileType::read(      Image         *pImage,
 {
   bool retCode = false;
   Head head;
-  void *headData = (void*)(&head);
+  void *headData = static_cast<void*>(&head);
   unsigned dataSize, headSize = sizeof(Head);
   
   if(is.read(static_cast<char *>(headData), headSize) && 
@@ -105,7 +105,7 @@ bool MTDImageFileType::read(      Image         *pImage,
                  true, 
                  head.sideCount)                       &&
      (dataSize = pImage->getSize())                    && 
-     is.read((char *)(pImage->editData()), dataSize )    )
+     is.read(reinterpret_cast<char *>(pImage->editData()), dataSize )    )
   {
       retCode = true;
   }
@@ -130,7 +130,7 @@ bool MTDImageFileType::write(const Image        *pImage,
 
     Head head;
 
-    const void *headData = (void*)(&head);
+    const void *headData = static_cast<void *>(&head);
     unsigned dataSize = pImage->getSize(), headSize = sizeof(Head);
 
     head.pixelFormat  = pImage->getPixelFormat();
@@ -146,7 +146,7 @@ bool MTDImageFileType::write(const Image        *pImage,
   
     if(os.write(static_cast<const char *>(headData), headSize) && 
        dataSize                                                 && 
-       os.write((char *)(pImage->getData()), dataSize) )
+       os.write(reinterpret_cast<const char *>(pImage->getData()), dataSize) )
     {
         retCode = true;
     }

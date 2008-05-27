@@ -341,55 +341,93 @@ static glextFuncInit normAttribInitFuncs[6] = {
 static pumpFunc PositionFuncs[numFormats][4] = {
     { NULL, NULL, NULL, NULL },                           // GL_BYTE
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
-    { NULL, (pumpFunc)glVertex2sv,
-      (pumpFunc)glVertex3sv, (pumpFunc)glVertex4sv },     // GL_SHORT
+    { NULL, 
+      reinterpret_cast<pumpFunc>(glVertex2sv),
+      reinterpret_cast<pumpFunc>(glVertex3sv), 
+      reinterpret_cast<pumpFunc>(glVertex4sv) },          // GL_SHORT
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
-    { NULL, (pumpFunc)glVertex2iv,
-      (pumpFunc)glVertex3iv, (pumpFunc)glVertex4iv },     // GL_INT
+    { NULL, 
+      reinterpret_cast<pumpFunc>(glVertex2iv),
+      reinterpret_cast<pumpFunc>(glVertex3iv), 
+      reinterpret_cast<pumpFunc>(glVertex4iv) },          // GL_INT
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
-    { NULL, (pumpFunc)glVertex2fv,
-      (pumpFunc)glVertex3fv, (pumpFunc)glVertex4fv },     // GL_FLOAT
+    { NULL, 
+      reinterpret_cast<pumpFunc>(glVertex2fv),
+      reinterpret_cast<pumpFunc>(glVertex3fv), 
+      reinterpret_cast<pumpFunc>(glVertex4fv) },          // GL_FLOAT
     { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { NULL, (pumpFunc)glVertex2dv,
-      (pumpFunc)glVertex3dv, (pumpFunc)glVertex4dv },     // GL_DOUBLE
+    { NULL, 
+      reinterpret_cast<pumpFunc>(glVertex2dv),
+      reinterpret_cast<pumpFunc>(glVertex3dv), 
+      reinterpret_cast<pumpFunc>(glVertex4dv) },          // GL_DOUBLE
 };
 
 static pumpFunc NormalFuncs[numFormats][4] = {
-    { NULL, NULL, (pumpFunc)glNormal3sv, NULL },          // GL_BYTE
+    { NULL, 
+      NULL, 
+      reinterpret_cast<pumpFunc>(glNormal3sv), 
+      NULL },                                             // GL_BYTE
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
-    { NULL, NULL, (pumpFunc)glNormal3sv, NULL },          // GL_SHORT
+    { NULL, 
+      NULL, 
+      reinterpret_cast<pumpFunc>(glNormal3sv), 
+      NULL },                                             // GL_SHORT
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
-    { NULL, NULL, (pumpFunc)glNormal3iv, NULL },          // GL_INT
+    { NULL, NULL, 
+      reinterpret_cast<pumpFunc>(glNormal3iv),
+      NULL },                                             // GL_INT
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
-    { NULL, NULL, (pumpFunc)glNormal3fv, NULL },          // GL_FLOAT
+    { NULL, 
+      NULL, 
+      reinterpret_cast<pumpFunc>(glNormal3fv), 
+      NULL },                                             // GL_FLOAT
     { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { NULL, NULL, (pumpFunc)glNormal3dv, NULL },          // GL_DOUBLE
+    { NULL, 
+      NULL, 
+      reinterpret_cast<pumpFunc>(glNormal3dv),
+      NULL },                                             // GL_DOUBLE
 };
 
 static pumpFunc ColorFuncs[numFormats][4] = {
-    { NULL, NULL,
-      (pumpFunc)glColor3bv, (pumpFunc)glColor4bv },       // GL_BYTE
-    { NULL, NULL,
-      (pumpFunc)glColor3ubv, (pumpFunc)glColor4ubv },     // GL_UNSIGNED_BYTE
-    { NULL, NULL,
-      (pumpFunc)glColor3sv, (pumpFunc)glColor4sv },       // GL_SHORT
-    { NULL, NULL,
-      (pumpFunc)glColor3usv, (pumpFunc)glColor4usv },     // GL_UNSIGNED_SHORT
-    { NULL, NULL,
-      (pumpFunc)glColor3iv, (pumpFunc)glColor4iv },       // GL_INT
-    { NULL, NULL,
-      (pumpFunc)glColor3uiv, (pumpFunc)glColor4uiv },     // GL_UNSIGNED_INT
-    { NULL, NULL,
-      (pumpFunc)glColor3fv, (pumpFunc)glColor4fv },       // GL_FLOAT
+    { NULL, 
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3bv),
+      reinterpret_cast<pumpFunc>(glColor4bv) },           // GL_BYTE
+    { NULL, 
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3ubv),
+      reinterpret_cast<pumpFunc>(glColor4ubv) },          // GL_UNSIGNED_BYTE
+    { NULL, 
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3sv), 
+      reinterpret_cast<pumpFunc>(glColor4sv) },           // GL_SHORT
+    { NULL, 
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3usv), 
+      reinterpret_cast<pumpFunc>(glColor4usv) },          // GL_UNSIGNED_SHORT
+    { NULL, 
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3iv), 
+      reinterpret_cast<pumpFunc>(glColor4iv) },           // GL_INT
+    { NULL,
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3uiv),  
+      reinterpret_cast<pumpFunc>(glColor4uiv) },          // GL_UNSIGNED_INT
+    { NULL, 
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3fv),
+      reinterpret_cast<pumpFunc>(glColor4fv) },           // GL_FLOAT
     { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { NULL, NULL,
-      (pumpFunc)glColor3dv, (pumpFunc)glColor4dv },       // GL_DOUBLE
+    { NULL, 
+      NULL,
+      reinterpret_cast<pumpFunc>(glColor3dv), 
+      reinterpret_cast<pumpFunc>(glColor4dv) },           // GL_DOUBLE
 };
 
 static UInt32 SecColorIDs[numFormats][4];
@@ -397,19 +435,27 @@ static UInt32 SecColorIDs[numFormats][4];
 static pumpFunc TexCoordsFuncs[numFormats][4] = {
     { NULL, NULL, NULL, NULL },                           // GL_BYTE
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_BYTE
-    { (pumpFunc)glTexCoord1sv, (pumpFunc)glTexCoord2sv,
-      (pumpFunc)glTexCoord3sv, (pumpFunc)glTexCoord4sv }, // GL_SHORT
+    { reinterpret_cast<pumpFunc>(glTexCoord1sv), 
+      reinterpret_cast<pumpFunc>(glTexCoord2sv),
+      reinterpret_cast<pumpFunc>(glTexCoord3sv), 
+      reinterpret_cast<pumpFunc>(glTexCoord4sv) },        // GL_SHORT
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_SHORT
-    { (pumpFunc)glTexCoord1iv, (pumpFunc)glTexCoord2iv,
-      (pumpFunc)glTexCoord3iv, (pumpFunc)glTexCoord4iv }, // GL_INT
+    { reinterpret_cast<pumpFunc>(glTexCoord1iv), 
+      reinterpret_cast<pumpFunc>(glTexCoord2iv),
+      reinterpret_cast<pumpFunc>(glTexCoord3iv), 
+      reinterpret_cast<pumpFunc>(glTexCoord4iv) },        // GL_INT
     { NULL, NULL, NULL, NULL },                           // GL_UNSIGNED_INT
-    { (pumpFunc)glTexCoord1fv, (pumpFunc)glTexCoord2fv,
-      (pumpFunc)glTexCoord3fv, (pumpFunc)glTexCoord4fv }, // GL_FLOAT
+    { reinterpret_cast<pumpFunc>(glTexCoord1fv), 
+      reinterpret_cast<pumpFunc>(glTexCoord2fv),
+      reinterpret_cast<pumpFunc>(glTexCoord3fv), 
+      reinterpret_cast<pumpFunc>(glTexCoord4fv) },        // GL_FLOAT
     { NULL, NULL, NULL, NULL },                           // GL_2_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_3_BYTES
     { NULL, NULL, NULL, NULL },                           // GL_4_BYTES
-    { (pumpFunc)glTexCoord1dv, (pumpFunc)glTexCoord2dv,
-      (pumpFunc)glTexCoord3dv, (pumpFunc)glTexCoord4dv }, // GL_DOUBLE
+    { reinterpret_cast<pumpFunc>(glTexCoord1dv), 
+      reinterpret_cast<pumpFunc>(glTexCoord2dv),
+      reinterpret_cast<pumpFunc>(glTexCoord3dv), 
+      reinterpret_cast<pumpFunc>(glTexCoord4dv) },        // GL_DOUBLE
 };
 
 static UInt32 TexCoords1IDs[numFormats][4];
@@ -531,9 +577,10 @@ static UInt32 NormAttribIDs[numFormats][4];
                      << "!" << std::endl;                                   \
             return;                                                         \
         }                                                                   \
-        if(!(name##Func = (pumpFunc)win->getFunction(name##IDs              \
+        if(!(name##Func = reinterpret_cast<pumpFunc>(                       \
+                 win->getFunction(name##IDs                                 \
                             [attribPtr[propindex]->getFormat() - formatBase]\
-                            [attribPtr[propindex]->getDimension() - 1])     \
+                            [attribPtr[propindex]->getDimension() - 1]))    \
           ) )                                                               \
         {                                                                   \
             SWARNING << "masterPump: Geometry " << geo << " uses "          \
@@ -581,9 +628,10 @@ static UInt32 NormAttribIDs[numFormats][4];
                      << "!" << std::endl;                                   \
             return;                                                         \
         }                                                                   \
-        if(!(name##Func = (multiPumpFunc)win->getFunction(name##IDs         \
+        if(!(name##Func = reinterpret_cast<multiPumpFunc>(                  \
+                 win->getFunction(name##IDs                                 \
                             [attribPtr[propindex]->getFormat() - formatBase]\
-                            [attribPtr[propindex]->getDimension() - 1])     \
+                            [attribPtr[propindex]->getDimension() - 1]))    \
           ) )                                                               \
         {                                                                   \
             SWARNING << "masterPump: Geometry " << geo << " uses "          \
@@ -801,10 +849,10 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
             indexData = NULL;
         else if (win->hasExtension(_extCompiledVertexArray))
         {
-            void (OSG_APIENTRY*_glLockArraysEXT) 
-                (GLint first, GLsizei count)=
-            (void (OSG_APIENTRY*) (GLint first, GLsizei count))
-                win->getFunction(_funcglLockArraysEXT);
+            void (OSG_APIENTRY*_glLockArraysEXT) (GLint first, GLsizei count)=
+                reinterpret_cast<void (OSG_APIENTRY*) (GLint first, 
+                                                       GLsizei count)>(
+                    win->getFunction(_funcglLockArraysEXT));
 
             _glLockArraysEXT(0, indexSize);
         }
@@ -813,9 +861,13 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
                 (GLenum mode, GLuint start,
                  GLuint end, GLsizei count, 
                  GLenum type, const GLvoid*indices) =
-        (void (OSG_APIENTRY *)(GLenum mode, GLuint start,
-               GLuint end, GLsizei count, GLenum type, const GLvoid*indices))
-                win->getFunction(_funcglDrawRangeElementsEXT);
+            reinterpret_cast<void (OSG_APIENTRY *)(GLenum mode, 
+                                                   GLuint start,
+                                                   GLuint end, 
+                                                   GLsizei count, 
+                                                   GLenum type, 
+                                                   const GLvoid*indices)>(
+                win->getFunction(_funcglDrawRangeElementsEXT));
 
         if(win->hasExtension(_extDrawRangeElements))
         {
@@ -853,8 +905,8 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
         if(!index->isInVBO(pEnv) && win->hasExtension(_extCompiledVertexArray))
         {
             void (OSG_APIENTRY*_glUnlockArraysEXT)(void)=
-            (void (OSG_APIENTRY*) (void))
-                win->getFunction(_funcglUnlockArraysEXT);
+                reinterpret_cast<void (OSG_APIENTRY*) (void)>(
+                    win->getFunction(_funcglUnlockArraysEXT));
 
             _glUnlockArraysEXT();
         }
@@ -964,7 +1016,8 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
                                   [attribPtr[i]->getDimension() - 1];    
             }
             
-            if(!(attribFunc[i] = (attribPumpFunc)win->getFunction(funcid) ) )
+            if(!(attribFunc[i] = reinterpret_cast<attribPumpFunc>(
+                                     win->getFunction(funcid)) ) )
             {
                 SWARNING << "masterPump: Geometry " << geo << " uses "
                          << "attribute " << i << " "
@@ -1067,21 +1120,27 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
             indexData = NULL;
         else if (win->hasExtension(_extCompiledVertexArray))
         {
-            void (OSG_APIENTRY*_glLockArraysEXT) 
-                (GLint first, GLsizei count)=
-            (void (OSG_APIENTRY*) (GLint first, GLsizei count))
-                win->getFunction(_funcglLockArraysEXT);
+            void (OSG_APIENTRY*_glLockArraysEXT) (GLint first, GLsizei count)=
+                reinterpret_cast<void (OSG_APIENTRY*) (GLint first, 
+                                                       GLsizei count)>(
+                    win->getFunction(_funcglLockArraysEXT));
 
             _glLockArraysEXT(0, indexSize);
         }
 
-        void (OSG_APIENTRY *osgGLDrawRangeElementsEXT)
-                (GLenum mode, GLuint start,
-                 GLuint end, GLsizei count, 
-                 GLenum type, const GLvoid*indices) =
-        (void (OSG_APIENTRY *)(GLenum mode, GLuint start,
-               GLuint end, GLsizei count, GLenum type, const GLvoid*indices))
-                win->getFunction(_funcglDrawRangeElementsEXT);
+        void (OSG_APIENTRY *osgGLDrawRangeElementsEXT)(GLenum mode, 
+                                                       GLuint start,
+                                                       GLuint end, 
+                                                       GLsizei count, 
+                                                       GLenum type, 
+                                                       const GLvoid*indices) =
+            reinterpret_cast<void (OSG_APIENTRY *)(GLenum mode, 
+                                                   GLuint start,
+                                                   GLuint end, 
+                                                   GLsizei count, 
+                                                   GLenum type, 
+                                                   const GLvoid*indices)>(
+                win->getFunction(_funcglDrawRangeElementsEXT));
 
         if(win->hasExtension(_extDrawRangeElements))
         {
@@ -1119,8 +1178,8 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
         if(!index->isInVBO(pEnv) && win->hasExtension(_extCompiledVertexArray))
         {
             void (OSG_APIENTRY*_glUnlockArraysEXT)(void)=
-            (void (OSG_APIENTRY*) (void))
-                win->getFunction(_funcglUnlockArraysEXT);
+                reinterpret_cast<void (OSG_APIENTRY*) (void)>(
+                    win->getFunction(_funcglUnlockArraysEXT));
 
             _glUnlockArraysEXT();
         }

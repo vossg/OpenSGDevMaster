@@ -228,8 +228,21 @@ mouse(int button, int state, int x, int y)
 
 int wait_for_map_notify(Display *, XEvent *event, char *arg)
 {
-    return( event->type == MapNotify && event->xmap.window == (::Window)arg );
+    return( event->type == MapNotify && event->xmap.window == ::Window(arg) );
 }
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+#ifdef DefaultScreen
+#undef DefaultScreen
+#endif
+#ifdef ScreenOfDisplay
+#undef ScreenOfDisplay
+#endif
+
+#define DefaultScreen(dpy)((reinterpret_cast<_XPrivDisplay>(dpy))->default_screen)
+
+#define ScreenOfDisplay(dpy, scr)(&(reinterpret_cast<_XPrivDisplay>(dpy))->screens[scr])
+#endif
 
 Display *openWindow(XWindow *xwin, char **argv, int &argc)
 {
@@ -306,7 +319,7 @@ Display *openWindow(XWindow *xwin, char **argv, int &argc)
     xwin->setWindow ( hwin );    
         
     XMapWindow(dpy, hwin);
-    XIfEvent(dpy, &event, wait_for_map_notify, (char *)hwin);
+    XIfEvent(dpy, &event, wait_for_map_notify, reinterpret_cast<char *>(hwin));
     
     return dpy;
 }

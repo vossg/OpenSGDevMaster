@@ -269,14 +269,14 @@ void TileGeometryLoad::updateView(Matrix &viewing,
         maxx=width  * ( maxx + 1.0f ) / 2.0f + .5f;
         miny=height * ( miny + 1.0f ) / 2.0f - .5f;
         maxy=height * ( maxy + 1.0f ) / 2.0f + .5f;
-        _min[0]=(Int32)minx;
-        _max[0]=(Int32)maxx;
-        _min[1]=(Int32)miny;
-        _max[1]=(Int32)maxy;
+        _min[0]=Int32(minx);
+        _max[0]=Int32(maxx);
+        _min[1]=Int32(miny);
+        _max[1]=Int32(maxy);
 
         _areaSize =
-            (Real32)( _max[0] - _min[0] + 1 ) *
-            (Real32)( _max[1] - _min[1] + 1 );
+            Real32( _max[0] - _min[0] + 1 ) *
+            Real32( _max[1] - _min[1] + 1 );
         /* Don't clip!
         if(_min[0]<0) _min[0]=0;
         if(_min[1]<0) _min[1]=0;
@@ -380,11 +380,11 @@ void TileGeometryLoad::updateGeometry()
                 }
                 _faceDistribution
                     [d*2  ]
-                    [(int)(ceil(min*
+                    [Int32(ceil(min*
                                 (FACE_DISTRIBUTION_SAMPLING_COUNT-1)))]++;
                 _faceDistribution
                     [d*2+1]
-                    [(int)(ceil((1-max)*
+                    [Int32(ceil((1-max)*
                                 (FACE_DISTRIBUTION_SAMPLING_COUNT-1)))]++;
             }
         }
@@ -540,8 +540,8 @@ Real32 TileGeometryLoad::getVisibleFraction( const Int32 wmin[2],
     else
     {
         return
-            ((Real32)(viswmax[0] - viswmin[0] + 1) *
-             (Real32)(viswmax[1] - viswmin[1] + 1)) / _areaSize;
+            (Real32(viswmax[0] - viswmin[0] + 1) *
+             Real32(viswmax[1] - viswmin[1] + 1)) / _areaSize;
     }
 }
 

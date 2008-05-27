@@ -163,12 +163,12 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@if isAbstract
     NULL,
 @@else // isAbstract
-    (PrototypeCreateF) &@!Classname!@Base::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&@!Classname!@Base::createEmptyLocal),
 @@endif // isAbstract
     @!Classname!@::initMethod,
     @!Classname!@::exitMethod,
 @@if hasFields
-    (InitalInsertDescFunc) &@!Classname!@Base::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&@!Classname!@Base::classDescInserter),
 @@else // hasFields
     NULL,
 @@endif // hasFields

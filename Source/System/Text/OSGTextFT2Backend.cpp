@@ -301,7 +301,10 @@ bool TextFT2Backend::findPath(const string &family, TextFace::Style style,
     }
 
     // Set font family
-    if (FcPatternAddString(pattern, FC_FAMILY, (const FcChar8*)f.c_str()) == FcFalse)
+    if (FcPatternAddString(pattern, 
+                           FC_FAMILY, 
+                           reinterpret_cast<
+                               const FcChar8*>(f.c_str())) == FcFalse)
     {
         FcPatternDestroy(pattern);
         return false;
@@ -366,7 +369,7 @@ bool TextFT2Backend::findPath(const string &family, TextFace::Style style,
         FcPatternDestroy(match);
         return false;
     }
-    path = (const char *)pathPtr;
+    path = reinterpret_cast<const char *>(pathPtr);
 
     // Get index of face in the font file
     if (FcPatternGetInteger(match, FC_INDEX, 0, &index) != FcResultMatch)

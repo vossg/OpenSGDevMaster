@@ -140,7 +140,7 @@ GeometryTransitPtr makePlaneGeo(Real32 xsize, Real32 ysize,
         {
             p->push_back(Pnt3f(x * xstep - xsize / 2, y * ystep - ysize / 2, 0));
             n->push_back(Vec3f(0, 0, 1));
-            tx->push_back(Vec2f(x / (Real32) hor, y / (Real32) vert));
+            tx->push_back(Vec2f(x / Real32(hor), y / Real32(vert)));
         }
     }
 
@@ -414,7 +414,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
 
             p->push_back(Pnt3f(x * topradius, height/2, z * topradius));
             n->push_back(Vec3f(x/nlen, incl/nlen, z/nlen));
-            tx->push_back(Vec2f(1.f - j / (Real32) sides, 1));
+            tx->push_back(Vec2f(1.f - j / Real32(sides), 1));
         }
 
         for(j = 0; j <= sides; j++)
@@ -425,7 +425,7 @@ GeometryTransitPtr makeConicalFrustumGeo(Real32 height,
 
             p->push_back(Pnt3f(x * botradius, -height/2, z * botradius));
             n->push_back(Vec3f(x/nlen, incl/nlen, z/nlen));
-            tx->push_back(Vec2f(1.f - j / (Real32) sides, 0));
+            tx->push_back(Vec2f(1.f - j / Real32(sides), 0));
         }
 
         t->push_back(GL_TRIANGLE_STRIP);
@@ -605,7 +605,7 @@ GeometryTransitPtr makeTorusGeo(Real32 innerRadius,
             p->push_back(Pnt3f(cosTheta * dist,
                               -sinTheta * dist,
                               innerRadius * sinPhi));
-            tx->push_back(Vec2f(- a / (Real32) rings, b / (Real32)sides));
+            tx->push_back(Vec2f(- a / Real32(rings), b / Real32(sides)));
         }
     }
 
@@ -840,7 +840,7 @@ GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
     GeoUInt32Property::StoredFieldType *tci = tcindex->editFieldPtr();
 
     // initial sizing to prevent reallocation halfway through
-    UInt32 estimatedSize = UInt32(osgPow(4.f, (Real32) depth) * 20.f);
+    UInt32 estimatedSize = UInt32(osgPow(4.f, Real32(depth)) * 20.f);
 
     p->reserve (estimatedSize);
     n->reserve (estimatedSize);
@@ -1047,8 +1047,8 @@ GeometryTransitPtr makeLatLongSphereGeo(UInt16 latres,
                                sinTheta          * radius,
                                cosTheta * cosPhi * radius));
 
-            tx->push_back(Vec2f(b / (Real32)longres,
-                                a / (Real32)latres));
+            tx->push_back(Vec2f(b / Real32(longres),
+                                a / Real32(latres)));
         }
     }
 
@@ -1198,8 +1198,8 @@ GeometryTransitPtr makeLatLongEllipsoidGeo(UInt16 latres,
                                sinTheta          * ((1 - e2) * v),
                                cosTheta * cosPhi * v));
 
-            tx->push_back(Vec2f(b / (Real32)longres,
-                                a / (Real32)latres));
+            tx->push_back(Vec2f(b / Real32(longres),
+                                a / Real32(latres)));
 
         }
     }
@@ -1366,8 +1366,8 @@ GeometryTransitPtr makeLatLongEllipsoidGeoSeg(UInt16 latres,
                                sinTheta          * ((1 - e2) * v),
                                cosTheta * cosPhi * v));
 
-            tx->push_back(Vec2f(b / (Real32)longres,
-                                a / (Real32)latres));
+            tx->push_back(Vec2f(b / Real32(longres),
+                                a / Real32(latres)));
 
         }
     }
@@ -1648,8 +1648,8 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
                 Vec3f norm(0, 0, 0);
                 norm[ axis ] = Real32(asigns[ pl ]);
                 n->push_back(norm);
-                tx->push_back(Vec2f(x / (Real32) res[inds[pl][0]],
-                                    y / (Real32) res[inds[pl][1]]));
+                tx->push_back(Vec2f(x / Real32(res[inds[pl][0]]),
+                                    y / Real32(res[inds[pl][1]])));
             }
         }
     }

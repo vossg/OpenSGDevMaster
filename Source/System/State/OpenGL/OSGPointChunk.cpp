@@ -162,13 +162,16 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
         {
             // get "glPointParameterfARB" function pointer
             void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, GLfloat param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterf );
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                        GLfloat param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+
             // get "glPointParameterfvARB" function pointer
             void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
-                  const GLfloat *param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, const GLfloat *param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterfv );
+                                                 const GLfloat *param) =
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      const GLfloat *param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterfv ));
 
             pointparameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
             pointparameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
@@ -192,8 +195,9 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
         {
             // get "glPointParameterfARB" function pointer
             void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, GLfloat param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterf );
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      GLfloat param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
 
             pointparameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
             
@@ -233,13 +237,16 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
         {
             // get "glPointParameterfARB" function pointer
             void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, GLfloat param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterf );
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      GLfloat param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+
             // get "glPointParameterfvARB" function pointer
             void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
                   const GLfloat *param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, const GLfloat *param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterfv );
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      const GLfloat *param)>(
+                pEnv->getWindow()->getFunction( _funcPointParameterfv ));
 
             pointparameterf(GL_POINT_SIZE_MIN_ARB, getMinSize());
             pointparameterf(GL_POINT_SIZE_MAX_ARB, getMaxSize());
@@ -260,13 +267,16 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
         {
             // get "glPointParameterfARB" function pointer
             void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, GLfloat param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterf );
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      GLfloat param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
+
             // get "glPointParameterfvARB" function pointer
             void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
-                  const GLfloat *param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, const GLfloat *param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterfv );
+                                                 const GLfloat *param) =
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      const GLfloat *param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterfv ));
 
             pointparameterf(GL_POINT_SIZE_MIN_ARB, 0);
             pointparameterf(GL_POINT_SIZE_MAX_ARB, 1e10);
@@ -286,8 +296,9 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
         {
             // get "glPointParameterfARB" function pointer
             void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, GLfloat param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterf );
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      GLfloat param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterf ));
 
             pointparameterf(GL_POINT_SPRITE_R_MODE_NV, Real32(getRMode()));
             
@@ -325,13 +336,16 @@ void PointChunk::deactivate(DrawEnv *pEnv, UInt32)
         {
             // get "glPointParameterfARB" function pointer
             void (OSG_APIENTRY*pointparameterf)(GLenum pname, GLfloat param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, GLfloat param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterf );
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      GLfloat param)>(
+                pEnv->getWindow()->getFunction( _funcPointParameterf ));
             // get "glPointParameterfvARB" function pointer
+
             void (OSG_APIENTRY*pointparameterfv)(GLenum pname, 
-                  const GLfloat *param) =
-                  (void (OSG_APIENTRY*)(GLenum pname, const GLfloat *param))
-                  pEnv->getWindow()->getFunction( _funcPointParameterfv );
+                                                 const GLfloat *param) =
+                reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, 
+                                                      const GLfloat *param)>(
+                    pEnv->getWindow()->getFunction( _funcPointParameterfv ));
 
             pointparameterf(GL_POINT_SIZE_MIN_ARB, 0);
             pointparameterf(GL_POINT_SIZE_MAX_ARB, 1e10);

@@ -148,7 +148,7 @@ TrackballEngine::~TrackballEngine()
 */
 const Pnt3f& TrackballEngine::getFrom(void)
 {
-    _pFrom = (Pnt3f)_finalMatrix[3];
+    _pFrom = Pnt3f(_finalMatrix[3]);
     return _pFrom;
 }
 
@@ -158,7 +158,7 @@ const Pnt3f& TrackballEngine::getFrom(void)
 */
 const Pnt3f& TrackballEngine::getAt(void)    
 {
-    _pAt = (Pnt3f)(_finalMatrix[3] - (_rDistance*_finalMatrix[2]));
+    _pAt = Pnt3f(_finalMatrix[3] - (_rDistance*_finalMatrix[2]));
     return _pAt;
 }
 
@@ -168,7 +168,7 @@ const Pnt3f& TrackballEngine::getAt(void)
 */
 const Vec3f& TrackballEngine::getUp(void)
 {
-    _vUp = (Vec3f)_finalMatrix[1];
+    _vUp = Vec3f(_finalMatrix[1]);
     return _vUp;
 }
 
@@ -228,9 +228,10 @@ void TrackballEngine::set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up)
 */
 void TrackballEngine::set(const Matrix & new_matrix)
 {
-    _pFrom = (Pnt3f) new_matrix[3];
-    _pAt   = (Pnt3f)(new_matrix[3] - (_rDistance * new_matrix[2]));
-    _vUp   = (Vec3f) new_matrix[1];
+    _pFrom = Pnt3f(new_matrix[3]);
+    _pAt   = Pnt3f(new_matrix[3] - (_rDistance * new_matrix[2]));
+    _vUp   = Vec3f(new_matrix[1]);
+
     set(_pFrom, _pAt, _vUp);
 }
 
@@ -552,8 +553,8 @@ void TrackballEngine::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
     Matrix cctowc;
     myCalcCCtoWCMatrix(cctowc, view, vp);
 
-    Real32  rx = ( toX / (Real32) vp->getPixelWidth() ) * 2.f - 1.f,
-            ry = 1.f - ( toY / (Real32) vp->getPixelHeight() ) * 2.f;
+    Real32 rx = ( toX / Real32(vp->getPixelWidth()) ) * 2.f - 1.f;
+    Real32 ry = 1.f - ( toY / Real32(vp->getPixelHeight()) ) * 2.f;
 
     Pnt3f at;
     cctowc.multFullMatrixPnt( Pnt3f( rx, ry, 1 ), at );

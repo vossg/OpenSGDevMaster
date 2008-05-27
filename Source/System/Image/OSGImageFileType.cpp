@@ -429,7 +429,7 @@ UInt64 ImageFileType::store(Image  const *pImage,
 
     if (buffer) 
     {
-        head = (Head *)buffer;
+        head = reinterpret_cast<Head *>(buffer);
 
         head->pixelFormat    = pImage->getPixelFormat();
         head->width          = pImage->getWidth();
@@ -445,7 +445,7 @@ UInt64 ImageFileType::store(Image  const *pImage,
       
         strcpy(head->suffix, _suffixList.front().c_str());
       
-        dest = (UChar8 *) (buffer + headSize);
+        dest = static_cast<UChar8 *>(buffer + headSize);
 
         if(src) 
         {
@@ -453,7 +453,7 @@ UInt64 ImageFileType::store(Image  const *pImage,
                 storeData(pImage, dest, memSize - headSize));
         }
 
-        dest = (UChar8 *) (buffer + headSize + dataSize);
+        dest = static_cast<UChar8 *>(buffer + headSize + dataSize);
 
         /*
         if(att != NullFC)

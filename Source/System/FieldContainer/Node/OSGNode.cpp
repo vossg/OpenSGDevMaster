@@ -167,10 +167,10 @@ Node::TypeObject Node::_type(
     Inherited::getClassname(),
     "Node",
     0,
-    (PrototypeCreateF) &Node::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&Node::createEmptyLocal),
     NULL,
     NULL,
-    (InitalInsertDescFunc) &Node::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&Node::classDescInserter),
     false,
     0);
 

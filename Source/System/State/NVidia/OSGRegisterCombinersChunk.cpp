@@ -188,14 +188,16 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
     // functions
  
     void (OSG_APIENTRY*CombinerParameterfv)(GLenum pname, GLfloat *params) = 
-            (void (OSG_APIENTRY*)(GLenum pname, GLfloat *params))
-            win->getFunction(_funcCombinerParameterfv);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum pname, GLfloat *params)>(
+            win->getFunction(_funcCombinerParameterfv));
   
     void (OSG_APIENTRY*CombinerStageParameterfv)(GLenum stage, 
                                                  GLenum pname, 
                                                  GLfloat *params) = 
-        (void (OSG_APIENTRY*)(GLenum stage, GLenum pname, GLfloat *params))
-        win->getFunction(_funcCombinerStageParameterfv);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum stage, 
+                                              GLenum pname, 
+                                              GLfloat *params)>(
+        win->getFunction(_funcCombinerStageParameterfv));
  
     void (OSG_APIENTRY*CombinerInput)(GLenum stage, 
                                       GLenum portion, 
@@ -203,31 +205,40 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
                                       GLenum input, 
                                       GLenum mapping, 
                                       GLenum component) = 
-        (void (OSG_APIENTRY*)(GLenum stage, GLenum portion, GLenum variable, 
-                              GLenum input, GLenum mapping, GLenum component))
-        win->getFunction(_funcCombinerInput);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum stage, 
+                                              GLenum portion, 
+                                              GLenum variable, 
+                                              GLenum input, 
+                                              GLenum mapping, 
+                                              GLenum component)>(
+        win->getFunction(_funcCombinerInput));
  
     void (OSG_APIENTRY*CombinerOutput)(GLenum stage, GLenum portion, 
                            GLenum abOut, GLenum cdOut, GLenum sumOut, 
                            GLenum scale, GLenum bias, 
                            GLboolean abdot, GLboolean cddot, 
                            GLboolean muxSum) = 
-            (void (OSG_APIENTRY*)(GLenum stage, GLenum portion, 
-                      GLenum abOut, GLenum cdOut, GLenum sumOut, 
-                      GLenum scale, GLenum bias, 
-                      GLboolean abdot, GLboolean cddot, 
-                      GLboolean muxSum))
-            win->getFunction(_funcCombinerOutput);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum stage, 
+                                              GLenum portion, 
+                                              GLenum abOut, 
+                                              GLenum cdOut, 
+                                              GLenum sumOut, 
+                                              GLenum scale, 
+                                              GLenum bias, 
+                                              GLboolean abdot, 
+                                              GLboolean cddot, 
+                                              GLboolean muxSum)>(
+            win->getFunction(_funcCombinerOutput));
  
     void (OSG_APIENTRY*FinalCombinerInput)(GLenum variable, 
                                            GLenum input, 
                                            GLenum mapping, 
                                            GLenum component) = 
-            (void (OSG_APIENTRY*)(GLenum variable, 
-                                  GLenum input, 
-                                  GLenum mapping, 
-                                  GLenum component))
-        win->getFunction(_funcFinalCombinerInput);
+        reinterpret_cast<void (OSG_APIENTRY*)(GLenum variable, 
+                                              GLenum input, 
+                                              GLenum mapping, 
+                                              GLenum component)>(
+            win->getFunction(_funcFinalCombinerInput));
     
     // how many combiners do we need?
     
@@ -251,10 +262,12 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
     
     GLfloat dummy = GLfloat(ncomb);
     CombinerParameterfv(GL_NUM_GENERAL_COMBINERS_NV, &dummy);
+
     CombinerParameterfv(GL_CONSTANT_COLOR0_NV, 
-                        (GLfloat*) getColor0().getValuesRGBA());
+                        const_cast<GLfloat *>(getColor0().getValuesRGBA()));
+
     CombinerParameterfv(GL_CONSTANT_COLOR1_NV, 
-                        (GLfloat*) getColor1().getValuesRGBA());
+                        const_cast<GLfloat *>(getColor1().getValuesRGBA()));
     
     dummy = getColorSumClamp();
     CombinerParameterfv(GL_COLOR_SUM_CLAMP_NV, &dummy);
@@ -370,12 +383,14 @@ void RegisterCombinersChunk::activate(DrawEnv *pEnv, UInt32)
                 CombinerStageParameterfv(
                     GL_COMBINER0_NV + i, 
                     GL_CONSTANT_COLOR0_NV, 
-                    (GLfloat*)getCombinerColor0(i).getValuesRGBA());
+                    const_cast<GLfloat *>(
+                        getCombinerColor0(i).getValuesRGBA()));
 
                 CombinerStageParameterfv(
                     GL_COMBINER0_NV + i, 
                     GL_CONSTANT_COLOR1_NV, 
-                    (GLfloat*)getCombinerColor1(i).getValuesRGBA());
+                    const_cast<GLfloat *>(
+                        getCombinerColor1(i).getValuesRGBA()));
                 
             }
             else

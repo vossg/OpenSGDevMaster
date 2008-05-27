@@ -426,7 +426,7 @@ void GroupSockConnection::readBuffer() throw (ReadError)
     if(len==0)
         throw ReadError("Channel closed");
     // read remaining data
-    size=osgNetToHost<UInt32>(((SocketBufferHeader*)&_socketReadBuffer[0])->size);
+    size=osgNetToHost<UInt32>((reinterpret_cast<SocketBufferHeader*>(&_socketReadBuffer[0]))->size);
     len=_sockets[_readIndex].recv(&_socketReadBuffer[sizeof(SocketBufferHeader)],
                          size);
     if(len==0)
@@ -467,7 +467,7 @@ void GroupSockConnection::writeBuffer(void)
     Int32 index;
     UInt32 size = writeBufBegin()->getDataSize();
     // write size to header
-    ((SocketBufferHeader*)&_socketWriteBuffer[0])->size = 
+    (reinterpret_cast<SocketBufferHeader*>(&_socketWriteBuffer[0]))->size = 
         osgHostToNet<UInt32>(size);
     if(size)
     {

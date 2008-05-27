@@ -71,12 +71,16 @@ DynamicVolume::DynamicVolume(const DynamicVolume &obj) :
     {
         case BOX_VOLUME:
             new (_volumeMem) 
-                BoxVolume   (*((OSG::BoxVolume    *)(obj._volumeMem)));
+                BoxVolume(
+                    *(reinterpret_cast<const OSG::BoxVolume *>(
+                          obj._volumeMem)));
             break;
 
         case SPHERE_VOLUME:
             new (_volumeMem) 
-                SphereVolume(*((OSG::SphereVolume *)(obj._volumeMem)));
+                SphereVolume(
+                    *(reinterpret_cast<const OSG::SphereVolume *>(
+                          obj._volumeMem)));
             break;
     }
 }
@@ -255,12 +259,16 @@ DynamicVolume &DynamicVolume::operator =(const DynamicVolume &source)
     {
         case BOX_VOLUME:
             new (_volumeMem)
-                BoxVolume   (*((OSG::BoxVolume    *)(source._volumeMem)));
+                BoxVolume(
+                    *(reinterpret_cast<const OSG::BoxVolume *>(
+                          source._volumeMem)));
             break;
 
         case SPHERE_VOLUME:
             new (_volumeMem)
-                SphereVolume(*((OSG::SphereVolume *)(source._volumeMem)));
+                SphereVolume(
+                    *(reinterpret_cast<const OSG::SphereVolume *>(
+                          source._volumeMem)));
             break;
     }
 

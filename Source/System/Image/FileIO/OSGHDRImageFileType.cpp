@@ -138,7 +138,7 @@ bool HDRImageFileType::read(      Image        *image,
 
     image->clear();
 
-    Real32 *data = ((Real32 *)(image->editData()));
+    Real32 *data = reinterpret_cast<Real32 *>(image->editData());
 
     return radiance2fp(is, data, width, height);
 }
@@ -177,7 +177,7 @@ bool HDRImageFileType::write(const Image        *image,
 
     if( image->getDataType() == Image::OSG_FLOAT32_IMAGEDATA)
     {
-        Real32 *data = ((Real32 *)(image->getData()));
+        const Real32 *data = reinterpret_cast<const Real32 *>(image->getData());
 
         //upside down !!!
         for(int y=height-1;y>=0;y--)
@@ -195,7 +195,7 @@ bool HDRImageFileType::write(const Image        *image,
     }
     else // OSG_FLOAT16_IMAGEDATA
     {
-         Real16 *data = ((Real16 *)(image->getData()));
+        const Real16 *data = reinterpret_cast<const Real16 *>(image->getData());
 
         //upside down !!!
         for(int y=height-1;y>=0;y--)
@@ -349,17 +349,17 @@ bool HDRImageFileType::freadcolrs(std::istream &is, RGBE *scan, int width)
         return false;
     }
 
-    byte = (unsigned char)is.get();
+    byte = static_cast<unsigned char>(is.get());
     if (is.eof())
         return false;
 
-    byte = (unsigned char)is.get();
+    byte = static_cast<unsigned char>(is.get());
     scan[0][GRN] = byte;
 
-    byte = (unsigned char)is.get();
+    byte = static_cast<unsigned char>(is.get());
     scan[0][BLU] = byte;
 
-    size = ((int)scan[0][BLU]) << 8;
+    size = (int(scan[0][BLU])) << 8;
     i = is.get();
 
     if ( (size | i) != width )
@@ -380,7 +380,7 @@ bool HDRImageFileType::freadcolrs(std::istream &is, RGBE *scan, int width)
                 val = is.get();
                 
                 while (code--)
-                    scan[j++][i] = (unsigned char)val;
+                    scan[j++][i] = static_cast<unsigned char>(val);
             }
             else
             {
@@ -426,11 +426,11 @@ void HDRImageFileType::RGBE2Half(RGBE rgbe, Real16 *fcol)
     }
 }
 
-int HDRImageFileType::fwritecolrs(std::ostream &os, 
-                                       Real32  *scan, 
-                                       RGBE    *rgbe_scan,
-                                       int      width, 
-                                       int      height   )
+int HDRImageFileType::fwritecolrs(std:: ostream &os, 
+                                  const Real32  *scan, 
+                                        RGBE    *rgbe_scan,
+                                        int      width, 
+                                        int      height   )
 {
     // convert scanline
     for (unsigned int i=0;i<width;i++)
@@ -442,11 +442,11 @@ int HDRImageFileType::fwritecolrs(std::ostream &os,
     return fwriteRGBE(os, rgbe_scan, width, height);
 }
 
-int HDRImageFileType::fwritecolrs(std::ostream &os, 
-                                       Real16  *scan, 
-                                       RGBE    *rgbe_scan,
-                                       int      width, 
-                                       int      height)
+int HDRImageFileType::fwritecolrs(std:: ostream &os, 
+                                  const Real16  *scan, 
+                                        RGBE    *rgbe_scan,
+                                        int      width, 
+                                        int      height)
 {
     // convert scanline
     for (unsigned int i=0;i<width;i++)
@@ -468,15 +468,15 @@ int HDRImageFileType::fwriteRGBE(std::ostream &os,
     if ((width < MINELEN) | (width > MAXELEN))
     {
         // OOBs, write out flat
-        os.write((char *)rgbe_scan, width);
+        os.write(reinterpret_cast<char *>(rgbe_scan), width);
         return 0;
     }
 
     // put magic header
-    os << (unsigned char)2;
-    os << (unsigned char)2;
-    os << (unsigned char)(width>>8);
-    os << (unsigned char)(width&255);
+    os << static_cast<unsigned char>(2);
+    os << static_cast<unsigned char>(2);
+    os << static_cast<unsigned char>(width>>8);
+    os << static_cast<unsigned char>(width&255);
 
     // put components seperately
     for (i=0;i<4;i++)
@@ -504,8 +504,8 @@ int HDRImageFileType::fwriteRGBE(std::ostream &os,
                     if (c2 == beg)
                     {
                         // short run
-                        os << (unsigned char)(128+beg-j);
-                        os << (unsigned char)(rgbe_scan[j][i]);
+                        os << static_cast<unsigned char>(128+beg-j);
+                        os << static_cast<unsigned char>(rgbe_scan[j][i]);
                         j = beg;
                         break;
                     }
@@ -516,7 +516,7 @@ int HDRImageFileType::fwriteRGBE(std::ostream &os,
                 // write out non-run
                 if ((c2 = beg-j) > 128)
                     c2 = 128;
-                os << (unsigned char)(c2);
+                os << static_cast<unsigned char>(c2);
                 
                 while (c2--)
                     os << rgbe_scan[j++][i];
@@ -524,7 +524,7 @@ int HDRImageFileType::fwriteRGBE(std::ostream &os,
             if (cnt >= MINRUN)
             {
                 // write out run
-                os << (unsigned char)(128+cnt);
+                os << static_cast<unsigned char>(128+cnt);
                 os << rgbe_scan[beg][i];
             }
             else
@@ -537,7 +537,7 @@ int HDRImageFileType::fwriteRGBE(std::ostream &os,
 }
 
 //float color -> rgbe
-void HDRImageFileType::float2RGBE(Real32 *fcol, RGBE rgbe)
+void HDRImageFileType::float2RGBE(const Real32 *fcol, RGBE rgbe)
 {
     Real32 d = (*(fcol + RED) > *(fcol + GRN)) ? *(fcol + RED) : *(fcol + GRN);
     
@@ -553,15 +553,15 @@ void HDRImageFileType::float2RGBE(Real32 *fcol, RGBE rgbe)
     {
         int e;
         d = frexp(d, &e) * 256.f / d;
-        rgbe[RED] = (unsigned char)(*(fcol + RED) * d);
-        rgbe[GRN] = (unsigned char)(*(fcol + GRN) * d);
-        rgbe[BLU] = (unsigned char)(*(fcol + BLU) * d);
-        rgbe[EXP] = (unsigned char)(e + COLXS);
+        rgbe[RED] = static_cast<unsigned char>(*(fcol + RED) * d);
+        rgbe[GRN] = static_cast<unsigned char>(*(fcol + GRN) * d);
+        rgbe[BLU] = static_cast<unsigned char>(*(fcol + BLU) * d);
+        rgbe[EXP] = static_cast<unsigned char>(e + COLXS);
     }
 }
 
 //half color -> rgbe
-void HDRImageFileType::half2RGBE(Real16 *fcol, RGBE rgbe)
+void HDRImageFileType::half2RGBE(const Real16 *fcol, RGBE rgbe)
 {
     Real32 d = (*(fcol + RED) > *(fcol + GRN)) ? *(fcol + RED) : *(fcol + GRN);
     
@@ -577,9 +577,9 @@ void HDRImageFileType::half2RGBE(Real16 *fcol, RGBE rgbe)
     {
         int e;
         d = frexp(d, &e) * 256.f / d;
-        rgbe[RED] = (unsigned char)(*(fcol + RED) * d);
-        rgbe[GRN] = (unsigned char)(*(fcol + GRN) * d);
-        rgbe[BLU] = (unsigned char)(*(fcol + BLU) * d);
-        rgbe[EXP] = (unsigned char)(e + COLXS);
+        rgbe[RED] = static_cast<unsigned char>(*(fcol + RED) * d);
+        rgbe[GRN] = static_cast<unsigned char>(*(fcol + GRN) * d);
+        rgbe[BLU] = static_cast<unsigned char>(*(fcol + BLU) * d);
+        rgbe[EXP] = static_cast<unsigned char>(e + COLXS);
     }
 }

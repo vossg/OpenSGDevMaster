@@ -293,9 +293,14 @@ bool DATImageFileType::read(      Image *image,
                     }
 
                     if(needConversion)
+                    {
                         dataBuffer = new char [ dataSize ];
+                    }
                     else
-                        dataBuffer = ((char *)(image->getData()));
+                    {
+                        dataBuffer = 
+                            reinterpret_cast<char *>(image->editData());
+                    }
 
                     if(fileOffset != 0)
                         inVol->ignore (fileOffset);
@@ -333,7 +338,7 @@ bool DATImageFileType::read(      Image *image,
     {
         // check host endian type
         UInt16 word = 0x0001;
-        UInt8 *byte = (UInt8 *) &word;
+        UInt8 *byte = reinterpret_cast<UInt8 *>(&word);
         bool host_big_endian = byte[0] ? false : true;
 
         if(big_endian != host_big_endian)
@@ -484,7 +489,8 @@ bool DATImageFileType::write(const Image *image,
         return false;
     }
 
-    raw.write ((const char *) image->getData(), image->getSize());
+    raw.write (reinterpret_cast<const char *>(image->getData()), 
+               image->getSize());
     raw.close();
 
     // restore to original endian

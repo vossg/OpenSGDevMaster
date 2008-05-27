@@ -251,7 +251,7 @@ void PointMCastConnection::read(MemoryHandle mem,UInt32 size)
         return;
     }
     Dgram *dgram  = NULL;
-    char  *buffer = (char*)mem;
+    char  *buffer = reinterpret_cast<char*>(mem);
     UInt32 len;
     UInt32 dgramPos;
 
@@ -633,7 +633,7 @@ bool PointMCastConnection::recvQueue(void)
 
 void PointMCastConnection::recvQueueThread(void *arg)
 {
-    PointMCastConnection *the=(PointMCastConnection*)arg;
+    PointMCastConnection *the=static_cast<PointMCastConnection*>(arg);
     try 
     {
         the->recvQueue();
@@ -722,7 +722,7 @@ void PointMCastConnection::initialize()
     _recvQueueThread=BaseThread::get(threadName);
     _recvQueueThreadRunning = true;
     _recvQueueThreadStop    = false;
-    _recvQueueThread->runFunction( recvQueueThread, (void *) (this) );
+    _recvQueueThread->runFunction( recvQueueThread, static_cast<void *>(this));
 
     _initialized = true;
 //    printf("init end\n");

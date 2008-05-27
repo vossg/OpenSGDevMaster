@@ -173,9 +173,10 @@ void FlyEngine::set(Pnt3f new_from,Pnt3f new_At,Vec3f new_up)
 */
 void FlyEngine::set(const Matrix& new_matrix)
 {
-    _rFrom= (Pnt3f) new_matrix[3];
-    _rAt  = (Pnt3f)(new_matrix[3] - new_matrix[2]);
-    _vUp  = (Vec3f) new_matrix[1];
+    _rFrom= Pnt3f(new_matrix[3]);
+    _rAt  = Pnt3f(new_matrix[3] - new_matrix[2]);
+    _vUp  = Vec3f(new_matrix[1]);
+
     set(_rFrom, _rAt, _vUp);
 }
 

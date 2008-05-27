@@ -2555,7 +2555,7 @@ size_t osgnextpower2<size_t>(size_t rValue)
 inline 
 int osgLog2Int(Real32 v) 
 {
-	return ((*(Int32 *) &v) >> 23) - 127;
+	return ((*reinterpret_cast<Int32 *>(&v)) >> 23) - 127;
 }
 
 inline 

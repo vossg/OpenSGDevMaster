@@ -279,7 +279,8 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
         _testSamples = new GLuint[_numTestSamples];
         //std::cout << "Performing OCC on " << uNumNodes << " nodes." << std::endl;
 
-        GenQueryT genquer = (GenQueryT)win->getFunction(_funcGenQueriesARB);
+        GenQueryT genquer = reinterpret_cast<GenQueryT>(
+            win->getFunction(_funcGenQueriesARB));
         genquer(_numTestSamples, _testSamples);
         _isOccSetup = true;
     }
@@ -352,7 +353,9 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
 
     if(sc != NULL)
     {
-        Real32 percentage = (Real32)sc->getElem(statNOccInvisible)->get() / (Real32)sc->getElem(statNOccTests)->get();
+        Real32 percentage = 
+            Real32(sc->getElem(statNOccInvisible)->get()) / 
+            Real32(sc->getElem(statNOccTests)->get());
         sc->getElem(statNOccSuccessTestPer)->set(percentage);
     }
     
@@ -582,7 +585,8 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode *pNode, DrawEnv &d
         sc->getElem(statNOccTests    )->inc();
 
     enterTesting(denv, part);
-    BeginQueryT beginq = (BeginQueryT) win->getFunction(_funcBeginQueryARB);
+    BeginQueryT beginq = reinterpret_cast<BeginQueryT>(
+        win->getFunction(_funcBeginQueryARB));
     //std::cout << "Push: " << _currSample << std::endl;
     pNode->setResultNum(_currSample);
     beginq(GL_SAMPLES_PASSED_ARB, _testSamples[_currSample]);
@@ -600,7 +604,9 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode *pNode, DrawEnv &d
     }
     glEnd();
 
-    EndQueryT endq = (EndQueryT) win->getFunction(_funcEndQueryARB);               
+    EndQueryT endq = reinterpret_cast<EndQueryT>(
+        win->getFunction(_funcEndQueryARB));               
+
     endq(GL_SAMPLES_PASSED_ARB);
     _testPendingNodes.push(pNode);
 }
@@ -679,7 +685,8 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv &denv, RenderPartition
         {
             Window* win = denv.getWindow();
             GetQueryObjectuivT getquiv = 
-            (GetQueryObjectuivT)win->getFunction(_funcGetQueryObjectuivARB);
+                reinterpret_cast<GetQueryObjectuivT>(
+                    win->getFunction(_funcGetQueryObjectuivARB));
             GLuint available = 0;
             getquiv(_testSamples[pNode->getResultNum()], GL_QUERY_RESULT_AVAILABLE_ARB, &available);
             if (!available)

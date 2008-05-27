@@ -626,10 +626,10 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
     bbox.rect[BOTTOM] = (Int32)osgfloor(miny + port.serverPort->getPixelBottom ());
     bbox.rect[TOP]    = (Int32)osgceil (maxy + port.serverPort->getPixelBottom ());
 */
-    bbox.rect[LEFT]   = (Int32)(minx + port.serverPort->getPixelLeft ());
-    bbox.rect[RIGHT]  = (Int32)(maxx + port.serverPort->getPixelLeft ());
-    bbox.rect[BOTTOM] = (Int32)(miny + port.serverPort->getPixelBottom ());
-    bbox.rect[TOP]    = (Int32)(maxy + port.serverPort->getPixelBottom ());
+    bbox.rect[LEFT]   = Int32(minx + port.serverPort->getPixelLeft ());
+    bbox.rect[RIGHT]  = Int32(maxx + port.serverPort->getPixelLeft ());
+    bbox.rect[BOTTOM] = Int32(miny + port.serverPort->getPixelBottom ());
+    bbox.rect[TOP]    = Int32(maxy + port.serverPort->getPixelBottom ());
 
 #if 0
     // draw bounding boxes
@@ -783,9 +783,9 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
                 }
             // pixel cost for shaders
             if (mat != NULL && mat->find (SHLChunk::getClassType ()) != NULL)
-                load.pixel =  1.0 / (float)MW_SHADED_PIXEL_PER_SEC;
+                load.pixel =  1.0 / Real32(MW_SHADED_PIXEL_PER_SEC);
             else
-                load.pixel = 1.0 / (float)MW_PIXEL_PER_SEC;
+                load.pixel = 1.0 / Real32(MW_PIXEL_PER_SEC);
 //                load.pixel = 0;
         }
         if(load.pixel > 0 || load.constant > 0)
@@ -818,7 +818,7 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
         }
         // merge small grops
         if(load.constant < 500.0 / MW_INDICES_PER_SEC &&
-           load.pixel <= 1.0 / (float)MW_PIXEL_PER_SEC)
+           load.pixel <= 1.0 / Real32(MW_PIXEL_PER_SEC))
         {
             _cluster.loadGroups.resize(lastSize);
             _cluster.loadGroups.push_back(load);
@@ -889,14 +889,16 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     Int32 bottom = row    * height - row    * getYOverlap();
     Int32 right  = left   + width  - 1;
     Int32 top    = bottom + height - 1;
-    Real32 scaleCWidth  = ((width - getXOverlap()) * (cols - 1) + width) / (float)getWidth();
-    Real32 scaleCHeight = ((height - getYOverlap())* (rows - 1) + height)/ (float)getHeight();
+    Real32 scaleCWidth  = ((width - getXOverlap()) * (cols - 1) + width) / 
+        Real32(getWidth());
+    Real32 scaleCHeight = ((height - getYOverlap())* (rows - 1) + height)/ 
+        Real32(getHeight());
     
     clientPort = getPort(port.id);
-    cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
-    cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
-    cright  = (Int32)((clientPort->getPixelRight()+1) * scaleCWidth) -1;
-    ctop    = (Int32)((clientPort->getPixelTop()+1)   * scaleCHeight)-1;
+    cleft   = Int32(clientPort->getPixelLeft()      * scaleCWidth)   ;
+    cbottom = Int32(clientPort->getPixelBottom()    * scaleCHeight)  ;
+    cright  = Int32((clientPort->getPixelRight()+1) * scaleCWidth) -1;
+    ctop    = Int32((clientPort->getPixelTop()+1)   * scaleCHeight)-1;
 
     if(cright  < left   ||
        cleft   > right  ||
@@ -1738,8 +1740,8 @@ void BalancedMultiWindow::storeViewport(Area &area,Viewport *vp,
     {
         for(x = rect[LEFT] ; x <= rect[RIGHT] ; x += MW_TILE_SIZE)
         {
-            w = osgMin((UInt32)MW_TILE_SIZE,rect[RIGHT] - x + 1);
-            h = osgMin((UInt32)MW_TILE_SIZE,rect[TOP]   - y + 1);
+            w = osgMin(UInt32(MW_TILE_SIZE),rect[RIGHT] - x + 1);
+            h = osgMin(UInt32(MW_TILE_SIZE),rect[TOP]   - y + 1);
 
             area.tiles[tI].header.x      = x;
             area.tiles[tI].header.y      = y;

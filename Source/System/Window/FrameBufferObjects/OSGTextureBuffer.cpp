@@ -116,8 +116,8 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                 GLFramebufferTexture1DEXTProcT 
                     glFramebufferTexture1DEXTProc =
 
-                    (GLFramebufferTexture1DEXTProcT) pWindow->getFunction(
-                        _uiFuncFramebufferTexture1D);
+                    reinterpret_cast<GLFramebufferTexture1DEXTProcT>(
+                        pWindow->getFunction(_uiFuncFramebufferTexture1D));
 
                 glFramebufferTexture1DEXTProc(GL_FRAMEBUFFER_EXT, 
                                               index,
@@ -140,8 +140,8 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                 GLFramebufferTexture2DEXTProcT 
                     glFramebufferTexture2DEXTProc =
 
-                    (GLFramebufferTexture2DEXTProcT) pWindow->getFunction(
-                        _uiFuncFramebufferTexture2D);
+                    reinterpret_cast<GLFramebufferTexture2DEXTProcT>(
+                        pWindow->getFunction(_uiFuncFramebufferTexture2D));
 
                 glFramebufferTexture2DEXTProc(GL_FRAMEBUFFER_EXT, 
                                               index,

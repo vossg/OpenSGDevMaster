@@ -148,11 +148,20 @@ SocketSelection::~SocketSelection()
 /** \brief Clear all settings
  */
 
+#ifdef OSG_DEBUG_OLD_C_CASTS
+// For my debugging, should not be active for any other case (GV)
+#ifdef __FDMASK
+#undef __FDMASK
+#define	__FDMASK(d)	(__fd_mask(1) << ((d) % __NFDBITS))
+#endif
+#endif
+
 void SocketSelection::clear()
 {
     FD_ZERO(_fdSetRead);
     FD_ZERO(_fdSetWrite);
 }
+
 
 /** \brief Clear read settings for the given socket
  *

@@ -344,12 +344,15 @@ void BinarySwapComposer::readCombine(DepthT &depth,
                                      tile->dataSize);
                 _statistics.bytesIn += tile->dataSize;
                 // depth compose
-                srcDepth    = (DepthT*)(readTile->data + tile->colorSize);
-                srcDepthEnd = (DepthT*)(readTile->data + 
-                                        tile->dataSize);
-                srcColor    = (ColorT*)(readTile->data);
-                dstDepth    = (DepthT*)(tile->data + tile->colorSize);
-                dstColor    = (ColorT*)(tile->data);
+                srcDepth    = 
+                    reinterpret_cast<DepthT*>(readTile->data + tile->colorSize);
+
+                srcDepthEnd = reinterpret_cast<DepthT*>(readTile->data + 
+                                                        tile->dataSize);
+                srcColor    = reinterpret_cast<ColorT*>(readTile->data);
+                dstDepth    = 
+                    reinterpret_cast<DepthT*>(tile->data + tile->colorSize);
+                dstColor    = reinterpret_cast<ColorT*>(tile->data);
                 // compose
                 if(sizeof(ColorT) == 4)
                 {
@@ -422,7 +425,7 @@ void BinarySwapComposer::startReader(DepthT &depthMax,
     {
         left=right=clusterWindow()->getWidth();
         top=bottom=clusterWindow()->getHeight();
-        front=back=(UInt32)(-1);
+        front=back=UInt32(-1);
     }
 
     for(ty = 0; ty < _tilesY ; ++ty)

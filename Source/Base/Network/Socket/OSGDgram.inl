@@ -77,7 +77,7 @@ const UChar8 *Dgram::getData(void) const
 inline
 UChar8 *Dgram::getBuffer(void)
 {
-    return (UChar8 *)&_buffer;
+    return reinterpret_cast<UChar8 *>(&_buffer);
 }
 
 inline

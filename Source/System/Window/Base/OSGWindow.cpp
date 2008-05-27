@@ -1371,7 +1371,7 @@ void OSG::Window::frameInit(void)
         void        *func = NULL;
         
         if(ext == -1 || _availExtensions[ext] == true || _glVersion >= ver)
-            func = (void*)getFunctionByName(s);
+            func = reinterpret_cast<void*>(getFunctionByName(s));
 
         _extFunctions.push_back(func);
     }
@@ -1574,14 +1574,16 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
     if(__GetProcAddress == NULL) 
     { 
         __GetProcAddress = 
-            (void (*(*)(const GLubyte*))()) dlsym(libHandle, 
-                                                  "glXGetProcAddressARB"); 
+            reinterpret_cast<void (*(*)(const GLubyte*))()>(
+                dlsym(libHandle, 
+                      "glXGetProcAddressARB")); 
 
         if(__GetProcAddress == NULL) 
         { 
             __GetProcAddress = 
-                (void (*(*)(const GLubyte*))()) dlsym(libHandle, 
-                                                      "glXGetProcAddress"); 
+                reinterpret_cast<void (*(*)(const GLubyte*))()>(
+                    dlsym(libHandle, 
+                          "glXGetProcAddress")); 
 
             if(__GetProcAddress == NULL) 
             {
@@ -1603,14 +1605,14 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
                 }
                 
                 __GetProcAddress = 
-                    (void (*(*)(const GLubyte*))()) dlsym(
-                        libHandle, "glXGetProcAddressARB"); 
+                    reinterpret_cast<void (*(*)(const GLubyte*))()>(
+                        dlsym(libHandle, "glXGetProcAddressARB")); 
 
                 if(__GetProcAddress == NULL) 
                 { 
                     __GetProcAddress = 
-                        (void (*(*)(const GLubyte*))())dlsym(
-                            libHandle, "glXGetProcAddress"); 
+                        reinterpret_cast<void (*(*)(const GLubyte*))()>(
+                            dlsym(libHandle, "glXGetProcAddress")); 
                 }
 
 
@@ -1642,11 +1644,11 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
     { 
         retval = 
             reinterpret_cast<GLExtensionFunction>(
-                __GetProcAddress((const GLubyte*)s)); 
+                __GetProcAddress(reinterpret_cast<const GLubyte*>(s))); 
     } 
     else 
     { 
-        retval = (GLExtensionFunction)(dlsym(libHandle, s)); 
+        retval = reinterpret_cast<GLExtensionFunction>(dlsym(libHandle, s)); 
     } 
 
 #else

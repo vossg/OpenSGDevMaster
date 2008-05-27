@@ -717,14 +717,25 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
         data       = dest->editData();
         destSize   = dest->getSize();
 
-        const UInt16 *sourceDataUC16 = (const UInt16 *) sourceData;
-              UInt16 *destDataUC16   = (      UInt16 *) data;
-        const UInt32 *sourceDataUC32 = (const UInt32 *) sourceData;
-              UInt32 *destDataUC32   = (      UInt32 *) data;
-        const Real32 *sourceDataF32  = (const Real32 *) sourceData;
-              Real32 *destDataF32    = (      Real32 *) data;
-        const Real16 *sourceDataH16  = (const Real16 *) sourceData;
-              Real16 *destDataH16    = (      Real16 *) data;
+        const UInt16 *sourceDataUC16 = 
+            reinterpret_cast<const UInt16 *>(sourceData);
+
+              UInt16 *destDataUC16   = reinterpret_cast<UInt16 *>(data);
+
+        const UInt32 *sourceDataUC32 = 
+            reinterpret_cast<const UInt32 *>(sourceData);
+
+              UInt32 *destDataUC32   = reinterpret_cast<UInt32 *>(data);
+
+        const Real32 *sourceDataF32  = 
+            reinterpret_cast<const Real32 *>(sourceData);
+
+              Real32 *destDataF32    = reinterpret_cast<Real32 *>(data);
+
+        const Real16 *sourceDataH16  = 
+            reinterpret_cast<const Real16 *>(sourceData);
+
+              Real16 *destDataH16    = reinterpret_cast<Real16 *>(data);
 
         if(data)
         {
@@ -2035,9 +2046,9 @@ void Image::swapDataEndian(void)
     UChar8 *data     = editData();
 
     Int32   size     = getSize() / getComponentSize();
-    UInt16 *dataUC16 = (UInt16 *) data;
-    UInt32 *dataUC32 = (UInt32 *) data;
-    Real32 *dataF32  = (Real32 *) data;
+    UInt16 *dataUC16 = reinterpret_cast<UInt16 *>(data);
+    UInt32 *dataUC32 = reinterpret_cast<UInt32 *>(data);
+    Real32 *dataF32  = reinterpret_cast<Real32 *>(data);
 
 
     switch (getDataType())
@@ -2074,7 +2085,7 @@ void Image::swapDataEndian(void)
             for(UInt32 i=0;i<size;++i)
             {
                 Real32 p = dataF32[i];
-                UInt8 *b = (UInt8 *) &p;
+                UInt8 *b = reinterpret_cast<UInt8 *>(&p);
 
                 std::swap(b[0], b[3]);
                 std::swap(b[1], b[2]);
@@ -2143,14 +2154,14 @@ bool Image::convertDataTypeTo(Int32 destDataType)
     Int32 sourceSize =       getSize() /       getComponentSize();
     Int32 destSize   = dest->getSize() / dest->getComponentSize();
 
-    const UInt16 *sourceDataUC16 = (const UInt16 *) sourceData;
-          UInt16 *destDataUC16   = (      UInt16 *) destData;
-    const UInt32 *sourceDataUC32 = (const UInt32 *) sourceData;
-          UInt32 *destDataUC32   = (      UInt32 *) destData;
-    const Real32 *sourceDataF32  = (const Real32 *) sourceData;
-          Real32 *destDataF32    = (      Real32 *) destData;
-    const Real16 *sourceDataH16  = (const Real16 *) sourceData;
-          Real16 *destDataH16    = (      Real16 *) destData;
+    const UInt16 *sourceDataUC16 = reinterpret_cast<const UInt16 *>(sourceData);
+          UInt16 *destDataUC16   = reinterpret_cast<      UInt16 *>(destData  );
+    const UInt32 *sourceDataUC32 = reinterpret_cast<const UInt32 *>(sourceData);
+          UInt32 *destDataUC32   = reinterpret_cast<      UInt32 *>(destData  );
+    const Real32 *sourceDataF32  = reinterpret_cast<const Real32 *>(sourceData);
+          Real32 *destDataF32    = reinterpret_cast<      Real32 *>(destData  );
+    const Real16 *sourceDataH16  = reinterpret_cast<const Real16 *>(sourceData);
+          Real16 *destDataH16    = reinterpret_cast<      Real16 *>(destData  );
 
     switch (getDataType())
     {
@@ -2162,7 +2173,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for (int i = 0; i < sourceSize; i++)
                     {
-                        destDataUC16[i] = (UInt16) (sourceData[i]<<8);
+                        destDataUC16[i] = UInt16(sourceData[i]<<8);
                     }
                     break;
 
@@ -2170,7 +2181,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for (int i = 0; i < sourceSize; i++)
                     {
-                        destDataUC32[i] = (UInt32) (sourceData[i]<<24);
+                        destDataUC32[i] = UInt32(sourceData[i]<<24);
                     }
                     break;
 
@@ -2178,7 +2189,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for (int i = 0; i < sourceSize; i++)
                     {
-                        destDataF32[i] = (Real32) (sourceData[i]/255.0);
+                        destDataF32[i] = Real32(sourceData[i]/255.0);
                     }
                     break;
 
@@ -2186,7 +2197,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for (int i = 0; i < sourceSize; i++)
                     {
-                        destDataH16[i] = (Real16) (sourceData[i]/255.0);
+                        destDataH16[i] = Real16(sourceData[i]/255.0);
                     }
                     break;
 
@@ -2203,8 +2214,8 @@ bool Image::convertDataTypeTo(Int32 destDataType)
             {
                 case OSG_UINT8_IMAGEDATA:
                 {
-                    UInt16 nMin = (UInt16) 65535;
-                    UInt16 nMax = (UInt16) 0;
+                    UInt16 nMin = UInt16(65535);
+                    UInt16 nMax = UInt16(0    );
 
                     for (UInt32 i = 0; i < sourceSize; ++i)
                     {
@@ -2215,7 +2226,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                             nMin = sourceDataUC16[i];
                     }
 
-                    Real32 fRange = (Real32) nMax - nMin;
+                    Real32 fRange = Real32(nMax - nMin);
 
                     if (fRange <= 0.0)
                     {
@@ -2226,10 +2237,10 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     {
                         for(UInt32 i = 0; i < sourceSize; ++i)
                         {
-                            destData[i] = (UInt8)
+                            destData[i] = UInt8
                                 (255.0 *
-                                 ((Real32) (sourceDataUC16[i] - nMin)) /
-                                 fRange)                                ;
+                                 (Real32 (sourceDataUC16[i] - nMin)) /
+                                 fRange)                              ;
                         }
                     }
                 }
@@ -2239,7 +2250,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for (int i = 0; i < sourceSize; i++)
                     {
-                        destDataUC32[i] = (UInt32) (sourceDataUC16[i]<<16);
+                        destDataUC32[i] = UInt32(sourceDataUC16[i]<<16);
                     }
                     break;
 
@@ -2247,7 +2258,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for (int i = 0; i < sourceSize; i++)
                     {
-                        destDataF32[i] = (Real32) (sourceDataUC16[i]/65535.0);
+                        destDataF32[i] = Real32(sourceDataUC16[i]/65535.0);
                     }
 
                     break;
@@ -2256,7 +2267,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for (int i = 0; i < sourceSize; i++)
                     {
-                        destDataH16[i] = (Real16) (sourceDataUC16[i]/255.0);
+                        destDataH16[i] = Real16(sourceDataUC16[i]/255.0);
                     }
                     break;
 
@@ -2272,8 +2283,8 @@ bool Image::convertDataTypeTo(Int32 destDataType)
             {
                 case OSG_UINT8_IMAGEDATA:
                 {
-                    UInt32 nMin = (UInt32) 4294967295ul;
-                    UInt32 nMax = (UInt32) 0;
+                    UInt32 nMin = UInt32(4294967295ul);
+                    UInt32 nMax = UInt32(0           );
 
                     for (UInt32 i = 0; i < sourceSize; ++i)
                     {
@@ -2284,7 +2295,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                             nMin = sourceDataUC32[i];
                     }
 
-                    Real32 fRange = (Real32) nMax - nMin;
+                    Real32 fRange = Real32(nMax - nMin);
 
                     if (fRange <= 0.0)
                     {
@@ -2295,10 +2306,10 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     {
                         for(UInt32 i = 0; i < sourceSize; ++i)
                         {
-                            destData[i] = (UInt8)
+                            destData[i] = UInt8
                                 (255.0 *
-                                 ((Real32) (sourceDataUC32[i] - nMin)) /
-                                 fRange                                 );
+                                 (Real32(sourceDataUC32[i] - nMin)) /
+                                 fRange                             );
                         }
                     }
                 }
@@ -2306,8 +2317,8 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                 case OSG_UINT16_IMAGEDATA:
                 {
-                    UInt32 nMin = (UInt32) 4294967295ul;
-                    UInt32 nMax = (UInt32) 0;
+                    UInt32 nMin = UInt32(4294967295ul);
+                    UInt32 nMax = UInt32(0           );
 
                     for(UInt32 i = 0; i < sourceSize; ++i)
                     {
@@ -2318,7 +2329,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                             nMin = sourceDataUC32[i];
                     }
 
-                    Real32 fRange = (Real32) nMax - nMin;
+                    Real32 fRange = Real32(nMax - nMin);
 
                     if(fRange <= 0.0)
                     {
@@ -2328,9 +2339,9 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     else
                     {
                         for(UInt32 i = 0; i < sourceSize; ++i)
-                            destDataUC16[i] = (UInt16)
+                            destDataUC16[i] = UInt16
                                 (65535.0 *
-                                 ((Real32) (sourceDataUC32[i] - nMin)) /
+                                 (Real32(sourceDataUC32[i] - nMin)) /
                                  fRange);
                     }
                 }
@@ -2340,7 +2351,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     for(int i = 0; i < sourceSize; i++)
                     {
                         destDataF32[i] =
-                            ((Real32) sourceDataUC32[i]) / 4294967295.0;
+                            (Real32(sourceDataUC32[i])) / 4294967295.0;
                     }
                     break;
 
@@ -2349,7 +2360,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     for (int i = 0; i < sourceSize; i++)
                     {
                         destDataH16[i] =
-                            ((Real16) sourceDataUC32[i]) / REAL16_MAX;
+                            (Real16(sourceDataUC32[i])) / REAL16_MAX;
                     }
                     break;
 
@@ -2367,7 +2378,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     for(int i = 0; i < sourceSize; i++)
                     {
-                        destData[i] = (UInt8) (sourceDataF32[i]*255.0);
+                        destData[i] = UInt8(sourceDataF32[i]*255.0);
                     }
                     break;
 
@@ -2376,7 +2387,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     for(int i = 0; i < sourceSize; i++)
                     {
                         destDataUC16[i] =
-                            (UInt16) (sourceDataF32[i] * 65535.0);
+                            UInt16(sourceDataF32[i] * 65535.0);
                     }
                     break;
 
@@ -2384,7 +2395,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     for(int i = 0; i < sourceSize; i++)
                     {
                         destDataUC32[i] =
-                            (UInt32) (sourceDataF32[i] * 4294967295.0);
+                            UInt32(sourceDataF32[i] * 4294967295.0);
                     }
                     break;
 
@@ -2393,7 +2404,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     for (int i = 0; i < sourceSize; i++)
                     {
                         destDataH16[i] =
-                            Real16 (sourceDataF32[i]); // half-constructor
+                            Real16(sourceDataF32[i]); // half-constructor
                     }
                     break;
 
@@ -2437,7 +2448,7 @@ void Image::clear(UChar8 pixelValue)
 void Image::clearFloat(Real32 pixelValue)
 {
     unsigned long  n = getSize()/getComponentSize();
-    Real32        *d = (Real32*) editData        ();
+    Real32        *d = reinterpret_cast<Real32 *>(editData());
 
     if(n && d)
     {
@@ -2450,8 +2461,8 @@ void Image::clearFloat(Real32 pixelValue)
 
 void Image::clearHalf(Real16 pixelValue)
 {
-    unsigned long   n = getSize()/getComponentSize();
-    Real16       *d = (Real16*) getData();
+    unsigned long  n = getSize()/getComponentSize();
+    Real16        *d = reinterpret_cast<Real16 *>(editData());
 
     if(n && d)
         while(n--)
@@ -2632,7 +2643,7 @@ bool Image::scale(Int32  width,
 
     // set image data
 
-    destImage->set((PixelFormat) getPixelFormat(),
+    destImage->set(PixelFormat(getPixelFormat()),
                    width,
                    height,
                    depth,
@@ -2726,7 +2737,7 @@ bool Image::subImage(Int32  offX,
 //        addRefX(destImage);
     }
 
-    destImage->set((PixelFormat) getPixelFormat(),
+    destImage->set(PixelFormat(getPixelFormat()),
                    destW,
                    destH,
                    destD,
@@ -2848,7 +2859,7 @@ bool Image::slice(Int32  offX,
     if(offY >= 0)
     {
         // XZ slice
-        destImage->set((PixelFormat) getPixelFormat(),
+        destImage->set(PixelFormat(getPixelFormat()),
                        getWidth(),
                        getDepth(),
                        1,
@@ -2881,7 +2892,7 @@ bool Image::slice(Int32  offX,
     if(offX >= 0)
     {
         // YZ slice
-        destImage->set((PixelFormat)getPixelFormat(),
+        destImage->set(PixelFormat(getPixelFormat()),
                        getWidth(),
                        getDepth(),
                        1,
@@ -3082,7 +3093,7 @@ bool Image::createMipmap(Int32 level, Image *destination)
                                                 channel];
                                         }
 
-                                        *dest++ = (Int8) (value / elem);
+                                        *dest++ = Int8(value / elem);
                                     }
                                 }
                             }
@@ -3118,8 +3129,8 @@ bool Image::createMipmap(Int32 level, Image *destination)
                     h = getHeight();
                     d = getDepth ();
 
-                    sourceDataUC16 = (const UInt16 *) src;
-                    destDataUC16   = (      UInt16 *) dest;
+                    sourceDataUC16 = reinterpret_cast<const UInt16 *>(src );
+                    destDataUC16   = reinterpret_cast<      UInt16 *>(dest);
 
                     for(mipmap = 1; mipmap < level; mipmap++)
                     {
@@ -3155,7 +3166,7 @@ bool Image::createMipmap(Int32 level, Image *destination)
                                                 channel];
                                         }
 
-                                        *destDataUC16++ = (UInt16) (value / elem);
+                                        *destDataUC16++ = UInt16(value / elem);
                                     }
                                 }
                             }
@@ -3191,8 +3202,8 @@ bool Image::createMipmap(Int32 level, Image *destination)
                     h = getHeight();
                     d = getDepth ();
 
-                    sourceDataUC32 = (const UInt32 *) src;
-                    destDataUC32   = (      UInt32 *) dest;
+                    sourceDataUC32 = reinterpret_cast<const UInt32 *>(src );
+                    destDataUC32   = reinterpret_cast<      UInt32 *>(dest);
 
                     for(mipmap = 1; mipmap < level; mipmap++)
                     {
@@ -3227,7 +3238,7 @@ bool Image::createMipmap(Int32 level, Image *destination)
                                                           ((di * 2) + offset[dim][i].d) * sliceSize +
                                                           channel]/elem);
                                         }
-                                        *destDataUC32++ = (UInt32) value;
+                                        *destDataUC32++ = UInt32(value);
                                     }
                                 }
                             }
@@ -3263,8 +3274,8 @@ bool Image::createMipmap(Int32 level, Image *destination)
                     h = getHeight();
                     d = getDepth ();
 
-                    sourceDataF32 = (const Real32 *) src;
-                    destDataF32   = (      Real32 *) dest;
+                    sourceDataF32 = reinterpret_cast<const Real32 *>(src );
+                    destDataF32   = reinterpret_cast<      Real32 *>(dest);
 
                     for(mipmap = 1; mipmap < level; mipmap++)
                     {
@@ -3300,7 +3311,7 @@ bool Image::createMipmap(Int32 level, Image *destination)
                                                 channel];
                                         }
 
-                                        *destDataF32++ = (Real32) (valueFloat / elem);
+                                        *destDataF32++ = Real32(valueFloat / elem);
                                     }
                                 }
                             }
@@ -3331,8 +3342,8 @@ bool Image::createMipmap(Int32 level, Image *destination)
                     h = getHeight();
                     d = getDepth();
 
-                    sourceDataH16 = (Real16*) src;
-                    destDataH16 = (Real16*) dest;
+                    sourceDataH16 = reinterpret_cast<const Real16 *>(src );
+                    destDataH16   = reinterpret_cast<      Real16 *>(dest);
 
                     for(mipmap = 1; mipmap < level; mipmap++)
                     {
@@ -3362,7 +3373,7 @@ bool Image::createMipmap(Int32 level, Image *destination)
                                                 ((di * 2) + offset[dim][i].d) * sliceSize +
                                                 channel];
                                         }
-                                        *destDataH16++ = (Real16) (valueFloat / elem);
+                                        *destDataH16++ = Real16(valueFloat / elem);
                                     }
                                 }
                             }
@@ -3925,7 +3936,7 @@ bool Image::scaleData(const UInt8 *srcData,
 
 Image &Image::operator=(const Image &image)
 {
-    this->set((PixelFormat) image.getPixelFormat(),
+    this->set(PixelFormat(image.getPixelFormat()),
               image.getWidth      (),
               image.getHeight     (),
               image.getDepth      (),
