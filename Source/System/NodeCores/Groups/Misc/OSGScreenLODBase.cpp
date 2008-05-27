@@ -121,10 +121,10 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ScreenLODBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ScreenLODBase::createEmptyLocal),
     ScreenLOD::initMethod,
     ScreenLOD::exitMethod,
-    (InitalInsertDescFunc) &ScreenLODBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ScreenLODBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -83,7 +83,7 @@ CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CubeMapGeneratorStageDataBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&CubeMapGeneratorStageDataBase::createEmptyLocal),
     CubeMapGeneratorStageData::initMethod,
     CubeMapGeneratorStageData::exitMethod,
     NULL,

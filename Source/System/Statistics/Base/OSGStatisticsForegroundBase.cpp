@@ -149,7 +149,7 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     NULL,
     StatisticsForeground::initMethod,
     StatisticsForeground::exitMethod,
-    (InitalInsertDescFunc) &StatisticsForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&StatisticsForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

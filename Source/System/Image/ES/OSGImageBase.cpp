@@ -443,10 +443,10 @@ ImageBase::TypeObject ImageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ImageBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ImageBase::createEmptyLocal),
     Image::initMethod,
     Image::exitMethod,
-    (InitalInsertDescFunc) &ImageBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ImageBase::classDescInserter),
     false,
     (ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask),
     "<?xml version=\"1.0\"?>\n"

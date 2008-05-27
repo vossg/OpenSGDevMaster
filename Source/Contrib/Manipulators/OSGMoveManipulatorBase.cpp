@@ -83,7 +83,7 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MoveManipulatorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MoveManipulatorBase::createEmptyLocal),
     MoveManipulator::initMethod,
     MoveManipulator::exitMethod,
     NULL,

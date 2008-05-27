@@ -129,10 +129,10 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShearedStereoCameraDecoratorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ShearedStereoCameraDecoratorBase::createEmptyLocal),
     ShearedStereoCameraDecorator::initMethod,
     ShearedStereoCameraDecorator::exitMethod,
-    (InitalInsertDescFunc) &ShearedStereoCameraDecoratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShearedStereoCameraDecoratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

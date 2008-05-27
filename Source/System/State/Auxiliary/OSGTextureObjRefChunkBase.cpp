@@ -110,10 +110,10 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureObjRefChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TextureObjRefChunkBase::createEmptyLocal),
     TextureObjRefChunk::initMethod,
     TextureObjRefChunk::exitMethod,
-    (InitalInsertDescFunc) &TextureObjRefChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TextureObjRefChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

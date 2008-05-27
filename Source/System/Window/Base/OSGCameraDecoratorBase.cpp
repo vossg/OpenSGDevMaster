@@ -116,7 +116,7 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(
     NULL,
     CameraDecorator::initMethod,
     CameraDecorator::exitMethod,
-    (InitalInsertDescFunc) &CameraDecoratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&CameraDecoratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

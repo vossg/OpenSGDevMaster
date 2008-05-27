@@ -174,10 +174,10 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ComponentTransformBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ComponentTransformBase::createEmptyLocal),
     ComponentTransform::initMethod,
     ComponentTransform::exitMethod,
-    (InitalInsertDescFunc) &ComponentTransformBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ComponentTransformBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

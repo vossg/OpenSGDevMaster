@@ -134,7 +134,7 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     NULL,
     StereoCameraDecorator::initMethod,
     StereoCameraDecorator::exitMethod,
-    (InitalInsertDescFunc) &StereoCameraDecoratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&StereoCameraDecoratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

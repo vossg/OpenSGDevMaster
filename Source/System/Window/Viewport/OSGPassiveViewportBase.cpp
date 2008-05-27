@@ -83,7 +83,7 @@ PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PassiveViewportBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PassiveViewportBase::createEmptyLocal),
     PassiveViewport::initMethod,
     PassiveViewport::exitMethod,
     NULL,

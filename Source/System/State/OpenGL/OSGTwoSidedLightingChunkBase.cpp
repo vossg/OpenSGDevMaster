@@ -83,7 +83,7 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TwoSidedLightingChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TwoSidedLightingChunkBase::createEmptyLocal),
     TwoSidedLightingChunk::initMethod,
     TwoSidedLightingChunk::exitMethod,
     NULL,

@@ -115,10 +115,10 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureTransformChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TextureTransformChunkBase::createEmptyLocal),
     TextureTransformChunk::initMethod,
     TextureTransformChunk::exitMethod,
-    (InitalInsertDescFunc) &TextureTransformChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TextureTransformChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

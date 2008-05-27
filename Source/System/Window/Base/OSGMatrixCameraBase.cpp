@@ -148,10 +148,10 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MatrixCameraBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MatrixCameraBase::createEmptyLocal),
     MatrixCamera::initMethod,
     MatrixCamera::exitMethod,
-    (InitalInsertDescFunc) &MatrixCameraBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MatrixCameraBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

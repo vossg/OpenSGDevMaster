@@ -110,10 +110,10 @@ TestStageBase::TypeObject TestStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TestStageBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TestStageBase::createEmptyLocal),
     TestStage::initMethod,
     TestStage::exitMethod,
-    (InitalInsertDescFunc) &TestStageBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TestStageBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -206,10 +206,10 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SHLChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SHLChunkBase::createEmptyLocal),
     SHLChunk::initMethod,
     SHLChunk::exitMethod,
-    (InitalInsertDescFunc) &SHLChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SHLChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

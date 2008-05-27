@@ -174,10 +174,10 @@ MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MultiDisplayWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MultiDisplayWindowBase::createEmptyLocal),
     MultiDisplayWindow::initMethod,
     MultiDisplayWindow::exitMethod,
-    (InitalInsertDescFunc) &MultiDisplayWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MultiDisplayWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

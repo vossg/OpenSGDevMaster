@@ -220,10 +220,10 @@ GeometryBase::TypeObject GeometryBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GeometryBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&GeometryBase::createEmptyLocal),
     Geometry::initMethod,
     Geometry::exitMethod,
-    (InitalInsertDescFunc) &GeometryBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&GeometryBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

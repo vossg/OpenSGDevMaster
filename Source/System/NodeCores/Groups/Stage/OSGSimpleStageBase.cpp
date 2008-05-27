@@ -240,10 +240,10 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleStageBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SimpleStageBase::createEmptyLocal),
     SimpleStage::initMethod,
     SimpleStage::exitMethod,
-    (InitalInsertDescFunc) &SimpleStageBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleStageBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

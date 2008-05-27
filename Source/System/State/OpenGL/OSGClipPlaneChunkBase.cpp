@@ -154,10 +154,10 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ClipPlaneChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ClipPlaneChunkBase::createEmptyLocal),
     ClipPlaneChunk::initMethod,
     ClipPlaneChunk::exitMethod,
-    (InitalInsertDescFunc) &ClipPlaneChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ClipPlaneChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

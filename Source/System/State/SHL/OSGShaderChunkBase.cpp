@@ -145,7 +145,7 @@ ShaderChunkBase::TypeObject ShaderChunkBase::_type(
     NULL,
     ShaderChunk::initMethod,
     ShaderChunk::exitMethod,
-    (InitalInsertDescFunc) &ShaderChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

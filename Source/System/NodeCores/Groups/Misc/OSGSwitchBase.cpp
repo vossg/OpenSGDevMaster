@@ -111,10 +111,10 @@ SwitchBase::TypeObject SwitchBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SwitchBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SwitchBase::createEmptyLocal),
     Switch::initMethod,
     Switch::exitMethod,
-    (InitalInsertDescFunc) &SwitchBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SwitchBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

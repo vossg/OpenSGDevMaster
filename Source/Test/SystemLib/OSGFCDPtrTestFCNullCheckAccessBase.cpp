@@ -638,10 +638,10 @@ FCDPtrTestFCNullCheckAccessBase::TypeObject FCDPtrTestFCNullCheckAccessBase::_ty
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FCDPtrTestFCNullCheckAccessBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FCDPtrTestFCNullCheckAccessBase::createEmptyLocal),
     FCDPtrTestFCNullCheckAccess::initMethod,
     FCDPtrTestFCNullCheckAccess::exitMethod,
-    (InitalInsertDescFunc) &FCDPtrTestFCNullCheckAccessBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&FCDPtrTestFCNullCheckAccessBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

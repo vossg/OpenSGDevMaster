@@ -143,10 +143,10 @@ SortLastWindowBase::TypeObject SortLastWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SortLastWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SortLastWindowBase::createEmptyLocal),
     SortLastWindow::initMethod,
     SortLastWindow::exitMethod,
-    (InitalInsertDescFunc) &SortLastWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SortLastWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -130,7 +130,7 @@ ShaderParameterBase::TypeObject ShaderParameterBase::_type(
     NULL,
     ShaderParameter::initMethod,
     ShaderParameter::exitMethod,
-    (InitalInsertDescFunc) &ShaderParameterBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

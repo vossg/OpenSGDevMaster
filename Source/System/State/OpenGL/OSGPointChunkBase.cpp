@@ -268,10 +268,10 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PointChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PointChunkBase::createEmptyLocal),
     PointChunk::initMethod,
     PointChunk::exitMethod,
-    (InitalInsertDescFunc) &PointChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&PointChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

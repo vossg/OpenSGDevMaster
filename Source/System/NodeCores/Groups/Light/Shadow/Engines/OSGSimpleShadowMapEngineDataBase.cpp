@@ -213,10 +213,10 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleShadowMapEngineDataBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SimpleShadowMapEngineDataBase::createEmptyLocal),
     SimpleShadowMapEngineData::initMethod,
     SimpleShadowMapEngineData::exitMethod,
-    (InitalInsertDescFunc) &SimpleShadowMapEngineDataBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleShadowMapEngineDataBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -164,10 +164,10 @@ TextureGrabForegroundBase::TypeObject TextureGrabForegroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureGrabForegroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TextureGrabForegroundBase::createEmptyLocal),
     TextureGrabForeground::initMethod,
     TextureGrabForeground::exitMethod,
-    (InitalInsertDescFunc) &TextureGrabForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TextureGrabForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

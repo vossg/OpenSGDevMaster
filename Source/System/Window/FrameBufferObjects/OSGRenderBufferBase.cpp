@@ -129,10 +129,10 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     Inherited::getClassname(),
     "RenderBuffer",
     0,
-    (PrototypeCreateF) &RenderBufferBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&RenderBufferBase::createEmptyLocal),
     RenderBuffer::initMethod,
     RenderBuffer::exitMethod,
-    (InitalInsertDescFunc) &RenderBufferBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&RenderBufferBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

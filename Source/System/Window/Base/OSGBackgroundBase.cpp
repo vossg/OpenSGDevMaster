@@ -174,7 +174,7 @@ BackgroundBase::TypeObject BackgroundBase::_type(
     NULL,
     Background::initMethod,
     Background::exitMethod,
-    (InitalInsertDescFunc) &BackgroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&BackgroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

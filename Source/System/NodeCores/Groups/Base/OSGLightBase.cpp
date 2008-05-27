@@ -249,7 +249,7 @@ LightBase::TypeObject LightBase::_type(
     NULL,
     Light::initMethod,
     Light::exitMethod,
-    (InitalInsertDescFunc) &LightBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&LightBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

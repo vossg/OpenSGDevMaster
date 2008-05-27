@@ -111,10 +111,10 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &DirectionalLightBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&DirectionalLightBase::createEmptyLocal),
     DirectionalLight::initMethod,
     DirectionalLight::exitMethod,
-    (InitalInsertDescFunc) &DirectionalLightBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&DirectionalLightBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

@@ -110,10 +110,10 @@ ShaderParameterVec3fBase::TypeObject ShaderParameterVec3fBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShaderParameterVec3fBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ShaderParameterVec3fBase::createEmptyLocal),
     ShaderParameterVec3f::initMethod,
     ShaderParameterVec3f::exitMethod,
-    (InitalInsertDescFunc) &ShaderParameterVec3fBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterVec3fBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

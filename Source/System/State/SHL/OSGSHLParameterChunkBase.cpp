@@ -111,10 +111,10 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SHLParameterChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SHLParameterChunkBase::createEmptyLocal),
     SHLParameterChunk::initMethod,
     SHLParameterChunk::exitMethod,
-    (InitalInsertDescFunc) &SHLParameterChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SHLParameterChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

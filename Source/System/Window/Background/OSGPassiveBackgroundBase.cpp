@@ -83,7 +83,7 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PassiveBackgroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PassiveBackgroundBase::createEmptyLocal),
     PassiveBackground::initMethod,
     PassiveBackground::exitMethod,
     NULL,

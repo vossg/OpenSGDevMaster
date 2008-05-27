@@ -207,10 +207,10 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GeoMultiPropertyBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&GeoMultiPropertyBase::createEmptyLocal),
     GeoMultiProperty::initMethod,
     GeoMultiProperty::exitMethod,
-    (InitalInsertDescFunc) &GeoMultiPropertyBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&GeoMultiPropertyBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

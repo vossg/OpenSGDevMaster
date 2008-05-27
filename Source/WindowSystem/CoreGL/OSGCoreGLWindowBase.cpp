@@ -110,10 +110,10 @@ CoreGLWindowBase::TypeObject CoreGLWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CoreGLWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&CoreGLWindowBase::createEmptyLocal),
     CoreGLWindow::initMethod,
     CoreGLWindow::exitMethod,
-    (InitalInsertDescFunc) &CoreGLWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&CoreGLWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

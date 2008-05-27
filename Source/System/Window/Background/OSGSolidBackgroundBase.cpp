@@ -131,10 +131,10 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SolidBackgroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SolidBackgroundBase::createEmptyLocal),
     SolidBackground::initMethod,
     SolidBackground::exitMethod,
-    (InitalInsertDescFunc) &SolidBackgroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SolidBackgroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

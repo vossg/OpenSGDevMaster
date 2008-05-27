@@ -110,10 +110,10 @@ ShaderParameterPnt2fBase::TypeObject ShaderParameterPnt2fBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShaderParameterPnt2fBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ShaderParameterPnt2fBase::createEmptyLocal),
     ShaderParameterPnt2f::initMethod,
     ShaderParameterPnt2f::exitMethod,
-    (InitalInsertDescFunc) &ShaderParameterPnt2fBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterPnt2fBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

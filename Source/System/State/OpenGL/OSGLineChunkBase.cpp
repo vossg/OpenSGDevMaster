@@ -170,10 +170,10 @@ LineChunkBase::TypeObject LineChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &LineChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&LineChunkBase::createEmptyLocal),
     LineChunk::initMethod,
     LineChunk::exitMethod,
-    (InitalInsertDescFunc) &LineChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&LineChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

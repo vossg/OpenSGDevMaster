@@ -113,10 +113,10 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FBOViewportBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FBOViewportBase::createEmptyLocal),
     FBOViewport::initMethod,
     FBOViewport::exitMethod,
-    (InitalInsertDescFunc) &FBOViewportBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&FBOViewportBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

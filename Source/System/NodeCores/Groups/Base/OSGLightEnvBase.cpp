@@ -83,7 +83,7 @@ LightEnvBase::TypeObject LightEnvBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &LightEnvBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&LightEnvBase::createEmptyLocal),
     LightEnv::initMethod,
     LightEnv::exitMethod,
     NULL,

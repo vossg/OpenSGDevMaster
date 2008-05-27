@@ -127,10 +127,10 @@ ContainerCollectionBase::TypeObject ContainerCollectionBase::_type(
     Inherited::getClassname(),
     "ContainerCollection",
     0,
-    (PrototypeCreateF) &ContainerCollectionBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ContainerCollectionBase::createEmptyLocal),
     ContainerCollection::initMethod,
     ContainerCollection::exitMethod,
-    (InitalInsertDescFunc) &ContainerCollectionBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ContainerCollectionBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

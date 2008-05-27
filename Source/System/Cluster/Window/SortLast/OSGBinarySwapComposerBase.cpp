@@ -142,10 +142,10 @@ BinarySwapComposerBase::TypeObject BinarySwapComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &BinarySwapComposerBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&BinarySwapComposerBase::createEmptyLocal),
     BinarySwapComposer::initMethod,
     BinarySwapComposer::exitMethod,
-    (InitalInsertDescFunc) &BinarySwapComposerBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&BinarySwapComposerBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

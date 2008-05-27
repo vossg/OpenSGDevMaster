@@ -131,10 +131,10 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PerspectiveCameraBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PerspectiveCameraBase::createEmptyLocal),
     PerspectiveCamera::initMethod,
     PerspectiveCamera::exitMethod,
-    (InitalInsertDescFunc) &PerspectiveCameraBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&PerspectiveCameraBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

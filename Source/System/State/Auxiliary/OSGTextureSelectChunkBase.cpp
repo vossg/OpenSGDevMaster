@@ -132,10 +132,10 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureSelectChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TextureSelectChunkBase::createEmptyLocal),
     TextureSelectChunk::initMethod,
     TextureSelectChunk::exitMethod,
-    (InitalInsertDescFunc) &TextureSelectChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TextureSelectChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

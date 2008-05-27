@@ -172,7 +172,7 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(
     NULL,
     ProgramChunk::initMethod,
     ProgramChunk::exitMethod,
-    (InitalInsertDescFunc) &ProgramChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ProgramChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

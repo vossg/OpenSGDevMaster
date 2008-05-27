@@ -638,10 +638,10 @@ FCDPtrTestFCCustomAccessBase::TypeObject FCDPtrTestFCCustomAccessBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FCDPtrTestFCCustomAccessBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FCDPtrTestFCCustomAccessBase::createEmptyLocal),
     FCDPtrTestFCCustomAccess::initMethod,
     FCDPtrTestFCCustomAccess::exitMethod,
-    (InitalInsertDescFunc) &FCDPtrTestFCCustomAccessBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&FCDPtrTestFCCustomAccessBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

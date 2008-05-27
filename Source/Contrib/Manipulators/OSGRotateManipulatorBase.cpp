@@ -83,7 +83,7 @@ RotateManipulatorBase::TypeObject RotateManipulatorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &RotateManipulatorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&RotateManipulatorBase::createEmptyLocal),
     RotateManipulator::initMethod,
     RotateManipulator::exitMethod,
     NULL,

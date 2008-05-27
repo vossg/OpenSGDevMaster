@@ -133,10 +133,10 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ImageForegroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ImageForegroundBase::createEmptyLocal),
     ImageForeground::initMethod,
     ImageForeground::exitMethod,
-    (InitalInsertDescFunc) &ImageForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ImageForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

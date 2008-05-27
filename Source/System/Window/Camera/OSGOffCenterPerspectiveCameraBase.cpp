@@ -110,10 +110,10 @@ OffCenterPerspectiveCameraBase::TypeObject OffCenterPerspectiveCameraBase::_type
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &OffCenterPerspectiveCameraBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&OffCenterPerspectiveCameraBase::createEmptyLocal),
     OffCenterPerspectiveCamera::initMethod,
     OffCenterPerspectiveCamera::exitMethod,
-    (InitalInsertDescFunc) &OffCenterPerspectiveCameraBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&OffCenterPerspectiveCameraBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

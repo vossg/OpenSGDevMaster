@@ -334,10 +334,10 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MaterialChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MaterialChunkBase::createEmptyLocal),
     MaterialChunk::initMethod,
     MaterialChunk::exitMethod,
-    (InitalInsertDescFunc) &MaterialChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MaterialChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

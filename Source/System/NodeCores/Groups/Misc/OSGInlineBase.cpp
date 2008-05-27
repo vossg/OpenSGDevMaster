@@ -126,10 +126,10 @@ InlineBase::TypeObject InlineBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &InlineBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&InlineBase::createEmptyLocal),
     Inline::initMethod,
     Inline::exitMethod,
-    (InitalInsertDescFunc) &InlineBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&InlineBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -191,10 +191,10 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &HDRStageBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&HDRStageBase::createEmptyLocal),
     HDRStage::initMethod,
     HDRStage::exitMethod,
-    (InitalInsertDescFunc) &HDRStageBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&HDRStageBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

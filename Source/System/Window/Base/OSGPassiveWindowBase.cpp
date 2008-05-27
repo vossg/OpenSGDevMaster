@@ -83,7 +83,7 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PassiveWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PassiveWindowBase::createEmptyLocal),
     PassiveWindow::initMethod,
     PassiveWindow::exitMethod,
     NULL,

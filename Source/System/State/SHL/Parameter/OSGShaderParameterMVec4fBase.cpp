@@ -110,10 +110,10 @@ ShaderParameterMVec4fBase::TypeObject ShaderParameterMVec4fBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShaderParameterMVec4fBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ShaderParameterMVec4fBase::createEmptyLocal),
     ShaderParameterMVec4f::initMethod,
     ShaderParameterMVec4f::exitMethod,
-    (InitalInsertDescFunc) &ShaderParameterMVec4fBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMVec4fBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

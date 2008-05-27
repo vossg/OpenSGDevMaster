@@ -620,10 +620,10 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &RegisterCombinersChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&RegisterCombinersChunkBase::createEmptyLocal),
     RegisterCombinersChunk::initMethod,
     RegisterCombinersChunk::exitMethod,
-    (InitalInsertDescFunc) &RegisterCombinersChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&RegisterCombinersChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

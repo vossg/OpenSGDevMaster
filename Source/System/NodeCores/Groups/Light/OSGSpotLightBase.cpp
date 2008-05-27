@@ -149,10 +149,10 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SpotLightBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SpotLightBase::createEmptyLocal),
     SpotLight::initMethod,
     SpotLight::exitMethod,
-    (InitalInsertDescFunc) &SpotLightBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SpotLightBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

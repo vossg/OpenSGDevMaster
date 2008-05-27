@@ -174,10 +174,10 @@ SortFirstWindowBase::TypeObject SortFirstWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SortFirstWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SortFirstWindowBase::createEmptyLocal),
     SortFirstWindow::initMethod,
     SortFirstWindow::exitMethod,
-    (InitalInsertDescFunc) &SortFirstWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SortFirstWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

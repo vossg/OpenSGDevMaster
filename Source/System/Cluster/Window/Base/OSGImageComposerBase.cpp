@@ -129,7 +129,7 @@ ImageComposerBase::TypeObject ImageComposerBase::_type(
     NULL,
     ImageComposer::initMethod,
     ImageComposer::exitMethod,
-    (InitalInsertDescFunc) &ImageComposerBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ImageComposerBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

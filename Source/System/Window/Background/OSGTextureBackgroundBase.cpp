@@ -210,10 +210,10 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureBackgroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TextureBackgroundBase::createEmptyLocal),
     TextureBackground::initMethod,
     TextureBackground::exitMethod,
-    (InitalInsertDescFunc) &TextureBackgroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TextureBackgroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

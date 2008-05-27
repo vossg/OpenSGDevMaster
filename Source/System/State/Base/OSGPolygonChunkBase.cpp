@@ -297,10 +297,10 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PolygonChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PolygonChunkBase::createEmptyLocal),
     PolygonChunk::initMethod,
     PolygonChunk::exitMethod,
-    (InitalInsertDescFunc) &PolygonChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&PolygonChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

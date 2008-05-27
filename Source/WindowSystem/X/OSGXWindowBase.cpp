@@ -142,10 +142,10 @@ XWindowBase::TypeObject XWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &XWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&XWindowBase::createEmptyLocal),
     XWindow::initMethod,
     XWindow::exitMethod,
-    (InitalInsertDescFunc) &XWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&XWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

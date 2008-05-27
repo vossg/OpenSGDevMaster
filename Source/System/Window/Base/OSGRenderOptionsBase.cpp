@@ -431,10 +431,10 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     Inherited::getClassname(),
     "RenderOptions",
     0,
-    (PrototypeCreateF) &RenderOptionsBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&RenderOptionsBase::createEmptyLocal),
     RenderOptions::initMethod,
     RenderOptions::exitMethod,
-    (InitalInsertDescFunc) &RenderOptionsBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&RenderOptionsBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

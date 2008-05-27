@@ -83,7 +83,7 @@ ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ScaleManipulatorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ScaleManipulatorBase::createEmptyLocal),
     ScaleManipulator::initMethod,
     ScaleManipulator::exitMethod,
     NULL,

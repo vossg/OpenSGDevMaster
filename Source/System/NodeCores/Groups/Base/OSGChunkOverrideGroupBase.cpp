@@ -114,10 +114,10 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ChunkOverrideGroupBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ChunkOverrideGroupBase::createEmptyLocal),
     ChunkOverrideGroup::initMethod,
     ChunkOverrideGroup::exitMethod,
-    (InitalInsertDescFunc) &ChunkOverrideGroupBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ChunkOverrideGroupBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

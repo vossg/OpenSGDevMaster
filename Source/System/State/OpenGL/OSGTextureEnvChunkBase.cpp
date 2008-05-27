@@ -573,10 +573,10 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TextureEnvChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TextureEnvChunkBase::createEmptyLocal),
     TextureEnvChunk::initMethod,
     TextureEnvChunk::exitMethod,
-    (InitalInsertDescFunc) &TextureEnvChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TextureEnvChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

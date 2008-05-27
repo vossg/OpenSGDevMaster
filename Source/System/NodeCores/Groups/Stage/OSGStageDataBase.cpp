@@ -142,10 +142,10 @@ StageDataBase::TypeObject StageDataBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &StageDataBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&StageDataBase::createEmptyLocal),
     StageData::initMethod,
     StageData::exitMethod,
-    (InitalInsertDescFunc) &StageDataBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&StageDataBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

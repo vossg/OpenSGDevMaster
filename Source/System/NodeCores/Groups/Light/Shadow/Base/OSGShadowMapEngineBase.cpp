@@ -196,7 +196,7 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     NULL,
     ShadowMapEngine::initMethod,
     ShadowMapEngine::exitMethod,
-    (InitalInsertDescFunc) &ShadowMapEngineBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShadowMapEngineBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

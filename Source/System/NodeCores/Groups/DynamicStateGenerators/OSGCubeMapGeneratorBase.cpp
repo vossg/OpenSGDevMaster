@@ -275,10 +275,10 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CubeMapGeneratorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&CubeMapGeneratorBase::createEmptyLocal),
     CubeMapGenerator::initMethod,
     CubeMapGenerator::exitMethod,
-    (InitalInsertDescFunc) &CubeMapGeneratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&CubeMapGeneratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

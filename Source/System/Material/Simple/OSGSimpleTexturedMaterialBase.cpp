@@ -198,10 +198,10 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleTexturedMaterialBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SimpleTexturedMaterialBase::createEmptyLocal),
     SimpleTexturedMaterial::initMethod,
     SimpleTexturedMaterial::exitMethod,
-    (InitalInsertDescFunc) &SimpleTexturedMaterialBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleTexturedMaterialBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

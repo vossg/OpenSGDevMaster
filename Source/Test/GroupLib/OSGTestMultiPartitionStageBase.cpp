@@ -158,10 +158,10 @@ TestMultiPartitionStageBase::TypeObject TestMultiPartitionStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TestMultiPartitionStageBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TestMultiPartitionStageBase::createEmptyLocal),
     TestMultiPartitionStage::initMethod,
     TestMultiPartitionStage::exitMethod,
-    (InitalInsertDescFunc) &TestMultiPartitionStageBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TestMultiPartitionStageBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

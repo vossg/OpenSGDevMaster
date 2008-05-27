@@ -113,10 +113,10 @@ DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &DynamicStateGeneratorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorBase::createEmptyLocal),
     DynamicStateGenerator::initMethod,
     DynamicStateGenerator::exitMethod,
-    (InitalInsertDescFunc) &DynamicStateGeneratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGeneratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

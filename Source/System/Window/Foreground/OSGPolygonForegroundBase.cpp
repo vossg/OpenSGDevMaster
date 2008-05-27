@@ -248,10 +248,10 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PolygonForegroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PolygonForegroundBase::createEmptyLocal),
     PolygonForeground::initMethod,
     PolygonForeground::exitMethod,
-    (InitalInsertDescFunc) &PolygonForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&PolygonForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

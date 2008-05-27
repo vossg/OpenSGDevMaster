@@ -222,10 +222,10 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FCDTestFCBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FCDTestFCBase::createEmptyLocal),
     FCDTestFC::initMethod,
     FCDTestFC::exitMethod,
-    (InitalInsertDescFunc) &FCDTestFCBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&FCDTestFCBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

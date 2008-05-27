@@ -336,10 +336,10 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ParticlesBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ParticlesBase::createEmptyLocal),
     Particles::initMethod,
     Particles::exitMethod,
-    (InitalInsertDescFunc) &ParticlesBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ParticlesBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

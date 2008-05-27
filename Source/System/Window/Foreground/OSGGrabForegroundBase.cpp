@@ -130,10 +130,10 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GrabForegroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&GrabForegroundBase::createEmptyLocal),
     GrabForeground::initMethod,
     GrabForeground::exitMethod,
-    (InitalInsertDescFunc) &GrabForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&GrabForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

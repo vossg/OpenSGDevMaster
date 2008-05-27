@@ -113,7 +113,7 @@ LightEngineBase::TypeObject LightEngineBase::_type(
     NULL,
     LightEngine::initMethod,
     LightEngine::exitMethod,
-    (InitalInsertDescFunc) &LightEngineBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&LightEngineBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

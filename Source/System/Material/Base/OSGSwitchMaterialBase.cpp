@@ -128,10 +128,10 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SwitchMaterialBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SwitchMaterialBase::createEmptyLocal),
     SwitchMaterial::initMethod,
     SwitchMaterial::exitMethod,
-    (InitalInsertDescFunc) &SwitchMaterialBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SwitchMaterialBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

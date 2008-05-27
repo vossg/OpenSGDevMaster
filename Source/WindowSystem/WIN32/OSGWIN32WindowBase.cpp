@@ -142,10 +142,10 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &WIN32WindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&WIN32WindowBase::createEmptyLocal),
     WIN32Window::initMethod,
     WIN32Window::exitMethod,
-    (InitalInsertDescFunc) &WIN32WindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&WIN32WindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

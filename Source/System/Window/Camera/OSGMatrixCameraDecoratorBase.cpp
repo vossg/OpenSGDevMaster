@@ -210,10 +210,10 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MatrixCameraDecoratorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MatrixCameraDecoratorBase::createEmptyLocal),
     MatrixCameraDecorator::initMethod,
     MatrixCameraDecorator::exitMethod,
-    (InitalInsertDescFunc) &MatrixCameraDecoratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MatrixCameraDecoratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

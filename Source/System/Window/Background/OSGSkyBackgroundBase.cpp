@@ -428,10 +428,10 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SkyBackgroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SkyBackgroundBase::createEmptyLocal),
     SkyBackground::initMethod,
     SkyBackground::exitMethod,
-    (InitalInsertDescFunc) &SkyBackgroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SkyBackgroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

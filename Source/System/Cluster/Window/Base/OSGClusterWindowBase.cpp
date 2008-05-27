@@ -304,10 +304,10 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ClusterWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ClusterWindowBase::createEmptyLocal),
     ClusterWindow::initMethod,
     ClusterWindow::exitMethod,
-    (InitalInsertDescFunc) &ClusterWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ClusterWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

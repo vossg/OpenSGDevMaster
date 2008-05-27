@@ -110,10 +110,10 @@ CarbonWindowBase::TypeObject CarbonWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CarbonWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&CarbonWindowBase::createEmptyLocal),
     CarbonWindow::initMethod,
     CarbonWindow::exitMethod,
-    (InitalInsertDescFunc) &CarbonWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&CarbonWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

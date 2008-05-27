@@ -164,10 +164,10 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ColorBufferViewportBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ColorBufferViewportBase::createEmptyLocal),
     ColorBufferViewport::initMethod,
     ColorBufferViewport::exitMethod,
-    (InitalInsertDescFunc) &ColorBufferViewportBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ColorBufferViewportBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

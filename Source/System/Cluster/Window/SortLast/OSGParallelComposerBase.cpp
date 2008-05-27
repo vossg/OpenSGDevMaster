@@ -142,10 +142,10 @@ ParallelComposerBase::TypeObject ParallelComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ParallelComposerBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ParallelComposerBase::createEmptyLocal),
     ParallelComposer::initMethod,
     ParallelComposer::exitMethod,
-    (InitalInsertDescFunc) &ParallelComposerBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ParallelComposerBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

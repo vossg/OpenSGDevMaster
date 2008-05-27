@@ -292,10 +292,10 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ProxyGroupBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ProxyGroupBase::createEmptyLocal),
     ProxyGroup::initMethod,
     ProxyGroup::exitMethod,
-    (InitalInsertDescFunc) &ProxyGroupBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ProxyGroupBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -320,10 +320,10 @@ TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TiledQuadTreeTerrainBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TiledQuadTreeTerrainBase::createEmptyLocal),
     TiledQuadTreeTerrain::initMethod,
     TiledQuadTreeTerrain::exitMethod,
-    (InitalInsertDescFunc) &TiledQuadTreeTerrainBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TiledQuadTreeTerrainBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

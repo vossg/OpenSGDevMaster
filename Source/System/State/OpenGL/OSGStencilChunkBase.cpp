@@ -238,10 +238,10 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &StencilChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&StencilChunkBase::createEmptyLocal),
     StencilChunk::initMethod,
     StencilChunk::exitMethod,
-    (InitalInsertDescFunc) &StencilChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&StencilChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

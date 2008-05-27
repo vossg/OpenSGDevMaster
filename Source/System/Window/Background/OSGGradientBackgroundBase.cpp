@@ -133,10 +133,10 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GradientBackgroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&GradientBackgroundBase::createEmptyLocal),
     GradientBackground::initMethod,
     GradientBackground::exitMethod,
-    (InitalInsertDescFunc) &GradientBackgroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&GradientBackgroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

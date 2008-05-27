@@ -135,10 +135,10 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ChunkMaterialBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ChunkMaterialBase::createEmptyLocal),
     ChunkMaterial::initMethod,
     ChunkMaterial::exitMethod,
-    (InitalInsertDescFunc) &ChunkMaterialBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ChunkMaterialBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

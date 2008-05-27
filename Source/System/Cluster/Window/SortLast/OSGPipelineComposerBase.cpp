@@ -158,10 +158,10 @@ PipelineComposerBase::TypeObject PipelineComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PipelineComposerBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PipelineComposerBase::createEmptyLocal),
     PipelineComposer::initMethod,
     PipelineComposer::exitMethod,
-    (InitalInsertDescFunc) &PipelineComposerBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&PipelineComposerBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

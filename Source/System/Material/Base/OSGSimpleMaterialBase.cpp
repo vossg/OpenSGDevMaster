@@ -234,10 +234,10 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleMaterialBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SimpleMaterialBase::createEmptyLocal),
     SimpleMaterial::initMethod,
     SimpleMaterial::exitMethod,
-    (InitalInsertDescFunc) &SimpleMaterialBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleMaterialBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

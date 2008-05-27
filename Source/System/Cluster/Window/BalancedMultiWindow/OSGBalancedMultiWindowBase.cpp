@@ -174,10 +174,10 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &BalancedMultiWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&BalancedMultiWindowBase::createEmptyLocal),
     BalancedMultiWindow::initMethod,
     BalancedMultiWindow::exitMethod,
-    (InitalInsertDescFunc) &BalancedMultiWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&BalancedMultiWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

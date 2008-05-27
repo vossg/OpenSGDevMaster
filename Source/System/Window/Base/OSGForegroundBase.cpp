@@ -124,7 +124,7 @@ ForegroundBase::TypeObject ForegroundBase::_type(
     NULL,
     Foreground::initMethod,
     Foreground::exitMethod,
-    (InitalInsertDescFunc) &ForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

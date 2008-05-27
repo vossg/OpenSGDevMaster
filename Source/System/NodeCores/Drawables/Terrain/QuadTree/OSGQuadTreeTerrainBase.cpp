@@ -480,10 +480,10 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &QuadTreeTerrainBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&QuadTreeTerrainBase::createEmptyLocal),
     QuadTreeTerrain::initMethod,
     QuadTreeTerrain::exitMethod,
-    (InitalInsertDescFunc) &QuadTreeTerrainBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&QuadTreeTerrainBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

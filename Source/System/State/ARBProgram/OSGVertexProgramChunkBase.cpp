@@ -87,7 +87,7 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &VertexProgramChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&VertexProgramChunkBase::createEmptyLocal),
     VertexProgramChunk::initMethod,
     VertexProgramChunk::exitMethod,
     NULL,

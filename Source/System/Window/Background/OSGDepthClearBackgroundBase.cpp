@@ -83,7 +83,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &DepthClearBackgroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&DepthClearBackgroundBase::createEmptyLocal),
     DepthClearBackground::initMethod,
     DepthClearBackground::exitMethod,
     NULL,

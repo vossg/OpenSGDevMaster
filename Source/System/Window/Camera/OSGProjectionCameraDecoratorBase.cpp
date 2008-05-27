@@ -221,10 +221,10 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ProjectionCameraDecoratorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ProjectionCameraDecoratorBase::createEmptyLocal),
     ProjectionCameraDecorator::initMethod,
     ProjectionCameraDecorator::exitMethod,
-    (InitalInsertDescFunc) &ProjectionCameraDecoratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ProjectionCameraDecoratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -159,10 +159,10 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &AlgorithmStageBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&AlgorithmStageBase::createEmptyLocal),
     AlgorithmStage::initMethod,
     AlgorithmStage::exitMethod,
-    (InitalInsertDescFunc) &AlgorithmStageBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&AlgorithmStageBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

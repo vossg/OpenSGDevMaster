@@ -85,7 +85,7 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FragmentProgramChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FragmentProgramChunkBase::createEmptyLocal),
     FragmentProgramChunk::initMethod,
     FragmentProgramChunk::exitMethod,
     NULL,

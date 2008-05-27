@@ -114,10 +114,10 @@ PointLightBase::TypeObject PointLightBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PointLightBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PointLightBase::createEmptyLocal),
     PointLight::initMethod,
     PointLight::exitMethod,
-    (InitalInsertDescFunc) &PointLightBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&PointLightBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

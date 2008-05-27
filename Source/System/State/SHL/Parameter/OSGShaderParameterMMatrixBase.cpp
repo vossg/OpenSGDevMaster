@@ -110,10 +110,10 @@ ShaderParameterMMatrixBase::TypeObject ShaderParameterMMatrixBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShaderParameterMMatrixBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ShaderParameterMMatrixBase::createEmptyLocal),
     ShaderParameterMMatrix::initMethod,
     ShaderParameterMMatrix::exitMethod,
-    (InitalInsertDescFunc) &ShaderParameterMMatrixBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMMatrixBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

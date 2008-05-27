@@ -128,10 +128,10 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     Inherited::getClassname(),
     "StringAttributeMap",
     0,
-    (PrototypeCreateF) &StringAttributeMapBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&StringAttributeMapBase::createEmptyLocal),
     StringAttributeMap::initMethod,
     StringAttributeMap::exitMethod,
-    (InitalInsertDescFunc) &StringAttributeMapBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&StringAttributeMapBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

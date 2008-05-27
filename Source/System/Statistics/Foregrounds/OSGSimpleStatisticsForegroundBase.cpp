@@ -305,10 +305,10 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SimpleStatisticsForegroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SimpleStatisticsForegroundBase::createEmptyLocal),
     SimpleStatisticsForeground::initMethod,
     SimpleStatisticsForeground::exitMethod,
-    (InitalInsertDescFunc) &SimpleStatisticsForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleStatisticsForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

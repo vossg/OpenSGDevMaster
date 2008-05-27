@@ -110,10 +110,10 @@ CallbackAlgorithmBase::TypeObject CallbackAlgorithmBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CallbackAlgorithmBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&CallbackAlgorithmBase::createEmptyLocal),
     CallbackAlgorithm::initMethod,
     CallbackAlgorithm::exitMethod,
-    (InitalInsertDescFunc) &CallbackAlgorithmBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&CallbackAlgorithmBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

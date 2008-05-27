@@ -174,10 +174,10 @@ BillboardBase::TypeObject BillboardBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &BillboardBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&BillboardBase::createEmptyLocal),
     Billboard::initMethod,
     Billboard::exitMethod,
-    (InitalInsertDescFunc) &BillboardBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&BillboardBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

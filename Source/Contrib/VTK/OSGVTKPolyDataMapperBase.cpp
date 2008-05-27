@@ -264,10 +264,10 @@ VTKPolyDataMapperBase::TypeObject VTKPolyDataMapperBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &VTKPolyDataMapperBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&VTKPolyDataMapperBase::createEmptyLocal),
     VTKPolyDataMapper::initMethod,
     VTKPolyDataMapper::exitMethod,
-    (InitalInsertDescFunc) &VTKPolyDataMapperBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&VTKPolyDataMapperBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

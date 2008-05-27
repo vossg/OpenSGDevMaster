@@ -161,10 +161,10 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &DistanceLODBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&DistanceLODBase::createEmptyLocal),
     DistanceLOD::initMethod,
     DistanceLOD::exitMethod,
-    (InitalInsertDescFunc) &DistanceLODBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&DistanceLODBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

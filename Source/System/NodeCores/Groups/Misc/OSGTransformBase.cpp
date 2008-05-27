@@ -111,10 +111,10 @@ TransformBase::TypeObject TransformBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TransformBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TransformBase::createEmptyLocal),
     Transform::initMethod,
     Transform::exitMethod,
-    (InitalInsertDescFunc) &TransformBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TransformBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

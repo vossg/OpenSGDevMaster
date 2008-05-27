@@ -216,10 +216,10 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FrameBufferObjectBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FrameBufferObjectBase::createEmptyLocal),
     FrameBufferObject::initMethod,
     FrameBufferObject::exitMethod,
-    (InitalInsertDescFunc) &FrameBufferObjectBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&FrameBufferObjectBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

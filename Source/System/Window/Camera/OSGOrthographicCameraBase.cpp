@@ -126,10 +126,10 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &OrthographicCameraBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&OrthographicCameraBase::createEmptyLocal),
     OrthographicCamera::initMethod,
     OrthographicCamera::exitMethod,
-    (InitalInsertDescFunc) &OrthographicCameraBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&OrthographicCameraBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

@@ -110,10 +110,10 @@ ShaderParameterPnt3fBase::TypeObject ShaderParameterPnt3fBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShaderParameterPnt3fBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ShaderParameterPnt3fBase::createEmptyLocal),
     ShaderParameterPnt3f::initMethod,
     ShaderParameterPnt3f::exitMethod,
-    (InitalInsertDescFunc) &ShaderParameterPnt3fBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterPnt3fBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

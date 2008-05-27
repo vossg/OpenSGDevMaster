@@ -151,10 +151,10 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FileGrabForegroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FileGrabForegroundBase::createEmptyLocal),
     FileGrabForeground::initMethod,
     FileGrabForeground::exitMethod,
-    (InitalInsertDescFunc) &FileGrabForegroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&FileGrabForegroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

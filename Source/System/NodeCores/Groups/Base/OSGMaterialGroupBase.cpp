@@ -114,10 +114,10 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MaterialGroupBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MaterialGroupBase::createEmptyLocal),
     MaterialGroup::initMethod,
     MaterialGroup::exitMethod,
-    (InitalInsertDescFunc) &MaterialGroupBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MaterialGroupBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

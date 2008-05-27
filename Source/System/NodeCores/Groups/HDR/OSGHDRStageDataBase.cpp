@@ -245,10 +245,10 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &HDRStageDataBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&HDRStageDataBase::createEmptyLocal),
     HDRStageData::initMethod,
     HDRStageData::exitMethod,
-    (InitalInsertDescFunc) &HDRStageDataBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&HDRStageDataBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

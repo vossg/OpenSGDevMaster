@@ -142,7 +142,7 @@ MaterialBase::TypeObject MaterialBase::_type(
     NULL,
     Material::initMethod,
     Material::exitMethod,
-    (InitalInsertDescFunc) &MaterialBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MaterialBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

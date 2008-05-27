@@ -180,10 +180,10 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &DepthChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&DepthChunkBase::createEmptyLocal),
     DepthChunk::initMethod,
     DepthChunk::exitMethod,
-    (InitalInsertDescFunc) &DepthChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&DepthChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -132,10 +132,10 @@ StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &StereoBufferViewportBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&StereoBufferViewportBase::createEmptyLocal),
     StereoBufferViewport::initMethod,
     StereoBufferViewport::exitMethod,
-    (InitalInsertDescFunc) &StereoBufferViewportBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&StereoBufferViewportBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

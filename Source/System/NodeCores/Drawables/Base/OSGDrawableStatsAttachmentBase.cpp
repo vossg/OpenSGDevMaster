@@ -218,10 +218,10 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     Inherited::getClassname(),
     "DrawableStatsAttachment",
     0,
-    (PrototypeCreateF) &DrawableStatsAttachmentBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&DrawableStatsAttachmentBase::createEmptyLocal),
     DrawableStatsAttachment::initMethod,
     DrawableStatsAttachment::exitMethod,
-    (InitalInsertDescFunc) &DrawableStatsAttachmentBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&DrawableStatsAttachmentBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -83,7 +83,7 @@ SepiaComposerBase::TypeObject SepiaComposerBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &SepiaComposerBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&SepiaComposerBase::createEmptyLocal),
     SepiaComposer::initMethod,
     SepiaComposer::exitMethod,
     NULL,

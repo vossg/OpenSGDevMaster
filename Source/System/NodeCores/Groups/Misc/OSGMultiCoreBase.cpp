@@ -111,10 +111,10 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MultiCoreBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MultiCoreBase::createEmptyLocal),
     MultiCore::initMethod,
     MultiCore::exitMethod,
-    (InitalInsertDescFunc) &MultiCoreBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MultiCoreBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

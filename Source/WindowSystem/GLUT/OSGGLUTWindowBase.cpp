@@ -110,10 +110,10 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GLUTWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&GLUTWindowBase::createEmptyLocal),
     GLUTWindow::initMethod,
     GLUTWindow::exitMethod,
-    (InitalInsertDescFunc) &GLUTWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&GLUTWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -163,10 +163,10 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     Inherited::getClassname(),
     "TextureBuffer",
     0,
-    (PrototypeCreateF) &TextureBufferBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TextureBufferBase::createEmptyLocal),
     TextureBuffer::initMethod,
     TextureBuffer::exitMethod,
-    (InitalInsertDescFunc) &TextureBufferBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TextureBufferBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

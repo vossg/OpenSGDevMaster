@@ -85,7 +85,7 @@ GroupBase::TypeObject GroupBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &GroupBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&GroupBase::createEmptyLocal),
     Group::initMethod,
     Group::exitMethod,
     NULL,

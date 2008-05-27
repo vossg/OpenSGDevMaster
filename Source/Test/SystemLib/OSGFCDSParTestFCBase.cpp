@@ -111,10 +111,10 @@ FCDSParTestFCBase::TypeObject FCDSParTestFCBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &FCDSParTestFCBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&FCDSParTestFCBase::createEmptyLocal),
     FCDSParTestFC::initMethod,
     FCDSParTestFC::exitMethod,
-    (InitalInsertDescFunc) &FCDSParTestFCBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&FCDSParTestFCBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

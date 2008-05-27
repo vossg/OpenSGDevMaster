@@ -115,7 +115,7 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     NULL,
     StateChunk::initMethod,
     StateChunk::exitMethod,
-    (InitalInsertDescFunc) &StateChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&StateChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

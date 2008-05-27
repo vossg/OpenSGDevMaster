@@ -114,10 +114,10 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TransformChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TransformChunkBase::createEmptyLocal),
     TransformChunk::initMethod,
     TransformChunk::exitMethod,
-    (InitalInsertDescFunc) &TransformChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TransformChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

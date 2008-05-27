@@ -255,10 +255,10 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &PolygonBackgroundBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&PolygonBackgroundBase::createEmptyLocal),
     PolygonBackground::initMethod,
     PolygonBackground::exitMethod,
-    (InitalInsertDescFunc) &PolygonBackgroundBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&PolygonBackgroundBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

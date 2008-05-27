@@ -366,7 +366,7 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     NULL,
     Manipulator::initMethod,
     Manipulator::exitMethod,
-    (InitalInsertDescFunc) &ManipulatorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ManipulatorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

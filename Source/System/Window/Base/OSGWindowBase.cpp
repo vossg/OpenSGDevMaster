@@ -240,7 +240,7 @@ WindowBase::TypeObject WindowBase::_type(
     NULL,
     Window::initMethod,
     Window::exitMethod,
-    (InitalInsertDescFunc) &WindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&WindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

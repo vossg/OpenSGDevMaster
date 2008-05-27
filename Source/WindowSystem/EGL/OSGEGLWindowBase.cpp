@@ -142,10 +142,10 @@ EGLWindowBase::TypeObject EGLWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &EGLWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&EGLWindowBase::createEmptyLocal),
     EGLWindow::initMethod,
     EGLWindow::exitMethod,
-    (InitalInsertDescFunc) &EGLWindowBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&EGLWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

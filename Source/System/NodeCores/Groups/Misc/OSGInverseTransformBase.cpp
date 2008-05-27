@@ -83,7 +83,7 @@ InverseTransformBase::TypeObject InverseTransformBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &InverseTransformBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&InverseTransformBase::createEmptyLocal),
     InverseTransform::initMethod,
     InverseTransform::exitMethod,
     NULL,

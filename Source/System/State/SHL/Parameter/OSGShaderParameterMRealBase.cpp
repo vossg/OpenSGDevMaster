@@ -110,10 +110,10 @@ ShaderParameterMRealBase::TypeObject ShaderParameterMRealBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &ShaderParameterMRealBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&ShaderParameterMRealBase::createEmptyLocal),
     ShaderParameterMReal::initMethod,
     ShaderParameterMReal::exitMethod,
-    (InitalInsertDescFunc) &ShaderParameterMRealBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMRealBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

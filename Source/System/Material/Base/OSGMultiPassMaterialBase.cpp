@@ -111,10 +111,10 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &MultiPassMaterialBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&MultiPassMaterialBase::createEmptyLocal),
     MultiPassMaterial::initMethod,
     MultiPassMaterial::exitMethod,
-    (InitalInsertDescFunc) &MultiPassMaterialBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&MultiPassMaterialBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

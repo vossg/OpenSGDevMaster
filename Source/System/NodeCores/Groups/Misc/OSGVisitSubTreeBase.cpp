@@ -118,10 +118,10 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &VisitSubTreeBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&VisitSubTreeBase::createEmptyLocal),
     VisitSubTree::initMethod,
     VisitSubTree::exitMethod,
-    (InitalInsertDescFunc) &VisitSubTreeBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&VisitSubTreeBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

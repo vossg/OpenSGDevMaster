@@ -307,10 +307,10 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TexGenChunkBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TexGenChunkBase::createEmptyLocal),
     TexGenChunk::initMethod,
     TexGenChunk::exitMethod,
-    (InitalInsertDescFunc) &TexGenChunkBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TexGenChunkBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -198,10 +198,10 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &TileCameraDecoratorBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&TileCameraDecoratorBase::createEmptyLocal),
     TileCameraDecorator::initMethod,
     TileCameraDecorator::exitMethod,
-    (InitalInsertDescFunc) &TileCameraDecoratorBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&TileCameraDecoratorBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
