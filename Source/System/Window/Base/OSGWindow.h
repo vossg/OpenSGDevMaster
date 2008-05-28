@@ -165,8 +165,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
            bool                 hasExtension      (      UInt32  extId );
            bool                 hasExtension      (const Char8  *s     );
     static bool                 hasCommonExtension(      UInt32  extId );
-           void                *getFunction       (      UInt32  funcId);
-           void                *getFunctionNoCheck(      UInt32  funcId);
+           GLExtensionFunction  getFunction       (      UInt32  funcId);
+           GLExtensionFunction  getFunctionNoCheck(      UInt32  funcId);
            void                 dumpExtensions    (      void          );
            GLExtensionFunction  getFunctionByName (const Char8  *s     );
            Real32               getConstantValue  (      GLenum  val   );
@@ -433,19 +433,19 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name        GL Object / Extension variables                       */
     /*! \{                                                                 */
 
-    std::vector<UInt32     > _lastValidate;
-    std::vector<UInt32     > _ids;
+    std::vector<UInt32             >  _lastValidate;
+    std::vector<UInt32             >  _ids;
 
-    UInt32                   _glVersion;
-    std::vector<std::string> _extensions;
-    std::vector<bool       > _availExtensions;
-    std::vector<void      *> _extFunctions;
+    UInt32                            _glVersion;
+    std::vector<std::string        >  _extensions;
+    std::vector<bool               >  _availExtensions;
+    std::vector<GLExtensionFunction>  _extFunctions;
 
-    ConstHash                _availConstants;
-    UInt32                   _numAvailConstants;
+    ConstHash                         _availConstants;
+    UInt32                            _numAvailConstants;
 
-    UInt32                   _windowId;
-    StageValidator          *_pStageValidator;
+    UInt32                            _windowId;
+    StageValidator                   *_pStageValidator;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

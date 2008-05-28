@@ -84,7 +84,7 @@ bool Window::hasCommonExtension(UInt32 extId)
  */
 
 inline 
-void *Window::getFunction(UInt32 funcId)
+Window::GLExtensionFunction Window::getFunction(UInt32 funcId)
 {
     if(funcId >= _extFunctions.size())
     {
@@ -108,7 +108,7 @@ void *Window::getFunction(UInt32 funcId)
  */
 
 inline 
-void *Window::getFunctionNoCheck(UInt32 funcId)
+Window::GLExtensionFunction Window::getFunctionNoCheck(UInt32 funcId)
 {
     return _extFunctions[ funcId ];
 }

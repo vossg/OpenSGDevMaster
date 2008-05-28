@@ -271,7 +271,11 @@ bool BasePThreadBase::runFunction(ThreadFuncF  fThreadFunc,
 
         pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &rc);
 
+#if __GNUC__ < 4
+        _pThreadData[0] = (void *)(fThreadFunc);
+#else
         _pThreadData[0] = reinterpret_cast<void *>(fThreadFunc);
+#endif
         _pThreadData[1] =                          pThreadArg;
         _pThreadData[2] = static_cast     <void *>(this       );
        	
