@@ -76,6 +76,10 @@ bool intersect(const Volume &vol1, const Volume &vol2)
     {
         retCode = intersect(*fv, vol2);
     }
+    else
+    {
+        FWARNING(("intersect(Volume, Volume): Argument 1 has unhandled type.\n"));
+    }
 
     return retCode;
 }
@@ -300,6 +304,10 @@ bool intersect(const BoxVolume &box, const Volume &vol)
     {
         retCode = intersect(box, *fv);
     }
+    else
+    {
+        FWARNING(("intersect(BoxVolume, Volume): Argument 2 has unhandled type.\n"));
+    }
 
     return retCode;
 }
@@ -448,6 +456,10 @@ bool intersect(const SphereVolume &sphere, const Volume &vol)
     else if((fv = dynamic_cast<const FrustumVolume  *>(v)) != NULL)
     {
         retCode = intersect(sphere, *fv);
+    }
+    else
+    {
+        FWARNING(("intersect(SphereVolume, Volume): Argument 2 has unhandled type.\n"));
     }
 
     return retCode;
@@ -637,6 +649,11 @@ bool intersect(const CylinderVolume &cylinder, const Volume &vol)
     {
         retCode = intersect(cylinder, *fv);
     }
+    else
+    {
+        FWARNING(("intersect(CylinderVolume, Volume): Argument 2 has unhandled type.\n"));
+    }
+    
 
     return retCode;
 }
@@ -679,6 +696,10 @@ bool intersect(const FrustumVolume &frustum, const Volume &vol)
     else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
     {
         retCode = intersect(frustum, *fv);
+    }
+    else
+    {
+        FWARNING(("intersect(FrustumVolume, Volume): Argument 2 has unhandled type.\n"));
     }
 
     return retCode;
