@@ -300,8 +300,8 @@ void FlyEngine::rotate(Real32 deltaX, Real32 deltaY)
     temp.setIdentity();
     temp.setTranslate(-_rFrom[0],-_rFrom[1],-_rFrom[2]);
 
-    final.mult(temp);
-    final.multMatrixPnt(_rAt);
+    final.mult(temp      );
+    final.mult(_rAt, _rAt);
 
     // rotate around the side vector
 
@@ -322,7 +322,7 @@ void FlyEngine::rotate(Real32 deltaX, Real32 deltaY)
     temp.setTranslate(-_rFrom[0],-_rFrom[1],-_rFrom[2]);
 
     final.mult(temp);
-    final.multMatrixPnt(_rAt);
+    final.mult(_rAt, _rAt);
 }
 
 /*! Flies forward, i.e. translation \a step units along the view vector.
@@ -336,8 +336,8 @@ Real32 FlyEngine::forward(Real32 step)
     Matrix transl;
     transl.setIdentity();
     transl.setTranslate(lv);
-    transl.multMatrixPnt(_rAt);
-    transl.multMatrixPnt(_rFrom);
+    transl.mult(_rAt,   _rAt  );
+    transl.mult(_rFrom, _rFrom);
     return 0.0;
 }
 
@@ -353,7 +353,7 @@ Real32 FlyEngine::right(Real32 step)
     Matrix transl;
     transl.setIdentity();
     transl.setTranslate(sv);
-    transl.multMatrixPnt(_rAt);
-    transl.multMatrixPnt(_rFrom);
+    transl.mult(_rAt,   _rAt  );
+    transl.mult(_rFrom, _rFrom);
     return 0.0;
 }

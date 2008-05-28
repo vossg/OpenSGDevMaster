@@ -174,8 +174,8 @@ void SphereVolume::transform(const Matrixr &mat)
 
     hull += Vec3r(0.f, _radius, 0.f);
 
-    mat.mult(_center);
-    mat.mult(hull);
+    mat.mult(_center, _center);
+    mat.mult(hull,    hull   );
 
     _radius = (hull - _center).length();
 
@@ -183,7 +183,7 @@ void SphereVolume::transform(const Matrixr &mat)
     Vec3f translation, scaleFactor;
     Quaternion rotation, scaleOrientation;
     
-    mat.mult(_center);
+    mat.mult(_center, _center);
     mat.getTransform(translation, rotation, scaleFactor, scaleOrientation);
     _radius *= scaleFactor[0];
 */

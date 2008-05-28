@@ -176,7 +176,7 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
 
     mResult.invertFrom(mToWorld);
 
-    mToWorld.mult(n);
+    mToWorld.mult(n, n);
 
     if(getAxisOfRotation() == Vec3f::Null)
     {
@@ -186,8 +186,8 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
             Vec3f uW;
             Vec3f vX;
 
-            camToWorld.mult(eyepos);
-            mToWorld   .mult(objpos);
+            camToWorld.mult(eyepos, eyepos);
+            mToWorld  .mult(objpos, objpos);
 
             vDir = eyepos - objpos;
 
@@ -223,8 +223,8 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
                 Vec3f vUp;
                 Vec3f uW;
 
-                camToWorld.mult(eyepos);
-                mToWorld   .mult(objpos);
+                camToWorld.mult(eyepos, eyepos);
+                mToWorld  .mult(objpos, objpos);
 
                 vDir = eyepos - objpos;
 
@@ -234,7 +234,7 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
 
                 Quaternion qN(n, vDir);
 
-                mToWorld.mult(u);
+                mToWorld.mult(u, u);
 
                 qN.multVec(u, uW);
 
@@ -254,7 +254,7 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
 
                 Quaternion qN(n, vDir);
 
-                mToWorld.mult(u);
+                mToWorld.mult(u, u);
 
                 qN.multVec(u, uW);
 
@@ -270,11 +270,10 @@ void Billboard::calcMatrix(const Matrix         &camToWorld,
         Vec3f s;
         Vec3f tDir;
 
-        camToWorld.mult(eyepos);
+        camToWorld.mult(eyepos, eyepos);
+        mToWorld  .mult(objpos, objpos);
 
-        mToWorld.mult(objpos);
-
-        mToWorld.mult(getAxisOfRotation(), wUp);
+        mToWorld  .mult(getAxisOfRotation(), wUp);
 
         vDir = eyepos - objpos;
 
@@ -337,8 +336,8 @@ ActionBase::ResultE Billboard::intersectEnter(Action *action)
     Pnt3f pos;
     Vec3f dir;
 
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
+    m.multFull(ia->getLine().getPosition (), pos);
+    m.mult    (ia->getLine().getDirection(), dir);
 
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
@@ -354,8 +353,8 @@ ActionBase::ResultE Billboard::intersectLeave(Action *action)
     Pnt3f pos;
     Vec3f dir;
 
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
+    m.multFull(ia->getLine().getPosition (), pos);
+    m.mult    (ia->getLine().getDirection(), dir);
 
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());

@@ -201,7 +201,7 @@ void SimpleShadowMapEngine::setupCamera(Light         *pLight,
         {
             Matrix m = pLight->getBeacon()->getToWorld();
             
-            m.mult(lightdir);
+            m.mult(lightdir, lightdir);
         }
         
         MatrixLookAt(transMatrix,
@@ -255,7 +255,7 @@ void SimpleShadowMapEngine::setupCamera(Light         *pLight,
         {
             Matrix m = pLight->getBeacon()->getToWorld();
             
-            m.mult(lightpos);
+            m.mult(lightpos, lightpos);
         }
         
         

@@ -330,8 +330,8 @@ bool Camera::calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port)
 
     Pnt3f from, at;
 
-    cctowc.multFullMatrixPnt(Pnt3f(rx, ry, -1), from);
-    cctowc.multFullMatrixPnt(Pnt3f(rx, ry,  1), at);
+    cctowc.multFull(Pnt3f(rx, ry, -1), from);
+    cctowc.multFull(Pnt3f(rx, ry,  1), at  );
 
     line.setValue(from, at-from);
 

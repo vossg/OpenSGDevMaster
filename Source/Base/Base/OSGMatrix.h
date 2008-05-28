@@ -88,8 +88,10 @@ class TransformationMatrix
     typedef VectorInterface<ValueTypeT,
                             VecStorage3<ValueTypeT> > VectorType3f;
 
-    typedef PointInterface<ValueTypeT,
-                           VecStorage3<ValueTypeT>  > PointType3f;
+    typedef PointInterface <ValueTypeT,
+                            VecStorage4<ValueTypeT>  > PointType;
+    typedef PointInterface <ValueTypeT,
+                            VecStorage3<ValueTypeT>  > PointType3f;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -297,42 +299,18 @@ class TransformationMatrix
     /*---------------------------------------------------------------------*/
     /*! \name                   Transform                                  */
     /*! \{                                                                 */
-
-    void multMatrixPnt    (const PointType3f  &src,
-                                 PointType3f  &dst) const;
-    void multMatrixPnt    (      PointType3f  &pnt) const;
-    void multFullMatrixPnt(const PointType3f  &src,
-                                 PointType3f  &dst) const;
-    void multFullMatrixPnt(      PointType3f  &pnt) const;
-
-    void multMatrixVec    (const VectorType3f &src,
-                                 VectorType3f &dst) const;
-    void multMatrixVec    (      VectorType3f &vec) const;
-
-    void mult             (const PointType3f  &src,
-                                 PointType3f  &dst) const;
-    void mult             (      PointType3f  &vec) const;
-    void mult             (const VectorType3f &src,
-                                 VectorType3f &dst) const;
-    void mult             (      VectorType3f &vec) const;
-
-
-    void multPntMatrix    (const PointType3f  &src,
-                                 PointType3f  &dst) const;
-    void multPntMatrix    (      PointType3f  &pnt) const;
-    void multPntFullMatrix(const PointType3f  &src,
-                                 PointType3f  &dst) const;
-    void multPntFullMatrix(      PointType3f  &pnt) const;
-
-    void multVecMatrix    (const VectorType3f &src,
-                                 VectorType3f &dst) const;
-    void multVecMatrix    (      VectorType3f &vec) const;
-
-
-    void multMatrixVec    (const VectorType &src,
-                                 VectorType &dst) const;
-    void multMatrixVec    (      VectorType &vec) const;
-
+    
+    void mult    (const PointType    &pntIn, PointType    &pntOut) const;
+    void multFull(const PointType3f  &pntIn, PointType3f  &pntOut) const;
+    void mult    (const PointType3f  &pntIn, PointType3f  &pntOut) const;
+    
+    void mult    (const VectorType   &vecIn, VectorType   &vecOut) const;
+    void multFull(const VectorType3f &vecIn, VectorType3f &vecOut) const;
+    void mult    (const VectorType3f &vecIn, VectorType3f &vecOut) const;
+    
+    void mult3x3 (const PointType3f  &pntIn, PointType3f  &pntOut) const;
+    void mult3x3 (const VectorType3f &vecIn, VectorType3f &vecOut) const;
+       
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Math                                       */
@@ -476,6 +454,30 @@ class TransformationMatrix
 
     static TransformationMatrix _identityMatrix;
 };
+
+template <class ValueTypeT>
+typename TransformationMatrix<ValueTypeT>::PointType
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::PointType    &pnt    );
+             
+template <class ValueTypeT>
+typename TransformationMatrix<ValueTypeT>::PointType3f
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::PointType3f  &pnt    );
+             
+template <class ValueTypeT>
+typename TransformationMatrix<ValueTypeT>::VectorType
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::VectorType   &vec    );
+
+template <class ValueTypeT>
+typename TransformationMatrix<ValueTypeT>::VectorType3f
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::VectorType3f &vec    );
 
 /*! \var typedef TransformationMatrix<Real32> Matrix4f;
     \brief Matrix4f

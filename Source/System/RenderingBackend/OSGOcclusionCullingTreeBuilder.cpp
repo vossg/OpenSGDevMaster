@@ -412,8 +412,8 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode *pNode, DrawEnv &denv,
         for(UInt32 i = 0; i<8;i++)
         {
            // std::cout << p[i] << "=>";
-            denv.getObjectToWorld().mult(p[i]);
-            _worldToScreen.multFullMatrixPnt(p[i]);
+            denv.getObjectToWorld().mult    (p[i], p[i]);
+            _worldToScreen         .multFull(p[i], p[i]);
             //std::cout << p[i] << "  ";
         }
         min=p[0];

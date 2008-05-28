@@ -517,8 +517,8 @@ void TrackballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
 
     Pnt3f at,to;
 
-    cctowc.multFullMatrixPnt( Pnt3f( 0, 0, 0.5f ), to );
-    cctowc.multFullMatrixPnt( Pnt3f( 0, 0, 1    ), at );
+    cctowc.multFull( Pnt3f( 0, 0, 0.5f ), to );
+    cctowc.multFull( Pnt3f( 0, 0, 1    ), at );
 
     _dir = to - at;
 
@@ -557,7 +557,7 @@ void TrackballEngine::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
     Real32 ry = 1.f - ( toY / Real32(vp->getPixelHeight()) ) * 2.f;
 
     Pnt3f at;
-    cctowc.multFullMatrixPnt( Pnt3f( rx, ry, 1 ), at );
+    cctowc.multFull( Pnt3f( rx, ry, 1 ), at );
 
     Line line2;
     line2.setValue(from, at-from);
@@ -572,7 +572,7 @@ void TrackballEngine::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
     transl[1] = -p2[1] + _ip[1];
     transl[2] = -p2[2] + _ip[2];
 
-    view.multMatrixVec(transl);
+    view.mult(transl, transl);
 
     distanceX = transl[0];
     distanceY = transl[1];

@@ -475,7 +475,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     for (UInt32 i=0; i<pos->getSize(); i++)
                                     {
                                         Pnt3f p=pos->getValue(i);
-                                        m.multFullMatrixPnt(p);
+                                        m.multFull(p, p);
                                         pos->setValue(p,i);
                                     }
                                 }
@@ -485,7 +485,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     for (UInt32 i=0; i<norm->getSize(); i++)
                                     {
                                         Vec3f n=norm->getValue(i);
-                                        m.multMatrixVec(n);
+                                        m.mult(n, n);
                                         n.normalize();
                                         norm->setValue(n,i);
                                     }
@@ -498,7 +498,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                         Color3f c = color->getValue(i);
                                         Vec3f v;
                                         v.setValue(c.getValuesRGB());
-                                        m.multMatrixVec(v);
+                                        m.mult(v, v);
                                         v.normalize();
                                         c.setValuesRGB(v[0], v[1], v[2]);
                                         color->setValue(c,i);
@@ -512,7 +512,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                         Color3f c = scolor->getValue(i);
                                         Vec3f v;
                                         v.setValue(c.getValuesRGB());
-                                        m.multMatrixVec(v);
+                                        m.mult(v, v);
                                         v.normalize();
                                         c.setValuesRGB(v[0], v[1], v[2]);
                                         scolor->setValue(c,i);
@@ -524,7 +524,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     for (UInt32 i=0; i<texcoord0->getSize(); i++)
                                     {
                                         Vec3f v=texcoord0->getValue(i);
-                                        m.multMatrixVec(v);
+                                        m.mult(v, v);
                                         v.normalize();
                                         texcoord0->setValue(v,i);
                                     }
@@ -535,7 +535,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     for (UInt32 i=0; i<texcoord1->getSize(); i++)
                                     {
                                         Vec3f v=texcoord1->getValue(i);
-                                        m.multMatrixVec(v);
+                                        m.mult(v, v);
                                         v.normalize();
                                         texcoord1->setValue(v,i);
                                     }
@@ -546,7 +546,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     for (UInt32 i=0; i<texcoord2->getSize(); i++)
                                     {
                                         Vec3f v=texcoord2->getValue(i);
-                                        m.multMatrixVec(v);
+                                        m.mult(v, v);
                                         v.normalize();
                                         texcoord2->setValue(v,i);
                                     }
@@ -557,7 +557,7 @@ void MergeGraphOp::processTransformations(Node * const node)
                                     for (UInt32 i=0; i<texcoord3->getSize(); i++)
                                     {
                                         Vec3f v=texcoord3->getValue(i);
-                                        m.multMatrixVec(v);
+                                        m.mult(v, v);
                                         v.normalize();
                                         texcoord3->setValue(v,i);
                                     }

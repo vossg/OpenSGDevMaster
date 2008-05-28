@@ -124,8 +124,8 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
             
             for(UInt32 i = 0; i<8;i++)
             {
-                ra->topMatrix().mult(p[i]);
-                worldToScreen.multFullMatrixPnt(p[i]);
+                ra->topMatrix().mult    (p[i], p[i]);
+                worldToScreen  .multFull(p[i], p[i]);
             }
             min=p[0];
             max=p[0];

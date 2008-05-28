@@ -1464,13 +1464,13 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
 }
 
 /*---------------------------- transform objects ---------------------------*/
-
+#if 0
 /*! \brief Multiplies matrix by given column point, where the resulting point
     is given
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multMatrixPnt(
+void TransformationMatrix<ValueTypeT>::XmultMatrixPnt(
     const PointType3f &src,
           PointType3f &dst) const
 {
@@ -1491,7 +1491,7 @@ void TransformationMatrix<ValueTypeT>::multMatrixPnt(
 //! Multiplies matrix by given column point
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multMatrixPnt(PointType3f &pnt) const
+void TransformationMatrix<ValueTypeT>::XmultMatrixPnt(PointType3f &pnt) const
 {
     multMatrixPnt(pnt, pnt);
 }
@@ -1501,7 +1501,7 @@ void TransformationMatrix<ValueTypeT>::multMatrixPnt(PointType3f &pnt) const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(
+void TransformationMatrix<ValueTypeT>::XmultFullMatrixPnt(
     const PointType3f &src,
           PointType3f &dst) const
 {
@@ -1540,7 +1540,7 @@ void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(
 //! Multiplies matrix by given column point. The full (4x4) matrix is used.
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(PointType3f &pnt)const
+void TransformationMatrix<ValueTypeT>::XmultFullMatrixPnt(PointType3f &pnt)const
 {
     multFullMatrixPnt(pnt, pnt);
 }
@@ -1550,7 +1550,7 @@ void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(PointType3f &pnt)const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multMatrixVec(
+void TransformationMatrix<ValueTypeT>::XmultMatrixVec(
     const VectorType3f &src,
           VectorType3f &dst) const
 {
@@ -1569,7 +1569,7 @@ void TransformationMatrix<ValueTypeT>::multMatrixVec(
 //! Multiplies matrix by given column vector
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multMatrixVec(VectorType3f &vec) const
+void TransformationMatrix<ValueTypeT>::XmultMatrixVec(VectorType3f &vec) const
 {
     multMatrixVec(vec, vec);
 }
@@ -1579,7 +1579,7 @@ void TransformationMatrix<ValueTypeT>::multMatrixVec(VectorType3f &vec) const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multMatrixVec(
+void TransformationMatrix<ValueTypeT>::XmultMatrixVec(
     const VectorType &src,
           VectorType &dst) const
 {
@@ -1605,7 +1605,7 @@ void TransformationMatrix<ValueTypeT>::multMatrixVec(
 //! Multiplies matrix by given column vector
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multMatrixVec(VectorType &vec) const
+void TransformationMatrix<ValueTypeT>::XmultMatrixVec(VectorType &vec) const
 {
     multMatrixVec(vec, vec);
 }
@@ -1615,7 +1615,7 @@ void TransformationMatrix<ValueTypeT>::multMatrixVec(VectorType &vec) const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::mult(const PointType3f &src,
+void TransformationMatrix<ValueTypeT>::Xmult(const PointType3f &src,
                                                   PointType3f &dest) const
 {
     multMatrixPnt(src, dest);
@@ -1624,7 +1624,7 @@ void TransformationMatrix<ValueTypeT>::mult(const PointType3f &src,
 //! Transforms the given point by the matrix
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::mult(PointType3f &pnt) const
+void TransformationMatrix<ValueTypeT>::Xmult(PointType3f &pnt) const
 {
     multMatrixPnt(pnt, pnt);
 }
@@ -1634,7 +1634,7 @@ void TransformationMatrix<ValueTypeT>::mult(PointType3f &pnt) const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::mult(const VectorType3f &src,
+void TransformationMatrix<ValueTypeT>::Xmult(const VectorType3f &src,
                                                   VectorType3f &dest) const
 {
     multMatrixVec(src, dest);
@@ -1643,7 +1643,7 @@ void TransformationMatrix<ValueTypeT>::mult(const VectorType3f &src,
 //! Transforms the given vector by the matrix
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::mult(VectorType3f &vec) const
+void TransformationMatrix<ValueTypeT>::Xmult(VectorType3f &vec) const
 {
     multMatrixVec(vec, vec);
 }
@@ -1655,28 +1655,28 @@ void TransformationMatrix<ValueTypeT>::mult(VectorType3f &vec) const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multPntMatrix(
+void TransformationMatrix<ValueTypeT>::XmultPntMatrix(
     const PointType3f &src,
           PointType3f &dst) const
 {
     dst.setValues((src[0] * _matrix[0][0] +
                    src[1] * _matrix[0][1] +
                    src[2] * _matrix[0][2] +
-                            _matrix[0][3]),
+                            _matrix[0][3]  ),
                   (src[0] * _matrix[1][0] +
                    src[1] * _matrix[1][1] +
                    src[2] * _matrix[1][2] +
-                            _matrix[1][3]),
+                            _matrix[1][3]  ),
                   (src[0] * _matrix[2][0] +
                    src[1] * _matrix[2][1] +
                    src[2] * _matrix[2][2] +
-                            _matrix[2][3]));
+                            _matrix[2][3]  ) );
 }
 
 //! Multiplies given row point by matrix (pT * M)
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multPntMatrix(PointType3f &pnt) const
+void TransformationMatrix<ValueTypeT>::XmultPntMatrix(PointType3f &pnt) const
 {
     multPntMatrix(pnt, pnt);
 }
@@ -1686,7 +1686,7 @@ void TransformationMatrix<ValueTypeT>::multPntMatrix(PointType3f &pnt) const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multPntFullMatrix(
+void TransformationMatrix<ValueTypeT>::XmultPntFullMatrix(
     const PointType3f &src,
           PointType3f &dst) const
 {
@@ -1709,21 +1709,21 @@ void TransformationMatrix<ValueTypeT>::multPntFullMatrix(
     dst.setValues((src[0] * _matrix[0][0] +
                    src[1] * _matrix[0][1] +
                    src[2] * _matrix[0][2] +
-                            _matrix[0][3]) * w,
+                            _matrix[0][3]  ) * w,
                   (src[0] * _matrix[1][0] +
                    src[1] * _matrix[1][1] +
                    src[2] * _matrix[1][2] +
-                            _matrix[1][3]) * w,
+                            _matrix[1][3]  ) * w,
                   (src[0] * _matrix[2][0] +
                    src[1] * _matrix[2][1] +
                    src[2] * _matrix[2][2] +
-                            _matrix[2][3]) * w);
+                            _matrix[2][3]  ) * w);
 }
 
 //! Multiplies given row point by matrix. The full (4x4) matrix is used (pT*M).
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multPntFullMatrix(PointType3f &pnt)const
+void TransformationMatrix<ValueTypeT>::XmultPntFullMatrix(PointType3f &pnt)const
 {
     multPntFullMatrix(pnt, pnt);
 }
@@ -1733,27 +1733,283 @@ void TransformationMatrix<ValueTypeT>::multPntFullMatrix(PointType3f &pnt)const
 */
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multVecMatrix(
+void TransformationMatrix<ValueTypeT>::XmultVecMatrix(
     const VectorType3f &src,
           VectorType3f &dst) const
 {
     dst.setValues((src[0] * _matrix[0][0] +
                    src[1] * _matrix[0][1] +
-                   src[2] * _matrix[0][2]),
+                   src[2] * _matrix[0][2]  ),
                   (src[0] * _matrix[1][0] +
                    src[1] * _matrix[1][1] +
-                   src[2] * _matrix[1][2]),
+                   src[2] * _matrix[1][2]  ),
                   (src[0] * _matrix[2][0] +
                    src[1] * _matrix[2][1] +
-                   src[2] * _matrix[2][2]));
+                   src[2] * _matrix[2][2]  ) );
 }
 
 //! Multiplies given row vector by matrix
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::multVecMatrix(VectorType3f &vec) const
+void TransformationMatrix<ValueTypeT>::XmultVecMatrix(VectorType3f &vec) const
 {
     multVecMatrix(vec, vec);
+}
+#endif
+
+/*! Multiply the point \a pIn by this complete 4x4 matrix and store
+    the result in \a pntOut.
+
+    \note The resulting point can have a \c w coordinate different from 1.
+    \note It is valid for parameters to be aliased, i.e. &pntIn == &pntOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::mult(
+        const PointType &pntIn, PointType &pntOut) const
+{
+    pntOut.setValues(
+        (_matrix[0][0] * pntIn[0] +
+         _matrix[1][0] * pntIn[1] +
+         _matrix[2][0] * pntIn[2] +
+         _matrix[3][0] * pntIn[3]  ),
+        (_matrix[0][1] * pntIn[0] +
+         _matrix[1][1] * pntIn[1] +
+         _matrix[2][1] * pntIn[2] +
+         _matrix[3][1] * pntIn[3]  ),
+        (_matrix[0][2] * pntIn[0] +
+         _matrix[1][2] * pntIn[1] +
+         _matrix[2][2] * pntIn[2] +
+         _matrix[3][2] * pntIn[3]  ),
+        (_matrix[0][3] * pntIn[0] +
+         _matrix[1][3] * pntIn[1] +
+         _matrix[2][3] * pntIn[2] +
+         _matrix[3][3] * pntIn[3]  ) );
+}
+
+/*! Multiply the 3 point \a pntIn by this complete 4x4 matrix and store
+    the result in \a pntOut.
+
+    \note Both \a pntIn and \a pntOut are treated as having w = 1 and
+          \a pntOut is scaled correctly to satisfy this.          
+    \note It is valid for parameters to be aliased, i.e. &pntIn == &pntOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::multFull(
+        const PointType3f &pntIn, PointType3f  &pntOut) const
+{
+    ValueType w = _matrix[0][3] * pntIn[0] +
+                  _matrix[1][3] * pntIn[1] +
+                  _matrix[2][3] * pntIn[2] +
+                  _matrix[3][3];
+                  
+    if(w == TypeTraits<ValueType>::getZeroElement())
+    {
+        FWARNING(("TransformationMatrix<>::multFull(Pnt3, Pnt3): w == 0.0\n"));
+    
+        pntOut.setValues(
+            (_matrix[0][0] * pntIn[0] +
+             _matrix[1][0] * pntIn[1] +
+             _matrix[2][0] * pntIn[2] +
+             _matrix[3][0]             ),
+            (_matrix[0][1] * pntIn[0] +
+             _matrix[1][1] * pntIn[1] +
+             _matrix[2][1] * pntIn[2] +
+             _matrix[3][1]             ),
+            (_matrix[0][2] * pntIn[0] +
+             _matrix[1][2] * pntIn[1] +
+             _matrix[2][2] * pntIn[2] +
+             _matrix[3][2]             ) );
+    }
+    else
+    {
+        w = TypeTraits<ValueType>::getOneElement() / w;
+        
+        pntOut.setValues(
+            (_matrix[0][0] * pntIn[0] +
+             _matrix[1][0] * pntIn[1] +
+             _matrix[2][0] * pntIn[2] +
+             _matrix[3][0]             ) * w,
+            (_matrix[0][1] * pntIn[0] +
+             _matrix[1][1] * pntIn[1] +
+             _matrix[2][1] * pntIn[2] +
+             _matrix[3][1]             ) * w,
+            (_matrix[0][2] * pntIn[0] +
+             _matrix[1][2] * pntIn[1] +
+             _matrix[2][2] * pntIn[2] +
+             _matrix[3][2]             ) * w );
+    }
+}
+
+/*! Multiply the 3 point \a pntIn by this matrix (considering only the 3x4 part)
+    and store the result in \a pntOut.
+    
+    \note \a pntIn is treated as having w = 1.
+    \note It is valid for parameters to be aliased, i.e. &pntIn == &pntOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::mult(
+        const PointType3f &pntIn, PointType3f &pntOut) const
+{
+    pntOut.setValues(
+        (_matrix[0][0] * pntIn[0] +
+         _matrix[1][0] * pntIn[1] +
+         _matrix[2][0] * pntIn[2] +
+         _matrix[3][0]             ),
+        (_matrix[0][1] * pntIn[0] +
+         _matrix[1][1] * pntIn[1] +
+         _matrix[2][1] * pntIn[2] +
+         _matrix[3][1]             ),
+        (_matrix[0][2] * pntIn[0] +
+         _matrix[1][2] * pntIn[1] +
+         _matrix[2][2] * pntIn[2] +
+         _matrix[3][2]             ) );
+        
+}
+    
+/*! Multiply the vector \a vecIn by this complete 4x4 matrix and store
+    the result in \a vecOut.
+    
+    \note The resulting vector can have a \c w coordinate different from 1.
+    \note It is valid for parameters to be aliased, i.e. &vecIn == &vecOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::mult(
+        const VectorType &vecIn, VectorType &vecOut) const
+{
+    vecOut.setValues(
+        (_matrix[0][0] * vecIn[0] +
+         _matrix[1][0] * vecIn[1] +
+         _matrix[2][0] * vecIn[2]  ),
+        (_matrix[0][1] * vecIn[0] +
+         _matrix[1][1] * vecIn[1] +
+         _matrix[2][1] * vecIn[2]  ),
+        (_matrix[0][2] * vecIn[0] +
+         _matrix[1][2] * vecIn[1] +
+         _matrix[2][2] * vecIn[2]  ),
+        (_matrix[0][3] * vecIn[0] +
+         _matrix[1][3] * vecIn[1] +
+         _matrix[2][3] * vecIn[2] +
+         _matrix[3][3] * vecIn[3]  ) );
+}
+
+/*! Multiply the 3 vector \a vecIn by this complete 4x4 matrix and store
+    the result in \a vecOut.
+    
+    \note Both \a vecIn and \a vecOut are treated as having w = 0, so actually
+          only the 4x3 part of this matrix is applied.
+    \note It is valid for parameters to be aliased, i.e. &vecIn == &vecOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::multFull(
+        const VectorType3f &vecIn, VectorType3f &vecOut) const
+{
+    ValueType w = _matrix[0][3] * vecIn[0] +
+                  _matrix[1][3] * vecIn[1] +
+                  _matrix[2][3] * vecIn[2];    
+
+    if(w == TypeTraits<ValueType>::getZeroElement())
+    {
+        FWARNING(("TransformationMatrix<>::multFull(Vec3, Vec3): w == 0.0\n"));
+    
+        vecOut.setValues(
+            (_matrix[0][0] * vecIn[0] +
+             _matrix[1][0] * vecIn[1] +
+             _matrix[2][0] * vecIn[2]  ),
+            (_matrix[0][1] * vecIn[0] +
+             _matrix[1][1] * vecIn[1] +
+             _matrix[2][1] * vecIn[2]  ),
+            (_matrix[0][2] * vecIn[0] +
+             _matrix[1][2] * vecIn[1] +
+             _matrix[2][2] * vecIn[2]  ) );
+    }
+    else
+    {
+        w = TypeTraits<ValueType>::getOneElement() / w;
+        
+        vecOut.setValues(
+            (_matrix[0][0] * vecIn[0] +
+             _matrix[1][0] * vecIn[1] +
+             _matrix[2][0] * vecIn[2]  ) * w,
+            (_matrix[0][1] * vecIn[0] +
+             _matrix[1][1] * vecIn[1] +
+             _matrix[2][1] * vecIn[2]  ) * w,
+            (_matrix[0][2] * vecIn[0] +
+             _matrix[1][2] * vecIn[1] +
+             _matrix[2][2] * vecIn[2]  ) * w );
+    }
+}
+
+/*! Multiply the 3 vector \a vecIn by this matrix (considering only the 3x4 part)
+    and store the result in \a vecOut.
+    
+    \note \a vecIn is treated as having w = 1, so actually only the 3x3 part
+          of this matrix is applied.
+    \note It is valid for parameters to be aliased, i.e. &vecIn == &vecOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::mult(
+        const VectorType3f &vecIn, VectorType3f &vecOut) const
+{
+    vecOut.setValues(
+        (_matrix[0][0] * vecIn[0] +
+         _matrix[1][0] * vecIn[1] +
+         _matrix[2][0] * vecIn[2]  ),
+        (_matrix[0][1] * vecIn[0] +
+         _matrix[1][1] * vecIn[1] +
+         _matrix[2][1] * vecIn[2]  ),
+        (_matrix[0][2] * vecIn[0] +
+         _matrix[1][2] * vecIn[1] +
+         _matrix[2][2] * vecIn[2]  ) );
+}
+
+/*! Multiply the 3 point \a pntIn by the 3x3 part of this matrix and store
+    the result in \a pntOut.
+    
+    \note It is valid for parameters to be aliased, i.e. &pntIn == &pntOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::mult3x3(
+        const PointType3f &pntIn, PointType3f &pntOut) const
+{
+    pntOut.setValues(
+        (_matrix[0][0] * pntIn[0] +
+         _matrix[1][0] * pntIn[1] +
+         _matrix[2][0] * pntIn[2]  ),
+        (_matrix[0][1] * pntIn[0] +
+         _matrix[1][1] * pntIn[1] +
+         _matrix[2][1] * pntIn[2]  ),
+        (_matrix[0][2] * pntIn[0] +
+         _matrix[1][2] * pntIn[1] +
+         _matrix[2][2] * pntIn[2]  ) );
+}
+
+/*! Multiply the 3 vector \a vecIn by the 3x3 part of this matrix and store
+    the result in \a vecOut.
+    
+    \note It is valid for parameters to be aliased, i.e. &vecIn == &vecOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::mult3x3(
+        const VectorType3f &vecIn, VectorType3f &vecOut) const
+{
+    vecOut.setValues(
+        (_matrix[0][0] * vecIn[0] +
+         _matrix[1][0] * vecIn[1] +
+         _matrix[2][0] * vecIn[2]  ),
+        (_matrix[0][1] * vecIn[0] +
+         _matrix[1][1] * vecIn[1] +
+         _matrix[2][1] * vecIn[2]  ),
+        (_matrix[0][2] * vecIn[0] +
+         _matrix[1][2] * vecIn[1] +
+         _matrix[2][2] * vecIn[2]  ) );
 }
 
 /*---------------------------- simple math ---------------------------------*/
@@ -3059,6 +3315,59 @@ bool TransformationMatrix<ValueTypeT>::operator != (
 
 /*-------------------------------------------------------------------------*/
 /*                               Functions                                 */
+
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::PointType
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::PointType    &pnt    )
+{
+    typename TransformationMatrix<ValueTypeT>::PointType pntOut;
+    
+    matrix.mult(pnt, pntOut);
+    
+    return pntOut;
+}
+             
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::PointType3f
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::PointType3f  &pnt    )
+{
+    typename TransformationMatrix<ValueTypeT>::PointType3f pntOut;
+    
+    matrix.mult(pnt, pntOut);
+    
+    return pntOut;
+}
+             
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::VectorType
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::VectorType   &vec    )
+{
+    typename TransformationMatrix<ValueTypeT>::VectorType vecOut;
+    
+    matrix.mult(vec, vecOut);
+    
+    return vecOut;
+}
+
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::VectorType3f
+    operator *(
+        const          TransformationMatrix<ValueTypeT>               &matrix,
+        const typename TransformationMatrix<ValueTypeT>::VectorType3f &vec    )
+{
+    typename TransformationMatrix<ValueTypeT>::VectorType3f vecOut;
+    
+    matrix.mult(vec, vecOut);
+    
+    return vecOut;
+}
+
 
 //! write matrix to stream
 

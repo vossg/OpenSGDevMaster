@@ -186,8 +186,8 @@ ActionBase::ResultE Transform::intersectEnter(Action *action)
     Pnt3f pos;
     Vec3f dir;
 
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
+    m.multFull(ia->getLine().getPosition (), pos);
+    m.mult    (ia->getLine().getDirection(), dir);
     
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
@@ -203,8 +203,8 @@ ActionBase::ResultE Transform::intersectLeave(Action *action)
     Pnt3f pos;
     Vec3f dir;
 
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
+    m.multFull(ia->getLine().getPosition (), pos);
+    m.mult    (ia->getLine().getDirection(), dir);
     
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
@@ -226,8 +226,8 @@ NewActionTypes::ResultE Transform::intersectActorEnter(
 
     matrix.invert();
 
-    matrix.multFullMatrixPnt(pIA->getRay().getPosition (), pos);
-    matrix.multMatrixVec    (pIA->getRay().getDirection(), dir);
+    matrix.multFull(pIA->getRay().getPosition (), pos);
+    matrix.mult    (pIA->getRay().getDirection(), dir);
 
     transLine.setValue(pos, dir);
 
@@ -252,8 +252,8 @@ NewActionTypes::ResultE Transform::intersectActorLeave(
           Pnt3f     pos;
           Vec3f     dir;
 
-    matrix.multFullMatrixPnt(pIA->getRay().getPosition (), pos);
-    matrix.multMatrixVec    (pIA->getRay().getDirection(), dir);
+    matrix.multFull(pIA->getRay().getPosition (), pos);
+    matrix.mult    (pIA->getRay().getDirection(), dir);
 
     pIA->beginEditState();
     {

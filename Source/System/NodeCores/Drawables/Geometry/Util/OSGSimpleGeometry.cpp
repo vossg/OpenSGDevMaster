@@ -825,7 +825,7 @@ GeometryTransitPtr makeSphereGeo(UInt16 depth, Real32 radius)
     mat.setTransform(q);
 
     for (j=0; j<12; j++)
-        mat.mult(v[j]);
+        mat.mult(v[j], v[j]);
 
     Int32 tr[20][3] = { {1,4,0},  {4,9,0},  {4,5,9},  {8,5,4},  {1,8,4},
                         {1,10,8}, {10,3,8}, {8,3,5},  {3,2,5},  {3,7,2},
@@ -2157,14 +2157,14 @@ points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3],
         for(i = 0; i < 3; ++i)
         {
             /* multiply power vectors times matrix to get value */
-            mgm[i].multMatrixVec(sp, tcoord);
+            mgm[i].mult(sp, tcoord);
             vert[num_vert][i] = tcoord.dot(tp);
 
             /* get s and t tangent vectors */
-            mgm[i].multMatrixVec(dsp, tcoord);
+            mgm[i].mult(dsp, tcoord);
             sdir[i] = tcoord.dot(tp);
 
-            mgm[i].multMatrixVec(sp, tcoord);
+            mgm[i].mult(sp, tcoord);
             tdir[i] = tcoord.dot(dtp);
         }
 

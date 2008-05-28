@@ -2707,7 +2707,7 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
                 sorterList[len]._index = (*(indices))[i];
 
                 pos->getValue(p,i);                
-                camera.mult(p);      
+                camera.mult(p, p);      
                 sorterList[len]._value = p[2];
 
                 len++;
@@ -2720,7 +2720,7 @@ Int32 *Particles::calcIndex(DrawEnv *pEnv,
                 sorterList[len]._index = i;         
 
                 pos->getValue(p,i);       
-                camera.mult(p);      
+                camera.mult(p, p);      
                 sorterList[len]._value = p[2];
 
                 len++;

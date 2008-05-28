@@ -582,7 +582,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
         actNode->getVolume().getCenter(objPos);
         
-        _currMatrix.second.mult(objPos);
+        _currMatrix.second.mult(objPos, objPos);
         
         pNewElem->setNode       (&*actNode);
         pNewElem->setFunctor    ( func      );
@@ -631,7 +631,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
         //_oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
         
-        //_currMatrix.second.mult(objPos);
+        //_currMatrix.second.mult(objPos, objPos);
 
         DynamicVolume     objVol;
 
@@ -653,7 +653,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
         for(UInt32 i = 0; i < 8; i++)
         {
-            _currMatrix.second.mult(p[i]);
+            _currMatrix.second.mult(p[i], p[i]);
         }
 
         objPos = p[0];

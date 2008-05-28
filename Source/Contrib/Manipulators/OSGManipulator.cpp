@@ -376,7 +376,7 @@ Pnt2f Manipulator::calcScreenProjection(const Pnt3f    &       p,
         wctocc.mult(projtrans);
         wctocc.mult(view);
 
-        wctocc.multFullMatrixPnt(p, pnt);
+        wctocc.multFull(p, pnt);
 
         Real32 rx = (pnt[0] + 1.0) /2 * port->getPixelWidth();
         Real32 ry = (pnt[1] + 1.0) /2 * port->getPixelHeight();

@@ -182,8 +182,8 @@ Action::ResultE InverseTransform::intersectEnter(Action *action)
     Pnt3f pos;
     Vec3f dir;
 
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
+    m.multFull(ia->getLine().getPosition (), pos);
+    m.mult    (ia->getLine().getDirection(), dir);
 
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
@@ -199,8 +199,8 @@ Action::ResultE InverseTransform::intersectLeave(Action *action)
     Pnt3f pos;
     Vec3f dir;
 
-    m.multFullMatrixPnt(ia->getLine().getPosition (), pos);
-    m.multMatrixVec    (ia->getLine().getDirection(), dir);
+    m.multFull(ia->getLine().getPosition (), pos);
+    m.mult    (ia->getLine().getDirection(), dir);
 
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());

@@ -51,7 +51,7 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
     Pnt3f            eyepos(0.f, 0.f, 0.f);
     Pnt3f            objpos;
 
-    ra->getActivePartition()->getCameraToWorld().mult(eyepos);
+    ra->getActivePartition()->getCameraToWorld().mult(eyepos, eyepos);
 
     ra->topMatrix().mult(getCenter(), objpos);
         

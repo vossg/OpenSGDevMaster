@@ -257,9 +257,9 @@ bool ImageComposer::getScreenAlignedBBox(Node     *node,
     // create corners of a bounding box
     for(int i=0;i<8;++i)
     {
-        p->multFullMatrixPnt(Pnt3f( vol[ (i   )&1 ][0] ,
-                                    vol[ (i>>1)&1 ][1] ,
-                                    vol[ (i>>2)&1 ][2]) , pnt);
+        p->multFull(Pnt3f( vol[ (i   )&1 ][0] ,
+                           vol[ (i>>1)&1 ][1] ,
+                           vol[ (i>>2)&1 ][2]) , pnt);
         if(i>0)
         {
             if(minx > pnt[0]) minx = pnt[0];
