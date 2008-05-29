@@ -126,8 +126,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         DecorateeFieldId, DecorateeFieldMask,
         true,
         @!DecorateeFieldFlags!@,
-        static_cast<FieldEditMethodSig>(&@!Classname!@Base::editHandleDecoratee),
-        static_cast<FieldGetMethodSig >(&@!Classname!@Base::getHandleDecoratee ));
+        static_cast<FieldEditMethodSig>(&@!Classname!@::editHandleDecoratee),
+        static_cast<FieldGetMethodSig >(&@!Classname!@::getHandleDecoratee ));
 
     oType.addInitialDesc(pDesc);
     @@else // isDecorator
@@ -141,11 +141,11 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         @!field.Visibility!@,
         @!field.Flags!@,
     @@if !field.noAccess
-        static_cast<FieldEditMethodSig>(&@!Classname!@Base::editHandle@!field.Name!@),
-        static_cast<FieldGetMethodSig >(&@!Classname!@Base::getHandle@!field.Name!@));
+        static_cast<FieldEditMethodSig>(&@!Classname!@::editHandle@!field.Name!@),
+        static_cast<FieldGetMethodSig >(&@!Classname!@::getHandle@!field.Name!@));
     @@else  //!field.noAccess
-        static_cast     <FieldEditMethodSig>(&@!Classname!@Base::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&@!Classname!@Base::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&@!Classname!@::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&@!Classname!@::invalidGetField));
     @@endif //!field.noAccess
 
     oType.addInitialDesc(pDesc);
