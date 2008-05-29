@@ -102,8 +102,8 @@ void InlineBase::classDescInserter(TypeObject &oType)
         UrlFieldId, UrlFieldMask,
         true,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&InlineBase::editHandleUrl),
-        static_cast<FieldGetMethodSig >(&InlineBase::getHandleUrl));
+        static_cast<FieldEditMethodSig>(&Inline::editHandleUrl),
+        static_cast<FieldGetMethodSig >(&Inline::getHandleUrl));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void InlineBase::classDescInserter(TypeObject &oType)
         LoadedFieldId, LoadedFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&InlineBase::editHandleLoaded),
-        static_cast<FieldGetMethodSig >(&InlineBase::getHandleLoaded));
+        static_cast<FieldEditMethodSig>(&Inline::editHandleLoaded),
+        static_cast<FieldGetMethodSig >(&Inline::getHandleLoaded));
 
     oType.addInitialDesc(pDesc);
 }

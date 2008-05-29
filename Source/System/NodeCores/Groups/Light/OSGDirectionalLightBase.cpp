@@ -99,8 +99,8 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DirectionalLightBase::editHandleDirection),
-        static_cast<FieldGetMethodSig >(&DirectionalLightBase::getHandleDirection));
+        static_cast<FieldEditMethodSig>(&DirectionalLight::editHandleDirection),
+        static_cast<FieldGetMethodSig >(&DirectionalLight::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
 }

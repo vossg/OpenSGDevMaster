@@ -137,8 +137,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilFuncFieldId, StencilFuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilFunc),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilFunc));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleStencilFunc),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleStencilFunc));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilValueFieldId, StencilValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilValue),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilValue));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleStencilValue),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleStencilValue));
 
     oType.addInitialDesc(pDesc);
 
@@ -163,8 +163,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilMaskFieldId, StencilMaskFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilMask),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilMask));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleStencilMask),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleStencilMask));
 
     oType.addInitialDesc(pDesc);
 
@@ -176,8 +176,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilOpFailFieldId, StencilOpFailFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilOpFail),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilOpFail));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleStencilOpFail),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleStencilOpFail));
 
     oType.addInitialDesc(pDesc);
 
@@ -189,8 +189,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilOpZFailFieldId, StencilOpZFailFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilOpZFail),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilOpZFail));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleStencilOpZFail),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleStencilOpZFail));
 
     oType.addInitialDesc(pDesc);
 
@@ -202,8 +202,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         StencilOpZPassFieldId, StencilOpZPassFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleStencilOpZPass),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleStencilOpZPass));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleStencilOpZPass),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleStencilOpZPass));
 
     oType.addInitialDesc(pDesc);
 
@@ -214,8 +214,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         ClearBufferFieldId, ClearBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleClearBuffer),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleClearBuffer));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleClearBuffer),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleClearBuffer));
 
     oType.addInitialDesc(pDesc);
 
@@ -226,8 +226,8 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
         BitMaskFieldId, BitMaskFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StencilChunkBase::editHandleBitMask),
-        static_cast<FieldGetMethodSig >(&StencilChunkBase::getHandleBitMask));
+        static_cast<FieldEditMethodSig>(&StencilChunk::editHandleBitMask),
+        static_cast<FieldGetMethodSig >(&StencilChunk::getHandleBitMask));
 
     oType.addInitialDesc(pDesc);
 }

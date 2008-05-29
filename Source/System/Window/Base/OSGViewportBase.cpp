@@ -176,8 +176,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleLeft),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -190,8 +190,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleRight),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleRight));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleRight),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleRight));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleBottom),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -218,8 +218,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleTop),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleTop));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleTop),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -230,8 +230,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         ParentFieldId, ParentFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ViewportBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&ViewportBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&Viewport::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&Viewport::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -242,8 +242,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleCamera),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleCamera));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -254,8 +254,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleRoot),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -266,8 +266,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleBackground),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleBackground));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleBackground),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
 
@@ -278,8 +278,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleForegrounds),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleForegrounds));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleForegrounds),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleForegrounds));
 
     oType.addInitialDesc(pDesc);
 
@@ -290,8 +290,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         TravMaskFieldId, TravMaskFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleTravMask),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleTravMask));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleTravMask),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleTravMask));
 
     oType.addInitialDesc(pDesc);
 
@@ -302,8 +302,8 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         DrawTimeFieldId, DrawTimeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ViewportBase::editHandleDrawTime),
-        static_cast<FieldGetMethodSig >(&ViewportBase::getHandleDrawTime));
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleDrawTime),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleDrawTime));
 
     oType.addInitialDesc(pDesc);
 }

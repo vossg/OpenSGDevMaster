@@ -146,8 +146,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         SrcFactorFieldId, SrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleSrcFactor),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleSrcFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleSrcFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleSrcFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         DestFactorFieldId, DestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleDestFactor),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleDestFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleDestFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleDestFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -170,8 +170,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleEquation),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleEquation));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleEquation),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleEquation));
 
     oType.addInitialDesc(pDesc);
 
@@ -182,8 +182,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleColor),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleColor),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -195,8 +195,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaFuncFieldId, AlphaFuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaFunc),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaFunc));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaFunc),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaFunc));
 
     oType.addInitialDesc(pDesc);
 
@@ -207,8 +207,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaValueFieldId, AlphaValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaValue),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaValue));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaValue),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaValue));
 
     oType.addInitialDesc(pDesc);
 
@@ -221,8 +221,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaSrcFactorFieldId, AlphaSrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaSrcFactor),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaSrcFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaSrcFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaSrcFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -235,8 +235,8 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         AlphaDestFactorFieldId, AlphaDestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BlendChunkBase::editHandleAlphaDestFactor),
-        static_cast<FieldGetMethodSig >(&BlendChunkBase::getHandleAlphaDestFactor));
+        static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaDestFactor),
+        static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaDestFactor));
 
     oType.addInitialDesc(pDesc);
 }

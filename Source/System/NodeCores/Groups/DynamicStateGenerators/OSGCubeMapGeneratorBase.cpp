@@ -143,8 +143,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleRoot),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -155,8 +155,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         ExcludeFieldId, ExcludeFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleExclude),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleExclude));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleExclude),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleExclude));
 
     oType.addInitialDesc(pDesc);
 
@@ -167,8 +167,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleTexture),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleTexture));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTexture),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -179,8 +179,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         TextureSizeFieldId, TextureSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleTextureSize),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleTextureSize));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTextureSize),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTextureSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -191,8 +191,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         TextureFormatFieldId, TextureFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleTextureFormat),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleTextureFormat));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTextureFormat),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTextureFormat));
 
     oType.addInitialDesc(pDesc);
 
@@ -203,8 +203,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleBeacon),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 
@@ -215,8 +215,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         OriginFieldId, OriginFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleOrigin),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleOrigin));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleOrigin),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleOrigin));
 
     oType.addInitialDesc(pDesc);
 
@@ -227,8 +227,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         OriginModeFieldId, OriginModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleOriginMode),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleOriginMode));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleOriginMode),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleOriginMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -239,8 +239,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         TexUnitFieldId, TexUnitFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleTexUnit),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleTexUnit));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTexUnit),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTexUnit));
 
     oType.addInitialDesc(pDesc);
 
@@ -251,8 +251,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         SetupModeFieldId, SetupModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleSetupMode),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleSetupMode));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleSetupMode),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleSetupMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -263,8 +263,8 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeMapGeneratorBase::editHandleBackground),
-        static_cast<FieldGetMethodSig >(&CubeMapGeneratorBase::getHandleBackground));
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleBackground),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
 }

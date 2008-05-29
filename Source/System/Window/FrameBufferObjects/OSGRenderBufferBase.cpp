@@ -105,8 +105,8 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&RenderBuffer::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&RenderBuffer::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -117,8 +117,8 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderBufferBase::editHandleInternalFormat),
-        static_cast<FieldGetMethodSig >(&RenderBufferBase::getHandleInternalFormat));
+        static_cast<FieldEditMethodSig>(&RenderBuffer::editHandleInternalFormat),
+        static_cast<FieldGetMethodSig >(&RenderBuffer::getHandleInternalFormat));
 
     oType.addInitialDesc(pDesc);
 }

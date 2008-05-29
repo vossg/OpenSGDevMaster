@@ -137,8 +137,8 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         CenterFieldId, CenterFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleCenter),
-        static_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleCenter));
+        static_cast<FieldEditMethodSig>(&DistanceLOD::editHandleCenter),
+        static_cast<FieldGetMethodSig >(&DistanceLOD::getHandleCenter));
 
     oType.addInitialDesc(pDesc);
 
@@ -149,8 +149,8 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         RangeFieldId, RangeFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DistanceLODBase::editHandleRange),
-        static_cast<FieldGetMethodSig >(&DistanceLODBase::getHandleRange));
+        static_cast<FieldEditMethodSig>(&DistanceLOD::editHandleRange),
+        static_cast<FieldGetMethodSig >(&DistanceLOD::getHandleRange));
 
     oType.addInitialDesc(pDesc);
 }

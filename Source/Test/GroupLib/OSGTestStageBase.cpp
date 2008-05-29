@@ -98,8 +98,8 @@ void TestStageBase::classDescInserter(TypeObject &oType)
         MessageFieldId, MessageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TestStageBase::editHandleMessage),
-        static_cast<FieldGetMethodSig >(&TestStageBase::getHandleMessage));
+        static_cast<FieldEditMethodSig>(&TestStage::editHandleMessage),
+        static_cast<FieldGetMethodSig >(&TestStage::getHandleMessage));
 
     oType.addInitialDesc(pDesc);
 }

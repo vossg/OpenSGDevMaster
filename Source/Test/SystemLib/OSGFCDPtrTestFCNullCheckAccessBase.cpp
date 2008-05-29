@@ -254,8 +254,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_ptrFieldId, FieldSFPub_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPub_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPub_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -266,8 +266,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_weakptrFieldId, FieldSFPub_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPub_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPub_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -278,8 +278,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_mpchildptrFieldId, FieldSFPub_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPub_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPub_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -290,8 +290,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_ptrFieldId, FieldSFPro_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPro_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPro_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -302,8 +302,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_weakptrFieldId, FieldSFPro_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPro_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPro_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -314,8 +314,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_mpchildptrFieldId, FieldSFPro_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPro_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPro_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -326,8 +326,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_ptrFieldId, FieldSFPri_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPri_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPri_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPri_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPri_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -338,8 +338,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_weakptrFieldId, FieldSFPri_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPri_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPri_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPri_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPri_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -350,8 +350,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_mpchildptrFieldId, FieldSFPri_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPri_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPri_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPri_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPri_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -362,8 +362,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_ptrFieldId, FieldSFNo_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -374,8 +374,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_weakptrFieldId, FieldSFNo_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -386,8 +386,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_mpchildptrFieldId, FieldSFNo_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -398,8 +398,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_ptrFieldId, FieldMFPub_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPub_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPub_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -410,8 +410,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_weakptrFieldId, FieldMFPub_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPub_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPub_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -422,8 +422,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_mpchildptrFieldId, FieldMFPub_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPub_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPub_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -434,8 +434,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_ptrFieldId, FieldMFPro_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPro_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPro_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -446,8 +446,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_weakptrFieldId, FieldMFPro_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPro_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPro_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -458,8 +458,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_mpchildptrFieldId, FieldMFPro_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPro_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPro_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -470,8 +470,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_ptrFieldId, FieldMFPri_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPri_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPri_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPri_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPri_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -482,8 +482,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_weakptrFieldId, FieldMFPri_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPri_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPri_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPri_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPri_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -494,8 +494,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_mpchildptrFieldId, FieldMFPri_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPri_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPri_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPri_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPri_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -506,8 +506,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_ptrFieldId, FieldMFNo_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -518,8 +518,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_weakptrFieldId, FieldMFNo_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -530,8 +530,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_mpchildptrFieldId, FieldMFNo_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -542,8 +542,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_spchildptrFieldId, FieldSFPub_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPub_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPub_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -554,8 +554,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_spchildptrFieldId, FieldSFPro_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPro_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPro_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -566,8 +566,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_spchildptrFieldId, FieldSFPri_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPri_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPri_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldSFPri_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldSFPri_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -578,8 +578,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_spchildptrFieldId, FieldSFNo_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -590,8 +590,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_spchildptrFieldId, FieldMFPub_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPub_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPub_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -602,8 +602,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_spchildptrFieldId, FieldMFPro_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPro_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPro_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -614,8 +614,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_spchildptrFieldId, FieldMFPri_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPri_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPri_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::editHandleFieldMFPri_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::getHandleFieldMFPri_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -626,8 +626,8 @@ void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_spchildptrFieldId, FieldMFNo_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCNullCheckAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCNullCheckAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }

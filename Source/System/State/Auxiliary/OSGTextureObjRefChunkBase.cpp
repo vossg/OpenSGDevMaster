@@ -98,8 +98,8 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&TextureObjRefChunk::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&TextureObjRefChunk::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }

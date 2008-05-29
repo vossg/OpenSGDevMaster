@@ -107,8 +107,8 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         GroupNodesFieldId, GroupNodesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortLastWindowBase::editHandleGroupNodes),
-        static_cast<FieldGetMethodSig >(&SortLastWindowBase::getHandleGroupNodes));
+        static_cast<FieldEditMethodSig>(&SortLastWindow::editHandleGroupNodes),
+        static_cast<FieldGetMethodSig >(&SortLastWindow::getHandleGroupNodes));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         GroupLengthsFieldId, GroupLengthsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortLastWindowBase::editHandleGroupLengths),
-        static_cast<FieldGetMethodSig >(&SortLastWindowBase::getHandleGroupLengths));
+        static_cast<FieldEditMethodSig>(&SortLastWindow::editHandleGroupLengths),
+        static_cast<FieldGetMethodSig >(&SortLastWindow::getHandleGroupLengths));
 
     oType.addInitialDesc(pDesc);
 
@@ -131,8 +131,8 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         GroupsChangedFieldId, GroupsChangedFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortLastWindowBase::editHandleGroupsChanged),
-        static_cast<FieldGetMethodSig >(&SortLastWindowBase::getHandleGroupsChanged));
+        static_cast<FieldEditMethodSig>(&SortLastWindow::editHandleGroupsChanged),
+        static_cast<FieldGetMethodSig >(&SortLastWindow::getHandleGroupsChanged));
 
     oType.addInitialDesc(pDesc);
 }

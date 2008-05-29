@@ -102,8 +102,8 @@ void MaterialGroupBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialGroupBase::editHandleMaterial),
-        static_cast<FieldGetMethodSig >(&MaterialGroupBase::getHandleMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialGroup::editHandleMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialGroup::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 }

@@ -106,8 +106,8 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
         SubTreeRootFieldId, SubTreeRootFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&VisitSubTreeBase::editHandleSubTreeRoot),
-        static_cast<FieldGetMethodSig >(&VisitSubTreeBase::getHandleSubTreeRoot));
+        static_cast<FieldEditMethodSig>(&VisitSubTree::editHandleSubTreeRoot),
+        static_cast<FieldGetMethodSig >(&VisitSubTree::getHandleSubTreeRoot));
 
     oType.addInitialDesc(pDesc);
 }

@@ -114,8 +114,8 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         HServersFieldId, HServersFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editHandleHServers),
-        static_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getHandleHServers));
+        static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleHServers),
+        static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleHServers));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         VServersFieldId, VServersFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editHandleVServers),
-        static_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getHandleVServers));
+        static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleVServers),
+        static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleVServers));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         ManageClientViewportsFieldId, ManageClientViewportsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editHandleManageClientViewports),
-        static_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getHandleManageClientViewports));
+        static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleManageClientViewports),
+        static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleManageClientViewports));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         XOverlapFieldId, XOverlapFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editHandleXOverlap),
-        static_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getHandleXOverlap));
+        static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleXOverlap),
+        static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleXOverlap));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         YOverlapFieldId, YOverlapFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MultiDisplayWindowBase::editHandleYOverlap),
-        static_cast<FieldGetMethodSig >(&MultiDisplayWindowBase::getHandleYOverlap));
+        static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleYOverlap),
+        static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleYOverlap));
 
     oType.addInitialDesc(pDesc);
 }

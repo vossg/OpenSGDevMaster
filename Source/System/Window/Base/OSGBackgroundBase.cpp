@@ -123,8 +123,8 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         ClearStencilBitFieldId, ClearStencilBitFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearStencilBit),
-        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearStencilBit));
+        static_cast<FieldEditMethodSig>(&Background::editHandleClearStencilBit),
+        static_cast<FieldGetMethodSig >(&Background::getHandleClearStencilBit));
 
     oType.addInitialDesc(pDesc);
 
@@ -135,8 +135,8 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         DepthFieldId, DepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleDepth),
-        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleDepth));
+        static_cast<FieldEditMethodSig>(&Background::editHandleDepth),
+        static_cast<FieldGetMethodSig >(&Background::getHandleDepth));
 
     oType.addInitialDesc(pDesc);
 
@@ -147,8 +147,8 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         ClearDepthFieldId, ClearDepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearDepth),
-        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearDepth));
+        static_cast<FieldEditMethodSig>(&Background::editHandleClearDepth),
+        static_cast<FieldGetMethodSig >(&Background::getHandleClearDepth));
 
     oType.addInitialDesc(pDesc);
 
@@ -159,8 +159,8 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         ClearColorFieldId, ClearColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BackgroundBase::editHandleClearColor),
-        static_cast<FieldGetMethodSig >(&BackgroundBase::getHandleClearColor));
+        static_cast<FieldEditMethodSig>(&Background::editHandleClearColor),
+        static_cast<FieldGetMethodSig >(&Background::getHandleClearColor));
 
     oType.addInitialDesc(pDesc);
 }

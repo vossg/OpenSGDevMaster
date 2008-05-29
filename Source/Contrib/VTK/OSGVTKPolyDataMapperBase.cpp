@@ -144,8 +144,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleRoot),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -156,8 +156,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         GeoRootsFieldId, GeoRootsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleGeoRoots),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleGeoRoots));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleGeoRoots),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleGeoRoots));
 
     oType.addInitialDesc(pDesc);
 
@@ -168,8 +168,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         GeometriesFieldId, GeometriesFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleGeometries),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleGeometries));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleGeometries),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleGeometries));
 
     oType.addInitialDesc(pDesc);
 
@@ -180,8 +180,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleMaterials),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleMaterials));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleMaterials),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 
@@ -192,8 +192,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         MaterialChunksFieldId, MaterialChunksFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleMaterialChunks),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleMaterialChunks));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleMaterialChunks),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleMaterialChunks));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandlePositions),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -216,8 +216,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         LengthFieldId, LengthFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleLength),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleLength));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleLength),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleLength));
 
     oType.addInitialDesc(pDesc);
 
@@ -228,8 +228,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         TypesFieldId, TypesFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleTypes),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleTypes));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleTypes),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleTypes));
 
     oType.addInitialDesc(pDesc);
 
@@ -240,8 +240,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         ColorsFieldId, ColorsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleColors),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleColors));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleColors),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleColors));
 
     oType.addInitialDesc(pDesc);
 
@@ -252,8 +252,8 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         NormalsFieldId, NormalsFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&VTKPolyDataMapperBase::editHandleNormals),
-        static_cast<FieldGetMethodSig >(&VTKPolyDataMapperBase::getHandleNormals));
+        static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleNormals),
+        static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleNormals));
 
     oType.addInitialDesc(pDesc);
 }

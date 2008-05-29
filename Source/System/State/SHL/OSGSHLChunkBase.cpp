@@ -146,8 +146,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         CgFrontEndFieldId, CgFrontEndFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleCgFrontEnd),
-        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleCgFrontEnd));
+        static_cast<FieldEditMethodSig>(&SHLChunk::editHandleCgFrontEnd),
+        static_cast<FieldGetMethodSig >(&SHLChunk::getHandleCgFrontEnd));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         PointSizeFieldId, PointSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandlePointSize),
-        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandlePointSize));
+        static_cast<FieldEditMethodSig>(&SHLChunk::editHandlePointSize),
+        static_cast<FieldGetMethodSig >(&SHLChunk::getHandlePointSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -170,8 +170,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         ProgramParameterNamesFieldId, ProgramParameterNamesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterNames),
-        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterNames));
+        static_cast<FieldEditMethodSig>(&SHLChunk::editHandleProgramParameterNames),
+        static_cast<FieldGetMethodSig >(&SHLChunk::getHandleProgramParameterNames));
 
     oType.addInitialDesc(pDesc);
 
@@ -182,8 +182,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         ProgramParameterValuesFieldId, ProgramParameterValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleProgramParameterValues),
-        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleProgramParameterValues));
+        static_cast<FieldEditMethodSig>(&SHLChunk::editHandleProgramParameterValues),
+        static_cast<FieldGetMethodSig >(&SHLChunk::getHandleProgramParameterValues));
 
     oType.addInitialDesc(pDesc);
 
@@ -194,8 +194,8 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&SHLChunkBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&SHLChunkBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&SHLChunk::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&SHLChunk::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }

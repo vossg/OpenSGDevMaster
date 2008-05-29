@@ -129,8 +129,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         TypesFieldId, TypesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleTypes),
-        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleTypes));
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleTypes),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleTypes));
 
     oType.addInitialDesc(pDesc);
 
@@ -142,8 +142,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         LengthsFieldId, LengthsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleLengths),
-        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleLengths));
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleLengths),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleLengths));
 
     oType.addInitialDesc(pDesc);
 
@@ -155,8 +155,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         PropertiesFieldId, PropertiesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleProperties),
-        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleProperties));
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleProperties),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleProperties));
 
     oType.addInitialDesc(pDesc);
 
@@ -168,8 +168,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         PropIndicesFieldId, PropIndicesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeometryBase::editHandlePropIndices),
-        static_cast<FieldGetMethodSig >(&GeometryBase::getHandlePropIndices));
+        static_cast<FieldEditMethodSig>(&Geometry::editHandlePropIndices),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandlePropIndices));
 
     oType.addInitialDesc(pDesc);
 
@@ -180,8 +180,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         ClassicGLIdFieldId, ClassicGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleClassicGLId),
-        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleClassicGLId));
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleClassicGLId),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleClassicGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -192,8 +192,8 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         AttGLIdFieldId, AttGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&GeometryBase::editHandleAttGLId),
-        static_cast<FieldGetMethodSig >(&GeometryBase::getHandleAttGLId));
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleAttGLId),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleAttGLId));
 
     oType.addInitialDesc(pDesc);
 }

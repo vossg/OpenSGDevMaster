@@ -138,8 +138,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleAmbient),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleAmbient));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleAmbient),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleDiffuse),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleDiffuse));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleDiffuse),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleSpecular),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleSpecular));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleSpecular),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleShininess),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleShininess));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleShininess),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleShininess));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         EmissionFieldId, EmissionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleEmission),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleEmission));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleEmission),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleEmission));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         TransparencyFieldId, TransparencyFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleTransparency),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleTransparency));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleTransparency),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleTransparency));
 
     oType.addInitialDesc(pDesc);
 
@@ -210,8 +210,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         LitFieldId, LitFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleLit),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleLit));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleLit),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleLit));
 
     oType.addInitialDesc(pDesc);
 
@@ -222,8 +222,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleMaterialBase::editHandleColorMaterial),
-        static_cast<FieldGetMethodSig >(&SimpleMaterialBase::getHandleColorMaterial));
+        static_cast<FieldEditMethodSig>(&SimpleMaterial::editHandleColorMaterial),
+        static_cast<FieldGetMethodSig >(&SimpleMaterial::getHandleColorMaterial));
 
     oType.addInitialDesc(pDesc);
 }

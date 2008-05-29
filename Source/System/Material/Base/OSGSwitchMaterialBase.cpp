@@ -104,8 +104,8 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleMaterials),
-        static_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleMaterials));
+        static_cast<FieldEditMethodSig>(&SwitchMaterial::editHandleMaterials),
+        static_cast<FieldGetMethodSig >(&SwitchMaterial::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 
@@ -116,8 +116,8 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SwitchMaterialBase::editHandleChoice),
-        static_cast<FieldGetMethodSig >(&SwitchMaterialBase::getHandleChoice));
+        static_cast<FieldEditMethodSig>(&SwitchMaterial::editHandleChoice),
+        static_cast<FieldGetMethodSig >(&SwitchMaterial::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 }

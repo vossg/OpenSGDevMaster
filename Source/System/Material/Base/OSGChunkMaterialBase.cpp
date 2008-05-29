@@ -111,8 +111,8 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleChunks),
-        static_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleChunks));
+        static_cast<FieldEditMethodSig>(&ChunkMaterial::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&ChunkMaterial::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 
@@ -123,8 +123,8 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         SlotsFieldId, SlotsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ChunkMaterialBase::editHandleSlots),
-        static_cast<FieldGetMethodSig >(&ChunkMaterialBase::getHandleSlots));
+        static_cast<FieldEditMethodSig>(&ChunkMaterial::editHandleSlots),
+        static_cast<FieldGetMethodSig >(&ChunkMaterial::getHandleSlots));
 
     oType.addInitialDesc(pDesc);
 }

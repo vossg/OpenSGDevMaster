@@ -98,8 +98,8 @@ void ShaderParameterBoolBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderParameterBoolBase::editHandleValue),
-        static_cast<FieldGetMethodSig >(&ShaderParameterBoolBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterBool::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterBool::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }

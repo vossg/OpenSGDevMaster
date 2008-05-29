@@ -109,8 +109,8 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
         CoverageOverrideFieldId, CoverageOverrideFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ScreenLODBase::editHandleCoverageOverride),
-        static_cast<FieldGetMethodSig >(&ScreenLODBase::getHandleCoverageOverride));
+        static_cast<FieldEditMethodSig>(&ScreenLOD::editHandleCoverageOverride),
+        static_cast<FieldGetMethodSig >(&ScreenLOD::getHandleCoverageOverride));
 
     oType.addInitialDesc(pDesc);
 }

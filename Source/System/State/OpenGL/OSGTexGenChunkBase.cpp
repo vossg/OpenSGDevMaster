@@ -163,8 +163,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncSFieldId, GenFuncSFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncS),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncS));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncS),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncS));
 
     oType.addInitialDesc(pDesc);
 
@@ -175,8 +175,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncTFieldId, GenFuncTFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncT),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncT));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncT),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncT));
 
     oType.addInitialDesc(pDesc);
 
@@ -187,8 +187,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncRFieldId, GenFuncRFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncR),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncR));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncR),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncR));
 
     oType.addInitialDesc(pDesc);
 
@@ -199,8 +199,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncQFieldId, GenFuncQFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncQ),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncQ));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncQ),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncQ));
 
     oType.addInitialDesc(pDesc);
 
@@ -211,8 +211,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncSPlaneFieldId, GenFuncSPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncSPlane),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncSPlane));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncSPlane),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncSPlane));
 
     oType.addInitialDesc(pDesc);
 
@@ -223,8 +223,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncTPlaneFieldId, GenFuncTPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncTPlane),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncTPlane));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncTPlane),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncTPlane));
 
     oType.addInitialDesc(pDesc);
 
@@ -235,8 +235,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncRPlaneFieldId, GenFuncRPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncRPlane),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncRPlane));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncRPlane),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncRPlane));
 
     oType.addInitialDesc(pDesc);
 
@@ -247,8 +247,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         GenFuncQPlaneFieldId, GenFuncQPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleGenFuncQPlane),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleGenFuncQPlane));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncQPlane),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncQPlane));
 
     oType.addInitialDesc(pDesc);
 
@@ -259,8 +259,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         SBeaconFieldId, SBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleSBeacon),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleSBeacon));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleSBeacon),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleSBeacon));
 
     oType.addInitialDesc(pDesc);
 
@@ -271,8 +271,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         TBeaconFieldId, TBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleTBeacon),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleTBeacon));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleTBeacon),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleTBeacon));
 
     oType.addInitialDesc(pDesc);
 
@@ -283,8 +283,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         RBeaconFieldId, RBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleRBeacon),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleRBeacon));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleRBeacon),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleRBeacon));
 
     oType.addInitialDesc(pDesc);
 
@@ -295,8 +295,8 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         QBeaconFieldId, QBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TexGenChunkBase::editHandleQBeacon),
-        static_cast<FieldGetMethodSig >(&TexGenChunkBase::getHandleQBeacon));
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleQBeacon),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleQBeacon));
 
     oType.addInitialDesc(pDesc);
 }

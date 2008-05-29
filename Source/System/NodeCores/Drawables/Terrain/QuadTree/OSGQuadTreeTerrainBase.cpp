@@ -192,8 +192,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightDataFieldId, HeightDataFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleHeightData),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleHeightData));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleHeightData),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleHeightData));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightScaleFieldId, HeightScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleHeightScale),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleHeightScale));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleHeightScale),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleHeightScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -216,8 +216,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightErrorFieldId, HeightErrorFieldMask,
         true,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleHeightError),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleHeightError));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleHeightError),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleHeightError));
 
     oType.addInitialDesc(pDesc);
 
@@ -228,8 +228,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightQuadFieldId, HeightQuadFieldMask,
         true,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleHeightQuad),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleHeightQuad));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleHeightQuad),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleHeightQuad));
 
     oType.addInitialDesc(pDesc);
 
@@ -240,8 +240,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -252,8 +252,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         LevelFieldId, LevelFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleLevel),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleLevel));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleLevel),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleLevel));
 
     oType.addInitialDesc(pDesc);
 
@@ -264,8 +264,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         DetailFieldId, DetailFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleDetail),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleDetail));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleDetail),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleDetail));
 
     oType.addInitialDesc(pDesc);
 
@@ -276,8 +276,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         BorderDetailFieldId, BorderDetailFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleBorderDetail),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleBorderDetail));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleBorderDetail),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleBorderDetail));
 
     oType.addInitialDesc(pDesc);
 
@@ -288,8 +288,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         VertexSpacingFieldId, VertexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleVertexSpacing),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleVertexSpacing));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleVertexSpacing),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleVertexSpacing));
 
     oType.addInitialDesc(pDesc);
 
@@ -300,8 +300,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         HeightVerticesFieldId, HeightVerticesFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleHeightVertices),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleHeightVertices));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleHeightVertices),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleHeightVertices));
 
     oType.addInitialDesc(pDesc);
 
@@ -312,8 +312,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         GeoMorphingFieldId, GeoMorphingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleGeoMorphing),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleGeoMorphing));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleGeoMorphing),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleGeoMorphing));
 
     oType.addInitialDesc(pDesc);
 
@@ -324,8 +324,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         BoundMinFieldId, BoundMinFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleBoundMin),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleBoundMin));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleBoundMin),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleBoundMin));
 
     oType.addInitialDesc(pDesc);
 
@@ -336,8 +336,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         BoundMaxFieldId, BoundMaxFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleBoundMax),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleBoundMax));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleBoundMax),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleBoundMax));
 
     oType.addInitialDesc(pDesc);
 
@@ -348,8 +348,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         EyePointFieldId, EyePointFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleEyePoint),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleEyePoint));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleEyePoint),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleEyePoint));
 
     oType.addInitialDesc(pDesc);
 
@@ -360,8 +360,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         EyeHeightFieldId, EyeHeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleEyeHeight),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleEyeHeight));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleEyeHeight),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleEyeHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -372,8 +372,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         EyePointValidFieldId, EyePointValidFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleEyePointValid),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleEyePointValid));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleEyePointValid),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleEyePointValid));
 
     oType.addInitialDesc(pDesc);
 
@@ -384,8 +384,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         OriginXFieldId, OriginXFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleOriginX),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleOriginX));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleOriginX),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleOriginX));
 
     oType.addInitialDesc(pDesc);
 
@@ -396,8 +396,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         OriginYFieldId, OriginYFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleOriginY),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleOriginY));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleOriginY),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleOriginY));
 
     oType.addInitialDesc(pDesc);
 
@@ -408,8 +408,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         OriginTexXFieldId, OriginTexXFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleOriginTexX),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleOriginTexX));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleOriginTexX),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleOriginTexX));
 
     oType.addInitialDesc(pDesc);
 
@@ -420,8 +420,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         OriginTexYFieldId, OriginTexYFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleOriginTexY),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleOriginTexY));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleOriginTexY),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleOriginTexY));
 
     oType.addInitialDesc(pDesc);
 
@@ -432,8 +432,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         TexSpacingFieldId, TexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleTexSpacing),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleTexSpacing));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleTexSpacing),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleTexSpacing));
 
     oType.addInitialDesc(pDesc);
 
@@ -444,8 +444,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         TexYSpacingFieldId, TexYSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleTexYSpacing),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleTexYSpacing));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleTexYSpacing),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleTexYSpacing));
 
     oType.addInitialDesc(pDesc);
 
@@ -456,8 +456,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         UpdateTerrainFieldId, UpdateTerrainFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandleUpdateTerrain),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandleUpdateTerrain));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandleUpdateTerrain),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandleUpdateTerrain));
 
     oType.addInitialDesc(pDesc);
 
@@ -468,8 +468,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         PerPixelLightingFieldId, PerPixelLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&QuadTreeTerrainBase::editHandlePerPixelLighting),
-        static_cast<FieldGetMethodSig >(&QuadTreeTerrainBase::getHandlePerPixelLighting));
+        static_cast<FieldEditMethodSig>(&QuadTreeTerrain::editHandlePerPixelLighting),
+        static_cast<FieldGetMethodSig >(&QuadTreeTerrain::getHandlePerPixelLighting));
 
     oType.addInitialDesc(pDesc);
 }

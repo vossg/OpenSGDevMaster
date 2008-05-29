@@ -126,8 +126,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldSFPubFieldId, FieldSFPubFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFCBase::editHandleFieldSFPub),
-        static_cast<FieldGetMethodSig >(&FCDTestFCBase::getHandleFieldSFPub));
+        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldSFPub),
+        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldSFPub));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldSFProFieldId, FieldSFProFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFCBase::editHandleFieldSFPro),
-        static_cast<FieldGetMethodSig >(&FCDTestFCBase::getHandleFieldSFPro));
+        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldSFPro),
+        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldSFPro));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldSFPriFieldId, FieldSFPriFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFCBase::editHandleFieldSFPri),
-        static_cast<FieldGetMethodSig >(&FCDTestFCBase::getHandleFieldSFPri));
+        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldSFPri),
+        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldSFPri));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldSFNoFieldId, FieldSFNoFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDTestFCBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDTestFCBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDTestFC::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDTestFC::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldMFPubFieldId, FieldMFPubFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFCBase::editHandleFieldMFPub),
-        static_cast<FieldGetMethodSig >(&FCDTestFCBase::getHandleFieldMFPub));
+        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldMFPub),
+        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldMFPub));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldMFProFieldId, FieldMFProFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFCBase::editHandleFieldMFPro),
-        static_cast<FieldGetMethodSig >(&FCDTestFCBase::getHandleFieldMFPro));
+        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldMFPro),
+        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldMFPro));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldMFPriFieldId, FieldMFPriFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFCBase::editHandleFieldMFPri),
-        static_cast<FieldGetMethodSig >(&FCDTestFCBase::getHandleFieldMFPri));
+        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldMFPri),
+        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldMFPri));
 
     oType.addInitialDesc(pDesc);
 
@@ -210,8 +210,8 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         FieldMFNoFieldId, FieldMFNoFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDTestFCBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDTestFCBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDTestFC::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDTestFC::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }

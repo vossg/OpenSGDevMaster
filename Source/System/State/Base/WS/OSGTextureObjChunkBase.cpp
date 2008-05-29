@@ -266,8 +266,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleImage),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleImage));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleImage),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -278,8 +278,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleInternalFormat),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleInternalFormat));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleInternalFormat),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleInternalFormat));
 
     oType.addInitialDesc(pDesc);
 
@@ -292,8 +292,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         ExternalFormatFieldId, ExternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleExternalFormat),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleExternalFormat));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleExternalFormat),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleExternalFormat));
 
     oType.addInitialDesc(pDesc);
 
@@ -308,8 +308,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         ScaleFieldId, ScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleScale),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleScale));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleScale),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -322,8 +322,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleFrame),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleFrame));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleFrame),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleFrame));
 
     oType.addInitialDesc(pDesc);
 
@@ -334,8 +334,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         MinFilterFieldId, MinFilterFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleMinFilter),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleMinFilter));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleMinFilter),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleMinFilter));
 
     oType.addInitialDesc(pDesc);
 
@@ -346,8 +346,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         MagFilterFieldId, MagFilterFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleMagFilter),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleMagFilter));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleMagFilter),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleMagFilter));
 
     oType.addInitialDesc(pDesc);
 
@@ -358,8 +358,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         WrapSFieldId, WrapSFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleWrapS),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleWrapS));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleWrapS),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleWrapS));
 
     oType.addInitialDesc(pDesc);
 
@@ -370,8 +370,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         WrapTFieldId, WrapTFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleWrapT),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleWrapT));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleWrapT),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleWrapT));
 
     oType.addInitialDesc(pDesc);
 
@@ -382,8 +382,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         WrapRFieldId, WrapRFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleWrapR),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleWrapR));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleWrapR),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleWrapR));
 
     oType.addInitialDesc(pDesc);
 
@@ -394,8 +394,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -406,8 +406,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         IgnoreGLForAspectFieldId, IgnoreGLForAspectFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleIgnoreGLForAspect),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleIgnoreGLForAspect));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleIgnoreGLForAspect),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleIgnoreGLForAspect));
 
     oType.addInitialDesc(pDesc);
 
@@ -418,8 +418,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         PriorityFieldId, PriorityFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandlePriority),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandlePriority));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandlePriority),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandlePriority));
 
     oType.addInitialDesc(pDesc);
 
@@ -432,8 +432,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DirtyLeftFieldId, DirtyLeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDirtyLeft),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDirtyLeft));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDirtyLeft),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDirtyLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -446,8 +446,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DirtyMinXFieldId, DirtyMinXFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDirtyMinX),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDirtyMinX));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDirtyMinX),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDirtyMinX));
 
     oType.addInitialDesc(pDesc);
 
@@ -460,8 +460,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DirtyMaxXFieldId, DirtyMaxXFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDirtyMaxX),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDirtyMaxX));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDirtyMaxX),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDirtyMaxX));
 
     oType.addInitialDesc(pDesc);
 
@@ -474,8 +474,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DirtyMinYFieldId, DirtyMinYFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDirtyMinY),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDirtyMinY));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDirtyMinY),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDirtyMinY));
 
     oType.addInitialDesc(pDesc);
 
@@ -488,8 +488,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DirtyMaxYFieldId, DirtyMaxYFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDirtyMaxY),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDirtyMaxY));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDirtyMaxY),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDirtyMaxY));
 
     oType.addInitialDesc(pDesc);
 
@@ -502,8 +502,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DirtyMinZFieldId, DirtyMinZFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDirtyMinZ),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDirtyMinZ));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDirtyMinZ),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDirtyMinZ));
 
     oType.addInitialDesc(pDesc);
 
@@ -516,8 +516,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DirtyMaxZFieldId, DirtyMaxZFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDirtyMaxZ),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDirtyMaxZ));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDirtyMaxZ),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDirtyMaxZ));
 
     oType.addInitialDesc(pDesc);
 
@@ -528,8 +528,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         AnisotropyFieldId, AnisotropyFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleAnisotropy),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleAnisotropy));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleAnisotropy),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleAnisotropy));
 
     oType.addInitialDesc(pDesc);
 
@@ -540,8 +540,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         BorderColorFieldId, BorderColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleBorderColor),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleBorderColor));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleBorderColor),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleBorderColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -552,8 +552,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         CompareModeFieldId, CompareModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleCompareMode),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleCompareMode));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleCompareMode),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleCompareMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -564,8 +564,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         CompareFuncFieldId, CompareFuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleCompareFunc),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleCompareFunc));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleCompareFunc),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleCompareFunc));
 
     oType.addInitialDesc(pDesc);
 
@@ -576,8 +576,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         DepthModeFieldId, DepthModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleDepthMode),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleDepthMode));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleDepthMode),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleDepthMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -588,8 +588,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         BorderWidthFieldId, BorderWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleBorderWidth),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleBorderWidth));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleBorderWidth),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleBorderWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -600,8 +600,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         NPOTMatrixScaleFieldId, NPOTMatrixScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleNPOTMatrixScale),
-        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleNPOTMatrixScale));
+        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleNPOTMatrixScale),
+        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleNPOTMatrixScale));
 
     oType.addInitialDesc(pDesc);
 }

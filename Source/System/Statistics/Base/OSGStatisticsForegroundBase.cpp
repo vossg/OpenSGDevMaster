@@ -122,8 +122,8 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ElementIDsFieldId, ElementIDsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleElementIDs),
-        static_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleElementIDs));
+        static_cast<FieldEditMethodSig>(&StatisticsForeground::editHandleElementIDs),
+        static_cast<FieldGetMethodSig >(&StatisticsForeground::getHandleElementIDs));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         CollectorFieldId, CollectorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StatisticsForegroundBase::editHandleCollector),
-        static_cast<FieldGetMethodSig >(&StatisticsForegroundBase::getHandleCollector));
+        static_cast<FieldEditMethodSig>(&StatisticsForeground::editHandleCollector),
+        static_cast<FieldGetMethodSig >(&StatisticsForeground::getHandleCollector));
 
     oType.addInitialDesc(pDesc);
 }

@@ -102,8 +102,8 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         VerticalSizeFieldId, VerticalSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleVerticalSize),
-        static_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleVerticalSize));
+        static_cast<FieldEditMethodSig>(&OrthographicCamera::editHandleVerticalSize),
+        static_cast<FieldGetMethodSig >(&OrthographicCamera::getHandleVerticalSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&OrthographicCameraBase::editHandleAspect),
-        static_cast<FieldGetMethodSig >(&OrthographicCameraBase::getHandleAspect));
+        static_cast<FieldEditMethodSig>(&OrthographicCamera::editHandleAspect),
+        static_cast<FieldGetMethodSig >(&OrthographicCamera::getHandleAspect));
 
     oType.addInitialDesc(pDesc);
 }

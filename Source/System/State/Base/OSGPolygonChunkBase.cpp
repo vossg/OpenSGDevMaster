@@ -163,8 +163,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         CullFaceFieldId, CullFaceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleCullFace),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleCullFace));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleCullFace),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleCullFace));
 
     oType.addInitialDesc(pDesc);
 
@@ -176,8 +176,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         FrontFaceFieldId, FrontFaceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleFrontFace),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleFrontFace));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleFrontFace),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleFrontFace));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         FrontModeFieldId, FrontModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleFrontMode),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleFrontMode));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleFrontMode),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleFrontMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         BackModeFieldId, BackModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleBackMode),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleBackMode));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleBackMode),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleBackMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -212,8 +212,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleSmooth),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleSmooth));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleSmooth),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleSmooth));
 
     oType.addInitialDesc(pDesc);
 
@@ -224,8 +224,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetFactor),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetFactor));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleOffsetFactor),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleOffsetFactor));
 
     oType.addInitialDesc(pDesc);
 
@@ -236,8 +236,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetBias),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetBias));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleOffsetBias),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleOffsetBias));
 
     oType.addInitialDesc(pDesc);
 
@@ -248,8 +248,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetPointFieldId, OffsetPointFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetPoint),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetPoint));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleOffsetPoint),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleOffsetPoint));
 
     oType.addInitialDesc(pDesc);
 
@@ -260,8 +260,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetLineFieldId, OffsetLineFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetLine),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetLine));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleOffsetLine),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleOffsetLine));
 
     oType.addInitialDesc(pDesc);
 
@@ -272,8 +272,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         OffsetFillFieldId, OffsetFillFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleOffsetFill),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleOffsetFill));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleOffsetFill),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleOffsetFill));
 
     oType.addInitialDesc(pDesc);
 
@@ -285,8 +285,8 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
         StippleFieldId, StippleFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonChunkBase::editHandleStipple),
-        static_cast<FieldGetMethodSig >(&PolygonChunkBase::getHandleStipple));
+        static_cast<FieldEditMethodSig>(&PolygonChunk::editHandleStipple),
+        static_cast<FieldGetMethodSig >(&PolygonChunk::getHandleStipple));
 
     oType.addInitialDesc(pDesc);
 }

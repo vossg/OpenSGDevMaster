@@ -105,8 +105,8 @@ void StageBase::classDescInserter(TypeObject &oType)
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StageBase::editHandleRenderTarget),
-        static_cast<FieldGetMethodSig >(&StageBase::getHandleRenderTarget));
+        static_cast<FieldEditMethodSig>(&Stage::editHandleRenderTarget),
+        static_cast<FieldGetMethodSig >(&Stage::getHandleRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -117,8 +117,8 @@ void StageBase::classDescInserter(TypeObject &oType)
         InheritedTargetFieldId, InheritedTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StageBase::editHandleInheritedTarget),
-        static_cast<FieldGetMethodSig >(&StageBase::getHandleInheritedTarget));
+        static_cast<FieldEditMethodSig>(&Stage::editHandleInheritedTarget),
+        static_cast<FieldGetMethodSig >(&Stage::getHandleInheritedTarget));
 
     oType.addInitialDesc(pDesc);
 }

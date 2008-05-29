@@ -106,8 +106,8 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleImage),
-        static_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleImage));
+        static_cast<FieldEditMethodSig>(&GrabForeground::editHandleImage),
+        static_cast<FieldGetMethodSig >(&GrabForeground::getHandleImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GrabForegroundBase::editHandleAutoResize),
-        static_cast<FieldGetMethodSig >(&GrabForegroundBase::getHandleAutoResize));
+        static_cast<FieldEditMethodSig>(&GrabForeground::editHandleAutoResize),
+        static_cast<FieldGetMethodSig >(&GrabForeground::getHandleAutoResize));
 
     oType.addInitialDesc(pDesc);
 }

@@ -135,8 +135,8 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleImage),
-        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleImage));
+        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterial::editHandleImage),
+        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterial::getHandleImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -148,8 +148,8 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         MinFilterFieldId, MinFilterFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleMinFilter),
-        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleMinFilter));
+        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterial::editHandleMinFilter),
+        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterial::getHandleMinFilter));
 
     oType.addInitialDesc(pDesc);
 
@@ -161,8 +161,8 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         MagFilterFieldId, MagFilterFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleMagFilter),
-        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleMagFilter));
+        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterial::editHandleMagFilter),
+        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterial::getHandleMagFilter));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         EnvModeFieldId, EnvModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleEnvMode),
-        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleEnvMode));
+        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterial::editHandleEnvMode),
+        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterial::getHandleEnvMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
         EnvMapFieldId, EnvMapFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterialBase::editHandleEnvMap),
-        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterialBase::getHandleEnvMap));
+        static_cast<FieldEditMethodSig>(&SimpleTexturedMaterial::editHandleEnvMap),
+        static_cast<FieldGetMethodSig >(&SimpleTexturedMaterial::getHandleEnvMap));
 
     oType.addInitialDesc(pDesc);
 }

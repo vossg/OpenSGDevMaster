@@ -129,8 +129,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleCamera),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleCamera));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -141,8 +141,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         TexChunkFieldId, TexChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexChunk),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleTexChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleTexChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -153,8 +153,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         TexBufferFieldId, TexBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexBuffer),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexBuffer));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleTexBuffer),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleTexBuffer));
 
     oType.addInitialDesc(pDesc);
 
@@ -165,8 +165,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         LightChunkFieldId, LightChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleLightChunk),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleLightChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleLightChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleLightChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -177,8 +177,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         BlendChunkFieldId, BlendChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleBlendChunk),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleBlendChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleBlendChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleBlendChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -189,8 +189,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         TexGenChunkFieldId, TexGenChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandleTexGenChunk),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandleTexGenChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleTexGenChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleTexGenChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -201,8 +201,8 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         PolyChunkFieldId, PolyChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineDataBase::editHandlePolyChunk),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineDataBase::getHandlePolyChunk));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandlePolyChunk),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandlePolyChunk));
 
     oType.addInitialDesc(pDesc);
 }

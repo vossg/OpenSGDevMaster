@@ -103,8 +103,8 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderParameterBase::editHandleName),
-        static_cast<FieldGetMethodSig >(&ShaderParameterBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&ShaderParameter::editHandleName),
+        static_cast<FieldGetMethodSig >(&ShaderParameter::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -115,8 +115,8 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
         ParentsFieldId, ParentsFieldMask,
         true,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ShaderParameterBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&ShaderParameterBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&ShaderParameter::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&ShaderParameter::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }

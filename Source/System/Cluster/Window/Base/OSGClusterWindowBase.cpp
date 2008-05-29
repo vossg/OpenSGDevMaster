@@ -148,8 +148,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ServersFieldId, ServersFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleServers),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleServers));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleServers),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleServers));
 
     oType.addInitialDesc(pDesc);
 
@@ -160,8 +160,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ConnectionTypeFieldId, ConnectionTypeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleConnectionType),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleConnectionType));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleConnectionType),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleConnectionType));
 
     oType.addInitialDesc(pDesc);
 
@@ -172,8 +172,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ConnectionInterfaceFieldId, ConnectionInterfaceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleConnectionInterface),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleConnectionInterface));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleConnectionInterface),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleConnectionInterface));
 
     oType.addInitialDesc(pDesc);
 
@@ -184,8 +184,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ConnectionDestinationFieldId, ConnectionDestinationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleConnectionDestination),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleConnectionDestination));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleConnectionDestination),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleConnectionDestination));
 
     oType.addInitialDesc(pDesc);
 
@@ -196,8 +196,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ConnectionParamsFieldId, ConnectionParamsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleConnectionParams),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleConnectionParams));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleConnectionParams),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleConnectionParams));
 
     oType.addInitialDesc(pDesc);
 
@@ -208,8 +208,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ServicePortFieldId, ServicePortFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleServicePort),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleServicePort));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleServicePort),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleServicePort));
 
     oType.addInitialDesc(pDesc);
 
@@ -220,8 +220,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ServiceAddressFieldId, ServiceAddressFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleServiceAddress),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleServiceAddress));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleServiceAddress),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleServiceAddress));
 
     oType.addInitialDesc(pDesc);
 
@@ -232,8 +232,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ServiceInterfaceFieldId, ServiceInterfaceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleServiceInterface),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleServiceInterface));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleServiceInterface),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleServiceInterface));
 
     oType.addInitialDesc(pDesc);
 
@@ -244,8 +244,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ClientWindowFieldId, ClientWindowFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleClientWindow),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleClientWindow));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleClientWindow),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleClientWindow));
 
     oType.addInitialDesc(pDesc);
 
@@ -256,8 +256,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         InterleaveFieldId, InterleaveFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleInterleave),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleInterleave));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleInterleave),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleInterleave));
 
     oType.addInitialDesc(pDesc);
 
@@ -268,8 +268,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         FrameCountFieldId, FrameCountFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleFrameCount),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleFrameCount));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleFrameCount),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleFrameCount));
 
     oType.addInitialDesc(pDesc);
 
@@ -280,8 +280,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         ComposerFieldId, ComposerFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleComposer),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleComposer));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleComposer),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleComposer));
 
     oType.addInitialDesc(pDesc);
 
@@ -292,8 +292,8 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         AutostartFieldId, AutostartFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClusterWindowBase::editHandleAutostart),
-        static_cast<FieldGetMethodSig >(&ClusterWindowBase::getHandleAutostart));
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleAutostart),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleAutostart));
 
     oType.addInitialDesc(pDesc);
 }

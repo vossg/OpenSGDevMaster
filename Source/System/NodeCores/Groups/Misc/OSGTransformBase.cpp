@@ -99,8 +99,8 @@ void TransformBase::classDescInserter(TypeObject &oType)
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TransformBase::editHandleMatrix),
-        static_cast<FieldGetMethodSig >(&TransformBase::getHandleMatrix));
+        static_cast<FieldEditMethodSig>(&Transform::editHandleMatrix),
+        static_cast<FieldGetMethodSig >(&Transform::getHandleMatrix));
 
     oType.addInitialDesc(pDesc);
 }

@@ -134,8 +134,8 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         VerticesFieldId, VerticesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DrawableStatsAttachmentBase::editHandleVertices),
-        static_cast<FieldGetMethodSig >(&DrawableStatsAttachmentBase::getHandleVertices));
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleVertices),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleVertices));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         PointsFieldId, PointsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DrawableStatsAttachmentBase::editHandlePoints),
-        static_cast<FieldGetMethodSig >(&DrawableStatsAttachmentBase::getHandlePoints));
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandlePoints),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandlePoints));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         LinesFieldId, LinesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DrawableStatsAttachmentBase::editHandleLines),
-        static_cast<FieldGetMethodSig >(&DrawableStatsAttachmentBase::getHandleLines));
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleLines),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleLines));
 
     oType.addInitialDesc(pDesc);
 
@@ -170,8 +170,8 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DrawableStatsAttachmentBase::editHandleTriangles),
-        static_cast<FieldGetMethodSig >(&DrawableStatsAttachmentBase::getHandleTriangles));
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleTriangles),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleTriangles));
 
     oType.addInitialDesc(pDesc);
 
@@ -182,8 +182,8 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         ProcessedAttributeBytesFieldId, ProcessedAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DrawableStatsAttachmentBase::editHandleProcessedAttributeBytes),
-        static_cast<FieldGetMethodSig >(&DrawableStatsAttachmentBase::getHandleProcessedAttributeBytes));
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleProcessedAttributeBytes),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleProcessedAttributeBytes));
 
     oType.addInitialDesc(pDesc);
 
@@ -194,8 +194,8 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         StoredAttributeBytesFieldId, StoredAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DrawableStatsAttachmentBase::editHandleStoredAttributeBytes),
-        static_cast<FieldGetMethodSig >(&DrawableStatsAttachmentBase::getHandleStoredAttributeBytes));
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleStoredAttributeBytes),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleStoredAttributeBytes));
 
     oType.addInitialDesc(pDesc);
 
@@ -206,8 +206,8 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         ValidFieldId, ValidFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DrawableStatsAttachmentBase::editHandleValid),
-        static_cast<FieldGetMethodSig >(&DrawableStatsAttachmentBase::getHandleValid));
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleValid),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleValid));
 
     oType.addInitialDesc(pDesc);
 }

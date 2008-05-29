@@ -110,8 +110,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskRFieldId, MaskRFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskR),
-        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskR));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskR),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskR));
 
     oType.addInitialDesc(pDesc);
 
@@ -122,8 +122,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskGFieldId, MaskGFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskG),
-        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskG));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskG),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskG));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskBFieldId, MaskBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskB),
-        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskB));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskB),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskB));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         MaskAFieldId, MaskAFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorMaskChunkBase::editHandleMaskA),
-        static_cast<FieldGetMethodSig >(&ColorMaskChunkBase::getHandleMaskA));
+        static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskA),
+        static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskA));
 
     oType.addInitialDesc(pDesc);
 }

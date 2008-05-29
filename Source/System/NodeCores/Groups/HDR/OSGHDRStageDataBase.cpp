@@ -137,8 +137,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         ToneMappingMaterialFieldId, ToneMappingMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleToneMappingMaterial),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleToneMappingMaterial));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleToneMappingMaterial),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleToneMappingMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -149,8 +149,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         BlurRenderTargetFieldId, BlurRenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleBlurRenderTarget),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleBlurRenderTarget));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleBlurRenderTarget),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleBlurRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -161,8 +161,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         BlurMaterialFieldId, BlurMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleBlurMaterial),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleBlurMaterial));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleBlurMaterial),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleBlurMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -173,8 +173,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         HBlurShaderFieldId, HBlurShaderFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleHBlurShader),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleHBlurShader));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleHBlurShader),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleHBlurShader));
 
     oType.addInitialDesc(pDesc);
 
@@ -185,8 +185,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         VBlurShaderFieldId, VBlurShaderFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleVBlurShader),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleVBlurShader));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleVBlurShader),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleVBlurShader));
 
     oType.addInitialDesc(pDesc);
 
@@ -197,8 +197,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -209,8 +209,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleHeight),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -221,8 +221,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         ShrinkRenderTargetFieldId, ShrinkRenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleShrinkRenderTarget),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleShrinkRenderTarget));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleShrinkRenderTarget),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleShrinkRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -233,8 +233,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         ShrinkMaterialFieldId, ShrinkMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageDataBase::editHandleShrinkMaterial),
-        static_cast<FieldGetMethodSig >(&HDRStageDataBase::getHandleShrinkMaterial));
+        static_cast<FieldEditMethodSig>(&HDRStageData::editHandleShrinkMaterial),
+        static_cast<FieldGetMethodSig >(&HDRStageData::getHandleShrinkMaterial));
 
     oType.addInitialDesc(pDesc);
 }

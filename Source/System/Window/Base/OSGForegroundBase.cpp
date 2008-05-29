@@ -109,8 +109,8 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
         ActiveFieldId, ActiveFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ForegroundBase::editHandleActive),
-        static_cast<FieldGetMethodSig >(&ForegroundBase::getHandleActive));
+        static_cast<FieldEditMethodSig>(&Foreground::editHandleActive),
+        static_cast<FieldGetMethodSig >(&Foreground::getHandleActive));
 
     oType.addInitialDesc(pDesc);
 }

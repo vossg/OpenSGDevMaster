@@ -105,8 +105,8 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         ZeroParallaxDistanceFieldId, ZeroParallaxDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDistance),
-        static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistance));
+        static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecorator::editHandleZeroParallaxDistance),
+        static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecorator::getHandleZeroParallaxDistance));
 
     oType.addInitialDesc(pDesc);
 
@@ -117,8 +117,8 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         OverlapFieldId, OverlapFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecoratorBase::editHandleOverlap),
-        static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecoratorBase::getHandleOverlap));
+        static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecorator::editHandleOverlap),
+        static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecorator::getHandleOverlap));
 
     oType.addInitialDesc(pDesc);
 }

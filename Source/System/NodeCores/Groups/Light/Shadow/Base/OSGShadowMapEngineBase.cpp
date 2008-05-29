@@ -121,8 +121,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleRenderTarget),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleRenderTarget));
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleRenderTarget),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -133,8 +133,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -145,8 +145,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleHeight),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -157,8 +157,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleShadowColor),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleShadowColor));
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleShadowColor),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleShadowColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -169,8 +169,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleOffsetBias),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleOffsetBias));
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleOffsetBias),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleOffsetBias));
 
     oType.addInitialDesc(pDesc);
 
@@ -181,8 +181,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShadowMapEngineBase::editHandleOffsetFactor),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngineBase::getHandleOffsetFactor));
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleOffsetFactor),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleOffsetFactor));
 
     oType.addInitialDesc(pDesc);
 }

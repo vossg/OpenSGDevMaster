@@ -138,8 +138,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleLeft),
-        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&SimpleStage::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&SimpleStage::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -152,8 +152,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleRight),
-        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleRight));
+        static_cast<FieldEditMethodSig>(&SimpleStage::editHandleRight),
+        static_cast<FieldGetMethodSig >(&SimpleStage::getHandleRight));
 
     oType.addInitialDesc(pDesc);
 
@@ -166,8 +166,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBottom),
-        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&SimpleStage::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&SimpleStage::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -180,8 +180,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleTop),
-        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleTop));
+        static_cast<FieldEditMethodSig>(&SimpleStage::editHandleTop),
+        static_cast<FieldGetMethodSig >(&SimpleStage::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -192,8 +192,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleCamera),
-        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleCamera));
+        static_cast<FieldEditMethodSig>(&SimpleStage::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&SimpleStage::getHandleCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStageBase::editHandleBackground),
-        static_cast<FieldGetMethodSig >(&SimpleStageBase::getHandleBackground));
+        static_cast<FieldEditMethodSig>(&SimpleStage::editHandleBackground),
+        static_cast<FieldGetMethodSig >(&SimpleStage::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
 
@@ -216,8 +216,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         PreRenderCallbacksFieldId, PreRenderCallbacksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SimpleStageBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&SimpleStageBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&SimpleStage::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&SimpleStage::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -228,8 +228,8 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         PostRenderCallbacksFieldId, PostRenderCallbacksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&SimpleStageBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&SimpleStageBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&SimpleStage::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&SimpleStage::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }

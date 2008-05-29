@@ -116,8 +116,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         RedFieldId, RedFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleRed),
-        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleRed));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleRed),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleRed));
 
     oType.addInitialDesc(pDesc);
 
@@ -128,8 +128,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         BlueFieldId, BlueFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleBlue),
-        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleBlue));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleBlue),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleBlue));
 
     oType.addInitialDesc(pDesc);
 
@@ -140,8 +140,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         GreenFieldId, GreenFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleGreen),
-        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleGreen));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleGreen),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleGreen));
 
     oType.addInitialDesc(pDesc);
 
@@ -152,8 +152,8 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ColorBufferViewportBase::editHandleAlpha),
-        static_cast<FieldGetMethodSig >(&ColorBufferViewportBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 }

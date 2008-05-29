@@ -148,8 +148,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         SizeFieldId, SizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleSize),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleSize));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleSize),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -160,8 +160,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleSmooth),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleSmooth));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleSmooth),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleSmooth));
 
     oType.addInitialDesc(pDesc);
 
@@ -172,8 +172,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         MinSizeFieldId, MinSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleMinSize),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleMinSize));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleMinSize),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleMinSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -184,8 +184,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         MaxSizeFieldId, MaxSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleMaxSize),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleMaxSize));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleMaxSize),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleMaxSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -196,8 +196,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleConstantAttenuation),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleConstantAttenuation));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleConstantAttenuation),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleConstantAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -208,8 +208,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleLinearAttenuation),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleLinearAttenuation));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleLinearAttenuation),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleLinearAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -220,8 +220,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleQuadraticAttenuation),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleQuadraticAttenuation));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleQuadraticAttenuation),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleQuadraticAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -232,8 +232,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         FadeThresholdFieldId, FadeThresholdFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleFadeThreshold),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleFadeThreshold));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleFadeThreshold),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleFadeThreshold));
 
     oType.addInitialDesc(pDesc);
 
@@ -244,8 +244,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         SpriteFieldId, SpriteFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleSprite),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleSprite));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleSprite),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleSprite));
 
     oType.addInitialDesc(pDesc);
 
@@ -256,8 +256,8 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         RModeFieldId, RModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointChunkBase::editHandleRMode),
-        static_cast<FieldGetMethodSig >(&PointChunkBase::getHandleRMode));
+        static_cast<FieldEditMethodSig>(&PointChunk::editHandleRMode),
+        static_cast<FieldGetMethodSig >(&PointChunk::getHandleRMode));
 
     oType.addInitialDesc(pDesc);
 }

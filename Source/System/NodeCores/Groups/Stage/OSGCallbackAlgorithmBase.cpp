@@ -98,8 +98,8 @@ void CallbackAlgorithmBase::classDescInserter(TypeObject &oType)
         CallbackFieldId, CallbackFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&CallbackAlgorithmBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&CallbackAlgorithmBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&CallbackAlgorithm::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&CallbackAlgorithm::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }

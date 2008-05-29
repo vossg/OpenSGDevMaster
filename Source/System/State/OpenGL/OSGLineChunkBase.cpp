@@ -121,8 +121,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&LineChunk::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&LineChunk::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -133,8 +133,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         StippleRepeatFieldId, StippleRepeatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStippleRepeat),
-        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStippleRepeat));
+        static_cast<FieldEditMethodSig>(&LineChunk::editHandleStippleRepeat),
+        static_cast<FieldGetMethodSig >(&LineChunk::getHandleStippleRepeat));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         StipplePatternFieldId, StipplePatternFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleStipplePattern),
-        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleStipplePattern));
+        static_cast<FieldEditMethodSig>(&LineChunk::editHandleStipplePattern),
+        static_cast<FieldGetMethodSig >(&LineChunk::getHandleStipplePattern));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LineChunkBase::editHandleSmooth),
-        static_cast<FieldGetMethodSig >(&LineChunkBase::getHandleSmooth));
+        static_cast<FieldEditMethodSig>(&LineChunk::editHandleSmooth),
+        static_cast<FieldGetMethodSig >(&LineChunk::getHandleSmooth));
 
     oType.addInitialDesc(pDesc);
 }

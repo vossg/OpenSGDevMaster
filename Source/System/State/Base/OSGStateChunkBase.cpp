@@ -100,8 +100,8 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
         IgnoreFieldId, IgnoreFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StateChunkBase::editHandleIgnore),
-        static_cast<FieldGetMethodSig >(&StateChunkBase::getHandleIgnore));
+        static_cast<FieldEditMethodSig>(&StateChunk::editHandleIgnore),
+        static_cast<FieldGetMethodSig >(&StateChunk::getHandleIgnore));
 
     oType.addInitialDesc(pDesc);
 }

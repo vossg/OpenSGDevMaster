@@ -102,8 +102,8 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleEnabled),
-        static_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleEnabled));
+        static_cast<FieldEditMethodSig>(&ImageComposer::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&ImageComposer::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         StatisticsFieldId, StatisticsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageComposerBase::editHandleStatistics),
-        static_cast<FieldGetMethodSig >(&ImageComposerBase::getHandleStatistics));
+        static_cast<FieldEditMethodSig>(&ImageComposer::editHandleStatistics),
+        static_cast<FieldGetMethodSig >(&ImageComposer::getHandleStatistics));
 
     oType.addInitialDesc(pDesc);
 }

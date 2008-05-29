@@ -161,8 +161,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         FormatsFieldId, FormatsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleFormats),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleFormats));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleFormats),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleFormats));
 
     oType.addInitialDesc(pDesc);
 
@@ -173,8 +173,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         SizeFieldId, SizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleSize),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleSize));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleSize),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -185,8 +185,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleColor),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -197,8 +197,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleShadowColor),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleShadowColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleShadowColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleShadowColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -209,8 +209,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         BgColorFieldId, BgColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBgColor),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBgColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleBgColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleBgColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -221,8 +221,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         FamilyFieldId, FamilyFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleFamily),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleFamily));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleFamily),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleFamily));
 
     oType.addInitialDesc(pDesc);
 
@@ -233,8 +233,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         ShadowOffsetFieldId, ShadowOffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleShadowOffset),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleShadowOffset));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleShadowOffset),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleShadowOffset));
 
     oType.addInitialDesc(pDesc);
 
@@ -245,8 +245,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         HorizontalAlignFieldId, HorizontalAlignFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleHorizontalAlign),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleHorizontalAlign));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleHorizontalAlign),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleHorizontalAlign));
 
     oType.addInitialDesc(pDesc);
 
@@ -257,8 +257,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         VerticalAlignFieldId, VerticalAlignFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleVerticalAlign),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleVerticalAlign));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleVerticalAlign),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleVerticalAlign));
 
     oType.addInitialDesc(pDesc);
 
@@ -269,8 +269,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         BorderColorFieldId, BorderColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBorderColor),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBorderColor));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleBorderColor),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleBorderColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -281,8 +281,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         BorderOffsetFieldId, BorderOffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleBorderOffset),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleBorderOffset));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleBorderOffset),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleBorderOffset));
 
     oType.addInitialDesc(pDesc);
 
@@ -293,8 +293,8 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         TextMarginFieldId, TextMarginFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editHandleTextMargin),
-        static_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getHandleTextMargin));
+        static_cast<FieldEditMethodSig>(&SimpleStatisticsForeground::editHandleTextMargin),
+        static_cast<FieldGetMethodSig >(&SimpleStatisticsForeground::getHandleTextMargin));
 
     oType.addInitialDesc(pDesc);
 }

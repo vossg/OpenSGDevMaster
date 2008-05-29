@@ -106,8 +106,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HwndFieldId, HwndFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHwnd),
-        static_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHwnd));
+        static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHwnd),
+        static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHwnd));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HdcFieldId, HdcFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHdc),
-        static_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHdc));
+        static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHdc),
+        static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHdc));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         HglrcFieldId, HglrcFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&WIN32WindowBase::editHandleHglrc),
-        static_cast<FieldGetMethodSig >(&WIN32WindowBase::getHandleHglrc));
+        static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHglrc),
+        static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHglrc));
 
     oType.addInitialDesc(pDesc);
 }

@@ -107,8 +107,8 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         FovFieldId, FovFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleFov),
-        static_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleFov));
+        static_cast<FieldEditMethodSig>(&PerspectiveCamera::editHandleFov),
+        static_cast<FieldGetMethodSig >(&PerspectiveCamera::getHandleFov));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PerspectiveCameraBase::editHandleAspect),
-        static_cast<FieldGetMethodSig >(&PerspectiveCameraBase::getHandleAspect));
+        static_cast<FieldEditMethodSig>(&PerspectiveCamera::editHandleAspect),
+        static_cast<FieldGetMethodSig >(&PerspectiveCamera::getHandleAspect));
 
     oType.addInitialDesc(pDesc);
 }

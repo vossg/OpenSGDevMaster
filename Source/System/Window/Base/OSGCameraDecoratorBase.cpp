@@ -101,8 +101,8 @@ void CameraDecoratorBase::classDescInserter(TypeObject &oType)
         DecorateeFieldId, DecorateeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CameraDecoratorBase::editHandleDecoratee),
-        static_cast<FieldGetMethodSig >(&CameraDecoratorBase::getHandleDecoratee ));
+        static_cast<FieldEditMethodSig>(&CameraDecorator::editHandleDecoratee),
+        static_cast<FieldGetMethodSig >(&CameraDecorator::getHandleDecoratee ));
 
     oType.addInitialDesc(pDesc);
 }

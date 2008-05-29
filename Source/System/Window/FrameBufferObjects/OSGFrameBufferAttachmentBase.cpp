@@ -102,8 +102,8 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&FrameBufferAttachment::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&FrameBufferAttachment::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferAttachmentBase::editHandleHeight),
-        static_cast<FieldGetMethodSig >(&FrameBufferAttachmentBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&FrameBufferAttachment::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&FrameBufferAttachment::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 }

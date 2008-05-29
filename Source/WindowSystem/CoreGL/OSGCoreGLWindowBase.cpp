@@ -98,8 +98,8 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CoreGLWindowBase::editHandleContext),
-        static_cast<FieldGetMethodSig >(&CoreGLWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&CoreGLWindow::editHandleContext),
+        static_cast<FieldGetMethodSig >(&CoreGLWindow::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }

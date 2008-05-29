@@ -107,8 +107,8 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         UseVBOFieldId, UseVBOFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUseVBO),
-        static_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUseVBO));
+        static_cast<FieldEditMethodSig>(&GeoProperty::editHandleUseVBO),
+        static_cast<FieldGetMethodSig >(&GeoProperty::getHandleUseVBO));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&GeoProperty::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&GeoProperty::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -131,8 +131,8 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         UsageFieldId, UsageFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoPropertyBase::editHandleUsage),
-        static_cast<FieldGetMethodSig >(&GeoPropertyBase::getHandleUsage));
+        static_cast<FieldEditMethodSig>(&GeoProperty::editHandleUsage),
+        static_cast<FieldGetMethodSig >(&GeoProperty::getHandleUsage));
 
     oType.addInitialDesc(pDesc);
 }

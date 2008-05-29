@@ -136,8 +136,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         UserFieldId, UserFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleUser),
-        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleUser));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecorator::editHandleUser),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecorator::getHandleUser));
 
     oType.addInitialDesc(pDesc);
 
@@ -149,8 +149,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         SurfaceFieldId, SurfaceFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleSurface),
-        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleSurface));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecorator::editHandleSurface),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecorator::getHandleSurface));
 
     oType.addInitialDesc(pDesc);
 
@@ -161,8 +161,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleLeft),
-        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecorator::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecorator::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -173,8 +173,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleBottom),
-        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecorator::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecorator::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -185,8 +185,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         NormalFieldId, NormalFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleNormal),
-        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleNormal));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecorator::editHandleNormal),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecorator::getHandleNormal));
 
     oType.addInitialDesc(pDesc);
 
@@ -197,8 +197,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecorator::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecorator::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -209,8 +209,8 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProjectionCameraDecoratorBase::editHandleHeight),
-        static_cast<FieldGetMethodSig >(&ProjectionCameraDecoratorBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&ProjectionCameraDecorator::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&ProjectionCameraDecorator::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 }

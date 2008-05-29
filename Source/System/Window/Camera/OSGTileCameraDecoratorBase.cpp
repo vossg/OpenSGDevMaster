@@ -126,8 +126,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleLeft),
-        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleLeft));
+        static_cast<FieldEditMethodSig>(&TileCameraDecorator::editHandleLeft),
+        static_cast<FieldGetMethodSig >(&TileCameraDecorator::getHandleLeft));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleRight),
-        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleRight));
+        static_cast<FieldEditMethodSig>(&TileCameraDecorator::editHandleRight),
+        static_cast<FieldGetMethodSig >(&TileCameraDecorator::getHandleRight));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleBottom),
-        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleBottom));
+        static_cast<FieldEditMethodSig>(&TileCameraDecorator::editHandleBottom),
+        static_cast<FieldGetMethodSig >(&TileCameraDecorator::getHandleBottom));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         TopFieldId, TopFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleTop),
-        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleTop));
+        static_cast<FieldEditMethodSig>(&TileCameraDecorator::editHandleTop),
+        static_cast<FieldGetMethodSig >(&TileCameraDecorator::getHandleTop));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         FullWidthFieldId, FullWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleFullWidth),
-        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleFullWidth));
+        static_cast<FieldEditMethodSig>(&TileCameraDecorator::editHandleFullWidth),
+        static_cast<FieldGetMethodSig >(&TileCameraDecorator::getHandleFullWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
         FullHeightFieldId, FullHeightFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TileCameraDecoratorBase::editHandleFullHeight),
-        static_cast<FieldGetMethodSig >(&TileCameraDecoratorBase::getHandleFullHeight));
+        static_cast<FieldEditMethodSig>(&TileCameraDecorator::editHandleFullHeight),
+        static_cast<FieldGetMethodSig >(&TileCameraDecorator::getHandleFullHeight));
 
     oType.addInitialDesc(pDesc);
 }

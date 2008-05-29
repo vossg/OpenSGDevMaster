@@ -134,8 +134,8 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         PosZImageFieldId, PosZImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeTextureChunkBase::editHandlePosZImage),
-        static_cast<FieldGetMethodSig >(&CubeTextureChunkBase::getHandlePosZImage));
+        static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandlePosZImage),
+        static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandlePosZImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         PosXImageFieldId, PosXImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeTextureChunkBase::editHandlePosXImage),
-        static_cast<FieldGetMethodSig >(&CubeTextureChunkBase::getHandlePosXImage));
+        static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandlePosXImage),
+        static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandlePosXImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -158,8 +158,8 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         NegXImageFieldId, NegXImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeTextureChunkBase::editHandleNegXImage),
-        static_cast<FieldGetMethodSig >(&CubeTextureChunkBase::getHandleNegXImage));
+        static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandleNegXImage),
+        static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandleNegXImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -170,8 +170,8 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         PosYImageFieldId, PosYImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeTextureChunkBase::editHandlePosYImage),
-        static_cast<FieldGetMethodSig >(&CubeTextureChunkBase::getHandlePosYImage));
+        static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandlePosYImage),
+        static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandlePosYImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -182,8 +182,8 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         NegYImageFieldId, NegYImageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeTextureChunkBase::editHandleNegYImage),
-        static_cast<FieldGetMethodSig >(&CubeTextureChunkBase::getHandleNegYImage));
+        static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandleNegYImage),
+        static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandleNegYImage));
 
     oType.addInitialDesc(pDesc);
 
@@ -194,8 +194,8 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         IsReflectionMapFieldId, IsReflectionMapFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeTextureChunkBase::editHandleIsReflectionMap),
-        static_cast<FieldGetMethodSig >(&CubeTextureChunkBase::getHandleIsReflectionMap));
+        static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandleIsReflectionMap),
+        static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandleIsReflectionMap));
 
     oType.addInitialDesc(pDesc);
 }

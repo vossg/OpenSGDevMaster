@@ -123,8 +123,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         ContainerFieldId, ContainerFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleContainer),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleContainer));
+        static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleContainer),
+        static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleContainer));
 
     oType.addInitialDesc(pDesc);
 
@@ -135,8 +135,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         OffsetFieldId, OffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleOffset),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleOffset));
+        static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleOffset),
+        static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleOffset));
 
     oType.addInitialDesc(pDesc);
 
@@ -147,8 +147,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         IFormatFieldId, IFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleIFormat),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleIFormat));
+        static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleIFormat),
+        static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleIFormat));
 
     oType.addInitialDesc(pDesc);
 
@@ -159,8 +159,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         IDimensionFieldId, IDimensionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleIDimension),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleIDimension));
+        static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleIDimension),
+        static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleIDimension));
 
     oType.addInitialDesc(pDesc);
 
@@ -171,8 +171,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         ISizeFieldId, ISizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleISize),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleISize));
+        static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleISize),
+        static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleISize));
 
     oType.addInitialDesc(pDesc);
 
@@ -183,8 +183,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         INormalizeFieldId, INormalizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleINormalize),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleINormalize));
+        static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleINormalize),
+        static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleINormalize));
 
     oType.addInitialDesc(pDesc);
 
@@ -195,8 +195,8 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         IStrideFieldId, IStrideFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editHandleIStride),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getHandleIStride));
+        static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleIStride),
+        static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleIStride));
 
     oType.addInitialDesc(pDesc);
 }

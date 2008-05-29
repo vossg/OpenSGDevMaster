@@ -114,8 +114,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         AxisOfRotationFieldId, AxisOfRotationFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BillboardBase::editHandleAxisOfRotation),
-        static_cast<FieldGetMethodSig >(&BillboardBase::getHandleAxisOfRotation));
+        static_cast<FieldEditMethodSig>(&Billboard::editHandleAxisOfRotation),
+        static_cast<FieldGetMethodSig >(&Billboard::getHandleAxisOfRotation));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         FocusOnCameraFieldId, FocusOnCameraFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BillboardBase::editHandleFocusOnCamera),
-        static_cast<FieldGetMethodSig >(&BillboardBase::getHandleFocusOnCamera));
+        static_cast<FieldEditMethodSig>(&Billboard::editHandleFocusOnCamera),
+        static_cast<FieldGetMethodSig >(&Billboard::getHandleFocusOnCamera));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         AlignToScreenFieldId, AlignToScreenFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BillboardBase::editHandleAlignToScreen),
-        static_cast<FieldGetMethodSig >(&BillboardBase::getHandleAlignToScreen));
+        static_cast<FieldEditMethodSig>(&Billboard::editHandleAlignToScreen),
+        static_cast<FieldGetMethodSig >(&Billboard::getHandleAlignToScreen));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         MinAngleFieldId, MinAngleFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BillboardBase::editHandleMinAngle),
-        static_cast<FieldGetMethodSig >(&BillboardBase::getHandleMinAngle));
+        static_cast<FieldEditMethodSig>(&Billboard::editHandleMinAngle),
+        static_cast<FieldGetMethodSig >(&Billboard::getHandleMinAngle));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         MaxAngleFieldId, MaxAngleFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BillboardBase::editHandleMaxAngle),
-        static_cast<FieldGetMethodSig >(&BillboardBase::getHandleMaxAngle));
+        static_cast<FieldEditMethodSig>(&Billboard::editHandleMaxAngle),
+        static_cast<FieldGetMethodSig >(&Billboard::getHandleMaxAngle));
 
     oType.addInitialDesc(pDesc);
 }

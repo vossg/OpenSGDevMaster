@@ -101,8 +101,8 @@ void DynamicStateGeneratorBase::classDescInserter(TypeObject &oType)
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DynamicStateGeneratorBase::editHandleRenderTarget),
-        static_cast<FieldGetMethodSig >(&DynamicStateGeneratorBase::getHandleRenderTarget));
+        static_cast<FieldEditMethodSig>(&DynamicStateGenerator::editHandleRenderTarget),
+        static_cast<FieldGetMethodSig >(&DynamicStateGenerator::getHandleRenderTarget));
 
     oType.addInitialDesc(pDesc);
 }

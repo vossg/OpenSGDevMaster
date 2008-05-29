@@ -152,8 +152,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDiffuse),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDiffuse));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleDiffuse),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -164,8 +164,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleAmbient),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleAmbient));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleAmbient),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -176,8 +176,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleSpecular),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleSpecular));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleSpecular),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandlePosition),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandlePosition));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandlePosition),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleDirection),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleDirection));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleDirection),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
 
@@ -212,8 +212,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         ExponentFieldId, ExponentFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleExponent),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleExponent));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleExponent),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleExponent));
 
     oType.addInitialDesc(pDesc);
 
@@ -224,8 +224,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         CutoffFieldId, CutoffFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleCutoff),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleCutoff));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleCutoff),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleCutoff));
 
     oType.addInitialDesc(pDesc);
 
@@ -236,8 +236,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleConstantAttenuation),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleConstantAttenuation));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleConstantAttenuation),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleConstantAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -248,8 +248,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleLinearAttenuation),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleLinearAttenuation));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleLinearAttenuation),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleLinearAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -260,8 +260,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleQuadraticAttenuation),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleQuadraticAttenuation));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleQuadraticAttenuation),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleQuadraticAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -272,8 +272,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightChunkBase::editHandleBeacon),
-        static_cast<FieldGetMethodSig >(&LightChunkBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&LightChunk::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&LightChunk::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }

@@ -248,8 +248,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         Color0FieldId, Color0FieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleColor0),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleColor0));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleColor0),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleColor0));
 
     oType.addInitialDesc(pDesc);
 
@@ -260,8 +260,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         Color1FieldId, Color1FieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleColor1),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleColor1));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleColor1),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleColor1));
 
     oType.addInitialDesc(pDesc);
 
@@ -272,8 +272,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         ColorSumClampFieldId, ColorSumClampFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleColorSumClamp),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleColorSumClamp));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleColorSumClamp),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleColorSumClamp));
 
     oType.addInitialDesc(pDesc);
 
@@ -284,8 +284,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableArgbFieldId, VariableArgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableArgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableArgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableArgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableArgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -296,8 +296,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableBrgbFieldId, VariableBrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableBrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableBrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableBrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableBrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -308,8 +308,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableCrgbFieldId, VariableCrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableCrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableCrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableCrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableCrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -320,8 +320,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableDrgbFieldId, VariableDrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableDrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableDrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableDrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableDrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -332,8 +332,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableAalphaFieldId, VariableAalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableAalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableAalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableAalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableAalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -344,8 +344,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableBalphaFieldId, VariableBalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableBalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableBalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableBalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableBalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -356,8 +356,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableCalphaFieldId, VariableCalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableCalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableCalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableCalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableCalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -368,8 +368,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableDalphaFieldId, VariableDalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableDalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableDalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableDalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableDalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -380,8 +380,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         OutputABrgbFieldId, OutputABrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleOutputABrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleOutputABrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleOutputABrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleOutputABrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -392,8 +392,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         OutputCDrgbFieldId, OutputCDrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleOutputCDrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleOutputCDrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleOutputCDrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleOutputCDrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -404,8 +404,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         OutputSumrgbFieldId, OutputSumrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleOutputSumrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleOutputSumrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleOutputSumrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleOutputSumrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -416,8 +416,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         ScalergbFieldId, ScalergbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleScalergb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleScalergb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleScalergb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleScalergb));
 
     oType.addInitialDesc(pDesc);
 
@@ -428,8 +428,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         BiasrgbFieldId, BiasrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleBiasrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleBiasrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleBiasrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleBiasrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -440,8 +440,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         OutputABalphaFieldId, OutputABalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleOutputABalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleOutputABalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleOutputABalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleOutputABalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -452,8 +452,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         OutputCDalphaFieldId, OutputCDalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleOutputCDalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleOutputCDalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleOutputCDalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleOutputCDalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -464,8 +464,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         OutputSumalphaFieldId, OutputSumalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleOutputSumalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleOutputSumalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleOutputSumalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleOutputSumalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -476,8 +476,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         DotABrgbFieldId, DotABrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleDotABrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleDotABrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleDotABrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleDotABrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -488,8 +488,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         DotCDrgbFieldId, DotCDrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleDotCDrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleDotCDrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleDotCDrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleDotCDrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -500,8 +500,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         MuxSumrgbFieldId, MuxSumrgbFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleMuxSumrgb),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleMuxSumrgb));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleMuxSumrgb),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleMuxSumrgb));
 
     oType.addInitialDesc(pDesc);
 
@@ -512,8 +512,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         ScalealphaFieldId, ScalealphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleScalealpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleScalealpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleScalealpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleScalealpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -524,8 +524,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         BiasalphaFieldId, BiasalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleBiasalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleBiasalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleBiasalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleBiasalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -536,8 +536,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         MuxSumalphaFieldId, MuxSumalphaFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleMuxSumalpha),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleMuxSumalpha));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleMuxSumalpha),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleMuxSumalpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -548,8 +548,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableEFieldId, VariableEFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableE),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableE));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableE),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableE));
 
     oType.addInitialDesc(pDesc);
 
@@ -560,8 +560,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableFFieldId, VariableFFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableF),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableF));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableF),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableF));
 
     oType.addInitialDesc(pDesc);
 
@@ -572,8 +572,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         VariableGFieldId, VariableGFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleVariableG),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleVariableG));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleVariableG),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleVariableG));
 
     oType.addInitialDesc(pDesc);
 
@@ -584,8 +584,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         CombinerColor0FieldId, CombinerColor0FieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleCombinerColor0),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleCombinerColor0));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleCombinerColor0),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleCombinerColor0));
 
     oType.addInitialDesc(pDesc);
 
@@ -596,8 +596,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         CombinerColor1FieldId, CombinerColor1FieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandleCombinerColor1),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandleCombinerColor1));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandleCombinerColor1),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandleCombinerColor1));
 
     oType.addInitialDesc(pDesc);
 
@@ -608,8 +608,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
         PerStageConstantsFieldId, PerStageConstantsFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RegisterCombinersChunkBase::editHandlePerStageConstants),
-        static_cast<FieldGetMethodSig >(&RegisterCombinersChunkBase::getHandlePerStageConstants));
+        static_cast<FieldEditMethodSig>(&RegisterCombinersChunk::editHandlePerStageConstants),
+        static_cast<FieldGetMethodSig >(&RegisterCombinersChunk::getHandlePerStageConstants));
 
     oType.addInitialDesc(pDesc);
 }

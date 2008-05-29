@@ -98,8 +98,8 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightEngineBase::editHandleEnabled),
-        static_cast<FieldGetMethodSig >(&LightEngineBase::getHandleEnabled));
+        static_cast<FieldEditMethodSig>(&LightEngine::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&LightEngine::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 }

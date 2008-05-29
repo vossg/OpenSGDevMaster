@@ -231,8 +231,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvModeFieldId, EnvModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvMode),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvMode));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvMode),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -243,8 +243,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvColorFieldId, EnvColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvColor),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvColor));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvColor),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -255,8 +255,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvCombineRGBFieldId, EnvCombineRGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvCombineRGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvCombineRGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvCombineRGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvCombineRGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -267,8 +267,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvCombineAlphaFieldId, EnvCombineAlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvCombineAlpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvCombineAlpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvCombineAlpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvCombineAlpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -279,8 +279,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvScaleRGBFieldId, EnvScaleRGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvScaleRGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvScaleRGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvScaleRGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvScaleRGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -291,8 +291,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvScaleAlphaFieldId, EnvScaleAlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvScaleAlpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvScaleAlpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvScaleAlpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvScaleAlpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -303,8 +303,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvSource0RGBFieldId, EnvSource0RGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvSource0RGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvSource0RGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvSource0RGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvSource0RGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -315,8 +315,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvSource1RGBFieldId, EnvSource1RGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvSource1RGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvSource1RGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvSource1RGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvSource1RGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -327,8 +327,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvSource2RGBFieldId, EnvSource2RGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvSource2RGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvSource2RGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvSource2RGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvSource2RGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -339,8 +339,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvSource0AlphaFieldId, EnvSource0AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvSource0Alpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvSource0Alpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvSource0Alpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvSource0Alpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -351,8 +351,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvSource1AlphaFieldId, EnvSource1AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvSource1Alpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvSource1Alpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvSource1Alpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvSource1Alpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -363,8 +363,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvSource2AlphaFieldId, EnvSource2AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvSource2Alpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvSource2Alpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvSource2Alpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvSource2Alpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -375,8 +375,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvOperand0RGBFieldId, EnvOperand0RGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvOperand0RGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvOperand0RGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvOperand0RGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvOperand0RGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -387,8 +387,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvOperand1RGBFieldId, EnvOperand1RGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvOperand1RGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvOperand1RGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvOperand1RGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvOperand1RGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -399,8 +399,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvOperand2RGBFieldId, EnvOperand2RGBFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvOperand2RGB),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvOperand2RGB));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvOperand2RGB),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvOperand2RGB));
 
     oType.addInitialDesc(pDesc);
 
@@ -411,8 +411,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvOperand0AlphaFieldId, EnvOperand0AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvOperand0Alpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvOperand0Alpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvOperand0Alpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvOperand0Alpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -423,8 +423,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvOperand1AlphaFieldId, EnvOperand1AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvOperand1Alpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvOperand1Alpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvOperand1Alpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvOperand1Alpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -435,8 +435,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         EnvOperand2AlphaFieldId, EnvOperand2AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleEnvOperand2Alpha),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleEnvOperand2Alpha));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleEnvOperand2Alpha),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleEnvOperand2Alpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -447,8 +447,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         PointSpriteFieldId, PointSpriteFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandlePointSprite),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandlePointSprite));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandlePointSprite),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandlePointSprite));
 
     oType.addInitialDesc(pDesc);
 
@@ -460,8 +460,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderOperationFieldId, ShaderOperationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderOperation),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderOperation));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderOperation),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderOperation));
 
     oType.addInitialDesc(pDesc);
 
@@ -472,8 +472,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderInputFieldId, ShaderInputFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderInput),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderInput));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderInput),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderInput));
 
     oType.addInitialDesc(pDesc);
 
@@ -484,8 +484,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderOffsetMatrixFieldId, ShaderOffsetMatrixFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderOffsetMatrix),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderOffsetMatrix));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderOffsetMatrix),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderOffsetMatrix));
 
     oType.addInitialDesc(pDesc);
 
@@ -496,8 +496,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderOffsetScaleFieldId, ShaderOffsetScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderOffsetScale),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderOffsetScale));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderOffsetScale),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderOffsetScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -508,8 +508,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderOffsetBiasFieldId, ShaderOffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderOffsetBias),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderOffsetBias));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderOffsetBias),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderOffsetBias));
 
     oType.addInitialDesc(pDesc);
 
@@ -520,8 +520,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderRGBADotProductFieldId, ShaderRGBADotProductFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderRGBADotProduct),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderRGBADotProduct));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderRGBADotProduct),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderRGBADotProduct));
 
     oType.addInitialDesc(pDesc);
 
@@ -536,8 +536,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderCullModesFieldId, ShaderCullModesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderCullModes),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderCullModes));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderCullModes),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderCullModes));
 
     oType.addInitialDesc(pDesc);
 
@@ -549,8 +549,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         ShaderConstEyeFieldId, ShaderConstEyeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleShaderConstEye),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleShaderConstEye));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleShaderConstEye),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleShaderConstEye));
 
     oType.addInitialDesc(pDesc);
 
@@ -561,8 +561,8 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
         LodBiasFieldId, LodBiasFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureEnvChunkBase::editHandleLodBias),
-        static_cast<FieldGetMethodSig >(&TextureEnvChunkBase::getHandleLodBias));
+        static_cast<FieldEditMethodSig>(&TextureEnvChunk::editHandleLodBias),
+        static_cast<FieldGetMethodSig >(&TextureEnvChunk::getHandleLodBias));
 
     oType.addInitialDesc(pDesc);
 }

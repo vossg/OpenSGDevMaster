@@ -108,8 +108,8 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         LeftBufferFieldId, LeftBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleLeftBuffer),
-        static_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleLeftBuffer));
+        static_cast<FieldEditMethodSig>(&StereoBufferViewport::editHandleLeftBuffer),
+        static_cast<FieldGetMethodSig >(&StereoBufferViewport::getHandleLeftBuffer));
 
     oType.addInitialDesc(pDesc);
 
@@ -120,8 +120,8 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         RightBufferFieldId, RightBufferFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StereoBufferViewportBase::editHandleRightBuffer),
-        static_cast<FieldGetMethodSig >(&StereoBufferViewportBase::getHandleRightBuffer));
+        static_cast<FieldEditMethodSig>(&StereoBufferViewport::editHandleRightBuffer),
+        static_cast<FieldGetMethodSig >(&StereoBufferViewport::getHandleRightBuffer));
 
     oType.addInitialDesc(pDesc);
 }

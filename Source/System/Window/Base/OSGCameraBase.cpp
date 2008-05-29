@@ -113,8 +113,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CameraBase::editHandleBeacon),
-        static_cast<FieldGetMethodSig >(&CameraBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&Camera::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&Camera::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 
@@ -125,8 +125,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CameraBase::editHandleNear),
-        static_cast<FieldGetMethodSig >(&CameraBase::getHandleNear));
+        static_cast<FieldEditMethodSig>(&Camera::editHandleNear),
+        static_cast<FieldGetMethodSig >(&Camera::getHandleNear));
 
     oType.addInitialDesc(pDesc);
 
@@ -137,8 +137,8 @@ void CameraBase::classDescInserter(TypeObject &oType)
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CameraBase::editHandleFar),
-        static_cast<FieldGetMethodSig >(&CameraBase::getHandleFar));
+        static_cast<FieldEditMethodSig>(&Camera::editHandleFar),
+        static_cast<FieldGetMethodSig >(&Camera::getHandleFar));
 
     oType.addInitialDesc(pDesc);
 }

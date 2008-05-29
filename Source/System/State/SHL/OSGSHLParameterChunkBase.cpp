@@ -99,8 +99,8 @@ void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
         SHLChunkFieldId, SHLChunkFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SHLParameterChunkBase::editHandleSHLChunk),
-        static_cast<FieldGetMethodSig >(&SHLParameterChunkBase::getHandleSHLChunk));
+        static_cast<FieldEditMethodSig>(&SHLParameterChunk::editHandleSHLChunk),
+        static_cast<FieldGetMethodSig >(&SHLParameterChunk::getHandleSHLChunk));
 
     oType.addInitialDesc(pDesc);
 }

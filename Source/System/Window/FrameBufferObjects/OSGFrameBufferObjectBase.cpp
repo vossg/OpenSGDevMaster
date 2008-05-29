@@ -129,8 +129,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -142,8 +142,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         ColorAttachmentsFieldId, ColorAttachmentsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleColorAttachments),
-        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleColorAttachments));
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleColorAttachments),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleColorAttachments));
 
     oType.addInitialDesc(pDesc);
 
@@ -156,8 +156,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         DrawBuffersFieldId, DrawBuffersFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleDrawBuffers),
-        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleDrawBuffers));
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleDrawBuffers),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleDrawBuffers));
 
     oType.addInitialDesc(pDesc);
 
@@ -168,8 +168,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleDepthAttachment),
-        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleDepthAttachment));
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleDepthAttachment),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleDepthAttachment));
 
     oType.addInitialDesc(pDesc);
 
@@ -180,8 +180,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleStencilAttachment),
-        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleStencilAttachment));
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleStencilAttachment),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleStencilAttachment));
 
     oType.addInitialDesc(pDesc);
 
@@ -192,8 +192,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -204,8 +204,8 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FrameBufferObjectBase::editHandleHeight),
-        static_cast<FieldGetMethodSig >(&FrameBufferObjectBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 }

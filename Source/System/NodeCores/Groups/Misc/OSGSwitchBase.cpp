@@ -99,8 +99,8 @@ void SwitchBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SwitchBase::editHandleChoice),
-        static_cast<FieldGetMethodSig >(&SwitchBase::getHandleChoice));
+        static_cast<FieldEditMethodSig>(&Switch::editHandleChoice),
+        static_cast<FieldGetMethodSig >(&Switch::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 }

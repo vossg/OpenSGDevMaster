@@ -106,8 +106,8 @@ void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editHandleShort),
-        static_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getHandleShort));
+        static_cast<FieldEditMethodSig>(&BinarySwapComposer::editHandleShort),
+        static_cast<FieldGetMethodSig >(&BinarySwapComposer::getHandleShort));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editHandleAlpha),
-        static_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&BinarySwapComposer::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&BinarySwapComposer::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BinarySwapComposerBase::editHandleTileSize),
-        static_cast<FieldGetMethodSig >(&BinarySwapComposerBase::getHandleTileSize));
+        static_cast<FieldEditMethodSig>(&BinarySwapComposer::editHandleTileSize),
+        static_cast<FieldGetMethodSig >(&BinarySwapComposer::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
 }

@@ -102,8 +102,8 @@ void PointLightBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PointLightBase::editHandlePosition),
-        static_cast<FieldGetMethodSig >(&PointLightBase::getHandlePosition));
+        static_cast<FieldEditMethodSig>(&PointLight::editHandlePosition),
+        static_cast<FieldGetMethodSig >(&PointLight::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 }

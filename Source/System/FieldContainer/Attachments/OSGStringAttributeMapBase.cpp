@@ -104,8 +104,8 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         KeysFieldId, KeysFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleKeys),
-        static_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleKeys));
+        static_cast<FieldEditMethodSig>(&StringAttributeMap::editHandleKeys),
+        static_cast<FieldGetMethodSig >(&StringAttributeMap::getHandleKeys));
 
     oType.addInitialDesc(pDesc);
 
@@ -116,8 +116,8 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         ValuesFieldId, ValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StringAttributeMapBase::editHandleValues),
-        static_cast<FieldGetMethodSig >(&StringAttributeMapBase::getHandleValues));
+        static_cast<FieldEditMethodSig>(&StringAttributeMap::editHandleValues),
+        static_cast<FieldGetMethodSig >(&StringAttributeMap::getHandleValues));
 
     oType.addInitialDesc(pDesc);
 }

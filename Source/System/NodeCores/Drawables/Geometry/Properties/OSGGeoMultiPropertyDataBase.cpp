@@ -102,8 +102,8 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         IDataFieldId, IDataFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleIData),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleIData));
+        static_cast<FieldEditMethodSig>(&GeoMultiPropertyData::editHandleIData),
+        static_cast<FieldGetMethodSig >(&GeoMultiPropertyData::getHandleIData));
 
     oType.addInitialDesc(pDesc);
 
@@ -114,8 +114,8 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&GeoMultiPropertyData::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&GeoMultiPropertyData::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }

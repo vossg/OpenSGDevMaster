@@ -140,8 +140,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleMaterial),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleMaterial));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleMaterial),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -152,8 +152,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandlePositions),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -164,8 +164,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleTexCoords),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleTexCoords));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleTexCoords),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleTexCoords));
 
     oType.addInitialDesc(pDesc);
 
@@ -176,8 +176,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         NormalizedXFieldId, NormalizedXFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleNormalizedX),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleNormalizedX));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleNormalizedX),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleNormalizedX));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         NormalizedYFieldId, NormalizedYFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleNormalizedY),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleNormalizedY));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleNormalizedY),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleNormalizedY));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         AspectHeightFieldId, AspectHeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleAspectHeight),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleAspectHeight));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleAspectHeight),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleAspectHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -212,8 +212,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         AspectWidthFieldId, AspectWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleAspectWidth),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleAspectWidth));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleAspectWidth),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleAspectWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -224,8 +224,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         ScaleFieldId, ScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleScale),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleScale));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleScale),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -236,8 +236,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
         TileFieldId, TileFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PolygonForegroundBase::editHandleTile),
-        static_cast<FieldGetMethodSig >(&PolygonForegroundBase::getHandleTile));
+        static_cast<FieldEditMethodSig>(&PolygonForeground::editHandleTile),
+        static_cast<FieldGetMethodSig >(&PolygonForeground::getHandleTile));
 
     oType.addInitialDesc(pDesc);
 }

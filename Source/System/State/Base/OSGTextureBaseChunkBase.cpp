@@ -107,8 +107,8 @@ void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
         TargetFieldId, TargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBaseChunkBase::editHandleTarget),
-        static_cast<FieldGetMethodSig >(&TextureBaseChunkBase::getHandleTarget));
+        static_cast<FieldEditMethodSig>(&TextureBaseChunk::editHandleTarget),
+        static_cast<FieldGetMethodSig >(&TextureBaseChunk::getHandleTarget));
 
     oType.addInitialDesc(pDesc);
 }

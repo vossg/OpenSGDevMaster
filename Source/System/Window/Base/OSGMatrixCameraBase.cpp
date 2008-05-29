@@ -112,8 +112,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleProjectionMatrix),
-        static_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleProjectionMatrix));
+        static_cast<FieldEditMethodSig>(&MatrixCamera::editHandleProjectionMatrix),
+        static_cast<FieldGetMethodSig >(&MatrixCamera::getHandleProjectionMatrix));
 
     oType.addInitialDesc(pDesc);
 
@@ -124,8 +124,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         ModelviewMatrixFieldId, ModelviewMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleModelviewMatrix),
-        static_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleModelviewMatrix));
+        static_cast<FieldEditMethodSig>(&MatrixCamera::editHandleModelviewMatrix),
+        static_cast<FieldGetMethodSig >(&MatrixCamera::getHandleModelviewMatrix));
 
     oType.addInitialDesc(pDesc);
 
@@ -136,8 +136,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         UseBeaconFieldId, UseBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraBase::editHandleUseBeacon),
-        static_cast<FieldGetMethodSig >(&MatrixCameraBase::getHandleUseBeacon));
+        static_cast<FieldEditMethodSig>(&MatrixCamera::editHandleUseBeacon),
+        static_cast<FieldGetMethodSig >(&MatrixCamera::getHandleUseBeacon));
 
     oType.addInitialDesc(pDesc);
 }

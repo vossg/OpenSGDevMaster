@@ -114,8 +114,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         CompressionFieldId, CompressionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompression),
-        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompression));
+        static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleCompression),
+        static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleCompression));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         SubtileSizeFieldId, SubtileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleSubtileSize),
-        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleSubtileSize));
+        static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleSubtileSize),
+        static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleSubtileSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         ComposeFieldId, ComposeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleCompose),
-        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleCompose));
+        static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleCompose),
+        static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleCompose));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         RegionFieldId, RegionFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleRegion),
-        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleRegion));
+        static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleRegion),
+        static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleRegion));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         UseFaceDistributionFieldId, UseFaceDistributionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SortFirstWindowBase::editHandleUseFaceDistribution),
-        static_cast<FieldGetMethodSig >(&SortFirstWindowBase::getHandleUseFaceDistribution));
+        static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleUseFaceDistribution),
+        static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleUseFaceDistribution));
 
     oType.addInitialDesc(pDesc);
 }

@@ -139,8 +139,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&Window::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&Window::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -151,8 +151,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandleHeight),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&Window::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&Window::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -163,8 +163,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         PortFieldId, PortFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandlePort),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandlePort));
+        static_cast<FieldEditMethodSig>(&Window::editHandlePort),
+        static_cast<FieldGetMethodSig >(&Window::getHandlePort));
 
     oType.addInitialDesc(pDesc);
 
@@ -175,8 +175,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         ResizePendingFieldId, ResizePendingFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandleResizePending),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandleResizePending));
+        static_cast<FieldEditMethodSig>(&Window::editHandleResizePending),
+        static_cast<FieldGetMethodSig >(&Window::getHandleResizePending));
 
     oType.addInitialDesc(pDesc);
 
@@ -188,8 +188,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectEventCounterFieldId, GlObjectEventCounterFieldMask,
         true,
         (Field::FClusterLocal | Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectEventCounter),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectEventCounter));
+        static_cast<FieldEditMethodSig>(&Window::editHandleGlObjectEventCounter),
+        static_cast<FieldGetMethodSig >(&Window::getHandleGlObjectEventCounter));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,8 +200,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectLastRefreshFieldId, GlObjectLastRefreshFieldMask,
         true,
         (Field::FClusterLocal | Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastRefresh),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastRefresh));
+        static_cast<FieldEditMethodSig>(&Window::editHandleGlObjectLastRefresh),
+        static_cast<FieldGetMethodSig >(&Window::getHandleGlObjectLastRefresh));
 
     oType.addInitialDesc(pDesc);
 
@@ -212,8 +212,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         GlObjectLastReinitializeFieldId, GlObjectLastReinitializeFieldMask,
         true,
         (Field::FClusterLocal | Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandleGlObjectLastReinitialize),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandleGlObjectLastReinitialize));
+        static_cast<FieldEditMethodSig>(&Window::editHandleGlObjectLastReinitialize),
+        static_cast<FieldGetMethodSig >(&Window::getHandleGlObjectLastReinitialize));
 
     oType.addInitialDesc(pDesc);
 
@@ -225,8 +225,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
         DrawerIdFieldId, DrawerIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&WindowBase::editHandleDrawerId),
-        static_cast<FieldGetMethodSig >(&WindowBase::getHandleDrawerId));
+        static_cast<FieldEditMethodSig>(&Window::editHandleDrawerId),
+        static_cast<FieldGetMethodSig >(&Window::getHandleDrawerId));
 
     oType.addInitialDesc(pDesc);
 }

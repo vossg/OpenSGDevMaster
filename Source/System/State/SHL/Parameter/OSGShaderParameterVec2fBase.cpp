@@ -98,8 +98,8 @@ void ShaderParameterVec2fBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderParameterVec2fBase::editHandleValue),
-        static_cast<FieldGetMethodSig >(&ShaderParameterVec2fBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterVec2f::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterVec2f::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }

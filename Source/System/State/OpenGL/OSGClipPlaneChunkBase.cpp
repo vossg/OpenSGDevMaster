@@ -117,8 +117,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEquation),
-        static_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEquation));
+        static_cast<FieldEditMethodSig>(&ClipPlaneChunk::editHandleEquation),
+        static_cast<FieldGetMethodSig >(&ClipPlaneChunk::getHandleEquation));
 
     oType.addInitialDesc(pDesc);
 
@@ -129,8 +129,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleEnable),
-        static_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleEnable));
+        static_cast<FieldEditMethodSig>(&ClipPlaneChunk::editHandleEnable),
+        static_cast<FieldGetMethodSig >(&ClipPlaneChunk::getHandleEnable));
 
     oType.addInitialDesc(pDesc);
 
@@ -142,8 +142,8 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ClipPlaneChunkBase::editHandleBeacon),
-        static_cast<FieldGetMethodSig >(&ClipPlaneChunkBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&ClipPlaneChunk::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&ClipPlaneChunk::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }

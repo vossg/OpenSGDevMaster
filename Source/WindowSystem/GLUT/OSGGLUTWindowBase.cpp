@@ -98,8 +98,8 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
         GlutIdFieldId, GlutIdFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GLUTWindowBase::editHandleGlutId),
-        static_cast<FieldGetMethodSig >(&GLUTWindowBase::getHandleGlutId));
+        static_cast<FieldEditMethodSig>(&GLUTWindow::editHandleGlutId),
+        static_cast<FieldGetMethodSig >(&GLUTWindow::getHandleGlutId));
 
     oType.addInitialDesc(pDesc);
 }

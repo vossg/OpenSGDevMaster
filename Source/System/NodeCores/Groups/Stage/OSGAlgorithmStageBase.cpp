@@ -111,8 +111,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         AlgorithmFieldId, AlgorithmFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleAlgorithm),
-        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleAlgorithm));
+        static_cast<FieldEditMethodSig>(&AlgorithmStage::editHandleAlgorithm),
+        static_cast<FieldGetMethodSig >(&AlgorithmStage::getHandleAlgorithm));
 
     oType.addInitialDesc(pDesc);
 
@@ -123,8 +123,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         ProjectionModeFieldId, ProjectionModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMode),
-        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMode));
+        static_cast<FieldEditMethodSig>(&AlgorithmStage::editHandleProjectionMode),
+        static_cast<FieldGetMethodSig >(&AlgorithmStage::getHandleProjectionMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -135,8 +135,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         CopyViewingFieldId, CopyViewingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleCopyViewing),
-        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleCopyViewing));
+        static_cast<FieldEditMethodSig>(&AlgorithmStage::editHandleCopyViewing),
+        static_cast<FieldGetMethodSig >(&AlgorithmStage::getHandleCopyViewing));
 
     oType.addInitialDesc(pDesc);
 
@@ -147,8 +147,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&AlgorithmStageBase::editHandleProjectionMatrix),
-        static_cast<FieldGetMethodSig >(&AlgorithmStageBase::getHandleProjectionMatrix));
+        static_cast<FieldEditMethodSig>(&AlgorithmStage::editHandleProjectionMatrix),
+        static_cast<FieldGetMethodSig >(&AlgorithmStage::getHandleProjectionMatrix));
 
     oType.addInitialDesc(pDesc);
 }

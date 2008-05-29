@@ -107,8 +107,8 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         LeftEyeFieldId, LeftEyeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleLeftEye),
-        static_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleLeftEye));
+        static_cast<FieldEditMethodSig>(&StereoCameraDecorator::editHandleLeftEye),
+        static_cast<FieldGetMethodSig >(&StereoCameraDecorator::getHandleLeftEye));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         EyeSeparationFieldId, EyeSeparationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StereoCameraDecoratorBase::editHandleEyeSeparation),
-        static_cast<FieldGetMethodSig >(&StereoCameraDecoratorBase::getHandleEyeSeparation));
+        static_cast<FieldEditMethodSig>(&StereoCameraDecorator::editHandleEyeSeparation),
+        static_cast<FieldGetMethodSig >(&StereoCameraDecorator::getHandleEyeSeparation));
 
     oType.addInitialDesc(pDesc);
 }

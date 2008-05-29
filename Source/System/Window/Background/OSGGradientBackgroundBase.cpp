@@ -109,8 +109,8 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandleColor),
-        static_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&GradientBackground::editHandleColor),
+        static_cast<FieldGetMethodSig >(&GradientBackground::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -121,8 +121,8 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         PositionFieldId, PositionFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GradientBackgroundBase::editHandlePosition),
-        static_cast<FieldGetMethodSig >(&GradientBackgroundBase::getHandlePosition));
+        static_cast<FieldEditMethodSig>(&GradientBackground::editHandlePosition),
+        static_cast<FieldGetMethodSig >(&GradientBackground::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
 }

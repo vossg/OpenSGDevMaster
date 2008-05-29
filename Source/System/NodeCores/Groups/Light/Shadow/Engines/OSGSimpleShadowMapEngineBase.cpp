@@ -98,8 +98,8 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
         ForceTextureUnitFieldId, ForceTextureUnitFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineBase::editHandleForceTextureUnit),
-        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineBase::getHandleForceTextureUnit));
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngine::editHandleForceTextureUnit),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngine::getHandleForceTextureUnit));
 
     oType.addInitialDesc(pDesc);
 }

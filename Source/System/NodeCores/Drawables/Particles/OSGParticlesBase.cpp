@@ -166,8 +166,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         ModeFieldId, ModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleMode),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleMode));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleMode),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -179,8 +179,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandlePositions),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&Particles::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&Particles::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -195,8 +195,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         SizesFieldId, SizesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleSizes),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleSizes));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleSizes),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleSizes));
 
     oType.addInitialDesc(pDesc);
 
@@ -209,8 +209,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         SecPositionsFieldId, SecPositionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleSecPositions),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleSecPositions));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleSecPositions),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleSecPositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -221,8 +221,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         ColorsFieldId, ColorsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleColors),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleColors));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleColors),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleColors));
 
     oType.addInitialDesc(pDesc);
 
@@ -235,8 +235,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         NormalsFieldId, NormalsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleNormals),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleNormals));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleNormals),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleNormals));
 
     oType.addInitialDesc(pDesc);
 
@@ -248,8 +248,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         IndicesFieldId, IndicesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleIndices),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleIndices));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleIndices),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleIndices));
 
     oType.addInitialDesc(pDesc);
 
@@ -261,8 +261,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         TextureZsFieldId, TextureZsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleTextureZs),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleTextureZs));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleTextureZs),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleTextureZs));
 
     oType.addInitialDesc(pDesc);
 
@@ -274,8 +274,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         DrawOrderFieldId, DrawOrderFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleDrawOrder),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleDrawOrder));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleDrawOrder),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleDrawOrder));
 
     oType.addInitialDesc(pDesc);
 
@@ -287,8 +287,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         DynamicFieldId, DynamicFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleDynamic),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleDynamic));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleDynamic),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleDynamic));
 
     oType.addInitialDesc(pDesc);
 
@@ -299,8 +299,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         PumpFieldId, PumpFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandlePump),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandlePump));
+        static_cast<FieldEditMethodSig>(&Particles::editHandlePump),
+        static_cast<FieldGetMethodSig >(&Particles::getHandlePump));
 
     oType.addInitialDesc(pDesc);
 
@@ -311,8 +311,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         BspFieldId, BspFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleBsp),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleBsp));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleBsp),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleBsp));
 
     oType.addInitialDesc(pDesc);
 
@@ -324,8 +324,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         NumParticlesFieldId, NumParticlesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParticlesBase::editHandleNumParticles),
-        static_cast<FieldGetMethodSig >(&ParticlesBase::getHandleNumParticles));
+        static_cast<FieldEditMethodSig>(&Particles::editHandleNumParticles),
+        static_cast<FieldGetMethodSig >(&Particles::getHandleNumParticles));
 
     oType.addInitialDesc(pDesc);
 }

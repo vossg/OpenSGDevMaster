@@ -126,8 +126,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleColor),
-        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&TextureBackground::editHandleColor),
+        static_cast<FieldGetMethodSig >(&TextureBackground::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexture),
-        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexture));
+        static_cast<FieldEditMethodSig>(&TextureBackground::editHandleTexture),
+        static_cast<FieldGetMethodSig >(&TextureBackground::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleTexCoords),
-        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleTexCoords));
+        static_cast<FieldEditMethodSig>(&TextureBackground::editHandleTexCoords),
+        static_cast<FieldGetMethodSig >(&TextureBackground::getHandleTexCoords));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         RadialDistortionFieldId, RadialDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleRadialDistortion),
-        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleRadialDistortion));
+        static_cast<FieldEditMethodSig>(&TextureBackground::editHandleRadialDistortion),
+        static_cast<FieldGetMethodSig >(&TextureBackground::getHandleRadialDistortion));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         CenterOfDistortionFieldId, CenterOfDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleCenterOfDistortion),
-        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleCenterOfDistortion));
+        static_cast<FieldEditMethodSig>(&TextureBackground::editHandleCenterOfDistortion),
+        static_cast<FieldGetMethodSig >(&TextureBackground::getHandleCenterOfDistortion));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         HorFieldId, HorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleHor),
-        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleHor));
+        static_cast<FieldEditMethodSig>(&TextureBackground::editHandleHor),
+        static_cast<FieldGetMethodSig >(&TextureBackground::getHandleHor));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         VertFieldId, VertFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBackgroundBase::editHandleVert),
-        static_cast<FieldGetMethodSig >(&TextureBackgroundBase::getHandleVert));
+        static_cast<FieldEditMethodSig>(&TextureBackground::editHandleVert),
+        static_cast<FieldGetMethodSig >(&TextureBackground::getHandleVert));
 
     oType.addInitialDesc(pDesc);
 }

@@ -106,8 +106,8 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         VertexProgramFieldId, VertexProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleVertexProgram),
-        static_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleVertexProgram));
+        static_cast<FieldEditMethodSig>(&ShaderChunk::editHandleVertexProgram),
+        static_cast<FieldGetMethodSig >(&ShaderChunk::getHandleVertexProgram));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         FragmentProgramFieldId, FragmentProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleFragmentProgram),
-        static_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleFragmentProgram));
+        static_cast<FieldEditMethodSig>(&ShaderChunk::editHandleFragmentProgram),
+        static_cast<FieldGetMethodSig >(&ShaderChunk::getHandleFragmentProgram));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         GeometryProgramFieldId, GeometryProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderChunkBase::editHandleGeometryProgram),
-        static_cast<FieldGetMethodSig >(&ShaderChunkBase::getHandleGeometryProgram));
+        static_cast<FieldEditMethodSig>(&ShaderChunk::editHandleGeometryProgram),
+        static_cast<FieldGetMethodSig >(&ShaderChunk::getHandleGeometryProgram));
 
     oType.addInitialDesc(pDesc);
 }

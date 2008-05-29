@@ -98,8 +98,8 @@ void ShaderParameterPnt3fBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderParameterPnt3fBase::editHandleValue),
-        static_cast<FieldGetMethodSig >(&ShaderParameterPnt3fBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterPnt3f::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterPnt3f::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }

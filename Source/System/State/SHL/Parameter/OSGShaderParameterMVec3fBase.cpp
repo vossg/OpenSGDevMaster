@@ -98,8 +98,8 @@ void ShaderParameterMVec3fBase::classDescInserter(TypeObject &oType)
         ValueFieldId, ValueFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderParameterMVec3fBase::editHandleValue),
-        static_cast<FieldGetMethodSig >(&ShaderParameterMVec3fBase::getHandleValue));
+        static_cast<FieldEditMethodSig>(&ShaderParameterMVec3f::editHandleValue),
+        static_cast<FieldGetMethodSig >(&ShaderParameterMVec3f::getHandleValue));
 
     oType.addInitialDesc(pDesc);
 }

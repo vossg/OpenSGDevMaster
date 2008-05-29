@@ -133,8 +133,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         PreViewingFieldId, PreViewingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editHandlePreViewing),
-        static_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getHandlePreViewing));
+        static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePreViewing),
+        static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePreViewing));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         PostViewingFieldId, PostViewingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editHandlePostViewing),
-        static_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getHandlePostViewing));
+        static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePostViewing),
+        static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePostViewing));
 
     oType.addInitialDesc(pDesc);
 
@@ -159,8 +159,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         PreProjectionTranslationFieldId, PreProjectionTranslationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editHandlePreProjectionTranslation),
-        static_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getHandlePreProjectionTranslation));
+        static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePreProjectionTranslation),
+        static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePreProjectionTranslation));
 
     oType.addInitialDesc(pDesc);
 
@@ -172,8 +172,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         PostProjectionTranslationFieldId, PostProjectionTranslationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editHandlePostProjectionTranslation),
-        static_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getHandlePostProjectionTranslation));
+        static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePostProjectionTranslation),
+        static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePostProjectionTranslation));
 
     oType.addInitialDesc(pDesc);
 
@@ -185,8 +185,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         PreProjectionFieldId, PreProjectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editHandlePreProjection),
-        static_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getHandlePreProjection));
+        static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePreProjection),
+        static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePreProjection));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         PostProjectionFieldId, PostProjectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MatrixCameraDecoratorBase::editHandlePostProjection),
-        static_cast<FieldGetMethodSig >(&MatrixCameraDecoratorBase::getHandlePostProjection));
+        static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePostProjection),
+        static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePostProjection));
 
     oType.addInitialDesc(pDesc);
 }

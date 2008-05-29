@@ -102,8 +102,8 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TransformChunkBase::editHandleMatrix),
-        static_cast<FieldGetMethodSig >(&TransformChunkBase::getHandleMatrix));
+        static_cast<FieldEditMethodSig>(&TransformChunk::editHandleMatrix),
+        static_cast<FieldGetMethodSig >(&TransformChunk::getHandleMatrix));
 
     oType.addInitialDesc(pDesc);
 }

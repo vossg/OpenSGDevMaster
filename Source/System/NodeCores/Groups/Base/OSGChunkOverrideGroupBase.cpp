@@ -102,8 +102,8 @@ void ChunkOverrideGroupBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ChunkOverrideGroupBase::editHandleChunks),
-        static_cast<FieldGetMethodSig >(&ChunkOverrideGroupBase::getHandleChunks));
+        static_cast<FieldEditMethodSig>(&ChunkOverrideGroup::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&ChunkOverrideGroup::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 }

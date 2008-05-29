@@ -99,8 +99,8 @@ void FCDSParTestFCBase::classDescInserter(TypeObject &oType)
         ParentFieldId, ParentFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDSParTestFCBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDSParTestFCBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDSParTestFC::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDSParTestFC::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }

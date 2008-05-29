@@ -114,8 +114,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         BalanceFieldId, BalanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBalance),
-        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBalance));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleBalance),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleBalance));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         BestCutFieldId, BestCutFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleBestCut),
-        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleBestCut));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleBestCut),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleBestCut));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         ShowBalancingFieldId, ShowBalancingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShowBalancing),
-        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShowBalancing));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleShowBalancing),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleShowBalancing));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleTileSize),
-        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleTileSize));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleTileSize),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&BalancedMultiWindowBase::editHandleShort),
-        static_cast<FieldGetMethodSig >(&BalancedMultiWindowBase::getHandleShort));
+        static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleShort),
+        static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleShort));
 
     oType.addInitialDesc(pDesc);
 }

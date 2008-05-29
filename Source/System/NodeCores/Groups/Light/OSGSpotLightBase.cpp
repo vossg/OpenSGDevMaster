@@ -113,8 +113,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SpotLightBase::editHandleDirection),
-        static_cast<FieldGetMethodSig >(&SpotLightBase::getHandleDirection));
+        static_cast<FieldEditMethodSig>(&SpotLight::editHandleDirection),
+        static_cast<FieldGetMethodSig >(&SpotLight::getHandleDirection));
 
     oType.addInitialDesc(pDesc);
 
@@ -125,8 +125,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         SpotExponentFieldId, SpotExponentFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SpotLightBase::editHandleSpotExponent),
-        static_cast<FieldGetMethodSig >(&SpotLightBase::getHandleSpotExponent));
+        static_cast<FieldEditMethodSig>(&SpotLight::editHandleSpotExponent),
+        static_cast<FieldGetMethodSig >(&SpotLight::getHandleSpotExponent));
 
     oType.addInitialDesc(pDesc);
 
@@ -137,8 +137,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         SpotCutOffFieldId, SpotCutOffFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SpotLightBase::editHandleSpotCutOff),
-        static_cast<FieldGetMethodSig >(&SpotLightBase::getHandleSpotCutOff));
+        static_cast<FieldEditMethodSig>(&SpotLight::editHandleSpotCutOff),
+        static_cast<FieldGetMethodSig >(&SpotLight::getHandleSpotCutOff));
 
     oType.addInitialDesc(pDesc);
 }

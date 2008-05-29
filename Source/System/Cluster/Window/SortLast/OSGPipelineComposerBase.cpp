@@ -110,8 +110,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleShort),
-        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleShort));
+        static_cast<FieldEditMethodSig>(&PipelineComposer::editHandleShort),
+        static_cast<FieldGetMethodSig >(&PipelineComposer::getHandleShort));
 
     oType.addInitialDesc(pDesc);
 
@@ -122,8 +122,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleAlpha),
-        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&PipelineComposer::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&PipelineComposer::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         TileSizeFieldId, TileSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandleTileSize),
-        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandleTileSize));
+        static_cast<FieldEditMethodSig>(&PipelineComposer::editHandleTileSize),
+        static_cast<FieldGetMethodSig >(&PipelineComposer::getHandleTileSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void PipelineComposerBase::classDescInserter(TypeObject &oType)
         PipelinedFieldId, PipelinedFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&PipelineComposerBase::editHandlePipelined),
-        static_cast<FieldGetMethodSig >(&PipelineComposerBase::getHandlePipelined));
+        static_cast<FieldEditMethodSig>(&PipelineComposer::editHandlePipelined),
+        static_cast<FieldGetMethodSig >(&PipelineComposer::getHandlePipelined));
 
     oType.addInitialDesc(pDesc);
 }

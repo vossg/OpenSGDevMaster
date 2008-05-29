@@ -163,8 +163,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleDiffuse),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleDiffuse));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleDiffuse),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -175,8 +175,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleAmbient),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleAmbient));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleAmbient),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -187,8 +187,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleSpecular),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleSpecular));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleSpecular),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -199,8 +199,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         EmissionFieldId, EmissionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleEmission),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleEmission));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleEmission),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleEmission));
 
     oType.addInitialDesc(pDesc);
 
@@ -211,8 +211,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleShininess),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleShininess));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleShininess),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleShininess));
 
     oType.addInitialDesc(pDesc);
 
@@ -224,8 +224,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         LitFieldId, LitFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleLit),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleLit));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleLit),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleLit));
 
     oType.addInitialDesc(pDesc);
 
@@ -236,8 +236,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleColorMaterial),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleColorMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleColorMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleColorMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -250,8 +250,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackMaterialFieldId, BackMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackMaterial),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleBackMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleBackMaterial));
 
     oType.addInitialDesc(pDesc);
 
@@ -262,8 +262,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackDiffuseFieldId, BackDiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackDiffuse),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackDiffuse));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleBackDiffuse),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleBackDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -274,8 +274,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackAmbientFieldId, BackAmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackAmbient),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackAmbient));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleBackAmbient),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleBackAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -286,8 +286,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackSpecularFieldId, BackSpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackSpecular),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackSpecular));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleBackSpecular),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleBackSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -298,8 +298,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackEmissionFieldId, BackEmissionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackEmission),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackEmission));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleBackEmission),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleBackEmission));
 
     oType.addInitialDesc(pDesc);
 
@@ -310,8 +310,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackShininessFieldId, BackShininessFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackShininess),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackShininess));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleBackShininess),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleBackShininess));
 
     oType.addInitialDesc(pDesc);
 
@@ -322,8 +322,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
         BackColorMaterialFieldId, BackColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialChunkBase::editHandleBackColorMaterial),
-        static_cast<FieldGetMethodSig >(&MaterialChunkBase::getHandleBackColorMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialChunk::editHandleBackColorMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialChunk::getHandleBackColorMaterial));
 
     oType.addInitialDesc(pDesc);
 }

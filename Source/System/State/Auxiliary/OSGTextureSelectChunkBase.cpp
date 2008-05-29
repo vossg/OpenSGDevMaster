@@ -108,8 +108,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleChoice),
-        static_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleChoice));
+        static_cast<FieldEditMethodSig>(&TextureSelectChunk::editHandleChoice),
+        static_cast<FieldGetMethodSig >(&TextureSelectChunk::getHandleChoice));
 
     oType.addInitialDesc(pDesc);
 
@@ -120,8 +120,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         TexturesFieldId, TexturesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureSelectChunkBase::editHandleTextures),
-        static_cast<FieldGetMethodSig >(&TextureSelectChunkBase::getHandleTextures));
+        static_cast<FieldEditMethodSig>(&TextureSelectChunk::editHandleTextures),
+        static_cast<FieldGetMethodSig >(&TextureSelectChunk::getHandleTextures));
 
     oType.addInitialDesc(pDesc);
 }

@@ -138,8 +138,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleAmbient),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleAmbient));
+        static_cast<FieldEditMethodSig>(&Light::editHandleAmbient),
+        static_cast<FieldGetMethodSig >(&Light::getHandleAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleDiffuse),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleDiffuse));
+        static_cast<FieldEditMethodSig>(&Light::editHandleDiffuse),
+        static_cast<FieldGetMethodSig >(&Light::getHandleDiffuse));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleSpecular),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleSpecular));
+        static_cast<FieldEditMethodSig>(&Light::editHandleSpecular),
+        static_cast<FieldGetMethodSig >(&Light::getHandleSpecular));
 
     oType.addInitialDesc(pDesc);
 
@@ -174,8 +174,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleBeacon),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&Light::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&Light::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 
@@ -186,8 +186,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         OnFieldId, OnFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleOn),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleOn));
+        static_cast<FieldEditMethodSig>(&Light::editHandleOn),
+        static_cast<FieldGetMethodSig >(&Light::getHandleOn));
 
     oType.addInitialDesc(pDesc);
 
@@ -198,8 +198,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleConstantAttenuation),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleConstantAttenuation));
+        static_cast<FieldEditMethodSig>(&Light::editHandleConstantAttenuation),
+        static_cast<FieldGetMethodSig >(&Light::getHandleConstantAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -210,8 +210,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleLinearAttenuation),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleLinearAttenuation));
+        static_cast<FieldEditMethodSig>(&Light::editHandleLinearAttenuation),
+        static_cast<FieldGetMethodSig >(&Light::getHandleLinearAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -222,8 +222,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleQuadraticAttenuation),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleQuadraticAttenuation));
+        static_cast<FieldEditMethodSig>(&Light::editHandleQuadraticAttenuation),
+        static_cast<FieldGetMethodSig >(&Light::getHandleQuadraticAttenuation));
 
     oType.addInitialDesc(pDesc);
 
@@ -234,8 +234,8 @@ void LightBase::classDescInserter(TypeObject &oType)
         LightEngineFieldId, LightEngineFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&LightBase::editHandleLightEngine),
-        static_cast<FieldGetMethodSig >(&LightBase::getHandleLightEngine));
+        static_cast<FieldEditMethodSig>(&Light::editHandleLightEngine),
+        static_cast<FieldGetMethodSig >(&Light::getHandleLightEngine));
 
     oType.addInitialDesc(pDesc);
 }

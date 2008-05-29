@@ -101,8 +101,8 @@ void StateBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StateBase::editHandleChunks),
-        static_cast<FieldGetMethodSig >(&StateBase::getHandleChunks));
+        static_cast<FieldEditMethodSig>(&State::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&State::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 }

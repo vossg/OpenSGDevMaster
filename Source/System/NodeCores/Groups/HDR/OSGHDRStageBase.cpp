@@ -119,8 +119,8 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         ExposureFieldId, ExposureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageBase::editHandleExposure),
-        static_cast<FieldGetMethodSig >(&HDRStageBase::getHandleExposure));
+        static_cast<FieldEditMethodSig>(&HDRStage::editHandleExposure),
+        static_cast<FieldGetMethodSig >(&HDRStage::getHandleExposure));
 
     oType.addInitialDesc(pDesc);
 
@@ -131,8 +131,8 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         BlurWidthFieldId, BlurWidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageBase::editHandleBlurWidth),
-        static_cast<FieldGetMethodSig >(&HDRStageBase::getHandleBlurWidth));
+        static_cast<FieldEditMethodSig>(&HDRStage::editHandleBlurWidth),
+        static_cast<FieldGetMethodSig >(&HDRStage::getHandleBlurWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -143,8 +143,8 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         BlurAmountFieldId, BlurAmountFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageBase::editHandleBlurAmount),
-        static_cast<FieldGetMethodSig >(&HDRStageBase::getHandleBlurAmount));
+        static_cast<FieldEditMethodSig>(&HDRStage::editHandleBlurAmount),
+        static_cast<FieldGetMethodSig >(&HDRStage::getHandleBlurAmount));
 
     oType.addInitialDesc(pDesc);
 
@@ -155,8 +155,8 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         EffectAmountFieldId, EffectAmountFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageBase::editHandleEffectAmount),
-        static_cast<FieldGetMethodSig >(&HDRStageBase::getHandleEffectAmount));
+        static_cast<FieldEditMethodSig>(&HDRStage::editHandleEffectAmount),
+        static_cast<FieldGetMethodSig >(&HDRStage::getHandleEffectAmount));
 
     oType.addInitialDesc(pDesc);
 
@@ -167,8 +167,8 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         GammaFieldId, GammaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageBase::editHandleGamma),
-        static_cast<FieldGetMethodSig >(&HDRStageBase::getHandleGamma));
+        static_cast<FieldEditMethodSig>(&HDRStage::editHandleGamma),
+        static_cast<FieldGetMethodSig >(&HDRStage::getHandleGamma));
 
     oType.addInitialDesc(pDesc);
 
@@ -179,8 +179,8 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         BufferFormatFieldId, BufferFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&HDRStageBase::editHandleBufferFormat),
-        static_cast<FieldGetMethodSig >(&HDRStageBase::getHandleBufferFormat));
+        static_cast<FieldEditMethodSig>(&HDRStage::editHandleBufferFormat),
+        static_cast<FieldGetMethodSig >(&HDRStage::getHandleBufferFormat));
 
     oType.addInitialDesc(pDesc);
 }

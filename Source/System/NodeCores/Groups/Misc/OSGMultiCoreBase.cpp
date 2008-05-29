@@ -99,8 +99,8 @@ void MultiCoreBase::classDescInserter(TypeObject &oType)
         CoresFieldId, CoresFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MultiCoreBase::editHandleCores),
-        static_cast<FieldGetMethodSig >(&MultiCoreBase::getHandleCores));
+        static_cast<FieldEditMethodSig>(&MultiCore::editHandleCores),
+        static_cast<FieldGetMethodSig >(&MultiCore::getHandleCores));
 
     oType.addInitialDesc(pDesc);
 }

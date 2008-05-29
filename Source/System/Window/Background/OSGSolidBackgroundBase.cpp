@@ -107,8 +107,8 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleColor),
-        static_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleColor));
+        static_cast<FieldEditMethodSig>(&SolidBackground::editHandleColor),
+        static_cast<FieldGetMethodSig >(&SolidBackground::getHandleColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -119,8 +119,8 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SolidBackgroundBase::editHandleAlpha),
-        static_cast<FieldGetMethodSig >(&SolidBackgroundBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&SolidBackground::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&SolidBackground::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 }

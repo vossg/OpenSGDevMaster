@@ -106,8 +106,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         DisplayFieldId, DisplayFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleDisplay),
-        static_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleDisplay));
+        static_cast<FieldEditMethodSig>(&EGLWindow::editHandleDisplay),
+        static_cast<FieldGetMethodSig >(&EGLWindow::getHandleDisplay));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         WindowFieldId, WindowFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleWindow),
-        static_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleWindow));
+        static_cast<FieldEditMethodSig>(&EGLWindow::editHandleWindow),
+        static_cast<FieldGetMethodSig >(&EGLWindow::getHandleWindow));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&EGLWindowBase::editHandleContext),
-        static_cast<FieldGetMethodSig >(&EGLWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&EGLWindow::editHandleContext),
+        static_cast<FieldGetMethodSig >(&EGLWindow::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }

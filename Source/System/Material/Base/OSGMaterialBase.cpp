@@ -115,8 +115,8 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         SortKeyFieldId, SortKeyFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialBase::editHandleSortKey),
-        static_cast<FieldGetMethodSig >(&MaterialBase::getHandleSortKey));
+        static_cast<FieldEditMethodSig>(&Material::editHandleSortKey),
+        static_cast<FieldGetMethodSig >(&Material::getHandleSortKey));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         TransparencyModeFieldId, TransparencyModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialBase::editHandleTransparencyMode),
-        static_cast<FieldGetMethodSig >(&MaterialBase::getHandleTransparencyMode));
+        static_cast<FieldEditMethodSig>(&Material::editHandleTransparencyMode),
+        static_cast<FieldGetMethodSig >(&Material::getHandleTransparencyMode));
 
     oType.addInitialDesc(pDesc);
 }

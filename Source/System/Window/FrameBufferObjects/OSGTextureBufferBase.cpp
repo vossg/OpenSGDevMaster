@@ -114,8 +114,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexture),
-        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexture));
+        static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleTexture),
+        static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         TexTargetFieldId, TexTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleTexTarget),
-        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleTexTarget));
+        static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleTexTarget),
+        static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleTexTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -139,8 +139,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         LevelFieldId, LevelFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleLevel),
-        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleLevel));
+        static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleLevel),
+        static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleLevel));
 
     oType.addInitialDesc(pDesc);
 
@@ -151,8 +151,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         ZoffsetFieldId, ZoffsetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureBufferBase::editHandleZoffset),
-        static_cast<FieldGetMethodSig >(&TextureBufferBase::getHandleZoffset));
+        static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleZoffset),
+        static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleZoffset));
 
     oType.addInitialDesc(pDesc);
 }

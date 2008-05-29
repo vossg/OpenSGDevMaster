@@ -254,8 +254,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_ptrFieldId, FieldSFPub_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPub_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPub_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPub_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPub_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -266,8 +266,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_weakptrFieldId, FieldSFPub_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPub_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPub_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPub_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPub_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -278,8 +278,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_mpchildptrFieldId, FieldSFPub_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPub_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPub_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPub_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPub_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -290,8 +290,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_ptrFieldId, FieldSFPro_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPro_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPro_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPro_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPro_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -302,8 +302,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_weakptrFieldId, FieldSFPro_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPro_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPro_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPro_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPro_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -314,8 +314,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_mpchildptrFieldId, FieldSFPro_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPro_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPro_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPro_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPro_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -326,8 +326,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_ptrFieldId, FieldSFPri_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPri_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPri_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPri_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPri_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -338,8 +338,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_weakptrFieldId, FieldSFPri_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPri_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPri_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPri_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPri_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -350,8 +350,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_mpchildptrFieldId, FieldSFPri_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPri_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPri_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPri_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPri_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -362,8 +362,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_ptrFieldId, FieldSFNo_ptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -374,8 +374,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_weakptrFieldId, FieldSFNo_weakptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -386,8 +386,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_mpchildptrFieldId, FieldSFNo_mpchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -398,8 +398,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_ptrFieldId, FieldMFPub_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPub_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPub_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPub_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPub_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -410,8 +410,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_weakptrFieldId, FieldMFPub_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPub_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPub_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPub_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPub_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -422,8 +422,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_mpchildptrFieldId, FieldMFPub_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPub_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPub_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPub_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPub_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -434,8 +434,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_ptrFieldId, FieldMFPro_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPro_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPro_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPro_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPro_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -446,8 +446,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_weakptrFieldId, FieldMFPro_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPro_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPro_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPro_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPro_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -458,8 +458,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_mpchildptrFieldId, FieldMFPro_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPro_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPro_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPro_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPro_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -470,8 +470,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_ptrFieldId, FieldMFPri_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPri_ptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPri_ptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPri_ptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPri_ptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -482,8 +482,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_weakptrFieldId, FieldMFPri_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPri_weakptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPri_weakptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPri_weakptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPri_weakptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -494,8 +494,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_mpchildptrFieldId, FieldMFPri_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPri_mpchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPri_mpchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPri_mpchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPri_mpchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -506,8 +506,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_ptrFieldId, FieldMFNo_ptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -518,8 +518,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_weakptrFieldId, FieldMFNo_weakptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -530,8 +530,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_mpchildptrFieldId, FieldMFNo_mpchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -542,8 +542,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPub_spchildptrFieldId, FieldSFPub_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPub_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPub_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPub_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPub_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -554,8 +554,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPro_spchildptrFieldId, FieldSFPro_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPro_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPro_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPro_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPro_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -566,8 +566,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFPri_spchildptrFieldId, FieldSFPri_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldSFPri_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldSFPri_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldSFPri_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldSFPri_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -578,8 +578,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldSFNo_spchildptrFieldId, FieldSFNo_spchildptrFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -590,8 +590,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPub_spchildptrFieldId, FieldMFPub_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPub_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPub_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPub_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPub_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -602,8 +602,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPro_spchildptrFieldId, FieldMFPro_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPro_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPro_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPro_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPro_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -614,8 +614,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFPri_spchildptrFieldId, FieldMFPri_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::editHandleFieldMFPri_spchildptr),
-        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::getHandleFieldMFPri_spchildptr));
+        static_cast<FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::editHandleFieldMFPri_spchildptr),
+        static_cast<FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::getHandleFieldMFPri_spchildptr));
 
     oType.addInitialDesc(pDesc);
 
@@ -626,8 +626,8 @@ void FCDPtrTestFCCustomAccessBase::classDescInserter(TypeObject &oType)
         FieldMFNo_spchildptrFieldId, FieldMFNo_spchildptrFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccessBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccessBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&FCDPtrTestFCCustomAccess::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&FCDPtrTestFCCustomAccess::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }

@@ -114,8 +114,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         CenterFieldId, CenterFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ComponentTransformBase::editHandleCenter),
-        static_cast<FieldGetMethodSig >(&ComponentTransformBase::getHandleCenter));
+        static_cast<FieldEditMethodSig>(&ComponentTransform::editHandleCenter),
+        static_cast<FieldGetMethodSig >(&ComponentTransform::getHandleCenter));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         RotationFieldId, RotationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ComponentTransformBase::editHandleRotation),
-        static_cast<FieldGetMethodSig >(&ComponentTransformBase::getHandleRotation));
+        static_cast<FieldEditMethodSig>(&ComponentTransform::editHandleRotation),
+        static_cast<FieldGetMethodSig >(&ComponentTransform::getHandleRotation));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         ScaleFieldId, ScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ComponentTransformBase::editHandleScale),
-        static_cast<FieldGetMethodSig >(&ComponentTransformBase::getHandleScale));
+        static_cast<FieldEditMethodSig>(&ComponentTransform::editHandleScale),
+        static_cast<FieldGetMethodSig >(&ComponentTransform::getHandleScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         ScaleOrientationFieldId, ScaleOrientationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ComponentTransformBase::editHandleScaleOrientation),
-        static_cast<FieldGetMethodSig >(&ComponentTransformBase::getHandleScaleOrientation));
+        static_cast<FieldEditMethodSig>(&ComponentTransform::editHandleScaleOrientation),
+        static_cast<FieldGetMethodSig >(&ComponentTransform::getHandleScaleOrientation));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
         TranslationFieldId, TranslationFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ComponentTransformBase::editHandleTranslation),
-        static_cast<FieldGetMethodSig >(&ComponentTransformBase::getHandleTranslation));
+        static_cast<FieldEditMethodSig>(&ComponentTransform::editHandleTranslation),
+        static_cast<FieldGetMethodSig >(&ComponentTransform::getHandleTranslation));
 
     oType.addInitialDesc(pDesc);
 }

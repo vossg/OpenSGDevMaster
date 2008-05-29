@@ -121,8 +121,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ProgramFieldId, ProgramFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleProgram),
-        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleProgram));
+        static_cast<FieldEditMethodSig>(&ProgramChunk::editHandleProgram),
+        static_cast<FieldGetMethodSig >(&ProgramChunk::getHandleProgram));
 
     oType.addInitialDesc(pDesc);
 
@@ -133,8 +133,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ParamValuesFieldId, ParamValuesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamValues),
-        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamValues));
+        static_cast<FieldEditMethodSig>(&ProgramChunk::editHandleParamValues),
+        static_cast<FieldGetMethodSig >(&ProgramChunk::getHandleParamValues));
 
     oType.addInitialDesc(pDesc);
 
@@ -145,8 +145,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         ParamNamesFieldId, ParamNamesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleParamNames),
-        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleParamNames));
+        static_cast<FieldEditMethodSig>(&ProgramChunk::editHandleParamNames),
+        static_cast<FieldGetMethodSig >(&ProgramChunk::getHandleParamNames));
 
     oType.addInitialDesc(pDesc);
 
@@ -157,8 +157,8 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&ProgramChunkBase::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&ProgramChunkBase::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&ProgramChunk::editHandleGLId),
+        static_cast<FieldGetMethodSig >(&ProgramChunk::getHandleGLId));
 
     oType.addInitialDesc(pDesc);
 }

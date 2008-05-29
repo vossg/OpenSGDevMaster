@@ -109,8 +109,8 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         ImagesFieldId, ImagesFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandleImages),
-        static_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandleImages));
+        static_cast<FieldEditMethodSig>(&ImageForeground::editHandleImages),
+        static_cast<FieldGetMethodSig >(&ImageForeground::getHandleImages));
 
     oType.addInitialDesc(pDesc);
 
@@ -121,8 +121,8 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageForegroundBase::editHandlePositions),
-        static_cast<FieldGetMethodSig >(&ImageForegroundBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&ImageForeground::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&ImageForeground::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 }

@@ -171,8 +171,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TargetFieldId, TargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTarget),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTarget));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleTarget),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -183,8 +183,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         ActiveSubHandleFieldId, ActiveSubHandleFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleActiveSubHandle),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleActiveSubHandle));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleActiveSubHandle),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleActiveSubHandle));
 
     oType.addInitialDesc(pDesc);
 
@@ -195,8 +195,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         LastMousePosFieldId, LastMousePosFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleLastMousePos),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleLastMousePos));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleLastMousePos),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleLastMousePos));
 
     oType.addInitialDesc(pDesc);
 
@@ -207,8 +207,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         ViewportFieldId, ViewportFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleViewport),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleViewport));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleViewport),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleViewport));
 
     oType.addInitialDesc(pDesc);
 
@@ -219,8 +219,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         ActiveFieldId, ActiveFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleActive),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleActive));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleActive),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleActive));
 
     oType.addInitialDesc(pDesc);
 
@@ -231,8 +231,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         LengthFieldId, LengthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleLength),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleLength));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleLength),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleLength));
 
     oType.addInitialDesc(pDesc);
 
@@ -243,8 +243,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         HandleXNodeFieldId, HandleXNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleXNode),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleXNode));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleHandleXNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleHandleXNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -255,8 +255,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         HandleYNodeFieldId, HandleYNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleYNode),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleYNode));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleHandleYNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleHandleYNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -267,8 +267,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         HandleZNodeFieldId, HandleZNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleHandleZNode),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleHandleZNode));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleHandleZNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleHandleZNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -279,8 +279,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TransXNodeFieldId, TransXNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransXNode),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransXNode));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleTransXNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleTransXNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -291,8 +291,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TransYNodeFieldId, TransYNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransYNode),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransYNode));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleTransYNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleTransYNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -303,8 +303,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         TransZNodeFieldId, TransZNodeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleTransZNode),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleTransZNode));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleTransZNode),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleTransZNode));
 
     oType.addInitialDesc(pDesc);
 
@@ -315,8 +315,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         MaterialXFieldId, MaterialXFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialX),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialX));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleMaterialX),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleMaterialX));
 
     oType.addInitialDesc(pDesc);
 
@@ -327,8 +327,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         MaterialYFieldId, MaterialYFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialY),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialY));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleMaterialY),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleMaterialY));
 
     oType.addInitialDesc(pDesc);
 
@@ -339,8 +339,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         MaterialZFieldId, MaterialZFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleMaterialZ),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleMaterialZ));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleMaterialZ),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleMaterialZ));
 
     oType.addInitialDesc(pDesc);
 
@@ -351,8 +351,8 @@ void ManipulatorBase::classDescInserter(TypeObject &oType)
         AxisLinesNFieldId, AxisLinesNFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ManipulatorBase::editHandleAxisLinesN),
-        static_cast<FieldGetMethodSig >(&ManipulatorBase::getHandleAxisLinesN));
+        static_cast<FieldEditMethodSig>(&Manipulator::editHandleAxisLinesN),
+        static_cast<FieldGetMethodSig >(&Manipulator::getHandleAxisLinesN));
 
     oType.addInitialDesc(pDesc);
 }

@@ -99,8 +99,8 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MultiPassMaterialBase::editHandleMaterials),
-        static_cast<FieldGetMethodSig >(&MultiPassMaterialBase::getHandleMaterials));
+        static_cast<FieldEditMethodSig>(&MultiPassMaterial::editHandleMaterials),
+        static_cast<FieldGetMethodSig >(&MultiPassMaterial::getHandleMaterials));
 
     oType.addInitialDesc(pDesc);
 }

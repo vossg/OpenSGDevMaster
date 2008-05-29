@@ -98,8 +98,8 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CarbonWindowBase::editHandleContext),
-        static_cast<FieldGetMethodSig >(&CarbonWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&CarbonWindow::editHandleContext),
+        static_cast<FieldGetMethodSig >(&CarbonWindow::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }

@@ -198,8 +198,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ParentsFieldId, ParentsFieldMask,
         true,
         Field::MFDefaultFlags,
-        static_cast     <FieldEditMethodSig>(&ImageBase::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&ImageBase::invalidGetField));
+        static_cast     <FieldEditMethodSig>(&Image::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&Image::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 
@@ -210,8 +210,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         DimensionFieldId, DimensionFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleDimension),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleDimension));
+        static_cast<FieldEditMethodSig>(&Image::editHandleDimension),
+        static_cast<FieldGetMethodSig >(&Image::getHandleDimension));
 
     oType.addInitialDesc(pDesc);
 
@@ -222,8 +222,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleWidth),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleWidth));
+        static_cast<FieldEditMethodSig>(&Image::editHandleWidth),
+        static_cast<FieldGetMethodSig >(&Image::getHandleWidth));
 
     oType.addInitialDesc(pDesc);
 
@@ -234,8 +234,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleHeight),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleHeight));
+        static_cast<FieldEditMethodSig>(&Image::editHandleHeight),
+        static_cast<FieldGetMethodSig >(&Image::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
 
@@ -246,8 +246,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         DepthFieldId, DepthFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleDepth),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleDepth));
+        static_cast<FieldEditMethodSig>(&Image::editHandleDepth),
+        static_cast<FieldGetMethodSig >(&Image::getHandleDepth));
 
     oType.addInitialDesc(pDesc);
 
@@ -258,8 +258,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         BppFieldId, BppFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleBpp),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleBpp));
+        static_cast<FieldEditMethodSig>(&Image::editHandleBpp),
+        static_cast<FieldGetMethodSig >(&Image::getHandleBpp));
 
     oType.addInitialDesc(pDesc);
 
@@ -270,8 +270,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         MipMapCountFieldId, MipMapCountFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleMipMapCount),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleMipMapCount));
+        static_cast<FieldEditMethodSig>(&Image::editHandleMipMapCount),
+        static_cast<FieldGetMethodSig >(&Image::getHandleMipMapCount));
 
     oType.addInitialDesc(pDesc);
 
@@ -282,8 +282,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         FrameCountFieldId, FrameCountFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameCount),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameCount));
+        static_cast<FieldEditMethodSig>(&Image::editHandleFrameCount),
+        static_cast<FieldGetMethodSig >(&Image::getHandleFrameCount));
 
     oType.addInitialDesc(pDesc);
 
@@ -294,8 +294,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         FrameDelayFieldId, FrameDelayFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameDelay),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameDelay));
+        static_cast<FieldEditMethodSig>(&Image::editHandleFrameDelay),
+        static_cast<FieldGetMethodSig >(&Image::getHandleFrameDelay));
 
     oType.addInitialDesc(pDesc);
 
@@ -306,8 +306,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         PixelFormatFieldId, PixelFormatFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandlePixelFormat),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandlePixelFormat));
+        static_cast<FieldEditMethodSig>(&Image::editHandlePixelFormat),
+        static_cast<FieldGetMethodSig >(&Image::getHandlePixelFormat));
 
     oType.addInitialDesc(pDesc);
 
@@ -318,8 +318,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         PixelFieldId, PixelFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandlePixel),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandlePixel));
+        static_cast<FieldEditMethodSig>(&Image::editHandlePixel),
+        static_cast<FieldGetMethodSig >(&Image::getHandlePixel));
 
     oType.addInitialDesc(pDesc);
 
@@ -330,8 +330,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         FrameSizeFieldId, FrameSizeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleFrameSize),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleFrameSize));
+        static_cast<FieldEditMethodSig>(&Image::editHandleFrameSize),
+        static_cast<FieldGetMethodSig >(&Image::getHandleFrameSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -342,8 +342,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleName),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&Image::editHandleName),
+        static_cast<FieldGetMethodSig >(&Image::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -354,8 +354,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         DataTypeFieldId, DataTypeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleDataType),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleDataType));
+        static_cast<FieldEditMethodSig>(&Image::editHandleDataType),
+        static_cast<FieldGetMethodSig >(&Image::getHandleDataType));
 
     oType.addInitialDesc(pDesc);
 
@@ -367,8 +367,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ComponentSizeFieldId, ComponentSizeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleComponentSize),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleComponentSize));
+        static_cast<FieldEditMethodSig>(&Image::editHandleComponentSize),
+        static_cast<FieldGetMethodSig >(&Image::getHandleComponentSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -379,8 +379,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         SideCountFieldId, SideCountFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleSideCount),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleSideCount));
+        static_cast<FieldEditMethodSig>(&Image::editHandleSideCount),
+        static_cast<FieldGetMethodSig >(&Image::getHandleSideCount));
 
     oType.addInitialDesc(pDesc);
 
@@ -391,8 +391,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         SideSizeFieldId, SideSizeFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleSideSize),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleSideSize));
+        static_cast<FieldEditMethodSig>(&Image::editHandleSideSize),
+        static_cast<FieldGetMethodSig >(&Image::getHandleSideSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -404,8 +404,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceCompressedDataFieldId, ForceCompressedDataFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceCompressedData),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceCompressedData));
+        static_cast<FieldEditMethodSig>(&Image::editHandleForceCompressedData),
+        static_cast<FieldGetMethodSig >(&Image::getHandleForceCompressedData));
 
     oType.addInitialDesc(pDesc);
 
@@ -417,8 +417,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceAlphaChannelFieldId, ForceAlphaChannelFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceAlphaChannel),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceAlphaChannel));
+        static_cast<FieldEditMethodSig>(&Image::editHandleForceAlphaChannel),
+        static_cast<FieldGetMethodSig >(&Image::getHandleForceAlphaChannel));
 
     oType.addInitialDesc(pDesc);
 
@@ -430,8 +430,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceColorChannelFieldId, ForceColorChannelFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceColorChannel),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceColorChannel));
+        static_cast<FieldEditMethodSig>(&Image::editHandleForceColorChannel),
+        static_cast<FieldGetMethodSig >(&Image::getHandleForceColorChannel));
 
     oType.addInitialDesc(pDesc);
 
@@ -443,8 +443,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ForceAlphaBinaryFieldId, ForceAlphaBinaryFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleForceAlphaBinary),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleForceAlphaBinary));
+        static_cast<FieldEditMethodSig>(&Image::editHandleForceAlphaBinary),
+        static_cast<FieldGetMethodSig >(&Image::getHandleForceAlphaBinary));
 
     oType.addInitialDesc(pDesc);
 
@@ -455,8 +455,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ResXFieldId, ResXFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleResX),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleResX));
+        static_cast<FieldEditMethodSig>(&Image::editHandleResX),
+        static_cast<FieldGetMethodSig >(&Image::getHandleResX));
 
     oType.addInitialDesc(pDesc);
 
@@ -467,8 +467,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ResYFieldId, ResYFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleResY),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleResY));
+        static_cast<FieldEditMethodSig>(&Image::editHandleResY),
+        static_cast<FieldGetMethodSig >(&Image::getHandleResY));
 
     oType.addInitialDesc(pDesc);
 
@@ -479,8 +479,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
         ResUnitFieldId, ResUnitFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ImageBase::editHandleResUnit),
-        static_cast<FieldGetMethodSig >(&ImageBase::getHandleResUnit));
+        static_cast<FieldEditMethodSig>(&Image::editHandleResUnit),
+        static_cast<FieldGetMethodSig >(&Image::getHandleResUnit));
 
     oType.addInitialDesc(pDesc);
 }

@@ -106,8 +106,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         DisplayFieldId, DisplayFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&XWindowBase::editHandleDisplay),
-        static_cast<FieldGetMethodSig >(&XWindowBase::getHandleDisplay));
+        static_cast<FieldEditMethodSig>(&XWindow::editHandleDisplay),
+        static_cast<FieldGetMethodSig >(&XWindow::getHandleDisplay));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         WindowFieldId, WindowFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&XWindowBase::editHandleWindow),
-        static_cast<FieldGetMethodSig >(&XWindowBase::getHandleWindow));
+        static_cast<FieldEditMethodSig>(&XWindow::editHandleWindow),
+        static_cast<FieldGetMethodSig >(&XWindow::getHandleWindow));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&XWindowBase::editHandleContext),
-        static_cast<FieldGetMethodSig >(&XWindowBase::getHandleContext));
+        static_cast<FieldEditMethodSig>(&XWindow::editHandleContext),
+        static_cast<FieldGetMethodSig >(&XWindow::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }

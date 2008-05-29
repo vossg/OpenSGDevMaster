@@ -106,8 +106,8 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         ShortFieldId, ShortFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParallelComposerBase::editHandleShort),
-        static_cast<FieldGetMethodSig >(&ParallelComposerBase::getHandleShort));
+        static_cast<FieldEditMethodSig>(&ParallelComposer::editHandleShort),
+        static_cast<FieldGetMethodSig >(&ParallelComposer::getHandleShort));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParallelComposerBase::editHandleAlpha),
-        static_cast<FieldGetMethodSig >(&ParallelComposerBase::getHandleAlpha));
+        static_cast<FieldEditMethodSig>(&ParallelComposer::editHandleAlpha),
+        static_cast<FieldGetMethodSig >(&ParallelComposer::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         PcLibPathFieldId, PcLibPathFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ParallelComposerBase::editHandlePcLibPath),
-        static_cast<FieldGetMethodSig >(&ParallelComposerBase::getHandlePcLibPath));
+        static_cast<FieldEditMethodSig>(&ParallelComposer::editHandlePcLibPath),
+        static_cast<FieldGetMethodSig >(&ParallelComposer::getHandlePcLibPath));
 
     oType.addInitialDesc(pDesc);
 }

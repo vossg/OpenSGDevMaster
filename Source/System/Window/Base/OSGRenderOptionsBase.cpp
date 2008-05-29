@@ -179,8 +179,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         StatisticFieldId, StatisticFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleStatistic),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleStatistic));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleStatistic),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleStatistic));
 
     oType.addInitialDesc(pDesc);
 
@@ -191,8 +191,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         PolygonModeFieldId, PolygonModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandlePolygonMode),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandlePolygonMode));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandlePolygonMode),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandlePolygonMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -203,8 +203,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         TwoSidedLightingFieldId, TwoSidedLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleTwoSidedLighting),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleTwoSidedLighting));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleTwoSidedLighting),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleTwoSidedLighting));
 
     oType.addInitialDesc(pDesc);
 
@@ -215,8 +215,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SpecTexLightingFieldId, SpecTexLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSpecTexLighting),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSpecTexLighting));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleSpecTexLighting),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleSpecTexLighting));
 
     oType.addInitialDesc(pDesc);
 
@@ -227,8 +227,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SortTransFieldId, SortTransFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSortTrans),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSortTrans));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleSortTrans),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleSortTrans));
 
     oType.addInitialDesc(pDesc);
 
@@ -239,8 +239,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         ZWriteTransFieldId, ZWriteTransFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleZWriteTrans),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleZWriteTrans));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleZWriteTrans),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleZWriteTrans));
 
     oType.addInitialDesc(pDesc);
 
@@ -251,8 +251,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         LocalLightsFieldId, LocalLightsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleLocalLights),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleLocalLights));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleLocalLights),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleLocalLights));
 
     oType.addInitialDesc(pDesc);
 
@@ -263,8 +263,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         CorrectTwoSidedLightingFieldId, CorrectTwoSidedLightingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleCorrectTwoSidedLighting),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleCorrectTwoSidedLighting));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleCorrectTwoSidedLighting),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleCorrectTwoSidedLighting));
 
     oType.addInitialDesc(pDesc);
 
@@ -275,8 +275,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         OcclusionCullingFieldId, OcclusionCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCulling),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleOcclusionCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleOcclusionCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -287,8 +287,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         OcclusionCullingModeFieldId, OcclusionCullingModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCullingMode),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCullingMode));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleOcclusionCullingMode),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleOcclusionCullingMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -299,8 +299,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         OcclusionCullingPixelsFieldId, OcclusionCullingPixelsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleOcclusionCullingPixels),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleOcclusionCullingPixels));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleOcclusionCullingPixels),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleOcclusionCullingPixels));
 
     oType.addInitialDesc(pDesc);
 
@@ -311,8 +311,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingFieldId, AntialiasingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasing),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasing));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleAntialiasing),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleAntialiasing));
 
     oType.addInitialDesc(pDesc);
 
@@ -323,8 +323,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingDistanceFieldId, AntialiasingDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingDistance),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingDistance));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleAntialiasingDistance),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleAntialiasingDistance));
 
     oType.addInitialDesc(pDesc);
 
@@ -335,8 +335,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingScaleFieldId, AntialiasingScaleFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingScale),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingScale));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleAntialiasingScale),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleAntialiasingScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -347,8 +347,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         AntialiasingTriggerFieldId, AntialiasingTriggerFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleAntialiasingTrigger),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleAntialiasingTrigger));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleAntialiasingTrigger),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleAntialiasingTrigger));
 
     oType.addInitialDesc(pDesc);
 
@@ -359,8 +359,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FrustumCullingFieldId, FrustumCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFrustumCulling),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFrustumCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleFrustumCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFrustumCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -371,8 +371,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         BackfaceCullingFieldId, BackfaceCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleBackfaceCulling),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleBackfaceCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleBackfaceCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleBackfaceCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -383,8 +383,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SmallFeatureCullingFieldId, SmallFeatureCullingFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeatureCulling),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeatureCulling));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleSmallFeatureCulling),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleSmallFeatureCulling));
 
     oType.addInitialDesc(pDesc);
 
@@ -395,8 +395,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SmallFeaturePixelsFieldId, SmallFeaturePixelsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeaturePixels),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeaturePixels));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleSmallFeaturePixels),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleSmallFeaturePixels));
 
     oType.addInitialDesc(pDesc);
 
@@ -407,8 +407,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         SmallFeatureThresholdFieldId, SmallFeatureThresholdFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleSmallFeatureThreshold),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleSmallFeatureThreshold));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleSmallFeatureThreshold),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleSmallFeatureThreshold));
 
     oType.addInitialDesc(pDesc);
 
@@ -419,8 +419,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FirstFrameFieldId, FirstFrameFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFirstFrame),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFirstFrame));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleFirstFrame),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFirstFrame));
 
     oType.addInitialDesc(pDesc);
 }

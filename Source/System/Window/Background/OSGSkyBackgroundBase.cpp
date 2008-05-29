@@ -197,8 +197,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         SkyColorFieldId, SkyColorFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleSkyColor),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleSkyColor));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleSkyColor),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleSkyColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -210,8 +210,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         SkyAngleFieldId, SkyAngleFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleSkyAngle),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleSkyAngle));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleSkyAngle),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleSkyAngle));
 
     oType.addInitialDesc(pDesc);
 
@@ -222,8 +222,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         GroundColorFieldId, GroundColorFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleGroundColor),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleGroundColor));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleGroundColor),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleGroundColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -235,8 +235,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         GroundAngleFieldId, GroundAngleFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleGroundAngle),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleGroundAngle));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleGroundAngle),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleGroundAngle));
 
     oType.addInitialDesc(pDesc);
 
@@ -247,8 +247,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         SphereResFieldId, SphereResFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleSphereRes),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleSphereRes));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleSphereRes),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleSphereRes));
 
     oType.addInitialDesc(pDesc);
 
@@ -259,8 +259,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BackTextureFieldId, BackTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBackTexture),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBackTexture));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBackTexture),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBackTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -271,8 +271,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BottomTextureFieldId, BottomTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBottomTexture),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBottomTexture));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBottomTexture),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBottomTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -283,8 +283,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         FrontTextureFieldId, FrontTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleFrontTexture),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleFrontTexture));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleFrontTexture),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleFrontTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -295,8 +295,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         LeftTextureFieldId, LeftTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleLeftTexture),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleLeftTexture));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleLeftTexture),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleLeftTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -307,8 +307,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         RightTextureFieldId, RightTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleRightTexture),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleRightTexture));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleRightTexture),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleRightTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -319,8 +319,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         TopTextureFieldId, TopTextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleTopTexture),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleTopTexture));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleTopTexture),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleTopTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -331,8 +331,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BoxInsideFieldId, BoxInsideFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBoxInside),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBoxInside));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBoxInside),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBoxInside));
 
     oType.addInitialDesc(pDesc);
 
@@ -343,8 +343,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         TopTexCoordFieldId, TopTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleTopTexCoord),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleTopTexCoord));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleTopTexCoord),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleTopTexCoord));
 
     oType.addInitialDesc(pDesc);
 
@@ -355,8 +355,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BottomTexCoordFieldId, BottomTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBottomTexCoord),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBottomTexCoord));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBottomTexCoord),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBottomTexCoord));
 
     oType.addInitialDesc(pDesc);
 
@@ -367,8 +367,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         RightTexCoordFieldId, RightTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleRightTexCoord),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleRightTexCoord));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleRightTexCoord),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleRightTexCoord));
 
     oType.addInitialDesc(pDesc);
 
@@ -379,8 +379,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         LeftTexCoordFieldId, LeftTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleLeftTexCoord),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleLeftTexCoord));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleLeftTexCoord),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleLeftTexCoord));
 
     oType.addInitialDesc(pDesc);
 
@@ -391,8 +391,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         FrontTexCoordFieldId, FrontTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleFrontTexCoord),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleFrontTexCoord));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleFrontTexCoord),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleFrontTexCoord));
 
     oType.addInitialDesc(pDesc);
 
@@ -403,8 +403,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BackTexCoordFieldId, BackTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBackTexCoord),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBackTexCoord));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBackTexCoord),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBackTexCoord));
 
     oType.addInitialDesc(pDesc);
 
@@ -416,8 +416,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&SkyBackgroundBase::editHandleBeacon),
-        static_cast<FieldGetMethodSig >(&SkyBackgroundBase::getHandleBeacon));
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBeacon),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
 }

@@ -101,8 +101,8 @@ void FBOViewportBase::classDescInserter(TypeObject &oType)
         FrameBufferObjectFieldId, FrameBufferObjectFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FBOViewportBase::editHandleFrameBufferObject),
-        static_cast<FieldGetMethodSig >(&FBOViewportBase::getHandleFrameBufferObject));
+        static_cast<FieldEditMethodSig>(&FBOViewport::editHandleFrameBufferObject),
+        static_cast<FieldGetMethodSig >(&FBOViewport::getHandleFrameBufferObject));
 
     oType.addInitialDesc(pDesc);
 }

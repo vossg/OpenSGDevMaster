@@ -148,8 +148,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleEnabled),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleEnabled));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 
@@ -160,8 +160,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         UrlFieldId, UrlFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleUrl),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleUrl));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleUrl),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleUrl));
 
     oType.addInitialDesc(pDesc);
 
@@ -172,8 +172,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         RootFieldId, RootFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleRoot),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleRoot));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 
@@ -184,8 +184,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         StateFieldId, StateFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleState),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleState));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleState),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleState));
 
     oType.addInitialDesc(pDesc);
 
@@ -196,8 +196,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         ConcurrentLoadFieldId, ConcurrentLoadFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleConcurrentLoad),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleConcurrentLoad));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleConcurrentLoad),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleConcurrentLoad));
 
     oType.addInitialDesc(pDesc);
 
@@ -208,8 +208,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         VolumeFieldId, VolumeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleVolume),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleVolume));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleVolume),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleVolume));
 
     oType.addInitialDesc(pDesc);
 
@@ -220,8 +220,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         IndicesFieldId, IndicesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleIndices),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleIndices));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleIndices),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleIndices));
 
     oType.addInitialDesc(pDesc);
 
@@ -232,8 +232,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleTriangles),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleTriangles));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleTriangles),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleTriangles));
 
     oType.addInitialDesc(pDesc);
 
@@ -244,8 +244,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandlePositions),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandlePositions));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandlePositions),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandlePositions));
 
     oType.addInitialDesc(pDesc);
 
@@ -256,8 +256,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         GeometriesFieldId, GeometriesFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleGeometries),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleGeometries));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleGeometries),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleGeometries));
 
     oType.addInitialDesc(pDesc);
 
@@ -268,8 +268,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         AbsoluteUrlFieldId, AbsoluteUrlFieldMask,
         true,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleAbsoluteUrl),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleAbsoluteUrl));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleAbsoluteUrl),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleAbsoluteUrl));
 
     oType.addInitialDesc(pDesc);
 
@@ -280,8 +280,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
         InlineFieldId, InlineFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ProxyGroupBase::editHandleInline),
-        static_cast<FieldGetMethodSig >(&ProxyGroupBase::getHandleInline));
+        static_cast<FieldEditMethodSig>(&ProxyGroup::editHandleInline),
+        static_cast<FieldGetMethodSig >(&ProxyGroup::getHandleInline));
 
     oType.addInitialDesc(pDesc);
 }

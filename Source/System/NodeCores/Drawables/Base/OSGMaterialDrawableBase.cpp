@@ -99,8 +99,8 @@ void MaterialDrawableBase::classDescInserter(TypeObject &oType)
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&MaterialDrawableBase::editHandleMaterial),
-        static_cast<FieldGetMethodSig >(&MaterialDrawableBase::getHandleMaterial));
+        static_cast<FieldEditMethodSig>(&MaterialDrawable::editHandleMaterial),
+        static_cast<FieldGetMethodSig >(&MaterialDrawable::getHandleMaterial));
 
     oType.addInitialDesc(pDesc);
 }

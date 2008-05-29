@@ -106,8 +106,8 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         PartitionRangeBeginFieldId, PartitionRangeBeginFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeBegin),
-        static_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeBegin));
+        static_cast<FieldEditMethodSig>(&StageData::editHandlePartitionRangeBegin),
+        static_cast<FieldGetMethodSig >(&StageData::getHandlePartitionRangeBegin));
 
     oType.addInitialDesc(pDesc);
 
@@ -118,8 +118,8 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         PartitionRangeEndFieldId, PartitionRangeEndFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StageDataBase::editHandlePartitionRangeEnd),
-        static_cast<FieldGetMethodSig >(&StageDataBase::getHandlePartitionRangeEnd));
+        static_cast<FieldEditMethodSig>(&StageData::editHandlePartitionRangeEnd),
+        static_cast<FieldGetMethodSig >(&StageData::getHandlePartitionRangeEnd));
 
     oType.addInitialDesc(pDesc);
 
@@ -130,8 +130,8 @@ void StageDataBase::classDescInserter(TypeObject &oType)
         GroupModeFieldId, GroupModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&StageDataBase::editHandleGroupMode),
-        static_cast<FieldGetMethodSig >(&StageDataBase::getHandleGroupMode));
+        static_cast<FieldEditMethodSig>(&StageData::editHandleGroupMode),
+        static_cast<FieldGetMethodSig >(&StageData::getHandleGroupMode));
 
     oType.addInitialDesc(pDesc);
 }

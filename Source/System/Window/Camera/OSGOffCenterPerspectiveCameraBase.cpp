@@ -98,8 +98,8 @@ void OffCenterPerspectiveCameraBase::classDescInserter(TypeObject &oType)
         PrincipalPointFieldId, PrincipalPointFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&OffCenterPerspectiveCameraBase::editHandlePrincipalPoint),
-        static_cast<FieldGetMethodSig >(&OffCenterPerspectiveCameraBase::getHandlePrincipalPoint));
+        static_cast<FieldEditMethodSig>(&OffCenterPerspectiveCamera::editHandlePrincipalPoint),
+        static_cast<FieldGetMethodSig >(&OffCenterPerspectiveCamera::getHandlePrincipalPoint));
 
     oType.addInitialDesc(pDesc);
 }

@@ -115,8 +115,8 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleName),
-        static_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&FileGrabForeground::editHandleName),
+        static_cast<FieldGetMethodSig >(&FileGrabForeground::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleFrame),
-        static_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleFrame));
+        static_cast<FieldEditMethodSig>(&FileGrabForeground::editHandleFrame),
+        static_cast<FieldGetMethodSig >(&FileGrabForeground::getHandleFrame));
 
     oType.addInitialDesc(pDesc);
 
@@ -139,8 +139,8 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         IncrementFieldId, IncrementFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FileGrabForegroundBase::editHandleIncrement),
-        static_cast<FieldGetMethodSig >(&FileGrabForegroundBase::getHandleIncrement));
+        static_cast<FieldEditMethodSig>(&FileGrabForeground::editHandleIncrement),
+        static_cast<FieldGetMethodSig >(&FileGrabForeground::getHandleIncrement));
 
     oType.addInitialDesc(pDesc);
 }

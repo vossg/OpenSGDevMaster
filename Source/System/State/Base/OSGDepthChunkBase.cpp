@@ -120,8 +120,8 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleEnable),
-        static_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleEnable));
+        static_cast<FieldEditMethodSig>(&DepthChunk::editHandleEnable),
+        static_cast<FieldGetMethodSig >(&DepthChunk::getHandleEnable));
 
     oType.addInitialDesc(pDesc);
 
@@ -132,8 +132,8 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         FuncFieldId, FuncFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleFunc),
-        static_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleFunc));
+        static_cast<FieldEditMethodSig>(&DepthChunk::editHandleFunc),
+        static_cast<FieldGetMethodSig >(&DepthChunk::getHandleFunc));
 
     oType.addInitialDesc(pDesc);
 
@@ -144,8 +144,8 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleNear),
-        static_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleNear));
+        static_cast<FieldEditMethodSig>(&DepthChunk::editHandleNear),
+        static_cast<FieldGetMethodSig >(&DepthChunk::getHandleNear));
 
     oType.addInitialDesc(pDesc);
 
@@ -156,8 +156,8 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleFar),
-        static_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleFar));
+        static_cast<FieldEditMethodSig>(&DepthChunk::editHandleFar),
+        static_cast<FieldGetMethodSig >(&DepthChunk::getHandleFar));
 
     oType.addInitialDesc(pDesc);
 
@@ -168,8 +168,8 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         ReadOnlyFieldId, ReadOnlyFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&DepthChunkBase::editHandleReadOnly),
-        static_cast<FieldGetMethodSig >(&DepthChunkBase::getHandleReadOnly));
+        static_cast<FieldEditMethodSig>(&DepthChunk::editHandleReadOnly),
+        static_cast<FieldGetMethodSig >(&DepthChunk::getHandleReadOnly));
 
     oType.addInitialDesc(pDesc);
 }

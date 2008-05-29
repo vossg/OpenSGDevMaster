@@ -110,8 +110,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         MessageFieldId, MessageFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleMessage),
-        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleMessage));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStage::editHandleMessage),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStage::getHandleMessage));
 
     oType.addInitialDesc(pDesc);
 
@@ -122,8 +122,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         NumPartitionsFieldId, NumPartitionsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleNumPartitions),
-        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleNumPartitions));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStage::editHandleNumPartitions),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStage::getHandleNumPartitions));
 
     oType.addInitialDesc(pDesc);
 
@@ -134,8 +134,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         OrderFieldId, OrderFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleOrder),
-        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleOrder));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStage::editHandleOrder),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStage::getHandleOrder));
 
     oType.addInitialDesc(pDesc);
 
@@ -146,8 +146,8 @@ void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
         UseGroupFieldId, UseGroupFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TestMultiPartitionStageBase::editHandleUseGroup),
-        static_cast<FieldGetMethodSig >(&TestMultiPartitionStageBase::getHandleUseGroup));
+        static_cast<FieldEditMethodSig>(&TestMultiPartitionStage::editHandleUseGroup),
+        static_cast<FieldGetMethodSig >(&TestMultiPartitionStage::getHandleUseGroup));
 
     oType.addInitialDesc(pDesc);
 }

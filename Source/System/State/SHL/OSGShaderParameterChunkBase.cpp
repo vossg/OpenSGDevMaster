@@ -99,8 +99,8 @@ void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
         ParametersFieldId, ParametersFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ShaderParameterChunkBase::editHandleParameters),
-        static_cast<FieldGetMethodSig >(&ShaderParameterChunkBase::getHandleParameters));
+        static_cast<FieldEditMethodSig>(&ShaderParameterChunk::editHandleParameters),
+        static_cast<FieldGetMethodSig >(&ShaderParameterChunk::getHandleParameters));
 
     oType.addInitialDesc(pDesc);
 }

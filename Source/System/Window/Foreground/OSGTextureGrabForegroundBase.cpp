@@ -115,8 +115,8 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleTexture),
-        static_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleTexture));
+        static_cast<FieldEditMethodSig>(&TextureGrabForeground::editHandleTexture),
+        static_cast<FieldGetMethodSig >(&TextureGrabForeground::getHandleTexture));
 
     oType.addInitialDesc(pDesc);
 
@@ -127,8 +127,8 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleAutoResize),
-        static_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleAutoResize));
+        static_cast<FieldEditMethodSig>(&TextureGrabForeground::editHandleAutoResize),
+        static_cast<FieldGetMethodSig >(&TextureGrabForeground::getHandleAutoResize));
 
     oType.addInitialDesc(pDesc);
 
@@ -139,8 +139,8 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         BindTargetFieldId, BindTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleBindTarget),
-        static_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleBindTarget));
+        static_cast<FieldEditMethodSig>(&TextureGrabForeground::editHandleBindTarget),
+        static_cast<FieldGetMethodSig >(&TextureGrabForeground::getHandleBindTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -152,8 +152,8 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
         CopyTargetFieldId, CopyTargetFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureGrabForegroundBase::editHandleCopyTarget),
-        static_cast<FieldGetMethodSig >(&TextureGrabForegroundBase::getHandleCopyTarget));
+        static_cast<FieldEditMethodSig>(&TextureGrabForeground::editHandleCopyTarget),
+        static_cast<FieldGetMethodSig >(&TextureGrabForeground::getHandleCopyTarget));
 
     oType.addInitialDesc(pDesc);
 }

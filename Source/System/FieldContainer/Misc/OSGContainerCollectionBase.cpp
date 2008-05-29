@@ -103,8 +103,8 @@ void ContainerCollectionBase::classDescInserter(TypeObject &oType)
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ContainerCollectionBase::editHandleName),
-        static_cast<FieldGetMethodSig >(&ContainerCollectionBase::getHandleName));
+        static_cast<FieldEditMethodSig>(&ContainerCollection::editHandleName),
+        static_cast<FieldGetMethodSig >(&ContainerCollection::getHandleName));
 
     oType.addInitialDesc(pDesc);
 
@@ -115,8 +115,8 @@ void ContainerCollectionBase::classDescInserter(TypeObject &oType)
         ContainersFieldId, ContainersFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&ContainerCollectionBase::editHandleContainers),
-        static_cast<FieldGetMethodSig >(&ContainerCollectionBase::getHandleContainers));
+        static_cast<FieldEditMethodSig>(&ContainerCollection::editHandleContainers),
+        static_cast<FieldGetMethodSig >(&ContainerCollection::getHandleContainers));
 
     oType.addInitialDesc(pDesc);
 }
