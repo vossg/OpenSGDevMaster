@@ -454,7 +454,7 @@ class ChildPointerMField :
     typedef FieldDescription<
                 MFieldTraits,
                 FieldType::MultiField,
-                UnrecordedRefCountPolicy,
+                RefCountPolicy,
                 FieldType::ChildPtrField            > Description;
 
 #ifndef OSG_CLEAN_FCFIELDS

@@ -92,7 +92,7 @@ class ParentPointerSField :
 
     typedef FieldDescription   <PtrSFieldTraits,
                                 FieldType::SingleField,
-                                NoRefCountPolicy,
+                                RefCountPolicy,
                                 FieldType::ParentPtrField> Description;
 
     // handles

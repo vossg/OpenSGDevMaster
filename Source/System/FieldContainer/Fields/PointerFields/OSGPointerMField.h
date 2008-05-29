@@ -480,7 +480,7 @@ class PointerMField :
     typedef FieldDescription           <
                 MFieldTraits,
                 FieldType::MultiField,
-                WeakRefCountPolicy,
+                RefCountPolicy,
                 FieldType::PtrField                   > Description;
 
 #ifndef OSG_CLEAN_FCFIELDS

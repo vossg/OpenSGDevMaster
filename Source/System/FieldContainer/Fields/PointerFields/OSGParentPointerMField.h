@@ -368,7 +368,7 @@ class ParentPointerMField :
 
     typedef          FieldDescription<PtrMFieldTraits,
                              FieldType::MultiField,
-                             NoRefCountPolicy,
+                             RefCountPolicy,
                              FieldType::ParentPtrField> Description;
 
     typedef          PointerAccessHandler<

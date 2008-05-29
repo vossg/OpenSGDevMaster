@@ -89,7 +89,7 @@ class ChildPointerSField :
 
     typedef FieldDescription      <SFieldTraits,
                                    FieldType::SingleField,
-                                   UnrecordedRefCountPolicy,
+                                   RefCountPolicy,
                                    FieldType::ChildPtrField> Description;
 
     typedef typename SFieldTraits::ParentType                ParentT;
