@@ -395,8 +395,6 @@ class Field(FCDElement):
         self["ptrFieldNullCheckAccess"]     = False;
         self["ptrFieldStandardAccess"]      = False;
 
-        self["checkNilPtr"]                 = False;
-
         if self.getFCD("ptrFieldAccess") == "std":
             self["ptrFieldStandardAccess"]      = True;
             self["writePushToField"]            = True;
@@ -414,7 +412,6 @@ class Field(FCDElement):
             self["writeRemoveFromMFieldIndex"]  = True;
             self["writeRemoveFromMFieldObject"] = True;
             self["writeClearField"]             = True;
-            self["checkNilPtr"]                 = True;
         elif self.getFCD("ptrFieldAccess") == "custom":
             self["ptrFieldCustomAccess"]        = True;
         else:
