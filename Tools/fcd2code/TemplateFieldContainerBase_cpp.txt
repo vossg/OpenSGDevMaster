@@ -343,11 +343,11 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
         @@if field.writePushToField
 void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ const value)
 {
-            @@if field.checkNilPtr
+            @@if field.ptrFieldNullCheckAccess
     if(value == NULL)
         return;
 
-            @@endif // field.checkNilPtr
+            @@endif // field.ptrFieldNullCheckAccess
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
     _mf@!field.Name!@.push_back(value);
@@ -377,11 +377,11 @@ void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!f
 void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32               uiIndex,
                                                    @!field.Type!@ const value   )
 {
-            @@if field.checkNilPtr
+            @@if field.ptrFieldNullCheckAccess
     if(value == NULL)
         return;
 
-            @@endif // field.checkNilPtr
+            @@endif // field.ptrFieldNullCheckAccess
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
     MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin_nc();
@@ -396,11 +396,11 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32               uiIndex,
 void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32               uiIndex,
                                                        @!field.Type!@ const value   )
 {
-            @@if field.checkNilPtr
+            @@if field.ptrFieldNullCheckAccess
     if(value == NULL)
         return;
 
-            @@endif // field.checkNilPtr
+            @@endif // field.ptrFieldNullCheckAccess
     if(uiIndex >= _mf@!field.Name!@.size())
         return;
 
@@ -414,11 +414,11 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32               uiIn
 void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ const pOldElem,
                                                         @!field.Type!@ const pNewElem)
 {
-            @@if field.checkNilPtr
+            @@if field.ptrFieldNullCheckAccess
     if(pNewElem == NULL)
         return;
 
-            @@endif // field.checkNilPtr
+            @@endif // field.ptrFieldNullCheckAccess
     Int32  elemIdx = _mf@!field.Name!@.findIndex(pOldElem);
 
     if(elemIdx != -1)
