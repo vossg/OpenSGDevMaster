@@ -420,7 +420,7 @@
 /*-------------------------------------------------------------------------*/
 /*                              Windows icc                                */
 
-# if defined(__INTEL_COMPILER) && !defined(__linux) && !defined(_WIN32_WCE)
+# if defined(__INTEL_COMPILER) && !defined(__linux) && !defined(_WIN32_WCE)  && defined(_MSC_VER) && _MSC_VER < 1300
 
 # ifndef __ICL
 #    define __ICL __INTEL_COMPILER
@@ -577,7 +577,7 @@
 # endif // defined(_MSC_VER) && !defined(__ICL)
 
 
-# if defined(_MSC_VER) && !defined(__ICL) && !defined(_WIN32_WCE)
+# if defined(_MSC_VER) && _MSC_VER >= 1300 && !defined(_WIN32_WCE)
 # define OSG_WIN_TYPES
 // Use windows threads
 # define OSG_USE_WINTHREADS
@@ -590,8 +590,10 @@
 
 // it's there, it's just called something else
 # define OSG_HAS_VSNPRINTF
+// vc 9.0 finally supports vsnprintf!
+# if _MSC_VER < 1500
 # define vsnprintf _vsnprintf
-
+# endif
 # define OSG_HAS_NILBUF
 # define OSG_STREAM_RDBUF_HAS_PARAM
 
@@ -640,7 +642,7 @@
 # define OSG_LINUX_TYPES
 # define OSG_NO_CONCEPT_CHECKS 
 # define SIZE_T_NEQ_UINT32
-# if (__APPLE_CC__ <= 5370)
+# if !defined(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__) || (__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ < 1050)
 #  define OSG_GLENUM_NEQ_UINT32
 # endif
 

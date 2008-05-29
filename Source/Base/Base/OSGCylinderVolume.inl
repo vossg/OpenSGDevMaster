@@ -135,6 +135,12 @@ bool CylinderVolume::intersect(const CylinderVolume &volume) const
   return OSG::intersect(*this, volume);
 }
 
+inline
+bool CylinderVolume::operator !=(const CylinderVolume &rhs) const
+{
+    return !(*this == rhs);
+}
+ 
 OSG_END_NAMESPACE
 
 #endif // _OSGCYLINDERVOLUME_INL_

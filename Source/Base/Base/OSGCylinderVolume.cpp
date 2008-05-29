@@ -49,7 +49,7 @@
 #include "OSGPlane.h"
 #include "OSGMatrix.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 
 void CylinderVolume::getCenter(Pnt3r &center) const
@@ -205,7 +205,26 @@ void CylinderVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
          << ")";
 }
 
+/*---------------------------------------------------------------------------*/
+/* Operators                                                                 */
 
+bool CylinderVolume::operator ==(const CylinderVolume &rhs) const
+{
+    return (_axisPos == rhs._axisPos) &&
+           (_axisDir == rhs._axisDir) &&
+           (_radius  == rhs._radius );
+}
 
-
-
+CylinderVolume &CylinderVolume::operator =(const CylinderVolume &source)
+{
+    if(this == &source)
+        return *this;
+    
+    _axisPos = source._axisPos;
+    _axisDir = source._axisDir;
+    _radius  = source._radius;
+    
+    return *this;
+}
+ 
+OSG_END_NAMESPACE

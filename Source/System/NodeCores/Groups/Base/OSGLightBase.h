@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGNodeCore.h" // Parent
+#include "OSGGroup.h" // Parent
 
 #include "OSGColor4rFields.h" // Ambient type
 #include "OSGColor4rFields.h" // Diffuse type
@@ -83,12 +83,12 @@ class Light;
 
 //! \brief Light Base Class.
 
-class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
+class OSG_SYSTEM_DLLMAPPING LightBase : public Group
 {
   public:
 
-    typedef NodeCore Inherited;
-    typedef NodeCore ParentContainer;
+    typedef Group Inherited;
+    typedef Group ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

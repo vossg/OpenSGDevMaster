@@ -178,6 +178,11 @@ ActionBase::ResultE Transform::renderLeave(Action *action)
 #ifndef OSG_WINCE
 ActionBase::ResultE Transform::intersectEnter(Action *action)
 {
+    // Use parent class for trivial reject
+    if(Inherited::intersect(action) == Action::Skip)
+        return Action::Skip;
+    
+    // Need to check children
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
     Matrix           m  = this->getMatrix();
 

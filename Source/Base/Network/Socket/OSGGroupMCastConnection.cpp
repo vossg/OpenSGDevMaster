@@ -88,7 +88,7 @@ GroupMCastConnection::GroupMCastConnection():
     _mcastSocket.setReadBufferSize(262144);
     // set window size
     _windowSize = _mcastSocket.getReadBufferSize()/(OSG_DGRAM_LEN) - 1;
-    _windowSize = osgMin(UInt32(13),_windowSize);
+    _windowSize = osgMax(UInt32(2),_windowSize);
 }
 
 /*! Destructor
@@ -106,7 +106,12 @@ GroupMCastConnection::~GroupMCastConnection(void)
     _lock->release();
     // wait for stop
     if(_sendQueueThread)
+    {
         BaseThread::join(_sendQueueThread);    
+
+        OSG::subRef(_sendQueueThread);
+        _sendQueueThread = NULL;
+    }
     // close socket
     _mcastSocket.close();
     // free queues

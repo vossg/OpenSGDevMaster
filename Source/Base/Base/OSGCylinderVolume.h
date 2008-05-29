@@ -135,6 +135,17 @@ class OSG_BASE_DLLMAPPING CylinderVolume : public Volume
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                        Operator                              */
+    /*! \{                                                                 */
+
+    CylinderVolume &operator = (const CylinderVolume &rhs);
+
+    bool            operator ==(const CylinderVolume &rhs) const;
+
+    bool            operator !=(const CylinderVolume &rhs) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                        Output                                */
     /*! \{                                                                 */
 

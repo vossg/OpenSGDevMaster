@@ -168,13 +168,32 @@ void PolytopeVolume::transform(const Matrix &OSG_CHECK_ARG(m))
     return;
 }
 
+
 /// Assignment operator
-const PolytopeVolume &PolytopeVolume::operator =(const PolytopeVolume &b1)
+PolytopeVolume &PolytopeVolume::operator =(const PolytopeVolume &rhs)
 {
-    for (int i = 0; i < _numPlanes; i++)
-        _planes[i] = b1._planes[i];
+    if(this == &rhs)
+        return *this;
+
+    delete _planes;
+
+    _numPlanes = rhs._numPlanes;
+
+    _planes = new Plane[_numPlanes];
+
+    for(UInt16 i = 0; i < _numPlanes; i++)
+        _planes[i] = rhs._planes[i];
 
     return *this;
+}
+
+/// Equality comparisons
+bool PolytopeVolume::operator ==(const PolytopeVolume &rhs) const
+{
+    FWARNING(("PolytopeVolume::operator == (const PolytopVolume &) "
+              "is NIY !\n"                                          ));
+
+    return(false);
 }
 
 /// print the volume */
@@ -184,24 +203,6 @@ void PolytopeVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
     // not implemented...
 }
 
-/// Equality comparisons
-OSG_BASE_DLLMAPPING
-bool operator ==(const PolytopeVolume &OSG_CHECK_ARG(b1),
-                 const PolytopeVolume &OSG_CHECK_ARG(b2))
-{
-    FWARNING(("PolytopeVolume == NIY!\n"));
-    // not implemented...
-    /*
-    if(b1._numPlanes == b2._numPlanes){
-        for(int i=0; i<b1._numPlanes; i++){
-            if(b1.planes[i]!=b2.planes[i])
-                return(false);
-        }
-        return(true);
-    }
-    */
-    return(false);
-}
 
 
 /***************************************************************************\

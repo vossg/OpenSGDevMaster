@@ -53,7 +53,7 @@
 OSG_BEGIN_NAMESPACE
 
 /* Package len */
-#define OSG_DGRAM_LEN                   1440*10
+#define OSG_DGRAM_LEN                   9216
 
 /* num of Packages in read or write queue */
 #define OSG_DGRAM_QUEUE_LEN             500

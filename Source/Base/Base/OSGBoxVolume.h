@@ -169,10 +169,10 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     /*! \name                      Operators                               */
     /*! \{                                                                 */
 
-    friend OSG_BASE_DLLMAPPING
-    bool operator ==(const BoxVolume &b1, const BoxVolume &b2);
-  
-    const BoxVolume &operator =(const BoxVolume &b1);
+    BoxVolume &operator = (const BoxVolume &rhs);
+
+    bool       operator ==(const BoxVolume &rhs) const;
+    bool       operator !=(const BoxVolume &rhs) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -196,12 +196,6 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     Pnt3r _min;
     Pnt3r _max;
 };
-
-OSG_BASE_DLLMAPPING
-bool operator ==(const BoxVolume &b1, const BoxVolume &b2);
-
-inline
-bool operator !=(const BoxVolume &b1, const BoxVolume &b2);
 
 OSG_END_NAMESPACE
 

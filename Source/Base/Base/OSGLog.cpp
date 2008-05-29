@@ -415,6 +415,15 @@ bool Log::initLock(void)
 {
     _pLogLock = Lock::get("OSG::Log::_pLogLock");
     
+    addPreMPExitFunction(&Log::finalizeLock);
+
+    return true;
+}
+
+bool Log::finalizeLock(void)
+{
+    _pLogLock = NULL;
+
     return true;
 }
 
@@ -874,7 +883,6 @@ void Log::doLog(const Char8 * format, ...)
     os << _buffer;
     os << std::flush;
 
-
     va_end(args);
 }
 
@@ -964,6 +972,8 @@ void Log::terminate(void)
 
     delete osgLogP;
 
+    osgLogP = NULL;
+
     delete [] Log::_buffer;
 
     Log::_bufferSize = 0;
@@ -996,6 +1006,10 @@ OSG_END_NAMESPACE
 
 void OSG::doInitLog(void)
 {
+    // Make sure no one reanimates the Log from the dead
+    if (GlobalSystemState == Shutdown)
+        abort();
+
 #ifdef OSG_HAS_NILBUF
     if(Log::_nilbufP == NULL)
         Log::_nilbufP = new Log::nilbuf();

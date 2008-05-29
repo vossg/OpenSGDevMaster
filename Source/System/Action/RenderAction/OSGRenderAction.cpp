@@ -692,14 +692,14 @@ void RenderAction::drawBuffer(UInt32 buf)
 }
 
 void RenderAction::dropFunctor(Material::DrawFunctor &func,
-                                        State                 *pState,
-                                        UInt32                 uiSortKey)
+                               State                 *pState,
+                               UInt32                 uiSortKey)
 {
     _pActivePartition->dropFunctor(func, pState, uiSortKey);
 }
 
 void RenderAction::dropFunctor(Material::DrawFunctor &func,
-                                        Material              *pMat)
+                               Material              *pMat)
 {
     if(pMat == NULL)
         return;
@@ -873,6 +873,43 @@ bool RenderAction::isVisible(Node *node)
 {
     return _pActivePartition->isVisible(node);
 }
+
+// select all visible nodes
+UInt32 RenderAction::selectVisibles(void)
+{
+    if(getFrustumCulling() == false)
+        return getNNodes();
+
+    useNodeList();
+
+    Color3f col;
+
+    UInt32 count = 0;
+
+    for(UInt32 i = 0; i < getNNodes(); i++)
+    {
+        if(isVisible(getNode(i)))
+        {
+            col.setValuesRGB(0,1,0);
+
+            addNode(getNode(i));
+
+            ++count;
+        }
+        else
+        {
+            col.setValuesRGB(1,0,0);
+        }
+
+        if(getVolumeDrawing())
+        {
+            dropVolume(this, getNode(i), col);
+        }
+    }
+
+    return count;
+}
+
 
 bool RenderAction::pushVisibility(void)
 {

@@ -140,9 +140,9 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 #if 0
            // select all visible nodes
             UInt32  selectVisibles(void      );
-#endif
 
     virtual bool    isVisible     (Node *node) = 0;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

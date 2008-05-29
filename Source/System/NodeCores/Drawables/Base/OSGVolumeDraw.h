@@ -54,6 +54,7 @@
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;
+class RenderPartition;
 
 /*---------------------------------------------------------------------*/
 /*! \name                   Draw Functions                             */
@@ -66,6 +67,9 @@ OSG_SYSTEM_DLLMAPPING void drawVolume(const FrustumVolume    &volume);
 OSG_SYSTEM_DLLMAPPING void drawVolume(const CylinderVolume   &volume);
 
 OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 
+                                            Node             *node,
+                                            Color3r           col   );
+OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderPartition  *part, 
                                             Node             *node,
                                             Color3r           col   );
 

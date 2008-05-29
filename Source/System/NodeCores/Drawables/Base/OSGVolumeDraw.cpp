@@ -313,7 +313,24 @@ class VolumeDrawWrapper
                                                node->getVolume(),
                                                col);
     }
+
+    static void drop(      RenderPartition  *part, 
+                     const DynamicVolume    &volume, 
+                           Color3r           col   )
+    {
+        
+        VolumeDrawWrapper * vdw = new VolumeDrawWrapper(volume, 
+                                                        col   );
+
+        Material::DrawFunctor func;
+
+        func = boost::bind(&VolumeDrawWrapper::draw, vdw, _1);
     
+        part->dropFunctor(func, 
+                          getDefaultUnlitMaterial()->getState(),
+                          getDefaultUnlitMaterial()->getSortKey());
+    }
+
   private:
   
     Action::ResultE draw(DrawEnv *)
@@ -340,6 +357,12 @@ class VolumeDrawWrapper
 void dropVolume(RenderActionBase *action, Node *node, Color3r col)
 {
     VolumeDrawWrapper::drop<RenderAction>(action, node, col);
+}
+
+void dropVolume(RenderPartition *part, Node *node, Color3r col)
+{
+    if(node != NULL)
+        VolumeDrawWrapper::drop(part, node->getVolume(), col);
 }
 
 void dropVolume(      RenderActionBase *action, 

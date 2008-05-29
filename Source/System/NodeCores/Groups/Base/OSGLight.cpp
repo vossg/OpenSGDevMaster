@@ -163,6 +163,17 @@ Action::ResultE Light::renderEnter(LightEngine::LightTypeE  eType,
     if(this->getOn() == false)
         return Action::Continue;
 
+    // ok we can cull the light only when it is invisible and has
+    // no LightEnv parent and local lights are enabled!
+    if (action->pushVisibility())
+    {
+        if(action->selectVisibles() == 0)
+        {
+            action->popVisibility();
+            return Action::Skip;
+        }
+    }
+
     LightEngine *pLightEngine = this->getLightEngine();
 
     if(pLightEngine != NULL && pLightEngine->getEnabled() == true)
@@ -216,6 +227,8 @@ Action::ResultE Light::renderLeave(LightEngine::LightTypeE  eType,
         a->releaseLightIndex();
         a->popState();
     }
+
+    a->popVisibility();
 
     return r;
 }

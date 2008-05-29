@@ -50,7 +50,7 @@
 #include "OSGLine.h"
 #include "OSGMatrix.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::Plane
 
@@ -406,16 +406,30 @@ void Plane::updateDirectionIndex(void)
     _directionIndex = ind;
 }
 
+/*---------------------------------------------------------------------------*/
+/* Assignment                                                                */
 
-OSG_BEGIN_NAMESPACE
-
-
-OSG_BASE_DLLMAPPING
-bool operator ==(const Plane &p1, const Plane &p2)
+Plane &Plane::operator =(const Plane &source)
 {
-    return ((p1._distance  == p2._distance ) &&
-            (p1._normalVec == p2._normalVec)   );
+    if(this == &source)
+        return *this;
+    
+    _normalVec      = source._normalVec;
+    _distance       = source._distance;
+    _directionIndex = source._directionIndex;
+    
+    updateDirectionIndex();
+    
+    return *this;
 }
+
+
+bool Plane::operator ==(const Plane &rhs) const
+{
+    return ((_distance  == rhs._distance ) &&
+            (_normalVec == rhs._normalVec)   );
+}
+
 
 OSG_BASE_DLLMAPPING
 std::ostream &operator <<(std::ostream &outStream, const Plane &obj)

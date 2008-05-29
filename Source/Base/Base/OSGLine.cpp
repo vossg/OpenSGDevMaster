@@ -55,7 +55,7 @@
 #include "OSGCylinderVolume.h"
 #include "OSGFrustumVolume.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::Line
      A line starting at a point p and extending infinitely far into the 
@@ -100,6 +100,25 @@ Line::Line(const Pnt3r &pos, const Vec3r &dir) :
 
 Line::~Line(void)
 {
+}
+
+/*---------------------------------------------------------------------------*/
+/* Operators                                                                 */
+
+Line &Line::operator =(const Line &rhs)
+{
+    if(this == &rhs)
+        return *this;
+    
+    _pos = rhs._pos;
+    _dir = rhs._dir;
+    
+    return *this;
+}
+
+bool Line::operator ==(const Line &rhs) const
+{
+    return (_pos == rhs._pos) && (_dir == rhs._dir);
 }
 
 /*------------------------------ feature ----------------------------------*/
@@ -397,8 +416,6 @@ bool Line::intersect(const FrustumVolume &frustum) const
  */
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-OSG_BEGIN_NAMESPACE
-
 /*! \hideinhierarchy */
 
 struct face
@@ -407,8 +424,6 @@ struct face
     Vec3r inner_vector;
     Vec3r inner_normal;
 };
-
-OSG_END_NAMESPACE
 
 #endif
 
@@ -779,7 +794,8 @@ bool Line::intersect(const Pnt3r &v0,
 
     if(norm != NULL)
     {
-        *norm = pvec;
+        *norm = edge1.cross(edge2);
+        norm->normalize();
     }
 
     return true;
@@ -821,8 +837,6 @@ return (beta+gamma < 1.0f)
         && (t >= 0.0f) && (t <= 1.0f);
 
 */
-
-OSG_BEGIN_NAMESPACE
 
 OSG_BASE_DLLMAPPING
 std::ostream &operator <<(std::ostream &outStream, const Line &obj)

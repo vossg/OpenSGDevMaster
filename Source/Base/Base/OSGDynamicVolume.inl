@@ -74,6 +74,12 @@ void DynamicVolume::instanceChanged(void)
     _state = getInstance().getState(); 
 }
 
+inline
+bool DynamicVolume::operator !=(const DynamicVolume &rhs) const
+{
+    return !(*this == rhs);
+}
+
 
 OSG_END_NAMESPACE
 

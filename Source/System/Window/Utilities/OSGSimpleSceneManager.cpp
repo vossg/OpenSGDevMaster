@@ -665,6 +665,50 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(ChangeList::statNPoolSize, 
                        "    %d entries in pool");
 
+#if 0
+        // 1.x stat
+        sf->addElement(RenderAction::statTravTime,
+                           "FPS:                  %r.3f");
+        sf->addElement(DrawActionBase::statCullTestedNodes,
+                           "Nodes culltested      %d");
+        sf->addElement(DrawActionBase::statCulledNodes,
+                           "Nodes culled          %d");
+        sf->addElement(RenderAction::statNOcclusionMode,
+                           "Occlusion culling     %s");
+        sf->addElement(RenderAction::statNOcclusionTests,
+                           "Occlusion tests       %d");
+        sf->addElement(RenderAction::statNOcclusionCulled,
+                           "Occlusion culled      %d");
+        sf->addElement(RenderAction::statNGeometries,
+                           "Nodes drawn           %d");
+        sf->addElement(RenderAction::statNTransGeometries,
+                           "Transp. Nodes drawn   %d");
+        sf->addElement(RenderAction::statNMaterials,
+                           "Material changes      %d");
+        sf->addElement(RenderAction::statNMatrices,
+                           "Matrix changes        %d");
+
+#if 0 // not ready for primetime yet
+        sf->addElement(PointLight::statNPointLights,
+                           "%d active point lights");
+        sf->addElement(DirectionalLight::statNDirectionalLights,
+                           "%d active directional lights");
+        sf->addElement(SpotLight::statNSpotLights,
+                           "%d active spot lights");
+#endif
+        sf->addElement(Drawable::statNTriangles,
+                           "Triangles drawn       %d");
+        sf->addElement(Drawable::statNLines,
+                           "Lines drawn           %d");
+        sf->addElement(Drawable::statNPoints,
+                           "Points drawn          %d");
+        sf->addElement(Drawable::statNVertices,
+                           "Vertices transformed  %d");
+        sf->addElement(RenderAction::statNTextures,
+                           "Textures used         %d");
+        sf->addElement(RenderAction::statNTexBytes,
+                           "Textures size (bytes) %d");
+#endif
 
 #if 0
         // Render action

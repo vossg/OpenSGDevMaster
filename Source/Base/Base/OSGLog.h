@@ -99,7 +99,7 @@ enum LogHeaderElem
     LOG_COLOR_HEADER         = 8192,
     LOG_TAB_HEADER           = 16384,
 
-    LOG_ALL_HEADER           = 127
+    LOG_ALL_HEADER           = 32767
 };
 
 /*! \ingroup GrpBaseLog
@@ -272,10 +272,12 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
 
-    static bool initLock(void);
+    static bool initLock    (void);
     
-           void lock    (void);
-           void unlock  (void);
+    static bool finalizeLock(void);
+
+           void lock        (void);
+           void unlock      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -365,6 +367,7 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     typedef std::ostream Inherited;
 
     friend OSG_BASE_DLLMAPPING void doInitLog(void);
+    friend OSG_BASE_DLLMAPPING bool osgExit  (void);
 
     /*---------------------------------------------------------------------*/
     /*! \name                         Helper                               */
@@ -437,11 +440,47 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     void operator =(const Log &source);
 
     /*! \}                                                                 */
-
-    friend OSG_BASE_DLLMAPPING bool osgExit(void);
 };
 
 typedef Log *LogP;
+
+/*! \ingroup GrpBaseLog
+ *  Helper class that handles locking and unlocking of the Log object
+ */
+
+class OSG_BASE_DLLMAPPING LogLock
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    LogLock(std::ostream &os);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    ~LogLock(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Class Specific                             */
+    /*! \{                                                                 */
+
+    operator std::ostream &();
+
+    /*! \}                                                                 */
+    /*===========================  PRIVATE  ===============================*/
+
+  private:
+
+    std::ostream &_os;
+};
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "OpenSG"
@@ -478,72 +517,122 @@ void          indentLog   (     UInt32        indent,
     \ingroup GrpBaseLog
 */
 
-#define SLOG     \
-  OSG::osgStartLog(true, OSG::LOG_LOG,     OSG_LOG_MODULE, __FILE__, __LINE__)
+#define SLOG                                                       \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(true,             \
+                                                 OSG::LOG_LOG,     \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 /*! \brief SFATAL
     \ingroup GrpBaseLog
 */
 
-#define SFATAL   \
-  OSG::osgStartLog(true, OSG::LOG_FATAL,   OSG_LOG_MODULE, __FILE__, __LINE__)
+#define SFATAL                                                     \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(true,             \
+                                                 OSG::LOG_FATAL,   \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 /*! \brief SWARNING
     \ingroup GrpBaseLog
 */
 
-#define SWARNING \
-  OSG::osgStartLog(true, OSG::LOG_WARNING, OSG_LOG_MODULE, __FILE__, __LINE__)
+#define SWARNING                                                   \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(true,             \
+                                                 OSG::LOG_WARNING, \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 /*! \brief SNOTICE
     \ingroup GrpBaseLog
 */
 
-#define SNOTICE  \
-  OSG::osgStartLog(true, OSG::LOG_NOTICE,  OSG_LOG_MODULE, __FILE__, __LINE__)
+#define SNOTICE                                                    \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(true,             \
+                                                 OSG::LOG_NOTICE,  \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 /*! \brief SINFO
     \ingroup GrpBaseLog
 */
 
-#define SINFO    \
-  OSG::osgStartLog(true, OSG::LOG_INFO,    OSG_LOG_MODULE, __FILE__, __LINE__)
+#define SINFO                                                      \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(true,             \
+                                                 OSG::LOG_INFO,    \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 
 /*! \brief PLOG
     \ingroup GrpBaseLog
 */
 
-#define PLOG     \
-  OSG::osgStartLog(false, OSG::LOG_LOG,     OSG_LOG_MODULE, __FILE__, __LINE__)
+#define PLOG                                                       \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(false,            \
+                                                 OSG::LOG_LOG,     \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 /*! \brief PFATAL
     \ingroup GrpBaseLog
 */
 
-#define PFATAL   \
-  OSG::osgStartLog(false, OSG::LOG_FATAL,   OSG_LOG_MODULE, __FILE__, __LINE__)
+#define PFATAL                                                     \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(false,            \
+                                                 OSG::LOG_FATAL,   \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 /*! \brief PWARNING
     \ingroup GrpBaseLog
 */
 
-#define PWARNING \
- OSG:: osgStartLog(false, OSG::LOG_WARNING, OSG_LOG_MODULE, __FILE__, __LINE__)
+#define PWARNING                                                   \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG:: osgStartLog(false,           \
+                                                  OSG::LOG_WARNING,\
+                                                  OSG_LOG_MODULE,  \
+                                                  __FILE__,        \
+                                                  __LINE__)))
 
 /*! \brief PNOTICE
     \ingroup GrpBaseLog
 */
 
-#define PNOTICE  \
-  OSG::osgStartLog(false, OSG::LOG_NOTICE,  OSG_LOG_MODULE, __FILE__, __LINE__)
+#define PNOTICE                                                    \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(false,            \
+                                                 OSG::LOG_NOTICE,  \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 /*! \brief PINFO
     \ingroup GrpBaseLog
 */
 
-#define PINFO    \
-  OSG::osgStartLog(false, OSG::LOG_INFO,    OSG_LOG_MODULE, __FILE__, __LINE__)
+#define PINFO                                                      \
+  static_cast<std::ostream&>(OSG::LogLock(                         \
+                                OSG::osgStartLog(false,            \
+                                                 OSG::LOG_INFO,    \
+                                                 OSG_LOG_MODULE,   \
+                                                 __FILE__,         \
+                                                 __LINE__)))
 
 
 // C interface, because it can be compiled away

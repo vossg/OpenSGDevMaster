@@ -132,6 +132,16 @@ class OSG_BASE_DLLMAPPING SphereVolume : public Volume
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                     Operators                                */
+    /*! \{                                                                 */
+
+    SphereVolume &operator = (const SphereVolume &rhs);
+
+    bool          operator ==(const SphereVolume &rhs) const;
+    bool          operator !=(const SphereVolume &rhs) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 

@@ -933,10 +933,10 @@ void QuaternionBase<ValueTypeT>::operator *=(const QuaternionBase &other)
 /*                             Assignment                                  */
 
 template <class ValueTypeT> inline
-const QuaternionBase<ValueTypeT> &
+QuaternionBase<ValueTypeT> &
     QuaternionBase<ValueTypeT>::operator =(const QuaternionBase &source)
 {
-    if (this == &source)
+    if(this == &source)
         return *this;
 
     for(UInt32 i = 0; i < 4; i++)

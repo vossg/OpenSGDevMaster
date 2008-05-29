@@ -852,8 +852,6 @@ bool RenderPartition::pushVisibility(Node * const pNode)
         _oDrawEnv.getStatCollector()->getElem(statCullTestedNodes)->inc();
     }
 
-//    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
-
     if(intersect(frustum, vol, inplanes) == false)
     {
          result = false;
@@ -864,15 +862,9 @@ bool RenderPartition::pushVisibility(Node * const pNode)
          {
              _oDrawEnv.getStatCollector()->getElem(statCulledNodes)->inc();
          }
-
-//        _oDrawEnv.getRTAction()->getStatistics()->getElem(statCulledNodes)->inc();
-
-//        fprintf(stderr,"node 0x%p invis %0xp\n", &(*pNode), this);
     }
     else
     {
-//        fprintf(stderr,"node 0x%p vis %0xp\n", &(*pNode), this);
-
         if(inplanes == FrustumVolume::P_ALL)
         {
             col.setValuesRGB(0,1,0);            
@@ -885,7 +877,7 @@ bool RenderPartition::pushVisibility(Node * const pNode)
 
     if(getVolumeDrawing())
     {
-//        dropVolume(this, pNode, col);
+        dropVolume(this, pNode, col);
     }
 
     _visibilityStack.push_back(inplanes);

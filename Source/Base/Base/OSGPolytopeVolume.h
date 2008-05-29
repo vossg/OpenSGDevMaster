@@ -63,9 +63,9 @@ class OSG_BASE_DLLMAPPING PolytopeVolume : public Volume
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
       
-    PolytopeVolume (                                              ); 
-    PolytopeVolume ( const UInt16&                                );
-    PolytopeVolume ( const PolytopeVolume &obj                    );
+    PolytopeVolume(                                             ); 
+    PolytopeVolume(const UInt16&                                );
+    PolytopeVolume(const PolytopeVolume &obj                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -131,9 +131,12 @@ class OSG_BASE_DLLMAPPING PolytopeVolume : public Volume
     /*! \name                   Assignment                                 */
     /*! \{                                                                 */
     
-    const PolytopeVolume &operator =(const PolytopeVolume &b1);
+    PolytopeVolume &operator = (const PolytopeVolume &rhs);
 
-    /*! \}                                                                 */
+    bool            operator ==(const PolytopeVolume &rhs) const;
+    bool            operator !=(const PolytopeVolume &rhs) const;
+
+   /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Output                                  */
     /*! \{                                                                 */
@@ -150,14 +153,6 @@ class OSG_BASE_DLLMAPPING PolytopeVolume : public Volume
     UInt16 _numPlanes;
     Plane* _planes;
 };
-
-typedef PolytopeVolume* PolytopeVolumePtr;
-
-OSG_BASE_DLLMAPPING
-bool operator ==(const PolytopeVolume &b1, const PolytopeVolume &b2);
-
-inline
-bool operator !=(const PolytopeVolume &b1, const PolytopeVolume &b2);
 
 OSG_END_NAMESPACE
 

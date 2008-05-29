@@ -363,18 +363,18 @@ class PointInterface : public StorageInterfaceT
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-             PointInterface(      void                  );
+    PointInterface(      void                  );
 
-    explicit PointInterface(const ValueTypeT     *pVals );
-    explicit PointInterface(      ValueTypeT     *pVals );
-
-    template <class ValueType2T, class StorageInterface2T> 
-    explicit PointInterface(const PointInterface<ValueType2T, 
-                                                 StorageInterface2T> &vec);
+    PointInterface(const ValueTypeT     *pVals );
+    PointInterface(      ValueTypeT     *pVals );
 
     template <class ValueType2T, class StorageInterface2T> 
-    explicit PointInterface(const VectorInterface<ValueType2T, 
-                                                  StorageInterface2T> &vec);
+    PointInterface(const PointInterface<ValueType2T, 
+                                        StorageInterface2T> &vec);
+
+    template <class ValueType2T, class StorageInterface2T> 
+    PointInterface(const VectorInterface<ValueType2T, 
+                                         StorageInterface2T> &vec);
 
     
     
@@ -573,19 +573,18 @@ class VectorInterface :
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-             VectorInterface(      void                   );
+    VectorInterface(      void                   );
 
-    explicit VectorInterface(const ValueTypeT      *pVals );
-    explicit VectorInterface(      ValueTypeT      *pVals );
-
-    template <class ValueType2T, class StorageInterface2T> 
-    explicit VectorInterface(const PointInterface<ValueType2T, 
-                                                  StorageInterface2T> &vec);
+    VectorInterface(const ValueTypeT      *pVals );
+    VectorInterface(      ValueTypeT      *pVals );
 
     template <class ValueType2T, class StorageInterface2T> 
-    explicit VectorInterface(const VectorInterface<ValueType2T, 
-                                                   StorageInterface2T> &vec);
+    VectorInterface(const PointInterface<ValueType2T, 
+                                         StorageInterface2T> &vec);
 
+    template <class ValueType2T, class StorageInterface2T> 
+    VectorInterface(const VectorInterface<ValueType2T, 
+                                          StorageInterface2T> &vec);
 
 
     VectorInterface(const VectorInterface &source);

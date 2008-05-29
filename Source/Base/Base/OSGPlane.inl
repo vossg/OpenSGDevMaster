@@ -157,9 +157,9 @@ Real Plane::getDistanceFromOrigin(void) const
 
 
 inline
-bool operator!=(const Plane &p1, const Plane &p2)
+bool Plane::operator !=(const Plane &rhs) const
 { 
-    return !(p1 == p2); 
+    return !(*this == rhs); 
 }
 
 inline

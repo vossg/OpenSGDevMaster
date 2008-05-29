@@ -256,13 +256,15 @@ LightBase::TypeObject LightBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"Light\"\n"
-    "\tparent=\"NodeCore\"\n"
+    "\tparent=\"Group\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"none\"\n"
     "\tstructure=\"abstract\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     "    isNodeCore=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
     ">\n"
     "\\ingroup GrpSystemNodeCoresLights\n"
     "\n"
@@ -972,7 +974,7 @@ void LightBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Light *>::_type("LightPtr", "NodeCorePtr");
+DataType FieldTraits<Light *>::_type("LightPtr", "GroupPtr");
 #endif
 
 

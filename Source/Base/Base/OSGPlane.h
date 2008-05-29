@@ -142,14 +142,18 @@ class OSG_BASE_DLLMAPPING Plane
  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Assignment                                */
+    /*! \{                                                                 */
+    
+    Plane &operator =(const Plane &source);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    OSG_BASE_DLLMAPPING
-    friend bool operator ==(const Plane &p1, const Plane &p2);
-
-    inline 
-    friend bool operator !=(const Plane &p1, const Plane &p2);
+    bool operator ==(const Plane &rhs) const;
+    bool operator !=(const Plane &rhr) const;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

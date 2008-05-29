@@ -138,6 +138,13 @@ bool SphereVolume::intersect(const SphereVolume &volume) const
     return OSG::intersect(*this, volume);
 }
 
+
+inline
+bool SphereVolume::operator !=(const SphereVolume &rhs) const
+{
+    return !(*this == rhs);
+}
+
 OSG_END_NAMESPACE
 
 #endif // SPHEREVOLUME_CLASS_DECLARATIONS

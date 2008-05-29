@@ -193,6 +193,74 @@ Vec2f LineIterator::getTexCoords3(Int32 which) const
     return getGeometry()->getTexCoords3()->getValue<Vec2f>(ind);
 }
 
+inline
+Int32 LineIterator::getTexCoordsIndex4(Int32 which) const
+{
+    return Inherited::getTexCoordsIndex4(_linePntIndex[which]);
+}
+
+inline
+Vec2f LineIterator::getTexCoords4(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex4(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords4()->getValue<Vec2f>(ind);
+}
+
+inline
+Int32 LineIterator::getTexCoordsIndex5(Int32 which) const
+{
+    return Inherited::getTexCoordsIndex5(_linePntIndex[which]);
+}
+
+inline
+Vec2f LineIterator::getTexCoords5(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex5(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords5()->getValue<Vec2f>(ind);
+}
+
+inline
+Int32 LineIterator::getTexCoordsIndex6(Int32 which) const
+{
+    return Inherited::getTexCoordsIndex6(_linePntIndex[which]);
+}
+
+inline
+Vec2f LineIterator::getTexCoords6(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex6(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords6()->getValue<Vec2f>(ind);
+}
+
+inline
+Int32 LineIterator::getTexCoordsIndex7(Int32 which) const
+{
+    return Inherited::getTexCoordsIndex7(_linePntIndex[which]);
+}
+
+inline
+Vec2f LineIterator::getTexCoords7(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex7(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords7()->getValue<Vec2f>(ind);
+}
+
 
 OSG_END_NAMESPACE
 

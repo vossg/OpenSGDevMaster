@@ -1501,8 +1501,7 @@ struct drawLines : public ParticlesDrawer
 
         Real32 s = sizeTrait::size(sizeData, 0)[0];
 
-        GLfloat lw;
-        glGetFloatv(GL_LINE_WIDTH, &lw);
+        glPushAttrib(GL_LINE_BIT);
         glLineWidth(s);
           
         glBegin(GL_LINES);
@@ -1529,9 +1528,8 @@ struct drawLines : public ParticlesDrawer
         }
 
         glEnd();
-    
-        if(osgAbs(s-lw)>Eps)
-            glLineWidth(lw);
+
+        glPopAttrib();
     }
 
     virtual void drawIndexed(Particles *part, DrawEnv *pEnv, 
@@ -1558,8 +1556,7 @@ struct drawLines : public ParticlesDrawer
 
         Real32 s = sizeTrait::size(sizeData, 0)[0];
 
-        GLfloat lw;
-        glGetFloatv(GL_LINE_WIDTH, &lw);
+        glPushAttrib(GL_LINE_BIT);
         glLineWidth(s);
           
         glBegin(GL_LINES);
@@ -1594,8 +1591,7 @@ struct drawLines : public ParticlesDrawer
 
         glEnd();
     
-        if(osgAbs(s-lw)>Eps)
-            glLineWidth(lw);
+        glPopAttrib();
     }
 };
 
@@ -1625,8 +1621,7 @@ struct drawPoints : public ParticlesDrawer
         sizeTrait::particle(sizeData, 0);
         Real32 s = sizeTrait::size(sizeData, 0)[0];
 
-        GLfloat ps;
-        glGetFloatv(GL_POINT_SIZE, &ps);
+        glPushAttrib(GL_POINT_BIT);
         glPointSize(s);
           
         glBegin(GL_POINTS);
@@ -1648,8 +1643,7 @@ struct drawPoints : public ParticlesDrawer
 
         glEnd();
     
-        if(osgAbs(s-ps)>Eps)
-            glPointSize(ps);
+        glPopAttrib();
     }
 
     virtual void drawIndexed(Particles *part, DrawEnv *pEnv, 
@@ -1671,8 +1665,7 @@ struct drawPoints : public ParticlesDrawer
         sizeTrait::particle(sizeData, 0);
         Real32 s = sizeTrait::size(sizeData, 0)[0];
 
-        GLfloat ps;
-        glGetFloatv(GL_POINT_SIZE, &ps);
+        glPushAttrib(GL_POINT_BIT);
         glPointSize(s);
           
         glBegin(GL_POINTS);
@@ -1697,8 +1690,7 @@ struct drawPoints : public ParticlesDrawer
 
         glEnd();
     
-        if(osgAbs(s-ps)>Eps)
-            glPointSize(ps);
+        glPopAttrib();
     }
 };
 

@@ -59,7 +59,7 @@
 */
 
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*-------------------------------- get ------------------------------------*/
 
@@ -351,16 +351,30 @@ void FrustumVolume::transform(const Matrixr &m)
     _planeVec[5].transform(m); 
 }
 
-const FrustumVolume &FrustumVolume::operator =(const FrustumVolume &b1)
+FrustumVolume &FrustumVolume::operator =(const FrustumVolume &rhs)
 {
-    for(Int32 i = 0; i < 5; i++)
+    if(this == &rhs)
+        return *this;
+
+    for(Int32 i = 0; i < 6; i++)
     {
-        _planeVec[i] = b1._planeVec[i];
+        _planeVec[i] = rhs._planeVec[i];
     }
 
-    _state = b1._state;
+    _state = rhs._state;
 
     return *this;
+}
+
+bool FrustumVolume::operator ==(const FrustumVolume &rhs) const
+{
+    return ((static_cast<const Volume &>(*this) == rhs) &&
+            (_planeVec[0] == rhs._planeVec[0]         ) &&
+            (_planeVec[1] == rhs._planeVec[1]         ) &&
+            (_planeVec[2] == rhs._planeVec[2]         ) &&
+            (_planeVec[3] == rhs._planeVec[3]         ) &&
+            (_planeVec[4] == rhs._planeVec[4]         ) &&
+            (_planeVec[5] == rhs._planeVec[5]         ));
 }
 
 void FrustumVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
@@ -414,19 +428,6 @@ fprintf(stderr,"Frustum:(%f %f %f:%f)(%f %f %f:%f)(%f %f %f:%f)"
 }
 
 
-OSG_BEGIN_NAMESPACE
-
-OSG_BASE_DLLMAPPING
-bool operator ==(const FrustumVolume &b1, const FrustumVolume &b2)
-{
-    return ((static_cast<const Volume &>(b1) == b2 ) &&
-            (b1.getPlanes()[0] == b2.getPlanes()[0]) &&
-            (b1.getPlanes()[1] == b2.getPlanes()[1]) &&
-            (b1.getPlanes()[2] == b2.getPlanes()[2]) &&
-            (b1.getPlanes()[3] == b2.getPlanes()[3]) &&
-            (b1.getPlanes()[4] == b2.getPlanes()[4]) &&
-            (b1.getPlanes()[5] == b2.getPlanes()[5]));
-}
 
 /*! Check the volume against the frustum, but only against the given planes.
 

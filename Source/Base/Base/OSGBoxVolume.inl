@@ -183,9 +183,9 @@ void BoxVolume::extendBy(const BoxVolume &volume)
 
 
 inline
-bool operator !=(const BoxVolume &b1, const BoxVolume &b2)
+bool BoxVolume::operator !=(const BoxVolume &rhs) const
 {
-    return !(b1 == b2);
+    return !(*this == rhs);
 }
 
 OSG_END_NAMESPACE

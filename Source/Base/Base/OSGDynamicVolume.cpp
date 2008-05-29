@@ -244,36 +244,63 @@ void DynamicVolume::dump(UInt32 uiIndent, const BitVector bvFlags) const
 }
 
 
-bool 
-    DynamicVolume::operator ==(const DynamicVolume &OSG_CHECK_ARG(other)) const
+bool DynamicVolume::operator ==(const DynamicVolume &rhs) const
 {
-    return false; 
+    bool retVal = false;
+
+    if(_type == rhs._type)
+    {
+        switch(_type)
+        {
+            case DynamicVolume::BOX_VOLUME:
+            {
+                retVal =
+                    (*reinterpret_cast<const BoxVolume *>(    _volumeMem)) ==
+                    (*reinterpret_cast<const BoxVolume *>(rhs._volumeMem));
+            }
+            break;
+            
+            case DynamicVolume::SPHERE_VOLUME:
+            {
+                retVal =
+                    (*reinterpret_cast<const SphereVolume *>(   _volumeMem)) ==
+                    (*reinterpret_cast<const SphereVolume *>(rhs._volumeMem));
+            }
+            break;
+        }
+    }
+    
+    return retVal;
 }
 
 
-DynamicVolume &DynamicVolume::operator =(const DynamicVolume &source)
+DynamicVolume &DynamicVolume::operator =(const DynamicVolume &rhs)
 {
-    _type = source._type;
-
+    if(this == &rhs)
+        return *this;
+    
+    _type = rhs._type;
+    
     switch(_type)
     {
         case BOX_VOLUME:
-            new (_volumeMem)
-                BoxVolume(
-                    *(reinterpret_cast<const OSG::BoxVolume *>(
-                          source._volumeMem)));
-            break;
-
+        {
+            new (_volumeMem) BoxVolume(
+                *reinterpret_cast<const BoxVolume *>(rhs._volumeMem));
+        }
+        break;
+    
         case SPHERE_VOLUME:
-            new (_volumeMem)
-                SphereVolume(
-                    *(reinterpret_cast<const OSG::SphereVolume *>(
-                          source._volumeMem)));
-            break;
+        {
+            new (_volumeMem) SphereVolume(
+                *reinterpret_cast<const SphereVolume *>(rhs._volumeMem));
+        }
+        break;
+    
     }
-
+    
     instanceChanged();
-
+    
     return *this;
 }
 

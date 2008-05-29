@@ -109,7 +109,14 @@ class OSG_DRAWABLE_DLLMAPPING LineIterator : public PrimitiveIterator
     inline Vec2f        getTexCoords2           (Int32 which) const;
     inline Int32        getTexCoordsIndex3      (Int32 which) const;
     inline Vec2f        getTexCoords3           (Int32 which) const;
-
+    inline Int32        getTexCoordsIndex4      (Int32 which) const;
+    inline Vec2f        getTexCoords4           (Int32 which) const;
+    inline Int32        getTexCoordsIndex5      (Int32 which) const;
+    inline Vec2f        getTexCoords5           (Int32 which) const;
+    inline Int32        getTexCoordsIndex6      (Int32 which) const;
+    inline Vec2f        getTexCoords6           (Int32 which) const;
+    inline Int32        getTexCoordsIndex7      (Int32 which) const;
+    inline Vec2f        getTexCoords7           (Int32 which) const;
  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

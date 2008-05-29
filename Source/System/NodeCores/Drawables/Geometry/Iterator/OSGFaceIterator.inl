@@ -224,4 +224,84 @@ Vec2f FaceIterator::getTexCoords3(Int32 which) const
     return getGeometry()->getTexCoords3()->getValue<Vec2f>(ind);
 }
 
+inline
+Int32 FaceIterator::getTexCoordsIndex4(Int32 which) const
+{
+    if(_facePntIndex[which] >= 0)
+        return Inherited::getTexCoordsIndex4(_facePntIndex[which]);
+    else 
+        return -1;
+}
+
+inline
+Vec2f FaceIterator::getTexCoords4(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex4(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords4()->getValue<Vec2f>(ind);
+}
+
+inline
+Int32 FaceIterator::getTexCoordsIndex5(Int32 which) const
+{
+    if(_facePntIndex[which] >= 0)
+        return Inherited::getTexCoordsIndex5(_facePntIndex[which]);
+    else 
+        return -1;
+}
+
+inline
+Vec2f FaceIterator::getTexCoords5(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex5(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords5()->getValue<Vec2f>(ind);
+}
+
+inline
+Int32 FaceIterator::getTexCoordsIndex6(Int32 which) const
+{
+    if(_facePntIndex[which] >= 0)
+        return Inherited::getTexCoordsIndex6(_facePntIndex[which]);
+    else 
+        return -1;
+}
+
+inline
+Vec2f FaceIterator::getTexCoords6(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex6(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords6()->getValue<Vec2f>(ind);
+}
+
+inline
+Int32 FaceIterator::getTexCoordsIndex7(Int32 which) const
+{
+    if(_facePntIndex[which] >= 0)
+        return Inherited::getTexCoordsIndex7(_facePntIndex[which]);
+    else 
+        return -1;
+}
+
+inline
+Vec2f FaceIterator::getTexCoords7(Int32 which) const
+{   
+    Int32 ind = getTexCoordsIndex7(which);
+    
+    if(ind < 0)
+        return Vec2f::Null;
+        
+    return getGeometry()->getTexCoords7()->getValue<Vec2f>(ind);
+}
+
 OSG_END_NAMESPACE

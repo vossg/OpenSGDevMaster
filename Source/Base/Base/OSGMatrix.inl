@@ -2797,12 +2797,15 @@ void TransformationMatrix<ValueTypeT>::negate(void)
     _matrix[3][3] *= -1.0;
 }
 
-//! Returns the 1-norm of _matrix matrix
+/*! Returns the sum of absolute values of the entries in this matrix.
+
+    \note This is \em NOT the usual 1-norm for matrices.
+ */
 
 template<class ValueTypeT> inline
 ValueTypeT TransformationMatrix<ValueTypeT>::norm1(void) const
 {
-    ValueTypeT m(0);
+    ValueTypeT m = TypeTraits<ValueType>::getZeroElement();
 
     m += osgAbs(_matrix[0][0]);
     m += osgAbs(_matrix[0][1]);
@@ -2824,12 +2827,15 @@ ValueTypeT TransformationMatrix<ValueTypeT>::norm1(void) const
     return m;
 }
 
-//! Returns the 2-norm of this matrix
+/*! Returns the square root of the sum of squared entries in the matrix.
+
+    \note This is \em NOT the usual 2-norm for matrices.
+ */
 
 template<class ValueTypeT> inline
 ValueTypeT TransformationMatrix<ValueTypeT>::norm2(void) const
 {
-    ValueTypeT m = 0.;
+    ValueTypeT m = TypeTraits<ValueType>::getZeroElement();
     ValueTypeT t;
 
     t = _matrix[0][0]; m += t*t;
@@ -2852,12 +2858,15 @@ ValueTypeT TransformationMatrix<ValueTypeT>::norm2(void) const
     return osgSqrt(m);
 }
 
-//! Returns the infinity norm of this matrix
+/*! Returns the largest absolute value of all entries in the matrix.
+
+    \note This is \em NOT the usual Infinity-norm for matrices.
+ */
 
 template<class ValueTypeT> inline
 ValueTypeT TransformationMatrix<ValueTypeT>::normInfinity(void) const
 {
-    ValueTypeT m = 0.;
+    ValueTypeT m = TypeTraits<ValueType>::getZeroElement();
     ValueTypeT t;
 
     if((t = osgAbs(_matrix[0][0])) > m)

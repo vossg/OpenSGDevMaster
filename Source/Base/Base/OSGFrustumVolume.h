@@ -155,10 +155,13 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Assignment                                 */
+    /*! \name                   Operators                                  */
     /*! \{                                                                 */
     
-    const FrustumVolume &operator =(const FrustumVolume &b1);
+    FrustumVolume &operator = (const FrustumVolume &rhs);
+
+    bool           operator ==(const FrustumVolume &rhs) const;
+    bool           operator !=(const FrustumVolume &rhs) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -183,11 +186,6 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
 
 };
 
-OSG_BASE_DLLMAPPING
-bool operator ==(const FrustumVolume &b1, const FrustumVolume &b2);
-
-inline
-bool operator !=(const FrustumVolume &b1, const FrustumVolume &b2);
 
 OSG_BASE_DLLMAPPING 
 bool intersect(const FrustumVolume &frustum, const Volume &vol, 

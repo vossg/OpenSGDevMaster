@@ -345,6 +345,132 @@ Vec2f PrimitiveIterator::getTexCoords3(Int32 which) const
     return _props[Geometry::TexCoords3Index]->getValue<Vec2f>(ind);
 }
 
+
+/*! Return the fifth texture coordinates index (i.e. the number of the entry
+    in the textureCoordinates4 property which is used) of a point in the
+    current primitive. \a which is the point to access. Must be between 0 and
+    getLength().
+    
+    If the geometry has no fourth texture coordinates, -1 is returned.
+*/
+inline
+Int32 PrimitiveIterator::getTexCoordsIndex4(Int32 which) const
+{
+     return getPropertyIndex(Geometry::TexCoords4Index, which);
+}
+
+
+/*! Return the fifth texture coordinates of a point in the current primitive. 
+    \a which is the point to access. Must be between 0 and getLength().
+    
+    If the geometry has no fourth texture coordinates, Vec2f::Null is returned.
+*/
+inline
+Vec2f PrimitiveIterator::getTexCoords4(Int32 which) const
+{
+    Int32 ind = getTexCoordsIndex4(which);
+
+    if(ind < 0)
+        return Vec2f::Null;
+
+    return _props[Geometry::TexCoords4Index]->getValue<Vec2f>(ind);
+}
+
+
+/*! Return the sixth texture coordinates index (i.e. the number of the entry
+    in the textureCoordinates5 property which is used) of a point in the
+    current primitive. \a which is the point to access. Must be between 0 and
+    getLength().
+    
+    If the geometry has no fourth texture coordinates, -1 is returned.
+*/
+inline
+Int32 PrimitiveIterator::getTexCoordsIndex5(Int32 which) const
+{
+     return getPropertyIndex(Geometry::TexCoords5Index, which);
+}
+
+
+/*! Return the sixth texture coordinates of a point in the current primitive. 
+    \a which is the point to access. Must be between 0 and getLength().
+    
+    If the geometry has no fourth texture coordinates, Vec2f::Null is returned.
+*/
+inline
+Vec2f PrimitiveIterator::getTexCoords5(Int32 which) const
+{
+    Int32 ind = getTexCoordsIndex5(which);
+
+    if(ind < 0)
+        return Vec2f::Null;
+
+    return _props[Geometry::TexCoords5Index]->getValue<Vec2f>(ind);
+}
+
+
+/*! Return the seventh texture coordinates index (i.e. the number of the entry
+    in the textureCoordinates6 property which is used) of a point in the
+    current primitive. \a which is the point to access. Must be between 0 and
+    getLength().
+    
+    If the geometry has no fourth texture coordinates, -1 is returned.
+*/
+inline
+Int32 PrimitiveIterator::getTexCoordsIndex6(Int32 which) const
+{
+     return getPropertyIndex(Geometry::TexCoords6Index, which);
+}
+
+
+/*! Return the seventh texture coordinates of a point in the current primitive. 
+    \a which is the point to access. Must be between 0 and getLength().
+    
+    If the geometry has no fourth texture coordinates, Vec2f::Null is returned.
+*/
+inline
+Vec2f PrimitiveIterator::getTexCoords6(Int32 which) const
+{
+    Int32 ind = getTexCoordsIndex6(which);
+
+    if(ind < 0)
+        return Vec2f::Null;
+
+    return _props[Geometry::TexCoords6Index]->getValue<Vec2f>(ind);
+}
+
+
+/*! Return the eighth texture coordinates index (i.e. the number of the entry
+    in the textureCoordinates7 property which is used) of a point in the
+    current primitive. \a which is the point to access. Must be between 0 and
+    getLength().
+    
+    If the geometry has no fourth texture coordinates, -1 is returned.
+*/
+inline
+Int32 PrimitiveIterator::getTexCoordsIndex7(Int32 which) const
+{
+     return getPropertyIndex(Geometry::TexCoords7Index, which);
+}
+
+
+/*! Return the eighth texture coordinates of a point in the current primitive. 
+    \a which is the point to access. Must be between 0 and getLength().
+    
+    If the geometry has no fourth texture coordinates, Vec2f::Null is returned.
+*/
+inline
+Vec2f PrimitiveIterator::getTexCoords7(Int32 which) const
+{
+    Int32 ind = getTexCoordsIndex7(which);
+
+    if(ind < 0)
+        return Vec2f::Null;
+
+    return _props[Geometry::TexCoords7Index]->getValue<Vec2f>(ind);
+}
+
+
+
 /*! Return the geometry the iterator is currently attached to.
 */
 inline

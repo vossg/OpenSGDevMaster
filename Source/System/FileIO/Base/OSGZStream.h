@@ -69,6 +69,9 @@ OSG_END_NAMESPACE
 
 #ifdef OSG_WITH_ZLIB
 
+#define OSG_ZSTREAM_SUPPORTED
+#define OSG_ZSTREAM_DATA_HAND_OVER_SUPPORTED
+
 #include <zlib.h>
 
 #ifdef WIN32 /* Window 95 & Windows NT */

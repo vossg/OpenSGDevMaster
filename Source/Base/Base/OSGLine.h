@@ -77,6 +77,16 @@ class OSG_BASE_DLLMAPPING Line
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Operators                                 */
+    /*! \{                                                                 */
+    
+    bool  operator ==(const Line &rhs) const;
+    bool  operator !=(const Line &rhs) const;
+    
+    Line &operator = (const Line &rhs);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Set                                       */
     /*! \{                                                                 */
 

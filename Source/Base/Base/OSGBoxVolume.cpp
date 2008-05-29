@@ -58,8 +58,7 @@
 */
 
 
-OSG_USING_NAMESPACE
-
+OSG_BEGIN_NAMESPACE
 
 //! Returns the center of a box
 
@@ -403,7 +402,7 @@ void BoxVolume::transform(const Matrixr &m)
 
 //! Assignment operator
 
-const BoxVolume &BoxVolume::operator =(const BoxVolume &b1)
+BoxVolume &BoxVolume::operator =(const BoxVolume &b1)
 {
     if(&b1 == this)
         return *this;
@@ -424,18 +423,16 @@ void BoxVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 //! Equality comparisons
 
-bool operator ==(const BoxVolume &b1, const BoxVolume &b2)
+bool BoxVolume::operator ==(const BoxVolume &rhs) const
 {
-    return ((b1._min[0] == b2._min[0]) &&
-            (b1._min[1] == b2._min[1]) &&
-            (b1._min[2] == b2._min[2]) &&
-            (b1._max[0] == b2._max[0]) &&
-            (b1._max[1] == b2._max[1]) &&
-            (b2._max[2] == b2._max[2])   );
+    return ((_min[0] == rhs._min[0]) &&
+            (_min[1] == rhs._min[1]) &&
+            (_min[2] == rhs._min[2]) &&
+            (_max[0] == rhs._max[0]) &&
+            (_max[1] == rhs._max[1]) &&
+            (_max[2] == rhs._max[2])   );
 }
 
 

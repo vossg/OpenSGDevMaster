@@ -49,8 +49,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGReal16.h"
 
-OSG_USING_NAMESPACE
-using namespace std;
+OSG_BEGIN_NAMESPACE
 
 //-------------------------------------------------------------
 // Lookup tables for half-to-float and float-to-half conversion
@@ -16698,7 +16697,7 @@ namespace
 
     if (e > REAL16_EPSILON * 0.5)
     {
-        cerr << "Internal error: float/half conversion does not work.";
+        std::cerr << "Internal error: float/half conversion does not work.";
         assert (false);
     }
     }
@@ -16715,7 +16714,7 @@ namespace
 
     if (e > REAL16_MIN * 0.5)
     {
-        cerr << "Internal error: float/half conversion does not work.";
+        std::cerr << "Internal error: float/half conversion does not work.";
         assert (false);
     }
     }
@@ -16754,16 +16753,16 @@ Real16::selftest ()
 // Stream I/O operators
 //---------------------
 
-ostream &
-operator << (ostream &os, Real16 h)
+std::ostream &
+operator << (std::ostream &os, Real16 h)
 {
     os << float (h);
     return os;
 }
 
 
-istream &
-operator >> (istream &is, Real16 &h)
+std::istream &
+operator >> (std::istream &is, Real16 &h)
 {
     float f;
     is >> f;
@@ -16778,7 +16777,7 @@ operator >> (istream &is, Real16 &h)
 //---------------------------------------
 
 void
-printBits (ostream &os, Real16 h)
+printBits (std::ostream &os, Real16 h)
 {
     unsigned short b = h.bits();
 
@@ -16793,7 +16792,7 @@ printBits (ostream &os, Real16 h)
 
 
 void
-printBits (ostream &os, float f)
+printBits (std::ostream &os, float f)
 {
     Real16::uif x;
     x.f = f;
@@ -16841,3 +16840,5 @@ printBits (char c[35], float f)
 
     c[34] = 0;
 }
+
+OSG_END_NAMESPACE

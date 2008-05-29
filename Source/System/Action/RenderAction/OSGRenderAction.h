@@ -172,11 +172,12 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     /*------------------------- visibility ---------------------------------*/
 
     // test a single node
-    virtual bool isVisible      (Node *node);
+    virtual bool   isVisible     (Node *node);
+            UInt32 selectVisibles(void      );
 
     // visibility levels
-            bool  pushVisibility(void      );
-            void  popVisibility (void      );
+            bool  pushVisibility (void      );
+            void  popVisibility  (void      );
 
     /*------------------------- culling ------------------------------------*/
 

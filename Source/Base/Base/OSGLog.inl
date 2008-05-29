@@ -107,19 +107,15 @@ void LogBuf::setEnabled(bool value)
 inline
 void Log::lock(void)
 {
-#if 0
     if(_pLogLock != NULL)
         _pLogLock->acquire();
-#endif
 }
 
 inline
 void Log::unlock(void)
 {
-#if 0
     if(_pLogLock != NULL)
         _pLogLock->release();
-#endif
 }
 
 inline 
@@ -238,6 +234,24 @@ std::ostream &Log::doHeader(      LogLevel  level,
 }
 
 inline 
+LogLock::LogLock(std::ostream &os) : 
+    _os(os)
+{
+}
+
+inline 
+LogLock::~LogLock(void)
+{
+    osgLogP->unlock();
+}
+
+inline 
+LogLock::operator std::ostream &()
+{
+    return _os;
+}
+
+inline 
 void initLog(void) 
 {
     if(osgLogP == NULL)
@@ -274,13 +288,10 @@ std::ostream &osgStartLog(      bool      logHeader,
         return osgLogP->nilstream();
 }
 
+// This function is deprecated, use the std::endl instead!
 inline  
 std::ostream &endLog(std::ostream &strm)
 {
-    initLog();
-
-    osgLogP->unlock();
-    
     strm << std::endl;
     return strm;
 }

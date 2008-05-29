@@ -98,6 +98,13 @@ ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
     RenderAction *pAction = 
         dynamic_cast<RenderAction *>(action);
 
+    Action::ResultE r = Group::renderEnter(action);
+
+    // ok all children are culled away so we leave
+    // immediately and don't set the material!
+    if(r == Action::Skip)
+        return r;
+
     if(pAction             != NULL && 
        this->getMaterial() != NULL  )
     {
@@ -105,7 +112,7 @@ ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
                                   pAction->getActNode());
     }
 
-    return Group::renderEnter(action);
+    return r;
 }
 
 ActionBase::ResultE MaterialGroup::renderLeave(Action *action)

@@ -52,7 +52,7 @@
 #include "OSGLog.h"
 #include "OSGMatrix.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 #if 0
 /*! Return a sphere containing a given box */
@@ -189,9 +189,30 @@ void SphereVolume::transform(const Matrixr &mat)
 */
 }
 
+/*---------------------------------------------------------------------------*/
+/* Operators                                                                 */
+
+SphereVolume &SphereVolume::operator =(const SphereVolume &rhs)
+{
+    if(this == &rhs)
+        return *this;
+
+    _center = rhs._center;
+    _radius = rhs._radius;
+    
+    return *this;
+}
+
+bool SphereVolume::operator ==(const SphereVolume &rhs) const
+{
+    return (_center == rhs._center) && (_radius == rhs._radius);
+}
+
 /*! print the volume */
 void SphereVolume::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
                         const BitVector OSG_CHECK_ARG(bvFlags)) const
 {
     PLOG << "Sphere(" << _center << "|" << _radius << ")";
 }
+
+OSG_END_NAMESPACE

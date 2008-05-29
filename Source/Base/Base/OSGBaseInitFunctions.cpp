@@ -798,6 +798,7 @@ bool osgExit(void)
     delete osgPreloadSharedObject;
 
     SharedObjectHandler::the()->terminate();
+
     Log::terminate();
 
     delete osgLibraryVersions;

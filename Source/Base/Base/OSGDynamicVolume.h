@@ -139,9 +139,10 @@ class OSG_BASE_DLLMAPPING DynamicVolume : public Volume
     /*! \name                       Operators                              */
     /*! \{                                                                 */
 
-    bool           operator ==(const DynamicVolume &other ) const;
+    DynamicVolume &operator = (const DynamicVolume &rhs);
 
-    DynamicVolume &operator = (const DynamicVolume &source);
+    bool           operator ==(const DynamicVolume &rhs) const;
+    bool           operator !=(const DynamicVolume &rhs ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
