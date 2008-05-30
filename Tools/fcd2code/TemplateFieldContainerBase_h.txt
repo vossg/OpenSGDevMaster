@@ -368,9 +368,7 @@ class @!Classname!@Base : public @!Parent!@
     SFUnrec@!Parent!@Ptr _sfDecoratee;
     @@else // isDecorator
         @@BeginFieldLoop@@
-            @@if !field.isPrivate
     @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ _@!field.VarName!@;
-            @@endif // !field.isPrivate
         @@EndFieldLoop@@
     @@endif // isDecorator
 
@@ -588,120 +586,6 @@ class @!Classname!@Base : public @!Parent!@
     /*==========================  PRIVATE  ================================*/
 
   private:
-@@if hasPrivateFields
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    @@if !isDecorator
-        @@BeginFieldLoop@@
-            @@if field.isPrivate
-    @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ _@!field.VarName!@;
-            @@endif // field.isPrivate
-        @@EndFieldLoop@@
-    @@endif // !isDecorator
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-    @@BeginFieldLoop@@
-        @@if field.isPrivate
-            @@if field.isPtrField
-    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-                @@if field.ptrFieldStandardAccess
-    @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
-                @@endif
-                @@if field.isSField  
-                    @@if field.ptrFieldNullCheckAccess
-    @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void); 
-                    @@endif
-                @@endif
-            @@else // field.isPtrField
-
-    @!field.MethodType:7!@       @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
-    @!field.MethodType:7!@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-            @@endif // field.isPtrField
-        @@endif // field.isPrivate
-    @@EndFieldLoop@@
-    @@BeginFieldLoop@@
-        @@if field.isPrivate
-            @@if field.isSField
-
-                @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type!@ get@!field.Name:15!@(void) const;
-                @@else // field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(void);
-    @!field.MethodType:7!@ const @!field.Type:19!@  get@!field.Name:15!@(void) const;
-                @@endif // field.isPtrField
-            @@else // field.isSField
-
-                @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type!@ get@!field.Name:15!@(const UInt32 index) const;
-                @@else // field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(const UInt32 index);
-    @!field.MethodType:7!@ const @!field.Type:19!@  get@!field.Name:15!@ (const UInt32 index) const;
-                @@endif // field.isPtrField
-            @@endif // field.isSField
-        @@endif // field.isPrivate
-    @@EndFieldLoop@@
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-    @@BeginSFFieldLoop@@
-        @@if field.isPrivate
-            @@if field.isPtrField
-              @@if !field.ptrFieldCustomAccess
-    @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ const value);
-              @@endif
-            @@else // field.isPtrField
-    @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ &value);
-            @@endif // field.isPtrField
-        @@endif // field.isPrivate
-    @@EndSFFieldLoop@@
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    @@BeginMFFieldLoop@@
-        @@if field.isPrivate
-            @@if field.isPtrField
-                @@if field.ptrFieldStandardAccess 
-    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
-    void @!field.AssignMField:15!@           (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
-    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
-    void @!field.ClearField:15!@            (void                          );
-
-
-                @@endif
-                @@if field.ptrFieldNullCheckAccess
-    void @!field.PushToField:15!@           (@!field.Type!@ const value   );
-    void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
-    void @!field.ClearField:15!@            (void                          );
-    void @!field.InsertIntoMField:15!@      (UInt32         uiIndex,
-                                             @!field.Type!@ const value   );
-    void @!field.ReplaceInMFieldIndex:15!@  (UInt32         uiIndex,
-                                             @!field.Type!@ const value   );
-    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ const pOldElem,
-                                             @!field.Type!@ const pNewElem);
-    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
-
-
-                @@endif
-            @@endif // field.isPtrField
-        @@endif // field.isPrivate
-    @@EndMFFieldLoop@@
-    /*! \}                                                                 */
-@@endif // hasPrivateFields
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)

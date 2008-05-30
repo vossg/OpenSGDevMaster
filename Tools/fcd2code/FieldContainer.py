@@ -154,7 +154,6 @@ class FieldContainer(FCDElement):
             self["Description"]     = self._formatString    (self.getFCD("description"), 4)
             self["SafeDescription"] = self._formatSafeString(self.getFCD("description"), 4)
         
-        self["hasPrivateFields"]   = False;
         self["hasProtectedFields"] = False;
         self["hasPublicFields"]    = False;
         self["hasPtrFields"]       = False;
@@ -190,10 +189,7 @@ class FieldContainer(FCDElement):
                 field["isLastField"] = False;
             
             self["Fields"].append(field);
-            
-            if field.isPrivate():
-                self["hasPrivateFields"] = True;
-                
+                           
             if field.isProtected():
                 self["hasProtectedFields"] = True;
             

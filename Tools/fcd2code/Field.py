@@ -71,10 +71,7 @@ class Field(FCDElement):
     
     #
     # Common tests
-    
-    def isPrivate(self):
-        return self["access"] == "private";
-    
+       
     def isProtected(self):
         return self["access"] == "protected";
     
@@ -235,10 +232,7 @@ class Field(FCDElement):
             self.m_log.warning("finalize: \"cardinality\" has invalid value: %s",
                 self.getFCD("cardinality"));
 
-        if self.getFCD("access") == "private":
-            self["access"] = "private";
-            self["isPrivate"] = True;
-        elif self.getFCD("access") == "protected":
+        if self.getFCD("access") == "protected":
             self["access"] = "protected";
             self["isProtected"] = True;
         elif self.getFCD("access") == "public":
