@@ -355,4 +355,14 @@ extension(s) are also available.
 	>
 	Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
 	</Field>
+	<Field
+		name="skipMipMapLevels"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.
+	</Field>
 </FieldContainer>

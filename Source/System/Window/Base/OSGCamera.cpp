@@ -213,6 +213,23 @@ void Camera::getFrustum(FrustumVolume& result, const Viewport& p)
     result.setPlanes(pr);
 }
 
+/*! Calculate the frustum of this camera's visible area (w,h instead port). 
+*/
+void Camera::getFrustum(FrustumVolume& result, 
+                        UInt32  width, UInt32  height)
+{
+    Matrix mv,prt,pr;
+    
+    getProjection           (pr , width, height);
+    getProjectionTranslation(prt, width, height);
+    getViewing              (mv , width, height);
+
+    pr.mult(prt);
+    pr.mult(mv );
+    
+    result.setPlanes(pr);
+}
+
 /*! Calculate the matrix that transforms world coordinates into the screen
     coordinate system for this camera.
  */
@@ -287,10 +304,14 @@ Matrixr Camera::getDecorationVal(UInt32 width, UInt32 height)
 #ifndef OSG_WINCE
 /*! Calculate a ray that starts at the camera position and goes through the
   pixel \a x, \a y in the viewport \a port. \a x and \a y are relative to the
-  viewport's upper left corner.
+  viewport's upper left corner. \a t is the length of the viewing ray.
 */
 
-bool Camera::calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port)
+bool Camera::calcViewRay(      Line    &line, 
+                               Int32     x, 
+                               Int32     y, 
+                         const Viewport &port,
+                               Real32   *t   )
 {
     if(port.getPixelWidth() <= 0 || port.getPixelHeight() <= 0)
     {
@@ -333,7 +354,14 @@ bool Camera::calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port)
     cctowc.multFull(Pnt3f(rx, ry, -1), from);
     cctowc.multFull(Pnt3f(rx, ry,  1), at  );
 
-    line.setValue(from, at-from);
+	Vec3f dir = at - from;
+	
+	if(t != NULL)
+	{
+		*t = dir.length();
+	}
+
+    line.setValue(from, dir);
 
     return true;
 }

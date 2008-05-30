@@ -718,9 +718,10 @@ void TextureChunk::handleTexture(Window *win,
             glTexParameteri(paramtarget, GL_TEXTURE_MAG_FILTER, getMagFilter());
             glTexParameteri(paramtarget, GL_TEXTURE_WRAP_S, getWrapS());
 
-            if(paramtarget == GL_TEXTURE_2D ||
-               paramtarget == GL_TEXTURE_3D ||
-               paramtarget == GL_TEXTURE_CUBE_MAP_ARB)
+            if(paramtarget == GL_TEXTURE_2D           ||
+               paramtarget == GL_TEXTURE_3D           ||
+               paramtarget == GL_TEXTURE_CUBE_MAP_ARB ||
+               paramtarget == GL_TEXTURE_RECTANGLE_ARB )
             {
                 glTexParameteri(paramtarget, GL_TEXTURE_WRAP_T, getWrapT());
             }
@@ -826,7 +827,7 @@ void TextureChunk::handleTexture(Window *win,
                     break;
             }
         }
-
+    
         if(getExternalFormat() != GL_NONE)
             externalFormat = getExternalFormat();
         
@@ -847,7 +848,16 @@ void TextureChunk::handleTexture(Window *win,
                  osgIsPower2(depth)
               )
             {
-                for(UInt16 i = 0; i < img->getMipMapCount(); i++)
+                UInt16 baseLevel = 0;
+				Real32 skipLevels = osgClamp(0.f, getSkipMipMapLevels(), 1.f);
+                
+                if (img->getMipMapCount())
+                {
+					baseLevel = 
+                        UInt16(skipLevels * (img->getMipMapCount() - 1)); 
+                }
+
+                for(UInt16 i = baseLevel; i < img->getMipMapCount(); i++)
                 {
                     UInt32 w, h, d;
                     img->calcMipmapGeometry(i, w, h, d);
@@ -856,37 +866,58 @@ void TextureChunk::handleTexture(Window *win,
                     {
                         switch (imgtarget)
                         {
-                        case GL_TEXTURE_1D:
-                            CompressedTexImage1D(GL_TEXTURE_1D, i, internalFormat,
-                                            w, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i),
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_2D:
-                            CompressedTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i),
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                            CompressedTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i), 
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_3D:
-                            CompressedTexImage3D(GL_TEXTURE_3D, i, internalFormat,
-                                            w, h, d, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i),
-                                            img->getData(i, frame, side));
-                            break;
-                       default:
-                                SFATAL << "TextureChunk::initialize1: unknown target "
+                            case GL_TEXTURE_1D:
+                                CompressedTexImage1D(
+                                    GL_TEXTURE_1D, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w, 
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i),
+                                    img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_2D:
+                                CompressedTexImage2D(
+                                    imgtarget, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w, 
+                                    h, 
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i),
+                                    img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
+                                CompressedTexImage2D(
+                                    imgtarget, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w,
+                                    h,
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i), 
+                                    img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_3D:
+                                CompressedTexImage3D(
+                                    GL_TEXTURE_3D, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w, 
+                                    h, 
+                                    d,
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i),
+                                    img->getData(i, frame, side));
+                                break;
+                            default:
+                                SFATAL << "TextureChunk::initialize1: "
+                                       << "unknown target "
                                        << imgtarget << "!!!" << std::endl;
                                 break;
                         }
@@ -895,32 +926,48 @@ void TextureChunk::handleTexture(Window *win,
                     {
                         switch (imgtarget)
                         {
-                        case GL_TEXTURE_1D:
-                            glTexImage1D(GL_TEXTURE_1D, i, internalFormat,
-                                            w, getBorderWidth(),
-                                            externalFormat, type,
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_2D:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                            glTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, getBorderWidth(),
-                                            externalFormat, type,
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_3D:
-                              TexImage3D(GL_TEXTURE_3D, i, internalFormat,
-                                            w, h, d, getBorderWidth(),
-                                            externalFormat, type,
-                                            img->getData(i, frame, side));
-                            break;
-                       default:
-                                SFATAL << "TextureChunk::initialize1: unknown target "
+                            case GL_TEXTURE_1D:
+                                glTexImage1D(GL_TEXTURE_1D, 
+                                             i - baseLevel, 
+                                             internalFormat,
+                                             w, 
+                                             getBorderWidth(),
+                                             externalFormat, 
+                                             type,
+                                             img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_2D:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
+                                glTexImage2D(imgtarget, 
+                                             i - baseLevel, 
+                                             internalFormat,
+                                             w, 
+                                             h, 
+                                             getBorderWidth(),
+                                             externalFormat, 
+                                             type,
+                                             img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_3D:
+                                TexImage3D(GL_TEXTURE_3D, 
+                                           i - baseLevel, 
+                                           internalFormat,
+                                           w, 
+                                           h, 
+                                           d, 
+                                           getBorderWidth(),
+                                           externalFormat, 
+                                           type,
+                                           img->getData(i, frame, side));
+                                break;
+                            default:
+                                SFATAL << "TextureChunk::initialize1: "
+                                       << "unknown target "
                                        << imgtarget << "!!!" << std::endl;
                                 break;
                         }
@@ -928,14 +975,18 @@ void TextureChunk::handleTexture(Window *win,
                 }
                 defined = true;
             }
-
+            
             if(! defined)
             {
                 // Nope, do we have SGIS_generate_mipmaps?
                 if(win->hasExtension(_sgisGenerateMipmap))
                 {
                     if(paramtarget != GL_NONE)
-                        glTexParameteri(paramtarget, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
+                    {
+                        glTexParameteri(paramtarget, 
+                                        GL_GENERATE_MIPMAP_SGIS, 
+                                        GL_TRUE);
+                    }
                     glErr("TextureChunk::activate generate_mipmaps");
                     needMipmaps = false; // automagic does it
                 }
@@ -1059,7 +1110,7 @@ void TextureChunk::handleTexture(Window *win,
                 } // need to use gluBuildMipmaps?
             } // got them from the image already?
         } // need mipmaps?
-
+        
         // no mipmaps, or mipmapping failed?
         if(! defined)
         {
@@ -1088,8 +1139,7 @@ void TextureChunk::handleTexture(Window *win,
                        imgtarget != GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB &&
                        imgtarget != GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB &&
                        imgtarget != GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB &&
-                       imgtarget != GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB
-                      )
+                       imgtarget != GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB  )
                     {
                         SWARNING << "TextureChunk::initialize: can't scale "
                                  << "non-2D textures that are not 2^x !!!"
@@ -1561,8 +1611,14 @@ void TextureChunk::handleTexture(Window *win,
                 glPixelStorei(GL_UNPACK_SKIP_IMAGES, 0);
            
             if(paramtarget != GL_NONE)
+            {
                 glTexParameterf(paramtarget, GL_TEXTURE_PRIORITY,
                                   getPriority());
+                glTexParameteri(paramtarget, GL_TEXTURE_MIN_FILTER,
+                                getMinFilter()                     );
+                glTexParameteri(paramtarget, GL_TEXTURE_MAG_FILTER,
+                                getMagFilter()                     );
+            }
         }
         else
         {
@@ -1575,7 +1631,7 @@ void TextureChunk::handleTexture(Window *win,
 
 }
 
-
+    
 /*! GL object handler
     create the texture and destroy it
 */

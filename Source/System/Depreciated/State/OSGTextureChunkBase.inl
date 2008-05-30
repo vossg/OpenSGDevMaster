@@ -1838,6 +1838,39 @@ void TextureChunkBase::setNPOTMatrixScale(const UInt32 &value)
 
     _sfNPOTMatrixScale.setValue(value);
 }
+//! Get the value of the TextureChunk::_sfSkipMipMapLevels field.
+
+inline
+Real32 &TextureChunkBase::editSkipMipMapLevels(void)
+{
+    editSField(SkipMipMapLevelsFieldMask);
+
+    return _sfSkipMipMapLevels.getValue();
+}
+
+//! Get the value of the TextureChunk::_sfSkipMipMapLevels field.
+inline
+const Real32 TextureChunkBase::getSkipMipMapLevels(void) const
+{
+    return _sfSkipMipMapLevels.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Real32              &TextureChunkBase::getSkipMipMapLevels(void)
+{
+    return this->editSkipMipMapLevels();
+}
+#endif
+
+//! Set the value of the TextureChunk::_sfSkipMipMapLevels field.
+inline
+void TextureChunkBase::setSkipMipMapLevels(const Real32 &value)
+{
+    editSField(SkipMipMapLevelsFieldMask);
+
+    _sfSkipMipMapLevels.setValue(value);
+}
 
 //! Get the value of the \a index element the TextureChunk::_mfShaderOffsetMatrix field.
 inline
@@ -2048,6 +2081,9 @@ void TextureChunkBase::execSync (      TextureChunkBase *pFrom,
 
     if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
         _sfNPOTMatrixScale.syncWith(pFrom->_sfNPOTMatrixScale);
+
+    if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
+        _sfSkipMipMapLevels.syncWith(pFrom->_sfSkipMipMapLevels);
 }
 #endif
 

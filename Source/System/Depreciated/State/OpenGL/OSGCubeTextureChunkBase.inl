@@ -153,39 +153,6 @@ void CubeTextureChunkBase::setNegYImage(Image * const value)
 
     _sfNegYImage.setValue(value);
 }
-//! Get the value of the CubeTextureChunk::_sfIsReflectionMap field.
-
-inline
-bool &CubeTextureChunkBase::editIsReflectionMap(void)
-{
-    editSField(IsReflectionMapFieldMask);
-
-    return _sfIsReflectionMap.getValue();
-}
-
-//! Get the value of the CubeTextureChunk::_sfIsReflectionMap field.
-inline
-const bool CubeTextureChunkBase::getIsReflectionMap(void) const
-{
-    return _sfIsReflectionMap.getValue();
-}
-
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &CubeTextureChunkBase::getIsReflectionMap(void)
-{
-    return this->editIsReflectionMap();
-}
-#endif
-
-//! Set the value of the CubeTextureChunk::_sfIsReflectionMap field.
-inline
-void CubeTextureChunkBase::setIsReflectionMap(const bool &value)
-{
-    editSField(IsReflectionMapFieldMask);
-
-    _sfIsReflectionMap.setValue(value);
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -212,9 +179,6 @@ void CubeTextureChunkBase::execSync (      CubeTextureChunkBase *pFrom,
 
     if(FieldBits::NoField != (NegYImageFieldMask & whichField))
         _sfNegYImage.syncWith(pFrom->_sfNegYImage);
-
-    if(FieldBits::NoField != (IsReflectionMapFieldMask & whichField))
-        _sfIsReflectionMap.syncWith(pFrom->_sfIsReflectionMap);
 }
 #endif
 

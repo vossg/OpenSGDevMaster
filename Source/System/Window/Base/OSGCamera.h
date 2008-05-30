@@ -110,6 +110,10 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     virtual void getFrustum              (      FrustumVolume &result,
                                           const Viewport      &port  );
 
+	virtual void getFrustum              (      FrustumVolume &result,
+                                                UInt32         width, 
+                                                UInt32         height);
+
     virtual void getWorldToScreen        (      Matrixr       &result,
                                           const Viewport      &port  );
 
@@ -141,7 +145,11 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \{                                                                 */
 
 #ifndef OSG_WINCE
-    bool calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port);
+    bool calcViewRay(      Line     &line, 
+                           Int32     x, 
+                           Int32     y, 
+                     const Viewport &port,
+                           Real32   *t   = NULL );
 #endif
 
     /*! \}                                                                 */

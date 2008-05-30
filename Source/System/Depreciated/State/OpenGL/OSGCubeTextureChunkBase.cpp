@@ -117,10 +117,6 @@ OSG_BEGIN_NAMESPACE
     The image for the negative Y direction for the cube tetxure.
 */
 
-/*! \var bool            CubeTextureChunkBase::_sfIsReflectionMap
-    
-*/
-
 
 void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -184,18 +180,6 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandleNegYImage),
         static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandleNegYImage));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFBool::Description(
-        SFBool::getClassType(),
-        "isReflectionMap",
-        "",
-        IsReflectionMapFieldId, IsReflectionMapFieldMask,
-        false,
-        Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CubeTextureChunk::editHandleIsReflectionMap),
-        static_cast<FieldGetMethodSig >(&CubeTextureChunk::getHandleIsReflectionMap));
 
     oType.addInitialDesc(pDesc);
 }
@@ -280,15 +264,6 @@ CubeTextureChunkBase::TypeObject CubeTextureChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tThe image for the negative Y direction for the cube tetxure.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"isReflectionMap\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"true\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
@@ -390,25 +365,6 @@ SFUnrecImagePtr     *CubeTextureChunkBase::editSFNegYImage      (void)
     return &_sfNegYImage;
 }
 
-SFBool *CubeTextureChunkBase::editSFIsReflectionMap(void)
-{
-    editSField(IsReflectionMapFieldMask);
-
-    return &_sfIsReflectionMap;
-}
-
-const SFBool *CubeTextureChunkBase::getSFIsReflectionMap(void) const
-{
-    return &_sfIsReflectionMap;
-}
-
-#ifdef OSG_1_GET_COMPAT
-SFBool              *CubeTextureChunkBase::getSFIsReflectionMap(void)
-{
-    return this->editSFIsReflectionMap();
-}
-#endif
-
 
 
 
@@ -439,10 +395,6 @@ UInt32 CubeTextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfNegYImage.getBinSize();
     }
-    if(FieldBits::NoField != (IsReflectionMapFieldMask & whichField))
-    {
-        returnValue += _sfIsReflectionMap.getBinSize();
-    }
 
     return returnValue;
 }
@@ -472,10 +424,6 @@ void CubeTextureChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfNegYImage.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (IsReflectionMapFieldMask & whichField))
-    {
-        _sfIsReflectionMap.copyToBin(pMem);
-    }
 }
 
 void CubeTextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -502,10 +450,6 @@ void CubeTextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (NegYImageFieldMask & whichField))
     {
         _sfNegYImage.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (IsReflectionMapFieldMask & whichField))
-    {
-        _sfIsReflectionMap.copyFromBin(pMem);
     }
 }
 
@@ -604,8 +548,7 @@ CubeTextureChunkBase::CubeTextureChunkBase(void) :
     _sfPosXImage              (NULL),
     _sfNegXImage              (NULL),
     _sfPosYImage              (NULL),
-    _sfNegYImage              (NULL),
-    _sfIsReflectionMap        (bool(true))
+    _sfNegYImage              (NULL)
 {
 }
 
@@ -615,8 +558,7 @@ CubeTextureChunkBase::CubeTextureChunkBase(const CubeTextureChunkBase &source) :
     _sfPosXImage              (NULL),
     _sfNegXImage              (NULL),
     _sfPosYImage              (NULL),
-    _sfNegYImage              (NULL),
-    _sfIsReflectionMap        (source._sfIsReflectionMap        )
+    _sfNegYImage              (NULL)
 {
 }
 
@@ -768,28 +710,6 @@ EditFieldHandlePtr CubeTextureChunkBase::editHandleNegYImage      (void)
                                           static_cast<CubeTextureChunk *>(this), _1));
 
     editSField(NegYImageFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr CubeTextureChunkBase::getHandleIsReflectionMap (void) const
-{
-    SFBool::GetHandlePtr returnValue(
-        new  SFBool::GetHandle(
-             &_sfIsReflectionMap, 
-             this->getType().getFieldDesc(IsReflectionMapFieldId)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr CubeTextureChunkBase::editHandleIsReflectionMap(void)
-{
-    SFBool::EditHandlePtr returnValue(
-        new  SFBool::EditHandle(
-             &_sfIsReflectionMap, 
-             this->getType().getFieldDesc(IsReflectionMapFieldId)));
-
-    editSField(IsReflectionMapFieldMask);
 
     return returnValue;
 }

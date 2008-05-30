@@ -154,6 +154,14 @@ Int32 Viewport::getPixelLeft(void) const
 {
     if(getLeft() > 1)
         return Int32(getLeft());
+
+    if(getParent() == NULL)
+    {
+        SWARNING << "Viewport::getPixelLeft: viewport has no parent window!" 
+                 << std::endl;
+
+        return 0;
+    }
     
     return Int32(getParent()->getWidth() * getLeft());
 }
@@ -167,6 +175,14 @@ Int32 Viewport::getPixelRight(void) const
     // >1: pixel
     if(getRight() > 1)
         return Int32(getRight());
+
+    if(getParent() == NULL)
+    {
+        SWARNING << "Viewport::getPixelRight: viewport has no parent window!" 
+                 << std::endl;
+
+        return 0;
+    }
     
     // <=1: partial screen, use 1 less to not overlap other windows
     return Int32(getParent()->getWidth() * getRight() - 1);
@@ -181,6 +197,14 @@ Int32 Viewport::getPixelBottom(void) const
     if(getBottom() > 1)
         return Int32(getBottom());
     
+    if(getParent() == NULL)
+    {
+        SWARNING << "Viewport::getPixelBottom: viewport has no parent window!"
+                 << std::endl;
+
+        return 0;
+    }
+
     return Int32(getParent()->getHeight() * getBottom());
 }
 
@@ -194,6 +218,14 @@ Int32 Viewport::getPixelTop(void) const
     if(getTop() > 1)
         return Int32(getTop());
     
+    if(getParent() == NULL)
+    {
+        SWARNING << "Viewport::getPixelTop: viewport has no parent window!" 
+                 << std::endl;
+
+        return 0;
+    }
+
     // <=1: partial screen, use 1 less to not overlap other windows
     return Int32(getParent()->getHeight() * getTop() - 1);
 }
@@ -203,6 +235,14 @@ Int32 Viewport::getPixelTop(void) const
  */
 bool Viewport::isFullWindow(void) const
 {
+    if(getParent() == NULL)
+    {
+        SWARNING << "Viewport::isFullWindow: viewport has no parent window!" 
+                 << std::endl;
+
+        return false;
+    }
+
     return  
         getPixelBottom() == 0 &&
         getPixelLeft()   == 0 &&

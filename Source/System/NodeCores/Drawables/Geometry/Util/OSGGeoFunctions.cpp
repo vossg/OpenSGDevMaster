@@ -624,19 +624,26 @@ void calcVertexTangentsProp(Geometry *geo,
     indexVec.resize(3);    
     
   
-    // init property arrays
-    for(i = 0; i < nind; i++) 
+     // calc max index.
+    UInt32 maxindex = 0;
+
+    for(i = 0; i < posIdx->size(); ++i)
     {
-        tangent .push_back(Vec3f::Null);
-        binormal.push_back(Vec3f::Null);
-        normal  .push_back(Vec3f::Null);    
+        maxindex = 
+            posIdx->getValue(i) > maxindex ? posIdx->getValue(i) : maxindex;
     }
-    
+
+    // init property arrays
+    // amz we can't use the indices size (nind) here!
+    tangent .resize(maxindex + 1, Vec3f::Null);
+    binormal.resize(maxindex + 1, Vec3f::Null);
+    normal  .resize(maxindex + 1, Vec3f::Null);
+
     for(  tI  = geo->beginTriangles(), i = 0; 
           tI != geo->endTriangles(); 
         ++tI, ++i) 
     {       
-        for(k = 0; k < 3; k++) 
+        for(k = 0; k < 3; ++k) 
         {
             indexVec[0] = tI.getPropertyIndex(Geometry::PositionsIndex, k);
             indexVec[1] = tI.getPropertyIndex(srcNormalProp,            k);
@@ -663,11 +670,21 @@ void calcVertexTangentsProp(Geometry *geo,
         tex1 = t1 - t0;
         tex2 = t2 - t0;
         
-        Real32 invDet = 1.0 / (tex1[0]*tex2[1] - tex2[0]*tex1[1]);
+        Real32 invDet = (tex1[0]*tex2[1] - tex2[0]*tex1[1]);
+
+        if(invDet != 0.0f)
+        {
+            invDet = 1.0f / invDet;
+        }
+        else
+        {
+            invDet = 0.0f;
+        }
+
         sdir = invDet * (tex2[1]*edge1 - tex1[1]*edge2);    // tangent
         tdir = invDet * (tex1[0]*edge2 - tex2[0]*edge1);    // binormal
         
-        for(k = 0; k < 3; k++) 
+        for(k = 0; k < 3; ++k) 
         {
             tangent [v[k]] += sdir;
             binormal[v[k]] += tdir;
@@ -685,7 +702,7 @@ void calcVertexTangentsProp(Geometry *geo,
     tangentP ->clear();
     binormalP->clear();
 
-    for(i = 0; i < nind; i++) 
+    for(i = 0; i < tangent.size(); i++) 
     {
         T = tangent [i];
         B = binormal[i];
@@ -1564,20 +1581,30 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
         Geometry::TexCoordsIndex
     };
 
-    UInt32 texCoordN[4] =
+    static const UInt32 uiNumTexCoords = 8;
+
+    UInt32 texCoordN[uiNumTexCoords] =
     {
         0,
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0
     };
 
-    UInt16 texCoordIdx[4] =
+    UInt16 texCoordIdx[uiNumTexCoords] =
     {
         Geometry::TexCoordsIndex,
         Geometry::TexCoords1Index,
         Geometry::TexCoords2Index,
-        Geometry::TexCoords3Index
+        Geometry::TexCoords3Index,
+        Geometry::TexCoords4Index,
+        Geometry::TexCoords5Index,
+        Geometry::TexCoords6Index,
+        Geometry::TexCoords7Index
     };
 
     //----------------------------------------------------------------------
@@ -1657,6 +1684,18 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
 
     texCoordsPtr = geoPtr->getTexCoords3();
     texCoordN[3] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+
+    texCoordsPtr = geoPtr->getTexCoords4();
+    texCoordN[4] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+
+    texCoordsPtr = geoPtr->getTexCoords5();
+    texCoordN[5] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+
+    texCoordsPtr = geoPtr->getTexCoords6();
+    texCoordN[6] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
+
+    texCoordsPtr = geoPtr->getTexCoords7();
+    texCoordN[7] = ((texCoordsPtr == NULL) ? 0 : texCoordsPtr->getSize());
 
     FDEBUG(("vertex attrib count P/N/C/T: %d/%d/%d/%d\n", pN, nN, cN, tN));
 
@@ -1925,10 +1964,12 @@ else
         {
             indexOutBag[i]->clear();
         }
-
-        geoPtr->setIndex(NULL, texCoordIdx[i]);
     }
 
+    for(i = 0; i < uiNumTexCoords; ++i)
+    {
+        geoPtr->setIndex(NULL, texCoordIdx[i]);
+    }
 
     lensPtr = geoPtr->getLengths();
 
@@ -2112,12 +2153,14 @@ else
         }
     }
 
-    for(UInt32 i = 1; i < 4; ++i)
+    for(UInt32 i = 1; i < uiNumTexCoords; ++i)
     {
         if(texCoordN[i] != 0)
         {
-            if((indexType  [3] == VERTEX_COORD_IT || indexType  [3]         == VERTEX_DUP_IT) &&
-               (indexOutBag[3] == NULL            || indexOutBag[3]->size() == 0            )   )
+            if((indexType  [3] == VERTEX_COORD_IT || 
+                indexType  [3] == VERTEX_DUP_IT) &&
+               (indexOutBag[3] == NULL            || 
+                indexOutBag[3]->size() == 0            )   )
             {
                 geoPtr->setIndex(posIndexPtr, texCoordIdx[i]);
             }

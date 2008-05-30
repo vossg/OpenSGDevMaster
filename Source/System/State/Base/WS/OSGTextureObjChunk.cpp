@@ -600,9 +600,10 @@ void TextureObjChunk::handleTexture(Window                  *win,
             glTexParameteri(paramtarget, GL_TEXTURE_MAG_FILTER, getMagFilter());
             glTexParameteri(paramtarget, GL_TEXTURE_WRAP_S, getWrapS());
 
-            if(paramtarget == GL_TEXTURE_2D ||
-               paramtarget == GL_TEXTURE_3D ||
-               paramtarget == GL_TEXTURE_CUBE_MAP_ARB)
+            if(paramtarget == GL_TEXTURE_2D           ||
+               paramtarget == GL_TEXTURE_3D           ||
+               paramtarget == GL_TEXTURE_CUBE_MAP_ARB ||
+               paramtarget == GL_TEXTURE_RECTANGLE_ARB )
             {
                 glTexParameteri(paramtarget, GL_TEXTURE_WRAP_T, getWrapT());
             }
@@ -729,7 +730,16 @@ void TextureObjChunk::handleTexture(Window                  *win,
                  osgIsPower2(depth)
               )
             {
-                for(UInt16 i = 0; i < img->getMipMapCount(); i++)
+                UInt16 baseLevel = 0;
+				Real32 skipLevels = osgClamp(0.f, getSkipMipMapLevels(), 1.f);
+                
+                if(img->getMipMapCount() != 0)
+                {
+					baseLevel = 
+                        UInt16(skipLevels * (img->getMipMapCount() - 1)); 
+                }
+
+                for(UInt16 i = baseLevel; i < img->getMipMapCount(); i++)
                 {
                     UInt32 w, h, d;
                     img->calcMipmapGeometry(i, w, h, d);
@@ -738,37 +748,58 @@ void TextureObjChunk::handleTexture(Window                  *win,
                     {
                         switch (imgtarget)
                         {
-                        case GL_TEXTURE_1D:
-                            CompressedTexImage1D(GL_TEXTURE_1D, i, internalFormat,
-                                            w, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i),
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_2D:
-                            CompressedTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i),
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                            CompressedTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i),
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_3D:
-                            CompressedTexImage3D(GL_TEXTURE_3D, i, internalFormat,
-                                            w, h, d, getBorderWidth(),
-                                            img->calcMipmapLevelSize(i),
-                                            img->getData(i, frame, side));
-                            break;
-                       default:
-                                SFATAL << "TextureObjChunk::initialize1: unknown target "
+                            case GL_TEXTURE_1D:
+                                CompressedTexImage1D(
+                                    GL_TEXTURE_1D, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w, 
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i),
+                                    img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_2D:
+                                CompressedTexImage2D(
+                                    imgtarget, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w, 
+                                    h, 
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i),
+                                    img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
+                                CompressedTexImage2D(
+                                    imgtarget, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w, 
+                                    h, 
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i),
+                                    img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_3D:
+                                CompressedTexImage3D(
+                                    GL_TEXTURE_3D, 
+                                    i - baseLevel, 
+                                    internalFormat,
+                                    w, 
+                                    h, 
+                                    d, 
+                                    getBorderWidth(),
+                                    img->calcMipmapLevelSize(i),
+                                    img->getData(i, frame, side));
+                                break;
+                            default:
+                                SFATAL << "TextureObjChunk::initialize1: "
+                                       << "unknown target "
                                        << imgtarget << "!!!" << std::endl;
                                 break;
                         }
@@ -777,32 +808,48 @@ void TextureObjChunk::handleTexture(Window                  *win,
                     {
                         switch (imgtarget)
                         {
-                        case GL_TEXTURE_1D:
-                            glTexImage1D(GL_TEXTURE_1D, i, internalFormat,
-                                            w, getBorderWidth(),
-                                            externalFormat, type,
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_2D:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
-                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
-                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
-                            glTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, getBorderWidth(),
-                                            externalFormat, type,
-                                            img->getData(i, frame, side));
-                            break;
-                        case GL_TEXTURE_3D:
-                              TexImage3D(GL_TEXTURE_3D, i, internalFormat,
-                                            w, h, d, getBorderWidth(),
-                                            externalFormat, type,
-                                            img->getData(i, frame, side));
-                            break;
-                       default:
-                                SFATAL << "TextureObjChunk::initialize1: unknown target "
+                            case GL_TEXTURE_1D:
+                                glTexImage1D(GL_TEXTURE_1D, 
+                                             i - baseLevel, 
+                                             internalFormat,
+                                             w, 
+                                             getBorderWidth(),
+                                             externalFormat, 
+                                             type,
+                                             img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_2D:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB:
+                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
+                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
+                                glTexImage2D(imgtarget, 
+                                             i - baseLevel, 
+                                             internalFormat,
+                                             w, 
+                                             h, 
+                                             getBorderWidth(),
+                                             externalFormat, 
+                                             type,
+                                             img->getData(i, frame, side));
+                                break;
+                            case GL_TEXTURE_3D:
+                                TexImage3D(GL_TEXTURE_3D, 
+                                           i - baseLevel, 
+                                           internalFormat,
+                                           w, 
+                                           h, 
+                                           d, 
+                                           getBorderWidth(),
+                                           externalFormat, 
+                                           type,
+                                           img->getData(i, frame, side));
+                                break;
+                            default:
+                                SFATAL << "TextureObjChunk::initialize1: "
+                                       << "unknown target "
                                        << imgtarget << "!!!" << std::endl;
                                 break;
                         }
@@ -817,7 +864,15 @@ void TextureObjChunk::handleTexture(Window                  *win,
                 if(win->hasExtension(_sgisGenerateMipmap))
                 {
                     if(paramtarget != GL_NONE)
-                        glTexParameteri(paramtarget, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
+                    {
+                        glTexParameteri(paramtarget, 
+                                        GL_GENERATE_MIPMAP_SGIS, 
+                                        GL_TRUE);
+                    }
+
+                    // same as GL_GENERATE_MIPMAP which is part of the
+                    // standard since 1.4 
+
                     glErr("TextureObjChunk::activate generate_mipmaps");
                     needMipmaps = false; // automagic does it
                 }
@@ -1441,8 +1496,14 @@ void TextureObjChunk::handleTexture(Window                  *win,
                 glPixelStorei(GL_UNPACK_SKIP_IMAGES, 0);
 
             if(paramtarget != GL_NONE)
+            {
                 glTexParameterf(paramtarget, GL_TEXTURE_PRIORITY,
                                   getPriority());
+                glTexParameteri(paramtarget, GL_TEXTURE_MIN_FILTER,
+                                getMinFilter()                     );
+                glTexParameteri(paramtarget, GL_TEXTURE_MAG_FILTER,
+                                getMagFilter()                     );
+            }
         }
         else
         {
@@ -1702,77 +1763,114 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
 #if 0
     // Use texture matrix for scaling
-	UInt32 NpotMatScale = getNPOTMatrixScale();
-	
-    if (idx < static_cast<UInt32>(ntexcoords) && !getScale() && NpotMatScale )
+    UInt32 NpotMatScale = getNPOTMatrixScale();
+    bool setMatrix = false;
+	Matrix texMat;
+    
+    if ( idx < static_cast<UInt32>(ntexcoords) &&
+        !getScale() && NpotMatScale )
     {
         ImagePtr i = getImage();
         
-        if(i != NULL)
+        if (i != NullFC)
         {
-			Real32 sw=1.f, sh=1.f, sd=1.f,
-				   tw=0.f, th=0.f, td=0.f;
-			bool setMatrix = false;
-			
-			if ( (NpotMatScale & NPotTexScale_TT) &&
-				  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
-				 !win->hasExtension(_arbTextureNonPowerOfTwo) )
-			{
-				UInt32 w,h,d,nw,nh,nd;
-				
-				w = i->getWidth();
-				h = i->getHeight();
-				d = i->getDepth();
-				
-				nw = osgnextpower2(w);
-				nh = osgnextpower2(h);
-				nd = osgnextpower2(d);
-				
-				sw = w / static_cast<Real32>(nw);
-				sh = h / static_cast<Real32>(nh);
-				sd = d / static_cast<Real32>(nd);
-				
-				setMatrix = true;
-			}
-			if ( (NpotMatScale & XFlip_TT) )
-			{
-				tw = sw - 1.f;
-				sw *= -1.f;
-				
-				setMatrix = true;
-			}
-			if ( (NpotMatScale & YFlip_TT) )
-			{
-				th = sh - 1.f;
-				sh *= -1.f;
-				
-				setMatrix = true;
-			}
-			if ( (NpotMatScale & ZFlip_TT) )
-			{
-				td = sd - 1.f;
-				sd *= -1.f;
-				
-				setMatrix = true;
-			}
-			
-			if(setMatrix)
-			{
-				Matrix m;
-				
-				m.setIdentity();
-				m.setScale( Vec3f(sw, sh, sd) );
-				m.setTranslate( Vec3f(tw, th, td) );
-				
-				glPushAttrib(GL_TRANSFORM_BIT);
-				glMatrixMode(GL_TEXTURE);
+            Real32 sw=1.f, sh=1.f, sd=1.f,
+                   tw=0.f, th=0.f, td=0.f;
+            
+            if ( (NpotMatScale & NPotTexScale_TT) &&
+                  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
+                 !win->hasExtension(_arbTextureNonPowerOfTwo) )
+            {
+                UInt32 w,h,d,nw,nh,nd;
+                
+                w = i->getWidth();
+                h = i->getHeight();
+                d = i->getDepth();
+                
+                nw = osgnextpower2(w);
+                nh = osgnextpower2(h);
+                nd = osgnextpower2(d);
+                
+                sw = w / static_cast<Real32>(nw);
+                sh = h / static_cast<Real32>(nh);
+                sd = d / static_cast<Real32>(nd);
+                
+                setMatrix = true;
+            }
+            if ( (NpotMatScale & XFlip_TT) )
+            {
+                tw = sw - 1.f;
+                sw *= -1.f;
+                
+                setMatrix = true;
+            }
+            if ( (NpotMatScale & YFlip_TT) )
+            {
+                th = sh - 1.f;
+                sh *= -1.f;
+                
+                setMatrix = true;
+            }
+            if ( (NpotMatScale & ZFlip_TT) )
+            {
+                td = sd - 1.f;
+                sd *= -1.f;
+                
+                setMatrix = true;
+            }
+            
+            if (setMatrix)
+            {
+                Matrix m;
+                
+                m.setIdentity();
+                m.setScale( Vec3f(sw, sh, sd) );
+                m.setTranslate( Vec3f(tw, th, td) );
+
+                glPushAttrib(GL_TRANSFORM_BIT);
+                glMatrixMode(GL_TEXTURE);
 				
 				glLoadMatrixf(m.getValues());
 				
-				glPopAttrib();
-                glMatrixMode(GL_MODELVIEW);
-			}
+#if TMHACK
+				if (TextureTransformChunk::activeMatrix(texMat, idx))
+					glMultMatrixf(texMat.getValues());
+#endif
+                
+                glPopAttrib();
+				
+				if (idx >= _needTexMat.size())
+				{
+					_needTexMat.resize(idx+1, false);
+					_lastTexMat.resize(idx+1, Matrix::identity());
+				}
+				_needTexMat[idx] = true;
+				_lastTexMat[idx] = m;
+            }
         }
+    }
+    
+    if (!setMatrix && idx < static_cast<UInt32>(ntexcoords))
+    {
+        glPushAttrib(GL_TRANSFORM_BIT);
+        glMatrixMode(GL_TEXTURE);
+		
+#if TMHACK
+		if (TextureTransformChunk::activeMatrix(texMat, idx))
+			glLoadMatrixf(texMat.getValues());
+		else
+#endif
+			glLoadIdentity();
+        
+		glPopAttrib();
+		
+		if (idx >= _needTexMat.size())
+		{
+			_needTexMat.resize(idx+1, false);
+			_lastTexMat.resize(idx+1, Matrix::identity());
+		}
+		_needTexMat[idx] = false;
+		_lastTexMat[idx].setIdentity();
     }
 #endif
 
@@ -1969,103 +2067,114 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
 
 #if 0
     // Use texture matrix for scaling
-	UInt32 NpotMatScale = getNPOTMatrixScale();
-	
+    UInt32 NpotMatScale = getNPOTMatrixScale();
+    bool setMatrix = false;
+	Matrix texMat;
+    
     if ( idx < static_cast<UInt32>(ntexcoords) &&
         !getScale() && NpotMatScale )
     {
         ImagePtr i = getImage();
         
-        if (i != NULL)
+        if (i != NullFC)
         {
-			Real32 sw=1.f, sh=1.f, sd=1.f,
-				   tw=0.f, th=0.f, td=0.f;
-			bool setMatrix = false;
-			
-			if ( (NpotMatScale & NPotTexScale_TT) &&
-				  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
-				 !win->hasExtension(_arbTextureNonPowerOfTwo) )
-			{
-				UInt32 w,h,d,nw,nh,nd;
+            Real32 sw=1.f, sh=1.f, sd=1.f,
+                   tw=0.f, th=0.f, td=0.f;
+            
+            if ( (NpotMatScale & NPotTexScale_TT) &&
+                  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
+                 !win->hasExtension(_arbTextureNonPowerOfTwo) )
+            {
+                UInt32 w,h,d,nw,nh,nd;
+                
+                w = i->getWidth();
+                h = i->getHeight();
+                d = i->getDepth();
+                
+                nw = osgnextpower2(w);
+                nh = osgnextpower2(h);
+                nd = osgnextpower2(d);
+                
+                sw = w / static_cast<Real32>(nw);
+                sh = h / static_cast<Real32>(nh);
+                sd = d / static_cast<Real32>(nd);
+                
+                setMatrix = true;
+            }
+            if ( (NpotMatScale & XFlip_TT) )
+            {
+                tw = sw - 1.f;
+                sw *= -1.f;
+                
+                setMatrix = true;
+            }
+            if ( (NpotMatScale & YFlip_TT) )
+            {
+                th = sh - 1.f;
+                sh *= -1.f;
+                
+                setMatrix = true;
+            }
+            if ( (NpotMatScale & ZFlip_TT) )
+            {
+                td = sd - 1.f;
+                sd *= -1.f;
+                
+                setMatrix = true;
+            }
+            
+            if (setMatrix)
+            {
+                Matrix m;
+                
+                m.setIdentity();
+                m.setScale( Vec3f(sw, sh, sd) );
+                m.setTranslate( Vec3f(tw, th, td) );
+                
+                glPushAttrib(GL_TRANSFORM_BIT);
+                glMatrixMode(GL_TEXTURE);
 				
-				w = i->getWidth();
-				h = i->getHeight();
-				d = i->getDepth();
-				
-				nw = osgnextpower2(w);
-				nh = osgnextpower2(h);
-				nd = osgnextpower2(d);
-				
-				sw = w / static_cast<Real32>(nw);
-				sh = h / static_cast<Real32>(nh);
-				sd = d / static_cast<Real32>(nd);
-				
-				setMatrix = true;
-			}
-			if ( (NpotMatScale & XFlip_TT) )
-			{
-				tw = sw - 1.f;
-				sw *= -1.f;
-				
-				setMatrix = true;
-			}
-			if ( (NpotMatScale & YFlip_TT) )
-			{
-				th = sh - 1.f;
-				sh *= -1.f;
-				
-				setMatrix = true;
-			}
-			if ( (NpotMatScale & ZFlip_TT) )
-			{
-				td = sd - 1.f;
-				sd *= -1.f;
-				
-				setMatrix = true;
-			}
-			
-			if (setMatrix)
-			{
-				Matrix m;
-				
-				m.setIdentity();
-				m.setScale( Vec3f(sw, sh, sd) );
-				m.setTranslate( Vec3f(tw, th, td) );
-				
-				glPushAttrib(GL_TRANSFORM_BIT);
-				glMatrixMode(GL_TEXTURE);
-				
-				glLoadMatrixf(m.getValues());
+                glLoadMatrixf(m.getValues());
+                
+#if TMHACK
+				if (TextureTransformChunk::activeMatrix(texMat, idx))
+					glMultMatrixf(texMat.getValues());
+#endif
 				
 				glPopAttrib();
-                glMatrixMode(GL_MODELVIEW);
-			}
+				
+				if (idx >= _needTexMat.size())
+				{
+					_needTexMat.resize(idx+1, false);
+					_lastTexMat.resize(idx+1, Matrix::identity());
+				}
+				_needTexMat[idx] = true;
+				_lastTexMat[idx] = m;
+            }
         }
     }
-	else if(oldused)
+
+    if (!setMatrix && idx < static_cast<UInt32>(ntexcoords))
     {
-		NpotMatScale = oldp->getNPOTMatrixScale();
+        glPushAttrib(GL_TRANSFORM_BIT);
+        glMatrixMode(GL_TEXTURE);
 		
-		if ( idx < static_cast<UInt32>(ntexcoords) && 
-			!oldp->getScale() && NpotMatScale )
+#if TMHACK
+        if (TextureTransformChunk::activeMatrix(texMat, idx))
+			glLoadMatrixf(texMat.getValues());
+		else
+#endif
+			glLoadIdentity();
+        
+		glPopAttrib();
+		
+		if (idx >= _needTexMat.size())
 		{
-			if ( ( (NpotMatScale & NPotTexScale_TT) &&
-					oldp->getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
-					!win->hasExtension(_arbTextureNonPowerOfTwo) )
-					||	(NpotMatScale & XFlip_TT)
-					||	(NpotMatScale & YFlip_TT)
-					||	(NpotMatScale & ZFlip_TT)
-				)
-			{
-				glPushAttrib(GL_TRANSFORM_BIT);
-				glMatrixMode(GL_TEXTURE);
-				
-				glLoadIdentity();
-				
-				glPopAttrib();
-                glMatrixMode(GL_MODELVIEW);
-			}     
+			_needTexMat.resize(idx+1, false);
+			_lastTexMat.resize(idx+1, Matrix::identity());
 		}
+		_needTexMat[idx] = false;
+		_lastTexMat[idx].setIdentity();
     }
 #endif
 
@@ -2129,7 +2238,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         ntexunits = 1.0f;
 
     if(idx >= static_cast<UInt32>(ntexunits))
-        return; // tetxures >= MTU are not enabled and don't have an env
+        return; // textures >= MTU are not enabled and don't have an env
 
     if(!isActive)
         activateTexture(win, idx);
@@ -2162,28 +2271,32 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     }
 
 #if 0
-	UInt32 NpotMatScale = getNPOTMatrixScale();
-	
-	if ( idx < static_cast<UInt32>(ntexcoords) &&
-		!getScale() && NpotMatScale )
-	{
-		if ( ( (NpotMatScale & NPotTexScale_TT) &&
-				getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
-				!win->hasExtension(_arbTextureNonPowerOfTwo) )
-				||	(NpotMatScale & XFlip_TT)
-				||	(NpotMatScale & YFlip_TT)
-				||	(NpotMatScale & ZFlip_TT)
-			)
-		{
-			glPushAttrib(GL_TRANSFORM_BIT);
-			glMatrixMode(GL_TEXTURE);
-			
+    // be consistent with TextureTransform which has to multiply
+    //UInt32 NpotMatScale = getNPOTMatrixScale();
+	Matrix texMat;
+    
+    if ( idx < static_cast<UInt32>(ntexcoords) )
+    {
+        glPushAttrib(GL_TRANSFORM_BIT);
+        glMatrixMode(GL_TEXTURE);
+		
+#if TMHACK
+        if (TextureTransformChunk::activeMatrix(texMat, idx))
+			glLoadMatrixf(texMat.getValues());
+		else
+#endif
 			glLoadIdentity();
-			
-			glPopAttrib();
-            glMatrixMode(GL_MODELVIEW);
-		}     
-	}
+        
+		glPopAttrib();
+		
+		if (idx >= _needTexMat.size())
+		{
+			_needTexMat.resize(idx+1, false);
+			_lastTexMat.resize(idx+1, Matrix::identity());
+		}
+		_needTexMat[idx] = false;
+		_lastTexMat[idx].setIdentity();
+    }
 #endif
 
     glDisable(target);

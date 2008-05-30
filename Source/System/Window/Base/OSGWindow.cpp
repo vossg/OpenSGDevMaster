@@ -1262,19 +1262,51 @@ void OSG::Window::frameInit(void)
         const char *version = 
                 reinterpret_cast<const char *>(glGetString(GL_VERSION));
         
-        int major = atoi(version);
-        int minor = atoi(strchr(version, '.') + 1);
+        if(version != NULL)
+        {
+            int major = atoi(version);
+            int minor = atoi(strchr(version, '.') + 1);
         
-        _glVersion = (major << 8) + minor;
+            _glVersion = (major << 8) + minor;
+        }
+        else
+        {
+            FFATAL(("Window::frameInit: Couldn't detect OpenGL version "
+                    "assuming version 1.1!\n"));
+            _glVersion = (1 << 8) + 1;
+        }
+
+#ifdef __APPLE__
+
+        const char* glVendor   = 
+            reinterpret_cast<const char *>(glGetString(GL_VENDOR));
+        const char* glRenderer = 
+            reinterpret_cast<const char *>(glGetString(GL_RENDERER));
+    
+        if(glVendor != NULL && glRenderer != NULL)
+        {
+            // TODO; is there a better way to switch some
+            // extentions for a specific os/vendor/renderer combo
+            FLOG (( "GL Vendor/Renderer: %s/%s\n", glVendor, glRenderer ));
         
+            if ( strstr(glVendor, "ATI") && strstr(glRenderer,"X1600") )
+            {
+                  FWARNING (("Switch of non_power_of_two for ATI\n"));
+                  ignoreExtensions("GL_ARB_texture_non_power_of_two");
+            }
+        }
+
+#endif // __APPLE
+
+        const char *gl_extensions = 
+            reinterpret_cast<const char*> (glGetString(GL_EXTENSIONS));
+
         FDEBUG(("Window %p: GL Version: %4x ('%s')\n", this, 
                 _glVersion, glGetString(GL_VERSION) ));
 
-        FDEBUG(("Window %p: GL Extensions: %s\n", this, 
-                glGetString(GL_EXTENSIONS) ));
+        FDEBUG(("Window %p: GL Extensions: %s\n", this, gl_extensions));
 
-        std::string foo(reinterpret_cast<const char*>
-                        (glGetString(GL_EXTENSIONS)));
+        std::string foo(gl_extensions != NULL ? gl_extensions : "");
 
         FDEBUG(("Window %p: Ignored: ", this));
 

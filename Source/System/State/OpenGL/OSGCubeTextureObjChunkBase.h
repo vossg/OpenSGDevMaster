@@ -70,7 +70,6 @@
 #include "OSGImageFields.h" // NegXImage type
 #include "OSGImageFields.h" // PosYImage type
 #include "OSGImageFields.h" // NegYImage type
-#include "OSGBoolFields.h" // IsReflectionMap type
 
 #include "OSGCubeTextureObjChunkFields.h"
 
@@ -103,8 +102,7 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
         NegXImageFieldId = PosXImageFieldId + 1,
         PosYImageFieldId = NegXImageFieldId + 1,
         NegYImageFieldId = PosYImageFieldId + 1,
-        IsReflectionMapFieldId = NegYImageFieldId + 1,
-        NextFieldId = IsReflectionMapFieldId + 1
+        NextFieldId = NegYImageFieldId + 1
     };
 
     static const OSG::BitVector PosZImageFieldMask =
@@ -117,8 +115,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
         (TypeTraits<BitVector>::One << PosYImageFieldId);
     static const OSG::BitVector NegYImageFieldMask =
         (TypeTraits<BitVector>::One << NegYImageFieldId);
-    static const OSG::BitVector IsReflectionMapFieldMask =
-        (TypeTraits<BitVector>::One << IsReflectionMapFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -156,12 +152,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
             const SFUnrecImagePtr     *getSFNegYImage      (void) const;
                   SFUnrecImagePtr     *editSFNegYImage      (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFIsReflectionMap (void);
-#endif
-                  SFBool              *editSFIsReflectionMap(void);
-            const SFBool              *getSFIsReflectionMap (void) const;
-
 
                   Image * getPosZImage      (void) const;
 
@@ -173,12 +163,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
 
                   Image * getNegYImage      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getIsReflectionMap (void);
-#endif
-                  bool                &editIsReflectionMap(void);
-            const bool                 getIsReflectionMap (void) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -189,7 +173,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
             void setNegXImage      (Image * const value);
             void setPosYImage      (Image * const value);
             void setNegYImage      (Image * const value);
-            void setIsReflectionMap(const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -255,7 +238,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     SFUnrecImagePtr   _sfNegXImage;
     SFUnrecImagePtr   _sfPosYImage;
     SFUnrecImagePtr   _sfNegYImage;
-    SFBool            _sfIsReflectionMap;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -294,8 +276,6 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
     EditFieldHandlePtr editHandlePosYImage      (void);
     GetFieldHandlePtr  getHandleNegYImage       (void) const;
     EditFieldHandlePtr editHandleNegYImage      (void);
-    GetFieldHandlePtr  getHandleIsReflectionMap (void) const;
-    EditFieldHandlePtr editHandleIsReflectionMap(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

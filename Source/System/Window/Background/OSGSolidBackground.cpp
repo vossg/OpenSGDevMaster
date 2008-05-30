@@ -102,23 +102,35 @@ void SolidBackground::changed(ConstFieldMaskArg whichField,
 
 void SolidBackground::clear(DrawEnv *)
 {
-	const Color3r &col = getColor();
+    Int32      stencilBit = getClearStencilBit();   // 0x0
+    GLbitfield clearMask  = 0;
 
-	GLP::glClearColor(col[0], col[1], col[2], getAlpha());
-	GLP::glClearDepth(getDepth());
-
-    Int32 bit = getClearStencilBit();   // 0x0
-    
-    if (bit >= 0)
+    if(getClearColor() == true)
     {
-        glClearStencil(bit);
-        glClear(GL_COLOR_BUFFER_BIT | 
-                GL_DEPTH_BUFFER_BIT | 
-                GL_STENCIL_BUFFER_BIT);
+        clearMask |= GL_COLOR_BUFFER_BIT;
+
+        const Color3r &col = getColor();
+
+        GLP::glClearColor(col[0], col[1], col[2], getAlpha());
     }
-    else
+
+    if(getClearDepth() == true)
     {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        clearMask |= GL_DEPTH_BUFFER_BIT;
+        
+        GLP::glClearDepth(getDepth());
+    }
+
+    if(stencilBit >= 0)
+    {
+        clearMask |= GL_STENCIL_BUFFER_BIT;
+        
+        glClearStencil(stencilBit);
+    }
+    
+    if(clearMask != 0)
+    {
+        glClear(clearMask);
     }
 }
 

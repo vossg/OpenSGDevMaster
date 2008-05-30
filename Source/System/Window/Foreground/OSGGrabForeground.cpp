@@ -147,7 +147,7 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
                  w, 
                  h, 
                  i->getPixelFormat(),
-                 GL_UNSIGNED_BYTE, 
+                 i->getDataType(), 
                  i->editData());
 
     if(storeChanged)

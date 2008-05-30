@@ -92,6 +92,7 @@
 #include "OSGGLenumFields.h" // DepthMode type
 #include "OSGUInt32Fields.h" // BorderWidth type
 #include "OSGUInt32Fields.h" // NPOTMatrixScale type
+#include "OSGReal32Fields.h" // SkipMipMapLevels type
 
 #include "OSGTextureObjChunkFields.h"
 
@@ -146,7 +147,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         DepthModeFieldId = CompareFuncFieldId + 1,
         BorderWidthFieldId = DepthModeFieldId + 1,
         NPOTMatrixScaleFieldId = BorderWidthFieldId + 1,
-        NextFieldId = NPOTMatrixScaleFieldId + 1
+        SkipMipMapLevelsFieldId = NPOTMatrixScaleFieldId + 1,
+        NextFieldId = SkipMipMapLevelsFieldId + 1
     };
 
     static const OSG::BitVector ImageFieldMask =
@@ -203,6 +205,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << BorderWidthFieldId);
     static const OSG::BitVector NPOTMatrixScaleFieldMask =
         (TypeTraits<BitVector>::One << NPOTMatrixScaleFieldId);
+    static const OSG::BitVector SkipMipMapLevelsFieldMask =
+        (TypeTraits<BitVector>::One << SkipMipMapLevelsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -388,6 +392,12 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
                   SFUInt32            *editSFNPOTMatrixScale(void);
             const SFUInt32            *getSFNPOTMatrixScale (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFReal32            *getSFSkipMipMapLevels (void);
+#endif
+                  SFReal32            *editSFSkipMipMapLevels(void);
+            const SFReal32            *getSFSkipMipMapLevels (void) const;
+
 
                   Image * getImage          (void) const;
 
@@ -547,6 +557,12 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
                   UInt32              &editNPOTMatrixScale(void);
             const UInt32               getNPOTMatrixScale (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  Real32              &getSkipMipMapLevels (void);
+#endif
+                  Real32              &editSkipMipMapLevels(void);
+            const Real32               getSkipMipMapLevels (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -579,6 +595,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
             void setDepthMode      (const GLenum &value);
             void setBorderWidth    (const UInt32 &value);
             void setNPOTMatrixScale(const UInt32 &value);
+            void setSkipMipMapLevels(const Real32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -666,6 +683,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     SFGLenum          _sfDepthMode;
     SFUInt32          _sfBorderWidth;
     SFUInt32          _sfNPOTMatrixScale;
+    SFReal32          _sfSkipMipMapLevels;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -756,6 +774,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     EditFieldHandlePtr editHandleBorderWidth    (void);
     GetFieldHandlePtr  getHandleNPOTMatrixScale (void) const;
     EditFieldHandlePtr editHandleNPOTMatrixScale(void);
+    GetFieldHandlePtr  getHandleSkipMipMapLevels (void) const;
+    EditFieldHandlePtr editHandleSkipMipMapLevels(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

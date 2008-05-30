@@ -153,7 +153,6 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
 
 void SkyBackground::clear(DrawEnv *pEnv)
 {
-
     glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
                  GL_LIGHTING_BIT);
 
@@ -193,7 +192,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
 
     glLoadIdentity();
     glTranslatef(0.f, 0.f, 0.5);
-    glScalef(1.f, 1.f, 0.f);    
+    glScalef(1.f, 1.f, 0.f);
 
 /*
     action->getCamera()->getProjection(m, viewport->getPixelWidth(),
@@ -221,6 +220,21 @@ void SkyBackground::clear(DrawEnv *pEnv)
     }
     
     Real32  vcos1,vsin1,vcos2,vsin2;
+
+    // better always clear and set a defined color...
+    glColor3f(1, 1, 1);
+	
+	if(_mfSkyColor.size() > 0)
+	{
+		glClearColor(_mfSkyColor[0][0], _mfSkyColor[0][1], 
+					 _mfSkyColor[0][2], _mfSkyColor[0][2]);
+	}
+	else
+	{
+		glClearColor(0, 0, 0, 1);
+	}
+
+	glClear(GL_COLOR_BUFFER_BIT);
     
     if(_mfSkyAngle.size() > 0)
     {
@@ -266,7 +280,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
             glEnd();
         }
 
-        if(osgAbs(_mfSkyAngle[j] - Pi) > Eps)
+        //if(osgAbs(_mfSkyAngle[j] - Pi) > Eps)
         {
             glBegin(GL_TRIANGLE_FAN);
             glColor4fv(
@@ -282,19 +296,6 @@ void SkyBackground::clear(DrawEnv *pEnv)
 
             glEnd();
         }
-    }
-    else // no angles, just fill single color
-    {
-        if(_mfSkyColor.size() > 0)
-        {
-            glClearColor(_mfSkyColor[0][0], _mfSkyColor[0][1], 
-                         _mfSkyColor[0][2], 0);
-        }
-        else
-        {
-            glClearColor(0, 0, 0, 0);
-        }
-        glClear(GL_COLOR_BUFFER_BIT);
     }
     
     // Draw the ground.
@@ -440,7 +441,9 @@ void SkyBackground::clear(DrawEnv *pEnv)
     
     Int32 bit = getClearStencilBit();
     
-    if (bit >= 0)
+	glClearDepth(1.f);
+
+    if(bit >= 0)
     {
         glClearStencil(bit);
         glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

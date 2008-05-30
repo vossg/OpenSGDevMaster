@@ -67,13 +67,4 @@ OSG::CubeTextureChunk::_sfNegXImage, OSG::CubeTextureChunk::_sfPosXImage).
 	>
 	The image for the negative Y direction for the cube tetxure.
 	</Field>
-	<Field
-		name="isReflectionMap"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-	</Field>
 </FieldContainer>

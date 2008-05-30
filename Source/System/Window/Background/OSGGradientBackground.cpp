@@ -115,6 +115,8 @@ void GradientBackground::clear(DrawEnv *pEnv)
 {
     Int32 bit = getClearStencilBit();
 
+	glClearDepth(1.f);
+
     if(_mfPosition.size() < 2)
     {
         Real32 r = 0.f, g = 0.f, b = 0.f;

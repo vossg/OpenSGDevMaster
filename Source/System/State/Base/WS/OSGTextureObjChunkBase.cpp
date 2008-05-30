@@ -253,6 +253,10 @@ OSG_BEGIN_NAMESPACE
     Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
 */
 
+/*! \var Real32          TextureObjChunkBase::_sfSkipMipMapLevels
+    Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.
+*/
+
 
 void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -602,6 +606,18 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleNPOTMatrixScale),
         static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleNPOTMatrixScale));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "skipMipMapLevels",
+        "Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.\n",
+        SkipMipMapLevelsFieldId, SkipMipMapLevelsFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&TextureObjChunkBase::editHandleSkipMipMapLevels),
+        static_cast<FieldGetMethodSig >(&TextureObjChunkBase::getHandleSkipMipMapLevels));
 
     oType.addInitialDesc(pDesc);
 }
@@ -974,6 +990,16 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tUse the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"skipMipMapLevels\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tPercentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
@@ -1537,6 +1563,25 @@ SFUInt32            *TextureObjChunkBase::getSFNPOTMatrixScale(void)
 }
 #endif
 
+SFReal32 *TextureObjChunkBase::editSFSkipMipMapLevels(void)
+{
+    editSField(SkipMipMapLevelsFieldMask);
+
+    return &_sfSkipMipMapLevels;
+}
+
+const SFReal32 *TextureObjChunkBase::getSFSkipMipMapLevels(void) const
+{
+    return &_sfSkipMipMapLevels;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFReal32            *TextureObjChunkBase::getSFSkipMipMapLevels(void)
+{
+    return this->editSFSkipMipMapLevels();
+}
+#endif
+
 
 
 
@@ -1655,6 +1700,10 @@ UInt32 TextureObjChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfNPOTMatrixScale.getBinSize();
     }
+    if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
+    {
+        returnValue += _sfSkipMipMapLevels.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1772,6 +1821,10 @@ void TextureObjChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfNPOTMatrixScale.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
+    {
+        _sfSkipMipMapLevels.copyToBin(pMem);
+    }
 }
 
 void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1886,6 +1939,10 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
     {
         _sfNPOTMatrixScale.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
+    {
+        _sfSkipMipMapLevels.copyFromBin(pMem);
     }
 }
 
@@ -2008,7 +2065,8 @@ TextureObjChunkBase::TextureObjChunkBase(void) :
     _sfCompareFunc            (GLenum(GL_LEQUAL)),
     _sfDepthMode              (GLenum(GL_LUMINANCE)),
     _sfBorderWidth            (UInt32(0)),
-    _sfNPOTMatrixScale        (UInt32(0))
+    _sfNPOTMatrixScale        (UInt32(0)),
+    _sfSkipMipMapLevels       (Real32(0))
 {
 }
 
@@ -2042,7 +2100,8 @@ TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     _sfCompareFunc            (source._sfCompareFunc            ),
     _sfDepthMode              (source._sfDepthMode              ),
     _sfBorderWidth            (source._sfBorderWidth            ),
-    _sfNPOTMatrixScale        (source._sfNPOTMatrixScale        )
+    _sfNPOTMatrixScale        (source._sfNPOTMatrixScale        ),
+    _sfSkipMipMapLevels       (source._sfSkipMipMapLevels       )
 {
 }
 
@@ -2694,6 +2753,28 @@ EditFieldHandlePtr TextureObjChunkBase::editHandleNPOTMatrixScale(void)
              this->getType().getFieldDesc(NPOTMatrixScaleFieldId)));
 
     editSField(NPOTMatrixScaleFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr TextureObjChunkBase::getHandleSkipMipMapLevels (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfSkipMipMapLevels, 
+             this->getType().getFieldDesc(SkipMipMapLevelsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr TextureObjChunkBase::editHandleSkipMipMapLevels(void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfSkipMipMapLevels, 
+             this->getType().getFieldDesc(SkipMipMapLevelsFieldId)));
+
+    editSField(SkipMipMapLevelsFieldMask);
 
     return returnValue;
 }
