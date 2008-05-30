@@ -45,7 +45,7 @@ static Int32 _animation = 1;
 int setupGLUT( int *argc, char *argv[] );
 
 // Initialize GLUT & OpenSG and set up the scene
-int main(int argc, char **argv)
+int doMain(int argc, char **argv)
 {
     // OSG init
     osgInit(argc,argv);
@@ -132,7 +132,7 @@ int main(int argc, char **argv)
     _shl->setUniformParameter("season", 0.0f);
     _shl->setUniformParameter("cos_time_0_2PI", -0.406652f);
     _shl->setUniformParameter("sin_time_0_2PI", -0.913583f);
-    _shl->setUniformParameter("foo", -0.913583f);
+//    _shl->setUniformParameter("foo", -0.913583f);
 
     
     cmat->addChunk(_shl);
@@ -173,6 +173,14 @@ int main(int argc, char **argv)
 
     // show the whole scene
     _mgr->showAll();
+
+    return 0;
+}
+
+// Initialize GLUT & OpenSG and set up the scene
+int main(int argc, char **argv)
+{
+    doMain(argc, argv);
 
     // GLUT main loop
     glutMainLoop();
@@ -271,6 +279,19 @@ void keyboard(unsigned char k, int x, int y)
         case 'a':
             _animation = 1 - _animation;
         break;
+
+        case 'b':
+            if(!_shl->readFragmentProgram("Earth.fp"))
+                fprintf(stderr, "Couldn't read fragment program 'Earth.fp'\n");
+            else
+                fprintf(stderr, "blue loaded\n");
+            break;
+        case 'r':
+            if(!_shl->readFragmentProgram("Earth_red.fp"))
+                fprintf(stderr, "Couldn't read fragment program 'Earth.fp'\n");
+            else
+                fprintf(stderr, "red loaded\n");
+            break;
     }
 
     glutPostRedisplay();

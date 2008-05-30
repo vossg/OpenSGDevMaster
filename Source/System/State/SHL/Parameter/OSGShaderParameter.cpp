@@ -111,9 +111,10 @@ void ShaderParameter::changed(ConstFieldMaskArg whichField,
     
     while(parentsIt != parentsEnd)
     {
-        (*parentsIt)->changed(parentsIt.getParentFieldPos(),
-                              ChangedOrigin::Child,
-                              0);
+        (*parentsIt)->changed(
+            TypeTraits<BitVector>::One << parentsIt.getParentFieldPos(),
+            ChangedOrigin::Child,
+            0);
         
         ++parentsIt;
     }

@@ -111,7 +111,7 @@ namespace ChangedOrigin
     const UInt32 External         = 0x0001;
     const UInt32 Sync             = 0x0002;
     const UInt32 Child            = 0x0004;
-    const UInt32 Commit           = 0x0004;
+    const UInt32 Commit           = 0x0008;
 }
 
 /*! \ingroup GrpSystemContainer
