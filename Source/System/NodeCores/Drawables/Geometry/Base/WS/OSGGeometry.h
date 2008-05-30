@@ -286,6 +286,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     // Variables should all be in GeometryBase.
 
+    DynamicVolume   _volumeCache;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */

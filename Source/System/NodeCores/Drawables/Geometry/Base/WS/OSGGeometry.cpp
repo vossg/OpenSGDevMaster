@@ -133,12 +133,14 @@ const char *Geometry::mapType(UInt8 type)
 /*----------------------- constructors & destructors ----------------------*/
 
 Geometry::Geometry(void) :
-    Inherited()
+     Inherited  (),
+    _volumeCache()
 {
 }
 
 Geometry::Geometry(const Geometry &source) :
-    Inherited(source)
+     Inherited  (source             ),
+    _volumeCache(source._volumeCache)
 {
 }
 
@@ -179,6 +181,15 @@ void Geometry::onDestroy(UInt32)
 
 void Geometry::adjustVolume(Volume & volume)
 {
+    if(!_volumeCache.isEmpty())
+    {
+        // use cached volume.
+        volume.setValid();
+        volume.extendBy(_volumeCache);
+
+        return;
+    }
+
     GeoVectorProperty *pos = getPositions();
 
     if(pos == NULL)
@@ -196,6 +207,8 @@ void Geometry::adjustVolume(Volume & volume)
             volume.extendBy(it.getPosition(v));
         }
     }
+
+    _volumeCache.extendBy(volume);
 }
 
 
@@ -532,6 +545,17 @@ void Geometry::changed(ConstFieldMaskArg whichField,
             Window::destroyGLObject(getAttGLId(), 1);
 
             setAttGLId(0);
+        }
+    }
+
+    if(whichField & PropertiesFieldMask)
+    {
+        for(UInt32 i = 0; i < _mfParents.size(); i++)
+        {
+            _volumeCache.setValid();
+            _volumeCache.setEmpty();
+
+            _mfParents[i]->invalidateVolume();
         }
     }
 
