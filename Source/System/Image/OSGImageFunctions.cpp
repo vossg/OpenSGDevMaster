@@ -775,48 +775,48 @@ bool blendImage ( Image   *canvas,
       d = dest + ( ((z+zcMin) * cH + (y+ycMin)) * cW + xcMin) * cBpp;
       s = src  + ( ((z+zbMin) * bH + (y+ybMin)) * bW + xbMin) * bBpp;
       for (x = 0; x < width; x++) {
-        switch ( bPF ) {
-        case OSG::Image::OSG_A_PF:
-        case OSG::Image::OSG_I_PF:
-          grey  = *s++;
-          red   = int(cred   * grey);
-          green = int(cgreen * grey);
-          blue  = int(cblue  * grey);
-          alpha = int(calpha * grey);
-          break;
-        case OSG::Image::OSG_L_PF:
-          grey  = *s++;
-          red   = int(cred   * grey);
-          green = int(cgreen * grey);
-          blue  = int(cblue  * grey);
-          alpha = int(calpha * 255);
-          break;
-        case OSG::Image::OSG_LA_PF:
-          grey  = *s++;
-          red   = int(cred   * grey);
-          green = int(cgreen * grey);
-          blue  = int(cblue  * grey);
-          alpha = int(calpha * *s++);
-          break;
-        case OSG::Image::OSG_RGB_PF:
-          red   = *s++;
-          green = *s++;
-          blue  = *s++;
-          grey  = green; // FIXME
-          alpha = 255;          
-          break;
-        case OSG::Image::OSG_RGBA_PF:
-          red   = *s++;
-          green = *s++;
-          blue  = *s++;
-          grey  = green; // FIXME
-          alpha = *s++;
-          break;
-        default:
-          FFATAL (("Invalid Brush PixelFormat\n"));
-          brush->dump();
-          return false;
-        }
+          switch ( bPF ) {
+              case OSG::Image::OSG_A_PF:
+              case OSG::Image::OSG_I_PF:
+                  grey  = *s++;
+                  red   = int(cred   * grey);
+                  green = int(cgreen * grey);
+                  blue  = int(cblue  * grey);
+                  alpha = int(calpha * grey);
+                  break;
+              case OSG::Image::OSG_L_PF:
+                  grey  = *s++;
+                  red   = int(cred   * grey);
+                  green = int(cgreen * grey);
+                  blue  = int(cblue  * grey);
+                  alpha = int(calpha * 255);
+                  break;
+              case OSG::Image::OSG_LA_PF:
+                  grey  = *s++;
+                  red   = int(cred   * grey);
+                  green = int(cgreen * grey);
+                  blue  = int(cblue  * grey);
+                  alpha = int(calpha * *s++);
+                  break;
+              case OSG::Image::OSG_RGB_PF:
+                  red   = int(cred   * *s++);
+                  green = int(cgreen * *s++);
+                  blue  = int(cblue  * *s++);
+                  grey  = green; // FIXME
+                  alpha = 255;          
+                  break;
+              case OSG::Image::OSG_RGBA_PF:
+                  red   = int(cred   * *s++);
+                  green = int(cgreen * *s++);
+                  blue  = int(cblue  * *s++);
+                  grey  = green; // FIXME
+                  alpha = int(calpha * *s++);
+                  break;
+              default:
+                  FFATAL (("Invalid Brush PixelFormat\n"));
+                  brush->dump();
+                  return false;
+          }
         alpha = int(talpha * alpha);
         switch ( cPF ) {
         case OSG::Image::OSG_I_PF:

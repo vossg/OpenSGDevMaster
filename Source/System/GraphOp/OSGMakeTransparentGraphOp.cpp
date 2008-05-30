@@ -139,8 +139,11 @@ std::string MakeTransparentGraphOp::usage(void)
 
 Action::ResultE MakeTransparentGraphOp::traverseEnter(Node * const node)
 {
+    if(isInExcludeList(node))
+        return Action::Continue;
+
     Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
-    if (geo != NULL)
+    if(geo != NULL)
     {
         addObject(MaterialObject(geo));
         return Action::Continue;
@@ -216,9 +219,9 @@ void MakeTransparentGraphOp::applyTransparency(Material *m) {
     if (cm != NULL) {
         std::cout << "ChunkMaterial" << std::endl;
         BlendChunk *blendChunk = getOrAddChunk<BlendChunk>(cm);
-        blendChunk->setColor(Color4f(1, 1, 1, _transparency));
-        blendChunk->setSrcFactor(GL_SRC_ALPHA);
-        blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+        blendChunk->setColor(Color4f(1.f, 1.f, 1.f, 1.f - _transparency));
+        blendChunk->setSrcFactor(GL_CONSTANT_ALPHA);
+        blendChunk->setDestFactor(GL_ONE_MINUS_CONSTANT_ALPHA);
         return;
     }
 }

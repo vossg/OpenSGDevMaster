@@ -148,6 +148,8 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
     Int32 l,r,t,b;
     Int32 cleft,cright,ctop,cbottom;
 
+    // sync, otherwise viewports will be out of date
+
     if(!getHServers())
     {
         setHServers(getServers().size());
@@ -184,96 +186,138 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
         ((height - getYOverlap())* (getVServers() - 1) + height)/ 
         (float)getHeight();
 
+    bool   isVirtualPort = false;
+
     // duplicate viewports
-    for(cv=0,sv=0;cv<getPort().size();cv++)
+    for(cv = 0, sv = 0; cv < getPort().size(); ++cv)
     {
         clientPort = getPort()[cv];
 
-        clientStereoPort = dynamic_cast<StereoBufferViewportPtr>(clientPort);
+#if 0
+        isVirtualPort = clientPort->getType().isDerivedFrom(FBOViewport::getClassType());
 
-        cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
-        cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
-        cright  = (Int32)((clientPort->getPixelRight()+1) * scaleCWidth) -1;
-        ctop    = (Int32)((clientPort->getPixelTop()+1)   * scaleCHeight)-1;
-
-        if(cright  < left   ||
-           cleft   > right  ||
-           ctop    < bottom ||
-           cbottom > top      )
+        if(isVirtualPort)
         {
-            // invisible on this server screen
-            continue;
-        }
-
-        // calculate overlapping viewport
-        l = osgMax(cleft  ,left  ) - left;
-        b = osgMax(cbottom,bottom) - bottom;
-        r = osgMin(cright ,right ) - left;
-        t = osgMin(ctop   ,top   ) - bottom;
-
-        if(serverWindow->getPort().size() <= sv)
-        {
-            serverPort = dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
-
-            deco = TileCameraDecorator::create();
-
-            serverWindow->addPort(serverPort);
-
-            serverPort->setCamera(deco);
+            // TODO -- seems wrong to render this on all servers, though rendering
+            // then transmitting the texture doesn't seem like a good idea either.
+            if(serverWindow->getPort().size() <= sv)
+            {
+                serverPort = ViewportPtr::dcast(clientPort->shallowCopy());
+                beginEditCP(serverWindow);
+                serverWindow->addPort(serverPort);
+                endEditCP(serverWindow);
+            }
+            else
+            {
+                serverPort = serverWindow->getPort()[sv];
+                if(serverWindow->getPort()[sv]->getType() !=
+                        clientPort->getType())
+                {
+                    // there is a viewport with the wrong type
+                    subRefCP(serverWindow->getPort()[sv]);
+                    serverPort = ViewportPtr::dcast(clientPort->shallowCopy());
+                    beginEditCP(serverWindow);
+                    {
+                        serverWindow->getPort()[sv] = serverPort;
+                    }
+                    endEditCP(serverWindow);
+                }
+            }
+            // update changed viewport fields
+            updateViewport(serverPort,clientPort);
         }
         else
+#endif
         {
-            serverPort = serverWindow->getPort()[sv];
+            clientStereoPort = 
+                dynamic_cast<StereoBufferViewportPtr>(clientPort);
 
-            deco = dynamic_cast<TileCameraDecoratorPtr>(
-                serverPort->getCamera());
+            cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
+            cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
+            cright  = (Int32)((clientPort->getPixelRight()+1) * scaleCWidth) -1;
+            ctop    = (Int32)((clientPort->getPixelTop()+1)   * scaleCHeight)-1;
 
-            if(serverWindow->getPort()[sv]->getType() != clientPort->getType())
+            if(cright  < left   ||
+               cleft   > right  ||
+               ctop    < bottom ||
+               cbottom > top      )
             {
-                // there is a viewport with the wrong type
-                //subRef(serverWindow->getPort()[sv]);
+                // invisible on this server screen
+                continue;
+            }
 
+            // calculate overlapping viewport
+            l = osgMax(cleft  ,left  ) - left;
+            b = osgMax(cbottom,bottom) - bottom;
+            r = osgMin(cright ,right ) - left;
+            t = osgMin(ctop   ,top   ) - bottom;
+
+            if(serverWindow->getPort().size() <= sv)
+            {
                 serverPort = 
                     dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
 
-                serverWindow->replacePort(sv, serverPort);//[sv] = serverPort;
+                deco = TileCameraDecorator::create();
+
+                serverWindow->addPort(serverPort);
+
                 serverPort->setCamera(deco);
             }
             else
             {
+                serverPort = serverWindow->getPort()[sv];
+                
                 deco = dynamic_cast<TileCameraDecoratorPtr>(
                     serverPort->getCamera());
+
+                if(serverWindow->getPort()[sv]->getType() != 
+                       clientPort->getType())
+                {
+                    // there is a viewport with the wrong type
+                    //subRef(serverWindow->getPort()[sv]);
+
+                    serverPort = 
+                        dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
+
+                    serverWindow->replacePort(sv, 
+                                              serverPort);//[sv] = serverPort;
+                    serverPort->setCamera(deco);
+                }
+                else
+                {
+                    deco = dynamic_cast<TileCameraDecoratorPtr>(
+                        serverPort->getCamera());
+                }
             }
+
+            // update changed viewport fields
+            updateViewport(serverPort,clientPort);
+
+            // set viewport size
+            serverPort->setSize(Real32(l),Real32(b),Real32(r),Real32(t));
+
+            // use pixel even if pixel = 1
+            if(serverPort->getLeft() == 1.0)
+                serverPort->setLeft(1.0001);
+            
+            if(serverPort->getRight() == 1.0)
+                serverPort->setRight(1.0001);
+            
+            if(serverPort->getTop() == 1.0)
+                serverPort->setTop(1.0001);
+
+            if(serverPort->getBottom() == 1.0)
+                serverPort->setBottom(1.0001);
+
+            // calculate tile parameters
+            deco->setFullWidth ( cright-cleft );
+            deco->setFullHeight( ctop-cbottom );
+            deco->setSize( ( l+left-cleft     ) / (float)( cright-cleft ),
+                           ( b+bottom-cbottom ) / (float)( ctop-cbottom ),
+                           ( r+left-cleft     ) / (float)( cright-cleft ),
+                           ( t+bottom-cbottom ) / (float)( ctop-cbottom ) );
+            deco->setDecoratee( clientPort->getCamera() );
         }
-
-        // update changed viewport fields
-        updateViewport(serverPort,clientPort);
-
-        // set viewport size
-        serverPort->setSize(Real32(l),Real32(b),Real32(r),Real32(t));
-
-        // use pixel even if pixel = 1
-        if(serverPort->getLeft() == 1.0)
-            serverPort->setLeft(1.0001);
-
-        if(serverPort->getRight() == 1.0)
-            serverPort->setRight(1.0001);
-
-        if(serverPort->getTop() == 1.0)
-            serverPort->setTop(1.0001);
-
-        if(serverPort->getBottom() == 1.0)
-            serverPort->setBottom(1.0001);
-
-        // calculate tile parameters
-        deco->setFullWidth ( cright-cleft );
-        deco->setFullHeight( ctop-cbottom );
-        deco->setSize( ( l+left-cleft     ) / (float)( cright-cleft ),
-                       ( b+bottom-cbottom ) / (float)( ctop-cbottom ),
-                       ( r+left-cleft     ) / (float)( cright-cleft ),
-                       ( t+bottom-cbottom ) / (float)( ctop-cbottom ) );
-        deco->setDecoratee( clientPort->getCamera() );
-
         sv++;
     }
 
@@ -603,6 +647,11 @@ void MultiDisplayWindow::updateViewport(Viewport *serverPort,
 
         BitVector mask = fdesc->getFieldMask();
    
+        mask &= serverPort->getFieldFlags()->_bClusterLocalFlags;
+
+        if(!mask)
+            continue;
+
         const FieldDescriptionBase *dst_desc = 
             serverPort->getType().getFieldDesc(i);
 
@@ -624,7 +673,6 @@ void MultiDisplayWindow::updateViewport(Viewport *serverPort,
 
         equal = true;
 
-//        if(strstr(dst_ftype.getCName(), "Ptr") == NULL)
         if(src_field->isPointerField() == true)
         {
             if(src_field->equal(cdst_field) == false)

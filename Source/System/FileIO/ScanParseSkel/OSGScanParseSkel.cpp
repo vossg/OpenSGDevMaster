@@ -68,7 +68,8 @@ ScanParseSkel::ScanParseSkel(void) :
     _szReferenceHeader(NULL  ),
     _pLexer           (new OSGScanParseLexer),
     _image            (NULL  ),
-    _imageDataPtr     (0     )
+    _imageDataPtr     (0     ),
+    _options          (0     )
 {
 }
 
@@ -532,6 +533,25 @@ UInt32 ScanParseSkel::getFieldType(const Char8 *)
 OSGScanParseLexer *ScanParseSkel::getLexer(void)
 {
     return _pLexer;
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*                              Options                                    */
+
+void ScanParseSkel::addOptions(UInt32 options)
+{
+    _options |= options;
+}
+
+void ScanParseSkel::subOptions(UInt32 options)
+{
+    _options &= ~options;
+}
+
+UInt32 ScanParseSkel::getOptions(void) const
+{
+    return _options;
 }
 
 /*-------------------------------------------------------------------------*/

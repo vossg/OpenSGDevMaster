@@ -57,6 +57,7 @@
 #include "OSGConnectionFactory.h"
 #include "OSGClusterNetwork.h"
 #include "OSGGroupSockConnection.h"
+#include "OSGStatCollector.h"
 
 #if 0
 #include "OSGDisplayCalibration.h"
@@ -76,6 +77,21 @@ OSG_USING_NAMESPACE
  * in the same way as rendering in a GLUT or Qt window.
  *
  **/
+
+StatElemDesc<StatTimeElem> ClusterWindow::statActivateTime
+  ("statActivateTime", "time to activate remote window");
+
+StatElemDesc<StatTimeElem> ClusterWindow::statFrameInitTime
+  ("statFrameInitTime", "time to frameInit remote window");
+
+StatElemDesc<StatTimeElem> ClusterWindow::statRAVTime
+  ("statRAVTime", "time to RAV remote window");
+
+StatElemDesc<StatTimeElem> ClusterWindow::statSwapTime
+  ("statSwapTime", "time to swap remote window");
+
+StatElemDesc<StatTimeElem> ClusterWindow::statFrameExitTime
+  ("statFrameExitTime", "time to frameExit remote window");
 
 /*-------------------------------------------------------------------------*/
 /*                          window functions                               */
@@ -353,19 +369,41 @@ void ClusterWindow::init(void)
                           << _sfServiceAddress.getValue()
                           << std::endl;
                     
-                    serviceSock.sendTo(
-                        msg,SocketAddress(
-                            _sfServiceAddress.getValue().c_str(),
-                            getServicePort()));
+                    try
+                    {
+                        serviceSock.sendTo(
+                            msg,SocketAddress(
+                                _sfServiceAddress.getValue().c_str(),
+                                getServicePort()));
+                    }
+                    catch(AsyncCancel &)
+                    {
+                        throw;
+                    }
+                    catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
+                    {
+                        SINFO << e.what() << std::endl;
+                    }
                 }
                 SINFO << "send request to:" 
                       << SocketAddress(SocketAddress::BROADCAST,
                                        getServicePort()).getHost().c_str()
                       << std::endl;
 
-                serviceSock.sendTo(
-                    msg,SocketAddress(SocketAddress::BROADCAST,
-                                      getServicePort()));
+                try
+                {
+                    serviceSock.sendTo(
+                        msg,SocketAddress(SocketAddress::BROADCAST,
+                                          getServicePort()));
+                }
+                catch(AsyncCancel &)
+                {
+                    throw;
+                }
+                catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
+                {
+                    SINFO << e.what() << std::endl;
+                }
 
                 if(serviceSock.waitReadable(0.1))
                 {
@@ -496,11 +534,49 @@ void ClusterWindow::render(DrawActionBase *action)
 
 void ClusterWindow::render(RenderActionBase *action)
 {
+    if(_statistics != NULL)
+        _statistics->getElem(statActivateTime)->start();
+
     activate();
+
+    if(_statistics != NULL)
+        _statistics->getElem(statActivateTime)->stop();
+
+
+    if(_statistics != NULL)
+        _statistics->getElem(statFrameInitTime)->start();  
+
     frameInit();
+
+    if(_statistics != NULL)
+        _statistics->getElem(statFrameInitTime)->stop();  
+
+
+    if(_statistics != NULL)
+        _statistics->getElem(statRAVTime)->start();
+
     renderAllViewports(action);
+
+    if(_statistics != NULL)
+        _statistics->getElem(statRAVTime)->stop();
+
+
+    if(_statistics != NULL)
+        _statistics->getElem(statSwapTime)->start();
+
     swap();
+
+    if(_statistics != NULL)
+        _statistics->getElem(statSwapTime)->stop();
+
+
+    if(_statistics != NULL)
+        _statistics->getElem(statFrameExitTime)->start();  
+
     frameExit();
+
+    if(_statistics != NULL)
+        _statistics->getElem(statFrameExitTime)->stop();  
 }
 
 void ClusterWindow::activate(void)

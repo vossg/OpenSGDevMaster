@@ -209,6 +209,9 @@ void RenderOptions::activateOptions(RenderAction *action)
     if(_changed & FrustumCullingFieldMask)
         action->setFrustumCulling(getFrustumCulling());
 
+    if(_changed & DepthOnlyPassFieldMask)
+        action->setDepthOnlyPass(getDepthOnlyPass());
+
     // we update the gl stuff each frame.
 #if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100
     glPolygonMode(GL_FRONT_AND_BACK, _polygon_mode);
@@ -245,6 +248,23 @@ void RenderOptions::activateOptions(RenderAction *action)
         }
     } 
 #endif
+
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, 
+                   getLightModelAmbient().getValuesRGBA());
+
+    if ( getFogMode() ) 
+    {
+        glEnable(GL_FOG);
+        glFogi(GL_FOG_MODE, getFogMode());
+        glFogf(GL_FOG_DENSITY, getFogDensity());
+        glFogf(GL_FOG_START, getFogRange().x());
+        glFogf(GL_FOG_END, getFogRange().y());
+        glFogfv(GL_FOG_COLOR, getFogColor().getValuesRGBA());
+    }
+	else 
+    {
+		glDisable(GL_FOG);
+	}
 
     _last_changed = _changed;
     _changed = 0;

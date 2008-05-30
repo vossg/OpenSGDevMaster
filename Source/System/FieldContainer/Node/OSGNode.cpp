@@ -493,7 +493,7 @@ void Node::updateVolume(void)
 
     for(it = _mfChildren.begin(); it != _mfChildren.end(); ++it)
     {
-        if((*it)->getTravMask())
+        if(*it != NULL && (*it)->getTravMask())
         {
             (*it)->updateVolume();
             vol.getInstance().extendBy((*it)->getVolume());

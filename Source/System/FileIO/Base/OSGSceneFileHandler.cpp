@@ -294,6 +294,9 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
 
     if(type != NULL)
     {
+        triggerReadBegin(fullFilePath.c_str());
+        updateReadProgress(0);
+
         SINFO << "try to read " << fullFilePath
               << " as "         << type->getName() << std::endl;
 
@@ -304,6 +307,11 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
             scene = read(in, fullFilePath.c_str(), graphOpSeq);
 
             in.close();
+
+            if(scene != NULL)
+            {
+                triggerReadEnd(fullFilePath.c_str());
+            }
         }
         else
         {
@@ -331,12 +339,13 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
         }
 #endif
 
+#if 0
         if(scene != NULL && graphOpSeq != NULL)
         {
             SINFO    << "Running GraphOps..." << std::endl;
             graphOpSeq->run(scene);
         }
-
+#endif
     }
     else
     {
@@ -418,7 +427,8 @@ bool SceneFileHandlerBase::write(Node  * const  node,
     if(type != NULL)
     {
         updateWriteProgress(0);
-
+        triggerWriteBegin(fileName);
+        
         SINFO << "try to write "
               << fileName
               << " as "
@@ -450,6 +460,10 @@ bool SceneFileHandlerBase::write(Node  * const  node,
         if(!retCode)
         {
             SWARNING << "Couldn't write " << fileName << std::endl;
+        }
+        else
+        {
+            triggerWriteEnd(fileName);
         }
     }
     else
@@ -787,10 +801,14 @@ static bool terminateDefaultGraphOps(void)
 
 SceneFileHandlerBase::SceneFileHandlerBase(void) :
     _readProgressFP    (NULL          ),
+    _readBeginFP       (NULL          ),
+    _readEndFP         (NULL          ),
     _progressData      (              ),
     _readReady         (false         ),
     _useProgressThread (false         ),
     _writeProgressFP   (NULL          ),
+    _writeBeginFP      (NULL          ),
+    _writeEndFP        (NULL          ),
     _pathHandler       (NULL          ),
     _defaultPathHandler(              ),
     _readFP            (NULL          ),
@@ -827,6 +845,38 @@ SceneFileHandlerBase::progresscbfp
     SceneFileHandlerBase::getReadProgressCB(void)
 {
     return _readProgressFP;
+}
+
+void SceneFileHandlerBase::setReadBeginCB(filenamecbfp fp)
+{
+    _readBeginFP = fp;
+}
+
+SceneFileHandlerBase::filenamecbfp SceneFileHandlerBase::getReadBeginCB(void)
+{
+    return _readBeginFP;
+}
+
+void SceneFileHandlerBase::setReadEndCB(filenamecbfp fp)
+{
+    _readEndFP = fp;
+}
+
+SceneFileHandlerBase::filenamecbfp SceneFileHandlerBase::getReadEndCB(void)
+{
+    return _readEndFP;
+}
+
+void SceneFileHandlerBase::triggerReadBegin(const Char8 *fname)
+{
+    if(_readBeginFP != NULL)
+        _readBeginFP(fname);
+}
+
+void SceneFileHandlerBase::triggerReadEnd(const Char8 *fname)
+{
+    if(_readEndFP != NULL)
+        _readEndFP(fname);
 }
 
 void SceneFileHandlerBase::initReadProgress(std::istream &is)
@@ -947,9 +997,42 @@ void SceneFileHandlerBase::setWriteProgressCB(progresscbfp fp)
     _writeProgressFP = fp;
 }
 
-SceneFileHandlerBase::progresscbfp SceneFileHandlerBase::getWriteProgressCB(void)
+SceneFileHandlerBase::progresscbfp 
+    SceneFileHandlerBase::getWriteProgressCB(void)
 {
     return _writeProgressFP;
+}
+
+void SceneFileHandlerBase::setWriteBeginCB(filenamecbfp fp)
+{
+    _writeBeginFP = fp;
+}
+
+SceneFileHandlerBase::filenamecbfp SceneFileHandlerBase::getWriteBeginCB(void)
+{
+    return _writeBeginFP;
+}
+
+void SceneFileHandlerBase::setWriteEndCB(filenamecbfp fp)
+{
+    _writeEndFP = fp;
+}
+
+SceneFileHandlerBase::filenamecbfp SceneFileHandlerBase::getWriteEndCB(void)
+{
+    return _writeEndFP;
+}
+
+void SceneFileHandlerBase::triggerWriteBegin(const Char8 *fname)
+{
+    if(_writeBeginFP != NULL)
+        _writeBeginFP(fname);
+}
+
+void SceneFileHandlerBase::triggerWriteEnd(const Char8 *fname)
+{
+    if(_writeEndFP != NULL)
+        _writeEndFP(fname);
 }
 
 void SceneFileHandlerBase::updateWriteProgress(UInt32 p)

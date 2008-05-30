@@ -169,6 +169,8 @@ void Image::changed(ConstFieldMaskArg whichField,
         setFrameSize(_sfSideSize.getValue() * _sfSideCount.getValue());
     }
 
+    calcMipmapOffsets();
+
     Inherited::changed(whichField, origin, details);
 }
 
@@ -335,6 +337,8 @@ bool Image::set(      UInt32  pF,
     setFrameDelay (fD);
 
     setDataType   (t );
+
+    calcMipmapOffsets();
 
     return createData(da, allocMem);
 }
@@ -710,7 +714,17 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
        (destination != NULL || (pixelFormat != getPixelFormat())))
     {
 
-        dest->set(pixelFormat, getWidth(), getHeight(), getDepth() );
+        dest->set(pixelFormat, 
+                  getWidth      (), 
+                  getHeight     (), 
+                  getDepth      (), 
+                  getMipMapCount(),
+                  getFrameCount (), 
+                  getFrameDelay (), 
+                  NULL, 
+                  getDataType   (), 
+                  true, 
+                  getSideCount  ());
 
         sourceData = getData();
 
@@ -2442,7 +2456,8 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
 void Image::clear(UChar8 pixelValue)
 {
-    memset(editData(), pixelValue, getSize());
+    if(getData() != NULL)
+        memset(editData(), pixelValue, getSize());
 }
 
 void Image::clearFloat(Real32 pixelValue)
@@ -3021,7 +3036,7 @@ bool Image::createMipmap(Int32 level, Image *destination)
     // calc the level count
     if(level < 0)
     {
-        level = calcMipmapLevelCount() - 1;
+        level = calcMipmapLevelCount();
     }
 
     // create destination image
@@ -3410,6 +3425,55 @@ bool Image::createMipmap(Int32 level, Image *destination)
     return true;
 }
 
+bool Image::removeMipmap(void)
+{
+    if(getMipMapCount() == 1) // no mipmaps nothing to do.
+        return true;
+
+    // create destination image
+    ImageUnrecPtr destImage = Image::create();
+
+    destImage->set(getPixelFormat(),
+                   getWidth      (), 
+                   getHeight     (), 
+                   getDepth      (),
+                   1, 
+                   getFrameCount (),
+                   getFrameDelay (), 
+                   NULL, 
+                   getDataType   (),
+                   true,
+                   getSideCount  ());
+
+    if(!destImage->isValid())
+    {
+        destImage = NULL;
+
+        return false;
+    }
+
+    // copy the data;
+    for(Int32 frame = 0; frame < getFrameCount(); frame++)
+    {
+        for(Int32 side = 0; side < getSideCount(); side++) 
+        {
+            const UChar8 *src = this->getData(0, frame, side);
+
+            UChar8 *dest = destImage->editData(0, frame, side);
+
+            Int32 size = getWidth() * getHeight() * getDepth() * getBpp();
+
+            memcpy(dest,src, size);
+        }
+    }
+
+    this->set(destImage);
+    
+    destImage = NULL;
+
+    return true;
+}
+
 /*! Write the image to the a file. The mimetype will be set automatically
   from the fileName suffix. Returns true on success.
  */
@@ -3459,7 +3523,8 @@ UInt64 Image::restore(const UChar8 *mem, Int32 memSize)
  */
 
 Image::Image(void) :
-    Inherited()
+     Inherited   (),
+    _mipmapOffset()
 {
 }
 
@@ -3467,7 +3532,8 @@ Image::Image(void) :
  */
 
 Image::Image(const Image &obj) :
-    Inherited(obj)
+     Inherited   (obj              ),
+    _mipmapOffset(obj._mipmapOffset)
 {
 }
 
@@ -3931,6 +3997,41 @@ bool Image::scaleData(const UInt8 *srcData,
     return true;
 }
 
+void Image::calcMipmapOffsets(void)
+{
+    UInt32 mipMapCount = getMipMapCount();
+    
+    if(mipMapCount == 0)
+        mipMapCount = 1;
+
+    _mipmapOffset.resize(mipMapCount);
+
+    /*
+    for(UInt32 i=0;i<mipMapCount;++i)
+        _mipmapOffset[i] = calcMipmapSumSize[i];
+    */
+
+    Int32 sum = 0;
+
+    UInt32 w = getWidth ();
+    UInt32 h = getHeight();
+    UInt32 d = getDepth ();
+
+    _mipmapOffset[0] = 0;
+
+    for(UInt32 i=1;i<mipMapCount;++i)
+    {
+        sum += calcMipmapLevelSize(i,w,h,d);
+
+        _mipmapOffset[i] = sum;
+
+        w >>= 1;
+        h >>= 1;
+        d >>= 1;
+    }
+}
+
+
 /*! Assign operator. Does a copy of the given Image object.
  */
 
@@ -3996,3 +4097,32 @@ bool Image::operator !=(const Image &image)
     return !(*this == image);
 }
 
+#if 0
+/*! Explicitly notfies parents about a change of the image contents. This is
+    not strictly required because they are notified anyways, but can be used
+    for optimization by specifying only the area that has actually changed.
+    
+    \note Currently only TextureChunks are notified.
+    
+    \warning Successive calls to this function will overwrite the previously
+    set dirty area. If an application makes changes to multiple regions
+    they have to accumulated by the user before calling this function.
+ */
+void
+Image::imageContentChanged(
+    Int32 minX, Int32 maxX, Int32 minY, Int32 maxY, Int32 minZ, Int32 maxZ)
+{
+    MFFieldContainerPtr::iterator parentsIt  = _mfParents.begin();
+    MFFieldContainerPtr::iterator parentsEnd = _mfParents.end  ();
+    
+    for(; parentsIt != parentsEnd; ++parentsIt)
+    {
+        TextureChunkPtr texParent = TextureChunkPtr::dcast(*parentsIt);
+        
+        if(texParent != NullFC)
+        {
+            texParent->imageContentChanged(minX, maxX, minY, maxY, minZ, maxZ);
+        }
+    }
+}
+#endif

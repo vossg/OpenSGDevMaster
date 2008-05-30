@@ -263,6 +263,10 @@ FieldContainer *SharePtrGraphOp::compareFCs(FieldContainer * const fc)
         if(fdesc->isInternal())
             continue;
         
+        // ignore parents field
+        if(strcmp(fdesc->getCName(), "parents") == 0)
+            continue;
+
         // ignore attachments
         if(strcmp(fdesc->getCName(), "attachments") == 0)
             continue;
@@ -470,6 +474,10 @@ bool SharePtrGraphOp::isEqual(FieldContainer * const a,
     
         // ignore attachments
         if(strcmp(fhandlea.getName().str(), "attachments") == 0)
+            continue;
+
+        // ignore parents field
+        if(strcmp(fdesc->getName().c_str(), "parents") == 0)
             continue;
 
         const Field *a_field = fhandlea.getField();

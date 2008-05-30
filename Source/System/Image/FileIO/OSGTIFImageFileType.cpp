@@ -418,8 +418,35 @@ bool TIFImageFileType::write(const Image            *OSG_TIF_ARG(pImage),
             samplesPerPixel = 4;
             photometric = PHOTOMETRIC_RGB;
             break;
+        case 12: // RGB 32bit float
+            samplesPerPixel = 3;
+            photometric = PHOTOMETRIC_RGB;
+            break;
+        case 16: // RGBA 32bit float
+            samplesPerPixel = 4;
+            photometric = PHOTOMETRIC_RGB;
+            break;
     }
     
+    int bps = 8;
+    int fmt = SAMPLEFORMAT_UINT;
+    switch(pImage->getDataType())
+    {
+        case Image::OSG_UINT8_IMAGEDATA:
+            bps = 8;
+            fmt = SAMPLEFORMAT_UINT;
+            break;
+        case Image::OSG_FLOAT32_IMAGEDATA:
+            bps = 32;
+            fmt = SAMPLEFORMAT_IEEEFP;
+            break;
+        default:
+            FWARNING(("TIFImageFileType::write: image data type not "
+                      "supported!\n"));
+            return false;
+            break;
+    }
+
     if(out)
     {
         TIFFSetField(out, TIFFTAG_IMAGEWIDTH, pImage->getWidth());
@@ -429,7 +456,8 @@ bool TIFImageFileType::write(const Image            *OSG_TIF_ARG(pImage),
         TIFFSetField(out, TIFFTAG_RESOLUTIONUNIT, pImage->getResUnit());
         TIFFSetField(out, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
         TIFFSetField(out, TIFFTAG_SAMPLESPERPIXEL, samplesPerPixel);
-        TIFFSetField(out, TIFFTAG_BITSPERSAMPLE, 8);
+        TIFFSetField(out, TIFFTAG_BITSPERSAMPLE, bps);
+        TIFFSetField(out, TIFFTAG_SAMPLEFORMAT, fmt);
         TIFFSetField(out, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
         TIFFSetField(out, TIFFTAG_PHOTOMETRIC, photometric);
 

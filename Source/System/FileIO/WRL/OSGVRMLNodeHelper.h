@@ -42,6 +42,8 @@
 #pragma once
 #endif
 
+#define OSG_VRML_IMAGETEXTURE_MAP
+
 #include "OSGFileIODef.h"
 #include "OSGAttachment.h"
 #include "OSGDynamicAttachmentMixin.h"
@@ -66,6 +68,7 @@
 OSG_BEGIN_NAMESPACE
 
 class VRMLNodeHelper;
+class Image;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -747,6 +750,13 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Type Specific                              */
+    /*! \{                                                                 */
+    
+    const std::string &getName(void) const;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
@@ -791,6 +801,8 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
 
     ChunkMaterialUnrecPtr _pDefMat;
     MaterialChunkUnrecPtr _pMat;
+
+    std::string           _szName;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1422,6 +1434,8 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
 
   protected:
 
+    typedef std::map<std::string, Image *> UrlImageMap;
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
@@ -1440,13 +1454,17 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    MFString _defaultURL;
-    SFBool   _defaultRepeatS;
-    SFBool   _defaultRepeatT;
+    MFString    _defaultURL;
+    SFBool      _defaultRepeatS;
+    SFBool      _defaultRepeatT;
 
-    MFString _url;
-    SFBool   _repeatS;
-    SFBool   _repeatT;
+    MFString    _url;
+    SFBool      _repeatS;
+    SFBool      _repeatT;
+
+#ifdef OSG_VRML_IMAGETEXTURE_MAP
+    UrlImageMap _urlImageMap;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -256,6 +256,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     bool createMipmap(Int32  level       = -1, 
                       Image *destination = NULL);
 
+    bool removeMipmap(void                     );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Read/Write                                 */
@@ -313,17 +315,20 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \name                   Get Methods                                */
     /*! \{                                                                 */
 
-#ifdef OSG_1_GET_COMPAT
-          UInt8 *getData       (UInt32 mipmapNum = 0,
-                                UInt32 frameNum  = 0,
-                                UInt32 sidecount = 0);
-#endif
     const UInt8 *getData       (UInt32 mipmapNum = 0,
                                 UInt32 frameNum  = 0,
                                 UInt32 sidecount = 0) const;
           UInt8 *editData      (UInt32 mipmapNum = 0,
                                 UInt32 frameNum  = 0,
                                 UInt32 sidecount = 0);
+
+    const UInt8 *getDataFast   (UInt32 mipmapNum = 0,
+                                UInt32 frameNum  = 0,
+                                UInt32 sidecount = 0) const;
+          UInt8 *editDataFast  (UInt32 mipmapNum = 0,
+                                UInt32 frameNum  = 0,
+                                UInt32 sidecount = 0);
+
     const UInt8 *getDataByTime (Time   time, 
                                 UInt32 mipmapNum = 1) const;
           UInt8 *editDataByTime(Time   time, 
@@ -381,13 +386,21 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                        Don't know yet                        */
     /*! \{                                                                 */
+
+#if 0
+    void imageContentChanged(Int32 minX = -1, Int32 maxX = -1,
+                             Int32 minY = -1, Int32 maxY = -1,
+                             Int32 minZ = -1, Int32 maxZ = -1 );
+#endif    
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    std::vector<Int32> _mipmapOffset;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  static element                              */
@@ -427,16 +440,18 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \name                   Image Data                                 */
     /*! \{                                                                 */
 
-    bool createData(const UInt8 *data, 
-                          bool   allocMem = true);
-    bool scaleData (const UInt8 *srcData,
-                          Int32  srcW, 
-                          Int32  srcH, 
-                          Int32  srcD,
-                          UInt8 *destData,
-                          Int32  destW, 
-                          Int32  destH, 
-                          Int32  destD          );
+    bool createData       (const UInt8 *data, 
+                                 bool   allocMem = true);
+    bool scaleData        (const UInt8 *srcData,
+                                 Int32  srcW, 
+                                 Int32  srcH, 
+                                 Int32  srcD,
+                                 UInt8 *destData,
+                                 Int32  destW, 
+                                 Int32  destH, 
+                                 Int32  destD          );
+
+    void calcMipmapOffsets(      void                  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

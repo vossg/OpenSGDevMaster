@@ -130,17 +130,37 @@ bool HDRImageFileType::read(      Image        *image,
         return false;
     }
 
+    bool use16BitFloat = false;
+
+    if(this->hasOption("use16BitFloat") == true)
+    {
+        this->getOptionAs("use16BitFloat", use16BitFloat);
+    }
+
     image->set(Image::OSG_RGB_PF, 
                width, 
                height, 
                1, 1, 1, 0.0, 0, 
-               Image::OSG_FLOAT32_IMAGEDATA);
+               (use16BitFloat == true) ? 
+                   Image::OSG_FLOAT16_IMAGEDATA : Image::OSG_FLOAT32_IMAGEDATA);
+
+    if(!image->isValid())
+        return false;
 
     image->clear();
 
-    Real32 *data = reinterpret_cast<Real32 *>(image->editData());
+    if(use16BitFloat)
+    {
+        Real16 *data = reinterpret_cast<Real16 *>(image->editData());
 
-    return radiance2fp(is, data, width, height);
+        return radiance2fp(is, data, width, height);
+    }
+    else
+    {
+        Real32 *data = reinterpret_cast<Real32 *>(image->editData());
+        
+        return radiance2fp(is, data, width, height);
+    }
 }
 
 //-------------------------------------------------------------------------
@@ -306,6 +326,35 @@ bool HDRImageFileType::checkHDR(std::istream &is, int &width, int &height)
     
     return HDRok;
 }
+// convert radiance hdr to float image (streaming type)
+bool HDRImageFileType::radiance2fp(std::istream &is, 
+                                        Real16  *data, 
+                                        int      width, 
+                                        int      height)
+{
+    int x,y,yx;
+    RGBE *sline = new RGBE[width];
+
+    if (!sline)
+        return false;
+
+    for(y=height-1;y>=0;y--)
+    {
+        yx = y*width;
+        if (!freadcolrs(is, sline, width))
+            return false;
+        Real16 *fcol = &data[yx * 3];
+        for (x=0;x<width;x++)
+        {
+            RGBE2Half(sline[x], fcol);
+            fcol += 3;
+        }
+    }
+    delete[] sline;
+
+    return true;
+}
+
 
 // convert radiance hdr to float image (streaming type)
 bool HDRImageFileType::radiance2fp(std::istream &is, 

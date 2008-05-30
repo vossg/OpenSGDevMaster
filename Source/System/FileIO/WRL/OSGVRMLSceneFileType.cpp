@@ -96,6 +96,14 @@ NodeTransitPtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
 
     VRMLFile *loader = new VRMLFile();
 
+    bool pushNames = false;
+
+    if(this->getOptionAs("pushNames", pushNames) == true)
+    {
+        if(pushNames == true)
+            loader->addOptions(VRMLFile::PushNames);
+    }
+
     loader->createStandardPrototypes();
 
     root = loader->scanStream(is);

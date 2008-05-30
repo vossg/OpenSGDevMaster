@@ -124,7 +124,14 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
         }
     }
 
-    a->pushVisibility();
+    if(a->pushVisibility())
+    {
+        if(a->selectVisibles() == 0)
+        {
+            a->popVisibility();
+            return Action::Skip;
+        }
+    }
     
     return Action::Continue;
 }

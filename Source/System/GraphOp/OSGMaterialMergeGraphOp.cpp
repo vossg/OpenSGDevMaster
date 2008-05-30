@@ -129,7 +129,11 @@ bool isEqual(FieldContainer * const a, FieldContainer * const b)
         // ignore attachments
         if(strcmp(fhandlea->getName().c_str(), "attachments") == 0)
             continue;
-        
+ 
+        // ignore parents
+        if(strcmp(fhandlea->getName().c_str(), "parents") == 0)
+            continue;
+       
 
         FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandleA =
             boost::dynamic_pointer_cast<

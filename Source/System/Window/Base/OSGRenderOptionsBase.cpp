@@ -166,6 +166,30 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            RenderOptionsBase::_sfDepthOnlyPass
+    
+*/
+
+/*! \var Color4f         RenderOptionsBase::_sfLightModelAmbient
+    
+*/
+
+/*! \var Color4f         RenderOptionsBase::_sfFogColor
+    
+*/
+
+/*! \var Vec2f           RenderOptionsBase::_sfFogRange
+    
+*/
+
+/*! \var Real32          RenderOptionsBase::_sfFogDensity
+    
+*/
+
+/*! \var Int32           RenderOptionsBase::_sfFogMode
+    
+*/
+
 
 void RenderOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -423,6 +447,78 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFirstFrame));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "depthOnlyPass",
+        "",
+        DepthOnlyPassFieldId, DepthOnlyPassFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleDepthOnlyPass),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleDepthOnlyPass));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
+        "lightModelAmbient",
+        "",
+        LightModelAmbientFieldId, LightModelAmbientFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleLightModelAmbient),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleLightModelAmbient));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
+        "fogColor",
+        "",
+        FogColorFieldId, FogColorFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogColor),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogColor));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(),
+        "fogRange",
+        "",
+        FogRangeFieldId, FogRangeFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogRange),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogRange));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "fogDensity",
+        "",
+        FogDensityFieldId, FogDensityFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogDensity),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogDensity));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "fogMode",
+        "",
+        FogModeFieldId, FogModeFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogMode),
+        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogMode));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -636,6 +732,60 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "    <Field\n"
+    "\t\tname=\"depthOnlyPass\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"lightModelAmbient\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.2,0.2,0.2,1.0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fogColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fogRange\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fogDensity\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fogMode\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -1062,6 +1212,120 @@ SFBool              *RenderOptionsBase::getSFFirstFrame     (void)
 }
 #endif
 
+SFBool *RenderOptionsBase::editSFDepthOnlyPass(void)
+{
+    editSField(DepthOnlyPassFieldMask);
+
+    return &_sfDepthOnlyPass;
+}
+
+const SFBool *RenderOptionsBase::getSFDepthOnlyPass(void) const
+{
+    return &_sfDepthOnlyPass;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *RenderOptionsBase::getSFDepthOnlyPass  (void)
+{
+    return this->editSFDepthOnlyPass  ();
+}
+#endif
+
+SFColor4f *RenderOptionsBase::editSFLightModelAmbient(void)
+{
+    editSField(LightModelAmbientFieldMask);
+
+    return &_sfLightModelAmbient;
+}
+
+const SFColor4f *RenderOptionsBase::getSFLightModelAmbient(void) const
+{
+    return &_sfLightModelAmbient;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFColor4f           *RenderOptionsBase::getSFLightModelAmbient(void)
+{
+    return this->editSFLightModelAmbient();
+}
+#endif
+
+SFColor4f *RenderOptionsBase::editSFFogColor(void)
+{
+    editSField(FogColorFieldMask);
+
+    return &_sfFogColor;
+}
+
+const SFColor4f *RenderOptionsBase::getSFFogColor(void) const
+{
+    return &_sfFogColor;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFColor4f           *RenderOptionsBase::getSFFogColor       (void)
+{
+    return this->editSFFogColor       ();
+}
+#endif
+
+SFVec2f *RenderOptionsBase::editSFFogRange(void)
+{
+    editSField(FogRangeFieldMask);
+
+    return &_sfFogRange;
+}
+
+const SFVec2f *RenderOptionsBase::getSFFogRange(void) const
+{
+    return &_sfFogRange;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFVec2f             *RenderOptionsBase::getSFFogRange       (void)
+{
+    return this->editSFFogRange       ();
+}
+#endif
+
+SFReal32 *RenderOptionsBase::editSFFogDensity(void)
+{
+    editSField(FogDensityFieldMask);
+
+    return &_sfFogDensity;
+}
+
+const SFReal32 *RenderOptionsBase::getSFFogDensity(void) const
+{
+    return &_sfFogDensity;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFReal32            *RenderOptionsBase::getSFFogDensity     (void)
+{
+    return this->editSFFogDensity     ();
+}
+#endif
+
+SFInt32 *RenderOptionsBase::editSFFogMode(void)
+{
+    editSField(FogModeFieldMask);
+
+    return &_sfFogMode;
+}
+
+const SFInt32 *RenderOptionsBase::getSFFogMode(void) const
+{
+    return &_sfFogMode;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFInt32             *RenderOptionsBase::getSFFogMode        (void)
+{
+    return this->editSFFogMode        ();
+}
+#endif
+
 
 
 
@@ -1156,6 +1420,30 @@ UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFirstFrame.getBinSize();
     }
+    if(FieldBits::NoField != (DepthOnlyPassFieldMask & whichField))
+    {
+        returnValue += _sfDepthOnlyPass.getBinSize();
+    }
+    if(FieldBits::NoField != (LightModelAmbientFieldMask & whichField))
+    {
+        returnValue += _sfLightModelAmbient.getBinSize();
+    }
+    if(FieldBits::NoField != (FogColorFieldMask & whichField))
+    {
+        returnValue += _sfFogColor.getBinSize();
+    }
+    if(FieldBits::NoField != (FogRangeFieldMask & whichField))
+    {
+        returnValue += _sfFogRange.getBinSize();
+    }
+    if(FieldBits::NoField != (FogDensityFieldMask & whichField))
+    {
+        returnValue += _sfFogDensity.getBinSize();
+    }
+    if(FieldBits::NoField != (FogModeFieldMask & whichField))
+    {
+        returnValue += _sfFogMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1249,6 +1537,30 @@ void RenderOptionsBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFirstFrame.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DepthOnlyPassFieldMask & whichField))
+    {
+        _sfDepthOnlyPass.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (LightModelAmbientFieldMask & whichField))
+    {
+        _sfLightModelAmbient.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FogColorFieldMask & whichField))
+    {
+        _sfFogColor.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FogRangeFieldMask & whichField))
+    {
+        _sfFogRange.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FogDensityFieldMask & whichField))
+    {
+        _sfFogDensity.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FogModeFieldMask & whichField))
+    {
+        _sfFogMode.copyToBin(pMem);
+    }
 }
 
 void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1339,6 +1651,30 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FirstFrameFieldMask & whichField))
     {
         _sfFirstFrame.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DepthOnlyPassFieldMask & whichField))
+    {
+        _sfDepthOnlyPass.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (LightModelAmbientFieldMask & whichField))
+    {
+        _sfLightModelAmbient.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FogColorFieldMask & whichField))
+    {
+        _sfFogColor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FogRangeFieldMask & whichField))
+    {
+        _sfFogRange.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FogDensityFieldMask & whichField))
+    {
+        _sfFogDensity.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FogModeFieldMask & whichField))
+    {
+        _sfFogMode.copyFromBin(pMem);
     }
 }
 
@@ -1453,7 +1789,13 @@ RenderOptionsBase::RenderOptionsBase(void) :
     _sfSmallFeatureCulling    (),
     _sfSmallFeaturePixels     (),
     _sfSmallFeatureThreshold  (),
-    _sfFirstFrame             (bool(true))
+    _sfFirstFrame             (bool(true)),
+    _sfDepthOnlyPass          (bool(false)),
+    _sfLightModelAmbient      (Color4f(0.2,0.2,0.2,1.0)),
+    _sfFogColor               (Color4f(0,0,0,0)),
+    _sfFogRange               (Vec2f(0,1)),
+    _sfFogDensity             (Real32(1)),
+    _sfFogMode                (Int32(0))
 {
 }
 
@@ -1479,7 +1821,13 @@ RenderOptionsBase::RenderOptionsBase(const RenderOptionsBase &source) :
     _sfSmallFeatureCulling    (source._sfSmallFeatureCulling    ),
     _sfSmallFeaturePixels     (source._sfSmallFeaturePixels     ),
     _sfSmallFeatureThreshold  (source._sfSmallFeatureThreshold  ),
-    _sfFirstFrame             (source._sfFirstFrame             )
+    _sfFirstFrame             (source._sfFirstFrame             ),
+    _sfDepthOnlyPass          (source._sfDepthOnlyPass          ),
+    _sfLightModelAmbient      (source._sfLightModelAmbient      ),
+    _sfFogColor               (source._sfFogColor               ),
+    _sfFogRange               (source._sfFogRange               ),
+    _sfFogDensity             (source._sfFogDensity             ),
+    _sfFogMode                (source._sfFogMode                )
 {
 }
 
@@ -1949,6 +2297,138 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFirstFrame     (void)
              this->getType().getFieldDesc(FirstFrameFieldId)));
 
     editSField(FirstFrameFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleDepthOnlyPass   (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfDepthOnlyPass, 
+             this->getType().getFieldDesc(DepthOnlyPassFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleDepthOnlyPass  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfDepthOnlyPass, 
+             this->getType().getFieldDesc(DepthOnlyPassFieldId)));
+
+    editSField(DepthOnlyPassFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleLightModelAmbient (void) const
+{
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
+             &_sfLightModelAmbient, 
+             this->getType().getFieldDesc(LightModelAmbientFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleLightModelAmbient(void)
+{
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
+             &_sfLightModelAmbient, 
+             this->getType().getFieldDesc(LightModelAmbientFieldId)));
+
+    editSField(LightModelAmbientFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleFogColor        (void) const
+{
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
+             &_sfFogColor, 
+             this->getType().getFieldDesc(FogColorFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleFogColor       (void)
+{
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
+             &_sfFogColor, 
+             this->getType().getFieldDesc(FogColorFieldId)));
+
+    editSField(FogColorFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleFogRange        (void) const
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfFogRange, 
+             this->getType().getFieldDesc(FogRangeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleFogRange       (void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfFogRange, 
+             this->getType().getFieldDesc(FogRangeFieldId)));
+
+    editSField(FogRangeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleFogDensity      (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfFogDensity, 
+             this->getType().getFieldDesc(FogDensityFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleFogDensity     (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfFogDensity, 
+             this->getType().getFieldDesc(FogDensityFieldId)));
+
+    editSField(FogDensityFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleFogMode         (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfFogMode, 
+             this->getType().getFieldDesc(FogModeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleFogMode        (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfFogMode, 
+             this->getType().getFieldDesc(FogModeFieldId)));
+
+    editSField(FogModeFieldMask);
 
     return returnValue;
 }

@@ -105,6 +105,15 @@ GraphOp* SplitGraphOp::create()
 
 bool SplitGraphOp::traverse(Node *root)
 {
+    // If the root node is not a Group, make it one
+    if(isLeaf(root))
+    {
+        NodeUnrecPtr n = makeNodeFor(root->getCore());
+        
+        root->setCore(Group::create());
+        root->addChild(n);
+    }  
+
     return GraphOp::traverse(root);
 }
 

@@ -14,7 +14,7 @@
 		name="axisOfRotation"
 		type="Vec3f"
 		cardinality="single"
-		visibility="internal"
+		visibility="external"
 		defaultValue="0.f, 1.f, 0.f"
 		access="public"
 	>
@@ -23,7 +23,7 @@
 		name="focusOnCamera"
 		type="bool"
 		cardinality="single"
-		visibility="internal"
+		visibility="external"
 		defaultValue="true"
 		access="public"
 	>
@@ -32,7 +32,7 @@
 		name="alignToScreen"
 		type="bool"
 		cardinality="single"
-		visibility="internal"
+		visibility="external"
 		defaultValue="false"
 		access="public"
 	>
@@ -41,7 +41,7 @@
 		name="minAngle"
 		type="Real32"
 		cardinality="single"
-		visibility="internal"
+		visibility="external"
 		defaultValue="0.0f"
 		access="public"
 	>
@@ -50,7 +50,7 @@
 		name="maxAngle"
 		type="Real32"
 		cardinality="single"
-		visibility="internal"
+		visibility="external"
 		defaultValue="-1.0f"
 		access="public"
 	>

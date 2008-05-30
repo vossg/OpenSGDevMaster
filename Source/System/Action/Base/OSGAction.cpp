@@ -373,11 +373,10 @@ ActionBase::ResultE Action::recurse(Node * const node)
     }
     else if(! _useNewList) // new list is empty, but not used?
     {
-        MFUnrecChildNodePtr::const_iterator it;
+        MFUnrecChildNodePtr::const_iterator it = node->getMFChildren()->begin();
+        MFUnrecChildNodePtr::const_iterator en = node->getMFChildren()->end  ();
 
-        for(  it  = node->getMFChildren()->begin(); 
-              it != node->getMFChildren()->end(); 
-            ++it)
+        for(; it != en; ++it)
         {
             result = recurse(*it);
             
@@ -417,11 +416,12 @@ ActionBase::ResultE Action::callNewList(void)
 
     nodeList.swap(_newList);
 
-    std::vector<Node *>::iterator it;
+    std::vector<Node *>::iterator it = nodeList.begin();
+    std::vector<Node *>::iterator en = nodeList.end();
 
     _actList = &nodeList;
 
-    for(it = nodeList.begin(); it != nodeList.end(); ++it)
+    for(; it != en; ++it)
     {
         result = recurse(*it);
 
@@ -629,7 +629,10 @@ ActionBase::ResultE traverse(Node                 * const node,
     ActionBase::ResultE res = ActionBase::Continue;
     
     res = func(node);
-    
+
+    if(node == NULL)
+        return Action::Continue;
+
     switch(res)
     {
         case ActionBase::Skip:      

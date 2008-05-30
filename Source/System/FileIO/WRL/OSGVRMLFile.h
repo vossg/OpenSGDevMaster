@@ -84,8 +84,9 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
         StripeGeometry      = CreateNormals         << 1,
         LogProtoGeneration  = StripeGeometry        << 1,
         LogObjectGeneration = LogProtoGeneration    << 1,
+        PushNames           = LogObjectGeneration   << 1,
 
-        LastOption          = LogObjectGeneration
+        LastOption          = PushNames
     };
 
     /*---------------------------------------------------------------------*/

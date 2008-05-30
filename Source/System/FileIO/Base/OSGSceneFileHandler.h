@@ -93,17 +93,30 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     /*! \name                   Progress                                   */
     /*! \{                                                                 */
 
-    typedef void (*progresscbfp) (UInt32 p);
+    typedef void (*progresscbfp) (      UInt32  p    );
+    typedef void (*filenamecbfp) (const Char8  *fname);
 
     void          setReadProgressCB (progresscbfp fp,
                                      bool         use_thread = true);
     progresscbfp  getReadProgressCB (void                          );
+
+    void          setReadBeginCB    (filenamecbfp fp               );
+    filenamecbfp  getReadBeginCB    (void                          );
+
+    void          setReadEndCB      (filenamecbfp fp               );
+    filenamecbfp  getReadEndCB      (void                          );
 
     void          updateReadProgress(void                          );
     void          updateReadProgress(UInt32       p                );
 
     void         setWriteProgressCB (progresscbfp fp               );
     progresscbfp getWriteProgressCB (void                          );
+
+    void         setWriteBeginCB    (filenamecbfp fp               );
+    filenamecbfp getWriteBeginCB    (void                          );
+
+    void         setWriteEndCB      (filenamecbfp fp               );
+    filenamecbfp getWriteEndCB      (void                          );
 
     void         updateWriteProgress(UInt32       p                );
 
@@ -237,6 +250,18 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     virtual ~SceneFileHandlerBase(void);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    void triggerReadBegin (const Char8 *fname);
+    void triggerReadEnd   (const Char8 *fname);
+
+    void triggerWriteBegin(const Char8 *fname);
+    void triggerWriteEnd  (const Char8 *fname);
+
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
@@ -259,11 +284,16 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     static void readProgress         (void *data      );
 
            progresscbfp   _readProgressFP;
+           filenamecbfp   _readBeginFP;
+           filenamecbfp   _readEndFP;
+
            progressS      _progressData;
            bool           _readReady;
            bool           _useProgressThread;
 
            progresscbfp   _writeProgressFP;
+           filenamecbfp   _writeBeginFP;
+           filenamecbfp   _writeEndFP;
 
            PathHandler   *_pathHandler;
            PathHandler    _defaultPathHandler;

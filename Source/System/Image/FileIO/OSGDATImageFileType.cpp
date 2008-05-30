@@ -111,6 +111,7 @@ bool DATImageFileType::read(      Image *image,
     std::map<std::string, FormatDesc>::iterator formatI;
     KeyType key;
     Image::Type formatType;
+    UInt32 channel = 1;
     UInt32 res[3];
     UInt32 dataSize = 0;
     Image::PixelFormat pixelFormat = Image::OSG_L_PF;
@@ -154,6 +155,10 @@ bool DATImageFileType::read(      Image *image,
                     objectFileName = value;
                     image->setAttachmentField ( keyStr, value );
                     break;
+                case CHANNEL_KT:
+                    sscanf ( value, "%d", &(channel) );
+                    image->setAttachmentField ( keyStr, value );
+                    break;
                 case RESOLUTION_KT:
                     sscanf ( value, "%d %d %d",
                              &(res[0]), &(res[1]), &(res[2]));
@@ -195,6 +200,23 @@ bool DATImageFileType::read(      Image *image,
         {
             FINFO (("Skip DAT line\n"));
         }
+    }
+
+    // set pixelformat
+    switch (channel) 
+    {
+        case 4:
+            pixelFormat = osg::Image::OSG_RGBA_PF;
+            break;
+        case 3:
+            pixelFormat = osg::Image::OSG_RGB_PF;
+            break;
+        case 2:
+            pixelFormat = osg::Image::OSG_LA_PF;
+            break;
+        default:
+            pixelFormat = osg::Image::OSG_L_PF;
+            break;
     }
 
     // check the setting and read the raw vol data
@@ -474,6 +496,9 @@ bool DATImageFileType::write(const Image *image,
     dat << "ObjectModel:    DENSITY\n";
     dat << "GridType:       EQUIDISTANT\n";
 
+    if(image->getBpp() > 1)
+      dat << "Channel: " << image->getBpp() << "\n";
+
     dat.close();
 
     std::ofstream raw(basename.c_str(), std::ios::binary);
@@ -592,6 +617,7 @@ void DATImageFileType::initTypeMap(void)
     {
         _keyStrMap["ObjectFileName"]  = OBJECT_FILE_NAME_KT;
         _keyStrMap["Resolution"]      = RESOLUTION_KT;
+        _keyStrMap["Channel"]         = CHANNEL_KT;
         _keyStrMap["SliceThickness"]  = SLICE_THICKNESS_KT;
         _keyStrMap["Format"]          = FORMAT_KT;
         _keyStrMap["Endian"]          = ENDIAN_KT;

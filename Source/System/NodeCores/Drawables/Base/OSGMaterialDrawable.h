@@ -70,7 +70,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
 
     // draw the OpenGL primitives
 
-    virtual Action::ResultE drawPrimitives     (DrawEnv *pEnv  );
+    virtual Action::ResultE drawPrimitives          (DrawEnv *pEnv  );
 
             Action::ResultE renderActionEnterHandler(Action  *action);
             Action::ResultE renderActionLeaveHandler(Action  *action);

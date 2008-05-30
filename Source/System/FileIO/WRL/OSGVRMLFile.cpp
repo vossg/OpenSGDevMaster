@@ -77,6 +77,15 @@ OSG_USING_NAMESPACE
 /*! \class OSG::VRMLFile
  */
 
+/*! \var osg::VRMLFile::PushNames
+    Option to push the name attachments for entities that can not have a
+    NameAttachment in OpenSG to their respective parent.
+    
+    This is currently only implemented for MaterialChunks and only sets the
+    name on the containing ChunkMaterial if that does not have a name of its
+    own.
+ */
+
 OSG::Time startTime = 0.;
 OSG::Time useTime   = 0.;
 OSG::Time findTime  = 0.;
@@ -211,17 +220,24 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 
             NameContainerMap::iterator mIt = _nameFCMap.find(szKey);
 
-            if(mIt == _nameFCMap.end())
+            // amz - I removed the map checks that's more spec conform.
+            // From the spec:
+            // If multiple nodes are given the same name,
+            // each USE statement refers to the closest node with the given
+            // name preceding it 
+            // in either the VRML file or prototype definition.
+                
+            //if(mIt == _nameFCMap.end())
             {
                 _nameFCMap[szKey] = pNewNode;
             }
-            else
-            {
-                PWARNING << "Did not add fieldContainer with name "
-                         << szKey
-                         << " a second time"
-                         << std::endl;
-            }
+//            else
+//            {
+//                PWARNING << "Did not add fieldContainer with name "
+//                         << szKey
+//                         << " a second time"
+//                         << std::endl;
+//            }
 
         }
     }

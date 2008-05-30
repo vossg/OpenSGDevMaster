@@ -133,7 +133,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                      Find                                    */
     /*! \{                                                                 */
 
-    virtual bool operator == (const ChunkMaterial &other);
+    virtual bool operator == (const ChunkMaterial &other) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

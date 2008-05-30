@@ -86,6 +86,12 @@
 #include "OSGReal32Fields.h" // SmallFeaturePixels type
 #include "OSGUInt32Fields.h" // SmallFeatureThreshold type
 #include "OSGBoolFields.h" // FirstFrame type
+#include "OSGBoolFields.h" // DepthOnlyPass type
+#include "OSGColor4fFields.h" // LightModelAmbient type
+#include "OSGColor4fFields.h" // FogColor type
+#include "OSGVec2fFields.h" // FogRange type
+#include "OSGReal32Fields.h" // FogDensity type
+#include "OSGInt32Fields.h" // FogMode type
 
 #include "OSGRenderOptionsFields.h"
 
@@ -134,7 +140,13 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
         SmallFeaturePixelsFieldId = SmallFeatureCullingFieldId + 1,
         SmallFeatureThresholdFieldId = SmallFeaturePixelsFieldId + 1,
         FirstFrameFieldId = SmallFeatureThresholdFieldId + 1,
-        NextFieldId = FirstFrameFieldId + 1
+        DepthOnlyPassFieldId = FirstFrameFieldId + 1,
+        LightModelAmbientFieldId = DepthOnlyPassFieldId + 1,
+        FogColorFieldId = LightModelAmbientFieldId + 1,
+        FogRangeFieldId = FogColorFieldId + 1,
+        FogDensityFieldId = FogRangeFieldId + 1,
+        FogModeFieldId = FogDensityFieldId + 1,
+        NextFieldId = FogModeFieldId + 1
     };
 
     static const OSG::BitVector StatisticFieldMask =
@@ -179,6 +191,18 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
         (TypeTraits<BitVector>::One << SmallFeatureThresholdFieldId);
     static const OSG::BitVector FirstFrameFieldMask =
         (TypeTraits<BitVector>::One << FirstFrameFieldId);
+    static const OSG::BitVector DepthOnlyPassFieldMask =
+        (TypeTraits<BitVector>::One << DepthOnlyPassFieldId);
+    static const OSG::BitVector LightModelAmbientFieldMask =
+        (TypeTraits<BitVector>::One << LightModelAmbientFieldId);
+    static const OSG::BitVector FogColorFieldMask =
+        (TypeTraits<BitVector>::One << FogColorFieldId);
+    static const OSG::BitVector FogRangeFieldMask =
+        (TypeTraits<BitVector>::One << FogRangeFieldId);
+    static const OSG::BitVector FogDensityFieldMask =
+        (TypeTraits<BitVector>::One << FogDensityFieldId);
+    static const OSG::BitVector FogModeFieldMask =
+        (TypeTraits<BitVector>::One << FogModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -332,6 +356,42 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
                   SFBool              *editSFFirstFrame     (void);
             const SFBool              *getSFFirstFrame      (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFDepthOnlyPass   (void);
+#endif
+                  SFBool              *editSFDepthOnlyPass  (void);
+            const SFBool              *getSFDepthOnlyPass   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFColor4f           *getSFLightModelAmbient (void);
+#endif
+                  SFColor4f           *editSFLightModelAmbient(void);
+            const SFColor4f           *getSFLightModelAmbient (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFColor4f           *getSFFogColor        (void);
+#endif
+                  SFColor4f           *editSFFogColor       (void);
+            const SFColor4f           *getSFFogColor        (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFVec2f             *getSFFogRange        (void);
+#endif
+                  SFVec2f             *editSFFogRange       (void);
+            const SFVec2f             *getSFFogRange        (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFReal32            *getSFFogDensity      (void);
+#endif
+                  SFReal32            *editSFFogDensity     (void);
+            const SFReal32            *getSFFogDensity      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  SFInt32             *getSFFogMode         (void);
+#endif
+                  SFInt32             *editSFFogMode        (void);
+            const SFInt32             *getSFFogMode         (void) const;
+
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getStatistic       (void);
@@ -459,6 +519,42 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
                   bool                &editFirstFrame     (void);
             const bool                 getFirstFrame      (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getDepthOnlyPass   (void);
+#endif
+                  bool                &editDepthOnlyPass  (void);
+            const bool                 getDepthOnlyPass   (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Color4f             &getLightModelAmbient (void);
+#endif
+                  Color4f             &editLightModelAmbient(void);
+            const Color4f              getLightModelAmbient (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Color4f             &getFogColor        (void);
+#endif
+                  Color4f             &editFogColor       (void);
+            const Color4f              getFogColor        (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Vec2f               &getFogRange        (void);
+#endif
+                  Vec2f               &editFogRange       (void);
+            const Vec2f                getFogRange        (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Real32              &getFogDensity      (void);
+#endif
+                  Real32              &editFogDensity     (void);
+            const Real32               getFogDensity      (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  Int32               &getFogMode         (void);
+#endif
+                  Int32               &editFogMode        (void);
+            const Int32                getFogMode         (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -485,6 +581,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
             void setSmallFeaturePixels(const Real32 &value);
             void setSmallFeatureThreshold(const UInt32 &value);
             void setFirstFrame     (const bool &value);
+            void setDepthOnlyPass  (const bool &value);
+            void setLightModelAmbient(const Color4f &value);
+            void setFogColor       (const Color4f &value);
+            void setFogRange       (const Vec2f &value);
+            void setFogDensity     (const Real32 &value);
+            void setFogMode        (const Int32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -561,6 +663,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     SFReal32          _sfSmallFeaturePixels;
     SFUInt32          _sfSmallFeatureThreshold;
     SFBool            _sfFirstFrame;
+    SFBool            _sfDepthOnlyPass;
+    SFColor4f         _sfLightModelAmbient;
+    SFColor4f         _sfFogColor;
+    SFVec2f           _sfFogRange;
+    SFReal32          _sfFogDensity;
+    SFInt32           _sfFogMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -630,6 +738,18 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     EditFieldHandlePtr editHandleSmallFeatureThreshold(void);
     GetFieldHandlePtr  getHandleFirstFrame      (void) const;
     EditFieldHandlePtr editHandleFirstFrame     (void);
+    GetFieldHandlePtr  getHandleDepthOnlyPass   (void) const;
+    EditFieldHandlePtr editHandleDepthOnlyPass  (void);
+    GetFieldHandlePtr  getHandleLightModelAmbient (void) const;
+    EditFieldHandlePtr editHandleLightModelAmbient(void);
+    GetFieldHandlePtr  getHandleFogColor        (void) const;
+    EditFieldHandlePtr editHandleFogColor       (void);
+    GetFieldHandlePtr  getHandleFogRange        (void) const;
+    EditFieldHandlePtr editHandleFogRange       (void);
+    GetFieldHandlePtr  getHandleFogDensity      (void) const;
+    EditFieldHandlePtr editHandleFogDensity     (void);
+    GetFieldHandlePtr  getHandleFogMode         (void) const;
+    EditFieldHandlePtr editHandleFogMode        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

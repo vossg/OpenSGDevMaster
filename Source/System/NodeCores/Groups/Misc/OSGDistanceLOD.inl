@@ -39,56 +39,58 @@ OSG_BEGIN_NAMESPACE
 template<class RenderActionT> inline
 ActionBase::ResultE DistanceLOD::render(Action *action)
 {
+    action->useNodeList();
+
+    UInt32 numLevels = action->getNNodes();
+
+    if(numLevels == 0)
+        return Action::Continue;
+
     RenderActionT  *ra        = dynamic_cast<RenderActionT  *>(action);
-
-    UInt32          numLevels = action->getNNodes();
-    UInt32          numRanges = getMFRange()->size();
-
-    UInt32          limit     = osgMin(numLevels, numRanges); 
-    
     Int32           index     = -1;
 
-    Pnt3f            eyepos(0.f, 0.f, 0.f);
-    Pnt3f            objpos;
+    const MFReal32 *range = getMFRange();
 
-    ra->getActivePartition()->getCameraToWorld().mult(eyepos, eyepos);
+    UInt32 numRanges = range->size();
 
-    ra->topMatrix().mult(getCenter(), objpos);
-        
-    Real32 dist = osgSqrt((eyepos[0] - objpos[0])*(eyepos[0] - objpos[0]) +
-                          (eyepos[1] - objpos[1])*(eyepos[1] - objpos[1]) +
-                          (eyepos[2] - objpos[2])*(eyepos[2] - objpos[2]));
-    
-    ra->useNodeList();
-    
-    if(numRanges != 0 && numLevels!=0 )
+    if (numRanges == 0)
     {
-        if(dist < (*(getMFRange()))[0])
+        index = 0;
+    }
+    else
+    {
+        Pnt3f eyepos;
+
+        ra->getActivePartition()->getCameraToWorld().mult(eyepos, eyepos);
+
+        Pnt3f objpos;
+
+        ra->topMatrix().mult(getCenter(), objpos);
+
+        Real32 dist = eyepos.dist(objpos);
+
+        if(numRanges >= numLevels)
+            numRanges = numLevels - 1;
+
+        if(dist >= (*range)[numRanges - 1])
         {
-            index = 0;
-        } 
-        else if(dist >= (*(getMFRange()))[numRanges-1])
-        {
-            index = (numLevels > numRanges) ? numRanges : (limit-1); 
+            index = numRanges;
         }
         else
         {
-            UInt32 i = 1;
-
-            while( (i < numRanges) && 
-                  !( ((*(getMFRange()))[i-1] <= dist) && 
-                     (dist < (*(getMFRange()))[i]   )   ) )
+            for(index = 0; index < numRanges; ++index)
             {
-                i++;
+                if(dist < (*range)[index])
+                    break;
             }
-            
-            index = osgMin(i, limit-1);
-        } 
-        
-        if(ra->isVisible(action->getNode(index)))
-        {
-            ra->addNode(action->getNode(index));
         }
+    }
+
+    Node *nodePtr = action->getNode(index);
+
+    if(ra->isVisible(nodePtr))
+    {
+        ra->addNode(nodePtr);
     }
 
     return ActionBase::Continue;

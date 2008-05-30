@@ -129,6 +129,10 @@ class OSG_IMGFILEIO_DLLMAPPING HDRImageFileType : public ImageFileType
                           int     &width, 
                           int     &height);
     bool radiance2fp(std::istream &is, 
+                          Real16  *data, 
+                          int      width, 
+                          int      height);
+    bool radiance2fp(std::istream &is, 
                           Real32  *data, 
                           int      width, 
                           int      height);

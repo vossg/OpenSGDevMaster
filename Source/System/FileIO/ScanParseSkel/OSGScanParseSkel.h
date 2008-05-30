@@ -351,6 +351,15 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     OSGScanParseLexer *getLexer(void);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Options                                  */
+    /*! \{                                                                 */
+    
+    void   addOptions(UInt32 options);
+    void   subOptions(UInt32 options);
+    UInt32 getOptions(void          ) const;
+    
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
 
@@ -390,9 +399,11 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
 
     void endImage();
 
-    ImageUnrecPtr _image;
 
-    UInt8 *_imageDataPtr;
+    ImageUnrecPtr  _image;
+    UInt8         *_imageDataPtr;
+
+    UInt32         _options;
 };
 
 //---------------------------------------------------------------------------

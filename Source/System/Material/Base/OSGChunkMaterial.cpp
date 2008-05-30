@@ -224,9 +224,9 @@ StateChunk *ChunkMaterial::find(const FieldContainerType &type,
     return NULL;
 }
 
-bool ChunkMaterial::operator==(const ChunkMaterial &other)
+bool ChunkMaterial::operator==(const ChunkMaterial &other) const
 {
-    return false;
+    return Inherited::operator==(other);
 }
 
 void ChunkMaterial::clearChunks(void)

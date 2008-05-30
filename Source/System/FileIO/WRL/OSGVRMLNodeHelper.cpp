@@ -53,6 +53,8 @@
 
 
 #include "OSGScanParseSkel.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGNameAttachment.h"
 #include "OSGNode.h"
 #include "OSGGroup.h"
 #include "OSGMaterialGroup.h"
@@ -1203,7 +1205,9 @@ VRMLMaterialHelper::VRMLMaterialHelper(void) :
     _transparency           (),
 
     _pDefMat                (NULL),
-    _pMat                   (NULL)
+    _pMat                   (NULL),
+    
+    _szName                 (    )
 {
 }
 
@@ -1236,6 +1240,8 @@ void VRMLMaterialHelper::reset(void)
     _shininess       .setValue(_defaultShininess);
     _specularColor   .setValue(_defaultSpecularColor);
     _transparency    .setValue(_defaultTransparency);
+
+    _szName          .erase   ();
 
     _pMat = NULL;
 }
@@ -1451,12 +1457,14 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
 FieldContainerTransitPtr VRMLMaterialHelper::beginNode(
     const Char8            *,
-    const Char8            *,
+    const Char8            *szName,
           FieldContainer   *  )
 {
     reset();
 
     _pMat = MaterialChunk::create();
+
+    _szName = (szName != NULL) ? szName : "";
 
     return FieldContainerTransitPtr(_pMat);
 }
@@ -1498,6 +1506,14 @@ void VRMLMaterialHelper::endNode(FieldContainer *)
         _pMat->setEmission (cCol);
 
     }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Type Specific                                */
+
+const std::string &VRMLMaterialHelper::getName(void) const
+{
+    return _szName;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2017,6 +2033,56 @@ void VRMLAppearanceHelper::endNode(FieldContainer *pFC)
                 }
             }
         }
+
+        // This works around the problem that MaterialChunks can not have
+        // NameAttachments on them (they are attachments themselves).
+        //
+        // If the ChunkMaterial (which corresponds to the VRML Appearance Node)
+        // has no name of its own, the material's name is set instead.
+        
+        // BEGIN Material name hack
+        
+        AttachmentContainer *attCon    = 
+            dynamic_cast<AttachmentContainer *>(pFC);
+        bool                   pushNames = false;
+
+        if(SceneFileHandler::the()->getOptionAs("wrl",
+                                                "pushNames",
+                                                pushNames) == false)
+        {
+            pushNames = false;
+        }
+
+        if(( attCon                             != NULL ) && 
+           ( pushNames                          == true ) && 
+           (_pMaterialHelper                    != NULL ) && 
+           (_pMaterialHelper->getName().empty() == false)  )
+        {        
+            FieldContainer *att = attCon->findAttachment(
+                Name::getClassType().getGroupId());
+            
+            if(att != NULL)
+            {            
+                // ChunkMaterial (Appearance) already has a NameAttachment
+                Name *nameAtt = dynamic_cast<Name *>(att);
+                
+                if(nameAtt != NULL)
+                {
+                    if(nameAtt->getFieldPtr()->getValue().empty())
+                    {
+                        nameAtt->editFieldPtr()->getValue().assign(
+                            _pMaterialHelper->getName());
+                    }
+                }
+            }
+            else
+            {
+                setName(attCon, _pMaterialHelper->getName());
+            }
+        }
+                
+        // END Material name hack
+
     }
 
 
@@ -3423,12 +3489,37 @@ void VRMLImageTextureHelper::endNode(FieldContainer *pFC)
 
     if(pTexture != NULL && _url.size() != 0)
     {
+
+        for(UInt32 i = 0; i < _url.size(); ++i)
+        {
 #ifdef OSG_DEBUG_VRML
-        PNOTICE << "VRMLImageTextureDesc::endNode : Reading texture "
-                << _url[0].c_str() << std::endl;
+            PNOTICE << "VRMLImageTextureDesc::endNode : Reading texture "
+                    << _url[i].c_str() << std::endl;
 #endif
 
-        pImage = ImageFileHandler::the()->read(_url[0].c_str());
+#ifdef OSG_VRML_IMAGETEXTURE_MAP
+            UrlImageMap::iterator mIt = _urlImageMap.find(_url[i]);
+
+            if(mIt != _urlImageMap.end())
+            {
+                pImage = mIt->second;
+            }
+            else
+            {
+                pImage = ImageFileHandler::the()->read(_url[i].c_str());
+
+                if(pImage != NULL)
+                {
+                    _urlImageMap[_url[i]] = pImage;
+                }
+            }
+#else
+            pImage = ImageFileHandler::the()->read(_url[0].c_str());
+#endif
+
+            if(pImage != NULL)
+                break;
+        }
 
         if(pImage != NULL)
         {

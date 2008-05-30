@@ -66,29 +66,6 @@ unsigned long Image::getSize(bool withMipmap,
 /*! returns a data pointer for a single frame/mipmap chunk
  */
 
-#ifdef OSG_1_GET_COMPAT
-inline 
-UInt8 *Image::getData(UInt32 mipmapNum, 
-                      UInt32 frameNum,
-                      UInt32 sideNum )
-{
-    if(_mfPixel->empty())
-        return NULL;
-
-    UInt8 *data = 
-        (&(_mfPixel[0])           ) + 
-        (sideNum  * getSideSize ()) +
-        (frameNum * getFrameSize());
-    
-    if (mipmapNum)
-    {
-        data += calcMipmapSumSize(mipmapNum);
-    }
-  
-    return data;
-}
-#endif
-
 inline 
 const UInt8 *Image::getData(UInt32 mipmapNum, 
                             UInt32 frameNum,
@@ -118,6 +95,8 @@ UInt8 *Image::editData(UInt32 mipmapNum,
     if(_mfPixel.empty())
         return NULL;
 
+    editMField(PixelFieldMask, _mfPixel);
+
     UInt8 *data = 
         (&(_mfPixel[0])           ) + 
         (sideNum  * getSideSize ()) +
@@ -127,7 +106,42 @@ UInt8 *Image::editData(UInt32 mipmapNum,
     {
         data += calcMipmapSumSize(mipmapNum);
     }
-  
+ 
+    return data;
+}
+
+
+/*! returns a data pointer for a single frame/mipmap chunk
+ */
+
+inline 
+const UInt8 *Image::getDataFast(UInt32 mipmapNum, 
+                                UInt32 frameNum,
+                                UInt32 sideNum ) const
+{
+    const UInt8 *data = 
+        (&(_mfPixel[0])           ) + 
+        (sideNum  * getSideSize ()) +
+        (frameNum * getFrameSize());
+    
+    data += _mipmapOffset[mipmapNum];
+   
+    return data;
+}
+
+inline 
+UInt8 *Image::editDataFast(UInt32 mipmapNum, 
+                           UInt32 frameNum,
+                           UInt32 sideNum) 
+{
+    editMField(PixelFieldMask, _mfPixel);
+
+    UInt8 *data = 
+        (&(_mfPixel[0])           ) + 
+        (sideNum  * getSideSize ()) +
+        (frameNum * getFrameSize());
+    
+    data += _mipmapOffset[mipmapNum];
   
     return data;
 }

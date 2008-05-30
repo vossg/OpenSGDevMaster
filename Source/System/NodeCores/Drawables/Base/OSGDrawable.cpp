@@ -56,25 +56,29 @@ OSG_USING_NAMESPACE
 
 /*----------------------------- class variables ---------------------------*/
 
-StatElemDesc<StatIntElem>  Drawable::statNTriangles(
+StatElemDesc<StatIntElem    > Drawable::statNTriangles(
     "NTriangles",
     "number of rendered triangles");
 
-StatElemDesc<StatIntElem>  Drawable::statNLines(
+StatElemDesc<StatIntElem    > Drawable::statNLines(
     "NLines",
     "number of rendered lines");
 
-StatElemDesc<StatIntElem>  Drawable::statNPoints(
+StatElemDesc<StatIntElem    > Drawable::statNPoints(
     "NPoints",
     "number of rendered points");
 
-StatElemDesc<StatIntElem>  Drawable::statNVertices(
+StatElemDesc<StatIntElem    > Drawable::statNVertices(
     "NVertices",
     "number of transformed vertices");
 
-StatElemDesc<StatIntElem>  Drawable::statNPrimitives(
+StatElemDesc<StatIntElem    > Drawable::statNPrimitives(
     "NPrimitives",
     "number of rendered primitive groups");
+
+StatElemDesc<StatIntOnceElem> Drawable::statNGeoBytes(
+    "NGeoBytes",
+    "memory usages of geometry on the gfx card");
 
 /*----------------------- constructors & destructors ----------------------*/
 

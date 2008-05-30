@@ -766,6 +766,204 @@ void RenderOptionsBase::setFirstFrame(const bool &value)
 
     _sfFirstFrame.setValue(value);
 }
+//! Get the value of the RenderOptions::_sfDepthOnlyPass field.
+
+inline
+bool &RenderOptionsBase::editDepthOnlyPass(void)
+{
+    editSField(DepthOnlyPassFieldMask);
+
+    return _sfDepthOnlyPass.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfDepthOnlyPass field.
+inline
+const bool RenderOptionsBase::getDepthOnlyPass(void) const
+{
+    return _sfDepthOnlyPass.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &RenderOptionsBase::getDepthOnlyPass  (void)
+{
+    return this->editDepthOnlyPass  ();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfDepthOnlyPass field.
+inline
+void RenderOptionsBase::setDepthOnlyPass(const bool &value)
+{
+    editSField(DepthOnlyPassFieldMask);
+
+    _sfDepthOnlyPass.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfLightModelAmbient field.
+
+inline
+Color4f &RenderOptionsBase::editLightModelAmbient(void)
+{
+    editSField(LightModelAmbientFieldMask);
+
+    return _sfLightModelAmbient.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfLightModelAmbient field.
+inline
+const Color4f RenderOptionsBase::getLightModelAmbient(void) const
+{
+    return _sfLightModelAmbient.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Color4f             &RenderOptionsBase::getLightModelAmbient(void)
+{
+    return this->editLightModelAmbient();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfLightModelAmbient field.
+inline
+void RenderOptionsBase::setLightModelAmbient(const Color4f &value)
+{
+    editSField(LightModelAmbientFieldMask);
+
+    _sfLightModelAmbient.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfFogColor field.
+
+inline
+Color4f &RenderOptionsBase::editFogColor(void)
+{
+    editSField(FogColorFieldMask);
+
+    return _sfFogColor.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfFogColor field.
+inline
+const Color4f RenderOptionsBase::getFogColor(void) const
+{
+    return _sfFogColor.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Color4f             &RenderOptionsBase::getFogColor       (void)
+{
+    return this->editFogColor       ();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfFogColor field.
+inline
+void RenderOptionsBase::setFogColor(const Color4f &value)
+{
+    editSField(FogColorFieldMask);
+
+    _sfFogColor.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfFogRange field.
+
+inline
+Vec2f &RenderOptionsBase::editFogRange(void)
+{
+    editSField(FogRangeFieldMask);
+
+    return _sfFogRange.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfFogRange field.
+inline
+const Vec2f RenderOptionsBase::getFogRange(void) const
+{
+    return _sfFogRange.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Vec2f               &RenderOptionsBase::getFogRange       (void)
+{
+    return this->editFogRange       ();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfFogRange field.
+inline
+void RenderOptionsBase::setFogRange(const Vec2f &value)
+{
+    editSField(FogRangeFieldMask);
+
+    _sfFogRange.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfFogDensity field.
+
+inline
+Real32 &RenderOptionsBase::editFogDensity(void)
+{
+    editSField(FogDensityFieldMask);
+
+    return _sfFogDensity.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfFogDensity field.
+inline
+const Real32 RenderOptionsBase::getFogDensity(void) const
+{
+    return _sfFogDensity.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Real32              &RenderOptionsBase::getFogDensity     (void)
+{
+    return this->editFogDensity     ();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfFogDensity field.
+inline
+void RenderOptionsBase::setFogDensity(const Real32 &value)
+{
+    editSField(FogDensityFieldMask);
+
+    _sfFogDensity.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfFogMode field.
+
+inline
+Int32 &RenderOptionsBase::editFogMode(void)
+{
+    editSField(FogModeFieldMask);
+
+    return _sfFogMode.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfFogMode field.
+inline
+const Int32 RenderOptionsBase::getFogMode(void) const
+{
+    return _sfFogMode.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Int32               &RenderOptionsBase::getFogMode        (void)
+{
+    return this->editFogMode        ();
+}
+#endif
+
+//! Set the value of the RenderOptions::_sfFogMode field.
+inline
+void RenderOptionsBase::setFogMode(const Int32 &value)
+{
+    editSField(FogModeFieldMask);
+
+    _sfFogMode.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -840,6 +1038,24 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
 
     if(FieldBits::NoField != (FirstFrameFieldMask & whichField))
         _sfFirstFrame.syncWith(pFrom->_sfFirstFrame);
+
+    if(FieldBits::NoField != (DepthOnlyPassFieldMask & whichField))
+        _sfDepthOnlyPass.syncWith(pFrom->_sfDepthOnlyPass);
+
+    if(FieldBits::NoField != (LightModelAmbientFieldMask & whichField))
+        _sfLightModelAmbient.syncWith(pFrom->_sfLightModelAmbient);
+
+    if(FieldBits::NoField != (FogColorFieldMask & whichField))
+        _sfFogColor.syncWith(pFrom->_sfFogColor);
+
+    if(FieldBits::NoField != (FogRangeFieldMask & whichField))
+        _sfFogRange.syncWith(pFrom->_sfFogRange);
+
+    if(FieldBits::NoField != (FogDensityFieldMask & whichField))
+        _sfFogDensity.syncWith(pFrom->_sfFogDensity);
+
+    if(FieldBits::NoField != (FogModeFieldMask & whichField))
+        _sfFogMode.syncWith(pFrom->_sfFogMode);
 }
 #endif
 

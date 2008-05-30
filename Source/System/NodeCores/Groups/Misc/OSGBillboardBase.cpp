@@ -112,7 +112,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "axisOfRotation",
         "",
         AxisOfRotationFieldId, AxisOfRotationFieldMask,
-        true,
+        false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Billboard::editHandleAxisOfRotation),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleAxisOfRotation));
@@ -124,7 +124,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "focusOnCamera",
         "",
         FocusOnCameraFieldId, FocusOnCameraFieldMask,
-        true,
+        false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Billboard::editHandleFocusOnCamera),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleFocusOnCamera));
@@ -136,7 +136,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "alignToScreen",
         "",
         AlignToScreenFieldId, AlignToScreenFieldMask,
-        true,
+        false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Billboard::editHandleAlignToScreen),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleAlignToScreen));
@@ -148,7 +148,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "minAngle",
         "",
         MinAngleFieldId, MinAngleFieldMask,
-        true,
+        false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Billboard::editHandleMinAngle),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleMinAngle));
@@ -160,7 +160,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "maxAngle",
         "",
         MaxAngleFieldId, MaxAngleFieldMask,
-        true,
+        false,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Billboard::editHandleMaxAngle),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleMaxAngle));
@@ -196,7 +196,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     "\t\tname=\"axisOfRotation\"\n"
     "\t\ttype=\"Vec3f\"\n"
     "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
+    "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.f, 1.f, 0.f\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -205,7 +205,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     "\t\tname=\"focusOnCamera\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
+    "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"true\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -214,7 +214,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     "\t\tname=\"alignToScreen\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
+    "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"false\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -223,7 +223,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     "\t\tname=\"minAngle\"\n"
     "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
+    "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0.0f\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -232,7 +232,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     "\t\tname=\"maxAngle\"\n"
     "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
+    "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"-1.0f\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
