@@ -374,6 +374,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     MFReal32          _mfTextureZs;
     SFUInt32          _sfDrawOrder;
     SFBool            _sfDynamic;
+    SFUInt32          _sfPump;
     SFParticleBSPTree _sfBsp;
     SFInt32           _sfNumParticles;
 
@@ -441,6 +442,31 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFUInt32            *editSFPump           (void);
+            const SFUInt32            *getSFPump            (void) const;
+
+
+                  UInt32              &editPump           (void);
+            const UInt32               getPump            (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setPump           (const UInt32 &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
@@ -487,38 +513,6 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    SFUInt32          _sfPump;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-
-                  SFUInt32            *editSFPump           (void);
-            const SFUInt32            *getSFPump            (void) const;
-
-                  UInt32              &editPump           (void);
-            const UInt32               getPump           (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setPump           (const UInt32 &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)

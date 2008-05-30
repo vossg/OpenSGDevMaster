@@ -135,7 +135,7 @@ See \ref PageSystemParticles for details.
 		type="UInt32"
 		cardinality="single"
 		visibility="internal"
-		access="private"
+		access="protected"
 	>
 	</Field>
 	<Field

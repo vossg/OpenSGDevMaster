@@ -479,7 +479,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     "\t\ttype=\"UInt32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"private\"\n"
+    "\t\taccess=\"protected\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
