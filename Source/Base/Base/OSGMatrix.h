@@ -310,6 +310,12 @@ class TransformationMatrix
     
     void mult3x3 (const PointType3f  &pntIn, PointType3f  &pntOut) const;
     void mult3x3 (const VectorType3f &vecIn, VectorType3f &vecOut) const;
+    
+    PointType    operator *(const PointType    &pntIn) const;
+    PointType3f  operator *(const PointType3f  &pntIn) const;
+             
+    VectorType   operator *(const VectorType   &vecIn) const;
+    VectorType3f operator *(const VectorType3f &vecIn) const;
        
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -455,29 +461,6 @@ class TransformationMatrix
     static TransformationMatrix _identityMatrix;
 };
 
-template <class ValueTypeT>
-typename TransformationMatrix<ValueTypeT>::PointType
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::PointType    &pnt    );
-             
-template <class ValueTypeT>
-typename TransformationMatrix<ValueTypeT>::PointType3f
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::PointType3f  &pnt    );
-             
-template <class ValueTypeT>
-typename TransformationMatrix<ValueTypeT>::VectorType
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::VectorType   &vec    );
-
-template <class ValueTypeT>
-typename TransformationMatrix<ValueTypeT>::VectorType3f
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::VectorType3f &vec    );
 
 /*! \var typedef TransformationMatrix<Real32> Matrix4f;
     \brief Matrix4f

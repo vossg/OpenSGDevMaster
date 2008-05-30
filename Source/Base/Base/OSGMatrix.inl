@@ -1872,7 +1872,7 @@ inline void
 /*! Multiply the vector \a vecIn by this complete 4x4 matrix and store
     the result in \a vecOut.
     
-    \note The resulting vector can have a \c w coordinate different from 1.
+    \note The resulting vector can have a \c w coordinate different from 0.
     \note It is valid for parameters to be aliased, i.e. &vecIn == &vecOut.
  */
 template <class ValueTypeT>
@@ -1947,7 +1947,7 @@ inline void
 /*! Multiply the 3 vector \a vecIn by this matrix (considering only the 3x4 part)
     and store the result in \a vecOut.
     
-    \note \a vecIn is treated as having w = 1, so actually only the 3x3 part
+    \note \a vecIn is treated as having w = 0, so actually only the 3x3 part
           of this matrix is applied.
     \note It is valid for parameters to be aliased, i.e. &vecIn == &vecOut.
  */
@@ -2010,6 +2010,76 @@ inline void
         (_matrix[0][2] * vecIn[0] +
          _matrix[1][2] * vecIn[1] +
          _matrix[2][2] * vecIn[2]  ) );
+}
+
+/*! Multiply the point \a pntIn by this complete 4x4 matrix and return
+    the result.
+
+    \note The resulting point can have a \c w coordinate different from 1.
+
+ */
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::PointType
+    TransformationMatrix<ValueTypeT>::operator *(
+        const PointType &pntIn) const
+{
+    PointType pntOut;
+    
+    this->mult(pntIn, pntOut);
+    
+    return pntOut;
+}
+
+/*! Multiply the 3 point \a pntIn by this matrix (considering only the 3x4 part)
+    and return the result.
+    
+    \note \a pntIn is treated as having w = 1.
+ */
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::PointType3f
+    TransformationMatrix<ValueTypeT>::operator *(
+        const PointType3f &pntIn) const
+{
+    PointType3f pntOut;
+    
+    this->mult(pntIn, pntOut);
+    
+    return pntOut;
+}
+
+/*! Multiply the vector \a vecIn by this complete 4x4 matrix and return
+    the result.
+    
+    \note The resulting vector can have a \c w coordinate different from 1.
+ */
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::VectorType
+    TransformationMatrix<ValueTypeT>::operator *(
+        const VectorType &vecIn) const
+{
+    VectorType vecOut;
+    
+    this->mult(vecIn, vecOut);
+    
+    return vecOut;
+}
+
+/*! Multiply the 3 vector \a vecIn by this matrix (considering only the 3x4 part)
+    and return the result.
+    
+    \note \a vecIn is treated as having w = 0, so actually only the 3x3 part
+          of this matrix is applied.
+ */
+template <class ValueTypeT>
+inline typename TransformationMatrix<ValueTypeT>::VectorType3f
+    TransformationMatrix<ValueTypeT>::operator *(
+        const VectorType3f &vecIn) const
+{
+    VectorType3f vecOut;
+    
+    this->mult(vecIn, vecOut);
+    
+    return vecOut;
 }
 
 /*---------------------------- simple math ---------------------------------*/
@@ -3324,59 +3394,6 @@ bool TransformationMatrix<ValueTypeT>::operator != (
 
 /*-------------------------------------------------------------------------*/
 /*                               Functions                                 */
-
-template <class ValueTypeT>
-inline typename TransformationMatrix<ValueTypeT>::PointType
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::PointType    &pnt    )
-{
-    typename TransformationMatrix<ValueTypeT>::PointType pntOut;
-    
-    matrix.mult(pnt, pntOut);
-    
-    return pntOut;
-}
-             
-template <class ValueTypeT>
-inline typename TransformationMatrix<ValueTypeT>::PointType3f
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::PointType3f  &pnt    )
-{
-    typename TransformationMatrix<ValueTypeT>::PointType3f pntOut;
-    
-    matrix.mult(pnt, pntOut);
-    
-    return pntOut;
-}
-             
-template <class ValueTypeT>
-inline typename TransformationMatrix<ValueTypeT>::VectorType
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::VectorType   &vec    )
-{
-    typename TransformationMatrix<ValueTypeT>::VectorType vecOut;
-    
-    matrix.mult(vec, vecOut);
-    
-    return vecOut;
-}
-
-template <class ValueTypeT>
-inline typename TransformationMatrix<ValueTypeT>::VectorType3f
-    operator *(
-        const          TransformationMatrix<ValueTypeT>               &matrix,
-        const typename TransformationMatrix<ValueTypeT>::VectorType3f &vec    )
-{
-    typename TransformationMatrix<ValueTypeT>::VectorType3f vecOut;
-    
-    matrix.mult(vec, vecOut);
-    
-    return vecOut;
-}
-
 
 //! write matrix to stream
 
