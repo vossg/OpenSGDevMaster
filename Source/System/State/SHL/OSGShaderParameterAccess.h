@@ -94,6 +94,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterAccess
 
   private:
 
+    friend class ShaderParameterChunk;
+
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderParameterAccess &source);
     void updateMap(void);

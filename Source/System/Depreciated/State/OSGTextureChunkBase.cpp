@@ -1093,8 +1093,8 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
         SkipMipMapLevelsFieldId, SkipMipMapLevelsFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&TextureChunkBase::editHandleSkipMipMapLevels),
-        static_cast<FieldGetMethodSig >(&TextureChunkBase::getHandleSkipMipMapLevels));
+        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleSkipMipMapLevels),
+        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleSkipMipMapLevels));
 
     oType.addInitialDesc(pDesc);
 }

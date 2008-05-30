@@ -70,6 +70,7 @@
 #include "OSGGLenumFields.h" // ProgramParameterNames type
 #include "OSGUInt32Fields.h" // ProgramParameterValues type
 #include "OSGUInt32Fields.h" // GLId type
+#include "OSGBoolFields.h" // UnknownParameterWarning type
 
 #include "OSGSHLChunkFields.h"
 
@@ -102,7 +103,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
         ProgramParameterNamesFieldId = PointSizeFieldId + 1,
         ProgramParameterValuesFieldId = ProgramParameterNamesFieldId + 1,
         GLIdFieldId = ProgramParameterValuesFieldId + 1,
-        NextFieldId = GLIdFieldId + 1
+        UnknownParameterWarningFieldId = GLIdFieldId + 1,
+        NextFieldId = UnknownParameterWarningFieldId + 1
     };
 
     static const OSG::BitVector CgFrontEndFieldMask =
@@ -115,6 +117,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
         (TypeTraits<BitVector>::One << ProgramParameterValuesFieldId);
     static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
+    static const OSG::BitVector UnknownParameterWarningFieldMask =
+        (TypeTraits<BitVector>::One << UnknownParameterWarningFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -172,6 +176,12 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFBool              *getSFUnknownParameterWarning (void);
+#endif
+                  SFBool              *editSFUnknownParameterWarning(void);
+            const SFBool              *getSFUnknownParameterWarning (void) const;
+
 
 #ifdef OSG_1_GET_COMPAT
                   bool                &getCgFrontEnd      (void);
@@ -205,6 +215,12 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
                   UInt32              &editGLId           (void);
             const UInt32               getGLId            (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  bool                &getUnknownParameterWarning (void);
+#endif
+                  bool                &editUnknownParameterWarning(void);
+            const bool                 getUnknownParameterWarning (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -213,6 +229,7 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
             void setCgFrontEnd     (const bool &value);
             void setPointSize      (const bool &value);
             void setGLId           (const UInt32 &value);
+            void setUnknownParameterWarning(const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -273,6 +290,7 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     MFGLenum          _mfProgramParameterNames;
     MFUInt32          _mfProgramParameterValues;
     SFUInt32          _sfGLId;
+    SFBool            _sfUnknownParameterWarning;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -310,6 +328,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     EditFieldHandlePtr editHandleProgramParameterValues(void);
     GetFieldHandlePtr  getHandleGLId            (void) const;
     EditFieldHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleUnknownParameterWarning (void) const;
+    EditFieldHandlePtr editHandleUnknownParameterWarning(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

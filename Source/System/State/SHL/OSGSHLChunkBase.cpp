@@ -133,6 +133,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            SHLChunkBase::_sfUnknownParameterWarning
+    Whether to warn about unknown/unused paramters.
+*/
+
 
 void SHLChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -196,6 +200,18 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&SHLChunk::editHandleGLId),
         static_cast<FieldGetMethodSig >(&SHLChunk::getHandleGLId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "UnknownParameterWarning",
+        "Whether to warn about unknown/unused paramters.\n",
+        UnknownParameterWarningFieldId, UnknownParameterWarningFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&SHLChunk::editHandleUnknownParameterWarning),
+        static_cast<FieldGetMethodSig >(&SHLChunk::getHandleUnknownParameterWarning));
 
     oType.addInitialDesc(pDesc);
 }
@@ -303,6 +319,16 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"UnknownParameterWarning\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"true\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    Whether to warn about unknown/unused paramters.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "This chunk provides support for GLSL.  It provides a wrapper for setting vertex\n"
     "and fragment programs.  Because it is derived from OSG::ShaderParameter it also\n"
@@ -453,6 +479,25 @@ SFUInt32            *SHLChunkBase::getSFGLId           (void)
 }
 #endif
 
+SFBool *SHLChunkBase::editSFUnknownParameterWarning(void)
+{
+    editSField(UnknownParameterWarningFieldMask);
+
+    return &_sfUnknownParameterWarning;
+}
+
+const SFBool *SHLChunkBase::getSFUnknownParameterWarning(void) const
+{
+    return &_sfUnknownParameterWarning;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFBool              *SHLChunkBase::getSFUnknownParameterWarning(void)
+{
+    return this->editSFUnknownParameterWarning();
+}
+#endif
+
 
 
 
@@ -483,6 +528,10 @@ UInt32 SHLChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfGLId.getBinSize();
     }
+    if(FieldBits::NoField != (UnknownParameterWarningFieldMask & whichField))
+    {
+        returnValue += _sfUnknownParameterWarning.getBinSize();
+    }
 
     return returnValue;
 }
@@ -512,6 +561,10 @@ void SHLChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfGLId.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (UnknownParameterWarningFieldMask & whichField))
+    {
+        _sfUnknownParameterWarning.copyToBin(pMem);
+    }
 }
 
 void SHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -538,6 +591,10 @@ void SHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UnknownParameterWarningFieldMask & whichField))
+    {
+        _sfUnknownParameterWarning.copyFromBin(pMem);
     }
 }
 
@@ -636,7 +693,8 @@ SHLChunkBase::SHLChunkBase(void) :
     _sfPointSize              (bool(false)),
     _mfProgramParameterNames  (),
     _mfProgramParameterValues (),
-    _sfGLId                   (UInt32(0))
+    _sfGLId                   (UInt32(0)),
+    _sfUnknownParameterWarning(bool(true))
 {
 }
 
@@ -646,7 +704,8 @@ SHLChunkBase::SHLChunkBase(const SHLChunkBase &source) :
     _sfPointSize              (source._sfPointSize              ),
     _mfProgramParameterNames  (source._mfProgramParameterNames  ),
     _mfProgramParameterValues (source._mfProgramParameterValues ),
-    _sfGLId                   (source._sfGLId                   )
+    _sfGLId                   (source._sfGLId                   ),
+    _sfUnknownParameterWarning(source._sfUnknownParameterWarning)
 {
 }
 
@@ -764,6 +823,28 @@ EditFieldHandlePtr SHLChunkBase::editHandleGLId           (void)
              this->getType().getFieldDesc(GLIdFieldId)));
 
     editSField(GLIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SHLChunkBase::getHandleUnknownParameterWarning (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUnknownParameterWarning, 
+             this->getType().getFieldDesc(UnknownParameterWarningFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SHLChunkBase::editHandleUnknownParameterWarning(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUnknownParameterWarning, 
+             this->getType().getFieldDesc(UnknownParameterWarningFieldId)));
+
+    editSField(UnknownParameterWarningFieldMask);
 
     return returnValue;
 }

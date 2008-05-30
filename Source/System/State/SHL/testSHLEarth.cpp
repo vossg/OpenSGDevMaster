@@ -180,8 +180,9 @@ int doMain(int argc, char **argv)
 // Initialize GLUT & OpenSG and set up the scene
 int main(int argc, char **argv)
 {
-    doMain(argc, argv);
-
+    if(doMain(argc, argv) != 0)
+        return 1;
+    
     // GLUT main loop
     glutMainLoop();
 

@@ -89,4 +89,14 @@ The derived parameters supported by default are:
         fieldFlags="FClusterLocal"
 	>
 	</Field>
+    <Field
+        name="UnknownParameterWarning"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="true"
+        access="public"
+    >
+    Whether to warn about unknown/unused paramters.
+    </Field>
 </FieldContainer>

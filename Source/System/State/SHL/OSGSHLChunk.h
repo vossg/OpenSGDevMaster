@@ -255,9 +255,6 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     friend class FieldContainer;
     friend class SHLChunkBase;
 
-    typedef std::map<std::string, std::pair<parametercbfp, osgparametercbfp> >
-        userParameterCallbacksMap;
-
     // class. Used for indexing in State
     static StateChunkClass _class;
 
@@ -399,13 +396,21 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                           GLuint                  program  );
 
 
-    std::vector<std::pair<std::pair<parametercbfp, osgparametercbfp>,
-        ShaderParameter *> > _osgParametersCallbacks;
+    typedef std::vector<
+        std::pair<   std::pair<parametercbfp, 
+                               osgparametercbfp>,
+                     ShaderParameter *         > > OSGParametersCallbacks;
 
-    UInt32                    _oldParameterSize;
+    typedef std::map<std::string, 
+                     std::pair<parametercbfp, 
+                               osgparametercbfp> > UserParameterCallbacksMap;
 
-    userParameterCallbacksMap _userParameterCallbacks;
-    static parametercbfp      _userParametersCallback;
+
+           OSGParametersCallbacks    _osgParametersCallbacks;
+           UInt32                    _oldParameterSize;
+
+           UserParameterCallbacksMap _userParameterCallbacks;
+    static parametercbfp             _userParametersCallback;
 };
 
 typedef SHLChunk *SHLChunkP;

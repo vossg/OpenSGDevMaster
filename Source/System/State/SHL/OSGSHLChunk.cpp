@@ -864,7 +864,8 @@ void SHLChunk::updateParameters(
           bool                            force,
           bool                            keepProgramActive)
 {
-    GLuint program = GLuint(win->getGLObjectId(getGLId()));
+    GLuint program     = GLuint(win->getGLObjectId(getGLId()));
+    bool   warnUnknown = getUnknownParameterWarning();
 
     if(program == 0)
     {
@@ -932,7 +933,7 @@ void SHLChunk::updateParameters(
                 {
                     uniform1i(p->getLocation(), GLint(p->getValue()));
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -957,7 +958,7 @@ void SHLChunk::updateParameters(
                 {
                     uniform1i(p->getLocation(), p->getValue());
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -982,7 +983,7 @@ void SHLChunk::updateParameters(
                 {
                     uniform1f(p->getLocation(), p->getValue());
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -1009,7 +1010,7 @@ void SHLChunk::updateParameters(
                         p->getLocation(), 1, 
                         const_cast<Real32 *>(p->getValue().getValues()));
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -1035,7 +1036,7 @@ void SHLChunk::updateParameters(
                     uniform3fv(p->getLocation(), 1, 
                                const_cast<Real32 *>(p->getValue().getValues()));
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -1061,7 +1062,7 @@ void SHLChunk::updateParameters(
                     uniform4fv(p->getLocation(), 1, 
                                const_cast<Real32 *>(p->getValue().getValues()));
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -1087,7 +1088,7 @@ void SHLChunk::updateParameters(
                     uniformMatrix4fv(p->getLocation(), 1, GL_FALSE, 
                                      const_cast<Real32 *>(p->getValue().getValues()));
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -1114,7 +1115,7 @@ void SHLChunk::updateParameters(
                         p->getLocation(), 1, 
                         const_cast<Real32 *>(p->getValue().getValues()));
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -1140,7 +1141,7 @@ void SHLChunk::updateParameters(
                     uniform3fv(p->getLocation(), 1, 
                                const_cast<Real32 *>(p->getValue().getValues()));
                 }
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
@@ -1165,7 +1166,7 @@ void SHLChunk::updateParameters(
                     updateParameterLocation(win, program, p);
                 if(p->getLocation() != -1 && !p->getMFValue()->empty())
 		  ; // XXX uniform1iv(p->getLocation(), p->getValue().size(), &p->getValue()[0]);
-                else
+                else if(warnUnknown == true)
                     FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
             }
             break;
@@ -1186,7 +1187,7 @@ void SHLChunk::updateParameters(
                                p->getMFValue()->size(), 
                                const_cast<Real32 *>(
                                    &(p->getMFValue()->front())));
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Unknown parameter '%s'!\n", 
                               p->getName().c_str()));
@@ -1210,7 +1211,7 @@ void SHLChunk::updateParameters(
                                p->getMFValue()->size(), 
                                const_cast<Real32 *>(
                                    (*(p->getMFValue()))[0].getValues()));
-                else
+                else if(warnUnknown == true)
                     FWARNING(("Unknown parameter '%s'!\n", p->getName().c_str()));
             }
             break;
@@ -1230,7 +1231,7 @@ void SHLChunk::updateParameters(
                                p->getMFValue()->size(), 
                                const_cast<Real32 *>(
                                    (*(p->getMFValue()))[0].getValues()));
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Unknown parameter '%s'!\n", 
                               p->getName().c_str()));
@@ -1253,7 +1254,7 @@ void SHLChunk::updateParameters(
                                p->getMFValue()->size(), 
                                const_cast<Real32 *>(
                                    (*(p->getMFValue()))[0].getValues()));
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Unknown parameter '%s'!\n", 
                               p->getName().c_str()));
@@ -1277,7 +1278,7 @@ void SHLChunk::updateParameters(
                                      GL_FALSE, 
                                      const_cast<Real32 *>(
                                          (*(p->getMFValue()))[0].getValues()));
-                else
+                else if(warnUnknown == true)
                 {
                     FWARNING(("Unknown parameter '%s'!\n", 
                               p->getName().c_str()));
@@ -1335,8 +1336,15 @@ void SHLChunk::checkOSGParameters(bool force)
 {
     // ok this can go wrong if you sub and add a parameter
     // between one begin/endEditCP ...
-    if(!force && getMFParameters()->size() == _oldParameterSize)
+    if( force                     == false             && 
+       _cleared_parameters        == false             && 
+        getMFParameters()->size() == _oldParameterSize  )
+    {
         return;
+    }
+
+    // reset clear parameters flag.
+    _cleared_parameters = false;
 
     _oldParameterSize = getMFParameters()->size();
 
@@ -1485,7 +1493,7 @@ void SHLChunk::checkOSGParameters(bool force)
             else
             {
                 // check user parameter callbacks.
-                userParameterCallbacksMap::iterator it =
+                UserParameterCallbacksMap::iterator it =
                     _userParameterCallbacks.find(parameter->getName());
 
                 if(it != _userParameterCallbacks.end())
@@ -1519,7 +1527,8 @@ void SHLChunk::addParameterCallback(const char *name, parametercbfp fp)
     setUniformParameter(name, 0);
 
     _userParameterCallbacks.insert(
-        std::make_pair(name, std::make_pair(fp, nullfp)));
+        UserParameterCallbacksMap::value_type(name, 
+                                              std::make_pair(fp, nullfp)));
 }
 
 void SHLChunk::addParameterCallback(const char *name, osgparametercbfp fp)
@@ -1532,8 +1541,10 @@ void SHLChunk::addParameterCallback(const char *name, osgparametercbfp fp)
     parametercbfp nullfp = NULL;
 
     setUniformParameter(name, 0);
+
     _userParameterCallbacks.insert(
-        std::make_pair(name, std::make_pair(nullfp, fp)));
+        UserParameterCallbacksMap::value_type(name, 
+                                              std::make_pair(nullfp, fp)));
 }
 
 void SHLChunk::setParameterCallback(parametercbfp fp)

@@ -455,8 +455,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         DepthOnlyPassFieldId, DepthOnlyPassFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleDepthOnlyPass),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleDepthOnlyPass));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleDepthOnlyPass),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleDepthOnlyPass));
 
     oType.addInitialDesc(pDesc);
 
@@ -467,8 +467,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         LightModelAmbientFieldId, LightModelAmbientFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleLightModelAmbient),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleLightModelAmbient));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleLightModelAmbient),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleLightModelAmbient));
 
     oType.addInitialDesc(pDesc);
 
@@ -479,8 +479,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FogColorFieldId, FogColorFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogColor),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogColor));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleFogColor),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFogColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -491,8 +491,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FogRangeFieldId, FogRangeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogRange),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogRange));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleFogRange),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFogRange));
 
     oType.addInitialDesc(pDesc);
 
@@ -503,8 +503,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FogDensityFieldId, FogDensityFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogDensity),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogDensity));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleFogDensity),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFogDensity));
 
     oType.addInitialDesc(pDesc);
 
@@ -515,8 +515,8 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         FogModeFieldId, FogModeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&RenderOptionsBase::editHandleFogMode),
-        static_cast<FieldGetMethodSig >(&RenderOptionsBase::getHandleFogMode));
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleFogMode),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFogMode));
 
     oType.addInitialDesc(pDesc);
 }

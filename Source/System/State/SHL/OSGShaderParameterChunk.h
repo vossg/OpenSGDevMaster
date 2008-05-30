@@ -91,45 +91,47 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
     /*! \name                 ShaderParameterChunk Access                  */
     /*! \{                                                                 */
 
-    bool setUniformParameter(const Char8 *name,       bool    value);
-    bool setUniformParameter(const Char8 *name,       Int32   value);
-    bool setUniformParameter(const Char8 *name,       Real32  value);
-    bool setUniformParameter(const Char8 *name, const Vec2f  &value);
-    bool setUniformParameter(const Char8 *name, const Vec3f  &value);
-    bool setUniformParameter(const Char8 *name, const Vec4f  &value);
-    bool setUniformParameter(const Char8 *name, const Matrix &value);
-    bool setUniformParameter(const Char8 *name, const Pnt2f  &value);
-    bool setUniformParameter(const Char8 *name, const Pnt3f  &value);
+    bool setUniformParameter   (const Char8 *name,       bool      value);
+    bool setUniformParameter   (const Char8 *name,       Int32     value);
+    bool setUniformParameter   (const Char8 *name,       Real32    value);
+    bool setUniformParameter   (const Char8 *name, const Vec2f    &value);
+    bool setUniformParameter   (const Char8 *name, const Vec3f    &value);
+    bool setUniformParameter   (const Char8 *name, const Vec4f    &value);
+    bool setUniformParameter   (const Char8 *name, const Matrix   &value);
+    bool setUniformParameter   (const Char8 *name, const Pnt2f    &value);
+    bool setUniformParameter   (const Char8 *name, const Pnt3f    &value);
     
-    bool    setUniformParameter(const char *name, const MFInt32  &value);
-    bool    setUniformParameter(const char *name, const MFReal32 &value);
-    bool    setUniformParameter(const char *name, const MFVec2f  &value);
-    bool    setUniformParameter(const char *name, const MFVec3f  &value);
-    bool    setUniformParameter(const char *name, const MFVec4f  &value);
-    bool    setUniformParameter(const char *name, const MFMatrix &value);
-    bool    setUniformParameter(const char *name, const MFPnt2f  &value);
-    bool    setUniformParameter(const char *name, const MFPnt3f  &value);
+    bool setUniformParameter   (const Char8 *name, const MFInt32  &value);
+    bool setUniformParameter   (const Char8 *name, const MFReal32 &value);
+    bool setUniformParameter   (const Char8 *name, const MFVec2f  &value);
+    bool setUniformParameter   (const Char8 *name, const MFVec3f  &value);
+    bool setUniformParameter   (const Char8 *name, const MFVec4f  &value);
+    bool setUniformParameter   (const Char8 *name, const MFMatrix &value);
+    bool setUniformParameter   (const Char8 *name, const MFPnt2f  &value);
+    bool setUniformParameter   (const Char8 *name, const MFPnt3f  &value);
 
-    bool getUniformParameter(const Char8 *name,       bool   &value);
-    bool getUniformParameter(const Char8 *name,       Int32  &value);
-    bool getUniformParameter(const Char8 *name,       Real32 &value);
-    bool getUniformParameter(const Char8 *name,       Vec2f  &value);
-    bool getUniformParameter(const Char8 *name,       Vec3f  &value);
-    bool getUniformParameter(const Char8 *name,       Vec4f  &value);
-    bool getUniformParameter(const Char8 *name,       Matrix &value);
-    bool getUniformParameter(const Char8 *name,       Pnt2f  &value);
-    bool getUniformParameter(const Char8 *name,       Pnt3f  &value);
+    bool getUniformParameter   (const Char8 *name,       bool     &value);
+    bool getUniformParameter   (const Char8 *name,       Int32    &value);
+    bool getUniformParameter   (const Char8 *name,       Real32   &value);
+    bool getUniformParameter   (const Char8 *name,       Vec2f    &value);
+    bool getUniformParameter   (const Char8 *name,       Vec3f    &value);
+    bool getUniformParameter   (const Char8 *name,       Vec4f    &value);
+    bool getUniformParameter   (const Char8 *name,       Matrix   &value);
+    bool getUniformParameter   (const Char8 *name,       Pnt2f    &value);
+    bool getUniformParameter   (const Char8 *name,       Pnt3f    &value);
 
-    bool    getUniformParameter(const char *name, MFInt32  &value);
-    bool    getUniformParameter(const char *name, MFReal32 &value);
-    bool    getUniformParameter(const char *name, MFVec2f  &value);
-    bool    getUniformParameter(const char *name, MFVec3f  &value);
-    bool    getUniformParameter(const char *name, MFVec4f  &value);
-    bool    getUniformParameter(const char *name, MFMatrix &value);
-    bool    getUniformParameter(const char *name, MFPnt2f  &value);
-    bool    getUniformParameter(const char *name, MFPnt3f  &value);
+    bool getUniformParameter   (const Char8 *name,       MFInt32  &value);
+    bool getUniformParameter   (const Char8 *name,       MFReal32 &value);
+    bool getUniformParameter   (const Char8 *name,       MFVec2f  &value);
+    bool getUniformParameter   (const Char8 *name,       MFVec3f  &value);
+    bool getUniformParameter   (const Char8 *name,       MFVec4f  &value);
+    bool getUniformParameter   (const Char8 *name,       MFMatrix &value);
+    bool getUniformParameter   (const Char8 *name,       MFPnt2f  &value);
+    bool getUniformParameter   (const Char8 *name,       MFPnt3f  &value);
     
-    bool subUniformParameter(const Char8 *name);
+    bool subUniformParameter   (const Char8 *name);
+
+    void clearUniformParameters(      void       );
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -160,6 +162,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
     /*! \{                                                                 */
 
     ShaderParameterAccess *_parameter_access;
+    bool                   _cleared_parameters;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

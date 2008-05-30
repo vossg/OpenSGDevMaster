@@ -172,6 +172,39 @@ void SHLChunkBase::setGLId(const UInt32 &value)
 
     _sfGLId.setValue(value);
 }
+//! Get the value of the SHLChunk::_sfUnknownParameterWarning field.
+
+inline
+bool &SHLChunkBase::editUnknownParameterWarning(void)
+{
+    editSField(UnknownParameterWarningFieldMask);
+
+    return _sfUnknownParameterWarning.getValue();
+}
+
+//! Get the value of the SHLChunk::_sfUnknownParameterWarning field.
+inline
+const bool SHLChunkBase::getUnknownParameterWarning(void) const
+{
+    return _sfUnknownParameterWarning.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+bool                &SHLChunkBase::getUnknownParameterWarning(void)
+{
+    return this->editUnknownParameterWarning();
+}
+#endif
+
+//! Set the value of the SHLChunk::_sfUnknownParameterWarning field.
+inline
+void SHLChunkBase::setUnknownParameterWarning(const bool &value)
+{
+    editSField(UnknownParameterWarningFieldMask);
+
+    _sfUnknownParameterWarning.setValue(value);
+}
 
 //! Get the value of the \a index element the SHLChunk::_mfProgramParameterNames field.
 inline
@@ -266,6 +299,9 @@ void SHLChunkBase::execSync (      SHLChunkBase *pFrom,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);
+
+    if(FieldBits::NoField != (UnknownParameterWarningFieldMask & whichField))
+        _sfUnknownParameterWarning.syncWith(pFrom->_sfUnknownParameterWarning);
 }
 #endif
 
