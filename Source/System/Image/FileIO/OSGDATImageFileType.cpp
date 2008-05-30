@@ -206,16 +206,16 @@ bool DATImageFileType::read(      Image *image,
     switch (channel) 
     {
         case 4:
-            pixelFormat = osg::Image::OSG_RGBA_PF;
+            pixelFormat = OSG::Image::OSG_RGBA_PF;
             break;
         case 3:
-            pixelFormat = osg::Image::OSG_RGB_PF;
+            pixelFormat = OSG::Image::OSG_RGB_PF;
             break;
         case 2:
-            pixelFormat = osg::Image::OSG_LA_PF;
+            pixelFormat = OSG::Image::OSG_LA_PF;
             break;
         default:
-            pixelFormat = osg::Image::OSG_L_PF;
+            pixelFormat = OSG::Image::OSG_L_PF;
             break;
     }
 
