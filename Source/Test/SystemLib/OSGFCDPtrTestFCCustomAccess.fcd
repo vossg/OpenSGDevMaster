@@ -91,43 +91,6 @@
     </Field>
 
 
-  <!-- SF, multi parent, private -->
-    <Field
-        name = "fieldSFPri_ptr"
-        type = "FCDTestFC"
-        cardinality = "single"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "pointer"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
-
-    <Field
-        name = "fieldSFPri_weakptr"
-        type = "FCDTestFC"
-        cardinality = "single"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "weakpointer"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
-
-    <Field
-        name = "fieldSFPri_mpchildptr"
-        type = "FCDTestFC"
-        cardinality = "single"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "childpointer"
-        linkParentField="Parents"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
 
 
   <!-- SF, multi parent, none -->
@@ -253,44 +216,6 @@
     </Field>
 
 
-  <!-- MF, multi parent, private -->
-
-    <Field
-        name = "fieldMFPri_ptr"
-        type = "FCDTestFC"
-        cardinality = "multi"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "pointer"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
-
-    <Field
-        name = "fieldMFPri_weakptr"
-        type = "FCDTestFC"
-        cardinality = "multi"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "weakpointer"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
-
-    <Field
-        name = "fieldMFPri_mpchildptr"
-        type = "FCDTestFC"
-        cardinality = "multi"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "childpointer"
-        linkParentField="Parents"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
 
 
   <!-- MF, multi parent, none -->
@@ -364,20 +289,6 @@
     >
     </Field>
 
-  <!-- SF, single parent, private -->
-
-    <Field
-        name = "fieldSFPri_spchildptr"
-        type = "FCDSParTestFC"
-        cardinality = "single"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "childpointer"
-        linkParentField="Parent"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
 
   <!-- SF, single parent, none -->
 
@@ -425,20 +336,6 @@
     >
     </Field>
 
-  <!-- MF, single parent, private -->
-
-    <Field
-        name = "fieldMFPri_spchildptr"
-        type = "FCDSParTestFC"
-        cardinality = "multi"
-        visibility = "external"
-        default = "0"
-        access = "private"
-        category = "childpointer"
-        linkParentField="Parent"
-        ptrFieldAccess = "custom"
-    >
-    </Field>
 
   <!-- MF, multi parent, none -->
 

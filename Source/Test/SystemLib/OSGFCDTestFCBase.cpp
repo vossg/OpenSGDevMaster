@@ -89,10 +89,6 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var UInt32          FCDTestFCBase::_sfFieldSFPri
-    
-*/
-
 /*! \var UInt32          FCDTestFCBase::_sfFieldSFNo
     
 */
@@ -102,10 +98,6 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var UInt32          FCDTestFCBase::_mfFieldMFPro
-    
-*/
-
-/*! \var UInt32          FCDTestFCBase::_mfFieldMFPri
     
 */
 
@@ -145,18 +137,6 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
-        "fieldSFPri",
-        "",
-        FieldSFPriFieldId, FieldSFPriFieldMask,
-        false,
-        Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldSFPri),
-        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldSFPri));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
         "fieldSFNo",
         "",
         FieldSFNoFieldId, FieldSFNoFieldMask,
@@ -188,18 +168,6 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         Field::MFDefaultFlags,
         static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldMFPro),
         static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldMFPro));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFUInt32::Description(
-        MFUInt32::getClassType(),
-        "fieldMFPri",
-        "",
-        FieldMFPriFieldId, FieldMFPriFieldMask,
-        false,
-        Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldMFPri),
-        static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldMFPri));
 
     oType.addInitialDesc(pDesc);
 
@@ -264,16 +232,6 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "    </Field>\n"
     "\n"
     "    <Field\n"
-    "        name = \"fieldSFPri\"\n"
-    "        type = \"UInt32\"\n"
-    "        cardinality = \"single\"\n"
-    "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
-    "        access = \"private\"\n"
-    "    >\n"
-    "    </Field>\n"
-    "\n"
-    "    <Field\n"
     "        name = \"fieldSFNo\"\n"
     "        type = \"UInt32\"\n"
     "        cardinality = \"single\"\n"
@@ -302,16 +260,6 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "        visibility = \"external\"\n"
     "        default = \"0\"\n"
     "        access = \"protected\"\n"
-    "    >\n"
-    "    </Field>\n"
-    "\n"
-    "    <Field\n"
-    "        name = \"fieldMFPri\"\n"
-    "        type = \"UInt32\"\n"
-    "        cardinality = \"multi\"\n"
-    "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
-    "        access = \"private\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -387,25 +335,6 @@ SFUInt32            *FCDTestFCBase::getSFFieldSFPro     (void)
 }
 #endif
 
-SFUInt32 *FCDTestFCBase::editSFFieldSFPri(void)
-{
-    editSField(FieldSFPriFieldMask);
-
-    return &_sfFieldSFPri;
-}
-
-const SFUInt32 *FCDTestFCBase::getSFFieldSFPri(void) const
-{
-    return &_sfFieldSFPri;
-}
-
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *FCDTestFCBase::getSFFieldSFPri     (void)
-{
-    return this->editSFFieldSFPri     ();
-}
-#endif
-
 
 MFUInt32 *FCDTestFCBase::editMFFieldMFPub(void)
 {
@@ -445,25 +374,6 @@ MFUInt32            *FCDTestFCBase::getMFFieldMFPro     (void)
 }
 #endif
 
-MFUInt32 *FCDTestFCBase::editMFFieldMFPri(void)
-{
-    editMField(FieldMFPriFieldMask, _mfFieldMFPri);
-
-    return &_mfFieldMFPri;
-}
-
-const MFUInt32 *FCDTestFCBase::getMFFieldMFPri(void) const
-{
-    return &_mfFieldMFPri;
-}
-
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *FCDTestFCBase::getMFFieldMFPri     (void)
-{
-    return this->editMFFieldMFPri     ();
-}
-#endif
-
 
 
 
@@ -483,10 +393,6 @@ UInt32 FCDTestFCBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFieldSFPro.getBinSize();
     }
-    if(FieldBits::NoField != (FieldSFPriFieldMask & whichField))
-    {
-        returnValue += _sfFieldSFPri.getBinSize();
-    }
     if(FieldBits::NoField != (FieldSFNoFieldMask & whichField))
     {
         returnValue += _sfFieldSFNo.getBinSize();
@@ -498,10 +404,6 @@ UInt32 FCDTestFCBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (FieldMFProFieldMask & whichField))
     {
         returnValue += _mfFieldMFPro.getBinSize();
-    }
-    if(FieldBits::NoField != (FieldMFPriFieldMask & whichField))
-    {
-        returnValue += _mfFieldMFPri.getBinSize();
     }
     if(FieldBits::NoField != (FieldMFNoFieldMask & whichField))
     {
@@ -524,10 +426,6 @@ void FCDTestFCBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFieldSFPro.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (FieldSFPriFieldMask & whichField))
-    {
-        _sfFieldSFPri.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (FieldSFNoFieldMask & whichField))
     {
         _sfFieldSFNo.copyToBin(pMem);
@@ -539,10 +437,6 @@ void FCDTestFCBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FieldMFProFieldMask & whichField))
     {
         _mfFieldMFPro.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (FieldMFPriFieldMask & whichField))
-    {
-        _mfFieldMFPri.copyToBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFNoFieldMask & whichField))
     {
@@ -563,10 +457,6 @@ void FCDTestFCBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfFieldSFPro.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (FieldSFPriFieldMask & whichField))
-    {
-        _sfFieldSFPri.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (FieldSFNoFieldMask & whichField))
     {
         _sfFieldSFNo.copyFromBin(pMem);
@@ -578,10 +468,6 @@ void FCDTestFCBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FieldMFProFieldMask & whichField))
     {
         _mfFieldMFPro.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (FieldMFPriFieldMask & whichField))
-    {
-        _mfFieldMFPri.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FieldMFNoFieldMask & whichField))
     {
@@ -682,11 +568,9 @@ FCDTestFCBase::FCDTestFCBase(void) :
     Inherited(),
     _sfFieldSFPub             (),
     _sfFieldSFPro             (),
-    _sfFieldSFPri             (),
     _sfFieldSFNo              (),
     _mfFieldMFPub             (),
     _mfFieldMFPro             (),
-    _mfFieldMFPri             (),
     _mfFieldMFNo              ()
 {
 }
@@ -695,11 +579,9 @@ FCDTestFCBase::FCDTestFCBase(const FCDTestFCBase &source) :
     Inherited(source),
     _sfFieldSFPub             (source._sfFieldSFPub             ),
     _sfFieldSFPro             (source._sfFieldSFPro             ),
-    _sfFieldSFPri             (source._sfFieldSFPri             ),
     _sfFieldSFNo              (source._sfFieldSFNo              ),
     _mfFieldMFPub             (source._mfFieldMFPub             ),
     _mfFieldMFPro             (source._mfFieldMFPro             ),
-    _mfFieldMFPri             (source._mfFieldMFPri             ),
     _mfFieldMFNo              (source._mfFieldMFNo              )
 {
 }
@@ -752,28 +634,6 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFPro     (void)
              this->getType().getFieldDesc(FieldSFProFieldId)));
 
     editSField(FieldSFProFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr FCDTestFCBase::getHandleFieldSFPri      (void) const
-{
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfFieldSFPri, 
-             this->getType().getFieldDesc(FieldSFPriFieldId)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFPri     (void)
-{
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfFieldSFPri, 
-             this->getType().getFieldDesc(FieldSFPriFieldId)));
-
-    editSField(FieldSFPriFieldMask);
 
     return returnValue;
 }
@@ -832,28 +692,6 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFPro     (void)
              this->getType().getFieldDesc(FieldMFProFieldId)));
 
     editMField(FieldMFProFieldMask, _mfFieldMFPro);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr FCDTestFCBase::getHandleFieldMFPri      (void) const
-{
-    MFUInt32::GetHandlePtr returnValue(
-        new  MFUInt32::GetHandle(
-             &_mfFieldMFPri, 
-             this->getType().getFieldDesc(FieldMFPriFieldId)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFPri     (void)
-{
-    MFUInt32::EditHandlePtr returnValue(
-        new  MFUInt32::EditHandle(
-             &_mfFieldMFPri, 
-             this->getType().getFieldDesc(FieldMFPriFieldId)));
-
-    editMField(FieldMFPriFieldMask, _mfFieldMFPri);
 
     return returnValue;
 }
@@ -917,10 +755,6 @@ void FCDTestFCBase::resolveLinks(void)
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
     _mfFieldMFPro.terminateShare(Thread::getCurrentAspect(), 
-                                      oOffsets);
-#endif
-#ifdef OSG_MT_CPTR_ASPECT
-    _mfFieldMFPri.terminateShare(Thread::getCurrentAspect(), 
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT

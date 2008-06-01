@@ -122,30 +122,6 @@ FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPro_mpchildptr(void) const
 }
 
 
-//! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_ptr field.
-inline
-FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_ptr(void) const
-{
-    return _sfFieldSFPri_ptr.getValue();
-}
-
-
-//! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_weakptr field.
-inline
-FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_weakptr(void) const
-{
-    return _sfFieldSFPri_weakptr.getValue();
-}
-
-
-//! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_mpchildptr field.
-inline
-FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_mpchildptr(void) const
-{
-    return _sfFieldSFPri_mpchildptr.getValue();
-}
-
-
 //! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPub_spchildptr field.
 inline
 FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPub_spchildptr(void) const
@@ -159,14 +135,6 @@ inline
 FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPro_spchildptr(void) const
 {
     return _sfFieldSFPro_spchildptr.getValue();
-}
-
-
-//! Get the value of the FCDPtrTestFCCustomAccess::_sfFieldSFPri_spchildptr field.
-inline
-FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldSFPri_spchildptr(void) const
-{
-    return _sfFieldSFPri_spchildptr.getValue();
 }
 
 
@@ -212,27 +180,6 @@ FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPro_mpchildptr(const UInt32 
     return _mfFieldMFPro_mpchildptr[index];
 }
 
-//! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_ptr field.
-inline
-FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_ptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_ptr[index];
-}
-
-//! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_weakptr field.
-inline
-FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_weakptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_weakptr[index];
-}
-
-//! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_mpchildptr field.
-inline
-FCDTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_mpchildptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_mpchildptr[index];
-}
-
 //! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPub_spchildptr field.
 inline
 FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPub_spchildptr(const UInt32 index) const
@@ -245,13 +192,6 @@ inline
 FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPro_spchildptr(const UInt32 index) const
 {
     return _mfFieldMFPro_spchildptr[index];
-}
-
-//! Get the value of the \a index element the FCDPtrTestFCCustomAccess::_mfFieldMFPri_spchildptr field.
-inline
-FCDSParTestFC * FCDPtrTestFCCustomAccessBase::getFieldMFPri_spchildptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_spchildptr[index];
 }
 
 
@@ -282,15 +222,6 @@ void FCDPtrTestFCCustomAccessBase::execSync (      FCDPtrTestFCCustomAccessBase 
 
     if(FieldBits::NoField != (FieldSFPro_mpchildptrFieldMask & whichField))
         _sfFieldSFPro_mpchildptr.syncWith(pFrom->_sfFieldSFPro_mpchildptr);
-
-    if(FieldBits::NoField != (FieldSFPri_ptrFieldMask & whichField))
-        _sfFieldSFPri_ptr.syncWith(pFrom->_sfFieldSFPri_ptr);
-
-    if(FieldBits::NoField != (FieldSFPri_weakptrFieldMask & whichField))
-        _sfFieldSFPri_weakptr.syncWith(pFrom->_sfFieldSFPri_weakptr);
-
-    if(FieldBits::NoField != (FieldSFPri_mpchildptrFieldMask & whichField))
-        _sfFieldSFPri_mpchildptr.syncWith(pFrom->_sfFieldSFPri_mpchildptr);
 
     if(FieldBits::NoField != (FieldSFNo_ptrFieldMask & whichField))
         _sfFieldSFNo_ptr.syncWith(pFrom->_sfFieldSFNo_ptr);
@@ -337,24 +268,6 @@ void FCDPtrTestFCCustomAccessBase::execSync (      FCDPtrTestFCCustomAccessBase 
                                 uiSyncInfo,
                                 oOffsets);
 
-    if(FieldBits::NoField != (FieldMFPri_ptrFieldMask & whichField))
-        _mfFieldMFPri_ptr.syncWith(pFrom->_mfFieldMFPri_ptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (FieldMFPri_weakptrFieldMask & whichField))
-        _mfFieldMFPri_weakptr.syncWith(pFrom->_mfFieldMFPri_weakptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (FieldMFPri_mpchildptrFieldMask & whichField))
-        _mfFieldMFPri_mpchildptr.syncWith(pFrom->_mfFieldMFPri_mpchildptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
     if(FieldBits::NoField != (FieldMFNo_ptrFieldMask & whichField))
         _mfFieldMFNo_ptr.syncWith(pFrom->_mfFieldMFNo_ptr,
                                 syncMode,
@@ -379,9 +292,6 @@ void FCDPtrTestFCCustomAccessBase::execSync (      FCDPtrTestFCCustomAccessBase 
     if(FieldBits::NoField != (FieldSFPro_spchildptrFieldMask & whichField))
         _sfFieldSFPro_spchildptr.syncWith(pFrom->_sfFieldSFPro_spchildptr);
 
-    if(FieldBits::NoField != (FieldSFPri_spchildptrFieldMask & whichField))
-        _sfFieldSFPri_spchildptr.syncWith(pFrom->_sfFieldSFPri_spchildptr);
-
     if(FieldBits::NoField != (FieldSFNo_spchildptrFieldMask & whichField))
         _sfFieldSFNo_spchildptr.syncWith(pFrom->_sfFieldSFNo_spchildptr);
 
@@ -393,12 +303,6 @@ void FCDPtrTestFCCustomAccessBase::execSync (      FCDPtrTestFCCustomAccessBase 
 
     if(FieldBits::NoField != (FieldMFPro_spchildptrFieldMask & whichField))
         _mfFieldMFPro_spchildptr.syncWith(pFrom->_mfFieldMFPro_spchildptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (FieldMFPri_spchildptrFieldMask & whichField))
-        _mfFieldMFPri_spchildptr.syncWith(pFrom->_mfFieldMFPri_spchildptr,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

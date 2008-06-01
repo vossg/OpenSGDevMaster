@@ -34,16 +34,6 @@
     </Field>
 
     <Field
-        name = "fieldSFPri"
-        type = "UInt32"
-        cardinality = "single"
-        visibility = "external"
-        default = "0"
-        access = "private"
-    >
-    </Field>
-
-    <Field
         name = "fieldSFNo"
         type = "UInt32"
         cardinality = "single"
@@ -72,16 +62,6 @@
         visibility = "external"
         default = "0"
         access = "protected"
-    >
-    </Field>
-
-    <Field
-        name = "fieldMFPri"
-        type = "UInt32"
-        cardinality = "multi"
-        visibility = "external"
-        default = "0"
-        access = "private"
     >
     </Field>
 

@@ -170,54 +170,6 @@ void FCDPtrTestFCBase::setFieldSFPro_mpchildptr(FCDTestFC * const value)
     _sfFieldSFPro_mpchildptr.setValue(value);
 }
 
-//! Get the value of the FCDPtrTestFC::_sfFieldSFPri_ptr field.
-inline
-FCDTestFC * FCDPtrTestFCBase::getFieldSFPri_ptr(void) const
-{
-    return _sfFieldSFPri_ptr.getValue();
-}
-
-//! Set the value of the FCDPtrTestFC::_sfFieldSFPri_ptr field.
-inline
-void FCDPtrTestFCBase::setFieldSFPri_ptr(FCDTestFC * const value)
-{
-    editSField(FieldSFPri_ptrFieldMask);
-
-    _sfFieldSFPri_ptr.setValue(value);
-}
-
-//! Get the value of the FCDPtrTestFC::_sfFieldSFPri_weakptr field.
-inline
-FCDTestFC * FCDPtrTestFCBase::getFieldSFPri_weakptr(void) const
-{
-    return _sfFieldSFPri_weakptr.getValue();
-}
-
-//! Set the value of the FCDPtrTestFC::_sfFieldSFPri_weakptr field.
-inline
-void FCDPtrTestFCBase::setFieldSFPri_weakptr(FCDTestFC * const value)
-{
-    editSField(FieldSFPri_weakptrFieldMask);
-
-    _sfFieldSFPri_weakptr.setValue(value);
-}
-
-//! Get the value of the FCDPtrTestFC::_sfFieldSFPri_mpchildptr field.
-inline
-FCDTestFC * FCDPtrTestFCBase::getFieldSFPri_mpchildptr(void) const
-{
-    return _sfFieldSFPri_mpchildptr.getValue();
-}
-
-//! Set the value of the FCDPtrTestFC::_sfFieldSFPri_mpchildptr field.
-inline
-void FCDPtrTestFCBase::setFieldSFPri_mpchildptr(FCDTestFC * const value)
-{
-    editSField(FieldSFPri_mpchildptrFieldMask);
-
-    _sfFieldSFPri_mpchildptr.setValue(value);
-}
-
 //! Get the value of the FCDPtrTestFC::_sfFieldSFPub_spchildptr field.
 inline
 FCDSParTestFC * FCDPtrTestFCBase::getFieldSFPub_spchildptr(void) const
@@ -248,22 +200,6 @@ void FCDPtrTestFCBase::setFieldSFPro_spchildptr(FCDSParTestFC * const value)
     editSField(FieldSFPro_spchildptrFieldMask);
 
     _sfFieldSFPro_spchildptr.setValue(value);
-}
-
-//! Get the value of the FCDPtrTestFC::_sfFieldSFPri_spchildptr field.
-inline
-FCDSParTestFC * FCDPtrTestFCBase::getFieldSFPri_spchildptr(void) const
-{
-    return _sfFieldSFPri_spchildptr.getValue();
-}
-
-//! Set the value of the FCDPtrTestFC::_sfFieldSFPri_spchildptr field.
-inline
-void FCDPtrTestFCBase::setFieldSFPri_spchildptr(FCDSParTestFC * const value)
-{
-    editSField(FieldSFPri_spchildptrFieldMask);
-
-    _sfFieldSFPri_spchildptr.setValue(value);
 }
 
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPub_ptr field.
@@ -308,27 +244,6 @@ FCDTestFC * FCDPtrTestFCBase::getFieldMFPro_mpchildptr(const UInt32 index) const
     return _mfFieldMFPro_mpchildptr[index];
 }
 
-//! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_ptr field.
-inline
-FCDTestFC * FCDPtrTestFCBase::getFieldMFPri_ptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_ptr[index];
-}
-
-//! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_weakptr field.
-inline
-FCDTestFC * FCDPtrTestFCBase::getFieldMFPri_weakptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_weakptr[index];
-}
-
-//! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_mpchildptr field.
-inline
-FCDTestFC * FCDPtrTestFCBase::getFieldMFPri_mpchildptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_mpchildptr[index];
-}
-
 //! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPub_spchildptr field.
 inline
 FCDSParTestFC * FCDPtrTestFCBase::getFieldMFPub_spchildptr(const UInt32 index) const
@@ -341,13 +256,6 @@ inline
 FCDSParTestFC * FCDPtrTestFCBase::getFieldMFPro_spchildptr(const UInt32 index) const
 {
     return _mfFieldMFPro_spchildptr[index];
-}
-
-//! Get the value of the \a index element the FCDPtrTestFC::_mfFieldMFPri_spchildptr field.
-inline
-FCDSParTestFC * FCDPtrTestFCBase::getFieldMFPri_spchildptr(const UInt32 index) const
-{
-    return _mfFieldMFPri_spchildptr[index];
 }
 
 
@@ -378,15 +286,6 @@ void FCDPtrTestFCBase::execSync (      FCDPtrTestFCBase *pFrom,
 
     if(FieldBits::NoField != (FieldSFPro_mpchildptrFieldMask & whichField))
         _sfFieldSFPro_mpchildptr.syncWith(pFrom->_sfFieldSFPro_mpchildptr);
-
-    if(FieldBits::NoField != (FieldSFPri_ptrFieldMask & whichField))
-        _sfFieldSFPri_ptr.syncWith(pFrom->_sfFieldSFPri_ptr);
-
-    if(FieldBits::NoField != (FieldSFPri_weakptrFieldMask & whichField))
-        _sfFieldSFPri_weakptr.syncWith(pFrom->_sfFieldSFPri_weakptr);
-
-    if(FieldBits::NoField != (FieldSFPri_mpchildptrFieldMask & whichField))
-        _sfFieldSFPri_mpchildptr.syncWith(pFrom->_sfFieldSFPri_mpchildptr);
 
     if(FieldBits::NoField != (FieldSFNo_ptrFieldMask & whichField))
         _sfFieldSFNo_ptr.syncWith(pFrom->_sfFieldSFNo_ptr);
@@ -433,24 +332,6 @@ void FCDPtrTestFCBase::execSync (      FCDPtrTestFCBase *pFrom,
                                 uiSyncInfo,
                                 oOffsets);
 
-    if(FieldBits::NoField != (FieldMFPri_ptrFieldMask & whichField))
-        _mfFieldMFPri_ptr.syncWith(pFrom->_mfFieldMFPri_ptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (FieldMFPri_weakptrFieldMask & whichField))
-        _mfFieldMFPri_weakptr.syncWith(pFrom->_mfFieldMFPri_weakptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (FieldMFPri_mpchildptrFieldMask & whichField))
-        _mfFieldMFPri_mpchildptr.syncWith(pFrom->_mfFieldMFPri_mpchildptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
     if(FieldBits::NoField != (FieldMFNo_ptrFieldMask & whichField))
         _mfFieldMFNo_ptr.syncWith(pFrom->_mfFieldMFNo_ptr,
                                 syncMode,
@@ -475,9 +356,6 @@ void FCDPtrTestFCBase::execSync (      FCDPtrTestFCBase *pFrom,
     if(FieldBits::NoField != (FieldSFPro_spchildptrFieldMask & whichField))
         _sfFieldSFPro_spchildptr.syncWith(pFrom->_sfFieldSFPro_spchildptr);
 
-    if(FieldBits::NoField != (FieldSFPri_spchildptrFieldMask & whichField))
-        _sfFieldSFPri_spchildptr.syncWith(pFrom->_sfFieldSFPri_spchildptr);
-
     if(FieldBits::NoField != (FieldSFNo_spchildptrFieldMask & whichField))
         _sfFieldSFNo_spchildptr.syncWith(pFrom->_sfFieldSFNo_spchildptr);
 
@@ -489,12 +367,6 @@ void FCDPtrTestFCBase::execSync (      FCDPtrTestFCBase *pFrom,
 
     if(FieldBits::NoField != (FieldMFPro_spchildptrFieldMask & whichField))
         _mfFieldMFPro_spchildptr.syncWith(pFrom->_mfFieldMFPro_spchildptr,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (FieldMFPri_spchildptrFieldMask & whichField))
-        _mfFieldMFPri_spchildptr.syncWith(pFrom->_mfFieldMFPri_spchildptr,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

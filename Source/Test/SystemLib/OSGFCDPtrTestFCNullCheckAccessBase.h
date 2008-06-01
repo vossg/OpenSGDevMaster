@@ -71,9 +71,6 @@
 #include "OSGFCDTestFCFields.h" // FieldSFPro_ptr type
 #include "OSGFCDTestFCFields.h" // FieldSFPro_weakptr type
 #include "OSGFCDTestFCFields.h" // FieldSFPro_mpchildptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPri_ptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPri_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPri_mpchildptr type
 #include "OSGFCDTestFCFields.h" // FieldSFNo_ptr type
 #include "OSGFCDTestFCFields.h" // FieldSFNo_weakptr type
 #include "OSGFCDTestFCFields.h" // FieldSFNo_mpchildptr type
@@ -83,19 +80,14 @@
 #include "OSGFCDTestFCFields.h" // FieldMFPro_ptr type
 #include "OSGFCDTestFCFields.h" // FieldMFPro_weakptr type
 #include "OSGFCDTestFCFields.h" // FieldMFPro_mpchildptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPri_ptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPri_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPri_mpchildptr type
 #include "OSGFCDTestFCFields.h" // FieldMFNo_ptr type
 #include "OSGFCDTestFCFields.h" // FieldMFNo_weakptr type
 #include "OSGFCDTestFCFields.h" // FieldMFNo_mpchildptr type
 #include "OSGFCDSParTestFCFields.h" // FieldSFPub_spchildptr type
 #include "OSGFCDSParTestFCFields.h" // FieldSFPro_spchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldSFPri_spchildptr type
 #include "OSGFCDSParTestFCFields.h" // FieldSFNo_spchildptr type
 #include "OSGFCDSParTestFCFields.h" // FieldMFPub_spchildptr type
 #include "OSGFCDSParTestFCFields.h" // FieldMFPro_spchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldMFPri_spchildptr type
 #include "OSGFCDSParTestFCFields.h" // FieldMFNo_spchildptr type
 
 #include "OSGFCDPtrTestFCNullCheckAccessFields.h"
@@ -130,10 +122,7 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
         FieldSFPro_ptrFieldId = FieldSFPub_mpchildptrFieldId + 1,
         FieldSFPro_weakptrFieldId = FieldSFPro_ptrFieldId + 1,
         FieldSFPro_mpchildptrFieldId = FieldSFPro_weakptrFieldId + 1,
-        FieldSFPri_ptrFieldId = FieldSFPro_mpchildptrFieldId + 1,
-        FieldSFPri_weakptrFieldId = FieldSFPri_ptrFieldId + 1,
-        FieldSFPri_mpchildptrFieldId = FieldSFPri_weakptrFieldId + 1,
-        FieldSFNo_ptrFieldId = FieldSFPri_mpchildptrFieldId + 1,
+        FieldSFNo_ptrFieldId = FieldSFPro_mpchildptrFieldId + 1,
         FieldSFNo_weakptrFieldId = FieldSFNo_ptrFieldId + 1,
         FieldSFNo_mpchildptrFieldId = FieldSFNo_weakptrFieldId + 1,
         FieldMFPub_ptrFieldId = FieldSFNo_mpchildptrFieldId + 1,
@@ -142,20 +131,15 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
         FieldMFPro_ptrFieldId = FieldMFPub_mpchildptrFieldId + 1,
         FieldMFPro_weakptrFieldId = FieldMFPro_ptrFieldId + 1,
         FieldMFPro_mpchildptrFieldId = FieldMFPro_weakptrFieldId + 1,
-        FieldMFPri_ptrFieldId = FieldMFPro_mpchildptrFieldId + 1,
-        FieldMFPri_weakptrFieldId = FieldMFPri_ptrFieldId + 1,
-        FieldMFPri_mpchildptrFieldId = FieldMFPri_weakptrFieldId + 1,
-        FieldMFNo_ptrFieldId = FieldMFPri_mpchildptrFieldId + 1,
+        FieldMFNo_ptrFieldId = FieldMFPro_mpchildptrFieldId + 1,
         FieldMFNo_weakptrFieldId = FieldMFNo_ptrFieldId + 1,
         FieldMFNo_mpchildptrFieldId = FieldMFNo_weakptrFieldId + 1,
         FieldSFPub_spchildptrFieldId = FieldMFNo_mpchildptrFieldId + 1,
         FieldSFPro_spchildptrFieldId = FieldSFPub_spchildptrFieldId + 1,
-        FieldSFPri_spchildptrFieldId = FieldSFPro_spchildptrFieldId + 1,
-        FieldSFNo_spchildptrFieldId = FieldSFPri_spchildptrFieldId + 1,
+        FieldSFNo_spchildptrFieldId = FieldSFPro_spchildptrFieldId + 1,
         FieldMFPub_spchildptrFieldId = FieldSFNo_spchildptrFieldId + 1,
         FieldMFPro_spchildptrFieldId = FieldMFPub_spchildptrFieldId + 1,
-        FieldMFPri_spchildptrFieldId = FieldMFPro_spchildptrFieldId + 1,
-        FieldMFNo_spchildptrFieldId = FieldMFPri_spchildptrFieldId + 1,
+        FieldMFNo_spchildptrFieldId = FieldMFPro_spchildptrFieldId + 1,
         NextFieldId = FieldMFNo_spchildptrFieldId + 1
     };
 
@@ -171,12 +155,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
         (TypeTraits<BitVector>::One << FieldSFPro_weakptrFieldId);
     static const OSG::BitVector FieldSFPro_mpchildptrFieldMask =
         (TypeTraits<BitVector>::One << FieldSFPro_mpchildptrFieldId);
-    static const OSG::BitVector FieldSFPri_ptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldSFPri_ptrFieldId);
-    static const OSG::BitVector FieldSFPri_weakptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldSFPri_weakptrFieldId);
-    static const OSG::BitVector FieldSFPri_mpchildptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldSFPri_mpchildptrFieldId);
     static const OSG::BitVector FieldSFNo_ptrFieldMask =
         (TypeTraits<BitVector>::One << FieldSFNo_ptrFieldId);
     static const OSG::BitVector FieldSFNo_weakptrFieldMask =
@@ -195,12 +173,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
         (TypeTraits<BitVector>::One << FieldMFPro_weakptrFieldId);
     static const OSG::BitVector FieldMFPro_mpchildptrFieldMask =
         (TypeTraits<BitVector>::One << FieldMFPro_mpchildptrFieldId);
-    static const OSG::BitVector FieldMFPri_ptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldMFPri_ptrFieldId);
-    static const OSG::BitVector FieldMFPri_weakptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldMFPri_weakptrFieldId);
-    static const OSG::BitVector FieldMFPri_mpchildptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldMFPri_mpchildptrFieldId);
     static const OSG::BitVector FieldMFNo_ptrFieldMask =
         (TypeTraits<BitVector>::One << FieldMFNo_ptrFieldId);
     static const OSG::BitVector FieldMFNo_weakptrFieldMask =
@@ -211,16 +183,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
         (TypeTraits<BitVector>::One << FieldSFPub_spchildptrFieldId);
     static const OSG::BitVector FieldSFPro_spchildptrFieldMask =
         (TypeTraits<BitVector>::One << FieldSFPro_spchildptrFieldId);
-    static const OSG::BitVector FieldSFPri_spchildptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldSFPri_spchildptrFieldId);
     static const OSG::BitVector FieldSFNo_spchildptrFieldMask =
         (TypeTraits<BitVector>::One << FieldSFNo_spchildptrFieldId);
     static const OSG::BitVector FieldMFPub_spchildptrFieldMask =
         (TypeTraits<BitVector>::One << FieldMFPub_spchildptrFieldId);
     static const OSG::BitVector FieldMFPro_spchildptrFieldMask =
         (TypeTraits<BitVector>::One << FieldMFPro_spchildptrFieldId);
-    static const OSG::BitVector FieldMFPri_spchildptrFieldMask =
-        (TypeTraits<BitVector>::One << FieldMFPri_spchildptrFieldId);
     static const OSG::BitVector FieldMFNo_spchildptrFieldMask =
         (TypeTraits<BitVector>::One << FieldMFNo_spchildptrFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -472,12 +440,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     EditFieldHandlePtr editHandleFieldSFPro_weakptr(void);
     GetFieldHandlePtr  getHandleFieldSFPro_mpchildptr (void) const;
     EditFieldHandlePtr editHandleFieldSFPro_mpchildptr(void);
-    GetFieldHandlePtr  getHandleFieldSFPri_ptr  (void) const;
-    EditFieldHandlePtr editHandleFieldSFPri_ptr (void);
-    GetFieldHandlePtr  getHandleFieldSFPri_weakptr (void) const;
-    EditFieldHandlePtr editHandleFieldSFPri_weakptr(void);
-    GetFieldHandlePtr  getHandleFieldSFPri_mpchildptr (void) const;
-    EditFieldHandlePtr editHandleFieldSFPri_mpchildptr(void);
     GetFieldHandlePtr  getHandleFieldSFNo_ptr   (void) const;
     EditFieldHandlePtr editHandleFieldSFNo_ptr  (void);
     GetFieldHandlePtr  getHandleFieldSFNo_weakptr (void) const;
@@ -496,12 +458,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     EditFieldHandlePtr editHandleFieldMFPro_weakptr(void);
     GetFieldHandlePtr  getHandleFieldMFPro_mpchildptr (void) const;
     EditFieldHandlePtr editHandleFieldMFPro_mpchildptr(void);
-    GetFieldHandlePtr  getHandleFieldMFPri_ptr  (void) const;
-    EditFieldHandlePtr editHandleFieldMFPri_ptr (void);
-    GetFieldHandlePtr  getHandleFieldMFPri_weakptr (void) const;
-    EditFieldHandlePtr editHandleFieldMFPri_weakptr(void);
-    GetFieldHandlePtr  getHandleFieldMFPri_mpchildptr (void) const;
-    EditFieldHandlePtr editHandleFieldMFPri_mpchildptr(void);
     GetFieldHandlePtr  getHandleFieldMFNo_ptr   (void) const;
     EditFieldHandlePtr editHandleFieldMFNo_ptr  (void);
     GetFieldHandlePtr  getHandleFieldMFNo_weakptr (void) const;
@@ -512,16 +468,12 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     EditFieldHandlePtr editHandleFieldSFPub_spchildptr(void);
     GetFieldHandlePtr  getHandleFieldSFPro_spchildptr (void) const;
     EditFieldHandlePtr editHandleFieldSFPro_spchildptr(void);
-    GetFieldHandlePtr  getHandleFieldSFPri_spchildptr (void) const;
-    EditFieldHandlePtr editHandleFieldSFPri_spchildptr(void);
     GetFieldHandlePtr  getHandleFieldSFNo_spchildptr (void) const;
     EditFieldHandlePtr editHandleFieldSFNo_spchildptr(void);
     GetFieldHandlePtr  getHandleFieldMFPub_spchildptr (void) const;
     EditFieldHandlePtr editHandleFieldMFPub_spchildptr(void);
     GetFieldHandlePtr  getHandleFieldMFPro_spchildptr (void) const;
     EditFieldHandlePtr editHandleFieldMFPro_spchildptr(void);
-    GetFieldHandlePtr  getHandleFieldMFPri_spchildptr (void) const;
-    EditFieldHandlePtr editHandleFieldMFPri_spchildptr(void);
     GetFieldHandlePtr  getHandleFieldMFNo_spchildptr (void) const;
     EditFieldHandlePtr editHandleFieldMFNo_spchildptr(void);
 
@@ -675,122 +627,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    SFUnrecFCDTestFCPtr _sfFieldSFPri_ptr;
-    SFWeakFCDTestFCPtr _sfFieldSFPri_weakptr;
-    SFUnrecChildFCDTestFCPtr _sfFieldSFPri_mpchildptr;
-    MFUnrecFCDTestFCPtr _mfFieldMFPri_ptr;
-    MFWeakFCDTestFCPtr _mfFieldMFPri_weakptr;
-    MFUnrecChildFCDTestFCPtr _mfFieldMFPri_mpchildptr;
-    SFUnrecChildFCDSParTestFCPtr _sfFieldSFPri_spchildptr;
-    MFUnrecChildFCDSParTestFCPtr _mfFieldMFPri_spchildptr;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const SFUnrecFCDTestFCPtr *getSFFieldSFPri_ptr  (void) const;
-                  SFUnrecFCDTestFCPtr *editSFFieldSFPri_ptr (void); 
-            const SFWeakFCDTestFCPtr  *getSFFieldSFPri_weakptr (void) const;
-                  SFWeakFCDTestFCPtr  *editSFFieldSFPri_weakptr(void); 
-            const SFUnrecChildFCDTestFCPtr *getSFFieldSFPri_mpchildptr (void) const;
-                  SFUnrecChildFCDTestFCPtr *editSFFieldSFPri_mpchildptr(void); 
-            const MFUnrecFCDTestFCPtr *getMFFieldMFPri_ptr  (void) const;
-            const MFWeakFCDTestFCPtr  *getMFFieldMFPri_weakptr (void) const;
-            const MFUnrecChildFCDTestFCPtr *getMFFieldMFPri_mpchildptr (void) const;
-            const SFUnrecChildFCDSParTestFCPtr *getSFFieldSFPri_spchildptr (void) const;
-                  SFUnrecChildFCDSParTestFCPtr *editSFFieldSFPri_spchildptr(void); 
-            const MFUnrecChildFCDSParTestFCPtr *getMFFieldMFPri_spchildptr (void) const;
-
-                  FCDTestFC * getFieldSFPri_ptr (void) const;
-
-                  FCDTestFC * getFieldSFPri_weakptr(void) const;
-
-                  FCDTestFC * getFieldSFPri_mpchildptr(void) const;
-
-                  FCDTestFC * getFieldMFPri_ptr (const UInt32 index) const;
-
-                  FCDTestFC * getFieldMFPri_weakptr(const UInt32 index) const;
-
-                  FCDTestFC * getFieldMFPri_mpchildptr(const UInt32 index) const;
-
-                  FCDSParTestFC * getFieldSFPri_spchildptr(void) const;
-
-                  FCDSParTestFC * getFieldMFPri_spchildptr(const UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setFieldSFPri_ptr (FCDTestFC * const value);
-            void setFieldSFPri_weakptr(FCDTestFC * const value);
-            void setFieldSFPri_mpchildptr(FCDTestFC * const value);
-            void setFieldSFPri_spchildptr(FCDSParTestFC * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void pushToFieldMFPri_ptr           (FCDTestFC * const value   );
-    void assignFieldMFPri_ptr          (const MFUnrecFCDTestFCPtr &value);
-    void clearFieldMFPri_ptr            (void                          );
-    void insertIntoFieldMFPri_ptr      (UInt32         uiIndex,
-                                             FCDTestFC * const value   );
-    void replaceInFieldMFPri_ptr  (UInt32         uiIndex,
-                                             FCDTestFC * const value   );
-    void replaceInFieldMFPri_ptr (FCDTestFC * const pOldElem,
-                                             FCDTestFC * const pNewElem);
-    void removeFromFieldMFPri_ptr (UInt32                uiIndex );
-    void removeFromFieldMFPri_ptr(FCDTestFC * const value   );
-
-
-    void pushToFieldMFPri_weakptr           (FCDTestFC * const value   );
-    void assignFieldMFPri_weakptr          (const MFWeakFCDTestFCPtr &value);
-    void clearFieldMFPri_weakptr            (void                          );
-    void insertIntoFieldMFPri_weakptr      (UInt32         uiIndex,
-                                             FCDTestFC * const value   );
-    void replaceInFieldMFPri_weakptr  (UInt32         uiIndex,
-                                             FCDTestFC * const value   );
-    void replaceInFieldMFPri_weakptr (FCDTestFC * const pOldElem,
-                                             FCDTestFC * const pNewElem);
-    void removeFromFieldMFPri_weakptr (UInt32                uiIndex );
-    void removeFromFieldMFPri_weakptr(FCDTestFC * const value   );
-
-
-    void pushToFieldMFPri_mpchildptr           (FCDTestFC * const value   );
-    void assignFieldMFPri_mpchildptr          (const MFUnrecChildFCDTestFCPtr &value);
-    void clearFieldMFPri_mpchildptr            (void                          );
-    void insertIntoFieldMFPri_mpchildptr      (UInt32         uiIndex,
-                                             FCDTestFC * const value   );
-    void replaceInFieldMFPri_mpchildptr  (UInt32         uiIndex,
-                                             FCDTestFC * const value   );
-    void replaceInFieldMFPri_mpchildptr (FCDTestFC * const pOldElem,
-                                             FCDTestFC * const pNewElem);
-    void removeFromFieldMFPri_mpchildptr (UInt32                uiIndex );
-    void removeFromFieldMFPri_mpchildptr(FCDTestFC * const value   );
-
-
-    void pushToFieldMFPri_spchildptr           (FCDSParTestFC * const value   );
-    void assignFieldMFPri_spchildptr          (const MFUnrecChildFCDSParTestFCPtr &value);
-    void clearFieldMFPri_spchildptr            (void                          );
-    void insertIntoFieldMFPri_spchildptr      (UInt32         uiIndex,
-                                             FCDSParTestFC * const value   );
-    void replaceInFieldMFPri_spchildptr  (UInt32         uiIndex,
-                                             FCDSParTestFC * const value   );
-    void replaceInFieldMFPri_spchildptr (FCDSParTestFC * const pOldElem,
-                                             FCDSParTestFC * const pNewElem);
-    void removeFromFieldMFPri_spchildptr (UInt32                uiIndex );
-    void removeFromFieldMFPri_spchildptr(FCDSParTestFC * const value   );
-
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)

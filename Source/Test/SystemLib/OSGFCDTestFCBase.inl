@@ -139,39 +139,6 @@ void FCDTestFCBase::setFieldSFPro(const UInt32 &value)
 
     _sfFieldSFPro.setValue(value);
 }
-//! Get the value of the FCDTestFC::_sfFieldSFPri field.
-
-inline
-UInt32 &FCDTestFCBase::editFieldSFPri(void)
-{
-    editSField(FieldSFPriFieldMask);
-
-    return _sfFieldSFPri.getValue();
-}
-
-//! Get the value of the FCDTestFC::_sfFieldSFPri field.
-inline
-const UInt32 FCDTestFCBase::getFieldSFPri(void) const
-{
-    return _sfFieldSFPri.getValue();
-}
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &FCDTestFCBase::getFieldSFPri     (void)
-{
-    return this->editFieldSFPri     ();
-}
-#endif
-
-//! Set the value of the FCDTestFC::_sfFieldSFPri field.
-inline
-void FCDTestFCBase::setFieldSFPri(const UInt32 &value)
-{
-    editSField(FieldSFPriFieldMask);
-
-    _sfFieldSFPri.setValue(value);
-}
 
 //! Get the value of the \a index element the FCDTestFC::_mfFieldMFPub field.
 inline
@@ -235,37 +202,6 @@ MFUInt32            &FCDTestFCBase::getFieldMFPro     (void)
 #endif
 
 
-//! Get the value of the \a index element the FCDTestFC::_mfFieldMFPri field.
-inline
-const UInt32 FCDTestFCBase::getFieldMFPri(const UInt32 index) const
-{
-    return _mfFieldMFPri[index];
-}
-
-inline
-UInt32 &FCDTestFCBase::editFieldMFPri(const UInt32 index)
-{
-    editMField(FieldMFPriFieldMask, _mfFieldMFPri);
-
-    return _mfFieldMFPri[index];
-}
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &FCDTestFCBase::getFieldMFPri     (const UInt32 index)
-{
-    return this->editFieldMFPri     (index);
-}
-
-inline
-MFUInt32            &FCDTestFCBase::getFieldMFPri     (void)
-{
-    return this->editFieldMFPri     ();
-}
-
-#endif
-
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -283,9 +219,6 @@ void FCDTestFCBase::execSync (      FCDTestFCBase *pFrom,
     if(FieldBits::NoField != (FieldSFProFieldMask & whichField))
         _sfFieldSFPro.syncWith(pFrom->_sfFieldSFPro);
 
-    if(FieldBits::NoField != (FieldSFPriFieldMask & whichField))
-        _sfFieldSFPri.syncWith(pFrom->_sfFieldSFPri);
-
     if(FieldBits::NoField != (FieldSFNoFieldMask & whichField))
         _sfFieldSFNo.syncWith(pFrom->_sfFieldSFNo);
 
@@ -297,12 +230,6 @@ void FCDTestFCBase::execSync (      FCDTestFCBase *pFrom,
 
     if(FieldBits::NoField != (FieldMFProFieldMask & whichField))
         _mfFieldMFPro.syncWith(pFrom->_mfFieldMFPro,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (FieldMFPriFieldMask & whichField))
-        _mfFieldMFPri.syncWith(pFrom->_mfFieldMFPri,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

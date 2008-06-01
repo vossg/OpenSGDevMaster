@@ -67,11 +67,9 @@
 
 #include "OSGUInt32Fields.h" // FieldSFPub type
 #include "OSGUInt32Fields.h" // FieldSFPro type
-#include "OSGUInt32Fields.h" // FieldSFPri type
 #include "OSGUInt32Fields.h" // FieldSFNo type
 #include "OSGUInt32Fields.h" // FieldMFPub type
 #include "OSGUInt32Fields.h" // FieldMFPro type
-#include "OSGUInt32Fields.h" // FieldMFPri type
 #include "OSGUInt32Fields.h" // FieldMFNo type
 
 #include "OSGFCDTestFCFields.h"
@@ -102,12 +100,10 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     {
         FieldSFPubFieldId = Inherited::NextFieldId,
         FieldSFProFieldId = FieldSFPubFieldId + 1,
-        FieldSFPriFieldId = FieldSFProFieldId + 1,
-        FieldSFNoFieldId = FieldSFPriFieldId + 1,
+        FieldSFNoFieldId = FieldSFProFieldId + 1,
         FieldMFPubFieldId = FieldSFNoFieldId + 1,
         FieldMFProFieldId = FieldMFPubFieldId + 1,
-        FieldMFPriFieldId = FieldMFProFieldId + 1,
-        FieldMFNoFieldId = FieldMFPriFieldId + 1,
+        FieldMFNoFieldId = FieldMFProFieldId + 1,
         NextFieldId = FieldMFNoFieldId + 1
     };
 
@@ -115,16 +111,12 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
         (TypeTraits<BitVector>::One << FieldSFPubFieldId);
     static const OSG::BitVector FieldSFProFieldMask =
         (TypeTraits<BitVector>::One << FieldSFProFieldId);
-    static const OSG::BitVector FieldSFPriFieldMask =
-        (TypeTraits<BitVector>::One << FieldSFPriFieldId);
     static const OSG::BitVector FieldSFNoFieldMask =
         (TypeTraits<BitVector>::One << FieldSFNoFieldId);
     static const OSG::BitVector FieldMFPubFieldMask =
         (TypeTraits<BitVector>::One << FieldMFPubFieldId);
     static const OSG::BitVector FieldMFProFieldMask =
         (TypeTraits<BitVector>::One << FieldMFProFieldId);
-    static const OSG::BitVector FieldMFPriFieldMask =
-        (TypeTraits<BitVector>::One << FieldMFPriFieldId);
     static const OSG::BitVector FieldMFNoFieldMask =
         (TypeTraits<BitVector>::One << FieldMFNoFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -278,16 +270,12 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     EditFieldHandlePtr editHandleFieldSFPub     (void);
     GetFieldHandlePtr  getHandleFieldSFPro      (void) const;
     EditFieldHandlePtr editHandleFieldSFPro     (void);
-    GetFieldHandlePtr  getHandleFieldSFPri      (void) const;
-    EditFieldHandlePtr editHandleFieldSFPri     (void);
     GetFieldHandlePtr  getHandleFieldSFNo       (void) const;
     EditFieldHandlePtr editHandleFieldSFNo      (void);
     GetFieldHandlePtr  getHandleFieldMFPub      (void) const;
     EditFieldHandlePtr editHandleFieldMFPub     (void);
     GetFieldHandlePtr  getHandleFieldMFPro      (void) const;
     EditFieldHandlePtr editHandleFieldMFPro     (void);
-    GetFieldHandlePtr  getHandleFieldMFPri      (void) const;
-    EditFieldHandlePtr editHandleFieldMFPri     (void);
     GetFieldHandlePtr  getHandleFieldMFNo       (void) const;
     EditFieldHandlePtr editHandleFieldMFNo      (void);
 
@@ -370,45 +358,6 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    SFUInt32          _sfFieldSFPri;
-    MFUInt32          _mfFieldMFPri;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-
-                  SFUInt32            *editSFFieldSFPri     (void);
-            const SFUInt32            *getSFFieldSFPri      (void) const;
-
-                  MFUInt32            *editMFFieldMFPri     (void);
-            const MFUInt32            *getMFFieldMFPri      (void) const;
-
-                  UInt32              &editFieldSFPri     (void);
-            const UInt32               getFieldSFPri     (void) const;
-
-                  UInt32              &editFieldMFPri     (const UInt32 index);
-            const UInt32               getFieldMFPri      (const UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setFieldSFPri     (const UInt32 &value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
