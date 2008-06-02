@@ -52,13 +52,13 @@ class VecStorage3;
 template <class ValueTypeT>
 class VecStorage4;
 
-template<class ValueTypeT, class StorageInterfaceT>
-class PointInterface;
+template<class ValueTypeT, UInt32 SizeI>
+class Point;
 
-template<class ValueTypeT, class StorageInterfaceT>
-class VectorInterface;
+template<class ValueTypeT, UInt32 SizeI>
+class Vector;
 
-typedef PointInterface< Real32, VecStorage3<Real32> > Pnt3f;
+typedef Point< Real32, 3 > Pnt3f;
 
 OSG_END_NAMESPACE
 

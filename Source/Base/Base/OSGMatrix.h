@@ -79,19 +79,15 @@ class TransformationMatrix
     /*! \name                    Types                                     */
     /*! \{                                                                 */
 
-    typedef                 ValueTypeT                ValueType;
-    typedef VectorInterface<ValueTypeT,
-                            VecStorage4<ValueTypeT> > VectorType;
+    typedef                 ValueTypeT     ValueType;
+    typedef Vector         <ValueTypeT, 4> VectorType;
 
-    typedef QuaternionBase <ValueType>                QuaternionType;
+    typedef QuaternionBase <ValueType>     QuaternionType;
 
-    typedef VectorInterface<ValueTypeT,
-                            VecStorage3<ValueTypeT> > VectorType3f;
+    typedef Vector         <ValueTypeT, 3> VectorType3f;
 
-    typedef PointInterface <ValueTypeT,
-                            VecStorage4<ValueTypeT>  > PointType;
-    typedef PointInterface <ValueTypeT,
-                            VecStorage3<ValueTypeT>  > PointType3f;
+    typedef Point          <ValueTypeT, 4> PointType;
+    typedef Point          <ValueTypeT, 3> PointType3f;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

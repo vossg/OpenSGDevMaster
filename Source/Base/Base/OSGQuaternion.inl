@@ -41,14 +41,11 @@ OSG_BEGIN_NAMESPACE
 /*! \class QuaternionBase
  */
 
-/*! \typedef VectorInterface <ValueTypeT,                   \
-                              VecStorage3<ValueTypeT> >     \
-     QuaternionBase::VectorType
+/*! \typedef Vector<ValueTypeT, 3> QuaternionBase::VectorType
     \brief Quaternion vector type
 */
 
-/*! \typedef TransformationMatrix<ValueTypeT>               \
-     QuaternionBase::MatrixType;
+/*! \typedef TransformationMatrix<ValueTypeT> QuaternionBase::MatrixType;
     \brief Quaternion matrix type
 */
 

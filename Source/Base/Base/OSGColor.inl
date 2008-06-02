@@ -246,8 +246,8 @@ Color3<ValueTypeT>::Color3(void)
 
 template <class ValueTypeT> inline
 Color3<ValueTypeT>::Color3(const 
-        VectorInterface<ValueTypeT, VecStorage3<ValueTypeT> > &source) :
-    VectorInterface<ValueTypeT, VecStorage3<ValueTypeT> >(source)
+        Vector<ValueTypeT, 3> &source) :
+    Inherited(source)
 {
 }
 
@@ -422,8 +422,8 @@ Color4<ValueTypeT>::Color4(void)
 
 template <class ValueTypeT> inline
 Color4<ValueTypeT>::Color4(const 
-        VectorInterface<ValueTypeT, VecStorage4<ValueTypeT> > &source) :
-    VectorInterface<ValueTypeT, VecStorage4<ValueTypeT> >(source)
+        Vector<ValueTypeT, 4> &source) :
+    Inherited(source)
 {
 }
 

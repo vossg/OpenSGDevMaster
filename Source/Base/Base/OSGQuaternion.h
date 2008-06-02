@@ -66,11 +66,10 @@ class QuaternionBase
     /*! \name                    Types                                     */
     /*! \{                                                                 */
 
-    typedef VectorInterface     <ValueTypeT,
-                                 VecStorage3<ValueTypeT> > VectorType;
-    typedef TransformationMatrix<ValueTypeT>               MatrixType;
+    typedef Vector              <ValueTypeT, 3> VectorType;
+    typedef TransformationMatrix<ValueTypeT   > MatrixType;
 
-    typedef ValueTypeT                                     ValueType;
+    typedef ValueTypeT                          ValueType;
 
     static const UInt32 _uiSize = 4;
 

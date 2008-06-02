@@ -51,13 +51,14 @@ OSG_BEGIN_NAMESPACE
  */
 
 template <class ValueTypeT>
-class Color3 : public VectorInterface< ValueTypeT, VecStorage3<ValueTypeT> >
+class Color3 : public Vector<ValueTypeT, 3>
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ValueTypeT ValueType;
+    typedef ValueTypeT            ValueType;
+    typedef Vector<ValueTypeT, 3> Inherited;
 
     static const Color3 Null;
 
@@ -84,12 +85,11 @@ class Color3 : public VectorInterface< ValueTypeT, VecStorage3<ValueTypeT> >
     /*! \name                      Constructors                            */
     /*! \{                                                                 */
 
-    Color3(      void             );
-    Color3(const VectorInterface< ValueTypeT, VecStorage3<ValueTypeT> >    
-                 &source);
-    Color3(      ValueType  red,
-                 ValueType  green,
-                 ValueType  blue  );
+    Color3(      void                         );
+    Color3(const Vector<ValueTypeT, 3> &source);
+    Color3(      ValueType              red,
+                 ValueType              green,
+                 ValueType              blue  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,12 +156,13 @@ class Color3 : public VectorInterface< ValueTypeT, VecStorage3<ValueTypeT> >
  */
 
 template <class ValueTypeT>
-class Color4 : public VectorInterface< ValueTypeT, VecStorage4<ValueTypeT> >
+class Color4 : public Vector< ValueTypeT, 4 >
 {
     /*==========================  PUBLIC  =================================*/ 
   public:
 
-    typedef ValueTypeT ValueType;
+    typedef ValueTypeT            ValueType;
+    typedef Vector<ValueTypeT, 4> Inherited;
 
     static const Color4 Null;
 
@@ -169,13 +170,12 @@ class Color4 : public VectorInterface< ValueTypeT, VecStorage4<ValueTypeT> >
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    Color4(      void             );
-    Color4(const VectorInterface< ValueTypeT, VecStorage4<ValueTypeT> >
-                    &source);
-    Color4(const ValueType  red,
-           const ValueType  green,
-           const ValueType  blue,
-           const ValueType  alpha );
+    Color4(      void                           );
+    Color4(const Vector< ValueTypeT, 4 > &source);
+    Color4(const ValueType                red,
+           const ValueType                green,
+           const ValueType                blue,
+           const ValueType                alpha );
 
     
     /*! \}                                                                 */

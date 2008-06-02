@@ -284,7 +284,7 @@ Vectors are the most common class, and they should behave like every other
 vector library on the planet. They are templated to simplify having variants,
 and the standard ones that are available are Vec4ub, Vec2us, Vec2s, Vec2f,
 Vec3s, Vec3f and Vec4f. They have operators for the scalar operations, and
-methods for everything else, see the doxygen docs for OSG::VectorInterface for
+methods for everything else, see the doxygen docs for OSG::Vector for
 details. Conceptually, the 3 element vector has a w coordinate of 0, thus
 there is no full matrix multiplication for vectors.
 

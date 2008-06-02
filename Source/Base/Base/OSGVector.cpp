@@ -61,234 +61,177 @@ OSG_USING_NAMESPACE
 #ifdef darwinXXX
 
 template <>
-const VectorInterface< UInt8, VecStorage1<UInt8> >
-    VectorInterface< UInt8, VecStorage1<UInt8> >::Null(0);
+const Vector< UInt8, 1 > Vector< UInt8, 1 >::Null(0);
 
 template <>
-const VectorInterface< UInt8, VecStorage2<UInt8> >
-    VectorInterface< UInt8, VecStorage2<UInt8> >::Null(0, 0);
+const Vector< UInt8, 2 > Vector< UInt8, 2 >::Null(0, 0);
 
 template <>
-const VectorInterface< UInt8, VecStorage3<UInt8> >
-    VectorInterface< UInt8, VecStorage3<UInt8> >::Null(0, 0, 0);
+const Vector< UInt8, 3 > Vector< UInt8, 3 >::Null(0, 0, 0);
 
 template <>
-const VectorInterface< UInt8, VecStorage4<UInt8> >
-    VectorInterface< UInt8, VecStorage4<UInt8> >::Null(0, 0, 0, 1);
+const Vector< UInt8, 4 > Vector< UInt8, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const VectorInterface< Int8, VecStorage1<Int8> >
-    VectorInterface< Int8, VecStorage1<Int8> >::Null(0);
+const Vector< Int8, 1 >  Vector< Int8, 1 >::Null(0);
 
 template <>
-const VectorInterface< Int8, VecStorage2<Int8> >
-    VectorInterface< Int8, VecStorage2<Int8> >::Null(0, 0);
+const Vector< Int8, 2 > Vector< Int8, 2 >::Null(0, 0);
 
 template <>
-const VectorInterface< Int8, VecStorage3<Int8> >
-    VectorInterface< Int8, VecStorage3<Int8> >::Null(0, 0, 0);
+const Vector< Int8, 3 > Vector< Int8, 3 >::Null(0, 0, 0);
 
 template <>
-const VectorInterface< Int8, VecStorage4<Int8> >
-    VectorInterface< Int8, VecStorage4<Int8> >::Null(0, 0, 0, 1);
+const Vector< Int8, 4 > Vector< Int8, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const VectorInterface< UInt16, VecStorage1<UInt16> >
-    VectorInterface< UInt16, VecStorage1<UInt16> >::Null(0);
+const Vector< UInt16, 1 > Vector< UInt16, 1 >::Null(0);
 
 template <>
-const VectorInterface< UInt16, VecStorage2<UInt16> >
-    VectorInterface< UInt16, VecStorage2<UInt16> >::Null(0, 0);
+const Vector< UInt16, 2 > Vector< UInt16, 2 >::Null(0, 0);
 
 template <>
-const VectorInterface< UInt16, VecStorage3<UInt16> >
-    VectorInterface< UInt16, VecStorage3<UInt16> >::Null(0, 0, 0);
+const Vector< UInt16, 3 > Vector< UInt16, 3 >::Null(0, 0, 0);
 
 template <>
-const VectorInterface< UInt16, VecStorage4<UInt16> >
-    VectorInterface< UInt16, VecStorage4<UInt16> >::Null(0, 0, 0, 1);
+const Vector< UInt16, 4 > Vector< UInt16, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const VectorInterface< Int16, VecStorage1<Int16> >
-    VectorInterface< Int16, VecStorage1<Int16> >::Null(0);
+const Vector< Int16, 1 > Vector< Int16, 1 >::Null(0);
 
 template <>
-const VectorInterface< Int16, VecStorage2<Int16> >
-    VectorInterface< Int16, VecStorage2<Int16> >::Null(0, 0);
+const Vector< Int16, 2 > Vector< Int16, 2 >::Null(0, 0);
 
 template <>
-const VectorInterface< Int16, VecStorage3<Int16> >
-    VectorInterface< Int16, VecStorage3<Int16> >::Null(0, 0, 0);
+const Vector< Int16, 3 > Vector< Int16, 3 >::Null(0, 0, 0);
 
 template <>
-const VectorInterface< Int16, VecStorage4<Int16> >
-    VectorInterface< Int16, VecStorage4<Int16> >::Null(0, 0, 0, 1);
+const Vector< Int16, 4 > Vector< Int16, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const VectorInterface< Real32, VecStorage1<Real32> >
-    VectorInterface< Real32, VecStorage1<Real32> >::Null(0.f);
+const Vector< Real32, 1 > Vector< Real32, 1 >::Null(0.f);
 
 template <>
-const VectorInterface< Real32, VecStorage2<Real32> >
-    VectorInterface< Real32, VecStorage2<Real32> >::Null(0.f, 0.f);
+const Vector< Real32, 2 > Vector< Real32, 2 >::Null(0.f, 0.f);
 
 template <>
-const VectorInterface< Real32, VecStorage3<Real32> >
-    VectorInterface< Real32, VecStorage3<Real32> >::Null(0.f, 0.f, 0.f);
+const Vector< Real32, 3 > Vector< Real32, 3 >::Null(0.f, 0.f, 0.f);
 
 template <>
-const VectorInterface< Real32, VecStorage4<Real32> >
-    VectorInterface< Real32, VecStorage4<Real32> >::Null(0.f, 0.f, 0.f, 1.f);
+const Vector< Real32, 4 > Vector< Real32, 4 >::Null(0.f, 0.f, 0.f, 1.f);
 
 template <>
-const VectorInterface< Real64, VecStorage1<Real64> >
-    VectorInterface< Real64, VecStorage1<Real64> >::Null(0.);
+const Vector< Real64, 1 > Vector< Real64, 1 >::Null(0.);
 
 template <>
-const VectorInterface< Real64, VecStorage2<Real64> >
-    VectorInterface< Real64, VecStorage2<Real64> >::Null(0., 0.);
+const Vector< Real64, 2 > Vector< Real64, 2 >::Null(0., 0.);
 
 template <>
-const VectorInterface< Real64, VecStorage3<Real64> >
-    VectorInterface< Real64, VecStorage3<Real64> >::Null(0., 0., 0.);
+const Vector< Real64, 3 > Vector< Real64, 3 >::Null(0., 0., 0.);
 
 template <>
-const VectorInterface< Real64, VecStorage4<Real64> >
-    VectorInterface< Real64, VecStorage4<Real64> >::Null(0., 0., 0., 1.);
+const Vector< Real64, 4 > Vector< Real64, 4 >::Null(0., 0., 0., 1.);
 
 template <>
-const VectorInterface< Real128, VecStorage1<Real128> >
-    VectorInterface< Real128, VecStorage1<Real128> >::Null(0.);
+const Vector< Real128, 1 > Vector< Real128, 1 >::Null(0.);
 
 template <>
-const VectorInterface< Real128, VecStorage2<Real128> >
-    VectorInterface< Real128, VecStorage2<Real128> >::Null(0., 0.);
+const Vector< Real128, 2 > Vector< Real128, 2 >::Null(0., 0.);
 
 template <>
-const VectorInterface< Real128, VecStorage3<Real128> >
-    VectorInterface< Real128, VecStorage3<Real128> >::Null(0., 0., 0.);
+const Vector< Real128, 3 > Vector< Real128, 3 >::Null(0., 0., 0.);
 
 template <>
-const VectorInterface< Real128, VecStorage4<Real128> >
-    VectorInterface< Real128, VecStorage4<Real128> >::Null(0., 0., 0., 1.);
+const Vector< Real128, 4 > Vector< Real128, 4 >::Null(0., 0., 0., 1.);
 
 
 
 template <>
-const PointInterface< UInt8, VecStorage1<UInt8> >
-    PointInterface< UInt8, VecStorage1<UInt8> >::Null(0);
+const Point< UInt8, 1 > Point< UInt8, 1 >::Null(0);
 
 template <>
-const PointInterface< UInt8, VecStorage2<UInt8> >
-    PointInterface< UInt8, VecStorage2<UInt8> >::Null(0, 0);
+const Point< UInt8, 2 > Point< UInt8, 2 >::Null(0, 0);
 
 template <>
-const PointInterface< UInt8, VecStorage3<UInt8> >
-    PointInterface< UInt8, VecStorage3<UInt8> >::Null(0, 0, 0);
+const Point< UInt8, 3 > Point< UInt8, 3 >::Null(0, 0, 0);
 
 template <>
-const PointInterface< UInt8, VecStorage4<UInt8> >
-    PointInterface< UInt8, VecStorage4<UInt8> >::Null(0, 0, 0, 1);
+const Point< UInt8, 4 > Point< UInt8, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const PointInterface< Int8, VecStorage1<Int8> >
-    PointInterface< Int8, VecStorage1<Int8> >::Null(0);
+const Point< Int8, 1 > Point< Int8, 1 >::Null(0);
 
 template <>
-const PointInterface< Int8, VecStorage2<Int8> >
-    PointInterface< Int8, VecStorage2<Int8> >::Null(0, 0);
+const Point< Int8, 2 > Point< Int8, 2 >::Null(0, 0);
 
 template <>
-const PointInterface< Int8, VecStorage3<Int8> >
-    PointInterface< Int8, VecStorage3<Int8> >::Null(0, 0, 0);
+const Point< Int8, 3 > Point< Int8, 3 >::Null(0, 0, 0);
 
 template <>
-const PointInterface< Int8, VecStorage4<Int8> >
-    PointInterface< Int8, VecStorage4<Int8> >::Null(0, 0, 0, 1);
+const Point< Int8, 4 > Point< Int8, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const PointInterface< UInt16, VecStorage1<UInt16> >
-    PointInterface< UInt16, VecStorage1<UInt16> >::Null(0);
+const Point< UInt16, 1 > Point< UInt16, 1 >::Null(0);
 
 template <>
-const PointInterface< UInt16, VecStorage2<UInt16> >
-    PointInterface< UInt16, VecStorage2<UInt16> >::Null(0, 0);
+const Point< UInt16, 2 > Point< UInt16, 2 >::Null(0, 0);
 
 template <>
-const PointInterface< UInt16, VecStorage3<UInt16> >
-    PointInterface< UInt16, VecStorage3<UInt16> >::Null(0, 0, 0);
+const Point< UInt16, 3 > Point< UInt16, 3 >::Null(0, 0, 0);
 
 template <>
-const PointInterface< UInt16, VecStorage4<UInt16> >
-    PointInterface< UInt16, VecStorage4<UInt16> >::Null(0, 0, 0, 1);
+const Point< UInt16, 4 > Point< UInt16, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const PointInterface< Int16, VecStorage1<Int16> >
-    PointInterface< Int16, VecStorage1<Int16> >::Null(0);
+const Point< Int16, 1 > Point< Int16, 1 >::Null(0);
 
 template <>
-const PointInterface< Int16, VecStorage2<Int16> >
-    PointInterface< Int16, VecStorage2<Int16> >::Null(0, 0);
+const Point< Int16, 2 > Point< Int16, 2 >::Null(0, 0);
 
 template <>
-const PointInterface< Int16, VecStorage3<Int16> >
-    PointInterface< Int16, VecStorage3<Int16> >::Null(0, 0, 0);
+const Point< Int16, 3 > Point< Int16, 3 >::Null(0, 0, 0);
 
 template <>
-const PointInterface< Int16, VecStorage4<Int16> >
-    PointInterface< Int16, VecStorage4<Int16> >::Null(0, 0, 0, 1);
+const Point< Int16, 4 > Point< Int16, 4 >::Null(0, 0, 0, 1);
 
 template <>
-const PointInterface< Real32, VecStorage1<Real32> >
-    PointInterface< Real32, VecStorage1<Real32> >::Null(0.f);
+const Point< Real32, 1 > Point< Real32, 1 >::Null(0.f);
 
 template <>
-const PointInterface< Real32, VecStorage2<Real32> >
-    PointInterface< Real32, VecStorage2<Real32> >::Null(0.f, 0.f);
+const Point< Real32, 2 > Point< Real32, 2 >::Null(0.f, 0.f);
 
 template <>
-const PointInterface< Real32, VecStorage3<Real32> >
-    PointInterface< Real32, VecStorage3<Real32> >::Null(0.f, 0.f, 0.f);
+const Point< Real32, 3 > Point< Real32, 3 >::Null(0.f, 0.f, 0.f);
 
 template <>
-const PointInterface< Real32, VecStorage4<Real32> >
-    PointInterface< Real32, VecStorage4<Real32> >::Null(0.f, 0.f, 0.f, 1.f);
+const Point< Real32, 4 > Point< Real32, 4 >::Null(0.f, 0.f, 0.f, 1.f);
 
 template <>
-const PointInterface< Real64, VecStorage1<Real64> >
-    PointInterface< Real64, VecStorage1<Real64> >::Null(0.);
+const Point< Real64, 1 > Point< Real64, 1 >::Null(0.);
 
 template <>
-const PointInterface< Real64, VecStorage2<Real64> >
-    PointInterface< Real64, VecStorage2<Real64> >::Null(0., 0.);
+const Point< Real64, 2 > Point< Real64, 2 >::Null(0., 0.);
 
 template <>
-const PointInterface< Real64, VecStorage3<Real64> >
-    PointInterface< Real64, VecStorage3<Real64> >::Null(0., 0., 0.);
+const Point< Real64, 3 > Point< Real64, 3 >::Null(0., 0., 0.);
 
 template <>
-const PointInterface< Real64, VecStorage4<Real64> >
-    PointInterface< Real64, VecStorage4<Real64> >::Null(0., 0., 0., 1.);
+const Point< Real64, 4 > Point< Real64, 4 >::Null(0., 0., 0., 1.);
 
 template <>
-const PointInterface< Real128, VecStorage1<Real128> >
-    PointInterface< Real128, VecStorage1<Real128> >::Null(0.);
+const Point< Real128, 1 > Point< Real128, 1 >::Null(0.);
 
 template <>
-const PointInterface< Real128, VecStorage2<Real128> >
-    PointInterface< Real128, VecStorage2<Real128> >::Null(0., 0.);
+const Point< Real128, 2 > Point< Real128, 2 >::Null(0., 0.);
 
 template <>
-const PointInterface< Real128, VecStorage3<Real128> >
-    PointInterface< Real128, VecStorage3<Real128> >::Null(0., 0., 0.);
+const Point< Real128, 3 > Point< Real128, 3 >::Null(0., 0., 0.);
 
 template <>
-const PointInterface< Real128, VecStorage4<Real128> >
-    PointInterface< Real128, VecStorage4<Real128> >::Null(0., 0., 0., 1.);
+const Point< Real128, 4 > Point< Real128, 4 >::Null(0., 0., 0., 1.);
 
 /*
 template <>
-const PointInterface<>
-    PointInterface<>::Null;
+const Point<> Point<>::Null;
     */
 #endif
