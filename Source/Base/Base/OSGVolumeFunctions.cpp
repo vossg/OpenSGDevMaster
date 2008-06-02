@@ -710,14 +710,37 @@ bool intersect(const FrustumVolume &frustum, const Volume &vol)
 // # Volume Extend Functions #########################################
 // ###################################################################
 
-
-OSG_BASE_DLLMAPPING 
-void extend(Volume &OSG_CHECK_ARG(srcVol), const Volume &OSG_CHECK_ARG(vol))
+OSG_BASE_DLLMAPPING
+void extend(Volume &srcVol, const Volume &vol)
 {
-    FFATAL(("extend (frustum/volume) is not impl.\n"));
-    return;
-}
+    DynamicVolume  *dv  = dynamic_cast<DynamicVolume *>(&srcVol);
+    Volume         *v   = dv ? &(dv->getInstance()) : &srcVol;
+    BoxVolume      *bv;
+    SphereVolume   *sv;
+    CylinderVolume *cv;
+    FrustumVolume  *fv;
 
+    if((bv = dynamic_cast<BoxVolume *>(v)) != NULL)
+    {
+        extend(*bv, vol);
+    }
+    else if((sv = dynamic_cast<SphereVolume   *>(v)) != NULL)
+    {
+        extend(*sv, vol);
+    }
+    else if((cv = dynamic_cast<CylinderVolume *>(v)) != NULL)
+    {
+        extend(*cv, vol);
+    }
+    else if((fv = dynamic_cast<FrustumVolume  *>(v)) != NULL)
+    {
+        extend(*fv, vol);
+    }
+    else
+    {
+        FWARNING(("extend(Volume, Volume): Argument 1 has unhandled type.\n"));
+    }
+}
 
 // # Box #############################################################
 
@@ -878,36 +901,37 @@ void extend(      BoxVolume     &OSG_CHECK_ARG(srcVol),
 #   pragma set woff 1174, 1552
 #endif
 
-
 OSG_BASE_DLLMAPPING 
 void extend(BoxVolume &srcVol, const Volume &vol)
 {
-    const Volume        *v       = &vol;
-    const BoxVolume     *box;
-    const DynamicVolume *dynamic = dynamic_cast<const DynamicVolume *>(v);
+    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
+    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
+    const BoxVolume      *bv;
+    const SphereVolume   *sv;
+    const CylinderVolume *cv;
+    const FrustumVolume  *fv;
 
-    if(dynamic)
+    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
     {
-        v = &(dynamic->getInstance());
+        extend(srcVol, *bv);
     }
-
-    if((box = dynamic_cast<const BoxVolume *>(v)))
+    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
     {
-        OSG::extend(srcVol, *box);
+        extend(srcVol, *sv);
+    }
+    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *cv);
+    }
+    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *fv);
     }
     else
     {
-        BoxVolume   localBox;
-        Pnt3r       min, max;
-
-        v->getBounds(min, max);
-
-        localBox.setBounds(min, max);
-
-        OSG::extend(srcVol, localBox);
+        FWARNING(("extend(BoxVolume, Volume): Argument 2 has unhandled type.\n"));
     }
 }
-
 
 #ifdef __sgi
 #   pragma reset woff 1174, 1552
@@ -1109,39 +1133,33 @@ void extend(      SphereVolume  &OSG_CHECK_ARG(srcVol),
 OSG_BASE_DLLMAPPING 
 void extend(SphereVolume &srcVol, const Volume &vol)
 {
-    const Volume        *v       = &vol;
-    const SphereVolume  *sphere;
-    const DynamicVolume *dynamic = dynamic_cast<const DynamicVolume *>(v);
+    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
+    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
+    const BoxVolume      *bv;
+    const SphereVolume   *sv;
+    const CylinderVolume *cv;
+    const FrustumVolume  *fv;
 
-    if(dynamic)
+    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
     {
-        v = &(dynamic->getInstance());
+        extend(srcVol, *bv);
     }
-
-    if((sphere = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
     {
-        OSG::extend(srcVol, *sphere);
+        extend(srcVol, *sv);
+    }
+    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *cv);
+    }
+    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *fv);
     }
     else
     {
-        SphereVolume localSphere;
-        Pnt3r        min, max, c;
-        Real         r;
-
-        v->getBounds(min, max);
-
-        c = Pnt3r((min.x() + max.x()) * 0.5f, 
-                  (min.y() + max.y()) * 0.5f,
-                  (min.z() + max.z()) * 0.5f);
-
-        r = ((max - min).length()) * 0.5f;
-
-        localSphere.setValue(c, r);
-
-        OSG::extend(srcVol, localSphere);
+        FWARNING(("extend(SphereVolume, Volume): Argument 2 has unhandled type.\n"));
     }
-
-    return;
 }
 
 
@@ -1351,41 +1369,33 @@ void extend(      CylinderVolume &OSG_CHECK_ARG(srcVol),
 OSG_BASE_DLLMAPPING 
 void extend(CylinderVolume &srcVol, const Volume &vol)
 {
-    const Volume         *v       = &vol;
-    const CylinderVolume *cylinder;
-    const DynamicVolume  *dynamic = dynamic_cast<const DynamicVolume *>(v);
+    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
+    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
+    const BoxVolume      *bv;
+    const SphereVolume   *sv;
+    const CylinderVolume *cv;
+    const FrustumVolume  *fv;
 
-    if(dynamic)
+    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
     {
-        v = &(dynamic->getInstance());
+        extend(srcVol, *bv);
     }
-
-    if((cylinder = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
     {
-        OSG::extend(srcVol, *cylinder);
+        extend(srcVol, *sv);
+    }
+    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *cv);
+    }
+    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *fv);
     }
     else
     {
-        CylinderVolume localCylinder;
-        Pnt3r          min, max, apos;
-        Vec3r          adir;
-        Real           r;
-        Vec2r          p;
-
-        v->getBounds(min, max);
-
-        p = Vec2r(max.x() - min.x(), max.y() - min.y());
-        r = (p.length()) * 0.5f;
-
-        adir = Vec3r(0.f, 0.f, max.z() - min.z());
-        apos = Pnt3r(p.x(), p.y(), min.z());
-
-        localCylinder.setValue(apos, adir, r);
-
-        OSG::extend(srcVol, localCylinder);
+        FWARNING(("extend(CylinderVolume, Volume): Argument 2 has unhandled type.\n"));
     }
-
-    return;
 }
 
 
@@ -1428,11 +1438,36 @@ void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol),
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol),
-            const Volume        &OSG_CHECK_ARG(vol   ))
+void extend(      FrustumVolume &srcVol,
+            const Volume        &vol    )
 {
-    FFATAL(("extend (frustum/volume) is not impl.\n"));
-    return;
+    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
+    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
+    const BoxVolume      *bv;
+    const SphereVolume   *sv;
+    const CylinderVolume *cv;
+    const FrustumVolume  *fv;
+
+    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *bv);
+    }
+    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *sv);
+    }
+    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *cv);
+    }
+    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    {
+        extend(srcVol, *fv);
+    }
+    else
+    {
+        FWARNING(("extend(FrustumVolume, Volume): Argument 2 has unhandled type.\n"));
+    }
 }
 
 OSG_END_NAMESPACE
