@@ -95,5 +95,11 @@ UInt32 State::getSortKey(UInt32 uiKeyGen)
     return _uiSortKey;
 }
 
+inline
+const MFUnrecStateChunkPtr *State::getMFChunks(void) const
+{
+    return &_mfChunks;
+}
+
 OSG_END_NAMESPACE
 

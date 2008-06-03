@@ -92,6 +92,84 @@ ChunkMaterial::~ChunkMaterial(void)
 {
 }
 
+void ChunkMaterial::pushToChunks(StateChunk * const value)
+{
+    editMField(ChunksFieldMask, _mfChunks);
+
+    _mfChunks.push_back(value);
+}
+
+#if 0
+void ChunkMaterial::assignChunks   (const MFUnrecStateChunkPtr &value)
+{
+    MFUnrecStateChunkPtr::const_iterator elemIt  =
+        value.begin();
+    MFUnrecStateChunkPtr::const_iterator elemEnd =
+        value.end  ();
+
+    static_cast<ChunkMaterial *>(this)->clearChunks();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToChunks(*elemIt);
+
+        ++elemIt;
+    }
+}
+#endif
+
+void ChunkMaterial::removeFromChunks(UInt32 uiIndex)
+{
+    if(uiIndex < _mfChunks.size())
+    {
+        editMField(ChunksFieldMask, _mfChunks);
+
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
+
+        fieldIt += uiIndex;
+
+        _mfChunks.erase(fieldIt);
+
+        if(uiIndex < _mfSlots.size())
+        {
+            editMField(SlotsFieldMask,  _mfSlots );
+            
+            MFInt32::iterator slotIt  = _mfSlots.begin();
+
+            slotIt  += uiIndex;
+
+            _mfSlots.erase(slotIt);
+        }
+    }
+}
+
+void ChunkMaterial::removeFromChunks(StateChunk * const value)
+{
+    Int32 iElemIdx = _mfChunks.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ChunksFieldMask, _mfChunks);
+
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
+
+        fieldIt += iElemIdx;
+
+        _mfChunks.erase(fieldIt);
+
+        if(iElemIdx < _mfSlots.size())
+        {
+            editMField(SlotsFieldMask,  _mfSlots );
+            
+            MFInt32::iterator slotIt  = _mfSlots.begin();
+
+            slotIt  += iElemIdx;
+
+            _mfSlots.erase(slotIt);
+        }
+    }
+}
+
 void ChunkMaterial::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
@@ -233,16 +311,6 @@ void ChunkMaterial::clearChunks(void)
 {
     editMField(ChunksFieldMask, _mfChunks);
     editMField(SlotsFieldMask,  _mfSlots );
-
-//    MFStateChunkPtr::iterator       fieldIt  = _mfChunks.begin();
-//    MFStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
-
-//    while(fieldIt != fieldEnd)
-//    {
-//        subRef(*fieldIt);
-//
-//        ++fieldIt;
-//    }
 
     _mfChunks.clear();
     _mfSlots .clear();

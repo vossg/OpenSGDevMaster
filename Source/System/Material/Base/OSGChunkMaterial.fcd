@@ -24,6 +24,7 @@ field's functions.
 		cardinality="multi"
 		visibility="external"
         access="protected"
+        ptrFieldAccess = "custom"
 	>
 	</Field>
 	<Field

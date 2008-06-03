@@ -167,6 +167,7 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "        access=\"protected\"\n"
+    "        ptrFieldAccess = \"custom\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -215,13 +216,6 @@ const MFUnrecStateChunkPtr *ChunkMaterialBase::getMFChunks(void) const
     return &_mfChunks;
 }
 
-MFUnrecStateChunkPtr *ChunkMaterialBase::editMFChunks         (void)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-    return &_mfChunks;
-}
-
 MFInt32 *ChunkMaterialBase::editMFSlots(void)
 {
     editMField(SlotsFieldMask, _mfSlots);
@@ -243,66 +237,6 @@ MFInt32             *ChunkMaterialBase::getMFSlots          (void)
 
 
 
-void ChunkMaterialBase::pushToChunks(StateChunk * const value)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-    _mfChunks.push_back(value);
-}
-
-void ChunkMaterialBase::assignChunks   (const MFUnrecStateChunkPtr &value)
-{
-    MFUnrecStateChunkPtr::const_iterator elemIt  =
-        value.begin();
-    MFUnrecStateChunkPtr::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<ChunkMaterial *>(this)->clearChunks();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToChunks(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void ChunkMaterialBase::removeFromChunks(UInt32 uiIndex)
-{
-    if(uiIndex < _mfChunks.size())
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfChunks.erase(fieldIt);
-    }
-}
-
-void ChunkMaterialBase::removeFromChunks(StateChunk * const value)
-{
-    Int32 iElemIdx = _mfChunks.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfChunks.erase(fieldIt);
-    }
-}
-void ChunkMaterialBase::clearChunks(void)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-
-    _mfChunks.clear();
-}
 
 
 

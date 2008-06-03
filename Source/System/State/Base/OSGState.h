@@ -202,6 +202,13 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
+    const MFUnrecStateChunkPtr *getMFChunks(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
@@ -213,6 +220,7 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
 
     friend class FieldContainer;
     friend class StateBase;
+    friend class DrawEnv;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const State &source);

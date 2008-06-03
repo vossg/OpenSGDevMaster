@@ -214,7 +214,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \{                                                                 */
 
             const MFUnrecStateChunkPtr *getMFChunks          (void) const;
-                  MFUnrecStateChunkPtr *editMFChunks         (void);
 
                   MFInt32             *editMFSlots          (void);
             const MFInt32             *getMFSlots           (void) const;
@@ -235,13 +234,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToChunks              (StateChunk * const value   );
-    void assignChunks              (const MFUnrecStateChunkPtr &value);
-    void removeFromChunks (UInt32                uiIndex );
-    void removeFromChunks(StateChunk * const value   );
-    void clearChunks                (void                          );
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -122,40 +122,6 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const MFUnrecStateChunkPtr *getMFChunks         (void) const;
-                  MFUnrecStateChunkPtr *editMFChunks         (void);
-
-
-                  StateChunk * getChunks         (const UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void pushToChunks              (StateChunk * const value   );
-    void assignChunks             (const MFUnrecStateChunkPtr &value);
-    void removeFromChunks (UInt32               uiIndex );
-    void removeFromChunks(StateChunk * const value   );
-    void clearChunks                (void                          );
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 

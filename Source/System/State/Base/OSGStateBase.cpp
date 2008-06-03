@@ -101,8 +101,8 @@ void StateBase::classDescInserter(TypeObject &oType)
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&State::editHandleChunks),
-        static_cast<FieldGetMethodSig >(&State::getHandleChunks));
+        static_cast     <FieldEditMethodSig>(&State::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&State::invalidGetField));
 
     oType.addInitialDesc(pDesc);
 }
@@ -140,6 +140,7 @@ StateBase::TypeObject StateBase::_type(
     "\t\tvisibility=\"external\"\n"
     "        removeTo=\"NULL\"\n"
     "        clearMField=\"true\"\n"
+    "        access=\"none\"\n"
     "        pushToField=\"\"\n"
     "        insertIntoMField=\"\"\n"
     "        replaceInMFieldIndex=\"\"\n"
@@ -175,88 +176,8 @@ UInt32 StateBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the State::_mfChunks field.
-const MFUnrecStateChunkPtr *StateBase::getMFChunks(void) const
-{
-    return &_mfChunks;
-}
-
-MFUnrecStateChunkPtr *StateBase::editMFChunks         (void)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-    return &_mfChunks;
-}
 
 
-
-void StateBase::pushToChunks(StateChunk * const value)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-    _mfChunks.push_back(value);
-}
-
-void StateBase::assignChunks   (const MFUnrecStateChunkPtr &value)
-{
-    MFUnrecStateChunkPtr::const_iterator elemIt  =
-        value.begin();
-    MFUnrecStateChunkPtr::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<State *>(this)->clearChunks();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToChunks(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void StateBase::removeFromChunks(UInt32 uiIndex)
-{
-    if(uiIndex < _mfChunks.size())
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfChunks.replace(uiIndex, NULL);
-    }
-}
-
-void StateBase::removeFromChunks(StateChunk * const value)
-{
-    Int32 iElemIdx = _mfChunks.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfChunks.replace(iElemIdx, NULL);
-    }
-}
-void StateBase::clearChunks(void)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-    MFUnrecStateChunkPtr::iterator       fieldIt  = _mfChunks.begin_nc();
-    MFUnrecStateChunkPtr::const_iterator fieldEnd = _mfChunks.end  ();
-
-    while(fieldIt != fieldEnd)
-    {
-        _mfChunks.replace(fieldIt, NULL);
-
-        ++fieldIt;
-    }
-}
 
 
 
@@ -411,42 +332,19 @@ void StateBase::onCreate(const State *source)
     if(source != NULL)
     {
         State *pThis = static_cast<State *>(this);
-
-        MFUnrecStateChunkPtr::const_iterator ChunksIt  =
-            source->_mfChunks.begin();
-        MFUnrecStateChunkPtr::const_iterator ChunksEnd =
-            source->_mfChunks.end  ();
-
-        while(ChunksIt != ChunksEnd)
-        {
-            pThis->pushToChunks(*ChunksIt);
-
-            ++ChunksIt;
-        }
     }
 }
 
 GetFieldHandlePtr StateBase::getHandleChunks          (void) const
 {
-    MFUnrecStateChunkPtr::GetHandlePtr returnValue(
-        new  MFUnrecStateChunkPtr::GetHandle(
-             &_mfChunks, 
-             this->getType().getFieldDesc(ChunksFieldId)));
+    MFUnrecStateChunkPtr::GetHandlePtr returnValue;
 
     return returnValue;
 }
 
 EditFieldHandlePtr StateBase::editHandleChunks         (void)
 {
-    MFUnrecStateChunkPtr::EditHandlePtr returnValue(
-        new  MFUnrecStateChunkPtr::EditHandle(
-             &_mfChunks, 
-             this->getType().getFieldDesc(ChunksFieldId)));
-
-    returnValue->setAddMethod(boost::bind(&State::pushToChunks, 
-                              static_cast<State *>(this), _1));
-
-    editMField(ChunksFieldMask, _mfChunks);
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
@@ -485,7 +383,6 @@ void StateBase::resolveLinks(void)
     Inherited::resolveLinks();
 
 
-    static_cast<State *>(this)->clearChunks();
 }
 
 
