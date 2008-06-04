@@ -521,9 +521,18 @@ bool osgInit(Int32,
         exit(1);
     }
 
-
-
     bool returnValue = true;
+    
+    if(GlobalSystemState != Startup)
+    {
+        FFATAL(("osgInit: System was already initialized; repeated calls are "
+                "NOT allowed.\n"));
+                
+        returnValue = false;
+    }
+
+    if(returnValue == false)
+        return returnValue;
 
     returnValue = SharedObjectHandler::the()->initialize();
 
