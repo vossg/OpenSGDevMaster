@@ -124,30 +124,6 @@ Transform::~Transform(void)
 /*-------------------------------------------------------------------------*/
 /*                                Render                                   */
 
-#ifdef OSG_OLD_RENDER_ACTION
-ActionBase::ResultE Transform::renderEnter(Action *action)
-{
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-
-    pAction->pushVisibility();
-
-    pAction->push_matrix(this->getMatrix());
-
-    return ActionBase::Continue;
-}
-
-ActionBase::ResultE Transform::renderLeave(Action *action)
-{
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
-
-    pAction->popVisibility();
-
-    pAction->pop_matrix();
-
-    return ActionBase::Continue;
-}
-#endif
-
 ActionBase::ResultE Transform::renderEnter(Action *action)
 {
     RenderAction *pAction = 

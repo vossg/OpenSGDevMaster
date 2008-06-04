@@ -163,6 +163,7 @@ Action::ResultE Light::renderEnter(LightEngine::LightTypeE  eType,
     if(this->getOn() == false)
         return Action::Continue;
 
+#if OSG_CHECK_VIS_CALC
     // ok we can cull the light only when it is invisible and has
     // no LightEnv parent and local lights are enabled!
     if (action->pushVisibility())
@@ -173,6 +174,7 @@ Action::ResultE Light::renderEnter(LightEngine::LightTypeE  eType,
             return Action::Skip;
         }
     }
+#endif
 
     LightEngine *pLightEngine = this->getLightEngine();
 
@@ -228,7 +230,9 @@ Action::ResultE Light::renderLeave(LightEngine::LightTypeE  eType,
         a->popState();
     }
 
+#if OSG_CHECK_VIS_CALC
     a->popVisibility();
+#endif
 
     return r;
 }
