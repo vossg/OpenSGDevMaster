@@ -317,6 +317,12 @@ std::ostream &operator << (std::ostream &os, Fixed32 OSG_CHECK_ARG(fVal))
     return os;
 }
 
+inline
+std::istream &operator >> (std::istream &is, Fixed32 &OSG_CHECK_ARG(fVal))
+{
+    return is;
+}
+
 /*-------------------------- operators ------------------------------------*/
 
 

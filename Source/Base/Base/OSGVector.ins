@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2006 by the OpenSG Forum                    *
+ *                  Copyright (C) 2008 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,90 +36,47 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIXED_H_
-#define _OSGFIXED_H_
+OSG_BEGIN_NAMESPACE
 
-#ifndef _OSGBASETYPES_H_
-#error  Include OSGBaseTypes.h instead of OSGFixed.h
-#endif
+#define OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                     \
+template <> OSG_DLL_EXPORT                                                     \
+std::ostream &operator << < OSG_VALUE_TYPE, OSG_SIZE >(                        \
+    std::ostream &os, const Point< OSG_VALUE_TYPE, OSG_SIZE > &obj)            \
+{                                                                              \
+    VecToStreamWriter< Point< OSG_VALUE_TYPE, OSG_SIZE > >::apply(os, obj);    \
+                                                                               \
+    return os;                                                                 \
+}
 
-class OSG_BASE_DLLMAPPING Fixed32
-{
-  public:
+#define OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                      \
+template <> OSG_DLL_EXPORT                                                     \
+std::istream &operator >> < OSG_VALUE_TYPE, OSG_SIZE >(                        \
+    std::istream &is, Point< OSG_VALUE_TYPE, OSG_SIZE > &obj)                  \
+{                                                                              \
+    VecFromStreamReader< Point< OSG_VALUE_TYPE, OSG_SIZE > >::apply(is, obj);  \
+                                                                               \
+    return is;                                                                 \
+}
 
-    //-------------
-    // Constructors
-    //-------------
 
-    Fixed32(void);
-    Fixed32(const Real32 source);
-    Fixed32(const UInt32 source);
-    Fixed32(const Fixed32 &source);
+#define OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                    \
+template <> OSG_DLL_EXPORT                                                     \
+std::ostream &operator << < OSG_VALUE_TYPE, OSG_SIZE >(                        \
+    std::ostream &os, const Vector< OSG_VALUE_TYPE, OSG_SIZE > &obj)           \
+{                                                                              \
+    VecToStreamWriter< Vector< OSG_VALUE_TYPE, OSG_SIZE > >::apply(os, obj);   \
+                                                                               \
+    return os;                                                                 \
+}
 
-    ~Fixed32(void);
+#define OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                     \
+template <> OSG_DLL_EXPORT                                                     \
+std::istream &operator >> < OSG_VALUE_TYPE, OSG_SIZE >(                        \
+    std::istream &is, Vector< OSG_VALUE_TYPE, OSG_SIZE > &obj)                 \
+{                                                                              \
+    VecFromStreamReader< Vector< OSG_VALUE_TYPE, OSG_SIZE > >::apply(is, obj); \
+                                                                               \
+    return is;                                                                 \
+}
 
-    //------------
-    // Unary minus
-    //------------
-
-    Fixed32 operator - () const;
-
-    void setFixedValue(Int32 src);
-
-    //-----------
-    // Assignment
-    //-----------
-
-    Fixed32 &operator = (const Fixed32 rhs);
-
-    Fixed32 &operator +=(const Fixed32 rhs);
-    Fixed32 &operator -=(const Fixed32  rhs);
-    Fixed32 &operator *=(const Fixed32 rhs);
-    Fixed32 &operator /=(const Fixed32 rhs);
-
-    Fixed32  operator + (const Fixed32 rhs) const;
-    Fixed32  operator - (const Fixed32 rhs) const;
-    Fixed32  operator * (const Fixed32 rhs) const;
-    Fixed32  operator / (const Fixed32 rhs) const;
-
-    bool operator ==(const Fixed32 rhs) const;
-    bool operator !=(const Fixed32 rhs) const;
-    bool operator < (const Fixed32 rhs) const;
-    bool operator > (const Fixed32 rhs) const;
-    bool operator <=(const Fixed32 rhs) const;
-    bool operator >=(const Fixed32 rhs) const;
-
-//    operator Real32 () const;
-
-    Int32 getValue(void      ) const;
-    void  setValue(Int32 iVal);
-
-    static Fixed32 abs(Fixed32 rhs);
-    static Fixed32 sqrt(Fixed32 rhs);
-
-    static Fixed32 sin(Fixed32 rhs);
-    static Fixed32 cos(Fixed32 rhs);
-    static Fixed32 tan(Fixed32 rhs);
-
-  protected:
-
-    static Real32 toFloat(Fixed32 rhs);
-
-    Fixed32(const Int32 source);
-
-  private:
-
-    Int32 _value;
-};
-
-Fixed32 operator -(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator /(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator *(const Real32 lhs, const Fixed32 rhs);
-
-std::ostream &operator << (std::ostream &os, const Fixed32  fVal);
-
-std::istream &operator >> (std::istream &is,       Fixed32 &fVal);
-
-#include "OSGFixed.inl"
-
-#endif /* _OSGFIXED_H_ */
+OSG_END_NAMESPACE

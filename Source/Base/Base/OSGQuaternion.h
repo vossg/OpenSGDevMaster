@@ -274,8 +274,14 @@ class QuaternionBase
 };
 
 template <class ValueTypeT> 
-std::ostream &operator <<(      std::ostream               &os, 
-                          const QuaternionBase<ValueTypeT> &obj);
+OSG_BASE_DLLMAPPING std::ostream &operator <<(
+          std::ostream               &os, 
+    const QuaternionBase<ValueTypeT> &obj);
+    
+template <class ValueTypeT> 
+OSG_BASE_DLLMAPPING std::istream &operator >>(
+    std::istream               &is, 
+    QuaternionBase<ValueTypeT> &obj);
 
 /*! \var typedef QuaternionBase<Real32> Quaternion;
     \brief Quaternion

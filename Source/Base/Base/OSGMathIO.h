@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2006 by the OpenSG Forum                    *
+ *                Copyright (C) 2008 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,90 +36,69 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIXED_H_
-#define _OSGFIXED_H_
-
-#ifndef _OSGBASETYPES_H_
-#error  Include OSGBaseTypes.h instead of OSGFixed.h
+#ifndef _OSGMATHIO_H_
+#define _OSGMATHIO_H_
+#ifdef __sgi
+#pragma once
 #endif
 
-class OSG_BASE_DLLMAPPING Fixed32
+#include "OSGConfig.h"
+#include "OSGBaseTypes.h"
+
+#include <iostream>
+#include <sstream>
+
+OSG_BEGIN_NAMESPACE
+
+
+template <class  VecTypeT,
+          class  ValueTypeT = typename VecTypeT::ValueType,
+          UInt32 SizeI      =          VecTypeT::_uiSize   >
+struct VecToStreamWriter
 {
-  public:
-
-    //-------------
-    // Constructors
-    //-------------
-
-    Fixed32(void);
-    Fixed32(const Real32 source);
-    Fixed32(const UInt32 source);
-    Fixed32(const Fixed32 &source);
-
-    ~Fixed32(void);
-
-    //------------
-    // Unary minus
-    //------------
-
-    Fixed32 operator - () const;
-
-    void setFixedValue(Int32 src);
-
-    //-----------
-    // Assignment
-    //-----------
-
-    Fixed32 &operator = (const Fixed32 rhs);
-
-    Fixed32 &operator +=(const Fixed32 rhs);
-    Fixed32 &operator -=(const Fixed32  rhs);
-    Fixed32 &operator *=(const Fixed32 rhs);
-    Fixed32 &operator /=(const Fixed32 rhs);
-
-    Fixed32  operator + (const Fixed32 rhs) const;
-    Fixed32  operator - (const Fixed32 rhs) const;
-    Fixed32  operator * (const Fixed32 rhs) const;
-    Fixed32  operator / (const Fixed32 rhs) const;
-
-    bool operator ==(const Fixed32 rhs) const;
-    bool operator !=(const Fixed32 rhs) const;
-    bool operator < (const Fixed32 rhs) const;
-    bool operator > (const Fixed32 rhs) const;
-    bool operator <=(const Fixed32 rhs) const;
-    bool operator >=(const Fixed32 rhs) const;
-
-//    operator Real32 () const;
-
-    Int32 getValue(void      ) const;
-    void  setValue(Int32 iVal);
-
-    static Fixed32 abs(Fixed32 rhs);
-    static Fixed32 sqrt(Fixed32 rhs);
-
-    static Fixed32 sin(Fixed32 rhs);
-    static Fixed32 cos(Fixed32 rhs);
-    static Fixed32 tan(Fixed32 rhs);
-
-  protected:
-
-    static Real32 toFloat(Fixed32 rhs);
-
-    Fixed32(const Int32 source);
-
-  private:
-
-    Int32 _value;
+    static void apply(std::ostream &os, const VecTypeT &vec);
 };
 
-Fixed32 operator -(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator /(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator *(const Real32 lhs, const Fixed32 rhs);
+template <class  VecTypeT,
+          UInt32 SizeI    >
+struct VecToStreamWriter<VecTypeT, Int8, SizeI>
+{
+    static void apply(std::ostream &os, const VecTypeT &vec);
+};
 
-std::ostream &operator << (std::ostream &os, const Fixed32  fVal);
+template <class  VecTypeT,
+          UInt32 SizeI    >
+struct VecToStreamWriter<VecTypeT, UInt8, SizeI>
+{
+    static void apply(std::ostream &os, const VecTypeT &vec);
+};
 
-std::istream &operator >> (std::istream &is,       Fixed32 &fVal);
 
-#include "OSGFixed.inl"
+template <class  VecTypeT,
+          class  ValueTypeT = typename VecTypeT::ValueType,
+          UInt32 SizeI      =          VecTypeT::_uiSize   >
+struct VecFromStreamReader
+{
+    static void apply(std::istream &is, VecTypeT &vec);
+};
 
-#endif /* _OSGFIXED_H_ */
+template <class  VecTypeT,
+          UInt32 SizeI    >
+struct VecFromStreamReader<VecTypeT, Int8, SizeI>
+{
+    static void apply(std::istream &is, VecTypeT &vec);
+};
+
+template <class  VecTypeT,
+          UInt32 SizeI    >
+struct VecFromStreamReader<VecTypeT, UInt8, SizeI>
+{
+    static void apply(std::istream &is, VecTypeT &vec);
+};
+
+
+OSG_END_NAMESPACE
+
+#include "OSGMathIO.inl"
+
+#endif // _OSGMATHIO_H_

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2006 by the OpenSG Forum                    *
+ *                Copyright (C) 2008 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,90 +36,116 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFIXED_H_
-#define _OSGFIXED_H_
+OSG_BEGIN_NAMESPACE
 
-#ifndef _OSGBASETYPES_H_
-#error  Include OSGBaseTypes.h instead of OSGFixed.h
-#endif
-
-class OSG_BASE_DLLMAPPING Fixed32
+/*! Helper struct for writing a vector-like type to a stream.
+ */
+template <class  VecTypeT,
+          class  ValueTypeT,
+          UInt32 SizeI      >
+inline void VecToStreamWriter<VecTypeT, ValueTypeT, SizeI>::apply(
+    std::ostream &os, const VecTypeT &vec)
 {
-  public:
+    for(UInt32 i = 0; i < SizeI; ++i)
+    {
+        if(i != 0)
+            os << ", ";
+    
+        os << vec[i];
+    }
+}
 
-    //-------------
-    // Constructors
-    //-------------
+// Partial specialization to prevent output as ASCII character
+template <class  VecTypeT,
+          UInt32 SizeI    >
+inline void VecToStreamWriter<VecTypeT, Int8, SizeI>::apply(
+    std::ostream &os, const VecTypeT &vec)
+{
+    for(UInt32 i = 0; i < SizeI; ++i)
+    {
+        if(i != 0)
+            os << ", ";
+    
+        os << static_cast<Int16>(vec[i]);
+    }
+}
 
-    Fixed32(void);
-    Fixed32(const Real32 source);
-    Fixed32(const UInt32 source);
-    Fixed32(const Fixed32 &source);
+// Partial specialization to prevent output as ASCII character
+template <class  VecTypeT,
+          UInt32 SizeI    >
+inline void VecToStreamWriter<VecTypeT, UInt8, SizeI>::apply(
+    std::ostream &os, const VecTypeT &vec)
+{
+    for(UInt32 i = 0; i < SizeI; ++i)
+    {
+        if(i != 0)
+            os << ", ";
+    
+        os << static_cast<UInt16>(vec[i]);
+    }
+}
 
-    ~Fixed32(void);
 
-    //------------
-    // Unary minus
-    //------------
+/*! Helper struct for reading a vector-like type from a stream.
+ */
+template <class  VecTypeT,
+          class  ValueTypeT,
+          UInt32 SizeI      >
+inline void VecFromStreamReader<VecTypeT, ValueTypeT, SizeI>::apply(
+    std::istream &is, VecTypeT &vec)
+{
+    for(UInt32 i = 0; i < SizeI; ++i)
+    {
+        if(i != 0)
+        {
+            while(is.peek() == ' ' || is.peek() == ',')
+                is.ignore();
+        }
+    
+        is >> vec[i];
+    }
+}
 
-    Fixed32 operator - () const;
+// Partial specialization to prevent input as ASCII character
+template <class  VecTypeT,
+          UInt32 SizeI    >
+inline void VecFromStreamReader<VecTypeT, Int8, SizeI>::apply(
+    std::istream &is, VecTypeT &vec)
+{
+    for(UInt32 i = 0; i < SizeI; ++i)
+    {
+        if(i != 0)
+        {
+            while(is.peek() == ' ' || is.peek() == ',')
+                is.ignore();
+        }
+    
+        Int16 temp;
+        
+        is >> temp;
+        vec[i] = static_cast<Int8>(temp);
+    }
+}
 
-    void setFixedValue(Int32 src);
+// Partial specialization to prevent input as ASCII character
+template <class  VecTypeT,
+          UInt32 SizeI    >
+inline void VecFromStreamReader<VecTypeT, UInt8, SizeI>::apply(
+    std::istream &is, VecTypeT &vec)
+{
+    for(UInt32 i = 0; i < SizeI; ++i)
+    {
+        if(i != 0)
+        {
+            while(is.peek() == ' ' || is.peek() == ',')
+                is.ignore();
+        }
+    
+        UInt16 temp;
+        
+        is >> temp;
+        vec[i] = static_cast<UInt8>(temp);
+    }
+}
 
-    //-----------
-    // Assignment
-    //-----------
-
-    Fixed32 &operator = (const Fixed32 rhs);
-
-    Fixed32 &operator +=(const Fixed32 rhs);
-    Fixed32 &operator -=(const Fixed32  rhs);
-    Fixed32 &operator *=(const Fixed32 rhs);
-    Fixed32 &operator /=(const Fixed32 rhs);
-
-    Fixed32  operator + (const Fixed32 rhs) const;
-    Fixed32  operator - (const Fixed32 rhs) const;
-    Fixed32  operator * (const Fixed32 rhs) const;
-    Fixed32  operator / (const Fixed32 rhs) const;
-
-    bool operator ==(const Fixed32 rhs) const;
-    bool operator !=(const Fixed32 rhs) const;
-    bool operator < (const Fixed32 rhs) const;
-    bool operator > (const Fixed32 rhs) const;
-    bool operator <=(const Fixed32 rhs) const;
-    bool operator >=(const Fixed32 rhs) const;
-
-//    operator Real32 () const;
-
-    Int32 getValue(void      ) const;
-    void  setValue(Int32 iVal);
-
-    static Fixed32 abs(Fixed32 rhs);
-    static Fixed32 sqrt(Fixed32 rhs);
-
-    static Fixed32 sin(Fixed32 rhs);
-    static Fixed32 cos(Fixed32 rhs);
-    static Fixed32 tan(Fixed32 rhs);
-
-  protected:
-
-    static Real32 toFloat(Fixed32 rhs);
-
-    Fixed32(const Int32 source);
-
-  private:
-
-    Int32 _value;
-};
-
-Fixed32 operator -(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator /(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator *(const Real32 lhs, const Fixed32 rhs);
-
-std::ostream &operator << (std::ostream &os, const Fixed32  fVal);
-
-std::istream &operator >> (std::istream &is,       Fixed32 &fVal);
-
-#include "OSGFixed.inl"
-
-#endif /* _OSGFIXED_H_ */
+OSG_END_NAMESPACE

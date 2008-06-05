@@ -1058,27 +1058,4 @@ void QuaternionBase<ValueTypeT>::mult(const ValueTypeT rVal1[4],
     normalize();
 }
 
-/*-------------------------------------------------------------------------*/
-/*                               Functions                                 */
-
-template <class ValueTypeT> inline
-std::ostream &operator <<(      std::ostream               &os, 
-                          const QuaternionBase<ValueTypeT> &obj)
-{
-#ifdef OSG_SGI_STL
-    os << std::fixed 
-       << std::showpoint 
-       << std::setprecision(3) 
-       << std::setfill(' ');
-#else
-    os << std::setprecision(3) << std::setfill(' ');
-#endif
-
-    return os << std::setw(8)
-              << obj.x() << " " 
-              << obj.y() << " "
-              << obj.z() << " " 
-              << obj.w();
-}
-
 OSG_END_NAMESPACE
