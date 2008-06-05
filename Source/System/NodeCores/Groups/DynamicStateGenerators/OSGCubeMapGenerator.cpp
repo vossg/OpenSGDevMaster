@@ -144,13 +144,13 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                 0,  0,  0,  1),
         
         Matrix( 1,  0,  0,  0,
-                0,  0,  1,  0,
-                0, -1,  0,  0,
+                0,  0, -1,  0,
+                0,  1,  0,  0,
                 0,  0,  0,  1),
         
         Matrix( 1,  0,  0,  0,
-                0,  0, -1,  0,
-                0,  1,  0,  0,
+                0,  0,  1,  0,
+                0, -1,  0,  0,
                 0,  0,  0,  1),
         
         Matrix( 0,  0, -1,  0,
