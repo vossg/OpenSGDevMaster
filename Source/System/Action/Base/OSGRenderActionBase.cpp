@@ -255,7 +255,7 @@ UInt32 RenderActionBase::selectVisibles(void)
 
         if(getVolumeDrawing())
         {
-//            dropVolume(this, getNode(i), col);
+            dropVolume(this, getNode(i), col);
         }
     }
 

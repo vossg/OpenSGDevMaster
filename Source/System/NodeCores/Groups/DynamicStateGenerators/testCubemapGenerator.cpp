@@ -583,6 +583,7 @@ int doMain (int argc, char **argv)
     // Action
     rentravact = RenderAction::create();
 
+    rentravact->setVolumeDrawing(true);
 //    rentravact->setFrustumCulling(false);
 
     // tball

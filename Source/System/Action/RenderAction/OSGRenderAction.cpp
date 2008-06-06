@@ -829,6 +829,7 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
     _pActivePartition->setStatePool      (_pStatePools      [_currentBuffer]);
     _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
     _pActivePartition->setStatCollector  (_pStatistics                      );
+    _pActivePartition->setVolumeDrawing  (_bVolumeDrawing                   );
 
     _pActivePartition->initFrom(_sRenderPartitionStack.top(),
                                 _vRenderPartitions[_currentBuffer][0],
