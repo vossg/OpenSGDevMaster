@@ -176,12 +176,14 @@ bool ChunkOverrideGroup::addChunk(StateChunk *chunk,
         UInt32 oldsize = csize;
         UInt32 newsize = cindex + 1;
 
-        _mfChunks.resize(newsize);
+        _mfChunks.resize(newsize, NULL);
 
+#if 0
         for(UInt32 i = oldsize; i < newsize; i++)
         {
             _mfChunks.replace(i, NULL);
         }
+#endif
     }
 
     _mfChunks.replace(cindex, chunk);
@@ -368,6 +370,103 @@ ActionBase::ResultE ChunkOverrideGroup::renderLeave(Action *action)
 
 
     return Inherited::renderLeave(action);
+}
+
+
+void ChunkOverrideGroup::pushToChunks(StateChunk * const value)
+{
+    if(value != NULL)
+    {
+        // addChunk(value) does not work as expected
+        //
+        // Do at least a sanity check if the slot matches
+        // the chunk
+
+        if(_mfChunks.size() < value->getClassId() ||
+           _mfChunks.size() >= (value->getClassId() + 
+                                value->getClass()->getNumSlots()))
+        {
+            SWARNING << "pushToChunk: chunk ( " 
+                     << value->getClassId()
+                     << " | "
+                     << value->getClass()->getNumSlots()
+                     << "does not match available slot "
+                     << _mfChunks.size()
+                     << ",  ignored!" 
+                     << std::endl;
+            
+            
+            return;
+        }
+    }
+
+    editMField(ChunksFieldMask, _mfChunks);
+
+    _mfChunks.push_back(value);
+}
+
+#if 0
+void ChunkOverrideGroup::assignChunks   (const MFUnrecStateChunkPtr &value)
+{
+    MFUnrecStateChunkPtr::const_iterator elemIt  =
+        value.begin();
+    MFUnrecStateChunkPtr::const_iterator elemEnd =
+        value.end  ();
+
+    static_cast<ChunkOverrideGroup *>(this)->clearChunks();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToChunks(*elemIt);
+
+        ++elemIt;
+    }
+}
+#endif
+
+void ChunkOverrideGroup::removeFromChunks(UInt32 uiIndex)
+{
+    if(uiIndex < _mfChunks.size())
+    {
+        editMField(ChunksFieldMask, _mfChunks);
+
+        _mfChunks.replace(uiIndex, NULL);
+
+#if 0
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
+
+        fieldIt += uiIndex;
+
+        _mfChunks.erase(fieldIt);
+#endif
+    }
+}
+
+void ChunkOverrideGroup::removeFromChunks(StateChunk * const value)
+{
+    Int32 iElemIdx = _mfChunks.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ChunksFieldMask, _mfChunks);
+
+        _mfChunks.replace(iElemIdx, NULL);
+
+#if 0
+        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
+
+        fieldIt += iElemIdx;
+
+        _mfChunks.erase(fieldIt);
+#endif
+    }
+}
+void ChunkOverrideGroup::clearChunks(void)
+{
+    editMField(ChunksFieldMask, _mfChunks);
+
+
+    _mfChunks.clear();
 }
 
 OSG_END_NAMESPACE

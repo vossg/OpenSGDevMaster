@@ -142,6 +142,7 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "        access=\"protected\"\n"
+    "        ptrFieldAccess = \"custom\"\n"
     "    >\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -177,75 +178,8 @@ const MFUnrecStateChunkPtr *ChunkOverrideGroupBase::getMFChunks(void) const
     return &_mfChunks;
 }
 
-MFUnrecStateChunkPtr *ChunkOverrideGroupBase::editMFChunks         (void)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-    return &_mfChunks;
-}
 
 
-
-void ChunkOverrideGroupBase::pushToChunks(StateChunk * const value)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-    _mfChunks.push_back(value);
-}
-
-void ChunkOverrideGroupBase::assignChunks   (const MFUnrecStateChunkPtr &value)
-{
-    MFUnrecStateChunkPtr::const_iterator elemIt  =
-        value.begin();
-    MFUnrecStateChunkPtr::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<ChunkOverrideGroup *>(this)->clearChunks();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToChunks(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void ChunkOverrideGroupBase::removeFromChunks(UInt32 uiIndex)
-{
-    if(uiIndex < _mfChunks.size())
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfChunks.erase(fieldIt);
-    }
-}
-
-void ChunkOverrideGroupBase::removeFromChunks(StateChunk * const value)
-{
-    Int32 iElemIdx = _mfChunks.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(ChunksFieldMask, _mfChunks);
-
-        MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfChunks.erase(fieldIt);
-    }
-}
-void ChunkOverrideGroupBase::clearChunks(void)
-{
-    editMField(ChunksFieldMask, _mfChunks);
-
-
-    _mfChunks.clear();
-}
 
 
 

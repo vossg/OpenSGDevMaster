@@ -137,6 +137,19 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    void pushToChunks              (StateChunk * const value   );
+#if 0
+    void assignChunks              (const MFUnrecStateChunkPtr &value);
+#endif
+    void removeFromChunks (UInt32                uiIndex );
+    void removeFromChunks(StateChunk * const value   );
+    void clearChunks                (void                          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
