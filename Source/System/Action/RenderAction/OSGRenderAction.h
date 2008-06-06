@@ -145,10 +145,12 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     void dropFunctor(Material::DrawFunctor &func,
                      State                 *pState,
-                     UInt32                 uiSortKey);
+                     UInt32                 uiSortKey,
+                     bool                   bIgnoreOverrides = false);
 
     void dropFunctor(Material::DrawFunctor &func,
-                     Material              *pMat);
+                     Material              *pMat,
+                     bool                   bIgnoreOverrides = false);
 
     /*---------------------------- state ------------------------------------*/
 

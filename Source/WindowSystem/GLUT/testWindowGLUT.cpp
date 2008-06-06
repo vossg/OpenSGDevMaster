@@ -230,6 +230,8 @@ void key(unsigned char key, int x, int y)
             osgExit(); 
 
             exit(0);
+        case 'v':
+            rentravact->setVolumeDrawing(!rentravact->getVolumeDrawing());
         case 'a':   
             glDisable( GL_LIGHTING );
             std::cerr << "Lighting disabled." << std::endl;
@@ -500,7 +502,7 @@ int init(int argc, char **argv)
     // Background
     SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
 
-    bkgnd->setColor(Color3f(0,0,1));
+    bkgnd->setColor(Color3f(1,0,0));
     
     // Viewport
 

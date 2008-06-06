@@ -299,7 +299,7 @@ class VolumeDrawWrapper
     
         RenderActionT *ra = dynamic_cast<RenderActionT *>(action);
         
-        ra->dropFunctor(func, getDefaultUnlitMaterial());
+        ra->dropFunctor(func, getDefaultUnlitMaterial(), true);
     }
 
     template<class RenderActionT>
@@ -328,7 +328,8 @@ class VolumeDrawWrapper
     
         part->dropFunctor(func, 
                           getDefaultUnlitMaterial()->getState(),
-                          getDefaultUnlitMaterial()->getSortKey());
+                          getDefaultUnlitMaterial()->getSortKey(),
+                          true);
     }
 
   private:

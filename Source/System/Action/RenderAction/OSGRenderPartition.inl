@@ -447,6 +447,18 @@ void RenderPartition::setDebugString(std::string szDebugString)
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/
 
+inline
+void  RenderPartition::setNode(Node *pNode)
+{
+    _pNode = pNode;
+}
+
+inline
+Node *RenderPartition::getNode(void)
+{
+    return _pNode;
+}
+
 /*-------------------------------------------------------------------------*\
  -  private                                                                -
 \*-------------------------------------------------------------------------*/

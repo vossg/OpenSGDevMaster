@@ -166,12 +166,14 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
 
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    Action::ResultE returnValue = Action::Continue;
+    Action::ResultE  returnValue = Action::Continue;
 
-    Camera              *pCam  = a->getCamera();
-    Background          *pBack = a->getBackground();
+    Camera          *pCam     = a->getCamera();
+    Background      *pBack    = a->getBackground();
 
-    Viewport            *pPort = a->getViewport();
+    Viewport        *pPort    = a->getViewport();
+
+    Node            *pActNode = a->getActNode();
 
     a->beginPartitionGroup();
     {
@@ -184,7 +186,6 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
             pTarget  = this->getRenderTarget();
         }
 
-        Node *pActNode = a->getActNode();
 
         Pnt3f oOrigin;
 
@@ -221,6 +222,7 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
             {
                 RenderPartition   *pPart    = a->getActivePartition();
                 
+                pPart->setVolumeDrawing(false);
 
                 pPart->setRenderTarget(pTarget       );
                 pPart->setWindow      (a->getWindow());
@@ -296,6 +298,8 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
         }
     }
     a->endPartitionGroup();
+
+    OSG_ASSERT(pActNode == a->getActNode());
 
     returnValue = Inherited::renderEnter(action);
 

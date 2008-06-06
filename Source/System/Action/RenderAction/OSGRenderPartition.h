@@ -266,7 +266,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     void dropFunctor(DrawFunctor &func, 
                      State       *pState,
-                     Int32        uiBuildKey);
+                     Int32        uiBuildKey,
+                     bool         bIgnoreOverrids = false);
 
     void dropFunctor(SimpleDrawCallback &oFunc);
 
@@ -442,6 +443,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     RenderCallbackStore _vPreRenderCallbacks;
     RenderCallbackStore _vPostRenderCallbacks;
     
+    Node               *_pNode;
+
 #ifdef OSG_DEBUG
      // Debug
 
@@ -469,6 +472,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     void reset(Mode eMode = StateSorting);
 
     void updateTopMatrix(void);
+
+    void  setNode(Node *pNode);
+    Node *getNode(void       );
 
     /*-------------------------- comparison ---------------------------------*/
 

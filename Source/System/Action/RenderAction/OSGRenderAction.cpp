@@ -693,13 +693,18 @@ void RenderAction::drawBuffer(UInt32 buf)
 
 void RenderAction::dropFunctor(Material::DrawFunctor &func,
                                State                 *pState,
-                               UInt32                 uiSortKey)
+                               UInt32                 uiSortKey,
+                               bool                   bIgnoreOverrides)
 {
-    _pActivePartition->dropFunctor(func, pState, uiSortKey);
+    _pActivePartition->dropFunctor(func, 
+                                   pState, 
+                                   uiSortKey,
+                                   bIgnoreOverrides);
 }
 
 void RenderAction::dropFunctor(Material::DrawFunctor &func,
-                               Material              *pMat)
+                               Material              *pMat,
+                               bool                   bIgnoreOverrides)
 {
     if(pMat == NULL)
         return;
@@ -714,7 +719,8 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func,
         {
             this->dropFunctor(func, 
                               st, 
-                              pMat->getSortKey() + uiPass);
+                              pMat->getSortKey() + uiPass,
+                              bIgnoreOverrides           );
         }
         else
         {
@@ -785,6 +791,8 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
     _sRenderPartitionStack   .push(_pActivePartition   );
     _sRenderPartitionGrpStack.push(_bInPartitionGroup  );
 
+    _pActivePartition->setNode(_actNode);
+
     if(_bInPartitionGroup == false)
     {
         _pActivePartition    = 
@@ -841,6 +849,8 @@ void RenderAction::popPartition(void)
     _pActivePartition    = _sRenderPartitionStack   .top();
     _iActivePartitionIdx = _sRenderPartitionIdxStack.top();
     _bInPartitionGroup   = _sRenderPartitionGrpStack.top();
+
+    _actNode = _pActivePartition->getNode();
 
     _sRenderPartitionStack   .pop();
     _sRenderPartitionIdxStack.pop();

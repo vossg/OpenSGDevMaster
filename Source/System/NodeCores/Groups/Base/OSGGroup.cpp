@@ -101,7 +101,6 @@ ActionBase::ResultE Group::renderEnter(Action *action)
 {
     RenderAction *ra = dynamic_cast<RenderAction *>(action);
 
-#if OSG_CHECK_VIS_CALC
     if(ra->pushVisibility() == true)
     {
         if(ra->selectVisibles() == 0)
@@ -110,9 +109,6 @@ ActionBase::ResultE Group::renderEnter(Action *action)
             return Action::Skip;
         }
     }
-#else
-    ra->pushVisibility();
-#endif
 
     return ActionBase::Continue;
 }

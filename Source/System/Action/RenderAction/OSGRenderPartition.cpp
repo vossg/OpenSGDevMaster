@@ -183,7 +183,8 @@ RenderPartition::RenderPartition(Mode eMode) :
     _bAutoFrustum            (    true ),
     _oFrustum                (         ),
     _vPreRenderCallbacks     (         ),
-    _vPostRenderCallbacks    (         )
+    _vPostRenderCallbacks    (         ),
+    _pNode                   (     NULL)
 #ifdef OSG_DEBUG
    ,_szDebugString           (         )
 #endif
@@ -287,6 +288,8 @@ void RenderPartition::reset(Mode eMode)
     }
 
     _uiNumTriangles = 0;
+
+    _pNode = NULL;
 /*
     static FrustumVolume empty;
 
@@ -520,7 +523,8 @@ void RenderPartition::execute(void)
 
 void RenderPartition::dropFunctor(DrawFunctor &func, 
                                   State       *pState,
-                                  Int32        iSortKey)
+                                  Int32        iSortKey,
+                                  bool         bIgnoreOverrides)
 {
     if(_eMode == SimpleCallback)
         return;
@@ -590,7 +594,8 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         pNewElem->setState      ( pState    );
         pNewElem->setScalar     ( objPos[2] );
         
-        if(_sStateOverrides.top()->empty() == false)
+        if(_sStateOverrides.top()->empty() == false && 
+            bIgnoreOverrides               == false  )
         {
             pNewElem->setStateOverride(_sStateOverrides.top());
         }
@@ -677,7 +682,8 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         pNewElem->setScalar     ( (-objPos[2] - getNear()) / 
                                   (getFar()   - getNear()) ); 
         
-        if(_sStateOverrides.top()->empty() == false)
+        if(_sStateOverrides.top()->empty() == false &&
+            bIgnoreOverrides               == false  )
         {
             pNewElem->setStateOverride(_sStateOverrides.top());
         }
@@ -718,7 +724,8 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         pNewElem->setFunctor    (   func      );
         pNewElem->setMatrixStore(  _currMatrix);
                
-        if(_sStateOverrides.top()->empty() == false)
+        if(_sStateOverrides.top()->empty() == false &&
+            bIgnoreOverrides               == false  )
         {
             pOverride = _sStateOverrides.top();
         }

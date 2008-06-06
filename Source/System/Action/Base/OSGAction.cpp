@@ -359,6 +359,8 @@ ActionBase::ResultE Action::recurse(Node * const node)
 
     result = callEnter(node->getCore());
 
+    _actNode = node;
+
     if(result != Continue)
     {
         if(result == Skip)
@@ -395,6 +397,8 @@ ActionBase::ResultE Action::recurse(Node * const node)
     {
         callLeave(node->getCore());
     }
+
+    _actNode = node;
 
     if(_nodeLeaveCB != NULL)
         _nodeLeaveCB(node, this);
