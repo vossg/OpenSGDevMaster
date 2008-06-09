@@ -130,30 +130,18 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor3r           *getSFColor           (void);
-#endif
                   SFColor3r           *editSFColor          (void);
             const SFColor3r           *getSFColor           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFAlpha           (void);
-#endif
                   SFReal32            *editSFAlpha          (void);
             const SFReal32            *getSFAlpha           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Color3r             &getColor           (void);
-#endif
                   Color3r             &editColor          (void);
-            const Color3r              getColor           (void) const;
+            const Color3r             &getColor           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getAlpha           (void);
-#endif
                   Real32              &editAlpha          (void);
-            const Real32               getAlpha           (void) const;
+                  Real32               getAlpha           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -161,7 +149,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \{                                                                 */
 
             void setColor          (const Color3r &value);
-            void setAlpha          (const Real32 &value);
+            void setAlpha          (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

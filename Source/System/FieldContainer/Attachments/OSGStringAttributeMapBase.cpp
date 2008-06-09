@@ -204,12 +204,6 @@ const MFString *StringAttributeMapBase::getMFKeys(void) const
     return &_mfKeys;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFString            *StringAttributeMapBase::getMFKeys           (void)
-{
-    return this->editMFKeys           ();
-}
-#endif
 
 MFString *StringAttributeMapBase::editMFValues(void)
 {
@@ -223,12 +217,6 @@ const MFString *StringAttributeMapBase::getMFValues(void) const
     return &_mfValues;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFString            *StringAttributeMapBase::getMFValues         (void)
-{
-    return this->editMFValues         ();
-}
-#endif
 
 
 

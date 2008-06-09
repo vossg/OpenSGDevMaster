@@ -85,22 +85,14 @@ bool &BalancedMultiWindowBase::editBalance(void)
 
 //! Get the value of the BalancedMultiWindow::_sfBalance field.
 inline
-const bool BalancedMultiWindowBase::getBalance(void) const
+      bool  BalancedMultiWindowBase::getBalance(void) const
 {
     return _sfBalance.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BalancedMultiWindowBase::getBalance        (void)
-{
-    return this->editBalance        ();
-}
-#endif
-
 //! Set the value of the BalancedMultiWindow::_sfBalance field.
 inline
-void BalancedMultiWindowBase::setBalance(const bool &value)
+void BalancedMultiWindowBase::setBalance(const bool value)
 {
     editSField(BalanceFieldMask);
 
@@ -118,22 +110,14 @@ bool &BalancedMultiWindowBase::editBestCut(void)
 
 //! Get the value of the BalancedMultiWindow::_sfBestCut field.
 inline
-const bool BalancedMultiWindowBase::getBestCut(void) const
+      bool  BalancedMultiWindowBase::getBestCut(void) const
 {
     return _sfBestCut.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BalancedMultiWindowBase::getBestCut        (void)
-{
-    return this->editBestCut        ();
-}
-#endif
-
 //! Set the value of the BalancedMultiWindow::_sfBestCut field.
 inline
-void BalancedMultiWindowBase::setBestCut(const bool &value)
+void BalancedMultiWindowBase::setBestCut(const bool value)
 {
     editSField(BestCutFieldMask);
 
@@ -151,22 +135,14 @@ bool &BalancedMultiWindowBase::editShowBalancing(void)
 
 //! Get the value of the BalancedMultiWindow::_sfShowBalancing field.
 inline
-const bool BalancedMultiWindowBase::getShowBalancing(void) const
+      bool  BalancedMultiWindowBase::getShowBalancing(void) const
 {
     return _sfShowBalancing.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BalancedMultiWindowBase::getShowBalancing  (void)
-{
-    return this->editShowBalancing  ();
-}
-#endif
-
 //! Set the value of the BalancedMultiWindow::_sfShowBalancing field.
 inline
-void BalancedMultiWindowBase::setShowBalancing(const bool &value)
+void BalancedMultiWindowBase::setShowBalancing(const bool value)
 {
     editSField(ShowBalancingFieldMask);
 
@@ -184,22 +160,14 @@ UInt32 &BalancedMultiWindowBase::editTileSize(void)
 
 //! Get the value of the BalancedMultiWindow::_sfTileSize field.
 inline
-const UInt32 BalancedMultiWindowBase::getTileSize(void) const
+      UInt32  BalancedMultiWindowBase::getTileSize(void) const
 {
     return _sfTileSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &BalancedMultiWindowBase::getTileSize       (void)
-{
-    return this->editTileSize       ();
-}
-#endif
-
 //! Set the value of the BalancedMultiWindow::_sfTileSize field.
 inline
-void BalancedMultiWindowBase::setTileSize(const UInt32 &value)
+void BalancedMultiWindowBase::setTileSize(const UInt32 value)
 {
     editSField(TileSizeFieldMask);
 
@@ -217,22 +185,14 @@ bool &BalancedMultiWindowBase::editShort(void)
 
 //! Get the value of the BalancedMultiWindow::_sfShort field.
 inline
-const bool BalancedMultiWindowBase::getShort(void) const
+      bool  BalancedMultiWindowBase::getShort(void) const
 {
     return _sfShort.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BalancedMultiWindowBase::getShort          (void)
-{
-    return this->editShort          ();
-}
-#endif
-
 //! Set the value of the BalancedMultiWindow::_sfShort field.
 inline
-void BalancedMultiWindowBase::setShort(const bool &value)
+void BalancedMultiWindowBase::setShort(const bool value)
 {
     editSField(ShortFieldMask);
 

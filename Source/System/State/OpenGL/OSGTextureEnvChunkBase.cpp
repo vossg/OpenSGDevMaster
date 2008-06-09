@@ -936,12 +936,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvMode(void) const
     return &_sfEnvMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvMode        (void)
-{
-    return this->editSFEnvMode        ();
-}
-#endif
 
 SFColor4r *TextureEnvChunkBase::editSFEnvColor(void)
 {
@@ -955,12 +949,6 @@ const SFColor4r *TextureEnvChunkBase::getSFEnvColor(void) const
     return &_sfEnvColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *TextureEnvChunkBase::getSFEnvColor       (void)
-{
-    return this->editSFEnvColor       ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvCombineRGB(void)
 {
@@ -974,12 +962,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvCombineRGB(void) const
     return &_sfEnvCombineRGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvCombineRGB  (void)
-{
-    return this->editSFEnvCombineRGB  ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvCombineAlpha(void)
 {
@@ -993,12 +975,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvCombineAlpha(void) const
     return &_sfEnvCombineAlpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvCombineAlpha(void)
-{
-    return this->editSFEnvCombineAlpha();
-}
-#endif
 
 SFReal32 *TextureEnvChunkBase::editSFEnvScaleRGB(void)
 {
@@ -1012,12 +988,6 @@ const SFReal32 *TextureEnvChunkBase::getSFEnvScaleRGB(void) const
     return &_sfEnvScaleRGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TextureEnvChunkBase::getSFEnvScaleRGB    (void)
-{
-    return this->editSFEnvScaleRGB    ();
-}
-#endif
 
 SFReal32 *TextureEnvChunkBase::editSFEnvScaleAlpha(void)
 {
@@ -1031,12 +1001,6 @@ const SFReal32 *TextureEnvChunkBase::getSFEnvScaleAlpha(void) const
     return &_sfEnvScaleAlpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TextureEnvChunkBase::getSFEnvScaleAlpha  (void)
-{
-    return this->editSFEnvScaleAlpha  ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvSource0RGB(void)
 {
@@ -1050,12 +1014,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource0RGB(void) const
     return &_sfEnvSource0RGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvSource0RGB  (void)
-{
-    return this->editSFEnvSource0RGB  ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvSource1RGB(void)
 {
@@ -1069,12 +1027,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource1RGB(void) const
     return &_sfEnvSource1RGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvSource1RGB  (void)
-{
-    return this->editSFEnvSource1RGB  ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvSource2RGB(void)
 {
@@ -1088,12 +1040,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource2RGB(void) const
     return &_sfEnvSource2RGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvSource2RGB  (void)
-{
-    return this->editSFEnvSource2RGB  ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvSource0Alpha(void)
 {
@@ -1107,12 +1053,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource0Alpha(void) const
     return &_sfEnvSource0Alpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvSource0Alpha(void)
-{
-    return this->editSFEnvSource0Alpha();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvSource1Alpha(void)
 {
@@ -1126,12 +1066,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource1Alpha(void) const
     return &_sfEnvSource1Alpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvSource1Alpha(void)
-{
-    return this->editSFEnvSource1Alpha();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvSource2Alpha(void)
 {
@@ -1145,12 +1079,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource2Alpha(void) const
     return &_sfEnvSource2Alpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvSource2Alpha(void)
-{
-    return this->editSFEnvSource2Alpha();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvOperand0RGB(void)
 {
@@ -1164,12 +1092,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand0RGB(void) const
     return &_sfEnvOperand0RGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvOperand0RGB (void)
-{
-    return this->editSFEnvOperand0RGB ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvOperand1RGB(void)
 {
@@ -1183,12 +1105,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand1RGB(void) const
     return &_sfEnvOperand1RGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvOperand1RGB (void)
-{
-    return this->editSFEnvOperand1RGB ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvOperand2RGB(void)
 {
@@ -1202,12 +1118,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand2RGB(void) const
     return &_sfEnvOperand2RGB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvOperand2RGB (void)
-{
-    return this->editSFEnvOperand2RGB ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvOperand0Alpha(void)
 {
@@ -1221,12 +1131,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand0Alpha(void) const
     return &_sfEnvOperand0Alpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvOperand0Alpha(void)
-{
-    return this->editSFEnvOperand0Alpha();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvOperand1Alpha(void)
 {
@@ -1240,12 +1144,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand1Alpha(void) const
     return &_sfEnvOperand1Alpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvOperand1Alpha(void)
-{
-    return this->editSFEnvOperand1Alpha();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFEnvOperand2Alpha(void)
 {
@@ -1259,12 +1157,6 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand2Alpha(void) const
     return &_sfEnvOperand2Alpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFEnvOperand2Alpha(void)
-{
-    return this->editSFEnvOperand2Alpha();
-}
-#endif
 
 SFBool *TextureEnvChunkBase::editSFPointSprite(void)
 {
@@ -1278,12 +1170,6 @@ const SFBool *TextureEnvChunkBase::getSFPointSprite(void) const
     return &_sfPointSprite;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TextureEnvChunkBase::getSFPointSprite    (void)
-{
-    return this->editSFPointSprite    ();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFShaderOperation(void)
 {
@@ -1297,12 +1183,6 @@ const SFGLenum *TextureEnvChunkBase::getSFShaderOperation(void) const
     return &_sfShaderOperation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFShaderOperation(void)
-{
-    return this->editSFShaderOperation();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFShaderInput(void)
 {
@@ -1316,12 +1196,6 @@ const SFGLenum *TextureEnvChunkBase::getSFShaderInput(void) const
     return &_sfShaderInput;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFShaderInput    (void)
-{
-    return this->editSFShaderInput    ();
-}
-#endif
 
 MFReal32 *TextureEnvChunkBase::editMFShaderOffsetMatrix(void)
 {
@@ -1335,12 +1209,6 @@ const MFReal32 *TextureEnvChunkBase::getMFShaderOffsetMatrix(void) const
     return &_mfShaderOffsetMatrix;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *TextureEnvChunkBase::getMFShaderOffsetMatrix(void)
-{
-    return this->editMFShaderOffsetMatrix();
-}
-#endif
 
 SFReal32 *TextureEnvChunkBase::editSFShaderOffsetScale(void)
 {
@@ -1354,12 +1222,6 @@ const SFReal32 *TextureEnvChunkBase::getSFShaderOffsetScale(void) const
     return &_sfShaderOffsetScale;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TextureEnvChunkBase::getSFShaderOffsetScale(void)
-{
-    return this->editSFShaderOffsetScale();
-}
-#endif
 
 SFReal32 *TextureEnvChunkBase::editSFShaderOffsetBias(void)
 {
@@ -1373,12 +1235,6 @@ const SFReal32 *TextureEnvChunkBase::getSFShaderOffsetBias(void) const
     return &_sfShaderOffsetBias;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TextureEnvChunkBase::getSFShaderOffsetBias(void)
-{
-    return this->editSFShaderOffsetBias();
-}
-#endif
 
 SFGLenum *TextureEnvChunkBase::editSFShaderRGBADotProduct(void)
 {
@@ -1392,12 +1248,6 @@ const SFGLenum *TextureEnvChunkBase::getSFShaderRGBADotProduct(void) const
     return &_sfShaderRGBADotProduct;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureEnvChunkBase::getSFShaderRGBADotProduct(void)
-{
-    return this->editSFShaderRGBADotProduct();
-}
-#endif
 
 SFUInt8 *TextureEnvChunkBase::editSFShaderCullModes(void)
 {
@@ -1411,12 +1261,6 @@ const SFUInt8 *TextureEnvChunkBase::getSFShaderCullModes(void) const
     return &_sfShaderCullModes;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt8             *TextureEnvChunkBase::getSFShaderCullModes(void)
-{
-    return this->editSFShaderCullModes();
-}
-#endif
 
 SFVec3r *TextureEnvChunkBase::editSFShaderConstEye(void)
 {
@@ -1430,12 +1274,6 @@ const SFVec3r *TextureEnvChunkBase::getSFShaderConstEye(void) const
     return &_sfShaderConstEye;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec3r             *TextureEnvChunkBase::getSFShaderConstEye (void)
-{
-    return this->editSFShaderConstEye ();
-}
-#endif
 
 SFReal32 *TextureEnvChunkBase::editSFLodBias(void)
 {
@@ -1449,12 +1287,6 @@ const SFReal32 *TextureEnvChunkBase::getSFLodBias(void) const
     return &_sfLodBias;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TextureEnvChunkBase::getSFLodBias        (void)
-{
-    return this->editSFLodBias        ();
-}
-#endif
 
 
 

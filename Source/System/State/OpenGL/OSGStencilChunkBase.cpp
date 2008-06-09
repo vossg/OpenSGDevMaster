@@ -384,12 +384,6 @@ const SFGLenum *StencilChunkBase::getSFStencilFunc(void) const
     return &_sfStencilFunc;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *StencilChunkBase::getSFStencilFunc    (void)
-{
-    return this->editSFStencilFunc    ();
-}
-#endif
 
 SFInt32 *StencilChunkBase::editSFStencilValue(void)
 {
@@ -403,12 +397,6 @@ const SFInt32 *StencilChunkBase::getSFStencilValue(void) const
     return &_sfStencilValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *StencilChunkBase::getSFStencilValue   (void)
-{
-    return this->editSFStencilValue   ();
-}
-#endif
 
 SFUInt32 *StencilChunkBase::editSFStencilMask(void)
 {
@@ -422,12 +410,6 @@ const SFUInt32 *StencilChunkBase::getSFStencilMask(void) const
     return &_sfStencilMask;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *StencilChunkBase::getSFStencilMask    (void)
-{
-    return this->editSFStencilMask    ();
-}
-#endif
 
 SFGLenum *StencilChunkBase::editSFStencilOpFail(void)
 {
@@ -441,12 +423,6 @@ const SFGLenum *StencilChunkBase::getSFStencilOpFail(void) const
     return &_sfStencilOpFail;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *StencilChunkBase::getSFStencilOpFail  (void)
-{
-    return this->editSFStencilOpFail  ();
-}
-#endif
 
 SFGLenum *StencilChunkBase::editSFStencilOpZFail(void)
 {
@@ -460,12 +436,6 @@ const SFGLenum *StencilChunkBase::getSFStencilOpZFail(void) const
     return &_sfStencilOpZFail;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *StencilChunkBase::getSFStencilOpZFail (void)
-{
-    return this->editSFStencilOpZFail ();
-}
-#endif
 
 SFGLenum *StencilChunkBase::editSFStencilOpZPass(void)
 {
@@ -479,12 +449,6 @@ const SFGLenum *StencilChunkBase::getSFStencilOpZPass(void) const
     return &_sfStencilOpZPass;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *StencilChunkBase::getSFStencilOpZPass (void)
-{
-    return this->editSFStencilOpZPass ();
-}
-#endif
 
 SFInt32 *StencilChunkBase::editSFClearBuffer(void)
 {
@@ -498,12 +462,6 @@ const SFInt32 *StencilChunkBase::getSFClearBuffer(void) const
     return &_sfClearBuffer;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *StencilChunkBase::getSFClearBuffer    (void)
-{
-    return this->editSFClearBuffer    ();
-}
-#endif
 
 SFUInt32 *StencilChunkBase::editSFBitMask(void)
 {
@@ -517,12 +475,6 @@ const SFUInt32 *StencilChunkBase::getSFBitMask(void) const
     return &_sfBitMask;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *StencilChunkBase::getSFBitMask        (void)
-{
-    return this->editSFBitMask        ();
-}
-#endif
 
 
 

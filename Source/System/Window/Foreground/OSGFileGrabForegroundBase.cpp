@@ -254,12 +254,6 @@ const SFString *FileGrabForegroundBase::getSFName(void) const
     return &_sfName;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *FileGrabForegroundBase::getSFName           (void)
-{
-    return this->editSFName           ();
-}
-#endif
 
 SFUInt32 *FileGrabForegroundBase::editSFFrame(void)
 {
@@ -273,12 +267,6 @@ const SFUInt32 *FileGrabForegroundBase::getSFFrame(void) const
     return &_sfFrame;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *FileGrabForegroundBase::getSFFrame          (void)
-{
-    return this->editSFFrame          ();
-}
-#endif
 
 SFBool *FileGrabForegroundBase::editSFIncrement(void)
 {
@@ -292,12 +280,6 @@ const SFBool *FileGrabForegroundBase::getSFIncrement(void) const
     return &_sfIncrement;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *FileGrabForegroundBase::getSFIncrement      (void)
-{
-    return this->editSFIncrement      ();
-}
-#endif
 
 
 

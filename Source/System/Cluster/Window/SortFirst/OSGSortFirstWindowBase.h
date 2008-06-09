@@ -142,67 +142,36 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFCompression     (void);
-#endif
                   SFString            *editSFCompression    (void);
             const SFString            *getSFCompression     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFSubtileSize     (void);
-#endif
                   SFUInt32            *editSFSubtileSize    (void);
             const SFUInt32            *getSFSubtileSize     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFCompose         (void);
-#endif
                   SFBool              *editSFCompose        (void);
             const SFBool              *getSFCompose         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFRegion          (void);
-#endif
                   MFUInt32            *editMFRegion         (void);
             const MFUInt32            *getMFRegion          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFUseFaceDistribution (void);
-#endif
                   SFBool              *editSFUseFaceDistribution(void);
             const SFBool              *getSFUseFaceDistribution (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getCompression     (void);
-#endif
                   std::string         &editCompression    (void);
-            const std::string          getCompression     (void) const;
+            const std::string         &getCompression     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getSubtileSize     (void);
-#endif
                   UInt32              &editSubtileSize    (void);
-            const UInt32               getSubtileSize     (void) const;
+                  UInt32               getSubtileSize     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getCompose         (void);
-#endif
                   bool                &editCompose        (void);
-            const bool                 getCompose         (void) const;
+                  bool                 getCompose         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getRegion          (const UInt32 index);
-                  MFUInt32            &getRegion         (void);
-#endif
                   UInt32              &editRegion         (const UInt32 index);
-            const UInt32               getRegion          (const UInt32 index) const;
+                  UInt32               getRegion          (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getUseFaceDistribution (void);
-#endif
                   bool                &editUseFaceDistribution(void);
-            const bool                 getUseFaceDistribution (void) const;
+                  bool                 getUseFaceDistribution (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -210,9 +179,9 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*! \{                                                                 */
 
             void setCompression    (const std::string &value);
-            void setSubtileSize    (const UInt32 &value);
-            void setCompose        (const bool &value);
-            void setUseFaceDistribution(const bool &value);
+            void setSubtileSize    (const UInt32 value);
+            void setCompose        (const bool value);
+            void setUseFaceDistribution(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -178,174 +178,90 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFDiffuse         (void);
-#endif
                   SFColor4r           *editSFDiffuse        (void);
             const SFColor4r           *getSFDiffuse         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFAmbient         (void);
-#endif
                   SFColor4r           *editSFAmbient        (void);
             const SFColor4r           *getSFAmbient         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFSpecular        (void);
-#endif
                   SFColor4r           *editSFSpecular       (void);
             const SFColor4r           *getSFSpecular        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFEmission        (void);
-#endif
                   SFColor4r           *editSFEmission       (void);
             const SFColor4r           *getSFEmission        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal              *getSFShininess       (void);
-#endif
                   SFReal              *editSFShininess      (void);
             const SFReal              *getSFShininess       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFLit             (void);
-#endif
                   SFBool              *editSFLit            (void);
             const SFBool              *getSFLit             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFColorMaterial   (void);
-#endif
                   SFGLenum            *editSFColorMaterial  (void);
             const SFGLenum            *getSFColorMaterial   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFBackMaterial    (void);
-#endif
                   SFBool              *editSFBackMaterial   (void);
             const SFBool              *getSFBackMaterial    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFBackDiffuse     (void);
-#endif
                   SFColor4r           *editSFBackDiffuse    (void);
             const SFColor4r           *getSFBackDiffuse     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFBackAmbient     (void);
-#endif
                   SFColor4r           *editSFBackAmbient    (void);
             const SFColor4r           *getSFBackAmbient     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFBackSpecular    (void);
-#endif
                   SFColor4r           *editSFBackSpecular   (void);
             const SFColor4r           *getSFBackSpecular    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4r           *getSFBackEmission    (void);
-#endif
                   SFColor4r           *editSFBackEmission   (void);
             const SFColor4r           *getSFBackEmission    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal              *getSFBackShininess   (void);
-#endif
                   SFReal              *editSFBackShininess  (void);
             const SFReal              *getSFBackShininess   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFBackColorMaterial (void);
-#endif
                   SFGLenum            *editSFBackColorMaterial(void);
             const SFGLenum            *getSFBackColorMaterial (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getDiffuse         (void);
-#endif
                   Color4r             &editDiffuse        (void);
-            const Color4r              getDiffuse         (void) const;
+            const Color4r             &getDiffuse         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getAmbient         (void);
-#endif
                   Color4r             &editAmbient        (void);
-            const Color4r              getAmbient         (void) const;
+            const Color4r             &getAmbient         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getSpecular        (void);
-#endif
                   Color4r             &editSpecular       (void);
-            const Color4r              getSpecular        (void) const;
+            const Color4r             &getSpecular        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getEmission        (void);
-#endif
                   Color4r             &editEmission       (void);
-            const Color4r              getEmission        (void) const;
+            const Color4r             &getEmission        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real                &getShininess       (void);
-#endif
                   Real                &editShininess      (void);
-            const Real                 getShininess       (void) const;
+            const Real                &getShininess       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getLit             (void);
-#endif
                   bool                &editLit            (void);
-            const bool                 getLit             (void) const;
+                  bool                 getLit             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getColorMaterial   (void);
-#endif
                   GLenum              &editColorMaterial  (void);
-            const GLenum               getColorMaterial   (void) const;
+            const GLenum              &getColorMaterial   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getBackMaterial    (void);
-#endif
                   bool                &editBackMaterial   (void);
-            const bool                 getBackMaterial    (void) const;
+                  bool                 getBackMaterial    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getBackDiffuse     (void);
-#endif
                   Color4r             &editBackDiffuse    (void);
-            const Color4r              getBackDiffuse     (void) const;
+            const Color4r             &getBackDiffuse     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getBackAmbient     (void);
-#endif
                   Color4r             &editBackAmbient    (void);
-            const Color4r              getBackAmbient     (void) const;
+            const Color4r             &getBackAmbient     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getBackSpecular    (void);
-#endif
                   Color4r             &editBackSpecular   (void);
-            const Color4r              getBackSpecular    (void) const;
+            const Color4r             &getBackSpecular    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4r             &getBackEmission    (void);
-#endif
                   Color4r             &editBackEmission   (void);
-            const Color4r              getBackEmission    (void) const;
+            const Color4r             &getBackEmission    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real                &getBackShininess   (void);
-#endif
                   Real                &editBackShininess  (void);
-            const Real                 getBackShininess   (void) const;
+            const Real                &getBackShininess   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getBackColorMaterial (void);
-#endif
                   GLenum              &editBackColorMaterial(void);
-            const GLenum               getBackColorMaterial (void) const;
+            const GLenum              &getBackColorMaterial (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -357,9 +273,9 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
             void setSpecular       (const Color4r &value);
             void setEmission       (const Color4r &value);
             void setShininess      (const Real &value);
-            void setLit            (const bool &value);
+            void setLit            (const bool value);
             void setColorMaterial  (const GLenum &value);
-            void setBackMaterial   (const bool &value);
+            void setBackMaterial   (const bool value);
             void setBackDiffuse    (const Color4r &value);
             void setBackAmbient    (const Color4r &value);
             void setBackSpecular   (const Color4r &value);

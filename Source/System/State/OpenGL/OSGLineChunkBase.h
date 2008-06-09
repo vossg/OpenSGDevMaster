@@ -138,64 +138,40 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFWidth           (void);
-#endif
                   SFReal32            *editSFWidth          (void);
             const SFReal32            *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFStippleRepeat   (void);
-#endif
                   SFInt32             *editSFStippleRepeat  (void);
             const SFInt32             *getSFStippleRepeat   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFStipplePattern  (void);
-#endif
                   SFUInt16            *editSFStipplePattern (void);
             const SFUInt16            *getSFStipplePattern  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFSmooth          (void);
-#endif
                   SFBool              *editSFSmooth         (void);
             const SFBool              *getSFSmooth          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getWidth           (void);
-#endif
                   Real32              &editWidth          (void);
-            const Real32               getWidth           (void) const;
+                  Real32               getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getStippleRepeat   (void);
-#endif
                   Int32               &editStippleRepeat  (void);
-            const Int32                getStippleRepeat   (void) const;
+                  Int32                getStippleRepeat   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getStipplePattern  (void);
-#endif
                   UInt16              &editStipplePattern (void);
-            const UInt16               getStipplePattern  (void) const;
+                  UInt16               getStipplePattern  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getSmooth          (void);
-#endif
                   bool                &editSmooth         (void);
-            const bool                 getSmooth          (void) const;
+                  bool                 getSmooth          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setWidth          (const Real32 &value);
-            void setStippleRepeat  (const Int32 &value);
-            void setStipplePattern (const UInt16 &value);
-            void setSmooth         (const bool &value);
+            void setWidth          (const Real32 value);
+            void setStippleRepeat  (const Int32 value);
+            void setStipplePattern (const UInt16 value);
+            void setSmooth         (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

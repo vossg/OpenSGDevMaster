@@ -126,18 +126,12 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFCGLContextObj     *getSFContext         (void);
-#endif
                   SFCGLContextObj     *editSFContext        (void);
             const SFCGLContextObj     *getSFContext         (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  CGLContextObj       &getContext         (void);
-#endif
                   CGLContextObj       &editContext        (void);
-            const CGLContextObj        getContext         (void) const;
+            const CGLContextObj       &getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -264,12 +264,6 @@ const SFUInt32 *AlgorithmStageBase::getSFProjectionMode(void) const
     return &_sfProjectionMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *AlgorithmStageBase::getSFProjectionMode (void)
-{
-    return this->editSFProjectionMode ();
-}
-#endif
 
 SFBool *AlgorithmStageBase::editSFCopyViewing(void)
 {
@@ -283,12 +277,6 @@ const SFBool *AlgorithmStageBase::getSFCopyViewing(void) const
     return &_sfCopyViewing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *AlgorithmStageBase::getSFCopyViewing    (void)
-{
-    return this->editSFCopyViewing    ();
-}
-#endif
 
 SFMatrix *AlgorithmStageBase::editSFProjectionMatrix(void)
 {
@@ -302,12 +290,6 @@ const SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void) const
     return &_sfProjectionMatrix;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *AlgorithmStageBase::getSFProjectionMatrix(void)
-{
-    return this->editSFProjectionMatrix();
-}
-#endif
 
 
 

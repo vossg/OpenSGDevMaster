@@ -176,12 +176,6 @@ const SFVec3r *DirectionalLightBase::getSFDirection(void) const
     return &_sfDirection;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec3r             *DirectionalLightBase::getSFDirection      (void)
-{
-    return this->editSFDirection      ();
-}
-#endif
 
 
 

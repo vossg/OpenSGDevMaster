@@ -158,9 +158,6 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
             const MFUnrecChildGeoIntegralPropertyPtr *getMFPropIndices    (void) const;
                   MFUnrecChildGeoIntegralPropertyPtr *editMFPropIndices    (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFDlistCache      (void);
-#endif
                   SFBool              *editSFDlistCache     (void);
             const SFBool              *getSFDlistCache      (void) const;
 
@@ -173,11 +170,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
                   GeoIntegralProperty * getPropIndices    (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getDlistCache      (void);
-#endif
                   bool                &editDlistCache     (void);
-            const bool                 getDlistCache      (void) const;
+                  bool                 getDlistCache      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -186,7 +180,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
             void setTypes          (GeoIntegralProperty * const value);
             void setLengths        (GeoIntegralProperty * const value);
-            void setDlistCache     (const bool &value);
+            void setDlistCache     (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -333,18 +327,18 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 
                   Int32               &editClassicGLId    (void);
-            const Int32                getClassicGLId     (void) const;
+                  Int32                getClassicGLId     (void) const;
 
                   Int32               &editAttGLId        (void);
-            const Int32                getAttGLId         (void) const;
+                  Int32                getAttGLId         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setClassicGLId    (const Int32 &value);
-            void setAttGLId        (const Int32 &value);
+            void setClassicGLId    (const Int32 value);
+            void setAttGLId        (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -146,90 +146,52 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFCgFrontEnd      (void);
-#endif
                   SFBool              *editSFCgFrontEnd     (void);
             const SFBool              *getSFCgFrontEnd      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFPointSize       (void);
-#endif
                   SFBool              *editSFPointSize      (void);
             const SFBool              *getSFPointSize       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFGLenum            *getMFProgramParameterNames (void);
-#endif
                   MFGLenum            *editMFProgramParameterNames(void);
             const MFGLenum            *getMFProgramParameterNames (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFProgramParameterValues (void);
-#endif
                   MFUInt32            *editMFProgramParameterValues(void);
             const MFUInt32            *getMFProgramParameterValues (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFGLId            (void);
-#endif
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFUnknownParameterWarning (void);
-#endif
                   SFBool              *editSFUnknownParameterWarning(void);
             const SFBool              *getSFUnknownParameterWarning (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getCgFrontEnd      (void);
-#endif
                   bool                &editCgFrontEnd     (void);
-            const bool                 getCgFrontEnd      (void) const;
+                  bool                 getCgFrontEnd      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getPointSize       (void);
-#endif
                   bool                &editPointSize      (void);
-            const bool                 getPointSize       (void) const;
+                  bool                 getPointSize       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getProgramParameterNames (const UInt32 index);
-                  MFGLenum            &getProgramParameterNames(void);
-#endif
                   GLenum              &editProgramParameterNames(const UInt32 index);
-            const GLenum               getProgramParameterNames (const UInt32 index) const;
+            const GLenum              &getProgramParameterNames (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getProgramParameterValues (const UInt32 index);
-                  MFUInt32            &getProgramParameterValues(void);
-#endif
                   UInt32              &editProgramParameterValues(const UInt32 index);
-            const UInt32               getProgramParameterValues (const UInt32 index) const;
+                  UInt32               getProgramParameterValues (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGLId            (void);
-#endif
                   UInt32              &editGLId           (void);
-            const UInt32               getGLId            (void) const;
+                  UInt32               getGLId            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getUnknownParameterWarning (void);
-#endif
                   bool                &editUnknownParameterWarning(void);
-            const bool                 getUnknownParameterWarning (void) const;
+                  bool                 getUnknownParameterWarning (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setCgFrontEnd     (const bool &value);
-            void setPointSize      (const bool &value);
-            void setGLId           (const UInt32 &value);
-            void setUnknownParameterWarning(const bool &value);
+            void setCgFrontEnd     (const bool value);
+            void setPointSize      (const bool value);
+            void setGLId           (const UInt32 value);
+            void setUnknownParameterWarning(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -140,44 +140,26 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
             const SFUnrecTextureObjChunkPtr *getSFTexture        (void) const;
                   SFUnrecTextureObjChunkPtr *editSFTexture        (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFAutoResize      (void);
-#endif
                   SFBool              *editSFAutoResize     (void);
             const SFBool              *getSFAutoResize      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFBindTarget      (void);
-#endif
                   SFGLenum            *editSFBindTarget     (void);
             const SFGLenum            *getSFBindTarget      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFCopyTarget      (void);
-#endif
                   SFGLenum            *editSFCopyTarget     (void);
             const SFGLenum            *getSFCopyTarget      (void) const;
 
 
                   TextureObjChunk * getTexture        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getAutoResize      (void);
-#endif
                   bool                &editAutoResize     (void);
-            const bool                 getAutoResize      (void) const;
+                  bool                 getAutoResize      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getBindTarget      (void);
-#endif
                   GLenum              &editBindTarget     (void);
-            const GLenum               getBindTarget      (void) const;
+            const GLenum              &getBindTarget      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getCopyTarget      (void);
-#endif
                   GLenum              &editCopyTarget     (void);
-            const GLenum               getCopyTarget      (void) const;
+            const GLenum              &getCopyTarget      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -185,7 +167,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*! \{                                                                 */
 
             void setTexture        (TextureObjChunk * const value);
-            void setAutoResize     (const bool &value);
+            void setAutoResize     (const bool value);
             void setBindTarget     (const GLenum &value);
             void setCopyTarget     (const GLenum &value);
 

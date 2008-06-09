@@ -85,22 +85,14 @@ bool &ShaderParameterBoolBase::editValue(void)
 
 //! Get the value of the ShaderParameterBool::_sfValue field.
 inline
-const bool ShaderParameterBoolBase::getValue(void) const
+      bool  ShaderParameterBoolBase::getValue(void) const
 {
     return _sfValue.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ShaderParameterBoolBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-#endif
-
 //! Set the value of the ShaderParameterBool::_sfValue field.
 inline
-void ShaderParameterBoolBase::setValue(const bool &value)
+void ShaderParameterBoolBase::setValue(const bool value)
 {
     editSField(ValueFieldMask);
 

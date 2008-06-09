@@ -85,22 +85,14 @@ bool &RenderOptionsBase::editStatistic(void)
 
 //! Get the value of the RenderOptions::_sfStatistic field.
 inline
-const bool RenderOptionsBase::getStatistic(void) const
+      bool  RenderOptionsBase::getStatistic(void) const
 {
     return _sfStatistic.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getStatistic      (void)
-{
-    return this->editStatistic      ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfStatistic field.
 inline
-void RenderOptionsBase::setStatistic(const bool &value)
+void RenderOptionsBase::setStatistic(const bool value)
 {
     editSField(StatisticFieldMask);
 
@@ -118,18 +110,10 @@ GLenum &RenderOptionsBase::editPolygonMode(void)
 
 //! Get the value of the RenderOptions::_sfPolygonMode field.
 inline
-const GLenum RenderOptionsBase::getPolygonMode(void) const
+const GLenum &RenderOptionsBase::getPolygonMode(void) const
 {
     return _sfPolygonMode.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &RenderOptionsBase::getPolygonMode    (void)
-{
-    return this->editPolygonMode    ();
-}
-#endif
 
 //! Set the value of the RenderOptions::_sfPolygonMode field.
 inline
@@ -151,22 +135,14 @@ bool &RenderOptionsBase::editTwoSidedLighting(void)
 
 //! Get the value of the RenderOptions::_sfTwoSidedLighting field.
 inline
-const bool RenderOptionsBase::getTwoSidedLighting(void) const
+      bool  RenderOptionsBase::getTwoSidedLighting(void) const
 {
     return _sfTwoSidedLighting.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getTwoSidedLighting(void)
-{
-    return this->editTwoSidedLighting();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfTwoSidedLighting field.
 inline
-void RenderOptionsBase::setTwoSidedLighting(const bool &value)
+void RenderOptionsBase::setTwoSidedLighting(const bool value)
 {
     editSField(TwoSidedLightingFieldMask);
 
@@ -184,22 +160,14 @@ bool &RenderOptionsBase::editSpecTexLighting(void)
 
 //! Get the value of the RenderOptions::_sfSpecTexLighting field.
 inline
-const bool RenderOptionsBase::getSpecTexLighting(void) const
+      bool  RenderOptionsBase::getSpecTexLighting(void) const
 {
     return _sfSpecTexLighting.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getSpecTexLighting(void)
-{
-    return this->editSpecTexLighting();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfSpecTexLighting field.
 inline
-void RenderOptionsBase::setSpecTexLighting(const bool &value)
+void RenderOptionsBase::setSpecTexLighting(const bool value)
 {
     editSField(SpecTexLightingFieldMask);
 
@@ -217,22 +185,14 @@ bool &RenderOptionsBase::editSortTrans(void)
 
 //! Get the value of the RenderOptions::_sfSortTrans field.
 inline
-const bool RenderOptionsBase::getSortTrans(void) const
+      bool  RenderOptionsBase::getSortTrans(void) const
 {
     return _sfSortTrans.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getSortTrans      (void)
-{
-    return this->editSortTrans      ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfSortTrans field.
 inline
-void RenderOptionsBase::setSortTrans(const bool &value)
+void RenderOptionsBase::setSortTrans(const bool value)
 {
     editSField(SortTransFieldMask);
 
@@ -250,22 +210,14 @@ bool &RenderOptionsBase::editZWriteTrans(void)
 
 //! Get the value of the RenderOptions::_sfZWriteTrans field.
 inline
-const bool RenderOptionsBase::getZWriteTrans(void) const
+      bool  RenderOptionsBase::getZWriteTrans(void) const
 {
     return _sfZWriteTrans.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getZWriteTrans    (void)
-{
-    return this->editZWriteTrans    ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfZWriteTrans field.
 inline
-void RenderOptionsBase::setZWriteTrans(const bool &value)
+void RenderOptionsBase::setZWriteTrans(const bool value)
 {
     editSField(ZWriteTransFieldMask);
 
@@ -283,22 +235,14 @@ bool &RenderOptionsBase::editLocalLights(void)
 
 //! Get the value of the RenderOptions::_sfLocalLights field.
 inline
-const bool RenderOptionsBase::getLocalLights(void) const
+      bool  RenderOptionsBase::getLocalLights(void) const
 {
     return _sfLocalLights.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getLocalLights    (void)
-{
-    return this->editLocalLights    ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfLocalLights field.
 inline
-void RenderOptionsBase::setLocalLights(const bool &value)
+void RenderOptionsBase::setLocalLights(const bool value)
 {
     editSField(LocalLightsFieldMask);
 
@@ -316,22 +260,14 @@ bool &RenderOptionsBase::editCorrectTwoSidedLighting(void)
 
 //! Get the value of the RenderOptions::_sfCorrectTwoSidedLighting field.
 inline
-const bool RenderOptionsBase::getCorrectTwoSidedLighting(void) const
+      bool  RenderOptionsBase::getCorrectTwoSidedLighting(void) const
 {
     return _sfCorrectTwoSidedLighting.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getCorrectTwoSidedLighting(void)
-{
-    return this->editCorrectTwoSidedLighting();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfCorrectTwoSidedLighting field.
 inline
-void RenderOptionsBase::setCorrectTwoSidedLighting(const bool &value)
+void RenderOptionsBase::setCorrectTwoSidedLighting(const bool value)
 {
     editSField(CorrectTwoSidedLightingFieldMask);
 
@@ -349,22 +285,14 @@ bool &RenderOptionsBase::editOcclusionCulling(void)
 
 //! Get the value of the RenderOptions::_sfOcclusionCulling field.
 inline
-const bool RenderOptionsBase::getOcclusionCulling(void) const
+      bool  RenderOptionsBase::getOcclusionCulling(void) const
 {
     return _sfOcclusionCulling.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getOcclusionCulling(void)
-{
-    return this->editOcclusionCulling();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfOcclusionCulling field.
 inline
-void RenderOptionsBase::setOcclusionCulling(const bool &value)
+void RenderOptionsBase::setOcclusionCulling(const bool value)
 {
     editSField(OcclusionCullingFieldMask);
 
@@ -382,22 +310,14 @@ Int32 &RenderOptionsBase::editOcclusionCullingMode(void)
 
 //! Get the value of the RenderOptions::_sfOcclusionCullingMode field.
 inline
-const Int32 RenderOptionsBase::getOcclusionCullingMode(void) const
+      Int32  RenderOptionsBase::getOcclusionCullingMode(void) const
 {
     return _sfOcclusionCullingMode.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &RenderOptionsBase::getOcclusionCullingMode(void)
-{
-    return this->editOcclusionCullingMode();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfOcclusionCullingMode field.
 inline
-void RenderOptionsBase::setOcclusionCullingMode(const Int32 &value)
+void RenderOptionsBase::setOcclusionCullingMode(const Int32 value)
 {
     editSField(OcclusionCullingModeFieldMask);
 
@@ -415,22 +335,14 @@ UInt32 &RenderOptionsBase::editOcclusionCullingPixels(void)
 
 //! Get the value of the RenderOptions::_sfOcclusionCullingPixels field.
 inline
-const UInt32 RenderOptionsBase::getOcclusionCullingPixels(void) const
+      UInt32  RenderOptionsBase::getOcclusionCullingPixels(void) const
 {
     return _sfOcclusionCullingPixels.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &RenderOptionsBase::getOcclusionCullingPixels(void)
-{
-    return this->editOcclusionCullingPixels();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfOcclusionCullingPixels field.
 inline
-void RenderOptionsBase::setOcclusionCullingPixels(const UInt32 &value)
+void RenderOptionsBase::setOcclusionCullingPixels(const UInt32 value)
 {
     editSField(OcclusionCullingPixelsFieldMask);
 
@@ -448,22 +360,14 @@ bool &RenderOptionsBase::editAntialiasing(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasing field.
 inline
-const bool RenderOptionsBase::getAntialiasing(void) const
+      bool  RenderOptionsBase::getAntialiasing(void) const
 {
     return _sfAntialiasing.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getAntialiasing   (void)
-{
-    return this->editAntialiasing   ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfAntialiasing field.
 inline
-void RenderOptionsBase::setAntialiasing(const bool &value)
+void RenderOptionsBase::setAntialiasing(const bool value)
 {
     editSField(AntialiasingFieldMask);
 
@@ -481,22 +385,14 @@ Real32 &RenderOptionsBase::editAntialiasingDistance(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasingDistance field.
 inline
-const Real32 RenderOptionsBase::getAntialiasingDistance(void) const
+      Real32  RenderOptionsBase::getAntialiasingDistance(void) const
 {
     return _sfAntialiasingDistance.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &RenderOptionsBase::getAntialiasingDistance(void)
-{
-    return this->editAntialiasingDistance();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfAntialiasingDistance field.
 inline
-void RenderOptionsBase::setAntialiasingDistance(const Real32 &value)
+void RenderOptionsBase::setAntialiasingDistance(const Real32 value)
 {
     editSField(AntialiasingDistanceFieldMask);
 
@@ -514,22 +410,14 @@ Real32 &RenderOptionsBase::editAntialiasingScale(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasingScale field.
 inline
-const Real32 RenderOptionsBase::getAntialiasingScale(void) const
+      Real32  RenderOptionsBase::getAntialiasingScale(void) const
 {
     return _sfAntialiasingScale.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &RenderOptionsBase::getAntialiasingScale(void)
-{
-    return this->editAntialiasingScale();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfAntialiasingScale field.
 inline
-void RenderOptionsBase::setAntialiasingScale(const Real32 &value)
+void RenderOptionsBase::setAntialiasingScale(const Real32 value)
 {
     editSField(AntialiasingScaleFieldMask);
 
@@ -547,22 +435,14 @@ UInt32 &RenderOptionsBase::editAntialiasingTrigger(void)
 
 //! Get the value of the RenderOptions::_sfAntialiasingTrigger field.
 inline
-const UInt32 RenderOptionsBase::getAntialiasingTrigger(void) const
+      UInt32  RenderOptionsBase::getAntialiasingTrigger(void) const
 {
     return _sfAntialiasingTrigger.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &RenderOptionsBase::getAntialiasingTrigger(void)
-{
-    return this->editAntialiasingTrigger();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfAntialiasingTrigger field.
 inline
-void RenderOptionsBase::setAntialiasingTrigger(const UInt32 &value)
+void RenderOptionsBase::setAntialiasingTrigger(const UInt32 value)
 {
     editSField(AntialiasingTriggerFieldMask);
 
@@ -580,22 +460,14 @@ bool &RenderOptionsBase::editFrustumCulling(void)
 
 //! Get the value of the RenderOptions::_sfFrustumCulling field.
 inline
-const bool RenderOptionsBase::getFrustumCulling(void) const
+      bool  RenderOptionsBase::getFrustumCulling(void) const
 {
     return _sfFrustumCulling.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getFrustumCulling (void)
-{
-    return this->editFrustumCulling ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfFrustumCulling field.
 inline
-void RenderOptionsBase::setFrustumCulling(const bool &value)
+void RenderOptionsBase::setFrustumCulling(const bool value)
 {
     editSField(FrustumCullingFieldMask);
 
@@ -613,22 +485,14 @@ bool &RenderOptionsBase::editBackfaceCulling(void)
 
 //! Get the value of the RenderOptions::_sfBackfaceCulling field.
 inline
-const bool RenderOptionsBase::getBackfaceCulling(void) const
+      bool  RenderOptionsBase::getBackfaceCulling(void) const
 {
     return _sfBackfaceCulling.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getBackfaceCulling(void)
-{
-    return this->editBackfaceCulling();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfBackfaceCulling field.
 inline
-void RenderOptionsBase::setBackfaceCulling(const bool &value)
+void RenderOptionsBase::setBackfaceCulling(const bool value)
 {
     editSField(BackfaceCullingFieldMask);
 
@@ -646,22 +510,14 @@ bool &RenderOptionsBase::editSmallFeatureCulling(void)
 
 //! Get the value of the RenderOptions::_sfSmallFeatureCulling field.
 inline
-const bool RenderOptionsBase::getSmallFeatureCulling(void) const
+      bool  RenderOptionsBase::getSmallFeatureCulling(void) const
 {
     return _sfSmallFeatureCulling.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getSmallFeatureCulling(void)
-{
-    return this->editSmallFeatureCulling();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfSmallFeatureCulling field.
 inline
-void RenderOptionsBase::setSmallFeatureCulling(const bool &value)
+void RenderOptionsBase::setSmallFeatureCulling(const bool value)
 {
     editSField(SmallFeatureCullingFieldMask);
 
@@ -679,22 +535,14 @@ Real32 &RenderOptionsBase::editSmallFeaturePixels(void)
 
 //! Get the value of the RenderOptions::_sfSmallFeaturePixels field.
 inline
-const Real32 RenderOptionsBase::getSmallFeaturePixels(void) const
+      Real32  RenderOptionsBase::getSmallFeaturePixels(void) const
 {
     return _sfSmallFeaturePixels.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &RenderOptionsBase::getSmallFeaturePixels(void)
-{
-    return this->editSmallFeaturePixels();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfSmallFeaturePixels field.
 inline
-void RenderOptionsBase::setSmallFeaturePixels(const Real32 &value)
+void RenderOptionsBase::setSmallFeaturePixels(const Real32 value)
 {
     editSField(SmallFeaturePixelsFieldMask);
 
@@ -712,22 +560,14 @@ UInt32 &RenderOptionsBase::editSmallFeatureThreshold(void)
 
 //! Get the value of the RenderOptions::_sfSmallFeatureThreshold field.
 inline
-const UInt32 RenderOptionsBase::getSmallFeatureThreshold(void) const
+      UInt32  RenderOptionsBase::getSmallFeatureThreshold(void) const
 {
     return _sfSmallFeatureThreshold.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &RenderOptionsBase::getSmallFeatureThreshold(void)
-{
-    return this->editSmallFeatureThreshold();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfSmallFeatureThreshold field.
 inline
-void RenderOptionsBase::setSmallFeatureThreshold(const UInt32 &value)
+void RenderOptionsBase::setSmallFeatureThreshold(const UInt32 value)
 {
     editSField(SmallFeatureThresholdFieldMask);
 
@@ -745,22 +585,14 @@ bool &RenderOptionsBase::editFirstFrame(void)
 
 //! Get the value of the RenderOptions::_sfFirstFrame field.
 inline
-const bool RenderOptionsBase::getFirstFrame(void) const
+      bool  RenderOptionsBase::getFirstFrame(void) const
 {
     return _sfFirstFrame.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getFirstFrame     (void)
-{
-    return this->editFirstFrame     ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfFirstFrame field.
 inline
-void RenderOptionsBase::setFirstFrame(const bool &value)
+void RenderOptionsBase::setFirstFrame(const bool value)
 {
     editSField(FirstFrameFieldMask);
 
@@ -778,22 +610,14 @@ bool &RenderOptionsBase::editDepthOnlyPass(void)
 
 //! Get the value of the RenderOptions::_sfDepthOnlyPass field.
 inline
-const bool RenderOptionsBase::getDepthOnlyPass(void) const
+      bool  RenderOptionsBase::getDepthOnlyPass(void) const
 {
     return _sfDepthOnlyPass.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &RenderOptionsBase::getDepthOnlyPass  (void)
-{
-    return this->editDepthOnlyPass  ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfDepthOnlyPass field.
 inline
-void RenderOptionsBase::setDepthOnlyPass(const bool &value)
+void RenderOptionsBase::setDepthOnlyPass(const bool value)
 {
     editSField(DepthOnlyPassFieldMask);
 
@@ -811,18 +635,10 @@ Color4f &RenderOptionsBase::editLightModelAmbient(void)
 
 //! Get the value of the RenderOptions::_sfLightModelAmbient field.
 inline
-const Color4f RenderOptionsBase::getLightModelAmbient(void) const
+const Color4f &RenderOptionsBase::getLightModelAmbient(void) const
 {
     return _sfLightModelAmbient.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color4f             &RenderOptionsBase::getLightModelAmbient(void)
-{
-    return this->editLightModelAmbient();
-}
-#endif
 
 //! Set the value of the RenderOptions::_sfLightModelAmbient field.
 inline
@@ -844,18 +660,10 @@ Color4f &RenderOptionsBase::editFogColor(void)
 
 //! Get the value of the RenderOptions::_sfFogColor field.
 inline
-const Color4f RenderOptionsBase::getFogColor(void) const
+const Color4f &RenderOptionsBase::getFogColor(void) const
 {
     return _sfFogColor.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color4f             &RenderOptionsBase::getFogColor       (void)
-{
-    return this->editFogColor       ();
-}
-#endif
 
 //! Set the value of the RenderOptions::_sfFogColor field.
 inline
@@ -877,18 +685,10 @@ Vec2f &RenderOptionsBase::editFogRange(void)
 
 //! Get the value of the RenderOptions::_sfFogRange field.
 inline
-const Vec2f RenderOptionsBase::getFogRange(void) const
+const Vec2f &RenderOptionsBase::getFogRange(void) const
 {
     return _sfFogRange.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec2f               &RenderOptionsBase::getFogRange       (void)
-{
-    return this->editFogRange       ();
-}
-#endif
 
 //! Set the value of the RenderOptions::_sfFogRange field.
 inline
@@ -910,22 +710,14 @@ Real32 &RenderOptionsBase::editFogDensity(void)
 
 //! Get the value of the RenderOptions::_sfFogDensity field.
 inline
-const Real32 RenderOptionsBase::getFogDensity(void) const
+      Real32  RenderOptionsBase::getFogDensity(void) const
 {
     return _sfFogDensity.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &RenderOptionsBase::getFogDensity     (void)
-{
-    return this->editFogDensity     ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfFogDensity field.
 inline
-void RenderOptionsBase::setFogDensity(const Real32 &value)
+void RenderOptionsBase::setFogDensity(const Real32 value)
 {
     editSField(FogDensityFieldMask);
 
@@ -943,22 +735,14 @@ Int32 &RenderOptionsBase::editFogMode(void)
 
 //! Get the value of the RenderOptions::_sfFogMode field.
 inline
-const Int32 RenderOptionsBase::getFogMode(void) const
+      Int32  RenderOptionsBase::getFogMode(void) const
 {
     return _sfFogMode.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &RenderOptionsBase::getFogMode        (void)
-{
-    return this->editFogMode        ();
-}
-#endif
-
 //! Set the value of the RenderOptions::_sfFogMode field.
 inline
-void RenderOptionsBase::setFogMode(const Int32 &value)
+void RenderOptionsBase::setFogMode(const Int32 value)
 {
     editSField(FogModeFieldMask);
 

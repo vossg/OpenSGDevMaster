@@ -224,12 +224,6 @@ const SFBool *ParallelComposerBase::getSFShort(void) const
     return &_sfShort;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ParallelComposerBase::getSFShort          (void)
-{
-    return this->editSFShort          ();
-}
-#endif
 
 SFBool *ParallelComposerBase::editSFAlpha(void)
 {
@@ -243,12 +237,6 @@ const SFBool *ParallelComposerBase::getSFAlpha(void) const
     return &_sfAlpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ParallelComposerBase::getSFAlpha          (void)
-{
-    return this->editSFAlpha          ();
-}
-#endif
 
 SFString *ParallelComposerBase::editSFPcLibPath(void)
 {
@@ -262,12 +250,6 @@ const SFString *ParallelComposerBase::getSFPcLibPath(void) const
     return &_sfPcLibPath;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ParallelComposerBase::getSFPcLibPath      (void)
-{
-    return this->editSFPcLibPath      ();
-}
-#endif
 
 
 

@@ -85,22 +85,14 @@ Int32 &StageDataBase::editPartitionRangeBegin(void)
 
 //! Get the value of the StageData::_sfPartitionRangeBegin field.
 inline
-const Int32 StageDataBase::getPartitionRangeBegin(void) const
+      Int32  StageDataBase::getPartitionRangeBegin(void) const
 {
     return _sfPartitionRangeBegin.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &StageDataBase::getPartitionRangeBegin(void)
-{
-    return this->editPartitionRangeBegin();
-}
-#endif
-
 //! Set the value of the StageData::_sfPartitionRangeBegin field.
 inline
-void StageDataBase::setPartitionRangeBegin(const Int32 &value)
+void StageDataBase::setPartitionRangeBegin(const Int32 value)
 {
     editSField(PartitionRangeBeginFieldMask);
 
@@ -118,22 +110,14 @@ Int32 &StageDataBase::editPartitionRangeEnd(void)
 
 //! Get the value of the StageData::_sfPartitionRangeEnd field.
 inline
-const Int32 StageDataBase::getPartitionRangeEnd(void) const
+      Int32  StageDataBase::getPartitionRangeEnd(void) const
 {
     return _sfPartitionRangeEnd.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &StageDataBase::getPartitionRangeEnd(void)
-{
-    return this->editPartitionRangeEnd();
-}
-#endif
-
 //! Set the value of the StageData::_sfPartitionRangeEnd field.
 inline
-void StageDataBase::setPartitionRangeEnd(const Int32 &value)
+void StageDataBase::setPartitionRangeEnd(const Int32 value)
 {
     editSField(PartitionRangeEndFieldMask);
 
@@ -151,22 +135,14 @@ Int32 &StageDataBase::editGroupMode(void)
 
 //! Get the value of the StageData::_sfGroupMode field.
 inline
-const Int32 StageDataBase::getGroupMode(void) const
+      Int32  StageDataBase::getGroupMode(void) const
 {
     return _sfGroupMode.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &StageDataBase::getGroupMode      (void)
-{
-    return this->editGroupMode      ();
-}
-#endif
-
 //! Set the value of the StageData::_sfGroupMode field.
 inline
-void StageDataBase::setGroupMode(const Int32 &value)
+void StageDataBase::setGroupMode(const Int32 value)
 {
     editSField(GroupModeFieldMask);
 

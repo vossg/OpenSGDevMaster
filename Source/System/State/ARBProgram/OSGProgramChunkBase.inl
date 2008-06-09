@@ -85,18 +85,10 @@ std::string &ProgramChunkBase::editProgram(void)
 
 //! Get the value of the ProgramChunk::_sfProgram field.
 inline
-const std::string ProgramChunkBase::getProgram(void) const
+const std::string &ProgramChunkBase::getProgram(void) const
 {
     return _sfProgram.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ProgramChunkBase::getProgram        (void)
-{
-    return this->editProgram        ();
-}
-#endif
 
 //! Set the value of the ProgramChunk::_sfProgram field.
 inline
@@ -118,22 +110,14 @@ UInt32 &ProgramChunkBase::editGLId(void)
 
 //! Get the value of the ProgramChunk::_sfGLId field.
 inline
-const UInt32 ProgramChunkBase::getGLId(void) const
+      UInt32  ProgramChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &ProgramChunkBase::getGLId           (void)
-{
-    return this->editGLId           ();
-}
-#endif
-
 //! Set the value of the ProgramChunk::_sfGLId field.
 inline
-void ProgramChunkBase::setGLId(const UInt32 &value)
+void ProgramChunkBase::setGLId(const UInt32 value)
 {
     editSField(GLIdFieldMask);
 
@@ -142,7 +126,7 @@ void ProgramChunkBase::setGLId(const UInt32 &value)
 
 //! Get the value of the \a index element the ProgramChunk::_mfParamValues field.
 inline
-const Vec4f ProgramChunkBase::getParamValues(const UInt32 index) const
+const Vec4f &ProgramChunkBase::getParamValues(const UInt32 index) const
 {
     return _mfParamValues[index];
 }
@@ -155,25 +139,10 @@ Vec4f &ProgramChunkBase::editParamValues(const UInt32 index)
     return _mfParamValues[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec4f               &ProgramChunkBase::getParamValues    (const UInt32 index)
-{
-    return this->editParamValues    (index);
-}
-
-inline
-MFVec4f             &ProgramChunkBase::getParamValues    (void)
-{
-    return this->editParamValues    ();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the ProgramChunk::_mfParamNames field.
 inline
-const std::string ProgramChunkBase::getParamNames(const UInt32 index) const
+const std::string &ProgramChunkBase::getParamNames(const UInt32 index) const
 {
     return _mfParamNames[index];
 }
@@ -185,21 +154,6 @@ std::string &ProgramChunkBase::editParamNames(const UInt32 index)
 
     return _mfParamNames[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ProgramChunkBase::getParamNames     (const UInt32 index)
-{
-    return this->editParamNames     (index);
-}
-
-inline
-MFString            &ProgramChunkBase::getParamNames     (void)
-{
-    return this->editParamNames     ();
-}
-
-#endif
 
 
 

@@ -142,77 +142,47 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFEnable          (void);
-#endif
                   SFBool              *editSFEnable         (void);
             const SFBool              *getSFEnable          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFFunc            (void);
-#endif
                   SFGLenum            *editSFFunc           (void);
             const SFGLenum            *getSFFunc            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFNear            (void);
-#endif
                   SFReal32            *editSFNear           (void);
             const SFReal32            *getSFNear            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFFar             (void);
-#endif
                   SFReal32            *editSFFar            (void);
             const SFReal32            *getSFFar             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFReadOnly        (void);
-#endif
                   SFBool              *editSFReadOnly       (void);
             const SFBool              *getSFReadOnly        (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getEnable          (void);
-#endif
                   bool                &editEnable         (void);
-            const bool                 getEnable          (void) const;
+                  bool                 getEnable          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getFunc            (void);
-#endif
                   GLenum              &editFunc           (void);
-            const GLenum               getFunc            (void) const;
+            const GLenum              &getFunc            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getNear            (void);
-#endif
                   Real32              &editNear           (void);
-            const Real32               getNear            (void) const;
+                  Real32               getNear            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getFar             (void);
-#endif
                   Real32              &editFar            (void);
-            const Real32               getFar             (void) const;
+                  Real32               getFar             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getReadOnly        (void);
-#endif
                   bool                &editReadOnly       (void);
-            const bool                 getReadOnly        (void) const;
+                  bool                 getReadOnly        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setEnable         (const bool &value);
+            void setEnable         (const bool value);
             void setFunc           (const GLenum &value);
-            void setNear           (const Real32 &value);
-            void setFar            (const Real32 &value);
-            void setReadOnly       (const bool &value);
+            void setNear           (const Real32 value);
+            void setFar            (const Real32 value);
+            void setReadOnly       (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

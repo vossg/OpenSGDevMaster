@@ -174,12 +174,6 @@ const SFReal32 *ShaderParameterRealBase::getSFValue(void) const
     return &_sfValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *ShaderParameterRealBase::getSFValue          (void)
-{
-    return this->editSFValue          ();
-}
-#endif
 
 
 

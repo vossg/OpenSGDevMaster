@@ -85,22 +85,14 @@ bool &StereoBufferViewportBase::editLeftBuffer(void)
 
 //! Get the value of the StereoBufferViewport::_sfLeftBuffer field.
 inline
-const bool StereoBufferViewportBase::getLeftBuffer(void) const
+      bool  StereoBufferViewportBase::getLeftBuffer(void) const
 {
     return _sfLeftBuffer.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &StereoBufferViewportBase::getLeftBuffer     (void)
-{
-    return this->editLeftBuffer     ();
-}
-#endif
-
 //! Set the value of the StereoBufferViewport::_sfLeftBuffer field.
 inline
-void StereoBufferViewportBase::setLeftBuffer(const bool &value)
+void StereoBufferViewportBase::setLeftBuffer(const bool value)
 {
     editSField(LeftBufferFieldMask);
 
@@ -118,22 +110,14 @@ bool &StereoBufferViewportBase::editRightBuffer(void)
 
 //! Get the value of the StereoBufferViewport::_sfRightBuffer field.
 inline
-const bool StereoBufferViewportBase::getRightBuffer(void) const
+      bool  StereoBufferViewportBase::getRightBuffer(void) const
 {
     return _sfRightBuffer.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &StereoBufferViewportBase::getRightBuffer    (void)
-{
-    return this->editRightBuffer    ();
-}
-#endif
-
 //! Set the value of the StereoBufferViewport::_sfRightBuffer field.
 inline
-void StereoBufferViewportBase::setRightBuffer(const bool &value)
+void StereoBufferViewportBase::setRightBuffer(const bool value)
 {
     editSField(RightBufferFieldMask);
 

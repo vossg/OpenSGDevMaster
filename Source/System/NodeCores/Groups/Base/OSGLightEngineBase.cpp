@@ -173,12 +173,6 @@ const SFBool *LightEngineBase::getSFEnabled(void) const
     return &_sfEnabled;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *LightEngineBase::getSFEnabled        (void)
-{
-    return this->editSFEnabled        ();
-}
-#endif
 
 
 

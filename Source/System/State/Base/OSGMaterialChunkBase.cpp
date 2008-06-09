@@ -525,12 +525,6 @@ const SFColor4r *MaterialChunkBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFDiffuse        (void)
-{
-    return this->editSFDiffuse        ();
-}
-#endif
 
 SFColor4r *MaterialChunkBase::editSFAmbient(void)
 {
@@ -544,12 +538,6 @@ const SFColor4r *MaterialChunkBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFAmbient        (void)
-{
-    return this->editSFAmbient        ();
-}
-#endif
 
 SFColor4r *MaterialChunkBase::editSFSpecular(void)
 {
@@ -563,12 +551,6 @@ const SFColor4r *MaterialChunkBase::getSFSpecular(void) const
     return &_sfSpecular;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFSpecular       (void)
-{
-    return this->editSFSpecular       ();
-}
-#endif
 
 SFColor4r *MaterialChunkBase::editSFEmission(void)
 {
@@ -582,12 +564,6 @@ const SFColor4r *MaterialChunkBase::getSFEmission(void) const
     return &_sfEmission;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFEmission       (void)
-{
-    return this->editSFEmission       ();
-}
-#endif
 
 SFReal *MaterialChunkBase::editSFShininess(void)
 {
@@ -601,12 +577,6 @@ const SFReal *MaterialChunkBase::getSFShininess(void) const
     return &_sfShininess;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *MaterialChunkBase::getSFShininess      (void)
-{
-    return this->editSFShininess      ();
-}
-#endif
 
 SFBool *MaterialChunkBase::editSFLit(void)
 {
@@ -620,12 +590,6 @@ const SFBool *MaterialChunkBase::getSFLit(void) const
     return &_sfLit;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *MaterialChunkBase::getSFLit            (void)
-{
-    return this->editSFLit            ();
-}
-#endif
 
 SFGLenum *MaterialChunkBase::editSFColorMaterial(void)
 {
@@ -639,12 +603,6 @@ const SFGLenum *MaterialChunkBase::getSFColorMaterial(void) const
     return &_sfColorMaterial;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *MaterialChunkBase::getSFColorMaterial  (void)
-{
-    return this->editSFColorMaterial  ();
-}
-#endif
 
 SFBool *MaterialChunkBase::editSFBackMaterial(void)
 {
@@ -658,12 +616,6 @@ const SFBool *MaterialChunkBase::getSFBackMaterial(void) const
     return &_sfBackMaterial;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *MaterialChunkBase::getSFBackMaterial   (void)
-{
-    return this->editSFBackMaterial   ();
-}
-#endif
 
 SFColor4r *MaterialChunkBase::editSFBackDiffuse(void)
 {
@@ -677,12 +629,6 @@ const SFColor4r *MaterialChunkBase::getSFBackDiffuse(void) const
     return &_sfBackDiffuse;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFBackDiffuse    (void)
-{
-    return this->editSFBackDiffuse    ();
-}
-#endif
 
 SFColor4r *MaterialChunkBase::editSFBackAmbient(void)
 {
@@ -696,12 +642,6 @@ const SFColor4r *MaterialChunkBase::getSFBackAmbient(void) const
     return &_sfBackAmbient;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFBackAmbient    (void)
-{
-    return this->editSFBackAmbient    ();
-}
-#endif
 
 SFColor4r *MaterialChunkBase::editSFBackSpecular(void)
 {
@@ -715,12 +655,6 @@ const SFColor4r *MaterialChunkBase::getSFBackSpecular(void) const
     return &_sfBackSpecular;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFBackSpecular   (void)
-{
-    return this->editSFBackSpecular   ();
-}
-#endif
 
 SFColor4r *MaterialChunkBase::editSFBackEmission(void)
 {
@@ -734,12 +668,6 @@ const SFColor4r *MaterialChunkBase::getSFBackEmission(void) const
     return &_sfBackEmission;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *MaterialChunkBase::getSFBackEmission   (void)
-{
-    return this->editSFBackEmission   ();
-}
-#endif
 
 SFReal *MaterialChunkBase::editSFBackShininess(void)
 {
@@ -753,12 +681,6 @@ const SFReal *MaterialChunkBase::getSFBackShininess(void) const
     return &_sfBackShininess;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *MaterialChunkBase::getSFBackShininess  (void)
-{
-    return this->editSFBackShininess  ();
-}
-#endif
 
 SFGLenum *MaterialChunkBase::editSFBackColorMaterial(void)
 {
@@ -772,12 +694,6 @@ const SFGLenum *MaterialChunkBase::getSFBackColorMaterial(void) const
     return &_sfBackColorMaterial;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *MaterialChunkBase::getSFBackColorMaterial(void)
-{
-    return this->editSFBackColorMaterial();
-}
-#endif
 
 
 

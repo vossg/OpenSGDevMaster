@@ -219,12 +219,6 @@ const SFBool *StereoBufferViewportBase::getSFLeftBuffer(void) const
     return &_sfLeftBuffer;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *StereoBufferViewportBase::getSFLeftBuffer     (void)
-{
-    return this->editSFLeftBuffer     ();
-}
-#endif
 
 SFBool *StereoBufferViewportBase::editSFRightBuffer(void)
 {
@@ -238,12 +232,6 @@ const SFBool *StereoBufferViewportBase::getSFRightBuffer(void) const
     return &_sfRightBuffer;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *StereoBufferViewportBase::getSFRightBuffer    (void)
-{
-    return this->editSFRightBuffer    ();
-}
-#endif
 
 
 

@@ -117,22 +117,14 @@ bool &GeometryBase::editDlistCache(void)
 
 //! Get the value of the Geometry::_sfDlistCache field.
 inline
-const bool GeometryBase::getDlistCache(void) const
+      bool  GeometryBase::getDlistCache(void) const
 {
     return _sfDlistCache.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &GeometryBase::getDlistCache     (void)
-{
-    return this->editDlistCache     ();
-}
-#endif
-
 //! Set the value of the Geometry::_sfDlistCache field.
 inline
-void GeometryBase::setDlistCache(const bool &value)
+void GeometryBase::setDlistCache(const bool value)
 {
     editSField(DlistCacheFieldMask);
 
@@ -150,22 +142,14 @@ Int32 &GeometryBase::editClassicGLId(void)
 
 //! Get the value of the Geometry::_sfClassicGLId field.
 inline
-const Int32 GeometryBase::getClassicGLId(void) const
+      Int32  GeometryBase::getClassicGLId(void) const
 {
     return _sfClassicGLId.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &GeometryBase::getClassicGLId    (void)
-{
-    return this->editClassicGLId    ();
-}
-#endif
-
 //! Set the value of the Geometry::_sfClassicGLId field.
 inline
-void GeometryBase::setClassicGLId(const Int32 &value)
+void GeometryBase::setClassicGLId(const Int32 value)
 {
     editSField(ClassicGLIdFieldMask);
 
@@ -183,22 +167,14 @@ Int32 &GeometryBase::editAttGLId(void)
 
 //! Get the value of the Geometry::_sfAttGLId field.
 inline
-const Int32 GeometryBase::getAttGLId(void) const
+      Int32  GeometryBase::getAttGLId(void) const
 {
     return _sfAttGLId.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &GeometryBase::getAttGLId        (void)
-{
-    return this->editAttGLId        ();
-}
-#endif
-
 //! Set the value of the Geometry::_sfAttGLId field.
 inline
-void GeometryBase::setAttGLId(const Int32 &value)
+void GeometryBase::setAttGLId(const Int32 value)
 {
     editSField(AttGLIdFieldMask);
 

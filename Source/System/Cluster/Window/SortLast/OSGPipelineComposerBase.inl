@@ -85,22 +85,14 @@ bool &PipelineComposerBase::editShort(void)
 
 //! Get the value of the PipelineComposer::_sfShort field.
 inline
-const bool PipelineComposerBase::getShort(void) const
+      bool  PipelineComposerBase::getShort(void) const
 {
     return _sfShort.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &PipelineComposerBase::getShort          (void)
-{
-    return this->editShort          ();
-}
-#endif
-
 //! Set the value of the PipelineComposer::_sfShort field.
 inline
-void PipelineComposerBase::setShort(const bool &value)
+void PipelineComposerBase::setShort(const bool value)
 {
     editSField(ShortFieldMask);
 
@@ -118,22 +110,14 @@ bool &PipelineComposerBase::editAlpha(void)
 
 //! Get the value of the PipelineComposer::_sfAlpha field.
 inline
-const bool PipelineComposerBase::getAlpha(void) const
+      bool  PipelineComposerBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &PipelineComposerBase::getAlpha          (void)
-{
-    return this->editAlpha          ();
-}
-#endif
-
 //! Set the value of the PipelineComposer::_sfAlpha field.
 inline
-void PipelineComposerBase::setAlpha(const bool &value)
+void PipelineComposerBase::setAlpha(const bool value)
 {
     editSField(AlphaFieldMask);
 
@@ -151,22 +135,14 @@ UInt32 &PipelineComposerBase::editTileSize(void)
 
 //! Get the value of the PipelineComposer::_sfTileSize field.
 inline
-const UInt32 PipelineComposerBase::getTileSize(void) const
+      UInt32  PipelineComposerBase::getTileSize(void) const
 {
     return _sfTileSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &PipelineComposerBase::getTileSize       (void)
-{
-    return this->editTileSize       ();
-}
-#endif
-
 //! Set the value of the PipelineComposer::_sfTileSize field.
 inline
-void PipelineComposerBase::setTileSize(const UInt32 &value)
+void PipelineComposerBase::setTileSize(const UInt32 value)
 {
     editSField(TileSizeFieldMask);
 
@@ -184,22 +160,14 @@ bool &PipelineComposerBase::editPipelined(void)
 
 //! Get the value of the PipelineComposer::_sfPipelined field.
 inline
-const bool PipelineComposerBase::getPipelined(void) const
+      bool  PipelineComposerBase::getPipelined(void) const
 {
     return _sfPipelined.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &PipelineComposerBase::getPipelined      (void)
-{
-    return this->editPipelined      ();
-}
-#endif
-
 //! Set the value of the PipelineComposer::_sfPipelined field.
 inline
-void PipelineComposerBase::setPipelined(const bool &value)
+void PipelineComposerBase::setPipelined(const bool value)
 {
     editSField(PipelinedFieldMask);
 

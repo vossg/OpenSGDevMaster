@@ -220,12 +220,6 @@ const SFBool *StageBase::getSFInheritedTarget(void) const
     return &_sfInheritedTarget;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *StageBase::getSFInheritedTarget(void)
-{
-    return this->editSFInheritedTarget();
-}
-#endif
 
 
 

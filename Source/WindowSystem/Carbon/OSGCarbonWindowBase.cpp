@@ -174,12 +174,6 @@ const SFAGLContext *CarbonWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFAGLContext        *CarbonWindowBase::getSFContext        (void)
-{
-    return this->editSFContext        ();
-}
-#endif
 
 
 

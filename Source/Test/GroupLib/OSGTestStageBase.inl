@@ -85,18 +85,10 @@ std::string &TestStageBase::editMessage(void)
 
 //! Get the value of the TestStage::_sfMessage field.
 inline
-const std::string TestStageBase::getMessage(void) const
+const std::string &TestStageBase::getMessage(void) const
 {
     return _sfMessage.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &TestStageBase::getMessage        (void)
-{
-    return this->editMessage        ();
-}
-#endif
 
 //! Set the value of the TestStage::_sfMessage field.
 inline

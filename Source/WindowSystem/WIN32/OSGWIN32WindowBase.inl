@@ -85,18 +85,10 @@ HWND &WIN32WindowBase::editHwnd(void)
 
 //! Get the value of the WIN32Window::_sfHwnd field.
 inline
-const HWND WIN32WindowBase::getHwnd(void) const
+const HWND &WIN32WindowBase::getHwnd(void) const
 {
     return _sfHwnd.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-HWND                &WIN32WindowBase::getHwnd           (void)
-{
-    return this->editHwnd           ();
-}
-#endif
 
 //! Set the value of the WIN32Window::_sfHwnd field.
 inline
@@ -118,18 +110,10 @@ HDC &WIN32WindowBase::editHdc(void)
 
 //! Get the value of the WIN32Window::_sfHdc field.
 inline
-const HDC WIN32WindowBase::getHdc(void) const
+const HDC &WIN32WindowBase::getHdc(void) const
 {
     return _sfHdc.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-HDC                 &WIN32WindowBase::getHdc            (void)
-{
-    return this->editHdc            ();
-}
-#endif
 
 //! Set the value of the WIN32Window::_sfHdc field.
 inline
@@ -151,18 +135,10 @@ HGLRC &WIN32WindowBase::editHglrc(void)
 
 //! Get the value of the WIN32Window::_sfHglrc field.
 inline
-const HGLRC WIN32WindowBase::getHglrc(void) const
+const HGLRC &WIN32WindowBase::getHglrc(void) const
 {
     return _sfHglrc.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-HGLRC               &WIN32WindowBase::getHglrc          (void)
-{
-    return this->editHglrc          ();
-}
-#endif
 
 //! Set the value of the WIN32Window::_sfHglrc field.
 inline

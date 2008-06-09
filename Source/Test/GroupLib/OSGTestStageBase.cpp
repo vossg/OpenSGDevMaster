@@ -175,12 +175,6 @@ const SFString *TestStageBase::getSFMessage(void) const
     return &_sfMessage;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *TestStageBase::getSFMessage        (void)
-{
-    return this->editSFMessage        ();
-}
-#endif
 
 
 

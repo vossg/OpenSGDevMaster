@@ -304,12 +304,6 @@ const SFPnt3f *DistanceLODBase::getSFCenter(void) const
     return &_sfCenter;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt3f             *DistanceLODBase::getSFCenter         (void)
-{
-    return this->editSFCenter         ();
-}
-#endif
 
 MFReal32 *DistanceLODBase::editMFRange(void)
 {
@@ -323,12 +317,6 @@ const MFReal32 *DistanceLODBase::getMFRange(void) const
     return &_mfRange;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *DistanceLODBase::getMFRange          (void)
-{
-    return this->editMFRange          ();
-}
-#endif
 
 
 

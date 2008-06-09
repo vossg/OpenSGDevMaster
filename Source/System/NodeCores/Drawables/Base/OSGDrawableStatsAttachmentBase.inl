@@ -85,22 +85,14 @@ UInt32 &DrawableStatsAttachmentBase::editVertices(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfVertices field.
 inline
-const UInt32 DrawableStatsAttachmentBase::getVertices(void) const
+      UInt32  DrawableStatsAttachmentBase::getVertices(void) const
 {
     return _sfVertices.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &DrawableStatsAttachmentBase::getVertices       (void)
-{
-    return this->editVertices       ();
-}
-#endif
-
 //! Set the value of the DrawableStatsAttachment::_sfVertices field.
 inline
-void DrawableStatsAttachmentBase::setVertices(const UInt32 &value)
+void DrawableStatsAttachmentBase::setVertices(const UInt32 value)
 {
     editSField(VerticesFieldMask);
 
@@ -118,22 +110,14 @@ UInt32 &DrawableStatsAttachmentBase::editPoints(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfPoints field.
 inline
-const UInt32 DrawableStatsAttachmentBase::getPoints(void) const
+      UInt32  DrawableStatsAttachmentBase::getPoints(void) const
 {
     return _sfPoints.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &DrawableStatsAttachmentBase::getPoints         (void)
-{
-    return this->editPoints         ();
-}
-#endif
-
 //! Set the value of the DrawableStatsAttachment::_sfPoints field.
 inline
-void DrawableStatsAttachmentBase::setPoints(const UInt32 &value)
+void DrawableStatsAttachmentBase::setPoints(const UInt32 value)
 {
     editSField(PointsFieldMask);
 
@@ -151,22 +135,14 @@ UInt32 &DrawableStatsAttachmentBase::editLines(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfLines field.
 inline
-const UInt32 DrawableStatsAttachmentBase::getLines(void) const
+      UInt32  DrawableStatsAttachmentBase::getLines(void) const
 {
     return _sfLines.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &DrawableStatsAttachmentBase::getLines          (void)
-{
-    return this->editLines          ();
-}
-#endif
-
 //! Set the value of the DrawableStatsAttachment::_sfLines field.
 inline
-void DrawableStatsAttachmentBase::setLines(const UInt32 &value)
+void DrawableStatsAttachmentBase::setLines(const UInt32 value)
 {
     editSField(LinesFieldMask);
 
@@ -184,22 +160,14 @@ UInt32 &DrawableStatsAttachmentBase::editTriangles(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfTriangles field.
 inline
-const UInt32 DrawableStatsAttachmentBase::getTriangles(void) const
+      UInt32  DrawableStatsAttachmentBase::getTriangles(void) const
 {
     return _sfTriangles.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &DrawableStatsAttachmentBase::getTriangles      (void)
-{
-    return this->editTriangles      ();
-}
-#endif
-
 //! Set the value of the DrawableStatsAttachment::_sfTriangles field.
 inline
-void DrawableStatsAttachmentBase::setTriangles(const UInt32 &value)
+void DrawableStatsAttachmentBase::setTriangles(const UInt32 value)
 {
     editSField(TrianglesFieldMask);
 
@@ -217,22 +185,14 @@ UInt32 &DrawableStatsAttachmentBase::editProcessedAttributeBytes(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfProcessedAttributeBytes field.
 inline
-const UInt32 DrawableStatsAttachmentBase::getProcessedAttributeBytes(void) const
+      UInt32  DrawableStatsAttachmentBase::getProcessedAttributeBytes(void) const
 {
     return _sfProcessedAttributeBytes.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &DrawableStatsAttachmentBase::getProcessedAttributeBytes(void)
-{
-    return this->editProcessedAttributeBytes();
-}
-#endif
-
 //! Set the value of the DrawableStatsAttachment::_sfProcessedAttributeBytes field.
 inline
-void DrawableStatsAttachmentBase::setProcessedAttributeBytes(const UInt32 &value)
+void DrawableStatsAttachmentBase::setProcessedAttributeBytes(const UInt32 value)
 {
     editSField(ProcessedAttributeBytesFieldMask);
 
@@ -250,22 +210,14 @@ UInt32 &DrawableStatsAttachmentBase::editStoredAttributeBytes(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfStoredAttributeBytes field.
 inline
-const UInt32 DrawableStatsAttachmentBase::getStoredAttributeBytes(void) const
+      UInt32  DrawableStatsAttachmentBase::getStoredAttributeBytes(void) const
 {
     return _sfStoredAttributeBytes.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &DrawableStatsAttachmentBase::getStoredAttributeBytes(void)
-{
-    return this->editStoredAttributeBytes();
-}
-#endif
-
 //! Set the value of the DrawableStatsAttachment::_sfStoredAttributeBytes field.
 inline
-void DrawableStatsAttachmentBase::setStoredAttributeBytes(const UInt32 &value)
+void DrawableStatsAttachmentBase::setStoredAttributeBytes(const UInt32 value)
 {
     editSField(StoredAttributeBytesFieldMask);
 
@@ -283,22 +235,14 @@ bool &DrawableStatsAttachmentBase::editValid(void)
 
 //! Get the value of the DrawableStatsAttachment::_sfValid field.
 inline
-const bool DrawableStatsAttachmentBase::getValid(void) const
+      bool  DrawableStatsAttachmentBase::getValid(void) const
 {
     return _sfValid.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &DrawableStatsAttachmentBase::getValid          (void)
-{
-    return this->editValid          ();
-}
-#endif
-
 //! Set the value of the DrawableStatsAttachment::_sfValid field.
 inline
-void DrawableStatsAttachmentBase::setValid(const bool &value)
+void DrawableStatsAttachmentBase::setValid(const bool value)
 {
     editSField(ValidFieldMask);
 

@@ -85,22 +85,14 @@ Int32 &SwitchBase::editChoice(void)
 
 //! Get the value of the Switch::_sfChoice field.
 inline
-const Int32 SwitchBase::getChoice(void) const
+      Int32  SwitchBase::getChoice(void) const
 {
     return _sfChoice.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &SwitchBase::getChoice         (void)
-{
-    return this->editChoice         ();
-}
-#endif
-
 //! Set the value of the Switch::_sfChoice field.
 inline
-void SwitchBase::setChoice(const Int32 &value)
+void SwitchBase::setChoice(const Int32 value)
 {
     editSField(ChoiceFieldMask);
 

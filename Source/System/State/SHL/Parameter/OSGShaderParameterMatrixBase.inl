@@ -85,18 +85,10 @@ Matrix &ShaderParameterMatrixBase::editValue(void)
 
 //! Get the value of the ShaderParameterMatrix::_sfValue field.
 inline
-const Matrix ShaderParameterMatrixBase::getValue(void) const
+const Matrix &ShaderParameterMatrixBase::getValue(void) const
 {
     return _sfValue.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Matrix              &ShaderParameterMatrixBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-#endif
 
 //! Set the value of the ShaderParameterMatrix::_sfValue field.
 inline

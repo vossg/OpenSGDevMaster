@@ -220,12 +220,6 @@ const MFColor3f *GradientBackgroundBase::getMFColor(void) const
     return &_mfColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFColor3f           *GradientBackgroundBase::getMFColor          (void)
-{
-    return this->editMFColor          ();
-}
-#endif
 
 MFReal32 *GradientBackgroundBase::editMFPosition(void)
 {
@@ -239,12 +233,6 @@ const MFReal32 *GradientBackgroundBase::getMFPosition(void) const
     return &_mfPosition;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *GradientBackgroundBase::getMFPosition       (void)
-{
-    return this->editMFPosition       ();
-}
-#endif
 
 
 

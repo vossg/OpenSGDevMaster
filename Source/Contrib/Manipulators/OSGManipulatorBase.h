@@ -192,15 +192,9 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
             const SFUnrecViewportPtr  *getSFViewport       (void) const;
                   SFUnrecViewportPtr  *editSFViewport       (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFActive          (void);
-#endif
                   SFBool              *editSFActive         (void);
             const SFBool              *getSFActive          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec3f             *getSFLength          (void);
-#endif
                   SFVec3f             *editSFLength         (void);
             const SFVec3f             *getSFLength          (void) const;
             const SFUnrecNodePtr      *getSFHandleXNode    (void) const;
@@ -231,17 +225,11 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 
                   Viewport * getViewport       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getActive          (void);
-#endif
                   bool                &editActive         (void);
-            const bool                 getActive          (void) const;
+                  bool                 getActive          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec3f               &getLength          (void);
-#endif
                   Vec3f               &editLength         (void);
-            const Vec3f                getLength          (void) const;
+            const Vec3f               &getLength          (void) const;
 
                   Node * getHandleXNode    (void) const;
 
@@ -271,7 +259,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
             void setTarget         (Node * const value);
             void setActiveSubHandle(Node * const value);
             void setViewport       (Viewport * const value);
-            void setActive         (const bool &value);
+            void setActive         (const bool value);
             void setLength         (const Vec3f &value);
             void setHandleXNode    (Node * const value);
             void setHandleYNode    (Node * const value);
@@ -408,7 +396,7 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
 
 
                   Pnt2f               &editLastMousePos   (void);
-            const Pnt2f                getLastMousePos    (void) const;
+            const Pnt2f               &getLastMousePos    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

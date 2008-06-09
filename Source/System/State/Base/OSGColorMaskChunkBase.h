@@ -138,64 +138,40 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFMaskR           (void);
-#endif
                   SFBool              *editSFMaskR          (void);
             const SFBool              *getSFMaskR           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFMaskG           (void);
-#endif
                   SFBool              *editSFMaskG          (void);
             const SFBool              *getSFMaskG           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFMaskB           (void);
-#endif
                   SFBool              *editSFMaskB          (void);
             const SFBool              *getSFMaskB           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFMaskA           (void);
-#endif
                   SFBool              *editSFMaskA          (void);
             const SFBool              *getSFMaskA           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getMaskR           (void);
-#endif
                   bool                &editMaskR          (void);
-            const bool                 getMaskR           (void) const;
+                  bool                 getMaskR           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getMaskG           (void);
-#endif
                   bool                &editMaskG          (void);
-            const bool                 getMaskG           (void) const;
+                  bool                 getMaskG           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getMaskB           (void);
-#endif
                   bool                &editMaskB          (void);
-            const bool                 getMaskB           (void) const;
+                  bool                 getMaskB           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getMaskA           (void);
-#endif
                   bool                &editMaskA          (void);
-            const bool                 getMaskA           (void) const;
+                  bool                 getMaskA           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaskR          (const bool &value);
-            void setMaskG          (const bool &value);
-            void setMaskB          (const bool &value);
-            void setMaskA          (const bool &value);
+            void setMaskR          (const bool value);
+            void setMaskG          (const bool value);
+            void setMaskB          (const bool value);
+            void setMaskA          (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

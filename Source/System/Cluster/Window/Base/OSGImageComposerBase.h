@@ -130,38 +130,26 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFEnabled         (void);
-#endif
                   SFBool              *editSFEnabled        (void);
             const SFBool              *getSFEnabled         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFStatistics      (void);
-#endif
                   SFBool              *editSFStatistics     (void);
             const SFBool              *getSFStatistics      (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getEnabled         (void);
-#endif
                   bool                &editEnabled        (void);
-            const bool                 getEnabled         (void) const;
+                  bool                 getEnabled         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getStatistics      (void);
-#endif
                   bool                &editStatistics     (void);
-            const bool                 getStatistics      (void) const;
+                  bool                 getStatistics      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setEnabled        (const bool &value);
-            void setStatistics     (const bool &value);
+            void setEnabled        (const bool value);
+            void setStatistics     (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -278,12 +278,6 @@ const SFBool *TextureGrabForegroundBase::getSFAutoResize(void) const
     return &_sfAutoResize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TextureGrabForegroundBase::getSFAutoResize     (void)
-{
-    return this->editSFAutoResize     ();
-}
-#endif
 
 SFGLenum *TextureGrabForegroundBase::editSFBindTarget(void)
 {
@@ -297,12 +291,6 @@ const SFGLenum *TextureGrabForegroundBase::getSFBindTarget(void) const
     return &_sfBindTarget;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureGrabForegroundBase::getSFBindTarget     (void)
-{
-    return this->editSFBindTarget     ();
-}
-#endif
 
 SFGLenum *TextureGrabForegroundBase::editSFCopyTarget(void)
 {
@@ -316,12 +304,6 @@ const SFGLenum *TextureGrabForegroundBase::getSFCopyTarget(void) const
     return &_sfCopyTarget;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureGrabForegroundBase::getSFCopyTarget     (void)
-{
-    return this->editSFCopyTarget     ();
-}
-#endif
 
 
 

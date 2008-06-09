@@ -516,12 +516,6 @@ const MFString *SimpleStatisticsForegroundBase::getMFFormats(void) const
     return &_mfFormats;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFString            *SimpleStatisticsForegroundBase::getMFFormats        (void)
-{
-    return this->editMFFormats        ();
-}
-#endif
 
 SFReal32 *SimpleStatisticsForegroundBase::editSFSize(void)
 {
@@ -535,12 +529,6 @@ const SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void) const
     return &_sfSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *SimpleStatisticsForegroundBase::getSFSize           (void)
-{
-    return this->editSFSize           ();
-}
-#endif
 
 SFColor4f *SimpleStatisticsForegroundBase::editSFColor(void)
 {
@@ -554,12 +542,6 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4f           *SimpleStatisticsForegroundBase::getSFColor          (void)
-{
-    return this->editSFColor          ();
-}
-#endif
 
 SFColor4f *SimpleStatisticsForegroundBase::editSFShadowColor(void)
 {
@@ -573,12 +555,6 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFShadowColor(void) const
     return &_sfShadowColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4f           *SimpleStatisticsForegroundBase::getSFShadowColor    (void)
-{
-    return this->editSFShadowColor    ();
-}
-#endif
 
 SFColor4f *SimpleStatisticsForegroundBase::editSFBgColor(void)
 {
@@ -592,12 +568,6 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFBgColor(void) const
     return &_sfBgColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4f           *SimpleStatisticsForegroundBase::getSFBgColor        (void)
-{
-    return this->editSFBgColor        ();
-}
-#endif
 
 SFString *SimpleStatisticsForegroundBase::editSFFamily(void)
 {
@@ -611,12 +581,6 @@ const SFString *SimpleStatisticsForegroundBase::getSFFamily(void) const
     return &_sfFamily;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *SimpleStatisticsForegroundBase::getSFFamily         (void)
-{
-    return this->editSFFamily         ();
-}
-#endif
 
 SFVec2f *SimpleStatisticsForegroundBase::editSFShadowOffset(void)
 {
@@ -630,12 +594,6 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFShadowOffset(void) const
     return &_sfShadowOffset;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *SimpleStatisticsForegroundBase::getSFShadowOffset   (void)
-{
-    return this->editSFShadowOffset   ();
-}
-#endif
 
 SFUInt8 *SimpleStatisticsForegroundBase::editSFHorizontalAlign(void)
 {
@@ -649,12 +607,6 @@ const SFUInt8 *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void) const
     return &_sfHorizontalAlign;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt8             *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void)
-{
-    return this->editSFHorizontalAlign();
-}
-#endif
 
 SFUInt8 *SimpleStatisticsForegroundBase::editSFVerticalAlign(void)
 {
@@ -668,12 +620,6 @@ const SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void) const
     return &_sfVerticalAlign;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt8             *SimpleStatisticsForegroundBase::getSFVerticalAlign  (void)
-{
-    return this->editSFVerticalAlign  ();
-}
-#endif
 
 SFColor4f *SimpleStatisticsForegroundBase::editSFBorderColor(void)
 {
@@ -687,12 +633,6 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFBorderColor(void) const
     return &_sfBorderColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4f           *SimpleStatisticsForegroundBase::getSFBorderColor    (void)
-{
-    return this->editSFBorderColor    ();
-}
-#endif
 
 SFVec2f *SimpleStatisticsForegroundBase::editSFBorderOffset(void)
 {
@@ -706,12 +646,6 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFBorderOffset(void) const
     return &_sfBorderOffset;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *SimpleStatisticsForegroundBase::getSFBorderOffset   (void)
-{
-    return this->editSFBorderOffset   ();
-}
-#endif
 
 SFVec2f *SimpleStatisticsForegroundBase::editSFTextMargin(void)
 {
@@ -725,12 +659,6 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFTextMargin(void) const
     return &_sfTextMargin;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *SimpleStatisticsForegroundBase::getSFTextMargin     (void)
-{
-    return this->editSFTextMargin     ();
-}
-#endif
 
 
 

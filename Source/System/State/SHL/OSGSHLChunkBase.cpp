@@ -396,12 +396,6 @@ const SFBool *SHLChunkBase::getSFCgFrontEnd(void) const
     return &_sfCgFrontEnd;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SHLChunkBase::getSFCgFrontEnd     (void)
-{
-    return this->editSFCgFrontEnd     ();
-}
-#endif
 
 SFBool *SHLChunkBase::editSFPointSize(void)
 {
@@ -415,12 +409,6 @@ const SFBool *SHLChunkBase::getSFPointSize(void) const
     return &_sfPointSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SHLChunkBase::getSFPointSize      (void)
-{
-    return this->editSFPointSize      ();
-}
-#endif
 
 MFGLenum *SHLChunkBase::editMFProgramParameterNames(void)
 {
@@ -434,12 +422,6 @@ const MFGLenum *SHLChunkBase::getMFProgramParameterNames(void) const
     return &_mfProgramParameterNames;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFGLenum            *SHLChunkBase::getMFProgramParameterNames(void)
-{
-    return this->editMFProgramParameterNames();
-}
-#endif
 
 MFUInt32 *SHLChunkBase::editMFProgramParameterValues(void)
 {
@@ -453,12 +435,6 @@ const MFUInt32 *SHLChunkBase::getMFProgramParameterValues(void) const
     return &_mfProgramParameterValues;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *SHLChunkBase::getMFProgramParameterValues(void)
-{
-    return this->editMFProgramParameterValues();
-}
-#endif
 
 SFUInt32 *SHLChunkBase::editSFGLId(void)
 {
@@ -472,12 +448,6 @@ const SFUInt32 *SHLChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *SHLChunkBase::getSFGLId           (void)
-{
-    return this->editSFGLId           ();
-}
-#endif
 
 SFBool *SHLChunkBase::editSFUnknownParameterWarning(void)
 {
@@ -491,12 +461,6 @@ const SFBool *SHLChunkBase::getSFUnknownParameterWarning(void) const
     return &_sfUnknownParameterWarning;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SHLChunkBase::getSFUnknownParameterWarning(void)
-{
-    return this->editSFUnknownParameterWarning();
-}
-#endif
 
 
 

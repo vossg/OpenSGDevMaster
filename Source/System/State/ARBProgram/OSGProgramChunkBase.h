@@ -138,44 +138,24 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFProgram         (void);
-#endif
                   SFString            *editSFProgram        (void);
             const SFString            *getSFProgram         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFVec4f             *getMFParamValues     (void);
-#endif
                   MFVec4f             *editMFParamValues    (void);
             const MFVec4f             *getMFParamValues     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFString            *getMFParamNames      (void);
-#endif
                   MFString            *editMFParamNames     (void);
             const MFString            *getMFParamNames      (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getProgram         (void);
-#endif
                   std::string         &editProgram        (void);
-            const std::string          getProgram         (void) const;
+            const std::string         &getProgram         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getParamValues     (const UInt32 index);
-                  MFVec4f             &getParamValues    (void);
-#endif
                   Vec4f               &editParamValues    (const UInt32 index);
-            const Vec4f                getParamValues     (const UInt32 index) const;
+            const Vec4f               &getParamValues     (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getParamNames      (const UInt32 index);
-                  MFString            &getParamNames     (void);
-#endif
                   std::string         &editParamNames     (const UInt32 index);
-            const std::string          getParamNames      (const UInt32 index) const;
+            const std::string         &getParamNames      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -266,14 +246,14 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
 
 
                   UInt32              &editGLId           (void);
-            const UInt32               getGLId            (void) const;
+                  UInt32               getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGLId           (const UInt32 &value);
+            void setGLId           (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

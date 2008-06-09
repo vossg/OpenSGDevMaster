@@ -134,25 +134,19 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFUseVBO          (void);
-#endif
                   SFBool              *editSFUseVBO         (void);
             const SFBool              *getSFUseVBO          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getUseVBO          (void);
-#endif
                   bool                &editUseVBO         (void);
-            const bool                 getUseVBO          (void) const;
+                  bool                 getUseVBO          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setUseVBO         (const bool &value);
+            void setUseVBO         (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -236,18 +230,18 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
 
 
                   UInt32              &editGLId           (void);
-            const UInt32               getGLId            (void) const;
+                  UInt32               getGLId            (void) const;
 
                   Int32               &editUsage          (void);
-            const Int32                getUsage           (void) const;
+                  Int32                getUsage           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGLId           (const UInt32 &value);
-            void setUsage          (const Int32 &value);
+            void setGLId           (const UInt32 value);
+            void setUsage          (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

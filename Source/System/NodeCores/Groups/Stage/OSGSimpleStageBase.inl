@@ -85,22 +85,14 @@ Real32 &SimpleStageBase::editLeft(void)
 
 //! Get the value of the SimpleStage::_sfLeft field.
 inline
-const Real32 SimpleStageBase::getLeft(void) const
+      Real32  SimpleStageBase::getLeft(void) const
 {
     return _sfLeft.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &SimpleStageBase::getLeft           (void)
-{
-    return this->editLeft           ();
-}
-#endif
-
 //! Set the value of the SimpleStage::_sfLeft field.
 inline
-void SimpleStageBase::setLeft(const Real32 &value)
+void SimpleStageBase::setLeft(const Real32 value)
 {
     editSField(LeftFieldMask);
 
@@ -118,22 +110,14 @@ Real32 &SimpleStageBase::editRight(void)
 
 //! Get the value of the SimpleStage::_sfRight field.
 inline
-const Real32 SimpleStageBase::getRight(void) const
+      Real32  SimpleStageBase::getRight(void) const
 {
     return _sfRight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &SimpleStageBase::getRight          (void)
-{
-    return this->editRight          ();
-}
-#endif
-
 //! Set the value of the SimpleStage::_sfRight field.
 inline
-void SimpleStageBase::setRight(const Real32 &value)
+void SimpleStageBase::setRight(const Real32 value)
 {
     editSField(RightFieldMask);
 
@@ -151,22 +135,14 @@ Real32 &SimpleStageBase::editBottom(void)
 
 //! Get the value of the SimpleStage::_sfBottom field.
 inline
-const Real32 SimpleStageBase::getBottom(void) const
+      Real32  SimpleStageBase::getBottom(void) const
 {
     return _sfBottom.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &SimpleStageBase::getBottom         (void)
-{
-    return this->editBottom         ();
-}
-#endif
-
 //! Set the value of the SimpleStage::_sfBottom field.
 inline
-void SimpleStageBase::setBottom(const Real32 &value)
+void SimpleStageBase::setBottom(const Real32 value)
 {
     editSField(BottomFieldMask);
 
@@ -184,22 +160,14 @@ Real32 &SimpleStageBase::editTop(void)
 
 //! Get the value of the SimpleStage::_sfTop field.
 inline
-const Real32 SimpleStageBase::getTop(void) const
+      Real32  SimpleStageBase::getTop(void) const
 {
     return _sfTop.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &SimpleStageBase::getTop            (void)
-{
-    return this->editTop            ();
-}
-#endif
-
 //! Set the value of the SimpleStage::_sfTop field.
 inline
-void SimpleStageBase::setTop(const Real32 &value)
+void SimpleStageBase::setTop(const Real32 value)
 {
     editSField(TopFieldMask);
 

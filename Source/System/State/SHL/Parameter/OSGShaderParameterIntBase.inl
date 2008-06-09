@@ -85,22 +85,14 @@ Int32 &ShaderParameterIntBase::editValue(void)
 
 //! Get the value of the ShaderParameterInt::_sfValue field.
 inline
-const Int32 ShaderParameterIntBase::getValue(void) const
+      Int32  ShaderParameterIntBase::getValue(void) const
 {
     return _sfValue.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ShaderParameterIntBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-#endif
-
 //! Set the value of the ShaderParameterInt::_sfValue field.
 inline
-void ShaderParameterIntBase::setValue(const Int32 &value)
+void ShaderParameterIntBase::setValue(const Int32 value)
 {
     editSField(ValueFieldMask);
 

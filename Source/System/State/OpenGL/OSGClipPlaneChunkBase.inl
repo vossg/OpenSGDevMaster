@@ -85,18 +85,10 @@ Vec4f &ClipPlaneChunkBase::editEquation(void)
 
 //! Get the value of the ClipPlaneChunk::_sfEquation field.
 inline
-const Vec4f ClipPlaneChunkBase::getEquation(void) const
+const Vec4f &ClipPlaneChunkBase::getEquation(void) const
 {
     return _sfEquation.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec4f               &ClipPlaneChunkBase::getEquation       (void)
-{
-    return this->editEquation       ();
-}
-#endif
 
 //! Set the value of the ClipPlaneChunk::_sfEquation field.
 inline
@@ -118,22 +110,14 @@ bool &ClipPlaneChunkBase::editEnable(void)
 
 //! Get the value of the ClipPlaneChunk::_sfEnable field.
 inline
-const bool ClipPlaneChunkBase::getEnable(void) const
+      bool  ClipPlaneChunkBase::getEnable(void) const
 {
     return _sfEnable.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ClipPlaneChunkBase::getEnable         (void)
-{
-    return this->editEnable         ();
-}
-#endif
-
 //! Set the value of the ClipPlaneChunk::_sfEnable field.
 inline
-void ClipPlaneChunkBase::setEnable(const bool &value)
+void ClipPlaneChunkBase::setEnable(const bool value)
 {
     editSField(EnableFieldMask);
 

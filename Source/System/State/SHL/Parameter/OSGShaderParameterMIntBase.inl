@@ -76,7 +76,7 @@ OSG::UInt16 ShaderParameterMIntBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ShaderParameterMInt::_mfValue field.
 inline
-const Int32 ShaderParameterMIntBase::getValue(const UInt32 index) const
+      Int32  ShaderParameterMIntBase::getValue(const UInt32 index) const
 {
     return _mfValue[index];
 }
@@ -88,21 +88,6 @@ Int32 &ShaderParameterMIntBase::editValue(const UInt32 index)
 
     return _mfValue[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ShaderParameterMIntBase::getValue          (const UInt32 index)
-{
-    return this->editValue          (index);
-}
-
-inline
-MFInt32             &ShaderParameterMIntBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-
-#endif
 
 
 

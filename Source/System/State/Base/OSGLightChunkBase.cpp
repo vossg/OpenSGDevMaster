@@ -465,12 +465,6 @@ const SFColor4r *LightChunkBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *LightChunkBase::getSFDiffuse        (void)
-{
-    return this->editSFDiffuse        ();
-}
-#endif
 
 SFColor4r *LightChunkBase::editSFAmbient(void)
 {
@@ -484,12 +478,6 @@ const SFColor4r *LightChunkBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *LightChunkBase::getSFAmbient        (void)
-{
-    return this->editSFAmbient        ();
-}
-#endif
 
 SFColor4r *LightChunkBase::editSFSpecular(void)
 {
@@ -503,12 +491,6 @@ const SFColor4r *LightChunkBase::getSFSpecular(void) const
     return &_sfSpecular;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4r           *LightChunkBase::getSFSpecular       (void)
-{
-    return this->editSFSpecular       ();
-}
-#endif
 
 SFVec4r *LightChunkBase::editSFPosition(void)
 {
@@ -522,12 +504,6 @@ const SFVec4r *LightChunkBase::getSFPosition(void) const
     return &_sfPosition;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec4r             *LightChunkBase::getSFPosition       (void)
-{
-    return this->editSFPosition       ();
-}
-#endif
 
 SFVec3r *LightChunkBase::editSFDirection(void)
 {
@@ -541,12 +517,6 @@ const SFVec3r *LightChunkBase::getSFDirection(void) const
     return &_sfDirection;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec3r             *LightChunkBase::getSFDirection      (void)
-{
-    return this->editSFDirection      ();
-}
-#endif
 
 SFReal *LightChunkBase::editSFExponent(void)
 {
@@ -560,12 +530,6 @@ const SFReal *LightChunkBase::getSFExponent(void) const
     return &_sfExponent;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *LightChunkBase::getSFExponent       (void)
-{
-    return this->editSFExponent       ();
-}
-#endif
 
 SFReal *LightChunkBase::editSFCutoff(void)
 {
@@ -579,12 +543,6 @@ const SFReal *LightChunkBase::getSFCutoff(void) const
     return &_sfCutoff;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *LightChunkBase::getSFCutoff         (void)
-{
-    return this->editSFCutoff         ();
-}
-#endif
 
 SFReal *LightChunkBase::editSFConstantAttenuation(void)
 {
@@ -598,12 +556,6 @@ const SFReal *LightChunkBase::getSFConstantAttenuation(void) const
     return &_sfConstantAttenuation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *LightChunkBase::getSFConstantAttenuation(void)
-{
-    return this->editSFConstantAttenuation();
-}
-#endif
 
 SFReal *LightChunkBase::editSFLinearAttenuation(void)
 {
@@ -617,12 +569,6 @@ const SFReal *LightChunkBase::getSFLinearAttenuation(void) const
     return &_sfLinearAttenuation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *LightChunkBase::getSFLinearAttenuation(void)
-{
-    return this->editSFLinearAttenuation();
-}
-#endif
 
 SFReal *LightChunkBase::editSFQuadraticAttenuation(void)
 {
@@ -636,12 +582,6 @@ const SFReal *LightChunkBase::getSFQuadraticAttenuation(void) const
     return &_sfQuadraticAttenuation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *LightChunkBase::getSFQuadraticAttenuation(void)
-{
-    return this->editSFQuadraticAttenuation();
-}
-#endif
 
 //! Get the LightChunk::_sfBeacon field.
 const SFWeakNodePtr *LightChunkBase::getSFBeacon(void) const

@@ -172,41 +172,23 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
             const SFUnrecTextureObjChunkPtr *getSFTexture        (void) const;
                   SFUnrecTextureObjChunkPtr *editSFTexture        (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec2s             *getSFTextureSize     (void);
-#endif
                   SFVec2s             *editSFTextureSize    (void);
             const SFVec2s             *getSFTextureSize     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFTextureFormat   (void);
-#endif
                   SFGLenum            *editSFTextureFormat  (void);
             const SFGLenum            *getSFTextureFormat   (void) const;
             const SFWeakNodePtr       *getSFBeacon         (void) const;
                   SFWeakNodePtr       *editSFBeacon         (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPnt3f             *getSFOrigin          (void);
-#endif
                   SFPnt3f             *editSFOrigin         (void);
             const SFPnt3f             *getSFOrigin          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFOriginMode      (void);
-#endif
                   SFUInt32            *editSFOriginMode     (void);
             const SFUInt32            *getSFOriginMode      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFTexUnit         (void);
-#endif
                   SFUInt32            *editSFTexUnit        (void);
             const SFUInt32            *getSFTexUnit         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFSetupMode       (void);
-#endif
                   SFUInt32            *editSFSetupMode      (void);
             const SFUInt32            *getSFSetupMode       (void) const;
             const SFUnrecBackgroundPtr *getSFBackground     (void) const;
@@ -219,43 +201,25 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 
                   TextureObjChunk * getTexture        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec2s               &getTextureSize     (void);
-#endif
                   Vec2s               &editTextureSize    (void);
-            const Vec2s                getTextureSize     (void) const;
+            const Vec2s               &getTextureSize     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getTextureFormat   (void);
-#endif
                   GLenum              &editTextureFormat  (void);
-            const GLenum               getTextureFormat   (void) const;
+            const GLenum              &getTextureFormat   (void) const;
 
                   Node * getBeacon         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt3f               &getOrigin          (void);
-#endif
                   Pnt3f               &editOrigin         (void);
-            const Pnt3f                getOrigin          (void) const;
+            const Pnt3f               &getOrigin          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getOriginMode      (void);
-#endif
                   UInt32              &editOriginMode     (void);
-            const UInt32               getOriginMode      (void) const;
+                  UInt32               getOriginMode      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getTexUnit         (void);
-#endif
                   UInt32              &editTexUnit        (void);
-            const UInt32               getTexUnit         (void) const;
+                  UInt32               getTexUnit         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getSetupMode       (void);
-#endif
                   UInt32              &editSetupMode      (void);
-            const UInt32               getSetupMode       (void) const;
+                  UInt32               getSetupMode       (void) const;
 
                   Background * getBackground     (void) const;
 
@@ -270,9 +234,9 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
             void setTextureFormat  (const GLenum &value);
             void setBeacon         (Node * const value);
             void setOrigin         (const Pnt3f &value);
-            void setOriginMode     (const UInt32 &value);
-            void setTexUnit        (const UInt32 &value);
-            void setSetupMode      (const UInt32 &value);
+            void setOriginMode     (const UInt32 value);
+            void setTexUnit        (const UInt32 value);
+            void setSetupMode      (const UInt32 value);
             void setBackground     (Background * const value);
 
     /*! \}                                                                 */

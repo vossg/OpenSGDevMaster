@@ -221,10 +221,10 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
 
 
                   Color3f             &editColor          (const UInt32 index);
-            const Color3f              getColor           (const UInt32 index) const;
+            const Color3f             &getColor           (const UInt32 index) const;
 
                   Real32              &editPosition       (const UInt32 index);
-            const Real32               getPosition        (const UInt32 index) const;
+                  Real32               getPosition        (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

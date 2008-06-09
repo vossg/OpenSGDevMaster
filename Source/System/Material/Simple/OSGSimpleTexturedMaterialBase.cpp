@@ -352,12 +352,6 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFMinFilter(void) const
     return &_sfMinFilter;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *SimpleTexturedMaterialBase::getSFMinFilter      (void)
-{
-    return this->editSFMinFilter      ();
-}
-#endif
 
 SFGLenum *SimpleTexturedMaterialBase::editSFMagFilter(void)
 {
@@ -371,12 +365,6 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFMagFilter(void) const
     return &_sfMagFilter;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *SimpleTexturedMaterialBase::getSFMagFilter      (void)
-{
-    return this->editSFMagFilter      ();
-}
-#endif
 
 SFGLenum *SimpleTexturedMaterialBase::editSFEnvMode(void)
 {
@@ -390,12 +378,6 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFEnvMode(void) const
     return &_sfEnvMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *SimpleTexturedMaterialBase::getSFEnvMode        (void)
-{
-    return this->editSFEnvMode        ();
-}
-#endif
 
 SFBool *SimpleTexturedMaterialBase::editSFEnvMap(void)
 {
@@ -409,12 +391,6 @@ const SFBool *SimpleTexturedMaterialBase::getSFEnvMap(void) const
     return &_sfEnvMap;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SimpleTexturedMaterialBase::getSFEnvMap         (void)
-{
-    return this->editSFEnvMap         ();
-}
-#endif
 
 
 

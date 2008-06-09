@@ -288,12 +288,6 @@ const SFInt32 *BackgroundBase::getSFClearStencilBit(void) const
     return &_sfClearStencilBit;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *BackgroundBase::getSFClearStencilBit(void)
-{
-    return this->editSFClearStencilBit();
-}
-#endif
 
 SFReal32 *BackgroundBase::editSFDepth(void)
 {
@@ -307,12 +301,6 @@ const SFReal32 *BackgroundBase::getSFDepth(void) const
     return &_sfDepth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *BackgroundBase::getSFDepth          (void)
-{
-    return this->editSFDepth          ();
-}
-#endif
 
 SFBool *BackgroundBase::editSFClearDepth(void)
 {
@@ -326,12 +314,6 @@ const SFBool *BackgroundBase::getSFClearDepth(void) const
     return &_sfClearDepth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BackgroundBase::getSFClearDepth     (void)
-{
-    return this->editSFClearDepth     ();
-}
-#endif
 
 SFBool *BackgroundBase::editSFClearColor(void)
 {
@@ -345,12 +327,6 @@ const SFBool *BackgroundBase::getSFClearColor(void) const
     return &_sfClearColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BackgroundBase::getSFClearColor     (void)
-{
-    return this->editSFClearColor     ();
-}
-#endif
 
 
 

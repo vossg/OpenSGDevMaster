@@ -85,22 +85,14 @@ bool &BinarySwapComposerBase::editShort(void)
 
 //! Get the value of the BinarySwapComposer::_sfShort field.
 inline
-const bool BinarySwapComposerBase::getShort(void) const
+      bool  BinarySwapComposerBase::getShort(void) const
 {
     return _sfShort.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BinarySwapComposerBase::getShort          (void)
-{
-    return this->editShort          ();
-}
-#endif
-
 //! Set the value of the BinarySwapComposer::_sfShort field.
 inline
-void BinarySwapComposerBase::setShort(const bool &value)
+void BinarySwapComposerBase::setShort(const bool value)
 {
     editSField(ShortFieldMask);
 
@@ -118,22 +110,14 @@ bool &BinarySwapComposerBase::editAlpha(void)
 
 //! Get the value of the BinarySwapComposer::_sfAlpha field.
 inline
-const bool BinarySwapComposerBase::getAlpha(void) const
+      bool  BinarySwapComposerBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BinarySwapComposerBase::getAlpha          (void)
-{
-    return this->editAlpha          ();
-}
-#endif
-
 //! Set the value of the BinarySwapComposer::_sfAlpha field.
 inline
-void BinarySwapComposerBase::setAlpha(const bool &value)
+void BinarySwapComposerBase::setAlpha(const bool value)
 {
     editSField(AlphaFieldMask);
 
@@ -151,22 +135,14 @@ UInt32 &BinarySwapComposerBase::editTileSize(void)
 
 //! Get the value of the BinarySwapComposer::_sfTileSize field.
 inline
-const UInt32 BinarySwapComposerBase::getTileSize(void) const
+      UInt32  BinarySwapComposerBase::getTileSize(void) const
 {
     return _sfTileSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &BinarySwapComposerBase::getTileSize       (void)
-{
-    return this->editTileSize       ();
-}
-#endif
-
 //! Set the value of the BinarySwapComposer::_sfTileSize field.
 inline
-void BinarySwapComposerBase::setTileSize(const UInt32 &value)
+void BinarySwapComposerBase::setTileSize(const UInt32 value)
 {
     editSField(TileSizeFieldMask);
 

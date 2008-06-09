@@ -85,22 +85,14 @@ bool &ColorBufferViewportBase::editRed(void)
 
 //! Get the value of the ColorBufferViewport::_sfRed field.
 inline
-const bool ColorBufferViewportBase::getRed(void) const
+      bool  ColorBufferViewportBase::getRed(void) const
 {
     return _sfRed.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorBufferViewportBase::getRed            (void)
-{
-    return this->editRed            ();
-}
-#endif
-
 //! Set the value of the ColorBufferViewport::_sfRed field.
 inline
-void ColorBufferViewportBase::setRed(const bool &value)
+void ColorBufferViewportBase::setRed(const bool value)
 {
     editSField(RedFieldMask);
 
@@ -118,22 +110,14 @@ bool &ColorBufferViewportBase::editBlue(void)
 
 //! Get the value of the ColorBufferViewport::_sfBlue field.
 inline
-const bool ColorBufferViewportBase::getBlue(void) const
+      bool  ColorBufferViewportBase::getBlue(void) const
 {
     return _sfBlue.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorBufferViewportBase::getBlue           (void)
-{
-    return this->editBlue           ();
-}
-#endif
-
 //! Set the value of the ColorBufferViewport::_sfBlue field.
 inline
-void ColorBufferViewportBase::setBlue(const bool &value)
+void ColorBufferViewportBase::setBlue(const bool value)
 {
     editSField(BlueFieldMask);
 
@@ -151,22 +135,14 @@ bool &ColorBufferViewportBase::editGreen(void)
 
 //! Get the value of the ColorBufferViewport::_sfGreen field.
 inline
-const bool ColorBufferViewportBase::getGreen(void) const
+      bool  ColorBufferViewportBase::getGreen(void) const
 {
     return _sfGreen.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorBufferViewportBase::getGreen          (void)
-{
-    return this->editGreen          ();
-}
-#endif
-
 //! Set the value of the ColorBufferViewport::_sfGreen field.
 inline
-void ColorBufferViewportBase::setGreen(const bool &value)
+void ColorBufferViewportBase::setGreen(const bool value)
 {
     editSField(GreenFieldMask);
 
@@ -184,22 +160,14 @@ bool &ColorBufferViewportBase::editAlpha(void)
 
 //! Get the value of the ColorBufferViewport::_sfAlpha field.
 inline
-const bool ColorBufferViewportBase::getAlpha(void) const
+      bool  ColorBufferViewportBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorBufferViewportBase::getAlpha          (void)
-{
-    return this->editAlpha          ();
-}
-#endif
-
 //! Set the value of the ColorBufferViewport::_sfAlpha field.
 inline
-void ColorBufferViewportBase::setAlpha(const bool &value)
+void ColorBufferViewportBase::setAlpha(const bool value)
 {
     editSField(AlphaFieldMask);
 

@@ -85,18 +85,10 @@ Color3r &SolidBackgroundBase::editColor(void)
 
 //! Get the value of the SolidBackground::_sfColor field.
 inline
-const Color3r SolidBackgroundBase::getColor(void) const
+const Color3r &SolidBackgroundBase::getColor(void) const
 {
     return _sfColor.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color3r             &SolidBackgroundBase::getColor          (void)
-{
-    return this->editColor          ();
-}
-#endif
 
 //! Set the value of the SolidBackground::_sfColor field.
 inline
@@ -118,22 +110,14 @@ Real32 &SolidBackgroundBase::editAlpha(void)
 
 //! Get the value of the SolidBackground::_sfAlpha field.
 inline
-const Real32 SolidBackgroundBase::getAlpha(void) const
+      Real32  SolidBackgroundBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &SolidBackgroundBase::getAlpha          (void)
-{
-    return this->editAlpha          ();
-}
-#endif
-
 //! Set the value of the SolidBackground::_sfAlpha field.
 inline
-void SolidBackgroundBase::setAlpha(const Real32 &value)
+void SolidBackgroundBase::setAlpha(const Real32 value)
 {
     editSField(AlphaFieldMask);
 

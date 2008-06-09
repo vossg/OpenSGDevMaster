@@ -200,12 +200,6 @@ const MFUInt8 *GeoMultiPropertyDataBase::getMFIData(void) const
     return &_mfIData;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt8             *GeoMultiPropertyDataBase::getMFIData          (void)
-{
-    return this->editMFIData          ();
-}
-#endif
 
 SFUInt32 *GeoMultiPropertyDataBase::editSFGLId(void)
 {
@@ -219,12 +213,6 @@ const SFUInt32 *GeoMultiPropertyDataBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *GeoMultiPropertyDataBase::getSFGLId           (void)
-{
-    return this->editSFGLId           ();
-}
-#endif
 
 
 

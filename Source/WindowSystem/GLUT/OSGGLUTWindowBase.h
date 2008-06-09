@@ -126,25 +126,19 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFGlutId          (void);
-#endif
                   SFInt32             *editSFGlutId         (void);
             const SFInt32             *getSFGlutId          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getGlutId          (void);
-#endif
                   Int32               &editGlutId         (void);
-            const Int32                getGlutId          (void) const;
+                  Int32                getGlutId          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGlutId         (const Int32 &value);
+            void setGlutId         (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

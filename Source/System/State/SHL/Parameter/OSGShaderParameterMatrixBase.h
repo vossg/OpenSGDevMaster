@@ -126,18 +126,12 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFValue           (void);
-#endif
                   SFMatrix            *editSFValue          (void);
             const SFMatrix            *getSFValue           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getValue           (void);
-#endif
                   Matrix              &editValue          (void);
-            const Matrix               getValue           (void) const;
+            const Matrix              &getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

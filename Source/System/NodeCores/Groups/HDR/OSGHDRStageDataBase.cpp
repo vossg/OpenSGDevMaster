@@ -449,12 +449,6 @@ const SFUInt32 *HDRStageDataBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *HDRStageDataBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFUInt32 *HDRStageDataBase::editSFHeight(void)
 {
@@ -468,12 +462,6 @@ const SFUInt32 *HDRStageDataBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *HDRStageDataBase::getSFHeight         (void)
-{
-    return this->editSFHeight         ();
-}
-#endif
 
 //! Get the HDRStageData::_sfShrinkRenderTarget field.
 const SFUnrecFrameBufferObjectPtr *HDRStageDataBase::getSFShrinkRenderTarget(void) const

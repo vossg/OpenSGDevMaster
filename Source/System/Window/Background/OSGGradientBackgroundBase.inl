@@ -76,7 +76,7 @@ OSG::UInt16 GradientBackgroundBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the GradientBackground::_mfColor field.
 inline
-const Color3f GradientBackgroundBase::getColor(const UInt32 index) const
+const Color3f &GradientBackgroundBase::getColor(const UInt32 index) const
 {
     return _mfColor[index];
 }
@@ -89,25 +89,10 @@ Color3f &GradientBackgroundBase::editColor(const UInt32 index)
     return _mfColor[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Color3f             &GradientBackgroundBase::getColor          (const UInt32 index)
-{
-    return this->editColor          (index);
-}
-
-inline
-MFColor3f           &GradientBackgroundBase::getColor          (void)
-{
-    return this->editColor          ();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the GradientBackground::_mfPosition field.
 inline
-const Real32 GradientBackgroundBase::getPosition(const UInt32 index) const
+      Real32  GradientBackgroundBase::getPosition(const UInt32 index) const
 {
     return _mfPosition[index];
 }
@@ -119,21 +104,6 @@ Real32 &GradientBackgroundBase::editPosition(const UInt32 index)
 
     return _mfPosition[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &GradientBackgroundBase::getPosition       (const UInt32 index)
-{
-    return this->editPosition       (index);
-}
-
-inline
-MFReal32            &GradientBackgroundBase::getPosition       (void)
-{
-    return this->editPosition       ();
-}
-
-#endif
 
 
 

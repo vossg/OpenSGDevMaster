@@ -101,18 +101,10 @@ GLenum &SimpleTexturedMaterialBase::editMinFilter(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfMinFilter field.
 inline
-const GLenum SimpleTexturedMaterialBase::getMinFilter(void) const
+const GLenum &SimpleTexturedMaterialBase::getMinFilter(void) const
 {
     return _sfMinFilter.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &SimpleTexturedMaterialBase::getMinFilter      (void)
-{
-    return this->editMinFilter      ();
-}
-#endif
 
 //! Set the value of the SimpleTexturedMaterial::_sfMinFilter field.
 inline
@@ -134,18 +126,10 @@ GLenum &SimpleTexturedMaterialBase::editMagFilter(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfMagFilter field.
 inline
-const GLenum SimpleTexturedMaterialBase::getMagFilter(void) const
+const GLenum &SimpleTexturedMaterialBase::getMagFilter(void) const
 {
     return _sfMagFilter.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &SimpleTexturedMaterialBase::getMagFilter      (void)
-{
-    return this->editMagFilter      ();
-}
-#endif
 
 //! Set the value of the SimpleTexturedMaterial::_sfMagFilter field.
 inline
@@ -167,18 +151,10 @@ GLenum &SimpleTexturedMaterialBase::editEnvMode(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfEnvMode field.
 inline
-const GLenum SimpleTexturedMaterialBase::getEnvMode(void) const
+const GLenum &SimpleTexturedMaterialBase::getEnvMode(void) const
 {
     return _sfEnvMode.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &SimpleTexturedMaterialBase::getEnvMode        (void)
-{
-    return this->editEnvMode        ();
-}
-#endif
 
 //! Set the value of the SimpleTexturedMaterial::_sfEnvMode field.
 inline
@@ -200,22 +176,14 @@ bool &SimpleTexturedMaterialBase::editEnvMap(void)
 
 //! Get the value of the SimpleTexturedMaterial::_sfEnvMap field.
 inline
-const bool SimpleTexturedMaterialBase::getEnvMap(void) const
+      bool  SimpleTexturedMaterialBase::getEnvMap(void) const
 {
     return _sfEnvMap.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &SimpleTexturedMaterialBase::getEnvMap         (void)
-{
-    return this->editEnvMap         ();
-}
-#endif
-
 //! Set the value of the SimpleTexturedMaterial::_sfEnvMap field.
 inline
-void SimpleTexturedMaterialBase::setEnvMap(const bool &value)
+void SimpleTexturedMaterialBase::setEnvMap(const bool value)
 {
     editSField(EnvMapFieldMask);
 

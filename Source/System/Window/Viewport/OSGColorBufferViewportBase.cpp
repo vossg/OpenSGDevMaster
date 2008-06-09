@@ -271,12 +271,6 @@ const SFBool *ColorBufferViewportBase::getSFRed(void) const
     return &_sfRed;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorBufferViewportBase::getSFRed            (void)
-{
-    return this->editSFRed            ();
-}
-#endif
 
 SFBool *ColorBufferViewportBase::editSFBlue(void)
 {
@@ -290,12 +284,6 @@ const SFBool *ColorBufferViewportBase::getSFBlue(void) const
     return &_sfBlue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorBufferViewportBase::getSFBlue           (void)
-{
-    return this->editSFBlue           ();
-}
-#endif
 
 SFBool *ColorBufferViewportBase::editSFGreen(void)
 {
@@ -309,12 +297,6 @@ const SFBool *ColorBufferViewportBase::getSFGreen(void) const
     return &_sfGreen;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorBufferViewportBase::getSFGreen          (void)
-{
-    return this->editSFGreen          ();
-}
-#endif
 
 SFBool *ColorBufferViewportBase::editSFAlpha(void)
 {
@@ -328,12 +310,6 @@ const SFBool *ColorBufferViewportBase::getSFAlpha(void) const
     return &_sfAlpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorBufferViewportBase::getSFAlpha          (void)
-{
-    return this->editSFAlpha          ();
-}
-#endif
 
 
 

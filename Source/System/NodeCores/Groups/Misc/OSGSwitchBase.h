@@ -126,25 +126,19 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFChoice          (void);
-#endif
                   SFInt32             *editSFChoice         (void);
             const SFInt32             *getSFChoice          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getChoice          (void);
-#endif
                   Int32               &editChoice         (void);
-            const Int32                getChoice          (void) const;
+                  Int32                getChoice          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setChoice         (const Int32 &value);
+            void setChoice         (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

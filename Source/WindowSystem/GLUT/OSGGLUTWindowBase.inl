@@ -85,22 +85,14 @@ Int32 &GLUTWindowBase::editGlutId(void)
 
 //! Get the value of the GLUTWindow::_sfGlutId field.
 inline
-const Int32 GLUTWindowBase::getGlutId(void) const
+      Int32  GLUTWindowBase::getGlutId(void) const
 {
     return _sfGlutId.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &GLUTWindowBase::getGlutId         (void)
-{
-    return this->editGlutId         ();
-}
-#endif
-
 //! Set the value of the GLUTWindow::_sfGlutId field.
 inline
-void GLUTWindowBase::setGlutId(const Int32 &value)
+void GLUTWindowBase::setGlutId(const Int32 value)
 {
     editSField(GlutIdFieldMask);
 

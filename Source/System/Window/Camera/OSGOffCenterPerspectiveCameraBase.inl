@@ -85,18 +85,10 @@ Vec2f &OffCenterPerspectiveCameraBase::editPrincipalPoint(void)
 
 //! Get the value of the OffCenterPerspectiveCamera::_sfPrincipalPoint field.
 inline
-const Vec2f OffCenterPerspectiveCameraBase::getPrincipalPoint(void) const
+const Vec2f &OffCenterPerspectiveCameraBase::getPrincipalPoint(void) const
 {
     return _sfPrincipalPoint.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec2f               &OffCenterPerspectiveCameraBase::getPrincipalPoint (void)
-{
-    return this->editPrincipalPoint ();
-}
-#endif
 
 //! Set the value of the OffCenterPerspectiveCamera::_sfPrincipalPoint field.
 inline

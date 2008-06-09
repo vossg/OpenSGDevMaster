@@ -85,22 +85,14 @@ bool &LightEngineBase::editEnabled(void)
 
 //! Get the value of the LightEngine::_sfEnabled field.
 inline
-const bool LightEngineBase::getEnabled(void) const
+      bool  LightEngineBase::getEnabled(void) const
 {
     return _sfEnabled.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &LightEngineBase::getEnabled        (void)
-{
-    return this->editEnabled        ();
-}
-#endif
-
 //! Set the value of the LightEngine::_sfEnabled field.
 inline
-void LightEngineBase::setEnabled(const bool &value)
+void LightEngineBase::setEnabled(const bool value)
 {
     editSField(EnabledFieldMask);
 

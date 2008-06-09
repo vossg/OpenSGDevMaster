@@ -85,18 +85,10 @@ DisplayP &XWindowBase::editDisplay(void)
 
 //! Get the value of the XWindow::_sfDisplay field.
 inline
-const DisplayP XWindowBase::getDisplay(void) const
+const DisplayP &XWindowBase::getDisplay(void) const
 {
     return _sfDisplay.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-DisplayP            &XWindowBase::getDisplay        (void)
-{
-    return this->editDisplay        ();
-}
-#endif
 
 //! Set the value of the XWindow::_sfDisplay field.
 inline
@@ -118,18 +110,10 @@ X11Window &XWindowBase::editWindow(void)
 
 //! Get the value of the XWindow::_sfWindow field.
 inline
-const X11Window XWindowBase::getWindow(void) const
+const X11Window &XWindowBase::getWindow(void) const
 {
     return _sfWindow.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-X11Window           &XWindowBase::getWindow         (void)
-{
-    return this->editWindow         ();
-}
-#endif
 
 //! Set the value of the XWindow::_sfWindow field.
 inline
@@ -151,18 +135,10 @@ GLXContext &XWindowBase::editContext(void)
 
 //! Get the value of the XWindow::_sfContext field.
 inline
-const GLXContext XWindowBase::getContext(void) const
+const GLXContext &XWindowBase::getContext(void) const
 {
     return _sfContext.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLXContext          &XWindowBase::getContext        (void)
-{
-    return this->editContext        ();
-}
-#endif
 
 //! Set the value of the XWindow::_sfContext field.
 inline

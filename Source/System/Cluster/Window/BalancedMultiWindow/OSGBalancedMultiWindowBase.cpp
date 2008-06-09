@@ -278,12 +278,6 @@ const SFBool *BalancedMultiWindowBase::getSFBalance(void) const
     return &_sfBalance;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BalancedMultiWindowBase::getSFBalance        (void)
-{
-    return this->editSFBalance        ();
-}
-#endif
 
 SFBool *BalancedMultiWindowBase::editSFBestCut(void)
 {
@@ -297,12 +291,6 @@ const SFBool *BalancedMultiWindowBase::getSFBestCut(void) const
     return &_sfBestCut;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BalancedMultiWindowBase::getSFBestCut        (void)
-{
-    return this->editSFBestCut        ();
-}
-#endif
 
 SFBool *BalancedMultiWindowBase::editSFShowBalancing(void)
 {
@@ -316,12 +304,6 @@ const SFBool *BalancedMultiWindowBase::getSFShowBalancing(void) const
     return &_sfShowBalancing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BalancedMultiWindowBase::getSFShowBalancing  (void)
-{
-    return this->editSFShowBalancing  ();
-}
-#endif
 
 SFUInt32 *BalancedMultiWindowBase::editSFTileSize(void)
 {
@@ -335,12 +317,6 @@ const SFUInt32 *BalancedMultiWindowBase::getSFTileSize(void) const
     return &_sfTileSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *BalancedMultiWindowBase::getSFTileSize       (void)
-{
-    return this->editSFTileSize       ();
-}
-#endif
 
 SFBool *BalancedMultiWindowBase::editSFShort(void)
 {
@@ -354,12 +330,6 @@ const SFBool *BalancedMultiWindowBase::getSFShort(void) const
     return &_sfShort;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BalancedMultiWindowBase::getSFShort          (void)
-{
-    return this->editSFShort          ();
-}
-#endif
 
 
 

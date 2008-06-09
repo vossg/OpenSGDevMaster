@@ -278,12 +278,6 @@ const SFUInt32 *MultiDisplayWindowBase::getSFHServers(void) const
     return &_sfHServers;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *MultiDisplayWindowBase::getSFHServers       (void)
-{
-    return this->editSFHServers       ();
-}
-#endif
 
 SFUInt32 *MultiDisplayWindowBase::editSFVServers(void)
 {
@@ -297,12 +291,6 @@ const SFUInt32 *MultiDisplayWindowBase::getSFVServers(void) const
     return &_sfVServers;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *MultiDisplayWindowBase::getSFVServers       (void)
-{
-    return this->editSFVServers       ();
-}
-#endif
 
 SFBool *MultiDisplayWindowBase::editSFManageClientViewports(void)
 {
@@ -316,12 +304,6 @@ const SFBool *MultiDisplayWindowBase::getSFManageClientViewports(void) const
     return &_sfManageClientViewports;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *MultiDisplayWindowBase::getSFManageClientViewports(void)
-{
-    return this->editSFManageClientViewports();
-}
-#endif
 
 SFInt32 *MultiDisplayWindowBase::editSFXOverlap(void)
 {
@@ -335,12 +317,6 @@ const SFInt32 *MultiDisplayWindowBase::getSFXOverlap(void) const
     return &_sfXOverlap;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *MultiDisplayWindowBase::getSFXOverlap       (void)
-{
-    return this->editSFXOverlap       ();
-}
-#endif
 
 SFInt32 *MultiDisplayWindowBase::editSFYOverlap(void)
 {
@@ -354,12 +330,6 @@ const SFInt32 *MultiDisplayWindowBase::getSFYOverlap(void) const
     return &_sfYOverlap;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *MultiDisplayWindowBase::getSFYOverlap       (void)
-{
-    return this->editSFYOverlap       ();
-}
-#endif
 
 
 

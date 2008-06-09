@@ -229,12 +229,6 @@ const SFBool *GeoPropertyBase::getSFUseVBO(void) const
     return &_sfUseVBO;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *GeoPropertyBase::getSFUseVBO         (void)
-{
-    return this->editSFUseVBO         ();
-}
-#endif
 
 SFUInt32 *GeoPropertyBase::editSFGLId(void)
 {
@@ -248,12 +242,6 @@ const SFUInt32 *GeoPropertyBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *GeoPropertyBase::getSFGLId           (void)
-{
-    return this->editSFGLId           ();
-}
-#endif
 
 SFInt32 *GeoPropertyBase::editSFUsage(void)
 {
@@ -267,12 +255,6 @@ const SFInt32 *GeoPropertyBase::getSFUsage(void) const
     return &_sfUsage;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *GeoPropertyBase::getSFUsage          (void)
-{
-    return this->editSFUsage          ();
-}
-#endif
 
 
 

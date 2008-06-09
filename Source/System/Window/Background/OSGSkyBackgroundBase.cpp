@@ -689,12 +689,6 @@ const MFColor4f *SkyBackgroundBase::getMFSkyColor(void) const
     return &_mfSkyColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFColor4f           *SkyBackgroundBase::getMFSkyColor       (void)
-{
-    return this->editMFSkyColor       ();
-}
-#endif
 
 MFReal32 *SkyBackgroundBase::editMFSkyAngle(void)
 {
@@ -708,12 +702,6 @@ const MFReal32 *SkyBackgroundBase::getMFSkyAngle(void) const
     return &_mfSkyAngle;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *SkyBackgroundBase::getMFSkyAngle       (void)
-{
-    return this->editMFSkyAngle       ();
-}
-#endif
 
 MFColor4f *SkyBackgroundBase::editMFGroundColor(void)
 {
@@ -727,12 +715,6 @@ const MFColor4f *SkyBackgroundBase::getMFGroundColor(void) const
     return &_mfGroundColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFColor4f           *SkyBackgroundBase::getMFGroundColor    (void)
-{
-    return this->editMFGroundColor    ();
-}
-#endif
 
 MFReal32 *SkyBackgroundBase::editMFGroundAngle(void)
 {
@@ -746,12 +728,6 @@ const MFReal32 *SkyBackgroundBase::getMFGroundAngle(void) const
     return &_mfGroundAngle;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *SkyBackgroundBase::getMFGroundAngle    (void)
-{
-    return this->editMFGroundAngle    ();
-}
-#endif
 
 SFUInt32 *SkyBackgroundBase::editSFSphereRes(void)
 {
@@ -765,12 +741,6 @@ const SFUInt32 *SkyBackgroundBase::getSFSphereRes(void) const
     return &_sfSphereRes;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *SkyBackgroundBase::getSFSphereRes      (void)
-{
-    return this->editSFSphereRes      ();
-}
-#endif
 
 //! Get the SkyBackground::_sfBackTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFBackTexture(void) const
@@ -862,12 +832,6 @@ const SFBool *SkyBackgroundBase::getSFBoxInside(void) const
     return &_sfBoxInside;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SkyBackgroundBase::getSFBoxInside      (void)
-{
-    return this->editSFBoxInside      ();
-}
-#endif
 
 MFVec3f *SkyBackgroundBase::editMFTopTexCoord(void)
 {
@@ -881,12 +845,6 @@ const MFVec3f *SkyBackgroundBase::getMFTopTexCoord(void) const
     return &_mfTopTexCoord;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *SkyBackgroundBase::getMFTopTexCoord    (void)
-{
-    return this->editMFTopTexCoord    ();
-}
-#endif
 
 MFVec3f *SkyBackgroundBase::editMFBottomTexCoord(void)
 {
@@ -900,12 +858,6 @@ const MFVec3f *SkyBackgroundBase::getMFBottomTexCoord(void) const
     return &_mfBottomTexCoord;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *SkyBackgroundBase::getMFBottomTexCoord (void)
-{
-    return this->editMFBottomTexCoord ();
-}
-#endif
 
 MFVec3f *SkyBackgroundBase::editMFRightTexCoord(void)
 {
@@ -919,12 +871,6 @@ const MFVec3f *SkyBackgroundBase::getMFRightTexCoord(void) const
     return &_mfRightTexCoord;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *SkyBackgroundBase::getMFRightTexCoord  (void)
-{
-    return this->editMFRightTexCoord  ();
-}
-#endif
 
 MFVec3f *SkyBackgroundBase::editMFLeftTexCoord(void)
 {
@@ -938,12 +884,6 @@ const MFVec3f *SkyBackgroundBase::getMFLeftTexCoord(void) const
     return &_mfLeftTexCoord;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *SkyBackgroundBase::getMFLeftTexCoord   (void)
-{
-    return this->editMFLeftTexCoord   ();
-}
-#endif
 
 MFVec3f *SkyBackgroundBase::editMFFrontTexCoord(void)
 {
@@ -957,12 +897,6 @@ const MFVec3f *SkyBackgroundBase::getMFFrontTexCoord(void) const
     return &_mfFrontTexCoord;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *SkyBackgroundBase::getMFFrontTexCoord  (void)
-{
-    return this->editMFFrontTexCoord  ();
-}
-#endif
 
 MFVec3f *SkyBackgroundBase::editMFBackTexCoord(void)
 {
@@ -976,12 +910,6 @@ const MFVec3f *SkyBackgroundBase::getMFBackTexCoord(void) const
     return &_mfBackTexCoord;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *SkyBackgroundBase::getMFBackTexCoord   (void)
-{
-    return this->editMFBackTexCoord   ();
-}
-#endif
 
 //! Get the SkyBackground::_sfBeacon field.
 const SFWeakNodePtr *SkyBackgroundBase::getSFBeacon(void) const

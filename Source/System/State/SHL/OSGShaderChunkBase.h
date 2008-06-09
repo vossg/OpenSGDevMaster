@@ -134,42 +134,24 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFVertexProgram   (void);
-#endif
                   SFString            *editSFVertexProgram  (void);
             const SFString            *getSFVertexProgram   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFFragmentProgram (void);
-#endif
                   SFString            *editSFFragmentProgram(void);
             const SFString            *getSFFragmentProgram (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFGeometryProgram (void);
-#endif
                   SFString            *editSFGeometryProgram(void);
             const SFString            *getSFGeometryProgram (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getVertexProgram   (void);
-#endif
                   std::string         &editVertexProgram  (void);
-            const std::string          getVertexProgram   (void) const;
+            const std::string         &getVertexProgram   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getFragmentProgram (void);
-#endif
                   std::string         &editFragmentProgram(void);
-            const std::string          getFragmentProgram (void) const;
+            const std::string         &getFragmentProgram (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getGeometryProgram (void);
-#endif
                   std::string         &editGeometryProgram(void);
-            const std::string          getGeometryProgram (void) const;
+            const std::string         &getGeometryProgram (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

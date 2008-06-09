@@ -85,18 +85,10 @@ std::string &ClusterWindowBase::editConnectionType(void)
 
 //! Get the value of the ClusterWindow::_sfConnectionType field.
 inline
-const std::string ClusterWindowBase::getConnectionType(void) const
+const std::string &ClusterWindowBase::getConnectionType(void) const
 {
     return _sfConnectionType.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getConnectionType (void)
-{
-    return this->editConnectionType ();
-}
-#endif
 
 //! Set the value of the ClusterWindow::_sfConnectionType field.
 inline
@@ -118,18 +110,10 @@ std::string &ClusterWindowBase::editConnectionInterface(void)
 
 //! Get the value of the ClusterWindow::_sfConnectionInterface field.
 inline
-const std::string ClusterWindowBase::getConnectionInterface(void) const
+const std::string &ClusterWindowBase::getConnectionInterface(void) const
 {
     return _sfConnectionInterface.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getConnectionInterface(void)
-{
-    return this->editConnectionInterface();
-}
-#endif
 
 //! Set the value of the ClusterWindow::_sfConnectionInterface field.
 inline
@@ -151,18 +135,10 @@ std::string &ClusterWindowBase::editConnectionDestination(void)
 
 //! Get the value of the ClusterWindow::_sfConnectionDestination field.
 inline
-const std::string ClusterWindowBase::getConnectionDestination(void) const
+const std::string &ClusterWindowBase::getConnectionDestination(void) const
 {
     return _sfConnectionDestination.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getConnectionDestination(void)
-{
-    return this->editConnectionDestination();
-}
-#endif
 
 //! Set the value of the ClusterWindow::_sfConnectionDestination field.
 inline
@@ -184,18 +160,10 @@ std::string &ClusterWindowBase::editConnectionParams(void)
 
 //! Get the value of the ClusterWindow::_sfConnectionParams field.
 inline
-const std::string ClusterWindowBase::getConnectionParams(void) const
+const std::string &ClusterWindowBase::getConnectionParams(void) const
 {
     return _sfConnectionParams.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getConnectionParams(void)
-{
-    return this->editConnectionParams();
-}
-#endif
 
 //! Set the value of the ClusterWindow::_sfConnectionParams field.
 inline
@@ -217,22 +185,14 @@ UInt32 &ClusterWindowBase::editServicePort(void)
 
 //! Get the value of the ClusterWindow::_sfServicePort field.
 inline
-const UInt32 ClusterWindowBase::getServicePort(void) const
+      UInt32  ClusterWindowBase::getServicePort(void) const
 {
     return _sfServicePort.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &ClusterWindowBase::getServicePort    (void)
-{
-    return this->editServicePort    ();
-}
-#endif
-
 //! Set the value of the ClusterWindow::_sfServicePort field.
 inline
-void ClusterWindowBase::setServicePort(const UInt32 &value)
+void ClusterWindowBase::setServicePort(const UInt32 value)
 {
     editSField(ServicePortFieldMask);
 
@@ -250,18 +210,10 @@ std::string &ClusterWindowBase::editServiceAddress(void)
 
 //! Get the value of the ClusterWindow::_sfServiceAddress field.
 inline
-const std::string ClusterWindowBase::getServiceAddress(void) const
+const std::string &ClusterWindowBase::getServiceAddress(void) const
 {
     return _sfServiceAddress.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getServiceAddress (void)
-{
-    return this->editServiceAddress ();
-}
-#endif
 
 //! Set the value of the ClusterWindow::_sfServiceAddress field.
 inline
@@ -283,18 +235,10 @@ std::string &ClusterWindowBase::editServiceInterface(void)
 
 //! Get the value of the ClusterWindow::_sfServiceInterface field.
 inline
-const std::string ClusterWindowBase::getServiceInterface(void) const
+const std::string &ClusterWindowBase::getServiceInterface(void) const
 {
     return _sfServiceInterface.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getServiceInterface(void)
-{
-    return this->editServiceInterface();
-}
-#endif
 
 //! Set the value of the ClusterWindow::_sfServiceInterface field.
 inline
@@ -332,22 +276,14 @@ UInt32 &ClusterWindowBase::editInterleave(void)
 
 //! Get the value of the ClusterWindow::_sfInterleave field.
 inline
-const UInt32 ClusterWindowBase::getInterleave(void) const
+      UInt32  ClusterWindowBase::getInterleave(void) const
 {
     return _sfInterleave.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &ClusterWindowBase::getInterleave     (void)
-{
-    return this->editInterleave     ();
-}
-#endif
-
 //! Set the value of the ClusterWindow::_sfInterleave field.
 inline
-void ClusterWindowBase::setInterleave(const UInt32 &value)
+void ClusterWindowBase::setInterleave(const UInt32 value)
 {
     editSField(InterleaveFieldMask);
 
@@ -365,22 +301,14 @@ UInt32 &ClusterWindowBase::editFrameCount(void)
 
 //! Get the value of the ClusterWindow::_sfFrameCount field.
 inline
-const UInt32 ClusterWindowBase::getFrameCount(void) const
+      UInt32  ClusterWindowBase::getFrameCount(void) const
 {
     return _sfFrameCount.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &ClusterWindowBase::getFrameCount     (void)
-{
-    return this->editFrameCount     ();
-}
-#endif
-
 //! Set the value of the ClusterWindow::_sfFrameCount field.
 inline
-void ClusterWindowBase::setFrameCount(const UInt32 &value)
+void ClusterWindowBase::setFrameCount(const UInt32 value)
 {
     editSField(FrameCountFieldMask);
 
@@ -405,7 +333,7 @@ void ClusterWindowBase::setComposer(ImageComposer * const value)
 
 //! Get the value of the \a index element the ClusterWindow::_mfServers field.
 inline
-const std::string ClusterWindowBase::getServers(const UInt32 index) const
+const std::string &ClusterWindowBase::getServers(const UInt32 index) const
 {
     return _mfServers[index];
 }
@@ -418,25 +346,10 @@ std::string &ClusterWindowBase::editServers(const UInt32 index)
     return _mfServers[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getServers        (const UInt32 index)
-{
-    return this->editServers        (index);
-}
-
-inline
-MFString            &ClusterWindowBase::getServers        (void)
-{
-    return this->editServers        ();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the ClusterWindow::_mfAutostart field.
 inline
-const std::string ClusterWindowBase::getAutostart(const UInt32 index) const
+const std::string &ClusterWindowBase::getAutostart(const UInt32 index) const
 {
     return _mfAutostart[index];
 }
@@ -448,21 +361,6 @@ std::string &ClusterWindowBase::editAutostart(const UInt32 index)
 
     return _mfAutostart[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ClusterWindowBase::getAutostart      (const UInt32 index)
-{
-    return this->editAutostart      (index);
-}
-
-inline
-MFString            &ClusterWindowBase::getAutostart      (void)
-{
-    return this->editAutostart      ();
-}
-
-#endif
 
 
 

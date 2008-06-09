@@ -213,12 +213,6 @@ const SFColor3r *SolidBackgroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor3r           *SolidBackgroundBase::getSFColor          (void)
-{
-    return this->editSFColor          ();
-}
-#endif
 
 SFReal32 *SolidBackgroundBase::editSFAlpha(void)
 {
@@ -232,12 +226,6 @@ const SFReal32 *SolidBackgroundBase::getSFAlpha(void) const
     return &_sfAlpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *SolidBackgroundBase::getSFAlpha          (void)
-{
-    return this->editSFAlpha          ();
-}
-#endif
 
 
 

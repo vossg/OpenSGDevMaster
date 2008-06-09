@@ -174,12 +174,6 @@ const SFInt32 *GLUTWindowBase::getSFGlutId(void) const
     return &_sfGlutId;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *GLUTWindowBase::getSFGlutId         (void)
-{
-    return this->editSFGlutId         ();
-}
-#endif
 
 
 

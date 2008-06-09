@@ -470,12 +470,6 @@ const SFVec2s *CubeMapGeneratorBase::getSFTextureSize(void) const
     return &_sfTextureSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2s             *CubeMapGeneratorBase::getSFTextureSize    (void)
-{
-    return this->editSFTextureSize    ();
-}
-#endif
 
 SFGLenum *CubeMapGeneratorBase::editSFTextureFormat(void)
 {
@@ -489,12 +483,6 @@ const SFGLenum *CubeMapGeneratorBase::getSFTextureFormat(void) const
     return &_sfTextureFormat;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *CubeMapGeneratorBase::getSFTextureFormat  (void)
-{
-    return this->editSFTextureFormat  ();
-}
-#endif
 
 //! Get the CubeMapGenerator::_sfBeacon field.
 const SFWeakNodePtr *CubeMapGeneratorBase::getSFBeacon(void) const
@@ -521,12 +509,6 @@ const SFPnt3f *CubeMapGeneratorBase::getSFOrigin(void) const
     return &_sfOrigin;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt3f             *CubeMapGeneratorBase::getSFOrigin         (void)
-{
-    return this->editSFOrigin         ();
-}
-#endif
 
 SFUInt32 *CubeMapGeneratorBase::editSFOriginMode(void)
 {
@@ -540,12 +522,6 @@ const SFUInt32 *CubeMapGeneratorBase::getSFOriginMode(void) const
     return &_sfOriginMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *CubeMapGeneratorBase::getSFOriginMode     (void)
-{
-    return this->editSFOriginMode     ();
-}
-#endif
 
 SFUInt32 *CubeMapGeneratorBase::editSFTexUnit(void)
 {
@@ -559,12 +535,6 @@ const SFUInt32 *CubeMapGeneratorBase::getSFTexUnit(void) const
     return &_sfTexUnit;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *CubeMapGeneratorBase::getSFTexUnit        (void)
-{
-    return this->editSFTexUnit        ();
-}
-#endif
 
 SFUInt32 *CubeMapGeneratorBase::editSFSetupMode(void)
 {
@@ -578,12 +548,6 @@ const SFUInt32 *CubeMapGeneratorBase::getSFSetupMode(void) const
     return &_sfSetupMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *CubeMapGeneratorBase::getSFSetupMode      (void)
-{
-    return this->editSFSetupMode      ();
-}
-#endif
 
 //! Get the CubeMapGenerator::_sfBackground field.
 const SFUnrecBackgroundPtr *CubeMapGeneratorBase::getSFBackground(void) const

@@ -313,18 +313,18 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 
                   Int32               &editClassicGLId    (void);
-            const Int32                getClassicGLId     (void) const;
+                  Int32                getClassicGLId     (void) const;
 
                   Int32               &editAttGLId        (void);
-            const Int32                getAttGLId         (void) const;
+                  Int32                getAttGLId         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setClassicGLId    (const Int32 &value);
-            void setAttGLId        (const Int32 &value);
+            void setClassicGLId    (const Int32 value);
+            void setAttGLId        (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

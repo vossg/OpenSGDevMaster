@@ -388,12 +388,6 @@ const SFColor3r *SimpleMaterialBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor3r           *SimpleMaterialBase::getSFAmbient        (void)
-{
-    return this->editSFAmbient        ();
-}
-#endif
 
 SFColor3r *SimpleMaterialBase::editSFDiffuse(void)
 {
@@ -407,12 +401,6 @@ const SFColor3r *SimpleMaterialBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor3r           *SimpleMaterialBase::getSFDiffuse        (void)
-{
-    return this->editSFDiffuse        ();
-}
-#endif
 
 SFColor3r *SimpleMaterialBase::editSFSpecular(void)
 {
@@ -426,12 +414,6 @@ const SFColor3r *SimpleMaterialBase::getSFSpecular(void) const
     return &_sfSpecular;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor3r           *SimpleMaterialBase::getSFSpecular       (void)
-{
-    return this->editSFSpecular       ();
-}
-#endif
 
 SFReal *SimpleMaterialBase::editSFShininess(void)
 {
@@ -445,12 +427,6 @@ const SFReal *SimpleMaterialBase::getSFShininess(void) const
     return &_sfShininess;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *SimpleMaterialBase::getSFShininess      (void)
-{
-    return this->editSFShininess      ();
-}
-#endif
 
 SFColor3r *SimpleMaterialBase::editSFEmission(void)
 {
@@ -464,12 +440,6 @@ const SFColor3r *SimpleMaterialBase::getSFEmission(void) const
     return &_sfEmission;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor3r           *SimpleMaterialBase::getSFEmission       (void)
-{
-    return this->editSFEmission       ();
-}
-#endif
 
 SFReal *SimpleMaterialBase::editSFTransparency(void)
 {
@@ -483,12 +453,6 @@ const SFReal *SimpleMaterialBase::getSFTransparency(void) const
     return &_sfTransparency;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal              *SimpleMaterialBase::getSFTransparency   (void)
-{
-    return this->editSFTransparency   ();
-}
-#endif
 
 SFBool *SimpleMaterialBase::editSFLit(void)
 {
@@ -502,12 +466,6 @@ const SFBool *SimpleMaterialBase::getSFLit(void) const
     return &_sfLit;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SimpleMaterialBase::getSFLit            (void)
-{
-    return this->editSFLit            ();
-}
-#endif
 
 SFGLenum *SimpleMaterialBase::editSFColorMaterial(void)
 {
@@ -521,12 +479,6 @@ const SFGLenum *SimpleMaterialBase::getSFColorMaterial(void) const
     return &_sfColorMaterial;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *SimpleMaterialBase::getSFColorMaterial  (void)
-{
-    return this->editSFColorMaterial  ();
-}
-#endif
 
 
 

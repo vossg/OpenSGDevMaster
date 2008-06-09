@@ -242,12 +242,6 @@ const SFReal32 *CameraDecoratorBase::getSFNear(void) const
         return NULL;
     }
 }
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *CameraDecoratorBase::getSFNear           (void)
-{
-    return this->editSFNear           ();
-}
-#endif
 
 SFReal32 *CameraDecoratorBase::editSFFar(void)
 {
@@ -272,12 +266,6 @@ const SFReal32 *CameraDecoratorBase::getSFFar(void) const
         return NULL;
     }
 }
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *CameraDecoratorBase::getSFFar            (void)
-{
-    return this->editSFFar            ();
-}
-#endif
 
 
 
@@ -502,7 +490,7 @@ void CameraDecoratorBase::setBeacon(Node * const value)
     }
     else
     {
-//        Inherited::setBeacon(value);
+        Inherited::setBeacon(value);
     }
 }
 
@@ -520,7 +508,7 @@ Real32 &CameraDecoratorBase::editNear(void)
 }
 
 //! Get the value of the CameraDecorator::_sfNear field.
-const Real32 CameraDecoratorBase::getNear(void) const
+      Real32  CameraDecoratorBase::getNear(void) const
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -532,16 +520,9 @@ const Real32 CameraDecoratorBase::getNear(void) const
     }
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &CameraDecoratorBase::getNear           (void)
-{
-    return this->editNear           ();
-}
-#endif
 
 //! Set the value of the CameraDecorator::_sfNear field.
-void CameraDecoratorBase::setNear(const Real32 &value)
+void CameraDecoratorBase::setNear(const Real32 value)
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -549,7 +530,7 @@ void CameraDecoratorBase::setNear(const Real32 &value)
     }
     else
     {
-//        Inherited::setNear(value);
+        Inherited::setNear(value);
     }
 }
 
@@ -567,7 +548,7 @@ Real32 &CameraDecoratorBase::editFar(void)
 }
 
 //! Get the value of the CameraDecorator::_sfFar field.
-const Real32 CameraDecoratorBase::getFar(void) const
+      Real32  CameraDecoratorBase::getFar(void) const
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -579,16 +560,9 @@ const Real32 CameraDecoratorBase::getFar(void) const
     }
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &CameraDecoratorBase::getFar            (void)
-{
-    return this->editFar            ();
-}
-#endif
 
 //! Set the value of the CameraDecorator::_sfFar field.
-void CameraDecoratorBase::setFar(const Real32 &value)
+void CameraDecoratorBase::setFar(const Real32 value)
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -596,7 +570,7 @@ void CameraDecoratorBase::setFar(const Real32 &value)
     }
     else
     {
-//        Inherited::setFar(value);
+        Inherited::setFar(value);
     }
 }
 

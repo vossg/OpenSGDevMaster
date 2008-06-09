@@ -174,12 +174,6 @@ const MFInt32 *ShaderParameterMIntBase::getMFValue(void) const
     return &_mfValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFInt32             *ShaderParameterMIntBase::getMFValue          (void)
-{
-    return this->editMFValue          ();
-}
-#endif
 
 
 

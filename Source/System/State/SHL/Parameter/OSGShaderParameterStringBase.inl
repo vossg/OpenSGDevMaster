@@ -85,18 +85,10 @@ std::string &ShaderParameterStringBase::editValue(void)
 
 //! Get the value of the ShaderParameterString::_sfValue field.
 inline
-const std::string ShaderParameterStringBase::getValue(void) const
+const std::string &ShaderParameterStringBase::getValue(void) const
 {
     return _sfValue.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ShaderParameterStringBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-#endif
 
 //! Set the value of the ShaderParameterString::_sfValue field.
 inline

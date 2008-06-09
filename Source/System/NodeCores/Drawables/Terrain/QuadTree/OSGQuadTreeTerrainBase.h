@@ -220,214 +220,110 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
             const SFUnrecImagePtr     *getSFHeightData     (void) const;
                   SFUnrecImagePtr     *editSFHeightData     (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFHeightScale     (void);
-#endif
                   SFReal32            *editSFHeightScale    (void);
             const SFReal32            *getSFHeightScale     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFReal32            *getMFHeightError     (void);
-#endif
                   MFReal32            *editMFHeightError    (void);
             const MFReal32            *getMFHeightError     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFReal32            *getMFHeightQuad      (void);
-#endif
                   MFReal32            *editMFHeightQuad     (void);
             const MFReal32            *getMFHeightQuad      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFDetail          (void);
-#endif
                   SFReal32            *editSFDetail         (void);
             const SFReal32            *getSFDetail          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFBorderDetail    (void);
-#endif
                   SFInt32             *editSFBorderDetail   (void);
             const SFInt32             *getSFBorderDetail    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFVertexSpacing   (void);
-#endif
                   SFReal32            *editSFVertexSpacing  (void);
             const SFReal32            *getSFVertexSpacing   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFGeoMorphing     (void);
-#endif
                   SFBool              *editSFGeoMorphing    (void);
             const SFBool              *getSFGeoMorphing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPnt3f             *getSFEyePoint        (void);
-#endif
                   SFPnt3f             *editSFEyePoint       (void);
             const SFPnt3f             *getSFEyePoint        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFEyePointValid   (void);
-#endif
                   SFBool              *editSFEyePointValid  (void);
             const SFBool              *getSFEyePointValid   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFOriginX         (void);
-#endif
                   SFReal32            *editSFOriginX        (void);
             const SFReal32            *getSFOriginX         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFOriginY         (void);
-#endif
                   SFReal32            *editSFOriginY        (void);
             const SFReal32            *getSFOriginY         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFOriginTexX      (void);
-#endif
                   SFReal32            *editSFOriginTexX     (void);
             const SFReal32            *getSFOriginTexX      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFOriginTexY      (void);
-#endif
                   SFReal32            *editSFOriginTexY     (void);
             const SFReal32            *getSFOriginTexY      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFTexSpacing      (void);
-#endif
                   SFReal32            *editSFTexSpacing     (void);
             const SFReal32            *getSFTexSpacing      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFTexYSpacing     (void);
-#endif
                   SFReal32            *editSFTexYSpacing    (void);
             const SFReal32            *getSFTexYSpacing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFUpdateTerrain   (void);
-#endif
                   SFBool              *editSFUpdateTerrain  (void);
             const SFBool              *getSFUpdateTerrain   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFPerPixelLighting (void);
-#endif
                   SFBool              *editSFPerPixelLighting(void);
             const SFBool              *getSFPerPixelLighting (void) const;
 
 
                   Image * getHeightData     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getHeightScale     (void);
-#endif
                   Real32              &editHeightScale    (void);
-            const Real32               getHeightScale     (void) const;
+                  Real32               getHeightScale     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getHeightError     (const UInt32 index);
-                  MFReal32            &getHeightError    (void);
-#endif
                   Real32              &editHeightError    (const UInt32 index);
-            const Real32               getHeightError     (const UInt32 index) const;
+                  Real32               getHeightError     (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getHeightQuad      (const UInt32 index);
-                  MFReal32            &getHeightQuad     (void);
-#endif
                   Real32              &editHeightQuad     (const UInt32 index);
-            const Real32               getHeightQuad      (const UInt32 index) const;
+                  Real32               getHeightQuad      (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getDetail          (void);
-#endif
                   Real32              &editDetail         (void);
-            const Real32               getDetail          (void) const;
+                  Real32               getDetail          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getBorderDetail    (void);
-#endif
                   Int32               &editBorderDetail   (void);
-            const Int32                getBorderDetail    (void) const;
+                  Int32                getBorderDetail    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getVertexSpacing   (void);
-#endif
                   Real32              &editVertexSpacing  (void);
-            const Real32               getVertexSpacing   (void) const;
+                  Real32               getVertexSpacing   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getGeoMorphing     (void);
-#endif
                   bool                &editGeoMorphing    (void);
-            const bool                 getGeoMorphing     (void) const;
+                  bool                 getGeoMorphing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt3f               &getEyePoint        (void);
-#endif
                   Pnt3f               &editEyePoint       (void);
-            const Pnt3f                getEyePoint        (void) const;
+            const Pnt3f               &getEyePoint        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getEyePointValid   (void);
-#endif
                   bool                &editEyePointValid  (void);
-            const bool                 getEyePointValid   (void) const;
+                  bool                 getEyePointValid   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getOriginX         (void);
-#endif
                   Real32              &editOriginX        (void);
-            const Real32               getOriginX         (void) const;
+                  Real32               getOriginX         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getOriginY         (void);
-#endif
                   Real32              &editOriginY        (void);
-            const Real32               getOriginY         (void) const;
+                  Real32               getOriginY         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getOriginTexX      (void);
-#endif
                   Real32              &editOriginTexX     (void);
-            const Real32               getOriginTexX      (void) const;
+                  Real32               getOriginTexX      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getOriginTexY      (void);
-#endif
                   Real32              &editOriginTexY     (void);
-            const Real32               getOriginTexY      (void) const;
+                  Real32               getOriginTexY      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getTexSpacing      (void);
-#endif
                   Real32              &editTexSpacing     (void);
-            const Real32               getTexSpacing      (void) const;
+                  Real32               getTexSpacing      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getTexYSpacing     (void);
-#endif
                   Real32              &editTexYSpacing    (void);
-            const Real32               getTexYSpacing     (void) const;
+                  Real32               getTexYSpacing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getUpdateTerrain   (void);
-#endif
                   bool                &editUpdateTerrain  (void);
-            const bool                 getUpdateTerrain   (void) const;
+                  bool                 getUpdateTerrain   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getPerPixelLighting (void);
-#endif
                   bool                &editPerPixelLighting(void);
-            const bool                 getPerPixelLighting (void) const;
+                  bool                 getPerPixelLighting (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -435,21 +331,21 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \{                                                                 */
 
             void setHeightData     (Image * const value);
-            void setHeightScale    (const Real32 &value);
-            void setDetail         (const Real32 &value);
-            void setBorderDetail   (const Int32 &value);
-            void setVertexSpacing  (const Real32 &value);
-            void setGeoMorphing    (const bool &value);
+            void setHeightScale    (const Real32 value);
+            void setDetail         (const Real32 value);
+            void setBorderDetail   (const Int32 value);
+            void setVertexSpacing  (const Real32 value);
+            void setGeoMorphing    (const bool value);
             void setEyePoint       (const Pnt3f &value);
-            void setEyePointValid  (const bool &value);
-            void setOriginX        (const Real32 &value);
-            void setOriginY        (const Real32 &value);
-            void setOriginTexX     (const Real32 &value);
-            void setOriginTexY     (const Real32 &value);
-            void setTexSpacing     (const Real32 &value);
-            void setTexYSpacing    (const Real32 &value);
-            void setUpdateTerrain  (const bool &value);
-            void setPerPixelLighting(const bool &value);
+            void setEyePointValid  (const bool value);
+            void setOriginX        (const Real32 value);
+            void setOriginY        (const Real32 value);
+            void setOriginTexX     (const Real32 value);
+            void setOriginTexY     (const Real32 value);
+            void setTexSpacing     (const Real32 value);
+            void setTexYSpacing    (const Real32 value);
+            void setUpdateTerrain  (const bool value);
+            void setPerPixelLighting(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -636,33 +532,33 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
 
 
                   UInt32              &editWidth          (void);
-            const UInt32               getWidth           (void) const;
+                  UInt32               getWidth           (void) const;
 
                   UInt32              &editLevel          (void);
-            const UInt32               getLevel           (void) const;
+                  UInt32               getLevel           (void) const;
 
                   GeoVectorProperty * getHeightVertices (void) const;
 
                   Pnt3f               &editBoundMin       (void);
-            const Pnt3f                getBoundMin        (void) const;
+            const Pnt3f               &getBoundMin        (void) const;
 
                   Pnt3f               &editBoundMax       (void);
-            const Pnt3f                getBoundMax        (void) const;
+            const Pnt3f               &getBoundMax        (void) const;
 
                   Real32              &editEyeHeight      (void);
-            const Real32               getEyeHeight       (void) const;
+                  Real32               getEyeHeight       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setWidth          (const UInt32 &value);
-            void setLevel          (const UInt32 &value);
+            void setWidth          (const UInt32 value);
+            void setLevel          (const UInt32 value);
             void setHeightVertices (GeoVectorProperty * const value);
             void setBoundMin       (const Pnt3f &value);
             void setBoundMax       (const Pnt3f &value);
-            void setEyeHeight      (const Real32 &value);
+            void setEyeHeight      (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

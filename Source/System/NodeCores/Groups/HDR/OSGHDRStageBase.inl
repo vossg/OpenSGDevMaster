@@ -85,22 +85,14 @@ Real32 &HDRStageBase::editExposure(void)
 
 //! Get the value of the HDRStage::_sfExposure field.
 inline
-const Real32 HDRStageBase::getExposure(void) const
+      Real32  HDRStageBase::getExposure(void) const
 {
     return _sfExposure.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &HDRStageBase::getExposure       (void)
-{
-    return this->editExposure       ();
-}
-#endif
-
 //! Set the value of the HDRStage::_sfExposure field.
 inline
-void HDRStageBase::setExposure(const Real32 &value)
+void HDRStageBase::setExposure(const Real32 value)
 {
     editSField(ExposureFieldMask);
 
@@ -118,22 +110,14 @@ Real32 &HDRStageBase::editBlurWidth(void)
 
 //! Get the value of the HDRStage::_sfBlurWidth field.
 inline
-const Real32 HDRStageBase::getBlurWidth(void) const
+      Real32  HDRStageBase::getBlurWidth(void) const
 {
     return _sfBlurWidth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &HDRStageBase::getBlurWidth      (void)
-{
-    return this->editBlurWidth      ();
-}
-#endif
-
 //! Set the value of the HDRStage::_sfBlurWidth field.
 inline
-void HDRStageBase::setBlurWidth(const Real32 &value)
+void HDRStageBase::setBlurWidth(const Real32 value)
 {
     editSField(BlurWidthFieldMask);
 
@@ -151,22 +135,14 @@ Real32 &HDRStageBase::editBlurAmount(void)
 
 //! Get the value of the HDRStage::_sfBlurAmount field.
 inline
-const Real32 HDRStageBase::getBlurAmount(void) const
+      Real32  HDRStageBase::getBlurAmount(void) const
 {
     return _sfBlurAmount.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &HDRStageBase::getBlurAmount     (void)
-{
-    return this->editBlurAmount     ();
-}
-#endif
-
 //! Set the value of the HDRStage::_sfBlurAmount field.
 inline
-void HDRStageBase::setBlurAmount(const Real32 &value)
+void HDRStageBase::setBlurAmount(const Real32 value)
 {
     editSField(BlurAmountFieldMask);
 
@@ -184,22 +160,14 @@ Real32 &HDRStageBase::editEffectAmount(void)
 
 //! Get the value of the HDRStage::_sfEffectAmount field.
 inline
-const Real32 HDRStageBase::getEffectAmount(void) const
+      Real32  HDRStageBase::getEffectAmount(void) const
 {
     return _sfEffectAmount.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &HDRStageBase::getEffectAmount   (void)
-{
-    return this->editEffectAmount   ();
-}
-#endif
-
 //! Set the value of the HDRStage::_sfEffectAmount field.
 inline
-void HDRStageBase::setEffectAmount(const Real32 &value)
+void HDRStageBase::setEffectAmount(const Real32 value)
 {
     editSField(EffectAmountFieldMask);
 
@@ -217,22 +185,14 @@ Real32 &HDRStageBase::editGamma(void)
 
 //! Get the value of the HDRStage::_sfGamma field.
 inline
-const Real32 HDRStageBase::getGamma(void) const
+      Real32  HDRStageBase::getGamma(void) const
 {
     return _sfGamma.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &HDRStageBase::getGamma          (void)
-{
-    return this->editGamma          ();
-}
-#endif
-
 //! Set the value of the HDRStage::_sfGamma field.
 inline
-void HDRStageBase::setGamma(const Real32 &value)
+void HDRStageBase::setGamma(const Real32 value)
 {
     editSField(GammaFieldMask);
 
@@ -250,18 +210,10 @@ GLenum &HDRStageBase::editBufferFormat(void)
 
 //! Get the value of the HDRStage::_sfBufferFormat field.
 inline
-const GLenum HDRStageBase::getBufferFormat(void) const
+const GLenum &HDRStageBase::getBufferFormat(void) const
 {
     return _sfBufferFormat.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &HDRStageBase::getBufferFormat   (void)
-{
-    return this->editBufferFormat   ();
-}
-#endif
 
 //! Set the value of the HDRStage::_sfBufferFormat field.
 inline

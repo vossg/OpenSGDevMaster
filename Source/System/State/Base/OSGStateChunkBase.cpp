@@ -182,12 +182,6 @@ const SFBool *StateChunkBase::getSFIgnore(void) const
     return &_sfIgnore;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *StateChunkBase::getSFIgnore         (void)
-{
-    return this->editSFIgnore         ();
-}
-#endif
 
 
 

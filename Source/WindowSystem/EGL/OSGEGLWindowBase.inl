@@ -85,18 +85,10 @@ EGLDisplay &EGLWindowBase::editDisplay(void)
 
 //! Get the value of the EGLWindow::_sfDisplay field.
 inline
-const EGLDisplay EGLWindowBase::getDisplay(void) const
+const EGLDisplay &EGLWindowBase::getDisplay(void) const
 {
     return _sfDisplay.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-EGLDisplay          &EGLWindowBase::getDisplay        (void)
-{
-    return this->editDisplay        ();
-}
-#endif
 
 //! Set the value of the EGLWindow::_sfDisplay field.
 inline
@@ -118,18 +110,10 @@ EGLSurface &EGLWindowBase::editWindow(void)
 
 //! Get the value of the EGLWindow::_sfWindow field.
 inline
-const EGLSurface EGLWindowBase::getWindow(void) const
+const EGLSurface &EGLWindowBase::getWindow(void) const
 {
     return _sfWindow.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-EGLSurface          &EGLWindowBase::getWindow         (void)
-{
-    return this->editWindow         ();
-}
-#endif
 
 //! Set the value of the EGLWindow::_sfWindow field.
 inline
@@ -151,18 +135,10 @@ EGLContext &EGLWindowBase::editContext(void)
 
 //! Get the value of the EGLWindow::_sfContext field.
 inline
-const EGLContext EGLWindowBase::getContext(void) const
+const EGLContext &EGLWindowBase::getContext(void) const
 {
     return _sfContext.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-EGLContext          &EGLWindowBase::getContext        (void)
-{
-    return this->editContext        ();
-}
-#endif
 
 //! Set the value of the EGLWindow::_sfContext field.
 inline

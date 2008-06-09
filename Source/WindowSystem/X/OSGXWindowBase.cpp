@@ -224,12 +224,6 @@ const SFDisplayP *XWindowBase::getSFDisplay(void) const
     return &_sfDisplay;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFDisplayP          *XWindowBase::getSFDisplay        (void)
-{
-    return this->editSFDisplay        ();
-}
-#endif
 
 SFX11Window *XWindowBase::editSFWindow(void)
 {
@@ -243,12 +237,6 @@ const SFX11Window *XWindowBase::getSFWindow(void) const
     return &_sfWindow;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFX11Window         *XWindowBase::getSFWindow         (void)
-{
-    return this->editSFWindow         ();
-}
-#endif
 
 SFGLXContext *XWindowBase::editSFContext(void)
 {
@@ -262,12 +250,6 @@ const SFGLXContext *XWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLXContext        *XWindowBase::getSFContext        (void)
-{
-    return this->editSFContext        ();
-}
-#endif
 
 
 

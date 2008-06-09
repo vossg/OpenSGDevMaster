@@ -781,12 +781,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFHeightScale(void) const
     return &_sfHeightScale;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFHeightScale    (void)
-{
-    return this->editSFHeightScale    ();
-}
-#endif
 
 MFReal32 *QuadTreeTerrainBase::editMFHeightError(void)
 {
@@ -800,12 +794,6 @@ const MFReal32 *QuadTreeTerrainBase::getMFHeightError(void) const
     return &_mfHeightError;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *QuadTreeTerrainBase::getMFHeightError    (void)
-{
-    return this->editMFHeightError    ();
-}
-#endif
 
 MFReal32 *QuadTreeTerrainBase::editMFHeightQuad(void)
 {
@@ -819,12 +807,6 @@ const MFReal32 *QuadTreeTerrainBase::getMFHeightQuad(void) const
     return &_mfHeightQuad;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *QuadTreeTerrainBase::getMFHeightQuad     (void)
-{
-    return this->editMFHeightQuad     ();
-}
-#endif
 
 SFUInt32 *QuadTreeTerrainBase::editSFWidth(void)
 {
@@ -838,12 +820,6 @@ const SFUInt32 *QuadTreeTerrainBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *QuadTreeTerrainBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFUInt32 *QuadTreeTerrainBase::editSFLevel(void)
 {
@@ -857,12 +833,6 @@ const SFUInt32 *QuadTreeTerrainBase::getSFLevel(void) const
     return &_sfLevel;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *QuadTreeTerrainBase::getSFLevel          (void)
-{
-    return this->editSFLevel          ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFDetail(void)
 {
@@ -876,12 +846,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFDetail(void) const
     return &_sfDetail;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFDetail         (void)
-{
-    return this->editSFDetail         ();
-}
-#endif
 
 SFInt32 *QuadTreeTerrainBase::editSFBorderDetail(void)
 {
@@ -895,12 +859,6 @@ const SFInt32 *QuadTreeTerrainBase::getSFBorderDetail(void) const
     return &_sfBorderDetail;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *QuadTreeTerrainBase::getSFBorderDetail   (void)
-{
-    return this->editSFBorderDetail   ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFVertexSpacing(void)
 {
@@ -914,12 +872,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFVertexSpacing(void) const
     return &_sfVertexSpacing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFVertexSpacing  (void)
-{
-    return this->editSFVertexSpacing  ();
-}
-#endif
 
 //! Get the QuadTreeTerrain::_sfHeightVertices field.
 const SFUnrecGeoVectorPropertyPtr *QuadTreeTerrainBase::getSFHeightVertices(void) const
@@ -946,12 +898,6 @@ const SFBool *QuadTreeTerrainBase::getSFGeoMorphing(void) const
     return &_sfGeoMorphing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *QuadTreeTerrainBase::getSFGeoMorphing    (void)
-{
-    return this->editSFGeoMorphing    ();
-}
-#endif
 
 SFPnt3f *QuadTreeTerrainBase::editSFBoundMin(void)
 {
@@ -965,12 +911,6 @@ const SFPnt3f *QuadTreeTerrainBase::getSFBoundMin(void) const
     return &_sfBoundMin;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt3f             *QuadTreeTerrainBase::getSFBoundMin       (void)
-{
-    return this->editSFBoundMin       ();
-}
-#endif
 
 SFPnt3f *QuadTreeTerrainBase::editSFBoundMax(void)
 {
@@ -984,12 +924,6 @@ const SFPnt3f *QuadTreeTerrainBase::getSFBoundMax(void) const
     return &_sfBoundMax;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt3f             *QuadTreeTerrainBase::getSFBoundMax       (void)
-{
-    return this->editSFBoundMax       ();
-}
-#endif
 
 SFPnt3f *QuadTreeTerrainBase::editSFEyePoint(void)
 {
@@ -1003,12 +937,6 @@ const SFPnt3f *QuadTreeTerrainBase::getSFEyePoint(void) const
     return &_sfEyePoint;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt3f             *QuadTreeTerrainBase::getSFEyePoint       (void)
-{
-    return this->editSFEyePoint       ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFEyeHeight(void)
 {
@@ -1022,12 +950,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFEyeHeight(void) const
     return &_sfEyeHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFEyeHeight      (void)
-{
-    return this->editSFEyeHeight      ();
-}
-#endif
 
 SFBool *QuadTreeTerrainBase::editSFEyePointValid(void)
 {
@@ -1041,12 +963,6 @@ const SFBool *QuadTreeTerrainBase::getSFEyePointValid(void) const
     return &_sfEyePointValid;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *QuadTreeTerrainBase::getSFEyePointValid  (void)
-{
-    return this->editSFEyePointValid  ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFOriginX(void)
 {
@@ -1060,12 +976,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginX(void) const
     return &_sfOriginX;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFOriginX        (void)
-{
-    return this->editSFOriginX        ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFOriginY(void)
 {
@@ -1079,12 +989,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginY(void) const
     return &_sfOriginY;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFOriginY        (void)
-{
-    return this->editSFOriginY        ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFOriginTexX(void)
 {
@@ -1098,12 +1002,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginTexX(void) const
     return &_sfOriginTexX;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFOriginTexX     (void)
-{
-    return this->editSFOriginTexX     ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFOriginTexY(void)
 {
@@ -1117,12 +1015,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginTexY(void) const
     return &_sfOriginTexY;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFOriginTexY     (void)
-{
-    return this->editSFOriginTexY     ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFTexSpacing(void)
 {
@@ -1136,12 +1028,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFTexSpacing(void) const
     return &_sfTexSpacing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFTexSpacing     (void)
-{
-    return this->editSFTexSpacing     ();
-}
-#endif
 
 SFReal32 *QuadTreeTerrainBase::editSFTexYSpacing(void)
 {
@@ -1155,12 +1041,6 @@ const SFReal32 *QuadTreeTerrainBase::getSFTexYSpacing(void) const
     return &_sfTexYSpacing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *QuadTreeTerrainBase::getSFTexYSpacing    (void)
-{
-    return this->editSFTexYSpacing    ();
-}
-#endif
 
 SFBool *QuadTreeTerrainBase::editSFUpdateTerrain(void)
 {
@@ -1174,12 +1054,6 @@ const SFBool *QuadTreeTerrainBase::getSFUpdateTerrain(void) const
     return &_sfUpdateTerrain;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *QuadTreeTerrainBase::getSFUpdateTerrain  (void)
-{
-    return this->editSFUpdateTerrain  ();
-}
-#endif
 
 SFBool *QuadTreeTerrainBase::editSFPerPixelLighting(void)
 {
@@ -1193,12 +1067,6 @@ const SFBool *QuadTreeTerrainBase::getSFPerPixelLighting(void) const
     return &_sfPerPixelLighting;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *QuadTreeTerrainBase::getSFPerPixelLighting(void)
-{
-    return this->editSFPerPixelLighting();
-}
-#endif
 
 
 

@@ -101,22 +101,14 @@ bool &TextureGrabForegroundBase::editAutoResize(void)
 
 //! Get the value of the TextureGrabForeground::_sfAutoResize field.
 inline
-const bool TextureGrabForegroundBase::getAutoResize(void) const
+      bool  TextureGrabForegroundBase::getAutoResize(void) const
 {
     return _sfAutoResize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &TextureGrabForegroundBase::getAutoResize     (void)
-{
-    return this->editAutoResize     ();
-}
-#endif
-
 //! Set the value of the TextureGrabForeground::_sfAutoResize field.
 inline
-void TextureGrabForegroundBase::setAutoResize(const bool &value)
+void TextureGrabForegroundBase::setAutoResize(const bool value)
 {
     editSField(AutoResizeFieldMask);
 
@@ -134,18 +126,10 @@ GLenum &TextureGrabForegroundBase::editBindTarget(void)
 
 //! Get the value of the TextureGrabForeground::_sfBindTarget field.
 inline
-const GLenum TextureGrabForegroundBase::getBindTarget(void) const
+const GLenum &TextureGrabForegroundBase::getBindTarget(void) const
 {
     return _sfBindTarget.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &TextureGrabForegroundBase::getBindTarget     (void)
-{
-    return this->editBindTarget     ();
-}
-#endif
 
 //! Set the value of the TextureGrabForeground::_sfBindTarget field.
 inline
@@ -167,18 +151,10 @@ GLenum &TextureGrabForegroundBase::editCopyTarget(void)
 
 //! Get the value of the TextureGrabForeground::_sfCopyTarget field.
 inline
-const GLenum TextureGrabForegroundBase::getCopyTarget(void) const
+const GLenum &TextureGrabForegroundBase::getCopyTarget(void) const
 {
     return _sfCopyTarget.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &TextureGrabForegroundBase::getCopyTarget     (void)
-{
-    return this->editCopyTarget     ();
-}
-#endif
 
 //! Set the value of the TextureGrabForeground::_sfCopyTarget field.
 inline

@@ -85,22 +85,14 @@ Int32 &ImageBase::editDimension(void)
 
 //! Get the value of the Image::_sfDimension field.
 inline
-const Int32 ImageBase::getDimension(void) const
+      Int32  ImageBase::getDimension(void) const
 {
     return _sfDimension.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getDimension      (void)
-{
-    return this->editDimension      ();
-}
-#endif
-
 //! Set the value of the Image::_sfDimension field.
 inline
-void ImageBase::setDimension(const Int32 &value)
+void ImageBase::setDimension(const Int32 value)
 {
     editSField(DimensionFieldMask);
 
@@ -118,22 +110,14 @@ Int32 &ImageBase::editWidth(void)
 
 //! Get the value of the Image::_sfWidth field.
 inline
-const Int32 ImageBase::getWidth(void) const
+      Int32  ImageBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getWidth          (void)
-{
-    return this->editWidth          ();
-}
-#endif
-
 //! Set the value of the Image::_sfWidth field.
 inline
-void ImageBase::setWidth(const Int32 &value)
+void ImageBase::setWidth(const Int32 value)
 {
     editSField(WidthFieldMask);
 
@@ -151,22 +135,14 @@ Int32 &ImageBase::editHeight(void)
 
 //! Get the value of the Image::_sfHeight field.
 inline
-const Int32 ImageBase::getHeight(void) const
+      Int32  ImageBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getHeight         (void)
-{
-    return this->editHeight         ();
-}
-#endif
-
 //! Set the value of the Image::_sfHeight field.
 inline
-void ImageBase::setHeight(const Int32 &value)
+void ImageBase::setHeight(const Int32 value)
 {
     editSField(HeightFieldMask);
 
@@ -184,22 +160,14 @@ Int32 &ImageBase::editDepth(void)
 
 //! Get the value of the Image::_sfDepth field.
 inline
-const Int32 ImageBase::getDepth(void) const
+      Int32  ImageBase::getDepth(void) const
 {
     return _sfDepth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getDepth          (void)
-{
-    return this->editDepth          ();
-}
-#endif
-
 //! Set the value of the Image::_sfDepth field.
 inline
-void ImageBase::setDepth(const Int32 &value)
+void ImageBase::setDepth(const Int32 value)
 {
     editSField(DepthFieldMask);
 
@@ -217,22 +185,14 @@ Int32 &ImageBase::editBpp(void)
 
 //! Get the value of the Image::_sfBpp field.
 inline
-const Int32 ImageBase::getBpp(void) const
+      Int32  ImageBase::getBpp(void) const
 {
     return _sfBpp.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getBpp            (void)
-{
-    return this->editBpp            ();
-}
-#endif
-
 //! Set the value of the Image::_sfBpp field.
 inline
-void ImageBase::setBpp(const Int32 &value)
+void ImageBase::setBpp(const Int32 value)
 {
     editSField(BppFieldMask);
 
@@ -250,22 +210,14 @@ Int32 &ImageBase::editMipMapCount(void)
 
 //! Get the value of the Image::_sfMipMapCount field.
 inline
-const Int32 ImageBase::getMipMapCount(void) const
+      Int32  ImageBase::getMipMapCount(void) const
 {
     return _sfMipMapCount.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getMipMapCount    (void)
-{
-    return this->editMipMapCount    ();
-}
-#endif
-
 //! Set the value of the Image::_sfMipMapCount field.
 inline
-void ImageBase::setMipMapCount(const Int32 &value)
+void ImageBase::setMipMapCount(const Int32 value)
 {
     editSField(MipMapCountFieldMask);
 
@@ -283,22 +235,14 @@ Int32 &ImageBase::editFrameCount(void)
 
 //! Get the value of the Image::_sfFrameCount field.
 inline
-const Int32 ImageBase::getFrameCount(void) const
+      Int32  ImageBase::getFrameCount(void) const
 {
     return _sfFrameCount.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getFrameCount     (void)
-{
-    return this->editFrameCount     ();
-}
-#endif
-
 //! Set the value of the Image::_sfFrameCount field.
 inline
-void ImageBase::setFrameCount(const Int32 &value)
+void ImageBase::setFrameCount(const Int32 value)
 {
     editSField(FrameCountFieldMask);
 
@@ -316,18 +260,10 @@ Time &ImageBase::editFrameDelay(void)
 
 //! Get the value of the Image::_sfFrameDelay field.
 inline
-const Time ImageBase::getFrameDelay(void) const
+const Time &ImageBase::getFrameDelay(void) const
 {
     return _sfFrameDelay.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Time                &ImageBase::getFrameDelay     (void)
-{
-    return this->editFrameDelay     ();
-}
-#endif
 
 //! Set the value of the Image::_sfFrameDelay field.
 inline
@@ -349,22 +285,14 @@ UInt32 &ImageBase::editPixelFormat(void)
 
 //! Get the value of the Image::_sfPixelFormat field.
 inline
-const UInt32 ImageBase::getPixelFormat(void) const
+      UInt32  ImageBase::getPixelFormat(void) const
 {
     return _sfPixelFormat.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &ImageBase::getPixelFormat    (void)
-{
-    return this->editPixelFormat    ();
-}
-#endif
-
 //! Set the value of the Image::_sfPixelFormat field.
 inline
-void ImageBase::setPixelFormat(const UInt32 &value)
+void ImageBase::setPixelFormat(const UInt32 value)
 {
     editSField(PixelFormatFieldMask);
 
@@ -382,22 +310,14 @@ Int32 &ImageBase::editFrameSize(void)
 
 //! Get the value of the Image::_sfFrameSize field.
 inline
-const Int32 ImageBase::getFrameSize(void) const
+      Int32  ImageBase::getFrameSize(void) const
 {
     return _sfFrameSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getFrameSize      (void)
-{
-    return this->editFrameSize      ();
-}
-#endif
-
 //! Set the value of the Image::_sfFrameSize field.
 inline
-void ImageBase::setFrameSize(const Int32 &value)
+void ImageBase::setFrameSize(const Int32 value)
 {
     editSField(FrameSizeFieldMask);
 
@@ -415,18 +335,10 @@ std::string &ImageBase::editName(void)
 
 //! Get the value of the Image::_sfName field.
 inline
-const std::string ImageBase::getName(void) const
+const std::string &ImageBase::getName(void) const
 {
     return _sfName.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ImageBase::getName           (void)
-{
-    return this->editName           ();
-}
-#endif
 
 //! Set the value of the Image::_sfName field.
 inline
@@ -448,22 +360,14 @@ Int32 &ImageBase::editDataType(void)
 
 //! Get the value of the Image::_sfDataType field.
 inline
-const Int32 ImageBase::getDataType(void) const
+      Int32  ImageBase::getDataType(void) const
 {
     return _sfDataType.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getDataType       (void)
-{
-    return this->editDataType       ();
-}
-#endif
-
 //! Set the value of the Image::_sfDataType field.
 inline
-void ImageBase::setDataType(const Int32 &value)
+void ImageBase::setDataType(const Int32 value)
 {
     editSField(DataTypeFieldMask);
 
@@ -481,22 +385,14 @@ Int32 &ImageBase::editComponentSize(void)
 
 //! Get the value of the Image::_sfComponentSize field.
 inline
-const Int32 ImageBase::getComponentSize(void) const
+      Int32  ImageBase::getComponentSize(void) const
 {
     return _sfComponentSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getComponentSize  (void)
-{
-    return this->editComponentSize  ();
-}
-#endif
-
 //! Set the value of the Image::_sfComponentSize field.
 inline
-void ImageBase::setComponentSize(const Int32 &value)
+void ImageBase::setComponentSize(const Int32 value)
 {
     editSField(ComponentSizeFieldMask);
 
@@ -514,22 +410,14 @@ Int32 &ImageBase::editSideCount(void)
 
 //! Get the value of the Image::_sfSideCount field.
 inline
-const Int32 ImageBase::getSideCount(void) const
+      Int32  ImageBase::getSideCount(void) const
 {
     return _sfSideCount.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getSideCount      (void)
-{
-    return this->editSideCount      ();
-}
-#endif
-
 //! Set the value of the Image::_sfSideCount field.
 inline
-void ImageBase::setSideCount(const Int32 &value)
+void ImageBase::setSideCount(const Int32 value)
 {
     editSField(SideCountFieldMask);
 
@@ -547,22 +435,14 @@ Int32 &ImageBase::editSideSize(void)
 
 //! Get the value of the Image::_sfSideSize field.
 inline
-const Int32 ImageBase::getSideSize(void) const
+      Int32  ImageBase::getSideSize(void) const
 {
     return _sfSideSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ImageBase::getSideSize       (void)
-{
-    return this->editSideSize       ();
-}
-#endif
-
 //! Set the value of the Image::_sfSideSize field.
 inline
-void ImageBase::setSideSize(const Int32 &value)
+void ImageBase::setSideSize(const Int32 value)
 {
     editSField(SideSizeFieldMask);
 
@@ -580,22 +460,14 @@ bool &ImageBase::editForceCompressedData(void)
 
 //! Get the value of the Image::_sfForceCompressedData field.
 inline
-const bool ImageBase::getForceCompressedData(void) const
+      bool  ImageBase::getForceCompressedData(void) const
 {
     return _sfForceCompressedData.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ImageBase::getForceCompressedData(void)
-{
-    return this->editForceCompressedData();
-}
-#endif
-
 //! Set the value of the Image::_sfForceCompressedData field.
 inline
-void ImageBase::setForceCompressedData(const bool &value)
+void ImageBase::setForceCompressedData(const bool value)
 {
     editSField(ForceCompressedDataFieldMask);
 
@@ -613,22 +485,14 @@ bool &ImageBase::editForceAlphaChannel(void)
 
 //! Get the value of the Image::_sfForceAlphaChannel field.
 inline
-const bool ImageBase::getForceAlphaChannel(void) const
+      bool  ImageBase::getForceAlphaChannel(void) const
 {
     return _sfForceAlphaChannel.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ImageBase::getForceAlphaChannel(void)
-{
-    return this->editForceAlphaChannel();
-}
-#endif
-
 //! Set the value of the Image::_sfForceAlphaChannel field.
 inline
-void ImageBase::setForceAlphaChannel(const bool &value)
+void ImageBase::setForceAlphaChannel(const bool value)
 {
     editSField(ForceAlphaChannelFieldMask);
 
@@ -646,22 +510,14 @@ bool &ImageBase::editForceColorChannel(void)
 
 //! Get the value of the Image::_sfForceColorChannel field.
 inline
-const bool ImageBase::getForceColorChannel(void) const
+      bool  ImageBase::getForceColorChannel(void) const
 {
     return _sfForceColorChannel.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ImageBase::getForceColorChannel(void)
-{
-    return this->editForceColorChannel();
-}
-#endif
-
 //! Set the value of the Image::_sfForceColorChannel field.
 inline
-void ImageBase::setForceColorChannel(const bool &value)
+void ImageBase::setForceColorChannel(const bool value)
 {
     editSField(ForceColorChannelFieldMask);
 
@@ -679,22 +535,14 @@ bool &ImageBase::editForceAlphaBinary(void)
 
 //! Get the value of the Image::_sfForceAlphaBinary field.
 inline
-const bool ImageBase::getForceAlphaBinary(void) const
+      bool  ImageBase::getForceAlphaBinary(void) const
 {
     return _sfForceAlphaBinary.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ImageBase::getForceAlphaBinary(void)
-{
-    return this->editForceAlphaBinary();
-}
-#endif
-
 //! Set the value of the Image::_sfForceAlphaBinary field.
 inline
-void ImageBase::setForceAlphaBinary(const bool &value)
+void ImageBase::setForceAlphaBinary(const bool value)
 {
     editSField(ForceAlphaBinaryFieldMask);
 
@@ -712,22 +560,14 @@ Real32 &ImageBase::editResX(void)
 
 //! Get the value of the Image::_sfResX field.
 inline
-const Real32 ImageBase::getResX(void) const
+      Real32  ImageBase::getResX(void) const
 {
     return _sfResX.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ImageBase::getResX           (void)
-{
-    return this->editResX           ();
-}
-#endif
-
 //! Set the value of the Image::_sfResX field.
 inline
-void ImageBase::setResX(const Real32 &value)
+void ImageBase::setResX(const Real32 value)
 {
     editSField(ResXFieldMask);
 
@@ -745,22 +585,14 @@ Real32 &ImageBase::editResY(void)
 
 //! Get the value of the Image::_sfResY field.
 inline
-const Real32 ImageBase::getResY(void) const
+      Real32  ImageBase::getResY(void) const
 {
     return _sfResY.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ImageBase::getResY           (void)
-{
-    return this->editResY           ();
-}
-#endif
-
 //! Set the value of the Image::_sfResY field.
 inline
-void ImageBase::setResY(const Real32 &value)
+void ImageBase::setResY(const Real32 value)
 {
     editSField(ResYFieldMask);
 
@@ -778,22 +610,14 @@ UInt16 &ImageBase::editResUnit(void)
 
 //! Get the value of the Image::_sfResUnit field.
 inline
-const UInt16 ImageBase::getResUnit(void) const
+      UInt16  ImageBase::getResUnit(void) const
 {
     return _sfResUnit.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt16              &ImageBase::getResUnit        (void)
-{
-    return this->editResUnit        ();
-}
-#endif
-
 //! Set the value of the Image::_sfResUnit field.
 inline
-void ImageBase::setResUnit(const UInt16 &value)
+void ImageBase::setResUnit(const UInt16 value)
 {
     editSField(ResUnitFieldMask);
 
@@ -802,7 +626,7 @@ void ImageBase::setResUnit(const UInt16 &value)
 
 //! Get the value of the \a index element the Image::_mfPixel field.
 inline
-const UInt8 ImageBase::getPixel(const UInt32 index) const
+      UInt8  ImageBase::getPixel(const UInt32 index) const
 {
     return _mfPixel[index];
 }
@@ -814,21 +638,6 @@ UInt8 &ImageBase::editPixel(const UInt32 index)
 
     return _mfPixel[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt8               &ImageBase::getPixel          (const UInt32 index)
-{
-    return this->editPixel          (index);
-}
-
-inline
-MFUInt8             &ImageBase::getPixel          (void)
-{
-    return this->editPixel          ();
-}
-
-#endif
 
 
 

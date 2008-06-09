@@ -173,12 +173,6 @@ const SFVec2f *OffCenterPerspectiveCameraBase::getSFPrincipalPoint(void) const
     return &_sfPrincipalPoint;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *OffCenterPerspectiveCameraBase::getSFPrincipalPoint (void)
-{
-    return this->editSFPrincipalPoint ();
-}
-#endif
 
 
 

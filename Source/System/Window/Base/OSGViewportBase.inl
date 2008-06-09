@@ -85,22 +85,14 @@ Real32 &ViewportBase::editLeft(void)
 
 //! Get the value of the Viewport::_sfLeft field.
 inline
-const Real32 ViewportBase::getLeft(void) const
+      Real32  ViewportBase::getLeft(void) const
 {
     return _sfLeft.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ViewportBase::getLeft           (void)
-{
-    return this->editLeft           ();
-}
-#endif
-
 //! Set the value of the Viewport::_sfLeft field.
 inline
-void ViewportBase::setLeft(const Real32 &value)
+void ViewportBase::setLeft(const Real32 value)
 {
     editSField(LeftFieldMask);
 
@@ -118,22 +110,14 @@ Real32 &ViewportBase::editRight(void)
 
 //! Get the value of the Viewport::_sfRight field.
 inline
-const Real32 ViewportBase::getRight(void) const
+      Real32  ViewportBase::getRight(void) const
 {
     return _sfRight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ViewportBase::getRight          (void)
-{
-    return this->editRight          ();
-}
-#endif
-
 //! Set the value of the Viewport::_sfRight field.
 inline
-void ViewportBase::setRight(const Real32 &value)
+void ViewportBase::setRight(const Real32 value)
 {
     editSField(RightFieldMask);
 
@@ -151,22 +135,14 @@ Real32 &ViewportBase::editBottom(void)
 
 //! Get the value of the Viewport::_sfBottom field.
 inline
-const Real32 ViewportBase::getBottom(void) const
+      Real32  ViewportBase::getBottom(void) const
 {
     return _sfBottom.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ViewportBase::getBottom         (void)
-{
-    return this->editBottom         ();
-}
-#endif
-
 //! Set the value of the Viewport::_sfBottom field.
 inline
-void ViewportBase::setBottom(const Real32 &value)
+void ViewportBase::setBottom(const Real32 value)
 {
     editSField(BottomFieldMask);
 
@@ -184,22 +160,14 @@ Real32 &ViewportBase::editTop(void)
 
 //! Get the value of the Viewport::_sfTop field.
 inline
-const Real32 ViewportBase::getTop(void) const
+      Real32  ViewportBase::getTop(void) const
 {
     return _sfTop.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ViewportBase::getTop            (void)
-{
-    return this->editTop            ();
-}
-#endif
-
 //! Set the value of the Viewport::_sfTop field.
 inline
-void ViewportBase::setTop(const Real32 &value)
+void ViewportBase::setTop(const Real32 value)
 {
     editSField(TopFieldMask);
 
@@ -265,22 +233,14 @@ UInt32 &ViewportBase::editTravMask(void)
 
 //! Get the value of the Viewport::_sfTravMask field.
 inline
-const UInt32 ViewportBase::getTravMask(void) const
+      UInt32  ViewportBase::getTravMask(void) const
 {
     return _sfTravMask.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &ViewportBase::getTravMask       (void)
-{
-    return this->editTravMask       ();
-}
-#endif
-
 //! Set the value of the Viewport::_sfTravMask field.
 inline
-void ViewportBase::setTravMask(const UInt32 &value)
+void ViewportBase::setTravMask(const UInt32 value)
 {
     editSField(TravMaskFieldMask);
 
@@ -298,22 +258,14 @@ Real32 &ViewportBase::editDrawTime(void)
 
 //! Get the value of the Viewport::_sfDrawTime field.
 inline
-const Real32 ViewportBase::getDrawTime(void) const
+      Real32  ViewportBase::getDrawTime(void) const
 {
     return _sfDrawTime.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ViewportBase::getDrawTime       (void)
-{
-    return this->editDrawTime       ();
-}
-#endif
-
 //! Set the value of the Viewport::_sfDrawTime field.
 inline
-void ViewportBase::setDrawTime(const Real32 &value)
+void ViewportBase::setDrawTime(const Real32 value)
 {
     editSField(DrawTimeFieldMask);
 

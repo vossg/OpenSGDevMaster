@@ -138,64 +138,40 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFShort           (void);
-#endif
                   SFBool              *editSFShort          (void);
             const SFBool              *getSFShort           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFAlpha           (void);
-#endif
                   SFBool              *editSFAlpha          (void);
             const SFBool              *getSFAlpha           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFTileSize        (void);
-#endif
                   SFUInt32            *editSFTileSize       (void);
             const SFUInt32            *getSFTileSize        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFPipelined       (void);
-#endif
                   SFBool              *editSFPipelined      (void);
             const SFBool              *getSFPipelined       (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getShort           (void);
-#endif
                   bool                &editShort          (void);
-            const bool                 getShort           (void) const;
+                  bool                 getShort           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getAlpha           (void);
-#endif
                   bool                &editAlpha          (void);
-            const bool                 getAlpha           (void) const;
+                  bool                 getAlpha           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getTileSize        (void);
-#endif
                   UInt32              &editTileSize       (void);
-            const UInt32               getTileSize        (void) const;
+                  UInt32               getTileSize        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getPipelined       (void);
-#endif
                   bool                &editPipelined      (void);
-            const bool                 getPipelined       (void) const;
+                  bool                 getPipelined       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setShort          (const bool &value);
-            void setAlpha          (const bool &value);
-            void setTileSize       (const UInt32 &value);
-            void setPipelined      (const bool &value);
+            void setShort          (const bool value);
+            void setAlpha          (const bool value);
+            void setTileSize       (const UInt32 value);
+            void setPipelined      (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

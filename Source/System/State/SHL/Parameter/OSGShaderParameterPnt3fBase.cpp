@@ -174,12 +174,6 @@ const SFPnt3f *ShaderParameterPnt3fBase::getSFValue(void) const
     return &_sfValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt3f             *ShaderParameterPnt3fBase::getSFValue          (void)
-{
-    return this->editSFValue          ();
-}
-#endif
 
 
 

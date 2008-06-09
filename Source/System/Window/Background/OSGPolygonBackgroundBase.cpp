@@ -421,12 +421,6 @@ const MFVec3f *PolygonBackgroundBase::getMFTexCoords(void) const
     return &_mfTexCoords;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *PolygonBackgroundBase::getMFTexCoords      (void)
-{
-    return this->editMFTexCoords      ();
-}
-#endif
 
 MFPnt2f *PolygonBackgroundBase::editMFPositions(void)
 {
@@ -440,12 +434,6 @@ const MFPnt2f *PolygonBackgroundBase::getMFPositions(void) const
     return &_mfPositions;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFPnt2f             *PolygonBackgroundBase::getMFPositions      (void)
-{
-    return this->editMFPositions      ();
-}
-#endif
 
 SFBool *PolygonBackgroundBase::editSFNormalizedX(void)
 {
@@ -459,12 +447,6 @@ const SFBool *PolygonBackgroundBase::getSFNormalizedX(void) const
     return &_sfNormalizedX;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonBackgroundBase::getSFNormalizedX    (void)
-{
-    return this->editSFNormalizedX    ();
-}
-#endif
 
 SFBool *PolygonBackgroundBase::editSFNormalizedY(void)
 {
@@ -478,12 +460,6 @@ const SFBool *PolygonBackgroundBase::getSFNormalizedY(void) const
     return &_sfNormalizedY;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonBackgroundBase::getSFNormalizedY    (void)
-{
-    return this->editSFNormalizedY    ();
-}
-#endif
 
 SFUInt16 *PolygonBackgroundBase::editSFAspectHeight(void)
 {
@@ -497,12 +473,6 @@ const SFUInt16 *PolygonBackgroundBase::getSFAspectHeight(void) const
     return &_sfAspectHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *PolygonBackgroundBase::getSFAspectHeight   (void)
-{
-    return this->editSFAspectHeight   ();
-}
-#endif
 
 SFUInt16 *PolygonBackgroundBase::editSFAspectWidth(void)
 {
@@ -516,12 +486,6 @@ const SFUInt16 *PolygonBackgroundBase::getSFAspectWidth(void) const
     return &_sfAspectWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *PolygonBackgroundBase::getSFAspectWidth    (void)
-{
-    return this->editSFAspectWidth    ();
-}
-#endif
 
 SFReal32 *PolygonBackgroundBase::editSFScale(void)
 {
@@ -535,12 +499,6 @@ const SFReal32 *PolygonBackgroundBase::getSFScale(void) const
     return &_sfScale;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PolygonBackgroundBase::getSFScale          (void)
-{
-    return this->editSFScale          ();
-}
-#endif
 
 SFBool *PolygonBackgroundBase::editSFCleanup(void)
 {
@@ -554,12 +512,6 @@ const SFBool *PolygonBackgroundBase::getSFCleanup(void) const
     return &_sfCleanup;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonBackgroundBase::getSFCleanup        (void)
-{
-    return this->editSFCleanup        ();
-}
-#endif
 
 SFBool *PolygonBackgroundBase::editSFTile(void)
 {
@@ -573,12 +525,6 @@ const SFBool *PolygonBackgroundBase::getSFTile(void) const
     return &_sfTile;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonBackgroundBase::getSFTile           (void)
-{
-    return this->editSFTile           ();
-}
-#endif
 
 
 

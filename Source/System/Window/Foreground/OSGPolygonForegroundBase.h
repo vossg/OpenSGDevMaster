@@ -160,106 +160,56 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
             const SFUnrecMaterialPtr  *getSFMaterial       (void) const;
                   SFUnrecMaterialPtr  *editSFMaterial       (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  MFPnt2f             *getMFPositions       (void);
-#endif
                   MFPnt2f             *editMFPositions      (void);
             const MFPnt2f             *getMFPositions       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFVec3f             *getMFTexCoords       (void);
-#endif
                   MFVec3f             *editMFTexCoords      (void);
             const MFVec3f             *getMFTexCoords       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFNormalizedX     (void);
-#endif
                   SFBool              *editSFNormalizedX    (void);
             const SFBool              *getSFNormalizedX     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFNormalizedY     (void);
-#endif
                   SFBool              *editSFNormalizedY    (void);
             const SFBool              *getSFNormalizedY     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFAspectHeight    (void);
-#endif
                   SFUInt16            *editSFAspectHeight   (void);
             const SFUInt16            *getSFAspectHeight    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFAspectWidth     (void);
-#endif
                   SFUInt16            *editSFAspectWidth    (void);
             const SFUInt16            *getSFAspectWidth     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFScale           (void);
-#endif
                   SFReal32            *editSFScale          (void);
             const SFReal32            *getSFScale           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFTile            (void);
-#endif
                   SFBool              *editSFTile           (void);
             const SFBool              *getSFTile            (void) const;
 
 
                   Material * getMaterial       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt2f               &getPositions       (const UInt32 index);
-                  MFPnt2f             &getPositions      (void);
-#endif
                   Pnt2f               &editPositions      (const UInt32 index);
-            const Pnt2f                getPositions       (const UInt32 index) const;
+            const Pnt2f               &getPositions       (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec3f               &getTexCoords       (const UInt32 index);
-                  MFVec3f             &getTexCoords      (void);
-#endif
                   Vec3f               &editTexCoords      (const UInt32 index);
-            const Vec3f                getTexCoords       (const UInt32 index) const;
+            const Vec3f               &getTexCoords       (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getNormalizedX     (void);
-#endif
                   bool                &editNormalizedX    (void);
-            const bool                 getNormalizedX     (void) const;
+                  bool                 getNormalizedX     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getNormalizedY     (void);
-#endif
                   bool                &editNormalizedY    (void);
-            const bool                 getNormalizedY     (void) const;
+                  bool                 getNormalizedY     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getAspectHeight    (void);
-#endif
                   UInt16              &editAspectHeight   (void);
-            const UInt16               getAspectHeight    (void) const;
+                  UInt16               getAspectHeight    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getAspectWidth     (void);
-#endif
                   UInt16              &editAspectWidth    (void);
-            const UInt16               getAspectWidth     (void) const;
+                  UInt16               getAspectWidth     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getScale           (void);
-#endif
                   Real32              &editScale          (void);
-            const Real32               getScale           (void) const;
+                  Real32               getScale           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getTile            (void);
-#endif
                   bool                &editTile           (void);
-            const bool                 getTile            (void) const;
+                  bool                 getTile            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,12 +217,12 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \{                                                                 */
 
             void setMaterial       (Material * const value);
-            void setNormalizedX    (const bool &value);
-            void setNormalizedY    (const bool &value);
-            void setAspectHeight   (const UInt16 &value);
-            void setAspectWidth    (const UInt16 &value);
-            void setScale          (const Real32 &value);
-            void setTile           (const bool &value);
+            void setNormalizedX    (const bool value);
+            void setNormalizedY    (const bool value);
+            void setAspectHeight   (const UInt16 value);
+            void setAspectWidth    (const UInt16 value);
+            void setScale          (const Real32 value);
+            void setTile           (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

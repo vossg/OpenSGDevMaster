@@ -130,38 +130,26 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFSortKey         (void);
-#endif
                   SFInt32             *editSFSortKey        (void);
             const SFInt32             *getSFSortKey         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFTransparencyMode (void);
-#endif
                   SFInt32             *editSFTransparencyMode(void);
             const SFInt32             *getSFTransparencyMode (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getSortKey         (void);
-#endif
                   Int32               &editSortKey        (void);
-            const Int32                getSortKey         (void) const;
+                  Int32                getSortKey         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getTransparencyMode (void);
-#endif
                   Int32               &editTransparencyMode(void);
-            const Int32                getTransparencyMode (void) const;
+                  Int32                getTransparencyMode (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setSortKey        (const Int32 &value);
-            void setTransparencyMode(const Int32 &value);
+            void setSortKey        (const Int32 value);
+            void setTransparencyMode(const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

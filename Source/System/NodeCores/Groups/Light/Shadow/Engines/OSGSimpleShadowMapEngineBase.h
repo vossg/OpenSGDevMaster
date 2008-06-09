@@ -126,25 +126,19 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFForceTextureUnit (void);
-#endif
                   SFInt32             *editSFForceTextureUnit(void);
             const SFInt32             *getSFForceTextureUnit (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getForceTextureUnit (void);
-#endif
                   Int32               &editForceTextureUnit(void);
-            const Int32                getForceTextureUnit (void) const;
+                  Int32                getForceTextureUnit (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setForceTextureUnit(const Int32 &value);
+            void setForceTextureUnit(const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -101,22 +101,14 @@ bool &StageBase::editInheritedTarget(void)
 
 //! Get the value of the Stage::_sfInheritedTarget field.
 inline
-const bool StageBase::getInheritedTarget(void) const
+      bool  StageBase::getInheritedTarget(void) const
 {
     return _sfInheritedTarget.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &StageBase::getInheritedTarget(void)
-{
-    return this->editInheritedTarget();
-}
-#endif
-
 //! Set the value of the Stage::_sfInheritedTarget field.
 inline
-void StageBase::setInheritedTarget(const bool &value)
+void StageBase::setInheritedTarget(const bool value)
 {
     editSField(InheritedTargetFieldMask);
 

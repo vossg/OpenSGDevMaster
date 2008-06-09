@@ -173,12 +173,6 @@ const SFInt32 *SimpleShadowMapEngineBase::getSFForceTextureUnit(void) const
     return &_sfForceTextureUnit;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *SimpleShadowMapEngineBase::getSFForceTextureUnit(void)
-{
-    return this->editSFForceTextureUnit();
-}
-#endif
 
 
 

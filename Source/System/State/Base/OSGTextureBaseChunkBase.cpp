@@ -193,12 +193,6 @@ const SFGLenum *TextureBaseChunkBase::getSFTarget(void) const
     return &_sfTarget;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureBaseChunkBase::getSFTarget         (void)
-{
-    return this->editSFTarget         ();
-}
-#endif
 
 
 

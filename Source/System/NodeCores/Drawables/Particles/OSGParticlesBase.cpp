@@ -540,12 +540,6 @@ const SFUInt32 *ParticlesBase::getSFMode(void) const
     return &_sfMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ParticlesBase::getSFMode           (void)
-{
-    return this->editSFMode           ();
-}
-#endif
 
 //! Get the Particles::_sfPositions field.
 const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFPositions(void) const
@@ -572,12 +566,6 @@ const MFVec3f *ParticlesBase::getMFSizes(void) const
     return &_mfSizes;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec3f             *ParticlesBase::getMFSizes          (void)
-{
-    return this->editMFSizes          ();
-}
-#endif
 
 //! Get the Particles::_sfSecPositions field.
 const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFSecPositions(void) const
@@ -630,12 +618,6 @@ const MFInt32 *ParticlesBase::getMFIndices(void) const
     return &_mfIndices;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFInt32             *ParticlesBase::getMFIndices        (void)
-{
-    return this->editMFIndices        ();
-}
-#endif
 
 MFReal32 *ParticlesBase::editMFTextureZs(void)
 {
@@ -649,12 +631,6 @@ const MFReal32 *ParticlesBase::getMFTextureZs(void) const
     return &_mfTextureZs;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *ParticlesBase::getMFTextureZs      (void)
-{
-    return this->editMFTextureZs      ();
-}
-#endif
 
 SFUInt32 *ParticlesBase::editSFDrawOrder(void)
 {
@@ -668,12 +644,6 @@ const SFUInt32 *ParticlesBase::getSFDrawOrder(void) const
     return &_sfDrawOrder;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ParticlesBase::getSFDrawOrder      (void)
-{
-    return this->editSFDrawOrder      ();
-}
-#endif
 
 SFBool *ParticlesBase::editSFDynamic(void)
 {
@@ -687,12 +657,6 @@ const SFBool *ParticlesBase::getSFDynamic(void) const
     return &_sfDynamic;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ParticlesBase::getSFDynamic        (void)
-{
-    return this->editSFDynamic        ();
-}
-#endif
 
 SFUInt32 *ParticlesBase::editSFPump(void)
 {
@@ -706,12 +670,6 @@ const SFUInt32 *ParticlesBase::getSFPump(void) const
     return &_sfPump;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ParticlesBase::getSFPump           (void)
-{
-    return this->editSFPump           ();
-}
-#endif
 
 SFParticleBSPTree *ParticlesBase::editSFBsp(void)
 {
@@ -725,12 +683,6 @@ const SFParticleBSPTree *ParticlesBase::getSFBsp(void) const
     return &_sfBsp;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFParticleBSPTree   *ParticlesBase::getSFBsp            (void)
-{
-    return this->editSFBsp            ();
-}
-#endif
 
 SFInt32 *ParticlesBase::editSFNumParticles(void)
 {
@@ -744,12 +696,6 @@ const SFInt32 *ParticlesBase::getSFNumParticles(void) const
     return &_sfNumParticles;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ParticlesBase::getSFNumParticles   (void)
-{
-    return this->editSFNumParticles   ();
-}
-#endif
 
 
 

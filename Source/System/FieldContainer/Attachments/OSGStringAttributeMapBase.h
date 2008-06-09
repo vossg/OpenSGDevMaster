@@ -221,10 +221,10 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
 
 
                   std::string         &editKeys           (const UInt32 index);
-            const std::string          getKeys            (const UInt32 index) const;
+            const std::string         &getKeys            (const UInt32 index) const;
 
                   std::string         &editValues         (const UInt32 index);
-            const std::string          getValues          (const UInt32 index) const;
+            const std::string         &getValues          (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

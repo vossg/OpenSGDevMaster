@@ -240,12 +240,6 @@ const SFInt32 *MaterialBase::getSFSortKey(void) const
     return &_sfSortKey;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *MaterialBase::getSFSortKey        (void)
-{
-    return this->editSFSortKey        ();
-}
-#endif
 
 SFInt32 *MaterialBase::editSFTransparencyMode(void)
 {
@@ -259,12 +253,6 @@ const SFInt32 *MaterialBase::getSFTransparencyMode(void) const
     return &_sfTransparencyMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *MaterialBase::getSFTransparencyMode(void)
-{
-    return this->editSFTransparencyMode();
-}
-#endif
 
 
 

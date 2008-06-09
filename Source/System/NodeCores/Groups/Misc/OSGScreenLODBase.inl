@@ -76,7 +76,7 @@ OSG::UInt16 ScreenLODBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ScreenLOD::_mfCoverageOverride field.
 inline
-const Real32 ScreenLODBase::getCoverageOverride(const UInt32 index) const
+      Real32  ScreenLODBase::getCoverageOverride(const UInt32 index) const
 {
     return _mfCoverageOverride[index];
 }
@@ -88,21 +88,6 @@ Real32 &ScreenLODBase::editCoverageOverride(const UInt32 index)
 
     return _mfCoverageOverride[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ScreenLODBase::getCoverageOverride(const UInt32 index)
-{
-    return this->editCoverageOverride(index);
-}
-
-inline
-MFReal32            &ScreenLODBase::getCoverageOverride(void)
-{
-    return this->editCoverageOverride();
-}
-
-#endif
 
 
 

@@ -85,18 +85,10 @@ Pnt3f &DistanceLODBase::editCenter(void)
 
 //! Get the value of the DistanceLOD::_sfCenter field.
 inline
-const Pnt3f DistanceLODBase::getCenter(void) const
+const Pnt3f &DistanceLODBase::getCenter(void) const
 {
     return _sfCenter.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Pnt3f               &DistanceLODBase::getCenter         (void)
-{
-    return this->editCenter         ();
-}
-#endif
 
 //! Set the value of the DistanceLOD::_sfCenter field.
 inline
@@ -109,7 +101,7 @@ void DistanceLODBase::setCenter(const Pnt3f &value)
 
 //! Get the value of the \a index element the DistanceLOD::_mfRange field.
 inline
-const Real32 DistanceLODBase::getRange(const UInt32 index) const
+      Real32  DistanceLODBase::getRange(const UInt32 index) const
 {
     return _mfRange[index];
 }
@@ -121,21 +113,6 @@ Real32 &DistanceLODBase::editRange(const UInt32 index)
 
     return _mfRange[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &DistanceLODBase::getRange          (const UInt32 index)
-{
-    return this->editRange          (index);
-}
-
-inline
-MFReal32            &DistanceLODBase::getRange          (void)
-{
-    return this->editRange          ();
-}
-
-#endif
 
 
 

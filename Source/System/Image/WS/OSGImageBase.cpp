@@ -787,12 +787,6 @@ const SFInt32 *ImageBase::getSFDimension(void) const
     return &_sfDimension;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFDimension      (void)
-{
-    return this->editSFDimension      ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFWidth(void)
 {
@@ -806,12 +800,6 @@ const SFInt32 *ImageBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFHeight(void)
 {
@@ -825,12 +813,6 @@ const SFInt32 *ImageBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFHeight         (void)
-{
-    return this->editSFHeight         ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFDepth(void)
 {
@@ -844,12 +826,6 @@ const SFInt32 *ImageBase::getSFDepth(void) const
     return &_sfDepth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFDepth          (void)
-{
-    return this->editSFDepth          ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFBpp(void)
 {
@@ -863,12 +839,6 @@ const SFInt32 *ImageBase::getSFBpp(void) const
     return &_sfBpp;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFBpp            (void)
-{
-    return this->editSFBpp            ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFMipMapCount(void)
 {
@@ -882,12 +852,6 @@ const SFInt32 *ImageBase::getSFMipMapCount(void) const
     return &_sfMipMapCount;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFMipMapCount    (void)
-{
-    return this->editSFMipMapCount    ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFFrameCount(void)
 {
@@ -901,12 +865,6 @@ const SFInt32 *ImageBase::getSFFrameCount(void) const
     return &_sfFrameCount;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFFrameCount     (void)
-{
-    return this->editSFFrameCount     ();
-}
-#endif
 
 SFTime *ImageBase::editSFFrameDelay(void)
 {
@@ -920,12 +878,6 @@ const SFTime *ImageBase::getSFFrameDelay(void) const
     return &_sfFrameDelay;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFTime              *ImageBase::getSFFrameDelay     (void)
-{
-    return this->editSFFrameDelay     ();
-}
-#endif
 
 SFUInt32 *ImageBase::editSFPixelFormat(void)
 {
@@ -939,12 +891,6 @@ const SFUInt32 *ImageBase::getSFPixelFormat(void) const
     return &_sfPixelFormat;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ImageBase::getSFPixelFormat    (void)
-{
-    return this->editSFPixelFormat    ();
-}
-#endif
 
 MFUInt8 *ImageBase::editMFPixel(void)
 {
@@ -958,12 +904,6 @@ const MFUInt8 *ImageBase::getMFPixel(void) const
     return &_mfPixel;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt8             *ImageBase::getMFPixel          (void)
-{
-    return this->editMFPixel          ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFFrameSize(void)
 {
@@ -977,12 +917,6 @@ const SFInt32 *ImageBase::getSFFrameSize(void) const
     return &_sfFrameSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFFrameSize      (void)
-{
-    return this->editSFFrameSize      ();
-}
-#endif
 
 SFString *ImageBase::editSFName(void)
 {
@@ -996,12 +930,6 @@ const SFString *ImageBase::getSFName(void) const
     return &_sfName;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ImageBase::getSFName           (void)
-{
-    return this->editSFName           ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFDataType(void)
 {
@@ -1015,12 +943,6 @@ const SFInt32 *ImageBase::getSFDataType(void) const
     return &_sfDataType;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFDataType       (void)
-{
-    return this->editSFDataType       ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFComponentSize(void)
 {
@@ -1034,12 +956,6 @@ const SFInt32 *ImageBase::getSFComponentSize(void) const
     return &_sfComponentSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFComponentSize  (void)
-{
-    return this->editSFComponentSize  ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFSideCount(void)
 {
@@ -1053,12 +969,6 @@ const SFInt32 *ImageBase::getSFSideCount(void) const
     return &_sfSideCount;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFSideCount      (void)
-{
-    return this->editSFSideCount      ();
-}
-#endif
 
 SFInt32 *ImageBase::editSFSideSize(void)
 {
@@ -1072,12 +982,6 @@ const SFInt32 *ImageBase::getSFSideSize(void) const
     return &_sfSideSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ImageBase::getSFSideSize       (void)
-{
-    return this->editSFSideSize       ();
-}
-#endif
 
 SFBool *ImageBase::editSFForceCompressedData(void)
 {
@@ -1091,12 +995,6 @@ const SFBool *ImageBase::getSFForceCompressedData(void) const
     return &_sfForceCompressedData;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ImageBase::getSFForceCompressedData(void)
-{
-    return this->editSFForceCompressedData();
-}
-#endif
 
 SFBool *ImageBase::editSFForceAlphaChannel(void)
 {
@@ -1110,12 +1008,6 @@ const SFBool *ImageBase::getSFForceAlphaChannel(void) const
     return &_sfForceAlphaChannel;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ImageBase::getSFForceAlphaChannel(void)
-{
-    return this->editSFForceAlphaChannel();
-}
-#endif
 
 SFBool *ImageBase::editSFForceColorChannel(void)
 {
@@ -1129,12 +1021,6 @@ const SFBool *ImageBase::getSFForceColorChannel(void) const
     return &_sfForceColorChannel;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ImageBase::getSFForceColorChannel(void)
-{
-    return this->editSFForceColorChannel();
-}
-#endif
 
 SFBool *ImageBase::editSFForceAlphaBinary(void)
 {
@@ -1148,12 +1034,6 @@ const SFBool *ImageBase::getSFForceAlphaBinary(void) const
     return &_sfForceAlphaBinary;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ImageBase::getSFForceAlphaBinary(void)
-{
-    return this->editSFForceAlphaBinary();
-}
-#endif
 
 SFReal32 *ImageBase::editSFResX(void)
 {
@@ -1167,12 +1047,6 @@ const SFReal32 *ImageBase::getSFResX(void) const
     return &_sfResX;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *ImageBase::getSFResX           (void)
-{
-    return this->editSFResX           ();
-}
-#endif
 
 SFReal32 *ImageBase::editSFResY(void)
 {
@@ -1186,12 +1060,6 @@ const SFReal32 *ImageBase::getSFResY(void) const
     return &_sfResY;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *ImageBase::getSFResY           (void)
-{
-    return this->editSFResY           ();
-}
-#endif
 
 SFUInt16 *ImageBase::editSFResUnit(void)
 {
@@ -1205,12 +1073,6 @@ const SFUInt16 *ImageBase::getSFResUnit(void) const
     return &_sfResUnit;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *ImageBase::getSFResUnit        (void)
-{
-    return this->editSFResUnit        ();
-}
-#endif
 
 
 

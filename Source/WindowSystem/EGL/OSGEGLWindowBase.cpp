@@ -226,12 +226,6 @@ const SFEGLDisplay *EGLWindowBase::getSFDisplay(void) const
     return &_sfDisplay;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFEGLDisplay        *EGLWindowBase::getSFDisplay        (void)
-{
-    return this->editSFDisplay        ();
-}
-#endif
 
 SFEGLSurface *EGLWindowBase::editSFWindow(void)
 {
@@ -245,12 +239,6 @@ const SFEGLSurface *EGLWindowBase::getSFWindow(void) const
     return &_sfWindow;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFEGLSurface        *EGLWindowBase::getSFWindow         (void)
-{
-    return this->editSFWindow         ();
-}
-#endif
 
 SFEGLContext *EGLWindowBase::editSFContext(void)
 {
@@ -264,12 +252,6 @@ const SFEGLContext *EGLWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFEGLContext        *EGLWindowBase::getSFContext        (void)
-{
-    return this->editSFContext        ();
-}
-#endif
 
 
 

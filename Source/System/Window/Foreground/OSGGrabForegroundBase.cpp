@@ -224,12 +224,6 @@ const SFBool *GrabForegroundBase::getSFAutoResize(void) const
     return &_sfAutoResize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *GrabForegroundBase::getSFAutoResize     (void)
-{
-    return this->editSFAutoResize     ();
-}
-#endif
 
 
 

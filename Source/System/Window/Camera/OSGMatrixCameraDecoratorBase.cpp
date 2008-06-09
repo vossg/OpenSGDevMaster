@@ -346,12 +346,6 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreViewing(void) const
     return &_sfPreViewing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraDecoratorBase::getSFPreViewing     (void)
-{
-    return this->editSFPreViewing     ();
-}
-#endif
 
 SFMatrix *MatrixCameraDecoratorBase::editSFPostViewing(void)
 {
@@ -365,12 +359,6 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostViewing(void) const
     return &_sfPostViewing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraDecoratorBase::getSFPostViewing    (void)
-{
-    return this->editSFPostViewing    ();
-}
-#endif
 
 SFMatrix *MatrixCameraDecoratorBase::editSFPreProjectionTranslation(void)
 {
@@ -384,12 +372,6 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreProjectionTranslation(void) c
     return &_sfPreProjectionTranslation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraDecoratorBase::getSFPreProjectionTranslation(void)
-{
-    return this->editSFPreProjectionTranslation();
-}
-#endif
 
 SFMatrix *MatrixCameraDecoratorBase::editSFPostProjectionTranslation(void)
 {
@@ -403,12 +385,6 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostProjectionTranslation(void) 
     return &_sfPostProjectionTranslation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraDecoratorBase::getSFPostProjectionTranslation(void)
-{
-    return this->editSFPostProjectionTranslation();
-}
-#endif
 
 SFMatrix *MatrixCameraDecoratorBase::editSFPreProjection(void)
 {
@@ -422,12 +398,6 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreProjection(void) const
     return &_sfPreProjection;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraDecoratorBase::getSFPreProjection  (void)
-{
-    return this->editSFPreProjection  ();
-}
-#endif
 
 SFMatrix *MatrixCameraDecoratorBase::editSFPostProjection(void)
 {
@@ -441,12 +411,6 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostProjection(void) const
     return &_sfPostProjection;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraDecoratorBase::getSFPostProjection (void)
-{
-    return this->editSFPostProjection ();
-}
-#endif
 
 
 

@@ -85,18 +85,10 @@ Pnt3f &ShaderParameterPnt3fBase::editValue(void)
 
 //! Get the value of the ShaderParameterPnt3f::_sfValue field.
 inline
-const Pnt3f ShaderParameterPnt3fBase::getValue(void) const
+const Pnt3f &ShaderParameterPnt3fBase::getValue(void) const
 {
     return _sfValue.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Pnt3f               &ShaderParameterPnt3fBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-#endif
 
 //! Set the value of the ShaderParameterPnt3f::_sfValue field.
 inline

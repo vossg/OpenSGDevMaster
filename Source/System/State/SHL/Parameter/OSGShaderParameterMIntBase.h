@@ -126,19 +126,12 @@ class OSG_STATE_DLLMAPPING ShaderParameterMIntBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  MFInt32             *getMFValue           (void);
-#endif
                   MFInt32             *editMFValue          (void);
             const MFInt32             *getMFValue           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getValue           (const UInt32 index);
-                  MFInt32             &getValue          (void);
-#endif
                   Int32               &editValue          (const UInt32 index);
-            const Int32                getValue           (const UInt32 index) const;
+                  Int32                getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

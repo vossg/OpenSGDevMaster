@@ -76,7 +76,7 @@ OSG::UInt16 ShaderParameterMVec4fBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ShaderParameterMVec4f::_mfValue field.
 inline
-const Vec4f ShaderParameterMVec4fBase::getValue(const UInt32 index) const
+const Vec4f &ShaderParameterMVec4fBase::getValue(const UInt32 index) const
 {
     return _mfValue[index];
 }
@@ -88,21 +88,6 @@ Vec4f &ShaderParameterMVec4fBase::editValue(const UInt32 index)
 
     return _mfValue[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec4f               &ShaderParameterMVec4fBase::getValue          (const UInt32 index)
-{
-    return this->editValue          (index);
-}
-
-inline
-MFVec4f             &ShaderParameterMVec4fBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-
-#endif
 
 
 

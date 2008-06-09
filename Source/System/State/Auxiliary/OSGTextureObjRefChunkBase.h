@@ -126,18 +126,12 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGLId            (void);
-#endif
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGLId            (void);
-#endif
                   GLenum              &editGLId           (void);
-            const GLenum               getGLId            (void) const;
+            const GLenum              &getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

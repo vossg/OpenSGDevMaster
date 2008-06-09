@@ -101,18 +101,10 @@ GLenum &TextureBufferBase::editTexTarget(void)
 
 //! Get the value of the TextureBuffer::_sfTexTarget field.
 inline
-const GLenum TextureBufferBase::getTexTarget(void) const
+const GLenum &TextureBufferBase::getTexTarget(void) const
 {
     return _sfTexTarget.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &TextureBufferBase::getTexTarget      (void)
-{
-    return this->editTexTarget      ();
-}
-#endif
 
 //! Set the value of the TextureBuffer::_sfTexTarget field.
 inline
@@ -134,22 +126,14 @@ UInt32 &TextureBufferBase::editLevel(void)
 
 //! Get the value of the TextureBuffer::_sfLevel field.
 inline
-const UInt32 TextureBufferBase::getLevel(void) const
+      UInt32  TextureBufferBase::getLevel(void) const
 {
     return _sfLevel.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &TextureBufferBase::getLevel          (void)
-{
-    return this->editLevel          ();
-}
-#endif
-
 //! Set the value of the TextureBuffer::_sfLevel field.
 inline
-void TextureBufferBase::setLevel(const UInt32 &value)
+void TextureBufferBase::setLevel(const UInt32 value)
 {
     editSField(LevelFieldMask);
 
@@ -167,22 +151,14 @@ UInt32 &TextureBufferBase::editZoffset(void)
 
 //! Get the value of the TextureBuffer::_sfZoffset field.
 inline
-const UInt32 TextureBufferBase::getZoffset(void) const
+      UInt32  TextureBufferBase::getZoffset(void) const
 {
     return _sfZoffset.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &TextureBufferBase::getZoffset        (void)
-{
-    return this->editZoffset        ();
-}
-#endif
-
 //! Set the value of the TextureBuffer::_sfZoffset field.
 inline
-void TextureBufferBase::setZoffset(const UInt32 &value)
+void TextureBufferBase::setZoffset(const UInt32 value)
 {
     editSField(ZoffsetFieldMask);
 

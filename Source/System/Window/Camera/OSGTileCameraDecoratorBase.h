@@ -146,90 +146,54 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFLeft            (void);
-#endif
                   SFReal32            *editSFLeft           (void);
             const SFReal32            *getSFLeft            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFRight           (void);
-#endif
                   SFReal32            *editSFRight          (void);
             const SFReal32            *getSFRight           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFBottom          (void);
-#endif
                   SFReal32            *editSFBottom         (void);
             const SFReal32            *getSFBottom          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFTop             (void);
-#endif
                   SFReal32            *editSFTop            (void);
             const SFReal32            *getSFTop             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFFullWidth       (void);
-#endif
                   SFUInt32            *editSFFullWidth      (void);
             const SFUInt32            *getSFFullWidth       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFFullHeight      (void);
-#endif
                   SFUInt32            *editSFFullHeight     (void);
             const SFUInt32            *getSFFullHeight      (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getLeft            (void);
-#endif
                   Real32              &editLeft           (void);
-            const Real32               getLeft            (void) const;
+                  Real32               getLeft            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getRight           (void);
-#endif
                   Real32              &editRight          (void);
-            const Real32               getRight           (void) const;
+                  Real32               getRight           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getBottom          (void);
-#endif
                   Real32              &editBottom         (void);
-            const Real32               getBottom          (void) const;
+                  Real32               getBottom          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getTop             (void);
-#endif
                   Real32              &editTop            (void);
-            const Real32               getTop             (void) const;
+                  Real32               getTop             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFullWidth       (void);
-#endif
                   UInt32              &editFullWidth      (void);
-            const UInt32               getFullWidth       (void) const;
+                  UInt32               getFullWidth       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFullHeight      (void);
-#endif
                   UInt32              &editFullHeight     (void);
-            const UInt32               getFullHeight      (void) const;
+                  UInt32               getFullHeight      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setLeft           (const Real32 &value);
-            void setRight          (const Real32 &value);
-            void setBottom         (const Real32 &value);
-            void setTop            (const Real32 &value);
-            void setFullWidth      (const UInt32 &value);
-            void setFullHeight     (const UInt32 &value);
+            void setLeft           (const Real32 value);
+            void setRight          (const Real32 value);
+            void setBottom         (const Real32 value);
+            void setTop            (const Real32 value);
+            void setFullWidth      (const UInt32 value);
+            void setFullHeight     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

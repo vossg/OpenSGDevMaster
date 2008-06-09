@@ -162,141 +162,81 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFSize            (void);
-#endif
                   SFReal32            *editSFSize           (void);
             const SFReal32            *getSFSize            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFSmooth          (void);
-#endif
                   SFBool              *editSFSmooth         (void);
             const SFBool              *getSFSmooth          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFMinSize         (void);
-#endif
                   SFReal32            *editSFMinSize        (void);
             const SFReal32            *getSFMinSize         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFMaxSize         (void);
-#endif
                   SFReal32            *editSFMaxSize        (void);
             const SFReal32            *getSFMaxSize         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFConstantAttenuation (void);
-#endif
                   SFReal32            *editSFConstantAttenuation(void);
             const SFReal32            *getSFConstantAttenuation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFLinearAttenuation (void);
-#endif
                   SFReal32            *editSFLinearAttenuation(void);
             const SFReal32            *getSFLinearAttenuation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFQuadraticAttenuation (void);
-#endif
                   SFReal32            *editSFQuadraticAttenuation(void);
             const SFReal32            *getSFQuadraticAttenuation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFFadeThreshold   (void);
-#endif
                   SFReal32            *editSFFadeThreshold  (void);
             const SFReal32            *getSFFadeThreshold   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFSprite          (void);
-#endif
                   SFBool              *editSFSprite         (void);
             const SFBool              *getSFSprite          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFRMode           (void);
-#endif
                   SFGLenum            *editSFRMode          (void);
             const SFGLenum            *getSFRMode           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getSize            (void);
-#endif
                   Real32              &editSize           (void);
-            const Real32               getSize            (void) const;
+                  Real32               getSize            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getSmooth          (void);
-#endif
                   bool                &editSmooth         (void);
-            const bool                 getSmooth          (void) const;
+                  bool                 getSmooth          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getMinSize         (void);
-#endif
                   Real32              &editMinSize        (void);
-            const Real32               getMinSize         (void) const;
+                  Real32               getMinSize         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getMaxSize         (void);
-#endif
                   Real32              &editMaxSize        (void);
-            const Real32               getMaxSize         (void) const;
+                  Real32               getMaxSize         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getConstantAttenuation (void);
-#endif
                   Real32              &editConstantAttenuation(void);
-            const Real32               getConstantAttenuation (void) const;
+                  Real32               getConstantAttenuation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getLinearAttenuation (void);
-#endif
                   Real32              &editLinearAttenuation(void);
-            const Real32               getLinearAttenuation (void) const;
+                  Real32               getLinearAttenuation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getQuadraticAttenuation (void);
-#endif
                   Real32              &editQuadraticAttenuation(void);
-            const Real32               getQuadraticAttenuation (void) const;
+                  Real32               getQuadraticAttenuation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getFadeThreshold   (void);
-#endif
                   Real32              &editFadeThreshold  (void);
-            const Real32               getFadeThreshold   (void) const;
+                  Real32               getFadeThreshold   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getSprite          (void);
-#endif
                   bool                &editSprite         (void);
-            const bool                 getSprite          (void) const;
+                  bool                 getSprite          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getRMode           (void);
-#endif
                   GLenum              &editRMode          (void);
-            const GLenum               getRMode           (void) const;
+            const GLenum              &getRMode           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setSize           (const Real32 &value);
-            void setSmooth         (const bool &value);
-            void setMinSize        (const Real32 &value);
-            void setMaxSize        (const Real32 &value);
-            void setConstantAttenuation(const Real32 &value);
-            void setLinearAttenuation(const Real32 &value);
-            void setQuadraticAttenuation(const Real32 &value);
-            void setFadeThreshold  (const Real32 &value);
-            void setSprite         (const bool &value);
+            void setSize           (const Real32 value);
+            void setSmooth         (const bool value);
+            void setMinSize        (const Real32 value);
+            void setMaxSize        (const Real32 value);
+            void setConstantAttenuation(const Real32 value);
+            void setLinearAttenuation(const Real32 value);
+            void setQuadraticAttenuation(const Real32 value);
+            void setFadeThreshold  (const Real32 value);
+            void setSprite         (const bool value);
             void setRMode          (const GLenum &value);
 
     /*! \}                                                                 */

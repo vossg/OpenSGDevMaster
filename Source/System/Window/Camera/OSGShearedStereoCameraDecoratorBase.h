@@ -130,38 +130,26 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFZeroParallaxDistance (void);
-#endif
                   SFReal32            *editSFZeroParallaxDistance(void);
             const SFReal32            *getSFZeroParallaxDistance (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFOverlap         (void);
-#endif
                   SFReal32            *editSFOverlap        (void);
             const SFReal32            *getSFOverlap         (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getZeroParallaxDistance (void);
-#endif
                   Real32              &editZeroParallaxDistance(void);
-            const Real32               getZeroParallaxDistance (void) const;
+                  Real32               getZeroParallaxDistance (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getOverlap         (void);
-#endif
                   Real32              &editOverlap        (void);
-            const Real32               getOverlap         (void) const;
+                  Real32               getOverlap         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setZeroParallaxDistance(const Real32 &value);
-            void setOverlap        (const Real32 &value);
+            void setZeroParallaxDistance(const Real32 value);
+            void setOverlap        (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -146,38 +146,25 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFFieldSFPub      (void);
-#endif
                   SFUInt32            *editSFFieldSFPub     (void);
             const SFUInt32            *getSFFieldSFPub      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFFieldMFPub      (void);
-#endif
                   MFUInt32            *editMFFieldMFPub     (void);
             const MFUInt32            *getMFFieldMFPub      (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFieldSFPub      (void);
-#endif
                   UInt32              &editFieldSFPub     (void);
-            const UInt32               getFieldSFPub      (void) const;
+                  UInt32               getFieldSFPub      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getFieldMFPub      (const UInt32 index);
-                  MFUInt32            &getFieldMFPub     (void);
-#endif
                   UInt32              &editFieldMFPub     (const UInt32 index);
-            const UInt32               getFieldMFPub      (const UInt32 index) const;
+                  UInt32               getFieldMFPub      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setFieldSFPub     (const UInt32 &value);
+            void setFieldSFPub     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -293,17 +280,17 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
 
 
                   UInt32              &editFieldSFPro     (void);
-            const UInt32               getFieldSFPro      (void) const;
+                  UInt32               getFieldSFPro      (void) const;
 
                   UInt32              &editFieldMFPro     (const UInt32 index);
-            const UInt32               getFieldMFPro      (const UInt32 index) const;
+                  UInt32               getFieldMFPro      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setFieldSFPro     (const UInt32 &value);
+            void setFieldSFPro     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

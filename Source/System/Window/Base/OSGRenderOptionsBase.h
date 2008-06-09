@@ -230,363 +230,201 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFStatistic       (void);
-#endif
                   SFBool              *editSFStatistic      (void);
             const SFBool              *getSFStatistic       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFPolygonMode     (void);
-#endif
                   SFGLenum            *editSFPolygonMode    (void);
             const SFGLenum            *getSFPolygonMode     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFTwoSidedLighting (void);
-#endif
                   SFBool              *editSFTwoSidedLighting(void);
             const SFBool              *getSFTwoSidedLighting (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFSpecTexLighting (void);
-#endif
                   SFBool              *editSFSpecTexLighting(void);
             const SFBool              *getSFSpecTexLighting (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFSortTrans       (void);
-#endif
                   SFBool              *editSFSortTrans      (void);
             const SFBool              *getSFSortTrans       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFZWriteTrans     (void);
-#endif
                   SFBool              *editSFZWriteTrans    (void);
             const SFBool              *getSFZWriteTrans     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFLocalLights     (void);
-#endif
                   SFBool              *editSFLocalLights    (void);
             const SFBool              *getSFLocalLights     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFCorrectTwoSidedLighting (void);
-#endif
                   SFBool              *editSFCorrectTwoSidedLighting(void);
             const SFBool              *getSFCorrectTwoSidedLighting (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFOcclusionCulling (void);
-#endif
                   SFBool              *editSFOcclusionCulling(void);
             const SFBool              *getSFOcclusionCulling (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFOcclusionCullingMode (void);
-#endif
                   SFInt32             *editSFOcclusionCullingMode(void);
             const SFInt32             *getSFOcclusionCullingMode (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFOcclusionCullingPixels (void);
-#endif
                   SFUInt32            *editSFOcclusionCullingPixels(void);
             const SFUInt32            *getSFOcclusionCullingPixels (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFAntialiasing    (void);
-#endif
                   SFBool              *editSFAntialiasing   (void);
             const SFBool              *getSFAntialiasing    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFAntialiasingDistance (void);
-#endif
                   SFReal32            *editSFAntialiasingDistance(void);
             const SFReal32            *getSFAntialiasingDistance (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFAntialiasingScale (void);
-#endif
                   SFReal32            *editSFAntialiasingScale(void);
             const SFReal32            *getSFAntialiasingScale (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFAntialiasingTrigger (void);
-#endif
                   SFUInt32            *editSFAntialiasingTrigger(void);
             const SFUInt32            *getSFAntialiasingTrigger (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFFrustumCulling  (void);
-#endif
                   SFBool              *editSFFrustumCulling (void);
             const SFBool              *getSFFrustumCulling  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFBackfaceCulling (void);
-#endif
                   SFBool              *editSFBackfaceCulling(void);
             const SFBool              *getSFBackfaceCulling (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFSmallFeatureCulling (void);
-#endif
                   SFBool              *editSFSmallFeatureCulling(void);
             const SFBool              *getSFSmallFeatureCulling (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFSmallFeaturePixels (void);
-#endif
                   SFReal32            *editSFSmallFeaturePixels(void);
             const SFReal32            *getSFSmallFeaturePixels (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFSmallFeatureThreshold (void);
-#endif
                   SFUInt32            *editSFSmallFeatureThreshold(void);
             const SFUInt32            *getSFSmallFeatureThreshold (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFFirstFrame      (void);
-#endif
                   SFBool              *editSFFirstFrame     (void);
             const SFBool              *getSFFirstFrame      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFDepthOnlyPass   (void);
-#endif
                   SFBool              *editSFDepthOnlyPass  (void);
             const SFBool              *getSFDepthOnlyPass   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4f           *getSFLightModelAmbient (void);
-#endif
                   SFColor4f           *editSFLightModelAmbient(void);
             const SFColor4f           *getSFLightModelAmbient (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4f           *getSFFogColor        (void);
-#endif
                   SFColor4f           *editSFFogColor       (void);
             const SFColor4f           *getSFFogColor        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec2f             *getSFFogRange        (void);
-#endif
                   SFVec2f             *editSFFogRange       (void);
             const SFVec2f             *getSFFogRange        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFFogDensity      (void);
-#endif
                   SFReal32            *editSFFogDensity     (void);
             const SFReal32            *getSFFogDensity      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFFogMode         (void);
-#endif
                   SFInt32             *editSFFogMode        (void);
             const SFInt32             *getSFFogMode         (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getStatistic       (void);
-#endif
                   bool                &editStatistic      (void);
-            const bool                 getStatistic       (void) const;
+                  bool                 getStatistic       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getPolygonMode     (void);
-#endif
                   GLenum              &editPolygonMode    (void);
-            const GLenum               getPolygonMode     (void) const;
+            const GLenum              &getPolygonMode     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getTwoSidedLighting (void);
-#endif
                   bool                &editTwoSidedLighting(void);
-            const bool                 getTwoSidedLighting (void) const;
+                  bool                 getTwoSidedLighting (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getSpecTexLighting (void);
-#endif
                   bool                &editSpecTexLighting(void);
-            const bool                 getSpecTexLighting (void) const;
+                  bool                 getSpecTexLighting (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getSortTrans       (void);
-#endif
                   bool                &editSortTrans      (void);
-            const bool                 getSortTrans       (void) const;
+                  bool                 getSortTrans       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getZWriteTrans     (void);
-#endif
                   bool                &editZWriteTrans    (void);
-            const bool                 getZWriteTrans     (void) const;
+                  bool                 getZWriteTrans     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getLocalLights     (void);
-#endif
                   bool                &editLocalLights    (void);
-            const bool                 getLocalLights     (void) const;
+                  bool                 getLocalLights     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getCorrectTwoSidedLighting (void);
-#endif
                   bool                &editCorrectTwoSidedLighting(void);
-            const bool                 getCorrectTwoSidedLighting (void) const;
+                  bool                 getCorrectTwoSidedLighting (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getOcclusionCulling (void);
-#endif
                   bool                &editOcclusionCulling(void);
-            const bool                 getOcclusionCulling (void) const;
+                  bool                 getOcclusionCulling (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getOcclusionCullingMode (void);
-#endif
                   Int32               &editOcclusionCullingMode(void);
-            const Int32                getOcclusionCullingMode (void) const;
+                  Int32                getOcclusionCullingMode (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getOcclusionCullingPixels (void);
-#endif
                   UInt32              &editOcclusionCullingPixels(void);
-            const UInt32               getOcclusionCullingPixels (void) const;
+                  UInt32               getOcclusionCullingPixels (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getAntialiasing    (void);
-#endif
                   bool                &editAntialiasing   (void);
-            const bool                 getAntialiasing    (void) const;
+                  bool                 getAntialiasing    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getAntialiasingDistance (void);
-#endif
                   Real32              &editAntialiasingDistance(void);
-            const Real32               getAntialiasingDistance (void) const;
+                  Real32               getAntialiasingDistance (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getAntialiasingScale (void);
-#endif
                   Real32              &editAntialiasingScale(void);
-            const Real32               getAntialiasingScale (void) const;
+                  Real32               getAntialiasingScale (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getAntialiasingTrigger (void);
-#endif
                   UInt32              &editAntialiasingTrigger(void);
-            const UInt32               getAntialiasingTrigger (void) const;
+                  UInt32               getAntialiasingTrigger (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getFrustumCulling  (void);
-#endif
                   bool                &editFrustumCulling (void);
-            const bool                 getFrustumCulling  (void) const;
+                  bool                 getFrustumCulling  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getBackfaceCulling (void);
-#endif
                   bool                &editBackfaceCulling(void);
-            const bool                 getBackfaceCulling (void) const;
+                  bool                 getBackfaceCulling (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getSmallFeatureCulling (void);
-#endif
                   bool                &editSmallFeatureCulling(void);
-            const bool                 getSmallFeatureCulling (void) const;
+                  bool                 getSmallFeatureCulling (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getSmallFeaturePixels (void);
-#endif
                   Real32              &editSmallFeaturePixels(void);
-            const Real32               getSmallFeaturePixels (void) const;
+                  Real32               getSmallFeaturePixels (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getSmallFeatureThreshold (void);
-#endif
                   UInt32              &editSmallFeatureThreshold(void);
-            const UInt32               getSmallFeatureThreshold (void) const;
+                  UInt32               getSmallFeatureThreshold (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getFirstFrame      (void);
-#endif
                   bool                &editFirstFrame     (void);
-            const bool                 getFirstFrame      (void) const;
+                  bool                 getFirstFrame      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getDepthOnlyPass   (void);
-#endif
                   bool                &editDepthOnlyPass  (void);
-            const bool                 getDepthOnlyPass   (void) const;
+                  bool                 getDepthOnlyPass   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4f             &getLightModelAmbient (void);
-#endif
                   Color4f             &editLightModelAmbient(void);
-            const Color4f              getLightModelAmbient (void) const;
+            const Color4f             &getLightModelAmbient (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4f             &getFogColor        (void);
-#endif
                   Color4f             &editFogColor       (void);
-            const Color4f              getFogColor        (void) const;
+            const Color4f             &getFogColor        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec2f               &getFogRange        (void);
-#endif
                   Vec2f               &editFogRange       (void);
-            const Vec2f                getFogRange        (void) const;
+            const Vec2f               &getFogRange        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getFogDensity      (void);
-#endif
                   Real32              &editFogDensity     (void);
-            const Real32               getFogDensity      (void) const;
+                  Real32               getFogDensity      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getFogMode         (void);
-#endif
                   Int32               &editFogMode        (void);
-            const Int32                getFogMode         (void) const;
+                  Int32                getFogMode         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setStatistic      (const bool &value);
+            void setStatistic      (const bool value);
             void setPolygonMode    (const GLenum &value);
-            void setTwoSidedLighting(const bool &value);
-            void setSpecTexLighting(const bool &value);
-            void setSortTrans      (const bool &value);
-            void setZWriteTrans    (const bool &value);
-            void setLocalLights    (const bool &value);
-            void setCorrectTwoSidedLighting(const bool &value);
-            void setOcclusionCulling(const bool &value);
-            void setOcclusionCullingMode(const Int32 &value);
-            void setOcclusionCullingPixels(const UInt32 &value);
-            void setAntialiasing   (const bool &value);
-            void setAntialiasingDistance(const Real32 &value);
-            void setAntialiasingScale(const Real32 &value);
-            void setAntialiasingTrigger(const UInt32 &value);
-            void setFrustumCulling (const bool &value);
-            void setBackfaceCulling(const bool &value);
-            void setSmallFeatureCulling(const bool &value);
-            void setSmallFeaturePixels(const Real32 &value);
-            void setSmallFeatureThreshold(const UInt32 &value);
-            void setFirstFrame     (const bool &value);
-            void setDepthOnlyPass  (const bool &value);
+            void setTwoSidedLighting(const bool value);
+            void setSpecTexLighting(const bool value);
+            void setSortTrans      (const bool value);
+            void setZWriteTrans    (const bool value);
+            void setLocalLights    (const bool value);
+            void setCorrectTwoSidedLighting(const bool value);
+            void setOcclusionCulling(const bool value);
+            void setOcclusionCullingMode(const Int32 value);
+            void setOcclusionCullingPixels(const UInt32 value);
+            void setAntialiasing   (const bool value);
+            void setAntialiasingDistance(const Real32 value);
+            void setAntialiasingScale(const Real32 value);
+            void setAntialiasingTrigger(const UInt32 value);
+            void setFrustumCulling (const bool value);
+            void setBackfaceCulling(const bool value);
+            void setSmallFeatureCulling(const bool value);
+            void setSmallFeaturePixels(const Real32 value);
+            void setSmallFeatureThreshold(const UInt32 value);
+            void setFirstFrame     (const bool value);
+            void setDepthOnlyPass  (const bool value);
             void setLightModelAmbient(const Color4f &value);
             void setFogColor       (const Color4f &value);
             void setFogRange       (const Vec2f &value);
-            void setFogDensity     (const Real32 &value);
-            void setFogMode        (const Int32 &value);
+            void setFogDensity     (const Real32 value);
+            void setFogMode        (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

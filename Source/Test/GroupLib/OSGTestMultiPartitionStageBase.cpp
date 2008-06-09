@@ -248,12 +248,6 @@ const SFString *TestMultiPartitionStageBase::getSFMessage(void) const
     return &_sfMessage;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *TestMultiPartitionStageBase::getSFMessage        (void)
-{
-    return this->editSFMessage        ();
-}
-#endif
 
 SFInt32 *TestMultiPartitionStageBase::editSFNumPartitions(void)
 {
@@ -267,12 +261,6 @@ const SFInt32 *TestMultiPartitionStageBase::getSFNumPartitions(void) const
     return &_sfNumPartitions;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *TestMultiPartitionStageBase::getSFNumPartitions  (void)
-{
-    return this->editSFNumPartitions  ();
-}
-#endif
 
 MFInt32 *TestMultiPartitionStageBase::editMFOrder(void)
 {
@@ -286,12 +274,6 @@ const MFInt32 *TestMultiPartitionStageBase::getMFOrder(void) const
     return &_mfOrder;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFInt32             *TestMultiPartitionStageBase::getMFOrder          (void)
-{
-    return this->editMFOrder          ();
-}
-#endif
 
 SFBool *TestMultiPartitionStageBase::editSFUseGroup(void)
 {
@@ -305,12 +287,6 @@ const SFBool *TestMultiPartitionStageBase::getSFUseGroup(void) const
     return &_sfUseGroup;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TestMultiPartitionStageBase::getSFUseGroup       (void)
-{
-    return this->editSFUseGroup       ();
-}
-#endif
 
 
 

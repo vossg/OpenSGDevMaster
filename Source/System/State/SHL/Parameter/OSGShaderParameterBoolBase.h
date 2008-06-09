@@ -126,25 +126,19 @@ class OSG_STATE_DLLMAPPING ShaderParameterBoolBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFValue           (void);
-#endif
                   SFBool              *editSFValue          (void);
             const SFBool              *getSFValue           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getValue           (void);
-#endif
                   bool                &editValue          (void);
-            const bool                 getValue           (void) const;
+                  bool                 getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setValue          (const bool &value);
+            void setValue          (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

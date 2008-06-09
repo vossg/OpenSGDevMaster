@@ -165,22 +165,14 @@ UInt32 &HDRStageDataBase::editWidth(void)
 
 //! Get the value of the HDRStageData::_sfWidth field.
 inline
-const UInt32 HDRStageDataBase::getWidth(void) const
+      UInt32  HDRStageDataBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &HDRStageDataBase::getWidth          (void)
-{
-    return this->editWidth          ();
-}
-#endif
-
 //! Set the value of the HDRStageData::_sfWidth field.
 inline
-void HDRStageDataBase::setWidth(const UInt32 &value)
+void HDRStageDataBase::setWidth(const UInt32 value)
 {
     editSField(WidthFieldMask);
 
@@ -198,22 +190,14 @@ UInt32 &HDRStageDataBase::editHeight(void)
 
 //! Get the value of the HDRStageData::_sfHeight field.
 inline
-const UInt32 HDRStageDataBase::getHeight(void) const
+      UInt32  HDRStageDataBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &HDRStageDataBase::getHeight         (void)
-{
-    return this->editHeight         ();
-}
-#endif
-
 //! Set the value of the HDRStageData::_sfHeight field.
 inline
-void HDRStageDataBase::setHeight(const UInt32 &value)
+void HDRStageDataBase::setHeight(const UInt32 value)
 {
     editSField(HeightFieldMask);
 

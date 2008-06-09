@@ -85,22 +85,14 @@ UInt32 &SwitchMaterialBase::editChoice(void)
 
 //! Get the value of the SwitchMaterial::_sfChoice field.
 inline
-const UInt32 SwitchMaterialBase::getChoice(void) const
+      UInt32  SwitchMaterialBase::getChoice(void) const
 {
     return _sfChoice.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &SwitchMaterialBase::getChoice         (void)
-{
-    return this->editChoice         ();
-}
-#endif
-
 //! Set the value of the SwitchMaterial::_sfChoice field.
 inline
-void SwitchMaterialBase::setChoice(const UInt32 &value)
+void SwitchMaterialBase::setChoice(const UInt32 value)
 {
     editSField(ChoiceFieldMask);
 

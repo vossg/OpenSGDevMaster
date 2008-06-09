@@ -85,18 +85,10 @@ GLenum &TextureBaseChunkBase::editTarget(void)
 
 //! Get the value of the TextureBaseChunk::_sfTarget field.
 inline
-const GLenum TextureBaseChunkBase::getTarget(void) const
+const GLenum &TextureBaseChunkBase::getTarget(void) const
 {
     return _sfTarget.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &TextureBaseChunkBase::getTarget         (void)
-{
-    return this->editTarget         ();
-}
-#endif
 
 //! Set the value of the TextureBaseChunk::_sfTarget field.
 inline

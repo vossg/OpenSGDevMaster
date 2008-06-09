@@ -85,22 +85,14 @@ Int32 &BackgroundBase::editClearStencilBit(void)
 
 //! Get the value of the Background::_sfClearStencilBit field.
 inline
-const Int32 BackgroundBase::getClearStencilBit(void) const
+      Int32  BackgroundBase::getClearStencilBit(void) const
 {
     return _sfClearStencilBit.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &BackgroundBase::getClearStencilBit(void)
-{
-    return this->editClearStencilBit();
-}
-#endif
-
 //! Set the value of the Background::_sfClearStencilBit field.
 inline
-void BackgroundBase::setClearStencilBit(const Int32 &value)
+void BackgroundBase::setClearStencilBit(const Int32 value)
 {
     editSField(ClearStencilBitFieldMask);
 
@@ -118,22 +110,14 @@ Real32 &BackgroundBase::editDepth(void)
 
 //! Get the value of the Background::_sfDepth field.
 inline
-const Real32 BackgroundBase::getDepth(void) const
+      Real32  BackgroundBase::getDepth(void) const
 {
     return _sfDepth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &BackgroundBase::getDepth          (void)
-{
-    return this->editDepth          ();
-}
-#endif
-
 //! Set the value of the Background::_sfDepth field.
 inline
-void BackgroundBase::setDepth(const Real32 &value)
+void BackgroundBase::setDepth(const Real32 value)
 {
     editSField(DepthFieldMask);
 
@@ -151,22 +135,14 @@ bool &BackgroundBase::editClearDepth(void)
 
 //! Get the value of the Background::_sfClearDepth field.
 inline
-const bool BackgroundBase::getClearDepth(void) const
+      bool  BackgroundBase::getClearDepth(void) const
 {
     return _sfClearDepth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BackgroundBase::getClearDepth     (void)
-{
-    return this->editClearDepth     ();
-}
-#endif
-
 //! Set the value of the Background::_sfClearDepth field.
 inline
-void BackgroundBase::setClearDepth(const bool &value)
+void BackgroundBase::setClearDepth(const bool value)
 {
     editSField(ClearDepthFieldMask);
 
@@ -184,22 +160,14 @@ bool &BackgroundBase::editClearColor(void)
 
 //! Get the value of the Background::_sfClearColor field.
 inline
-const bool BackgroundBase::getClearColor(void) const
+      bool  BackgroundBase::getClearColor(void) const
 {
     return _sfClearColor.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &BackgroundBase::getClearColor     (void)
-{
-    return this->editClearColor     ();
-}
-#endif
-
 //! Set the value of the Background::_sfClearColor field.
 inline
-void BackgroundBase::setClearColor(const bool &value)
+void BackgroundBase::setClearColor(const bool value)
 {
     editSField(ClearColorFieldMask);
 

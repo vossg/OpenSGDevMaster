@@ -85,18 +85,10 @@ Pnt3r &PointLightBase::editPosition(void)
 
 //! Get the value of the PointLight::_sfPosition field.
 inline
-const Pnt3r PointLightBase::getPosition(void) const
+const Pnt3r &PointLightBase::getPosition(void) const
 {
     return _sfPosition.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Pnt3r               &PointLightBase::getPosition       (void)
-{
-    return this->editPosition       ();
-}
-#endif
 
 //! Set the value of the PointLight::_sfPosition field.
 inline

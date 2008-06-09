@@ -101,22 +101,14 @@ UInt32 &GeoMultiPropertyBase::editOffset(void)
 
 //! Get the value of the GeoMultiProperty::_sfOffset field.
 inline
-const UInt32 GeoMultiPropertyBase::getOffset(void) const
+      UInt32  GeoMultiPropertyBase::getOffset(void) const
 {
     return _sfOffset.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &GeoMultiPropertyBase::getOffset         (void)
-{
-    return this->editOffset         ();
-}
-#endif
-
 //! Set the value of the GeoMultiProperty::_sfOffset field.
 inline
-void GeoMultiPropertyBase::setOffset(const UInt32 &value)
+void GeoMultiPropertyBase::setOffset(const UInt32 value)
 {
     editSField(OffsetFieldMask);
 
@@ -134,18 +126,10 @@ GLenum &GeoMultiPropertyBase::editIFormat(void)
 
 //! Get the value of the GeoMultiProperty::_sfIFormat field.
 inline
-const GLenum GeoMultiPropertyBase::getIFormat(void) const
+const GLenum &GeoMultiPropertyBase::getIFormat(void) const
 {
     return _sfIFormat.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &GeoMultiPropertyBase::getIFormat        (void)
-{
-    return this->editIFormat        ();
-}
-#endif
 
 //! Set the value of the GeoMultiProperty::_sfIFormat field.
 inline
@@ -167,22 +151,14 @@ UInt32 &GeoMultiPropertyBase::editIDimension(void)
 
 //! Get the value of the GeoMultiProperty::_sfIDimension field.
 inline
-const UInt32 GeoMultiPropertyBase::getIDimension(void) const
+      UInt32  GeoMultiPropertyBase::getIDimension(void) const
 {
     return _sfIDimension.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &GeoMultiPropertyBase::getIDimension     (void)
-{
-    return this->editIDimension     ();
-}
-#endif
-
 //! Set the value of the GeoMultiProperty::_sfIDimension field.
 inline
-void GeoMultiPropertyBase::setIDimension(const UInt32 &value)
+void GeoMultiPropertyBase::setIDimension(const UInt32 value)
 {
     editSField(IDimensionFieldMask);
 
@@ -200,22 +176,14 @@ UInt32 &GeoMultiPropertyBase::editISize(void)
 
 //! Get the value of the GeoMultiProperty::_sfISize field.
 inline
-const UInt32 GeoMultiPropertyBase::getISize(void) const
+      UInt32  GeoMultiPropertyBase::getISize(void) const
 {
     return _sfISize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &GeoMultiPropertyBase::getISize          (void)
-{
-    return this->editISize          ();
-}
-#endif
-
 //! Set the value of the GeoMultiProperty::_sfISize field.
 inline
-void GeoMultiPropertyBase::setISize(const UInt32 &value)
+void GeoMultiPropertyBase::setISize(const UInt32 value)
 {
     editSField(ISizeFieldMask);
 
@@ -233,22 +201,14 @@ bool &GeoMultiPropertyBase::editINormalize(void)
 
 //! Get the value of the GeoMultiProperty::_sfINormalize field.
 inline
-const bool GeoMultiPropertyBase::getINormalize(void) const
+      bool  GeoMultiPropertyBase::getINormalize(void) const
 {
     return _sfINormalize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &GeoMultiPropertyBase::getINormalize     (void)
-{
-    return this->editINormalize     ();
-}
-#endif
-
 //! Set the value of the GeoMultiProperty::_sfINormalize field.
 inline
-void GeoMultiPropertyBase::setINormalize(const bool &value)
+void GeoMultiPropertyBase::setINormalize(const bool value)
 {
     editSField(INormalizeFieldMask);
 
@@ -266,22 +226,14 @@ UInt32 &GeoMultiPropertyBase::editIStride(void)
 
 //! Get the value of the GeoMultiProperty::_sfIStride field.
 inline
-const UInt32 GeoMultiPropertyBase::getIStride(void) const
+      UInt32  GeoMultiPropertyBase::getIStride(void) const
 {
     return _sfIStride.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &GeoMultiPropertyBase::getIStride        (void)
-{
-    return this->editIStride        ();
-}
-#endif
-
 //! Set the value of the GeoMultiProperty::_sfIStride field.
 inline
-void GeoMultiPropertyBase::setIStride(const UInt32 &value)
+void GeoMultiPropertyBase::setIStride(const UInt32 value)
 {
     editSField(IStrideFieldMask);
 

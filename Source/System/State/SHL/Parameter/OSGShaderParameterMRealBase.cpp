@@ -174,12 +174,6 @@ const MFReal32 *ShaderParameterMRealBase::getMFValue(void) const
     return &_mfValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *ShaderParameterMRealBase::getMFValue          (void)
-{
-    return this->editMFValue          ();
-}
-#endif
 
 
 

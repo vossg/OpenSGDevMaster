@@ -85,22 +85,14 @@ UInt32 &TextureSelectChunkBase::editChoice(void)
 
 //! Get the value of the TextureSelectChunk::_sfChoice field.
 inline
-const UInt32 TextureSelectChunkBase::getChoice(void) const
+      UInt32  TextureSelectChunkBase::getChoice(void) const
 {
     return _sfChoice.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &TextureSelectChunkBase::getChoice         (void)
-{
-    return this->editChoice         ();
-}
-#endif
-
 //! Set the value of the TextureSelectChunk::_sfChoice field.
 inline
-void TextureSelectChunkBase::setChoice(const UInt32 &value)
+void TextureSelectChunkBase::setChoice(const UInt32 value)
 {
     editSField(ChoiceFieldMask);
 

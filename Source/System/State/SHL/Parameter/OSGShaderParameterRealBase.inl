@@ -85,22 +85,14 @@ Real32 &ShaderParameterRealBase::editValue(void)
 
 //! Get the value of the ShaderParameterReal::_sfValue field.
 inline
-const Real32 ShaderParameterRealBase::getValue(void) const
+      Real32  ShaderParameterRealBase::getValue(void) const
 {
     return _sfValue.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ShaderParameterRealBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-#endif
-
 //! Set the value of the ShaderParameterReal::_sfValue field.
 inline
-void ShaderParameterRealBase::setValue(const Real32 &value)
+void ShaderParameterRealBase::setValue(const Real32 value)
 {
     editSField(ValueFieldMask);
 

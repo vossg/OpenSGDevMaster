@@ -85,22 +85,14 @@ UInt16 &WindowBase::editWidth(void)
 
 //! Get the value of the Window::_sfWidth field.
 inline
-const UInt16 WindowBase::getWidth(void) const
+      UInt16  WindowBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt16              &WindowBase::getWidth          (void)
-{
-    return this->editWidth          ();
-}
-#endif
-
 //! Set the value of the Window::_sfWidth field.
 inline
-void WindowBase::setWidth(const UInt16 &value)
+void WindowBase::setWidth(const UInt16 value)
 {
     editSField(WidthFieldMask);
 
@@ -118,22 +110,14 @@ UInt16 &WindowBase::editHeight(void)
 
 //! Get the value of the Window::_sfHeight field.
 inline
-const UInt16 WindowBase::getHeight(void) const
+      UInt16  WindowBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt16              &WindowBase::getHeight         (void)
-{
-    return this->editHeight         ();
-}
-#endif
-
 //! Set the value of the Window::_sfHeight field.
 inline
-void WindowBase::setHeight(const UInt16 &value)
+void WindowBase::setHeight(const UInt16 value)
 {
     editSField(HeightFieldMask);
 
@@ -151,22 +135,14 @@ bool &WindowBase::editResizePending(void)
 
 //! Get the value of the Window::_sfResizePending field.
 inline
-const bool WindowBase::getResizePending(void) const
+      bool  WindowBase::getResizePending(void) const
 {
     return _sfResizePending.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &WindowBase::getResizePending  (void)
-{
-    return this->editResizePending  ();
-}
-#endif
-
 //! Set the value of the Window::_sfResizePending field.
 inline
-void WindowBase::setResizePending(const bool &value)
+void WindowBase::setResizePending(const bool value)
 {
     editSField(ResizePendingFieldMask);
 
@@ -184,22 +160,14 @@ UInt32 &WindowBase::editGlObjectEventCounter(void)
 
 //! Get the value of the Window::_sfGlObjectEventCounter field.
 inline
-const UInt32 WindowBase::getGlObjectEventCounter(void) const
+      UInt32  WindowBase::getGlObjectEventCounter(void) const
 {
     return _sfGlObjectEventCounter.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &WindowBase::getGlObjectEventCounter(void)
-{
-    return this->editGlObjectEventCounter();
-}
-#endif
-
 //! Set the value of the Window::_sfGlObjectEventCounter field.
 inline
-void WindowBase::setGlObjectEventCounter(const UInt32 &value)
+void WindowBase::setGlObjectEventCounter(const UInt32 value)
 {
     editSField(GlObjectEventCounterFieldMask);
 
@@ -217,22 +185,14 @@ UInt32 &WindowBase::editDrawerId(void)
 
 //! Get the value of the Window::_sfDrawerId field.
 inline
-const UInt32 WindowBase::getDrawerId(void) const
+      UInt32  WindowBase::getDrawerId(void) const
 {
     return _sfDrawerId.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &WindowBase::getDrawerId       (void)
-{
-    return this->editDrawerId       ();
-}
-#endif
-
 //! Set the value of the Window::_sfDrawerId field.
 inline
-void WindowBase::setDrawerId(const UInt32 &value)
+void WindowBase::setDrawerId(const UInt32 value)
 {
     editSField(DrawerIdFieldMask);
 
@@ -248,7 +208,7 @@ Viewport * WindowBase::getPort(const UInt32 index) const
 
 //! Get the value of the \a index element the Window::_mfGlObjectLastRefresh field.
 inline
-const UInt32 WindowBase::getGlObjectLastRefresh(const UInt32 index) const
+      UInt32  WindowBase::getGlObjectLastRefresh(const UInt32 index) const
 {
     return _mfGlObjectLastRefresh[index];
 }
@@ -261,25 +221,10 @@ UInt32 &WindowBase::editGlObjectLastRefresh(const UInt32 index)
     return _mfGlObjectLastRefresh[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &WindowBase::getGlObjectLastRefresh(const UInt32 index)
-{
-    return this->editGlObjectLastRefresh(index);
-}
-
-inline
-MFUInt32            &WindowBase::getGlObjectLastRefresh(void)
-{
-    return this->editGlObjectLastRefresh();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the Window::_mfGlObjectLastReinitialize field.
 inline
-const UInt32 WindowBase::getGlObjectLastReinitialize(const UInt32 index) const
+      UInt32  WindowBase::getGlObjectLastReinitialize(const UInt32 index) const
 {
     return _mfGlObjectLastReinitialize[index];
 }
@@ -291,21 +236,6 @@ UInt32 &WindowBase::editGlObjectLastReinitialize(const UInt32 index)
 
     return _mfGlObjectLastReinitialize[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &WindowBase::getGlObjectLastReinitialize(const UInt32 index)
-{
-    return this->editGlObjectLastReinitialize(index);
-}
-
-inline
-MFUInt32            &WindowBase::getGlObjectLastReinitialize(void)
-{
-    return this->editGlObjectLastReinitialize();
-}
-
-#endif
 
 
 

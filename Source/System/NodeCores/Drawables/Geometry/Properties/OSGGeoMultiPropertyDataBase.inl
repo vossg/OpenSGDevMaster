@@ -85,22 +85,14 @@ UInt32 &GeoMultiPropertyDataBase::editGLId(void)
 
 //! Get the value of the GeoMultiPropertyData::_sfGLId field.
 inline
-const UInt32 GeoMultiPropertyDataBase::getGLId(void) const
+      UInt32  GeoMultiPropertyDataBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &GeoMultiPropertyDataBase::getGLId           (void)
-{
-    return this->editGLId           ();
-}
-#endif
-
 //! Set the value of the GeoMultiPropertyData::_sfGLId field.
 inline
-void GeoMultiPropertyDataBase::setGLId(const UInt32 &value)
+void GeoMultiPropertyDataBase::setGLId(const UInt32 value)
 {
     editSField(GLIdFieldMask);
 
@@ -109,7 +101,7 @@ void GeoMultiPropertyDataBase::setGLId(const UInt32 &value)
 
 //! Get the value of the \a index element the GeoMultiPropertyData::_mfIData field.
 inline
-const UInt8 GeoMultiPropertyDataBase::getIData(const UInt32 index) const
+      UInt8  GeoMultiPropertyDataBase::getIData(const UInt32 index) const
 {
     return _mfIData[index];
 }
@@ -121,21 +113,6 @@ UInt8 &GeoMultiPropertyDataBase::editIData(const UInt32 index)
 
     return _mfIData[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt8               &GeoMultiPropertyDataBase::getIData          (const UInt32 index)
-{
-    return this->editIData          (index);
-}
-
-inline
-MFUInt8             &GeoMultiPropertyDataBase::getIData          (void)
-{
-    return this->editIData          ();
-}
-
-#endif
 
 
 

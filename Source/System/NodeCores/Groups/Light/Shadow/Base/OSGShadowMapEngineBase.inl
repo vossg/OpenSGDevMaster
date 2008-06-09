@@ -101,22 +101,14 @@ Int32 &ShadowMapEngineBase::editWidth(void)
 
 //! Get the value of the ShadowMapEngine::_sfWidth field.
 inline
-const Int32 ShadowMapEngineBase::getWidth(void) const
+      Int32  ShadowMapEngineBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ShadowMapEngineBase::getWidth          (void)
-{
-    return this->editWidth          ();
-}
-#endif
-
 //! Set the value of the ShadowMapEngine::_sfWidth field.
 inline
-void ShadowMapEngineBase::setWidth(const Int32 &value)
+void ShadowMapEngineBase::setWidth(const Int32 value)
 {
     editSField(WidthFieldMask);
 
@@ -134,22 +126,14 @@ Int32 &ShadowMapEngineBase::editHeight(void)
 
 //! Get the value of the ShadowMapEngine::_sfHeight field.
 inline
-const Int32 ShadowMapEngineBase::getHeight(void) const
+      Int32  ShadowMapEngineBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ShadowMapEngineBase::getHeight         (void)
-{
-    return this->editHeight         ();
-}
-#endif
-
 //! Set the value of the ShadowMapEngine::_sfHeight field.
 inline
-void ShadowMapEngineBase::setHeight(const Int32 &value)
+void ShadowMapEngineBase::setHeight(const Int32 value)
 {
     editSField(HeightFieldMask);
 
@@ -167,18 +151,10 @@ Color4f &ShadowMapEngineBase::editShadowColor(void)
 
 //! Get the value of the ShadowMapEngine::_sfShadowColor field.
 inline
-const Color4f ShadowMapEngineBase::getShadowColor(void) const
+const Color4f &ShadowMapEngineBase::getShadowColor(void) const
 {
     return _sfShadowColor.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color4f             &ShadowMapEngineBase::getShadowColor    (void)
-{
-    return this->editShadowColor    ();
-}
-#endif
 
 //! Set the value of the ShadowMapEngine::_sfShadowColor field.
 inline
@@ -200,22 +176,14 @@ Real32 &ShadowMapEngineBase::editOffsetBias(void)
 
 //! Get the value of the ShadowMapEngine::_sfOffsetBias field.
 inline
-const Real32 ShadowMapEngineBase::getOffsetBias(void) const
+      Real32  ShadowMapEngineBase::getOffsetBias(void) const
 {
     return _sfOffsetBias.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ShadowMapEngineBase::getOffsetBias     (void)
-{
-    return this->editOffsetBias     ();
-}
-#endif
-
 //! Set the value of the ShadowMapEngine::_sfOffsetBias field.
 inline
-void ShadowMapEngineBase::setOffsetBias(const Real32 &value)
+void ShadowMapEngineBase::setOffsetBias(const Real32 value)
 {
     editSField(OffsetBiasFieldMask);
 
@@ -233,22 +201,14 @@ Real32 &ShadowMapEngineBase::editOffsetFactor(void)
 
 //! Get the value of the ShadowMapEngine::_sfOffsetFactor field.
 inline
-const Real32 ShadowMapEngineBase::getOffsetFactor(void) const
+      Real32  ShadowMapEngineBase::getOffsetFactor(void) const
 {
     return _sfOffsetFactor.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ShadowMapEngineBase::getOffsetFactor   (void)
-{
-    return this->editOffsetFactor   ();
-}
-#endif
-
 //! Set the value of the ShadowMapEngine::_sfOffsetFactor field.
 inline
-void ShadowMapEngineBase::setOffsetFactor(const Real32 &value)
+void ShadowMapEngineBase::setOffsetFactor(const Real32 value)
 {
     editSField(OffsetFactorFieldMask);
 

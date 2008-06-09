@@ -191,12 +191,6 @@ const SFBool *TextureTransformChunkBase::getSFUseCameraBeacon(void) const
     return &_sfUseCameraBeacon;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TextureTransformChunkBase::getSFUseCameraBeacon(void)
-{
-    return this->editSFUseCameraBeacon();
-}
-#endif
 
 
 

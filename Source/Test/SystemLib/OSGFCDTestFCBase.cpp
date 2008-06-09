@@ -309,12 +309,6 @@ const SFUInt32 *FCDTestFCBase::getSFFieldSFPub(void) const
     return &_sfFieldSFPub;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *FCDTestFCBase::getSFFieldSFPub     (void)
-{
-    return this->editSFFieldSFPub     ();
-}
-#endif
 
 SFUInt32 *FCDTestFCBase::editSFFieldSFPro(void)
 {
@@ -328,12 +322,6 @@ const SFUInt32 *FCDTestFCBase::getSFFieldSFPro(void) const
     return &_sfFieldSFPro;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *FCDTestFCBase::getSFFieldSFPro     (void)
-{
-    return this->editSFFieldSFPro     ();
-}
-#endif
 
 
 MFUInt32 *FCDTestFCBase::editMFFieldMFPub(void)
@@ -348,12 +336,6 @@ const MFUInt32 *FCDTestFCBase::getMFFieldMFPub(void) const
     return &_mfFieldMFPub;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *FCDTestFCBase::getMFFieldMFPub     (void)
-{
-    return this->editMFFieldMFPub     ();
-}
-#endif
 
 MFUInt32 *FCDTestFCBase::editMFFieldMFPro(void)
 {
@@ -367,12 +349,6 @@ const MFUInt32 *FCDTestFCBase::getMFFieldMFPro(void) const
     return &_mfFieldMFPro;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *FCDTestFCBase::getMFFieldMFPro     (void)
-{
-    return this->editMFFieldMFPro     ();
-}
-#endif
 
 
 

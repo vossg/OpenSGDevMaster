@@ -83,7 +83,7 @@ Image * ImageForegroundBase::getImages(const UInt32 index) const
 
 //! Get the value of the \a index element the ImageForeground::_mfPositions field.
 inline
-const Pnt2f ImageForegroundBase::getPositions(const UInt32 index) const
+const Pnt2f &ImageForegroundBase::getPositions(const UInt32 index) const
 {
     return _mfPositions[index];
 }
@@ -95,21 +95,6 @@ Pnt2f &ImageForegroundBase::editPositions(const UInt32 index)
 
     return _mfPositions[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Pnt2f               &ImageForegroundBase::getPositions      (const UInt32 index)
-{
-    return this->editPositions      (index);
-}
-
-inline
-MFPnt2f             &ImageForegroundBase::getPositions      (void)
-{
-    return this->editPositions      ();
-}
-
-#endif
 
 
 

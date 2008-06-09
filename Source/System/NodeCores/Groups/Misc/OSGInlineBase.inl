@@ -85,22 +85,14 @@ bool &InlineBase::editLoaded(void)
 
 //! Get the value of the Inline::_sfLoaded field.
 inline
-const bool InlineBase::getLoaded(void) const
+      bool  InlineBase::getLoaded(void) const
 {
     return _sfLoaded.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &InlineBase::getLoaded         (void)
-{
-    return this->editLoaded         ();
-}
-#endif
-
 //! Set the value of the Inline::_sfLoaded field.
 inline
-void InlineBase::setLoaded(const bool &value)
+void InlineBase::setLoaded(const bool value)
 {
     editSField(LoadedFieldMask);
 
@@ -109,7 +101,7 @@ void InlineBase::setLoaded(const bool &value)
 
 //! Get the value of the \a index element the Inline::_mfUrl field.
 inline
-const std::string InlineBase::getUrl(const UInt32 index) const
+const std::string &InlineBase::getUrl(const UInt32 index) const
 {
     return _mfUrl[index];
 }
@@ -121,21 +113,6 @@ std::string &InlineBase::editUrl(const UInt32 index)
 
     return _mfUrl[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &InlineBase::getUrl            (const UInt32 index)
-{
-    return this->editUrl            (index);
-}
-
-inline
-MFString            &InlineBase::getUrl            (void)
-{
-    return this->editUrl            ();
-}
-
-#endif
 
 
 

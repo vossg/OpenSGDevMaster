@@ -154,67 +154,43 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFWidth           (void);
-#endif
                   SFUInt16            *editSFWidth          (void);
             const SFUInt16            *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFHeight          (void);
-#endif
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
             const MFUnrecChildViewportPtr *getMFPort           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFResizePending   (void);
-#endif
                   SFBool              *editSFResizePending  (void);
             const SFBool              *getSFResizePending   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFDrawerId        (void);
-#endif
                   SFUInt32            *editSFDrawerId       (void);
             const SFUInt32            *getSFDrawerId        (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getWidth           (void);
-#endif
                   UInt16              &editWidth          (void);
-            const UInt16               getWidth           (void) const;
+                  UInt16               getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getHeight          (void);
-#endif
                   UInt16              &editHeight         (void);
-            const UInt16               getHeight          (void) const;
+                  UInt16               getHeight          (void) const;
 
                   Viewport * getPort           (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getResizePending   (void);
-#endif
                   bool                &editResizePending  (void);
-            const bool                 getResizePending   (void) const;
+                  bool                 getResizePending   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getDrawerId        (void);
-#endif
                   UInt32              &editDrawerId       (void);
-            const UInt32               getDrawerId        (void) const;
+                  UInt32               getDrawerId        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setWidth          (const UInt16 &value);
-            void setHeight         (const UInt16 &value);
-            void setResizePending  (const bool &value);
-            void setDrawerId       (const UInt32 &value);
+            void setWidth          (const UInt16 value);
+            void setHeight         (const UInt16 value);
+            void setResizePending  (const bool value);
+            void setDrawerId       (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -343,20 +319,20 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
 
                   UInt32              &editGlObjectEventCounter(void);
-            const UInt32               getGlObjectEventCounter (void) const;
+                  UInt32               getGlObjectEventCounter (void) const;
 
                   UInt32              &editGlObjectLastRefresh(const UInt32 index);
-            const UInt32               getGlObjectLastRefresh (const UInt32 index) const;
+                  UInt32               getGlObjectLastRefresh (const UInt32 index) const;
 
                   UInt32              &editGlObjectLastReinitialize(const UInt32 index);
-            const UInt32               getGlObjectLastReinitialize (const UInt32 index) const;
+                  UInt32               getGlObjectLastReinitialize (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGlObjectEventCounter(const UInt32 &value);
+            void setGlObjectEventCounter(const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

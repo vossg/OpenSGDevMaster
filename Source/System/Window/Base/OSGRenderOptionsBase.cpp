@@ -825,12 +825,6 @@ const SFBool *RenderOptionsBase::getSFStatistic(void) const
     return &_sfStatistic;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFStatistic      (void)
-{
-    return this->editSFStatistic      ();
-}
-#endif
 
 SFGLenum *RenderOptionsBase::editSFPolygonMode(void)
 {
@@ -844,12 +838,6 @@ const SFGLenum *RenderOptionsBase::getSFPolygonMode(void) const
     return &_sfPolygonMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *RenderOptionsBase::getSFPolygonMode    (void)
-{
-    return this->editSFPolygonMode    ();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFTwoSidedLighting(void)
 {
@@ -863,12 +851,6 @@ const SFBool *RenderOptionsBase::getSFTwoSidedLighting(void) const
     return &_sfTwoSidedLighting;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFTwoSidedLighting(void)
-{
-    return this->editSFTwoSidedLighting();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFSpecTexLighting(void)
 {
@@ -882,12 +864,6 @@ const SFBool *RenderOptionsBase::getSFSpecTexLighting(void) const
     return &_sfSpecTexLighting;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFSpecTexLighting(void)
-{
-    return this->editSFSpecTexLighting();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFSortTrans(void)
 {
@@ -901,12 +877,6 @@ const SFBool *RenderOptionsBase::getSFSortTrans(void) const
     return &_sfSortTrans;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFSortTrans      (void)
-{
-    return this->editSFSortTrans      ();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFZWriteTrans(void)
 {
@@ -920,12 +890,6 @@ const SFBool *RenderOptionsBase::getSFZWriteTrans(void) const
     return &_sfZWriteTrans;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFZWriteTrans    (void)
-{
-    return this->editSFZWriteTrans    ();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFLocalLights(void)
 {
@@ -939,12 +903,6 @@ const SFBool *RenderOptionsBase::getSFLocalLights(void) const
     return &_sfLocalLights;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFLocalLights    (void)
-{
-    return this->editSFLocalLights    ();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFCorrectTwoSidedLighting(void)
 {
@@ -958,12 +916,6 @@ const SFBool *RenderOptionsBase::getSFCorrectTwoSidedLighting(void) const
     return &_sfCorrectTwoSidedLighting;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFCorrectTwoSidedLighting(void)
-{
-    return this->editSFCorrectTwoSidedLighting();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFOcclusionCulling(void)
 {
@@ -977,12 +929,6 @@ const SFBool *RenderOptionsBase::getSFOcclusionCulling(void) const
     return &_sfOcclusionCulling;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFOcclusionCulling(void)
-{
-    return this->editSFOcclusionCulling();
-}
-#endif
 
 SFInt32 *RenderOptionsBase::editSFOcclusionCullingMode(void)
 {
@@ -996,12 +942,6 @@ const SFInt32 *RenderOptionsBase::getSFOcclusionCullingMode(void) const
     return &_sfOcclusionCullingMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *RenderOptionsBase::getSFOcclusionCullingMode(void)
-{
-    return this->editSFOcclusionCullingMode();
-}
-#endif
 
 SFUInt32 *RenderOptionsBase::editSFOcclusionCullingPixels(void)
 {
@@ -1015,12 +955,6 @@ const SFUInt32 *RenderOptionsBase::getSFOcclusionCullingPixels(void) const
     return &_sfOcclusionCullingPixels;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *RenderOptionsBase::getSFOcclusionCullingPixels(void)
-{
-    return this->editSFOcclusionCullingPixels();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFAntialiasing(void)
 {
@@ -1034,12 +968,6 @@ const SFBool *RenderOptionsBase::getSFAntialiasing(void) const
     return &_sfAntialiasing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFAntialiasing   (void)
-{
-    return this->editSFAntialiasing   ();
-}
-#endif
 
 SFReal32 *RenderOptionsBase::editSFAntialiasingDistance(void)
 {
@@ -1053,12 +981,6 @@ const SFReal32 *RenderOptionsBase::getSFAntialiasingDistance(void) const
     return &_sfAntialiasingDistance;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *RenderOptionsBase::getSFAntialiasingDistance(void)
-{
-    return this->editSFAntialiasingDistance();
-}
-#endif
 
 SFReal32 *RenderOptionsBase::editSFAntialiasingScale(void)
 {
@@ -1072,12 +994,6 @@ const SFReal32 *RenderOptionsBase::getSFAntialiasingScale(void) const
     return &_sfAntialiasingScale;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *RenderOptionsBase::getSFAntialiasingScale(void)
-{
-    return this->editSFAntialiasingScale();
-}
-#endif
 
 SFUInt32 *RenderOptionsBase::editSFAntialiasingTrigger(void)
 {
@@ -1091,12 +1007,6 @@ const SFUInt32 *RenderOptionsBase::getSFAntialiasingTrigger(void) const
     return &_sfAntialiasingTrigger;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *RenderOptionsBase::getSFAntialiasingTrigger(void)
-{
-    return this->editSFAntialiasingTrigger();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFFrustumCulling(void)
 {
@@ -1110,12 +1020,6 @@ const SFBool *RenderOptionsBase::getSFFrustumCulling(void) const
     return &_sfFrustumCulling;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFFrustumCulling (void)
-{
-    return this->editSFFrustumCulling ();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFBackfaceCulling(void)
 {
@@ -1129,12 +1033,6 @@ const SFBool *RenderOptionsBase::getSFBackfaceCulling(void) const
     return &_sfBackfaceCulling;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFBackfaceCulling(void)
-{
-    return this->editSFBackfaceCulling();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFSmallFeatureCulling(void)
 {
@@ -1148,12 +1046,6 @@ const SFBool *RenderOptionsBase::getSFSmallFeatureCulling(void) const
     return &_sfSmallFeatureCulling;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFSmallFeatureCulling(void)
-{
-    return this->editSFSmallFeatureCulling();
-}
-#endif
 
 SFReal32 *RenderOptionsBase::editSFSmallFeaturePixels(void)
 {
@@ -1167,12 +1059,6 @@ const SFReal32 *RenderOptionsBase::getSFSmallFeaturePixels(void) const
     return &_sfSmallFeaturePixels;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *RenderOptionsBase::getSFSmallFeaturePixels(void)
-{
-    return this->editSFSmallFeaturePixels();
-}
-#endif
 
 SFUInt32 *RenderOptionsBase::editSFSmallFeatureThreshold(void)
 {
@@ -1186,12 +1072,6 @@ const SFUInt32 *RenderOptionsBase::getSFSmallFeatureThreshold(void) const
     return &_sfSmallFeatureThreshold;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *RenderOptionsBase::getSFSmallFeatureThreshold(void)
-{
-    return this->editSFSmallFeatureThreshold();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFFirstFrame(void)
 {
@@ -1205,12 +1085,6 @@ const SFBool *RenderOptionsBase::getSFFirstFrame(void) const
     return &_sfFirstFrame;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFFirstFrame     (void)
-{
-    return this->editSFFirstFrame     ();
-}
-#endif
 
 SFBool *RenderOptionsBase::editSFDepthOnlyPass(void)
 {
@@ -1224,12 +1098,6 @@ const SFBool *RenderOptionsBase::getSFDepthOnlyPass(void) const
     return &_sfDepthOnlyPass;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *RenderOptionsBase::getSFDepthOnlyPass  (void)
-{
-    return this->editSFDepthOnlyPass  ();
-}
-#endif
 
 SFColor4f *RenderOptionsBase::editSFLightModelAmbient(void)
 {
@@ -1243,12 +1111,6 @@ const SFColor4f *RenderOptionsBase::getSFLightModelAmbient(void) const
     return &_sfLightModelAmbient;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4f           *RenderOptionsBase::getSFLightModelAmbient(void)
-{
-    return this->editSFLightModelAmbient();
-}
-#endif
 
 SFColor4f *RenderOptionsBase::editSFFogColor(void)
 {
@@ -1262,12 +1124,6 @@ const SFColor4f *RenderOptionsBase::getSFFogColor(void) const
     return &_sfFogColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4f           *RenderOptionsBase::getSFFogColor       (void)
-{
-    return this->editSFFogColor       ();
-}
-#endif
 
 SFVec2f *RenderOptionsBase::editSFFogRange(void)
 {
@@ -1281,12 +1137,6 @@ const SFVec2f *RenderOptionsBase::getSFFogRange(void) const
     return &_sfFogRange;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *RenderOptionsBase::getSFFogRange       (void)
-{
-    return this->editSFFogRange       ();
-}
-#endif
 
 SFReal32 *RenderOptionsBase::editSFFogDensity(void)
 {
@@ -1300,12 +1150,6 @@ const SFReal32 *RenderOptionsBase::getSFFogDensity(void) const
     return &_sfFogDensity;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *RenderOptionsBase::getSFFogDensity     (void)
-{
-    return this->editSFFogDensity     ();
-}
-#endif
 
 SFInt32 *RenderOptionsBase::editSFFogMode(void)
 {
@@ -1319,12 +1163,6 @@ const SFInt32 *RenderOptionsBase::getSFFogMode(void) const
     return &_sfFogMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *RenderOptionsBase::getSFFogMode        (void)
-{
-    return this->editSFFogMode        ();
-}
-#endif
 
 
 

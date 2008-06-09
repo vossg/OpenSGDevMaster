@@ -236,12 +236,6 @@ const MFUInt32 *SortLastWindowBase::getMFGroupLengths(void) const
     return &_mfGroupLengths;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *SortLastWindowBase::getMFGroupLengths   (void)
-{
-    return this->editMFGroupLengths   ();
-}
-#endif
 
 SFBool *SortLastWindowBase::editSFGroupsChanged(void)
 {
@@ -255,12 +249,6 @@ const SFBool *SortLastWindowBase::getSFGroupsChanged(void) const
     return &_sfGroupsChanged;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SortLastWindowBase::getSFGroupsChanged  (void)
-{
-    return this->editSFGroupsChanged  ();
-}
-#endif
 
 
 

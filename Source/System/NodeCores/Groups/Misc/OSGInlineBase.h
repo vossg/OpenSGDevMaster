@@ -130,38 +130,25 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  MFString            *getMFUrl             (void);
-#endif
                   MFString            *editMFUrl            (void);
             const MFString            *getMFUrl             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFLoaded          (void);
-#endif
                   SFBool              *editSFLoaded         (void);
             const SFBool              *getSFLoaded          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getUrl             (const UInt32 index);
-                  MFString            &getUrl            (void);
-#endif
                   std::string         &editUrl            (const UInt32 index);
-            const std::string          getUrl             (const UInt32 index) const;
+            const std::string         &getUrl             (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getLoaded          (void);
-#endif
                   bool                &editLoaded         (void);
-            const bool                 getLoaded          (void) const;
+                  bool                 getLoaded          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setLoaded         (const bool &value);
+            void setLoaded         (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

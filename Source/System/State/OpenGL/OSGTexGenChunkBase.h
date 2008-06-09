@@ -170,51 +170,27 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncS        (void);
-#endif
                   SFGLenum            *editSFGenFuncS       (void);
             const SFGLenum            *getSFGenFuncS        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncT        (void);
-#endif
                   SFGLenum            *editSFGenFuncT       (void);
             const SFGLenum            *getSFGenFuncT        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncR        (void);
-#endif
                   SFGLenum            *editSFGenFuncR       (void);
             const SFGLenum            *getSFGenFuncR        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGenFuncQ        (void);
-#endif
                   SFGLenum            *editSFGenFuncQ       (void);
             const SFGLenum            *getSFGenFuncQ        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncSPlane   (void);
-#endif
                   SFVec4f             *editSFGenFuncSPlane  (void);
             const SFVec4f             *getSFGenFuncSPlane   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncTPlane   (void);
-#endif
                   SFVec4f             *editSFGenFuncTPlane  (void);
             const SFVec4f             *getSFGenFuncTPlane   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncRPlane   (void);
-#endif
                   SFVec4f             *editSFGenFuncRPlane  (void);
             const SFVec4f             *getSFGenFuncRPlane   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFGenFuncQPlane   (void);
-#endif
                   SFVec4f             *editSFGenFuncQPlane  (void);
             const SFVec4f             *getSFGenFuncQPlane   (void) const;
             const SFWeakNodePtr       *getSFSBeacon        (void) const;
@@ -227,53 +203,29 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
                   SFWeakNodePtr       *editSFQBeacon        (void);
 
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncS        (void);
-#endif
                   GLenum              &editGenFuncS       (void);
-            const GLenum               getGenFuncS        (void) const;
+            const GLenum              &getGenFuncS        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncT        (void);
-#endif
                   GLenum              &editGenFuncT       (void);
-            const GLenum               getGenFuncT        (void) const;
+            const GLenum              &getGenFuncT        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncR        (void);
-#endif
                   GLenum              &editGenFuncR       (void);
-            const GLenum               getGenFuncR        (void) const;
+            const GLenum              &getGenFuncR        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGenFuncQ        (void);
-#endif
                   GLenum              &editGenFuncQ       (void);
-            const GLenum               getGenFuncQ        (void) const;
+            const GLenum              &getGenFuncQ        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncSPlane   (void);
-#endif
                   Vec4f               &editGenFuncSPlane  (void);
-            const Vec4f                getGenFuncSPlane   (void) const;
+            const Vec4f               &getGenFuncSPlane   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncTPlane   (void);
-#endif
                   Vec4f               &editGenFuncTPlane  (void);
-            const Vec4f                getGenFuncTPlane   (void) const;
+            const Vec4f               &getGenFuncTPlane   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncRPlane   (void);
-#endif
                   Vec4f               &editGenFuncRPlane  (void);
-            const Vec4f                getGenFuncRPlane   (void) const;
+            const Vec4f               &getGenFuncRPlane   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getGenFuncQPlane   (void);
-#endif
                   Vec4f               &editGenFuncQPlane  (void);
-            const Vec4f                getGenFuncQPlane   (void) const;
+            const Vec4f               &getGenFuncQPlane   (void) const;
 
                   Node * getSBeacon        (void) const;
 

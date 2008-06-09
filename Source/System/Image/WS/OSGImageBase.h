@@ -218,298 +218,165 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFDimension       (void);
-#endif
                   SFInt32             *editSFDimension      (void);
             const SFInt32             *getSFDimension       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFWidth           (void);
-#endif
                   SFInt32             *editSFWidth          (void);
             const SFInt32             *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFHeight          (void);
-#endif
                   SFInt32             *editSFHeight         (void);
             const SFInt32             *getSFHeight          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFDepth           (void);
-#endif
                   SFInt32             *editSFDepth          (void);
             const SFInt32             *getSFDepth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFBpp             (void);
-#endif
                   SFInt32             *editSFBpp            (void);
             const SFInt32             *getSFBpp             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFMipMapCount     (void);
-#endif
                   SFInt32             *editSFMipMapCount    (void);
             const SFInt32             *getSFMipMapCount     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFFrameCount      (void);
-#endif
                   SFInt32             *editSFFrameCount     (void);
             const SFInt32             *getSFFrameCount      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFTime              *getSFFrameDelay      (void);
-#endif
                   SFTime              *editSFFrameDelay     (void);
             const SFTime              *getSFFrameDelay      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFPixelFormat     (void);
-#endif
                   SFUInt32            *editSFPixelFormat    (void);
             const SFUInt32            *getSFPixelFormat     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt8             *getMFPixel           (void);
-#endif
                   MFUInt8             *editMFPixel          (void);
             const MFUInt8             *getMFPixel           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFFrameSize       (void);
-#endif
                   SFInt32             *editSFFrameSize      (void);
             const SFInt32             *getSFFrameSize       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFName            (void);
-#endif
                   SFString            *editSFName           (void);
             const SFString            *getSFName            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFDataType        (void);
-#endif
                   SFInt32             *editSFDataType       (void);
             const SFInt32             *getSFDataType        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFSideCount       (void);
-#endif
                   SFInt32             *editSFSideCount      (void);
             const SFInt32             *getSFSideCount       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFSideSize        (void);
-#endif
                   SFInt32             *editSFSideSize       (void);
             const SFInt32             *getSFSideSize        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFForceCompressedData (void);
-#endif
                   SFBool              *editSFForceCompressedData(void);
             const SFBool              *getSFForceCompressedData (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFForceAlphaChannel (void);
-#endif
                   SFBool              *editSFForceAlphaChannel(void);
             const SFBool              *getSFForceAlphaChannel (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFForceColorChannel (void);
-#endif
                   SFBool              *editSFForceColorChannel(void);
             const SFBool              *getSFForceColorChannel (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFForceAlphaBinary (void);
-#endif
                   SFBool              *editSFForceAlphaBinary(void);
             const SFBool              *getSFForceAlphaBinary (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFResX            (void);
-#endif
                   SFReal32            *editSFResX           (void);
             const SFReal32            *getSFResX            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFResY            (void);
-#endif
                   SFReal32            *editSFResY           (void);
             const SFReal32            *getSFResY            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFResUnit         (void);
-#endif
                   SFUInt16            *editSFResUnit        (void);
             const SFUInt16            *getSFResUnit         (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getDimension       (void);
-#endif
                   Int32               &editDimension      (void);
-            const Int32                getDimension       (void) const;
+                  Int32                getDimension       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getWidth           (void);
-#endif
                   Int32               &editWidth          (void);
-            const Int32                getWidth           (void) const;
+                  Int32                getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getHeight          (void);
-#endif
                   Int32               &editHeight         (void);
-            const Int32                getHeight          (void) const;
+                  Int32                getHeight          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getDepth           (void);
-#endif
                   Int32               &editDepth          (void);
-            const Int32                getDepth           (void) const;
+                  Int32                getDepth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getBpp             (void);
-#endif
                   Int32               &editBpp            (void);
-            const Int32                getBpp             (void) const;
+                  Int32                getBpp             (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getMipMapCount     (void);
-#endif
                   Int32               &editMipMapCount    (void);
-            const Int32                getMipMapCount     (void) const;
+                  Int32                getMipMapCount     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getFrameCount      (void);
-#endif
                   Int32               &editFrameCount     (void);
-            const Int32                getFrameCount      (void) const;
+                  Int32                getFrameCount      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Time                &getFrameDelay      (void);
-#endif
                   Time                &editFrameDelay     (void);
-            const Time                 getFrameDelay      (void) const;
+            const Time                &getFrameDelay      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getPixelFormat     (void);
-#endif
                   UInt32              &editPixelFormat    (void);
-            const UInt32               getPixelFormat     (void) const;
+                  UInt32               getPixelFormat     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt8               &getPixel           (const UInt32 index);
-                  MFUInt8             &getPixel          (void);
-#endif
                   UInt8               &editPixel          (const UInt32 index);
-            const UInt8                getPixel           (const UInt32 index) const;
+                  UInt8                getPixel           (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getFrameSize       (void);
-#endif
                   Int32               &editFrameSize      (void);
-            const Int32                getFrameSize       (void) const;
+                  Int32                getFrameSize       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getName            (void);
-#endif
                   std::string         &editName           (void);
-            const std::string          getName            (void) const;
+            const std::string         &getName            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getDataType        (void);
-#endif
                   Int32               &editDataType       (void);
-            const Int32                getDataType        (void) const;
+                  Int32                getDataType        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getSideCount       (void);
-#endif
                   Int32               &editSideCount      (void);
-            const Int32                getSideCount       (void) const;
+                  Int32                getSideCount       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getSideSize        (void);
-#endif
                   Int32               &editSideSize       (void);
-            const Int32                getSideSize        (void) const;
+                  Int32                getSideSize        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getForceCompressedData (void);
-#endif
                   bool                &editForceCompressedData(void);
-            const bool                 getForceCompressedData (void) const;
+                  bool                 getForceCompressedData (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getForceAlphaChannel (void);
-#endif
                   bool                &editForceAlphaChannel(void);
-            const bool                 getForceAlphaChannel (void) const;
+                  bool                 getForceAlphaChannel (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getForceColorChannel (void);
-#endif
                   bool                &editForceColorChannel(void);
-            const bool                 getForceColorChannel (void) const;
+                  bool                 getForceColorChannel (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getForceAlphaBinary (void);
-#endif
                   bool                &editForceAlphaBinary(void);
-            const bool                 getForceAlphaBinary (void) const;
+                  bool                 getForceAlphaBinary (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getResX            (void);
-#endif
                   Real32              &editResX           (void);
-            const Real32               getResX            (void) const;
+                  Real32               getResX            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getResY            (void);
-#endif
                   Real32              &editResY           (void);
-            const Real32               getResY            (void) const;
+                  Real32               getResY            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getResUnit         (void);
-#endif
                   UInt16              &editResUnit        (void);
-            const UInt16               getResUnit         (void) const;
+                  UInt16               getResUnit         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDimension      (const Int32 &value);
-            void setWidth          (const Int32 &value);
-            void setHeight         (const Int32 &value);
-            void setDepth          (const Int32 &value);
-            void setBpp            (const Int32 &value);
-            void setMipMapCount    (const Int32 &value);
-            void setFrameCount     (const Int32 &value);
+            void setDimension      (const Int32 value);
+            void setWidth          (const Int32 value);
+            void setHeight         (const Int32 value);
+            void setDepth          (const Int32 value);
+            void setBpp            (const Int32 value);
+            void setMipMapCount    (const Int32 value);
+            void setFrameCount     (const Int32 value);
             void setFrameDelay     (const Time &value);
-            void setPixelFormat    (const UInt32 &value);
-            void setFrameSize      (const Int32 &value);
+            void setPixelFormat    (const UInt32 value);
+            void setFrameSize      (const Int32 value);
             void setName           (const std::string &value);
-            void setDataType       (const Int32 &value);
-            void setSideCount      (const Int32 &value);
-            void setSideSize       (const Int32 &value);
-            void setForceCompressedData(const bool &value);
-            void setForceAlphaChannel(const bool &value);
-            void setForceColorChannel(const bool &value);
-            void setForceAlphaBinary(const bool &value);
-            void setResX           (const Real32 &value);
-            void setResY           (const Real32 &value);
-            void setResUnit        (const UInt16 &value);
+            void setDataType       (const Int32 value);
+            void setSideCount      (const Int32 value);
+            void setSideSize       (const Int32 value);
+            void setForceCompressedData(const bool value);
+            void setForceAlphaChannel(const bool value);
+            void setForceColorChannel(const bool value);
+            void setForceAlphaBinary(const bool value);
+            void setResX           (const Real32 value);
+            void setResY           (const Real32 value);
+            void setResUnit        (const UInt16 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -693,14 +560,14 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
 
 
                   Int32               &editComponentSize  (void);
-            const Int32                getComponentSize   (void) const;
+                  Int32                getComponentSize   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setComponentSize  (const Int32 &value);
+            void setComponentSize  (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -397,12 +397,6 @@ const SFUInt16 *WindowBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *WindowBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFUInt16 *WindowBase::editSFHeight(void)
 {
@@ -416,12 +410,6 @@ const SFUInt16 *WindowBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *WindowBase::getSFHeight         (void)
-{
-    return this->editSFHeight         ();
-}
-#endif
 
 //! Get the Window::_mfPort field.
 const MFUnrecChildViewportPtr *WindowBase::getMFPort(void) const
@@ -441,12 +429,6 @@ const SFBool *WindowBase::getSFResizePending(void) const
     return &_sfResizePending;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *WindowBase::getSFResizePending  (void)
-{
-    return this->editSFResizePending  ();
-}
-#endif
 
 SFUInt32 *WindowBase::editSFGlObjectEventCounter(void)
 {
@@ -460,12 +442,6 @@ const SFUInt32 *WindowBase::getSFGlObjectEventCounter(void) const
     return &_sfGlObjectEventCounter;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *WindowBase::getSFGlObjectEventCounter(void)
-{
-    return this->editSFGlObjectEventCounter();
-}
-#endif
 
 MFUInt32 *WindowBase::editMFGlObjectLastRefresh(void)
 {
@@ -479,12 +455,6 @@ const MFUInt32 *WindowBase::getMFGlObjectLastRefresh(void) const
     return &_mfGlObjectLastRefresh;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *WindowBase::getMFGlObjectLastRefresh(void)
-{
-    return this->editMFGlObjectLastRefresh();
-}
-#endif
 
 MFUInt32 *WindowBase::editMFGlObjectLastReinitialize(void)
 {
@@ -498,12 +468,6 @@ const MFUInt32 *WindowBase::getMFGlObjectLastReinitialize(void) const
     return &_mfGlObjectLastReinitialize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *WindowBase::getMFGlObjectLastReinitialize(void)
-{
-    return this->editMFGlObjectLastReinitialize();
-}
-#endif
 
 SFUInt32 *WindowBase::editSFDrawerId(void)
 {
@@ -517,12 +481,6 @@ const SFUInt32 *WindowBase::getSFDrawerId(void) const
     return &_sfDrawerId;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *WindowBase::getSFDrawerId       (void)
-{
-    return this->editSFDrawerId       ();
-}
-#endif
 
 
 

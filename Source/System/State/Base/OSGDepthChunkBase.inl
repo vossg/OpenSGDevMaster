@@ -85,22 +85,14 @@ bool &DepthChunkBase::editEnable(void)
 
 //! Get the value of the DepthChunk::_sfEnable field.
 inline
-const bool DepthChunkBase::getEnable(void) const
+      bool  DepthChunkBase::getEnable(void) const
 {
     return _sfEnable.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &DepthChunkBase::getEnable         (void)
-{
-    return this->editEnable         ();
-}
-#endif
-
 //! Set the value of the DepthChunk::_sfEnable field.
 inline
-void DepthChunkBase::setEnable(const bool &value)
+void DepthChunkBase::setEnable(const bool value)
 {
     editSField(EnableFieldMask);
 
@@ -118,18 +110,10 @@ GLenum &DepthChunkBase::editFunc(void)
 
 //! Get the value of the DepthChunk::_sfFunc field.
 inline
-const GLenum DepthChunkBase::getFunc(void) const
+const GLenum &DepthChunkBase::getFunc(void) const
 {
     return _sfFunc.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &DepthChunkBase::getFunc           (void)
-{
-    return this->editFunc           ();
-}
-#endif
 
 //! Set the value of the DepthChunk::_sfFunc field.
 inline
@@ -151,22 +135,14 @@ Real32 &DepthChunkBase::editNear(void)
 
 //! Get the value of the DepthChunk::_sfNear field.
 inline
-const Real32 DepthChunkBase::getNear(void) const
+      Real32  DepthChunkBase::getNear(void) const
 {
     return _sfNear.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &DepthChunkBase::getNear           (void)
-{
-    return this->editNear           ();
-}
-#endif
-
 //! Set the value of the DepthChunk::_sfNear field.
 inline
-void DepthChunkBase::setNear(const Real32 &value)
+void DepthChunkBase::setNear(const Real32 value)
 {
     editSField(NearFieldMask);
 
@@ -184,22 +160,14 @@ Real32 &DepthChunkBase::editFar(void)
 
 //! Get the value of the DepthChunk::_sfFar field.
 inline
-const Real32 DepthChunkBase::getFar(void) const
+      Real32  DepthChunkBase::getFar(void) const
 {
     return _sfFar.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &DepthChunkBase::getFar            (void)
-{
-    return this->editFar            ();
-}
-#endif
-
 //! Set the value of the DepthChunk::_sfFar field.
 inline
-void DepthChunkBase::setFar(const Real32 &value)
+void DepthChunkBase::setFar(const Real32 value)
 {
     editSField(FarFieldMask);
 
@@ -217,22 +185,14 @@ bool &DepthChunkBase::editReadOnly(void)
 
 //! Get the value of the DepthChunk::_sfReadOnly field.
 inline
-const bool DepthChunkBase::getReadOnly(void) const
+      bool  DepthChunkBase::getReadOnly(void) const
 {
     return _sfReadOnly.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &DepthChunkBase::getReadOnly       (void)
-{
-    return this->editReadOnly       ();
-}
-#endif
-
 //! Set the value of the DepthChunk::_sfReadOnly field.
 inline
-void DepthChunkBase::setReadOnly(const bool &value)
+void DepthChunkBase::setReadOnly(const bool value)
 {
     editSField(ReadOnlyFieldMask);
 

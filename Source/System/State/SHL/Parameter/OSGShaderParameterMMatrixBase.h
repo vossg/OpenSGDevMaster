@@ -126,19 +126,12 @@ class OSG_STATE_DLLMAPPING ShaderParameterMMatrixBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  MFMatrix            *getMFValue           (void);
-#endif
                   MFMatrix            *editMFValue          (void);
             const MFMatrix            *getMFValue           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getValue           (const UInt32 index);
-                  MFMatrix            &getValue          (void);
-#endif
                   Matrix              &editValue          (const UInt32 index);
-            const Matrix               getValue           (const UInt32 index) const;
+            const Matrix              &getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -85,22 +85,14 @@ bool &ImageComposerBase::editEnabled(void)
 
 //! Get the value of the ImageComposer::_sfEnabled field.
 inline
-const bool ImageComposerBase::getEnabled(void) const
+      bool  ImageComposerBase::getEnabled(void) const
 {
     return _sfEnabled.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ImageComposerBase::getEnabled        (void)
-{
-    return this->editEnabled        ();
-}
-#endif
-
 //! Set the value of the ImageComposer::_sfEnabled field.
 inline
-void ImageComposerBase::setEnabled(const bool &value)
+void ImageComposerBase::setEnabled(const bool value)
 {
     editSField(EnabledFieldMask);
 
@@ -118,22 +110,14 @@ bool &ImageComposerBase::editStatistics(void)
 
 //! Get the value of the ImageComposer::_sfStatistics field.
 inline
-const bool ImageComposerBase::getStatistics(void) const
+      bool  ImageComposerBase::getStatistics(void) const
 {
     return _sfStatistics.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ImageComposerBase::getStatistics     (void)
-{
-    return this->editStatistics     ();
-}
-#endif
-
 //! Set the value of the ImageComposer::_sfStatistics field.
 inline
-void ImageComposerBase::setStatistics(const bool &value)
+void ImageComposerBase::setStatistics(const bool value)
 {
     editSField(StatisticsFieldMask);
 

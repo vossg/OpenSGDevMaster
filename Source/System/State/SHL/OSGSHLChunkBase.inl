@@ -85,22 +85,14 @@ bool &SHLChunkBase::editCgFrontEnd(void)
 
 //! Get the value of the SHLChunk::_sfCgFrontEnd field.
 inline
-const bool SHLChunkBase::getCgFrontEnd(void) const
+      bool  SHLChunkBase::getCgFrontEnd(void) const
 {
     return _sfCgFrontEnd.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &SHLChunkBase::getCgFrontEnd     (void)
-{
-    return this->editCgFrontEnd     ();
-}
-#endif
-
 //! Set the value of the SHLChunk::_sfCgFrontEnd field.
 inline
-void SHLChunkBase::setCgFrontEnd(const bool &value)
+void SHLChunkBase::setCgFrontEnd(const bool value)
 {
     editSField(CgFrontEndFieldMask);
 
@@ -118,22 +110,14 @@ bool &SHLChunkBase::editPointSize(void)
 
 //! Get the value of the SHLChunk::_sfPointSize field.
 inline
-const bool SHLChunkBase::getPointSize(void) const
+      bool  SHLChunkBase::getPointSize(void) const
 {
     return _sfPointSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &SHLChunkBase::getPointSize      (void)
-{
-    return this->editPointSize      ();
-}
-#endif
-
 //! Set the value of the SHLChunk::_sfPointSize field.
 inline
-void SHLChunkBase::setPointSize(const bool &value)
+void SHLChunkBase::setPointSize(const bool value)
 {
     editSField(PointSizeFieldMask);
 
@@ -151,22 +135,14 @@ UInt32 &SHLChunkBase::editGLId(void)
 
 //! Get the value of the SHLChunk::_sfGLId field.
 inline
-const UInt32 SHLChunkBase::getGLId(void) const
+      UInt32  SHLChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &SHLChunkBase::getGLId           (void)
-{
-    return this->editGLId           ();
-}
-#endif
-
 //! Set the value of the SHLChunk::_sfGLId field.
 inline
-void SHLChunkBase::setGLId(const UInt32 &value)
+void SHLChunkBase::setGLId(const UInt32 value)
 {
     editSField(GLIdFieldMask);
 
@@ -184,22 +160,14 @@ bool &SHLChunkBase::editUnknownParameterWarning(void)
 
 //! Get the value of the SHLChunk::_sfUnknownParameterWarning field.
 inline
-const bool SHLChunkBase::getUnknownParameterWarning(void) const
+      bool  SHLChunkBase::getUnknownParameterWarning(void) const
 {
     return _sfUnknownParameterWarning.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &SHLChunkBase::getUnknownParameterWarning(void)
-{
-    return this->editUnknownParameterWarning();
-}
-#endif
-
 //! Set the value of the SHLChunk::_sfUnknownParameterWarning field.
 inline
-void SHLChunkBase::setUnknownParameterWarning(const bool &value)
+void SHLChunkBase::setUnknownParameterWarning(const bool value)
 {
     editSField(UnknownParameterWarningFieldMask);
 
@@ -208,7 +176,7 @@ void SHLChunkBase::setUnknownParameterWarning(const bool &value)
 
 //! Get the value of the \a index element the SHLChunk::_mfProgramParameterNames field.
 inline
-const GLenum SHLChunkBase::getProgramParameterNames(const UInt32 index) const
+const GLenum &SHLChunkBase::getProgramParameterNames(const UInt32 index) const
 {
     return _mfProgramParameterNames[index];
 }
@@ -221,25 +189,10 @@ GLenum &SHLChunkBase::editProgramParameterNames(const UInt32 index)
     return _mfProgramParameterNames[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &SHLChunkBase::getProgramParameterNames(const UInt32 index)
-{
-    return this->editProgramParameterNames(index);
-}
-
-inline
-MFGLenum            &SHLChunkBase::getProgramParameterNames(void)
-{
-    return this->editProgramParameterNames();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the SHLChunk::_mfProgramParameterValues field.
 inline
-const UInt32 SHLChunkBase::getProgramParameterValues(const UInt32 index) const
+      UInt32  SHLChunkBase::getProgramParameterValues(const UInt32 index) const
 {
     return _mfProgramParameterValues[index];
 }
@@ -251,21 +204,6 @@ UInt32 &SHLChunkBase::editProgramParameterValues(const UInt32 index)
 
     return _mfProgramParameterValues[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &SHLChunkBase::getProgramParameterValues(const UInt32 index)
-{
-    return this->editProgramParameterValues(index);
-}
-
-inline
-MFUInt32            &SHLChunkBase::getProgramParameterValues(void)
-{
-    return this->editProgramParameterValues();
-}
-
-#endif
 
 
 

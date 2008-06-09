@@ -134,50 +134,32 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFShort           (void);
-#endif
                   SFBool              *editSFShort          (void);
             const SFBool              *getSFShort           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFAlpha           (void);
-#endif
                   SFBool              *editSFAlpha          (void);
             const SFBool              *getSFAlpha           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFPcLibPath       (void);
-#endif
                   SFString            *editSFPcLibPath      (void);
             const SFString            *getSFPcLibPath       (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getShort           (void);
-#endif
                   bool                &editShort          (void);
-            const bool                 getShort           (void) const;
+                  bool                 getShort           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getAlpha           (void);
-#endif
                   bool                &editAlpha          (void);
-            const bool                 getAlpha           (void) const;
+                  bool                 getAlpha           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getPcLibPath       (void);
-#endif
                   std::string         &editPcLibPath      (void);
-            const std::string          getPcLibPath       (void) const;
+            const std::string         &getPcLibPath       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setShort          (const bool &value);
-            void setAlpha          (const bool &value);
+            void setShort          (const bool value);
+            void setAlpha          (const bool value);
             void setPcLibPath      (const std::string &value);
 
     /*! \}                                                                 */

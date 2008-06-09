@@ -85,22 +85,14 @@ Int32 &SimpleShadowMapEngineBase::editForceTextureUnit(void)
 
 //! Get the value of the SimpleShadowMapEngine::_sfForceTextureUnit field.
 inline
-const Int32 SimpleShadowMapEngineBase::getForceTextureUnit(void) const
+      Int32  SimpleShadowMapEngineBase::getForceTextureUnit(void) const
 {
     return _sfForceTextureUnit.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &SimpleShadowMapEngineBase::getForceTextureUnit(void)
-{
-    return this->editForceTextureUnit();
-}
-#endif
-
 //! Set the value of the SimpleShadowMapEngine::_sfForceTextureUnit field.
 inline
-void SimpleShadowMapEngineBase::setForceTextureUnit(const Int32 &value)
+void SimpleShadowMapEngineBase::setForceTextureUnit(const Int32 value)
 {
     editSField(ForceTextureUnitFieldMask);
 

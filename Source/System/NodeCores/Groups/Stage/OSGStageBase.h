@@ -134,20 +134,14 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
             const SFUnrecFrameBufferObjectPtr *getSFRenderTarget   (void) const;
                   SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFInheritedTarget (void);
-#endif
                   SFBool              *editSFInheritedTarget(void);
             const SFBool              *getSFInheritedTarget (void) const;
 
 
                   FrameBufferObject * getRenderTarget   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getInheritedTarget (void);
-#endif
                   bool                &editInheritedTarget(void);
-            const bool                 getInheritedTarget (void) const;
+                  bool                 getInheritedTarget (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -155,7 +149,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \{                                                                 */
 
             void setRenderTarget   (FrameBufferObject * const value);
-            void setInheritedTarget(const bool &value);
+            void setInheritedTarget(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

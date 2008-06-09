@@ -76,7 +76,7 @@ OSG::UInt16 StringAttributeMapBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the StringAttributeMap::_mfKeys field.
 inline
-const std::string StringAttributeMapBase::getKeys(const UInt32 index) const
+const std::string &StringAttributeMapBase::getKeys(const UInt32 index) const
 {
     return _mfKeys[index];
 }
@@ -89,25 +89,10 @@ std::string &StringAttributeMapBase::editKeys(const UInt32 index)
     return _mfKeys[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &StringAttributeMapBase::getKeys           (const UInt32 index)
-{
-    return this->editKeys           (index);
-}
-
-inline
-MFString            &StringAttributeMapBase::getKeys           (void)
-{
-    return this->editKeys           ();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the StringAttributeMap::_mfValues field.
 inline
-const std::string StringAttributeMapBase::getValues(const UInt32 index) const
+const std::string &StringAttributeMapBase::getValues(const UInt32 index) const
 {
     return _mfValues[index];
 }
@@ -119,21 +104,6 @@ std::string &StringAttributeMapBase::editValues(const UInt32 index)
 
     return _mfValues[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &StringAttributeMapBase::getValues         (const UInt32 index)
-{
-    return this->editValues         (index);
-}
-
-inline
-MFString            &StringAttributeMapBase::getValues         (void)
-{
-    return this->editValues         ();
-}
-
-#endif
 
 
 

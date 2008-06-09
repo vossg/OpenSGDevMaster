@@ -134,42 +134,24 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFProjectionMatrix (void);
-#endif
                   SFMatrix            *editSFProjectionMatrix(void);
             const SFMatrix            *getSFProjectionMatrix (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFModelviewMatrix (void);
-#endif
                   SFMatrix            *editSFModelviewMatrix(void);
             const SFMatrix            *getSFModelviewMatrix (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFUseBeacon       (void);
-#endif
                   SFBool              *editSFUseBeacon      (void);
             const SFBool              *getSFUseBeacon       (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getProjectionMatrix (void);
-#endif
                   Matrix              &editProjectionMatrix(void);
-            const Matrix               getProjectionMatrix (void) const;
+            const Matrix              &getProjectionMatrix (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getModelviewMatrix (void);
-#endif
                   Matrix              &editModelviewMatrix(void);
-            const Matrix               getModelviewMatrix (void) const;
+            const Matrix              &getModelviewMatrix (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getUseBeacon       (void);
-#endif
                   bool                &editUseBeacon      (void);
-            const bool                 getUseBeacon       (void) const;
+                  bool                 getUseBeacon       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -178,7 +160,7 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
 
             void setProjectionMatrix(const Matrix &value);
             void setModelviewMatrix(const Matrix &value);
-            void setUseBeacon      (const bool &value);
+            void setUseBeacon      (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

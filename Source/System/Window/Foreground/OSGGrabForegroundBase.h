@@ -132,20 +132,14 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
             const SFUnrecImagePtr     *getSFImage          (void) const;
                   SFUnrecImagePtr     *editSFImage          (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFAutoResize      (void);
-#endif
                   SFBool              *editSFAutoResize     (void);
             const SFBool              *getSFAutoResize      (void) const;
 
 
                   Image * getImage          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getAutoResize      (void);
-#endif
                   bool                &editAutoResize     (void);
-            const bool                 getAutoResize      (void) const;
+                  bool                 getAutoResize      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,7 +147,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \{                                                                 */
 
             void setImage          (Image * const value);
-            void setAutoResize     (const bool &value);
+            void setAutoResize     (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

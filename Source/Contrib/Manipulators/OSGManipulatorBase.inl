@@ -117,18 +117,10 @@ Pnt2f &ManipulatorBase::editLastMousePos(void)
 
 //! Get the value of the Manipulator::_sfLastMousePos field.
 inline
-const Pnt2f ManipulatorBase::getLastMousePos(void) const
+const Pnt2f &ManipulatorBase::getLastMousePos(void) const
 {
     return _sfLastMousePos.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Pnt2f               &ManipulatorBase::getLastMousePos   (void)
-{
-    return this->editLastMousePos   ();
-}
-#endif
 
 //! Set the value of the Manipulator::_sfLastMousePos field.
 inline
@@ -166,22 +158,14 @@ bool &ManipulatorBase::editActive(void)
 
 //! Get the value of the Manipulator::_sfActive field.
 inline
-const bool ManipulatorBase::getActive(void) const
+      bool  ManipulatorBase::getActive(void) const
 {
     return _sfActive.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ManipulatorBase::getActive         (void)
-{
-    return this->editActive         ();
-}
-#endif
-
 //! Set the value of the Manipulator::_sfActive field.
 inline
-void ManipulatorBase::setActive(const bool &value)
+void ManipulatorBase::setActive(const bool value)
 {
     editSField(ActiveFieldMask);
 
@@ -199,18 +183,10 @@ Vec3f &ManipulatorBase::editLength(void)
 
 //! Get the value of the Manipulator::_sfLength field.
 inline
-const Vec3f ManipulatorBase::getLength(void) const
+const Vec3f &ManipulatorBase::getLength(void) const
 {
     return _sfLength.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec3f               &ManipulatorBase::getLength         (void)
-{
-    return this->editLength         ();
-}
-#endif
 
 //! Set the value of the Manipulator::_sfLength field.
 inline

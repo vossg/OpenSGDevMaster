@@ -85,18 +85,10 @@ std::string &TestMultiPartitionStageBase::editMessage(void)
 
 //! Get the value of the TestMultiPartitionStage::_sfMessage field.
 inline
-const std::string TestMultiPartitionStageBase::getMessage(void) const
+const std::string &TestMultiPartitionStageBase::getMessage(void) const
 {
     return _sfMessage.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &TestMultiPartitionStageBase::getMessage        (void)
-{
-    return this->editMessage        ();
-}
-#endif
 
 //! Set the value of the TestMultiPartitionStage::_sfMessage field.
 inline
@@ -118,22 +110,14 @@ Int32 &TestMultiPartitionStageBase::editNumPartitions(void)
 
 //! Get the value of the TestMultiPartitionStage::_sfNumPartitions field.
 inline
-const Int32 TestMultiPartitionStageBase::getNumPartitions(void) const
+      Int32  TestMultiPartitionStageBase::getNumPartitions(void) const
 {
     return _sfNumPartitions.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &TestMultiPartitionStageBase::getNumPartitions  (void)
-{
-    return this->editNumPartitions  ();
-}
-#endif
-
 //! Set the value of the TestMultiPartitionStage::_sfNumPartitions field.
 inline
-void TestMultiPartitionStageBase::setNumPartitions(const Int32 &value)
+void TestMultiPartitionStageBase::setNumPartitions(const Int32 value)
 {
     editSField(NumPartitionsFieldMask);
 
@@ -151,22 +135,14 @@ bool &TestMultiPartitionStageBase::editUseGroup(void)
 
 //! Get the value of the TestMultiPartitionStage::_sfUseGroup field.
 inline
-const bool TestMultiPartitionStageBase::getUseGroup(void) const
+      bool  TestMultiPartitionStageBase::getUseGroup(void) const
 {
     return _sfUseGroup.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &TestMultiPartitionStageBase::getUseGroup       (void)
-{
-    return this->editUseGroup       ();
-}
-#endif
-
 //! Set the value of the TestMultiPartitionStage::_sfUseGroup field.
 inline
-void TestMultiPartitionStageBase::setUseGroup(const bool &value)
+void TestMultiPartitionStageBase::setUseGroup(const bool value)
 {
     editSField(UseGroupFieldMask);
 
@@ -175,7 +151,7 @@ void TestMultiPartitionStageBase::setUseGroup(const bool &value)
 
 //! Get the value of the \a index element the TestMultiPartitionStage::_mfOrder field.
 inline
-const Int32 TestMultiPartitionStageBase::getOrder(const UInt32 index) const
+      Int32  TestMultiPartitionStageBase::getOrder(const UInt32 index) const
 {
     return _mfOrder[index];
 }
@@ -187,21 +163,6 @@ Int32 &TestMultiPartitionStageBase::editOrder(const UInt32 index)
 
     return _mfOrder[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &TestMultiPartitionStageBase::getOrder          (const UInt32 index)
-{
-    return this->editOrder          (index);
-}
-
-inline
-MFInt32             &TestMultiPartitionStageBase::getOrder          (void)
-{
-    return this->editOrder          ();
-}
-
-#endif
 
 
 

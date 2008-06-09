@@ -251,12 +251,6 @@ const SFReal32 *CameraBase::getSFNear(void) const
     return &_sfNear;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *CameraBase::getSFNear           (void)
-{
-    return this->editSFNear           ();
-}
-#endif
 
 SFReal32 *CameraBase::editSFFar(void)
 {
@@ -270,12 +264,6 @@ const SFReal32 *CameraBase::getSFFar(void) const
     return &_sfFar;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *CameraBase::getSFFar            (void)
-{
-    return this->editSFFar            ();
-}
-#endif
 
 
 
@@ -503,20 +491,14 @@ Real32 &CameraBase::editNear(void)
 }
 
 //! Get the value of the Camera::_sfNear field.
-const Real32 CameraBase::getNear(void) const
+      Real32  CameraBase::getNear(void) const
 {
     return _sfNear.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-Real32              &CameraBase::getNear           (void)
-{
-    return this->editNear           ();
-}
-#endif
 
 //! Set the value of the Camera::_sfNear field.
-void CameraBase::setNear(const Real32 &value)
+void CameraBase::setNear(const Real32 value)
 {
     editSField(NearFieldMask);
 
@@ -532,20 +514,14 @@ Real32 &CameraBase::editFar(void)
 }
 
 //! Get the value of the Camera::_sfFar field.
-const Real32 CameraBase::getFar(void) const
+      Real32  CameraBase::getFar(void) const
 {
     return _sfFar.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-Real32              &CameraBase::getFar            (void)
-{
-    return this->editFar            ();
-}
-#endif
 
 //! Set the value of the Camera::_sfFar field.
-void CameraBase::setFar(const Real32 &value)
+void CameraBase::setFar(const Real32 value)
 {
     editSField(FarFieldMask);
 

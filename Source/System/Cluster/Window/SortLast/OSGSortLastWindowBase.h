@@ -136,40 +136,27 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
             const MFUnrecNodePtr      *getMFGroupNodes     (void) const;
                   MFUnrecNodePtr      *editMFGroupNodes     (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt32            *getMFGroupLengths    (void);
-#endif
                   MFUInt32            *editMFGroupLengths   (void);
             const MFUInt32            *getMFGroupLengths    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFGroupsChanged   (void);
-#endif
                   SFBool              *editSFGroupsChanged  (void);
             const SFBool              *getSFGroupsChanged   (void) const;
 
 
                   Node * getGroupNodes     (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGroupLengths    (const UInt32 index);
-                  MFUInt32            &getGroupLengths   (void);
-#endif
                   UInt32              &editGroupLengths   (const UInt32 index);
-            const UInt32               getGroupLengths    (const UInt32 index) const;
+                  UInt32               getGroupLengths    (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getGroupsChanged   (void);
-#endif
                   bool                &editGroupsChanged  (void);
-            const bool                 getGroupsChanged   (void) const;
+                  bool                 getGroupsChanged   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGroupsChanged  (const bool &value);
+            void setGroupsChanged  (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

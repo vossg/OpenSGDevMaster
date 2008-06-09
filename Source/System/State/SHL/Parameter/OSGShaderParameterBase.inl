@@ -85,18 +85,10 @@ std::string &ShaderParameterBase::editName(void)
 
 //! Get the value of the ShaderParameter::_sfName field.
 inline
-const std::string ShaderParameterBase::getName(void) const
+const std::string &ShaderParameterBase::getName(void) const
 {
     return _sfName.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ShaderParameterBase::getName           (void)
-{
-    return this->editName           ();
-}
-#endif
 
 //! Set the value of the ShaderParameter::_sfName field.
 inline

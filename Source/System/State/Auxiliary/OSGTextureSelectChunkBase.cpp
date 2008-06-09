@@ -217,12 +217,6 @@ const SFUInt32 *TextureSelectChunkBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *TextureSelectChunkBase::getSFChoice         (void)
-{
-    return this->editSFChoice         ();
-}
-#endif
 
 //! Get the TextureSelectChunk::_mfTextures field.
 const MFUnrecTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) const

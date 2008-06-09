@@ -275,12 +275,6 @@ const SFString *SortFirstWindowBase::getSFCompression(void) const
     return &_sfCompression;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *SortFirstWindowBase::getSFCompression    (void)
-{
-    return this->editSFCompression    ();
-}
-#endif
 
 SFUInt32 *SortFirstWindowBase::editSFSubtileSize(void)
 {
@@ -294,12 +288,6 @@ const SFUInt32 *SortFirstWindowBase::getSFSubtileSize(void) const
     return &_sfSubtileSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *SortFirstWindowBase::getSFSubtileSize    (void)
-{
-    return this->editSFSubtileSize    ();
-}
-#endif
 
 SFBool *SortFirstWindowBase::editSFCompose(void)
 {
@@ -313,12 +301,6 @@ const SFBool *SortFirstWindowBase::getSFCompose(void) const
     return &_sfCompose;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SortFirstWindowBase::getSFCompose        (void)
-{
-    return this->editSFCompose        ();
-}
-#endif
 
 MFUInt32 *SortFirstWindowBase::editMFRegion(void)
 {
@@ -332,12 +314,6 @@ const MFUInt32 *SortFirstWindowBase::getMFRegion(void) const
     return &_mfRegion;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFUInt32            *SortFirstWindowBase::getMFRegion         (void)
-{
-    return this->editMFRegion         ();
-}
-#endif
 
 SFBool *SortFirstWindowBase::editSFUseFaceDistribution(void)
 {
@@ -351,12 +327,6 @@ const SFBool *SortFirstWindowBase::getSFUseFaceDistribution(void) const
     return &_sfUseFaceDistribution;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *SortFirstWindowBase::getSFUseFaceDistribution(void)
-{
-    return this->editSFUseFaceDistribution();
-}
-#endif
 
 
 

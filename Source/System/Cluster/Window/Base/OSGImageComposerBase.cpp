@@ -201,12 +201,6 @@ const SFBool *ImageComposerBase::getSFEnabled(void) const
     return &_sfEnabled;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ImageComposerBase::getSFEnabled        (void)
-{
-    return this->editSFEnabled        ();
-}
-#endif
 
 SFBool *ImageComposerBase::editSFStatistics(void)
 {
@@ -220,12 +214,6 @@ const SFBool *ImageComposerBase::getSFStatistics(void) const
     return &_sfStatistics;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ImageComposerBase::getSFStatistics     (void)
-{
-    return this->editSFStatistics     ();
-}
-#endif
 
 
 

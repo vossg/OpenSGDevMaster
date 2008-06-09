@@ -249,12 +249,6 @@ const SFBool *PipelineComposerBase::getSFShort(void) const
     return &_sfShort;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PipelineComposerBase::getSFShort          (void)
-{
-    return this->editSFShort          ();
-}
-#endif
 
 SFBool *PipelineComposerBase::editSFAlpha(void)
 {
@@ -268,12 +262,6 @@ const SFBool *PipelineComposerBase::getSFAlpha(void) const
     return &_sfAlpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PipelineComposerBase::getSFAlpha          (void)
-{
-    return this->editSFAlpha          ();
-}
-#endif
 
 SFUInt32 *PipelineComposerBase::editSFTileSize(void)
 {
@@ -287,12 +275,6 @@ const SFUInt32 *PipelineComposerBase::getSFTileSize(void) const
     return &_sfTileSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *PipelineComposerBase::getSFTileSize       (void)
-{
-    return this->editSFTileSize       ();
-}
-#endif
 
 SFBool *PipelineComposerBase::editSFPipelined(void)
 {
@@ -306,12 +288,6 @@ const SFBool *PipelineComposerBase::getSFPipelined(void) const
     return &_sfPipelined;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PipelineComposerBase::getSFPipelined      (void)
-{
-    return this->editSFPipelined      ();
-}
-#endif
 
 
 

@@ -174,12 +174,6 @@ const SFCGLContextObj *CoreGLWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFCGLContextObj     *CoreGLWindowBase::getSFContext        (void)
-{
-    return this->editSFContext        ();
-}
-#endif
 
 
 

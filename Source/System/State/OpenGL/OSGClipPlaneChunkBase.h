@@ -134,32 +134,20 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec4f             *getSFEquation        (void);
-#endif
                   SFVec4f             *editSFEquation       (void);
             const SFVec4f             *getSFEquation        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFEnable          (void);
-#endif
                   SFBool              *editSFEnable         (void);
             const SFBool              *getSFEnable          (void) const;
             const SFWeakNodePtr       *getSFBeacon         (void) const;
                   SFWeakNodePtr       *editSFBeacon         (void);
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec4f               &getEquation        (void);
-#endif
                   Vec4f               &editEquation       (void);
-            const Vec4f                getEquation        (void) const;
+            const Vec4f               &getEquation        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getEnable          (void);
-#endif
                   bool                &editEnable         (void);
-            const bool                 getEnable          (void) const;
+                  bool                 getEnable          (void) const;
 
                   Node * getBeacon         (void) const;
 
@@ -169,7 +157,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \{                                                                 */
 
             void setEquation       (const Vec4f &value);
-            void setEnable         (const bool &value);
+            void setEnable         (const bool value);
             void setBeacon         (Node * const value);
 
     /*! \}                                                                 */

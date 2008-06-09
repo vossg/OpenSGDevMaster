@@ -85,18 +85,10 @@ std::string &SortFirstWindowBase::editCompression(void)
 
 //! Get the value of the SortFirstWindow::_sfCompression field.
 inline
-const std::string SortFirstWindowBase::getCompression(void) const
+const std::string &SortFirstWindowBase::getCompression(void) const
 {
     return _sfCompression.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &SortFirstWindowBase::getCompression    (void)
-{
-    return this->editCompression    ();
-}
-#endif
 
 //! Set the value of the SortFirstWindow::_sfCompression field.
 inline
@@ -118,22 +110,14 @@ UInt32 &SortFirstWindowBase::editSubtileSize(void)
 
 //! Get the value of the SortFirstWindow::_sfSubtileSize field.
 inline
-const UInt32 SortFirstWindowBase::getSubtileSize(void) const
+      UInt32  SortFirstWindowBase::getSubtileSize(void) const
 {
     return _sfSubtileSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &SortFirstWindowBase::getSubtileSize    (void)
-{
-    return this->editSubtileSize    ();
-}
-#endif
-
 //! Set the value of the SortFirstWindow::_sfSubtileSize field.
 inline
-void SortFirstWindowBase::setSubtileSize(const UInt32 &value)
+void SortFirstWindowBase::setSubtileSize(const UInt32 value)
 {
     editSField(SubtileSizeFieldMask);
 
@@ -151,22 +135,14 @@ bool &SortFirstWindowBase::editCompose(void)
 
 //! Get the value of the SortFirstWindow::_sfCompose field.
 inline
-const bool SortFirstWindowBase::getCompose(void) const
+      bool  SortFirstWindowBase::getCompose(void) const
 {
     return _sfCompose.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &SortFirstWindowBase::getCompose        (void)
-{
-    return this->editCompose        ();
-}
-#endif
-
 //! Set the value of the SortFirstWindow::_sfCompose field.
 inline
-void SortFirstWindowBase::setCompose(const bool &value)
+void SortFirstWindowBase::setCompose(const bool value)
 {
     editSField(ComposeFieldMask);
 
@@ -184,22 +160,14 @@ bool &SortFirstWindowBase::editUseFaceDistribution(void)
 
 //! Get the value of the SortFirstWindow::_sfUseFaceDistribution field.
 inline
-const bool SortFirstWindowBase::getUseFaceDistribution(void) const
+      bool  SortFirstWindowBase::getUseFaceDistribution(void) const
 {
     return _sfUseFaceDistribution.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &SortFirstWindowBase::getUseFaceDistribution(void)
-{
-    return this->editUseFaceDistribution();
-}
-#endif
-
 //! Set the value of the SortFirstWindow::_sfUseFaceDistribution field.
 inline
-void SortFirstWindowBase::setUseFaceDistribution(const bool &value)
+void SortFirstWindowBase::setUseFaceDistribution(const bool value)
 {
     editSField(UseFaceDistributionFieldMask);
 
@@ -208,7 +176,7 @@ void SortFirstWindowBase::setUseFaceDistribution(const bool &value)
 
 //! Get the value of the \a index element the SortFirstWindow::_mfRegion field.
 inline
-const UInt32 SortFirstWindowBase::getRegion(const UInt32 index) const
+      UInt32  SortFirstWindowBase::getRegion(const UInt32 index) const
 {
     return _mfRegion[index];
 }
@@ -220,21 +188,6 @@ UInt32 &SortFirstWindowBase::editRegion(const UInt32 index)
 
     return _mfRegion[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &SortFirstWindowBase::getRegion         (const UInt32 index)
-{
-    return this->editRegion         (index);
-}
-
-inline
-MFUInt32            &SortFirstWindowBase::getRegion         (void)
-{
-    return this->editRegion         ();
-}
-
-#endif
 
 
 

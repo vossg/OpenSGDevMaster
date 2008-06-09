@@ -224,12 +224,6 @@ const SFString *ShaderChunkBase::getSFVertexProgram(void) const
     return &_sfVertexProgram;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ShaderChunkBase::getSFVertexProgram  (void)
-{
-    return this->editSFVertexProgram  ();
-}
-#endif
 
 SFString *ShaderChunkBase::editSFFragmentProgram(void)
 {
@@ -243,12 +237,6 @@ const SFString *ShaderChunkBase::getSFFragmentProgram(void) const
     return &_sfFragmentProgram;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ShaderChunkBase::getSFFragmentProgram(void)
-{
-    return this->editSFFragmentProgram();
-}
-#endif
 
 SFString *ShaderChunkBase::editSFGeometryProgram(void)
 {
@@ -262,12 +250,6 @@ const SFString *ShaderChunkBase::getSFGeometryProgram(void) const
     return &_sfGeometryProgram;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ShaderChunkBase::getSFGeometryProgram(void)
-{
-    return this->editSFGeometryProgram();
-}
-#endif
 
 
 

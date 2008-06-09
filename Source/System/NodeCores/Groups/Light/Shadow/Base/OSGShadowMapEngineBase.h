@@ -150,68 +150,38 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
             const SFUnrecFrameBufferObjectPtr *getSFRenderTarget   (void) const;
                   SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFWidth           (void);
-#endif
                   SFInt32             *editSFWidth          (void);
             const SFInt32             *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFHeight          (void);
-#endif
                   SFInt32             *editSFHeight         (void);
             const SFInt32             *getSFHeight          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFColor4f           *getSFShadowColor     (void);
-#endif
                   SFColor4f           *editSFShadowColor    (void);
             const SFColor4f           *getSFShadowColor     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFOffsetBias      (void);
-#endif
                   SFReal32            *editSFOffsetBias     (void);
             const SFReal32            *getSFOffsetBias      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFOffsetFactor    (void);
-#endif
                   SFReal32            *editSFOffsetFactor   (void);
             const SFReal32            *getSFOffsetFactor    (void) const;
 
 
                   FrameBufferObject * getRenderTarget   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getWidth           (void);
-#endif
                   Int32               &editWidth          (void);
-            const Int32                getWidth           (void) const;
+                  Int32                getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getHeight          (void);
-#endif
                   Int32               &editHeight         (void);
-            const Int32                getHeight          (void) const;
+                  Int32                getHeight          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Color4f             &getShadowColor     (void);
-#endif
                   Color4f             &editShadowColor    (void);
-            const Color4f              getShadowColor     (void) const;
+            const Color4f             &getShadowColor     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getOffsetBias      (void);
-#endif
                   Real32              &editOffsetBias     (void);
-            const Real32               getOffsetBias      (void) const;
+                  Real32               getOffsetBias      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getOffsetFactor    (void);
-#endif
                   Real32              &editOffsetFactor   (void);
-            const Real32               getOffsetFactor    (void) const;
+                  Real32               getOffsetFactor    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -219,11 +189,11 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \{                                                                 */
 
             void setRenderTarget   (FrameBufferObject * const value);
-            void setWidth          (const Int32 &value);
-            void setHeight         (const Int32 &value);
+            void setWidth          (const Int32 value);
+            void setHeight         (const Int32 value);
             void setShadowColor    (const Color4f &value);
-            void setOffsetBias     (const Real32 &value);
-            void setOffsetFactor   (const Real32 &value);
+            void setOffsetBias     (const Real32 value);
+            void setOffsetFactor   (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

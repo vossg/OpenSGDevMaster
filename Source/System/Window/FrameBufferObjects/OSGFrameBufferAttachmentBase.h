@@ -198,18 +198,18 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
 
 
                   UInt16              &editWidth          (void);
-            const UInt16               getWidth           (void) const;
+                  UInt16               getWidth           (void) const;
 
                   UInt16              &editHeight         (void);
-            const UInt16               getHeight          (void) const;
+                  UInt16               getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setWidth          (const UInt16 &value);
-            void setHeight         (const UInt16 &value);
+            void setWidth          (const UInt16 value);
+            void setHeight         (const UInt16 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

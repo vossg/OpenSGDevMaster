@@ -174,12 +174,6 @@ const MFMatrix *ShaderParameterMMatrixBase::getMFValue(void) const
     return &_mfValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFMatrix            *ShaderParameterMMatrixBase::getMFValue          (void)
-{
-    return this->editMFValue          ();
-}
-#endif
 
 
 

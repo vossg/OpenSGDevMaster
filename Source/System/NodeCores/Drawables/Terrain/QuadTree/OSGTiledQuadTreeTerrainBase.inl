@@ -85,22 +85,14 @@ UInt32 &TiledQuadTreeTerrainBase::editSizeX(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfSizeX field.
 inline
-const UInt32 TiledQuadTreeTerrainBase::getSizeX(void) const
+      UInt32  TiledQuadTreeTerrainBase::getSizeX(void) const
 {
     return _sfSizeX.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &TiledQuadTreeTerrainBase::getSizeX          (void)
-{
-    return this->editSizeX          ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfSizeX field.
 inline
-void TiledQuadTreeTerrainBase::setSizeX(const UInt32 &value)
+void TiledQuadTreeTerrainBase::setSizeX(const UInt32 value)
 {
     editSField(SizeXFieldMask);
 
@@ -118,22 +110,14 @@ UInt32 &TiledQuadTreeTerrainBase::editSizeY(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfSizeY field.
 inline
-const UInt32 TiledQuadTreeTerrainBase::getSizeY(void) const
+      UInt32  TiledQuadTreeTerrainBase::getSizeY(void) const
 {
     return _sfSizeY.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &TiledQuadTreeTerrainBase::getSizeY          (void)
-{
-    return this->editSizeY          ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfSizeY field.
 inline
-void TiledQuadTreeTerrainBase::setSizeY(const UInt32 &value)
+void TiledQuadTreeTerrainBase::setSizeY(const UInt32 value)
 {
     editSField(SizeYFieldMask);
 
@@ -151,22 +135,14 @@ Real32 &TiledQuadTreeTerrainBase::editHeightScale(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfHeightScale field.
 inline
-const Real32 TiledQuadTreeTerrainBase::getHeightScale(void) const
+      Real32  TiledQuadTreeTerrainBase::getHeightScale(void) const
 {
     return _sfHeightScale.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &TiledQuadTreeTerrainBase::getHeightScale    (void)
-{
-    return this->editHeightScale    ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfHeightScale field.
 inline
-void TiledQuadTreeTerrainBase::setHeightScale(const Real32 &value)
+void TiledQuadTreeTerrainBase::setHeightScale(const Real32 value)
 {
     editSField(HeightScaleFieldMask);
 
@@ -184,22 +160,14 @@ Real32 &TiledQuadTreeTerrainBase::editVertexSpacing(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfVertexSpacing field.
 inline
-const Real32 TiledQuadTreeTerrainBase::getVertexSpacing(void) const
+      Real32  TiledQuadTreeTerrainBase::getVertexSpacing(void) const
 {
     return _sfVertexSpacing.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &TiledQuadTreeTerrainBase::getVertexSpacing  (void)
-{
-    return this->editVertexSpacing  ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfVertexSpacing field.
 inline
-void TiledQuadTreeTerrainBase::setVertexSpacing(const Real32 &value)
+void TiledQuadTreeTerrainBase::setVertexSpacing(const Real32 value)
 {
     editSField(VertexSpacingFieldMask);
 
@@ -217,22 +185,14 @@ bool &TiledQuadTreeTerrainBase::editGeoMorphing(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfGeoMorphing field.
 inline
-const bool TiledQuadTreeTerrainBase::getGeoMorphing(void) const
+      bool  TiledQuadTreeTerrainBase::getGeoMorphing(void) const
 {
     return _sfGeoMorphing.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &TiledQuadTreeTerrainBase::getGeoMorphing    (void)
-{
-    return this->editGeoMorphing    ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfGeoMorphing field.
 inline
-void TiledQuadTreeTerrainBase::setGeoMorphing(const bool &value)
+void TiledQuadTreeTerrainBase::setGeoMorphing(const bool value)
 {
     editSField(GeoMorphingFieldMask);
 
@@ -250,22 +210,14 @@ Real32 &TiledQuadTreeTerrainBase::editDetail(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfDetail field.
 inline
-const Real32 TiledQuadTreeTerrainBase::getDetail(void) const
+      Real32  TiledQuadTreeTerrainBase::getDetail(void) const
 {
     return _sfDetail.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &TiledQuadTreeTerrainBase::getDetail         (void)
-{
-    return this->editDetail         ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfDetail field.
 inline
-void TiledQuadTreeTerrainBase::setDetail(const Real32 &value)
+void TiledQuadTreeTerrainBase::setDetail(const Real32 value)
 {
     editSField(DetailFieldMask);
 
@@ -283,22 +235,14 @@ Int32 &TiledQuadTreeTerrainBase::editCurrentX(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfCurrentX field.
 inline
-const Int32 TiledQuadTreeTerrainBase::getCurrentX(void) const
+      Int32  TiledQuadTreeTerrainBase::getCurrentX(void) const
 {
     return _sfCurrentX.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &TiledQuadTreeTerrainBase::getCurrentX       (void)
-{
-    return this->editCurrentX       ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfCurrentX field.
 inline
-void TiledQuadTreeTerrainBase::setCurrentX(const Int32 &value)
+void TiledQuadTreeTerrainBase::setCurrentX(const Int32 value)
 {
     editSField(CurrentXFieldMask);
 
@@ -316,22 +260,14 @@ Int32 &TiledQuadTreeTerrainBase::editCurrentY(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfCurrentY field.
 inline
-const Int32 TiledQuadTreeTerrainBase::getCurrentY(void) const
+      Int32  TiledQuadTreeTerrainBase::getCurrentY(void) const
 {
     return _sfCurrentY.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &TiledQuadTreeTerrainBase::getCurrentY       (void)
-{
-    return this->editCurrentY       ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfCurrentY field.
 inline
-void TiledQuadTreeTerrainBase::setCurrentY(const Int32 &value)
+void TiledQuadTreeTerrainBase::setCurrentY(const Int32 value)
 {
     editSField(CurrentYFieldMask);
 
@@ -349,22 +285,14 @@ Int32 &TiledQuadTreeTerrainBase::editSizeROI(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfSizeROI field.
 inline
-const Int32 TiledQuadTreeTerrainBase::getSizeROI(void) const
+      Int32  TiledQuadTreeTerrainBase::getSizeROI(void) const
 {
     return _sfSizeROI.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &TiledQuadTreeTerrainBase::getSizeROI        (void)
-{
-    return this->editSizeROI        ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfSizeROI field.
 inline
-void TiledQuadTreeTerrainBase::setSizeROI(const Int32 &value)
+void TiledQuadTreeTerrainBase::setSizeROI(const Int32 value)
 {
     editSField(SizeROIFieldMask);
 
@@ -382,22 +310,14 @@ bool &TiledQuadTreeTerrainBase::editUpdate(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfUpdate field.
 inline
-const bool TiledQuadTreeTerrainBase::getUpdate(void) const
+      bool  TiledQuadTreeTerrainBase::getUpdate(void) const
 {
     return _sfUpdate.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &TiledQuadTreeTerrainBase::getUpdate         (void)
-{
-    return this->editUpdate         ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfUpdate field.
 inline
-void TiledQuadTreeTerrainBase::setUpdate(const bool &value)
+void TiledQuadTreeTerrainBase::setUpdate(const bool value)
 {
     editSField(UpdateFieldMask);
 
@@ -415,22 +335,14 @@ bool &TiledQuadTreeTerrainBase::editUpdateTerrain(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfUpdateTerrain field.
 inline
-const bool TiledQuadTreeTerrainBase::getUpdateTerrain(void) const
+      bool  TiledQuadTreeTerrainBase::getUpdateTerrain(void) const
 {
     return _sfUpdateTerrain.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &TiledQuadTreeTerrainBase::getUpdateTerrain  (void)
-{
-    return this->editUpdateTerrain  ();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfUpdateTerrain field.
 inline
-void TiledQuadTreeTerrainBase::setUpdateTerrain(const bool &value)
+void TiledQuadTreeTerrainBase::setUpdateTerrain(const bool value)
 {
     editSField(UpdateTerrainFieldMask);
 
@@ -448,22 +360,14 @@ bool &TiledQuadTreeTerrainBase::editPerPixelLighting(void)
 
 //! Get the value of the TiledQuadTreeTerrain::_sfPerPixelLighting field.
 inline
-const bool TiledQuadTreeTerrainBase::getPerPixelLighting(void) const
+      bool  TiledQuadTreeTerrainBase::getPerPixelLighting(void) const
 {
     return _sfPerPixelLighting.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &TiledQuadTreeTerrainBase::getPerPixelLighting(void)
-{
-    return this->editPerPixelLighting();
-}
-#endif
-
 //! Set the value of the TiledQuadTreeTerrain::_sfPerPixelLighting field.
 inline
-void TiledQuadTreeTerrainBase::setPerPixelLighting(const bool &value)
+void TiledQuadTreeTerrainBase::setPerPixelLighting(const bool value)
 {
     editSField(PerPixelLightingFieldMask);
 

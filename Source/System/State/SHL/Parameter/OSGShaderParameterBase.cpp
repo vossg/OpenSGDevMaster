@@ -206,12 +206,6 @@ const SFString *ShaderParameterBase::getSFName(void) const
     return &_sfName;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ShaderParameterBase::getSFName           (void)
-{
-    return this->editSFName           ();
-}
-#endif
 
 
 

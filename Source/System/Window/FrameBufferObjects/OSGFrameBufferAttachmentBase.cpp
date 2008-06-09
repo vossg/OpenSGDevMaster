@@ -197,12 +197,6 @@ const SFUInt16 *FrameBufferAttachmentBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *FrameBufferAttachmentBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFUInt16 *FrameBufferAttachmentBase::editSFHeight(void)
 {
@@ -216,12 +210,6 @@ const SFUInt16 *FrameBufferAttachmentBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *FrameBufferAttachmentBase::getSFHeight         (void)
-{
-    return this->editSFHeight         ();
-}
-#endif
 
 
 

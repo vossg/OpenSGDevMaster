@@ -506,12 +506,6 @@ const MFString *ClusterWindowBase::getMFServers(void) const
     return &_mfServers;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFString            *ClusterWindowBase::getMFServers        (void)
-{
-    return this->editMFServers        ();
-}
-#endif
 
 SFString *ClusterWindowBase::editSFConnectionType(void)
 {
@@ -525,12 +519,6 @@ const SFString *ClusterWindowBase::getSFConnectionType(void) const
     return &_sfConnectionType;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ClusterWindowBase::getSFConnectionType (void)
-{
-    return this->editSFConnectionType ();
-}
-#endif
 
 SFString *ClusterWindowBase::editSFConnectionInterface(void)
 {
@@ -544,12 +532,6 @@ const SFString *ClusterWindowBase::getSFConnectionInterface(void) const
     return &_sfConnectionInterface;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ClusterWindowBase::getSFConnectionInterface(void)
-{
-    return this->editSFConnectionInterface();
-}
-#endif
 
 SFString *ClusterWindowBase::editSFConnectionDestination(void)
 {
@@ -563,12 +545,6 @@ const SFString *ClusterWindowBase::getSFConnectionDestination(void) const
     return &_sfConnectionDestination;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ClusterWindowBase::getSFConnectionDestination(void)
-{
-    return this->editSFConnectionDestination();
-}
-#endif
 
 SFString *ClusterWindowBase::editSFConnectionParams(void)
 {
@@ -582,12 +558,6 @@ const SFString *ClusterWindowBase::getSFConnectionParams(void) const
     return &_sfConnectionParams;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ClusterWindowBase::getSFConnectionParams(void)
-{
-    return this->editSFConnectionParams();
-}
-#endif
 
 SFUInt32 *ClusterWindowBase::editSFServicePort(void)
 {
@@ -601,12 +571,6 @@ const SFUInt32 *ClusterWindowBase::getSFServicePort(void) const
     return &_sfServicePort;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ClusterWindowBase::getSFServicePort    (void)
-{
-    return this->editSFServicePort    ();
-}
-#endif
 
 SFString *ClusterWindowBase::editSFServiceAddress(void)
 {
@@ -620,12 +584,6 @@ const SFString *ClusterWindowBase::getSFServiceAddress(void) const
     return &_sfServiceAddress;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ClusterWindowBase::getSFServiceAddress (void)
-{
-    return this->editSFServiceAddress ();
-}
-#endif
 
 SFString *ClusterWindowBase::editSFServiceInterface(void)
 {
@@ -639,12 +597,6 @@ const SFString *ClusterWindowBase::getSFServiceInterface(void) const
     return &_sfServiceInterface;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ClusterWindowBase::getSFServiceInterface(void)
-{
-    return this->editSFServiceInterface();
-}
-#endif
 
 //! Get the ClusterWindow::_sfClientWindow field.
 const SFUnrecWindowPtr *ClusterWindowBase::getSFClientWindow(void) const
@@ -671,12 +623,6 @@ const SFUInt32 *ClusterWindowBase::getSFInterleave(void) const
     return &_sfInterleave;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ClusterWindowBase::getSFInterleave     (void)
-{
-    return this->editSFInterleave     ();
-}
-#endif
 
 SFUInt32 *ClusterWindowBase::editSFFrameCount(void)
 {
@@ -690,12 +636,6 @@ const SFUInt32 *ClusterWindowBase::getSFFrameCount(void) const
     return &_sfFrameCount;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ClusterWindowBase::getSFFrameCount     (void)
-{
-    return this->editSFFrameCount     ();
-}
-#endif
 
 //! Get the ClusterWindow::_sfComposer field.
 const SFUnrecImageComposerPtr *ClusterWindowBase::getSFComposer(void) const
@@ -722,12 +662,6 @@ const MFString *ClusterWindowBase::getMFAutostart(void) const
     return &_mfAutostart;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFString            *ClusterWindowBase::getMFAutostart      (void)
-{
-    return this->editMFAutostart      ();
-}
-#endif
 
 
 

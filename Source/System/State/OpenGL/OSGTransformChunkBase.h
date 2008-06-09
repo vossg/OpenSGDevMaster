@@ -126,18 +126,12 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFMatrix          (void);
-#endif
                   SFMatrix            *editSFMatrix         (void);
             const SFMatrix            *getSFMatrix          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getMatrix          (void);
-#endif
                   Matrix              &editMatrix         (void);
-            const Matrix               getMatrix          (void) const;
+            const Matrix              &getMatrix          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

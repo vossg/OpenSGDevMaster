@@ -126,25 +126,19 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public Attachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFIgnore          (void);
-#endif
                   SFBool              *editSFIgnore         (void);
             const SFBool              *getSFIgnore          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getIgnore          (void);
-#endif
                   bool                &editIgnore         (void);
-            const bool                 getIgnore          (void) const;
+                  bool                 getIgnore          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setIgnore         (const bool &value);
+            void setIgnore         (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

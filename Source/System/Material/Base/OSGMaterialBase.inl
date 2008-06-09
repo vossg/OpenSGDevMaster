@@ -85,22 +85,14 @@ Int32 &MaterialBase::editSortKey(void)
 
 //! Get the value of the Material::_sfSortKey field.
 inline
-const Int32 MaterialBase::getSortKey(void) const
+      Int32  MaterialBase::getSortKey(void) const
 {
     return _sfSortKey.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &MaterialBase::getSortKey        (void)
-{
-    return this->editSortKey        ();
-}
-#endif
-
 //! Set the value of the Material::_sfSortKey field.
 inline
-void MaterialBase::setSortKey(const Int32 &value)
+void MaterialBase::setSortKey(const Int32 value)
 {
     editSField(SortKeyFieldMask);
 
@@ -118,22 +110,14 @@ Int32 &MaterialBase::editTransparencyMode(void)
 
 //! Get the value of the Material::_sfTransparencyMode field.
 inline
-const Int32 MaterialBase::getTransparencyMode(void) const
+      Int32  MaterialBase::getTransparencyMode(void) const
 {
     return _sfTransparencyMode.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &MaterialBase::getTransparencyMode(void)
-{
-    return this->editTransparencyMode();
-}
-#endif
-
 //! Set the value of the Material::_sfTransparencyMode field.
 inline
-void MaterialBase::setTransparencyMode(const Int32 &value)
+void MaterialBase::setTransparencyMode(const Int32 value)
 {
     editSField(TransparencyModeFieldMask);
 

@@ -254,12 +254,6 @@ const SFBool *ColorMaskChunkBase::getSFMaskR(void) const
     return &_sfMaskR;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorMaskChunkBase::getSFMaskR          (void)
-{
-    return this->editSFMaskR          ();
-}
-#endif
 
 SFBool *ColorMaskChunkBase::editSFMaskG(void)
 {
@@ -273,12 +267,6 @@ const SFBool *ColorMaskChunkBase::getSFMaskG(void) const
     return &_sfMaskG;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorMaskChunkBase::getSFMaskG          (void)
-{
-    return this->editSFMaskG          ();
-}
-#endif
 
 SFBool *ColorMaskChunkBase::editSFMaskB(void)
 {
@@ -292,12 +280,6 @@ const SFBool *ColorMaskChunkBase::getSFMaskB(void) const
     return &_sfMaskB;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorMaskChunkBase::getSFMaskB          (void)
-{
-    return this->editSFMaskB          ();
-}
-#endif
 
 SFBool *ColorMaskChunkBase::editSFMaskA(void)
 {
@@ -311,12 +293,6 @@ const SFBool *ColorMaskChunkBase::getSFMaskA(void) const
     return &_sfMaskA;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ColorMaskChunkBase::getSFMaskA          (void)
-{
-    return this->editSFMaskA          ();
-}
-#endif
 
 
 

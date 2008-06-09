@@ -166,27 +166,15 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFLeft            (void);
-#endif
                   SFReal32            *editSFLeft           (void);
             const SFReal32            *getSFLeft            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFRight           (void);
-#endif
                   SFReal32            *editSFRight          (void);
             const SFReal32            *getSFRight           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFBottom          (void);
-#endif
                   SFReal32            *editSFBottom         (void);
             const SFReal32            *getSFBottom          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFTop             (void);
-#endif
                   SFReal32            *editSFTop            (void);
             const SFReal32            *getSFTop             (void) const;
             const SFUnrecCameraPtr    *getSFCamera         (void) const;
@@ -198,42 +186,24 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
             const MFUnrecForegroundPtr *getMFForegrounds    (void) const;
                   MFUnrecForegroundPtr *editMFForegrounds    (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFTravMask        (void);
-#endif
                   SFUInt32            *editSFTravMask       (void);
             const SFUInt32            *getSFTravMask        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFDrawTime        (void);
-#endif
                   SFReal32            *editSFDrawTime       (void);
             const SFReal32            *getSFDrawTime        (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getLeft            (void);
-#endif
                   Real32              &editLeft           (void);
-            const Real32               getLeft            (void) const;
+                  Real32               getLeft            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getRight           (void);
-#endif
                   Real32              &editRight          (void);
-            const Real32               getRight           (void) const;
+                  Real32               getRight           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getBottom          (void);
-#endif
                   Real32              &editBottom         (void);
-            const Real32               getBottom          (void) const;
+                  Real32               getBottom          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getTop             (void);
-#endif
                   Real32              &editTop            (void);
-            const Real32               getTop             (void) const;
+                  Real32               getTop             (void) const;
 
                   Camera * getCamera         (void) const;
 
@@ -243,32 +213,26 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 
                   Foreground * getForegrounds    (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getTravMask        (void);
-#endif
                   UInt32              &editTravMask       (void);
-            const UInt32               getTravMask        (void) const;
+                  UInt32               getTravMask        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getDrawTime        (void);
-#endif
                   Real32              &editDrawTime       (void);
-            const Real32               getDrawTime        (void) const;
+                  Real32               getDrawTime        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setLeft           (const Real32 &value);
-            void setRight          (const Real32 &value);
-            void setBottom         (const Real32 &value);
-            void setTop            (const Real32 &value);
+            void setLeft           (const Real32 value);
+            void setRight          (const Real32 value);
+            void setBottom         (const Real32 value);
+            void setTop            (const Real32 value);
             void setCamera         (Camera * const value);
             void setRoot           (Node * const value);
             void setBackground     (Background * const value);
-            void setTravMask       (const UInt32 &value);
-            void setDrawTime       (const Real32 &value);
+            void setTravMask       (const UInt32 value);
+            void setDrawTime       (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

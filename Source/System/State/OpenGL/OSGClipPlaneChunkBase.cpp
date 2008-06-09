@@ -255,12 +255,6 @@ const SFVec4f *ClipPlaneChunkBase::getSFEquation(void) const
     return &_sfEquation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec4f             *ClipPlaneChunkBase::getSFEquation       (void)
-{
-    return this->editSFEquation       ();
-}
-#endif
 
 SFBool *ClipPlaneChunkBase::editSFEnable(void)
 {
@@ -274,12 +268,6 @@ const SFBool *ClipPlaneChunkBase::getSFEnable(void) const
     return &_sfEnable;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ClipPlaneChunkBase::getSFEnable         (void)
-{
-    return this->editSFEnable         ();
-}
-#endif
 
 //! Get the ClipPlaneChunk::_sfBeacon field.
 const SFWeakNodePtr *ClipPlaneChunkBase::getSFBeacon(void) const

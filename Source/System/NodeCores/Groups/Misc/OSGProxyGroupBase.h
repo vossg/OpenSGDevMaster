@@ -170,147 +170,86 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFEnabled         (void);
-#endif
                   SFBool              *editSFEnabled        (void);
             const SFBool              *getSFEnabled         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFUrl             (void);
-#endif
                   SFString            *editSFUrl            (void);
             const SFString            *getSFUrl             (void) const;
             const SFUnrecNodePtr      *getSFRoot           (void) const;
                   SFUnrecNodePtr      *editSFRoot           (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFState           (void);
-#endif
                   SFUInt32            *editSFState          (void);
             const SFUInt32            *getSFState           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFConcurrentLoad  (void);
-#endif
                   SFBool              *editSFConcurrentLoad (void);
             const SFBool              *getSFConcurrentLoad  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFDynamicVolume     *getSFVolume          (void);
-#endif
                   SFDynamicVolume     *editSFVolume         (void);
             const SFDynamicVolume     *getSFVolume          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFIndices         (void);
-#endif
                   SFUInt32            *editSFIndices        (void);
             const SFUInt32            *getSFIndices         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFTriangles       (void);
-#endif
                   SFUInt32            *editSFTriangles      (void);
             const SFUInt32            *getSFTriangles       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFPositions       (void);
-#endif
                   SFUInt32            *editSFPositions      (void);
             const SFUInt32            *getSFPositions       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFGeometries      (void);
-#endif
                   SFUInt32            *editSFGeometries     (void);
             const SFUInt32            *getSFGeometries      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  MFUInt8             *getMFInline          (void);
-#endif
                   MFUInt8             *editMFInline         (void);
             const MFUInt8             *getMFInline          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getEnabled         (void);
-#endif
                   bool                &editEnabled        (void);
-            const bool                 getEnabled         (void) const;
+                  bool                 getEnabled         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getUrl             (void);
-#endif
                   std::string         &editUrl            (void);
-            const std::string          getUrl             (void) const;
+            const std::string         &getUrl             (void) const;
 
                   Node * getRoot           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getState           (void);
-#endif
                   UInt32              &editState          (void);
-            const UInt32               getState           (void) const;
+                  UInt32               getState           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getConcurrentLoad  (void);
-#endif
                   bool                &editConcurrentLoad (void);
-            const bool                 getConcurrentLoad  (void) const;
+                  bool                 getConcurrentLoad  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  DynamicVolume       &getVolume          (void);
-#endif
                   DynamicVolume       &editVolume         (void);
-            const DynamicVolume        getVolume          (void) const;
+            const DynamicVolume       &getVolume          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getIndices         (void);
-#endif
                   UInt32              &editIndices        (void);
-            const UInt32               getIndices         (void) const;
+                  UInt32               getIndices         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getTriangles       (void);
-#endif
                   UInt32              &editTriangles      (void);
-            const UInt32               getTriangles       (void) const;
+                  UInt32               getTriangles       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getPositions       (void);
-#endif
                   UInt32              &editPositions      (void);
-            const UInt32               getPositions       (void) const;
+                  UInt32               getPositions       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getGeometries      (void);
-#endif
                   UInt32              &editGeometries     (void);
-            const UInt32               getGeometries      (void) const;
+                  UInt32               getGeometries      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt8               &getInline          (const UInt32 index);
-                  MFUInt8             &getInline         (void);
-#endif
                   UInt8               &editInline         (const UInt32 index);
-            const UInt8                getInline          (const UInt32 index) const;
+                  UInt8                getInline          (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setEnabled        (const bool &value);
+            void setEnabled        (const bool value);
             void setUrl            (const std::string &value);
             void setRoot           (Node * const value);
-            void setState          (const UInt32 &value);
-            void setConcurrentLoad (const bool &value);
+            void setState          (const UInt32 value);
+            void setConcurrentLoad (const bool value);
             void setVolume         (const DynamicVolume &value);
-            void setIndices        (const UInt32 &value);
-            void setTriangles      (const UInt32 &value);
-            void setPositions      (const UInt32 &value);
-            void setGeometries     (const UInt32 &value);
+            void setIndices        (const UInt32 value);
+            void setTriangles      (const UInt32 value);
+            void setPositions      (const UInt32 value);
+            void setGeometries     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -447,7 +386,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
 
                   std::string         &editAbsoluteUrl    (void);
-            const std::string          getAbsoluteUrl     (void) const;
+            const std::string         &getAbsoluteUrl     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

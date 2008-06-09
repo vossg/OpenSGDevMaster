@@ -83,7 +83,7 @@ StateChunk * ChunkMaterialBase::getChunks(const UInt32 index) const
 
 //! Get the value of the \a index element the ChunkMaterial::_mfSlots field.
 inline
-const Int32 ChunkMaterialBase::getSlots(const UInt32 index) const
+      Int32  ChunkMaterialBase::getSlots(const UInt32 index) const
 {
     return _mfSlots[index];
 }
@@ -95,21 +95,6 @@ Int32 &ChunkMaterialBase::editSlots(const UInt32 index)
 
     return _mfSlots[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Int32               &ChunkMaterialBase::getSlots          (const UInt32 index)
-{
-    return this->editSlots          (index);
-}
-
-inline
-MFInt32             &ChunkMaterialBase::getSlots          (void)
-{
-    return this->editSlots          ();
-}
-
-#endif
 
 
 

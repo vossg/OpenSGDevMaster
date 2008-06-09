@@ -138,64 +138,40 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFClearStencilBit (void);
-#endif
                   SFInt32             *editSFClearStencilBit(void);
             const SFInt32             *getSFClearStencilBit (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFDepth           (void);
-#endif
                   SFReal32            *editSFDepth          (void);
             const SFReal32            *getSFDepth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFClearDepth      (void);
-#endif
                   SFBool              *editSFClearDepth     (void);
             const SFBool              *getSFClearDepth      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFClearColor      (void);
-#endif
                   SFBool              *editSFClearColor     (void);
             const SFBool              *getSFClearColor      (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getClearStencilBit (void);
-#endif
                   Int32               &editClearStencilBit(void);
-            const Int32                getClearStencilBit (void) const;
+                  Int32                getClearStencilBit (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getDepth           (void);
-#endif
                   Real32              &editDepth          (void);
-            const Real32               getDepth           (void) const;
+                  Real32               getDepth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getClearDepth      (void);
-#endif
                   bool                &editClearDepth     (void);
-            const bool                 getClearDepth      (void) const;
+                  bool                 getClearDepth      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getClearColor      (void);
-#endif
                   bool                &editClearColor     (void);
-            const bool                 getClearColor      (void) const;
+                  bool                 getClearColor      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setClearStencilBit(const Int32 &value);
-            void setDepth          (const Real32 &value);
-            void setClearDepth     (const bool &value);
-            void setClearColor     (const bool &value);
+            void setClearStencilBit(const Int32 value);
+            void setDepth          (const Real32 value);
+            void setClearDepth     (const bool value);
+            void setClearColor     (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

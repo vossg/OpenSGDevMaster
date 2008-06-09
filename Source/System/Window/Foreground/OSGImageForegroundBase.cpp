@@ -230,12 +230,6 @@ const MFPnt2f *ImageForegroundBase::getMFPositions(void) const
     return &_mfPositions;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFPnt2f             *ImageForegroundBase::getMFPositions      (void)
-{
-    return this->editMFPositions      ();
-}
-#endif
 
 
 

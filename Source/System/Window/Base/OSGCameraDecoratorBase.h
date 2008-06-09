@@ -127,15 +127,9 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
     virtual const SFWeakNodePtr       *getSFBeacon         (void) const;
     virtual       SFWeakNodePtr       *editSFBeacon         (void);
 
-#ifdef OSG_1_GET_COMPAT
-    virtual       SFReal32            *getSFNear            (void);
-#endif
     virtual       SFReal32            *editSFNear           (void);
     virtual const SFReal32            *getSFNear            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-    virtual       SFReal32            *getSFFar             (void);
-#endif
     virtual       SFReal32            *editSFFar            (void);
     virtual const SFReal32            *getSFFar             (void) const;
 
@@ -143,17 +137,11 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
 
     virtual       Node * getBeacon         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-    virtual       Real32              &getNear            (void);
-#endif
     virtual       Real32              &editNear           (void);
-    virtual const Real32               getNear            (void) const;
+    virtual       Real32               getNear            (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-    virtual       Real32              &getFar             (void);
-#endif
     virtual       Real32              &editFar            (void);
-    virtual const Real32               getFar             (void) const;
+    virtual       Real32               getFar             (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -162,8 +150,8 @@ class OSG_SYSTEM_DLLMAPPING CameraDecoratorBase : public Camera
 
     virtual       void setDecoratee      (Camera * const value);
     virtual void setBeacon         (Node * const value);
-    virtual void setNear           (const Real32 &value);
-    virtual void setFar            (const Real32 &value);
+    virtual void setNear           (const Real32 value);
+    virtual void setFar            (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

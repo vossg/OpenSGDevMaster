@@ -85,22 +85,14 @@ bool &ParallelComposerBase::editShort(void)
 
 //! Get the value of the ParallelComposer::_sfShort field.
 inline
-const bool ParallelComposerBase::getShort(void) const
+      bool  ParallelComposerBase::getShort(void) const
 {
     return _sfShort.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ParallelComposerBase::getShort          (void)
-{
-    return this->editShort          ();
-}
-#endif
-
 //! Set the value of the ParallelComposer::_sfShort field.
 inline
-void ParallelComposerBase::setShort(const bool &value)
+void ParallelComposerBase::setShort(const bool value)
 {
     editSField(ShortFieldMask);
 
@@ -118,22 +110,14 @@ bool &ParallelComposerBase::editAlpha(void)
 
 //! Get the value of the ParallelComposer::_sfAlpha field.
 inline
-const bool ParallelComposerBase::getAlpha(void) const
+      bool  ParallelComposerBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ParallelComposerBase::getAlpha          (void)
-{
-    return this->editAlpha          ();
-}
-#endif
-
 //! Set the value of the ParallelComposer::_sfAlpha field.
 inline
-void ParallelComposerBase::setAlpha(const bool &value)
+void ParallelComposerBase::setAlpha(const bool value)
 {
     editSField(AlphaFieldMask);
 
@@ -151,18 +135,10 @@ std::string &ParallelComposerBase::editPcLibPath(void)
 
 //! Get the value of the ParallelComposer::_sfPcLibPath field.
 inline
-const std::string ParallelComposerBase::getPcLibPath(void) const
+const std::string &ParallelComposerBase::getPcLibPath(void) const
 {
     return _sfPcLibPath.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ParallelComposerBase::getPcLibPath      (void)
-{
-    return this->editPcLibPath      ();
-}
-#endif
 
 //! Set the value of the ParallelComposer::_sfPcLibPath field.
 inline

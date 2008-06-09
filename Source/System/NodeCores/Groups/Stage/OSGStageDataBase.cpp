@@ -227,12 +227,6 @@ const SFInt32 *StageDataBase::getSFPartitionRangeBegin(void) const
     return &_sfPartitionRangeBegin;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *StageDataBase::getSFPartitionRangeBegin(void)
-{
-    return this->editSFPartitionRangeBegin();
-}
-#endif
 
 SFInt32 *StageDataBase::editSFPartitionRangeEnd(void)
 {
@@ -246,12 +240,6 @@ const SFInt32 *StageDataBase::getSFPartitionRangeEnd(void) const
     return &_sfPartitionRangeEnd;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *StageDataBase::getSFPartitionRangeEnd(void)
-{
-    return this->editSFPartitionRangeEnd();
-}
-#endif
 
 SFInt32 *StageDataBase::editSFGroupMode(void)
 {
@@ -265,12 +253,6 @@ const SFInt32 *StageDataBase::getSFGroupMode(void) const
     return &_sfGroupMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *StageDataBase::getSFGroupMode      (void)
-{
-    return this->editSFGroupMode      ();
-}
-#endif
 
 
 

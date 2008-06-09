@@ -303,12 +303,6 @@ const SFReal32 *HDRStageBase::getSFExposure(void) const
     return &_sfExposure;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *HDRStageBase::getSFExposure       (void)
-{
-    return this->editSFExposure       ();
-}
-#endif
 
 SFReal32 *HDRStageBase::editSFBlurWidth(void)
 {
@@ -322,12 +316,6 @@ const SFReal32 *HDRStageBase::getSFBlurWidth(void) const
     return &_sfBlurWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *HDRStageBase::getSFBlurWidth      (void)
-{
-    return this->editSFBlurWidth      ();
-}
-#endif
 
 SFReal32 *HDRStageBase::editSFBlurAmount(void)
 {
@@ -341,12 +329,6 @@ const SFReal32 *HDRStageBase::getSFBlurAmount(void) const
     return &_sfBlurAmount;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *HDRStageBase::getSFBlurAmount     (void)
-{
-    return this->editSFBlurAmount     ();
-}
-#endif
 
 SFReal32 *HDRStageBase::editSFEffectAmount(void)
 {
@@ -360,12 +342,6 @@ const SFReal32 *HDRStageBase::getSFEffectAmount(void) const
     return &_sfEffectAmount;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *HDRStageBase::getSFEffectAmount   (void)
-{
-    return this->editSFEffectAmount   ();
-}
-#endif
 
 SFReal32 *HDRStageBase::editSFGamma(void)
 {
@@ -379,12 +355,6 @@ const SFReal32 *HDRStageBase::getSFGamma(void) const
     return &_sfGamma;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *HDRStageBase::getSFGamma          (void)
-{
-    return this->editSFGamma          ();
-}
-#endif
 
 SFGLenum *HDRStageBase::editSFBufferFormat(void)
 {
@@ -398,12 +368,6 @@ const SFGLenum *HDRStageBase::getSFBufferFormat(void) const
     return &_sfBufferFormat;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *HDRStageBase::getSFBufferFormat   (void)
-{
-    return this->editSFBufferFormat   ();
-}
-#endif
 
 
 

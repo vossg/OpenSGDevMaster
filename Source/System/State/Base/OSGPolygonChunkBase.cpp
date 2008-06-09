@@ -494,12 +494,6 @@ const SFGLenum *PolygonChunkBase::getSFCullFace(void) const
     return &_sfCullFace;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *PolygonChunkBase::getSFCullFace       (void)
-{
-    return this->editSFCullFace       ();
-}
-#endif
 
 SFGLenum *PolygonChunkBase::editSFFrontFace(void)
 {
@@ -513,12 +507,6 @@ const SFGLenum *PolygonChunkBase::getSFFrontFace(void) const
     return &_sfFrontFace;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *PolygonChunkBase::getSFFrontFace      (void)
-{
-    return this->editSFFrontFace      ();
-}
-#endif
 
 SFGLenum *PolygonChunkBase::editSFFrontMode(void)
 {
@@ -532,12 +520,6 @@ const SFGLenum *PolygonChunkBase::getSFFrontMode(void) const
     return &_sfFrontMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *PolygonChunkBase::getSFFrontMode      (void)
-{
-    return this->editSFFrontMode      ();
-}
-#endif
 
 SFGLenum *PolygonChunkBase::editSFBackMode(void)
 {
@@ -551,12 +533,6 @@ const SFGLenum *PolygonChunkBase::getSFBackMode(void) const
     return &_sfBackMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *PolygonChunkBase::getSFBackMode       (void)
-{
-    return this->editSFBackMode       ();
-}
-#endif
 
 SFBool *PolygonChunkBase::editSFSmooth(void)
 {
@@ -570,12 +546,6 @@ const SFBool *PolygonChunkBase::getSFSmooth(void) const
     return &_sfSmooth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonChunkBase::getSFSmooth         (void)
-{
-    return this->editSFSmooth         ();
-}
-#endif
 
 SFReal32 *PolygonChunkBase::editSFOffsetFactor(void)
 {
@@ -589,12 +559,6 @@ const SFReal32 *PolygonChunkBase::getSFOffsetFactor(void) const
     return &_sfOffsetFactor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PolygonChunkBase::getSFOffsetFactor   (void)
-{
-    return this->editSFOffsetFactor   ();
-}
-#endif
 
 SFReal32 *PolygonChunkBase::editSFOffsetBias(void)
 {
@@ -608,12 +572,6 @@ const SFReal32 *PolygonChunkBase::getSFOffsetBias(void) const
     return &_sfOffsetBias;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PolygonChunkBase::getSFOffsetBias     (void)
-{
-    return this->editSFOffsetBias     ();
-}
-#endif
 
 SFBool *PolygonChunkBase::editSFOffsetPoint(void)
 {
@@ -627,12 +585,6 @@ const SFBool *PolygonChunkBase::getSFOffsetPoint(void) const
     return &_sfOffsetPoint;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonChunkBase::getSFOffsetPoint    (void)
-{
-    return this->editSFOffsetPoint    ();
-}
-#endif
 
 SFBool *PolygonChunkBase::editSFOffsetLine(void)
 {
@@ -646,12 +598,6 @@ const SFBool *PolygonChunkBase::getSFOffsetLine(void) const
     return &_sfOffsetLine;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonChunkBase::getSFOffsetLine     (void)
-{
-    return this->editSFOffsetLine     ();
-}
-#endif
 
 SFBool *PolygonChunkBase::editSFOffsetFill(void)
 {
@@ -665,12 +611,6 @@ const SFBool *PolygonChunkBase::getSFOffsetFill(void) const
     return &_sfOffsetFill;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PolygonChunkBase::getSFOffsetFill     (void)
-{
-    return this->editSFOffsetFill     ();
-}
-#endif
 
 MFInt32 *PolygonChunkBase::editMFStipple(void)
 {
@@ -684,12 +624,6 @@ const MFInt32 *PolygonChunkBase::getMFStipple(void) const
     return &_mfStipple;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFInt32             *PolygonChunkBase::getMFStipple        (void)
-{
-    return this->editMFStipple        ();
-}
-#endif
 
 
 

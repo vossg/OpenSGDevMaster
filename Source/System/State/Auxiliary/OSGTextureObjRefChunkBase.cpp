@@ -175,12 +175,6 @@ const SFGLenum *TextureObjRefChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *TextureObjRefChunkBase::getSFGLId           (void)
-{
-    return this->editSFGLId           ();
-}
-#endif
 
 
 

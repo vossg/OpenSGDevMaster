@@ -168,15 +168,9 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
             const SFUnrecSHLChunkPtr  *getSFVBlurShader    (void) const;
                   SFUnrecSHLChunkPtr  *editSFVBlurShader    (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFWidth           (void);
-#endif
                   SFUInt32            *editSFWidth          (void);
             const SFUInt32            *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFHeight          (void);
-#endif
                   SFUInt32            *editSFHeight         (void);
             const SFUInt32            *getSFHeight          (void) const;
             const SFUnrecFrameBufferObjectPtr *getSFShrinkRenderTarget(void) const;
@@ -195,17 +189,11 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
 
                   SHLChunk * getVBlurShader    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getWidth           (void);
-#endif
                   UInt32              &editWidth          (void);
-            const UInt32               getWidth           (void) const;
+                  UInt32               getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getHeight          (void);
-#endif
                   UInt32              &editHeight         (void);
-            const UInt32               getHeight          (void) const;
+                  UInt32               getHeight          (void) const;
 
                   FrameBufferObject * getShrinkRenderTarget(void) const;
 
@@ -221,8 +209,8 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
             void setBlurMaterial   (ChunkMaterial * const value);
             void setHBlurShader    (SHLChunk * const value);
             void setVBlurShader    (SHLChunk * const value);
-            void setWidth          (const UInt32 &value);
-            void setHeight         (const UInt32 &value);
+            void setWidth          (const UInt32 value);
+            void setHeight         (const UInt32 value);
             void setShrinkRenderTarget(FrameBufferObject * const value);
             void setShrinkMaterial (ChunkMaterial * const value);
 

@@ -126,25 +126,19 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFActive          (void);
-#endif
                   SFBool              *editSFActive         (void);
             const SFBool              *getSFActive          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getActive          (void);
-#endif
                   bool                &editActive         (void);
-            const bool                 getActive          (void) const;
+                  bool                 getActive          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setActive         (const bool &value);
+            void setActive         (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

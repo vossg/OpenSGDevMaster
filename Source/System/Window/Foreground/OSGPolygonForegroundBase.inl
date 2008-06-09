@@ -101,22 +101,14 @@ bool &PolygonForegroundBase::editNormalizedX(void)
 
 //! Get the value of the PolygonForeground::_sfNormalizedX field.
 inline
-const bool PolygonForegroundBase::getNormalizedX(void) const
+      bool  PolygonForegroundBase::getNormalizedX(void) const
 {
     return _sfNormalizedX.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &PolygonForegroundBase::getNormalizedX    (void)
-{
-    return this->editNormalizedX    ();
-}
-#endif
-
 //! Set the value of the PolygonForeground::_sfNormalizedX field.
 inline
-void PolygonForegroundBase::setNormalizedX(const bool &value)
+void PolygonForegroundBase::setNormalizedX(const bool value)
 {
     editSField(NormalizedXFieldMask);
 
@@ -134,22 +126,14 @@ bool &PolygonForegroundBase::editNormalizedY(void)
 
 //! Get the value of the PolygonForeground::_sfNormalizedY field.
 inline
-const bool PolygonForegroundBase::getNormalizedY(void) const
+      bool  PolygonForegroundBase::getNormalizedY(void) const
 {
     return _sfNormalizedY.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &PolygonForegroundBase::getNormalizedY    (void)
-{
-    return this->editNormalizedY    ();
-}
-#endif
-
 //! Set the value of the PolygonForeground::_sfNormalizedY field.
 inline
-void PolygonForegroundBase::setNormalizedY(const bool &value)
+void PolygonForegroundBase::setNormalizedY(const bool value)
 {
     editSField(NormalizedYFieldMask);
 
@@ -167,22 +151,14 @@ UInt16 &PolygonForegroundBase::editAspectHeight(void)
 
 //! Get the value of the PolygonForeground::_sfAspectHeight field.
 inline
-const UInt16 PolygonForegroundBase::getAspectHeight(void) const
+      UInt16  PolygonForegroundBase::getAspectHeight(void) const
 {
     return _sfAspectHeight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt16              &PolygonForegroundBase::getAspectHeight   (void)
-{
-    return this->editAspectHeight   ();
-}
-#endif
-
 //! Set the value of the PolygonForeground::_sfAspectHeight field.
 inline
-void PolygonForegroundBase::setAspectHeight(const UInt16 &value)
+void PolygonForegroundBase::setAspectHeight(const UInt16 value)
 {
     editSField(AspectHeightFieldMask);
 
@@ -200,22 +176,14 @@ UInt16 &PolygonForegroundBase::editAspectWidth(void)
 
 //! Get the value of the PolygonForeground::_sfAspectWidth field.
 inline
-const UInt16 PolygonForegroundBase::getAspectWidth(void) const
+      UInt16  PolygonForegroundBase::getAspectWidth(void) const
 {
     return _sfAspectWidth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt16              &PolygonForegroundBase::getAspectWidth    (void)
-{
-    return this->editAspectWidth    ();
-}
-#endif
-
 //! Set the value of the PolygonForeground::_sfAspectWidth field.
 inline
-void PolygonForegroundBase::setAspectWidth(const UInt16 &value)
+void PolygonForegroundBase::setAspectWidth(const UInt16 value)
 {
     editSField(AspectWidthFieldMask);
 
@@ -233,22 +201,14 @@ Real32 &PolygonForegroundBase::editScale(void)
 
 //! Get the value of the PolygonForeground::_sfScale field.
 inline
-const Real32 PolygonForegroundBase::getScale(void) const
+      Real32  PolygonForegroundBase::getScale(void) const
 {
     return _sfScale.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &PolygonForegroundBase::getScale          (void)
-{
-    return this->editScale          ();
-}
-#endif
-
 //! Set the value of the PolygonForeground::_sfScale field.
 inline
-void PolygonForegroundBase::setScale(const Real32 &value)
+void PolygonForegroundBase::setScale(const Real32 value)
 {
     editSField(ScaleFieldMask);
 
@@ -266,22 +226,14 @@ bool &PolygonForegroundBase::editTile(void)
 
 //! Get the value of the PolygonForeground::_sfTile field.
 inline
-const bool PolygonForegroundBase::getTile(void) const
+      bool  PolygonForegroundBase::getTile(void) const
 {
     return _sfTile.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &PolygonForegroundBase::getTile           (void)
-{
-    return this->editTile           ();
-}
-#endif
-
 //! Set the value of the PolygonForeground::_sfTile field.
 inline
-void PolygonForegroundBase::setTile(const bool &value)
+void PolygonForegroundBase::setTile(const bool value)
 {
     editSField(TileFieldMask);
 
@@ -290,7 +242,7 @@ void PolygonForegroundBase::setTile(const bool &value)
 
 //! Get the value of the \a index element the PolygonForeground::_mfPositions field.
 inline
-const Pnt2f PolygonForegroundBase::getPositions(const UInt32 index) const
+const Pnt2f &PolygonForegroundBase::getPositions(const UInt32 index) const
 {
     return _mfPositions[index];
 }
@@ -303,25 +255,10 @@ Pnt2f &PolygonForegroundBase::editPositions(const UInt32 index)
     return _mfPositions[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Pnt2f               &PolygonForegroundBase::getPositions      (const UInt32 index)
-{
-    return this->editPositions      (index);
-}
-
-inline
-MFPnt2f             &PolygonForegroundBase::getPositions      (void)
-{
-    return this->editPositions      ();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the PolygonForeground::_mfTexCoords field.
 inline
-const Vec3f PolygonForegroundBase::getTexCoords(const UInt32 index) const
+const Vec3f &PolygonForegroundBase::getTexCoords(const UInt32 index) const
 {
     return _mfTexCoords[index];
 }
@@ -333,21 +270,6 @@ Vec3f &PolygonForegroundBase::editTexCoords(const UInt32 index)
 
     return _mfTexCoords[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec3f               &PolygonForegroundBase::getTexCoords      (const UInt32 index)
-{
-    return this->editTexCoords      (index);
-}
-
-inline
-MFVec3f             &PolygonForegroundBase::getTexCoords      (void)
-{
-    return this->editTexCoords      ();
-}
-
-#endif
 
 
 

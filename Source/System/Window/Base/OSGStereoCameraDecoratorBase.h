@@ -130,38 +130,26 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFLeftEye         (void);
-#endif
                   SFBool              *editSFLeftEye        (void);
             const SFBool              *getSFLeftEye         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFEyeSeparation   (void);
-#endif
                   SFReal32            *editSFEyeSeparation  (void);
             const SFReal32            *getSFEyeSeparation   (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getLeftEye         (void);
-#endif
                   bool                &editLeftEye        (void);
-            const bool                 getLeftEye         (void) const;
+                  bool                 getLeftEye         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getEyeSeparation   (void);
-#endif
                   Real32              &editEyeSeparation  (void);
-            const Real32               getEyeSeparation   (void) const;
+                  Real32               getEyeSeparation   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setLeftEye        (const bool &value);
-            void setEyeSeparation  (const Real32 &value);
+            void setLeftEye        (const bool value);
+            void setEyeSeparation  (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

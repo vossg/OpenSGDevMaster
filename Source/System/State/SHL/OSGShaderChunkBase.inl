@@ -85,18 +85,10 @@ std::string &ShaderChunkBase::editVertexProgram(void)
 
 //! Get the value of the ShaderChunk::_sfVertexProgram field.
 inline
-const std::string ShaderChunkBase::getVertexProgram(void) const
+const std::string &ShaderChunkBase::getVertexProgram(void) const
 {
     return _sfVertexProgram.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ShaderChunkBase::getVertexProgram  (void)
-{
-    return this->editVertexProgram  ();
-}
-#endif
 
 //! Set the value of the ShaderChunk::_sfVertexProgram field.
 inline
@@ -118,18 +110,10 @@ std::string &ShaderChunkBase::editFragmentProgram(void)
 
 //! Get the value of the ShaderChunk::_sfFragmentProgram field.
 inline
-const std::string ShaderChunkBase::getFragmentProgram(void) const
+const std::string &ShaderChunkBase::getFragmentProgram(void) const
 {
     return _sfFragmentProgram.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ShaderChunkBase::getFragmentProgram(void)
-{
-    return this->editFragmentProgram();
-}
-#endif
 
 //! Set the value of the ShaderChunk::_sfFragmentProgram field.
 inline
@@ -151,18 +135,10 @@ std::string &ShaderChunkBase::editGeometryProgram(void)
 
 //! Get the value of the ShaderChunk::_sfGeometryProgram field.
 inline
-const std::string ShaderChunkBase::getGeometryProgram(void) const
+const std::string &ShaderChunkBase::getGeometryProgram(void) const
 {
     return _sfGeometryProgram.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ShaderChunkBase::getGeometryProgram(void)
-{
-    return this->editGeometryProgram();
-}
-#endif
 
 //! Set the value of the ShaderChunk::_sfGeometryProgram field.
 inline

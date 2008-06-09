@@ -357,12 +357,6 @@ const SFUInt32 *GeoMultiPropertyBase::getSFOffset(void) const
     return &_sfOffset;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *GeoMultiPropertyBase::getSFOffset         (void)
-{
-    return this->editSFOffset         ();
-}
-#endif
 
 SFGLenum *GeoMultiPropertyBase::editSFIFormat(void)
 {
@@ -376,12 +370,6 @@ const SFGLenum *GeoMultiPropertyBase::getSFIFormat(void) const
     return &_sfIFormat;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *GeoMultiPropertyBase::getSFIFormat        (void)
-{
-    return this->editSFIFormat        ();
-}
-#endif
 
 SFUInt32 *GeoMultiPropertyBase::editSFIDimension(void)
 {
@@ -395,12 +383,6 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIDimension(void) const
     return &_sfIDimension;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *GeoMultiPropertyBase::getSFIDimension     (void)
-{
-    return this->editSFIDimension     ();
-}
-#endif
 
 SFUInt32 *GeoMultiPropertyBase::editSFISize(void)
 {
@@ -414,12 +396,6 @@ const SFUInt32 *GeoMultiPropertyBase::getSFISize(void) const
     return &_sfISize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *GeoMultiPropertyBase::getSFISize          (void)
-{
-    return this->editSFISize          ();
-}
-#endif
 
 SFBool *GeoMultiPropertyBase::editSFINormalize(void)
 {
@@ -433,12 +409,6 @@ const SFBool *GeoMultiPropertyBase::getSFINormalize(void) const
     return &_sfINormalize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *GeoMultiPropertyBase::getSFINormalize     (void)
-{
-    return this->editSFINormalize     ();
-}
-#endif
 
 SFUInt32 *GeoMultiPropertyBase::editSFIStride(void)
 {
@@ -452,12 +422,6 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIStride(void) const
     return &_sfIStride;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *GeoMultiPropertyBase::getSFIStride        (void)
-{
-    return this->editSFIStride        ();
-}
-#endif
 
 
 

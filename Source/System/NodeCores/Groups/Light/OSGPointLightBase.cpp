@@ -185,12 +185,6 @@ const SFPnt3r *PointLightBase::getSFPosition(void) const
     return &_sfPosition;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt3r             *PointLightBase::getSFPosition       (void)
-{
-    return this->editSFPosition       ();
-}
-#endif
 
 
 

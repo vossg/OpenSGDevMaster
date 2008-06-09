@@ -195,12 +195,6 @@ const MFReal32 *ScreenLODBase::getMFCoverageOverride(void) const
     return &_mfCoverageOverride;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFReal32            *ScreenLODBase::getMFCoverageOverride(void)
-{
-    return this->editMFCoverageOverride();
-}
-#endif
 
 
 

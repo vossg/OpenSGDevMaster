@@ -239,12 +239,6 @@ const SFMatrix *MatrixCameraBase::getSFProjectionMatrix(void) const
     return &_sfProjectionMatrix;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraBase::getSFProjectionMatrix(void)
-{
-    return this->editSFProjectionMatrix();
-}
-#endif
 
 SFMatrix *MatrixCameraBase::editSFModelviewMatrix(void)
 {
@@ -258,12 +252,6 @@ const SFMatrix *MatrixCameraBase::getSFModelviewMatrix(void) const
     return &_sfModelviewMatrix;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *MatrixCameraBase::getSFModelviewMatrix(void)
-{
-    return this->editSFModelviewMatrix();
-}
-#endif
 
 SFBool *MatrixCameraBase::editSFUseBeacon(void)
 {
@@ -277,12 +265,6 @@ const SFBool *MatrixCameraBase::getSFUseBeacon(void) const
     return &_sfUseBeacon;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *MatrixCameraBase::getSFUseBeacon      (void)
-{
-    return this->editSFUseBeacon      ();
-}
-#endif
 
 
 

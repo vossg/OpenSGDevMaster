@@ -361,12 +361,6 @@ const SFUInt32 *DrawableStatsAttachmentBase::getSFVertices(void) const
     return &_sfVertices;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *DrawableStatsAttachmentBase::getSFVertices       (void)
-{
-    return this->editSFVertices       ();
-}
-#endif
 
 SFUInt32 *DrawableStatsAttachmentBase::editSFPoints(void)
 {
@@ -380,12 +374,6 @@ const SFUInt32 *DrawableStatsAttachmentBase::getSFPoints(void) const
     return &_sfPoints;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *DrawableStatsAttachmentBase::getSFPoints         (void)
-{
-    return this->editSFPoints         ();
-}
-#endif
 
 SFUInt32 *DrawableStatsAttachmentBase::editSFLines(void)
 {
@@ -399,12 +387,6 @@ const SFUInt32 *DrawableStatsAttachmentBase::getSFLines(void) const
     return &_sfLines;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *DrawableStatsAttachmentBase::getSFLines          (void)
-{
-    return this->editSFLines          ();
-}
-#endif
 
 SFUInt32 *DrawableStatsAttachmentBase::editSFTriangles(void)
 {
@@ -418,12 +400,6 @@ const SFUInt32 *DrawableStatsAttachmentBase::getSFTriangles(void) const
     return &_sfTriangles;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *DrawableStatsAttachmentBase::getSFTriangles      (void)
-{
-    return this->editSFTriangles      ();
-}
-#endif
 
 SFUInt32 *DrawableStatsAttachmentBase::editSFProcessedAttributeBytes(void)
 {
@@ -437,12 +413,6 @@ const SFUInt32 *DrawableStatsAttachmentBase::getSFProcessedAttributeBytes(void) 
     return &_sfProcessedAttributeBytes;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *DrawableStatsAttachmentBase::getSFProcessedAttributeBytes(void)
-{
-    return this->editSFProcessedAttributeBytes();
-}
-#endif
 
 SFUInt32 *DrawableStatsAttachmentBase::editSFStoredAttributeBytes(void)
 {
@@ -456,12 +426,6 @@ const SFUInt32 *DrawableStatsAttachmentBase::getSFStoredAttributeBytes(void) con
     return &_sfStoredAttributeBytes;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *DrawableStatsAttachmentBase::getSFStoredAttributeBytes(void)
-{
-    return this->editSFStoredAttributeBytes();
-}
-#endif
 
 SFBool *DrawableStatsAttachmentBase::editSFValid(void)
 {
@@ -475,12 +439,6 @@ const SFBool *DrawableStatsAttachmentBase::getSFValid(void) const
     return &_sfValid;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *DrawableStatsAttachmentBase::getSFValid          (void)
-{
-    return this->editSFValid          ();
-}
-#endif
 
 
 

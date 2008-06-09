@@ -130,20 +130,14 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFString            *getSFName            (void);
-#endif
                   SFString            *editSFName           (void);
             const SFString            *getSFName            (void) const;
             const MFUnrecFieldContainerPtr *getMFContainers     (void) const;
                   MFUnrecFieldContainerPtr *editMFContainers     (void);
 
 
-#ifdef OSG_1_GET_COMPAT
-                  std::string         &getName            (void);
-#endif
                   std::string         &editName           (void);
-            const std::string          getName            (void) const;
+            const std::string         &getName            (void) const;
 
                   FieldContainer * getContainers     (const UInt32 index) const;
 

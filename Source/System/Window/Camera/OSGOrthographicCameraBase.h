@@ -130,38 +130,26 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFVerticalSize    (void);
-#endif
                   SFReal32            *editSFVerticalSize   (void);
             const SFReal32            *getSFVerticalSize    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFAspect          (void);
-#endif
                   SFReal32            *editSFAspect         (void);
             const SFReal32            *getSFAspect          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getVerticalSize    (void);
-#endif
                   Real32              &editVerticalSize   (void);
-            const Real32               getVerticalSize    (void) const;
+                  Real32               getVerticalSize    (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getAspect          (void);
-#endif
                   Real32              &editAspect         (void);
-            const Real32               getAspect          (void) const;
+                  Real32               getAspect          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setVerticalSize   (const Real32 &value);
-            void setAspect         (const Real32 &value);
+            void setVerticalSize   (const Real32 value);
+            void setAspect         (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

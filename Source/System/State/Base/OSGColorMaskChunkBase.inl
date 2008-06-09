@@ -85,22 +85,14 @@ bool &ColorMaskChunkBase::editMaskR(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskR field.
 inline
-const bool ColorMaskChunkBase::getMaskR(void) const
+      bool  ColorMaskChunkBase::getMaskR(void) const
 {
     return _sfMaskR.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorMaskChunkBase::getMaskR          (void)
-{
-    return this->editMaskR          ();
-}
-#endif
-
 //! Set the value of the ColorMaskChunk::_sfMaskR field.
 inline
-void ColorMaskChunkBase::setMaskR(const bool &value)
+void ColorMaskChunkBase::setMaskR(const bool value)
 {
     editSField(MaskRFieldMask);
 
@@ -118,22 +110,14 @@ bool &ColorMaskChunkBase::editMaskG(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskG field.
 inline
-const bool ColorMaskChunkBase::getMaskG(void) const
+      bool  ColorMaskChunkBase::getMaskG(void) const
 {
     return _sfMaskG.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorMaskChunkBase::getMaskG          (void)
-{
-    return this->editMaskG          ();
-}
-#endif
-
 //! Set the value of the ColorMaskChunk::_sfMaskG field.
 inline
-void ColorMaskChunkBase::setMaskG(const bool &value)
+void ColorMaskChunkBase::setMaskG(const bool value)
 {
     editSField(MaskGFieldMask);
 
@@ -151,22 +135,14 @@ bool &ColorMaskChunkBase::editMaskB(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskB field.
 inline
-const bool ColorMaskChunkBase::getMaskB(void) const
+      bool  ColorMaskChunkBase::getMaskB(void) const
 {
     return _sfMaskB.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorMaskChunkBase::getMaskB          (void)
-{
-    return this->editMaskB          ();
-}
-#endif
-
 //! Set the value of the ColorMaskChunk::_sfMaskB field.
 inline
-void ColorMaskChunkBase::setMaskB(const bool &value)
+void ColorMaskChunkBase::setMaskB(const bool value)
 {
     editSField(MaskBFieldMask);
 
@@ -184,22 +160,14 @@ bool &ColorMaskChunkBase::editMaskA(void)
 
 //! Get the value of the ColorMaskChunk::_sfMaskA field.
 inline
-const bool ColorMaskChunkBase::getMaskA(void) const
+      bool  ColorMaskChunkBase::getMaskA(void) const
 {
     return _sfMaskA.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &ColorMaskChunkBase::getMaskA          (void)
-{
-    return this->editMaskA          ();
-}
-#endif
-
 //! Set the value of the ColorMaskChunk::_sfMaskA field.
 inline
-void ColorMaskChunkBase::setMaskA(const bool &value)
+void ColorMaskChunkBase::setMaskA(const bool value)
 {
     editSField(MaskAFieldMask);
 

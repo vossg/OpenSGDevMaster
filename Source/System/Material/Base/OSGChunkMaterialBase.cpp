@@ -228,12 +228,6 @@ const MFInt32 *ChunkMaterialBase::getMFSlots(void) const
     return &_mfSlots;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFInt32             *ChunkMaterialBase::getMFSlots          (void)
-{
-    return this->editMFSlots          ();
-}
-#endif
 
 
 

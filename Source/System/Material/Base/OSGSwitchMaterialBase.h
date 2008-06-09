@@ -132,27 +132,21 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
             const MFUnrecMaterialPtr  *getMFMaterials      (void) const;
                   MFUnrecMaterialPtr  *editMFMaterials      (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFChoice          (void);
-#endif
                   SFUInt32            *editSFChoice         (void);
             const SFUInt32            *getSFChoice          (void) const;
 
 
                   Material * getMaterials      (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getChoice          (void);
-#endif
                   UInt32              &editChoice         (void);
-            const UInt32               getChoice          (void) const;
+                  UInt32               getChoice          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setChoice         (const UInt32 &value);
+            void setChoice         (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

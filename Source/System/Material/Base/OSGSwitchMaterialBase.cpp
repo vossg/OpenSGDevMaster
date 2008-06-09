@@ -217,12 +217,6 @@ const SFUInt32 *SwitchMaterialBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *SwitchMaterialBase::getSFChoice         (void)
-{
-    return this->editSFChoice         ();
-}
-#endif
 
 
 

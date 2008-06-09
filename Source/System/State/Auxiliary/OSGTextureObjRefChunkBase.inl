@@ -85,18 +85,10 @@ GLenum &TextureObjRefChunkBase::editGLId(void)
 
 //! Get the value of the TextureObjRefChunk::_sfGLId field.
 inline
-const GLenum TextureObjRefChunkBase::getGLId(void) const
+const GLenum &TextureObjRefChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &TextureObjRefChunkBase::getGLId           (void)
-{
-    return this->editGLId           ();
-}
-#endif
 
 //! Set the value of the TextureObjRefChunk::_sfGLId field.
 inline

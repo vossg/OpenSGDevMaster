@@ -315,12 +315,6 @@ const SFInt32 *ShadowMapEngineBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ShadowMapEngineBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFInt32 *ShadowMapEngineBase::editSFHeight(void)
 {
@@ -334,12 +328,6 @@ const SFInt32 *ShadowMapEngineBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *ShadowMapEngineBase::getSFHeight         (void)
-{
-    return this->editSFHeight         ();
-}
-#endif
 
 SFColor4f *ShadowMapEngineBase::editSFShadowColor(void)
 {
@@ -353,12 +341,6 @@ const SFColor4f *ShadowMapEngineBase::getSFShadowColor(void) const
     return &_sfShadowColor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFColor4f           *ShadowMapEngineBase::getSFShadowColor    (void)
-{
-    return this->editSFShadowColor    ();
-}
-#endif
 
 SFReal32 *ShadowMapEngineBase::editSFOffsetBias(void)
 {
@@ -372,12 +354,6 @@ const SFReal32 *ShadowMapEngineBase::getSFOffsetBias(void) const
     return &_sfOffsetBias;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *ShadowMapEngineBase::getSFOffsetBias     (void)
-{
-    return this->editSFOffsetBias     ();
-}
-#endif
 
 SFReal32 *ShadowMapEngineBase::editSFOffsetFactor(void)
 {
@@ -391,12 +367,6 @@ const SFReal32 *ShadowMapEngineBase::getSFOffsetFactor(void) const
     return &_sfOffsetFactor;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *ShadowMapEngineBase::getSFOffsetFactor   (void)
-{
-    return this->editSFOffsetFactor   ();
-}
-#endif
 
 
 

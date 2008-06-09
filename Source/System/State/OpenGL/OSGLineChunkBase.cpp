@@ -284,12 +284,6 @@ const SFReal32 *LineChunkBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *LineChunkBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFInt32 *LineChunkBase::editSFStippleRepeat(void)
 {
@@ -303,12 +297,6 @@ const SFInt32 *LineChunkBase::getSFStippleRepeat(void) const
     return &_sfStippleRepeat;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *LineChunkBase::getSFStippleRepeat  (void)
-{
-    return this->editSFStippleRepeat  ();
-}
-#endif
 
 SFUInt16 *LineChunkBase::editSFStipplePattern(void)
 {
@@ -322,12 +310,6 @@ const SFUInt16 *LineChunkBase::getSFStipplePattern(void) const
     return &_sfStipplePattern;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt16            *LineChunkBase::getSFStipplePattern (void)
-{
-    return this->editSFStipplePattern ();
-}
-#endif
 
 SFBool *LineChunkBase::editSFSmooth(void)
 {
@@ -341,12 +323,6 @@ const SFBool *LineChunkBase::getSFSmooth(void) const
     return &_sfSmooth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *LineChunkBase::getSFSmooth         (void)
-{
-    return this->editSFSmooth         ();
-}
-#endif
 
 
 

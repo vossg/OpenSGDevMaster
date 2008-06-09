@@ -377,12 +377,6 @@ const MFPnt3f *ProjectionCameraDecoratorBase::getMFSurface(void) const
     return &_mfSurface;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFPnt3f             *ProjectionCameraDecoratorBase::getMFSurface        (void)
-{
-    return this->editMFSurface        ();
-}
-#endif
 
 SFPlane *ProjectionCameraDecoratorBase::editSFLeft(void)
 {
@@ -396,12 +390,6 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPlane             *ProjectionCameraDecoratorBase::getSFLeft           (void)
-{
-    return this->editSFLeft           ();
-}
-#endif
 
 SFPlane *ProjectionCameraDecoratorBase::editSFBottom(void)
 {
@@ -415,12 +403,6 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPlane             *ProjectionCameraDecoratorBase::getSFBottom         (void)
-{
-    return this->editSFBottom         ();
-}
-#endif
 
 SFPlane *ProjectionCameraDecoratorBase::editSFNormal(void)
 {
@@ -434,12 +416,6 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFNormal(void) const
     return &_sfNormal;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPlane             *ProjectionCameraDecoratorBase::getSFNormal         (void)
-{
-    return this->editSFNormal         ();
-}
-#endif
 
 SFReal32 *ProjectionCameraDecoratorBase::editSFWidth(void)
 {
@@ -453,12 +429,6 @@ const SFReal32 *ProjectionCameraDecoratorBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *ProjectionCameraDecoratorBase::getSFWidth          (void)
-{
-    return this->editSFWidth          ();
-}
-#endif
 
 SFReal32 *ProjectionCameraDecoratorBase::editSFHeight(void)
 {
@@ -472,12 +442,6 @@ const SFReal32 *ProjectionCameraDecoratorBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *ProjectionCameraDecoratorBase::getSFHeight         (void)
-{
-    return this->editSFHeight         ();
-}
-#endif
 
 
 

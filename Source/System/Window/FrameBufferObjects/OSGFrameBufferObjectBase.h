@@ -150,17 +150,11 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFGLenum            *getSFGLId            (void);
-#endif
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
             const MFUnrecFrameBufferAttachmentPtr *getMFColorAttachments(void) const;
                   MFUnrecFrameBufferAttachmentPtr *editMFColorAttachments(void);
 
-#ifdef OSG_1_GET_COMPAT
-                  MFGLenum            *getMFDrawBuffers     (void);
-#endif
                   MFGLenum            *editMFDrawBuffers    (void);
             const MFGLenum            *getMFDrawBuffers     (void) const;
             const SFUnrecFrameBufferAttachmentPtr *getSFDepthAttachment(void) const;
@@ -168,49 +162,30 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
             const SFUnrecFrameBufferAttachmentPtr *getSFStencilAttachment(void) const;
                   SFUnrecFrameBufferAttachmentPtr *editSFStencilAttachment(void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFWidth           (void);
-#endif
                   SFUInt16            *editSFWidth          (void);
             const SFUInt16            *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt16            *getSFHeight          (void);
-#endif
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getGLId            (void);
-#endif
                   GLenum              &editGLId           (void);
-            const GLenum               getGLId            (void) const;
+            const GLenum              &getGLId            (void) const;
 
                   FrameBufferAttachment * getColorAttachments(const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  GLenum              &getDrawBuffers     (const UInt32 index);
-                  MFGLenum            &getDrawBuffers    (void);
-#endif
                   GLenum              &editDrawBuffers    (const UInt32 index);
-            const GLenum               getDrawBuffers     (const UInt32 index) const;
+            const GLenum              &getDrawBuffers     (const UInt32 index) const;
 
                   FrameBufferAttachment * getDepthAttachment(void) const;
 
                   FrameBufferAttachment * getStencilAttachment(void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getWidth           (void);
-#endif
                   UInt16              &editWidth          (void);
-            const UInt16               getWidth           (void) const;
+                  UInt16               getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt16              &getHeight          (void);
-#endif
                   UInt16              &editHeight         (void);
-            const UInt16               getHeight          (void) const;
+                  UInt16               getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -220,8 +195,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
             void setGLId           (const GLenum &value);
             void setDepthAttachment(FrameBufferAttachment * const value);
             void setStencilAttachment(FrameBufferAttachment * const value);
-            void setWidth          (const UInt16 &value);
-            void setHeight         (const UInt16 &value);
+            void setWidth          (const UInt16 value);
+            void setHeight         (const UInt16 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

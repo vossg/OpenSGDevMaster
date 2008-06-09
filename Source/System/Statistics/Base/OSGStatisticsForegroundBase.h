@@ -130,31 +130,18 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  MFInt32             *getMFElementIDs      (void);
-#endif
                   MFInt32             *editMFElementIDs     (void);
             const MFInt32             *getMFElementIDs      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFStatCollectorP    *getSFCollector       (void);
-#endif
                   SFStatCollectorP    *editSFCollector      (void);
             const SFStatCollectorP    *getSFCollector       (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getElementIDs      (const UInt32 index);
-                  MFInt32             &getElementIDs     (void);
-#endif
                   Int32               &editElementIDs     (const UInt32 index);
-            const Int32                getElementIDs      (const UInt32 index) const;
+                  Int32                getElementIDs      (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  StatCollectorP      &getCollector       (void);
-#endif
                   StatCollectorP      &editCollector      (void);
-            const StatCollectorP       getCollector       (void) const;
+            const StatCollectorP      &getCollector       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

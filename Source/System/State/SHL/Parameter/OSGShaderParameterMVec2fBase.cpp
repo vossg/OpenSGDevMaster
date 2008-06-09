@@ -174,12 +174,6 @@ const MFVec2f *ShaderParameterMVec2fBase::getMFValue(void) const
     return &_mfValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec2f             *ShaderParameterMVec2fBase::getMFValue          (void)
-{
-    return this->editMFValue          ();
-}
-#endif
 
 
 

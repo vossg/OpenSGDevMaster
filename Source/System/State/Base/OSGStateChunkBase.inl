@@ -85,22 +85,14 @@ bool &StateChunkBase::editIgnore(void)
 
 //! Get the value of the StateChunk::_sfIgnore field.
 inline
-const bool StateChunkBase::getIgnore(void) const
+      bool  StateChunkBase::getIgnore(void) const
 {
     return _sfIgnore.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &StateChunkBase::getIgnore         (void)
-{
-    return this->editIgnore         ();
-}
-#endif
-
 //! Set the value of the StateChunk::_sfIgnore field.
 inline
-void StateChunkBase::setIgnore(const bool &value)
+void StateChunkBase::setIgnore(const bool value)
 {
     editSField(IgnoreFieldMask);
 

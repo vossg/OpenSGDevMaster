@@ -126,19 +126,12 @@ class OSG_STATE_DLLMAPPING ShaderParameterMRealBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  MFReal32            *getMFValue           (void);
-#endif
                   MFReal32            *editMFValue          (void);
             const MFReal32            *getMFValue           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getValue           (const UInt32 index);
-                  MFReal32            &getValue          (void);
-#endif
                   Real32              &editValue          (const UInt32 index);
-            const Real32               getValue           (const UInt32 index) const;
+                  Real32               getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

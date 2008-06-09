@@ -222,7 +222,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
                   StateChunk * getChunks         (const UInt32 index) const;
 
                   Int32               &editSlots          (const UInt32 index);
-            const Int32                getSlots           (const UInt32 index) const;
+                  Int32                getSlots           (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

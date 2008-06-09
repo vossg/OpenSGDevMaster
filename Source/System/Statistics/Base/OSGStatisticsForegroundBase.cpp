@@ -259,12 +259,6 @@ const MFInt32 *StatisticsForegroundBase::getMFElementIDs(void) const
     return &_mfElementIDs;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFInt32             *StatisticsForegroundBase::getMFElementIDs     (void)
-{
-    return this->editMFElementIDs     ();
-}
-#endif
 
 SFStatCollectorP *StatisticsForegroundBase::editSFCollector(void)
 {
@@ -278,12 +272,6 @@ const SFStatCollectorP *StatisticsForegroundBase::getSFCollector(void) const
     return &_sfCollector;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFStatCollectorP    *StatisticsForegroundBase::getSFCollector      (void)
-{
-    return this->editSFCollector      ();
-}
-#endif
 
 
 

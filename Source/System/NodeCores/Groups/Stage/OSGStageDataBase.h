@@ -134,51 +134,33 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFPartitionRangeBegin (void);
-#endif
                   SFInt32             *editSFPartitionRangeBegin(void);
             const SFInt32             *getSFPartitionRangeBegin (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFPartitionRangeEnd (void);
-#endif
                   SFInt32             *editSFPartitionRangeEnd(void);
             const SFInt32             *getSFPartitionRangeEnd (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFInt32             *getSFGroupMode       (void);
-#endif
                   SFInt32             *editSFGroupMode      (void);
             const SFInt32             *getSFGroupMode       (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getPartitionRangeBegin (void);
-#endif
                   Int32               &editPartitionRangeBegin(void);
-            const Int32                getPartitionRangeBegin (void) const;
+                  Int32                getPartitionRangeBegin (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getPartitionRangeEnd (void);
-#endif
                   Int32               &editPartitionRangeEnd(void);
-            const Int32                getPartitionRangeEnd (void) const;
+                  Int32                getPartitionRangeEnd (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Int32               &getGroupMode       (void);
-#endif
                   Int32               &editGroupMode      (void);
-            const Int32                getGroupMode       (void) const;
+                  Int32                getGroupMode       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setPartitionRangeBegin(const Int32 &value);
-            void setPartitionRangeEnd(const Int32 &value);
-            void setGroupMode      (const Int32 &value);
+            void setPartitionRangeBegin(const Int32 value);
+            void setPartitionRangeEnd(const Int32 value);
+            void setGroupMode      (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

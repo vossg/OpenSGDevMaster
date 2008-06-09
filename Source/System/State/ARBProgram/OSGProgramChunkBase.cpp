@@ -284,12 +284,6 @@ const SFString *ProgramChunkBase::getSFProgram(void) const
     return &_sfProgram;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ProgramChunkBase::getSFProgram        (void)
-{
-    return this->editSFProgram        ();
-}
-#endif
 
 MFVec4f *ProgramChunkBase::editMFParamValues(void)
 {
@@ -303,12 +297,6 @@ const MFVec4f *ProgramChunkBase::getMFParamValues(void) const
     return &_mfParamValues;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFVec4f             *ProgramChunkBase::getMFParamValues    (void)
-{
-    return this->editMFParamValues    ();
-}
-#endif
 
 MFString *ProgramChunkBase::editMFParamNames(void)
 {
@@ -322,12 +310,6 @@ const MFString *ProgramChunkBase::getMFParamNames(void) const
     return &_mfParamNames;
 }
 
-#ifdef OSG_1_GET_COMPAT
-MFString            *ProgramChunkBase::getMFParamNames     (void)
-{
-    return this->editMFParamNames     ();
-}
-#endif
 
 SFUInt32 *ProgramChunkBase::editSFGLId(void)
 {
@@ -341,12 +323,6 @@ const SFUInt32 *ProgramChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *ProgramChunkBase::getSFGLId           (void)
-{
-    return this->editSFGLId           ();
-}
-#endif
 
 
 

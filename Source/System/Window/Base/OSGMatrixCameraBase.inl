@@ -85,18 +85,10 @@ Matrix &MatrixCameraBase::editProjectionMatrix(void)
 
 //! Get the value of the MatrixCamera::_sfProjectionMatrix field.
 inline
-const Matrix MatrixCameraBase::getProjectionMatrix(void) const
+const Matrix &MatrixCameraBase::getProjectionMatrix(void) const
 {
     return _sfProjectionMatrix.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Matrix              &MatrixCameraBase::getProjectionMatrix(void)
-{
-    return this->editProjectionMatrix();
-}
-#endif
 
 //! Set the value of the MatrixCamera::_sfProjectionMatrix field.
 inline
@@ -118,18 +110,10 @@ Matrix &MatrixCameraBase::editModelviewMatrix(void)
 
 //! Get the value of the MatrixCamera::_sfModelviewMatrix field.
 inline
-const Matrix MatrixCameraBase::getModelviewMatrix(void) const
+const Matrix &MatrixCameraBase::getModelviewMatrix(void) const
 {
     return _sfModelviewMatrix.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Matrix              &MatrixCameraBase::getModelviewMatrix(void)
-{
-    return this->editModelviewMatrix();
-}
-#endif
 
 //! Set the value of the MatrixCamera::_sfModelviewMatrix field.
 inline
@@ -151,22 +135,14 @@ bool &MatrixCameraBase::editUseBeacon(void)
 
 //! Get the value of the MatrixCamera::_sfUseBeacon field.
 inline
-const bool MatrixCameraBase::getUseBeacon(void) const
+      bool  MatrixCameraBase::getUseBeacon(void) const
 {
     return _sfUseBeacon.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &MatrixCameraBase::getUseBeacon      (void)
-{
-    return this->editUseBeacon      ();
-}
-#endif
-
 //! Set the value of the MatrixCamera::_sfUseBeacon field.
 inline
-void MatrixCameraBase::setUseBeacon(const bool &value)
+void MatrixCameraBase::setUseBeacon(const bool value)
 {
     editSField(UseBeaconFieldMask);
 

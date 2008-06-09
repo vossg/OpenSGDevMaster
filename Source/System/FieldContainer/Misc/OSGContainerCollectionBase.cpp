@@ -198,12 +198,6 @@ const SFString *ContainerCollectionBase::getSFName(void) const
     return &_sfName;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFString            *ContainerCollectionBase::getSFName           (void)
-{
-    return this->editSFName           ();
-}
-#endif
 
 //! Get the ContainerCollection::_mfContainers field.
 const MFUnrecFieldContainerPtr *ContainerCollectionBase::getMFContainers(void) const

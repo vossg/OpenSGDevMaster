@@ -126,18 +126,12 @@ class OSG_STATE_DLLMAPPING ShaderParameterPnt2fBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFPnt2f             *getSFValue           (void);
-#endif
                   SFPnt2f             *editSFValue          (void);
             const SFPnt2f             *getSFValue           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt2f               &getValue           (void);
-#endif
                   Pnt2f               &editValue          (void);
-            const Pnt2f                getValue           (void) const;
+            const Pnt2f               &getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

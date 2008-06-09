@@ -152,45 +152,26 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
             const SFUnrecNodePtr      *getSFUser           (void) const;
                   SFUnrecNodePtr      *editSFUser           (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  MFPnt3f             *getMFSurface         (void);
-#endif
                   MFPnt3f             *editMFSurface        (void);
             const MFPnt3f             *getMFSurface         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFWidth           (void);
-#endif
                   SFReal32            *editSFWidth          (void);
             const SFReal32            *getSFWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal32            *getSFHeight          (void);
-#endif
                   SFReal32            *editSFHeight         (void);
             const SFReal32            *getSFHeight          (void) const;
 
 
                   Node * getUser           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Pnt3f               &getSurface         (const UInt32 index);
-                  MFPnt3f             &getSurface        (void);
-#endif
                   Pnt3f               &editSurface        (const UInt32 index);
-            const Pnt3f                getSurface         (const UInt32 index) const;
+            const Pnt3f               &getSurface         (const UInt32 index) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getWidth           (void);
-#endif
                   Real32              &editWidth          (void);
-            const Real32               getWidth           (void) const;
+                  Real32               getWidth           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real32              &getHeight          (void);
-#endif
                   Real32              &editHeight         (void);
-            const Real32               getHeight          (void) const;
+                  Real32               getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -198,8 +179,8 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \{                                                                 */
 
             void setUser           (Node * const value);
-            void setWidth          (const Real32 &value);
-            void setHeight         (const Real32 &value);
+            void setWidth          (const Real32 value);
+            void setHeight         (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -327,13 +308,13 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
 
 
                   Plane               &editLeft           (void);
-            const Plane                getLeft            (void) const;
+            const Plane               &getLeft            (void) const;
 
                   Plane               &editBottom         (void);
-            const Plane                getBottom          (void) const;
+            const Plane               &getBottom          (void) const;
 
                   Plane               &editNormal         (void);
-            const Plane                getNormal          (void) const;
+            const Plane               &getNormal          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

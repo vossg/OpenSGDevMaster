@@ -535,12 +535,6 @@ const SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeX(void) const
     return &_sfSizeX;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *TiledQuadTreeTerrainBase::getSFSizeX          (void)
-{
-    return this->editSFSizeX          ();
-}
-#endif
 
 SFUInt32 *TiledQuadTreeTerrainBase::editSFSizeY(void)
 {
@@ -554,12 +548,6 @@ const SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeY(void) const
     return &_sfSizeY;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *TiledQuadTreeTerrainBase::getSFSizeY          (void)
-{
-    return this->editSFSizeY          ();
-}
-#endif
 
 SFReal32 *TiledQuadTreeTerrainBase::editSFHeightScale(void)
 {
@@ -573,12 +561,6 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFHeightScale(void) const
     return &_sfHeightScale;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TiledQuadTreeTerrainBase::getSFHeightScale    (void)
-{
-    return this->editSFHeightScale    ();
-}
-#endif
 
 SFReal32 *TiledQuadTreeTerrainBase::editSFVertexSpacing(void)
 {
@@ -592,12 +574,6 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFVertexSpacing(void) const
     return &_sfVertexSpacing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TiledQuadTreeTerrainBase::getSFVertexSpacing  (void)
-{
-    return this->editSFVertexSpacing  ();
-}
-#endif
 
 SFBool *TiledQuadTreeTerrainBase::editSFGeoMorphing(void)
 {
@@ -611,12 +587,6 @@ const SFBool *TiledQuadTreeTerrainBase::getSFGeoMorphing(void) const
     return &_sfGeoMorphing;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TiledQuadTreeTerrainBase::getSFGeoMorphing    (void)
-{
-    return this->editSFGeoMorphing    ();
-}
-#endif
 
 SFReal32 *TiledQuadTreeTerrainBase::editSFDetail(void)
 {
@@ -630,12 +600,6 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFDetail(void) const
     return &_sfDetail;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *TiledQuadTreeTerrainBase::getSFDetail         (void)
-{
-    return this->editSFDetail         ();
-}
-#endif
 
 SFInt32 *TiledQuadTreeTerrainBase::editSFCurrentX(void)
 {
@@ -649,12 +613,6 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentX(void) const
     return &_sfCurrentX;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *TiledQuadTreeTerrainBase::getSFCurrentX       (void)
-{
-    return this->editSFCurrentX       ();
-}
-#endif
 
 SFInt32 *TiledQuadTreeTerrainBase::editSFCurrentY(void)
 {
@@ -668,12 +626,6 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentY(void) const
     return &_sfCurrentY;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *TiledQuadTreeTerrainBase::getSFCurrentY       (void)
-{
-    return this->editSFCurrentY       ();
-}
-#endif
 
 SFInt32 *TiledQuadTreeTerrainBase::editSFSizeROI(void)
 {
@@ -687,12 +639,6 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFSizeROI(void) const
     return &_sfSizeROI;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFInt32             *TiledQuadTreeTerrainBase::getSFSizeROI        (void)
-{
-    return this->editSFSizeROI        ();
-}
-#endif
 
 SFBool *TiledQuadTreeTerrainBase::editSFUpdate(void)
 {
@@ -706,12 +652,6 @@ const SFBool *TiledQuadTreeTerrainBase::getSFUpdate(void) const
     return &_sfUpdate;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TiledQuadTreeTerrainBase::getSFUpdate         (void)
-{
-    return this->editSFUpdate         ();
-}
-#endif
 
 SFBool *TiledQuadTreeTerrainBase::editSFUpdateTerrain(void)
 {
@@ -725,12 +665,6 @@ const SFBool *TiledQuadTreeTerrainBase::getSFUpdateTerrain(void) const
     return &_sfUpdateTerrain;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TiledQuadTreeTerrainBase::getSFUpdateTerrain  (void)
-{
-    return this->editSFUpdateTerrain  ();
-}
-#endif
 
 SFBool *TiledQuadTreeTerrainBase::editSFPerPixelLighting(void)
 {
@@ -744,12 +678,6 @@ const SFBool *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void) const
     return &_sfPerPixelLighting;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
-{
-    return this->editSFPerPixelLighting();
-}
-#endif
 
 
 

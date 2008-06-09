@@ -146,78 +146,42 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFPreViewing      (void);
-#endif
                   SFMatrix            *editSFPreViewing     (void);
             const SFMatrix            *getSFPreViewing      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFPostViewing     (void);
-#endif
                   SFMatrix            *editSFPostViewing    (void);
             const SFMatrix            *getSFPostViewing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFPreProjectionTranslation (void);
-#endif
                   SFMatrix            *editSFPreProjectionTranslation(void);
             const SFMatrix            *getSFPreProjectionTranslation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFPostProjectionTranslation (void);
-#endif
                   SFMatrix            *editSFPostProjectionTranslation(void);
             const SFMatrix            *getSFPostProjectionTranslation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFPreProjection   (void);
-#endif
                   SFMatrix            *editSFPreProjection  (void);
             const SFMatrix            *getSFPreProjection   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFPostProjection  (void);
-#endif
                   SFMatrix            *editSFPostProjection (void);
             const SFMatrix            *getSFPostProjection  (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getPreViewing      (void);
-#endif
                   Matrix              &editPreViewing     (void);
-            const Matrix               getPreViewing      (void) const;
+            const Matrix              &getPreViewing      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getPostViewing     (void);
-#endif
                   Matrix              &editPostViewing    (void);
-            const Matrix               getPostViewing     (void) const;
+            const Matrix              &getPostViewing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getPreProjectionTranslation (void);
-#endif
                   Matrix              &editPreProjectionTranslation(void);
-            const Matrix               getPreProjectionTranslation (void) const;
+            const Matrix              &getPreProjectionTranslation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getPostProjectionTranslation (void);
-#endif
                   Matrix              &editPostProjectionTranslation(void);
-            const Matrix               getPostProjectionTranslation (void) const;
+            const Matrix              &getPostProjectionTranslation (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getPreProjection   (void);
-#endif
                   Matrix              &editPreProjection  (void);
-            const Matrix               getPreProjection   (void) const;
+            const Matrix              &getPreProjection   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getPostProjection  (void);
-#endif
                   Matrix              &editPostProjection (void);
-            const Matrix               getPostProjection  (void) const;
+            const Matrix              &getPostProjection  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

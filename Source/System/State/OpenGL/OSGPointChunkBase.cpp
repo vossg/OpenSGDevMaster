@@ -447,12 +447,6 @@ const SFReal32 *PointChunkBase::getSFSize(void) const
     return &_sfSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PointChunkBase::getSFSize           (void)
-{
-    return this->editSFSize           ();
-}
-#endif
 
 SFBool *PointChunkBase::editSFSmooth(void)
 {
@@ -466,12 +460,6 @@ const SFBool *PointChunkBase::getSFSmooth(void) const
     return &_sfSmooth;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PointChunkBase::getSFSmooth         (void)
-{
-    return this->editSFSmooth         ();
-}
-#endif
 
 SFReal32 *PointChunkBase::editSFMinSize(void)
 {
@@ -485,12 +473,6 @@ const SFReal32 *PointChunkBase::getSFMinSize(void) const
     return &_sfMinSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PointChunkBase::getSFMinSize        (void)
-{
-    return this->editSFMinSize        ();
-}
-#endif
 
 SFReal32 *PointChunkBase::editSFMaxSize(void)
 {
@@ -504,12 +486,6 @@ const SFReal32 *PointChunkBase::getSFMaxSize(void) const
     return &_sfMaxSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PointChunkBase::getSFMaxSize        (void)
-{
-    return this->editSFMaxSize        ();
-}
-#endif
 
 SFReal32 *PointChunkBase::editSFConstantAttenuation(void)
 {
@@ -523,12 +499,6 @@ const SFReal32 *PointChunkBase::getSFConstantAttenuation(void) const
     return &_sfConstantAttenuation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PointChunkBase::getSFConstantAttenuation(void)
-{
-    return this->editSFConstantAttenuation();
-}
-#endif
 
 SFReal32 *PointChunkBase::editSFLinearAttenuation(void)
 {
@@ -542,12 +512,6 @@ const SFReal32 *PointChunkBase::getSFLinearAttenuation(void) const
     return &_sfLinearAttenuation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PointChunkBase::getSFLinearAttenuation(void)
-{
-    return this->editSFLinearAttenuation();
-}
-#endif
 
 SFReal32 *PointChunkBase::editSFQuadraticAttenuation(void)
 {
@@ -561,12 +525,6 @@ const SFReal32 *PointChunkBase::getSFQuadraticAttenuation(void) const
     return &_sfQuadraticAttenuation;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PointChunkBase::getSFQuadraticAttenuation(void)
-{
-    return this->editSFQuadraticAttenuation();
-}
-#endif
 
 SFReal32 *PointChunkBase::editSFFadeThreshold(void)
 {
@@ -580,12 +538,6 @@ const SFReal32 *PointChunkBase::getSFFadeThreshold(void) const
     return &_sfFadeThreshold;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *PointChunkBase::getSFFadeThreshold  (void)
-{
-    return this->editSFFadeThreshold  ();
-}
-#endif
 
 SFBool *PointChunkBase::editSFSprite(void)
 {
@@ -599,12 +551,6 @@ const SFBool *PointChunkBase::getSFSprite(void) const
     return &_sfSprite;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *PointChunkBase::getSFSprite         (void)
-{
-    return this->editSFSprite         ();
-}
-#endif
 
 SFGLenum *PointChunkBase::editSFRMode(void)
 {
@@ -618,12 +564,6 @@ const SFGLenum *PointChunkBase::getSFRMode(void) const
     return &_sfRMode;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFGLenum            *PointChunkBase::getSFRMode          (void)
-{
-    return this->editSFRMode          ();
-}
-#endif
 
 
 

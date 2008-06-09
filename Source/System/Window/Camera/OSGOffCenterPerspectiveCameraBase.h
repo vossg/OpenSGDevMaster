@@ -126,18 +126,12 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec2f             *getSFPrincipalPoint  (void);
-#endif
                   SFVec2f             *editSFPrincipalPoint (void);
             const SFVec2f             *getSFPrincipalPoint  (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec2f               &getPrincipalPoint  (void);
-#endif
                   Vec2f               &editPrincipalPoint (void);
-            const Vec2f                getPrincipalPoint  (void) const;
+            const Vec2f               &getPrincipalPoint  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

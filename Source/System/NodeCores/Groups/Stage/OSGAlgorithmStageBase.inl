@@ -101,22 +101,14 @@ UInt32 &AlgorithmStageBase::editProjectionMode(void)
 
 //! Get the value of the AlgorithmStage::_sfProjectionMode field.
 inline
-const UInt32 AlgorithmStageBase::getProjectionMode(void) const
+      UInt32  AlgorithmStageBase::getProjectionMode(void) const
 {
     return _sfProjectionMode.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &AlgorithmStageBase::getProjectionMode (void)
-{
-    return this->editProjectionMode ();
-}
-#endif
-
 //! Set the value of the AlgorithmStage::_sfProjectionMode field.
 inline
-void AlgorithmStageBase::setProjectionMode(const UInt32 &value)
+void AlgorithmStageBase::setProjectionMode(const UInt32 value)
 {
     editSField(ProjectionModeFieldMask);
 
@@ -134,22 +126,14 @@ bool &AlgorithmStageBase::editCopyViewing(void)
 
 //! Get the value of the AlgorithmStage::_sfCopyViewing field.
 inline
-const bool AlgorithmStageBase::getCopyViewing(void) const
+      bool  AlgorithmStageBase::getCopyViewing(void) const
 {
     return _sfCopyViewing.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-bool                &AlgorithmStageBase::getCopyViewing    (void)
-{
-    return this->editCopyViewing    ();
-}
-#endif
-
 //! Set the value of the AlgorithmStage::_sfCopyViewing field.
 inline
-void AlgorithmStageBase::setCopyViewing(const bool &value)
+void AlgorithmStageBase::setCopyViewing(const bool value)
 {
     editSField(CopyViewingFieldMask);
 
@@ -167,18 +151,10 @@ Matrix &AlgorithmStageBase::editProjectionMatrix(void)
 
 //! Get the value of the AlgorithmStage::_sfProjectionMatrix field.
 inline
-const Matrix AlgorithmStageBase::getProjectionMatrix(void) const
+const Matrix &AlgorithmStageBase::getProjectionMatrix(void) const
 {
     return _sfProjectionMatrix.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Matrix              &AlgorithmStageBase::getProjectionMatrix(void)
-{
-    return this->editProjectionMatrix();
-}
-#endif
 
 //! Set the value of the AlgorithmStage::_sfProjectionMatrix field.
 inline

@@ -142,77 +142,47 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindowBase : public MultiDisplayWindow
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFBalance         (void);
-#endif
                   SFBool              *editSFBalance        (void);
             const SFBool              *getSFBalance         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFBestCut         (void);
-#endif
                   SFBool              *editSFBestCut        (void);
             const SFBool              *getSFBestCut         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFShowBalancing   (void);
-#endif
                   SFBool              *editSFShowBalancing  (void);
             const SFBool              *getSFShowBalancing   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFTileSize        (void);
-#endif
                   SFUInt32            *editSFTileSize       (void);
             const SFUInt32            *getSFTileSize        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFShort           (void);
-#endif
                   SFBool              *editSFShort          (void);
             const SFBool              *getSFShort           (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getBalance         (void);
-#endif
                   bool                &editBalance        (void);
-            const bool                 getBalance         (void) const;
+                  bool                 getBalance         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getBestCut         (void);
-#endif
                   bool                &editBestCut        (void);
-            const bool                 getBestCut         (void) const;
+                  bool                 getBestCut         (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getShowBalancing   (void);
-#endif
                   bool                &editShowBalancing  (void);
-            const bool                 getShowBalancing   (void) const;
+                  bool                 getShowBalancing   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getTileSize        (void);
-#endif
                   UInt32              &editTileSize       (void);
-            const UInt32               getTileSize        (void) const;
+                  UInt32               getTileSize        (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getShort           (void);
-#endif
                   bool                &editShort          (void);
-            const bool                 getShort           (void) const;
+                  bool                 getShort           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setBalance        (const bool &value);
-            void setBestCut        (const bool &value);
-            void setShowBalancing  (const bool &value);
-            void setTileSize       (const UInt32 &value);
-            void setShort          (const bool &value);
+            void setBalance        (const bool value);
+            void setBestCut        (const bool value);
+            void setShowBalancing  (const bool value);
+            void setTileSize       (const UInt32 value);
+            void setShort          (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

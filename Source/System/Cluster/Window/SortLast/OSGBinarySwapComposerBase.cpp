@@ -224,12 +224,6 @@ const SFBool *BinarySwapComposerBase::getSFShort(void) const
     return &_sfShort;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BinarySwapComposerBase::getSFShort          (void)
-{
-    return this->editSFShort          ();
-}
-#endif
 
 SFBool *BinarySwapComposerBase::editSFAlpha(void)
 {
@@ -243,12 +237,6 @@ const SFBool *BinarySwapComposerBase::getSFAlpha(void) const
     return &_sfAlpha;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *BinarySwapComposerBase::getSFAlpha          (void)
-{
-    return this->editSFAlpha          ();
-}
-#endif
 
 SFUInt32 *BinarySwapComposerBase::editSFTileSize(void)
 {
@@ -262,12 +250,6 @@ const SFUInt32 *BinarySwapComposerBase::getSFTileSize(void) const
     return &_sfTileSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *BinarySwapComposerBase::getSFTileSize       (void)
-{
-    return this->editSFTileSize       ();
-}
-#endif
 
 
 

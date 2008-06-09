@@ -85,18 +85,10 @@ Vec3r &DirectionalLightBase::editDirection(void)
 
 //! Get the value of the DirectionalLight::_sfDirection field.
 inline
-const Vec3r DirectionalLightBase::getDirection(void) const
+const Vec3r &DirectionalLightBase::getDirection(void) const
 {
     return _sfDirection.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec3r               &DirectionalLightBase::getDirection      (void)
-{
-    return this->editDirection      ();
-}
-#endif
 
 //! Set the value of the DirectionalLight::_sfDirection field.
 inline

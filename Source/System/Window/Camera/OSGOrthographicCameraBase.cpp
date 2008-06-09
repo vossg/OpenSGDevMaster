@@ -197,12 +197,6 @@ const SFReal32 *OrthographicCameraBase::getSFVerticalSize(void) const
     return &_sfVerticalSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *OrthographicCameraBase::getSFVerticalSize   (void)
-{
-    return this->editSFVerticalSize   ();
-}
-#endif
 
 SFReal32 *OrthographicCameraBase::editSFAspect(void)
 {
@@ -216,12 +210,6 @@ const SFReal32 *OrthographicCameraBase::getSFAspect(void) const
     return &_sfAspect;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal32            *OrthographicCameraBase::getSFAspect         (void)
-{
-    return this->editSFAspect         ();
-}
-#endif
 
 
 

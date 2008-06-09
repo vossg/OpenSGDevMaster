@@ -85,18 +85,10 @@ std::string &ContainerCollectionBase::editName(void)
 
 //! Get the value of the ContainerCollection::_sfName field.
 inline
-const std::string ContainerCollectionBase::getName(void) const
+const std::string &ContainerCollectionBase::getName(void) const
 {
     return _sfName.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &ContainerCollectionBase::getName           (void)
-{
-    return this->editName           ();
-}
-#endif
 
 //! Set the value of the ContainerCollection::_sfName field.
 inline

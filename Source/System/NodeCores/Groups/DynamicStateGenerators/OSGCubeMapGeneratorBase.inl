@@ -117,18 +117,10 @@ Vec2s &CubeMapGeneratorBase::editTextureSize(void)
 
 //! Get the value of the CubeMapGenerator::_sfTextureSize field.
 inline
-const Vec2s CubeMapGeneratorBase::getTextureSize(void) const
+const Vec2s &CubeMapGeneratorBase::getTextureSize(void) const
 {
     return _sfTextureSize.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec2s               &CubeMapGeneratorBase::getTextureSize    (void)
-{
-    return this->editTextureSize    ();
-}
-#endif
 
 //! Set the value of the CubeMapGenerator::_sfTextureSize field.
 inline
@@ -150,18 +142,10 @@ GLenum &CubeMapGeneratorBase::editTextureFormat(void)
 
 //! Get the value of the CubeMapGenerator::_sfTextureFormat field.
 inline
-const GLenum CubeMapGeneratorBase::getTextureFormat(void) const
+const GLenum &CubeMapGeneratorBase::getTextureFormat(void) const
 {
     return _sfTextureFormat.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-GLenum              &CubeMapGeneratorBase::getTextureFormat  (void)
-{
-    return this->editTextureFormat  ();
-}
-#endif
 
 //! Set the value of the CubeMapGenerator::_sfTextureFormat field.
 inline
@@ -199,18 +183,10 @@ Pnt3f &CubeMapGeneratorBase::editOrigin(void)
 
 //! Get the value of the CubeMapGenerator::_sfOrigin field.
 inline
-const Pnt3f CubeMapGeneratorBase::getOrigin(void) const
+const Pnt3f &CubeMapGeneratorBase::getOrigin(void) const
 {
     return _sfOrigin.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Pnt3f               &CubeMapGeneratorBase::getOrigin         (void)
-{
-    return this->editOrigin         ();
-}
-#endif
 
 //! Set the value of the CubeMapGenerator::_sfOrigin field.
 inline
@@ -232,22 +208,14 @@ UInt32 &CubeMapGeneratorBase::editOriginMode(void)
 
 //! Get the value of the CubeMapGenerator::_sfOriginMode field.
 inline
-const UInt32 CubeMapGeneratorBase::getOriginMode(void) const
+      UInt32  CubeMapGeneratorBase::getOriginMode(void) const
 {
     return _sfOriginMode.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &CubeMapGeneratorBase::getOriginMode     (void)
-{
-    return this->editOriginMode     ();
-}
-#endif
-
 //! Set the value of the CubeMapGenerator::_sfOriginMode field.
 inline
-void CubeMapGeneratorBase::setOriginMode(const UInt32 &value)
+void CubeMapGeneratorBase::setOriginMode(const UInt32 value)
 {
     editSField(OriginModeFieldMask);
 
@@ -265,22 +233,14 @@ UInt32 &CubeMapGeneratorBase::editTexUnit(void)
 
 //! Get the value of the CubeMapGenerator::_sfTexUnit field.
 inline
-const UInt32 CubeMapGeneratorBase::getTexUnit(void) const
+      UInt32  CubeMapGeneratorBase::getTexUnit(void) const
 {
     return _sfTexUnit.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &CubeMapGeneratorBase::getTexUnit        (void)
-{
-    return this->editTexUnit        ();
-}
-#endif
-
 //! Set the value of the CubeMapGenerator::_sfTexUnit field.
 inline
-void CubeMapGeneratorBase::setTexUnit(const UInt32 &value)
+void CubeMapGeneratorBase::setTexUnit(const UInt32 value)
 {
     editSField(TexUnitFieldMask);
 
@@ -298,22 +258,14 @@ UInt32 &CubeMapGeneratorBase::editSetupMode(void)
 
 //! Get the value of the CubeMapGenerator::_sfSetupMode field.
 inline
-const UInt32 CubeMapGeneratorBase::getSetupMode(void) const
+      UInt32  CubeMapGeneratorBase::getSetupMode(void) const
 {
     return _sfSetupMode.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &CubeMapGeneratorBase::getSetupMode      (void)
-{
-    return this->editSetupMode      ();
-}
-#endif
-
 //! Set the value of the CubeMapGenerator::_sfSetupMode field.
 inline
-void CubeMapGeneratorBase::setSetupMode(const UInt32 &value)
+void CubeMapGeneratorBase::setSetupMode(const UInt32 value)
 {
     editSField(SetupModeFieldMask);
 

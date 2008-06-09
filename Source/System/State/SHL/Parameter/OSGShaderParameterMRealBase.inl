@@ -76,7 +76,7 @@ OSG::UInt16 ShaderParameterMRealBase::getClassGroupId(void)
 
 //! Get the value of the \a index element the ShaderParameterMReal::_mfValue field.
 inline
-const Real32 ShaderParameterMRealBase::getValue(const UInt32 index) const
+      Real32  ShaderParameterMRealBase::getValue(const UInt32 index) const
 {
     return _mfValue[index];
 }
@@ -88,21 +88,6 @@ Real32 &ShaderParameterMRealBase::editValue(const UInt32 index)
 
     return _mfValue[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &ShaderParameterMRealBase::getValue          (const UInt32 index)
-{
-    return this->editValue          (index);
-}
-
-inline
-MFReal32            &ShaderParameterMRealBase::getValue          (void)
-{
-    return this->editValue          ();
-}
-
-#endif
 
 
 

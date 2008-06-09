@@ -85,22 +85,14 @@ UInt16 &FrameBufferAttachmentBase::editWidth(void)
 
 //! Get the value of the FrameBufferAttachment::_sfWidth field.
 inline
-const UInt16 FrameBufferAttachmentBase::getWidth(void) const
+      UInt16  FrameBufferAttachmentBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt16              &FrameBufferAttachmentBase::getWidth          (void)
-{
-    return this->editWidth          ();
-}
-#endif
-
 //! Set the value of the FrameBufferAttachment::_sfWidth field.
 inline
-void FrameBufferAttachmentBase::setWidth(const UInt16 &value)
+void FrameBufferAttachmentBase::setWidth(const UInt16 value)
 {
     editSField(WidthFieldMask);
 
@@ -118,22 +110,14 @@ UInt16 &FrameBufferAttachmentBase::editHeight(void)
 
 //! Get the value of the FrameBufferAttachment::_sfHeight field.
 inline
-const UInt16 FrameBufferAttachmentBase::getHeight(void) const
+      UInt16  FrameBufferAttachmentBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt16              &FrameBufferAttachmentBase::getHeight         (void)
-{
-    return this->editHeight         ();
-}
-#endif
-
 //! Set the value of the FrameBufferAttachment::_sfHeight field.
 inline
-void FrameBufferAttachmentBase::setHeight(const UInt16 &value)
+void FrameBufferAttachmentBase::setHeight(const UInt16 value)
 {
     editSField(HeightFieldMask);
 

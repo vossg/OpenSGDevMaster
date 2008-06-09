@@ -85,22 +85,14 @@ UInt32 &FCDTestFCBase::editFieldSFPub(void)
 
 //! Get the value of the FCDTestFC::_sfFieldSFPub field.
 inline
-const UInt32 FCDTestFCBase::getFieldSFPub(void) const
+      UInt32  FCDTestFCBase::getFieldSFPub(void) const
 {
     return _sfFieldSFPub.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &FCDTestFCBase::getFieldSFPub     (void)
-{
-    return this->editFieldSFPub     ();
-}
-#endif
-
 //! Set the value of the FCDTestFC::_sfFieldSFPub field.
 inline
-void FCDTestFCBase::setFieldSFPub(const UInt32 &value)
+void FCDTestFCBase::setFieldSFPub(const UInt32 value)
 {
     editSField(FieldSFPubFieldMask);
 
@@ -118,22 +110,14 @@ UInt32 &FCDTestFCBase::editFieldSFPro(void)
 
 //! Get the value of the FCDTestFC::_sfFieldSFPro field.
 inline
-const UInt32 FCDTestFCBase::getFieldSFPro(void) const
+      UInt32  FCDTestFCBase::getFieldSFPro(void) const
 {
     return _sfFieldSFPro.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &FCDTestFCBase::getFieldSFPro     (void)
-{
-    return this->editFieldSFPro     ();
-}
-#endif
-
 //! Set the value of the FCDTestFC::_sfFieldSFPro field.
 inline
-void FCDTestFCBase::setFieldSFPro(const UInt32 &value)
+void FCDTestFCBase::setFieldSFPro(const UInt32 value)
 {
     editSField(FieldSFProFieldMask);
 
@@ -142,7 +126,7 @@ void FCDTestFCBase::setFieldSFPro(const UInt32 &value)
 
 //! Get the value of the \a index element the FCDTestFC::_mfFieldMFPub field.
 inline
-const UInt32 FCDTestFCBase::getFieldMFPub(const UInt32 index) const
+      UInt32  FCDTestFCBase::getFieldMFPub(const UInt32 index) const
 {
     return _mfFieldMFPub[index];
 }
@@ -155,25 +139,10 @@ UInt32 &FCDTestFCBase::editFieldMFPub(const UInt32 index)
     return _mfFieldMFPub[index];
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &FCDTestFCBase::getFieldMFPub     (const UInt32 index)
-{
-    return this->editFieldMFPub     (index);
-}
-
-inline
-MFUInt32            &FCDTestFCBase::getFieldMFPub     (void)
-{
-    return this->editFieldMFPub     ();
-}
-
-#endif
-
 
 //! Get the value of the \a index element the FCDTestFC::_mfFieldMFPro field.
 inline
-const UInt32 FCDTestFCBase::getFieldMFPro(const UInt32 index) const
+      UInt32  FCDTestFCBase::getFieldMFPro(const UInt32 index) const
 {
     return _mfFieldMFPro[index];
 }
@@ -185,21 +154,6 @@ UInt32 &FCDTestFCBase::editFieldMFPro(const UInt32 index)
 
     return _mfFieldMFPro[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt32              &FCDTestFCBase::getFieldMFPro     (const UInt32 index)
-{
-    return this->editFieldMFPro     (index);
-}
-
-inline
-MFUInt32            &FCDTestFCBase::getFieldMFPro     (void)
-{
-    return this->editFieldMFPro     ();
-}
-
-#endif
 
 
 

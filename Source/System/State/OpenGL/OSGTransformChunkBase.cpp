@@ -183,12 +183,6 @@ const SFMatrix *TransformChunkBase::getSFMatrix(void) const
     return &_sfMatrix;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFMatrix            *TransformChunkBase::getSFMatrix         (void)
-{
-    return this->editSFMatrix         ();
-}
-#endif
 
 
 

@@ -591,12 +591,6 @@ const SFPnt2f *ManipulatorBase::getSFLastMousePos(void) const
     return &_sfLastMousePos;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFPnt2f             *ManipulatorBase::getSFLastMousePos   (void)
-{
-    return this->editSFLastMousePos   ();
-}
-#endif
 
 //! Get the Manipulator::_sfViewport field.
 const SFUnrecViewportPtr *ManipulatorBase::getSFViewport(void) const
@@ -623,12 +617,6 @@ const SFBool *ManipulatorBase::getSFActive(void) const
     return &_sfActive;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFBool              *ManipulatorBase::getSFActive         (void)
-{
-    return this->editSFActive         ();
-}
-#endif
 
 SFVec3f *ManipulatorBase::editSFLength(void)
 {
@@ -642,12 +630,6 @@ const SFVec3f *ManipulatorBase::getSFLength(void) const
     return &_sfLength;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec3f             *ManipulatorBase::getSFLength         (void)
-{
-    return this->editSFLength         ();
-}
-#endif
 
 //! Get the Manipulator::_sfHandleXNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFHandleXNode(void) const

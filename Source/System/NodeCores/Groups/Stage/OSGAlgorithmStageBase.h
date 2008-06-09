@@ -140,44 +140,26 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
             const SFUnrecAlgorithmPtr *getSFAlgorithm      (void) const;
                   SFUnrecAlgorithmPtr *editSFAlgorithm      (void);
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFProjectionMode  (void);
-#endif
                   SFUInt32            *editSFProjectionMode (void);
             const SFUInt32            *getSFProjectionMode  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFBool              *getSFCopyViewing     (void);
-#endif
                   SFBool              *editSFCopyViewing    (void);
             const SFBool              *getSFCopyViewing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFMatrix            *getSFProjectionMatrix (void);
-#endif
                   SFMatrix            *editSFProjectionMatrix(void);
             const SFMatrix            *getSFProjectionMatrix (void) const;
 
 
                   Algorithm * getAlgorithm      (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getProjectionMode  (void);
-#endif
                   UInt32              &editProjectionMode (void);
-            const UInt32               getProjectionMode  (void) const;
+                  UInt32               getProjectionMode  (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  bool                &getCopyViewing     (void);
-#endif
                   bool                &editCopyViewing    (void);
-            const bool                 getCopyViewing     (void) const;
+                  bool                 getCopyViewing     (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Matrix              &getProjectionMatrix (void);
-#endif
                   Matrix              &editProjectionMatrix(void);
-            const Matrix               getProjectionMatrix (void) const;
+            const Matrix              &getProjectionMatrix (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -185,8 +167,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \{                                                                 */
 
             void setAlgorithm      (Algorithm * const value);
-            void setProjectionMode (const UInt32 &value);
-            void setCopyViewing    (const bool &value);
+            void setProjectionMode (const UInt32 value);
+            void setCopyViewing    (const bool value);
             void setProjectionMatrix(const Matrix &value);
 
     /*! \}                                                                 */

@@ -85,22 +85,14 @@ Real32 &SimpleStatisticsForegroundBase::editSize(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfSize field.
 inline
-const Real32 SimpleStatisticsForegroundBase::getSize(void) const
+      Real32  SimpleStatisticsForegroundBase::getSize(void) const
 {
     return _sfSize.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-Real32              &SimpleStatisticsForegroundBase::getSize           (void)
-{
-    return this->editSize           ();
-}
-#endif
-
 //! Set the value of the SimpleStatisticsForeground::_sfSize field.
 inline
-void SimpleStatisticsForegroundBase::setSize(const Real32 &value)
+void SimpleStatisticsForegroundBase::setSize(const Real32 value)
 {
     editSField(SizeFieldMask);
 
@@ -118,18 +110,10 @@ Color4f &SimpleStatisticsForegroundBase::editColor(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfColor field.
 inline
-const Color4f SimpleStatisticsForegroundBase::getColor(void) const
+const Color4f &SimpleStatisticsForegroundBase::getColor(void) const
 {
     return _sfColor.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color4f             &SimpleStatisticsForegroundBase::getColor          (void)
-{
-    return this->editColor          ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfColor field.
 inline
@@ -151,18 +135,10 @@ Color4f &SimpleStatisticsForegroundBase::editShadowColor(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfShadowColor field.
 inline
-const Color4f SimpleStatisticsForegroundBase::getShadowColor(void) const
+const Color4f &SimpleStatisticsForegroundBase::getShadowColor(void) const
 {
     return _sfShadowColor.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color4f             &SimpleStatisticsForegroundBase::getShadowColor    (void)
-{
-    return this->editShadowColor    ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfShadowColor field.
 inline
@@ -184,18 +160,10 @@ Color4f &SimpleStatisticsForegroundBase::editBgColor(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfBgColor field.
 inline
-const Color4f SimpleStatisticsForegroundBase::getBgColor(void) const
+const Color4f &SimpleStatisticsForegroundBase::getBgColor(void) const
 {
     return _sfBgColor.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color4f             &SimpleStatisticsForegroundBase::getBgColor        (void)
-{
-    return this->editBgColor        ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfBgColor field.
 inline
@@ -217,18 +185,10 @@ std::string &SimpleStatisticsForegroundBase::editFamily(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfFamily field.
 inline
-const std::string SimpleStatisticsForegroundBase::getFamily(void) const
+const std::string &SimpleStatisticsForegroundBase::getFamily(void) const
 {
     return _sfFamily.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &SimpleStatisticsForegroundBase::getFamily         (void)
-{
-    return this->editFamily         ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfFamily field.
 inline
@@ -250,18 +210,10 @@ Vec2f &SimpleStatisticsForegroundBase::editShadowOffset(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfShadowOffset field.
 inline
-const Vec2f SimpleStatisticsForegroundBase::getShadowOffset(void) const
+const Vec2f &SimpleStatisticsForegroundBase::getShadowOffset(void) const
 {
     return _sfShadowOffset.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec2f               &SimpleStatisticsForegroundBase::getShadowOffset   (void)
-{
-    return this->editShadowOffset   ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfShadowOffset field.
 inline
@@ -283,22 +235,14 @@ UInt8 &SimpleStatisticsForegroundBase::editHorizontalAlign(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfHorizontalAlign field.
 inline
-const UInt8 SimpleStatisticsForegroundBase::getHorizontalAlign(void) const
+      UInt8  SimpleStatisticsForegroundBase::getHorizontalAlign(void) const
 {
     return _sfHorizontalAlign.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt8               &SimpleStatisticsForegroundBase::getHorizontalAlign(void)
-{
-    return this->editHorizontalAlign();
-}
-#endif
-
 //! Set the value of the SimpleStatisticsForeground::_sfHorizontalAlign field.
 inline
-void SimpleStatisticsForegroundBase::setHorizontalAlign(const UInt8 &value)
+void SimpleStatisticsForegroundBase::setHorizontalAlign(const UInt8 value)
 {
     editSField(HorizontalAlignFieldMask);
 
@@ -316,22 +260,14 @@ UInt8 &SimpleStatisticsForegroundBase::editVerticalAlign(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfVerticalAlign field.
 inline
-const UInt8 SimpleStatisticsForegroundBase::getVerticalAlign(void) const
+      UInt8  SimpleStatisticsForegroundBase::getVerticalAlign(void) const
 {
     return _sfVerticalAlign.getValue();
 }
 
-#ifdef OSG_1_GET_COMPAT
-inline
-UInt8               &SimpleStatisticsForegroundBase::getVerticalAlign  (void)
-{
-    return this->editVerticalAlign  ();
-}
-#endif
-
 //! Set the value of the SimpleStatisticsForeground::_sfVerticalAlign field.
 inline
-void SimpleStatisticsForegroundBase::setVerticalAlign(const UInt8 &value)
+void SimpleStatisticsForegroundBase::setVerticalAlign(const UInt8 value)
 {
     editSField(VerticalAlignFieldMask);
 
@@ -349,18 +285,10 @@ Color4f &SimpleStatisticsForegroundBase::editBorderColor(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfBorderColor field.
 inline
-const Color4f SimpleStatisticsForegroundBase::getBorderColor(void) const
+const Color4f &SimpleStatisticsForegroundBase::getBorderColor(void) const
 {
     return _sfBorderColor.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Color4f             &SimpleStatisticsForegroundBase::getBorderColor    (void)
-{
-    return this->editBorderColor    ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfBorderColor field.
 inline
@@ -382,18 +310,10 @@ Vec2f &SimpleStatisticsForegroundBase::editBorderOffset(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfBorderOffset field.
 inline
-const Vec2f SimpleStatisticsForegroundBase::getBorderOffset(void) const
+const Vec2f &SimpleStatisticsForegroundBase::getBorderOffset(void) const
 {
     return _sfBorderOffset.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec2f               &SimpleStatisticsForegroundBase::getBorderOffset   (void)
-{
-    return this->editBorderOffset   ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfBorderOffset field.
 inline
@@ -415,18 +335,10 @@ Vec2f &SimpleStatisticsForegroundBase::editTextMargin(void)
 
 //! Get the value of the SimpleStatisticsForeground::_sfTextMargin field.
 inline
-const Vec2f SimpleStatisticsForegroundBase::getTextMargin(void) const
+const Vec2f &SimpleStatisticsForegroundBase::getTextMargin(void) const
 {
     return _sfTextMargin.getValue();
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-Vec2f               &SimpleStatisticsForegroundBase::getTextMargin     (void)
-{
-    return this->editTextMargin     ();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfTextMargin field.
 inline
@@ -439,7 +351,7 @@ void SimpleStatisticsForegroundBase::setTextMargin(const Vec2f &value)
 
 //! Get the value of the \a index element the SimpleStatisticsForeground::_mfFormats field.
 inline
-const std::string SimpleStatisticsForegroundBase::getFormats(const UInt32 index) const
+const std::string &SimpleStatisticsForegroundBase::getFormats(const UInt32 index) const
 {
     return _mfFormats[index];
 }
@@ -451,21 +363,6 @@ std::string &SimpleStatisticsForegroundBase::editFormats(const UInt32 index)
 
     return _mfFormats[index];
 }
-
-#ifdef OSG_1_GET_COMPAT
-inline
-std::string         &SimpleStatisticsForegroundBase::getFormats        (const UInt32 index)
-{
-    return this->editFormats        (index);
-}
-
-inline
-MFString            &SimpleStatisticsForegroundBase::getFormats        (void)
-{
-    return this->editFormats        ();
-}
-
-#endif
 
 
 
