@@ -254,14 +254,6 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
         return NULL;
     }
 }
-            @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
-{
-    return this->edit@!field.CARD!@@!field.Name:15!@();
-}
-#endif
-            @@endif // CompatOneSix
         @@endif // field.isPtrField
         @@endif //!field.noAccess
 
@@ -322,14 +314,6 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
     return &_@!field.VarName!@;
 }
 
-            @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
-{
-    return this->edit@!field.CARD!@@!field.Name:15!@();
-}
-#endif
-            @@endif // CompatOneSix
         @@endif // field.isPtrField
         @@endif //!field.noAccess
 
@@ -1080,22 +1064,14 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
 }
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
-const @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
+@!field.RetConst!@ @!field.Type!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@.getValue();
 }
 
-                @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-@!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(void)
-{
-    return this->edit@!field.Name:15!@();
-}
-#endif
-                @@endif // CompatOneSix
 
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
-void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
+void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ @!field.ArgRef!@value)
 {
     editSField(@!field.Name!@FieldMask);
 
@@ -1109,7 +1085,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
             @@if field.isPtrField
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@else // field.isPtrField
-const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
+@!field.RetConst!@ @!field.Type!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@endif // field.isPtrField
 {
     return _@!field.VarName!@[index];
@@ -1131,20 +1107,6 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
     return _@!field.VarName!@;
 }
 
-                @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-@!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(const UInt32 index)
-{
-    return this->edit@!field.Name:15!@(index);
-}
-
-@!field.CARD!@@!field.TypeCaps:17!@ &@!Classname!@Base::get@!field.Name:15!@(void)
-{
-    return this->edit@!field.Name:15!@();
-}
-
-#endif
-                @@endif // CompatOneSix
             @@endif // !field.isPtrField
 
 //! Get the @!Classname!@::_@!field.VarName!@ field.
@@ -1180,7 +1142,7 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
     }
     else
     {
-//        Inherited::set@!field.Name!@(value);
+        Inherited::set@!field.Name!@(value);
     }
 }
             @@else // field.isPtrField
@@ -1199,7 +1161,7 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
 }
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
-const @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
+@!field.RetConst!@ @!field.Type!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(void) const
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -1211,18 +1173,9 @@ const @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
     }
 }
 
-                @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-inline
-@!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(void)
-{
-    return this->edit@!field.Name:15!@();
-}
-#endif
-                @@endif // CompatOneSix
 
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
-void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
+void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ @!field.ArgRef!@value)
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -1230,7 +1183,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
     }
     else
     {
-//        Inherited::set@!field.Name!@(value);
+        Inherited::set@!field.Name!@(value);
     }
 }
             @@endif // field.isPtrField
@@ -1241,7 +1194,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
             @@if field.isPtrField
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@else // field.isPtrField
-const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
+@!field.RetConst!@ @!field.Type!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@endif // field.isPtrField
 {
     if(_sfDecoratee.getValue() != NULL)

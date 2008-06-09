@@ -114,24 +114,14 @@ inline
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
-const @!field.FullType!@ @!Classname!@Base::get@!field.Name!@(void) const
+@!field.RetConst!@ @!field.FullType!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(void) const
 {
     return _@!field.VarName!@.getValue();
 }
 
-            @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-inline
-@!field.FullType:19!@ &@!Classname!@Base::get@!field.Name:15!@(void)
-{
-    return this->edit@!field.Name:15!@();
-}
-#endif
-            @@endif // CompatOneSix
-
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
-void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ &value)
+void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ @!field.ArgRef!@value)
 {
     editSField(@!field.Name!@FieldMask);
 
@@ -148,7 +138,7 @@ inline
             @@if field.isPtrField
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@else // field.isPtrField
-const @!field.FullType!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
+@!field.RetConst!@ @!field.FullType!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
             @@endif // field.isPtrField
 {
     return _@!field.VarName!@[index];
@@ -162,23 +152,6 @@ inline
 
     return _@!field.VarName!@[index];
 }
-
-                @@if CompatOneSix
-#ifdef OSG_1_GET_COMPAT
-inline
-@!field.FullType:19!@ &@!Classname!@Base::get@!field.Name:15!@(const UInt32 index)
-{
-    return this->edit@!field.Name:15!@(index);
-}
-
-inline
-@!field.CARD!@@!field.TypeCaps:17!@ &@!Classname!@Base::get@!field.Name:15!@(void)
-{
-    return this->edit@!field.Name:15!@();
-}
-
-#endif
-                @@endif // CompatOneSix
 
             @@endif // !field.isPtrField
 

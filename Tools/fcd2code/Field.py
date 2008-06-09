@@ -4,6 +4,31 @@ import logging;
 
 from FCDElement import FCDElement;
 
+podTable = {
+    "bool"    : True,
+
+    "Char8"   : True,
+    "UChar8"  : True,
+    "SChar8"  : True,
+
+    "UInt8"   : True,
+    "Int8"    : True,
+
+    "UInt16"  : True,
+    "Int16"   : True,
+
+    "UInt32"  : True,
+    "Int32"   : True,
+
+    "UInt64"  : True,
+    "Int64"   : True,
+
+    "Real16"  : True,
+    "Real32"  : True,
+    "Real64"  : True,
+    "Real128" : True
+}
+
 class Field(FCDElement):
     """Represents a <Field/> element from a .fcd file.
     """
@@ -35,6 +60,7 @@ class Field(FCDElement):
         self.setFCD("linkMParent",              "false");
         self.setFCD("removeTo",                 "");
         self.setFCD("removeToSet",              "false");
+        self.setFCD("pod",                      "auto");
 
         self.setFCD("clearMField",              "true");
 
@@ -292,6 +318,28 @@ class Field(FCDElement):
         else:
             self["MethodType"] = "";
         
+
+        isPod = True
+
+        if self.getFCD("pod") == "auto":
+
+            if podTable.has_key(self.getFCD("type")) == True:
+                isPod = podTable[self.getFCD("type")]
+            else:
+                isPod = False
+
+        elif self.getFCD("pod") == "false":
+            isPod = False
+
+        if isPod == True:
+            self["RetConst"] = "     ";
+            self["RetRef"]   = " ";
+            self["ArgRef"]   = "";
+        else:
+            self["RetConst"] = "const";
+            self["RetRef"]   = "&";
+            self["ArgRef"]   = "&";
+
         if self.getFCD("defaultHeader") != "":
             self["hasDefaultHeader"] = True;
             
