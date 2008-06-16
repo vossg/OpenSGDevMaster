@@ -179,17 +179,18 @@ const Char8 *FieldTraits<@!Classname!@ *, 0>::getMName<NoRefCountPolicy>(void)
 #endif
 @@if ChildField
 
+class @!ChildFieldParent!@;
 
 template <>
-struct FieldTraits<@!Classname!@ *, 1> :
-    public FieldTraitsFCPtrBase<@!Classname!@ *, 1>
+struct FieldTraits<@!Classname!@ *, @!ChildNS!@> :
+    public FieldTraitsFCPtrBase<@!Classname!@ *, @!ChildNS!@>
 {
   private:
 
   public:
 
     typedef @!ChildFieldParent!@            *ParentType;
-    typedef FieldTraits<@!Classname!@ *, 1>  Self;
+    typedef FieldTraits<@!Classname!@ *, @!ChildNS!@>  Self;
 
 @@if ChildSParent
     static const FieldType::Cardinality eParentCard = FieldType::SingleField;
@@ -224,25 +225,25 @@ struct FieldTraits<@!Classname!@ *, 1> :
 
 @@if SFPointerField
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChild@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChild@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChild@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChild@!Classname!@Ptr"; 
 }
@@ -250,30 +251,63 @@ const Char8 *FieldTraits<@!Classname!@ *, 1>::getSName<NoRefCountPolicy>(void)
 
 @@if MFPointerField
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChild@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChild@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChild@!Classname!@Ptr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<@!Classname!@ *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<@!Classname!@ *, @!ChildNS!@>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChild@!Classname!@Ptr"; 
 }
 @@endif
 
+@@endif
+@@if ParentField
+
+template <>
+struct FieldTraits<@!Classname!@ *, @!ParentNS!@> : 
+    public FieldTraitsFCPtrBase<@!Classname!@ *, @!ParentNS!@>
+{
+  private:
+
+    static  DataType                                _type;
+
+  public:
+
+    static const bool bIsPointerField = true;
+
+    typedef FieldTraits<@!Classname!@ *, @!ParentNS!@>        Self;
+
+
+    enum             { Convertible = Self::NotConvertible };
+    
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType (void);
+
+    static const Char8    *getSName(void) 
+    {
+        return "SFParent@!Classname!@Ptr"; 
+    }
+
+    static const Char8    *getMName(void) 
+    { 
+        return "MFParent@!Classname!@Ptr"; 
+    }
+};
 @@endif
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -320,7 +354,7 @@ typedef PointerMField<@!Classname!@ *,
 typedef ChildPointerSField<
           @!Classname!@ *, 
           UnrecordedRefCountPolicy,
-          1                       > SFUnrecChild@!Classname!@Ptr;
+          @!ChildNS!@             > SFUnrecChild@!Classname!@Ptr;
 
 @@endif
 @@if ChildMFields
@@ -328,7 +362,22 @@ typedef ChildPointerSField<
 typedef ChildPointerMField<
           @!Classname!@ *, 
           UnrecordedRefCountPolicy,
-          1                      > MFUnrecChild@!Classname!@Ptr;
+          @!ChildNS!@             > MFUnrecChild@!Classname!@Ptr;
+
+@@endif
+@@if ParentSFields
+
+typedef ParentPointerSField<
+          @!Classname!@ *, 
+          NoRefCountPolicy,
+          @!ParentNS!@    > SFParent@!Classname!@Ptr;
+@@endif
+@@if ParentMFields
+
+typedef ParentPointerMField<
+          @!Classname!@ *, 
+          NoRefCountPolicy,
+          @!ParentNS!@    > MFParent@!Classname!@Ptr;
 
 @@endif
 OSG_END_NAMESPACE

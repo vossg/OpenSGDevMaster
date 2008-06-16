@@ -1018,7 +1018,7 @@ bool ViewportBase::linkParent(
         
         if(pTypedParent != NULL)
         {
-            FieldContainer * pOldParent =
+            FieldContainer *pOldParent =
                 _sfParent.getValue         ();
 
             UInt16 oldChildFieldId =
@@ -1031,7 +1031,7 @@ bool ViewportBase::linkParent(
             
             editSField(ParentFieldMask);
 
-            _sfParent.setValue(pParent, childFieldId);
+            _sfParent.setValue(static_cast<FieldContainer *>(pParent), childFieldId);
             
             return true;
         }

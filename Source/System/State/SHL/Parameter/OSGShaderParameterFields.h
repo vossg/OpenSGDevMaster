@@ -160,6 +160,7 @@ const Char8 *FieldTraits<ShaderParameter *, 0>::getMName<NoRefCountPolicy>(void)
  */
 #endif
 
+class FieldContainer;
 
 template <>
 struct FieldTraits<ShaderParameter *, 1> :
@@ -272,7 +273,7 @@ typedef PointerMField<ShaderParameter *,
 typedef ChildPointerMField<
           ShaderParameter *, 
           UnrecordedRefCountPolicy,
-          1                      > MFUnrecChildShaderParameterPtr;
+          1             > MFUnrecChildShaderParameterPtr;
 
 OSG_END_NAMESPACE
 

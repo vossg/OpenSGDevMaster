@@ -160,6 +160,7 @@ const Char8 *FieldTraits<FCDTestFC *, 0>::getMName<NoRefCountPolicy>(void)
  */
 #endif
 
+class FieldContainer;
 
 template <>
 struct FieldTraits<FCDTestFC *, 1> :
@@ -272,13 +273,13 @@ typedef PointerMField<FCDTestFC *,
 typedef ChildPointerSField<
           FCDTestFC *, 
           UnrecordedRefCountPolicy,
-          1                       > SFUnrecChildFCDTestFCPtr;
+          1             > SFUnrecChildFCDTestFCPtr;
 
 
 typedef ChildPointerMField<
           FCDTestFC *, 
           UnrecordedRefCountPolicy,
-          1                      > MFUnrecChildFCDTestFCPtr;
+          1             > MFUnrecChildFCDTestFCPtr;
 
 OSG_END_NAMESPACE
 

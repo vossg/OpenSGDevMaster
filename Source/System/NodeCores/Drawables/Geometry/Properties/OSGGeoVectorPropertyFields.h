@@ -160,6 +160,7 @@ const Char8 *FieldTraits<GeoVectorProperty *, 0>::getMName<NoRefCountPolicy>(voi
  */
 #endif
 
+class FieldContainer;
 
 template <>
 struct FieldTraits<GeoVectorProperty *, 1> :
@@ -272,13 +273,13 @@ typedef PointerMField<GeoVectorProperty *,
 typedef ChildPointerSField<
           GeoVectorProperty *, 
           UnrecordedRefCountPolicy,
-          1                       > SFUnrecChildGeoVectorPropertyPtr;
+          1             > SFUnrecChildGeoVectorPropertyPtr;
 
 
 typedef ChildPointerMField<
           GeoVectorProperty *, 
           UnrecordedRefCountPolicy,
-          1                      > MFUnrecChildGeoVectorPropertyPtr;
+          1             > MFUnrecChildGeoVectorPropertyPtr;
 
 OSG_END_NAMESPACE
 

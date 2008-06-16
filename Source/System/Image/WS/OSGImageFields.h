@@ -160,6 +160,7 @@ const Char8 *FieldTraits<Image *, 0>::getMName<NoRefCountPolicy>(void)
  */
 #endif
 
+class FieldContainer;
 
 template <>
 struct FieldTraits<Image *, 1> :
@@ -272,7 +273,7 @@ typedef PointerMField<Image *,
 typedef ChildPointerSField<
           Image *, 
           UnrecordedRefCountPolicy,
-          1                       > SFUnrecChildImagePtr;
+          1             > SFUnrecChildImagePtr;
 
 OSG_END_NAMESPACE
 

@@ -731,7 +731,7 @@ bool @!Classname!@Base::linkParent(
         if(pTypedParent != NULL)
         {
             @@if field.isSField
-            @!field.TypeNS!@@!field.Type!@ pOldParent =
+            FieldContainer *pOldParent =
                 _@!field.VarName!@.getValue         ();
 
             UInt16 oldChildFieldId =
@@ -744,7 +744,7 @@ bool @!Classname!@Base::linkParent(
             
             editSField(@!field.Name!@FieldMask);
 
-            _@!field.VarName!@.setValue(pParent, childFieldId);
+            _@!field.VarName!@.setValue(static_cast<@!field.TypeNS!@@!field.Type!@>(pParent), childFieldId);
             @@endif // @!field.cardinality!@ == "single"
             @@if field.isMField
             editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
@@ -1292,7 +1292,7 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 @@endif // PointerField
 @@if ChildField
 
-DataType &FieldTraits< @!Classname!@ *, 1 >::getType(void)
+DataType &FieldTraits< @!Classname!@ *, @!ChildNS!@ >::getType(void)
 {                                                           
     return FieldTraits<@!Classname!@ *, 0>::getType();
 }
@@ -1303,7 +1303,7 @@ DataType &FieldTraits< @!Classname!@ *, 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       @!Classname!@ *,       
                       UnrecordedRefCountPolicy,  
-                      1);
+                      @!ChildNS!@);
 
 @@endif
 @@if ChildMFields
@@ -1311,7 +1311,41 @@ OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       @!Classname!@ *,       
                       UnrecordedRefCountPolicy,  
-                      1);
+                      @!ChildNS!@);
+
+@@endif
+@@if ParentField
+
+DataType &FieldTraits<@!Classname!@ *, @!ParentNS!@ >::getType(void)
+{                                                           
+    return FieldTraits<@!Classname!@ *, 0>::getType();
+}
+
+@@endif
+@@if ParentSFields
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    @!Classname!@ *, 
+                    NoRefCountPolicy,
+                    @!ParentNS!@);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField, 
+                         @!Classname!@ *, 
+                         NoRefCountPolicy,
+                         @!ParentNS!@);
+
+@@endif
+@@if ParentMFields
+
+OSG_SFIELDTYPE_INST(ParentPointerMField,
+                    @!Classname!@ *, 
+                    NoRefCountPolicy,
+                    @!ParentNS!@);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField, 
+                         @!Classname!@ *, 
+                         NoRefCountPolicy,
+                         @!ParentNS!@);
 
 @@endif
 

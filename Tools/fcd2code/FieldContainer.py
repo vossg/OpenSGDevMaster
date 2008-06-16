@@ -40,6 +40,7 @@ class FieldContainer(FCDElement):
         self.setFCD("childfieldparent",       "")
         self.setFCD("parentfieldcard",         "")
         self.setFCD("childFields",            "none")
+        self.setFCD("parentFields",           "none")
 
     #
     # Access fields
@@ -234,6 +235,11 @@ class FieldContainer(FCDElement):
         self["ChildMFields"]   = False;
         self["ChildSParent"]   = False;
         self["ChildMParent"]   = False;
+        self["ParentSFields"]  = False;
+        self["ParentMFields"]  = False;
+        self["ParentField"]    = False;
+
+        TraitsNS = 1;
 
         if self.getFCD("pointerfieldtypes") == "both":
             self["PointerField"]   = True;
@@ -246,10 +252,13 @@ class FieldContainer(FCDElement):
             self["PointerField"]   = True;
             self["MFPointerField"] = True;
 
+
         if self.getFCD("childfieldparent") != "":
             self["ChildField"]       = True
+            self["ChildNS"]          = '%d' % TraitsNS            
             self["ChildFieldParent"] = self.getFCD("childfieldparent")
-        
+            ++TraitsNS
+
         if self.getFCD("childFields") == "multi" or \
            self.getFCD("childFields") == "both":
             self["ChildMFields"] = True
@@ -263,6 +272,21 @@ class FieldContainer(FCDElement):
 
         if self.getFCD("parentfieldcard") == "multi":
             self["ChildMParent"] = True;
+
+
+
+        if self.getFCD("parentFields") == "multi" or \
+           self.getFCD("parentFields") == "both":
+            self["ParentMFields"] = True
+            self["ParentField"]   = True
+            self["ParentNS"]      = '%d' % TraitsNS
+
+        if self.getFCD("parentFields") == "single" or \
+           self.getFCD("parentFields") == "both":
+            self["ParentSFields"] = True
+            self["ParentField"]   = True
+            self["ParentNS"]      = '%d' % TraitsNS
+
 
         self["MethodType"]  = "";
         

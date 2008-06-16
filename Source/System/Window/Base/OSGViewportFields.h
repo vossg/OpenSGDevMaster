@@ -160,6 +160,7 @@ const Char8 *FieldTraits<Viewport *, 0>::getMName<NoRefCountPolicy>(void)
  */
 #endif
 
+class FieldContainer;
 
 template <>
 struct FieldTraits<Viewport *, 1> :
@@ -272,7 +273,7 @@ typedef PointerMField<Viewport *,
 typedef ChildPointerMField<
           Viewport *, 
           UnrecordedRefCountPolicy,
-          1                      > MFUnrecChildViewportPtr;
+          1             > MFUnrecChildViewportPtr;
 
 OSG_END_NAMESPACE
 
