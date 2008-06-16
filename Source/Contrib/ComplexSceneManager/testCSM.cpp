@@ -8,14 +8,14 @@ int init(int argc, char **argv)
     OSG::osgInit(argc,argv);
 
     OSG::OSGSceneFileType::the().readContainer(
-        "Source/Contrib/ComplexSceneManager/data/system.osg");
+        "Source/Contrib/ComplexSceneManager/data/system-native.osg");
 
     fprintf(stderr, "Got %p\n", OSG::ComplexSceneManager::the());
 
     char *argvTmp[] = 
     {
         "testCSM",
-        "Source/Contrib/ComplexSceneManager/data/system.osg",
+        "Source/Contrib/ComplexSceneManager/data/system-native.osg",
         "--data",
         "TestData/tie.wrl",
         "--global",

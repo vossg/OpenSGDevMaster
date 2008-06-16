@@ -160,6 +160,84 @@ const Char8 *FieldTraits<CSMWindow *, 0>::getMName<NoRefCountPolicy>(void)
  */
 #endif
 
+class Drawer;
+
+template <>
+struct FieldTraits<CSMWindow *, 1> :
+    public FieldTraitsFCPtrBase<CSMWindow *, 1>
+{
+  private:
+
+  public:
+
+    typedef Drawer            *ParentType;
+    typedef FieldTraits<CSMWindow *, 1>  Self;
+
+    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_CONTRIBCSM_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFCSMWindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFCSMWindowPtr"; }
+};
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecChildCSMWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecChildCSMWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakChildCSMWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdChildCSMWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecChildCSMWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecChildCSMWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakChildCSMWindowPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMWindow *, 1>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdChildCSMWindowPtr"; 
+}
+
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
@@ -190,6 +268,12 @@ typedef PointerMField<CSMWindow *,
                       NoRefCountPolicy        > MFUncountedCSMWindowPtr;
 #endif
 
+
+
+typedef ChildPointerMField<
+          CSMWindow *, 
+          UnrecordedRefCountPolicy,
+          1             > MFUnrecChildCSMWindowPtr;
 
 OSG_END_NAMESPACE
 

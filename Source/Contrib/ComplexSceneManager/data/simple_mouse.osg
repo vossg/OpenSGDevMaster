@@ -1,0 +1,28 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF Trackball CSMTrackball
+    {
+	   modifierMask 1
+
+	   translationScaleFactor 1.0
+    }
+
+    DEF ScenePara CSMSceneParameter
+    {
+      sceneDiag 0.57735 0.57735 0.57735
+	  sceneRef USE ModelRoot
+	  distScale 1.5
+    }
+  ]
+}
+
+ROUTE ScenePara.sceneDiag   TO Trackball.worldDiag
+ROUTE ScenePara.initViewPos TO Trackball.referencePosition
+ROUTE ScenePara.sceneCenter TO Trackball.transformCenter
+
+ROUTE MainWindow.mouseData   TO Trackball.mouseData
+ROUTE Trackball.matrixResult TO CameraRoot.matrix

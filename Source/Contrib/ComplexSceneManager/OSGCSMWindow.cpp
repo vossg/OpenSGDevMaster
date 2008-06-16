@@ -45,6 +45,7 @@
 
 #include <OSGConfig.h>
 
+#include "OSGDrawer.h"
 #include "OSGCSMWindow.h"
 #include "OSGRenderAction.h"
 

@@ -413,6 +413,8 @@ void ComplexSceneManager::run(void)
     {
         _fMainloop();
     }
+
+    osgExit(); 
 }
 
 void ComplexSceneManager::frame(void)

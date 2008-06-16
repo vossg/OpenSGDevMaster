@@ -65,8 +65,12 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
+#include "OSGDrawerFields.h" // Parent type
 #include "OSGCSMViewportFields.h" // Viewports type
 #include "OSGMouseDataFields.h" // MouseData type
+#include "OSGVec2fFields.h" // Size type
+#include "OSGVec2fFields.h" // Position type
+#include "OSGBoolFields.h" // DecorEnabled type
 
 #include "OSGCSMWindowFields.h"
 
@@ -94,15 +98,27 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
     enum
     {
-        ViewportsFieldId = Inherited::NextFieldId,
+        ParentFieldId = Inherited::NextFieldId,
+        ViewportsFieldId = ParentFieldId + 1,
         MouseDataFieldId = ViewportsFieldId + 1,
-        NextFieldId = MouseDataFieldId + 1
+        SizeFieldId = MouseDataFieldId + 1,
+        PositionFieldId = SizeFieldId + 1,
+        DecorEnabledFieldId = PositionFieldId + 1,
+        NextFieldId = DecorEnabledFieldId + 1
     };
 
+    static const OSG::BitVector ParentFieldMask =
+        (TypeTraits<BitVector>::One << ParentFieldId);
     static const OSG::BitVector ViewportsFieldMask =
         (TypeTraits<BitVector>::One << ViewportsFieldId);
     static const OSG::BitVector MouseDataFieldMask =
         (TypeTraits<BitVector>::One << MouseDataFieldId);
+    static const OSG::BitVector SizeFieldMask =
+        (TypeTraits<BitVector>::One << SizeFieldId);
+    static const OSG::BitVector PositionFieldMask =
+        (TypeTraits<BitVector>::One << PositionFieldId);
+    static const OSG::BitVector DecorEnabledFieldMask =
+        (TypeTraits<BitVector>::One << DecorEnabledFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -135,11 +151,29 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   SFMouseData         *editSFMouseData      (void);
             const SFMouseData         *getSFMouseData       (void) const;
 
+                  SFVec2f             *editSFSize           (void);
+            const SFVec2f             *getSFSize            (void) const;
+
+                  SFVec2f             *editSFPosition       (void);
+            const SFVec2f             *getSFPosition        (void) const;
+
+                  SFBool              *editSFDecorEnabled   (void);
+            const SFBool              *getSFDecorEnabled    (void) const;
+
 
                   CSMViewport * getViewports      (const UInt32 index) const;
 
                   MouseData           &editMouseData      (void);
             const MouseData           &getMouseData       (void) const;
+
+                  Vec2f               &editSize           (void);
+            const Vec2f               &getSize            (void) const;
+
+                  Vec2f               &editPosition       (void);
+            const Vec2f               &getPosition        (void) const;
+
+                  bool                &editDecorEnabled   (void);
+                  bool                 getDecorEnabled    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,6 +181,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
             void setMouseData      (const MouseData &value);
+            void setSize           (const Vec2f &value);
+            void setPosition       (const Vec2f &value);
+            void setDecorEnabled   (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -191,8 +228,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFParentDrawerPtr _sfParent;
     MFUnrecCSMViewportPtr _mfViewports;
     SFMouseData       _sfMouseData;
+    SFVec2f           _sfSize;
+    SFVec2f           _sfPosition;
+    SFBool            _sfDecorEnabled;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,13 +259,32 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Parent linking                                               */
+    /*! \{                                                                 */
+
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleParent          (void) const;
+    EditFieldHandlePtr editHandleParent         (void);
     GetFieldHandlePtr  getHandleViewports       (void) const;
     EditFieldHandlePtr editHandleViewports      (void);
     GetFieldHandlePtr  getHandleMouseData       (void) const;
     EditFieldHandlePtr editHandleMouseData      (void);
+    GetFieldHandlePtr  getHandleSize            (void) const;
+    EditFieldHandlePtr editHandleSize           (void);
+    GetFieldHandlePtr  getHandlePosition        (void) const;
+    EditFieldHandlePtr editHandlePosition       (void);
+    GetFieldHandlePtr  getHandleDecorEnabled    (void) const;
+    EditFieldHandlePtr editHandleDecorEnabled   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

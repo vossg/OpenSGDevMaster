@@ -133,6 +133,37 @@ const Char8 *FieldTraits<Drawer *, 0>::getMName<NoRefCountPolicy>(void)
  */
 #endif
 
+template <>
+struct FieldTraits<Drawer *, 1> : 
+    public FieldTraitsFCPtrBase<Drawer *, 1>
+{
+  private:
+
+    static  DataType                                _type;
+
+  public:
+
+    static const bool bIsPointerField = true;
+
+    typedef FieldTraits<Drawer *, 1>        Self;
+
+
+    enum             { Convertible = Self::NotConvertible };
+    
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType (void);
+
+    static const Char8    *getSName(void) 
+    {
+        return "SFParentDrawerPtr"; 
+    }
+
+    static const Char8    *getMName(void) 
+    { 
+        return "MFParentDrawerPtr"; 
+    }
+};
+
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
@@ -151,6 +182,11 @@ typedef PointerMField<Drawer *,
 #endif
 
 
+
+typedef ParentPointerSField<
+          Drawer *, 
+          NoRefCountPolicy,
+          1    > SFParentDrawerPtr;
 OSG_END_NAMESPACE
 
 #endif /* _OSGDRAWERFIELDS_H_ */

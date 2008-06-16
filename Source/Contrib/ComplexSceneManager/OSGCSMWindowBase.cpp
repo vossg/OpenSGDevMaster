@@ -61,6 +61,7 @@
 
 
 
+#include <OSGDrawer.h> // Parent Class
 #include <OSGCSMViewport.h> // Viewports Class
 
 #include "OSGCSMWindowBase.h"
@@ -82,6 +83,10 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
+/*! \var Drawer *        CSMWindowBase::_sfParent
+    
+*/
+
 /*! \var CSMViewport *   CSMWindowBase::_mfViewports
     
 */
@@ -90,11 +95,35 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Vec2f           CSMWindowBase::_sfSize
+    
+*/
+
+/*! \var Vec2f           CSMWindowBase::_sfPosition
+    
+*/
+
+/*! \var bool            CSMWindowBase::_sfDecorEnabled
+    
+*/
+
 
 void CSMWindowBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+
+    pDesc = new SFParentDrawerPtr::Description(
+        SFParentDrawerPtr::getClassType(),
+        "parent",
+        "",
+        ParentFieldId, ParentFieldMask,
+        true,
+        Field::SFDefaultFlags,
+        static_cast     <FieldEditMethodSig>(&CSMWindow::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&CSMWindow::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
 
     pDesc = new MFUnrecCSMViewportPtr::Description(
         MFUnrecCSMViewportPtr::getClassType(),
@@ -117,6 +146,42 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleMouseData),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleMouseData));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(),
+        "size",
+        "",
+        SizeFieldId, SizeFieldMask,
+        true,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleSize),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleSize));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(),
+        "position",
+        "",
+        PositionFieldId, PositionFieldMask,
+        true,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandlePosition),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandlePosition));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "decorEnabled",
+        "",
+        DecorEnabledFieldId, DecorEnabledFieldMask,
+        true,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleDecorEnabled),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleDecorEnabled));
 
     oType.addInitialDesc(pDesc);
 }
@@ -147,7 +212,19 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
+    "    childfieldparent=\"Drawer\"\n"
+    "    parentfieldcard=\"single\"\n"
+    "    childFields=\"multi\"\n"
     ">\n"
+    "\t<Field\n"
+    "\t\tname=\"parent\"\n"
+    "\t\ttype=\"Drawer\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"none\"\n"
+    "        category=\"parentpointer\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"viewports\"\n"
     "\t\ttype=\"CSMViewport\"\n"
@@ -157,13 +234,39 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "        category=\"pointer\"\n"
     "\t>\n"
     "\t</Field>\n"
-    "\n"
     "\t<Field\n"
     "\t\tname=\"mouseData\"\n"
     "\t\ttype=\"MouseData\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"size\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"300, 300\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"position\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"100, 100\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"decorEnabled\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"true\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -190,6 +293,7 @@ UInt32 CSMWindowBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+
 //! Get the CSMWindow::_mfViewports field.
 const MFUnrecCSMViewportPtr *CSMWindowBase::getMFViewports(void) const
 {
@@ -213,6 +317,45 @@ SFMouseData *CSMWindowBase::editSFMouseData(void)
 const SFMouseData *CSMWindowBase::getSFMouseData(void) const
 {
     return &_sfMouseData;
+}
+
+
+SFVec2f *CSMWindowBase::editSFSize(void)
+{
+    editSField(SizeFieldMask);
+
+    return &_sfSize;
+}
+
+const SFVec2f *CSMWindowBase::getSFSize(void) const
+{
+    return &_sfSize;
+}
+
+
+SFVec2f *CSMWindowBase::editSFPosition(void)
+{
+    editSField(PositionFieldMask);
+
+    return &_sfPosition;
+}
+
+const SFVec2f *CSMWindowBase::getSFPosition(void) const
+{
+    return &_sfPosition;
+}
+
+
+SFBool *CSMWindowBase::editSFDecorEnabled(void)
+{
+    editSField(DecorEnabledFieldMask);
+
+    return &_sfDecorEnabled;
+}
+
+const SFBool *CSMWindowBase::getSFDecorEnabled(void) const
+{
+    return &_sfDecorEnabled;
 }
 
 
@@ -287,6 +430,10 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
+    {
+        returnValue += _sfParent.getBinSize();
+    }
     if(FieldBits::NoField != (ViewportsFieldMask & whichField))
     {
         returnValue += _mfViewports.getBinSize();
@@ -294,6 +441,18 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {
         returnValue += _sfMouseData.getBinSize();
+    }
+    if(FieldBits::NoField != (SizeFieldMask & whichField))
+    {
+        returnValue += _sfSize.getBinSize();
+    }
+    if(FieldBits::NoField != (PositionFieldMask & whichField))
+    {
+        returnValue += _sfPosition.getBinSize();
+    }
+    if(FieldBits::NoField != (DecorEnabledFieldMask & whichField))
+    {
+        returnValue += _sfDecorEnabled.getBinSize();
     }
 
     return returnValue;
@@ -304,6 +463,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
+    {
+        _sfParent.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ViewportsFieldMask & whichField))
     {
         _mfViewports.copyToBin(pMem);
@@ -312,6 +475,18 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfMouseData.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (SizeFieldMask & whichField))
+    {
+        _sfSize.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (PositionFieldMask & whichField))
+    {
+        _sfPosition.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (DecorEnabledFieldMask & whichField))
+    {
+        _sfDecorEnabled.copyToBin(pMem);
+    }
 }
 
 void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -319,6 +494,10 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
+    {
+        _sfParent.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ViewportsFieldMask & whichField))
     {
         _mfViewports.copyFromBin(pMem);
@@ -326,6 +505,18 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {
         _sfMouseData.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SizeFieldMask & whichField))
+    {
+        _sfSize.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PositionFieldMask & whichField))
+    {
+        _sfPosition.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DecorEnabledFieldMask & whichField))
+    {
+        _sfDecorEnabled.copyFromBin(pMem);
     }
 }
 
@@ -336,15 +527,23 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
 CSMWindowBase::CSMWindowBase(void) :
     Inherited(),
+    _sfParent                 (NULL),
     _mfViewports              (),
-    _sfMouseData              ()
+    _sfMouseData              (),
+    _sfSize                   (Vec2f(300, 300)),
+    _sfPosition               (Vec2f(100, 100)),
+    _sfDecorEnabled           (bool(true))
 {
 }
 
 CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     Inherited(source),
+    _sfParent                 (NULL),
     _mfViewports              (),
-    _sfMouseData              (source._sfMouseData              )
+    _sfMouseData              (source._sfMouseData              ),
+    _sfSize                   (source._sfSize                   ),
+    _sfPosition               (source._sfPosition               ),
+    _sfDecorEnabled           (source._sfDecorEnabled           )
 {
 }
 
@@ -354,6 +553,77 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
 CSMWindowBase::~CSMWindowBase(void)
 {
 }
+/*-------------------------------------------------------------------------*/
+/* Parent linking                                                          */
+
+bool CSMWindowBase::linkParent(
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
+{
+    if(parentFieldId == ParentFieldId)
+    {
+        Drawer * pTypedParent =
+            dynamic_cast< Drawer * >(pParent);
+        
+        if(pTypedParent != NULL)
+        {
+            FieldContainer *pOldParent =
+                _sfParent.getValue         ();
+
+            UInt16 oldChildFieldId =
+                _sfParent.getParentFieldPos();
+            
+            if(pOldParent != NULL)
+            {
+                pOldParent->unlinkChild(this, oldChildFieldId);
+            }
+            
+            editSField(ParentFieldMask);
+
+            _sfParent.setValue(static_cast<Drawer *>(pParent), childFieldId);
+            
+            return true;
+        }
+    
+        return false;
+    }
+    
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool CSMWindowBase::unlinkParent(
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
+{
+    if(parentFieldId == ParentFieldId)
+    {
+        Drawer * pTypedParent =
+            dynamic_cast< Drawer * >(pParent);
+            
+        if(pTypedParent != NULL)
+        {
+            if(_sfParent.getValue() == pParent)
+            {
+                editSField(ParentFieldMask);
+
+                _sfParent.setValue(NULL, 0xFFFF);
+                
+                return true;
+            }
+            
+            FWARNING(("CSMWindowBase::unlinkParent: "
+                      "Child <-> Parent link inconsistent.\n"));
+            
+            return false;
+        }
+
+        return false;
+    }
+    
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
 
 void CSMWindowBase::onCreate(const CSMWindow *source)
 {
@@ -375,6 +645,20 @@ void CSMWindowBase::onCreate(const CSMWindow *source)
             ++ViewportsIt;
         }
     }
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleParent          (void) const
+{
+    SFParentDrawerPtr::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleParent         (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
 }
 
 GetFieldHandlePtr CSMWindowBase::getHandleViewports       (void) const
@@ -424,6 +708,72 @@ EditFieldHandlePtr CSMWindowBase::editHandleMouseData      (void)
     return returnValue;
 }
 
+GetFieldHandlePtr CSMWindowBase::getHandleSize            (void) const
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfSize, 
+             this->getType().getFieldDesc(SizeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleSize           (void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfSize, 
+             this->getType().getFieldDesc(SizeFieldId)));
+
+    editSField(SizeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandlePosition        (void) const
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandlePosition       (void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfPosition, 
+             this->getType().getFieldDesc(PositionFieldId)));
+
+    editSField(PositionFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleDecorEnabled    (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfDecorEnabled, 
+             this->getType().getFieldDesc(DecorEnabledFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleDecorEnabled   (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfDecorEnabled, 
+             this->getType().getFieldDesc(DecorEnabledFieldId)));
+
+    editSField(DecorEnabledFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void CSMWindowBase::execSyncV(      FieldContainer    &oFrom,
@@ -464,5 +814,17 @@ OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            CSMWindow *, 
                            0);
+
+DataType &FieldTraits< CSMWindow *, 1 >::getType(void)
+{                                                           
+    return FieldTraits<CSMWindow *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      CSMWindow *,       
+                      UnrecordedRefCountPolicy,  
+                      1);
+
 
 OSG_END_NAMESPACE

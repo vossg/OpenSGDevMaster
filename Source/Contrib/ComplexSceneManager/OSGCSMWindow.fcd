@@ -12,7 +12,19 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
+    childfieldparent="Drawer"
+    parentfieldcard="single"
+    childFields="multi"
 >
+	<Field
+		name="parent"
+		type="Drawer"
+		cardinality="single"
+		visibility="internal"
+		access="none"
+        category="parentpointer"
+	>
+	</Field>
 	<Field
 		name="viewports"
 		type="CSMViewport"
@@ -22,13 +34,39 @@
         category="pointer"
 	>
 	</Field>
-
 	<Field
 		name="mouseData"
 		type="MouseData"
 		cardinality="single"
 		visibility="internal"
 		access="public"
+	>
+	</Field>
+	<Field
+		name="size"
+		type="Vec2f"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="300, 300"
+	>
+	</Field>
+	<Field
+		name="position"
+		type="Vec2f"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="100, 100"
+	>
+	</Field>
+	<Field
+		name="decorEnabled"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="true"
 	>
 	</Field>
 </FieldContainer>

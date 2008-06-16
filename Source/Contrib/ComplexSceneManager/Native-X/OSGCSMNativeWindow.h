@@ -36,22 +36,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCSMGLUTWINDOW_H_
-#define _OSGCSMGLUTWINDOW_H_
+#ifndef _OSGCSMNATIVEWINDOW_H_
+#define _OSGCSMNATIVEWINDOW_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCSMGLUTWindowBase.h"
+#include "OSGCSMNativeWindowBase.h"
+#include "OSGXWindow.h"
 #include "OSGDrawer.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CSMGLUTWindow class. See \ref
-           PageContribCSMCSMGLUTWindow for a description.
+/*! \brief CSMNativeWindow class. See \ref
+           PageContribCSMCSMNativeWindow for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMGLUTWindow : public CSMGLUTWindowBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
 {
   protected:
 
@@ -59,8 +60,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMGLUTWindow : public CSMGLUTWindowBase
 
   public:
 
-    typedef CSMGLUTWindowBase Inherited;
-    typedef CSMGLUTWindow     Self;
+    typedef CSMNativeWindowBase Inherited;
+    typedef CSMNativeWindow     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -90,24 +91,39 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMGLUTWindow : public CSMGLUTWindowBase
 
   protected:
 
-    // Variables should all be in CSMGLUTWindowBase.
+    // Variables should all be in CSMNativeWindowBase.
 
-    static bool           _bGLUTInitialized;
-    static CSMGLUTWindow *_pGLUTWindow;
+    typedef std::vector<CSMNativeWindow *>                 WindowList;
+
+    typedef std::vector<CSMNativeWindow *>::iterator       WindowListIt;
+    typedef std::vector<CSMNativeWindow *>::const_iterator WindowListConstIt;
+
+    static bool       _bRun;
+    static WindowList _vWindowList;
+
+
+    XWindow *_pXWindow;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CSMGLUTWindow(void);
-    CSMGLUTWindow(const CSMGLUTWindow &source);
+    CSMNativeWindow(void);
+    CSMNativeWindow(const CSMNativeWindow &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMGLUTWindow(void);
+    virtual ~CSMNativeWindow(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    Display *getDisplay(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,22 +137,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMGLUTWindow : public CSMGLUTWindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    static void csmGlutKeyHandler        (UChar8 key, 
-                                          Int32, 
-                                          Int32       );
-
-    static void csmGlutReshapeHandler    (Int32 w, 
-                                          Int32 h     );
-
-    static void csmGlutFrameHandler      (void           );
-
-    static void csmGlutMouseHandler      (Int32 iButton, 
-                                          Int32 iState,
-                                          Int32 x,       
-                                          Int32 y      );
-
-    static void csmGlutMouseMotionHandler(Int32 x, 
-                                          Int32 y      );
+    static void xMainLoop(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -144,17 +145,17 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMGLUTWindow : public CSMGLUTWindowBase
   private:
 
     friend class FieldContainer;
-    friend class CSMGLUTWindowBase;
+    friend class CSMNativeWindowBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMGLUTWindow &source);
+    void operator =(const CSMNativeWindow &source);
 };
 
-typedef CSMGLUTWindow *CSMGLUTWindowP;
+typedef CSMNativeWindow *CSMNativeWindowP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCSMGLUTWindowBase.inl"
-#include "OSGCSMGLUTWindow.inl"
+#include "OSGCSMNativeWindowBase.inl"
+#include "OSGCSMNativeWindow.inl"
 
-#endif /* _OSGCSMGLUTWINDOW_H_ */
+#endif /* _OSGCSMNATIVEWINDOW_H_ */

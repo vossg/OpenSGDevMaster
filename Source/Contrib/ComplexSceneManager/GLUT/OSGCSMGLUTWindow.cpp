@@ -186,7 +186,7 @@ bool CSMGLUTWindow::init(void)
     if(_bGLUTInitialized == false)
     {
         Int32  argc   = 1;
-        Char8 *argv[] = { "testVRSystem" };
+        Char8 *argv[] = { "testCSM" };
 
         glutInit(&argc, argv);
     }
@@ -211,19 +211,17 @@ bool CSMGLUTWindow::init(void)
 
     glutInitDisplayMode(uiDisplayMode);
 
-#if 0
-    if(_pVSCWindow->getXPos() > 0.f && _pVSCWindow->getYPos() > 0.f)
+    if(this->getXPos() > 0.f && this->getYPos() > 0.f)
     {
-        glutInitWindowPosition(Int32(_pVSCWindow->getXPos()), 
-                               Int32(_pVSCWindow->getYPos()));
+        glutInitWindowPosition(Int32(this->getXPos()), 
+                               Int32(this->getYPos()));
     }
 
-    if(_pVSCWindow->getXSize() > 0.f && _pVSCWindow->getYSize() > 0.f)
+    if(this->getXSize() > 0.f && this->getYSize() > 0.f)
     {
-        glutInitWindowSize(Int32(_pVSCWindow->getXSize()), 
-                           Int32(_pVSCWindow->getYSize()));
+        glutInitWindowSize(Int32(this->getXSize()), 
+                           Int32(this->getYSize()));
     }
-#endif
 
     Int32 iWinId = glutCreateWindow("OpenSG - CSM");
 

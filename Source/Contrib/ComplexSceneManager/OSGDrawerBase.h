@@ -66,6 +66,7 @@
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGCSMWindowFields.h" // Windows type
+#include "OSGStringFields.h" // DisplayString type
 
 #include "OSGDrawerFields.h"
 
@@ -94,11 +95,14 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     enum
     {
         WindowsFieldId = Inherited::NextFieldId,
-        NextFieldId = WindowsFieldId + 1
+        DisplayStringFieldId = WindowsFieldId + 1,
+        NextFieldId = DisplayStringFieldId + 1
     };
 
     static const OSG::BitVector WindowsFieldMask =
         (TypeTraits<BitVector>::One << WindowsFieldId);
+    static const OSG::BitVector DisplayStringFieldMask =
+        (TypeTraits<BitVector>::One << DisplayStringFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -125,17 +129,24 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecCSMWindowPtr *getMFWindows        (void) const;
-                  MFUnrecCSMWindowPtr *editMFWindows        (void);
+            const MFUnrecChildCSMWindowPtr *getMFWindows        (void) const;
+                  MFUnrecChildCSMWindowPtr *editMFWindows        (void);
+
+                  SFString            *editSFDisplayString  (void);
+            const SFString            *getSFDisplayString   (void) const;
 
 
                   CSMWindow * getWindows        (const UInt32 index) const;
+
+                  std::string         &editDisplayString  (void);
+            const std::string         &getDisplayString   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setDisplayString  (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,7 +159,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void pushToWindows             (CSMWindow * const value   );
-    void assignWindows            (const MFUnrecCSMWindowPtr &value);
+    void assignWindows            (const MFUnrecChildCSMWindowPtr &value);
     void removeFromWindows (UInt32               uiIndex );
     void removeFromWindows(CSMWindow * const value   );
     void clearWindows               (void                          );
@@ -203,7 +214,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecCSMWindowPtr _mfWindows;
+    MFUnrecChildCSMWindowPtr _mfWindows;
+    SFString          _sfDisplayString;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -229,11 +241,21 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+    
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
     GetFieldHandlePtr  getHandleWindows         (void) const;
     EditFieldHandlePtr editHandleWindows        (void);
+    GetFieldHandlePtr  getHandleDisplayString   (void) const;
+    EditFieldHandlePtr editHandleDisplayString  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

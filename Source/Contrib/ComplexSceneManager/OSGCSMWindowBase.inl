@@ -98,6 +98,81 @@ void CSMWindowBase::setMouseData(const MouseData &value)
 
     _sfMouseData.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfSize field.
+
+inline
+Vec2f &CSMWindowBase::editSize(void)
+{
+    editSField(SizeFieldMask);
+
+    return _sfSize.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfSize field.
+inline
+const Vec2f &CSMWindowBase::getSize(void) const
+{
+    return _sfSize.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfSize field.
+inline
+void CSMWindowBase::setSize(const Vec2f &value)
+{
+    editSField(SizeFieldMask);
+
+    _sfSize.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfPosition field.
+
+inline
+Vec2f &CSMWindowBase::editPosition(void)
+{
+    editSField(PositionFieldMask);
+
+    return _sfPosition.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfPosition field.
+inline
+const Vec2f &CSMWindowBase::getPosition(void) const
+{
+    return _sfPosition.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfPosition field.
+inline
+void CSMWindowBase::setPosition(const Vec2f &value)
+{
+    editSField(PositionFieldMask);
+
+    _sfPosition.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfDecorEnabled field.
+
+inline
+bool &CSMWindowBase::editDecorEnabled(void)
+{
+    editSField(DecorEnabledFieldMask);
+
+    return _sfDecorEnabled.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfDecorEnabled field.
+inline
+      bool  CSMWindowBase::getDecorEnabled(void) const
+{
+    return _sfDecorEnabled.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfDecorEnabled field.
+inline
+void CSMWindowBase::setDecorEnabled(const bool value)
+{
+    editSField(DecorEnabledFieldMask);
+
+    _sfDecorEnabled.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMWindow::_mfViewports field.
 inline
@@ -117,6 +192,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
+        _sfParent.syncWith(pFrom->_sfParent);
+
     if(FieldBits::NoField != (ViewportsFieldMask & whichField))
         _mfViewports.syncWith(pFrom->_mfViewports,
                                 syncMode,
@@ -125,6 +203,15 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
         _sfMouseData.syncWith(pFrom->_sfMouseData);
+
+    if(FieldBits::NoField != (SizeFieldMask & whichField))
+        _sfSize.syncWith(pFrom->_sfSize);
+
+    if(FieldBits::NoField != (PositionFieldMask & whichField))
+        _sfPosition.syncWith(pFrom->_sfPosition);
+
+    if(FieldBits::NoField != (DecorEnabledFieldMask & whichField))
+        _sfDecorEnabled.syncWith(pFrom->_sfDecorEnabled);
 }
 #endif
 

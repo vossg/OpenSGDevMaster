@@ -41,33 +41,16 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-Real32 CSMWindow::getXPos (void) const
+Display *CSMNativeWindow::getDisplay(void)
 {
-    return _sfPosition.getValue()[0];
-}
-
-inline
-Real32 CSMWindow::getYPos (void) const
-{
-    return _sfPosition.getValue()[1];
-}
-
-inline
-Real32 CSMWindow::getXSize(void) const
-{
-    return _sfSize.getValue()[0];
-}
-
-inline
-Real32 CSMWindow::getYSize(void) const
-{
-    return _sfSize.getValue()[1];
-}
-
-inline
-Drawer *CSMWindow::getParent(void) const
-{
-    return _sfParent.getValue();
+    if(_pXWindow != NULL)
+    {
+        return _pXWindow->getDisplay();
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 OSG_END_NAMESPACE

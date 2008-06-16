@@ -92,6 +92,19 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    Real32  getXPos  (void) const;
+    Real32  getYPos  (void) const;
+
+    Real32  getXSize (void) const;
+    Real32  getYSize (void) const;
+
+    Drawer *getParent(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 

@@ -86,14 +86,18 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var std::string     DrawerBase::_sfDisplayString
+    
+*/
+
 
 void DrawerBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecCSMWindowPtr::Description(
-        MFUnrecCSMWindowPtr::getClassType(),
+    pDesc = new MFUnrecChildCSMWindowPtr::Description(
+        MFUnrecChildCSMWindowPtr::getClassType(),
         "windows",
         "",
         WindowsFieldId, WindowsFieldMask,
@@ -101,6 +105,18 @@ void DrawerBase::classDescInserter(TypeObject &oType)
         Field::MFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Drawer::editHandleWindows),
         static_cast<FieldGetMethodSig >(&Drawer::getHandleWindows));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "displayString",
+        "",
+        DisplayStringFieldId, DisplayStringFieldMask,
+        true,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&Drawer::editHandleDisplayString),
+        static_cast<FieldGetMethodSig >(&Drawer::getHandleDisplayString));
 
     oType.addInitialDesc(pDesc);
 }
@@ -131,6 +147,7 @@ DrawerBase::TypeObject DrawerBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
+    "    parentFields=\"single\"\n"
     ">\n"
     "\t<Field\n"
     "\t\tname=\"windows\"\n"
@@ -138,9 +155,20 @@ DrawerBase::TypeObject DrawerBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        category=\"pointer\"\n"
+    "        category=\"childpointer\"\n"
+    "        childParentType=\"Drawer\"\n"
+    "        linkParentField=\"Parent\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"displayString\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -166,17 +194,30 @@ UInt32 DrawerBase::getContainerSize(void) const
 
 
 //! Get the Drawer::_mfWindows field.
-const MFUnrecCSMWindowPtr *DrawerBase::getMFWindows(void) const
+const MFUnrecChildCSMWindowPtr *DrawerBase::getMFWindows(void) const
 {
     return &_mfWindows;
 }
 
-MFUnrecCSMWindowPtr *DrawerBase::editMFWindows        (void)
+MFUnrecChildCSMWindowPtr *DrawerBase::editMFWindows        (void)
 {
     editMField(WindowsFieldMask, _mfWindows);
 
     return &_mfWindows;
 }
+
+SFString *DrawerBase::editSFDisplayString(void)
+{
+    editSField(DisplayStringFieldMask);
+
+    return &_sfDisplayString;
+}
+
+const SFString *DrawerBase::getSFDisplayString(void) const
+{
+    return &_sfDisplayString;
+}
+
 
 
 
@@ -187,11 +228,11 @@ void DrawerBase::pushToWindows(CSMWindow * const value)
     _mfWindows.push_back(value);
 }
 
-void DrawerBase::assignWindows  (const MFUnrecCSMWindowPtr &value)
+void DrawerBase::assignWindows  (const MFUnrecChildCSMWindowPtr &value)
 {
-    MFUnrecCSMWindowPtr::const_iterator elemIt  =
+    MFUnrecChildCSMWindowPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecCSMWindowPtr::const_iterator elemEnd =
+    MFUnrecChildCSMWindowPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Drawer *>(this)->clearWindows();
@@ -210,7 +251,7 @@ void DrawerBase::removeFromWindows(UInt32 uiIndex)
     {
         editMField(WindowsFieldMask, _mfWindows);
 
-        MFUnrecCSMWindowPtr::iterator fieldIt = _mfWindows.begin_nc();
+        MFUnrecChildCSMWindowPtr::iterator fieldIt = _mfWindows.begin_nc();
 
         fieldIt += uiIndex;
 
@@ -226,7 +267,7 @@ void DrawerBase::removeFromWindows(CSMWindow * const value)
     {
         editMField(WindowsFieldMask, _mfWindows);
 
-        MFUnrecCSMWindowPtr::iterator fieldIt = _mfWindows.begin_nc();
+        MFUnrecChildCSMWindowPtr::iterator fieldIt = _mfWindows.begin_nc();
 
         fieldIt += iElemIdx;
 
@@ -253,6 +294,10 @@ UInt32 DrawerBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfWindows.getBinSize();
     }
+    if(FieldBits::NoField != (DisplayStringFieldMask & whichField))
+    {
+        returnValue += _sfDisplayString.getBinSize();
+    }
 
     return returnValue;
 }
@@ -266,6 +311,10 @@ void DrawerBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfWindows.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DisplayStringFieldMask & whichField))
+    {
+        _sfDisplayString.copyToBin(pMem);
+    }
 }
 
 void DrawerBase::copyFromBin(BinaryDataHandler &pMem,
@@ -276,6 +325,10 @@ void DrawerBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (WindowsFieldMask & whichField))
     {
         _mfWindows.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DisplayStringFieldMask & whichField))
+    {
+        _sfDisplayString.copyFromBin(pMem);
     }
 }
 
@@ -345,13 +398,19 @@ FieldContainerTransitPtr DrawerBase::shallowCopy(void) const
 
 DrawerBase::DrawerBase(void) :
     Inherited(),
-    _mfWindows                ()
+    _mfWindows                (this, 
+                          WindowsFieldId,
+                          CSMWindow::ParentFieldId),
+    _sfDisplayString          ()
 {
 }
 
 DrawerBase::DrawerBase(const DrawerBase &source) :
     Inherited(source),
-    _mfWindows                ()
+    _mfWindows                (this, 
+                          WindowsFieldId,
+                          CSMWindow::ParentFieldId),
+    _sfDisplayString          (source._sfDisplayString          )
 {
 }
 
@@ -362,6 +421,48 @@ DrawerBase::~DrawerBase(void)
 {
 }
 
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool DrawerBase::unlinkChild(
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
+{
+    if(childFieldId == WindowsFieldId)
+    {
+        CSMWindow * pTypedChild =
+            dynamic_cast<CSMWindow *>(pChild);
+            
+        if(pTypedChild != NULL)
+        {
+            MFUnrecChildCSMWindowPtr::iterator pI =
+                _mfWindows.find_nc(pTypedChild);
+
+            MFUnrecChildCSMWindowPtr::const_iterator pEnd =
+                _mfWindows.end_nc();
+                
+            if(pI != pEnd)
+            {
+                editMField(WindowsFieldMask, _mfWindows);
+
+                _mfWindows.erase(pI);
+                
+                return true;
+            }
+            
+            FWARNING(("DrawerBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
+    
+    return Inherited::unlinkChild(pChild, childFieldId);
+}
+
 void DrawerBase::onCreate(const Drawer *source)
 {
     Inherited::onCreate(source);
@@ -370,9 +471,9 @@ void DrawerBase::onCreate(const Drawer *source)
     {
         Drawer *pThis = static_cast<Drawer *>(this);
 
-        MFUnrecCSMWindowPtr::const_iterator WindowsIt  =
+        MFUnrecChildCSMWindowPtr::const_iterator WindowsIt  =
             source->_mfWindows.begin();
-        MFUnrecCSMWindowPtr::const_iterator WindowsEnd =
+        MFUnrecChildCSMWindowPtr::const_iterator WindowsEnd =
             source->_mfWindows.end  ();
 
         while(WindowsIt != WindowsEnd)
@@ -386,8 +487,8 @@ void DrawerBase::onCreate(const Drawer *source)
 
 GetFieldHandlePtr DrawerBase::getHandleWindows         (void) const
 {
-    MFUnrecCSMWindowPtr::GetHandlePtr returnValue(
-        new  MFUnrecCSMWindowPtr::GetHandle(
+    MFUnrecChildCSMWindowPtr::GetHandlePtr returnValue(
+        new  MFUnrecChildCSMWindowPtr::GetHandle(
              &_mfWindows, 
              this->getType().getFieldDesc(WindowsFieldId)));
 
@@ -396,8 +497,8 @@ GetFieldHandlePtr DrawerBase::getHandleWindows         (void) const
 
 EditFieldHandlePtr DrawerBase::editHandleWindows        (void)
 {
-    MFUnrecCSMWindowPtr::EditHandlePtr returnValue(
-        new  MFUnrecCSMWindowPtr::EditHandle(
+    MFUnrecChildCSMWindowPtr::EditHandlePtr returnValue(
+        new  MFUnrecChildCSMWindowPtr::EditHandle(
              &_mfWindows, 
              this->getType().getFieldDesc(WindowsFieldId)));
 
@@ -405,6 +506,28 @@ EditFieldHandlePtr DrawerBase::editHandleWindows        (void)
                               static_cast<Drawer *>(this), _1));
 
     editMField(WindowsFieldMask, _mfWindows);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DrawerBase::getHandleDisplayString   (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfDisplayString, 
+             this->getType().getFieldDesc(DisplayStringFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DrawerBase::editHandleDisplayString  (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfDisplayString, 
+             this->getType().getFieldDesc(DisplayStringFieldId)));
+
+    editSField(DisplayStringFieldMask);
 
     return returnValue;
 }
@@ -457,5 +580,22 @@ OSG_FIELDTRAITS_GETTYPE(Drawer *)
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            Drawer *, 
                            0);
+
+DataType &FieldTraits<Drawer *, 1 >::getType(void)
+{                                                           
+    return FieldTraits<Drawer *, 0>::getType();
+}
+
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    Drawer *, 
+                    NoRefCountPolicy,
+                    1);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField, 
+                         Drawer *, 
+                         NoRefCountPolicy,
+                         1);
+
 
 OSG_END_NAMESPACE

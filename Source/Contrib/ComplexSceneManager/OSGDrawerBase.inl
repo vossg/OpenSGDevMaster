@@ -73,6 +73,31 @@ OSG::UInt16 DrawerBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the Drawer::_sfDisplayString field.
+
+inline
+std::string &DrawerBase::editDisplayString(void)
+{
+    editSField(DisplayStringFieldMask);
+
+    return _sfDisplayString.getValue();
+}
+
+//! Get the value of the Drawer::_sfDisplayString field.
+inline
+const std::string &DrawerBase::getDisplayString(void) const
+{
+    return _sfDisplayString.getValue();
+}
+
+//! Set the value of the Drawer::_sfDisplayString field.
+inline
+void DrawerBase::setDisplayString(const std::string &value)
+{
+    editSField(DisplayStringFieldMask);
+
+    _sfDisplayString.setValue(value);
+}
 
 //! Get the value of the \a index element the Drawer::_mfWindows field.
 inline
@@ -97,6 +122,9 @@ void DrawerBase::execSync (      DrawerBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (DisplayStringFieldMask & whichField))
+        _sfDisplayString.syncWith(pFrom->_sfDisplayString);
 }
 #endif
 

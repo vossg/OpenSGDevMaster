@@ -120,8 +120,8 @@ bool Drawer::init(void)
 {
     bool returnValue = true;
 
-    MFUnrecCSMWindowPtr::const_iterator wIt  = getMFWindows()->begin();
-    MFUnrecCSMWindowPtr::const_iterator wEnd = getMFWindows()->end  ();
+    MFUnrecChildCSMWindowPtr::const_iterator wIt  = getMFWindows()->begin();
+    MFUnrecChildCSMWindowPtr::const_iterator wEnd = getMFWindows()->end  ();
 
     while(wIt != wEnd)
     {
@@ -140,8 +140,8 @@ bool Drawer::init(void)
 
 void Drawer::frame(Time oTime, UInt32 uiFrame)
 {
-    MFUnrecCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
-    MFUnrecCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
+    MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
+    MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
 
     while(winIt != winEnd)
     {
@@ -153,8 +153,8 @@ void Drawer::frame(Time oTime, UInt32 uiFrame)
 
 FieldContainer *Drawer::findNamedComponent(const Char8 *szName) const
 {
-    MFUnrecCSMWindowPtr::const_iterator winIt  = _mfWindows.begin();
-    MFUnrecCSMWindowPtr::const_iterator winEnd = _mfWindows.end  ();
+    MFUnrecChildCSMWindowPtr::const_iterator winIt  = _mfWindows.begin();
+    MFUnrecChildCSMWindowPtr::const_iterator winEnd = _mfWindows.end  ();
 
     const Char8               *szTmpName   = NULL;
 

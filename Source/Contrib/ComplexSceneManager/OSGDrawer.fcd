@@ -12,6 +12,7 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
+    parentFields="single"
 >
 	<Field
 		name="windows"
@@ -19,7 +20,18 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
-        category="pointer"
+        category="childpointer"
+        childParentType="Drawer"
+        linkParentField="Parent"
 	>
 	</Field>
+	<Field
+		name="displayString"
+		type="std::string"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+
 </FieldContainer>

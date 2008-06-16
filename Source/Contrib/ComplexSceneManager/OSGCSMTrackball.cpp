@@ -254,7 +254,7 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
         editSFMatrixResult()->setValue(_oTrackball.getFullTrackballMatrix());
     }
 
-    if(0x0000 != (whichField & TransformCenterFieldId))
+    if(0x0000 != (whichField & TransformCenterFieldMask))
     {
         _oTrackball.setRotationCenter(_sfTransformCenter.getValue());
     }
