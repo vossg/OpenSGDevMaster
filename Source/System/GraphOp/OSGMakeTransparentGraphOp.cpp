@@ -41,6 +41,7 @@
 #include <OSGMakeTransparentGraphOp.h>
 #include <OSGPolygonChunk.h>
 #include <OSGSimpleMaterial.h>
+#include <OSGGLEXT.h>
 #include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE

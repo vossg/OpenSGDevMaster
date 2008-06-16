@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGCSMNativeWindowBase.h"
+#include "OSGDrawer.h"
 
 OSG_BEGIN_NAMESPACE
 
