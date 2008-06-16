@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ComplexSceneManager"
+    parent="FieldContainer"
+    library="ContribCSM"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+>
+  
+	<Field
+		name="globals"
+		type="FieldContainer"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+	<Field
+		name="drawManager"
+		type="DrawManager"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NULL"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+</FieldContainer>

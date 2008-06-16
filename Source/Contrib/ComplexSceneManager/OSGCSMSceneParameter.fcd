@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CSMSceneParameter"
+    parent="AttachmentContainer"
+    library="ContribCSM"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+>
+	<Field
+		name="sceneRef"
+		type="Node"
+		cardinality="single"
+		visibility="external"
+        defaultValue="NULL"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+	<Field
+		name="distScale"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+        defaultValue="1.f"
+	>
+	</Field>
+	<Field
+		name="sceneDiag"
+		type="Vec3f"
+		cardinality="single"
+		visibility="external"
+        defaultValue="1.f"
+	>
+	</Field>
+	<Field
+		name="initViewPos"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="external"
+        defaultValue="1.f"
+	>
+	</Field>
+	<Field
+		name="sceneCenter"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="external"
+        defaultValue="1.f"
+	>
+	</Field>
+
+</FieldContainer>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CSMWindow"
+    parent="AttachmentContainer"
+    library="ContribCSM"
+    pointerfieldtypes="both"
+    structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+>
+	<Field
+		name="viewports"
+		type="CSMViewport"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+
+	<Field
+		name="mouseData"
+		type="MouseData"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

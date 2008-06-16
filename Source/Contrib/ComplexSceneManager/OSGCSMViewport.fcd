@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CSMViewport"
+    parent="FieldContainer"
+    library="ContribCSM"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+>
+	<Field
+		name="root"
+		type="Node"
+		cardinality="single"
+		visibility="external"
+        defaultValue="NULL"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+	<Field
+		name="camera"
+		type="Camera"
+		cardinality="single"
+		visibility="external"
+        defaultValue="NULL"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+	<Field
+		name="background"
+		type="Background"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+	<Field
+		name="foregrounds"
+		type="Foreground"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+</FieldContainer>
