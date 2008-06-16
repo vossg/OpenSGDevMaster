@@ -342,6 +342,9 @@ def BoostValidate(self, env):
             self.found_libs[libname] = found_fullname
             print "  %s: %s"%(libname, found_fullname)
 
+         if GetPlatform() == "win32":
+             self.found_defines = ['BOOST_ALL_DYN_LINK']
+
       # --- Handle final settings ---- #     
       if not passed:
          # Clear everything
