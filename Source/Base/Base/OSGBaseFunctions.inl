@@ -1952,11 +1952,15 @@ UInt32 osgFinite(const FloatTypeT rValue)
 #ifdef WIN32
     return _finite(rValue);
 #else
-#ifdef __hpux
+# ifdef __hpux
     return  isfinite(rValue);
-#else
+# else
+#  ifdef __APPLE__
+    return  std::isfinite(rValue);
+#  else
     return  finite(rValue);
-#endif
+#  endif
+# endif
 #endif
 }
 
