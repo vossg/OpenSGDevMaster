@@ -70,8 +70,8 @@ ParentMFieldConstIterator<StorageTypeT>::ParentMFieldConstIterator(
 template <class StorageTypeT> inline
 ParentMFieldConstIterator<StorageTypeT>::ParentMFieldConstIterator(
                               const iterator &fieldIter) : 
-     Inherited(fieldIter.base()),
-    _posIt    (fieldIter._posIt)
+     Inherited(fieldIter.ptrBase()),
+    _posIt    (fieldIter._posIt   )
 {
 }
 
