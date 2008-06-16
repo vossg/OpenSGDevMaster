@@ -90,6 +90,18 @@ void TestFC::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(&TestFC::getHandleField3 ));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "field4",
+        "",
+        OSG_RC_FIELD_DESC(TestFC::Field4),
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&TestFC::editHandleField4),
+        reinterpret_cast<FieldGetMethodSig >(&TestFC::getHandleField4 ));
+
+    oType.addInitialDesc(pDesc);
 }
 
 TestFC::TypeObject TestFC::_type(
@@ -117,7 +129,8 @@ TestFC::TestFC(void) :
      Inherited(),
     _mfField1 (),
     _sfField2 (),
-    _mfField3 ()
+    _mfField3 (),
+    _sfField4 ()
 {
 }
 
@@ -125,7 +138,8 @@ TestFC::TestFC(const TestFC &source) :
      Inherited(source          ),
     _mfField1 (source._mfField1),
     _sfField2 (source._sfField2),
-    _mfField3 (source._mfField3)
+    _mfField3 (source._mfField3),
+    _sfField4 (source._sfField4)
 {
 }
 /*-------------------------------------------------------------------------*/
@@ -158,6 +172,8 @@ void TestFC::changed(ConstFieldMaskArg whichField,
                      UInt32            origin,
                      BitVector         details)
 {
+    fprintf(stderr, "TestFC changed\n");
+
     Inherited::changed(whichField, origin, details);
 }
 
@@ -230,6 +246,18 @@ const MFUInt32 *TestFC::getMFField3(void) const
     return &_mfField3;
 }
 
+SFUInt32 *TestFC::editSFField4(void)
+{
+    editSField(Field4FieldMask);
+
+    return &_sfField4;
+}
+
+const SFUInt32 *TestFC::getSFField4(void) const
+{
+    return &_sfField4;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
@@ -250,6 +278,7 @@ void TestFC::execSyncV(      FieldContainer    &oFrom,
 
 void TestFC::resolveLinks(void)
 {
+    Inherited::resolveLinks();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -318,6 +347,28 @@ MFUInt32::GetHandlePtr  TestFC::getHandleField3 (void) const
         new  MFUInt32::GetHandle(
              &_mfField3, 
              this->getType().getFieldDesc(Field3FieldId)));
+
+    return returnValue;
+}
+
+SFUInt32::EditHandlePtr TestFC::editHandleField4(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfField4, 
+             this->getType().getFieldDesc(Field4FieldId)));
+
+    editSField(Field4FieldMask);
+
+    return returnValue;
+}
+
+SFUInt32::GetHandlePtr  TestFC::getHandleField4 (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfField4, 
+             this->getType().getFieldDesc(Field4FieldId)));
 
     return returnValue;
 }

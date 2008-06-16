@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,7 +36,91 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGFIELDCONNECTOR_H_
+#define _OSGFIELDCONNECTOR_H_
+
+#include "OSGSystemDef.h"
+
 OSG_BEGIN_NAMESPACE
+
+class OSG_SYSTEM_DLLMAPPING BasicFieldConnector
+{
+  public:
+
+    BasicFieldConnector(BitVector bSrcMask,
+                        BitVector bDstMask);
+
+    virtual ~BasicFieldConnector(void);
+
+    void setTargetContainer(FieldContainer *pDst);
+
+    bool match(BitVector fieldMask);
+
+    virtual void process(void) = 0;
+
+  protected:
+
+    BitVector       _bSrcMask;
+    BitVector       _bDstMask;
+
+    FieldContainer *_pDst;
+};
+
+
+template <class FieldT>
+class SFieldConnector : public BasicFieldConnector
+{
+    typedef BasicFieldConnector Inherited;
+
+  public:
+
+    SFieldConnector(const FieldT    *pSrcField,
+                          BitVector  bSrcMask,
+                          FieldT    *pDstField,
+                          BitVector  bDstMask);
+
+    virtual ~SFieldConnector(void);
+
+    virtual void process(void);
+
+  protected:
+    
+    const FieldT    *_pSrcField;
+
+    
+          FieldT    *_pDstField;
+};
+
+template <class FieldT>
+class MFieldConnector : public BasicFieldConnector
+{
+    typedef BasicFieldConnector Inherited;
+
+  public:
+
+    MFieldConnector(const FieldT    *pSrcField,
+                          BitVector  bSrcMask,
+                          FieldT    *pDstField,
+                          BitVector  bDstMask);
+
+    virtual ~MFieldConnector(void);
+
+    virtual void process(void);
+
+  protected:
+    
+    const FieldT    *_pSrcField;
+
+    
+          FieldT    *_pDstField;
+};
+
+bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
+                   FieldContainer      *pDstContainer, const Char8 *szDstName);
+
 
 OSG_END_NAMESPACE
 
+#include "OSGFieldConnector.inl"
+
+#endif

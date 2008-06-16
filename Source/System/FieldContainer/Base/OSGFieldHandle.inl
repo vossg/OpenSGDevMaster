@@ -120,6 +120,12 @@ bool GetFieldHandle::isValid(void) const
 }
 
 inline
+const Field *GetFieldHandle::getField(void)
+{
+    return _pField;
+}
+
+inline
 bool GetFieldHandle::operator ==(const EditFieldHandle &rhs)
 {
     return (_pDescription == rhs._pDescription &&

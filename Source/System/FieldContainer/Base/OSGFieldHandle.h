@@ -153,6 +153,10 @@ class OSG_SYSTEM_DLLMAPPING GetFieldHandle : public FieldHandle
 
     /*---------------------------------------------------------------------*/
 
+    const Field *getField(void);
+
+    /*---------------------------------------------------------------------*/
+
     virtual bool equal(Ptr rhs) const = 0;
 
     bool operator ==(const EditFieldHandle &rhs);

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,124 +36,111 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOSGSCENEFILETYPE_H_
-#define _OSGOSGSCENEFILETYPE_H_
+#ifndef _OSGCONNECTORATTACHMENT_H_
+#define _OSGCONNECTORATTACHMENT_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-#include "OSGSceneFileType.h"
+#include "OSGConnectorAttachmentBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSGLoader;
+class BasicFieldConnector;
 
-/*! \brief OSGSceneFileType
+/*! \brief ConnectorAttachment class. See \ref
+           PageSystemConnectorAttachment for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
+class OSG_SYSTEM_DLLMAPPING ConnectorAttachment : public ConnectorAttachmentBase
 {
+  protected:
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    typedef ConnectorAttachmentBase Inherited;
+    typedef ConnectorAttachment     Self;
+
     /*---------------------------------------------------------------------*/
-    /*! \name                Class Get                                     */
+    /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    static OSGSceneFileType &the(void);
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual ~OSGSceneFileType (void);
+    void addConnection (BasicFieldConnector *pConnector);
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
-    /*! \{                                                                 */
-
-    virtual const Char8 *getName(void) const;
+    void processChanged(FieldContainer      *pObj, 
+                        BitVector            whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual NodeTransitPtr read(      std::istream &is,
-                                const Char8        *fileNameOrExtension,
-                                      Resolver      resolver  = NULL   ) const;
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
-    /*! \{                                                                 */
-
-    virtual 
-    FieldContainerTransitPtr readContainer(
-        const Char8    *fileName,
-              Resolver  resolver = NULL) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
-    /*! \{                                                                 */
-
-    virtual bool write(Node *       const  node, 
-                       std::ostream       &os,
-                       Char8        const *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
-    /*! \{                                                                 */
-
-    virtual bool writeContainer(FieldContainer * const  pContainer, 
-                                Char8            const *fileName  ) const;
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
+    typedef std::vector<BasicFieldConnector *> ConnectionStore;
+
+    // Variables should all be in ConnectorAttachmentBase.
+
+    ConnectionStore _vConnections;
+
     /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
+    /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    static const Char8            *_suffixA[];
-    static       OSGSceneFileType  _the;
+    ConnectorAttachment(void);
+    ConnectorAttachment(const ConnectorAttachment &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    OSGSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
+    virtual ~ConnectorAttachment(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    typedef SceneFileType Inherited;
+    friend class FieldContainer;
+    friend class ConnectorAttachmentBase;
 
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    OSGSceneFileType(const OSGSceneFileType &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const OSGSceneFileType &source);
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const ConnectorAttachment &source);
 };
 
-//---------------------------------------------------------------------------
-//   Exported Types
-//---------------------------------------------------------------------------
+typedef ConnectorAttachment *ConnectorAttachmentP;
+
+void addConnector(AttachmentContainer *pContainer,
+                  BasicFieldConnector *pConn     );
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGOSGSCENEFILETYPE_H_ */
+#include "OSGConnectorAttachmentBase.inl"
+#include "OSGConnectorAttachment.inl"
+
+#endif /* _OSGCONNECTORATTACHMENT_H_ */

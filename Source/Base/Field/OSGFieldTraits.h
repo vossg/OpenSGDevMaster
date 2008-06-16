@@ -54,6 +54,10 @@
 OSG_BEGIN_NAMESPACE
 
 class FieldType;
+class BasicFieldConnector;
+
+template<class FieldTypeT>
+class FieldConnector;
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -473,211 +477,6 @@ struct FieldDescBase
     typedef       FieldDescriptionBase Parent;
 };
 
-template<class    DescT, 
-         enum     FieldType::Cardinality eFieldCard, 
-         typename RefCountPolicy                     = NoRefCounts, 
-         enum     FieldType::Class       eFieldClass = FieldType::ValueField>
-class FieldDescription : public DescT::FieldDescParent
-{
-  protected:
-
-    typedef          FieldDescription<DescT,
-                                      eFieldCard,
-                                      RefCountPolicy,
-                                      eFieldClass> Self;
-
-
-    typedef typename DescT::FieldDescParent       Inherited;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldCard == FieldType::SingleField,
-            SField<typename DescT::ValueType,
-                            DescT::iNamespace>,
-            MField<typename DescT::ValueType,
-                            DescT::iNamespace,
-                   typename DescT::MFAlloc   >    >::type     HandledVField;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldCard == FieldType::SingleField,
-            PointerSField<typename DescT::ValueType,
-                                   RefCountPolicy,
-                                   DescT::iNamespace>,
-            PointerMField<typename DescT::ValueType,
-                                   RefCountPolicy,
-                                   DescT::iNamespace> >::type HandledPField;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldCard == FieldType::SingleField,
-            ParentPointerSField<typename DescT::ValueType,
-                                         RefCountPolicy,
-                                         DescT::iNamespace>,
-            ParentPointerMField<typename DescT::ValueType,
-                                         RefCountPolicy,
-                                         DescT::iNamespace> 
-            >::type HandledPPField;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldCard == FieldType::SingleField,
-            ChildPointerSField<typename DescT::ValueType,
-                                        RefCountPolicy,
-                                        DescT::iNamespace>,
-            ChildPointerMField<typename DescT::ValueType,
-                                        RefCountPolicy,
-                                        DescT::iNamespace>
-            >::type HandledChField;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldClass == FieldType::ValueField,
-            HandledVField,
-            HandledPField                           >::type HandledFieldA;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldClass == FieldType::ParentPtrField,
-            HandledPPField,
-            HandledFieldA                           >::type HandledFieldB;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldClass == FieldType::ChildPtrField,
-            HandledChField,
-            HandledFieldB                           >::type HandledField;
-
-    typedef typename HandledField::GetHandle    GetHandle;
-    typedef typename HandledField::GetHandlePtr GetHandlePtr;
-
-    typedef typename HandledField::EditHandle    EditHandle;
-    typedef typename HandledField::EditHandlePtr EditHandlePtr;
-
-    struct SFieldFunctions
-    {
-        static void beginEdit(HandledField       *pField,
-                              UInt32              uiAspect,
-                              AspectOffsetStore  &oOffsets);
-
-        static bool isShared (HandledField       *pField  );
-    };
-
-    struct MFieldFunctions
-    {
-        static void beginEdit(HandledField       *pField,
-                              UInt32              uiAspect,
-                              AspectOffsetStore  &oOffsets);
-
-        static bool isShared (HandledField       *pField  );
-    };
-
-    struct DefaultFieldCreateHandler
-    {
-        static Field *createField(void)
-        {
-            return new HandledField();
-        }
-    };
-    
-    struct ChildFieldCreateHandler
-    {
-        static Field *createField(void)
-        {
-            return NULL;
-        }
-    };
-
-    struct DefaultCreateEditHandler
-    {
-        static EditFieldHandlePtr createHandler(Field            *pField,
-                                                FieldDescription *pDesc )
-        {
-            HandledField *pTypedField = pDesc->dcast(pField);
-            
-            EditHandlePtr returnValue(new EditHandle(pTypedField, pDesc));
-            
-            return returnValue;
-        }
-    };
-
-    struct ParentCreateEditHandler
-    {
-        static EditFieldHandlePtr createHandler(Field            *pField,
-                                                FieldDescription *pDesc )
-        {
-            EditFieldHandlePtr returnValue;
-            
-            return returnValue;
-        }
-    };
-
-    typedef typename
-        boost::mpl::if_c<
-            (eFieldClass == FieldType::ChildPtrField ||
-             eFieldClass == FieldType::ParentPtrField  ),
-            ChildFieldCreateHandler,
-            DefaultFieldCreateHandler               >::type FieldCreateHandler;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldClass == FieldType::ParentPtrField,
-            ParentCreateEditHandler,
-            DefaultCreateEditHandler                >::type CreateEditHandler;
-
-    typedef typename
-        boost::mpl::if_c<
-            eFieldCard == FieldType::SingleField,
-            SFieldFunctions,
-            MFieldFunctions                         >::type FieldFunctions;
-
-
-    virtual void beginEdit(Field              *pField,
-                           UInt32              uiAspect,
-                           AspectOffsetStore  &oOffsets);
-
-    virtual bool isShared (Field              *pField  );
-
-  public:
-
-    FieldDescription(const FieldType        &elementType,
-                     const Char8            *szName,
-                     std::string             documentation,
-                     const UInt32            uiFieldId,
-                     const BitVector         vFieldMask,
-                     const bool              bInternal,
-                     const UInt32            uiFieldFlags,
-                           FieldEditMethod   fEditMethod,
-                           FieldGetMethod    fGetMethod   );
-
-    FieldDescription(const FieldType            &elementType,
-                     const Char8                *szName,
-                           std::string           documentation,
-                     const UInt32                uiFieldId,
-                     const BitVector             vFieldMask,
-                     const bool                  bInternal,
-                     const UInt32                uiFieldFlags,
-                           FieldIndexEditMethod  fIndexedEditMethod,
-                           FieldIndexGetMethod   fIndexedGetMethod );
-
-    FieldDescription(const FieldDescription &source);
-
-    virtual ~FieldDescription(void);
-
-    const   HandledField         *dcast_const (const Field *pField) const;
-            HandledField         *dcast       (      Field *pField) const;
-
-    virtual Field                *createField (void         ) const;
-    virtual void                  destroyField(Field *pField) const;
-
-    virtual FieldDescriptionBase *clone       (void         ) const;
-
-    virtual GetFieldHandlePtr   createGetHandler (const Field *pField);
-    virtual EditFieldHandlePtr  createEditHandler(      Field *pField);
-};
-
-
-
 
 template <class T, Int32 iNamespace = 0>
 struct StreamConversionError
@@ -714,6 +513,12 @@ struct StringConversionError
              << FieldTraits<T, iNamespace>::getType().getCName() << std::endl;
     }
 };
+
+template<class    DescT, 
+         enum     FieldType::Cardinality eFieldCard, 
+         typename RefCountPolicy                    , 
+         enum     FieldType::Class       eFieldClass>
+class FieldDescription;
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 

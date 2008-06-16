@@ -73,6 +73,9 @@
 #include <OSGGroup.h>
 
 #include <OSGAttachmentMapSFields.h>
+#include <OSGNameAttachment.h>
+
+#include "OSGFieldConnector.h"
 
 //#include <OSGSimpleAttachments.h>
 
@@ -320,9 +323,11 @@ OSGLoader::OSGLoader(void) :
      Inherited        (      ),
     _pCurrentFC       (NULL  ),
     _pRootNode        (NULL  ),
+    _pRootContainer   (NULL  ),
     _pCurrentField    (      ),
     _pCurrentFieldDesc(NULL  ),
     _defMap           (      ),
+    _bReadContainer   (false ),
     _fcStack          (      ),
     _fStack           (      ),
     _fdStack          (      ),
@@ -342,18 +347,22 @@ OSGLoader::~OSGLoader(void)
 
 /*------------------------------ access -----------------------------------*/
 
-NodeTransitPtr OSGLoader::scanStream(std::istream &is)
+NodeTransitPtr OSGLoader::scanStream(std::istream &is,
+                                     Resolver      fResolver)
 {
     NodeTransitPtr returnValue(NULL);
 
     if(is)
     {
         _pRootNode         = NULL;
+        _pRootContainer    = NULL;
         _pCurrentFC        = NULL;
 
         _pCurrentField.reset();
 
         _pCurrentFieldDesc = NULL;
+        _bReadContainer    = false;
+        _fResolver         = fResolver;
 
         _defMap .clear();
 
@@ -361,8 +370,43 @@ NodeTransitPtr OSGLoader::scanStream(std::istream &is)
 
         returnValue = _pRootNode;
 
-        _pRootNode  = NULL;
-        _pCurrentFC = NULL;
+        _pRootNode      = NULL;
+        _pRootContainer = NULL;
+        _pCurrentFC     = NULL;
+        _fResolver      = NULL;
+    }
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr OSGLoader::scanStreamContainer(std::istream &is,
+                                                        Resolver      fResolver)
+{
+    FieldContainerTransitPtr returnValue(NULL);
+
+    if(is)
+    {
+        _pRootNode         = NULL;
+        _pRootContainer    = NULL;
+        _pCurrentFC        = NULL;
+
+        _pCurrentField.reset();
+
+        _pCurrentFieldDesc = NULL;
+        _bReadContainer    = true;
+        _fResolver         = fResolver;
+
+        _defMap .clear();
+
+        Inherited::scanStream(is);
+
+        returnValue = _pRootContainer;
+
+        _bReadContainer = false;
+        _pRootNode      = NULL;
+        _pRootContainer = NULL;
+        _pCurrentFC     = NULL;
+        _fResolver      = NULL;
     }
 
     return returnValue;
@@ -397,19 +441,22 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
         FieldContainerFactory::the()->createContainer(szNodeTypename);
 
     
+    if(pNewNode == NULL)
+    {
+        PWARNING << "Unknow container type " << szNodeTypename << std::endl;
+    }
+    
     PINFO << "  Got ptr " << pNewNode << std::endl;
 
     if(szNodename != NULL && pNewNode != NULL)
     {
-#ifdef DO_CHECK
         AttachmentContainer *pAttCon =
-            AttachmentContainerPtr::dcast(pNewNode);
+            dynamic_cast<AttachmentContainer *>(pNewNode.get());
 
         if(pAttCon != NULL)
         {
             setName(pAttCon, szNodename);
         }
-#endif
 
         _defMap.insert(std::make_pair(std::string(szNodename), pNewNode));
     }
@@ -423,34 +470,41 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
 
     if(_fcStack.size() == 1)
     {
-        NodeUnrecPtr pNode = NULL;
-
-        if(_pCurrentFC->getType().isNode())
+        if(_bReadContainer == false)
         {
-            pNode = dynamic_cast<Node *>(_pCurrentFC);
-        }
-        else if(_pCurrentFC->getType().isNodeCore())
-        {
-            pNode = Node::create();
-
-            pNode->setCore(dynamic_cast<NodeCore *>(_pCurrentFC));
+            NodeUnrecPtr pNode = NULL;
+            
+            if(_pCurrentFC->getType().isNode())
+            {
+                pNode = dynamic_cast<Node *>(_pCurrentFC.get());
+            }
+            else if(_pCurrentFC->getType().isNodeCore())
+            {
+                pNode = Node::create();
+                
+                pNode->setCore(dynamic_cast<NodeCore *>(_pCurrentFC.get()));
+            }
+            else
+            {
+                SLOG << "Fieldcontainer " << szNodeTypename
+                     << "is neither Node nor NodeCore " << std::endl;
+            }
+            
+            if(_pRootNode == NULL)
+            {
+                GroupUnrecPtr pGroup = Group::create();
+                
+                _pRootNode = Node::create();
+                
+                _pRootNode->setCore(pGroup);
+            }
+            
+            _pRootNode->addChild(pNode);
         }
         else
         {
-            SLOG << "Fieldcontainer " << szNodeTypename
-                 << "is neither Node nor NodeCore " << std::endl;
+            _pRootContainer = pNewNode;
         }
-
-        if(_pRootNode == NULL)
-        {
-            GroupUnrecPtr pGroup = Group::create();
-
-            _pRootNode = Node::create();
-
-            _pRootNode->setCore(pGroup);
-        }
-
-        _pRootNode->addChild(pNode);
     }
 
     _sChangedStack.push(_bvChanged);
@@ -470,7 +524,7 @@ void OSGLoader::endNode(void)
     {
         if(_pCurrentFC->getType().isNode() == true)
         {
-            Node *pNode = dynamic_cast<Node *>(_pCurrentFC);
+            Node *pNode = dynamic_cast<Node *>(_pCurrentFC.get());
 
             if(pNode->getCore() == NULL)
             {
@@ -503,7 +557,7 @@ void OSGLoader::endNode(void)
 
     _sChangedStack.pop();
 
-    commitChanges();
+//    commitChanges();
 }
 
 void OSGLoader::nullNode(void)
@@ -565,6 +619,39 @@ UInt32 OSGLoader::getFieldType(const Char8 *szFieldname)
 
     return returnValue;
 }
+
+void OSGLoader::addRoute(const Char8  *szOutNodename,
+                         const Char8  *szOutFieldname,
+                         const Char8  *szInNodename,
+                         const Char8  *szInFieldname)
+{
+    if(szOutNodename == NULL || szOutFieldname == NULL ||
+       szInNodename  == NULL || szInFieldname  == NULL  )
+    {
+        FWARNING(("addRoute missing params\n"));
+    }
+
+    FieldContainer *pSrcNode = getReference(szOutNodename);
+    FieldContainer *pDstNode = getReference(szInNodename);
+
+    AttachmentContainer *pSrc = dynamic_cast<AttachmentContainer *>(pSrcNode);
+
+    if(pSrc == NULL)
+    {
+        FWARNING(("Unknow src node %s\n", szOutNodename));
+        return;
+    }
+
+    if(pDstNode == NULL)
+    {
+        FWARNING(("Unknow dst node %s\n", szInNodename));
+        return;
+    }
+
+    addConnection(pSrc,     szOutFieldname,
+                  pDstNode, szInFieldname );
+}
+
 
 Int32 OSGLoader::mapExtIntFieldType(const Char8 *szFieldname,
                                     const Int32  iFieldTypeId)
@@ -680,7 +767,14 @@ FieldContainer *OSGLoader::getReference(const Char8 *szName)
     NamedFCMap::iterator entry = _defMap.find(std::string(szName));
 
     if(entry == _defMap.end())
+    {
+        if(_fResolver)
+        {
+            return _fResolver(szName);
+
+        }
         return NULL;
+    }
 
     return entry->second; // return the stored FCPtr
 }

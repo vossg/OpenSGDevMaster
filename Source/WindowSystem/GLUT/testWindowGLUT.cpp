@@ -102,6 +102,7 @@ display(void)
     
     m1 = tball.getFullTrackballMatrix();
 
+#if 0
     if(move_obj == true)
     {
         scene_trans->editSFMatrix()->setValue( m1 );
@@ -110,6 +111,7 @@ display(void)
     {
         cam_trans->editSFMatrix()->setValue( m1 );
     }
+#endif
 
     commitChanges();
 

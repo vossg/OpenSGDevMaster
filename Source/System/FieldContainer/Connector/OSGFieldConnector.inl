@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,5 +38,67 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_END_NAMESPACE
 
+inline
+BasicFieldConnector::BasicFieldConnector(BitVector bSrcMask,
+                                         BitVector bDstMask) :
+    _bSrcMask(bSrcMask),
+    _bDstMask(bDstMask),
+    _pDst    (NULL    )
+{
+}
+
+inline
+BasicFieldConnector::~BasicFieldConnector(void)
+{
+}
+
+inline
+void BasicFieldConnector::setTargetContainer(FieldContainer *pDst)
+{
+    _pDst = pDst;
+}
+
+inline
+bool BasicFieldConnector::match(BitVector fieldMask)
+{
+    return (_bSrcMask & fieldMask);
+}
+
+template <class FieldT> inline
+SFieldConnector<FieldT>::SFieldConnector(const FieldT    *pSrcField,
+                                               BitVector  bSrcMask,
+                                               FieldT    *pDstField,
+                                               BitVector  bDstMask) :
+     Inherited(bSrcMask,
+               bDstMask ),
+    _pSrcField(pSrcField),
+    _pDstField(pDstField)
+{
+}
+
+template <class FieldT> inline
+SFieldConnector<FieldT>::~SFieldConnector(void)
+{
+}
+
+
+
+template <class FieldT> inline
+MFieldConnector<FieldT>::MFieldConnector(const FieldT    *pSrcField,
+                                               BitVector  bSrcMask,
+                                               FieldT    *pDstField,
+                                               BitVector  bDstMask) :
+     Inherited(bSrcMask,
+               bDstMask ),
+    _pSrcField(pSrcField),
+    _pDstField(pDstField)
+{
+}
+
+template <class FieldT> inline
+MFieldConnector<FieldT>::~MFieldConnector(void)
+{
+}
+
+OSG_END_NAMESPACE

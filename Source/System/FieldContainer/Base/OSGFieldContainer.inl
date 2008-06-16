@@ -768,6 +768,22 @@ void FieldContainer::newAspectCopy(      typename ObjectT::ObjCPtr &result,
 }
 #endif
 
+template <class FieldT> inline
+void SFieldConnector<FieldT>::process(void)
+{
+    _pDst->editSField(_bDstMask);
+
+    *_pDstField = *_pSrcField;
+}
+
+
+template <class FieldT> inline
+void MFieldConnector<FieldT>::process(void)
+{
+    _pDst->editMField(_bDstMask, *_pDstField);
+
+    *_pDstField = *_pSrcField;
+}
 
 OSG_END_NAMESPACE
 

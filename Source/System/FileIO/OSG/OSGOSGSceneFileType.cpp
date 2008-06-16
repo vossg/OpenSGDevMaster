@@ -113,13 +113,41 @@ const Char8 *OSGSceneFileType::getName(void) const
 }
 
 
-NodeTransitPtr OSGSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr OSGSceneFileType::read(      std::istream &is, 
+                                      const Char8        *,
+                                            Resolver      resolver) const
 {
     OSGLoader *_pFile = new OSGLoader;
 
-    NodeTransitPtr returnValue = _pFile->scanStream(is);
+    NodeTransitPtr returnValue = _pFile->scanStream(is, resolver);
 
     delete _pFile;
+
+    commitChanges();
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr OSGSceneFileType::readContainer(
+    const Char8    *fileName,
+          Resolver  resolver) const
+{
+    if(fileName == NULL)
+    {
+        SWARNING << "cannot read NULL file" << std::endl;
+        return FieldContainerTransitPtr(NULL);
+    }
+
+    OSGLoader *_pFile = new OSGLoader;
+
+    std::ifstream is(fileName, std::ios::binary);
+
+    FieldContainerTransitPtr returnValue = 
+        _pFile->scanStreamContainer(is, resolver);
+
+    delete _pFile;
+
+    commitChanges();
 
     return returnValue;
 }
@@ -138,6 +166,26 @@ bool OSGSceneFileType::write(Node * const  root,
 
     OSGWriter writer(iOStream, 4);
     writer.write(root);
+
+    return true;
+}
+
+bool OSGSceneFileType::writeContainer(FieldContainer * const  pContainer, 
+                                      Char8            const *fileName) const
+{
+    if(fileName == NULL)
+    {
+        SWARNING << "cannot write NULL file" << std::endl;
+        return false;
+    }
+
+    std::ofstream os(fileName, std::ios::binary);
+
+    IndentOutStreamMixin<OutStream> iOStream(os);
+
+    OSGWriter writer(iOStream, 4);
+
+    writer.write(pContainer);
 
     return true;
 }

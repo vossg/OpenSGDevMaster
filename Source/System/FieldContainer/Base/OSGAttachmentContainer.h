@@ -48,6 +48,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class BasicFieldConnector;
+
 /**
 * An AttachmentContainer is a field container that can store attachments to 
   other FieldContainers.

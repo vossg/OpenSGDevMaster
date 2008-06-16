@@ -74,12 +74,14 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     
     OSG_RC_FIELD_DECL      (Field2, Field1);
     OSG_RC_FIELD_DECL      (Field3, Field2);
+    OSG_RC_FIELD_DECL      (Field4, Field3);
 
-    OSG_RC_LAST_FIELD_DECL (Field3        );
+    OSG_RC_LAST_FIELD_DECL (Field4        );
 
     static const BitVector bLocalFieldMask   = (Field1FieldMask |
                                                 Field2FieldMask |
-                                                Field3FieldMask );
+                                                Field3FieldMask |
+                                                Field4FieldMask );
 
     static const BitVector bInvLocalFieldMask = ~bLocalFieldMask;
 
@@ -175,6 +177,9 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
           MFUInt32 *editMFField3(void);
     const MFUInt32 *getMFField3 (void) const;
 
+          SFUInt32 *editSFField4(void);
+    const SFUInt32 *getSFField4 (void) const;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -197,6 +202,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     MFUInt32 _mfField1;
     SFUInt32 _sfField2;
     MFUInt32 _mfField3;
+    SFUInt32 _sfField4;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,6 +263,9 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
     MFUInt32::EditHandlePtr editHandleField3(void);
     MFUInt32::GetHandlePtr  getHandleField3 (void) const;
+
+    SFUInt32::EditHandlePtr editHandleField4(void);
+    SFUInt32::GetHandlePtr  getHandleField4 (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

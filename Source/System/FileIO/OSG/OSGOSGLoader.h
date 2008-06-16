@@ -67,10 +67,12 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*==========================  PRIVATE  ================================*/
   private:
 
-    typedef ScanParseFieldTypeMapper<ScanParseSkel   > Inherited;
+    typedef ScanParseFieldTypeMapper<ScanParseSkel   >       Inherited;
     typedef std::map                <std::string,
-                                     FieldContainer *> NamedFCMap;
-    typedef OSGLoader                                  Self;
+                                     FieldContainer *>       NamedFCMap;
+    typedef OSGLoader                                        Self;
+
+    typedef boost::function<FieldContainer *(const Char8 *)> Resolver; 
 
   public :
 
@@ -92,7 +94,10 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                Skel replacements                             */
     /*! \{                                                                 */
 
-    NodeTransitPtr scanStream(std::istream &is);
+    NodeTransitPtr           scanStream         (std::istream &is,
+                                                 Resolver      fResolver);
+    FieldContainerTransitPtr scanStreamContainer(std::istream &is,
+                                                 Resolver      fResolver);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -120,6 +125,11 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
 
     virtual UInt32  getFieldType      (const Char8  *szFieldname      );
 
+    virtual void    addRoute          (const Char8  *szOutNodename,
+                                       const Char8  *szOutFieldname,
+                                       const Char8  *szInNodename,
+                                       const Char8  *szInFieldname    );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
@@ -136,11 +146,14 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-          FieldContainer                       *_pCurrentFC;
+          FieldContainerUnrecPtr                _pCurrentFC;
           NodeUnrecPtr                          _pRootNode;
+          FieldContainerUnrecPtr                _pRootContainer;
           EditFieldHandlePtr                    _pCurrentField;
     const FieldDescriptionBase                 *_pCurrentFieldDesc;
           NamedFCMap                            _defMap;
+          bool                                  _bReadContainer;
+          Resolver                              _fResolver;
 
           std::stack<      FieldContainer       *>  _fcStack;
           std::stack<      EditFieldHandlePtr    >  _fStack;
