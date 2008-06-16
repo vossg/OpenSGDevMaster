@@ -301,6 +301,9 @@ def BoostValidate(self, env):
          conf_env.Append(CPPPATH= self.found_incs, 
                          LIBPATH = self.found_lib_paths,
                          CPPDEFINES = self.found_defines)
+         if GetPlatform() == "win32":
+             conf_env.Append(CXXFLAGS = ['/MD', '/DBOOST_ALL_DYN_LINK'])
+
          if "python" == libname:
             conf_env.Append(CPPPATH = self.python_inc_dir,
                             LIBPATH = self.python_lib_path,
