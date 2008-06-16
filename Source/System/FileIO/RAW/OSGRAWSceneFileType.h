@@ -82,7 +82,8 @@ class OSG_FILEIO_DLLMAPPING RAWSceneFileType : public SceneFileType
     /*! \{                                                                 */
 
     virtual NodeTransitPtr read(      std::istream &is,
-                                const Char8        *fileNameOrExtension) const;
+                                const Char8        *fileNameOrExtension,
+                                      Resolver      resolver  = NULL   ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

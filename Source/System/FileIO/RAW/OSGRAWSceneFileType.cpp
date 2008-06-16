@@ -122,7 +122,9 @@ RAWSceneFileType  RAWSceneFileType::_the(_suffixA,
 #pragma set woff 1209
 #endif
 
-NodeTransitPtr RAWSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr RAWSceneFileType::read(      std::istream &is, 
+                                      const Char8        *,
+                                            Resolver        ) const
 {
     NodeTransitPtr              root;
     GeometryUnrecPtr            geo;

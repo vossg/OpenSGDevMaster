@@ -70,7 +70,8 @@ public:
     virtual const Char8 *getName(void) const;
 
     virtual NodeTransitPtr read(      std::istream &is, 
-                                const Char8        *fileNameOrExtension) const;
+                                const Char8        *fileNameOrExtension,
+                                      Resolver      resolver  = NULL   ) const;
 
 protected:
 

@@ -47,6 +47,8 @@
 #include <map>
 #include <iostream>
 
+#include <boost/function.hpp>
+
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGSceneFileType.h"
@@ -74,6 +76,9 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
                                              std::ostream          &os,
                                              Char8           const *ext, 
                                              bool                   compress);
+
+
+    typedef SceneFileType::Resolver Resolver;
 
   public:
 
@@ -128,11 +133,13 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     virtual NodeTransitPtr read(      std::istream &is, 
                                 const Char8        *ext,
                                       GraphOpSeq   *graphOpSeq = 
-                                                           _defaultgraphOpSeq);
+                                                           _defaultgraphOpSeq,
+                                       Resolver     resolver   = NULL);
 
     virtual NodeTransitPtr read(const  Char8       *fileName,
                                        GraphOpSeq  *graphOpSeq = 
-                                                           _defaultgraphOpSeq);
+                                                           _defaultgraphOpSeq,
+                                       Resolver     resolver   = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -202,6 +209,11 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     bool              getOption  (const std::string &suffix,
                                   const std::string &name,
                                         std::string &value  );
+
+#if defined(OSG_1_COMPAT)
+    void setOptions(const std::string &suffix,
+                    const std::string &osg1Options);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -77,7 +77,9 @@ A3DSSceneFileType  A3DSSceneFileType::_the(_suffixA,
  * \param
  * \return
  */
-NodeTransitPtr A3DSSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr A3DSSceneFileType::read(      std::istream &is, 
+                                       const Char8        *,
+                                             Resolver        ) const
 {
     if(!is)
         return NodeTransitPtr(NULL);

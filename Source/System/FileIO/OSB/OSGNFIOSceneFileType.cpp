@@ -95,7 +95,9 @@ NFIOSceneFileType::~NFIOSceneFileType(void)
 /*! Read from the given input stream.
     \see OSG::NFIODriver
  */
-NodeTransitPtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr NFIOSceneFileType::read(      std::istream &is, 
+                                       const Char8        *,
+                                             Resolver        ) const
 {
     return OSBDriver::read(is, getOptions());
 }

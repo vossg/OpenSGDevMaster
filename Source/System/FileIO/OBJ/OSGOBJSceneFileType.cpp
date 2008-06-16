@@ -133,7 +133,9 @@ OBJSceneFileType  OBJSceneFileType::_the(_suffixA,
 //s:
 //
 //------------------------------
-NodeTransitPtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr OBJSceneFileType::read(      std::istream &is, 
+                                      const Char8        *,
+                                            Resolver        ) const
 {
     NodeUnrecPtr rootPtr, nodePtr;
     std::string elem;

@@ -164,7 +164,8 @@ Int32 SceneFileHandlerBase::getSuffixList(std::list<const Char8 *> &suffixList,
 NodeTransitPtr SceneFileHandlerBase::read(
           std::istream &is,
     const Char8        *fileNameOrExtension,
-          GraphOpSeq   *graphOpSeq         )
+          GraphOpSeq   *graphOpSeq         ,       
+          Resolver      resolver           )
 {
     SceneFileType *type  = getFileType(fileNameOrExtension);
     NodeUnrecPtr   scene = NULL;
@@ -198,7 +199,7 @@ NodeTransitPtr SceneFileHandlerBase::read(
 
                 zip_istream unzipper(is);
 
-                scene = type->read(unzipper, fileNameOrExtension);
+                scene = type->read(unzipper, fileNameOrExtension, resolver);
 
                 if(scene != NULL)
                 {
@@ -224,7 +225,7 @@ NodeTransitPtr SceneFileHandlerBase::read(
             {
                 initReadProgress(is);
 
-                scene = type->read(is, fileNameOrExtension);
+                scene = type->read(is, fileNameOrExtension, resolver);
 
                 terminateReadProgress();
             }
@@ -252,7 +253,8 @@ NodeTransitPtr SceneFileHandlerBase::read(
 
 
 NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
-                                                GraphOpSeq *graphOpSeq)
+                                                GraphOpSeq *graphOpSeq,       
+                                                Resolver    resolver  )
 {
     if(fileName == NULL)
     {

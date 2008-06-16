@@ -69,6 +69,8 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
     typedef IOFileTypeBase Inherited;
     typedef SceneFileType  Self;
     
+    typedef boost::function<FieldContainer *(const Char8 *)> Resolver; 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Get                                  */
@@ -98,8 +100,9 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
     /*! \name                   Read                                       */
     /*! \{                                                                 */
 
-    virtual NodeTransitPtr read    (std::istream &is,
-                                    const Char8  *fileNameOrExtension) const;
+    virtual NodeTransitPtr read    (      std::istream &is,
+                                    const Char8        *fileNameOrExtension,
+                                          Resolver      resolver  = NULL) const;
 
 #ifndef OSG_DISABLE_DEPRECATED
     virtual NodeTransitPtr readFile(const Char8 *fileName) const;

@@ -106,6 +106,7 @@ void Transform::dump(      UInt32    uiIndent,
 Transform::Transform(void) :
     Inherited()
 {
+    _sfMatrix.getValue().setIdentity();
 }
 
 Transform::Transform(const Transform &source) :

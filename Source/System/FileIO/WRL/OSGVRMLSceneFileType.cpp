@@ -90,7 +90,9 @@ const Char8 *VRMLSceneFileType::getName(void) const
 /*-------------------------------------------------------------------------*/
 /*                               Read                                      */
 
-NodeTransitPtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
+NodeTransitPtr VRMLSceneFileType::read(      std::istream &is, 
+                                       const Char8        *,
+                                             Resolver        ) const
 {
     NodeTransitPtr root(NULL);
 
