@@ -205,22 +205,6 @@ void CallbackAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CallbackAlgorithmTransitPtr CallbackAlgorithmBase::create(void)
-{
-    CallbackAlgorithmTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<CallbackAlgorithm>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 CallbackAlgorithmTransitPtr CallbackAlgorithmBase::createLocal(BitVector bFlags)
 {
     CallbackAlgorithmTransitPtr fc;
@@ -236,6 +220,33 @@ CallbackAlgorithmTransitPtr CallbackAlgorithmBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+CallbackAlgorithmTransitPtr CallbackAlgorithmBase::create(void)
+{
+    CallbackAlgorithmTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CallbackAlgorithm>(tmpPtr);
+    }
+
+    return fc;
+}
+
+CallbackAlgorithm *CallbackAlgorithmBase::createEmptyLocal(BitVector bFlags)
+{
+    CallbackAlgorithm *returnValue;
+
+    newPtr<CallbackAlgorithm>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CallbackAlgorithm *CallbackAlgorithmBase::createEmpty(void)
 {
@@ -249,13 +260,17 @@ CallbackAlgorithm *CallbackAlgorithmBase::createEmpty(void)
     return returnValue;
 }
 
-CallbackAlgorithm *CallbackAlgorithmBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    CallbackAlgorithm *returnValue;
+    CallbackAlgorithm *tmpPtr;
 
-    newPtr<CallbackAlgorithm>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const CallbackAlgorithm *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -275,19 +290,6 @@ FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    CallbackAlgorithm *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const CallbackAlgorithm *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

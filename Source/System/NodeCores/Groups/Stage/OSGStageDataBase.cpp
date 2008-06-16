@@ -319,22 +319,6 @@ void StageDataBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StageDataTransitPtr StageDataBase::create(void)
-{
-    StageDataTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<StageData>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 StageDataTransitPtr StageDataBase::createLocal(BitVector bFlags)
 {
     StageDataTransitPtr fc;
@@ -350,17 +334,10 @@ StageDataTransitPtr StageDataBase::createLocal(BitVector bFlags)
     return fc;
 }
 
-//! create an empty new instance of the class, do not copy the prototype
-StageData *StageDataBase::createEmpty(void)
+//! create a new instance of the class
+StageDataTransitPtr StageDataBase::create(void)
 {
-    StageData *returnValue;
-
-    newPtr<StageData>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
-
-    return returnValue;
+    return createLocal();
 }
 
 StageData *StageDataBase::createEmptyLocal(BitVector bFlags)
@@ -374,20 +351,12 @@ StageData *StageDataBase::createEmptyLocal(BitVector bFlags)
     return returnValue;
 }
 
-FieldContainerTransitPtr StageDataBase::shallowCopy(void) const
+//! create an empty new instance of the class, do not copy the prototype
+StageData *StageDataBase::createEmpty(void)
 {
-    StageData *tmpPtr;
-
-    newPtr(tmpPtr, 
-           dynamic_cast<const StageData *>(this), 
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return createEmptyLocal();
 }
+
 
 FieldContainerTransitPtr StageDataBase::shallowCopyLocal(
     BitVector bFlags) const
@@ -402,6 +371,12 @@ FieldContainerTransitPtr StageDataBase::shallowCopyLocal(
 
     return returnValue;
 }
+
+FieldContainerTransitPtr StageDataBase::shallowCopy(void) const
+{
+    return shallowCopyLocal();
+}
+
 
 
 

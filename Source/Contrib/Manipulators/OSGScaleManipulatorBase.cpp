@@ -156,22 +156,6 @@ void ScaleManipulatorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ScaleManipulatorTransitPtr ScaleManipulatorBase::create(void)
-{
-    ScaleManipulatorTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<ScaleManipulator>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ScaleManipulatorTransitPtr ScaleManipulatorBase::createLocal(BitVector bFlags)
 {
     ScaleManipulatorTransitPtr fc;
@@ -187,6 +171,33 @@ ScaleManipulatorTransitPtr ScaleManipulatorBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+ScaleManipulatorTransitPtr ScaleManipulatorBase::create(void)
+{
+    ScaleManipulatorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ScaleManipulator>(tmpPtr);
+    }
+
+    return fc;
+}
+
+ScaleManipulator *ScaleManipulatorBase::createEmptyLocal(BitVector bFlags)
+{
+    ScaleManipulator *returnValue;
+
+    newPtr<ScaleManipulator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ScaleManipulator *ScaleManipulatorBase::createEmpty(void)
 {
@@ -200,13 +211,17 @@ ScaleManipulator *ScaleManipulatorBase::createEmpty(void)
     return returnValue;
 }
 
-ScaleManipulator *ScaleManipulatorBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ScaleManipulatorBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    ScaleManipulator *returnValue;
+    ScaleManipulator *tmpPtr;
 
-    newPtr<ScaleManipulator>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ScaleManipulator *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -226,19 +241,6 @@ FieldContainerTransitPtr ScaleManipulatorBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ScaleManipulatorBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    ScaleManipulator *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const ScaleManipulator *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

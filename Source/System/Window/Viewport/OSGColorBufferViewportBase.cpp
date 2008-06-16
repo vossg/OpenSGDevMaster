@@ -388,22 +388,6 @@ void ColorBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ColorBufferViewportTransitPtr ColorBufferViewportBase::create(void)
-{
-    ColorBufferViewportTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<ColorBufferViewport>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ColorBufferViewportTransitPtr ColorBufferViewportBase::createLocal(BitVector bFlags)
 {
     ColorBufferViewportTransitPtr fc;
@@ -419,6 +403,33 @@ ColorBufferViewportTransitPtr ColorBufferViewportBase::createLocal(BitVector bFl
     return fc;
 }
 
+//! create a new instance of the class
+ColorBufferViewportTransitPtr ColorBufferViewportBase::create(void)
+{
+    ColorBufferViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ColorBufferViewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
+ColorBufferViewport *ColorBufferViewportBase::createEmptyLocal(BitVector bFlags)
+{
+    ColorBufferViewport *returnValue;
+
+    newPtr<ColorBufferViewport>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ColorBufferViewport *ColorBufferViewportBase::createEmpty(void)
 {
@@ -432,13 +443,17 @@ ColorBufferViewport *ColorBufferViewportBase::createEmpty(void)
     return returnValue;
 }
 
-ColorBufferViewport *ColorBufferViewportBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ColorBufferViewportBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    ColorBufferViewport *returnValue;
+    ColorBufferViewport *tmpPtr;
 
-    newPtr<ColorBufferViewport>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ColorBufferViewport *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -458,19 +473,6 @@ FieldContainerTransitPtr ColorBufferViewportBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ColorBufferViewportBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    ColorBufferViewport *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const ColorBufferViewport *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

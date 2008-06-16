@@ -216,22 +216,6 @@ void ShaderParameterMVec3fBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ShaderParameterMVec3fTransitPtr ShaderParameterMVec3fBase::create(void)
-{
-    ShaderParameterMVec3fTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<ShaderParameterMVec3f>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ShaderParameterMVec3fTransitPtr ShaderParameterMVec3fBase::createLocal(BitVector bFlags)
 {
     ShaderParameterMVec3fTransitPtr fc;
@@ -247,6 +231,33 @@ ShaderParameterMVec3fTransitPtr ShaderParameterMVec3fBase::createLocal(BitVector
     return fc;
 }
 
+//! create a new instance of the class
+ShaderParameterMVec3fTransitPtr ShaderParameterMVec3fBase::create(void)
+{
+    ShaderParameterMVec3fTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ShaderParameterMVec3f>(tmpPtr);
+    }
+
+    return fc;
+}
+
+ShaderParameterMVec3f *ShaderParameterMVec3fBase::createEmptyLocal(BitVector bFlags)
+{
+    ShaderParameterMVec3f *returnValue;
+
+    newPtr<ShaderParameterMVec3f>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ShaderParameterMVec3f *ShaderParameterMVec3fBase::createEmpty(void)
 {
@@ -260,13 +271,17 @@ ShaderParameterMVec3f *ShaderParameterMVec3fBase::createEmpty(void)
     return returnValue;
 }
 
-ShaderParameterMVec3f *ShaderParameterMVec3fBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ShaderParameterMVec3fBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    ShaderParameterMVec3f *returnValue;
+    ShaderParameterMVec3f *tmpPtr;
 
-    newPtr<ShaderParameterMVec3f>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterMVec3f *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -286,19 +301,6 @@ FieldContainerTransitPtr ShaderParameterMVec3fBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ShaderParameterMVec3fBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    ShaderParameterMVec3f *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const ShaderParameterMVec3f *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

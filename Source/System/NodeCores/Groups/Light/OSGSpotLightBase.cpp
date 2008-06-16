@@ -336,22 +336,6 @@ void SpotLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SpotLightTransitPtr SpotLightBase::create(void)
-{
-    SpotLightTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<SpotLight>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 SpotLightTransitPtr SpotLightBase::createLocal(BitVector bFlags)
 {
     SpotLightTransitPtr fc;
@@ -367,6 +351,33 @@ SpotLightTransitPtr SpotLightBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+SpotLightTransitPtr SpotLightBase::create(void)
+{
+    SpotLightTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SpotLight>(tmpPtr);
+    }
+
+    return fc;
+}
+
+SpotLight *SpotLightBase::createEmptyLocal(BitVector bFlags)
+{
+    SpotLight *returnValue;
+
+    newPtr<SpotLight>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SpotLight *SpotLightBase::createEmpty(void)
 {
@@ -380,13 +391,17 @@ SpotLight *SpotLightBase::createEmpty(void)
     return returnValue;
 }
 
-SpotLight *SpotLightBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr SpotLightBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    SpotLight *returnValue;
+    SpotLight *tmpPtr;
 
-    newPtr<SpotLight>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const SpotLight *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -406,19 +421,6 @@ FieldContainerTransitPtr SpotLightBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr SpotLightBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    SpotLight *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const SpotLight *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

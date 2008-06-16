@@ -156,22 +156,6 @@ void LightEnvBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-LightEnvTransitPtr LightEnvBase::create(void)
-{
-    LightEnvTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<LightEnv>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 LightEnvTransitPtr LightEnvBase::createLocal(BitVector bFlags)
 {
     LightEnvTransitPtr fc;
@@ -187,6 +171,33 @@ LightEnvTransitPtr LightEnvBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+LightEnvTransitPtr LightEnvBase::create(void)
+{
+    LightEnvTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<LightEnv>(tmpPtr);
+    }
+
+    return fc;
+}
+
+LightEnv *LightEnvBase::createEmptyLocal(BitVector bFlags)
+{
+    LightEnv *returnValue;
+
+    newPtr<LightEnv>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 LightEnv *LightEnvBase::createEmpty(void)
 {
@@ -200,13 +211,17 @@ LightEnv *LightEnvBase::createEmpty(void)
     return returnValue;
 }
 
-LightEnv *LightEnvBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr LightEnvBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    LightEnv *returnValue;
+    LightEnv *tmpPtr;
 
-    newPtr<LightEnv>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const LightEnv *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -226,19 +241,6 @@ FieldContainerTransitPtr LightEnvBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr LightEnvBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    LightEnv *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const LightEnv *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

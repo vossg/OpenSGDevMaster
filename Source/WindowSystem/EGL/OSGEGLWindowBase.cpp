@@ -318,22 +318,6 @@ void EGLWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-EGLWindowTransitPtr EGLWindowBase::create(void)
-{
-    EGLWindowTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<EGLWindow>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 EGLWindowTransitPtr EGLWindowBase::createLocal(BitVector bFlags)
 {
     EGLWindowTransitPtr fc;
@@ -349,6 +333,33 @@ EGLWindowTransitPtr EGLWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+EGLWindowTransitPtr EGLWindowBase::create(void)
+{
+    EGLWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<EGLWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
+EGLWindow *EGLWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    EGLWindow *returnValue;
+
+    newPtr<EGLWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 EGLWindow *EGLWindowBase::createEmpty(void)
 {
@@ -362,13 +373,17 @@ EGLWindow *EGLWindowBase::createEmpty(void)
     return returnValue;
 }
 
-EGLWindow *EGLWindowBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr EGLWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    EGLWindow *returnValue;
+    EGLWindow *tmpPtr;
 
-    newPtr<EGLWindow>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const EGLWindow *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -388,19 +403,6 @@ FieldContainerTransitPtr EGLWindowBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr EGLWindowBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    EGLWindow *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const EGLWindow *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

@@ -778,22 +778,6 @@ void ProxyGroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ProxyGroupTransitPtr ProxyGroupBase::create(void)
-{
-    ProxyGroupTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<ProxyGroup>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ProxyGroupTransitPtr ProxyGroupBase::createLocal(BitVector bFlags)
 {
     ProxyGroupTransitPtr fc;
@@ -809,6 +793,33 @@ ProxyGroupTransitPtr ProxyGroupBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+ProxyGroupTransitPtr ProxyGroupBase::create(void)
+{
+    ProxyGroupTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ProxyGroup>(tmpPtr);
+    }
+
+    return fc;
+}
+
+ProxyGroup *ProxyGroupBase::createEmptyLocal(BitVector bFlags)
+{
+    ProxyGroup *returnValue;
+
+    newPtr<ProxyGroup>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ProxyGroup *ProxyGroupBase::createEmpty(void)
 {
@@ -822,13 +833,17 @@ ProxyGroup *ProxyGroupBase::createEmpty(void)
     return returnValue;
 }
 
-ProxyGroup *ProxyGroupBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ProxyGroupBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    ProxyGroup *returnValue;
+    ProxyGroup *tmpPtr;
 
-    newPtr<ProxyGroup>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ProxyGroup *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -848,19 +863,6 @@ FieldContainerTransitPtr ProxyGroupBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ProxyGroupBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    ProxyGroup *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const ProxyGroup *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

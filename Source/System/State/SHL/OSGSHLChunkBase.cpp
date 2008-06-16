@@ -563,22 +563,6 @@ void SHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SHLChunkTransitPtr SHLChunkBase::create(void)
-{
-    SHLChunkTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<SHLChunk>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 SHLChunkTransitPtr SHLChunkBase::createLocal(BitVector bFlags)
 {
     SHLChunkTransitPtr fc;
@@ -594,6 +578,33 @@ SHLChunkTransitPtr SHLChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+SHLChunkTransitPtr SHLChunkBase::create(void)
+{
+    SHLChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SHLChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
+SHLChunk *SHLChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    SHLChunk *returnValue;
+
+    newPtr<SHLChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SHLChunk *SHLChunkBase::createEmpty(void)
 {
@@ -607,13 +618,17 @@ SHLChunk *SHLChunkBase::createEmpty(void)
     return returnValue;
 }
 
-SHLChunk *SHLChunkBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr SHLChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    SHLChunk *returnValue;
+    SHLChunk *tmpPtr;
 
-    newPtr<SHLChunk>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const SHLChunk *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -633,19 +648,6 @@ FieldContainerTransitPtr SHLChunkBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr SHLChunkBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    SHLChunk *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const SHLChunk *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

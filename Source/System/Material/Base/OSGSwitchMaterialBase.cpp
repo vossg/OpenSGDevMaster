@@ -332,22 +332,6 @@ void SwitchMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SwitchMaterialTransitPtr SwitchMaterialBase::create(void)
-{
-    SwitchMaterialTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<SwitchMaterial>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 SwitchMaterialTransitPtr SwitchMaterialBase::createLocal(BitVector bFlags)
 {
     SwitchMaterialTransitPtr fc;
@@ -363,6 +347,33 @@ SwitchMaterialTransitPtr SwitchMaterialBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+SwitchMaterialTransitPtr SwitchMaterialBase::create(void)
+{
+    SwitchMaterialTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SwitchMaterial>(tmpPtr);
+    }
+
+    return fc;
+}
+
+SwitchMaterial *SwitchMaterialBase::createEmptyLocal(BitVector bFlags)
+{
+    SwitchMaterial *returnValue;
+
+    newPtr<SwitchMaterial>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SwitchMaterial *SwitchMaterialBase::createEmpty(void)
 {
@@ -376,13 +387,17 @@ SwitchMaterial *SwitchMaterialBase::createEmpty(void)
     return returnValue;
 }
 
-SwitchMaterial *SwitchMaterialBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr SwitchMaterialBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    SwitchMaterial *returnValue;
+    SwitchMaterial *tmpPtr;
 
-    newPtr<SwitchMaterial>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const SwitchMaterial *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -402,19 +417,6 @@ FieldContainerTransitPtr SwitchMaterialBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr SwitchMaterialBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    SwitchMaterial *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const SwitchMaterial *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

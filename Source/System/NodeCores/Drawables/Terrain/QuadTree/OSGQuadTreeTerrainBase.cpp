@@ -1385,22 +1385,6 @@ void QuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-QuadTreeTerrainTransitPtr QuadTreeTerrainBase::create(void)
-{
-    QuadTreeTerrainTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<QuadTreeTerrain>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 QuadTreeTerrainTransitPtr QuadTreeTerrainBase::createLocal(BitVector bFlags)
 {
     QuadTreeTerrainTransitPtr fc;
@@ -1416,6 +1400,33 @@ QuadTreeTerrainTransitPtr QuadTreeTerrainBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+QuadTreeTerrainTransitPtr QuadTreeTerrainBase::create(void)
+{
+    QuadTreeTerrainTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<QuadTreeTerrain>(tmpPtr);
+    }
+
+    return fc;
+}
+
+QuadTreeTerrain *QuadTreeTerrainBase::createEmptyLocal(BitVector bFlags)
+{
+    QuadTreeTerrain *returnValue;
+
+    newPtr<QuadTreeTerrain>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 QuadTreeTerrain *QuadTreeTerrainBase::createEmpty(void)
 {
@@ -1429,13 +1440,17 @@ QuadTreeTerrain *QuadTreeTerrainBase::createEmpty(void)
     return returnValue;
 }
 
-QuadTreeTerrain *QuadTreeTerrainBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    QuadTreeTerrain *returnValue;
+    QuadTreeTerrain *tmpPtr;
 
-    newPtr<QuadTreeTerrain>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const QuadTreeTerrain *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -1455,19 +1470,6 @@ FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr QuadTreeTerrainBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    QuadTreeTerrain *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const QuadTreeTerrain *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

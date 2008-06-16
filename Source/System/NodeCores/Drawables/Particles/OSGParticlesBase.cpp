@@ -882,22 +882,6 @@ void ParticlesBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ParticlesTransitPtr ParticlesBase::create(void)
-{
-    ParticlesTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Particles>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ParticlesTransitPtr ParticlesBase::createLocal(BitVector bFlags)
 {
     ParticlesTransitPtr fc;
@@ -913,6 +897,33 @@ ParticlesTransitPtr ParticlesBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+ParticlesTransitPtr ParticlesBase::create(void)
+{
+    ParticlesTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Particles>(tmpPtr);
+    }
+
+    return fc;
+}
+
+Particles *ParticlesBase::createEmptyLocal(BitVector bFlags)
+{
+    Particles *returnValue;
+
+    newPtr<Particles>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 Particles *ParticlesBase::createEmpty(void)
 {
@@ -926,13 +937,17 @@ Particles *ParticlesBase::createEmpty(void)
     return returnValue;
 }
 
-Particles *ParticlesBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ParticlesBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    Particles *returnValue;
+    Particles *tmpPtr;
 
-    newPtr<Particles>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const Particles *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -952,19 +967,6 @@ FieldContainerTransitPtr ParticlesBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ParticlesBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    Particles *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const Particles *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

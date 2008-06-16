@@ -553,22 +553,6 @@ void DrawableStatsAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::create(void)
-{
-    DrawableStatsAttachmentTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<DrawableStatsAttachment>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::createLocal(BitVector bFlags)
 {
     DrawableStatsAttachmentTransitPtr fc;
@@ -584,6 +568,33 @@ DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::createLocal(BitVe
     return fc;
 }
 
+//! create a new instance of the class
+DrawableStatsAttachmentTransitPtr DrawableStatsAttachmentBase::create(void)
+{
+    DrawableStatsAttachmentTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DrawableStatsAttachment>(tmpPtr);
+    }
+
+    return fc;
+}
+
+DrawableStatsAttachment *DrawableStatsAttachmentBase::createEmptyLocal(BitVector bFlags)
+{
+    DrawableStatsAttachment *returnValue;
+
+    newPtr<DrawableStatsAttachment>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DrawableStatsAttachment *DrawableStatsAttachmentBase::createEmpty(void)
 {
@@ -597,13 +608,17 @@ DrawableStatsAttachment *DrawableStatsAttachmentBase::createEmpty(void)
     return returnValue;
 }
 
-DrawableStatsAttachment *DrawableStatsAttachmentBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    DrawableStatsAttachment *returnValue;
+    DrawableStatsAttachment *tmpPtr;
 
-    newPtr<DrawableStatsAttachment>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const DrawableStatsAttachment *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -623,19 +638,6 @@ FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    DrawableStatsAttachment *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const DrawableStatsAttachment *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

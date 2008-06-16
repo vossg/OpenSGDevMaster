@@ -452,22 +452,6 @@ void FCDTestFCBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-FCDTestFCTransitPtr FCDTestFCBase::create(void)
-{
-    FCDTestFCTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<FCDTestFC>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 FCDTestFCTransitPtr FCDTestFCBase::createLocal(BitVector bFlags)
 {
     FCDTestFCTransitPtr fc;
@@ -483,6 +467,33 @@ FCDTestFCTransitPtr FCDTestFCBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+FCDTestFCTransitPtr FCDTestFCBase::create(void)
+{
+    FCDTestFCTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<FCDTestFC>(tmpPtr);
+    }
+
+    return fc;
+}
+
+FCDTestFC *FCDTestFCBase::createEmptyLocal(BitVector bFlags)
+{
+    FCDTestFC *returnValue;
+
+    newPtr<FCDTestFC>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FCDTestFC *FCDTestFCBase::createEmpty(void)
 {
@@ -496,13 +507,17 @@ FCDTestFC *FCDTestFCBase::createEmpty(void)
     return returnValue;
 }
 
-FCDTestFC *FCDTestFCBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr FCDTestFCBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    FCDTestFC *returnValue;
+    FCDTestFC *tmpPtr;
 
-    newPtr<FCDTestFC>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const FCDTestFC *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -522,19 +537,6 @@ FieldContainerTransitPtr FCDTestFCBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr FCDTestFCBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    FCDTestFC *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const FCDTestFC *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

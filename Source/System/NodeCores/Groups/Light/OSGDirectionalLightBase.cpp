@@ -218,22 +218,6 @@ void DirectionalLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DirectionalLightTransitPtr DirectionalLightBase::create(void)
-{
-    DirectionalLightTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<DirectionalLight>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 DirectionalLightTransitPtr DirectionalLightBase::createLocal(BitVector bFlags)
 {
     DirectionalLightTransitPtr fc;
@@ -249,6 +233,33 @@ DirectionalLightTransitPtr DirectionalLightBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+DirectionalLightTransitPtr DirectionalLightBase::create(void)
+{
+    DirectionalLightTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DirectionalLight>(tmpPtr);
+    }
+
+    return fc;
+}
+
+DirectionalLight *DirectionalLightBase::createEmptyLocal(BitVector bFlags)
+{
+    DirectionalLight *returnValue;
+
+    newPtr<DirectionalLight>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DirectionalLight *DirectionalLightBase::createEmpty(void)
 {
@@ -262,13 +273,17 @@ DirectionalLight *DirectionalLightBase::createEmpty(void)
     return returnValue;
 }
 
-DirectionalLight *DirectionalLightBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr DirectionalLightBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    DirectionalLight *returnValue;
+    DirectionalLight *tmpPtr;
 
-    newPtr<DirectionalLight>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const DirectionalLight *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -288,19 +303,6 @@ FieldContainerTransitPtr DirectionalLightBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr DirectionalLightBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    DirectionalLight *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const DirectionalLight *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

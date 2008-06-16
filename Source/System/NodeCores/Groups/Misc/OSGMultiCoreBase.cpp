@@ -287,22 +287,6 @@ void MultiCoreBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MultiCoreTransitPtr MultiCoreBase::create(void)
-{
-    MultiCoreTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<MultiCore>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 MultiCoreTransitPtr MultiCoreBase::createLocal(BitVector bFlags)
 {
     MultiCoreTransitPtr fc;
@@ -318,6 +302,33 @@ MultiCoreTransitPtr MultiCoreBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+MultiCoreTransitPtr MultiCoreBase::create(void)
+{
+    MultiCoreTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MultiCore>(tmpPtr);
+    }
+
+    return fc;
+}
+
+MultiCore *MultiCoreBase::createEmptyLocal(BitVector bFlags)
+{
+    MultiCore *returnValue;
+
+    newPtr<MultiCore>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MultiCore *MultiCoreBase::createEmpty(void)
 {
@@ -331,13 +342,17 @@ MultiCore *MultiCoreBase::createEmpty(void)
     return returnValue;
 }
 
-MultiCore *MultiCoreBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr MultiCoreBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    MultiCore *returnValue;
+    MultiCore *tmpPtr;
 
-    newPtr<MultiCore>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const MultiCore *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -357,19 +372,6 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr MultiCoreBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    MultiCore *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const MultiCore *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

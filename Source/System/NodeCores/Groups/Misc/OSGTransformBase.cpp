@@ -218,22 +218,6 @@ void TransformBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TransformTransitPtr TransformBase::create(void)
-{
-    TransformTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Transform>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 TransformTransitPtr TransformBase::createLocal(BitVector bFlags)
 {
     TransformTransitPtr fc;
@@ -249,6 +233,33 @@ TransformTransitPtr TransformBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+TransformTransitPtr TransformBase::create(void)
+{
+    TransformTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Transform>(tmpPtr);
+    }
+
+    return fc;
+}
+
+Transform *TransformBase::createEmptyLocal(BitVector bFlags)
+{
+    Transform *returnValue;
+
+    newPtr<Transform>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 Transform *TransformBase::createEmpty(void)
 {
@@ -262,13 +273,17 @@ Transform *TransformBase::createEmpty(void)
     return returnValue;
 }
 
-Transform *TransformBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr TransformBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    Transform *returnValue;
+    Transform *tmpPtr;
 
-    newPtr<Transform>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const Transform *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -288,19 +303,6 @@ FieldContainerTransitPtr TransformBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr TransformBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    Transform *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const Transform *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

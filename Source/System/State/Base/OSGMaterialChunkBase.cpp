@@ -892,22 +892,6 @@ void MaterialChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MaterialChunkTransitPtr MaterialChunkBase::create(void)
-{
-    MaterialChunkTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<MaterialChunk>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 MaterialChunkTransitPtr MaterialChunkBase::createLocal(BitVector bFlags)
 {
     MaterialChunkTransitPtr fc;
@@ -923,6 +907,33 @@ MaterialChunkTransitPtr MaterialChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+MaterialChunkTransitPtr MaterialChunkBase::create(void)
+{
+    MaterialChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MaterialChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
+MaterialChunk *MaterialChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    MaterialChunk *returnValue;
+
+    newPtr<MaterialChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MaterialChunk *MaterialChunkBase::createEmpty(void)
 {
@@ -936,13 +947,17 @@ MaterialChunk *MaterialChunkBase::createEmpty(void)
     return returnValue;
 }
 
-MaterialChunk *MaterialChunkBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr MaterialChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    MaterialChunk *returnValue;
+    MaterialChunk *tmpPtr;
 
-    newPtr<MaterialChunk>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const MaterialChunk *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -962,19 +977,6 @@ FieldContainerTransitPtr MaterialChunkBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr MaterialChunkBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    MaterialChunk *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const MaterialChunk *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

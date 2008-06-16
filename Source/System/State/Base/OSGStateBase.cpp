@@ -218,22 +218,6 @@ void StateBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StateTransitPtr StateBase::create(void)
-{
-    StateTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<State>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 StateTransitPtr StateBase::createLocal(BitVector bFlags)
 {
     StateTransitPtr fc;
@@ -249,6 +233,33 @@ StateTransitPtr StateBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+StateTransitPtr StateBase::create(void)
+{
+    StateTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<State>(tmpPtr);
+    }
+
+    return fc;
+}
+
+State *StateBase::createEmptyLocal(BitVector bFlags)
+{
+    State *returnValue;
+
+    newPtr<State>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 State *StateBase::createEmpty(void)
 {
@@ -262,13 +273,17 @@ State *StateBase::createEmpty(void)
     return returnValue;
 }
 
-State *StateBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr StateBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    State *returnValue;
+    State *tmpPtr;
 
-    newPtr<State>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const State *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -288,19 +303,6 @@ FieldContainerTransitPtr StateBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr StateBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    State *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const State *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

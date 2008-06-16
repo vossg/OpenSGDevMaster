@@ -3101,22 +3101,6 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TextureObjChunkTransitPtr TextureObjChunkBase::create(void)
-{
-    TextureObjChunkTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<TextureObjChunk>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 TextureObjChunkTransitPtr TextureObjChunkBase::createLocal(BitVector bFlags)
 {
     TextureObjChunkTransitPtr fc;
@@ -3132,6 +3116,33 @@ TextureObjChunkTransitPtr TextureObjChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+TextureObjChunkTransitPtr TextureObjChunkBase::create(void)
+{
+    TextureObjChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TextureObjChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
+TextureObjChunk *TextureObjChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    TextureObjChunk *returnValue;
+
+    newPtr<TextureObjChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TextureObjChunk *TextureObjChunkBase::createEmpty(void)
 {
@@ -3145,13 +3156,17 @@ TextureObjChunk *TextureObjChunkBase::createEmpty(void)
     return returnValue;
 }
 
-TextureObjChunk *TextureObjChunkBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr TextureObjChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    TextureObjChunk *returnValue;
+    TextureObjChunk *tmpPtr;
 
-    newPtr<TextureObjChunk>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const TextureObjChunk *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -3171,19 +3186,6 @@ FieldContainerTransitPtr TextureObjChunkBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr TextureObjChunkBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    TextureObjChunk *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const TextureObjChunk *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

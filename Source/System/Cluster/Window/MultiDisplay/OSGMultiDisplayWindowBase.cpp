@@ -420,22 +420,6 @@ void MultiDisplayWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MultiDisplayWindowTransitPtr MultiDisplayWindowBase::create(void)
-{
-    MultiDisplayWindowTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<MultiDisplayWindow>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 MultiDisplayWindowTransitPtr MultiDisplayWindowBase::createLocal(BitVector bFlags)
 {
     MultiDisplayWindowTransitPtr fc;
@@ -451,6 +435,33 @@ MultiDisplayWindowTransitPtr MultiDisplayWindowBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class
+MultiDisplayWindowTransitPtr MultiDisplayWindowBase::create(void)
+{
+    MultiDisplayWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MultiDisplayWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
+MultiDisplayWindow *MultiDisplayWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    MultiDisplayWindow *returnValue;
+
+    newPtr<MultiDisplayWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MultiDisplayWindow *MultiDisplayWindowBase::createEmpty(void)
 {
@@ -464,13 +475,17 @@ MultiDisplayWindow *MultiDisplayWindowBase::createEmpty(void)
     return returnValue;
 }
 
-MultiDisplayWindow *MultiDisplayWindowBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    MultiDisplayWindow *returnValue;
+    MultiDisplayWindow *tmpPtr;
 
-    newPtr<MultiDisplayWindow>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const MultiDisplayWindow *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -490,19 +505,6 @@ FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    MultiDisplayWindow *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const MultiDisplayWindow *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

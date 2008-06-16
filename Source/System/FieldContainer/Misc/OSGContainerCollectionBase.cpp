@@ -326,22 +326,6 @@ void ContainerCollectionBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ContainerCollectionTransitPtr ContainerCollectionBase::create(void)
-{
-    ContainerCollectionTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<ContainerCollection>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ContainerCollectionTransitPtr ContainerCollectionBase::createLocal(BitVector bFlags)
 {
     ContainerCollectionTransitPtr fc;
@@ -357,6 +341,33 @@ ContainerCollectionTransitPtr ContainerCollectionBase::createLocal(BitVector bFl
     return fc;
 }
 
+//! create a new instance of the class
+ContainerCollectionTransitPtr ContainerCollectionBase::create(void)
+{
+    ContainerCollectionTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ContainerCollection>(tmpPtr);
+    }
+
+    return fc;
+}
+
+ContainerCollection *ContainerCollectionBase::createEmptyLocal(BitVector bFlags)
+{
+    ContainerCollection *returnValue;
+
+    newPtr<ContainerCollection>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ContainerCollection *ContainerCollectionBase::createEmpty(void)
 {
@@ -370,13 +381,17 @@ ContainerCollection *ContainerCollectionBase::createEmpty(void)
     return returnValue;
 }
 
-ContainerCollection *ContainerCollectionBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ContainerCollectionBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    ContainerCollection *returnValue;
+    ContainerCollection *tmpPtr;
 
-    newPtr<ContainerCollection>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ContainerCollection *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -396,19 +411,6 @@ FieldContainerTransitPtr ContainerCollectionBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ContainerCollectionBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    ContainerCollection *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const ContainerCollection *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

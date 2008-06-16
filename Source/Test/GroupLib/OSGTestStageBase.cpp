@@ -217,22 +217,6 @@ void TestStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TestStageTransitPtr TestStageBase::create(void)
-{
-    TestStageTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<TestStage>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 TestStageTransitPtr TestStageBase::createLocal(BitVector bFlags)
 {
     TestStageTransitPtr fc;
@@ -248,6 +232,33 @@ TestStageTransitPtr TestStageBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+TestStageTransitPtr TestStageBase::create(void)
+{
+    TestStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<TestStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
+TestStage *TestStageBase::createEmptyLocal(BitVector bFlags)
+{
+    TestStage *returnValue;
+
+    newPtr<TestStage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 TestStage *TestStageBase::createEmpty(void)
 {
@@ -261,13 +272,17 @@ TestStage *TestStageBase::createEmpty(void)
     return returnValue;
 }
 
-TestStage *TestStageBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr TestStageBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    TestStage *returnValue;
+    TestStage *tmpPtr;
 
-    newPtr<TestStage>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const TestStage *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -287,19 +302,6 @@ FieldContainerTransitPtr TestStageBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr TestStageBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    TestStage *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const TestStage *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

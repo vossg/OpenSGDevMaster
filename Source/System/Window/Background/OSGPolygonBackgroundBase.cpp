@@ -675,22 +675,6 @@ void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-PolygonBackgroundTransitPtr PolygonBackgroundBase::create(void)
-{
-    PolygonBackgroundTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<PolygonBackground>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 PolygonBackgroundTransitPtr PolygonBackgroundBase::createLocal(BitVector bFlags)
 {
     PolygonBackgroundTransitPtr fc;
@@ -706,6 +690,33 @@ PolygonBackgroundTransitPtr PolygonBackgroundBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+PolygonBackgroundTransitPtr PolygonBackgroundBase::create(void)
+{
+    PolygonBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<PolygonBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
+PolygonBackground *PolygonBackgroundBase::createEmptyLocal(BitVector bFlags)
+{
+    PolygonBackground *returnValue;
+
+    newPtr<PolygonBackground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 PolygonBackground *PolygonBackgroundBase::createEmpty(void)
 {
@@ -719,13 +730,17 @@ PolygonBackground *PolygonBackgroundBase::createEmpty(void)
     return returnValue;
 }
 
-PolygonBackground *PolygonBackgroundBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr PolygonBackgroundBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    PolygonBackground *returnValue;
+    PolygonBackground *tmpPtr;
 
-    newPtr<PolygonBackground>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const PolygonBackground *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -745,19 +760,6 @@ FieldContainerTransitPtr PolygonBackgroundBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr PolygonBackgroundBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    PolygonBackground *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const PolygonBackground *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

@@ -757,22 +757,6 @@ void LightChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-LightChunkTransitPtr LightChunkBase::create(void)
-{
-    LightChunkTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<LightChunk>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 LightChunkTransitPtr LightChunkBase::createLocal(BitVector bFlags)
 {
     LightChunkTransitPtr fc;
@@ -788,6 +772,33 @@ LightChunkTransitPtr LightChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+LightChunkTransitPtr LightChunkBase::create(void)
+{
+    LightChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<LightChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
+LightChunk *LightChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    LightChunk *returnValue;
+
+    newPtr<LightChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 LightChunk *LightChunkBase::createEmpty(void)
 {
@@ -801,13 +812,17 @@ LightChunk *LightChunkBase::createEmpty(void)
     return returnValue;
 }
 
-LightChunk *LightChunkBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr LightChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    LightChunk *returnValue;
+    LightChunk *tmpPtr;
 
-    newPtr<LightChunk>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const LightChunk *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -827,19 +842,6 @@ FieldContainerTransitPtr LightChunkBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr LightChunkBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    LightChunk *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const LightChunk *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

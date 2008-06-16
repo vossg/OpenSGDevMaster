@@ -1777,22 +1777,6 @@ void RegisterCombinersChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::create(void)
-{
-    RegisterCombinersChunkTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<RegisterCombinersChunk>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::createLocal(BitVector bFlags)
 {
     RegisterCombinersChunkTransitPtr fc;
@@ -1808,6 +1792,33 @@ RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::createLocal(BitVect
     return fc;
 }
 
+//! create a new instance of the class
+RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::create(void)
+{
+    RegisterCombinersChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<RegisterCombinersChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
+RegisterCombinersChunk *RegisterCombinersChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    RegisterCombinersChunk *returnValue;
+
+    newPtr<RegisterCombinersChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 RegisterCombinersChunk *RegisterCombinersChunkBase::createEmpty(void)
 {
@@ -1821,13 +1832,17 @@ RegisterCombinersChunk *RegisterCombinersChunkBase::createEmpty(void)
     return returnValue;
 }
 
-RegisterCombinersChunk *RegisterCombinersChunkBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    RegisterCombinersChunk *returnValue;
+    RegisterCombinersChunk *tmpPtr;
 
-    newPtr<RegisterCombinersChunk>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const RegisterCombinersChunk *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -1847,19 +1862,6 @@ FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    RegisterCombinersChunk *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const RegisterCombinersChunk *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

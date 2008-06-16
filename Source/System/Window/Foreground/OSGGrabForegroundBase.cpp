@@ -278,22 +278,6 @@ void GrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GrabForegroundTransitPtr GrabForegroundBase::create(void)
-{
-    GrabForegroundTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<GrabForeground>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 GrabForegroundTransitPtr GrabForegroundBase::createLocal(BitVector bFlags)
 {
     GrabForegroundTransitPtr fc;
@@ -309,6 +293,33 @@ GrabForegroundTransitPtr GrabForegroundBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+GrabForegroundTransitPtr GrabForegroundBase::create(void)
+{
+    GrabForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<GrabForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
+GrabForeground *GrabForegroundBase::createEmptyLocal(BitVector bFlags)
+{
+    GrabForeground *returnValue;
+
+    newPtr<GrabForeground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 GrabForeground *GrabForegroundBase::createEmpty(void)
 {
@@ -322,13 +333,17 @@ GrabForeground *GrabForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-GrabForeground *GrabForegroundBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr GrabForegroundBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    GrabForeground *returnValue;
+    GrabForeground *tmpPtr;
 
-    newPtr<GrabForeground>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const GrabForeground *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -348,19 +363,6 @@ FieldContainerTransitPtr GrabForegroundBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr GrabForegroundBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    GrabForeground *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const GrabForeground *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

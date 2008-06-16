@@ -271,22 +271,6 @@ void StringAttributeMapBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StringAttributeMapTransitPtr StringAttributeMapBase::create(void)
-{
-    StringAttributeMapTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<StringAttributeMap>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 StringAttributeMapTransitPtr StringAttributeMapBase::createLocal(BitVector bFlags)
 {
     StringAttributeMapTransitPtr fc;
@@ -302,6 +286,33 @@ StringAttributeMapTransitPtr StringAttributeMapBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class
+StringAttributeMapTransitPtr StringAttributeMapBase::create(void)
+{
+    StringAttributeMapTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<StringAttributeMap>(tmpPtr);
+    }
+
+    return fc;
+}
+
+StringAttributeMap *StringAttributeMapBase::createEmptyLocal(BitVector bFlags)
+{
+    StringAttributeMap *returnValue;
+
+    newPtr<StringAttributeMap>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StringAttributeMap *StringAttributeMapBase::createEmpty(void)
 {
@@ -315,13 +326,17 @@ StringAttributeMap *StringAttributeMapBase::createEmpty(void)
     return returnValue;
 }
 
-StringAttributeMap *StringAttributeMapBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr StringAttributeMapBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    StringAttributeMap *returnValue;
+    StringAttributeMap *tmpPtr;
 
-    newPtr<StringAttributeMap>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const StringAttributeMap *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -341,19 +356,6 @@ FieldContainerTransitPtr StringAttributeMapBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr StringAttributeMapBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    StringAttributeMap *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const StringAttributeMap *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

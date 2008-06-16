@@ -470,22 +470,6 @@ void HDRStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-HDRStageTransitPtr HDRStageBase::create(void)
-{
-    HDRStageTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<HDRStage>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 HDRStageTransitPtr HDRStageBase::createLocal(BitVector bFlags)
 {
     HDRStageTransitPtr fc;
@@ -501,17 +485,10 @@ HDRStageTransitPtr HDRStageBase::createLocal(BitVector bFlags)
     return fc;
 }
 
-//! create an empty new instance of the class, do not copy the prototype
-HDRStage *HDRStageBase::createEmpty(void)
+//! create a new instance of the class
+HDRStageTransitPtr HDRStageBase::create(void)
 {
-    HDRStage *returnValue;
-
-    newPtr<HDRStage>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
-
-    return returnValue;
+    return createLocal();
 }
 
 HDRStage *HDRStageBase::createEmptyLocal(BitVector bFlags)
@@ -525,20 +502,12 @@ HDRStage *HDRStageBase::createEmptyLocal(BitVector bFlags)
     return returnValue;
 }
 
-FieldContainerTransitPtr HDRStageBase::shallowCopy(void) const
+//! create an empty new instance of the class, do not copy the prototype
+HDRStage *HDRStageBase::createEmpty(void)
 {
-    HDRStage *tmpPtr;
-
-    newPtr(tmpPtr, 
-           dynamic_cast<const HDRStage *>(this), 
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return createEmptyLocal();
 }
+
 
 FieldContainerTransitPtr HDRStageBase::shallowCopyLocal(
     BitVector bFlags) const
@@ -553,6 +522,12 @@ FieldContainerTransitPtr HDRStageBase::shallowCopyLocal(
 
     return returnValue;
 }
+
+FieldContainerTransitPtr HDRStageBase::shallowCopy(void) const
+{
+    return shallowCopyLocal();
+}
+
 
 
 

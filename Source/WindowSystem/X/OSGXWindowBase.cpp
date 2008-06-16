@@ -316,22 +316,6 @@ void XWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-XWindowTransitPtr XWindowBase::create(void)
-{
-    XWindowTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<XWindow>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 XWindowTransitPtr XWindowBase::createLocal(BitVector bFlags)
 {
     XWindowTransitPtr fc;
@@ -347,6 +331,33 @@ XWindowTransitPtr XWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+XWindowTransitPtr XWindowBase::create(void)
+{
+    XWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<XWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
+XWindow *XWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    XWindow *returnValue;
+
+    newPtr<XWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 XWindow *XWindowBase::createEmpty(void)
 {
@@ -360,13 +371,17 @@ XWindow *XWindowBase::createEmpty(void)
     return returnValue;
 }
 
-XWindow *XWindowBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr XWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    XWindow *returnValue;
+    XWindow *tmpPtr;
 
-    newPtr<XWindow>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const XWindow *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -386,19 +401,6 @@ FieldContainerTransitPtr XWindowBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr XWindowBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    XWindow *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const XWindow *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

@@ -216,22 +216,6 @@ void CarbonWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CarbonWindowTransitPtr CarbonWindowBase::create(void)
-{
-    CarbonWindowTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<CarbonWindow>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 CarbonWindowTransitPtr CarbonWindowBase::createLocal(BitVector bFlags)
 {
     CarbonWindowTransitPtr fc;
@@ -247,6 +231,33 @@ CarbonWindowTransitPtr CarbonWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+CarbonWindowTransitPtr CarbonWindowBase::create(void)
+{
+    CarbonWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CarbonWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
+CarbonWindow *CarbonWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    CarbonWindow *returnValue;
+
+    newPtr<CarbonWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CarbonWindow *CarbonWindowBase::createEmpty(void)
 {
@@ -260,13 +271,17 @@ CarbonWindow *CarbonWindowBase::createEmpty(void)
     return returnValue;
 }
 
-CarbonWindow *CarbonWindowBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr CarbonWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    CarbonWindow *returnValue;
+    CarbonWindow *tmpPtr;
 
-    newPtr<CarbonWindow>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const CarbonWindow *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -286,19 +301,6 @@ FieldContainerTransitPtr CarbonWindowBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr CarbonWindowBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    CarbonWindow *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const CarbonWindow *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

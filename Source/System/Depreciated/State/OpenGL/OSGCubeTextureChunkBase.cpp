@@ -454,22 +454,6 @@ void CubeTextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CubeTextureChunkTransitPtr CubeTextureChunkBase::create(void)
-{
-    CubeTextureChunkTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<CubeTextureChunk>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 CubeTextureChunkTransitPtr CubeTextureChunkBase::createLocal(BitVector bFlags)
 {
     CubeTextureChunkTransitPtr fc;
@@ -485,6 +469,33 @@ CubeTextureChunkTransitPtr CubeTextureChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+CubeTextureChunkTransitPtr CubeTextureChunkBase::create(void)
+{
+    CubeTextureChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CubeTextureChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
+CubeTextureChunk *CubeTextureChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    CubeTextureChunk *returnValue;
+
+    newPtr<CubeTextureChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 CubeTextureChunk *CubeTextureChunkBase::createEmpty(void)
 {
@@ -498,13 +509,17 @@ CubeTextureChunk *CubeTextureChunkBase::createEmpty(void)
     return returnValue;
 }
 
-CubeTextureChunk *CubeTextureChunkBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr CubeTextureChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    CubeTextureChunk *returnValue;
+    CubeTextureChunk *tmpPtr;
 
-    newPtr<CubeTextureChunk>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const CubeTextureChunk *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -524,19 +539,6 @@ FieldContainerTransitPtr CubeTextureChunkBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr CubeTextureChunkBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    CubeTextureChunk *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const CubeTextureChunk *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

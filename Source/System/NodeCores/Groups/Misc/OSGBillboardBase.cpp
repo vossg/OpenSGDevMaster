@@ -415,22 +415,6 @@ void BillboardBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-BillboardTransitPtr BillboardBase::create(void)
-{
-    BillboardTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Billboard>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 BillboardTransitPtr BillboardBase::createLocal(BitVector bFlags)
 {
     BillboardTransitPtr fc;
@@ -446,6 +430,33 @@ BillboardTransitPtr BillboardBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+BillboardTransitPtr BillboardBase::create(void)
+{
+    BillboardTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Billboard>(tmpPtr);
+    }
+
+    return fc;
+}
+
+Billboard *BillboardBase::createEmptyLocal(BitVector bFlags)
+{
+    Billboard *returnValue;
+
+    newPtr<Billboard>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 Billboard *BillboardBase::createEmpty(void)
 {
@@ -459,13 +470,17 @@ Billboard *BillboardBase::createEmpty(void)
     return returnValue;
 }
 
-Billboard *BillboardBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr BillboardBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    Billboard *returnValue;
+    Billboard *tmpPtr;
 
-    newPtr<Billboard>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const Billboard *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -485,19 +500,6 @@ FieldContainerTransitPtr BillboardBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr BillboardBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    Billboard *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const Billboard *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

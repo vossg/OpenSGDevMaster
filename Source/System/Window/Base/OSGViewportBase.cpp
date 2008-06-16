@@ -110,27 +110,27 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Real32          ViewportBase::_sfLeft
-    The left edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
-    left border. All other values are illegal.
+    The left edge of the viewport. Values between 0 and 1 are relative to the 
+    size of the Window, values >1 are absolute pixel coordinates.
+    All other values are illegal.
 */
 
 /*! \var Real32          ViewportBase::_sfRight
-    The right edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
-    right border. All other values are illegal.
+    The right edge of the viewport. Values between 0 and 1 are relative to the 
+    size of	the Window, values >1 are absolute pixel coordinates.
+    All other values are illegal.
 */
 
 /*! \var Real32          ViewportBase::_sfBottom
-    The bottom edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
-    bottom border. All other values are illegal.
+    The bottom edge of the viewport. Values between 0 and 1 are relative to 
+    the size of the Window, values >1 are absolute pixel coordinates.
+    All other values are illegal.
 */
 
 /*! \var Real32          ViewportBase::_sfTop
-    The top edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
-    top border. All other values are illegal.
+    The top edge of the viewport. Values between 0 and 1 are relative to the 
+    size of the Window, values >1 are absolute pixel coordinates.
+    All other values are illegal.
 */
 
 /*! \var FieldContainer * ViewportBase::_sfParent
@@ -170,9 +170,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "left",
-        "The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
-        "left border. All other values are illegal.\n",
+        "The left edge of the viewport. Values between 0 and 1 are relative to the \n"
+        "size of the Window, values >1 are absolute pixel coordinates.\n"
+        "All other values are illegal.\n",
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -184,9 +184,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "right",
-        "The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
-        "right border. All other values are illegal.\n",
+        "The right edge of the viewport. Values between 0 and 1 are relative to the \n"
+        "size of\tthe Window, values >1 are absolute pixel coordinates.\n"
+        "All other values are illegal.\n",
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -198,9 +198,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "bottom",
-        "The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
-        "bottom border. All other values are illegal.\n",
+        "The bottom edge of the viewport. Values between 0 and 1 are relative to \n"
+        "the size of the Window, values >1 are absolute pixel coordinates.\n"
+        "All other values are illegal.\n",
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -212,9 +212,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "top",
-        "The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
-        "top border. All other values are illegal.\n",
+        "The top edge of the viewport. Values between 0 and 1 are relative to the \n"
+        "size of the Window, values >1 are absolute pixel coordinates.\n"
+        "All other values are illegal.\n",
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -364,10 +364,11 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        defaultValue=\"0.f\"\n"
     "\t>\n"
-    "\tThe left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "        left border. All other values are illegal.\n"
+    "\tThe left edge of the viewport. Values between 0 and 1 are relative to the \n"
+    "    size of the Window, values &gt; 1 are absolute pixel coordinates.\n"
+    "    All other values are illegal.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"right\"\n"
@@ -375,10 +376,11 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        defaultValue=\"1.f\"\n"
     "\t>\n"
-    "\tThe right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "\tright border. All other values are illegal.\n"
+    "\tThe right edge of the viewport. Values between 0 and 1 are relative to the \n"
+    "    size of\tthe Window, values &gt; 1 are absolute pixel coordinates.\n"
+    "\tAll other values are illegal.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"bottom\"\n"
@@ -386,10 +388,11 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        defaultValue=\"0.f\"\n"
     "\t>\n"
-    "\tThe bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "\tbottom border. All other values are illegal.\n"
+    "\tThe bottom edge of the viewport. Values between 0 and 1 are relative to \n"
+    "    the size of the Window, values &gt; 1 are absolute pixel coordinates.\n"
+    "\tAll other values are illegal.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"top\"\n"
@@ -397,10 +400,11 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        defaultValue=\"1.f\"\n"
     "\t>\n"
-    "\tThe top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
-    "\ttop border. All other values are illegal.\n"
+    "\tThe top edge of the viewport. Values between 0 and 1 are relative to the \n"
+    "    size of the Window, values &gt; 1 are absolute pixel coordinates.\n"
+    "\tAll other values are illegal.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"parent\"\n"
@@ -871,22 +875,6 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ViewportTransitPtr ViewportBase::create(void)
-{
-    ViewportTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Viewport>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ViewportTransitPtr ViewportBase::createLocal(BitVector bFlags)
 {
     ViewportTransitPtr fc;
@@ -902,6 +890,33 @@ ViewportTransitPtr ViewportBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+ViewportTransitPtr ViewportBase::create(void)
+{
+    ViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Viewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
+Viewport *ViewportBase::createEmptyLocal(BitVector bFlags)
+{
+    Viewport *returnValue;
+
+    newPtr<Viewport>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 Viewport *ViewportBase::createEmpty(void)
 {
@@ -915,13 +930,17 @@ Viewport *ViewportBase::createEmpty(void)
     return returnValue;
 }
 
-Viewport *ViewportBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    Viewport *returnValue;
+    Viewport *tmpPtr;
 
-    newPtr<Viewport>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const Viewport *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -941,19 +960,6 @@ FieldContainerTransitPtr ViewportBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    Viewport *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const Viewport *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 
@@ -961,10 +967,10 @@ FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
 
 ViewportBase::ViewportBase(void) :
     Inherited(),
-    _sfLeft                   (),
-    _sfRight                  (),
-    _sfBottom                 (),
-    _sfTop                    (),
+    _sfLeft                   (Real32(0.f)),
+    _sfRight                  (Real32(1.f)),
+    _sfBottom                 (Real32(0.f)),
+    _sfTop                    (Real32(1.f)),
     _sfParent                 (NULL),
     _sfCamera                 (NULL),
     _sfRoot                   (NULL),

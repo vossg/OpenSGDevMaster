@@ -155,22 +155,6 @@ void SepiaComposerBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SepiaComposerTransitPtr SepiaComposerBase::create(void)
-{
-    SepiaComposerTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<SepiaComposer>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 SepiaComposerTransitPtr SepiaComposerBase::createLocal(BitVector bFlags)
 {
     SepiaComposerTransitPtr fc;
@@ -186,6 +170,33 @@ SepiaComposerTransitPtr SepiaComposerBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+SepiaComposerTransitPtr SepiaComposerBase::create(void)
+{
+    SepiaComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SepiaComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
+SepiaComposer *SepiaComposerBase::createEmptyLocal(BitVector bFlags)
+{
+    SepiaComposer *returnValue;
+
+    newPtr<SepiaComposer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SepiaComposer *SepiaComposerBase::createEmpty(void)
 {
@@ -199,13 +210,17 @@ SepiaComposer *SepiaComposerBase::createEmpty(void)
     return returnValue;
 }
 
-SepiaComposer *SepiaComposerBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr SepiaComposerBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    SepiaComposer *returnValue;
+    SepiaComposer *tmpPtr;
 
-    newPtr<SepiaComposer>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const SepiaComposer *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -225,19 +240,6 @@ FieldContainerTransitPtr SepiaComposerBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr SepiaComposerBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    SepiaComposer *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const SepiaComposer *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

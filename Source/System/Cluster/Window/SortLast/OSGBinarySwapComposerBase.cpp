@@ -316,22 +316,6 @@ void BinarySwapComposerBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-BinarySwapComposerTransitPtr BinarySwapComposerBase::create(void)
-{
-    BinarySwapComposerTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<BinarySwapComposer>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 BinarySwapComposerTransitPtr BinarySwapComposerBase::createLocal(BitVector bFlags)
 {
     BinarySwapComposerTransitPtr fc;
@@ -347,6 +331,33 @@ BinarySwapComposerTransitPtr BinarySwapComposerBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class
+BinarySwapComposerTransitPtr BinarySwapComposerBase::create(void)
+{
+    BinarySwapComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<BinarySwapComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
+BinarySwapComposer *BinarySwapComposerBase::createEmptyLocal(BitVector bFlags)
+{
+    BinarySwapComposer *returnValue;
+
+    newPtr<BinarySwapComposer>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 BinarySwapComposer *BinarySwapComposerBase::createEmpty(void)
 {
@@ -360,13 +371,17 @@ BinarySwapComposer *BinarySwapComposerBase::createEmpty(void)
     return returnValue;
 }
 
-BinarySwapComposer *BinarySwapComposerBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr BinarySwapComposerBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    BinarySwapComposer *returnValue;
+    BinarySwapComposer *tmpPtr;
 
-    newPtr<BinarySwapComposer>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const BinarySwapComposer *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -386,19 +401,6 @@ FieldContainerTransitPtr BinarySwapComposerBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr BinarySwapComposerBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    BinarySwapComposer *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const BinarySwapComposer *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

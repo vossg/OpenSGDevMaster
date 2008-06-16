@@ -833,22 +833,6 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::create(void)
-{
-    SimpleStatisticsForegroundTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<SimpleStatisticsForeground>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::createLocal(BitVector bFlags)
 {
     SimpleStatisticsForegroundTransitPtr fc;
@@ -864,6 +848,33 @@ SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::createLocal
     return fc;
 }
 
+//! create a new instance of the class
+SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::create(void)
+{
+    SimpleStatisticsForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SimpleStatisticsForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
+SimpleStatisticsForeground *SimpleStatisticsForegroundBase::createEmptyLocal(BitVector bFlags)
+{
+    SimpleStatisticsForeground *returnValue;
+
+    newPtr<SimpleStatisticsForeground>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SimpleStatisticsForeground *SimpleStatisticsForegroundBase::createEmpty(void)
 {
@@ -877,13 +888,17 @@ SimpleStatisticsForeground *SimpleStatisticsForegroundBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleStatisticsForeground *SimpleStatisticsForegroundBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    SimpleStatisticsForeground *returnValue;
+    SimpleStatisticsForeground *tmpPtr;
 
-    newPtr<SimpleStatisticsForeground>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const SimpleStatisticsForeground *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -903,19 +918,6 @@ FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    SimpleStatisticsForeground *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const SimpleStatisticsForeground *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

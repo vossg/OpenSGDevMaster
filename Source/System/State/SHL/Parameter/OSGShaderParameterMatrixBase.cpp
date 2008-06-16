@@ -216,22 +216,6 @@ void ShaderParameterMatrixBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-ShaderParameterMatrixTransitPtr ShaderParameterMatrixBase::create(void)
-{
-    ShaderParameterMatrixTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<ShaderParameterMatrix>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 ShaderParameterMatrixTransitPtr ShaderParameterMatrixBase::createLocal(BitVector bFlags)
 {
     ShaderParameterMatrixTransitPtr fc;
@@ -247,6 +231,33 @@ ShaderParameterMatrixTransitPtr ShaderParameterMatrixBase::createLocal(BitVector
     return fc;
 }
 
+//! create a new instance of the class
+ShaderParameterMatrixTransitPtr ShaderParameterMatrixBase::create(void)
+{
+    ShaderParameterMatrixTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<ShaderParameterMatrix>(tmpPtr);
+    }
+
+    return fc;
+}
+
+ShaderParameterMatrix *ShaderParameterMatrixBase::createEmptyLocal(BitVector bFlags)
+{
+    ShaderParameterMatrix *returnValue;
+
+    newPtr<ShaderParameterMatrix>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 ShaderParameterMatrix *ShaderParameterMatrixBase::createEmpty(void)
 {
@@ -260,13 +271,17 @@ ShaderParameterMatrix *ShaderParameterMatrixBase::createEmpty(void)
     return returnValue;
 }
 
-ShaderParameterMatrix *ShaderParameterMatrixBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr ShaderParameterMatrixBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    ShaderParameterMatrix *returnValue;
+    ShaderParameterMatrix *tmpPtr;
 
-    newPtr<ShaderParameterMatrix>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterMatrix *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -286,19 +301,6 @@ FieldContainerTransitPtr ShaderParameterMatrixBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr ShaderParameterMatrixBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    ShaderParameterMatrix *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const ShaderParameterMatrix *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

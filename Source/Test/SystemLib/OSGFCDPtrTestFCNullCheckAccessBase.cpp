@@ -2235,22 +2235,6 @@ void FCDPtrTestFCNullCheckAccessBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-FCDPtrTestFCNullCheckAccessTransitPtr FCDPtrTestFCNullCheckAccessBase::create(void)
-{
-    FCDPtrTestFCNullCheckAccessTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<FCDPtrTestFCNullCheckAccess>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 FCDPtrTestFCNullCheckAccessTransitPtr FCDPtrTestFCNullCheckAccessBase::createLocal(BitVector bFlags)
 {
     FCDPtrTestFCNullCheckAccessTransitPtr fc;
@@ -2266,6 +2250,33 @@ FCDPtrTestFCNullCheckAccessTransitPtr FCDPtrTestFCNullCheckAccessBase::createLoc
     return fc;
 }
 
+//! create a new instance of the class
+FCDPtrTestFCNullCheckAccessTransitPtr FCDPtrTestFCNullCheckAccessBase::create(void)
+{
+    FCDPtrTestFCNullCheckAccessTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<FCDPtrTestFCNullCheckAccess>(tmpPtr);
+    }
+
+    return fc;
+}
+
+FCDPtrTestFCNullCheckAccess *FCDPtrTestFCNullCheckAccessBase::createEmptyLocal(BitVector bFlags)
+{
+    FCDPtrTestFCNullCheckAccess *returnValue;
+
+    newPtr<FCDPtrTestFCNullCheckAccess>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 FCDPtrTestFCNullCheckAccess *FCDPtrTestFCNullCheckAccessBase::createEmpty(void)
 {
@@ -2279,13 +2290,17 @@ FCDPtrTestFCNullCheckAccess *FCDPtrTestFCNullCheckAccessBase::createEmpty(void)
     return returnValue;
 }
 
-FCDPtrTestFCNullCheckAccess *FCDPtrTestFCNullCheckAccessBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr FCDPtrTestFCNullCheckAccessBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    FCDPtrTestFCNullCheckAccess *returnValue;
+    FCDPtrTestFCNullCheckAccess *tmpPtr;
 
-    newPtr<FCDPtrTestFCNullCheckAccess>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const FCDPtrTestFCNullCheckAccess *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -2305,19 +2320,6 @@ FieldContainerTransitPtr FCDPtrTestFCNullCheckAccessBase::shallowCopy(void) cons
     return returnValue;
 }
 
-FieldContainerTransitPtr FCDPtrTestFCNullCheckAccessBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    FCDPtrTestFCNullCheckAccess *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const FCDPtrTestFCNullCheckAccess *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

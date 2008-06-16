@@ -215,22 +215,6 @@ void SimpleShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::create(void)
-{
-    SimpleShadowMapEngineTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<SimpleShadowMapEngine>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::createLocal(BitVector bFlags)
 {
     SimpleShadowMapEngineTransitPtr fc;
@@ -246,6 +230,33 @@ SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::createLocal(BitVector
     return fc;
 }
 
+//! create a new instance of the class
+SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::create(void)
+{
+    SimpleShadowMapEngineTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SimpleShadowMapEngine>(tmpPtr);
+    }
+
+    return fc;
+}
+
+SimpleShadowMapEngine *SimpleShadowMapEngineBase::createEmptyLocal(BitVector bFlags)
+{
+    SimpleShadowMapEngine *returnValue;
+
+    newPtr<SimpleShadowMapEngine>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 SimpleShadowMapEngine *SimpleShadowMapEngineBase::createEmpty(void)
 {
@@ -259,13 +270,17 @@ SimpleShadowMapEngine *SimpleShadowMapEngineBase::createEmpty(void)
     return returnValue;
 }
 
-SimpleShadowMapEngine *SimpleShadowMapEngineBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    SimpleShadowMapEngine *returnValue;
+    SimpleShadowMapEngine *tmpPtr;
 
-    newPtr<SimpleShadowMapEngine>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const SimpleShadowMapEngine *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -285,19 +300,6 @@ FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    SimpleShadowMapEngine *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const SimpleShadowMapEngine *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

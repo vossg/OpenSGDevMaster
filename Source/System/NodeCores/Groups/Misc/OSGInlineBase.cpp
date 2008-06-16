@@ -264,22 +264,6 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-InlineTransitPtr InlineBase::create(void)
-{
-    InlineTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Inline>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 InlineTransitPtr InlineBase::createLocal(BitVector bFlags)
 {
     InlineTransitPtr fc;
@@ -295,6 +279,33 @@ InlineTransitPtr InlineBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+InlineTransitPtr InlineBase::create(void)
+{
+    InlineTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Inline>(tmpPtr);
+    }
+
+    return fc;
+}
+
+Inline *InlineBase::createEmptyLocal(BitVector bFlags)
+{
+    Inline *returnValue;
+
+    newPtr<Inline>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 Inline *InlineBase::createEmpty(void)
 {
@@ -308,13 +319,17 @@ Inline *InlineBase::createEmpty(void)
     return returnValue;
 }
 
-Inline *InlineBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr InlineBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    Inline *returnValue;
+    Inline *tmpPtr;
 
-    newPtr<Inline>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const Inline *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -334,19 +349,6 @@ FieldContainerTransitPtr InlineBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr InlineBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    Inline *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const Inline *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

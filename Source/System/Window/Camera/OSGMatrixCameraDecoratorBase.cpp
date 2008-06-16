@@ -513,22 +513,6 @@ void MatrixCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::create(void)
-{
-    MatrixCameraDecoratorTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<MatrixCameraDecorator>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::createLocal(BitVector bFlags)
 {
     MatrixCameraDecoratorTransitPtr fc;
@@ -544,6 +528,33 @@ MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::createLocal(BitVector
     return fc;
 }
 
+//! create a new instance of the class
+MatrixCameraDecoratorTransitPtr MatrixCameraDecoratorBase::create(void)
+{
+    MatrixCameraDecoratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MatrixCameraDecorator>(tmpPtr);
+    }
+
+    return fc;
+}
+
+MatrixCameraDecorator *MatrixCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+{
+    MatrixCameraDecorator *returnValue;
+
+    newPtr<MatrixCameraDecorator>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MatrixCameraDecorator *MatrixCameraDecoratorBase::createEmpty(void)
 {
@@ -557,13 +568,17 @@ MatrixCameraDecorator *MatrixCameraDecoratorBase::createEmpty(void)
     return returnValue;
 }
 
-MatrixCameraDecorator *MatrixCameraDecoratorBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    MatrixCameraDecorator *returnValue;
+    MatrixCameraDecorator *tmpPtr;
 
-    newPtr<MatrixCameraDecorator>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const MatrixCameraDecorator *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -583,19 +598,6 @@ FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    MatrixCameraDecorator *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const MatrixCameraDecorator *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

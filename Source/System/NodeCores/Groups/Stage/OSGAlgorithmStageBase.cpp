@@ -368,22 +368,6 @@ void AlgorithmStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-AlgorithmStageTransitPtr AlgorithmStageBase::create(void)
-{
-    AlgorithmStageTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<AlgorithmStage>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 AlgorithmStageTransitPtr AlgorithmStageBase::createLocal(BitVector bFlags)
 {
     AlgorithmStageTransitPtr fc;
@@ -399,6 +383,33 @@ AlgorithmStageTransitPtr AlgorithmStageBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+AlgorithmStageTransitPtr AlgorithmStageBase::create(void)
+{
+    AlgorithmStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<AlgorithmStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
+AlgorithmStage *AlgorithmStageBase::createEmptyLocal(BitVector bFlags)
+{
+    AlgorithmStage *returnValue;
+
+    newPtr<AlgorithmStage>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 AlgorithmStage *AlgorithmStageBase::createEmpty(void)
 {
@@ -412,13 +423,17 @@ AlgorithmStage *AlgorithmStageBase::createEmpty(void)
     return returnValue;
 }
 
-AlgorithmStage *AlgorithmStageBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr AlgorithmStageBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    AlgorithmStage *returnValue;
+    AlgorithmStage *tmpPtr;
 
-    newPtr<AlgorithmStage>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const AlgorithmStage *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -438,19 +453,6 @@ FieldContainerTransitPtr AlgorithmStageBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr AlgorithmStageBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    AlgorithmStage *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const AlgorithmStage *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

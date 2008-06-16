@@ -439,22 +439,6 @@ void DepthChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DepthChunkTransitPtr DepthChunkBase::create(void)
-{
-    DepthChunkTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<DepthChunk>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 DepthChunkTransitPtr DepthChunkBase::createLocal(BitVector bFlags)
 {
     DepthChunkTransitPtr fc;
@@ -470,6 +454,33 @@ DepthChunkTransitPtr DepthChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+DepthChunkTransitPtr DepthChunkBase::create(void)
+{
+    DepthChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DepthChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
+DepthChunk *DepthChunkBase::createEmptyLocal(BitVector bFlags)
+{
+    DepthChunk *returnValue;
+
+    newPtr<DepthChunk>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DepthChunk *DepthChunkBase::createEmpty(void)
 {
@@ -483,13 +494,17 @@ DepthChunk *DepthChunkBase::createEmpty(void)
     return returnValue;
 }
 
-DepthChunk *DepthChunkBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr DepthChunkBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    DepthChunk *returnValue;
+    DepthChunk *tmpPtr;
 
-    newPtr<DepthChunk>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const DepthChunk *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -509,19 +524,6 @@ FieldContainerTransitPtr DepthChunkBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr DepthChunkBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    DepthChunk *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const DepthChunk *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

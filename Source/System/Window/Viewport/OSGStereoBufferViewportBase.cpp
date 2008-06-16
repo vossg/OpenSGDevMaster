@@ -286,22 +286,6 @@ void StereoBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-StereoBufferViewportTransitPtr StereoBufferViewportBase::create(void)
-{
-    StereoBufferViewportTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<StereoBufferViewport>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 StereoBufferViewportTransitPtr StereoBufferViewportBase::createLocal(BitVector bFlags)
 {
     StereoBufferViewportTransitPtr fc;
@@ -317,6 +301,33 @@ StereoBufferViewportTransitPtr StereoBufferViewportBase::createLocal(BitVector b
     return fc;
 }
 
+//! create a new instance of the class
+StereoBufferViewportTransitPtr StereoBufferViewportBase::create(void)
+{
+    StereoBufferViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<StereoBufferViewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
+StereoBufferViewport *StereoBufferViewportBase::createEmptyLocal(BitVector bFlags)
+{
+    StereoBufferViewport *returnValue;
+
+    newPtr<StereoBufferViewport>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 StereoBufferViewport *StereoBufferViewportBase::createEmpty(void)
 {
@@ -330,13 +341,17 @@ StereoBufferViewport *StereoBufferViewportBase::createEmpty(void)
     return returnValue;
 }
 
-StereoBufferViewport *StereoBufferViewportBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr StereoBufferViewportBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    StereoBufferViewport *returnValue;
+    StereoBufferViewport *tmpPtr;
 
-    newPtr<StereoBufferViewport>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const StereoBufferViewport *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -356,19 +371,6 @@ FieldContainerTransitPtr StereoBufferViewportBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr StereoBufferViewportBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    StereoBufferViewport *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const StereoBufferViewport *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

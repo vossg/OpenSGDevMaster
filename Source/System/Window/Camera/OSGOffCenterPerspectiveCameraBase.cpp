@@ -215,22 +215,6 @@ void OffCenterPerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::create(void)
-{
-    OffCenterPerspectiveCameraTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<OffCenterPerspectiveCamera>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::createLocal(BitVector bFlags)
 {
     OffCenterPerspectiveCameraTransitPtr fc;
@@ -246,6 +230,33 @@ OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::createLocal
     return fc;
 }
 
+//! create a new instance of the class
+OffCenterPerspectiveCameraTransitPtr OffCenterPerspectiveCameraBase::create(void)
+{
+    OffCenterPerspectiveCameraTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<OffCenterPerspectiveCamera>(tmpPtr);
+    }
+
+    return fc;
+}
+
+OffCenterPerspectiveCamera *OffCenterPerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
+{
+    OffCenterPerspectiveCamera *returnValue;
+
+    newPtr<OffCenterPerspectiveCamera>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 OffCenterPerspectiveCamera *OffCenterPerspectiveCameraBase::createEmpty(void)
 {
@@ -259,13 +270,17 @@ OffCenterPerspectiveCamera *OffCenterPerspectiveCameraBase::createEmpty(void)
     return returnValue;
 }
 
-OffCenterPerspectiveCamera *OffCenterPerspectiveCameraBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    OffCenterPerspectiveCamera *returnValue;
+    OffCenterPerspectiveCamera *tmpPtr;
 
-    newPtr<OffCenterPerspectiveCamera>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const OffCenterPerspectiveCamera *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -285,19 +300,6 @@ FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    OffCenterPerspectiveCamera *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const OffCenterPerspectiveCamera *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

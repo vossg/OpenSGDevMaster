@@ -620,22 +620,6 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GeometryTransitPtr GeometryBase::create(void)
-{
-    GeometryTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Geometry>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 GeometryTransitPtr GeometryBase::createLocal(BitVector bFlags)
 {
     GeometryTransitPtr fc;
@@ -651,6 +635,33 @@ GeometryTransitPtr GeometryBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+GeometryTransitPtr GeometryBase::create(void)
+{
+    GeometryTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<Geometry>(tmpPtr);
+    }
+
+    return fc;
+}
+
+Geometry *GeometryBase::createEmptyLocal(BitVector bFlags)
+{
+    Geometry *returnValue;
+
+    newPtr<Geometry>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 Geometry *GeometryBase::createEmpty(void)
 {
@@ -664,13 +675,17 @@ Geometry *GeometryBase::createEmpty(void)
     return returnValue;
 }
 
-Geometry *GeometryBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr GeometryBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    Geometry *returnValue;
+    Geometry *tmpPtr;
 
-    newPtr<Geometry>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const Geometry *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -690,19 +705,6 @@ FieldContainerTransitPtr GeometryBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr GeometryBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    Geometry *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const Geometry *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

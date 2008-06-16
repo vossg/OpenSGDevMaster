@@ -226,22 +226,6 @@ void MaterialGroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-MaterialGroupTransitPtr MaterialGroupBase::create(void)
-{
-    MaterialGroupTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<MaterialGroup>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 MaterialGroupTransitPtr MaterialGroupBase::createLocal(BitVector bFlags)
 {
     MaterialGroupTransitPtr fc;
@@ -257,6 +241,33 @@ MaterialGroupTransitPtr MaterialGroupBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+MaterialGroupTransitPtr MaterialGroupBase::create(void)
+{
+    MaterialGroupTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<MaterialGroup>(tmpPtr);
+    }
+
+    return fc;
+}
+
+MaterialGroup *MaterialGroupBase::createEmptyLocal(BitVector bFlags)
+{
+    MaterialGroup *returnValue;
+
+    newPtr<MaterialGroup>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 MaterialGroup *MaterialGroupBase::createEmpty(void)
 {
@@ -270,13 +281,17 @@ MaterialGroup *MaterialGroupBase::createEmpty(void)
     return returnValue;
 }
 
-MaterialGroup *MaterialGroupBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr MaterialGroupBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    MaterialGroup *returnValue;
+    MaterialGroup *tmpPtr;
 
-    newPtr<MaterialGroup>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const MaterialGroup *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -296,19 +311,6 @@ FieldContainerTransitPtr MaterialGroupBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr MaterialGroupBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    MaterialGroup *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const MaterialGroup *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 

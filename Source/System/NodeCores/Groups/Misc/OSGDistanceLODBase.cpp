@@ -371,22 +371,6 @@ void DistanceLODBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DistanceLODTransitPtr DistanceLODBase::create(void)
-{
-    DistanceLODTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<DistanceLOD>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 DistanceLODTransitPtr DistanceLODBase::createLocal(BitVector bFlags)
 {
     DistanceLODTransitPtr fc;
@@ -402,6 +386,33 @@ DistanceLODTransitPtr DistanceLODBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class
+DistanceLODTransitPtr DistanceLODBase::create(void)
+{
+    DistanceLODTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<DistanceLOD>(tmpPtr);
+    }
+
+    return fc;
+}
+
+DistanceLOD *DistanceLODBase::createEmptyLocal(BitVector bFlags)
+{
+    DistanceLOD *returnValue;
+
+    newPtr<DistanceLOD>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
 DistanceLOD *DistanceLODBase::createEmpty(void)
 {
@@ -415,13 +426,17 @@ DistanceLOD *DistanceLODBase::createEmpty(void)
     return returnValue;
 }
 
-DistanceLOD *DistanceLODBase::createEmptyLocal(BitVector bFlags)
+
+FieldContainerTransitPtr DistanceLODBase::shallowCopyLocal(
+    BitVector bFlags) const
 {
-    DistanceLOD *returnValue;
+    DistanceLOD *tmpPtr;
 
-    newPtr<DistanceLOD>(returnValue, bFlags);
+    newPtr(tmpPtr, dynamic_cast<const DistanceLOD *>(this), bFlags);
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -441,19 +456,6 @@ FieldContainerTransitPtr DistanceLODBase::shallowCopy(void) const
     return returnValue;
 }
 
-FieldContainerTransitPtr DistanceLODBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    DistanceLOD *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const DistanceLOD *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
 
 
 
