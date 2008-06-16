@@ -63,6 +63,12 @@ class TransitPtr;
 template<typename RefCountPolicyT>
 class ChildAccessHandler;
 
+template <class FieldT>
+class SFieldConnector;
+
+template <class FieldT>
+class MFieldConnector;
+
 /*! \ingroup GrpSystemFieldContainer
  */
 
@@ -462,6 +468,13 @@ class FieldContainer : public ReflexiveContainer
     template<typename RefCountPolicyT>
     friend class ChildAccessHandler;
 
+    template <class FieldT>
+    friend class SFieldConnector;
+
+    template <class FieldT>
+    friend class MFieldConnector;
+
+
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FieldContainer &source);
 };
@@ -542,6 +555,10 @@ OSG_END_NAMESPACE
 #include "OSGFieldContainer.inl"
 
 #include "OSGRefCountPolicies.h"
+
+#if defined(OSG_1_COMPAT)
+#include "OSGContainerPtrFuncs.h"
+#endif
 
 #endif /* _OSGFIELDCONTAINER_H_ */
 

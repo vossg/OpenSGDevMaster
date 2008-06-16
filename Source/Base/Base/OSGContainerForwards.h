@@ -72,6 +72,13 @@
 #endif
 
 
+#if defined(OSG_1_COMPAT)
+#define OSG_GEN_COMPAT_CONTAINERPTR(CLASST)                              \
+    typedef CLASST##RecPtr                         CLASST##Ptr;
+#else
+#define OSG_GEN_COMPAT_CONTAINERPTR(CLASST)
+#endif
+
 #define OSG_GEN_CONTAINERPTR(CLASST)                                     \
     typedef TransitPtr < CLASST                  > CLASST##TransitPtr;   \
     typedef RefCountPtr< CLASST,                                         \
@@ -85,16 +92,8 @@
     typedef CLASST##RecPtr                         CLASST##RefPtr;       \
     typedef CLASST##MTRecPtr                       CLASST##MTRefPtr;     \
                                                                          \
+    OSG_GEN_COMPAT_CONTAINERPTR(CLASST)
 
-
-#if 0
-    typedef CLASST       * CLASST##CPtr;                                 \
-    typedef CLASST const * Const##CLASST##CPtr;                          \
-                                                                         \
-    typedef CLASST       * CLASST##Ptr;                                  \
-    typedef CLASST const * Const##CLASST##Ptr;                           \
-
-#endif
 
 #if 0
 #define OSG_GEN_NAMED_PTR(CLASST, NAME)                    \
@@ -102,11 +101,6 @@
     typedef CLASST const * Const##NAME##CPtr;              
 #endif
 
-
-#if 0
-#define NullFC      NULL
-#define OSGNullFC   NULL
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -188,6 +182,7 @@ typedef EditFieldHandlePtr(ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
 typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod )(
     UInt32) const;
 
+#if 0
 template <class TargetT, class SourceT>
 TargetT *dynamic_pointer_cast(SourceT *pIn)
 {
@@ -195,10 +190,17 @@ TargetT *dynamic_pointer_cast(SourceT *pIn)
 }
 
 template <class TargetT, class SourceT>
+TargetT dynamic_pointer_cast(SourceT *pIn)
+{
+//    return dynamic_cast<TargetT *>(pIn);
+}
+
+template <class TargetT, class SourceT>
 TargetT *static_pointer_cast(SourceT *pIn)
 {
     return static_cast<TargetT *>(pIn);
 }
+#endif
 
 namespace FCLocal
 {
@@ -216,6 +218,25 @@ class CoredNodeMTRefPtr;
 template <class CoreT>
 class CoredNodeRefPtr;
 
+#if defined(OSG_1_COMPAT)
+struct NullFCType {};
+
+static const NullFCType NullFC = NullFCType();
+
+template<class ObjectT> inline
+bool operator ==(ObjectT * const pObj, const NullFCType)
+{
+    return pObj == NULL;
+}
+
+template<class ObjectT> inline
+bool operator !=(ObjectT * const pObj, const NullFCType)
+{
+    return pObj != NULL;
+}
+
+#define osg OSG
+#endif
 
 OSG_END_NAMESPACE
 

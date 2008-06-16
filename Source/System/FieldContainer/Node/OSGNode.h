@@ -505,6 +505,14 @@ NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr *coreP = NULL);
 template <class CorePtr> inline
 NodeTransitPtr makeNodeFor(CorePtr core);
 
+#if defined(OSG_1_COMPAT)
+inline
+Node *parentToNode(FieldContainer * const pSource)
+{
+    return dynamic_cast<Node * const>(pSource);
+}
+#endif
+
 OSG_END_NAMESPACE
 
 #include "OSGNodeCore.h"

@@ -70,6 +70,8 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     typedef AttachmentContainer                              Inherited;
     typedef AttachmentContainer                              ParentContainer;
 
+    typedef MFParentFieldContainerPtr                        ParentsField;
+
     OSG_GEN_INTERNALPTR(NodeCore);
 
     typedef Inherited::TypeObject                            TypeObject;

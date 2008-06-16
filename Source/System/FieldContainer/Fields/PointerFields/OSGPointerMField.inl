@@ -1103,7 +1103,6 @@ typename PointerMField<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */
 
-#ifdef OSG_FIELD_TOCHECK
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
@@ -1112,11 +1111,13 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::operator=(const Self &source)
 {
-    this->setValues(source);
-    
+//    this->setValues(source);
+  
+    OSG_ASSERT(false);
+
     return *this;
 }
-#endif
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 

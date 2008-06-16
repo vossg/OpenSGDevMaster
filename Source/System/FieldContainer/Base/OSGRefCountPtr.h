@@ -150,6 +150,24 @@ class RefCountPtr
     }
 #endif
 
+#if defined(OSG_1_COMPAT)
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+           RefCountPtr(const NullFCType);
+
+           bool    operator ==(const NullFCType                ) const;
+           bool    operator !=(const NullFCType                ) const;
+
+           Object *getCPtr    (      void                      ) const;
+
+    static Self    dcast      (      FieldContainer * const src);
+
+           Int32   getRefCount(void                            ) const;
+#endif
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -185,6 +203,13 @@ template <class TargetObjectT, class SourceObjectT, class RP> inline
 RefCountPtr<TargetObjectT, RP> static_pointer_cast(
     RefCountPtr<SourceObjectT, RP> const &source);
   
+#if defined(OSG_1_COMPATX)
+template <class TargetT, class SourceT> inline
+RefCountPtr<typename TargetT::Object, 
+            typename TargetT::RefCountPolicy> 
+    dynamic_pointer_cast(SourceT * const pIn);
+#endif
+
 OSG_END_NAMESPACE
 
 #include "OSGRefCountPtr.inl"

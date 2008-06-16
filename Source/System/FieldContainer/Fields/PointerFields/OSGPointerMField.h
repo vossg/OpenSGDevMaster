@@ -664,9 +664,7 @@ class PointerMField :
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
 
-#ifdef OSG_FIELD_TOCHECK
-    Self & operator =(Self const &source);
-#endif
+    Self &operator =(Self const &source);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

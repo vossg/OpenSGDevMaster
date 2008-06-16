@@ -207,6 +207,62 @@ void RefCountPtr<ObjectT, RefCountPolicyT>::set(Object * const objectPtr)
         RefCountPolicy::setRefd(_pObj, objectPtr);
 }
 
+#if defined(OSG_1_COMPAT)
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+RefCountPtr<ObjectT, RefCountPolicyT>::RefCountPtr(const NullFCType) :
+    _pObj(NULL)
+{
+}
+
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+bool RefCountPtr<ObjectT, RefCountPolicyT>::operator ==(const NullFCType) const
+{
+    return RefCountPolicy::validate(_pObj) == NULL;
+}
+
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+bool RefCountPtr<ObjectT, RefCountPolicyT>::operator !=(const NullFCType) const
+{
+    return RefCountPolicy::validate(_pObj) != NULL;
+}
+
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+typename RefCountPtr<ObjectT, RefCountPolicyT>::Object *
+    RefCountPtr<ObjectT, RefCountPolicyT>::getCPtr(void) const
+{
+    return RefCountPolicy::validate(_pObj);
+}
+
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+typename RefCountPtr<ObjectT, RefCountPolicyT>::Self    
+    RefCountPtr<ObjectT, RefCountPolicyT>::dcast(FieldContainer * const src)
+{
+    Object *pRet = dynamic_cast<Object *>(src);
+
+    return Self(pRet);
+}
+
+template <class ObjectT, 
+          class RefCountPolicyT> inline
+Int32 RefCountPtr<ObjectT, RefCountPolicyT>::getRefCount(void) const
+{
+    if(_pObj != NULL)
+    {
+        return _pObj->getRefCount();
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+#endif
+
 
 template <class TargetObjectT, class SourceObjectT, class RP> inline
 RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
@@ -225,5 +281,19 @@ RefCountPtr<TargetObjectT, RP> static_pointer_cast(
 
     return RefCountPtr<TargetObjectT, RP>(pRet);
 }
+
+#if defined(OSG_1_COMPATX)
+template <class TargetT, class SourceT> inline
+RefCountPtr<typename TargetT::Object, 
+            typename TargetT::RefCountPolicy> dynamic_pointer_cast(
+                SourceT * const pIn)
+{
+    typename TargetT::Object *pRet = 
+        dynamic_cast<typename TargetT::Object *>(pIn);
+
+    return RefCountPtr<typename TargetT::Object, 
+                       typename TargetT::RefCountPolicy>(pRet);
+}
+#endif
   
 OSG_END_NAMESPACE

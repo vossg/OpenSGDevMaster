@@ -139,6 +139,12 @@ typename PtrStripper<Ptr>::ConstObject *getConstCPtr(Ptr objectP);
 
 #ifdef OSG_1_COMPAT
 inline
+UInt32 getContainerId(FieldContainer * const objectP)
+{
+    return objectP->getId();
+}
+
+inline
 void addRefCP(FieldContainer * const)
 {
 }
@@ -146,6 +152,18 @@ void addRefCP(FieldContainer * const)
 inline
 void subRefCP(FieldContainer * const)
 {
+}
+
+template<class T> inline
+const T *getCPtr(const T * const pObj)
+{
+    return pObj;
+}
+
+template<class T> inline
+T *getCPtr(T * const pObj)
+{
+    return pObj;
 }
 
 template <class PtrT> inline

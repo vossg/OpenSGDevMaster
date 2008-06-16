@@ -525,6 +525,8 @@ class ParentPointerMField :
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
+    void operator =(const Self &source);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -553,8 +555,6 @@ class ParentPointerMField :
   private:
 
     typedef PtrMFieldTraits MFieldTraits;
-
-    void operator =(const Self &source);
 };
 
 OSG_END_NAMESPACE
