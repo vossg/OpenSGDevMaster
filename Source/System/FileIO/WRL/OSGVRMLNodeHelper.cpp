@@ -2474,8 +2474,6 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainer *pFC)
         if(pValField != NULL && pValField->isValid())
         {
             pCcw = pValField->getField();
-
-            fprintf(stderr, "FFOOO %d\n", pCcw->getValue());
         }
     }
 
