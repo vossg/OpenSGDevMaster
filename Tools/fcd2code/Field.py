@@ -354,6 +354,8 @@ class Field(FCDElement):
         if self.getFCD("defaultValue") != "":
             if self["category"] == "pointer" and self["cardinality"] == "single": 
                 self["TypedDefault"] = self.getFCD("defaultValue")
+            elif self["category"] == "pointer" and self["cardinality"] == "multi": 
+                self["TypedDefault"] = ""
             else:
                 self["TypedDefault"] = \
                     self["FullType"] + "(" + \
@@ -365,7 +367,6 @@ class Field(FCDElement):
             else:
                 self["TypedDefault"] = "";
             
-        
         if self.getFCD("visibility") == "external":
             self["Visibility"] = "false";
         elif self.getFCD("visibility") == "internal":

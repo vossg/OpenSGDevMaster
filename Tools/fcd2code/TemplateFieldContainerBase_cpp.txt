@@ -549,22 +549,6 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
 @@if !isAbstract
 //! create a new instance of the class
-@!Classname!@TransitPtr @!Classname!@Base::create(void)
-{
-    @!Classname!@TransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<@!Classname!@>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 @!Classname!@TransitPtr @!Classname!@Base::createLocal(BitVector bFlags)
 {
     @!Classname!@TransitPtr fc;
@@ -579,22 +563,29 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
     return fc;
 }
+
+//! create a new instance of the class
+@!Classname!@TransitPtr @!Classname!@Base::create(void)
+{
+@@if !isBundle
+    @!Classname!@TransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<@!Classname!@>(tmpPtr);
+    }
+
+    return fc;
+@@else
+    return createLocal();
+@@endif
+}
 @@endif // !isAbstract
 
 @@if !isAbstract
-//! create an empty new instance of the class, do not copy the prototype
-@!Classname!@ *@!Classname!@Base::createEmpty(void)
-{
-    @!Classname!@ *returnValue;
-
-    newPtr<@!Classname!@>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
-
-    return returnValue;
-}
-
 @!Classname!@ *@!Classname!@Base::createEmptyLocal(BitVector bFlags)
 {
     @!Classname!@ *returnValue;
@@ -606,20 +597,23 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
     return returnValue;
 }
 
-FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
+//! create an empty new instance of the class, do not copy the prototype
+@!Classname!@ *@!Classname!@Base::createEmpty(void)
 {
-    @!Classname!@ *tmpPtr;
+@@if !isBundle
+    @!Classname!@ *returnValue;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const @!Classname!@ *>(this), 
-           Thread::getCurrentLocalFlags());
+    newPtr<@!Classname!@>(returnValue, Thread::getCurrentLocalFlags());
 
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
 
     return returnValue;
+@@else
+    return createEmptyLocal();
+@@endif
 }
+
 
 FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
     BitVector bFlags) const
@@ -634,6 +628,26 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopyLocal(
 
     return returnValue;
 }
+
+FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
+{
+@@if !isBundle
+    @!Classname!@ *tmpPtr;
+
+    newPtr(tmpPtr, 
+           dynamic_cast<const @!Classname!@ *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+@@else
+    return shallowCopyLocal();
+@@endif
+}
+
 
 @@endif // !isAbstract
 
