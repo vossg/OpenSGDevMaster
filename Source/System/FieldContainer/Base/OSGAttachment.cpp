@@ -164,8 +164,12 @@ bool Attachment::unlinkParent(FieldContainer * const pParent,
         {
             MFParentFieldContainerPtr::iterator pIt = 
                 _mfParents.find_nc(pParent);
+
+            MFParentFieldContainerPtr::const_iterator pEnd = 
+                _mfParents.end_nc();
+
                 
-            if(pIt != _mfParents.end())
+            if(pIt != pEnd)
             {
                 editMField(ParentsFieldMask, _mfParents);
                 

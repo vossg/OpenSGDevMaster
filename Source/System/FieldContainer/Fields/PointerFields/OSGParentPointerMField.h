@@ -102,10 +102,11 @@ class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    ParentMFieldConstIterator(      void                 );
-    ParentMFieldConstIterator(const Self         &source );
+    ParentMFieldConstIterator(      void                   );
+    ParentMFieldConstIterator(const Self         &source   );
+    ParentMFieldConstIterator(const iterator     &fieldIter);
     ParentMFieldConstIterator(const Inherited    &storeIt,
-                              const PosStorageIt &posIt  );
+                              const PosStorageIt &posIt    );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -354,6 +355,7 @@ class ParentPointerMField :
 
     typedef          ParentMFieldIterator     <Self   > iterator;
 
+    typedef          std::reverse_iterator<iterator>    reverse_iterator;
 
     typedef          UInt16                             IdStoredType;
     typedef          MFieldVector<IdStoredType        > IdStoreType;

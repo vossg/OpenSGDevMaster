@@ -93,12 +93,12 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \name               OpenGL State Management                        */
     /*! \{                                                                 */
 
-    void activate  (DrawEnv *pEnv);
+    void activate  (DrawEnv *pEnv) const;
 
     void changeFrom(DrawEnv *pEnv, 
-                    State   *pOld);
+                    State   *pOld) const;
 
-    void deactivate(DrawEnv *pEnv);
+    void deactivate(DrawEnv *pEnv) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -116,10 +116,10 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    StateChunk * const getChunk     (UInt32      chunkId                );
+    StateChunk * const getChunk     (UInt32      chunkId                ) const;
 
-    bool               chunkPresent (UInt32      chunkId                );
-    bool               chunkPresent (StateChunk *chunk                  );
+    bool               chunkPresent (UInt32      chunkId                ) const;
+    bool               chunkPresent (StateChunk *chunk                  ) const;
    
     bool               addChunk     (StateChunk *chunk, 
                                      Int32       index = AutoSlotReplace);

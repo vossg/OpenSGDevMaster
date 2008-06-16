@@ -666,7 +666,7 @@ PointerMFieldReferenceProxy<PtrTypeT,
                             RefCountPolicy,
                             NamespaceI    >::operator value_type(void) const
 {
-    return AccessHandler::validate(*_storeIter);
+    return static_cast<value_type>(AccessHandler::validate(*_storeIter));
 }
             
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
@@ -677,7 +677,7 @@ typename PointerMFieldReferenceProxy<PtrTypeT,
                                  RefCountPolicy,
                                  NamespaceI    >::operator->(void) const
 {
-    return AccessHandler::validate(*_storeIter);
+    return static_cast<value_type>(AccessHandler::validate(*_storeIter));
 }
     
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
@@ -685,8 +685,7 @@ void PointerMFieldReferenceProxy<PtrTypeT,
                                  RefCountPolicy,
                                  NamespaceI    >::operator=(value_type newValue)
 {
-    AccessHandler::onReplace(
-        _pField, *_storeIter, newValue);
+    AccessHandler::onReplace(_pField, *_storeIter, newValue);
     
     *_storeIter = newValue;
 }
@@ -771,11 +770,35 @@ typename PointerMField<PtrTypeT,
 }
 
 #ifndef OSG_CLEAN_FCFIELDS
-    reference front_nc(void              );
-    reference back_nc (void              );
+#if 0
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename PointerMField<PtrTypeT,
+                       RefCountPolicy,
+                       NamespaceI    >::reference 
+    PointerMField<PtrTypeT,
+                  RefCountPolicy,
+                  NamespaceI    >::front_nc(void)
+{
+}
 
-    iterator  find_nc (ArgumentType value);
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename PointerMField<PtrTypeT,
+                       RefCountPolicy,
+                       NamespaceI    >::reference back_nc (void              );
 #endif
+#endif
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+typename PointerMField<PtrTypeT,
+                       RefCountPolicy,
+                       NamespaceI    >::iterator  
+    PointerMField<PtrTypeT,
+                       RefCountPolicy,
+                       NamespaceI    >::find_nc(const_value value)
+{
+    return iterator(this->ptrStoreFind(value),
+                    this                     );
+}
 
 /*-------------------------------------------------------------------------*/
 /* Std Library Interface                                                   */
@@ -789,6 +812,10 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::begin(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return iterator(this->_ptrStore.begin(), this);
 }
 
@@ -800,7 +827,11 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::end(void)
 {
-    return iterator(this->_ptrStore, this);
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
+    return iterator(this->_ptrStore.end(), this);
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
@@ -811,6 +842,10 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::rbegin(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reverse_iterator(this->end());
 }
 
@@ -822,6 +857,10 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::rend(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reverse_iterator(this->begin());
 }
 #endif
@@ -879,6 +918,10 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::front(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reference(this->_ptrStore.begin(), this);
 }
 #endif
@@ -903,6 +946,10 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::back(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reference(this->_ptrStore.end() - 1, this);
 }
 #endif
@@ -974,6 +1021,10 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::find(const_value value)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return iterator(this->ptrStoreFind(value),
                     this                     );
 }
@@ -1085,7 +1136,11 @@ typename PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::operator [](const UInt32 index)
 {
-    return reference(_ptrStore.begin() + index, this);
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
+    return reference(this->_ptrStore.begin() + index, this);
 }
 #endif
 

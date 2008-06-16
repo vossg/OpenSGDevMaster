@@ -102,10 +102,10 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase
     void      addMaterial       (Material *mat  );
     void      subMaterial       (Material *mat  );
 
-    bool      hasMaterial       (Material *mat  );
+    bool      hasMaterial       (Material *mat  ) const;
 
-    Material *getMaterial       (UInt32    index);
-    Material *getCurrentMaterial(void           );
+    Material *getMaterial       (UInt32    index) const;
+    Material *getCurrentMaterial(void           ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

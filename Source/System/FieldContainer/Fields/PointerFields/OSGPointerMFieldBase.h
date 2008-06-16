@@ -47,7 +47,7 @@
 #include "OSGMField.h"
 #include "OSGFieldContainerFieldTraits.h"
 
-#define OSG_CLEAN_FCFIELDS
+
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGPointerMFieldBase.h

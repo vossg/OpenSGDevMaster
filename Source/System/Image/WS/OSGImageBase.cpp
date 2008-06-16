@@ -1586,8 +1586,11 @@ bool ImageBase::unlinkParent(
         {
             MFParentFieldContainerPtr::iterator pI = 
                 _mfParents.find_nc(pParent);
+
+            MFParentFieldContainerPtr::iterator pEnd = 
+                _mfParents.end_nc();
                 
-            if(pI != _mfParents.end())
+            if(pI != pEnd)
             {
                 editMField(ParentsFieldMask, _mfParents);
                 

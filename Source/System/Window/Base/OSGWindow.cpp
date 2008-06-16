@@ -1846,8 +1846,8 @@ void OSG::Window::render(RenderActionBase *action)
 
 void OSG::Window::renderAllViewports(RenderActionBase *action)
 {
-    MFUnrecChildViewportPtr::const_iterator portIt  = _mfPort.begin();
-    MFUnrecChildViewportPtr::const_iterator portEnd = _mfPort.end();
+    MFUnrecChildViewportPtr::const_iterator portIt  = getMFPort()->begin();
+    MFUnrecChildViewportPtr::const_iterator portEnd = getMFPort()->end();
 
     if(action != NULL)
     {

@@ -235,9 +235,11 @@ void Node::insertChild(UInt32 childIndex, Node * const childP)
 
 void Node::replaceChild(UInt32 childIndex, Node * const childP)
 {
-    if(childP     != NULL                    && 
-       childIndex <  _mfChildren.size()      && 
-       childP     != _mfChildren[childIndex]  )
+    const Node *pThis = this;
+
+    if(childP     != NULL                           && 
+       childIndex <  pThis->_mfChildren.size()      && 
+       childP     != pThis->_mfChildren[childIndex]  )
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
@@ -487,16 +489,20 @@ void Node::updateVolume(void)
 
     DynamicVolume vol = _sfVolume.getValue();
 
-    MFUnrecChildNodePtr::const_iterator it;
+    MFUnrecChildNodePtr::const_iterator cIt  = 
+        this->getMFChildren()->begin();
+
+    MFUnrecChildNodePtr::const_iterator cEnd = 
+        this->getMFChildren()->end();
 
     vol.getInstance().setEmpty();
 
-    for(it = _mfChildren.begin(); it != _mfChildren.end(); ++it)
+    for(; cIt != cEnd; ++cIt)
     {
-        if(*it != NULL && (*it)->getTravMask())
+        if(*cIt != NULL && (*cIt)->getTravMask())
         {
-            (*it)->updateVolume();
-            vol.getInstance().extendBy((*it)->getVolume());
+            (*cIt)->updateVolume();
+            vol.getInstance().extendBy((*cIt)->getVolume());
         }
     }
 
@@ -626,9 +632,13 @@ bool Node::unlinkChild (FieldContainer * const pChild,
         
         if(pTypedChild != NULL)
         {
-            MFUnrecChildNodePtr::iterator pI = _mfChildren.find_nc(pTypedChild);
+            MFUnrecChildNodePtr::iterator       pI = 
+                _mfChildren.find_nc(pTypedChild);
+
+            MFUnrecChildNodePtr::const_iterator pEnd = 
+                _mfChildren.end_nc();
             
-            if(pI != _mfChildren.end())
+            if(pI != pEnd)
             {
                 editMField(ParentFieldMask, _mfChildren);
 

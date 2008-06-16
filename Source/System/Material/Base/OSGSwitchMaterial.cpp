@@ -125,7 +125,7 @@ void SwitchMaterial::subMaterial(Material *mat)
     removeFromMaterials(mat);
 }
 
-bool SwitchMaterial::hasMaterial(Material *mat)
+bool SwitchMaterial::hasMaterial(Material *mat) const
 {
     UInt32 i;
 
@@ -138,7 +138,7 @@ bool SwitchMaterial::hasMaterial(Material *mat)
     return false;
 }
 
-Material *SwitchMaterial::getMaterial(UInt32 index)
+Material *SwitchMaterial::getMaterial(UInt32 index) const
 {
     if(index >= _mfMaterials.size())
     {
@@ -151,7 +151,7 @@ Material *SwitchMaterial::getMaterial(UInt32 index)
     return _mfMaterials[index];
 }
 
-Material *SwitchMaterial::getCurrentMaterial(void)
+Material *SwitchMaterial::getCurrentMaterial(void) const
 {
     UInt32 choice = getChoice();
 
@@ -228,7 +228,7 @@ State *SwitchMaterial::makeState(void)
 /*! Rebuild the internal State. Just collects the chunks in the State.
 */
 
-void SwitchMaterial::rebuildState(void)
+void SwitchMaterial::rebuildState(void) 
 {
     UInt32 choice = getChoice();
 
@@ -252,14 +252,16 @@ void SwitchMaterial::rebuildState(void)
         return;
     }
 
-    if(_mfMaterials[choice] != NULL)
+    const SwitchMaterial *pThis = this;
+
+    if(pThis->_mfMaterials[choice] != NULL)
     {
-        if(getSortKey() != _mfMaterials[choice]->getSortKey())
+        if(getSortKey() != pThis->_mfMaterials[choice]->getSortKey())
         {
-            setSortKey(_mfMaterials[choice]->getSortKey());
+            setSortKey(pThis->_mfMaterials[choice]->getSortKey());
         }
 
-        _mfMaterials[choice]->rebuildState();
+        pThis->_mfMaterials[choice]->rebuildState();
         //_pState = _mfMaterials[choice]->getState();
     }
     else
@@ -289,12 +291,14 @@ State *SwitchMaterial::getState(UInt32 index)
         return NULL;
     }
 
-    if(_mfMaterials[choice] != NULL)
+    const SwitchMaterial *pThis = this;
+
+    if(pThis->_mfMaterials[choice] != NULL)
     {
-        if(_mfMaterials[choice]->getState(index) == NULL)
+        if(pThis->_mfMaterials[choice]->getState(index) == NULL)
             rebuildState();
 
-        return _mfMaterials[choice]->getState(index);
+        return pThis->_mfMaterials[choice]->getState(index);
     }
 
     return NULL;

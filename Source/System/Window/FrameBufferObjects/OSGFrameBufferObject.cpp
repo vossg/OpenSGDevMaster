@@ -360,7 +360,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 
 void FrameBufferObject::handleGL(DrawEnv                 *pEnv, 
                                  UInt32                   osgid, 
-                                 Window::GLObjectStatusE  mode)
+                                 Window::GLObjectStatusE  mode) const
 {
     Window *win     = pEnv->getWindow();
     GLuint  uiFBOId = 0;

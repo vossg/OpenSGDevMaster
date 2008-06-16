@@ -124,8 +124,13 @@ void Image::changed(ConstFieldMaskArg whichField,
                     UInt32            origin,
                     BitVector         details)
 {
-    MFParentFieldContainerPtr::const_iterator parentsIt  = _mfParents.begin();
-    MFParentFieldContainerPtr::const_iterator parentsEnd = _mfParents.end();
+    const Image *pThis = this;
+
+    MFParentFieldContainerPtr::const_iterator parentsIt  = 
+        pThis->_mfParents.begin();
+
+    MFParentFieldContainerPtr::const_iterator parentsEnd = 
+        pThis->_mfParents.end();
 
     while(parentsIt != parentsEnd)
     {

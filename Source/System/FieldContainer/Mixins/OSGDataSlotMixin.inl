@@ -40,7 +40,7 @@ OSG_BEGIN_NAMESPACE
 
 template <class ParentT>
 template <class ValuePtr>  inline
-ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId)
+ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId) const
 {
     ValuePtr returnValue = NULL;
 

@@ -759,8 +759,10 @@ typename ChildPointerMField<PtrTypeT,
 }
 
 #ifndef OSG_CLEAN_FCFIELDS
+#if 0
     reference front_nc(void             );
     reference back_nc (void             );
+#endif
 #endif
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
@@ -783,6 +785,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::begin(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return iterator(this->_ptrStore.begin(), this);
 }
 
@@ -794,6 +800,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::end(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return iterator(this->_ptrStore.end(), this);
 }
 
@@ -805,6 +815,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::rbegin(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reverse_iterator(this->end());
 }
 
@@ -816,6 +830,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::rend(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reverse_iterator(this->begin());
 }
 #endif
@@ -874,6 +892,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::front(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reference(this->_ptrStore.begin(), this);
 }
 
@@ -885,6 +907,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::back(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reference(this->editRawStore().end() - 1, this);
 }
 #endif
@@ -973,6 +999,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::find(const_value value)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return iterator(this->ptrStoreFind(value), this);
 }
 #endif
@@ -1089,6 +1119,10 @@ typename ChildPointerMField<PtrTypeT,
                        RefCountPolicy, 
                        NamespaceI    >::operator [](const UInt32 index)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return reference(this->_ptrStore.begin() + index, this);
 }
 #endif

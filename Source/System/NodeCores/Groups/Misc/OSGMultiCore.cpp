@@ -123,8 +123,8 @@ void MultiCore::changed(ConstFieldMaskArg whichField,
 
 void MultiCore::accumulateMatrix(Matrix &result)
 {
-    MFUnrecChildNodeCorePtr::const_iterator coreIt  = _mfCores.begin();
-    MFUnrecChildNodeCorePtr::const_iterator coreEnd = _mfCores.end  ();
+    MFUnrecChildNodeCorePtr::const_iterator coreIt  = getMFCores()->begin();
+    MFUnrecChildNodeCorePtr::const_iterator coreEnd = getMFCores()->end  ();
 
     while(coreIt != coreEnd)
     {
@@ -136,8 +136,8 @@ void MultiCore::accumulateMatrix(Matrix &result)
 
 void MultiCore::adjustVolume(Volume &volume)
 {
-    MFUnrecChildNodeCorePtr::const_iterator coreIt  = _mfCores.begin();
-    MFUnrecChildNodeCorePtr::const_iterator coreEnd = _mfCores.end  ();
+    MFUnrecChildNodeCorePtr::const_iterator coreIt  = getMFCores()->begin();
+    MFUnrecChildNodeCorePtr::const_iterator coreEnd = getMFCores()->end  ();
 
     while(coreIt != coreEnd)
     {

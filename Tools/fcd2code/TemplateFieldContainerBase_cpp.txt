@@ -789,8 +789,11 @@ bool @!Classname!@Base::unlinkParent(
             @@if field.isMField
             @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pI = 
                 _@!field.VarName!@.find_nc(pParent);
+
+            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pEnd = 
+                _@!field.VarName!@.end_nc();
                 
-            if(pI != _@!field.VarName!@.end())
+            if(pI != pEnd)
             {
                 editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
                 
@@ -846,8 +849,11 @@ bool @!Classname!@Base::unlinkChild(
             @@if field.isMField
             @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldType!@::iterator pI =
                 _@!field.VarName!@.find_nc(pTypedChild);
+
+            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldType!@::const_iterator pEnd =
+                _@!field.VarName!@.end_nc();
                 
-            if(pI != _@!field.VarName!@.end())
+            if(pI != pEnd)
             {
                 editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 

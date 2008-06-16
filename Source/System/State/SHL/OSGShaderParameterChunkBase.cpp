@@ -332,8 +332,11 @@ bool ShaderParameterChunkBase::unlinkChild(
         {
             MFUnrecChildShaderParameterPtr::iterator pI =
                 _mfParameters.find_nc(pTypedChild);
+
+            MFUnrecChildShaderParameterPtr::const_iterator pEnd =
+                _mfParameters.end_nc();
                 
-            if(pI != _mfParameters.end())
+            if(pI != pEnd)
             {
                 editMField(ParametersFieldMask, _mfParameters);
 

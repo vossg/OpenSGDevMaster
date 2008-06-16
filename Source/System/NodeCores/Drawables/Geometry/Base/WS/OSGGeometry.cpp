@@ -568,7 +568,7 @@ void Geometry::dump(      UInt32    ,
     SLOG << "Dump Geometry NI" << std::endl;
 }
 
-UInt32 Geometry::indexOccurrence(GeoIntegralProperty * const value)
+UInt32 Geometry::indexOccurrence(GeoIntegralProperty * const value) const
 {
     UInt32 returnValue = 0;
 
@@ -583,7 +583,7 @@ UInt32 Geometry::indexOccurrence(GeoIntegralProperty * const value)
     return returnValue;
 }
 
-bool Geometry::isSingleIndex(void)
+bool Geometry::isSingleIndex(void) const
 {
     bool returnValue = true;
 
@@ -599,7 +599,7 @@ bool Geometry::isSingleIndex(void)
     return returnValue;
 }
 
-Geometry::IndexBag Geometry::getUniqueIndexBag(void)
+Geometry::IndexBag Geometry::getUniqueIndexBag(void) const
 {
     IndexBag returnValue;
     UInt32   i;

@@ -101,7 +101,7 @@ void MultiPassMaterial::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-bool MultiPassMaterial::hasMaterial(Material *pMat)
+bool MultiPassMaterial::hasMaterial(Material *pMat) const
 {
     UInt32 i;
 
@@ -146,10 +146,12 @@ StatePtr MultiPassMaterial::makeState(void)
 
 void MultiPassMaterial::rebuildState(void)
 {
+    const MultiPassMaterial *pThis = this;
+
     for(UInt32 i = 0; i < _mfMaterials.size(); ++i)
     {
-        if(_mfMaterials[i] != NULL)
-            _mfMaterials[i]->rebuildState();
+        if(pThis->_mfMaterials[i] != NULL)
+            pThis->_mfMaterials[i]->rebuildState();
     }
 }
 
@@ -163,8 +165,10 @@ State *MultiPassMaterial::getState(UInt32 index)
         return NULL;
     }
 
-    if(_mfMaterials[index] != NULL)
-        return _mfMaterials[index]->getState();
+    const MultiPassMaterial *pThis = this;
+
+    if(pThis->_mfMaterials[index] != NULL)
+        return pThis->_mfMaterials[index]->getState();
 
     return NULL;
 }

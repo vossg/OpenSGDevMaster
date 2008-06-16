@@ -157,7 +157,7 @@ void TextureSelectChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 /*------------------------------ State ------------------------------------*/
 
 
-void TextureSelectChunk::activate(DrawEnv *pEnv, UInt32 idx)
+void TextureSelectChunk::activate(DrawEnv *pEnv, UInt32 idx) 
 {    
     if(_sfChoice.getValue() >= _mfTextures.size())
     {
@@ -167,13 +167,15 @@ void TextureSelectChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    _mfTextures[_sfChoice.getValue()]->activate(pEnv, idx);
+    const TextureSelectChunk *pThis = this;
+
+    pThis->_mfTextures[_sfChoice.getValue()]->activate(pEnv, idx);
 }
 
 
 void TextureSelectChunk::changeFrom(DrawEnv    *pEnv,
                                     StateChunk *old   ,
-                                    UInt32      idx )
+                                    UInt32      idx ) 
 {
     // change from me to me?
     // this assumes I haven't changed in the meantime.
@@ -189,10 +191,12 @@ void TextureSelectChunk::changeFrom(DrawEnv    *pEnv,
         return;        
     }
 
-    _mfTextures[_sfChoice.getValue()]->changeFrom(pEnv, old, idx);
+    const TextureSelectChunk *pThis = this;
+
+    pThis->_mfTextures[_sfChoice.getValue()]->changeFrom(pEnv, old, idx);
 }
 
-void TextureSelectChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
+void TextureSelectChunk::deactivate(DrawEnv *pEnv, UInt32 idx) 
 {
     if(_sfChoice.getValue() >= _mfTextures.size())
     {
@@ -202,7 +206,9 @@ void TextureSelectChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    _mfTextures[_sfChoice.getValue()]->deactivate(pEnv, idx);
+    const TextureSelectChunk *pThis = this;
+
+    pThis->_mfTextures[_sfChoice.getValue()]->deactivate(pEnv, idx);
 }
 
 /*-------------------------- Comparison -----------------------------------*/

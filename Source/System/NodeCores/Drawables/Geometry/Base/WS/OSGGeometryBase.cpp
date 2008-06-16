@@ -877,8 +877,11 @@ bool GeometryBase::unlinkChild(
         {
             MFUnrecChildGeoVectorPropertyPtr::iterator pI =
                 _mfProperties.find_nc(pTypedChild);
+
+            MFUnrecChildGeoVectorPropertyPtr::const_iterator pEnd =
+                _mfProperties.end_nc();
                 
-            if(pI != _mfProperties.end())
+            if(pI != pEnd)
             {
                 editMField(PropertiesFieldMask, _mfProperties);
 
@@ -905,8 +908,11 @@ bool GeometryBase::unlinkChild(
         {
             MFUnrecChildGeoIntegralPropertyPtr::iterator pI =
                 _mfPropIndices.find_nc(pTypedChild);
+
+            MFUnrecChildGeoIntegralPropertyPtr::const_iterator pEnd =
+                _mfPropIndices.end_nc();
                 
-            if(pI != _mfPropIndices.end())
+            if(pI != pEnd)
             {
                 editMField(PropIndicesFieldMask, _mfPropIndices);
 

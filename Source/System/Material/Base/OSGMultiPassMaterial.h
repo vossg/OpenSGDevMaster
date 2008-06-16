@@ -98,7 +98,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterial : public MultiPassMaterialBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    bool hasMaterial(Material *pMat);
+    bool hasMaterial(Material *pMat) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

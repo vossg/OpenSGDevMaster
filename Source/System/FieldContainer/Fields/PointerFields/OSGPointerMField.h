@@ -278,7 +278,7 @@ class PointerMFieldConstIterator :
     
              PointerMFieldConstIterator(      void                          );
              PointerMFieldConstIterator(const Self                &source   );
-    explicit PointerMFieldConstIterator(const iterator            &fieldIter);
+             PointerMFieldConstIterator(const iterator            &fieldIter);
     explicit PointerMFieldConstIterator(const PtrStoreConstItType &storeIter);
     
     /*! \}                                                                 */
@@ -319,7 +319,7 @@ class PointerMFieldConstIterator :
 
     bool operator == (const iterator        &rhs   ) const;
     bool operator != (const iterator        &rhs   ) const;
-       
+      
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -568,9 +568,9 @@ class PointerMField :
 #ifndef OSG_CLEAN_FCFIELDS
     reference front_nc(void             );
     reference back_nc (void             );
+#endif
 
     iterator  find_nc (const_value value);
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

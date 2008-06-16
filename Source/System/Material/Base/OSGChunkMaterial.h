@@ -107,9 +107,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                      Find                                    */
     /*! \{                                                                 */
 
-    Int32       find(      StateChunk         *chunk);
+    Int32       find(      StateChunk         *chunk) const;
     StateChunk *find(const FieldContainerType &type, 
-                           Int32               slot =State::AutoSlotReplace);
+                           Int32               slot =
+                                                  State::AutoSlotReplace) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -178,7 +179,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    void addChunks(State *state);
+    void addChunks(State *state) const;
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

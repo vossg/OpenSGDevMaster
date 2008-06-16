@@ -442,15 +442,15 @@ void VTKPolyDataMapper::execute(void)
             numPolys,
             numStrips);    
 
-
+    const VTKPolyDataMapper *pThis = this;
 
     if(numPts != 0)
     {
-        bool rc = processPrimitive(_mfPositions[0],
-                                   _mfColors   [0],
-                                   _mfNormals  [0],
-                                   _mfLength   [0],
-                                   _mfTypes    [0],
+        bool rc = processPrimitive(pThis->_mfPositions[0],
+                                   pThis->_mfColors   [0],
+                                   pThis->_mfNormals  [0],
+                                   pThis->_mfLength   [0],
+                                   pThis->_mfTypes    [0],
 
                                     _pActor,
                                      points,
@@ -459,19 +459,20 @@ void VTKPolyDataMapper::execute(void)
    
         if(rc == true)
         {
-            _mfGeoRoots[0]->setTravMask(OSG::TypeTraits<OSG::UInt32>::BitsSet);
+            pThis->_mfGeoRoots[0]->setTravMask(
+                OSG::TypeTraits<OSG::UInt32>::BitsSet);
 
-            _mfGeoRoots[0]->invalidateVolume();
+            pThis->_mfGeoRoots[0]->invalidateVolume();
         }
     }
 
     if(numLines != 0)
     {
-        bool rc = processPrimitive(_mfPositions[1],
-                                   _mfColors   [1],
-                                   _mfNormals  [1],
-                                   _mfLength   [1],
-                                   _mfTypes    [1],
+        bool rc = processPrimitive(pThis->_mfPositions[1],
+                                   pThis->_mfColors   [1],
+                                   pThis->_mfNormals  [1],
+                                   pThis->_mfLength   [1],
+                                   pThis->_mfTypes    [1],
 
                                    _pActor,
                                     lines,
@@ -480,19 +481,21 @@ void VTKPolyDataMapper::execute(void)
    
         if(rc == true)
         {
-            _mfGeoRoots[1]->setTravMask(OSG::TypeTraits<OSG::UInt32>::BitsSet);
-            _mfGeoRoots[1]->invalidateVolume();
+            pThis->_mfGeoRoots[1]->setTravMask(
+                OSG::TypeTraits<OSG::UInt32>::BitsSet);
+
+            pThis->_mfGeoRoots[1]->invalidateVolume();
         }
     }
 
 
     if(numPolys != 0)
     {
-        bool rc = processPrimitive(_mfPositions[2],
-                                   _mfColors   [2],
-                                   _mfNormals  [2],
-                                   _mfLength   [2],
-                                   _mfTypes    [2],
+        bool rc = processPrimitive(pThis->_mfPositions[2],
+                                   pThis->_mfColors   [2],
+                                   pThis->_mfNormals  [2],
+                                   pThis->_mfLength   [2],
+                                   pThis->_mfTypes    [2],
  
                                    _pActor,
                                     polys,
@@ -501,18 +504,20 @@ void VTKPolyDataMapper::execute(void)
    
         if(rc == true)
         {
-            _mfGeoRoots[2]->setTravMask(OSG::TypeTraits<OSG::UInt32>::BitsSet);
-            _mfGeoRoots[2]->invalidateVolume();
+            pThis->_mfGeoRoots[2]->setTravMask(
+                OSG::TypeTraits<OSG::UInt32>::BitsSet);
+
+            pThis->_mfGeoRoots[2]->invalidateVolume();
         }
     }
 
     if(numStrips != 0)
     {
-        bool rc = processPrimitive(_mfPositions[3],
-                                   _mfColors   [3],
-                                   _mfNormals  [3],
-                                   _mfLength   [3],
-                                   _mfTypes    [3],
+        bool rc = processPrimitive(pThis->_mfPositions[3],
+                                   pThis->_mfColors   [3],
+                                   pThis->_mfNormals  [3],
+                                   pThis->_mfLength   [3],
+                                   pThis->_mfTypes    [3],
  
                                    _pActor,
                                     strips,
@@ -521,8 +526,10 @@ void VTKPolyDataMapper::execute(void)
    
         if(rc == true)
         {
-            _mfGeoRoots[3]->setTravMask(OSG::TypeTraits<OSG::UInt32>::BitsSet);
-            _mfGeoRoots[3]->invalidateVolume();
+            pThis->_mfGeoRoots[3]->setTravMask(
+                OSG::TypeTraits<OSG::UInt32>::BitsSet);
+
+            pThis->_mfGeoRoots[3]->invalidateVolume();
         }
     }
 

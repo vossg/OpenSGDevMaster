@@ -220,10 +220,12 @@ bool ChunkMaterial::subChunk(StateChunk *chunk, Int32 slot)
 {
     UInt32 i;
     
+    const ChunkMaterial *pThis = this;
+
     for(i = 0; i < _mfChunks.size(); ++i)
     {
-        if(_mfChunks[i] == chunk &&
-           ((i < _mfSlots.size() && _mfSlots[i] == slot) ||
+        if(pThis->_mfChunks[i] == chunk &&
+           ((i < _mfSlots.size() && pThis->_mfSlots[i] == slot) ||
             slot == State::AutoSlotReplace))
         {
             editMField(ChunksFieldMask, _mfChunks);
@@ -253,7 +255,7 @@ bool ChunkMaterial::subChunk(StateChunk *chunk, Int32 slot)
   if the chunk is not used in the material.
 */
 
-Int32 ChunkMaterial::find(StateChunk *chunk)
+Int32 ChunkMaterial::find(StateChunk *chunk) const
 {
     UInt32 i;
     
@@ -274,7 +276,7 @@ Int32 ChunkMaterial::find(StateChunk *chunk)
  */
 
 StateChunk *ChunkMaterial::find(const FieldContainerType &type, 
-                                      Int32               slot)
+                                      Int32               slot) const
 {
     UInt32 index = 0;
 
@@ -320,7 +322,7 @@ void ChunkMaterial::clearChunks(void)
   materials.
 */
 
-void ChunkMaterial::addChunks(State *state)
+void ChunkMaterial::addChunks(State *state) const
 {
     UInt32 i;
     

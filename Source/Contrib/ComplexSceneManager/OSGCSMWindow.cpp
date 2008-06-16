@@ -158,8 +158,8 @@ bool CSMWindow::init(void)
 {
     bool returnValue = true;
 
-    MFUnrecCSMViewportPtr::const_iterator vIt  = _mfViewports.begin();
-    MFUnrecCSMViewportPtr::const_iterator vEnd = _mfViewports.end  ();
+    MFUnrecCSMViewportPtr::const_iterator vIt  = getMFViewports()->begin();
+    MFUnrecCSMViewportPtr::const_iterator vEnd = getMFViewports()->end  ();
 
     while(vIt != vEnd)
     {
@@ -175,8 +175,8 @@ bool CSMWindow::init(void)
 
     if(_pWindow != NULL && returnValue == true)
     {
-        vIt  = _mfViewports.begin();
-        vEnd = _mfViewports.end  ();
+        vIt  = getMFViewports()->begin();
+        vEnd = getMFViewports()->end  ();
 
         while(vIt != vEnd)
         {

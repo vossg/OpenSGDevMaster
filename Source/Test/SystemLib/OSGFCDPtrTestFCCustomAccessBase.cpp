@@ -1609,8 +1609,11 @@ bool FCDPtrTestFCCustomAccessBase::unlinkChild(
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPub_mpchildptr.find_nc(pTypedChild);
+
+            MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
+                _mfFieldMFPub_mpchildptr.end_nc();
                 
-            if(pI != _mfFieldMFPub_mpchildptr.end())
+            if(pI != pEnd)
             {
                 editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
 
@@ -1637,8 +1640,11 @@ bool FCDPtrTestFCCustomAccessBase::unlinkChild(
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFPro_mpchildptr.find_nc(pTypedChild);
+
+            MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
+                _mfFieldMFPro_mpchildptr.end_nc();
                 
-            if(pI != _mfFieldMFPro_mpchildptr.end())
+            if(pI != pEnd)
             {
                 editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
 
@@ -1665,8 +1671,11 @@ bool FCDPtrTestFCCustomAccessBase::unlinkChild(
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
                 _mfFieldMFNo_mpchildptr.find_nc(pTypedChild);
+
+            MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
+                _mfFieldMFNo_mpchildptr.end_nc();
                 
-            if(pI != _mfFieldMFNo_mpchildptr.end())
+            if(pI != pEnd)
             {
                 editMField(FieldMFNo_mpchildptrFieldMask, _mfFieldMFNo_mpchildptr);
 
@@ -1768,8 +1777,11 @@ bool FCDPtrTestFCCustomAccessBase::unlinkChild(
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPub_spchildptr.find_nc(pTypedChild);
+
+            MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
+                _mfFieldMFPub_spchildptr.end_nc();
                 
-            if(pI != _mfFieldMFPub_spchildptr.end())
+            if(pI != pEnd)
             {
                 editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
 
@@ -1796,8 +1808,11 @@ bool FCDPtrTestFCCustomAccessBase::unlinkChild(
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFPro_spchildptr.find_nc(pTypedChild);
+
+            MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
+                _mfFieldMFPro_spchildptr.end_nc();
                 
-            if(pI != _mfFieldMFPro_spchildptr.end())
+            if(pI != pEnd)
             {
                 editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
 
@@ -1824,8 +1839,11 @@ bool FCDPtrTestFCCustomAccessBase::unlinkChild(
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
                 _mfFieldMFNo_spchildptr.find_nc(pTypedChild);
+
+            MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
+                _mfFieldMFNo_spchildptr.end_nc();
                 
-            if(pI != _mfFieldMFNo_spchildptr.end())
+            if(pI != pEnd)
             {
                 editMField(FieldMFNo_spchildptrFieldMask, _mfFieldMFNo_spchildptr);
 

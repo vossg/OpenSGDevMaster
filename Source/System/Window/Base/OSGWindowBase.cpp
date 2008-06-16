@@ -773,8 +773,11 @@ bool WindowBase::unlinkChild(
         {
             MFUnrecChildViewportPtr::iterator pI =
                 _mfPort.find_nc(pTypedChild);
+
+            MFUnrecChildViewportPtr::const_iterator pEnd =
+                _mfPort.end_nc();
                 
-            if(pI != _mfPort.end())
+            if(pI != pEnd)
             {
                 editMField(PortFieldMask, _mfPort);
 

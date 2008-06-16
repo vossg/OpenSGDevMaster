@@ -69,6 +69,14 @@ ParentMFieldConstIterator<StorageTypeT>::ParentMFieldConstIterator(
 
 template <class StorageTypeT> inline
 ParentMFieldConstIterator<StorageTypeT>::ParentMFieldConstIterator(
+                              const iterator &fieldIter) : 
+     Inherited(fieldIter.base()),
+    _posIt    (fieldIter._posIt)
+{
+}
+
+template <class StorageTypeT> inline
+ParentMFieldConstIterator<StorageTypeT>::ParentMFieldConstIterator(
                               const Inherited    &storeIt,
                               const PosStorageIt &posIt  ) : 
      Inherited(storeIt),
@@ -695,6 +703,10 @@ typename ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::begin(void)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return iterator(Self::_ptrStore  .begin(),
                     Self::_vParentPos.begin());
 }
@@ -707,6 +719,10 @@ typename ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::end(void) 
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     return iterator(Self::_ptrStore  .end(),
                     Self::_vParentPos.end());
 }
@@ -810,6 +826,10 @@ typename ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::find(const_value value)
 {
+#ifdef OSG_CHECK_CONST_CORRECT_FIELD_USAGE
+    BOOST_STATIC_ASSERT(sizeof(PtrTypeT) == 0);
+#endif
+
     IdStoreItType  posIt = _vParentPos.begin();
 
     PtrStoreItType ptrIt = this->ptrStoreFind(value);

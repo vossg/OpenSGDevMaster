@@ -128,8 +128,8 @@ bool CSMViewport::init(void)
     _pViewport->setCamera    (_sfCamera    .getValue());
     _pViewport->setBackground(_sfBackground.getValue());
 
-    MFUnrecForegroundPtr::const_iterator fIt  = _mfForegrounds.begin();
-    MFUnrecForegroundPtr::const_iterator fEnd = _mfForegrounds.end  ();
+    MFUnrecForegroundPtr::const_iterator fIt  = getMFForegrounds()->begin();
+    MFUnrecForegroundPtr::const_iterator fEnd = getMFForegrounds()->end  ();
 
     while(fIt != fEnd)
     {

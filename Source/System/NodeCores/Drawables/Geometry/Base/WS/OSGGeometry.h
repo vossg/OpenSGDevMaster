@@ -187,8 +187,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name          Backwards Compatibility Helpers                     */
     /*! \{                                                                 */
 
-    UInt32 indexOccurrence(GeoIntegralProperty * const value);
-    bool   isSingleIndex  (void                             );
+    UInt32 indexOccurrence(GeoIntegralProperty * const value) const;
+    bool   isSingleIndex  (void                             ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,7 +253,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     typedef std::vector<std::pair<GeoIntegralProperty *,
                                   std::vector<UInt16>  > > IndexBag;
 
-    IndexBag getUniqueIndexBag(void);
+    IndexBag getUniqueIndexBag(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

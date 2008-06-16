@@ -58,7 +58,7 @@ class DataSlotMixin : public ParentT
     /*! \{                                                                 */
 
     template<class ValuePtr>
-    ValuePtr getData(Int32 iSlotId);
+    ValuePtr getData(Int32 iSlotId) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

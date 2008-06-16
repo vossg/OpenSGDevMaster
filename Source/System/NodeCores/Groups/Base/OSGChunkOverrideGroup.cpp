@@ -134,6 +134,8 @@ bool ChunkOverrideGroup::addChunk(StateChunk *chunk,
     UInt32 cindex =  chunk->getClassId();
     UInt32 csize  = _mfChunks.size();
 
+    const ChunkOverrideGroup *pThis = this;
+
     // special case: find empty slot automatically
     if(slot == State::AutoSlot || slot == State::AutoSlotReplace)
     {
@@ -142,7 +144,7 @@ bool ChunkOverrideGroup::addChunk(StateChunk *chunk,
 
         for(ci = cindex; ci < cindex + nslots && ci < csize; ++ci)
         {
-            if(_mfChunks[ci] == NULL)
+            if(pThis->_mfChunks[ci] == NULL)
             {
                 break;
             }
@@ -204,11 +206,13 @@ bool ChunkOverrideGroup::subChunk(StateChunk *chunk,
     UInt8 nslots = chunk->getClass()->getNumSlots();
     UInt8 ci;
 
+    const ChunkOverrideGroup *pThis = this;
+
     if(slot == State::AutoSlot || slot == State::AutoSlotReplace)
     {
         for(ci = cindex; ci < cindex + nslots && ci < csize; ci++)
         {
-            if(_mfChunks[ci] == chunk)
+            if(pThis->_mfChunks[ci] == chunk)
             {
                 break;
             }
@@ -228,19 +232,15 @@ bool ChunkOverrideGroup::subChunk(StateChunk *chunk,
         editMField(ChunksFieldMask, _mfChunks);
         
         // remove the chunk from the state
-        
-//        subRef(_mfChunks[ci]);
-        
-//        _mfChunks[ci] = NULL;
         _mfChunks.replace(ci, NULL);
     }
     else
     {
         ci = cindex + slot;
 
-        if(ci    >=  cindex + nslots || 
-           ci    >= _mfChunks.size() ||
-           chunk != _mfChunks[ci]     )    // chunk not found
+        if(ci    >=  cindex + nslots        || 
+           ci    >= pThis->_mfChunks.size() ||
+           chunk != pThis->_mfChunks[ci]     )    // chunk not found
         {
             SWARNING << "subChunk: chunk " 
                      << chunk
@@ -254,10 +254,6 @@ bool ChunkOverrideGroup::subChunk(StateChunk *chunk,
         editMField(ChunksFieldMask, _mfChunks);
         
         // remove the chunk from the state
-        
-//        subRef(_mfChunks[ci]);
-        
-//        _mfChunks[ci] = NULL;
         _mfChunks.replace(ci, NULL);
     }
 
@@ -267,10 +263,12 @@ bool ChunkOverrideGroup::subChunk(StateChunk *chunk,
 Int32 ChunkOverrideGroup::find(StateChunk *chunk)
 {
     UInt32 i;
+
+    const ChunkOverrideGroup *pThis = this;
     
     for(i = 0; i < _mfChunks.size(); ++i)
     {
-        if(_mfChunks[i] == chunk)
+        if(pThis->_mfChunks[i] == chunk)
             return i;
     }
              
@@ -287,11 +285,13 @@ StateChunk *ChunkOverrideGroup::find(const StateChunkClass &type,
     UInt8 nslots = type.getNumSlots();
     UInt8 ci;
 
+    const ChunkOverrideGroup *pThis = this;
+
     if(slot == State::AutoSlot || slot == State::AutoSlotReplace)
     {
         for(ci = cindex; ci < cindex + nslots && ci < csize; ci++)
         {
-            StateChunk *chunk = _mfChunks[ci];
+            StateChunk *chunk = pThis->_mfChunks[ci];
 
             if(chunk != NULL && *(chunk->getClass()) == type)
             {
@@ -306,7 +306,7 @@ StateChunk *ChunkOverrideGroup::find(const StateChunkClass &type,
         if(ci    <  cindex + nslots || 
            ci    < _mfChunks.size()  )    
         {
-            StateChunk *chunk = _mfChunks[ci];
+            StateChunk *chunk = pThis->_mfChunks[ci];
 
             if(chunk != NULL && *(chunk->getClass()) == type)
             {

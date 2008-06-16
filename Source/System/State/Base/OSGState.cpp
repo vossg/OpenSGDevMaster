@@ -188,13 +188,15 @@ void State::rebuildSortKey(void)
 
 //    fprintf(stderr, "Got Keys %d %d %d\n", uiKey1, uiKey2, uiKey3);
 
+    const State *pThis = this;
+
     if(uiKey1 != InvalidKey && uiKey1 < uiSizeChunks)
     {
         uiKey1 = 
-            (_mfChunks[uiKey1]              != NULL  && 
-             _mfChunks[uiKey1]->getIgnore() == false   ) ? 
+            (pThis->_mfChunks[uiKey1]              != NULL  && 
+             pThis->_mfChunks[uiKey1]->getIgnore() == false   ) ? 
 
-            _mfChunks[uiKey1]->getChunkId() : 0;
+            pThis->_mfChunks[uiKey1]->getChunkId() : 0;
     }
     else
     {
@@ -204,10 +206,10 @@ void State::rebuildSortKey(void)
     if(uiKey2 != InvalidKey && uiKey2 < uiSizeChunks)
     {
         uiKey2 = 
-            (_mfChunks[uiKey2]              != NULL  &&
-             _mfChunks[uiKey2]->getIgnore() == false   ) ? 
+            (pThis->_mfChunks[uiKey2]              != NULL  &&
+             pThis->_mfChunks[uiKey2]->getIgnore() == false   ) ? 
 
-            _mfChunks[uiKey2]->getChunkId() : 0;
+            pThis->_mfChunks[uiKey2]->getChunkId() : 0;
     }
     else
     {
@@ -217,10 +219,10 @@ void State::rebuildSortKey(void)
     if(uiKey3 != InvalidKey && uiKey3 < uiSizeChunks)
     {
         uiKey3 = 
-            (_mfChunks[uiKey3]              != NULL  &&
-             _mfChunks[uiKey3]->getIgnore() == false   ) ? 
+            (pThis->_mfChunks[uiKey3]              != NULL  &&
+             pThis->_mfChunks[uiKey3]->getIgnore() == false   ) ? 
 
-            _mfChunks[uiKey3]->getChunkId() : 0;
+            pThis->_mfChunks[uiKey3]->getChunkId() : 0;
     }
     else
     {
@@ -287,7 +289,7 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
     StateChunks. Activate will simply overwrite whatever was set before. 
 */
 
-void State::activate(DrawEnv *pEnv)
+void State::activate(DrawEnv *pEnv) const
 {
     MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
@@ -311,7 +313,7 @@ void State::activate(DrawEnv *pEnv)
     optimize the transition.
 */
 
-void State::changeFrom(DrawEnv *pEnv, State *pOld)
+void State::changeFrom(DrawEnv *pEnv, State *pOld) const
 {
     MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
@@ -368,7 +370,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
     the default state for the OpenGL state covered by the given chunks.
 */
 
-void State::deactivate(DrawEnv *pEnv)
+void State::deactivate(DrawEnv *pEnv) const
 {
     MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
@@ -422,6 +424,8 @@ bool State::addChunk(StateChunk *chunk, Int32 index)
     UInt32 cindex =  chunk->getClassId();
     UInt32 csize  = _mfChunks.size();
 
+    const State *pThis = this;
+
     // special case: find empty slot automatically
     if(index == AutoSlot || index == AutoSlotReplace)
     {
@@ -430,7 +434,7 @@ bool State::addChunk(StateChunk *chunk, Int32 index)
 
         for(ci = cindex; ci < cindex + nslots && ci < csize; ++ci)
         {
-            if(_mfChunks[ci] == NULL)
+            if(pThis->_mfChunks[ci] == NULL)
             {
                 break;
             }
@@ -493,9 +497,11 @@ bool State::subChunk(StateChunk *chunk)
     UInt8 nslots = chunk->getClass()->getNumSlots();
     UInt8 ci;
 
+    const State *pThis = this;
+
     for(ci = cindex; ci < cindex + nslots && ci < csize; ci++)
     {
-        if(_mfChunks[ci] == chunk)
+        if(pThis->_mfChunks[ci] == chunk)
         {
             break;
         }
@@ -536,7 +542,9 @@ bool State::subChunk(UInt32 classid, Int32 index)
         return true;
     }
 
-    if(_mfChunks[classid + index] == NULL)
+    const State *pThis = this;
+
+    if(pThis->_mfChunks[classid + index] == NULL)
         return true;
 
     editMField(ChunksFieldMask, _mfChunks);

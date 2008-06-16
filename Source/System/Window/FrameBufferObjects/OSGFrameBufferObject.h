@@ -141,8 +141,12 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     static UInt32 _uiFuncFramebufferRenderbuffer;
     static UInt32 _uiFuncDrawBuffers;
 
-    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
-    static void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+           void handleGL       (DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode) const;
+    static void handleDestroyGL(DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

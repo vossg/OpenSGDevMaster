@@ -416,8 +416,11 @@ bool MultiCoreBase::unlinkChild(
         {
             MFUnrecChildNodeCorePtr::iterator pI =
                 _mfCores.find_nc(pTypedChild);
+
+            MFUnrecChildNodeCorePtr::const_iterator pEnd =
+                _mfCores.end_nc();
                 
-            if(pI != _mfCores.end())
+            if(pI != pEnd)
             {
                 editMField(CoresFieldMask, _mfCores);
 

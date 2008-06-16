@@ -116,8 +116,8 @@ bool DrawManager::init(void)
 {
     bool returnValue = true;
 
-    MFUnrecDrawerPtr::const_iterator dIt  = _mfDrawer.begin();
-    MFUnrecDrawerPtr::const_iterator dEnd = _mfDrawer.end  ();
+    MFUnrecDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
+    MFUnrecDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
 
     while(dIt != dEnd)
     {
@@ -147,8 +147,8 @@ void DrawManager::frame(Time oTime, UInt32 uiFrame)
     else
 #endif
     {
-        MFUnrecDrawerPtr::const_iterator drawerIt  = _mfDrawer.begin();
-        MFUnrecDrawerPtr::const_iterator drawerEnd = _mfDrawer.end  ();
+        MFUnrecDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
+        MFUnrecDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();
 
         while(drawerIt != drawerEnd)
         {
