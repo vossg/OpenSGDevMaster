@@ -512,18 +512,25 @@ optional_libs_options["NVPerfSDK"] = sca_opts.StandardPackageOption(
     "NVPerfSDK", "Location of the NVPerfSDK library", library = "NVPerfSDK",
     header = "NVPerfSDK.h", required = False)
 
+collada_lib_prefix = ""
+if "win32" == platform:
+    collada_lib_prefix = "lib"
 optional_libs_options["collada"] = OpenSG.ColladaOption.ColladaOption(
     "collada", "Location of the collada dom library", library =
-    ["collada_dae",
-     "collada_LIBXMLPlugin",
-     "collada_STLDatabase",
-     "collada_dom",
-     "collada_stdErrPlugin",
-     "collada_dae"],
+    ["%scollada_dae" % collada_lib_prefix,
+     "%scollada_LIBXMLPlugin" % collada_lib_prefix,
+     "%scollada_STLDatabase" % collada_lib_prefix,
+     "%scollada_dom" % collada_lib_prefix,
+     "%scollada_stdErrPlugin" % collada_lib_prefix,
+     "%scollada_dae" % collada_lib_prefix],
     header = "dae/daeIntegrationObject.h", required = False)
 
+xml2_lib = ["xml2"]
+if "win32" == platform:
+    # Link against the static versions of libiconv and libxml2 on Windows.
+    xml2_lib = ["iconv_a", "libxml2_a"]
 optional_libs_options["xml2"] = sca_opts.StandardPackageOption(
-    "xml2", "Location of the xml2 library", library = "xml2",
+    "xml2", "Location of the xml2 library", library = xml2_lib,
     required = False)
 
 vtk_libs = ['vtkRendering',

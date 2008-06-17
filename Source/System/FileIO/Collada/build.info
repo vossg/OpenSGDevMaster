@@ -14,11 +14,17 @@ else:
         library = "OSGFileIO"
         
         libs.extend(collada_option.library)
-        libs.extend([xml2_option.library] )
+        libs.extend(xml2_option.library   )
 
         if collada_option.incDir:
             cpppath.extend(collada_option.incDir)
 
         if collada_option.libDir:
             libpath.append(collada_option.libDir)
+
+        if xml2_option.incDir:
+            cpppath.append(xml2_option.incDir)
+
+        if xml2_option.libDir:
+            libpath.append(xml2_option.libDir)
 
