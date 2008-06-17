@@ -257,8 +257,8 @@ def BoostValidate(self, env):
          print "WARNING: Could not determine library version string"
          self.libVersionStr = None
 
-      found_ver_str = int(ver_match.group(1))
-      found_ver_str = str(found_ver_str / 100000) + '.' + str(found_ver_str / 100 % 1000) + '.' + str(found_ver_str % 100)
+      found_ver_strI = int(ver_match.group(1))
+      found_ver_str = str(found_ver_strI / 100000) + '.' + str(found_ver_strI / 100 % 1000) + '.' + str(found_ver_strI % 100)
       req_ver = [int(n) for n in self.requiredVersion.split('.')]
       found_ver = [int(n) for n in found_ver_str.split('.')]
       print "   boost version:", ".".join([str(x) for x in found_ver])
@@ -325,6 +325,10 @@ def BoostValidate(self, env):
       # For each lib we are supposed to have
       #  - Search through possible names for that library
       #     - If we find one that works, store it
+
+      if found_ver_strI >= 103500 and len(self.lib_names) != 0 and self.lib_names.count('system') == 0:
+        self.lib_names.append('system')
+
       for libname in self.lib_names:
          possible_lib_names = self.buildFullLibNamePossibilities(libname,env)
          
@@ -342,8 +346,8 @@ def BoostValidate(self, env):
             self.found_libs[libname] = found_fullname
             print "  %s: %s"%(libname, found_fullname)
 
-         if GetPlatform() == "win32":
-             self.found_defines = ['BOOST_ALL_DYN_LINK']
+      if GetPlatform() == "win32":
+          self.found_defines = ['BOOST_ALL_DYN_LINK']
 
       # --- Handle final settings ---- #     
       if not passed:
