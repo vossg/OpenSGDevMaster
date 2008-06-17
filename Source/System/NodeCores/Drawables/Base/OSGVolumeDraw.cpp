@@ -58,34 +58,35 @@
 
 OSG_BEGIN_NAMESPACE
 
-
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
-    Draw the given DynamicVolume using direct OpenGL calls.
+    Draw the given Volume using direct OpenGL calls.
  */
-
-void drawVolume(const DynamicVolume &volume)
+void drawVolume(const Volume &volume)
 {
-    const Volume         *v = &volume.getInstance();
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
-
-    if((bv = dynamic_cast<const BoxVolume*>(v)))
+    
+    if((bv = dynamic_cast<const BoxVolume *>(&volume)) != NULL)
     {
         drawVolume(*bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume*>(v)))
+    else if((sv = dynamic_cast<const SphereVolume *>(&volume)) != NULL)
     {
         drawVolume(*sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume*>(v)))
+    else if((cv = dynamic_cast<const CylinderVolume *>(&volume)) != NULL)
     {
         drawVolume(*cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume*>(v)))
+    else if((fv = dynamic_cast<const FrustumVolume *>(&volume)) != NULL)
     {
         drawVolume(*fv);
+    }
+    else
+    {
+        FFATAL(("drawVolume(Volume): Argument has unhandled type.\n"));
     }
 }
 
@@ -274,7 +275,7 @@ class VolumeDrawWrapper
 {
   public:
   
-    VolumeDrawWrapper(const DynamicVolume &vol, Color3r col) : 
+    VolumeDrawWrapper(const BoxVolume &vol, Color3r col) : 
         _vol(vol), 
         _col(col)
     {
@@ -286,7 +287,7 @@ class VolumeDrawWrapper
 
     template<class RenderActionT>
     static void drop(      RenderActionBase *action, 
-                     const DynamicVolume    &volume, 
+                     const BoxVolume         &volume, 
                            Color3r           col   )
     {
         
@@ -315,7 +316,7 @@ class VolumeDrawWrapper
     }
 
     static void drop(      RenderPartition  *part, 
-                     const DynamicVolume    &volume, 
+                     const BoxVolume        &volume, 
                            Color3r           col   )
     {
         
@@ -347,8 +348,8 @@ class VolumeDrawWrapper
         return Action::Continue;
     }
     
-    DynamicVolume _vol;  
-    Color3r       _col; 
+    BoxVolume _vol;  
+    Color3r   _col; 
 };
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
@@ -367,7 +368,7 @@ void dropVolume(RenderPartition *part, Node *node, Color3r col)
 }
 
 void dropVolume(      RenderActionBase *action, 
-                const DynamicVolume    &volume, 
+                const BoxVolume        &volume, 
                       Color3r           col   )
 {
     VolumeDrawWrapper::drop<RenderAction>(action, volume, col);

@@ -283,9 +283,9 @@ TEST(GeometryAsInnerNodesBoundingVolume)
     
     OSG::commitChanges();
     
-    OSG::DynamicVolume bbox;
-    OSG::Pnt3f         min;
-    OSG::Pnt3f         max;
+    OSG::BoxVolume bbox;
+    OSG::Pnt3f     min;
+    OSG::Pnt3f     max;
     
     pNGeo1->getWorldVolume(bbox);
     bbox.getBounds(min, max);

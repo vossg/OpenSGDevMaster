@@ -98,8 +98,8 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
     void            setScalar       (Real32             rScalar       );
     Real32          getScalar       (void                             );
 
-    void            setVol          (DynamicVolume      vol           );
-    DynamicVolume   getVol          (void                             );
+    void            setVol          (const BoxVolume   &vol           );
+    BoxVolume       getVol          (void                             );
 
     void            setIsRendered   (bool               bRendered     );   
     bool            getIsRendered   (void                             );
@@ -140,7 +140,7 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
     //! Scalar value for sorting. Expected to be in 0..1
     Real32          _rScalarVal;    
 
-    DynamicVolume   _dVol;
+    BoxVolume       _bVol;
 
     bool            _isRendered;
 

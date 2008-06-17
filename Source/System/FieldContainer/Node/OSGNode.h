@@ -47,7 +47,7 @@
 #include "OSGFieldContainer.h"
 #include "OSGAttachmentContainer.h"
 
-#include "OSGDynamicVolumeFields.h"
+#include "OSGBoxVolumeFields.h"
 #include "OSGUInt32Fields.h"
 
 #include "OSGNodeFields.h"
@@ -215,18 +215,18 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_1_GET_COMPAT
-            DynamicVolume &getVolume       (bool update = false  );
+            BoxVolume &getVolume       (bool update = false  );
 #endif
 
-            DynamicVolume &editVolume      (bool update = false  );
+            BoxVolume &editVolume      (bool update = false  );
 
-    const   DynamicVolume &getVolume       (void                 ) const;
+    const   BoxVolume &getVolume       (void                 ) const;
 
-            void           getWorldVolume  (DynamicVolume &result);
+            void       getWorldVolume  (BoxVolume &result    );
 
-            void           updateVolume    (void                 );
+            void       updateVolume    (void                 );
 
-    virtual void           invalidateVolume(void                 );
+    virtual void       invalidateVolume(void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -250,8 +250,8 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-          SFDynamicVolume         *editSFVolume  (void);
-    const SFDynamicVolume         *getSFVolume   (void) const;
+          SFBoxVolume             *editSFVolume  (void);
+    const SFBoxVolume             *getSFVolume   (void) const;
 
           SFUInt32                *editSFTravMask(void);
     const SFUInt32                *getSFTravMask (void) const;
@@ -279,7 +279,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFDynamicVolume         _sfVolume;
+    SFBoxVolume             _sfVolume;
 
     SFUInt32                _sfTravMask;
 

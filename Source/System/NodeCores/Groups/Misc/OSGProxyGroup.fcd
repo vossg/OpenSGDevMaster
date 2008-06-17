@@ -64,7 +64,7 @@ inline.
 	</Field>
 	<Field
 		name="volume"
-		type="DynamicVolume"
+		type="BoxVolume"
 		cardinality="single"
 		visibility="external"
 		access="public"

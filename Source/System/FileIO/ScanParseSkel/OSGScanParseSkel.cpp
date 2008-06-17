@@ -500,7 +500,7 @@ void ScanParseSkel::addPlaneValue(const Plane &p)
     addFieldValue(_tmpString1.c_str());
 }
 
-void ScanParseSkel::addVolumeValue(const DynamicVolume &v)
+void ScanParseSkel::addVolumeValue(const BoxVolume &v)
 {
     addFieldValue(_tmpString1.c_str());
 }

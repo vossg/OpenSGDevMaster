@@ -194,15 +194,15 @@ Real32 RenderTreeNode::getScalar(void)
 }
 
 inline
-void RenderTreeNode::setVol(DynamicVolume vol)
+void RenderTreeNode::setVol(const BoxVolume &vol)
 {
-    _dVol = vol;
+    _bVol = vol;
 }
 
 inline
-DynamicVolume RenderTreeNode::getVol(void)
+BoxVolume RenderTreeNode::getVol(void)
 {
-    return _dVol;
+    return _bVol;
 }
 
 inline

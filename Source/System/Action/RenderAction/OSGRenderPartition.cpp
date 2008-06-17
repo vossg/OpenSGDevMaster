@@ -630,17 +630,15 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             mapIt->second->setNodePool(_pNodePool);
         }
         
-        RenderTreeNode *pNewElem = _pNodePool->create();
+        RenderTreeNode  *pNewElem = _pNodePool->create();
         
-        Pnt3f           objPos;
+        Pnt3f            objPos;
         
         //_oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
         
         //_currMatrix.second.mult(objPos, objPos);
 
-        DynamicVolume     objVol;
-
-        objVol = actNode->getVolume();
+        const BoxVolume &objVol   = actNode->getVolume();
 
         Pnt3r min,max;
 
@@ -794,7 +792,7 @@ bool RenderPartition::isVisible(Node *pNode)
 
 //    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
     
-    DynamicVolume vol;
+    BoxVolume vol;
 
     pNode->updateVolume();
 
@@ -840,7 +838,7 @@ bool RenderPartition::pushVisibility(Node * const pNode)
     bool result = true;
    
     
-    DynamicVolume vol     = pNode->editVolume(true);
+    BoxVolume     vol     = pNode->editVolume(true);
     FrustumVolume frustum = _oFrustum;
 
 #if 1

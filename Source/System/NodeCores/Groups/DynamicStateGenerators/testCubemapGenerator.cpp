@@ -430,8 +430,8 @@ int doMain (int argc, char **argv)
 
     hdrroot = Node::create();
 
-    hdrroot->editVolume().getInstance().setInfinite();
-    hdrroot->editVolume().getInstance().setStatic  ();
+    hdrroot->editVolume().setInfinite();
+    hdrroot->editVolume().setStatic  ();
 
     HDRStageUnrecPtr pHDR = HDRStage::create();
 

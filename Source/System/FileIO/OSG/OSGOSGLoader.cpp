@@ -271,8 +271,6 @@ void OSGLoader::initFieldTypeMapper(void)
     setIntExtMapping(MFPlane::getClassType().getId(),
                      ScanParseSkel::OSGmfPlane);
 
-    setIntExtMapping(SFDynamicVolume::getClassType().getId(),
-                     ScanParseSkel::OSGsfVolume);
     setIntExtMapping(SFBoxVolume::getClassType().getId(),
                      ScanParseSkel::OSGsfVolume);
 }

@@ -109,7 +109,7 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
             worldToScreen = da->getDrawEnv()->getWorldToScreen();
 #endif
             
-            DynamicVolume volume = ra->getActNode()->getVolume();
+            const BoxVolume &volume = ra->getActNode()->getVolume();
             Pnt3r min,max;
             volume.getBounds(min, max);
             Pnt3r p[8];

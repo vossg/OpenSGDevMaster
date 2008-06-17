@@ -111,14 +111,6 @@ typedef MField<Time, 1> MFTime;
 
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldMulti */
-
-typedef MField<DynamicVolume> MFVolume;
-#endif
-
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
 

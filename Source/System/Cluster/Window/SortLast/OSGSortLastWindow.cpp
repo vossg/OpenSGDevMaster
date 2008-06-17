@@ -710,7 +710,7 @@ void SortLastWindow::collectDrawables(Node * const   node,
                 // get transformed volume
                 node->updateVolume();
 
-                DynamicVolume volume;
+                BoxVolume volume;
                 node->getWorldVolume(volume);
 
                 // get min,max
@@ -742,7 +742,7 @@ void SortLastWindow::collectDrawables(Node * const   node,
             // get transformed volume
             node->updateVolume();
 
-            DynamicVolume volume;
+            BoxVolume volume;
             node->getWorldVolume(volume);
 
             // get min,max

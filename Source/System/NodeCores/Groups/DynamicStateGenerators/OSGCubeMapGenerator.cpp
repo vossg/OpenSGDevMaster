@@ -200,7 +200,7 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
         else if(this->getOriginMode() == 
                                        CubeMapGenerator::UseCurrentVolumeCenter)
         {
-            DynamicVolume oWorldVol;
+            BoxVolume oWorldVol;
 
             commitChanges();
 

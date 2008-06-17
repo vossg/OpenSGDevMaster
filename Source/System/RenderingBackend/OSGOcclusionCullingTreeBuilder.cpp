@@ -391,7 +391,7 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode *pNode, DrawEnv &denv,
             ++part->_uiNumMatrixChanges;
         }
 
-        DynamicVolume volume = pNode->getVol();
+        const BoxVolume &volume = pNode->getVol();
         Pnt3r min,max;
         //volume.transform(_accMatrix);
         volume.getBounds(min, max);
@@ -553,7 +553,7 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode *pNode, DrawEnv &d
             ); 
     }
 
-    DynamicVolume volume = pNode->getVol();
+    const BoxVolume &volume = pNode->getVol();
     Pnt3r min,max;
     volume.getBounds(min, max);
     static GLfloat n[6][3] = {
@@ -668,7 +668,7 @@ void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode *pNode, DrawEnv &denv,
             }
         }
         
-        //DynamicVolume volume = pNode->getVol();
+        //BoxVolume volume = pNode->getVol();
         //drawVolume(volume);
         pNode->getFunctor()(&denv);
     }

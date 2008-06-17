@@ -107,7 +107,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var DynamicVolume   ProxyGroupBase::_sfVolume
+/*! \var BoxVolume       ProxyGroupBase::_sfVolume
     
 */
 
@@ -201,8 +201,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFDynamicVolume::Description(
-        SFDynamicVolume::getClassType(),
+    pDesc = new SFBoxVolume::Description(
+        SFBoxVolume::getClassType(),
         "volume",
         "",
         VolumeFieldId, VolumeFieldMask,
@@ -364,7 +364,7 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"volume\"\n"
-    "\t\ttype=\"DynamicVolume\"\n"
+    "\t\ttype=\"BoxVolume\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -514,14 +514,14 @@ const SFBool *ProxyGroupBase::getSFConcurrentLoad(void) const
 }
 
 
-SFDynamicVolume *ProxyGroupBase::editSFVolume(void)
+SFBoxVolume *ProxyGroupBase::editSFVolume(void)
 {
     editSField(VolumeFieldMask);
 
     return &_sfVolume;
 }
 
-const SFDynamicVolume *ProxyGroupBase::getSFVolume(void) const
+const SFBoxVolume *ProxyGroupBase::getSFVolume(void) const
 {
     return &_sfVolume;
 }
@@ -1036,8 +1036,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleConcurrentLoad (void)
 
 GetFieldHandlePtr ProxyGroupBase::getHandleVolume          (void) const
 {
-    SFDynamicVolume::GetHandlePtr returnValue(
-        new  SFDynamicVolume::GetHandle(
+    SFBoxVolume::GetHandlePtr returnValue(
+        new  SFBoxVolume::GetHandle(
              &_sfVolume, 
              this->getType().getFieldDesc(VolumeFieldId)));
 
@@ -1046,8 +1046,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleVolume          (void) const
 
 EditFieldHandlePtr ProxyGroupBase::editHandleVolume         (void)
 {
-    SFDynamicVolume::EditHandlePtr returnValue(
-        new  SFDynamicVolume::EditHandle(
+    SFBoxVolume::EditHandlePtr returnValue(
+        new  SFBoxVolume::EditHandle(
              &_sfVolume, 
              this->getType().getFieldDesc(VolumeFieldId)));
 

@@ -779,11 +779,11 @@ void calcVertexTexCoordsProp2D(Geometry *geo,
 
         if(node != NULL)
         {
-            DynamicVolume &dVol = node->editVolume(true);
+            BoxVolume &bVol = node->editVolume(true);
 
             Pnt3f min, max;
 
-            dVol.getBounds(min, max);
+            bVol.getBounds(min, max);
     
             Vec3f dia(max - min);
 

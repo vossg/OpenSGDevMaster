@@ -52,7 +52,7 @@
 #include <OSGViewport.h>
 #include <OSGCamera.h>
 #include <OSGTileCameraDecorator.h>
-#include <OSGDynamicVolume.h>
+#include <OSGBoxVolume.h>
 //#include <OSGDisplayCalibration.h>
 #include <OSGProxyGroup.h>
 #include <OSGPerspectiveCamera.h>
@@ -535,7 +535,7 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
     Int32 bit = 1;
 
     // get local volume
-    DynamicVolume volume = group.node->getVolume();
+    BoxVolume volume = group.node->getVolume();
 #else
     Matrix trans = proj;
 
@@ -544,7 +544,7 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
     Int32 bit = 1;
 
     // get local volume
-    DynamicVolume volume = group.node->getVolume();
+    BoxVolume volume = group.node->getVolume();
     volume.transform(group.node->getToWorld());
 
 #endif

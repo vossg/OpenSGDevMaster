@@ -150,12 +150,12 @@ bool PruneGraphOp::isTooSmall(Node * const node) {
 }
 
 float PruneGraphOp::getSize(Node * const node) {
-    const DynamicVolume& dv = node->editVolume(true);
+    const BoxVolume& bv = node->editVolume(true);
     if (_method == VOLUME) {
-        return dv.getScalarVolume();
+        return bv.getScalarVolume();
     } else if (_method == SUM_OF_DIMENSIONS) {
         Pnt3f min, max;
-        dv.getBounds(min, max);
+        bv.getBounds(min, max);
         Vec3f diff = max - min;
         return diff[0] + diff[1] + diff[2];
     } else {

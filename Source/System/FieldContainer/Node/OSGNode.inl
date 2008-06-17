@@ -135,7 +135,7 @@ UInt8 Node::getOcclusionMask(void) const
 #endif
 
 inline
-DynamicVolume &Node::editVolume(bool update)
+BoxVolume &Node::editVolume(bool update)
 {
     if(update == true)
     {
@@ -150,7 +150,7 @@ DynamicVolume &Node::editVolume(bool update)
 }
 
 inline
-const DynamicVolume &Node::getVolume(void) const
+const BoxVolume &Node::getVolume(void) const
 {
     return _sfVolume.getValue();
 }
@@ -158,7 +158,7 @@ const DynamicVolume &Node::getVolume(void) const
 
 #ifdef OSG_1_GET_COMPAT
 inline
-DynamicVolume &Node::getVolume(bool update)
+BoxVolume &Node::getVolume(bool update)
 {
     return this->editVolume();
 }

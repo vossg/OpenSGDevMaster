@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *                  Copyright (C) 2008 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -25,7 +25,6 @@
  * License along with this library; if not, write to the Free Software       *
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
  *                                                                           *
- *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
  *                                Changes                                    *
@@ -37,51 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGDYNAMICVOLUME_INL_
-#define _OSGDYNAMICVOLUME_INL_
+/*
+  This is a dummy header to allow automatic inference from the type to the 
+  field type header.
+ */
 
-OSG_BEGIN_NAMESPACE
-
-inline
-DynamicVolume::~DynamicVolume(void)
-{
-}
-
-
-inline
-const Volume &DynamicVolume::getInstance(void) const
-{ 
-    return *(reinterpret_cast<const OSG::Volume *>(_volumeMem)); 
-}
-
-
-inline
-Volume &DynamicVolume::getInstance(void)
-{ 
-    return *(reinterpret_cast<OSG::Volume *>(_volumeMem)); 
-}
-
-
-inline
-DynamicVolume::Type DynamicVolume::getType(void) const 
-{
-    return _type; 
-}
-
-inline
-void DynamicVolume::instanceChanged(void) 
-{
-    _state = getInstance().getState(); 
-}
-
-inline
-bool DynamicVolume::operator !=(const DynamicVolume &rhs) const
-{
-    return !(*this == rhs);
-}
-
-
-OSG_END_NAMESPACE
-
-#endif // _OSGDYNAMICVOLUME_H_
-
+#include "OSGBaseSFields.h"
+#include "OSGBaseMFields.h"

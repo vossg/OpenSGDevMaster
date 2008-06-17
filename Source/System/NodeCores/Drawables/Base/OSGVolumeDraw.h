@@ -60,7 +60,7 @@ class RenderPartition;
 /*! \name                   Draw Functions                             */
 /*! \{                                                                 */
 
-OSG_SYSTEM_DLLMAPPING void drawVolume(const DynamicVolume    &volume);
+OSG_SYSTEM_DLLMAPPING void drawVolume(const Volume           &volume);
 OSG_SYSTEM_DLLMAPPING void drawVolume(const BoxVolume        &volume);
 OSG_SYSTEM_DLLMAPPING void drawVolume(const SphereVolume     &volume);
 OSG_SYSTEM_DLLMAPPING void drawVolume(const FrustumVolume    &volume);
@@ -74,7 +74,7 @@ OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderPartition  *part,
                                             Color3r           col   );
 
 OSG_SYSTEM_DLLMAPPING void dropVolume(      RenderActionBase *action, 
-                                      const DynamicVolume    &volume,
+                                      const BoxVolume        &volume,
                                             Color3r           col   );
 
 /*! \}                                                                 */

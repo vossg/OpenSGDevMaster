@@ -70,7 +70,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var DynamicVolume   Node::_sfVolume
+/*! \var BoxVolume   Node::_sfVolume
     The bounding volume of this node. It contains all the nodes children and
     is described in this nodes coordinate system.
  */
@@ -97,8 +97,8 @@ void Node::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
-    pDesc = new SFDynamicVolume::Description(
-        SFDynamicVolume::getClassType(),
+    pDesc = new SFBoxVolume::Description(
+        SFBoxVolume::getClassType(),
         "volume",
         "Bounding volume for the node.",
         OSG_RC_FIELD_DESC(Node::Volume),
@@ -456,7 +456,7 @@ void Node::getToWorld(Matrixr &result)
 /*-------------------------------------------------------------------------*/
 /*                           Volume                                        */
 
-void Node::getWorldVolume(DynamicVolume &result)
+void Node::getWorldVolume(BoxVolume &result)
 {
     Matrixr m;
 
@@ -478,8 +478,8 @@ void Node::getWorldVolume(DynamicVolume &result)
 void Node::updateVolume(void)
 {
     // still valid, nothing to do
-    if(_sfVolume.getValue().getInstance().isValid() == true ||
-       getTravMask()                                == 0x0000)
+    if(_sfVolume.getValue().isValid() == true ||
+       getTravMask()                  == 0x0000)
     {
         return;
     }
@@ -487,7 +487,7 @@ void Node::updateVolume(void)
     // be careful to not change the real volume. If two threads
     // are updating the same aspect this will lead to chaos
 
-    DynamicVolume vol = _sfVolume.getValue();
+    BoxVolume vol = _sfVolume.getValue();
 
     MFUnrecChildNodePtr::const_iterator cIt  = 
         this->getMFChildren()->begin();
@@ -495,26 +495,24 @@ void Node::updateVolume(void)
     MFUnrecChildNodePtr::const_iterator cEnd = 
         this->getMFChildren()->end();
 
-    vol.getInstance().setEmpty();
+    vol.setEmpty();
 
     for(; cIt != cEnd; ++cIt)
     {
         if(*cIt != NULL && (*cIt)->getTravMask())
         {
             (*cIt)->updateVolume();
-            vol.getInstance().extendBy((*cIt)->getVolume());
+            vol.extendBy((*cIt)->getVolume());
         }
     }
 
     // test for null core. Shouldn't happen, but just in case...
     if(getCore() != NULL)
     {
-        getCore()->adjustVolume(vol.getInstance());
+        getCore()->adjustVolume(vol);
     }
 
     editSField(VolumeFieldMask);
-
-    vol.instanceChanged();
 
     _sfVolume.setValue(vol);
 }
@@ -685,15 +683,13 @@ bool Node::unlinkChild (FieldContainer * const pChild,
 
 void Node::invalidateVolume(void)
 {
-    Volume &vol=_sfVolume.getValue().getInstance();
+    BoxVolume &vol = _sfVolume.getValue();
 
     if(vol.isValid() == true && vol.isStatic() == false)
     {
         editSField(VolumeFieldMask);
 
         vol.setValid(false);
-
-        _sfVolume.getValue().instanceChanged();
 
         if(getParent() != NULL)
         {
@@ -792,14 +788,14 @@ void Node::dump(      UInt32    uiIndent,
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
-SFDynamicVolume *Node::editSFVolume(void)
+SFBoxVolume *Node::editSFVolume(void)
 {
     editSField(VolumeFieldMask);
 
     return &_sfVolume;
 }
 
-const SFDynamicVolume *Node::getSFVolume(void) const
+const SFBoxVolume *Node::getSFVolume(void) const
 {
     return &_sfVolume;
 }
@@ -860,8 +856,8 @@ void Node::execSyncV(      FieldContainer     &oFrom,
 
 EditFieldHandlePtr Node::editHandleVolume(void)
 {
-    SFDynamicVolume::EditHandlePtr returnValue(
-        new  SFDynamicVolume::EditHandle(
+    SFBoxVolume::EditHandlePtr returnValue(
+        new  SFBoxVolume::EditHandle(
              &_sfVolume, 
              this->getType().getFieldDesc(VolumeFieldId)));
 
@@ -872,8 +868,8 @@ EditFieldHandlePtr Node::editHandleVolume(void)
 
 GetFieldHandlePtr  Node::getHandleVolume(void) const
 {
-    SFDynamicVolume::GetHandlePtr returnValue(
-        new  SFDynamicVolume::GetHandle(
+    SFBoxVolume::GetHandlePtr returnValue(
+        new  SFBoxVolume::GetHandle(
              &_sfVolume, 
              this->getType().getFieldDesc(VolumeFieldId)));
 

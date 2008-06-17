@@ -526,10 +526,10 @@ Action::ResultE Geometry::intersect(Action * action)
 {
 #if 0
 /*
-    IntersectAction     * ia = dynamic_cast<IntersectAction*>(action);
-    const DynamicVolume  &dv = ia->getActNode()->getVolume(true);
+    IntersectAction  *ia = dynamic_cast<IntersectAction*>(action);
+    const BoxVolume  &bv = ia->getActNode()->getVolume(true);
 
-    if(dv.isValid() && !dv.intersect(ia->getLine()))
+    if(bv.isValid() && !bv.intersect(ia->getLine()))
     {
         return Action::Skip; //bv missed -> can not hit children
     }

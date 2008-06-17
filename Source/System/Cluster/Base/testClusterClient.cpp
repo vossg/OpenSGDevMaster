@@ -648,7 +648,7 @@ void init(std::vector<std::string> &filenames)
     size_t i;
     OSG::DirectionalLightUnrecPtr dl;
     Real32 x,y,z;
-    DynamicVolume volume;
+    BoxVolume volume;
     OSG::Vec3f min,max;
     OSG::Vec3f size;
 
@@ -775,13 +775,12 @@ void init(std::vector<std::string> &filenames)
     printf("update Volume OK\n");
 
     // should check first. ok for now.
-    const OSG::BoxVolume *vol = 
-        reinterpret_cast<const OSG::BoxVolume *>(&dlight->getVolume());
+    const OSG::BoxVolume &vol = dlight->getVolume();
 
     OSG::Pnt3f center;
 
-    vol->getBounds(min, max);
-    vol->getCenter(center);
+    vol.getBounds(min, max);
+    vol.getCenter(center);
 
     size = max - min;
 

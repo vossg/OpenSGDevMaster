@@ -192,7 +192,7 @@ void ProxyGroupBase::setConcurrentLoad(const bool value)
 //! Get the value of the ProxyGroup::_sfVolume field.
 
 inline
-DynamicVolume &ProxyGroupBase::editVolume(void)
+BoxVolume &ProxyGroupBase::editVolume(void)
 {
     editSField(VolumeFieldMask);
 
@@ -201,14 +201,14 @@ DynamicVolume &ProxyGroupBase::editVolume(void)
 
 //! Get the value of the ProxyGroup::_sfVolume field.
 inline
-const DynamicVolume &ProxyGroupBase::getVolume(void) const
+const BoxVolume &ProxyGroupBase::getVolume(void) const
 {
     return _sfVolume.getValue();
 }
 
 //! Set the value of the ProxyGroup::_sfVolume field.
 inline
-void ProxyGroupBase::setVolume(const DynamicVolume &value)
+void ProxyGroupBase::setVolume(const BoxVolume &value)
 {
     editSField(VolumeFieldMask);
 

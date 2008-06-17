@@ -40,7 +40,6 @@
 #include "OSGSphereVolume.h"
 #include "OSGCylinderVolume.h"
 #include "OSGFrustumVolume.h"
-#include "OSGDynamicVolume.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -53,26 +52,24 @@ bool intersect(const Volume &vol1, const Volume &vol2)
 {
     bool                  retCode = false;
 
-    const DynamicVolume  *dv      = dynamic_cast<const DynamicVolume *>(&vol1);
-    const Volume         *v       = dv ? &(dv->getInstance()) : &vol1;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol1)) != NULL)
     {
         retCode = intersect(*bv, vol2);
     }
-    else if((sv = dynamic_cast<const SphereVolume   *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume   *>(&vol1)) != NULL)
     {
         retCode = intersect(*sv, vol2);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol1)) != NULL)
     {
         retCode = intersect(*cv, vol2);
     }
-    else if((fv = dynamic_cast<const FrustumVolume  *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume  *>(&vol1)) != NULL)
     {
         retCode = intersect(*fv, vol2);
     }
@@ -281,26 +278,24 @@ bool intersect(const BoxVolume &box, const Volume &vol)
 {
     bool                 retCode = false;
 
-    const DynamicVolume  *dv     = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v      = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         retCode = intersect(box, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume   *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume   *>(&vol)) != NULL)
     {
         retCode = intersect(box, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         retCode = intersect(box, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume  *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume  *>(&vol)) != NULL)
     {
         retCode = intersect(box, *fv);
     }
@@ -434,26 +429,24 @@ bool intersect(const SphereVolume &sphere, const Volume &vol)
 {
     bool                 retCode = false;
 
-    const DynamicVolume  *dv     = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v      = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         retCode = intersect(sphere, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume   *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume   *>(&vol)) != NULL)
     {
         retCode = intersect(sphere, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         retCode = intersect(sphere, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume  *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume  *>(&vol)) != NULL)
     {
         retCode = intersect(sphere, *fv);
     }
@@ -626,26 +619,24 @@ bool intersect(const CylinderVolume &cylinder, const Volume &vol)
 {
     bool                 retCode = false;
 
-    const DynamicVolume  *dv     = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v      = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         retCode = intersect(cylinder, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(&vol)) != NULL)
     {
         retCode = intersect(cylinder, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         retCode = intersect(cylinder, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume *>(&vol)) != NULL)
     {
         retCode = intersect(cylinder, *fv);
     }
@@ -674,26 +665,24 @@ bool intersect(const FrustumVolume &frustum, const Volume &vol)
 {
     bool                  retCode = false;
 
-    const DynamicVolume  *dv      = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v       = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         retCode = intersect(frustum, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(&vol)) != NULL)
     {
         retCode = intersect(frustum, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         retCode = intersect(frustum, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume *>(&vol)) != NULL)
     {
         retCode = intersect(frustum, *fv);
     }
@@ -713,26 +702,24 @@ bool intersect(const FrustumVolume &frustum, const Volume &vol)
 OSG_BASE_DLLMAPPING
 void extend(Volume &srcVol, const Volume &vol)
 {
-    DynamicVolume  *dv  = dynamic_cast<DynamicVolume *>(&srcVol);
-    Volume         *v   = dv ? &(dv->getInstance()) : &srcVol;
     BoxVolume      *bv;
     SphereVolume   *sv;
     CylinderVolume *cv;
     FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<BoxVolume *>(&srcVol)) != NULL)
     {
         extend(*bv, vol);
     }
-    else if((sv = dynamic_cast<SphereVolume   *>(v)) != NULL)
+    else if((sv = dynamic_cast<SphereVolume   *>(&srcVol)) != NULL)
     {
         extend(*sv, vol);
     }
-    else if((cv = dynamic_cast<CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<CylinderVolume *>(&srcVol)) != NULL)
     {
         extend(*cv, vol);
     }
-    else if((fv = dynamic_cast<FrustumVolume  *>(v)) != NULL)
+    else if((fv = dynamic_cast<FrustumVolume  *>(&srcVol)) != NULL)
     {
         extend(*fv, vol);
     }
@@ -904,26 +891,24 @@ void extend(      BoxVolume     &OSG_CHECK_ARG(srcVol),
 OSG_BASE_DLLMAPPING 
 void extend(BoxVolume &srcVol, const Volume &vol)
 {
-    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *fv);
     }
@@ -1133,26 +1118,24 @@ void extend(      SphereVolume  &OSG_CHECK_ARG(srcVol),
 OSG_BASE_DLLMAPPING 
 void extend(SphereVolume &srcVol, const Volume &vol)
 {
-    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *fv);
     }
@@ -1369,26 +1352,24 @@ void extend(      CylinderVolume &OSG_CHECK_ARG(srcVol),
 OSG_BASE_DLLMAPPING 
 void extend(CylinderVolume &srcVol, const Volume &vol)
 {
-    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *fv);
     }
@@ -1441,26 +1422,24 @@ OSG_BASE_DLLMAPPING
 void extend(      FrustumVolume &srcVol,
             const Volume        &vol    )
 {
-    const DynamicVolume  *dv  = dynamic_cast<const DynamicVolume *>(&vol);
-    const Volume         *v   = dv ? &(dv->getInstance()) : &vol;
     const BoxVolume      *bv;
     const SphereVolume   *sv;
     const CylinderVolume *cv;
     const FrustumVolume  *fv;
 
-    if((bv = dynamic_cast<const BoxVolume *>(v)) != NULL)
+    if((bv = dynamic_cast<const BoxVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *bv);
     }
-    else if((sv = dynamic_cast<const SphereVolume *>(v)) != NULL)
+    else if((sv = dynamic_cast<const SphereVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *sv);
     }
-    else if((cv = dynamic_cast<const CylinderVolume *>(v)) != NULL)
+    else if((cv = dynamic_cast<const CylinderVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *cv);
     }
-    else if((fv = dynamic_cast<const FrustumVolume *>(v)) != NULL)
+    else if((fv = dynamic_cast<const FrustumVolume *>(&vol)) != NULL)
     {
         extend(srcVol, *fv);
     }

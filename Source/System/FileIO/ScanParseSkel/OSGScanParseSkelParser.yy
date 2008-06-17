@@ -1028,31 +1028,15 @@ sfVolumeValue:
     float { SKEL->beginValue(); }
     float { SKEL->appendValue(); }
     float { SKEL->appendValue(); }
-    float
-    {
-        SKEL->appendValue();
-        SKEL->_tmpFloat1 = $1; SKEL->_tmpFloat2 = $3;
-        SKEL->_tmpFloat3 = $5; SKEL->_tmpFloat4 = $7;
-    }
-    sfVolumeValueEnd;
-
-sfVolumeValueEnd:
+    float { SKEL->appendValue(); }
     float { SKEL->appendValue(); }
     float
     {
         SKEL->appendValue();
-        DynamicVolume dv(DynamicVolume::BOX_VOLUME);
-        BoxVolume &bv = dynamic_cast<BoxVolume&>(dv.getInstance());
-        bv.setBounds(SKEL->_tmpFloat1, SKEL->_tmpFloat2, SKEL->_tmpFloat3, SKEL->_tmpFloat4, $1, $3);
-        SKEL->addVolumeValue(dv);
+        BoxVolume bv($1, $3, $5, $7, $9, $11);
+        
+        SKEL->addVolumeValue(bv);
     }
-    | /* empty */
-    {
-        DynamicVolume dv(DynamicVolume::SPHERE_VOLUME);
-        SphereVolume &sv = dynamic_cast<SphereVolume&>(dv.getInstance());
-        sv.setValue(Pnt3f(SKEL->_tmpFloat1, SKEL->_tmpFloat2, SKEL->_tmpFloat3), SKEL->_tmpFloat4);
-        SKEL->addVolumeValue(dv);
-    };
 
 mfcolor4iValue:
     sfcolor4iValue

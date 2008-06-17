@@ -70,7 +70,7 @@
 #include "OSGNodeFields.h" // Root type
 #include "OSGUInt32Fields.h" // State type
 #include "OSGBoolFields.h" // ConcurrentLoad type
-#include "OSGDynamicVolumeFields.h" // Volume type
+#include "OSGBoxVolumeFields.h" // Volume type
 #include "OSGUInt32Fields.h" // Indices type
 #include "OSGUInt32Fields.h" // Triangles type
 #include "OSGUInt32Fields.h" // Positions type
@@ -184,8 +184,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
                   SFBool              *editSFConcurrentLoad (void);
             const SFBool              *getSFConcurrentLoad  (void) const;
 
-                  SFDynamicVolume     *editSFVolume         (void);
-            const SFDynamicVolume     *getSFVolume          (void) const;
+                  SFBoxVolume         *editSFVolume         (void);
+            const SFBoxVolume         *getSFVolume          (void) const;
 
                   SFUInt32            *editSFIndices        (void);
             const SFUInt32            *getSFIndices         (void) const;
@@ -217,8 +217,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
                   bool                &editConcurrentLoad (void);
                   bool                 getConcurrentLoad  (void) const;
 
-                  DynamicVolume       &editVolume         (void);
-            const DynamicVolume       &getVolume          (void) const;
+                  BoxVolume           &editVolume         (void);
+            const BoxVolume           &getVolume          (void) const;
 
                   UInt32              &editIndices        (void);
                   UInt32               getIndices         (void) const;
@@ -245,7 +245,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
             void setRoot           (Node * const value);
             void setState          (const UInt32 value);
             void setConcurrentLoad (const bool value);
-            void setVolume         (const DynamicVolume &value);
+            void setVolume         (const BoxVolume &value);
             void setIndices        (const UInt32 value);
             void setTriangles      (const UInt32 value);
             void setPositions      (const UInt32 value);
@@ -315,7 +315,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     SFUnrecNodePtr    _sfRoot;
     SFUInt32          _sfState;
     SFBool            _sfConcurrentLoad;
-    SFDynamicVolume   _sfVolume;
+    SFBoxVolume       _sfVolume;
     SFUInt32          _sfIndices;
     SFUInt32          _sfTriangles;
     SFUInt32          _sfPositions;

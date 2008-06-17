@@ -315,7 +315,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
 
     virtual void addPlaneValue(const Plane &p);
 
-    virtual void addVolumeValue(const DynamicVolume &v);
+    virtual void addVolumeValue(const BoxVolume &v);
 
     virtual void addRoute     (const Char8 *szOutNodename,
                                const Char8 *szOutFieldname,

@@ -114,14 +114,6 @@ typedef SField<Time, 1> SFTime;
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
 
-typedef SField          <DynamicVolume        > SFDynamicVolume;
-#endif
-
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldSingle */
-
 typedef SField          <BoxVolume            > SFBoxVolume;
 #endif
 
