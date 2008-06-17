@@ -664,7 +664,13 @@ PointerMFieldReferenceProxy<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldReferenceProxy<PtrTypeT,
                             RefCountPolicy,
-                            NamespaceI    >::operator value_type(void) const
+                            NamespaceI    >::operator
+#if defined(_MSC_VER) && _MSC_VER < 1400
+typename PointerMFieldReferenceProxy<PtrTypeT,
+                                     RefCountPolicy,
+                                     NamespaceI    >::
+#endif
+                                                      value_type(void) const
 {
     return static_cast<value_type>(AccessHandler::validate(*_storeIter));
 }
