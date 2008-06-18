@@ -63,6 +63,24 @@ UInt32 DynFieldAttachment<AttachmentDescT>::addField(
     Field                *fieldP      = NULL;
     FieldDescriptionBase *descP       = NULL;
 
+    // do some basic sanity checking
+    if(fieldDesc.getFieldType().getClass() != FieldType::ValueField)
+    {
+        if(fieldDesc.getFieldType().getClass() != FieldType::PtrField)
+        {
+            FWARNING(("DynFieldAttachment<>:addField: ChildPtrField and "
+                      "ParentPtrField are not supported.\n"              ));
+            return 0;
+        }
+        else if(0x0000 == (fieldDesc.getFlags() & Field::FStdAccess      ) &&
+                0x0000 == (fieldDesc.getFlags() & Field::FNullCheckAccess)    )
+        {
+            FWARNING(("DynFieldAttachment<>::addField: Only 'FStdAccess' or "
+                      "'FNullCheckAccess' are supported.\n"                  ));
+            return 0;
+        }
+    }
+    
     returnValue = _localType.addDescription(fieldDesc);
 
     if(returnValue != 0)
@@ -163,30 +181,6 @@ EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicField(
                                  oOffsets                  );
             }
 #endif
-
-            FieldContainerPtrMFieldBase::EditHandlePtr pMFHandle = 
-                boost::dynamic_pointer_cast<
-                    FieldContainerPtrMFieldBase::EditHandle>(
-                        returnValue);
-
-            if(pMFHandle != NULL && pMFHandle->isValid() == true)
-            {
-                pMFHandle->setAddMethod(
-                    boost::bind(&Self::addPointerValue, this, _1, index));
-            }
-        }
-        else
-        {
-            FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
-                boost::dynamic_pointer_cast<
-                    FieldContainerPtrSFieldBase::EditHandle>(
-                        returnValue);
-
-            if(pSFHandle != NULL && pSFHandle->isValid() == true)
-            {
-                pSFHandle->setSetMethod(
-                    boost::bind(&Self::setPointerValue, this, _1, index));
-            }
         }
     }
 

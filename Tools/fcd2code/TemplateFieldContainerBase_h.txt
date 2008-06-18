@@ -190,9 +190,9 @@ class @!Classname!@Base : public @!Parent!@
                 @@if field.ptrFieldStandardAccess
     @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
                 @@endif
-                @@if field.isSField  
+                @@if field.isSField
                     @@if field.ptrFieldNullCheckAccess
-    @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void); 
+    @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
                     @@endif
                 @@endif
             @@else // field.isPtrField
@@ -268,19 +268,19 @@ class @!Classname!@Base : public @!Parent!@
     @@BeginMFFieldLoop@@
         @@if field.isPublic
             @@if field.isPtrField
-                @@if field.ptrFieldStandardAccess 
+                @@if field.ptrFieldStandardAccess
     void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32               uiIndex );
     void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
-    void @!field.ClearField:15!@            (void                          );
+    void @!field.ClearField:15!@            (void                         );
 
 
                 @@endif
                 @@if field.ptrFieldNullCheckAccess
     void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
-    void @!field.ClearField:15!@            (void                          );
+    void @!field.ClearField:15!@            (void                         );
     void @!field.InsertIntoMField:15!@      (UInt32               uiIndex,
                                              @!field.Type!@ const value   );
     void @!field.ReplaceInMFieldIndex:15!@  (      UInt32         uiIndex,
@@ -290,6 +290,36 @@ class @!Classname!@Base : public @!Parent!@
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32               uiIndex );
     void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
 
+
+                @@endif
+                @@if field.ptrFieldCustomAccess
+                    @@if field.generatePushToField
+    void @!field.pushToField:15!@           (@!field.Type!@ const value   );
+                    @@endif
+                    @@if field.generateAssignMField
+    void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
+                    @@endif
+                    @@if field.generateClearField
+    void @!field.ClearField:15!@            (void                         );
+                    @@endif
+                    @@if field.generateInsertIntoMField
+    void @!field.InsertIntoMField:15!@      (UInt32               uiIndex,
+                                             @!field.Type!@ const value   );
+                    @@endif
+                    @@if field.generateReplaceInMFieldIndex
+    void @!field.ReplaceInMFieldIndex:15!@  (      UInt32         uiIndex,
+                                             @!field.Type!@ const value   );
+                    @@endif
+                    @@if field.generateReplaceInMFieldObject
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ const pOldElem,
+                                             @!field.Type!@ const pNewElem);
+                    @@endif
+                    @@if field.generateRemoveFromMFieldIndex
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32               uiIndex );
+                    @@endif
+                    @@if field.generateRemoveFromMFieldObject
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
+                    @@endif
 
                 @@endif
             @@endif // field.isPtrField
@@ -392,17 +422,17 @@ class @!Classname!@Base : public @!Parent!@
                               UInt16           const parentFieldId);
     virtual bool unlinkParent(FieldContainer * const pParent,
                               UInt16           const parentFieldId);
-    
+
     /*! \}                                                                 */
 @@endif // @!hasParentPtrFields!@
 @@if hasChildFields
     /*---------------------------------------------------------------------*/
     /*! \name Child linking                                                */
     /*! \{                                                                 */
-    
+
     virtual bool unlinkChild(FieldContainer * const pChild,
                              UInt16           const childFieldId);
-    
+
     /*! \}                                                                 */
 @@endif // @!hasChildPtrFields!@
     /*---------------------------------------------------------------------*/
@@ -432,9 +462,9 @@ class @!Classname!@Base : public @!Parent!@
                 @@if field.ptrFieldStandardAccess
     @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
                 @@endif
-                @@if field.isSField  
+                @@if field.isSField
                     @@if field.ptrFieldNullCheckAccess
-    @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void); 
+    @!field.MethodType:7!@       @!field.CARD!@@!field.FieldTypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
                     @@endif
                 @@endif
             @@else // field.isPtrField
@@ -492,7 +522,7 @@ class @!Classname!@Base : public @!Parent!@
     @@BeginMFFieldLoop@@
         @@if field.isProtected
             @@if field.isPtrField
-                @@if field.ptrFieldStandardAccess 
+                @@if field.ptrFieldStandardAccess
     void @!field.PushToField:15!@           (@!field.Type!@ const value   );
     void @!field.AssignMField:15!@           (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
@@ -514,6 +544,35 @@ class @!Classname!@Base : public @!Parent!@
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
     void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
 
+                @@endif
+                @@if field.ptrFieldCustomAccess
+                    @@if field.generatePushToField
+    void @!field.pushToField:15!@           (@!field.Type!@ const value   );
+                    @@endif
+                    @@if field.generateAssignMField
+    void @!field.AssignMField:15!@          (const @!field.TypeNamespace!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value);
+                    @@endif
+                    @@if field.generateClearField
+    void @!field.ClearField:15!@            (void                         );
+                    @@endif
+                    @@if field.generateInsertIntoMField
+    void @!field.InsertIntoMField:15!@      (UInt32               uiIndex,
+                                             @!field.Type!@ const value   );
+                    @@endif
+                    @@if field.generateReplaceInMFieldIndex
+    void @!field.ReplaceInMFieldIndex:15!@  (      UInt32         uiIndex,
+                                             @!field.Type!@ const value   );
+                    @@endif
+                    @@if field.generateReplaceInMFieldObject
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ const pOldElem,
+                                             @!field.Type!@ const pNewElem);
+                    @@endif
+                    @@if field.generateRemoveFromMFieldIndex
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32               uiIndex );
+                    @@endif
+                    @@if field.generateRemoveFromMFieldObject
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ const value   );
+                    @@endif
 
                 @@endif
             @@endif // field.isPtrField

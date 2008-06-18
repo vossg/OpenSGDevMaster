@@ -442,7 +442,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 
             if(pSFHandle != NULL && pSFHandle->isValid())
             {
-                pSFHandle->setValue(fc);
+                pSFHandle->set(fc);
             }
             else if(pMFHandle != NULL && pMFHandle->isValid())
             {

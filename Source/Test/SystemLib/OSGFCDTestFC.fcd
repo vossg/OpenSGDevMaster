@@ -18,7 +18,7 @@
         type = "UInt32"
         cardinality = "single"
         visibility = "external"
-        default = "0"
+        defaultValue = "0"
         access = "public"
     >
     </Field>
@@ -28,7 +28,7 @@
         type = "UInt32"
         cardinality = "single"
         visibility = "external"
-        default = "0"
+        defaultValue = "0"
         access = "protected"
     >
     </Field>
@@ -38,7 +38,7 @@
         type = "UInt32"
         cardinality = "single"
         visibility = "external"
-        default = "0"
+        defaultValue = "0"
         access = "none"
     >
     </Field>
@@ -50,7 +50,7 @@
         type = "UInt32"
         cardinality = "multi"
         visibility = "external"
-        default = "0"
+        defaultValue = "0"
         access = "public"
     >
     </Field>
@@ -60,7 +60,7 @@
         type = "UInt32"
         cardinality = "multi"
         visibility = "external"
-        default = "0"
+        defaultValue = "0"
         access = "protected"
     >
     </Field>
@@ -70,7 +70,7 @@
         type = "UInt32"
         cardinality = "multi"
         visibility = "external"
-        default = "0"
+        defaultValue = "0"
         access = "none"
     >
     </Field>

@@ -20,13 +20,6 @@ The state base class. See \ref PageSystemState for the conceptual background.
         removeTo="NULL"
         clearMField="true"
         access="none"
-        pushToField=""
-        insertIntoMField=""
-        replaceInMFieldIndex=""
-        replaceInMFieldObject=""
-        removeFromMFieldIndex=""
-        removeFromMFieldObject=""
-        clearField=""
 	>
 	</Field>
 </FieldContainer>

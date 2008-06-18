@@ -142,7 +142,7 @@ void Node::classDescInserter(TypeObject &oType)
         "The core to use for this node.",
         OSG_RC_FIELD_DESC(Node::Core),
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Node::editHandleCore),
         static_cast<FieldGetMethodSig >(&Node::getHandleCore ));
 
@@ -155,7 +155,7 @@ void Node::classDescInserter(TypeObject &oType)
         "A list of our children in the scene graph.",
         OSG_RC_FIELD_DESC(Node::Children),
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Node::editHandleChildren),
         static_cast<FieldGetMethodSig >(&Node::getHandleChildren));
 

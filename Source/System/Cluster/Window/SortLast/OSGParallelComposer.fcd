@@ -35,7 +35,7 @@
         cardinality="single"
         visibility="external"
         access="public"
-	defaultValye=""
+        defaultValue=""
     >
     </Field>        
 </FieldContainer>

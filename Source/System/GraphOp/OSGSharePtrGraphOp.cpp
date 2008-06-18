@@ -300,7 +300,7 @@ FieldContainer *SharePtrGraphOp::compareFCs(FieldContainer * const fc)
                            FieldContainerPtrSFieldBase::EditHandle>(
                                fc->editField(i));
                     
-                    sfPtrEditHandle->setValue(nffc);
+                    sfPtrEditHandle->set(nffc);
 #if 0
                     addRef(nffc);
                     ((SFFieldContainerPtr *) fc_field)->setValue(nffc);

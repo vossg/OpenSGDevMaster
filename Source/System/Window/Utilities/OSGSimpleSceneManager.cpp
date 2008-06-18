@@ -517,7 +517,7 @@ void SimpleSceneManager::setStatistics(bool on)
         }
         else
         {
-            vp->removeFromForegrounds(_statforeground);
+            vp->removeObjFromForegrounds(_statforeground);
 
 #ifdef OSG_OLD_RENDER_ACTION
             _renderAction->setStatCollector(NULL);

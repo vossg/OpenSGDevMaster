@@ -858,7 +858,7 @@ void VRMLNodeHelper::setContainerFieldValue(
 
         if(pSFHandle != NULL && pSFHandle->isValid())
         {
-            pSFHandle->setValue(pFC);
+            pSFHandle->set(pFC);
         }
         else if(pMFHandle != NULL && pMFHandle->isValid())
         {

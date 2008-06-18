@@ -122,7 +122,7 @@ void SwitchMaterial::subMaterial(Material *mat)
     if(mat == NULL)
         return;
 
-    removeFromMaterials(mat);
+    removeObjFromMaterials(mat);
 }
 
 bool SwitchMaterial::hasMaterial(Material *mat) const

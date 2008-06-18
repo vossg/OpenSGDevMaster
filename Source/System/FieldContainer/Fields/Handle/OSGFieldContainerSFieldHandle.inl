@@ -38,13 +38,18 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*---------------------------------------------------------------------------*/
+/* EditSFieldHandle<FieldContainerPtrSFieldBase>                             */
+/*---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------*/
+/* Constructors                                                              */
+
 inline
 EditSFieldHandle<FieldContainerPtrSFieldBase>::EditSFieldHandle(
     const EditSFieldHandle &source) :
 
-     Inherited (source            ),
-    _pContainer(source._pContainer),
-    _fSetMethod(source._fSetMethod)
+     Inherited(source)
 {
 }
 
@@ -53,12 +58,13 @@ EditSFieldHandle<FieldContainerPtrSFieldBase>::EditSFieldHandle(
           FieldContainerPtrSFieldBase *pField, 
     const FieldDescriptionBase        *pDescription) :
 
-     Inherited (pField, 
-                pDescription),
-    _pContainer(NULL        ),
-    _fSetMethod(NULL        )
+     Inherited(pField, 
+               pDescription)
 {
 }
+
+/*---------------------------------------------------------------------------*/
+/* Field Type Query                                                          */
 
 inline
 const FieldType &
@@ -73,16 +79,8 @@ bool EditSFieldHandle<FieldContainerPtrSFieldBase>::isPointerField(void) const
     return true;
 }
 
-inline
-void EditSFieldHandle<FieldContainerPtrSFieldBase>::setValue(
-    FieldContainer * const rhs)
-{
-    // for whatever reason VS2003 does not like == NULL
-    if(_fSetMethod)
-    {
-        _fSetMethod(rhs);
-    }
-}
+/*---------------------------------------------------------------------------*/
+/* Stream/String IO                                                          */
 
 inline
 void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushValueToStream(
@@ -101,6 +99,18 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
               this->getName().c_str()));
     OSG_ASSERT(false);
 }
+
+inline
+void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushValueFromCString(
+    const Char8 *str)
+{
+    FWARNING(("illegal pushValueFromCString called for %s\n", 
+              this->getName().c_str()));
+    OSG_ASSERT(false);
+}
+
+/*---------------------------------------------------------------------------*/
+/* Comparison                                                                */
 
 inline
 bool EditSFieldHandle<FieldContainerPtrSFieldBase>::equal(
@@ -122,21 +132,8 @@ bool EditSFieldHandle<FieldContainerPtrSFieldBase>::equal(
     return (*pLhs) == (*pRhs);
 }
 
-inline
-void EditSFieldHandle<FieldContainerPtrSFieldBase>::setSetMethod(
-    SetMethod fMethod)
-{
-    _fSetMethod = fMethod;
-}
-
-inline
-void EditSFieldHandle<FieldContainerPtrSFieldBase>::pushValueFromCString(
-    const Char8 *str)
-{
-    FWARNING(("illegal pushValueFromCString called for %s\n", 
-              this->getName().c_str()));
-    OSG_ASSERT(false);
-}
+/*---------------------------------------------------------------------------*/
+/* Copy/Share/Clone                                                          */
 
 inline
 void EditSFieldHandle<FieldContainerPtrSFieldBase>::copyValues(
@@ -154,7 +151,6 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::shareValues(
     OSG_ASSERT(false);
 }
 
-
 inline
 void EditSFieldHandle<FieldContainerPtrSFieldBase>::cloneValues(
           GetFieldHandlePtr  pSrc,
@@ -167,9 +163,12 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::cloneValues(
 }
 
 
+/*---------------------------------------------------------------------------*/
+/* GetSFieldHandle<FieldContainerPtrSFieldBase>                              */
+/*---------------------------------------------------------------------------*/
 
-
-/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+/* Constructors                                                              */
 
 inline
 GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
@@ -188,6 +187,9 @@ GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
 {
 }
 
+/*---------------------------------------------------------------------------*/
+/* Field Type Query                                                          */
+
 inline
 const FieldType &
     GetSFieldHandle<FieldContainerPtrSFieldBase>::getType(void) const
@@ -195,12 +197,14 @@ const FieldType &
     return FieldContainerPtrSFieldBase::getClassType();
 }
 
-
 inline
 bool GetSFieldHandle<FieldContainerPtrSFieldBase>::isPointerField(void) const
 {
     return true;
 }
+
+/*---------------------------------------------------------------------------*/
+/* Stream/String IO                                                          */
 
 inline
 void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushValueToStream(
@@ -219,6 +223,9 @@ void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
               this->getName().c_str()));
     OSG_ASSERT(false);
 }
+
+/*---------------------------------------------------------------------------*/
+/* Comparison                                                                */
 
 inline
 bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(
@@ -240,6 +247,9 @@ bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(
     return (*pLhs) == (*pRhs);
 }
 
+/*---------------------------------------------------------------------------*/
+/* Access                                                                    */
+
 inline
 FieldContainerPtrSFieldBase const *
     GetSFieldHandle<FieldContainerPtrSFieldBase>::operator ->(void)
@@ -255,10 +265,14 @@ FieldContainerPtrSFieldBase const &
 }
 
 
+/*---------------------------------------------------------------------------*/
+/* GetFCPtrSFieldHandle<FieldT>                                              */
+/*---------------------------------------------------------------------------*/
 
-/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+/* Constructors                                                              */
 
-template<class FieldT> inline
+template <class FieldT> inline
 GetFCPtrSFieldHandle<FieldT>::GetFCPtrSFieldHandle(
     const GetFCPtrSFieldHandle &source) :
 
@@ -266,7 +280,7 @@ GetFCPtrSFieldHandle<FieldT>::GetFCPtrSFieldHandle(
 {
 }
 
-template<class FieldT> inline
+template <class FieldT> inline
 GetFCPtrSFieldHandle<FieldT>::GetFCPtrSFieldHandle(
     const FieldT               *pField, 
     const FieldDescriptionBase *pDescription) :
@@ -275,13 +289,19 @@ GetFCPtrSFieldHandle<FieldT>::GetFCPtrSFieldHandle(
 {
 }
 
-template<class FieldT> inline
+/*---------------------------------------------------------------------------*/
+/* Field Type Query                                                          */
+
+template <class FieldT> inline
 const FieldType &GetFCPtrSFieldHandle<FieldT>::getType(void) const
 {
     return FieldT::getClassType();
 }
 
-template<class FieldT> inline
+/*---------------------------------------------------------------------------*/
+/* Stream/String IO                                                          */
+
+template <class FieldT> inline
 void GetFCPtrSFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
 {
     FWARNING(("illegal pushValueToStream called for %s\n", 
@@ -289,7 +309,7 @@ void GetFCPtrSFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
     OSG_ASSERT(false);
 }
 
-template<class FieldT> inline
+template <class FieldT> inline
 void GetFCPtrSFieldHandle<FieldT>::pushSizeToStream(OutStream &str) const
 {
     FWARNING(("illegal pushSizeToStream called for %s\n", 
@@ -297,21 +317,45 @@ void GetFCPtrSFieldHandle<FieldT>::pushSizeToStream(OutStream &str) const
     OSG_ASSERT(false);
 }
 
-template<class FieldT> inline
+/*---------------------------------------------------------------------------*/
+/* Access                                                                    */
+
+template <class FieldT> inline
+FieldContainer *GetFCPtrSFieldHandle<FieldT>::get(void) const
+{
+    return dcast_const()->getValue();
+}
+
+template <class FieldT> inline
 FieldT const *GetFCPtrSFieldHandle<FieldT>::operator ->(void)
 {
     return static_cast<FieldT const *>(_pField);
 }
 
-template<class FieldT> inline
+template <class FieldT> inline
 FieldT const &GetFCPtrSFieldHandle<FieldT>::operator * (void)
 {
     return *(static_cast<FieldT const *>(_pField));
 }
 
-/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+/* Private Helper                                                            */
 
-template<class FieldT> inline
+template <class FieldT> inline
+const typename GetFCPtrSFieldHandle<FieldT>::HandledField *
+    GetFCPtrSFieldHandle<FieldT>::dcast_const(void) const
+{
+    return static_cast<const HandledField *>(_pField);
+}
+
+/*---------------------------------------------------------------------------*/
+/* EditFCPtrSFieldHandle<FieldT>                                             */
+/*---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------*/
+/* Constructors                                                              */
+
+template <class FieldT> inline
 EditFCPtrSFieldHandle<FieldT>::EditFCPtrSFieldHandle(
     const EditFCPtrSFieldHandle &source) :
     
@@ -320,40 +364,99 @@ EditFCPtrSFieldHandle<FieldT>::EditFCPtrSFieldHandle(
 {
 }
 
-template<class FieldT> inline
+template <class FieldT> inline
 EditFCPtrSFieldHandle<FieldT>::EditFCPtrSFieldHandle(
           FieldT                *pField, 
     const FieldDescriptionBase  *pDescription) :
     
      Inherited (pField, 
                 pDescription),
-    _fSetMethod(NULL)
+    _fSetMethod(NULL        )
 {
 }
 
-template<class FieldT> inline
+/*---------------------------------------------------------------------------*/
+/* Field Type Query                                                          */
+
+template <class FieldT> inline
 const FieldType &EditFCPtrSFieldHandle<FieldT>::getType(void) const
 {
     return FieldT::getClassType();
 }
 
-template<class FieldT> inline
-void EditFCPtrSFieldHandle<FieldT>::setValue(FieldContainer * const rhs)
+template <class FieldT> inline
+bool EditFCPtrSFieldHandle<FieldT>::supportsSet(void) const
 {
-    typename FieldT::const_value pVal = 
-        dynamic_cast<typename FieldT::const_value>(rhs);
+    UInt32 fieldDescFlags = _pDescription->getFlags();
 
-    if(rhs != NULL && pVal == NULL)
-        return;
-
-    // for whatever reason VS2003 does not like == NULL
-    if(_fSetMethod)
-    {
-        _fSetMethod(pVal);
-    }
+    return 
+        ((0x0000 != (fieldDescFlags & Field::FStdAccess      ) ||
+          0x0000 != (fieldDescFlags & Field::FNullCheckAccess)    ) ||
+         (0x0000 != (fieldDescFlags & Field::FCustomAccess   ) &&
+          !_fSetMethod.empty()                                    )   );
 }
 
-template<class FieldT> inline
+/*---------------------------------------------------------------------------*/
+/* Access                                                                    */
+
+template <class FieldT> inline
+FieldContainer *EditFCPtrSFieldHandle<FieldT>::get(void) const
+{
+    return dcast_const()->getValue();
+}
+
+template <class FieldT>
+bool EditFCPtrSFieldHandle<FieldT>::set(FieldContainer *newFC)
+{
+    bool                         retVal     = false;
+    typename FieldT::const_value typedNewFC =
+        dynamic_cast<typename FieldT::const_value>(newFC);
+
+    if(0x0000 != (_pDescription->getFlags() & Field::FCustomAccess))
+    {
+        if(typedNewFC != NULL || newFC == NULL)
+        {
+            if(!_fSetMethod.empty())
+            {
+                _fSetMethod(typedNewFC);
+                retVal = true;
+            }
+            else
+            {
+                FFATAL(("EditFCPtrSFieldHandle<FieldT>::set called, but "
+                        "_fSetMethod is not set.\n"));
+            }
+        }
+    }
+    else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
+    {
+        if(typedNewFC != NULL)
+        {
+            dcast()->setValue(typedNewFC);
+            retVal = true;
+        }
+    }
+    else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
+    {
+        if(typedNewFC != NULL || newFC == NULL)
+        {
+            dcast()->setValue(typedNewFC);
+            retVal = true;
+        }
+    }
+    else
+    {
+        // this should never happen
+        FFATAL(("EditFCPtrSFieldHandle<FieldT>::set: Field has unknown access.\n"));
+    }
+
+    return retVal;
+}
+
+/*---------------------------------------------------------------------------*/
+/* Stream/String IO                                                          */
+
+template <class FieldT> inline
 void EditFCPtrSFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
 {
     FWARNING(("illegal pushValueToStream called for %s\n", 
@@ -362,7 +465,7 @@ void EditFCPtrSFieldHandle<FieldT>::pushValueToStream(OutStream &str) const
     OSG_ASSERT(false);
 }
 
-template<class FieldT> inline
+template <class FieldT> inline
 void EditFCPtrSFieldHandle<FieldT>::pushSizeToStream(OutStream &str) const
 {
     FWARNING(("illegal pushSizeToStream called for %s\n", 
@@ -370,13 +473,7 @@ void EditFCPtrSFieldHandle<FieldT>::pushSizeToStream(OutStream &str) const
     OSG_ASSERT(false);
 }
 
-template<class FieldT> inline
-void EditFCPtrSFieldHandle<FieldT>::setSetMethod(SetMethod fMethod)
-{
-    _fSetMethod = fMethod;
-}
-
-template<class FieldT> inline
+template <class FieldT> inline
 void EditFCPtrSFieldHandle<FieldT>::pushValueFromCString(const Char8 *str)
 {
     FWARNING(("illegal pushValueFromCString called for %s\n", 
@@ -384,21 +481,33 @@ void EditFCPtrSFieldHandle<FieldT>::pushValueFromCString(const Char8 *str)
     OSG_ASSERT(false);
 }
 
-template<class FieldT> inline
-void EditFCPtrSFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source)
+/*---------------------------------------------------------------------------*/
+/* Callback Setup                                                            */
+
+template <class FieldT> inline
+void EditFCPtrSFieldHandle<FieldT>::setSetMethod(SetMethod fMethod)
+{
+    _fSetMethod = fMethod;
+}
+
+/*---------------------------------------------------------------------------*/
+/* Copy/Share/Clone                                                          */
+
+template <class FieldT> inline
+void EditFCPtrSFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
 {
     FWARNING(("illegal copyValues called for %s\n", 
               this->getName().c_str()));
     OSG_ASSERT(false);
 }
 
-template<class FieldT> inline
-void EditFCPtrSFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source)
+template <class FieldT> inline
+void EditFCPtrSFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source) const
 {
     OSG_ASSERT(false);
 }
 
-template<class FieldT> inline
+template <class FieldT> inline
 void EditFCPtrSFieldHandle<FieldT>::cloneValues(
               GetFieldHandlePtr  pSrc,
         const TypePtrVector     &shareTypes,
@@ -407,6 +516,23 @@ void EditFCPtrSFieldHandle<FieldT>::cloneValues(
         const TypeIdVector      &ignoreGroupIds) const
 {
     OSG_ASSERT(false);
+}
+
+/*---------------------------------------------------------------------------*/
+/* Private Helper                                                            */
+
+template <class FieldT> inline
+typename EditFCPtrSFieldHandle<FieldT>::HandledField *
+    EditFCPtrSFieldHandle<FieldT>::dcast(void)
+{
+    return static_cast<HandledField *>(_pField);
+}
+
+template <class FieldT> inline
+const typename EditFCPtrSFieldHandle<FieldT>::HandledField *
+    EditFCPtrSFieldHandle<FieldT>::dcast_const(void) const
+{
+    return static_cast<const HandledField *>(_pField);
 }
 
 OSG_END_NAMESPACE

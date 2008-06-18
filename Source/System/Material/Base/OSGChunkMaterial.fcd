@@ -25,6 +25,9 @@ field's functions.
 		visibility="external"
         access="protected"
         ptrFieldAccess = "custom"
+        pushToFieldAs="pushToChunks"
+        removeFromMFieldIndex="removeFromChunks"
+        removeFromMFieldObject="removeFromChunksByObj"
 	>
 	</Field>
 	<Field

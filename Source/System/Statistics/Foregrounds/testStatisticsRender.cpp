@@ -85,7 +85,7 @@ void setStatMethod(StatMethod method)
     // Disable old method
     if (gStatMethod == USE_CUSTOM)
     {
-        pwin->getPort(0)->removeFromForegrounds(statfg);
+        pwin->getPort(0)->removeObjFromForegrounds(statfg);
     }
     else if(gStatMethod == USE_SIMPLE)
     {

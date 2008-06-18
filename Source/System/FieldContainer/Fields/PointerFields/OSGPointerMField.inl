@@ -1018,7 +1018,6 @@ typename PointerMField<PtrTypeT,
     return iterator(this->ptrStoreErase(first.base(), last.base()), this);
 }
     
-#ifndef OSG_CLEAN_FCFIELDS
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
@@ -1034,7 +1033,6 @@ typename PointerMField<PtrTypeT,
     return iterator(this->ptrStoreFind(value),
                     this                     );
 }
-#endif
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename PointerMField<PtrTypeT,

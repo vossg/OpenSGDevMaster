@@ -219,7 +219,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
     }
 }
 //! Get the @!Classname!@::_@!field.VarName!@ field.
-@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void) 
+@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -273,7 +273,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 
 @!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name:15!@(void)
 {
-            @@if field.isSField  
+            @@if field.isSField
     editSField(@!field.Name!@FieldMask);
             @@else
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
@@ -282,12 +282,12 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
     return &_@!field.VarName!@;
 }
             @@endif
-            @@if field.isSField  
+            @@if field.isSField
                 @@if field.ptrFieldNullCheckAccess
 
 @!field.CARD!@@!field.FieldTypeCaps:17!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name:15!@(void)
 {
-            @@if field.isSField  
+            @@if field.isSField
     editSField(@!field.Name!@FieldMask);
             @@else
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
@@ -324,7 +324,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 @@BeginMFFieldLoop@@
     @@if field.isPtrField
     @@if !field.noAccess
-        @@if field.writePushToField
+        @@if field.generatePushToField
 void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ const value)
 {
             @@if field.ptrFieldNullCheckAccess
@@ -337,8 +337,8 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ const value)
     _mf@!field.Name!@.push_back(value);
 }
 
-        @@endif // field.writePushToField
-        @@if field.writeAssignMField
+        @@endif // field.generatePushToField
+        @@if field.generateAssignMField
 void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value)
 {
     @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@::const_iterator elemIt  =
@@ -356,8 +356,8 @@ void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!f
     }
 }
 
-        @@endif // field.writeAssignMField
-        @@if field.writeInsertIntoMField
+        @@endif // field.generateAssignMField
+        @@if field.generateInsertIntoMField
 void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32               uiIndex,
                                                    @!field.Type!@ const value   )
 {
@@ -375,8 +375,8 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32               uiIndex,
     _mf@!field.Name!@.insert(fieldIt, value);
 }
 
-        @@endif // field.writeInsertIntoMField
-        @@if field.writeReplaceInMFieldIndex
+        @@endif // field.generateInsertIntoMField
+        @@if field.generateReplaceInMFieldIndex
 void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32               uiIndex,
                                                        @!field.Type!@ const value   )
 {
@@ -393,8 +393,8 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32               uiIn
     _mf@!field.Name!@.replace(uiIndex, value);
 }
 
-        @@endif // field.writeReplaceInMFieldIndex
-        @@if field.writeReplaceInMFieldObject
+        @@endif // field.generateReplaceInMFieldIndex
+        @@if field.generateReplaceInMFieldObject
 void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ const pOldElem,
                                                         @!field.Type!@ const pNewElem)
 {
@@ -413,8 +413,8 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ const pOl
     }
 }
 
-        @@endif // field.writeReplaceInMFieldObject
-        @@if field.writeRemoveFromMFieldIndex
+        @@endif // field.generateReplaceInMFieldObject
+        @@if field.generateRemoveFromMFieldIndex
 void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
 {
     if(uiIndex < _mf@!field.Name!@.size())
@@ -433,8 +433,8 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
     }
 }
 
-        @@endif // field.writeRemoveFromMFieldIndex
-        @@if field.writeRemoveFromMFieldObject
+        @@endif // field.generateRemoveFromMFieldIndex
+        @@if field.generateRemoveFromMFieldObject
 void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ const value)
 {
     Int32 iElemIdx = _mf@!field.Name!@.findIndex(value);
@@ -454,8 +454,8 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ const va
             @@endif // field.isRemoveToSet
     }
 }
-        @@endif // field.writeRemoveFromMFieldObject
-        @@if field.writeClearField
+        @@endif // field.generateRemoveFromMFieldObject
+        @@if field.generateClearField
 void @!Classname!@Base::@!field.ClearField!@(void)
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
@@ -477,7 +477,7 @@ void @!Classname!@Base::@!field.ClearField!@(void)
             @@endif // field.doClearMField
             @@endif // field.isRemoveToSet
 }
-        @@endif // field.writeClearField
+        @@endif // field.generateClearField
 
     @@endif //!field.noAccess
     @@endif // field.isPtrField
@@ -605,8 +605,8 @@ void @!Classname!@Base::copyFromBin(BinaryDataHandler &pMem,
 
     newPtr<@!Classname!@>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 @@else
@@ -634,8 +634,8 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
 @@if !isBundle
     @!Classname!@ *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const @!Classname!@ *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const @!Classname!@ *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -664,7 +664,7 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
     @@else // isDecorator
         @@BeginFieldLoop@@
             @@if field.isChildField
-    _@!field.VarName:25!@(this, 
+    _@!field.VarName:25!@(this,
                           @!field.Name!@FieldId,
                           @!field.TypeRaw!@::@!field.linkParentField!@FieldId)@!field.Separator!@
             @@else
@@ -687,7 +687,7 @@ FieldContainerTransitPtr @!Classname!@Base::shallowCopy(void) const
         @@BeginFieldLoop@@
             @@if field.isPtrField
                 @@if field.isChildField
-    _@!field.VarName:25!@(this, 
+    _@!field.VarName:25!@(this,
                           @!field.Name!@FieldId,
                           @!field.TypeRaw!@::@!field.linkParentField!@FieldId)@!field.Separator!@
                 @@else
@@ -727,7 +727,7 @@ bool @!Classname!@Base::linkParent(
     {
         @!field.Type!@ pTypedParent =
             dynamic_cast< @!field.Type!@ >(pParent);
-        
+
         if(pTypedParent != NULL)
         {
             @@if field.isSField
@@ -736,12 +736,12 @@ bool @!Classname!@Base::linkParent(
 
             UInt16 oldChildFieldId =
                 _@!field.VarName!@.getParentFieldPos();
-            
+
             if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, oldChildFieldId);
             }
-            
+
             editSField(@!field.Name!@FieldMask);
 
             _@!field.VarName!@.setValue(static_cast<@!field.TypeNS!@@!field.Type!@>(pParent), childFieldId);
@@ -751,13 +751,13 @@ bool @!Classname!@Base::linkParent(
 
             _@!field.VarName!@.push_back(pParent, childFieldId);
             @@endif // @!field.cardinality!@ == "multi"
-            
+
             return true;
         }
-    
+
         return false;
     }
-    
+
         @@endif // @!field.category!@ == "pointer" and @!field.pointertype!@ == "parent"
     @@EndFieldLoop@@
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
@@ -773,7 +773,7 @@ bool @!Classname!@Base::unlinkParent(
     {
         @!field.TypeNS!@@!field.Type!@ pTypedParent =
             dynamic_cast< @!field.FieldTypeNS!@@!field.Type!@ >(pParent);
-            
+
         if(pTypedParent != NULL)
         {
             @@if field.isSField
@@ -782,36 +782,36 @@ bool @!Classname!@Base::unlinkParent(
                 editSField(@!field.Name!@FieldMask);
 
                 _@!field.VarName!@.setValue(NULL, 0xFFFF);
-                
+
                 return true;
             }
             @@endif // @!field.cardinality!@ == "single"
             @@if field.isMField
-            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pI = 
+            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pI =
                 _@!field.VarName!@.find_nc(pParent);
 
-            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pEnd = 
+            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pEnd =
                 _@!field.VarName!@.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
-                
+
                 _@!field.VarName!@.erase(pI);
-                
+
                 return true;
             }
             @@endif // @!field.cardinality!@ == "multi"
-            
+
             FWARNING(("@!Classname!@Base::unlinkParent: "
                       "Child <-> Parent link inconsistent.\n"));
-            
+
             return false;
         }
 
         return false;
     }
-    
+
         @@endif // @!field.category!@ == "pointer" and @!field.pointertype!@ == "parent"
     @@EndFieldLoop@@
     return Inherited::unlinkParent(pParent, parentFieldId);
@@ -833,7 +833,7 @@ bool @!Classname!@Base::unlinkChild(
     {
         @!field.TypeNS!@@!field.Type!@ pTypedChild =
             dynamic_cast<@!field.TypeNS!@@!field.Type!@>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             @@if field.isSField
@@ -842,7 +842,7 @@ bool @!Classname!@Base::unlinkChild(
                 editSField(@!field.Name!@FieldMask);
 
                 _@!field.VarName!@.setValue(NULL);
-                
+
                 return true;
             }
             @@endif // @!field.cardinality!@ == "single"
@@ -852,29 +852,29 @@ bool @!Classname!@Base::unlinkChild(
 
             @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldType!@::const_iterator pEnd =
                 _@!field.VarName!@.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
                 _@!field.VarName!@.erase(pI);
-                
+
                 return true;
             }
             @@endif // @!field.cardinality!@ == "multi"
-            
+
             FWARNING(("@!Classname!@Base::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
         @@endif // @!field.category!@ == "pointer" and @!field.pointertype!@ == "child"
     @@EndFieldLoop@@
-    
+
     return Inherited::unlinkChild(pChild, childFieldId);
 }
 
@@ -932,7 +932,7 @@ EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&@!Classname!@::setDecoratee, 
+    returnValue->setSetMethod(boost::bind(&@!Classname!@::setDecoratee,
                               static_cast<@!Classname!@ *>(this), _1));
 
     editSField(DecorateeFieldMask);
@@ -947,7 +947,7 @@ GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
 @@if !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue(
         new  @!field.CARD!@@!field.FieldTypeCaps!@::GetHandle(
-             &_@!field.VarName!@, 
+             &_@!field.VarName!@,
              this->getType().getFieldDesc(@!field.Name!@FieldId)));
 @@else // !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue;
@@ -961,25 +961,58 @@ EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
 @@if !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::EditHandlePtr returnValue(
         new  @!field.CARD!@@!field.FieldTypeCaps!@::EditHandle(
-             &_@!field.VarName!@, 
+             &_@!field.VarName!@,
              this->getType().getFieldDesc(@!field.Name!@FieldId)));
-@@if field.isMField
-  @@if field.isPtrField
 
-    returnValue->setAddMethod(boost::bind(&@!Classname!@::@!field.PushToField!@, 
-                              static_cast<@!Classname!@ *>(this), _1));
-  @@endif
+    @@if field.isMField
+        @@if field.isPtrField
+            @@if field.hasPushToField
+    returnValue->setAddMethod(
+        boost::bind(&@!Classname!@::@!field.PushToField!@,
+                    static_cast<@!Classname!@ *>(this), _1));
+            @@endif
+            @@if field.hasInsertIntoMField
+    returnValue->setInsertMethod(
+        boost::bind(&@!Classname!@::@!field.InsertIntoMField!@,
+                    static_cast<@!Classname!@ *>(this), _1, _2));
+            @@endif
+            @@if field.hasReplaceInMFieldIndex
+    returnValue->setReplaceMethod(
+        boost::bind(&@!Classname!@::@!field.ReplaceInMFieldIndex!@,
+                    static_cast<@!Classname!@ *>(this), _1, _2));
+            @@endif
+            @@if field.hasReplaceInMFieldObject
+    returnValue->setReplaceObjMethod(
+        boost::bind(&@!Classname!@::@!field.ReplaceInMFieldObject!@,
+                    static_cast<@!Classname!@ *>(this), _1, _2));
+            @@endif
+            @@if field.hasRemoveFromMFieldIndex
+    returnValue->setRemoveMethod(
+        boost::bind(&@!Classname!@::@!field.RemoveFromMFieldIndex!@,
+                    static_cast<@!Classname!@ *>(this), _1));
+            @@endif
+            @@if field.hasRemoveFromMFieldObject
+    returnValue->setRemoveObjMethod(
+        boost::bind(&@!Classname!@::@!field.RemoveFromMFieldObject!@,
+                    static_cast<@!Classname!@ *>(this), _1));
+            @@endif
+            @@if field.hasClearField
+    returnValue->setClearMethod(
+        boost::bind(&@!Classname!@::@!field.ClearField!@,
+                    static_cast<@!Classname!@ *>(this)));
+            @@endif
+        @@endif
 
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
-@@else // field.isMField
-  @@if field.isPtrField
-
-    returnValue->setSetMethod(boost::bind(&@!Classname!@::set@!field.Name!@, 
-                                          static_cast<@!Classname!@ *>(this), _1));
-  @@endif
+    @@else // field.isMField
+        @@if field.isPtrField
+    returnValue->setSetMethod(
+        boost::bind(&@!Classname!@::set@!field.Name!@,
+                    static_cast<@!Classname!@ *>(this), _1));
+        @@endif
 
     editSField(@!field.Name!@FieldMask);
-@@endif // field.isMField
+    @@endif // field.isMField
 @@else // !field.noAccess
     EditFieldHandlePtr returnValue;
 @@endif
@@ -1046,7 +1079,7 @@ void @!Classname!@Base::resolveLinks(void)
     @@endif //!field.noAccess
     @@else
 #ifdef OSG_MT_CPTR_ASPECT
-    _@!field.VarName!@.terminateShare(Thread::getCurrentAspect(), 
+    _@!field.VarName!@.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
     @@endif // field.isPtrField
@@ -1279,21 +1312,21 @@ DataType FieldTraits<@!Classname!@ *>::_type("@!Classname!@Ptr", "@!Parent!@Ptr"
 OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
 
     @@if SFPointerField
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           @!Classname!@ *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           @!Classname!@ *,
                            0);
     @@endif // SFPointerField
 
     @@if MFPointerField
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           @!Classname!@ *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           @!Classname!@ *,
                            0);
     @@endif // MFPointerField
 @@endif // PointerField
 @@if ChildField
 
 DataType &FieldTraits< @!Classname!@ *, @!ChildNS!@ >::getType(void)
-{                                                           
+{
     return FieldTraits<@!Classname!@ *, 0>::getType();
 }
 
@@ -1301,23 +1334,23 @@ DataType &FieldTraits< @!Classname!@ *, @!ChildNS!@ >::getType(void)
 @@if ChildSFields
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      @!Classname!@ *,       
-                      UnrecordedRefCountPolicy,  
+                      @!Classname!@ *,
+                      UnrecordedRefCountPolicy,
                       @!ChildNS!@);
 
 @@endif
 @@if ChildMFields
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      @!Classname!@ *,       
-                      UnrecordedRefCountPolicy,  
+                      @!Classname!@ *,
+                      UnrecordedRefCountPolicy,
                       @!ChildNS!@);
 
 @@endif
 @@if ParentField
 
 DataType &FieldTraits<@!Classname!@ *, @!ParentNS!@ >::getType(void)
-{                                                           
+{
     return FieldTraits<@!Classname!@ *, 0>::getType();
 }
 
@@ -1325,12 +1358,12 @@ DataType &FieldTraits<@!Classname!@ *, @!ParentNS!@ >::getType(void)
 @@if ParentSFields
 
 OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    @!Classname!@ *, 
+                    @!Classname!@ *,
                     NoRefCountPolicy,
                     @!ParentNS!@);
 
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField, 
-                         @!Classname!@ *, 
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         @!Classname!@ *,
                          NoRefCountPolicy,
                          @!ParentNS!@);
 
@@ -1338,12 +1371,12 @@ OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
 @@if ParentMFields
 
 OSG_SFIELDTYPE_INST(ParentPointerMField,
-                    @!Classname!@ *, 
+                    @!Classname!@ *,
                     NoRefCountPolicy,
                     @!ParentNS!@);
 
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField, 
-                         @!Classname!@ *, 
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
+                         @!Classname!@ *,
                          NoRefCountPolicy,
                          @!ParentNS!@);
 

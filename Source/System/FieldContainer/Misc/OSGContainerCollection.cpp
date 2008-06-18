@@ -128,7 +128,7 @@ void ContainerCollection::addContainer(FieldContainer *container)
 */
 void ContainerCollection::subContainer(FieldContainer *container)
 {
-   removeFromContainers(container);
+   removeObjFromContainers(container);
 }
 
 /*! Return the number of containers. */

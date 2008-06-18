@@ -1077,7 +1077,7 @@ void BalancedMultiWindow::createBBoxes(Server &server)
         } 
 
         // sub port
-        server.window->subPort(vI->serverPort);
+        server.window->subPortByObj(vI->serverPort);
     }
 }
 

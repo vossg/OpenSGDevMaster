@@ -470,9 +470,7 @@ class ParentPointerMField :
 
     void                   erase    (size_type    pos           );
 
-#ifndef OSG_CLEAN_FCFIELDS
     iterator               find     (const_value value          );
-#endif
     iterator               find_nc  (const_value value          );
 
     const_iterator         find     (const_value value          ) const;

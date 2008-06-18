@@ -17,30 +17,30 @@ class FieldContainer(FCDElement):
     def initFCDDict(self):
         """Sets the fcd dictionary to default values.
         """
-        self.setFCD("name",                   "");
-        self.setFCD("parent",                 "");
-        self.setFCD("mixinparent",            "");
-        self.setFCD("library",                "");
-        self.setFCD("pointerfieldtypes",      "");
-        self.setFCD("structure",              "");
-        self.setFCD("systemcomponent",        "true");
-        self.setFCD("parentsystemcomponent",  "true");
-        self.setFCD("decoratable",            "false");
-        self.setFCD("useLocalIncludes",       "false");
-        self.setFCD("isNodeCore",             "false");
-        self.setFCD("isBundle",               "false");
-        self.setFCD("description",            "");
-        self.setFCD("group",                  "");
-        self.setFCD("namespace",              "");
-        self.setFCD("decorateeFieldFlags",    "");
-        self.setFCD("additionalIncludes",     "");
-        self.setFCD("fcdFileLines",           []);
-        self.setFCD("fieldsUnmarkedOnCreate", "0")
-        self.setFCD("libnamespace",           "OSG")
-        self.setFCD("childfieldparent",       "")
-        self.setFCD("parentfieldcard",         "")
-        self.setFCD("childFields",            "none")
-        self.setFCD("parentFields",           "none")
+        self.setFCD("name",                   "",       True);
+        self.setFCD("parent",                 "",       True);
+        self.setFCD("mixinparent",            "",       True);
+        self.setFCD("library",                "",       True);
+        self.setFCD("pointerfieldtypes",      "",       True);
+        self.setFCD("structure",              "",       True);
+        self.setFCD("systemcomponent",        "true",   True);
+        self.setFCD("parentsystemcomponent",  "true",   True);
+        self.setFCD("decoratable",            "false",  True);
+        self.setFCD("useLocalIncludes",       "false",  True);
+        self.setFCD("isNodeCore",             "false",  True);
+        self.setFCD("isBundle",               "false",  True);
+        self.setFCD("description",            "",       True);
+        self.setFCD("group",                  "",       True);
+        self.setFCD("namespace",              "",       True);
+        self.setFCD("decorateeFieldFlags",    "",       True);
+        self.setFCD("additionalIncludes",     "",       True);
+        self.setFCD("fcdFileLines",           [],       True);
+        self.setFCD("fieldsUnmarkedOnCreate", "0",      True)
+        self.setFCD("libnamespace",           "OSG",    True)
+        self.setFCD("childfieldparent",       "",       True)
+        self.setFCD("parentfieldcard",        "",       True)
+        self.setFCD("childFields",            "none",   True)
+        self.setFCD("parentFields",           "none",   True)
 
     #
     # Access fields
@@ -348,7 +348,7 @@ class FieldContainer(FCDElement):
                 self["AdditionalIncludes"].append(include);
 
     def setFCDContents(self, fcdContents):
-        self.setFCD("fcdFileLines", fcdContents);
+        self.setFCD("fcdFileLines", fcdContents, True);
         if fcdContents == []:
             self["Fcdxml"] = "\"\"";
         else:

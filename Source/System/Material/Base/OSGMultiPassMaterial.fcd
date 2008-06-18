@@ -21,9 +21,9 @@
         assignMFieldAs="assignMaterialsFrom"
         insertIntoMFieldAs="insertMaterial"
         replaceInMFieldIndexAs="replaceMaterial"
-        replaceInMFieldObjectAs="replaceMaterial"
+        replaceInMFieldObjectAs="replaceMaterialByObj"
         removeFromMFieldIndexAs="subMaterial"
-        removeFromMFieldObjectAs="subMaterial"
+        removeFromMFieldObjectAs="subMaterialByObj"
         clearFieldAs="clearMaterials"
 	>
 	</Field>

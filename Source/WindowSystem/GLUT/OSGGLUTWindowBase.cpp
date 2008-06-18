@@ -97,7 +97,7 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
         "",
         GlutIdFieldId, GlutIdFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GLUTWindow::editHandleGlutId),
         static_cast<FieldGetMethodSig >(&GLUTWindow::getHandleGlutId));
 
@@ -265,8 +265,8 @@ GLUTWindow *GLUTWindowBase::createEmpty(void)
 
     newPtr<GLUTWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -290,8 +290,8 @@ FieldContainerTransitPtr GLUTWindowBase::shallowCopy(void) const
 {
     GLUTWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const GLUTWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const GLUTWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,7 +330,7 @@ GetFieldHandlePtr GLUTWindowBase::getHandleGlutId          (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfGlutId, 
+             &_sfGlutId,
              this->getType().getFieldDesc(GlutIdFieldId)));
 
     return returnValue;
@@ -340,8 +340,9 @@ EditFieldHandlePtr GLUTWindowBase::editHandleGlutId         (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfGlutId, 
+             &_sfGlutId,
              this->getType().getFieldDesc(GlutIdFieldId)));
+
 
     editSField(GlutIdFieldMask);
 
@@ -391,12 +392,12 @@ DataType FieldTraits<GLUTWindow *>::_type("GLUTWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(GLUTWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GLUTWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GLUTWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GLUTWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GLUTWindow *,
                            0);
 
 OSG_END_NAMESPACE

@@ -22,10 +22,16 @@ class FCDElement(object):
         """
         return self.m_fcdDict[key];
     
-    def setFCD(self, key, value):
+    def setFCD(self, key, value, allowNew = False):
         """Sets the <key> entry of m_fcdDict to <value>.
         """
-        self.m_fcdDict[key] = value;
+        if allowNew:
+            self.m_fcdDict[key] = value;
+        else:
+            if self.m_fcdDict.has_key(key):
+                self.m_fcdDict[key] = value;
+            else:
+                self.m_log.warning("setFCD: Unknown key [%s]." % key);
     
     def _getFCDDict(self):
         """Returns m_fcdDict.

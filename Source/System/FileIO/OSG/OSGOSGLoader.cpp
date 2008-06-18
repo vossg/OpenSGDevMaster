@@ -298,7 +298,7 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
 
         if(pSFHandle != NULL && pSFHandle->isValid())
         {
-            pSFHandle->setValue(pNewNode);
+            pSFHandle->set(pNewNode);
         }
         else if(pMFHandle != NULL && pMFHandle->isValid())
         {

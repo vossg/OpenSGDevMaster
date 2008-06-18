@@ -23,9 +23,9 @@
         assignMFieldAs="assignCoresFrom"
         insertIntoMFieldAs="insertCore"
         replaceInMFieldIndexAs="replaceCore"
-        replaceInMFieldObjectAs="replaceCore"
+        replaceInMFieldObjectAs="replaceCoreByObj"
         removeFromMFieldIndexAs="subCore"
-        removeFromMFieldObjectAs="subCore"
+        removeFromMFieldObjectAs="subCoreByObj"
         clearFieldAs="clearCores"
 	>
 	</Field>

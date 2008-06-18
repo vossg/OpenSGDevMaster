@@ -24,9 +24,9 @@
         pushToFieldAs="addParameter"
         insertIntoMFieldAs="insertParameter"
         replaceInMFieldIndexAs="replaceParameter"
-        replaceInMFieldObjectAs="replaceParameterBy"
+        replaceInMFieldObjectAs="replaceParameterByObj"
         removeFromMFieldIndexAs="subParameter"
-        removeFromMFieldObjectAs="subParameter"
+        removeFromMFieldObjectAs="subParameterByObj"
         clearFieldAs="clearParameters"        
 	>
 	parameter list

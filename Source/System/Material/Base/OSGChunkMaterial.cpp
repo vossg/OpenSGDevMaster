@@ -143,7 +143,7 @@ void ChunkMaterial::removeFromChunks(UInt32 uiIndex)
     }
 }
 
-void ChunkMaterial::removeFromChunks(StateChunk * const value)
+void ChunkMaterial::removeFromChunksByObj(StateChunk * const value)
 {
     Int32 iElemIdx = _mfChunks.findIndex(value);
 

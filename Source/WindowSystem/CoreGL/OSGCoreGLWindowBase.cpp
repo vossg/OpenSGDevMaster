@@ -97,7 +97,7 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
         "",
         ContextFieldId, ContextFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CoreGLWindow::editHandleContext),
         static_cast<FieldGetMethodSig >(&CoreGLWindow::getHandleContext));
 
@@ -265,8 +265,8 @@ CoreGLWindow *CoreGLWindowBase::createEmpty(void)
 
     newPtr<CoreGLWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -290,8 +290,8 @@ FieldContainerTransitPtr CoreGLWindowBase::shallowCopy(void) const
 {
     CoreGLWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const CoreGLWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const CoreGLWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,7 +330,7 @@ GetFieldHandlePtr CoreGLWindowBase::getHandleContext         (void) const
 {
     SFCGLContextObj::GetHandlePtr returnValue(
         new  SFCGLContextObj::GetHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
 
     return returnValue;
@@ -340,8 +340,9 @@ EditFieldHandlePtr CoreGLWindowBase::editHandleContext        (void)
 {
     SFCGLContextObj::EditHandlePtr returnValue(
         new  SFCGLContextObj::EditHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
+
 
     editSField(ContextFieldMask);
 
@@ -391,12 +392,12 @@ DataType FieldTraits<CoreGLWindow *>::_type("CoreGLWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(CoreGLWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CoreGLWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CoreGLWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CoreGLWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CoreGLWindow *,
                            0);
 
 OSG_END_NAMESPACE

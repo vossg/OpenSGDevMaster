@@ -210,7 +210,7 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
-
+    
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

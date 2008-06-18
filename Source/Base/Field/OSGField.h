@@ -65,19 +65,25 @@ class OSG_BASE_DLLMAPPING Field
 
   public:
 
-    static const UInt32 MFShareMask    = 0x000F;
-    static const UInt32 FLocalMask     = 0x00F0;
+    static const UInt32 MFShareMask      = 0x000F;
+    static const UInt32 FLocalMask       = 0x00F0;
+    static const UInt32 FAccessMask      = 0x0F00;
 
-    static const UInt32 MFSharedSync   = 0x0000;
-    static const UInt32 MFCopySync     = 0x0001; 
+    static const UInt32 MFSharedSync     = 0x0000;
+    static const UInt32 MFCopySync       = 0x0001; 
     
-    static const UInt32 FGlobal        = 0x0000;
-    static const UInt32 FThreadLocal   = 0x0010;
-    static const UInt32 FClusterLocal  = 0x0020;
+    static const UInt32 FGlobal          = 0x0000;
+    static const UInt32 FThreadLocal     = 0x0010;
+    static const UInt32 FClusterLocal    = 0x0020;
 
-    static const UInt32 MFDefaultFlags = 0x0000;
+    static const UInt32 FStdAccess       = 0x0100;
+    static const UInt32 FNullCheckAccess = 0x0200;
+    static const UInt32 FCustomAccess    = 0x0400;
+    
+    
+    static const UInt32 MFDefaultFlags   = 0x0000;
 
-    static const UInt32 SFDefaultFlags = 0x0000;
+    static const UInt32 SFDefaultFlags   = 0x0000;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */

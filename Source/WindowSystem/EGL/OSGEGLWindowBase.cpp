@@ -105,7 +105,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         "",
         DisplayFieldId, DisplayFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&EGLWindow::editHandleDisplay),
         static_cast<FieldGetMethodSig >(&EGLWindow::getHandleDisplay));
 
@@ -117,7 +117,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         "",
         WindowFieldId, WindowFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&EGLWindow::editHandleWindow),
         static_cast<FieldGetMethodSig >(&EGLWindow::getHandleWindow));
 
@@ -129,7 +129,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
         "",
         ContextFieldId, ContextFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&EGLWindow::editHandleContext),
         static_cast<FieldGetMethodSig >(&EGLWindow::getHandleContext));
 
@@ -367,8 +367,8 @@ EGLWindow *EGLWindowBase::createEmpty(void)
 
     newPtr<EGLWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -392,8 +392,8 @@ FieldContainerTransitPtr EGLWindowBase::shallowCopy(void) const
 {
     EGLWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const EGLWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const EGLWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -436,7 +436,7 @@ GetFieldHandlePtr EGLWindowBase::getHandleDisplay         (void) const
 {
     SFEGLDisplay::GetHandlePtr returnValue(
         new  SFEGLDisplay::GetHandle(
-             &_sfDisplay, 
+             &_sfDisplay,
              this->getType().getFieldDesc(DisplayFieldId)));
 
     return returnValue;
@@ -446,8 +446,9 @@ EditFieldHandlePtr EGLWindowBase::editHandleDisplay        (void)
 {
     SFEGLDisplay::EditHandlePtr returnValue(
         new  SFEGLDisplay::EditHandle(
-             &_sfDisplay, 
+             &_sfDisplay,
              this->getType().getFieldDesc(DisplayFieldId)));
+
 
     editSField(DisplayFieldMask);
 
@@ -458,7 +459,7 @@ GetFieldHandlePtr EGLWindowBase::getHandleWindow          (void) const
 {
     SFEGLSurface::GetHandlePtr returnValue(
         new  SFEGLSurface::GetHandle(
-             &_sfWindow, 
+             &_sfWindow,
              this->getType().getFieldDesc(WindowFieldId)));
 
     return returnValue;
@@ -468,8 +469,9 @@ EditFieldHandlePtr EGLWindowBase::editHandleWindow         (void)
 {
     SFEGLSurface::EditHandlePtr returnValue(
         new  SFEGLSurface::EditHandle(
-             &_sfWindow, 
+             &_sfWindow,
              this->getType().getFieldDesc(WindowFieldId)));
+
 
     editSField(WindowFieldMask);
 
@@ -480,7 +482,7 @@ GetFieldHandlePtr EGLWindowBase::getHandleContext         (void) const
 {
     SFEGLContext::GetHandlePtr returnValue(
         new  SFEGLContext::GetHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
 
     return returnValue;
@@ -490,8 +492,9 @@ EditFieldHandlePtr EGLWindowBase::editHandleContext        (void)
 {
     SFEGLContext::EditHandlePtr returnValue(
         new  SFEGLContext::EditHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
+
 
     editSField(ContextFieldMask);
 
@@ -541,12 +544,12 @@ DataType FieldTraits<EGLWindow *>::_type("EGLWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(EGLWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           EGLWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           EGLWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           EGLWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           EGLWindow *,
                            0);
 
 OSG_END_NAMESPACE
