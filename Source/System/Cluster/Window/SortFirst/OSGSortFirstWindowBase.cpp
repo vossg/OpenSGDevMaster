@@ -113,7 +113,7 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         "",
         CompressionFieldId, CompressionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleCompression),
         static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleCompression));
 
@@ -125,7 +125,7 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         "",
         SubtileSizeFieldId, SubtileSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleSubtileSize),
         static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleSubtileSize));
 
@@ -137,7 +137,7 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         "Transmit rendered image to cleint\n",
         ComposeFieldId, ComposeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleCompose),
         static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleCompose));
 
@@ -149,7 +149,7 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         "left,right,bottom,top for each viewport\n",
         RegionFieldId, RegionFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleRegion),
         static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleRegion));
 
@@ -161,7 +161,7 @@ void SortFirstWindowBase::classDescInserter(TypeObject &oType)
         "Enabe, disable analysation of face distribution\n",
         UseFaceDistributionFieldId, UseFaceDistributionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortFirstWindow::editHandleUseFaceDistribution),
         static_cast<FieldGetMethodSig >(&SortFirstWindow::getHandleUseFaceDistribution));
 
@@ -466,8 +466,8 @@ SortFirstWindow *SortFirstWindowBase::createEmpty(void)
 
     newPtr<SortFirstWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -491,8 +491,8 @@ FieldContainerTransitPtr SortFirstWindowBase::shallowCopy(void) const
 {
     SortFirstWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SortFirstWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SortFirstWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -539,7 +539,7 @@ GetFieldHandlePtr SortFirstWindowBase::getHandleCompression     (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfCompression, 
+             &_sfCompression,
              this->getType().getFieldDesc(CompressionFieldId)));
 
     return returnValue;
@@ -549,8 +549,9 @@ EditFieldHandlePtr SortFirstWindowBase::editHandleCompression    (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfCompression, 
+             &_sfCompression,
              this->getType().getFieldDesc(CompressionFieldId)));
+
 
     editSField(CompressionFieldMask);
 
@@ -561,7 +562,7 @@ GetFieldHandlePtr SortFirstWindowBase::getHandleSubtileSize     (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfSubtileSize, 
+             &_sfSubtileSize,
              this->getType().getFieldDesc(SubtileSizeFieldId)));
 
     return returnValue;
@@ -571,8 +572,9 @@ EditFieldHandlePtr SortFirstWindowBase::editHandleSubtileSize    (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfSubtileSize, 
+             &_sfSubtileSize,
              this->getType().getFieldDesc(SubtileSizeFieldId)));
+
 
     editSField(SubtileSizeFieldMask);
 
@@ -583,7 +585,7 @@ GetFieldHandlePtr SortFirstWindowBase::getHandleCompose         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfCompose, 
+             &_sfCompose,
              this->getType().getFieldDesc(ComposeFieldId)));
 
     return returnValue;
@@ -593,8 +595,9 @@ EditFieldHandlePtr SortFirstWindowBase::editHandleCompose        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfCompose, 
+             &_sfCompose,
              this->getType().getFieldDesc(ComposeFieldId)));
+
 
     editSField(ComposeFieldMask);
 
@@ -605,7 +608,7 @@ GetFieldHandlePtr SortFirstWindowBase::getHandleRegion          (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
-             &_mfRegion, 
+             &_mfRegion,
              this->getType().getFieldDesc(RegionFieldId)));
 
     return returnValue;
@@ -615,8 +618,9 @@ EditFieldHandlePtr SortFirstWindowBase::editHandleRegion         (void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
-             &_mfRegion, 
+             &_mfRegion,
              this->getType().getFieldDesc(RegionFieldId)));
+
 
     editMField(RegionFieldMask, _mfRegion);
 
@@ -627,7 +631,7 @@ GetFieldHandlePtr SortFirstWindowBase::getHandleUseFaceDistribution (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfUseFaceDistribution, 
+             &_sfUseFaceDistribution,
              this->getType().getFieldDesc(UseFaceDistributionFieldId)));
 
     return returnValue;
@@ -637,8 +641,9 @@ EditFieldHandlePtr SortFirstWindowBase::editHandleUseFaceDistribution(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfUseFaceDistribution, 
+             &_sfUseFaceDistribution,
              this->getType().getFieldDesc(UseFaceDistributionFieldId)));
+
 
     editSField(UseFaceDistributionFieldMask);
 
@@ -685,7 +690,7 @@ void SortFirstWindowBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfRegion.terminateShare(Thread::getCurrentAspect(), 
+    _mfRegion.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

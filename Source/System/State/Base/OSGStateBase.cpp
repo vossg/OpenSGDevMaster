@@ -100,7 +100,7 @@ void StateBase::classDescInserter(TypeObject &oType)
         "",
         ChunksFieldId, ChunksFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&State::invalidEditField),
         static_cast     <FieldGetMethodSig >(&State::invalidGetField));
 
@@ -141,13 +141,6 @@ StateBase::TypeObject StateBase::_type(
     "        removeTo=\"NULL\"\n"
     "        clearMField=\"true\"\n"
     "        access=\"none\"\n"
-    "        pushToField=\"\"\n"
-    "        insertIntoMField=\"\"\n"
-    "        replaceInMFieldIndex=\"\"\n"
-    "        replaceInMFieldObject=\"\"\n"
-    "        removeFromMFieldIndex=\"\"\n"
-    "        removeFromMFieldObject=\"\"\n"
-    "        clearField=\"\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -267,8 +260,8 @@ State *StateBase::createEmpty(void)
 
     newPtr<State>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -292,8 +285,8 @@ FieldContainerTransitPtr StateBase::shallowCopy(void) const
 {
     State *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const State *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const State *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -394,12 +387,12 @@ DataType FieldTraits<State *>::_type("StatePtr", "FieldContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(State *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           State *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           State *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           State *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           State *,
                            0);
 
 OSG_END_NAMESPACE

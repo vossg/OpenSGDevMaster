@@ -97,7 +97,7 @@ void ShaderParameterVec2fBase::classDescInserter(TypeObject &oType)
         "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderParameterVec2f::editHandleValue),
         static_cast<FieldGetMethodSig >(&ShaderParameterVec2f::getHandleValue));
 
@@ -265,8 +265,8 @@ ShaderParameterVec2f *ShaderParameterVec2fBase::createEmpty(void)
 
     newPtr<ShaderParameterVec2f>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -290,8 +290,8 @@ FieldContainerTransitPtr ShaderParameterVec2fBase::shallowCopy(void) const
 {
     ShaderParameterVec2f *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ShaderParameterVec2f *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ShaderParameterVec2f *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,7 +330,7 @@ GetFieldHandlePtr ShaderParameterVec2fBase::getHandleValue           (void) cons
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfValue, 
+             &_sfValue,
              this->getType().getFieldDesc(ValueFieldId)));
 
     return returnValue;
@@ -340,8 +340,9 @@ EditFieldHandlePtr ShaderParameterVec2fBase::editHandleValue          (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfValue, 
+             &_sfValue,
              this->getType().getFieldDesc(ValueFieldId)));
+
 
     editSField(ValueFieldMask);
 
@@ -391,12 +392,12 @@ DataType FieldTraits<ShaderParameterVec2f *>::_type("ShaderParameterVec2fPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec2f *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterVec2f *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterVec2f *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterVec2f *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterVec2f *,
                            0);
 
 OSG_END_NAMESPACE

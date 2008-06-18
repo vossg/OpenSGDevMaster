@@ -161,8 +161,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     void pushToWindows             (CSMWindow * const value   );
     void assignWindows            (const MFUnrecChildCSMWindowPtr &value);
     void removeFromWindows (UInt32               uiIndex );
-    void removeFromWindows(CSMWindow * const value   );
-    void clearWindows               (void                          );
+    void removeObjFromWindows(CSMWindow * const value   );
+    void clearWindows               (void                         );
 
 
     /*! \}                                                                 */
@@ -243,10 +243,10 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name Child linking                                                */
     /*! \{                                                                 */
-    
+
     virtual bool unlinkChild(FieldContainer * const pChild,
                              UInt16           const childFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

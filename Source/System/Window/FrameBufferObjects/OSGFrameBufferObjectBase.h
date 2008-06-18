@@ -211,8 +211,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     void pushToColorAttachments           (FrameBufferAttachment * const value   );
     void assignColorAttachments          (const MFUnrecFrameBufferAttachmentPtr &value);
     void removeFromColorAttachments (UInt32               uiIndex );
-    void removeFromColorAttachments(FrameBufferAttachment * const value   );
-    void clearColorAttachments            (void                          );
+    void removeObjFromColorAttachments(FrameBufferAttachment * const value   );
+    void clearColorAttachments            (void                         );
 
 
     /*! \}                                                                 */

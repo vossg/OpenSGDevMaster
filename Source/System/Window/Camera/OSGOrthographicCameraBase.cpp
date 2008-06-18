@@ -101,7 +101,7 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         "The vertical size of the camera box, in world units.\n",
         VerticalSizeFieldId, VerticalSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&OrthographicCamera::editHandleVerticalSize),
         static_cast<FieldGetMethodSig >(&OrthographicCamera::getHandleVerticalSize));
 
@@ -113,7 +113,7 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
         "The aspect ratio (i.e. width / height) of a pixel.\n",
         AspectFieldId, AspectFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&OrthographicCamera::editHandleAspect),
         static_cast<FieldGetMethodSig >(&OrthographicCamera::getHandleAspect));
 
@@ -313,8 +313,8 @@ OrthographicCamera *OrthographicCameraBase::createEmpty(void)
 
     newPtr<OrthographicCamera>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -338,8 +338,8 @@ FieldContainerTransitPtr OrthographicCameraBase::shallowCopy(void) const
 {
     OrthographicCamera *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const OrthographicCamera *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const OrthographicCamera *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -380,7 +380,7 @@ GetFieldHandlePtr OrthographicCameraBase::getHandleVerticalSize    (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfVerticalSize, 
+             &_sfVerticalSize,
              this->getType().getFieldDesc(VerticalSizeFieldId)));
 
     return returnValue;
@@ -390,8 +390,9 @@ EditFieldHandlePtr OrthographicCameraBase::editHandleVerticalSize   (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfVerticalSize, 
+             &_sfVerticalSize,
              this->getType().getFieldDesc(VerticalSizeFieldId)));
+
 
     editSField(VerticalSizeFieldMask);
 
@@ -402,7 +403,7 @@ GetFieldHandlePtr OrthographicCameraBase::getHandleAspect          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfAspect, 
+             &_sfAspect,
              this->getType().getFieldDesc(AspectFieldId)));
 
     return returnValue;
@@ -412,8 +413,9 @@ EditFieldHandlePtr OrthographicCameraBase::editHandleAspect         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfAspect, 
+             &_sfAspect,
              this->getType().getFieldDesc(AspectFieldId)));
+
 
     editSField(AspectFieldMask);
 
@@ -463,12 +465,12 @@ DataType FieldTraits<OrthographicCamera *>::_type("OrthographicCameraPtr", "Came
 
 OSG_FIELDTRAITS_GETTYPE(OrthographicCamera *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           OrthographicCamera *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           OrthographicCamera *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           OrthographicCamera *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           OrthographicCamera *,
                            0);
 
 OSG_END_NAMESPACE

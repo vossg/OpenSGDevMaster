@@ -102,7 +102,7 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
         "If enabled it uses the camera beacon matrix (for cube textures)\n",
         UseCameraBeaconFieldId, UseCameraBeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureTransformChunk::editHandleUseCameraBeacon),
         static_cast<FieldGetMethodSig >(&TextureTransformChunk::getHandleUseCameraBeacon));
 
@@ -282,8 +282,8 @@ TextureTransformChunk *TextureTransformChunkBase::createEmpty(void)
 
     newPtr<TextureTransformChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -307,8 +307,8 @@ FieldContainerTransitPtr TextureTransformChunkBase::shallowCopy(void) const
 {
     TextureTransformChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TextureTransformChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TextureTransformChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -347,7 +347,7 @@ GetFieldHandlePtr TextureTransformChunkBase::getHandleUseCameraBeacon (void) con
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfUseCameraBeacon, 
+             &_sfUseCameraBeacon,
              this->getType().getFieldDesc(UseCameraBeaconFieldId)));
 
     return returnValue;
@@ -357,8 +357,9 @@ EditFieldHandlePtr TextureTransformChunkBase::editHandleUseCameraBeacon(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfUseCameraBeacon, 
+             &_sfUseCameraBeacon,
              this->getType().getFieldDesc(UseCameraBeaconFieldId)));
+
 
     editSField(UseCameraBeaconFieldMask);
 
@@ -408,12 +409,12 @@ DataType FieldTraits<TextureTransformChunk *>::_type("TextureTransformChunkPtr",
 
 OSG_FIELDTRAITS_GETTYPE(TextureTransformChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureTransformChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureTransformChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureTransformChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureTransformChunk *,
                            0);
 
 OSG_END_NAMESPACE

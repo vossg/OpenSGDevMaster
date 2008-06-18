@@ -259,6 +259,10 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
+
+
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -359,10 +363,10 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name Child linking                                                */
     /*! \{                                                                 */
-    
+
     virtual bool unlinkChild(FieldContainer * const pChild,
                              UInt16           const childFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
@@ -458,6 +462,10 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+
+
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

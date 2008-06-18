@@ -97,7 +97,7 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
         "",
         ForceTextureUnitFieldId, ForceTextureUnitFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SimpleShadowMapEngine::editHandleForceTextureUnit),
         static_cast<FieldGetMethodSig >(&SimpleShadowMapEngine::getHandleForceTextureUnit));
 
@@ -264,8 +264,8 @@ SimpleShadowMapEngine *SimpleShadowMapEngineBase::createEmpty(void)
 
     newPtr<SimpleShadowMapEngine>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -289,8 +289,8 @@ FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopy(void) const
 {
     SimpleShadowMapEngine *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SimpleShadowMapEngine *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SimpleShadowMapEngine *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -329,7 +329,7 @@ GetFieldHandlePtr SimpleShadowMapEngineBase::getHandleForceTextureUnit (void) co
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfForceTextureUnit, 
+             &_sfForceTextureUnit,
              this->getType().getFieldDesc(ForceTextureUnitFieldId)));
 
     return returnValue;
@@ -339,8 +339,9 @@ EditFieldHandlePtr SimpleShadowMapEngineBase::editHandleForceTextureUnit(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfForceTextureUnit, 
+             &_sfForceTextureUnit,
              this->getType().getFieldDesc(ForceTextureUnitFieldId)));
+
 
     editSField(ForceTextureUnitFieldMask);
 
@@ -390,12 +391,12 @@ DataType FieldTraits<SimpleShadowMapEngine *>::_type("SimpleShadowMapEnginePtr",
 
 OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEngine *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SimpleShadowMapEngine *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SimpleShadowMapEngine *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SimpleShadowMapEngine *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SimpleShadowMapEngine *,
                            0);
 
 OSG_END_NAMESPACE

@@ -108,7 +108,7 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         "The images to display.\n",
         ImagesFieldId, ImagesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ImageForeground::editHandleImages),
         static_cast<FieldGetMethodSig >(&ImageForeground::getHandleImages));
 
@@ -120,7 +120,7 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
         "The positions of the images.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ImageForeground::editHandlePositions),
         static_cast<FieldGetMethodSig >(&ImageForeground::getHandlePositions));
 
@@ -271,7 +271,7 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
     }
 }
 
-void ImageForegroundBase::removeFromImages(Image * const value)
+void ImageForegroundBase::removeObjFromImages(Image * const value)
 {
     Int32 iElemIdx = _mfImages.findIndex(value);
 
@@ -394,8 +394,8 @@ ImageForeground *ImageForegroundBase::createEmpty(void)
 
     newPtr<ImageForeground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -419,8 +419,8 @@ FieldContainerTransitPtr ImageForegroundBase::shallowCopy(void) const
 {
     ImageForeground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ImageForeground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ImageForeground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -482,7 +482,7 @@ GetFieldHandlePtr ImageForegroundBase::getHandleImages          (void) const
 {
     MFUnrecImagePtr::GetHandlePtr returnValue(
         new  MFUnrecImagePtr::GetHandle(
-             &_mfImages, 
+             &_mfImages,
              this->getType().getFieldDesc(ImagesFieldId)));
 
     return returnValue;
@@ -492,11 +492,21 @@ EditFieldHandlePtr ImageForegroundBase::editHandleImages         (void)
 {
     MFUnrecImagePtr::EditHandlePtr returnValue(
         new  MFUnrecImagePtr::EditHandle(
-             &_mfImages, 
+             &_mfImages,
              this->getType().getFieldDesc(ImagesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ImageForeground::pushToImages, 
-                              static_cast<ImageForeground *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&ImageForeground::pushToImages,
+                    static_cast<ImageForeground *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&ImageForeground::removeFromImages,
+                    static_cast<ImageForeground *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&ImageForeground::removeObjFromImages,
+                    static_cast<ImageForeground *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&ImageForeground::clearImages,
+                    static_cast<ImageForeground *>(this)));
 
     editMField(ImagesFieldMask, _mfImages);
 
@@ -507,7 +517,7 @@ GetFieldHandlePtr ImageForegroundBase::getHandlePositions       (void) const
 {
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
-             &_mfPositions, 
+             &_mfPositions,
              this->getType().getFieldDesc(PositionsFieldId)));
 
     return returnValue;
@@ -517,8 +527,9 @@ EditFieldHandlePtr ImageForegroundBase::editHandlePositions      (void)
 {
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(
-             &_mfPositions, 
+             &_mfPositions,
              this->getType().getFieldDesc(PositionsFieldId)));
+
 
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -566,7 +577,7 @@ void ImageForegroundBase::resolveLinks(void)
 
     static_cast<ImageForeground *>(this)->clearImages();
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfPositions.terminateShare(Thread::getCurrentAspect(), 
+    _mfPositions.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -578,12 +589,12 @@ DataType FieldTraits<ImageForeground *>::_type("ImageForegroundPtr", "Foreground
 
 OSG_FIELDTRAITS_GETTYPE(ImageForeground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ImageForeground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ImageForeground *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ImageForeground *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ImageForeground *,
                            0);
 
 OSG_END_NAMESPACE

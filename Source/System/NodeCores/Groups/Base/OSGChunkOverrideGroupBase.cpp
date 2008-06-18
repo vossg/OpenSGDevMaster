@@ -101,7 +101,7 @@ void ChunkOverrideGroupBase::classDescInserter(TypeObject &oType)
         "",
         ChunksFieldId, ChunksFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FCustomAccess),
         static_cast<FieldEditMethodSig>(&ChunkOverrideGroup::editHandleChunks),
         static_cast<FieldGetMethodSig >(&ChunkOverrideGroup::getHandleChunks));
 
@@ -269,8 +269,8 @@ ChunkOverrideGroup *ChunkOverrideGroupBase::createEmpty(void)
 
     newPtr<ChunkOverrideGroup>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -294,8 +294,8 @@ FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
 {
     ChunkOverrideGroup *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ChunkOverrideGroup *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ChunkOverrideGroup *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -355,7 +355,7 @@ GetFieldHandlePtr ChunkOverrideGroupBase::getHandleChunks          (void) const
 {
     MFUnrecStateChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::GetHandle(
-             &_mfChunks, 
+             &_mfChunks,
              this->getType().getFieldDesc(ChunksFieldId)));
 
     return returnValue;
@@ -365,11 +365,9 @@ EditFieldHandlePtr ChunkOverrideGroupBase::editHandleChunks         (void)
 {
     MFUnrecStateChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::EditHandle(
-             &_mfChunks, 
+             &_mfChunks,
              this->getType().getFieldDesc(ChunksFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ChunkOverrideGroup::pushToChunks, 
-                              static_cast<ChunkOverrideGroup *>(this), _1));
 
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -420,12 +418,12 @@ DataType FieldTraits<ChunkOverrideGroup *>::_type("ChunkOverrideGroupPtr", "Grou
 
 OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroup *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ChunkOverrideGroup *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ChunkOverrideGroup *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ChunkOverrideGroup *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ChunkOverrideGroup *,
                            0);
 
 OSG_END_NAMESPACE

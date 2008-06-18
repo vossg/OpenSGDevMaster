@@ -195,15 +195,15 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     void pushToProperties           (GeoVectorProperty * const value   );
     void assignProperties          (const MFUnrecChildGeoVectorPropertyPtr &value);
     void removeFromProperties (UInt32               uiIndex );
-    void removeFromProperties(GeoVectorProperty * const value   );
-    void clearProperties            (void                          );
+    void removeObjFromProperties(GeoVectorProperty * const value   );
+    void clearProperties            (void                         );
 
 
     void pushToPropIndices           (GeoIntegralProperty * const value   );
     void assignPropIndices          (const MFUnrecChildGeoIntegralPropertyPtr &value);
     void removeFromPropIndices (UInt32               uiIndex );
-    void removeFromPropIndices(GeoIntegralProperty * const value   );
-    void clearPropIndices            (void                          );
+    void removeObjFromPropIndices(GeoIntegralProperty * const value   );
+    void clearPropIndices            (void                         );
 
 
     /*! \}                                                                 */
@@ -289,10 +289,10 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*---------------------------------------------------------------------*/
     /*! \name Child linking                                                */
     /*! \{                                                                 */
-    
+
     virtual bool unlinkChild(FieldContainer * const pChild,
                              UInt16           const childFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

@@ -196,7 +196,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "given.\n",
         SkyColorFieldId, SkyColorFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleSkyColor),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleSkyColor));
 
@@ -209,7 +209,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "with the exception of the apex. Values should be between 0 and PI.\n",
         SkyAngleFieldId, SkyAngleFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleSkyAngle),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleSkyAngle));
 
@@ -221,7 +221,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "The colors of the ground sphere-part. Interpretation is similar to the sky.\n",
         GroundColorFieldId, GroundColorFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleGroundColor),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleGroundColor));
 
@@ -234,7 +234,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "0 being straight down.\n",
         GroundAngleFieldId, GroundAngleFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleGroundAngle),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleGroundAngle));
 
@@ -246,7 +246,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "The polygonal resolution of the sky/ground sphere.\n",
         SphereResFieldId, SphereResFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleSphereRes),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleSphereRes));
 
@@ -258,7 +258,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Texture for the back (+Z) side of the sky cube.\n",
         BackTextureFieldId, BackTextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBackTexture),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBackTexture));
 
@@ -270,7 +270,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Texture for the bottom (-Y) side of the sky cube.\n",
         BottomTextureFieldId, BottomTextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBottomTexture),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBottomTexture));
 
@@ -282,7 +282,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Texture for the front (-Z) side of the sky cube.\n",
         FrontTextureFieldId, FrontTextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleFrontTexture),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleFrontTexture));
 
@@ -294,7 +294,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Texture for the left (-X) side of the sky cube.\n",
         LeftTextureFieldId, LeftTextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleLeftTexture),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleLeftTexture));
 
@@ -306,7 +306,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Texture for the right (+X) side of the sky cube.\n",
         RightTextureFieldId, RightTextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleRightTexture),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleRightTexture));
 
@@ -318,7 +318,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Texture for the top (+Y) side of the sky cube.\n",
         TopTextureFieldId, TopTextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleTopTexture),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleTopTexture));
 
@@ -330,7 +330,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Flag to draw the box inside or outside of the sphere\n",
         BoxInsideFieldId, BoxInsideFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBoxInside),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBoxInside));
 
@@ -342,7 +342,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Texture coordinates for the top face\n",
         TopTexCoordFieldId, TopTexCoordFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleTopTexCoord),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleTopTexCoord));
 
@@ -354,7 +354,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Bottom texture coordinates.\n",
         BottomTexCoordFieldId, BottomTexCoordFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBottomTexCoord),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBottomTexCoord));
 
@@ -366,7 +366,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Right texture coordinates.\n",
         RightTexCoordFieldId, RightTexCoordFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleRightTexCoord),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleRightTexCoord));
 
@@ -378,7 +378,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Left texture coordinates.\n",
         LeftTexCoordFieldId, LeftTexCoordFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleLeftTexCoord),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleLeftTexCoord));
 
@@ -390,7 +390,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Front texture coordinates.\n",
         FrontTexCoordFieldId, FrontTexCoordFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleFrontTexCoord),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleFrontTexCoord));
 
@@ -402,7 +402,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "Back texture coordinates.\n",
         BackTexCoordFieldId, BackTexCoordFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBackTexCoord),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBackTexCoord));
 
@@ -415,7 +415,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         "local coordinate system it is drawn in.\n",
         BeaconFieldId, BeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SkyBackground::editHandleBeacon),
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBeacon));
 
@@ -1230,8 +1230,8 @@ SkyBackground *SkyBackgroundBase::createEmpty(void)
 
     newPtr<SkyBackground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -1255,8 +1255,8 @@ FieldContainerTransitPtr SkyBackgroundBase::shallowCopy(void) const
 {
     SkyBackground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SkyBackground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SkyBackground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -1354,7 +1354,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleSkyColor        (void) const
 {
     MFColor4f::GetHandlePtr returnValue(
         new  MFColor4f::GetHandle(
-             &_mfSkyColor, 
+             &_mfSkyColor,
              this->getType().getFieldDesc(SkyColorFieldId)));
 
     return returnValue;
@@ -1364,8 +1364,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleSkyColor       (void)
 {
     MFColor4f::EditHandlePtr returnValue(
         new  MFColor4f::EditHandle(
-             &_mfSkyColor, 
+             &_mfSkyColor,
              this->getType().getFieldDesc(SkyColorFieldId)));
+
 
     editMField(SkyColorFieldMask, _mfSkyColor);
 
@@ -1376,7 +1377,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleSkyAngle        (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
-             &_mfSkyAngle, 
+             &_mfSkyAngle,
              this->getType().getFieldDesc(SkyAngleFieldId)));
 
     return returnValue;
@@ -1386,8 +1387,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleSkyAngle       (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
-             &_mfSkyAngle, 
+             &_mfSkyAngle,
              this->getType().getFieldDesc(SkyAngleFieldId)));
+
 
     editMField(SkyAngleFieldMask, _mfSkyAngle);
 
@@ -1398,7 +1400,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleGroundColor     (void) const
 {
     MFColor4f::GetHandlePtr returnValue(
         new  MFColor4f::GetHandle(
-             &_mfGroundColor, 
+             &_mfGroundColor,
              this->getType().getFieldDesc(GroundColorFieldId)));
 
     return returnValue;
@@ -1408,8 +1410,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleGroundColor    (void)
 {
     MFColor4f::EditHandlePtr returnValue(
         new  MFColor4f::EditHandle(
-             &_mfGroundColor, 
+             &_mfGroundColor,
              this->getType().getFieldDesc(GroundColorFieldId)));
+
 
     editMField(GroundColorFieldMask, _mfGroundColor);
 
@@ -1420,7 +1423,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleGroundAngle     (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
-             &_mfGroundAngle, 
+             &_mfGroundAngle,
              this->getType().getFieldDesc(GroundAngleFieldId)));
 
     return returnValue;
@@ -1430,8 +1433,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleGroundAngle    (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
-             &_mfGroundAngle, 
+             &_mfGroundAngle,
              this->getType().getFieldDesc(GroundAngleFieldId)));
+
 
     editMField(GroundAngleFieldMask, _mfGroundAngle);
 
@@ -1442,7 +1446,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleSphereRes       (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfSphereRes, 
+             &_sfSphereRes,
              this->getType().getFieldDesc(SphereResFieldId)));
 
     return returnValue;
@@ -1452,8 +1456,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleSphereRes      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfSphereRes, 
+             &_sfSphereRes,
              this->getType().getFieldDesc(SphereResFieldId)));
+
 
     editSField(SphereResFieldMask);
 
@@ -1464,7 +1469,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBackTexture     (void) const
 {
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
-             &_sfBackTexture, 
+             &_sfBackTexture,
              this->getType().getFieldDesc(BackTextureFieldId)));
 
     return returnValue;
@@ -1474,11 +1479,12 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBackTexture    (void)
 {
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
-             &_sfBackTexture, 
+             &_sfBackTexture,
              this->getType().getFieldDesc(BackTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setBackTexture, 
-                                          static_cast<SkyBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SkyBackground::setBackTexture,
+                    static_cast<SkyBackground *>(this), _1));
 
     editSField(BackTextureFieldMask);
 
@@ -1489,7 +1495,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBottomTexture   (void) const
 {
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
-             &_sfBottomTexture, 
+             &_sfBottomTexture,
              this->getType().getFieldDesc(BottomTextureFieldId)));
 
     return returnValue;
@@ -1499,11 +1505,12 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBottomTexture  (void)
 {
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
-             &_sfBottomTexture, 
+             &_sfBottomTexture,
              this->getType().getFieldDesc(BottomTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setBottomTexture, 
-                                          static_cast<SkyBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SkyBackground::setBottomTexture,
+                    static_cast<SkyBackground *>(this), _1));
 
     editSField(BottomTextureFieldMask);
 
@@ -1514,7 +1521,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleFrontTexture    (void) const
 {
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
-             &_sfFrontTexture, 
+             &_sfFrontTexture,
              this->getType().getFieldDesc(FrontTextureFieldId)));
 
     return returnValue;
@@ -1524,11 +1531,12 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleFrontTexture   (void)
 {
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
-             &_sfFrontTexture, 
+             &_sfFrontTexture,
              this->getType().getFieldDesc(FrontTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setFrontTexture, 
-                                          static_cast<SkyBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SkyBackground::setFrontTexture,
+                    static_cast<SkyBackground *>(this), _1));
 
     editSField(FrontTextureFieldMask);
 
@@ -1539,7 +1547,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleLeftTexture     (void) const
 {
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
-             &_sfLeftTexture, 
+             &_sfLeftTexture,
              this->getType().getFieldDesc(LeftTextureFieldId)));
 
     return returnValue;
@@ -1549,11 +1557,12 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleLeftTexture    (void)
 {
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
-             &_sfLeftTexture, 
+             &_sfLeftTexture,
              this->getType().getFieldDesc(LeftTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setLeftTexture, 
-                                          static_cast<SkyBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SkyBackground::setLeftTexture,
+                    static_cast<SkyBackground *>(this), _1));
 
     editSField(LeftTextureFieldMask);
 
@@ -1564,7 +1573,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleRightTexture    (void) const
 {
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
-             &_sfRightTexture, 
+             &_sfRightTexture,
              this->getType().getFieldDesc(RightTextureFieldId)));
 
     return returnValue;
@@ -1574,11 +1583,12 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleRightTexture   (void)
 {
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
-             &_sfRightTexture, 
+             &_sfRightTexture,
              this->getType().getFieldDesc(RightTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setRightTexture, 
-                                          static_cast<SkyBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SkyBackground::setRightTexture,
+                    static_cast<SkyBackground *>(this), _1));
 
     editSField(RightTextureFieldMask);
 
@@ -1589,7 +1599,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleTopTexture      (void) const
 {
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
-             &_sfTopTexture, 
+             &_sfTopTexture,
              this->getType().getFieldDesc(TopTextureFieldId)));
 
     return returnValue;
@@ -1599,11 +1609,12 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleTopTexture     (void)
 {
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
-             &_sfTopTexture, 
+             &_sfTopTexture,
              this->getType().getFieldDesc(TopTextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setTopTexture, 
-                                          static_cast<SkyBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SkyBackground::setTopTexture,
+                    static_cast<SkyBackground *>(this), _1));
 
     editSField(TopTextureFieldMask);
 
@@ -1614,7 +1625,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBoxInside       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfBoxInside, 
+             &_sfBoxInside,
              this->getType().getFieldDesc(BoxInsideFieldId)));
 
     return returnValue;
@@ -1624,8 +1635,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBoxInside      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfBoxInside, 
+             &_sfBoxInside,
              this->getType().getFieldDesc(BoxInsideFieldId)));
+
 
     editSField(BoxInsideFieldMask);
 
@@ -1636,7 +1648,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleTopTexCoord     (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
-             &_mfTopTexCoord, 
+             &_mfTopTexCoord,
              this->getType().getFieldDesc(TopTexCoordFieldId)));
 
     return returnValue;
@@ -1646,8 +1658,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleTopTexCoord    (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
-             &_mfTopTexCoord, 
+             &_mfTopTexCoord,
              this->getType().getFieldDesc(TopTexCoordFieldId)));
+
 
     editMField(TopTexCoordFieldMask, _mfTopTexCoord);
 
@@ -1658,7 +1671,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBottomTexCoord  (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
-             &_mfBottomTexCoord, 
+             &_mfBottomTexCoord,
              this->getType().getFieldDesc(BottomTexCoordFieldId)));
 
     return returnValue;
@@ -1668,8 +1681,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBottomTexCoord (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
-             &_mfBottomTexCoord, 
+             &_mfBottomTexCoord,
              this->getType().getFieldDesc(BottomTexCoordFieldId)));
+
 
     editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
 
@@ -1680,7 +1694,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleRightTexCoord   (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
-             &_mfRightTexCoord, 
+             &_mfRightTexCoord,
              this->getType().getFieldDesc(RightTexCoordFieldId)));
 
     return returnValue;
@@ -1690,8 +1704,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleRightTexCoord  (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
-             &_mfRightTexCoord, 
+             &_mfRightTexCoord,
              this->getType().getFieldDesc(RightTexCoordFieldId)));
+
 
     editMField(RightTexCoordFieldMask, _mfRightTexCoord);
 
@@ -1702,7 +1717,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleLeftTexCoord    (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
-             &_mfLeftTexCoord, 
+             &_mfLeftTexCoord,
              this->getType().getFieldDesc(LeftTexCoordFieldId)));
 
     return returnValue;
@@ -1712,8 +1727,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleLeftTexCoord   (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
-             &_mfLeftTexCoord, 
+             &_mfLeftTexCoord,
              this->getType().getFieldDesc(LeftTexCoordFieldId)));
+
 
     editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
 
@@ -1724,7 +1740,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleFrontTexCoord   (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
-             &_mfFrontTexCoord, 
+             &_mfFrontTexCoord,
              this->getType().getFieldDesc(FrontTexCoordFieldId)));
 
     return returnValue;
@@ -1734,8 +1750,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleFrontTexCoord  (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
-             &_mfFrontTexCoord, 
+             &_mfFrontTexCoord,
              this->getType().getFieldDesc(FrontTexCoordFieldId)));
+
 
     editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
 
@@ -1746,7 +1763,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBackTexCoord    (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
-             &_mfBackTexCoord, 
+             &_mfBackTexCoord,
              this->getType().getFieldDesc(BackTexCoordFieldId)));
 
     return returnValue;
@@ -1756,8 +1773,9 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBackTexCoord   (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
-             &_mfBackTexCoord, 
+             &_mfBackTexCoord,
              this->getType().getFieldDesc(BackTexCoordFieldId)));
+
 
     editMField(BackTexCoordFieldMask, _mfBackTexCoord);
 
@@ -1768,7 +1786,7 @@ GetFieldHandlePtr SkyBackgroundBase::getHandleBeacon          (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
     return returnValue;
@@ -1778,11 +1796,12 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBeacon         (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SkyBackground::setBeacon, 
-                                          static_cast<SkyBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SkyBackground::setBeacon,
+                    static_cast<SkyBackground *>(this), _1));
 
     editSField(BeaconFieldMask);
 
@@ -1843,43 +1862,43 @@ void SkyBackgroundBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfSkyColor.terminateShare(Thread::getCurrentAspect(), 
+    _mfSkyColor.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfSkyAngle.terminateShare(Thread::getCurrentAspect(), 
+    _mfSkyAngle.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfGroundColor.terminateShare(Thread::getCurrentAspect(), 
+    _mfGroundColor.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfGroundAngle.terminateShare(Thread::getCurrentAspect(), 
+    _mfGroundAngle.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfTopTexCoord.terminateShare(Thread::getCurrentAspect(), 
+    _mfTopTexCoord.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfBottomTexCoord.terminateShare(Thread::getCurrentAspect(), 
+    _mfBottomTexCoord.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfRightTexCoord.terminateShare(Thread::getCurrentAspect(), 
+    _mfRightTexCoord.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfLeftTexCoord.terminateShare(Thread::getCurrentAspect(), 
+    _mfLeftTexCoord.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfFrontTexCoord.terminateShare(Thread::getCurrentAspect(), 
+    _mfFrontTexCoord.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfBackTexCoord.terminateShare(Thread::getCurrentAspect(), 
+    _mfBackTexCoord.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -1892,8 +1911,8 @@ DataType FieldTraits<SkyBackground *>::_type("SkyBackgroundPtr", "BackgroundPtr"
 OSG_FIELDTRAITS_GETTYPE(SkyBackground *)
 
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SkyBackground *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SkyBackground *,
                            0);
 
 OSG_END_NAMESPACE

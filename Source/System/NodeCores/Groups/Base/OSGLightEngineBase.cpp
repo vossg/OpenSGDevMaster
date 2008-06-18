@@ -97,7 +97,7 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
         "",
         EnabledFieldId, EnabledFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&LightEngine::editHandleEnabled),
         static_cast<FieldGetMethodSig >(&LightEngine::getHandleEnabled));
 
@@ -243,7 +243,7 @@ GetFieldHandlePtr LightEngineBase::getHandleEnabled         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfEnabled, 
+             &_sfEnabled,
              this->getType().getFieldDesc(EnabledFieldId)));
 
     return returnValue;
@@ -253,8 +253,9 @@ EditFieldHandlePtr LightEngineBase::editHandleEnabled        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfEnabled, 
+             &_sfEnabled,
              this->getType().getFieldDesc(EnabledFieldId)));
+
 
     editSField(EnabledFieldMask);
 
@@ -293,12 +294,12 @@ DataType FieldTraits<LightEngine *>::_type("LightEnginePtr", "AttachmentContaine
 
 OSG_FIELDTRAITS_GETTYPE(LightEngine *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           LightEngine *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LightEngine *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           LightEngine *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           LightEngine *,
                            0);
 
 OSG_END_NAMESPACE

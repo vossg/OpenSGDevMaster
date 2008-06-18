@@ -97,7 +97,7 @@ void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
         "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderParameterReal::editHandleValue),
         static_cast<FieldGetMethodSig >(&ShaderParameterReal::getHandleValue));
 
@@ -265,8 +265,8 @@ ShaderParameterReal *ShaderParameterRealBase::createEmpty(void)
 
     newPtr<ShaderParameterReal>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -290,8 +290,8 @@ FieldContainerTransitPtr ShaderParameterRealBase::shallowCopy(void) const
 {
     ShaderParameterReal *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ShaderParameterReal *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ShaderParameterReal *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,7 +330,7 @@ GetFieldHandlePtr ShaderParameterRealBase::getHandleValue           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfValue, 
+             &_sfValue,
              this->getType().getFieldDesc(ValueFieldId)));
 
     return returnValue;
@@ -340,8 +340,9 @@ EditFieldHandlePtr ShaderParameterRealBase::editHandleValue          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfValue, 
+             &_sfValue,
              this->getType().getFieldDesc(ValueFieldId)));
+
 
     editSField(ValueFieldMask);
 
@@ -391,12 +392,12 @@ DataType FieldTraits<ShaderParameterReal *>::_type("ShaderParameterRealPtr", "Sh
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterReal *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterReal *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterReal *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterReal *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterReal *,
                            0);
 
 OSG_END_NAMESPACE

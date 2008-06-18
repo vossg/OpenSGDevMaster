@@ -209,8 +209,8 @@ DepthClearBackground *DepthClearBackgroundBase::createEmpty(void)
 
     newPtr<DepthClearBackground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -234,8 +234,8 @@ FieldContainerTransitPtr DepthClearBackgroundBase::shallowCopy(void) const
 {
     DepthClearBackground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const DepthClearBackground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const DepthClearBackground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -311,8 +311,8 @@ DataType FieldTraits<DepthClearBackground *>::_type("DepthClearBackgroundPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(DepthClearBackground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DepthClearBackground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DepthClearBackground *,
                            0);
 
 

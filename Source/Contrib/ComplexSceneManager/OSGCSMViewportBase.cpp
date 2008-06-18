@@ -113,7 +113,7 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         "",
         RootFieldId, RootFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleRoot),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleRoot));
 
@@ -125,7 +125,7 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         "",
         CameraFieldId, CameraFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleCamera),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleCamera));
 
@@ -137,7 +137,7 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         "",
         BackgroundFieldId, BackgroundFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleBackground),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleBackground));
 
@@ -149,7 +149,7 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         "",
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleForegrounds),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleForegrounds));
 
@@ -337,7 +337,7 @@ void CSMViewportBase::removeFromForegrounds(UInt32 uiIndex)
     }
 }
 
-void CSMViewportBase::removeFromForegrounds(Foreground * const value)
+void CSMViewportBase::removeObjFromForegrounds(Foreground * const value)
 {
     Int32 iElemIdx = _mfForegrounds.findIndex(value);
 
@@ -555,7 +555,7 @@ GetFieldHandlePtr CSMViewportBase::getHandleRoot            (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
     return returnValue;
@@ -565,11 +565,12 @@ EditFieldHandlePtr CSMViewportBase::editHandleRoot           (void)
 {
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CSMViewport::setRoot, 
-                                          static_cast<CSMViewport *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CSMViewport::setRoot,
+                    static_cast<CSMViewport *>(this), _1));
 
     editSField(RootFieldMask);
 
@@ -580,7 +581,7 @@ GetFieldHandlePtr CSMViewportBase::getHandleCamera          (void) const
 {
     SFUnrecCameraPtr::GetHandlePtr returnValue(
         new  SFUnrecCameraPtr::GetHandle(
-             &_sfCamera, 
+             &_sfCamera,
              this->getType().getFieldDesc(CameraFieldId)));
 
     return returnValue;
@@ -590,11 +591,12 @@ EditFieldHandlePtr CSMViewportBase::editHandleCamera         (void)
 {
     SFUnrecCameraPtr::EditHandlePtr returnValue(
         new  SFUnrecCameraPtr::EditHandle(
-             &_sfCamera, 
+             &_sfCamera,
              this->getType().getFieldDesc(CameraFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CSMViewport::setCamera, 
-                                          static_cast<CSMViewport *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CSMViewport::setCamera,
+                    static_cast<CSMViewport *>(this), _1));
 
     editSField(CameraFieldMask);
 
@@ -605,7 +607,7 @@ GetFieldHandlePtr CSMViewportBase::getHandleBackground      (void) const
 {
     SFUnrecBackgroundPtr::GetHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::GetHandle(
-             &_sfBackground, 
+             &_sfBackground,
              this->getType().getFieldDesc(BackgroundFieldId)));
 
     return returnValue;
@@ -615,11 +617,12 @@ EditFieldHandlePtr CSMViewportBase::editHandleBackground     (void)
 {
     SFUnrecBackgroundPtr::EditHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::EditHandle(
-             &_sfBackground, 
+             &_sfBackground,
              this->getType().getFieldDesc(BackgroundFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CSMViewport::setBackground, 
-                                          static_cast<CSMViewport *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CSMViewport::setBackground,
+                    static_cast<CSMViewport *>(this), _1));
 
     editSField(BackgroundFieldMask);
 
@@ -630,7 +633,7 @@ GetFieldHandlePtr CSMViewportBase::getHandleForegrounds     (void) const
 {
     MFUnrecForegroundPtr::GetHandlePtr returnValue(
         new  MFUnrecForegroundPtr::GetHandle(
-             &_mfForegrounds, 
+             &_mfForegrounds,
              this->getType().getFieldDesc(ForegroundsFieldId)));
 
     return returnValue;
@@ -640,11 +643,21 @@ EditFieldHandlePtr CSMViewportBase::editHandleForegrounds    (void)
 {
     MFUnrecForegroundPtr::EditHandlePtr returnValue(
         new  MFUnrecForegroundPtr::EditHandle(
-             &_mfForegrounds, 
+             &_mfForegrounds,
              this->getType().getFieldDesc(ForegroundsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&CSMViewport::pushToForegrounds, 
-                              static_cast<CSMViewport *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&CSMViewport::pushToForegrounds,
+                    static_cast<CSMViewport *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&CSMViewport::removeFromForegrounds,
+                    static_cast<CSMViewport *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&CSMViewport::removeObjFromForegrounds,
+                    static_cast<CSMViewport *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&CSMViewport::clearForegrounds,
+                    static_cast<CSMViewport *>(this)));
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
@@ -701,12 +714,12 @@ DataType FieldTraits<CSMViewport *>::_type("CSMViewportPtr", "FieldContainerPtr"
 
 OSG_FIELDTRAITS_GETTYPE(CSMViewport *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CSMViewport *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMViewport *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CSMViewport *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMViewport *,
                            0);
 
 OSG_END_NAMESPACE

@@ -115,7 +115,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         "Define whether the red color channel is written to.\n",
         RedFieldId, RedFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleRed),
         static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleRed));
 
@@ -127,7 +127,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         "Define whether the green color channel is written to.\n",
         BlueFieldId, BlueFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleBlue),
         static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleBlue));
 
@@ -139,7 +139,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         "Define whether the blue color channel is written to.\n",
         GreenFieldId, GreenFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleGreen),
         static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleGreen));
 
@@ -151,7 +151,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
         "Define whether the alpha color channel is written to.\n",
         AlphaFieldId, AlphaFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorBufferViewport::editHandleAlpha),
         static_cast<FieldGetMethodSig >(&ColorBufferViewport::getHandleAlpha));
 
@@ -437,8 +437,8 @@ ColorBufferViewport *ColorBufferViewportBase::createEmpty(void)
 
     newPtr<ColorBufferViewport>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -462,8 +462,8 @@ FieldContainerTransitPtr ColorBufferViewportBase::shallowCopy(void) const
 {
     ColorBufferViewport *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ColorBufferViewport *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ColorBufferViewport *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -508,7 +508,7 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleRed             (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfRed, 
+             &_sfRed,
              this->getType().getFieldDesc(RedFieldId)));
 
     return returnValue;
@@ -518,8 +518,9 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleRed            (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfRed, 
+             &_sfRed,
              this->getType().getFieldDesc(RedFieldId)));
+
 
     editSField(RedFieldMask);
 
@@ -530,7 +531,7 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleBlue            (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfBlue, 
+             &_sfBlue,
              this->getType().getFieldDesc(BlueFieldId)));
 
     return returnValue;
@@ -540,8 +541,9 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleBlue           (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfBlue, 
+             &_sfBlue,
              this->getType().getFieldDesc(BlueFieldId)));
+
 
     editSField(BlueFieldMask);
 
@@ -552,7 +554,7 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleGreen           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfGreen, 
+             &_sfGreen,
              this->getType().getFieldDesc(GreenFieldId)));
 
     return returnValue;
@@ -562,8 +564,9 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleGreen          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfGreen, 
+             &_sfGreen,
              this->getType().getFieldDesc(GreenFieldId)));
+
 
     editSField(GreenFieldMask);
 
@@ -574,7 +577,7 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleAlpha           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfAlpha, 
+             &_sfAlpha,
              this->getType().getFieldDesc(AlphaFieldId)));
 
     return returnValue;
@@ -584,8 +587,9 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleAlpha          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfAlpha, 
+             &_sfAlpha,
              this->getType().getFieldDesc(AlphaFieldId)));
+
 
     editSField(AlphaFieldMask);
 
@@ -635,12 +639,12 @@ DataType FieldTraits<ColorBufferViewport *>::_type("ColorBufferViewportPtr", "Vi
 
 OSG_FIELDTRAITS_GETTYPE(ColorBufferViewport *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ColorBufferViewport *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ColorBufferViewport *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ColorBufferViewport *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ColorBufferViewport *,
                            0);
 
 OSG_END_NAMESPACE

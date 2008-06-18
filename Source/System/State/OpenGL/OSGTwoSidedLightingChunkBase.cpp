@@ -204,8 +204,8 @@ TwoSidedLightingChunk *TwoSidedLightingChunkBase::createEmpty(void)
 
     newPtr<TwoSidedLightingChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -229,8 +229,8 @@ FieldContainerTransitPtr TwoSidedLightingChunkBase::shallowCopy(void) const
 {
     TwoSidedLightingChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TwoSidedLightingChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TwoSidedLightingChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();

@@ -108,7 +108,7 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
         "Activate the grabber.\n",
         ActiveFieldId, ActiveFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Foreground::editHandleActive),
         static_cast<FieldGetMethodSig >(&Foreground::getHandleActive));
 
@@ -277,7 +277,7 @@ GetFieldHandlePtr ForegroundBase::getHandleActive          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfActive, 
+             &_sfActive,
              this->getType().getFieldDesc(ActiveFieldId)));
 
     return returnValue;
@@ -287,8 +287,9 @@ EditFieldHandlePtr ForegroundBase::editHandleActive         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfActive, 
+             &_sfActive,
              this->getType().getFieldDesc(ActiveFieldId)));
+
 
     editSField(ActiveFieldMask);
 
@@ -327,12 +328,12 @@ DataType FieldTraits<Foreground *>::_type("ForegroundPtr", "AttachmentContainerP
 
 OSG_FIELDTRAITS_GETTYPE(Foreground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Foreground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Foreground *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Foreground *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Foreground *,
                            0);
 
 OSG_END_NAMESPACE

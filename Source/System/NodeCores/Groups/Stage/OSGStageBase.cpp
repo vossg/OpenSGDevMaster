@@ -104,7 +104,7 @@ void StageBase::classDescInserter(TypeObject &oType)
         "The FBO to target for rendering this subtree.\n",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Stage::editHandleRenderTarget),
         static_cast<FieldGetMethodSig >(&Stage::getHandleRenderTarget));
 
@@ -116,7 +116,7 @@ void StageBase::classDescInserter(TypeObject &oType)
         "Inherited the parent target if none is set  \n",
         InheritedTargetFieldId, InheritedTargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Stage::editHandleInheritedTarget),
         static_cast<FieldGetMethodSig >(&Stage::getHandleInheritedTarget));
 
@@ -323,8 +323,8 @@ Stage *StageBase::createEmpty(void)
 
     newPtr<Stage>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -348,8 +348,8 @@ FieldContainerTransitPtr StageBase::shallowCopy(void) const
 {
     Stage *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Stage *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Stage *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -401,7 +401,7 @@ GetFieldHandlePtr StageBase::getHandleRenderTarget    (void) const
 {
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
-             &_sfRenderTarget, 
+             &_sfRenderTarget,
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
     return returnValue;
@@ -411,11 +411,12 @@ EditFieldHandlePtr StageBase::editHandleRenderTarget   (void)
 {
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
-             &_sfRenderTarget, 
+             &_sfRenderTarget,
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Stage::setRenderTarget, 
-                                          static_cast<Stage *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&Stage::setRenderTarget,
+                    static_cast<Stage *>(this), _1));
 
     editSField(RenderTargetFieldMask);
 
@@ -426,7 +427,7 @@ GetFieldHandlePtr StageBase::getHandleInheritedTarget (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfInheritedTarget, 
+             &_sfInheritedTarget,
              this->getType().getFieldDesc(InheritedTargetFieldId)));
 
     return returnValue;
@@ -436,8 +437,9 @@ EditFieldHandlePtr StageBase::editHandleInheritedTarget(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfInheritedTarget, 
+             &_sfInheritedTarget,
              this->getType().getFieldDesc(InheritedTargetFieldId)));
+
 
     editSField(InheritedTargetFieldMask);
 
@@ -489,12 +491,12 @@ DataType FieldTraits<Stage *>::_type("StagePtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Stage *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Stage *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Stage *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Stage *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Stage *,
                            0);
 
 OSG_END_NAMESPACE

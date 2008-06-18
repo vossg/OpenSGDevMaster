@@ -105,7 +105,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         "",
         HwndFieldId, HwndFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHwnd),
         static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHwnd));
 
@@ -117,7 +117,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         "",
         HdcFieldId, HdcFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHdc),
         static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHdc));
 
@@ -129,7 +129,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         "",
         HglrcFieldId, HglrcFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHglrc),
         static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHglrc));
 
@@ -367,8 +367,8 @@ WIN32Window *WIN32WindowBase::createEmpty(void)
 
     newPtr<WIN32Window>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -392,8 +392,8 @@ FieldContainerTransitPtr WIN32WindowBase::shallowCopy(void) const
 {
     WIN32Window *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const WIN32Window *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const WIN32Window *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -436,7 +436,7 @@ GetFieldHandlePtr WIN32WindowBase::getHandleHwnd            (void) const
 {
     SFHWND::GetHandlePtr returnValue(
         new  SFHWND::GetHandle(
-             &_sfHwnd, 
+             &_sfHwnd,
              this->getType().getFieldDesc(HwndFieldId)));
 
     return returnValue;
@@ -446,8 +446,9 @@ EditFieldHandlePtr WIN32WindowBase::editHandleHwnd           (void)
 {
     SFHWND::EditHandlePtr returnValue(
         new  SFHWND::EditHandle(
-             &_sfHwnd, 
+             &_sfHwnd,
              this->getType().getFieldDesc(HwndFieldId)));
+
 
     editSField(HwndFieldMask);
 
@@ -458,7 +459,7 @@ GetFieldHandlePtr WIN32WindowBase::getHandleHdc             (void) const
 {
     SFHDC::GetHandlePtr returnValue(
         new  SFHDC::GetHandle(
-             &_sfHdc, 
+             &_sfHdc,
              this->getType().getFieldDesc(HdcFieldId)));
 
     return returnValue;
@@ -468,8 +469,9 @@ EditFieldHandlePtr WIN32WindowBase::editHandleHdc            (void)
 {
     SFHDC::EditHandlePtr returnValue(
         new  SFHDC::EditHandle(
-             &_sfHdc, 
+             &_sfHdc,
              this->getType().getFieldDesc(HdcFieldId)));
+
 
     editSField(HdcFieldMask);
 
@@ -480,7 +482,7 @@ GetFieldHandlePtr WIN32WindowBase::getHandleHglrc           (void) const
 {
     SFHGLRC::GetHandlePtr returnValue(
         new  SFHGLRC::GetHandle(
-             &_sfHglrc, 
+             &_sfHglrc,
              this->getType().getFieldDesc(HglrcFieldId)));
 
     return returnValue;
@@ -490,8 +492,9 @@ EditFieldHandlePtr WIN32WindowBase::editHandleHglrc          (void)
 {
     SFHGLRC::EditHandlePtr returnValue(
         new  SFHGLRC::EditHandle(
-             &_sfHglrc, 
+             &_sfHglrc,
              this->getType().getFieldDesc(HglrcFieldId)));
+
 
     editSField(HglrcFieldMask);
 
@@ -541,12 +544,12 @@ DataType FieldTraits<WIN32Window *>::_type("WIN32WindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(WIN32Window *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           WIN32Window *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           WIN32Window *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           WIN32Window *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           WIN32Window *,
                            0);
 
 OSG_END_NAMESPACE

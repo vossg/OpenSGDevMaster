@@ -98,7 +98,7 @@ void DrawManagerBase::classDescInserter(TypeObject &oType)
         "",
         DrawerFieldId, DrawerFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawManager::editHandleDrawer),
         static_cast<FieldGetMethodSig >(&DrawManager::getHandleDrawer));
 
@@ -218,7 +218,7 @@ void DrawManagerBase::removeFromDrawer(UInt32 uiIndex)
     }
 }
 
-void DrawManagerBase::removeFromDrawer(Drawer * const value)
+void DrawManagerBase::removeObjFromDrawer(Drawer * const value)
 {
     Int32 iElemIdx = _mfDrawer.findIndex(value);
 
@@ -388,7 +388,7 @@ GetFieldHandlePtr DrawManagerBase::getHandleDrawer          (void) const
 {
     MFUnrecDrawerPtr::GetHandlePtr returnValue(
         new  MFUnrecDrawerPtr::GetHandle(
-             &_mfDrawer, 
+             &_mfDrawer,
              this->getType().getFieldDesc(DrawerFieldId)));
 
     return returnValue;
@@ -398,11 +398,21 @@ EditFieldHandlePtr DrawManagerBase::editHandleDrawer         (void)
 {
     MFUnrecDrawerPtr::EditHandlePtr returnValue(
         new  MFUnrecDrawerPtr::EditHandle(
-             &_mfDrawer, 
+             &_mfDrawer,
              this->getType().getFieldDesc(DrawerFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&DrawManager::pushToDrawer, 
-                              static_cast<DrawManager *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&DrawManager::pushToDrawer,
+                    static_cast<DrawManager *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&DrawManager::removeFromDrawer,
+                    static_cast<DrawManager *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&DrawManager::removeObjFromDrawer,
+                    static_cast<DrawManager *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&DrawManager::clearDrawer,
+                    static_cast<DrawManager *>(this)));
 
     editMField(DrawerFieldMask, _mfDrawer);
 
@@ -453,12 +463,12 @@ DataType FieldTraits<DrawManager *>::_type("DrawManagerPtr", "AttachmentContaine
 
 OSG_FIELDTRAITS_GETTYPE(DrawManager *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DrawManager *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DrawManager *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DrawManager *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DrawManager *,
                            0);
 
 OSG_END_NAMESPACE

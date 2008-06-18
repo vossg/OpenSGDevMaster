@@ -98,7 +98,7 @@ void SwitchBase::classDescInserter(TypeObject &oType)
         "",
         ChoiceFieldId, ChoiceFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Switch::editHandleChoice),
         static_cast<FieldGetMethodSig >(&Switch::getHandleChoice));
 
@@ -269,8 +269,8 @@ Switch *SwitchBase::createEmpty(void)
 
     newPtr<Switch>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -294,8 +294,8 @@ FieldContainerTransitPtr SwitchBase::shallowCopy(void) const
 {
     Switch *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Switch *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Switch *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -334,7 +334,7 @@ GetFieldHandlePtr SwitchBase::getHandleChoice          (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfChoice, 
+             &_sfChoice,
              this->getType().getFieldDesc(ChoiceFieldId)));
 
     return returnValue;
@@ -344,8 +344,9 @@ EditFieldHandlePtr SwitchBase::editHandleChoice         (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfChoice, 
+             &_sfChoice,
              this->getType().getFieldDesc(ChoiceFieldId)));
+
 
     editSField(ChoiceFieldMask);
 
@@ -395,12 +396,12 @@ DataType FieldTraits<Switch *>::_type("SwitchPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Switch *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Switch *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Switch *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Switch *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Switch *,
                            0);
 
 OSG_END_NAMESPACE

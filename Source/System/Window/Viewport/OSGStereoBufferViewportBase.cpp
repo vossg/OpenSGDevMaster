@@ -107,7 +107,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         "Defines whether the left buffer is written to.\n",
         LeftBufferFieldId, LeftBufferFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StereoBufferViewport::editHandleLeftBuffer),
         static_cast<FieldGetMethodSig >(&StereoBufferViewport::getHandleLeftBuffer));
 
@@ -119,7 +119,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
         "Defines whether the right buffer is written to.\n",
         RightBufferFieldId, RightBufferFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StereoBufferViewport::editHandleRightBuffer),
         static_cast<FieldGetMethodSig >(&StereoBufferViewport::getHandleRightBuffer));
 
@@ -335,8 +335,8 @@ StereoBufferViewport *StereoBufferViewportBase::createEmpty(void)
 
     newPtr<StereoBufferViewport>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -360,8 +360,8 @@ FieldContainerTransitPtr StereoBufferViewportBase::shallowCopy(void) const
 {
     StereoBufferViewport *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const StereoBufferViewport *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const StereoBufferViewport *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -402,7 +402,7 @@ GetFieldHandlePtr StereoBufferViewportBase::getHandleLeftBuffer      (void) cons
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfLeftBuffer, 
+             &_sfLeftBuffer,
              this->getType().getFieldDesc(LeftBufferFieldId)));
 
     return returnValue;
@@ -412,8 +412,9 @@ EditFieldHandlePtr StereoBufferViewportBase::editHandleLeftBuffer     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfLeftBuffer, 
+             &_sfLeftBuffer,
              this->getType().getFieldDesc(LeftBufferFieldId)));
+
 
     editSField(LeftBufferFieldMask);
 
@@ -424,7 +425,7 @@ GetFieldHandlePtr StereoBufferViewportBase::getHandleRightBuffer     (void) cons
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfRightBuffer, 
+             &_sfRightBuffer,
              this->getType().getFieldDesc(RightBufferFieldId)));
 
     return returnValue;
@@ -434,8 +435,9 @@ EditFieldHandlePtr StereoBufferViewportBase::editHandleRightBuffer    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfRightBuffer, 
+             &_sfRightBuffer,
              this->getType().getFieldDesc(RightBufferFieldId)));
+
 
     editSField(RightBufferFieldMask);
 
@@ -485,12 +487,12 @@ DataType FieldTraits<StereoBufferViewport *>::_type("StereoBufferViewportPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(StereoBufferViewport *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StereoBufferViewport *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StereoBufferViewport *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StereoBufferViewport *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StereoBufferViewport *,
                            0);
 
 OSG_END_NAMESPACE

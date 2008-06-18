@@ -205,8 +205,8 @@ MoveManipulator *MoveManipulatorBase::createEmpty(void)
 
     newPtr<MoveManipulator>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -230,8 +230,8 @@ FieldContainerTransitPtr MoveManipulatorBase::shallowCopy(void) const
 {
     MoveManipulator *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const MoveManipulator *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const MoveManipulator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();

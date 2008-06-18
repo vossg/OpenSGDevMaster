@@ -110,7 +110,7 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         "",
         ChunksFieldId, ChunksFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FCustomAccess),
         static_cast<FieldEditMethodSig>(&ChunkMaterial::editHandleChunks),
         static_cast<FieldGetMethodSig >(&ChunkMaterial::getHandleChunks));
 
@@ -122,7 +122,7 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
         "",
         SlotsFieldId, SlotsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ChunkMaterial::editHandleSlots),
         static_cast<FieldGetMethodSig >(&ChunkMaterial::getHandleSlots));
 
@@ -168,6 +168,9 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     "\t\tvisibility=\"external\"\n"
     "        access=\"protected\"\n"
     "        ptrFieldAccess = \"custom\"\n"
+    "        pushToFieldAs=\"pushToChunks\"\n"
+    "        removeFromMFieldIndex=\"removeFromChunks\"\n"
+    "        removeFromMFieldObject=\"removeFromChunksByObj\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -332,8 +335,8 @@ ChunkMaterial *ChunkMaterialBase::createEmpty(void)
 
     newPtr<ChunkMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -357,8 +360,8 @@ FieldContainerTransitPtr ChunkMaterialBase::shallowCopy(void) const
 {
     ChunkMaterial *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ChunkMaterial *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ChunkMaterial *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -420,7 +423,7 @@ GetFieldHandlePtr ChunkMaterialBase::getHandleChunks          (void) const
 {
     MFUnrecStateChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::GetHandle(
-             &_mfChunks, 
+             &_mfChunks,
              this->getType().getFieldDesc(ChunksFieldId)));
 
     return returnValue;
@@ -430,11 +433,12 @@ EditFieldHandlePtr ChunkMaterialBase::editHandleChunks         (void)
 {
     MFUnrecStateChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::EditHandle(
-             &_mfChunks, 
+             &_mfChunks,
              this->getType().getFieldDesc(ChunksFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ChunkMaterial::pushToChunks, 
-                              static_cast<ChunkMaterial *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&ChunkMaterial::pushToChunks,
+                    static_cast<ChunkMaterial *>(this), _1));
 
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -445,7 +449,7 @@ GetFieldHandlePtr ChunkMaterialBase::getHandleSlots           (void) const
 {
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
-             &_mfSlots, 
+             &_mfSlots,
              this->getType().getFieldDesc(SlotsFieldId)));
 
     return returnValue;
@@ -455,8 +459,9 @@ EditFieldHandlePtr ChunkMaterialBase::editHandleSlots          (void)
 {
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
-             &_mfSlots, 
+             &_mfSlots,
              this->getType().getFieldDesc(SlotsFieldId)));
+
 
     editMField(SlotsFieldMask, _mfSlots);
 
@@ -504,7 +509,7 @@ void ChunkMaterialBase::resolveLinks(void)
 
     static_cast<ChunkMaterial *>(this)->clearChunks();
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfSlots.terminateShare(Thread::getCurrentAspect(), 
+    _mfSlots.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -516,12 +521,12 @@ DataType FieldTraits<ChunkMaterial *>::_type("ChunkMaterialPtr", "MaterialPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ChunkMaterial *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ChunkMaterial *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ChunkMaterial *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ChunkMaterial *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ChunkMaterial *,
                            0);
 
 OSG_END_NAMESPACE

@@ -266,8 +266,8 @@ TextureObjRefChunk *TextureObjRefChunkBase::createEmpty(void)
 
     newPtr<TextureObjRefChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -291,8 +291,8 @@ FieldContainerTransitPtr TextureObjRefChunkBase::shallowCopy(void) const
 {
     TextureObjRefChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TextureObjRefChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TextureObjRefChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -331,7 +331,7 @@ GetFieldHandlePtr TextureObjRefChunkBase::getHandleGLId            (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
 
     return returnValue;
@@ -341,8 +341,9 @@ EditFieldHandlePtr TextureObjRefChunkBase::editHandleGLId           (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
+
 
     editSField(GLIdFieldMask);
 
@@ -392,12 +393,12 @@ DataType FieldTraits<TextureObjRefChunk *>::_type("TextureObjRefChunkPtr", "Text
 
 OSG_FIELDTRAITS_GETTYPE(TextureObjRefChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureObjRefChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureObjRefChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureObjRefChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureObjRefChunk *,
                            0);
 
 OSG_END_NAMESPACE

@@ -208,12 +208,12 @@ DataType FieldTraits<Drawable *>::_type("DrawablePtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(Drawable *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Drawable *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Drawable *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Drawable *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Drawable *,
                            0);
 
 OSG_END_NAMESPACE

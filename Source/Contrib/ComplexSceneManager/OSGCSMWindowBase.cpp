@@ -119,7 +119,7 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         "",
         ParentFieldId, ParentFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&CSMWindow::invalidEditField),
         static_cast     <FieldGetMethodSig >(&CSMWindow::invalidGetField));
 
@@ -131,7 +131,7 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         "",
         ViewportsFieldId, ViewportsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleViewports),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleViewports));
 
@@ -143,7 +143,7 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         "",
         MouseDataFieldId, MouseDataFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleMouseData),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleMouseData));
 
@@ -155,7 +155,7 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         "",
         SizeFieldId, SizeFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleSize),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleSize));
 
@@ -167,7 +167,7 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         "",
         PositionFieldId, PositionFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandlePosition),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandlePosition));
 
@@ -179,7 +179,7 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         "",
         DecorEnabledFieldId, DecorEnabledFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleDecorEnabled),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleDecorEnabled));
 
@@ -399,7 +399,7 @@ void CSMWindowBase::removeFromViewports(UInt32 uiIndex)
     }
 }
 
-void CSMWindowBase::removeFromViewports(CSMViewport * const value)
+void CSMWindowBase::removeObjFromViewports(CSMViewport * const value)
 {
     Int32 iElemIdx = _mfViewports.findIndex(value);
 
@@ -565,7 +565,7 @@ bool CSMWindowBase::linkParent(
     {
         Drawer * pTypedParent =
             dynamic_cast< Drawer * >(pParent);
-        
+
         if(pTypedParent != NULL)
         {
             FieldContainer *pOldParent =
@@ -573,22 +573,22 @@ bool CSMWindowBase::linkParent(
 
             UInt16 oldChildFieldId =
                 _sfParent.getParentFieldPos();
-            
+
             if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, oldChildFieldId);
             }
-            
+
             editSField(ParentFieldMask);
 
             _sfParent.setValue(static_cast<Drawer *>(pParent), childFieldId);
-            
+
             return true;
         }
-    
+
         return false;
     }
-    
+
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
 }
 
@@ -600,7 +600,7 @@ bool CSMWindowBase::unlinkParent(
     {
         Drawer * pTypedParent =
             dynamic_cast< Drawer * >(pParent);
-            
+
         if(pTypedParent != NULL)
         {
             if(_sfParent.getValue() == pParent)
@@ -608,19 +608,19 @@ bool CSMWindowBase::unlinkParent(
                 editSField(ParentFieldMask);
 
                 _sfParent.setValue(NULL, 0xFFFF);
-                
+
                 return true;
             }
-            
+
             FWARNING(("CSMWindowBase::unlinkParent: "
                       "Child <-> Parent link inconsistent.\n"));
-            
+
             return false;
         }
 
         return false;
     }
-    
+
     return Inherited::unlinkParent(pParent, parentFieldId);
 }
 
@@ -665,7 +665,7 @@ GetFieldHandlePtr CSMWindowBase::getHandleViewports       (void) const
 {
     MFUnrecCSMViewportPtr::GetHandlePtr returnValue(
         new  MFUnrecCSMViewportPtr::GetHandle(
-             &_mfViewports, 
+             &_mfViewports,
              this->getType().getFieldDesc(ViewportsFieldId)));
 
     return returnValue;
@@ -675,11 +675,21 @@ EditFieldHandlePtr CSMWindowBase::editHandleViewports      (void)
 {
     MFUnrecCSMViewportPtr::EditHandlePtr returnValue(
         new  MFUnrecCSMViewportPtr::EditHandle(
-             &_mfViewports, 
+             &_mfViewports,
              this->getType().getFieldDesc(ViewportsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&CSMWindow::pushToViewports, 
-                              static_cast<CSMWindow *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&CSMWindow::pushToViewports,
+                    static_cast<CSMWindow *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&CSMWindow::removeFromViewports,
+                    static_cast<CSMWindow *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&CSMWindow::removeObjFromViewports,
+                    static_cast<CSMWindow *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&CSMWindow::clearViewports,
+                    static_cast<CSMWindow *>(this)));
 
     editMField(ViewportsFieldMask, _mfViewports);
 
@@ -690,7 +700,7 @@ GetFieldHandlePtr CSMWindowBase::getHandleMouseData       (void) const
 {
     SFMouseData::GetHandlePtr returnValue(
         new  SFMouseData::GetHandle(
-             &_sfMouseData, 
+             &_sfMouseData,
              this->getType().getFieldDesc(MouseDataFieldId)));
 
     return returnValue;
@@ -700,8 +710,9 @@ EditFieldHandlePtr CSMWindowBase::editHandleMouseData      (void)
 {
     SFMouseData::EditHandlePtr returnValue(
         new  SFMouseData::EditHandle(
-             &_sfMouseData, 
+             &_sfMouseData,
              this->getType().getFieldDesc(MouseDataFieldId)));
+
 
     editSField(MouseDataFieldMask);
 
@@ -712,7 +723,7 @@ GetFieldHandlePtr CSMWindowBase::getHandleSize            (void) const
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfSize, 
+             &_sfSize,
              this->getType().getFieldDesc(SizeFieldId)));
 
     return returnValue;
@@ -722,8 +733,9 @@ EditFieldHandlePtr CSMWindowBase::editHandleSize           (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfSize, 
+             &_sfSize,
              this->getType().getFieldDesc(SizeFieldId)));
+
 
     editSField(SizeFieldMask);
 
@@ -734,7 +746,7 @@ GetFieldHandlePtr CSMWindowBase::getHandlePosition        (void) const
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfPosition, 
+             &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId)));
 
     return returnValue;
@@ -744,8 +756,9 @@ EditFieldHandlePtr CSMWindowBase::editHandlePosition       (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfPosition, 
+             &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId)));
+
 
     editSField(PositionFieldMask);
 
@@ -756,7 +769,7 @@ GetFieldHandlePtr CSMWindowBase::getHandleDecorEnabled    (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfDecorEnabled, 
+             &_sfDecorEnabled,
              this->getType().getFieldDesc(DecorEnabledFieldId)));
 
     return returnValue;
@@ -766,8 +779,9 @@ EditFieldHandlePtr CSMWindowBase::editHandleDecorEnabled   (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfDecorEnabled, 
+             &_sfDecorEnabled,
              this->getType().getFieldDesc(DecorEnabledFieldId)));
+
 
     editSField(DecorEnabledFieldMask);
 
@@ -807,23 +821,23 @@ DataType FieldTraits<CSMWindow *>::_type("CSMWindowPtr", "AttachmentContainerPtr
 
 OSG_FIELDTRAITS_GETTYPE(CSMWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CSMWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CSMWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMWindow *,
                            0);
 
 DataType &FieldTraits< CSMWindow *, 1 >::getType(void)
-{                                                           
+{
     return FieldTraits<CSMWindow *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      CSMWindow *,       
-                      UnrecordedRefCountPolicy,  
+                      CSMWindow *,
+                      UnrecordedRefCountPolicy,
                       1);
 
 

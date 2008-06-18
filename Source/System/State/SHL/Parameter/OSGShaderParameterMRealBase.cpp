@@ -97,7 +97,7 @@ void ShaderParameterMRealBase::classDescInserter(TypeObject &oType)
         "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderParameterMReal::editHandleValue),
         static_cast<FieldGetMethodSig >(&ShaderParameterMReal::getHandleValue));
 
@@ -265,8 +265,8 @@ ShaderParameterMReal *ShaderParameterMRealBase::createEmpty(void)
 
     newPtr<ShaderParameterMReal>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -290,8 +290,8 @@ FieldContainerTransitPtr ShaderParameterMRealBase::shallowCopy(void) const
 {
     ShaderParameterMReal *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ShaderParameterMReal *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ShaderParameterMReal *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,7 +330,7 @@ GetFieldHandlePtr ShaderParameterMRealBase::getHandleValue           (void) cons
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
-             &_mfValue, 
+             &_mfValue,
              this->getType().getFieldDesc(ValueFieldId)));
 
     return returnValue;
@@ -340,8 +340,9 @@ EditFieldHandlePtr ShaderParameterMRealBase::editHandleValue          (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
-             &_mfValue, 
+             &_mfValue,
              this->getType().getFieldDesc(ValueFieldId)));
+
 
     editMField(ValueFieldMask, _mfValue);
 
@@ -388,7 +389,7 @@ void ShaderParameterMRealBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfValue.terminateShare(Thread::getCurrentAspect(), 
+    _mfValue.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -400,12 +401,12 @@ DataType FieldTraits<ShaderParameterMReal *>::_type("ShaderParameterMRealPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterMReal *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterMReal *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterMReal *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterMReal *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterMReal *,
                            0);
 
 OSG_END_NAMESPACE

@@ -100,7 +100,7 @@ void DynamicStateGeneratorBase::classDescInserter(TypeObject &oType)
         "The FBO to target for rendering this subtree.\n",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DynamicStateGenerator::editHandleRenderTarget),
         static_cast<FieldGetMethodSig >(&DynamicStateGenerator::getHandleRenderTarget));
 
@@ -272,8 +272,8 @@ DynamicStateGenerator *DynamicStateGeneratorBase::createEmpty(void)
 
     newPtr<DynamicStateGenerator>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -297,8 +297,8 @@ FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopy(void) const
 {
     DynamicStateGenerator *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const DynamicStateGenerator *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const DynamicStateGenerator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -348,7 +348,7 @@ GetFieldHandlePtr DynamicStateGeneratorBase::getHandleRenderTarget    (void) con
 {
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
-             &_sfRenderTarget, 
+             &_sfRenderTarget,
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
     return returnValue;
@@ -358,11 +358,12 @@ EditFieldHandlePtr DynamicStateGeneratorBase::editHandleRenderTarget   (void)
 {
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
-             &_sfRenderTarget, 
+             &_sfRenderTarget,
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&DynamicStateGenerator::setRenderTarget, 
-                                          static_cast<DynamicStateGenerator *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&DynamicStateGenerator::setRenderTarget,
+                    static_cast<DynamicStateGenerator *>(this), _1));
 
     editSField(RenderTargetFieldMask);
 
@@ -414,12 +415,12 @@ DataType FieldTraits<DynamicStateGenerator *>::_type("DynamicStateGeneratorPtr",
 
 OSG_FIELDTRAITS_GETTYPE(DynamicStateGenerator *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DynamicStateGenerator *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DynamicStateGenerator *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DynamicStateGenerator *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DynamicStateGenerator *,
                            0);
 
 OSG_END_NAMESPACE

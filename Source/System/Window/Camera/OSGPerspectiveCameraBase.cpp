@@ -106,7 +106,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         "The vertical field of view, in radians.\n",
         FovFieldId, FovFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PerspectiveCamera::editHandleFov),
         static_cast<FieldGetMethodSig >(&PerspectiveCamera::getHandleFov));
 
@@ -118,7 +118,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         "The aspect ratio (i.e. width / height) of a pixel.\n",
         AspectFieldId, AspectFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PerspectiveCamera::editHandleAspect),
         static_cast<FieldGetMethodSig >(&PerspectiveCamera::getHandleAspect));
 
@@ -328,8 +328,8 @@ PerspectiveCamera *PerspectiveCameraBase::createEmpty(void)
 
     newPtr<PerspectiveCamera>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -353,8 +353,8 @@ FieldContainerTransitPtr PerspectiveCameraBase::shallowCopy(void) const
 {
     PerspectiveCamera *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const PerspectiveCamera *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const PerspectiveCamera *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -395,7 +395,7 @@ GetFieldHandlePtr PerspectiveCameraBase::getHandleFov             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfFov, 
+             &_sfFov,
              this->getType().getFieldDesc(FovFieldId)));
 
     return returnValue;
@@ -405,8 +405,9 @@ EditFieldHandlePtr PerspectiveCameraBase::editHandleFov            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfFov, 
+             &_sfFov,
              this->getType().getFieldDesc(FovFieldId)));
+
 
     editSField(FovFieldMask);
 
@@ -417,7 +418,7 @@ GetFieldHandlePtr PerspectiveCameraBase::getHandleAspect          (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfAspect, 
+             &_sfAspect,
              this->getType().getFieldDesc(AspectFieldId)));
 
     return returnValue;
@@ -427,8 +428,9 @@ EditFieldHandlePtr PerspectiveCameraBase::editHandleAspect         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfAspect, 
+             &_sfAspect,
              this->getType().getFieldDesc(AspectFieldId)));
+
 
     editSField(AspectFieldMask);
 
@@ -478,12 +480,12 @@ DataType FieldTraits<PerspectiveCamera *>::_type("PerspectiveCameraPtr", "Camera
 
 OSG_FIELDTRAITS_GETTYPE(PerspectiveCamera *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PerspectiveCamera *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PerspectiveCamera *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PerspectiveCamera *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PerspectiveCamera *,
                            0);
 
 OSG_END_NAMESPACE

@@ -98,7 +98,7 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
         "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiPassMaterial::editHandleMaterials),
         static_cast<FieldGetMethodSig >(&MultiPassMaterial::getHandleMaterials));
 
@@ -140,9 +140,9 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     "        assignMFieldAs=\"assignMaterialsFrom\"\n"
     "        insertIntoMFieldAs=\"insertMaterial\"\n"
     "        replaceInMFieldIndexAs=\"replaceMaterial\"\n"
-    "        replaceInMFieldObjectAs=\"replaceMaterial\"\n"
+    "        replaceInMFieldObjectAs=\"replaceMaterialByObj\"\n"
     "        removeFromMFieldIndexAs=\"subMaterial\"\n"
-    "        removeFromMFieldObjectAs=\"subMaterial\"\n"
+    "        removeFromMFieldObjectAs=\"subMaterialByObj\"\n"
     "        clearFieldAs=\"clearMaterials\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -223,7 +223,7 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
     }
 }
 
-void MultiPassMaterialBase::subMaterial(Material * const value)
+void MultiPassMaterialBase::subMaterialByObj(Material * const value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -334,8 +334,8 @@ MultiPassMaterial *MultiPassMaterialBase::createEmpty(void)
 
     newPtr<MultiPassMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -359,8 +359,8 @@ FieldContainerTransitPtr MultiPassMaterialBase::shallowCopy(void) const
 {
     MultiPassMaterial *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const MultiPassMaterial *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const MultiPassMaterial *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -420,7 +420,7 @@ GetFieldHandlePtr MultiPassMaterialBase::getHandleMaterials       (void) const
 {
     MFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  MFUnrecMaterialPtr::GetHandle(
-             &_mfMaterials, 
+             &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
     return returnValue;
@@ -430,11 +430,21 @@ EditFieldHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
 {
     MFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  MFUnrecMaterialPtr::EditHandle(
-             &_mfMaterials, 
+             &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&MultiPassMaterial::addMaterial, 
-                              static_cast<MultiPassMaterial *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&MultiPassMaterial::addMaterial,
+                    static_cast<MultiPassMaterial *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&MultiPassMaterial::subMaterial,
+                    static_cast<MultiPassMaterial *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&MultiPassMaterial::subMaterialByObj,
+                    static_cast<MultiPassMaterial *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&MultiPassMaterial::clearMaterials,
+                    static_cast<MultiPassMaterial *>(this)));
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -485,12 +495,12 @@ DataType FieldTraits<MultiPassMaterial *>::_type("MultiPassMaterialPtr", "Materi
 
 OSG_FIELDTRAITS_GETTYPE(MultiPassMaterial *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MultiPassMaterial *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MultiPassMaterial *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MultiPassMaterial *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MultiPassMaterial *,
                            0);
 
 OSG_END_NAMESPACE

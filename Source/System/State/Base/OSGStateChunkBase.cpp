@@ -99,7 +99,7 @@ void StateChunkBase::classDescInserter(TypeObject &oType)
         "Enables / disables a chunk\n",
         IgnoreFieldId, IgnoreFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StateChunk::editHandleIgnore),
         static_cast<FieldGetMethodSig >(&StateChunk::getHandleIgnore));
 
@@ -252,7 +252,7 @@ GetFieldHandlePtr StateChunkBase::getHandleIgnore          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfIgnore, 
+             &_sfIgnore,
              this->getType().getFieldDesc(IgnoreFieldId)));
 
     return returnValue;
@@ -262,8 +262,9 @@ EditFieldHandlePtr StateChunkBase::editHandleIgnore         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfIgnore, 
+             &_sfIgnore,
              this->getType().getFieldDesc(IgnoreFieldId)));
+
 
     editSField(IgnoreFieldMask);
 
@@ -302,12 +303,12 @@ DataType FieldTraits<StateChunk *>::_type("StateChunkPtr", "AttachmentPtr");
 
 OSG_FIELDTRAITS_GETTYPE(StateChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StateChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StateChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StateChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StateChunk *,
                            0);
 
 OSG_END_NAMESPACE

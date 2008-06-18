@@ -105,7 +105,7 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
         "at this location.\n",
         SubTreeRootFieldId, SubTreeRootFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FCustomAccess),
         static_cast<FieldEditMethodSig>(&VisitSubTree::editHandleSubTreeRoot),
         static_cast<FieldGetMethodSig >(&VisitSubTree::getHandleSubTreeRoot));
 
@@ -279,8 +279,8 @@ VisitSubTree *VisitSubTreeBase::createEmpty(void)
 
     newPtr<VisitSubTree>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -304,8 +304,8 @@ FieldContainerTransitPtr VisitSubTreeBase::shallowCopy(void) const
 {
     VisitSubTree *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const VisitSubTree *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const VisitSubTree *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -355,7 +355,7 @@ GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfSubTreeRoot, 
+             &_sfSubTreeRoot,
              this->getType().getFieldDesc(SubTreeRootFieldId)));
 
     return returnValue;
@@ -365,11 +365,12 @@ EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfSubTreeRoot, 
+             &_sfSubTreeRoot,
              this->getType().getFieldDesc(SubTreeRootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&VisitSubTree::setSubTreeRoot, 
-                                          static_cast<VisitSubTree *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&VisitSubTree::setSubTreeRoot,
+                    static_cast<VisitSubTree *>(this), _1));
 
     editSField(SubTreeRootFieldMask);
 

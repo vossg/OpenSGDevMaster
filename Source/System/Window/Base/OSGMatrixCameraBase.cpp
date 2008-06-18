@@ -111,7 +111,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         "",
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCamera::editHandleProjectionMatrix),
         static_cast<FieldGetMethodSig >(&MatrixCamera::getHandleProjectionMatrix));
 
@@ -123,7 +123,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         "",
         ModelviewMatrixFieldId, ModelviewMatrixFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCamera::editHandleModelviewMatrix),
         static_cast<FieldGetMethodSig >(&MatrixCamera::getHandleModelviewMatrix));
 
@@ -135,7 +135,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
         "Use beacon if set to get the modelview matrix\n",
         UseBeaconFieldId, UseBeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCamera::editHandleUseBeacon),
         static_cast<FieldGetMethodSig >(&MatrixCamera::getHandleUseBeacon));
 
@@ -380,8 +380,8 @@ MatrixCamera *MatrixCameraBase::createEmpty(void)
 
     newPtr<MatrixCamera>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -405,8 +405,8 @@ FieldContainerTransitPtr MatrixCameraBase::shallowCopy(void) const
 {
     MatrixCamera *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const MatrixCamera *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const MatrixCamera *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -449,7 +449,7 @@ GetFieldHandlePtr MatrixCameraBase::getHandleProjectionMatrix (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfProjectionMatrix, 
+             &_sfProjectionMatrix,
              this->getType().getFieldDesc(ProjectionMatrixFieldId)));
 
     return returnValue;
@@ -459,8 +459,9 @@ EditFieldHandlePtr MatrixCameraBase::editHandleProjectionMatrix(void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfProjectionMatrix, 
+             &_sfProjectionMatrix,
              this->getType().getFieldDesc(ProjectionMatrixFieldId)));
+
 
     editSField(ProjectionMatrixFieldMask);
 
@@ -471,7 +472,7 @@ GetFieldHandlePtr MatrixCameraBase::getHandleModelviewMatrix (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfModelviewMatrix, 
+             &_sfModelviewMatrix,
              this->getType().getFieldDesc(ModelviewMatrixFieldId)));
 
     return returnValue;
@@ -481,8 +482,9 @@ EditFieldHandlePtr MatrixCameraBase::editHandleModelviewMatrix(void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfModelviewMatrix, 
+             &_sfModelviewMatrix,
              this->getType().getFieldDesc(ModelviewMatrixFieldId)));
+
 
     editSField(ModelviewMatrixFieldMask);
 
@@ -493,7 +495,7 @@ GetFieldHandlePtr MatrixCameraBase::getHandleUseBeacon       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfUseBeacon, 
+             &_sfUseBeacon,
              this->getType().getFieldDesc(UseBeaconFieldId)));
 
     return returnValue;
@@ -503,8 +505,9 @@ EditFieldHandlePtr MatrixCameraBase::editHandleUseBeacon      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfUseBeacon, 
+             &_sfUseBeacon,
              this->getType().getFieldDesc(UseBeaconFieldId)));
+
 
     editSField(UseBeaconFieldMask);
 
@@ -554,12 +557,12 @@ DataType FieldTraits<MatrixCamera *>::_type("MatrixCameraPtr", "CameraPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MatrixCamera *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MatrixCamera *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MatrixCamera *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MatrixCamera *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MatrixCamera *,
                            0);
 
 OSG_END_NAMESPACE

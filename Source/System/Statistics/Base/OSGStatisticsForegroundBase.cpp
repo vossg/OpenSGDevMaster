@@ -121,7 +121,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         "The StatElemDesc IDs to use. If not set, use all in the descriptor.\n",
         ElementIDsFieldId, ElementIDsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StatisticsForeground::editHandleElementIDs),
         static_cast<FieldGetMethodSig >(&StatisticsForeground::getHandleElementIDs));
 
@@ -133,7 +133,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
         "The OSG::StatCollector that keeps the displayed statistics.\n",
         CollectorFieldId, CollectorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StatisticsForeground::editHandleCollector),
         static_cast<FieldGetMethodSig >(&StatisticsForeground::getHandleCollector));
 
@@ -356,7 +356,7 @@ GetFieldHandlePtr StatisticsForegroundBase::getHandleElementIDs      (void) cons
 {
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
-             &_mfElementIDs, 
+             &_mfElementIDs,
              this->getType().getFieldDesc(ElementIDsFieldId)));
 
     return returnValue;
@@ -366,8 +366,9 @@ EditFieldHandlePtr StatisticsForegroundBase::editHandleElementIDs     (void)
 {
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
-             &_mfElementIDs, 
+             &_mfElementIDs,
              this->getType().getFieldDesc(ElementIDsFieldId)));
+
 
     editMField(ElementIDsFieldMask, _mfElementIDs);
 
@@ -378,7 +379,7 @@ GetFieldHandlePtr StatisticsForegroundBase::getHandleCollector       (void) cons
 {
     SFStatCollectorP::GetHandlePtr returnValue(
         new  SFStatCollectorP::GetHandle(
-             &_sfCollector, 
+             &_sfCollector,
              this->getType().getFieldDesc(CollectorFieldId)));
 
     return returnValue;
@@ -388,8 +389,9 @@ EditFieldHandlePtr StatisticsForegroundBase::editHandleCollector      (void)
 {
     SFStatCollectorP::EditHandlePtr returnValue(
         new  SFStatCollectorP::EditHandle(
-             &_sfCollector, 
+             &_sfCollector,
              this->getType().getFieldDesc(CollectorFieldId)));
+
 
     editSField(CollectorFieldMask);
 
@@ -425,7 +427,7 @@ void StatisticsForegroundBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfElementIDs.terminateShare(Thread::getCurrentAspect(), 
+    _mfElementIDs.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -437,12 +439,12 @@ DataType FieldTraits<StatisticsForeground *>::_type("StatisticsForegroundPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(StatisticsForeground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StatisticsForeground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StatisticsForeground *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StatisticsForeground *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StatisticsForeground *,
                            0);
 
 OSG_END_NAMESPACE

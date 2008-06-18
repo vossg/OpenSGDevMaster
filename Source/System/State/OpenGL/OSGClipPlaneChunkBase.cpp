@@ -116,7 +116,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         "the plane a point (x,y,z) is visible if a*x+b*y+c*z+d >= 0.\n",
         EquationFieldId, EquationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ClipPlaneChunk::editHandleEquation),
         static_cast<FieldGetMethodSig >(&ClipPlaneChunk::getHandleEquation));
 
@@ -128,7 +128,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         "Defines activation state of the clip plane.\n",
         EnableFieldId, EnableFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ClipPlaneChunk::editHandleEnable),
         static_cast<FieldGetMethodSig >(&ClipPlaneChunk::getHandleEnable));
 
@@ -141,7 +141,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         "plane is positioned relative to this system.\n",
         BeaconFieldId, BeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ClipPlaneChunk::editHandleBeacon),
         static_cast<FieldGetMethodSig >(&ClipPlaneChunk::getHandleBeacon));
 
@@ -396,8 +396,8 @@ ClipPlaneChunk *ClipPlaneChunkBase::createEmpty(void)
 
     newPtr<ClipPlaneChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -421,8 +421,8 @@ FieldContainerTransitPtr ClipPlaneChunkBase::shallowCopy(void) const
 {
     ClipPlaneChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ClipPlaneChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ClipPlaneChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -476,7 +476,7 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleEquation        (void) const
 {
     SFVec4f::GetHandlePtr returnValue(
         new  SFVec4f::GetHandle(
-             &_sfEquation, 
+             &_sfEquation,
              this->getType().getFieldDesc(EquationFieldId)));
 
     return returnValue;
@@ -486,8 +486,9 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleEquation       (void)
 {
     SFVec4f::EditHandlePtr returnValue(
         new  SFVec4f::EditHandle(
-             &_sfEquation, 
+             &_sfEquation,
              this->getType().getFieldDesc(EquationFieldId)));
+
 
     editSField(EquationFieldMask);
 
@@ -498,7 +499,7 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleEnable          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfEnable, 
+             &_sfEnable,
              this->getType().getFieldDesc(EnableFieldId)));
 
     return returnValue;
@@ -508,8 +509,9 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfEnable, 
+             &_sfEnable,
              this->getType().getFieldDesc(EnableFieldId)));
+
 
     editSField(EnableFieldMask);
 
@@ -520,7 +522,7 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
     return returnValue;
@@ -530,11 +532,12 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ClipPlaneChunk::setBeacon, 
-                                          static_cast<ClipPlaneChunk *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&ClipPlaneChunk::setBeacon,
+                    static_cast<ClipPlaneChunk *>(this), _1));
 
     editSField(BeaconFieldMask);
 
@@ -586,12 +589,12 @@ DataType FieldTraits<ClipPlaneChunk *>::_type("ClipPlaneChunkPtr", "StateChunkPt
 
 OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ClipPlaneChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ClipPlaneChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ClipPlaneChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ClipPlaneChunk *,
                            0);
 
 OSG_END_NAMESPACE

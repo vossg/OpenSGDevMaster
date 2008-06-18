@@ -165,7 +165,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "The particle mode, see OSG::Particles::modeE for options.\n",
         ModeFieldId, ModeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleMode),
         static_cast<FieldGetMethodSig >(&Particles::getHandleMode));
 
@@ -178,7 +178,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "information for a particle.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandlePositions),
         static_cast<FieldGetMethodSig >(&Particles::getHandlePositions));
 
@@ -194,7 +194,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "size[0] == 0 are ignored.\n",
         SizesFieldId, SizesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleSizes),
         static_cast<FieldGetMethodSig >(&Particles::getHandleSizes));
 
@@ -208,7 +208,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "the particle's last position.\n",
         SecPositionsFieldId, SecPositionsFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleSecPositions),
         static_cast<FieldGetMethodSig >(&Particles::getHandleSecPositions));
 
@@ -220,7 +220,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "The particle colors (optional).\n",
         ColorsFieldId, ColorsFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleColors),
         static_cast<FieldGetMethodSig >(&Particles::getHandleColors));
 
@@ -234,7 +234,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "direction the particles are facing.\n",
         NormalsFieldId, NormalsFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleNormals),
         static_cast<FieldGetMethodSig >(&Particles::getHandleNormals));
 
@@ -247,7 +247,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "rendering.\n",
         IndicesFieldId, IndicesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleIndices),
         static_cast<FieldGetMethodSig >(&Particles::getHandleIndices));
 
@@ -260,7 +260,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "textures to use different texture images on different particles.\n",
         TextureZsFieldId, TextureZsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleTextureZs),
         static_cast<FieldGetMethodSig >(&Particles::getHandleTextureZs));
 
@@ -273,7 +273,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "for variants. Default is unordered.\n",
         DrawOrderFieldId, DrawOrderFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleDrawOrder),
         static_cast<FieldGetMethodSig >(&Particles::getHandleDrawOrder));
 
@@ -286,7 +286,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "not. Is used to speed up sorting.\n",
         DynamicFieldId, DynamicFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleDynamic),
         static_cast<FieldGetMethodSig >(&Particles::getHandleDynamic));
 
@@ -298,7 +298,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "",
         PumpFieldId, PumpFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandlePump),
         static_cast<FieldGetMethodSig >(&Particles::getHandlePump));
 
@@ -310,7 +310,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "",
         BspFieldId, BspFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleBsp),
         static_cast<FieldGetMethodSig >(&Particles::getHandleBsp));
 
@@ -323,7 +323,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
         "pos, or indices if set, will be used.\n",
         NumParticlesFieldId, NumParticlesFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Particles::editHandleNumParticles),
         static_cast<FieldGetMethodSig >(&Particles::getHandleNumParticles));
 
@@ -931,8 +931,8 @@ Particles *ParticlesBase::createEmpty(void)
 
     newPtr<Particles>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -956,8 +956,8 @@ FieldContainerTransitPtr ParticlesBase::shallowCopy(void) const
 {
     Particles *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Particles *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Particles *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -975,17 +975,17 @@ FieldContainerTransitPtr ParticlesBase::shallowCopy(void) const
 ParticlesBase::ParticlesBase(void) :
     Inherited(),
     _sfMode                   (UInt32(2)),
-    _sfPositions              (this, 
+    _sfPositions              (this,
                           PositionsFieldId,
                           GeoVectorProperty::ParentsFieldId),
     _mfSizes                  (),
-    _sfSecPositions           (this, 
+    _sfSecPositions           (this,
                           SecPositionsFieldId,
                           GeoVectorProperty::ParentsFieldId),
-    _sfColors                 (this, 
+    _sfColors                 (this,
                           ColorsFieldId,
                           GeoVectorProperty::ParentsFieldId),
-    _sfNormals                (this, 
+    _sfNormals                (this,
                           NormalsFieldId,
                           GeoVectorProperty::ParentsFieldId),
     _mfIndices                (),
@@ -1001,17 +1001,17 @@ ParticlesBase::ParticlesBase(void) :
 ParticlesBase::ParticlesBase(const ParticlesBase &source) :
     Inherited(source),
     _sfMode                   (source._sfMode                   ),
-    _sfPositions              (this, 
+    _sfPositions              (this,
                           PositionsFieldId,
                           GeoVectorProperty::ParentsFieldId),
     _mfSizes                  (source._mfSizes                  ),
-    _sfSecPositions           (this, 
+    _sfSecPositions           (this,
                           SecPositionsFieldId,
                           GeoVectorProperty::ParentsFieldId),
-    _sfColors                 (this, 
+    _sfColors                 (this,
                           ColorsFieldId,
                           GeoVectorProperty::ParentsFieldId),
-    _sfNormals                (this, 
+    _sfNormals                (this,
                           NormalsFieldId,
                           GeoVectorProperty::ParentsFieldId),
     _mfIndices                (source._mfIndices                ),
@@ -1042,7 +1042,7 @@ bool ParticlesBase::unlinkChild(
     {
         GeoVectorProperty * pTypedChild =
             dynamic_cast<GeoVectorProperty *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfPositions.getValue())
@@ -1050,24 +1050,24 @@ bool ParticlesBase::unlinkChild(
                 editSField(PositionsFieldMask);
 
                 _sfPositions.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("ParticlesBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == SecPositionsFieldId)
     {
         GeoVectorProperty * pTypedChild =
             dynamic_cast<GeoVectorProperty *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfSecPositions.getValue())
@@ -1075,24 +1075,24 @@ bool ParticlesBase::unlinkChild(
                 editSField(SecPositionsFieldMask);
 
                 _sfSecPositions.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("ParticlesBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == ColorsFieldId)
     {
         GeoVectorProperty * pTypedChild =
             dynamic_cast<GeoVectorProperty *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfColors.getValue())
@@ -1100,24 +1100,24 @@ bool ParticlesBase::unlinkChild(
                 editSField(ColorsFieldMask);
 
                 _sfColors.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("ParticlesBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == NormalsFieldId)
     {
         GeoVectorProperty * pTypedChild =
             dynamic_cast<GeoVectorProperty *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfNormals.getValue())
@@ -1125,20 +1125,20 @@ bool ParticlesBase::unlinkChild(
                 editSField(NormalsFieldMask);
 
                 _sfNormals.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("ParticlesBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
-    
+
+
     return Inherited::unlinkChild(pChild, childFieldId);
 }
 
@@ -1164,7 +1164,7 @@ GetFieldHandlePtr ParticlesBase::getHandleMode            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfMode, 
+             &_sfMode,
              this->getType().getFieldDesc(ModeFieldId)));
 
     return returnValue;
@@ -1174,8 +1174,9 @@ EditFieldHandlePtr ParticlesBase::editHandleMode           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfMode, 
+             &_sfMode,
              this->getType().getFieldDesc(ModeFieldId)));
+
 
     editSField(ModeFieldMask);
 
@@ -1186,7 +1187,7 @@ GetFieldHandlePtr ParticlesBase::getHandlePositions       (void) const
 {
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
-             &_sfPositions, 
+             &_sfPositions,
              this->getType().getFieldDesc(PositionsFieldId)));
 
     return returnValue;
@@ -1196,11 +1197,12 @@ EditFieldHandlePtr ParticlesBase::editHandlePositions      (void)
 {
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
-             &_sfPositions, 
+             &_sfPositions,
              this->getType().getFieldDesc(PositionsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setPositions, 
-                                          static_cast<Particles *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&Particles::setPositions,
+                    static_cast<Particles *>(this), _1));
 
     editSField(PositionsFieldMask);
 
@@ -1211,7 +1213,7 @@ GetFieldHandlePtr ParticlesBase::getHandleSizes           (void) const
 {
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
-             &_mfSizes, 
+             &_mfSizes,
              this->getType().getFieldDesc(SizesFieldId)));
 
     return returnValue;
@@ -1221,8 +1223,9 @@ EditFieldHandlePtr ParticlesBase::editHandleSizes          (void)
 {
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
-             &_mfSizes, 
+             &_mfSizes,
              this->getType().getFieldDesc(SizesFieldId)));
+
 
     editMField(SizesFieldMask, _mfSizes);
 
@@ -1233,7 +1236,7 @@ GetFieldHandlePtr ParticlesBase::getHandleSecPositions    (void) const
 {
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
-             &_sfSecPositions, 
+             &_sfSecPositions,
              this->getType().getFieldDesc(SecPositionsFieldId)));
 
     return returnValue;
@@ -1243,11 +1246,12 @@ EditFieldHandlePtr ParticlesBase::editHandleSecPositions   (void)
 {
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
-             &_sfSecPositions, 
+             &_sfSecPositions,
              this->getType().getFieldDesc(SecPositionsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setSecPositions, 
-                                          static_cast<Particles *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&Particles::setSecPositions,
+                    static_cast<Particles *>(this), _1));
 
     editSField(SecPositionsFieldMask);
 
@@ -1258,7 +1262,7 @@ GetFieldHandlePtr ParticlesBase::getHandleColors          (void) const
 {
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
-             &_sfColors, 
+             &_sfColors,
              this->getType().getFieldDesc(ColorsFieldId)));
 
     return returnValue;
@@ -1268,11 +1272,12 @@ EditFieldHandlePtr ParticlesBase::editHandleColors         (void)
 {
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
-             &_sfColors, 
+             &_sfColors,
              this->getType().getFieldDesc(ColorsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setColors, 
-                                          static_cast<Particles *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&Particles::setColors,
+                    static_cast<Particles *>(this), _1));
 
     editSField(ColorsFieldMask);
 
@@ -1283,7 +1288,7 @@ GetFieldHandlePtr ParticlesBase::getHandleNormals         (void) const
 {
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
-             &_sfNormals, 
+             &_sfNormals,
              this->getType().getFieldDesc(NormalsFieldId)));
 
     return returnValue;
@@ -1293,11 +1298,12 @@ EditFieldHandlePtr ParticlesBase::editHandleNormals        (void)
 {
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
-             &_sfNormals, 
+             &_sfNormals,
              this->getType().getFieldDesc(NormalsFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Particles::setNormals, 
-                                          static_cast<Particles *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&Particles::setNormals,
+                    static_cast<Particles *>(this), _1));
 
     editSField(NormalsFieldMask);
 
@@ -1308,7 +1314,7 @@ GetFieldHandlePtr ParticlesBase::getHandleIndices         (void) const
 {
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
-             &_mfIndices, 
+             &_mfIndices,
              this->getType().getFieldDesc(IndicesFieldId)));
 
     return returnValue;
@@ -1318,8 +1324,9 @@ EditFieldHandlePtr ParticlesBase::editHandleIndices        (void)
 {
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
-             &_mfIndices, 
+             &_mfIndices,
              this->getType().getFieldDesc(IndicesFieldId)));
+
 
     editMField(IndicesFieldMask, _mfIndices);
 
@@ -1330,7 +1337,7 @@ GetFieldHandlePtr ParticlesBase::getHandleTextureZs       (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
-             &_mfTextureZs, 
+             &_mfTextureZs,
              this->getType().getFieldDesc(TextureZsFieldId)));
 
     return returnValue;
@@ -1340,8 +1347,9 @@ EditFieldHandlePtr ParticlesBase::editHandleTextureZs      (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
-             &_mfTextureZs, 
+             &_mfTextureZs,
              this->getType().getFieldDesc(TextureZsFieldId)));
+
 
     editMField(TextureZsFieldMask, _mfTextureZs);
 
@@ -1352,7 +1360,7 @@ GetFieldHandlePtr ParticlesBase::getHandleDrawOrder       (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfDrawOrder, 
+             &_sfDrawOrder,
              this->getType().getFieldDesc(DrawOrderFieldId)));
 
     return returnValue;
@@ -1362,8 +1370,9 @@ EditFieldHandlePtr ParticlesBase::editHandleDrawOrder      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfDrawOrder, 
+             &_sfDrawOrder,
              this->getType().getFieldDesc(DrawOrderFieldId)));
+
 
     editSField(DrawOrderFieldMask);
 
@@ -1374,7 +1383,7 @@ GetFieldHandlePtr ParticlesBase::getHandleDynamic         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfDynamic, 
+             &_sfDynamic,
              this->getType().getFieldDesc(DynamicFieldId)));
 
     return returnValue;
@@ -1384,8 +1393,9 @@ EditFieldHandlePtr ParticlesBase::editHandleDynamic        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfDynamic, 
+             &_sfDynamic,
              this->getType().getFieldDesc(DynamicFieldId)));
+
 
     editSField(DynamicFieldMask);
 
@@ -1396,7 +1406,7 @@ GetFieldHandlePtr ParticlesBase::getHandlePump            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfPump, 
+             &_sfPump,
              this->getType().getFieldDesc(PumpFieldId)));
 
     return returnValue;
@@ -1406,8 +1416,9 @@ EditFieldHandlePtr ParticlesBase::editHandlePump           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfPump, 
+             &_sfPump,
              this->getType().getFieldDesc(PumpFieldId)));
+
 
     editSField(PumpFieldMask);
 
@@ -1418,7 +1429,7 @@ GetFieldHandlePtr ParticlesBase::getHandleBsp             (void) const
 {
     SFParticleBSPTree::GetHandlePtr returnValue(
         new  SFParticleBSPTree::GetHandle(
-             &_sfBsp, 
+             &_sfBsp,
              this->getType().getFieldDesc(BspFieldId)));
 
     return returnValue;
@@ -1428,8 +1439,9 @@ EditFieldHandlePtr ParticlesBase::editHandleBsp            (void)
 {
     SFParticleBSPTree::EditHandlePtr returnValue(
         new  SFParticleBSPTree::EditHandle(
-             &_sfBsp, 
+             &_sfBsp,
              this->getType().getFieldDesc(BspFieldId)));
+
 
     editSField(BspFieldMask);
 
@@ -1440,7 +1452,7 @@ GetFieldHandlePtr ParticlesBase::getHandleNumParticles    (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfNumParticles, 
+             &_sfNumParticles,
              this->getType().getFieldDesc(NumParticlesFieldId)));
 
     return returnValue;
@@ -1450,8 +1462,9 @@ EditFieldHandlePtr ParticlesBase::editHandleNumParticles   (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfNumParticles, 
+             &_sfNumParticles,
              this->getType().getFieldDesc(NumParticlesFieldId)));
+
 
     editSField(NumParticlesFieldMask);
 
@@ -1506,15 +1519,15 @@ void ParticlesBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfSizes.terminateShare(Thread::getCurrentAspect(), 
+    _mfSizes.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfIndices.terminateShare(Thread::getCurrentAspect(), 
+    _mfIndices.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfTextureZs.terminateShare(Thread::getCurrentAspect(), 
+    _mfTextureZs.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -1526,12 +1539,12 @@ DataType FieldTraits<Particles *>::_type("ParticlesPtr", "MaterialDrawablePtr");
 
 OSG_FIELDTRAITS_GETTYPE(Particles *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Particles *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Particles *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Particles *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Particles *,
                            0);
 
 OSG_END_NAMESPACE

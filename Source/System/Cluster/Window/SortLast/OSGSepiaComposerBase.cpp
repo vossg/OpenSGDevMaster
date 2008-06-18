@@ -204,8 +204,8 @@ SepiaComposer *SepiaComposerBase::createEmpty(void)
 
     newPtr<SepiaComposer>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -229,8 +229,8 @@ FieldContainerTransitPtr SepiaComposerBase::shallowCopy(void) const
 {
     SepiaComposer *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SepiaComposer *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SepiaComposer *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();

@@ -97,7 +97,7 @@ void ImageFileBase::classDescInserter(TypeObject &oType)
         "",
         UrlFieldId, UrlFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ImageFile::editHandleUrl),
         static_cast<FieldGetMethodSig >(&ImageFile::getHandleUrl));
 
@@ -267,8 +267,8 @@ ImageFile *ImageFileBase::createEmpty(void)
 
     newPtr<ImageFile>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -292,8 +292,8 @@ FieldContainerTransitPtr ImageFileBase::shallowCopy(void) const
 {
     ImageFile *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ImageFile *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ImageFile *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -332,7 +332,7 @@ GetFieldHandlePtr ImageFileBase::getHandleUrl             (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfUrl, 
+             &_sfUrl,
              this->getType().getFieldDesc(UrlFieldId)));
 
     return returnValue;
@@ -342,8 +342,9 @@ EditFieldHandlePtr ImageFileBase::editHandleUrl            (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfUrl, 
+             &_sfUrl,
              this->getType().getFieldDesc(UrlFieldId)));
+
 
     editSField(UrlFieldMask);
 

@@ -117,7 +117,7 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPubFieldId, FieldSFPubFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldSFPub),
         static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldSFPub));
 
@@ -129,7 +129,7 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFProFieldId, FieldSFProFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldSFPro),
         static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldSFPro));
 
@@ -141,7 +141,7 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFNoFieldId, FieldSFNoFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDTestFC::invalidGetField));
 
@@ -153,7 +153,7 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPubFieldId, FieldMFPubFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldMFPub),
         static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldMFPub));
 
@@ -165,7 +165,7 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFProFieldId, FieldMFProFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDTestFC::editHandleFieldMFPro),
         static_cast<FieldGetMethodSig >(&FCDTestFC::getHandleFieldMFPro));
 
@@ -177,7 +177,7 @@ void FCDTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFNoFieldId, FieldMFNoFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDTestFC::invalidGetField));
 
@@ -216,7 +216,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "        type = \"UInt32\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "    >\n"
     "    </Field>\n"
@@ -226,7 +226,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "        type = \"UInt32\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "    >\n"
     "    </Field>\n"
@@ -236,7 +236,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "        type = \"UInt32\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "    >\n"
     "    </Field>\n"
@@ -248,7 +248,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "        type = \"UInt32\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "    >\n"
     "    </Field>\n"
@@ -258,7 +258,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "        type = \"UInt32\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "    >\n"
     "    </Field>\n"
@@ -268,7 +268,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "        type = \"UInt32\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "    >\n"
     "    </Field>\n"
@@ -501,8 +501,8 @@ FCDTestFC *FCDTestFCBase::createEmpty(void)
 
     newPtr<FCDTestFC>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -526,8 +526,8 @@ FieldContainerTransitPtr FCDTestFCBase::shallowCopy(void) const
 {
     FCDTestFC *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const FCDTestFC *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const FCDTestFC *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -544,12 +544,12 @@ FieldContainerTransitPtr FCDTestFCBase::shallowCopy(void) const
 
 FCDTestFCBase::FCDTestFCBase(void) :
     Inherited(),
-    _sfFieldSFPub             (),
-    _sfFieldSFPro             (),
-    _sfFieldSFNo              (),
-    _mfFieldMFPub             (),
-    _mfFieldMFPro             (),
-    _mfFieldMFNo              ()
+    _sfFieldSFPub             (UInt32(0)),
+    _sfFieldSFPro             (UInt32(0)),
+    _sfFieldSFNo              (UInt32(0)),
+    _mfFieldMFPub             (UInt32(0)),
+    _mfFieldMFPro             (UInt32(0)),
+    _mfFieldMFNo              (UInt32(0))
 {
 }
 
@@ -576,7 +576,7 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldSFPub      (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfFieldSFPub, 
+             &_sfFieldSFPub,
              this->getType().getFieldDesc(FieldSFPubFieldId)));
 
     return returnValue;
@@ -586,8 +586,9 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFPub     (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfFieldSFPub, 
+             &_sfFieldSFPub,
              this->getType().getFieldDesc(FieldSFPubFieldId)));
+
 
     editSField(FieldSFPubFieldMask);
 
@@ -598,7 +599,7 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldSFPro      (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfFieldSFPro, 
+             &_sfFieldSFPro,
              this->getType().getFieldDesc(FieldSFProFieldId)));
 
     return returnValue;
@@ -608,8 +609,9 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFPro     (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfFieldSFPro, 
+             &_sfFieldSFPro,
              this->getType().getFieldDesc(FieldSFProFieldId)));
+
 
     editSField(FieldSFProFieldMask);
 
@@ -634,7 +636,7 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldMFPub      (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
-             &_mfFieldMFPub, 
+             &_mfFieldMFPub,
              this->getType().getFieldDesc(FieldMFPubFieldId)));
 
     return returnValue;
@@ -644,8 +646,9 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFPub     (void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
-             &_mfFieldMFPub, 
+             &_mfFieldMFPub,
              this->getType().getFieldDesc(FieldMFPubFieldId)));
+
 
     editMField(FieldMFPubFieldMask, _mfFieldMFPub);
 
@@ -656,7 +659,7 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldMFPro      (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
-             &_mfFieldMFPro, 
+             &_mfFieldMFPro,
              this->getType().getFieldDesc(FieldMFProFieldId)));
 
     return returnValue;
@@ -666,8 +669,9 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFPro     (void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
-             &_mfFieldMFPro, 
+             &_mfFieldMFPro,
              this->getType().getFieldDesc(FieldMFProFieldId)));
+
 
     editMField(FieldMFProFieldMask, _mfFieldMFPro);
 
@@ -728,15 +732,15 @@ void FCDTestFCBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfFieldMFPub.terminateShare(Thread::getCurrentAspect(), 
+    _mfFieldMFPub.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfFieldMFPro.terminateShare(Thread::getCurrentAspect(), 
+    _mfFieldMFPro.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfFieldMFNo.terminateShare(Thread::getCurrentAspect(), 
+    _mfFieldMFNo.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -748,29 +752,29 @@ DataType FieldTraits<FCDTestFC *>::_type("FCDTestFCPtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(FCDTestFC *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FCDTestFC *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FCDTestFC *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FCDTestFC *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FCDTestFC *,
                            0);
 
 DataType &FieldTraits< FCDTestFC *, 1 >::getType(void)
-{                                                           
+{
     return FieldTraits<FCDTestFC *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      FCDTestFC *,       
-                      UnrecordedRefCountPolicy,  
+                      FCDTestFC *,
+                      UnrecordedRefCountPolicy,
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      FCDTestFC *,       
-                      UnrecordedRefCountPolicy,  
+                      FCDTestFC *,
+                      UnrecordedRefCountPolicy,
                       1);
 
 

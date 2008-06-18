@@ -114,7 +114,7 @@ void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
         "",
         SceneRefFieldId, SceneRefFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleSceneRef),
         static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleSceneRef));
 
@@ -126,7 +126,7 @@ void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
         "",
         DistScaleFieldId, DistScaleFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleDistScale),
         static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleDistScale));
 
@@ -138,7 +138,7 @@ void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
         "",
         SceneDiagFieldId, SceneDiagFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleSceneDiag),
         static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleSceneDiag));
 
@@ -150,7 +150,7 @@ void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
         "",
         InitViewPosFieldId, InitViewPosFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleInitViewPos),
         static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleInitViewPos));
 
@@ -162,7 +162,7 @@ void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
         "",
         SceneCenterFieldId, SceneCenterFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleSceneCenter),
         static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleSceneCenter));
 
@@ -523,7 +523,7 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneRef        (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
-             &_sfSceneRef, 
+             &_sfSceneRef,
              this->getType().getFieldDesc(SceneRefFieldId)));
 
     return returnValue;
@@ -533,11 +533,12 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneRef       (void)
 {
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
-             &_sfSceneRef, 
+             &_sfSceneRef,
              this->getType().getFieldDesc(SceneRefFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CSMSceneParameter::setSceneRef, 
-                                          static_cast<CSMSceneParameter *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CSMSceneParameter::setSceneRef,
+                    static_cast<CSMSceneParameter *>(this), _1));
 
     editSField(SceneRefFieldMask);
 
@@ -548,7 +549,7 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleDistScale       (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfDistScale, 
+             &_sfDistScale,
              this->getType().getFieldDesc(DistScaleFieldId)));
 
     return returnValue;
@@ -558,8 +559,9 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleDistScale      (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfDistScale, 
+             &_sfDistScale,
              this->getType().getFieldDesc(DistScaleFieldId)));
+
 
     editSField(DistScaleFieldMask);
 
@@ -570,7 +572,7 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneDiag       (void) const
 {
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
-             &_sfSceneDiag, 
+             &_sfSceneDiag,
              this->getType().getFieldDesc(SceneDiagFieldId)));
 
     return returnValue;
@@ -580,8 +582,9 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneDiag      (void)
 {
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
-             &_sfSceneDiag, 
+             &_sfSceneDiag,
              this->getType().getFieldDesc(SceneDiagFieldId)));
+
 
     editSField(SceneDiagFieldMask);
 
@@ -592,7 +595,7 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleInitViewPos     (void) const
 {
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
-             &_sfInitViewPos, 
+             &_sfInitViewPos,
              this->getType().getFieldDesc(InitViewPosFieldId)));
 
     return returnValue;
@@ -602,8 +605,9 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleInitViewPos    (void)
 {
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
-             &_sfInitViewPos, 
+             &_sfInitViewPos,
              this->getType().getFieldDesc(InitViewPosFieldId)));
+
 
     editSField(InitViewPosFieldMask);
 
@@ -614,7 +618,7 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneCenter     (void) const
 {
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
-             &_sfSceneCenter, 
+             &_sfSceneCenter,
              this->getType().getFieldDesc(SceneCenterFieldId)));
 
     return returnValue;
@@ -624,8 +628,9 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneCenter    (void)
 {
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
-             &_sfSceneCenter, 
+             &_sfSceneCenter,
              this->getType().getFieldDesc(SceneCenterFieldId)));
+
 
     editSField(SceneCenterFieldMask);
 
@@ -677,12 +682,12 @@ DataType FieldTraits<CSMSceneParameter *>::_type("CSMSceneParameterPtr", "Attach
 
 OSG_FIELDTRAITS_GETTYPE(CSMSceneParameter *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CSMSceneParameter *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMSceneParameter *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CSMSceneParameter *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMSceneParameter *,
                            0);
 
 OSG_END_NAMESPACE

@@ -97,7 +97,7 @@ void OffCenterPerspectiveCameraBase::classDescInserter(TypeObject &oType)
         "The relative position of the principal point.\n",
         PrincipalPointFieldId, PrincipalPointFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&OffCenterPerspectiveCamera::editHandlePrincipalPoint),
         static_cast<FieldGetMethodSig >(&OffCenterPerspectiveCamera::getHandlePrincipalPoint));
 
@@ -264,8 +264,8 @@ OffCenterPerspectiveCamera *OffCenterPerspectiveCameraBase::createEmpty(void)
 
     newPtr<OffCenterPerspectiveCamera>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -289,8 +289,8 @@ FieldContainerTransitPtr OffCenterPerspectiveCameraBase::shallowCopy(void) const
 {
     OffCenterPerspectiveCamera *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const OffCenterPerspectiveCamera *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const OffCenterPerspectiveCamera *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -329,7 +329,7 @@ GetFieldHandlePtr OffCenterPerspectiveCameraBase::getHandlePrincipalPoint  (void
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfPrincipalPoint, 
+             &_sfPrincipalPoint,
              this->getType().getFieldDesc(PrincipalPointFieldId)));
 
     return returnValue;
@@ -339,8 +339,9 @@ EditFieldHandlePtr OffCenterPerspectiveCameraBase::editHandlePrincipalPoint (voi
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfPrincipalPoint, 
+             &_sfPrincipalPoint,
              this->getType().getFieldDesc(PrincipalPointFieldId)));
+
 
     editSField(PrincipalPointFieldMask);
 
@@ -390,12 +391,12 @@ DataType FieldTraits<OffCenterPerspectiveCamera *>::_type("OffCenterPerspectiveC
 
 OSG_FIELDTRAITS_GETTYPE(OffCenterPerspectiveCamera *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           OffCenterPerspectiveCamera *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           OffCenterPerspectiveCamera *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           OffCenterPerspectiveCamera *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           OffCenterPerspectiveCamera *,
                            0);
 
 OSG_END_NAMESPACE

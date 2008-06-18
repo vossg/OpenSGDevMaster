@@ -122,7 +122,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         "The data container to source off of.\n",
         ContainerFieldId, ContainerFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleContainer),
         static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleContainer));
 
@@ -134,7 +134,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         "The offset from the start of the container to the first element of this property.\n",
         OffsetFieldId, OffsetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleOffset),
         static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleOffset));
 
@@ -146,7 +146,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         "The OpenGL format for the data.\n",
         IFormatFieldId, IFormatFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleIFormat),
         static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleIFormat));
 
@@ -158,7 +158,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         "The dimensionality of the data.\n",
         IDimensionFieldId, IDimensionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleIDimension),
         static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleIDimension));
 
@@ -170,7 +170,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         "The number of elements in the data.\n",
         ISizeFieldId, ISizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleISize),
         static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleISize));
 
@@ -182,7 +182,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         "Whether to normalize integer arguments to 0..1.\n",
         INormalizeFieldId, INormalizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleINormalize),
         static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleINormalize));
 
@@ -194,7 +194,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         "The stride between elements (can be 0).\n",
         IStrideFieldId, IStrideFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiProperty::editHandleIStride),
         static_cast<FieldGetMethodSig >(&GeoMultiProperty::getHandleIStride));
 
@@ -585,8 +585,8 @@ GeoMultiProperty *GeoMultiPropertyBase::createEmpty(void)
 
     newPtr<GeoMultiProperty>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -610,8 +610,8 @@ FieldContainerTransitPtr GeoMultiPropertyBase::shallowCopy(void) const
 {
     GeoMultiProperty *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const GeoMultiProperty *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const GeoMultiProperty *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -673,7 +673,7 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleContainer       (void) const
 {
     SFUnrecGeoMultiPropertyDataPtr::GetHandlePtr returnValue(
         new  SFUnrecGeoMultiPropertyDataPtr::GetHandle(
-             &_sfContainer, 
+             &_sfContainer,
              this->getType().getFieldDesc(ContainerFieldId)));
 
     return returnValue;
@@ -683,11 +683,12 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleContainer      (void)
 {
     SFUnrecGeoMultiPropertyDataPtr::EditHandlePtr returnValue(
         new  SFUnrecGeoMultiPropertyDataPtr::EditHandle(
-             &_sfContainer, 
+             &_sfContainer,
              this->getType().getFieldDesc(ContainerFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&GeoMultiProperty::setContainer, 
-                                          static_cast<GeoMultiProperty *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&GeoMultiProperty::setContainer,
+                    static_cast<GeoMultiProperty *>(this), _1));
 
     editSField(ContainerFieldMask);
 
@@ -698,7 +699,7 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleOffset          (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfOffset, 
+             &_sfOffset,
              this->getType().getFieldDesc(OffsetFieldId)));
 
     return returnValue;
@@ -708,8 +709,9 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleOffset         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfOffset, 
+             &_sfOffset,
              this->getType().getFieldDesc(OffsetFieldId)));
+
 
     editSField(OffsetFieldMask);
 
@@ -720,7 +722,7 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleIFormat         (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfIFormat, 
+             &_sfIFormat,
              this->getType().getFieldDesc(IFormatFieldId)));
 
     return returnValue;
@@ -730,8 +732,9 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleIFormat        (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfIFormat, 
+             &_sfIFormat,
              this->getType().getFieldDesc(IFormatFieldId)));
+
 
     editSField(IFormatFieldMask);
 
@@ -742,7 +745,7 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleIDimension      (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfIDimension, 
+             &_sfIDimension,
              this->getType().getFieldDesc(IDimensionFieldId)));
 
     return returnValue;
@@ -752,8 +755,9 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleIDimension     (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfIDimension, 
+             &_sfIDimension,
              this->getType().getFieldDesc(IDimensionFieldId)));
+
 
     editSField(IDimensionFieldMask);
 
@@ -764,7 +768,7 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleISize           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfISize, 
+             &_sfISize,
              this->getType().getFieldDesc(ISizeFieldId)));
 
     return returnValue;
@@ -774,8 +778,9 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleISize          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfISize, 
+             &_sfISize,
              this->getType().getFieldDesc(ISizeFieldId)));
+
 
     editSField(ISizeFieldMask);
 
@@ -786,7 +791,7 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleINormalize      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfINormalize, 
+             &_sfINormalize,
              this->getType().getFieldDesc(INormalizeFieldId)));
 
     return returnValue;
@@ -796,8 +801,9 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleINormalize     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfINormalize, 
+             &_sfINormalize,
              this->getType().getFieldDesc(INormalizeFieldId)));
+
 
     editSField(INormalizeFieldMask);
 
@@ -808,7 +814,7 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleIStride         (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfIStride, 
+             &_sfIStride,
              this->getType().getFieldDesc(IStrideFieldId)));
 
     return returnValue;
@@ -818,8 +824,9 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleIStride        (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfIStride, 
+             &_sfIStride,
              this->getType().getFieldDesc(IStrideFieldId)));
+
 
     editSField(IStrideFieldMask);
 
@@ -871,12 +878,12 @@ DataType FieldTraits<GeoMultiProperty *>::_type("GeoMultiPropertyPtr", "GeoVecto
 
 OSG_FIELDTRAITS_GETTYPE(GeoMultiProperty *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoMultiProperty *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoMultiProperty *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoMultiProperty *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoMultiProperty *,
                            0);
 
 OSG_END_NAMESPACE

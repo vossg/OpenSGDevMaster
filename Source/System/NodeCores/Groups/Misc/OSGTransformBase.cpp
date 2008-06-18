@@ -98,7 +98,7 @@ void TransformBase::classDescInserter(TypeObject &oType)
         "The transformation matrix.\n",
         MatrixFieldId, MatrixFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Transform::editHandleMatrix),
         static_cast<FieldGetMethodSig >(&Transform::getHandleMatrix));
 
@@ -267,8 +267,8 @@ Transform *TransformBase::createEmpty(void)
 
     newPtr<Transform>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -292,8 +292,8 @@ FieldContainerTransitPtr TransformBase::shallowCopy(void) const
 {
     Transform *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Transform *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Transform *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -332,7 +332,7 @@ GetFieldHandlePtr TransformBase::getHandleMatrix          (void) const
 {
     SFMatrixr::GetHandlePtr returnValue(
         new  SFMatrixr::GetHandle(
-             &_sfMatrix, 
+             &_sfMatrix,
              this->getType().getFieldDesc(MatrixFieldId)));
 
     return returnValue;
@@ -342,8 +342,9 @@ EditFieldHandlePtr TransformBase::editHandleMatrix         (void)
 {
     SFMatrixr::EditHandlePtr returnValue(
         new  SFMatrixr::EditHandle(
-             &_sfMatrix, 
+             &_sfMatrix,
              this->getType().getFieldDesc(MatrixFieldId)));
+
 
     editSField(MatrixFieldMask);
 
@@ -393,12 +394,12 @@ DataType FieldTraits<Transform *>::_type("TransformPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Transform *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Transform *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Transform *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Transform *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Transform *,
                            0);
 
 OSG_END_NAMESPACE

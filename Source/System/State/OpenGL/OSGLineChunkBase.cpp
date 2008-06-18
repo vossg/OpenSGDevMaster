@@ -120,7 +120,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         "The line's width, in pixels.\n",
         WidthFieldId, WidthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&LineChunk::editHandleWidth),
         static_cast<FieldGetMethodSig >(&LineChunk::getHandleWidth));
 
@@ -132,7 +132,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         "Repetition factor for stippling.\n",
         StippleRepeatFieldId, StippleRepeatFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&LineChunk::editHandleStippleRepeat),
         static_cast<FieldGetMethodSig >(&LineChunk::getHandleStippleRepeat));
 
@@ -145,7 +145,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         "starting with the most significant bit.\n",
         StipplePatternFieldId, StipplePatternFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&LineChunk::editHandleStipplePattern),
         static_cast<FieldGetMethodSig >(&LineChunk::getHandleStipplePattern));
 
@@ -157,7 +157,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
         "Defines if line antialiasing is used.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&LineChunk::editHandleSmooth),
         static_cast<FieldGetMethodSig >(&LineChunk::getHandleSmooth));
 
@@ -450,8 +450,8 @@ LineChunk *LineChunkBase::createEmpty(void)
 
     newPtr<LineChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -475,8 +475,8 @@ FieldContainerTransitPtr LineChunkBase::shallowCopy(void) const
 {
     LineChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const LineChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const LineChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -521,7 +521,7 @@ GetFieldHandlePtr LineChunkBase::getHandleWidth           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
 
     return returnValue;
@@ -531,8 +531,9 @@ EditFieldHandlePtr LineChunkBase::editHandleWidth          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
+
 
     editSField(WidthFieldMask);
 
@@ -543,7 +544,7 @@ GetFieldHandlePtr LineChunkBase::getHandleStippleRepeat   (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfStippleRepeat, 
+             &_sfStippleRepeat,
              this->getType().getFieldDesc(StippleRepeatFieldId)));
 
     return returnValue;
@@ -553,8 +554,9 @@ EditFieldHandlePtr LineChunkBase::editHandleStippleRepeat  (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfStippleRepeat, 
+             &_sfStippleRepeat,
              this->getType().getFieldDesc(StippleRepeatFieldId)));
+
 
     editSField(StippleRepeatFieldMask);
 
@@ -565,7 +567,7 @@ GetFieldHandlePtr LineChunkBase::getHandleStipplePattern  (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfStipplePattern, 
+             &_sfStipplePattern,
              this->getType().getFieldDesc(StipplePatternFieldId)));
 
     return returnValue;
@@ -575,8 +577,9 @@ EditFieldHandlePtr LineChunkBase::editHandleStipplePattern (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfStipplePattern, 
+             &_sfStipplePattern,
              this->getType().getFieldDesc(StipplePatternFieldId)));
+
 
     editSField(StipplePatternFieldMask);
 
@@ -587,7 +590,7 @@ GetFieldHandlePtr LineChunkBase::getHandleSmooth          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfSmooth, 
+             &_sfSmooth,
              this->getType().getFieldDesc(SmoothFieldId)));
 
     return returnValue;
@@ -597,8 +600,9 @@ EditFieldHandlePtr LineChunkBase::editHandleSmooth         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfSmooth, 
+             &_sfSmooth,
              this->getType().getFieldDesc(SmoothFieldId)));
+
 
     editSField(SmoothFieldMask);
 
@@ -648,12 +652,12 @@ DataType FieldTraits<LineChunk *>::_type("LineChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(LineChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           LineChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LineChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           LineChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           LineChunk *,
                            0);
 
 OSG_END_NAMESPACE

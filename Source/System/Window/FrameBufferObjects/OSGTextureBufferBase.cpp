@@ -113,7 +113,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         "The texture object to target.\n",
         TextureFieldId, TextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleTexture),
         static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleTexture));
 
@@ -126,7 +126,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         "If GL_NONE, automatically determined.\n",
         TexTargetFieldId, TexTargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleTexTarget),
         static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleTexTarget));
 
@@ -138,7 +138,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         "The mipmap level in the texture to target.\n",
         LevelFieldId, LevelFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleLevel),
         static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleLevel));
 
@@ -150,7 +150,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         "UNUSED.\n",
         ZoffsetFieldId, ZoffsetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleZoffset),
         static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleZoffset));
 
@@ -428,8 +428,8 @@ TextureBuffer *TextureBufferBase::createEmpty(void)
 
     newPtr<TextureBuffer>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -453,8 +453,8 @@ FieldContainerTransitPtr TextureBufferBase::shallowCopy(void) const
 {
     TextureBuffer *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TextureBuffer *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TextureBuffer *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -510,7 +510,7 @@ GetFieldHandlePtr TextureBufferBase::getHandleTexture         (void) const
 {
     SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::GetHandle(
-             &_sfTexture, 
+             &_sfTexture,
              this->getType().getFieldDesc(TextureFieldId)));
 
     return returnValue;
@@ -520,11 +520,12 @@ EditFieldHandlePtr TextureBufferBase::editHandleTexture        (void)
 {
     SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::EditHandle(
-             &_sfTexture, 
+             &_sfTexture,
              this->getType().getFieldDesc(TextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TextureBuffer::setTexture, 
-                                          static_cast<TextureBuffer *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&TextureBuffer::setTexture,
+                    static_cast<TextureBuffer *>(this), _1));
 
     editSField(TextureFieldMask);
 
@@ -535,7 +536,7 @@ GetFieldHandlePtr TextureBufferBase::getHandleTexTarget       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfTexTarget, 
+             &_sfTexTarget,
              this->getType().getFieldDesc(TexTargetFieldId)));
 
     return returnValue;
@@ -545,8 +546,9 @@ EditFieldHandlePtr TextureBufferBase::editHandleTexTarget      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfTexTarget, 
+             &_sfTexTarget,
              this->getType().getFieldDesc(TexTargetFieldId)));
+
 
     editSField(TexTargetFieldMask);
 
@@ -557,7 +559,7 @@ GetFieldHandlePtr TextureBufferBase::getHandleLevel           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfLevel, 
+             &_sfLevel,
              this->getType().getFieldDesc(LevelFieldId)));
 
     return returnValue;
@@ -567,8 +569,9 @@ EditFieldHandlePtr TextureBufferBase::editHandleLevel          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfLevel, 
+             &_sfLevel,
              this->getType().getFieldDesc(LevelFieldId)));
+
 
     editSField(LevelFieldMask);
 
@@ -579,7 +582,7 @@ GetFieldHandlePtr TextureBufferBase::getHandleZoffset         (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfZoffset, 
+             &_sfZoffset,
              this->getType().getFieldDesc(ZoffsetFieldId)));
 
     return returnValue;
@@ -589,8 +592,9 @@ EditFieldHandlePtr TextureBufferBase::editHandleZoffset        (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfZoffset, 
+             &_sfZoffset,
              this->getType().getFieldDesc(ZoffsetFieldId)));
+
 
     editSField(ZoffsetFieldMask);
 
@@ -642,12 +646,12 @@ DataType FieldTraits<TextureBuffer *>::_type("TextureBufferPtr", "FrameBufferAtt
 
 OSG_FIELDTRAITS_GETTYPE(TextureBuffer *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureBuffer *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureBuffer *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureBuffer *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureBuffer *,
                            0);
 
 OSG_END_NAMESPACE

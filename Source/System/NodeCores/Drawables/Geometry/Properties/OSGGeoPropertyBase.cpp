@@ -106,7 +106,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         "The id used to register with the Window, 0 if not set up yet.\n",
         UseVBOFieldId, UseVBOFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoProperty::editHandleUseVBO),
         static_cast<FieldGetMethodSig >(&GeoProperty::getHandleUseVBO));
 
@@ -130,7 +130,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         "The usage pattern, only valid for VBO use.\n",
         UsageFieldId, UsageFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoProperty::editHandleUsage),
         static_cast<FieldGetMethodSig >(&GeoProperty::getHandleUsage));
 
@@ -353,7 +353,7 @@ GetFieldHandlePtr GeoPropertyBase::getHandleUseVBO          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfUseVBO, 
+             &_sfUseVBO,
              this->getType().getFieldDesc(UseVBOFieldId)));
 
     return returnValue;
@@ -363,8 +363,9 @@ EditFieldHandlePtr GeoPropertyBase::editHandleUseVBO         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfUseVBO, 
+             &_sfUseVBO,
              this->getType().getFieldDesc(UseVBOFieldId)));
+
 
     editSField(UseVBOFieldMask);
 
@@ -375,7 +376,7 @@ GetFieldHandlePtr GeoPropertyBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
 
     return returnValue;
@@ -385,8 +386,9 @@ EditFieldHandlePtr GeoPropertyBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
+
 
     editSField(GLIdFieldMask);
 
@@ -397,7 +399,7 @@ GetFieldHandlePtr GeoPropertyBase::getHandleUsage           (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfUsage, 
+             &_sfUsage,
              this->getType().getFieldDesc(UsageFieldId)));
 
     return returnValue;
@@ -407,8 +409,9 @@ EditFieldHandlePtr GeoPropertyBase::editHandleUsage          (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfUsage, 
+             &_sfUsage,
              this->getType().getFieldDesc(UsageFieldId)));
+
 
     editSField(UsageFieldMask);
 
@@ -447,12 +450,12 @@ DataType FieldTraits<GeoProperty *>::_type("GeoPropertyPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(GeoProperty *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoProperty *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoProperty *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoProperty *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoProperty *,
                            0);
 
 OSG_END_NAMESPACE

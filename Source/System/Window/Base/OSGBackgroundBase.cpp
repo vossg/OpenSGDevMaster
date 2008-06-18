@@ -122,7 +122,7 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         "(clear is deactivated if smaller zero).\n",
         ClearStencilBitFieldId, ClearStencilBitFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Background::editHandleClearStencilBit),
         static_cast<FieldGetMethodSig >(&Background::getHandleClearStencilBit));
 
@@ -134,7 +134,7 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         "Depth value for clear, defaults to 1.\n",
         DepthFieldId, DepthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Background::editHandleDepth),
         static_cast<FieldGetMethodSig >(&Background::getHandleDepth));
 
@@ -146,7 +146,7 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         "Whether to clear the depth buffer or not\n",
         ClearDepthFieldId, ClearDepthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Background::editHandleClearDepth),
         static_cast<FieldGetMethodSig >(&Background::getHandleClearDepth));
 
@@ -158,7 +158,7 @@ void BackgroundBase::classDescInserter(TypeObject &oType)
         "Whether to clear the color buffer or not\n",
         ClearColorFieldId, ClearColorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Background::editHandleClearColor),
         static_cast<FieldGetMethodSig >(&Background::getHandleClearColor));
 
@@ -439,7 +439,7 @@ GetFieldHandlePtr BackgroundBase::getHandleClearStencilBit (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfClearStencilBit, 
+             &_sfClearStencilBit,
              this->getType().getFieldDesc(ClearStencilBitFieldId)));
 
     return returnValue;
@@ -449,8 +449,9 @@ EditFieldHandlePtr BackgroundBase::editHandleClearStencilBit(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfClearStencilBit, 
+             &_sfClearStencilBit,
              this->getType().getFieldDesc(ClearStencilBitFieldId)));
+
 
     editSField(ClearStencilBitFieldMask);
 
@@ -461,7 +462,7 @@ GetFieldHandlePtr BackgroundBase::getHandleDepth           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfDepth, 
+             &_sfDepth,
              this->getType().getFieldDesc(DepthFieldId)));
 
     return returnValue;
@@ -471,8 +472,9 @@ EditFieldHandlePtr BackgroundBase::editHandleDepth          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfDepth, 
+             &_sfDepth,
              this->getType().getFieldDesc(DepthFieldId)));
+
 
     editSField(DepthFieldMask);
 
@@ -483,7 +485,7 @@ GetFieldHandlePtr BackgroundBase::getHandleClearDepth      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfClearDepth, 
+             &_sfClearDepth,
              this->getType().getFieldDesc(ClearDepthFieldId)));
 
     return returnValue;
@@ -493,8 +495,9 @@ EditFieldHandlePtr BackgroundBase::editHandleClearDepth     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfClearDepth, 
+             &_sfClearDepth,
              this->getType().getFieldDesc(ClearDepthFieldId)));
+
 
     editSField(ClearDepthFieldMask);
 
@@ -505,7 +508,7 @@ GetFieldHandlePtr BackgroundBase::getHandleClearColor      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfClearColor, 
+             &_sfClearColor,
              this->getType().getFieldDesc(ClearColorFieldId)));
 
     return returnValue;
@@ -515,8 +518,9 @@ EditFieldHandlePtr BackgroundBase::editHandleClearColor     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfClearColor, 
+             &_sfClearColor,
              this->getType().getFieldDesc(ClearColorFieldId)));
+
 
     editSField(ClearColorFieldMask);
 
@@ -555,12 +559,12 @@ DataType FieldTraits<Background *>::_type("BackgroundPtr", "AttachmentContainerP
 
 OSG_FIELDTRAITS_GETTYPE(Background *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Background *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Background *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Background *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Background *,
                            0);
 
 OSG_END_NAMESPACE

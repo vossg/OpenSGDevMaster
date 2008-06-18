@@ -136,7 +136,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         "The center for distance calculation.\n",
         CenterFieldId, CenterFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DistanceLOD::editHandleCenter),
         static_cast<FieldGetMethodSig >(&DistanceLOD::getHandleCenter));
 
@@ -148,7 +148,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
         "The range intervals.\n",
         RangeFieldId, RangeFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DistanceLOD::editHandleRange),
         static_cast<FieldGetMethodSig >(&DistanceLOD::getHandleRange));
 
@@ -420,8 +420,8 @@ DistanceLOD *DistanceLODBase::createEmpty(void)
 
     newPtr<DistanceLOD>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -445,8 +445,8 @@ FieldContainerTransitPtr DistanceLODBase::shallowCopy(void) const
 {
     DistanceLOD *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const DistanceLOD *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const DistanceLOD *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -487,7 +487,7 @@ GetFieldHandlePtr DistanceLODBase::getHandleCenter          (void) const
 {
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
-             &_sfCenter, 
+             &_sfCenter,
              this->getType().getFieldDesc(CenterFieldId)));
 
     return returnValue;
@@ -497,8 +497,9 @@ EditFieldHandlePtr DistanceLODBase::editHandleCenter         (void)
 {
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
-             &_sfCenter, 
+             &_sfCenter,
              this->getType().getFieldDesc(CenterFieldId)));
+
 
     editSField(CenterFieldMask);
 
@@ -509,7 +510,7 @@ GetFieldHandlePtr DistanceLODBase::getHandleRange           (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
-             &_mfRange, 
+             &_mfRange,
              this->getType().getFieldDesc(RangeFieldId)));
 
     return returnValue;
@@ -519,8 +520,9 @@ EditFieldHandlePtr DistanceLODBase::editHandleRange          (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
-             &_mfRange, 
+             &_mfRange,
              this->getType().getFieldDesc(RangeFieldId)));
+
 
     editMField(RangeFieldMask, _mfRange);
 
@@ -567,7 +569,7 @@ void DistanceLODBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfRange.terminateShare(Thread::getCurrentAspect(), 
+    _mfRange.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

@@ -143,7 +143,7 @@ void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
         "",
         RootFieldId, RootFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&VTKPolyDataMapper::editHandleRoot),
         static_cast<FieldGetMethodSig >(&VTKPolyDataMapper::getHandleRoot));
 
@@ -565,7 +565,7 @@ void VTKPolyDataMapperBase::removeFromGeoRoots(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromGeoRoots(Node * const value)
+void VTKPolyDataMapperBase::removeObjFromGeoRoots(Node * const value)
 {
     Int32 iElemIdx = _mfGeoRoots.findIndex(value);
 
@@ -626,7 +626,7 @@ void VTKPolyDataMapperBase::removeFromGeometries(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromGeometries(Geometry * const value)
+void VTKPolyDataMapperBase::removeObjFromGeometries(Geometry * const value)
 {
     Int32 iElemIdx = _mfGeometries.findIndex(value);
 
@@ -687,7 +687,7 @@ void VTKPolyDataMapperBase::removeFromMaterials(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromMaterials(ChunkMaterial * const value)
+void VTKPolyDataMapperBase::removeObjFromMaterials(ChunkMaterial * const value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -748,7 +748,7 @@ void VTKPolyDataMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromMaterialChunks(MaterialChunk * const value)
+void VTKPolyDataMapperBase::removeObjFromMaterialChunks(MaterialChunk * const value)
 {
     Int32 iElemIdx = _mfMaterialChunks.findIndex(value);
 
@@ -809,7 +809,7 @@ void VTKPolyDataMapperBase::removeFromPositions(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromPositions(GeoPnt3fProperty * const value)
+void VTKPolyDataMapperBase::removeObjFromPositions(GeoPnt3fProperty * const value)
 {
     Int32 iElemIdx = _mfPositions.findIndex(value);
 
@@ -870,7 +870,7 @@ void VTKPolyDataMapperBase::removeFromLength(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromLength(GeoUInt32Property * const value)
+void VTKPolyDataMapperBase::removeObjFromLength(GeoUInt32Property * const value)
 {
     Int32 iElemIdx = _mfLength.findIndex(value);
 
@@ -931,7 +931,7 @@ void VTKPolyDataMapperBase::removeFromTypes(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromTypes(GeoUInt8Property * const value)
+void VTKPolyDataMapperBase::removeObjFromTypes(GeoUInt8Property * const value)
 {
     Int32 iElemIdx = _mfTypes.findIndex(value);
 
@@ -992,7 +992,7 @@ void VTKPolyDataMapperBase::removeFromColors(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromColors(GeoColor4fProperty * const value)
+void VTKPolyDataMapperBase::removeObjFromColors(GeoColor4fProperty * const value)
 {
     Int32 iElemIdx = _mfColors.findIndex(value);
 
@@ -1053,7 +1053,7 @@ void VTKPolyDataMapperBase::removeFromNormals(UInt32 uiIndex)
     }
 }
 
-void VTKPolyDataMapperBase::removeFromNormals(GeoVec3fProperty * const value)
+void VTKPolyDataMapperBase::removeObjFromNormals(GeoVec3fProperty * const value)
 {
     Int32 iElemIdx = _mfNormals.findIndex(value);
 
@@ -1272,8 +1272,8 @@ VTKPolyDataMapper *VTKPolyDataMapperBase::createEmpty(void)
 
     newPtr<VTKPolyDataMapper>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -1297,8 +1297,8 @@ FieldContainerTransitPtr VTKPolyDataMapperBase::shallowCopy(void) const
 {
     VTKPolyDataMapper *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const VTKPolyDataMapper *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const VTKPolyDataMapper *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -1474,7 +1474,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleRoot            (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
     return returnValue;
@@ -1484,11 +1484,12 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleRoot           (void)
 {
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&VTKPolyDataMapper::setRoot, 
-                                          static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&VTKPolyDataMapper::setRoot,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
 
     editSField(RootFieldMask);
 
@@ -1499,7 +1500,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleGeoRoots        (void) const
 {
     MFUnrecNodePtr::GetHandlePtr returnValue(
         new  MFUnrecNodePtr::GetHandle(
-             &_mfGeoRoots, 
+             &_mfGeoRoots,
              this->getType().getFieldDesc(GeoRootsFieldId)));
 
     return returnValue;
@@ -1509,11 +1510,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleGeoRoots       (void)
 {
     MFUnrecNodePtr::EditHandlePtr returnValue(
         new  MFUnrecNodePtr::EditHandle(
-             &_mfGeoRoots, 
+             &_mfGeoRoots,
              this->getType().getFieldDesc(GeoRootsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToGeoRoots, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToGeoRoots,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromGeoRoots,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromGeoRoots,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearGeoRoots,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
@@ -1524,7 +1535,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleGeometries      (void) const
 {
     MFUnrecGeometryPtr::GetHandlePtr returnValue(
         new  MFUnrecGeometryPtr::GetHandle(
-             &_mfGeometries, 
+             &_mfGeometries,
              this->getType().getFieldDesc(GeometriesFieldId)));
 
     return returnValue;
@@ -1534,11 +1545,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleGeometries     (void)
 {
     MFUnrecGeometryPtr::EditHandlePtr returnValue(
         new  MFUnrecGeometryPtr::EditHandle(
-             &_mfGeometries, 
+             &_mfGeometries,
              this->getType().getFieldDesc(GeometriesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToGeometries, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToGeometries,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromGeometries,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromGeometries,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearGeometries,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(GeometriesFieldMask, _mfGeometries);
 
@@ -1549,7 +1570,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleMaterials       (void) const
 {
     MFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  MFUnrecChunkMaterialPtr::GetHandle(
-             &_mfMaterials, 
+             &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
     return returnValue;
@@ -1559,11 +1580,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleMaterials      (void)
 {
     MFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  MFUnrecChunkMaterialPtr::EditHandle(
-             &_mfMaterials, 
+             &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToMaterials, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToMaterials,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromMaterials,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromMaterials,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearMaterials,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -1574,7 +1605,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleMaterialChunks  (void) const
 {
     MFUnrecMaterialChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecMaterialChunkPtr::GetHandle(
-             &_mfMaterialChunks, 
+             &_mfMaterialChunks,
              this->getType().getFieldDesc(MaterialChunksFieldId)));
 
     return returnValue;
@@ -1584,11 +1615,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleMaterialChunks (void)
 {
     MFUnrecMaterialChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecMaterialChunkPtr::EditHandle(
-             &_mfMaterialChunks, 
+             &_mfMaterialChunks,
              this->getType().getFieldDesc(MaterialChunksFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToMaterialChunks, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToMaterialChunks,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromMaterialChunks,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromMaterialChunks,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearMaterialChunks,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
@@ -1599,7 +1640,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandlePositions       (void) const
 {
     MFUnrecGeoPnt3fPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoPnt3fPropertyPtr::GetHandle(
-             &_mfPositions, 
+             &_mfPositions,
              this->getType().getFieldDesc(PositionsFieldId)));
 
     return returnValue;
@@ -1609,11 +1650,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandlePositions      (void)
 {
     MFUnrecGeoPnt3fPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoPnt3fPropertyPtr::EditHandle(
-             &_mfPositions, 
+             &_mfPositions,
              this->getType().getFieldDesc(PositionsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToPositions, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToPositions,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromPositions,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromPositions,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearPositions,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -1624,7 +1675,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleLength          (void) const
 {
     MFUnrecGeoUInt32PropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoUInt32PropertyPtr::GetHandle(
-             &_mfLength, 
+             &_mfLength,
              this->getType().getFieldDesc(LengthFieldId)));
 
     return returnValue;
@@ -1634,11 +1685,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleLength         (void)
 {
     MFUnrecGeoUInt32PropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoUInt32PropertyPtr::EditHandle(
-             &_mfLength, 
+             &_mfLength,
              this->getType().getFieldDesc(LengthFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToLength, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToLength,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromLength,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromLength,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearLength,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(LengthFieldMask, _mfLength);
 
@@ -1649,7 +1710,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleTypes           (void) const
 {
     MFUnrecGeoUInt8PropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoUInt8PropertyPtr::GetHandle(
-             &_mfTypes, 
+             &_mfTypes,
              this->getType().getFieldDesc(TypesFieldId)));
 
     return returnValue;
@@ -1659,11 +1720,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleTypes          (void)
 {
     MFUnrecGeoUInt8PropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoUInt8PropertyPtr::EditHandle(
-             &_mfTypes, 
+             &_mfTypes,
              this->getType().getFieldDesc(TypesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToTypes, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToTypes,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromTypes,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromTypes,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearTypes,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(TypesFieldMask, _mfTypes);
 
@@ -1674,7 +1745,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleColors          (void) const
 {
     MFUnrecGeoColor4fPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoColor4fPropertyPtr::GetHandle(
-             &_mfColors, 
+             &_mfColors,
              this->getType().getFieldDesc(ColorsFieldId)));
 
     return returnValue;
@@ -1684,11 +1755,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleColors         (void)
 {
     MFUnrecGeoColor4fPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoColor4fPropertyPtr::EditHandle(
-             &_mfColors, 
+             &_mfColors,
              this->getType().getFieldDesc(ColorsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToColors, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToColors,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromColors,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromColors,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearColors,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(ColorsFieldMask, _mfColors);
 
@@ -1699,7 +1780,7 @@ GetFieldHandlePtr VTKPolyDataMapperBase::getHandleNormals         (void) const
 {
     MFUnrecGeoVec3fPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecGeoVec3fPropertyPtr::GetHandle(
-             &_mfNormals, 
+             &_mfNormals,
              this->getType().getFieldDesc(NormalsFieldId)));
 
     return returnValue;
@@ -1709,11 +1790,21 @@ EditFieldHandlePtr VTKPolyDataMapperBase::editHandleNormals        (void)
 {
     MFUnrecGeoVec3fPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecGeoVec3fPropertyPtr::EditHandle(
-             &_mfNormals, 
+             &_mfNormals,
              this->getType().getFieldDesc(NormalsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&VTKPolyDataMapper::pushToNormals, 
-                              static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&VTKPolyDataMapper::pushToNormals,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&VTKPolyDataMapper::removeFromNormals,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&VTKPolyDataMapper::removeObjFromNormals,
+                    static_cast<VTKPolyDataMapper *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&VTKPolyDataMapper::clearNormals,
+                    static_cast<VTKPolyDataMapper *>(this)));
 
     editMField(NormalsFieldMask, _mfNormals);
 
@@ -1774,12 +1865,12 @@ DataType FieldTraits<VTKPolyDataMapper *>::_type("VTKPolyDataMapperPtr", "GroupP
 
 OSG_FIELDTRAITS_GETTYPE(VTKPolyDataMapper *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           VTKPolyDataMapper *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           VTKPolyDataMapper *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           VTKPolyDataMapper *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           VTKPolyDataMapper *,
                            0);
 
 OSG_END_NAMESPACE

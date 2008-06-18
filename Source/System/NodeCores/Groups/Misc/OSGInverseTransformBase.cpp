@@ -205,8 +205,8 @@ InverseTransform *InverseTransformBase::createEmpty(void)
 
     newPtr<InverseTransform>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -230,8 +230,8 @@ FieldContainerTransitPtr InverseTransformBase::shallowCopy(void) const
 {
     InverseTransform *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const InverseTransform *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const InverseTransform *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -307,12 +307,12 @@ DataType FieldTraits<InverseTransform *>::_type("InverseTransformPtr", "GroupPtr
 
 OSG_FIELDTRAITS_GETTYPE(InverseTransform *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           InverseTransform *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           InverseTransform *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           InverseTransform *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           InverseTransform *,
                            0);
 
 OSG_END_NAMESPACE

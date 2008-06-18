@@ -149,7 +149,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         "",
         CgFrontEndFieldId, CgFrontEndFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SHLChunk::editHandleCgFrontEnd),
         static_cast<FieldGetMethodSig >(&SHLChunk::getHandleCgFrontEnd));
 
@@ -161,7 +161,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         "Flag to indicate whether the shader can change the point size.\n",
         PointSizeFieldId, PointSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SHLChunk::editHandlePointSize),
         static_cast<FieldGetMethodSig >(&SHLChunk::getHandlePointSize));
 
@@ -173,7 +173,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         "",
         ProgramParameterNamesFieldId, ProgramParameterNamesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SHLChunk::editHandleProgramParameterNames),
         static_cast<FieldGetMethodSig >(&SHLChunk::getHandleProgramParameterNames));
 
@@ -185,7 +185,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         "",
         ProgramParameterValuesFieldId, ProgramParameterValuesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SHLChunk::editHandleProgramParameterValues),
         static_cast<FieldGetMethodSig >(&SHLChunk::getHandleProgramParameterValues));
 
@@ -209,7 +209,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         "Whether to warn about unknown/unused paramters.\n",
         UnknownParameterWarningFieldId, UnknownParameterWarningFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SHLChunk::editHandleUnknownParameterWarning),
         static_cast<FieldGetMethodSig >(&SHLChunk::getHandleUnknownParameterWarning));
 
@@ -612,8 +612,8 @@ SHLChunk *SHLChunkBase::createEmpty(void)
 
     newPtr<SHLChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -637,8 +637,8 @@ FieldContainerTransitPtr SHLChunkBase::shallowCopy(void) const
 {
     SHLChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SHLChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SHLChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -687,7 +687,7 @@ GetFieldHandlePtr SHLChunkBase::getHandleCgFrontEnd      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfCgFrontEnd, 
+             &_sfCgFrontEnd,
              this->getType().getFieldDesc(CgFrontEndFieldId)));
 
     return returnValue;
@@ -697,8 +697,9 @@ EditFieldHandlePtr SHLChunkBase::editHandleCgFrontEnd     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfCgFrontEnd, 
+             &_sfCgFrontEnd,
              this->getType().getFieldDesc(CgFrontEndFieldId)));
+
 
     editSField(CgFrontEndFieldMask);
 
@@ -709,7 +710,7 @@ GetFieldHandlePtr SHLChunkBase::getHandlePointSize       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfPointSize, 
+             &_sfPointSize,
              this->getType().getFieldDesc(PointSizeFieldId)));
 
     return returnValue;
@@ -719,8 +720,9 @@ EditFieldHandlePtr SHLChunkBase::editHandlePointSize      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfPointSize, 
+             &_sfPointSize,
              this->getType().getFieldDesc(PointSizeFieldId)));
+
 
     editSField(PointSizeFieldMask);
 
@@ -731,7 +733,7 @@ GetFieldHandlePtr SHLChunkBase::getHandleProgramParameterNames (void) const
 {
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
-             &_mfProgramParameterNames, 
+             &_mfProgramParameterNames,
              this->getType().getFieldDesc(ProgramParameterNamesFieldId)));
 
     return returnValue;
@@ -741,8 +743,9 @@ EditFieldHandlePtr SHLChunkBase::editHandleProgramParameterNames(void)
 {
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
-             &_mfProgramParameterNames, 
+             &_mfProgramParameterNames,
              this->getType().getFieldDesc(ProgramParameterNamesFieldId)));
+
 
     editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
 
@@ -753,7 +756,7 @@ GetFieldHandlePtr SHLChunkBase::getHandleProgramParameterValues (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
-             &_mfProgramParameterValues, 
+             &_mfProgramParameterValues,
              this->getType().getFieldDesc(ProgramParameterValuesFieldId)));
 
     return returnValue;
@@ -763,8 +766,9 @@ EditFieldHandlePtr SHLChunkBase::editHandleProgramParameterValues(void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
-             &_mfProgramParameterValues, 
+             &_mfProgramParameterValues,
              this->getType().getFieldDesc(ProgramParameterValuesFieldId)));
+
 
     editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
 
@@ -775,7 +779,7 @@ GetFieldHandlePtr SHLChunkBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
 
     return returnValue;
@@ -785,8 +789,9 @@ EditFieldHandlePtr SHLChunkBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
+
 
     editSField(GLIdFieldMask);
 
@@ -797,7 +802,7 @@ GetFieldHandlePtr SHLChunkBase::getHandleUnknownParameterWarning (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfUnknownParameterWarning, 
+             &_sfUnknownParameterWarning,
              this->getType().getFieldDesc(UnknownParameterWarningFieldId)));
 
     return returnValue;
@@ -807,8 +812,9 @@ EditFieldHandlePtr SHLChunkBase::editHandleUnknownParameterWarning(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfUnknownParameterWarning, 
+             &_sfUnknownParameterWarning,
              this->getType().getFieldDesc(UnknownParameterWarningFieldId)));
+
 
     editSField(UnknownParameterWarningFieldMask);
 
@@ -855,11 +861,11 @@ void SHLChunkBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfProgramParameterNames.terminateShare(Thread::getCurrentAspect(), 
+    _mfProgramParameterNames.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfProgramParameterValues.terminateShare(Thread::getCurrentAspect(), 
+    _mfProgramParameterValues.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -871,12 +877,12 @@ DataType FieldTraits<SHLChunk *>::_type("SHLChunkPtr", "ShaderChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(SHLChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SHLChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SHLChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SHLChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SHLChunk *,
                            0);
 
 OSG_END_NAMESPACE

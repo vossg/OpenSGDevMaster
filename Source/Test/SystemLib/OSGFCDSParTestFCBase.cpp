@@ -98,7 +98,7 @@ void FCDSParTestFCBase::classDescInserter(TypeObject &oType)
         "",
         ParentFieldId, ParentFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDSParTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDSParTestFC::invalidGetField));
 
@@ -256,8 +256,8 @@ FCDSParTestFC *FCDSParTestFCBase::createEmpty(void)
 
     newPtr<FCDSParTestFC>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -281,8 +281,8 @@ FieldContainerTransitPtr FCDSParTestFCBase::shallowCopy(void) const
 {
     FCDSParTestFC *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const FCDSParTestFC *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const FCDSParTestFC *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -327,7 +327,7 @@ bool FCDSParTestFCBase::linkParent(
     {
         FieldContainer * pTypedParent =
             dynamic_cast< FieldContainer * >(pParent);
-        
+
         if(pTypedParent != NULL)
         {
             FieldContainer *pOldParent =
@@ -335,22 +335,22 @@ bool FCDSParTestFCBase::linkParent(
 
             UInt16 oldChildFieldId =
                 _sfParent.getParentFieldPos();
-            
+
             if(pOldParent != NULL)
             {
                 pOldParent->unlinkChild(this, oldChildFieldId);
             }
-            
+
             editSField(ParentFieldMask);
 
             _sfParent.setValue(static_cast<FieldContainer *>(pParent), childFieldId);
-            
+
             return true;
         }
-    
+
         return false;
     }
-    
+
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
 }
 
@@ -362,7 +362,7 @@ bool FCDSParTestFCBase::unlinkParent(
     {
         FieldContainer * pTypedParent =
             dynamic_cast< FieldContainer * >(pParent);
-            
+
         if(pTypedParent != NULL)
         {
             if(_sfParent.getValue() == pParent)
@@ -370,19 +370,19 @@ bool FCDSParTestFCBase::unlinkParent(
                 editSField(ParentFieldMask);
 
                 _sfParent.setValue(NULL, 0xFFFF);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDSParTestFCBase::unlinkParent: "
                       "Child <-> Parent link inconsistent.\n"));
-            
+
             return false;
         }
 
         return false;
     }
-    
+
     return Inherited::unlinkParent(pParent, parentFieldId);
 }
 
@@ -454,29 +454,29 @@ DataType FieldTraits<FCDSParTestFC *>::_type("FCDSParTestFCPtr", "AttachmentCont
 
 OSG_FIELDTRAITS_GETTYPE(FCDSParTestFC *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FCDSParTestFC *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FCDSParTestFC *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FCDSParTestFC *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FCDSParTestFC *,
                            0);
 
 DataType &FieldTraits< FCDSParTestFC *, 1 >::getType(void)
-{                                                           
+{
     return FieldTraits<FCDSParTestFC *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      FCDSParTestFC *,       
-                      UnrecordedRefCountPolicy,  
+                      FCDSParTestFC *,
+                      UnrecordedRefCountPolicy,
                       1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      FCDSParTestFC *,       
-                      UnrecordedRefCountPolicy,  
+                      FCDSParTestFC *,
+                      UnrecordedRefCountPolicy,
                       1);
 
 

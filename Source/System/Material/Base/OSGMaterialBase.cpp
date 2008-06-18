@@ -114,7 +114,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         "",
         SortKeyFieldId, SortKeyFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Material::editHandleSortKey),
         static_cast<FieldGetMethodSig >(&Material::getHandleSortKey));
 
@@ -126,7 +126,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         "Set the transparency mode, possible values are TransparencyAutoDetection, TransparencyForceTransparent and TransparencyForceOpaque\n",
         TransparencyModeFieldId, TransparencyModeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Material::editHandleTransparencyMode),
         static_cast<FieldGetMethodSig >(&Material::getHandleTransparencyMode));
 
@@ -337,7 +337,7 @@ GetFieldHandlePtr MaterialBase::getHandleSortKey         (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfSortKey, 
+             &_sfSortKey,
              this->getType().getFieldDesc(SortKeyFieldId)));
 
     return returnValue;
@@ -347,8 +347,9 @@ EditFieldHandlePtr MaterialBase::editHandleSortKey        (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfSortKey, 
+             &_sfSortKey,
              this->getType().getFieldDesc(SortKeyFieldId)));
+
 
     editSField(SortKeyFieldMask);
 
@@ -359,7 +360,7 @@ GetFieldHandlePtr MaterialBase::getHandleTransparencyMode (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfTransparencyMode, 
+             &_sfTransparencyMode,
              this->getType().getFieldDesc(TransparencyModeFieldId)));
 
     return returnValue;
@@ -369,8 +370,9 @@ EditFieldHandlePtr MaterialBase::editHandleTransparencyMode(void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfTransparencyMode, 
+             &_sfTransparencyMode,
              this->getType().getFieldDesc(TransparencyModeFieldId)));
+
 
     editSField(TransparencyModeFieldMask);
 
@@ -409,12 +411,12 @@ DataType FieldTraits<Material *>::_type("MaterialPtr", "AttachmentContainerPtr")
 
 OSG_FIELDTRAITS_GETTYPE(Material *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Material *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Material *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Material *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Material *,
                            0);
 
 OSG_END_NAMESPACE

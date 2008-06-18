@@ -105,7 +105,7 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         "",
         ShortFieldId, ShortFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ParallelComposer::editHandleShort),
         static_cast<FieldGetMethodSig >(&ParallelComposer::getHandleShort));
 
@@ -117,7 +117,7 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         "",
         AlphaFieldId, AlphaFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ParallelComposer::editHandleAlpha),
         static_cast<FieldGetMethodSig >(&ParallelComposer::getHandleAlpha));
 
@@ -129,7 +129,7 @@ void ParallelComposerBase::classDescInserter(TypeObject &oType)
         "",
         PcLibPathFieldId, PcLibPathFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ParallelComposer::editHandlePcLibPath),
         static_cast<FieldGetMethodSig >(&ParallelComposer::getHandlePcLibPath));
 
@@ -185,7 +185,7 @@ ParallelComposerBase::TypeObject ParallelComposerBase::_type(
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
-    "\tdefaultValye=\"\"\n"
+    "        defaultValue=\"\"\n"
     "    >\n"
     "    </Field>        \n"
     "</FieldContainer>\n",
@@ -365,8 +365,8 @@ ParallelComposer *ParallelComposerBase::createEmpty(void)
 
     newPtr<ParallelComposer>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -390,8 +390,8 @@ FieldContainerTransitPtr ParallelComposerBase::shallowCopy(void) const
 {
     ParallelComposer *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ParallelComposer *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ParallelComposer *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -434,7 +434,7 @@ GetFieldHandlePtr ParallelComposerBase::getHandleShort           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfShort, 
+             &_sfShort,
              this->getType().getFieldDesc(ShortFieldId)));
 
     return returnValue;
@@ -444,8 +444,9 @@ EditFieldHandlePtr ParallelComposerBase::editHandleShort          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfShort, 
+             &_sfShort,
              this->getType().getFieldDesc(ShortFieldId)));
+
 
     editSField(ShortFieldMask);
 
@@ -456,7 +457,7 @@ GetFieldHandlePtr ParallelComposerBase::getHandleAlpha           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfAlpha, 
+             &_sfAlpha,
              this->getType().getFieldDesc(AlphaFieldId)));
 
     return returnValue;
@@ -466,8 +467,9 @@ EditFieldHandlePtr ParallelComposerBase::editHandleAlpha          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfAlpha, 
+             &_sfAlpha,
              this->getType().getFieldDesc(AlphaFieldId)));
+
 
     editSField(AlphaFieldMask);
 
@@ -478,7 +480,7 @@ GetFieldHandlePtr ParallelComposerBase::getHandlePcLibPath       (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfPcLibPath, 
+             &_sfPcLibPath,
              this->getType().getFieldDesc(PcLibPathFieldId)));
 
     return returnValue;
@@ -488,8 +490,9 @@ EditFieldHandlePtr ParallelComposerBase::editHandlePcLibPath      (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfPcLibPath, 
+             &_sfPcLibPath,
              this->getType().getFieldDesc(PcLibPathFieldId)));
+
 
     editSField(PcLibPathFieldMask);
 

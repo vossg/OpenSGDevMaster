@@ -209,8 +209,8 @@ PassiveWindow *PassiveWindowBase::createEmpty(void)
 
     newPtr<PassiveWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -234,8 +234,8 @@ FieldContainerTransitPtr PassiveWindowBase::shallowCopy(void) const
 {
     PassiveWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const PassiveWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const PassiveWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -311,12 +311,12 @@ DataType FieldTraits<PassiveWindow *>::_type("PassiveWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(PassiveWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PassiveWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PassiveWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PassiveWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PassiveWindow *,
                            0);
 
 OSG_END_NAMESPACE

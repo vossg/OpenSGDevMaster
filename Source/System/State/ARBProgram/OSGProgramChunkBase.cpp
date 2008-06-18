@@ -120,7 +120,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         "The program source code.\n",
         ProgramFieldId, ProgramFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ProgramChunk::editHandleProgram),
         static_cast<FieldGetMethodSig >(&ProgramChunk::getHandleProgram));
 
@@ -132,7 +132,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         "Program Parameters\n",
         ParamValuesFieldId, ParamValuesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ProgramChunk::editHandleParamValues),
         static_cast<FieldGetMethodSig >(&ProgramChunk::getHandleParamValues));
 
@@ -144,7 +144,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
         "Symbolic names for the program parameters.\n",
         ParamNamesFieldId, ParamNamesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ProgramChunk::editHandleParamNames),
         static_cast<FieldGetMethodSig >(&ProgramChunk::getHandleParamNames));
 
@@ -435,7 +435,7 @@ GetFieldHandlePtr ProgramChunkBase::getHandleProgram         (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfProgram, 
+             &_sfProgram,
              this->getType().getFieldDesc(ProgramFieldId)));
 
     return returnValue;
@@ -445,8 +445,9 @@ EditFieldHandlePtr ProgramChunkBase::editHandleProgram        (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfProgram, 
+             &_sfProgram,
              this->getType().getFieldDesc(ProgramFieldId)));
+
 
     editSField(ProgramFieldMask);
 
@@ -457,7 +458,7 @@ GetFieldHandlePtr ProgramChunkBase::getHandleParamValues     (void) const
 {
     MFVec4f::GetHandlePtr returnValue(
         new  MFVec4f::GetHandle(
-             &_mfParamValues, 
+             &_mfParamValues,
              this->getType().getFieldDesc(ParamValuesFieldId)));
 
     return returnValue;
@@ -467,8 +468,9 @@ EditFieldHandlePtr ProgramChunkBase::editHandleParamValues    (void)
 {
     MFVec4f::EditHandlePtr returnValue(
         new  MFVec4f::EditHandle(
-             &_mfParamValues, 
+             &_mfParamValues,
              this->getType().getFieldDesc(ParamValuesFieldId)));
+
 
     editMField(ParamValuesFieldMask, _mfParamValues);
 
@@ -479,7 +481,7 @@ GetFieldHandlePtr ProgramChunkBase::getHandleParamNames      (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
-             &_mfParamNames, 
+             &_mfParamNames,
              this->getType().getFieldDesc(ParamNamesFieldId)));
 
     return returnValue;
@@ -489,8 +491,9 @@ EditFieldHandlePtr ProgramChunkBase::editHandleParamNames     (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
-             &_mfParamNames, 
+             &_mfParamNames,
              this->getType().getFieldDesc(ParamNamesFieldId)));
+
 
     editMField(ParamNamesFieldMask, _mfParamNames);
 
@@ -501,7 +504,7 @@ GetFieldHandlePtr ProgramChunkBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
 
     return returnValue;
@@ -511,8 +514,9 @@ EditFieldHandlePtr ProgramChunkBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
+
 
     editSField(GLIdFieldMask);
 
@@ -548,11 +552,11 @@ void ProgramChunkBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfParamValues.terminateShare(Thread::getCurrentAspect(), 
+    _mfParamValues.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfParamNames.terminateShare(Thread::getCurrentAspect(), 
+    _mfParamNames.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -564,12 +568,12 @@ DataType FieldTraits<ProgramChunk *>::_type("ProgramChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(ProgramChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ProgramChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ProgramChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ProgramChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ProgramChunk *,
                            0);
 
 OSG_END_NAMESPACE

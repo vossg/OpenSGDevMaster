@@ -100,7 +100,7 @@ void FBOViewportBase::classDescInserter(TypeObject &oType)
         "FramebufferObject to write to.\n",
         FrameBufferObjectFieldId, FrameBufferObjectFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FBOViewport::editHandleFrameBufferObject),
         static_cast<FieldGetMethodSig >(&FBOViewport::getHandleFrameBufferObject));
 
@@ -272,8 +272,8 @@ FBOViewport *FBOViewportBase::createEmpty(void)
 
     newPtr<FBOViewport>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -297,8 +297,8 @@ FieldContainerTransitPtr FBOViewportBase::shallowCopy(void) const
 {
     FBOViewport *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const FBOViewport *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const FBOViewport *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -348,7 +348,7 @@ GetFieldHandlePtr FBOViewportBase::getHandleFrameBufferObject (void) const
 {
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
-             &_sfFrameBufferObject, 
+             &_sfFrameBufferObject,
              this->getType().getFieldDesc(FrameBufferObjectFieldId)));
 
     return returnValue;
@@ -358,11 +358,12 @@ EditFieldHandlePtr FBOViewportBase::editHandleFrameBufferObject(void)
 {
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
-             &_sfFrameBufferObject, 
+             &_sfFrameBufferObject,
              this->getType().getFieldDesc(FrameBufferObjectFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FBOViewport::setFrameBufferObject, 
-                                          static_cast<FBOViewport *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FBOViewport::setFrameBufferObject,
+                    static_cast<FBOViewport *>(this), _1));
 
     editSField(FrameBufferObjectFieldMask);
 
@@ -414,12 +415,12 @@ DataType FieldTraits<FBOViewport *>::_type("FBOViewportPtr", "ViewportPtr");
 
 OSG_FIELDTRAITS_GETTYPE(FBOViewport *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FBOViewport *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FBOViewport *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FBOViewport *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FBOViewport *,
                            0);
 
 OSG_END_NAMESPACE

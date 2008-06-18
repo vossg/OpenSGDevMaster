@@ -281,12 +281,12 @@ DataType FieldTraits<CSMNativeWindow *>::_type("CSMNativeWindowPtr", "CSMWindowP
 
 OSG_FIELDTRAITS_GETTYPE(CSMNativeWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CSMNativeWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMNativeWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CSMNativeWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMNativeWindow *,
                            0);
 
 OSG_END_NAMESPACE

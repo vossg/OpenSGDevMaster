@@ -281,12 +281,12 @@ DataType FieldTraits<CSMGLUTWindow *>::_type("CSMGLUTWindowPtr", "CSMWindowPtr")
 
 OSG_FIELDTRAITS_GETTYPE(CSMGLUTWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CSMGLUTWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMGLUTWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CSMGLUTWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMGLUTWindow *,
                            0);
 
 OSG_END_NAMESPACE

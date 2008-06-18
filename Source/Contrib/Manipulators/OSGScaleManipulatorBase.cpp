@@ -205,8 +205,8 @@ ScaleManipulator *ScaleManipulatorBase::createEmpty(void)
 
     newPtr<ScaleManipulator>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -230,8 +230,8 @@ FieldContainerTransitPtr ScaleManipulatorBase::shallowCopy(void) const
 {
     ScaleManipulator *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ScaleManipulator *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ScaleManipulator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();

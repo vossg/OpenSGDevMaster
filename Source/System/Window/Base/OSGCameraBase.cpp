@@ -112,7 +112,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
         "at the origin of the system and looks down the negative z-axis (OpenGL-style).\n",
         BeaconFieldId, BeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Camera::editHandleBeacon),
         static_cast<FieldGetMethodSig >(&Camera::getHandleBeacon));
 
@@ -124,7 +124,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
         "The near distance of the camera.\n",
         NearFieldId, NearFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Camera::editHandleNear),
         static_cast<FieldGetMethodSig >(&Camera::getHandleNear));
 
@@ -136,7 +136,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
         "The far distance of the camera.\n",
         FarFieldId, FarFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Camera::editHandleFar),
         static_cast<FieldGetMethodSig >(&Camera::getHandleFar));
 
@@ -373,7 +373,7 @@ GetFieldHandlePtr CameraBase::getHandleBeacon          (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
     return returnValue;
@@ -383,11 +383,12 @@ EditFieldHandlePtr CameraBase::editHandleBeacon         (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Camera::setBeacon, 
-                                          static_cast<Camera *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&Camera::setBeacon,
+                    static_cast<Camera *>(this), _1));
 
     editSField(BeaconFieldMask);
 
@@ -398,7 +399,7 @@ GetFieldHandlePtr CameraBase::getHandleNear            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfNear, 
+             &_sfNear,
              this->getType().getFieldDesc(NearFieldId)));
 
     return returnValue;
@@ -408,8 +409,9 @@ EditFieldHandlePtr CameraBase::editHandleNear           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfNear, 
+             &_sfNear,
              this->getType().getFieldDesc(NearFieldId)));
+
 
     editSField(NearFieldMask);
 
@@ -420,7 +422,7 @@ GetFieldHandlePtr CameraBase::getHandleFar             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfFar, 
+             &_sfFar,
              this->getType().getFieldDesc(FarFieldId)));
 
     return returnValue;
@@ -430,8 +432,9 @@ EditFieldHandlePtr CameraBase::editHandleFar            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfFar, 
+             &_sfFar,
              this->getType().getFieldDesc(FarFieldId)));
+
 
     editSField(FarFieldMask);
 
@@ -535,12 +538,12 @@ DataType FieldTraits<Camera *>::_type("CameraPtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Camera *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Camera *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Camera *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Camera *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Camera *,
                            0);
 
 OSG_END_NAMESPACE

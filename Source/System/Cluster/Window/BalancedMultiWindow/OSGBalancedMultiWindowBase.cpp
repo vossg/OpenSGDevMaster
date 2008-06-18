@@ -113,7 +113,7 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         "If true load balancing is eanbled. If falst it behaves like a MultiDisplayWindow\n",
         BalanceFieldId, BalanceFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleBalance),
         static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleBalance));
 
@@ -125,7 +125,7 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         "If true horizontal and vertical cuts are testet. Otherwise the longes side of a viewport is split.\n",
         BestCutFieldId, BestCutFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleBestCut),
         static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleBestCut));
 
@@ -137,7 +137,7 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         "Mark regions rendered by other hosts\n",
         ShowBalancingFieldId, ShowBalancingFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleShowBalancing),
         static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleShowBalancing));
 
@@ -149,7 +149,7 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         "",
         TileSizeFieldId, TileSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleTileSize),
         static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleTileSize));
 
@@ -161,7 +161,7 @@ void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
         "",
         ShortFieldId, ShortFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BalancedMultiWindow::editHandleShort),
         static_cast<FieldGetMethodSig >(&BalancedMultiWindow::getHandleShort));
 
@@ -469,8 +469,8 @@ BalancedMultiWindow *BalancedMultiWindowBase::createEmpty(void)
 
     newPtr<BalancedMultiWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -494,8 +494,8 @@ FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopy(void) const
 {
     BalancedMultiWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const BalancedMultiWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const BalancedMultiWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -542,7 +542,7 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleBalance         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfBalance, 
+             &_sfBalance,
              this->getType().getFieldDesc(BalanceFieldId)));
 
     return returnValue;
@@ -552,8 +552,9 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleBalance        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfBalance, 
+             &_sfBalance,
              this->getType().getFieldDesc(BalanceFieldId)));
+
 
     editSField(BalanceFieldMask);
 
@@ -564,7 +565,7 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleBestCut         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfBestCut, 
+             &_sfBestCut,
              this->getType().getFieldDesc(BestCutFieldId)));
 
     return returnValue;
@@ -574,8 +575,9 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleBestCut        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfBestCut, 
+             &_sfBestCut,
              this->getType().getFieldDesc(BestCutFieldId)));
+
 
     editSField(BestCutFieldMask);
 
@@ -586,7 +588,7 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleShowBalancing   (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfShowBalancing, 
+             &_sfShowBalancing,
              this->getType().getFieldDesc(ShowBalancingFieldId)));
 
     return returnValue;
@@ -596,8 +598,9 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleShowBalancing  (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfShowBalancing, 
+             &_sfShowBalancing,
              this->getType().getFieldDesc(ShowBalancingFieldId)));
+
 
     editSField(ShowBalancingFieldMask);
 
@@ -608,7 +611,7 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleTileSize        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfTileSize, 
+             &_sfTileSize,
              this->getType().getFieldDesc(TileSizeFieldId)));
 
     return returnValue;
@@ -618,8 +621,9 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleTileSize       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfTileSize, 
+             &_sfTileSize,
              this->getType().getFieldDesc(TileSizeFieldId)));
+
 
     editSField(TileSizeFieldMask);
 
@@ -630,7 +634,7 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleShort           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfShort, 
+             &_sfShort,
              this->getType().getFieldDesc(ShortFieldId)));
 
     return returnValue;
@@ -640,8 +644,9 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleShort          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfShort, 
+             &_sfShort,
              this->getType().getFieldDesc(ShortFieldId)));
+
 
     editSField(ShortFieldMask);
 

@@ -210,12 +210,12 @@ DataType FieldTraits<Algorithm *>::_type("AlgorithmPtr", "FieldContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Algorithm *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Algorithm *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Algorithm *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Algorithm *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Algorithm *,
                            0);
 
 OSG_END_NAMESPACE

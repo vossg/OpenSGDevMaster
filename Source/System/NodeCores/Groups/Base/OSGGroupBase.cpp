@@ -211,8 +211,8 @@ Group *GroupBase::createEmpty(void)
 
     newPtr<Group>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -236,8 +236,8 @@ FieldContainerTransitPtr GroupBase::shallowCopy(void) const
 {
     Group *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Group *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Group *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -313,12 +313,12 @@ DataType FieldTraits<Group *>::_type("GroupPtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(Group *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Group *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Group *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Group *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Group *,
                            0);
 
 OSG_END_NAMESPACE

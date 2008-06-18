@@ -150,8 +150,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     void addParameter              (ShaderParameter * const value   );
     void assignParameters          (const MFUnrecChildShaderParameterPtr &value);
     void subParameter    (UInt32               uiIndex );
-    void subParameter   (ShaderParameter * const value   );
-    void clearParameters            (void                          );
+    void subParameterByObj(ShaderParameter * const value   );
+    void clearParameters            (void                         );
 
 
     /*! \}                                                                 */
@@ -208,10 +208,10 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     /*---------------------------------------------------------------------*/
     /*! \name Child linking                                                */
     /*! \{                                                                 */
-    
+
     virtual bool unlinkChild(FieldContainer * const pChild,
                              UInt16           const childFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

@@ -113,7 +113,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         "Number of horizontal servers\n",
         HServersFieldId, HServersFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleHServers),
         static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleHServers));
 
@@ -125,7 +125,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         "Number of vertical servers\n",
         VServersFieldId, VServersFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleVServers),
         static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleVServers));
 
@@ -137,7 +137,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         "If true, duplicate all viewports into the client window\n",
         ManageClientViewportsFieldId, ManageClientViewportsFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleManageClientViewports),
         static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleManageClientViewports));
 
@@ -149,7 +149,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         "Horizontal overlap\n",
         XOverlapFieldId, XOverlapFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleXOverlap),
         static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleXOverlap));
 
@@ -161,7 +161,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
         "Vertical overlap\n",
         YOverlapFieldId, YOverlapFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiDisplayWindow::editHandleYOverlap),
         static_cast<FieldGetMethodSig >(&MultiDisplayWindow::getHandleYOverlap));
 
@@ -469,8 +469,8 @@ MultiDisplayWindow *MultiDisplayWindowBase::createEmpty(void)
 
     newPtr<MultiDisplayWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -494,8 +494,8 @@ FieldContainerTransitPtr MultiDisplayWindowBase::shallowCopy(void) const
 {
     MultiDisplayWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const MultiDisplayWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const MultiDisplayWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -542,7 +542,7 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleHServers        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfHServers, 
+             &_sfHServers,
              this->getType().getFieldDesc(HServersFieldId)));
 
     return returnValue;
@@ -552,8 +552,9 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleHServers       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfHServers, 
+             &_sfHServers,
              this->getType().getFieldDesc(HServersFieldId)));
+
 
     editSField(HServersFieldMask);
 
@@ -564,7 +565,7 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleVServers        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfVServers, 
+             &_sfVServers,
              this->getType().getFieldDesc(VServersFieldId)));
 
     return returnValue;
@@ -574,8 +575,9 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleVServers       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfVServers, 
+             &_sfVServers,
              this->getType().getFieldDesc(VServersFieldId)));
+
 
     editSField(VServersFieldMask);
 
@@ -586,7 +588,7 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleManageClientViewports (void) 
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfManageClientViewports, 
+             &_sfManageClientViewports,
              this->getType().getFieldDesc(ManageClientViewportsFieldId)));
 
     return returnValue;
@@ -596,8 +598,9 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleManageClientViewports(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfManageClientViewports, 
+             &_sfManageClientViewports,
              this->getType().getFieldDesc(ManageClientViewportsFieldId)));
+
 
     editSField(ManageClientViewportsFieldMask);
 
@@ -608,7 +611,7 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleXOverlap        (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfXOverlap, 
+             &_sfXOverlap,
              this->getType().getFieldDesc(XOverlapFieldId)));
 
     return returnValue;
@@ -618,8 +621,9 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleXOverlap       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfXOverlap, 
+             &_sfXOverlap,
              this->getType().getFieldDesc(XOverlapFieldId)));
+
 
     editSField(XOverlapFieldMask);
 
@@ -630,7 +634,7 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleYOverlap        (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfYOverlap, 
+             &_sfYOverlap,
              this->getType().getFieldDesc(YOverlapFieldId)));
 
     return returnValue;
@@ -640,8 +644,9 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleYOverlap       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfYOverlap, 
+             &_sfYOverlap,
              this->getType().getFieldDesc(YOverlapFieldId)));
+
 
     editSField(YOverlapFieldMask);
 

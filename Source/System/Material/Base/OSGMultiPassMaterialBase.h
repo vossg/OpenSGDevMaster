@@ -150,8 +150,8 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     void addMaterial               (Material * const value   );
     void assignMaterialsFrom          (const MFUnrecMaterialPtr &value);
     void subMaterial     (UInt32               uiIndex );
-    void subMaterial    (Material * const value   );
-    void clearMaterials             (void                          );
+    void subMaterialByObj(Material * const value   );
+    void clearMaterials             (void                         );
 
 
     /*! \}                                                                 */

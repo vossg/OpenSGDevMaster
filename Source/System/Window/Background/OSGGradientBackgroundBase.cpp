@@ -108,7 +108,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         "The colors of the gradient.\n",
         ColorFieldId, ColorFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GradientBackground::editHandleColor),
         static_cast<FieldGetMethodSig >(&GradientBackground::getHandleColor));
 
@@ -120,7 +120,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         "The positions of the gradient.\n",
         PositionFieldId, PositionFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GradientBackground::editHandlePosition),
         static_cast<FieldGetMethodSig >(&GradientBackground::getHandlePosition));
 
@@ -336,8 +336,8 @@ GradientBackground *GradientBackgroundBase::createEmpty(void)
 
     newPtr<GradientBackground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -361,8 +361,8 @@ FieldContainerTransitPtr GradientBackgroundBase::shallowCopy(void) const
 {
     GradientBackground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const GradientBackground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const GradientBackground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -403,7 +403,7 @@ GetFieldHandlePtr GradientBackgroundBase::getHandleColor           (void) const
 {
     MFColor3f::GetHandlePtr returnValue(
         new  MFColor3f::GetHandle(
-             &_mfColor, 
+             &_mfColor,
              this->getType().getFieldDesc(ColorFieldId)));
 
     return returnValue;
@@ -413,8 +413,9 @@ EditFieldHandlePtr GradientBackgroundBase::editHandleColor          (void)
 {
     MFColor3f::EditHandlePtr returnValue(
         new  MFColor3f::EditHandle(
-             &_mfColor, 
+             &_mfColor,
              this->getType().getFieldDesc(ColorFieldId)));
+
 
     editMField(ColorFieldMask, _mfColor);
 
@@ -425,7 +426,7 @@ GetFieldHandlePtr GradientBackgroundBase::getHandlePosition        (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
-             &_mfPosition, 
+             &_mfPosition,
              this->getType().getFieldDesc(PositionFieldId)));
 
     return returnValue;
@@ -435,8 +436,9 @@ EditFieldHandlePtr GradientBackgroundBase::editHandlePosition       (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
-             &_mfPosition, 
+             &_mfPosition,
              this->getType().getFieldDesc(PositionFieldId)));
+
 
     editMField(PositionFieldMask, _mfPosition);
 
@@ -483,11 +485,11 @@ void GradientBackgroundBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfColor.terminateShare(Thread::getCurrentAspect(), 
+    _mfColor.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfPosition.terminateShare(Thread::getCurrentAspect(), 
+    _mfPosition.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -500,8 +502,8 @@ DataType FieldTraits<GradientBackground *>::_type("GradientBackgroundPtr", "Back
 OSG_FIELDTRAITS_GETTYPE(GradientBackground *)
 
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GradientBackground *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GradientBackground *,
                            0);
 
 OSG_END_NAMESPACE

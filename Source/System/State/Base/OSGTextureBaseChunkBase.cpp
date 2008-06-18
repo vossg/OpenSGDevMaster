@@ -106,7 +106,7 @@ void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
         "when using it!\n",
         TargetFieldId, TargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBaseChunk::editHandleTarget),
         static_cast<FieldGetMethodSig >(&TextureBaseChunk::getHandleTarget));
 
@@ -263,7 +263,7 @@ GetFieldHandlePtr TextureBaseChunkBase::getHandleTarget          (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfTarget, 
+             &_sfTarget,
              this->getType().getFieldDesc(TargetFieldId)));
 
     return returnValue;
@@ -273,8 +273,9 @@ EditFieldHandlePtr TextureBaseChunkBase::editHandleTarget         (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfTarget, 
+             &_sfTarget,
              this->getType().getFieldDesc(TargetFieldId)));
+
 
     editSField(TargetFieldMask);
 
@@ -313,12 +314,12 @@ DataType FieldTraits<TextureBaseChunk *>::_type("TextureBaseChunkPtr", "StateChu
 
 OSG_FIELDTRAITS_GETTYPE(TextureBaseChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureBaseChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureBaseChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureBaseChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureBaseChunk *,
                            0);
 
 OSG_END_NAMESPACE

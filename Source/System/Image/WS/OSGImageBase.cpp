@@ -197,7 +197,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         ParentsFieldId, ParentsFieldMask,
         true,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&Image::invalidEditField),
         static_cast     <FieldGetMethodSig >(&Image::invalidGetField));
 
@@ -209,7 +209,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Image dimension, 0 for invalid, 1 for 1D, 2 for 2D and 3 for 3D data.\n",
         DimensionFieldId, DimensionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleDimension),
         static_cast<FieldGetMethodSig >(&Image::getHandleDimension));
 
@@ -221,7 +221,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         WidthFieldId, WidthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleWidth),
         static_cast<FieldGetMethodSig >(&Image::getHandleWidth));
 
@@ -233,7 +233,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         HeightFieldId, HeightFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleHeight),
         static_cast<FieldGetMethodSig >(&Image::getHandleHeight));
 
@@ -245,7 +245,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         DepthFieldId, DepthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleDepth),
         static_cast<FieldGetMethodSig >(&Image::getHandleDepth));
 
@@ -257,7 +257,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Bytes of data per pixel.\n",
         BppFieldId, BppFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleBpp),
         static_cast<FieldGetMethodSig >(&Image::getHandleBpp));
 
@@ -269,7 +269,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         MipMapCountFieldId, MipMapCountFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleMipMapCount),
         static_cast<FieldGetMethodSig >(&Image::getHandleMipMapCount));
 
@@ -281,7 +281,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "The number of frames in the data.\n",
         FrameCountFieldId, FrameCountFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleFrameCount),
         static_cast<FieldGetMethodSig >(&Image::getHandleFrameCount));
 
@@ -293,7 +293,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Time between frames.  Determines the frame rate.\n",
         FrameDelayFieldId, FrameDelayFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleFrameDelay),
         static_cast<FieldGetMethodSig >(&Image::getHandleFrameDelay));
 
@@ -305,7 +305,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         PixelFormatFieldId, PixelFormatFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandlePixelFormat),
         static_cast<FieldGetMethodSig >(&Image::getHandlePixelFormat));
 
@@ -317,7 +317,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "The pixel data buffer. This is where the data for the image is stored.\n",
         PixelFieldId, PixelFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandlePixel),
         static_cast<FieldGetMethodSig >(&Image::getHandlePixel));
 
@@ -329,7 +329,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         FrameSizeFieldId, FrameSizeFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleFrameSize),
         static_cast<FieldGetMethodSig >(&Image::getHandleFrameSize));
 
@@ -341,7 +341,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Texture file path.\n",
         NameFieldId, NameFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleName),
         static_cast<FieldGetMethodSig >(&Image::getHandleName));
 
@@ -353,7 +353,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Type of image data.\n",
         DataTypeFieldId, DataTypeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleDataType),
         static_cast<FieldGetMethodSig >(&Image::getHandleDataType));
 
@@ -366,7 +366,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "for High Dynamic Range and other higher-level image types.\n",
         ComponentSizeFieldId, ComponentSizeFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleComponentSize),
         static_cast<FieldGetMethodSig >(&Image::getHandleComponentSize));
 
@@ -378,7 +378,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         SideCountFieldId, SideCountFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleSideCount),
         static_cast<FieldGetMethodSig >(&Image::getHandleSideCount));
 
@@ -390,7 +390,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         SideSizeFieldId, SideSizeFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleSideSize),
         static_cast<FieldGetMethodSig >(&Image::getHandleSideSize));
 
@@ -403,7 +403,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceCompressedDataFieldId, ForceCompressedDataFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleForceCompressedData),
         static_cast<FieldGetMethodSig >(&Image::getHandleForceCompressedData));
 
@@ -416,7 +416,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceAlphaChannelFieldId, ForceAlphaChannelFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleForceAlphaChannel),
         static_cast<FieldGetMethodSig >(&Image::getHandleForceAlphaChannel));
 
@@ -429,7 +429,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceColorChannelFieldId, ForceColorChannelFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleForceColorChannel),
         static_cast<FieldGetMethodSig >(&Image::getHandleForceColorChannel));
 
@@ -442,7 +442,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "SimpleTexturedMaterials using this Image.\n",
         ForceAlphaBinaryFieldId, ForceAlphaBinaryFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleForceAlphaBinary),
         static_cast<FieldGetMethodSig >(&Image::getHandleForceAlphaBinary));
 
@@ -454,7 +454,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         ResXFieldId, ResXFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleResX),
         static_cast<FieldGetMethodSig >(&Image::getHandleResX));
 
@@ -466,7 +466,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "",
         ResYFieldId, ResYFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleResY),
         static_cast<FieldGetMethodSig >(&Image::getHandleResY));
 
@@ -478,7 +478,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
         "resolution unit (invalid=0, none=1, inch=2)\n",
         ResUnitFieldId, ResUnitFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Image::editHandleResUnit),
         static_cast<FieldGetMethodSig >(&Image::getHandleResUnit));
 
@@ -1440,8 +1440,8 @@ Image *ImageBase::createEmpty(void)
 
     newPtr<Image>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -1465,8 +1465,8 @@ FieldContainerTransitPtr ImageBase::shallowCopy(void) const
 {
     Image *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Image *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Image *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -1557,19 +1557,19 @@ bool ImageBase::linkParent(
     {
         FieldContainer * pTypedParent =
             dynamic_cast< FieldContainer * >(pParent);
-        
+
         if(pTypedParent != NULL)
         {
             editMField(ParentsFieldMask, _mfParents);
 
             _mfParents.push_back(pParent, childFieldId);
-            
+
             return true;
         }
-    
+
         return false;
     }
-    
+
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
 }
 
@@ -1581,33 +1581,33 @@ bool ImageBase::unlinkParent(
     {
         FieldContainer * pTypedParent =
             dynamic_cast< FieldContainer * >(pParent);
-            
+
         if(pTypedParent != NULL)
         {
-            MFParentFieldContainerPtr::iterator pI = 
+            MFParentFieldContainerPtr::iterator pI =
                 _mfParents.find_nc(pParent);
 
-            MFParentFieldContainerPtr::iterator pEnd = 
+            MFParentFieldContainerPtr::iterator pEnd =
                 _mfParents.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(ParentsFieldMask, _mfParents);
-                
+
                 _mfParents.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("ImageBase::unlinkParent: "
                       "Child <-> Parent link inconsistent.\n"));
-            
+
             return false;
         }
 
         return false;
     }
-    
+
     return Inherited::unlinkParent(pParent, parentFieldId);
 }
 
@@ -1640,7 +1640,7 @@ GetFieldHandlePtr ImageBase::getHandleDimension       (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfDimension, 
+             &_sfDimension,
              this->getType().getFieldDesc(DimensionFieldId)));
 
     return returnValue;
@@ -1650,8 +1650,9 @@ EditFieldHandlePtr ImageBase::editHandleDimension      (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfDimension, 
+             &_sfDimension,
              this->getType().getFieldDesc(DimensionFieldId)));
+
 
     editSField(DimensionFieldMask);
 
@@ -1662,7 +1663,7 @@ GetFieldHandlePtr ImageBase::getHandleWidth           (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
 
     return returnValue;
@@ -1672,8 +1673,9 @@ EditFieldHandlePtr ImageBase::editHandleWidth          (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
+
 
     editSField(WidthFieldMask);
 
@@ -1684,7 +1686,7 @@ GetFieldHandlePtr ImageBase::getHandleHeight          (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
 
     return returnValue;
@@ -1694,8 +1696,9 @@ EditFieldHandlePtr ImageBase::editHandleHeight         (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
+
 
     editSField(HeightFieldMask);
 
@@ -1706,7 +1709,7 @@ GetFieldHandlePtr ImageBase::getHandleDepth           (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfDepth, 
+             &_sfDepth,
              this->getType().getFieldDesc(DepthFieldId)));
 
     return returnValue;
@@ -1716,8 +1719,9 @@ EditFieldHandlePtr ImageBase::editHandleDepth          (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfDepth, 
+             &_sfDepth,
              this->getType().getFieldDesc(DepthFieldId)));
+
 
     editSField(DepthFieldMask);
 
@@ -1728,7 +1732,7 @@ GetFieldHandlePtr ImageBase::getHandleBpp             (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfBpp, 
+             &_sfBpp,
              this->getType().getFieldDesc(BppFieldId)));
 
     return returnValue;
@@ -1738,8 +1742,9 @@ EditFieldHandlePtr ImageBase::editHandleBpp            (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfBpp, 
+             &_sfBpp,
              this->getType().getFieldDesc(BppFieldId)));
+
 
     editSField(BppFieldMask);
 
@@ -1750,7 +1755,7 @@ GetFieldHandlePtr ImageBase::getHandleMipMapCount     (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfMipMapCount, 
+             &_sfMipMapCount,
              this->getType().getFieldDesc(MipMapCountFieldId)));
 
     return returnValue;
@@ -1760,8 +1765,9 @@ EditFieldHandlePtr ImageBase::editHandleMipMapCount    (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfMipMapCount, 
+             &_sfMipMapCount,
              this->getType().getFieldDesc(MipMapCountFieldId)));
+
 
     editSField(MipMapCountFieldMask);
 
@@ -1772,7 +1778,7 @@ GetFieldHandlePtr ImageBase::getHandleFrameCount      (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfFrameCount, 
+             &_sfFrameCount,
              this->getType().getFieldDesc(FrameCountFieldId)));
 
     return returnValue;
@@ -1782,8 +1788,9 @@ EditFieldHandlePtr ImageBase::editHandleFrameCount     (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfFrameCount, 
+             &_sfFrameCount,
              this->getType().getFieldDesc(FrameCountFieldId)));
+
 
     editSField(FrameCountFieldMask);
 
@@ -1794,7 +1801,7 @@ GetFieldHandlePtr ImageBase::getHandleFrameDelay      (void) const
 {
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
-             &_sfFrameDelay, 
+             &_sfFrameDelay,
              this->getType().getFieldDesc(FrameDelayFieldId)));
 
     return returnValue;
@@ -1804,8 +1811,9 @@ EditFieldHandlePtr ImageBase::editHandleFrameDelay     (void)
 {
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
-             &_sfFrameDelay, 
+             &_sfFrameDelay,
              this->getType().getFieldDesc(FrameDelayFieldId)));
+
 
     editSField(FrameDelayFieldMask);
 
@@ -1816,7 +1824,7 @@ GetFieldHandlePtr ImageBase::getHandlePixelFormat     (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfPixelFormat, 
+             &_sfPixelFormat,
              this->getType().getFieldDesc(PixelFormatFieldId)));
 
     return returnValue;
@@ -1826,8 +1834,9 @@ EditFieldHandlePtr ImageBase::editHandlePixelFormat    (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfPixelFormat, 
+             &_sfPixelFormat,
              this->getType().getFieldDesc(PixelFormatFieldId)));
+
 
     editSField(PixelFormatFieldMask);
 
@@ -1838,7 +1847,7 @@ GetFieldHandlePtr ImageBase::getHandlePixel           (void) const
 {
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
-             &_mfPixel, 
+             &_mfPixel,
              this->getType().getFieldDesc(PixelFieldId)));
 
     return returnValue;
@@ -1848,8 +1857,9 @@ EditFieldHandlePtr ImageBase::editHandlePixel          (void)
 {
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
-             &_mfPixel, 
+             &_mfPixel,
              this->getType().getFieldDesc(PixelFieldId)));
+
 
     editMField(PixelFieldMask, _mfPixel);
 
@@ -1860,7 +1870,7 @@ GetFieldHandlePtr ImageBase::getHandleFrameSize       (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfFrameSize, 
+             &_sfFrameSize,
              this->getType().getFieldDesc(FrameSizeFieldId)));
 
     return returnValue;
@@ -1870,8 +1880,9 @@ EditFieldHandlePtr ImageBase::editHandleFrameSize      (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfFrameSize, 
+             &_sfFrameSize,
              this->getType().getFieldDesc(FrameSizeFieldId)));
+
 
     editSField(FrameSizeFieldMask);
 
@@ -1882,7 +1893,7 @@ GetFieldHandlePtr ImageBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
 
     return returnValue;
@@ -1892,8 +1903,9 @@ EditFieldHandlePtr ImageBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
+
 
     editSField(NameFieldMask);
 
@@ -1904,7 +1916,7 @@ GetFieldHandlePtr ImageBase::getHandleDataType        (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfDataType, 
+             &_sfDataType,
              this->getType().getFieldDesc(DataTypeFieldId)));
 
     return returnValue;
@@ -1914,8 +1926,9 @@ EditFieldHandlePtr ImageBase::editHandleDataType       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfDataType, 
+             &_sfDataType,
              this->getType().getFieldDesc(DataTypeFieldId)));
+
 
     editSField(DataTypeFieldMask);
 
@@ -1926,7 +1939,7 @@ GetFieldHandlePtr ImageBase::getHandleComponentSize   (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfComponentSize, 
+             &_sfComponentSize,
              this->getType().getFieldDesc(ComponentSizeFieldId)));
 
     return returnValue;
@@ -1936,8 +1949,9 @@ EditFieldHandlePtr ImageBase::editHandleComponentSize  (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfComponentSize, 
+             &_sfComponentSize,
              this->getType().getFieldDesc(ComponentSizeFieldId)));
+
 
     editSField(ComponentSizeFieldMask);
 
@@ -1948,7 +1962,7 @@ GetFieldHandlePtr ImageBase::getHandleSideCount       (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfSideCount, 
+             &_sfSideCount,
              this->getType().getFieldDesc(SideCountFieldId)));
 
     return returnValue;
@@ -1958,8 +1972,9 @@ EditFieldHandlePtr ImageBase::editHandleSideCount      (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfSideCount, 
+             &_sfSideCount,
              this->getType().getFieldDesc(SideCountFieldId)));
+
 
     editSField(SideCountFieldMask);
 
@@ -1970,7 +1985,7 @@ GetFieldHandlePtr ImageBase::getHandleSideSize        (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfSideSize, 
+             &_sfSideSize,
              this->getType().getFieldDesc(SideSizeFieldId)));
 
     return returnValue;
@@ -1980,8 +1995,9 @@ EditFieldHandlePtr ImageBase::editHandleSideSize       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfSideSize, 
+             &_sfSideSize,
              this->getType().getFieldDesc(SideSizeFieldId)));
+
 
     editSField(SideSizeFieldMask);
 
@@ -1992,7 +2008,7 @@ GetFieldHandlePtr ImageBase::getHandleForceCompressedData (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfForceCompressedData, 
+             &_sfForceCompressedData,
              this->getType().getFieldDesc(ForceCompressedDataFieldId)));
 
     return returnValue;
@@ -2002,8 +2018,9 @@ EditFieldHandlePtr ImageBase::editHandleForceCompressedData(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfForceCompressedData, 
+             &_sfForceCompressedData,
              this->getType().getFieldDesc(ForceCompressedDataFieldId)));
+
 
     editSField(ForceCompressedDataFieldMask);
 
@@ -2014,7 +2031,7 @@ GetFieldHandlePtr ImageBase::getHandleForceAlphaChannel (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfForceAlphaChannel, 
+             &_sfForceAlphaChannel,
              this->getType().getFieldDesc(ForceAlphaChannelFieldId)));
 
     return returnValue;
@@ -2024,8 +2041,9 @@ EditFieldHandlePtr ImageBase::editHandleForceAlphaChannel(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfForceAlphaChannel, 
+             &_sfForceAlphaChannel,
              this->getType().getFieldDesc(ForceAlphaChannelFieldId)));
+
 
     editSField(ForceAlphaChannelFieldMask);
 
@@ -2036,7 +2054,7 @@ GetFieldHandlePtr ImageBase::getHandleForceColorChannel (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfForceColorChannel, 
+             &_sfForceColorChannel,
              this->getType().getFieldDesc(ForceColorChannelFieldId)));
 
     return returnValue;
@@ -2046,8 +2064,9 @@ EditFieldHandlePtr ImageBase::editHandleForceColorChannel(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfForceColorChannel, 
+             &_sfForceColorChannel,
              this->getType().getFieldDesc(ForceColorChannelFieldId)));
+
 
     editSField(ForceColorChannelFieldMask);
 
@@ -2058,7 +2077,7 @@ GetFieldHandlePtr ImageBase::getHandleForceAlphaBinary (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfForceAlphaBinary, 
+             &_sfForceAlphaBinary,
              this->getType().getFieldDesc(ForceAlphaBinaryFieldId)));
 
     return returnValue;
@@ -2068,8 +2087,9 @@ EditFieldHandlePtr ImageBase::editHandleForceAlphaBinary(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfForceAlphaBinary, 
+             &_sfForceAlphaBinary,
              this->getType().getFieldDesc(ForceAlphaBinaryFieldId)));
+
 
     editSField(ForceAlphaBinaryFieldMask);
 
@@ -2080,7 +2100,7 @@ GetFieldHandlePtr ImageBase::getHandleResX            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfResX, 
+             &_sfResX,
              this->getType().getFieldDesc(ResXFieldId)));
 
     return returnValue;
@@ -2090,8 +2110,9 @@ EditFieldHandlePtr ImageBase::editHandleResX           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfResX, 
+             &_sfResX,
              this->getType().getFieldDesc(ResXFieldId)));
+
 
     editSField(ResXFieldMask);
 
@@ -2102,7 +2123,7 @@ GetFieldHandlePtr ImageBase::getHandleResY            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfResY, 
+             &_sfResY,
              this->getType().getFieldDesc(ResYFieldId)));
 
     return returnValue;
@@ -2112,8 +2133,9 @@ EditFieldHandlePtr ImageBase::editHandleResY           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfResY, 
+             &_sfResY,
              this->getType().getFieldDesc(ResYFieldId)));
+
 
     editSField(ResYFieldMask);
 
@@ -2124,7 +2146,7 @@ GetFieldHandlePtr ImageBase::getHandleResUnit         (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfResUnit, 
+             &_sfResUnit,
              this->getType().getFieldDesc(ResUnitFieldId)));
 
     return returnValue;
@@ -2134,8 +2156,9 @@ EditFieldHandlePtr ImageBase::editHandleResUnit        (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfResUnit, 
+             &_sfResUnit,
              this->getType().getFieldDesc(ResUnitFieldId)));
+
 
     editSField(ResUnitFieldMask);
 
@@ -2182,7 +2205,7 @@ void ImageBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfPixel.terminateShare(Thread::getCurrentAspect(), 
+    _mfPixel.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -2194,23 +2217,23 @@ DataType FieldTraits<Image *>::_type("ImagePtr", "AttachmentContainerPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Image *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Image *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Image *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Image *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Image *,
                            0);
 
 DataType &FieldTraits< Image *, 1 >::getType(void)
-{                                                           
+{
     return FieldTraits<Image *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      Image *,       
-                      UnrecordedRefCountPolicy,  
+                      Image *,
+                      UnrecordedRefCountPolicy,
                       1);
 
 

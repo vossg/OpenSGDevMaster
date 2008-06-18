@@ -106,7 +106,7 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         "",
         GroupNodesFieldId, GroupNodesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortLastWindow::editHandleGroupNodes),
         static_cast<FieldGetMethodSig >(&SortLastWindow::getHandleGroupNodes));
 
@@ -118,7 +118,7 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         "",
         GroupLengthsFieldId, GroupLengthsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortLastWindow::editHandleGroupLengths),
         static_cast<FieldGetMethodSig >(&SortLastWindow::getHandleGroupLengths));
 
@@ -130,7 +130,7 @@ void SortLastWindowBase::classDescInserter(TypeObject &oType)
         "",
         GroupsChangedFieldId, GroupsChangedFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SortLastWindow::editHandleGroupsChanged),
         static_cast<FieldGetMethodSig >(&SortLastWindow::getHandleGroupsChanged));
 
@@ -290,7 +290,7 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
     }
 }
 
-void SortLastWindowBase::removeFromGroupNodes(Node * const value)
+void SortLastWindowBase::removeObjFromGroupNodes(Node * const value)
 {
     Int32 iElemIdx = _mfGroupNodes.findIndex(value);
 
@@ -425,8 +425,8 @@ SortLastWindow *SortLastWindowBase::createEmpty(void)
 
     newPtr<SortLastWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -450,8 +450,8 @@ FieldContainerTransitPtr SortLastWindowBase::shallowCopy(void) const
 {
     SortLastWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SortLastWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SortLastWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -515,7 +515,7 @@ GetFieldHandlePtr SortLastWindowBase::getHandleGroupNodes      (void) const
 {
     MFUnrecNodePtr::GetHandlePtr returnValue(
         new  MFUnrecNodePtr::GetHandle(
-             &_mfGroupNodes, 
+             &_mfGroupNodes,
              this->getType().getFieldDesc(GroupNodesFieldId)));
 
     return returnValue;
@@ -525,11 +525,21 @@ EditFieldHandlePtr SortLastWindowBase::editHandleGroupNodes     (void)
 {
     MFUnrecNodePtr::EditHandlePtr returnValue(
         new  MFUnrecNodePtr::EditHandle(
-             &_mfGroupNodes, 
+             &_mfGroupNodes,
              this->getType().getFieldDesc(GroupNodesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&SortLastWindow::pushToGroupNodes, 
-                              static_cast<SortLastWindow *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&SortLastWindow::pushToGroupNodes,
+                    static_cast<SortLastWindow *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&SortLastWindow::removeFromGroupNodes,
+                    static_cast<SortLastWindow *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&SortLastWindow::removeObjFromGroupNodes,
+                    static_cast<SortLastWindow *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&SortLastWindow::clearGroupNodes,
+                    static_cast<SortLastWindow *>(this)));
 
     editMField(GroupNodesFieldMask, _mfGroupNodes);
 
@@ -540,7 +550,7 @@ GetFieldHandlePtr SortLastWindowBase::getHandleGroupLengths    (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
-             &_mfGroupLengths, 
+             &_mfGroupLengths,
              this->getType().getFieldDesc(GroupLengthsFieldId)));
 
     return returnValue;
@@ -550,8 +560,9 @@ EditFieldHandlePtr SortLastWindowBase::editHandleGroupLengths   (void)
 {
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
-             &_mfGroupLengths, 
+             &_mfGroupLengths,
              this->getType().getFieldDesc(GroupLengthsFieldId)));
+
 
     editMField(GroupLengthsFieldMask, _mfGroupLengths);
 
@@ -562,7 +573,7 @@ GetFieldHandlePtr SortLastWindowBase::getHandleGroupsChanged   (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfGroupsChanged, 
+             &_sfGroupsChanged,
              this->getType().getFieldDesc(GroupsChangedFieldId)));
 
     return returnValue;
@@ -572,8 +583,9 @@ EditFieldHandlePtr SortLastWindowBase::editHandleGroupsChanged  (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfGroupsChanged, 
+             &_sfGroupsChanged,
              this->getType().getFieldDesc(GroupsChangedFieldId)));
+
 
     editSField(GroupsChangedFieldMask);
 
@@ -621,7 +633,7 @@ void SortLastWindowBase::resolveLinks(void)
 
     static_cast<SortLastWindow *>(this)->clearGroupNodes();
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfGroupLengths.terminateShare(Thread::getCurrentAspect(), 
+    _mfGroupLengths.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

@@ -204,8 +204,8 @@ PassiveViewport *PassiveViewportBase::createEmpty(void)
 
     newPtr<PassiveViewport>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -229,8 +229,8 @@ FieldContainerTransitPtr PassiveViewportBase::shallowCopy(void) const
 {
     PassiveViewport *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const PassiveViewport *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const PassiveViewport *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -306,12 +306,12 @@ DataType FieldTraits<PassiveViewport *>::_type("PassiveViewportPtr", "ViewportPt
 
 OSG_FIELDTRAITS_GETTYPE(PassiveViewport *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PassiveViewport *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PassiveViewport *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PassiveViewport *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PassiveViewport *,
                            0);
 
 OSG_END_NAMESPACE

@@ -150,8 +150,8 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     void addCore                   (NodeCore * const value   );
     void assignCoresFrom          (const MFUnrecChildNodeCorePtr &value);
     void subCore         (UInt32               uiIndex );
-    void subCore        (NodeCore * const value   );
-    void clearCores                 (void                          );
+    void subCoreByObj   (NodeCore * const value   );
+    void clearCores                 (void                         );
 
 
     /*! \}                                                                 */
@@ -231,10 +231,10 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     /*---------------------------------------------------------------------*/
     /*! \name Child linking                                                */
     /*! \{                                                                 */
-    
+
     virtual bool unlinkChild(FieldContainer * const pChild,
                              UInt16           const childFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

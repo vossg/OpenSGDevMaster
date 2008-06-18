@@ -160,8 +160,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     void pushToImages              (Image * const value   );
     void assignImages             (const MFUnrecImagePtr   &value);
     void removeFromImages (UInt32               uiIndex );
-    void removeFromImages(Image * const value   );
-    void clearImages                (void                          );
+    void removeObjFromImages(Image * const value   );
+    void clearImages                (void                         );
 
 
     /*! \}                                                                 */

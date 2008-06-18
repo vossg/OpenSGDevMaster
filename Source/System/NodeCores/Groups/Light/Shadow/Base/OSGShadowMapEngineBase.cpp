@@ -120,7 +120,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         "",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleRenderTarget),
         static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleRenderTarget));
 
@@ -132,7 +132,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         "",
         WidthFieldId, WidthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleWidth),
         static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleWidth));
 
@@ -144,7 +144,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         "",
         HeightFieldId, HeightFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleHeight),
         static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleHeight));
 
@@ -156,7 +156,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         "",
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleShadowColor),
         static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleShadowColor));
 
@@ -168,7 +168,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         "",
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleOffsetBias),
         static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleOffsetBias));
 
@@ -180,7 +180,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         "",
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleOffsetFactor),
         static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleOffsetFactor));
 
@@ -518,7 +518,7 @@ GetFieldHandlePtr ShadowMapEngineBase::getHandleRenderTarget    (void) const
 {
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
-             &_sfRenderTarget, 
+             &_sfRenderTarget,
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
     return returnValue;
@@ -528,11 +528,12 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleRenderTarget   (void)
 {
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
-             &_sfRenderTarget, 
+             &_sfRenderTarget,
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ShadowMapEngine::setRenderTarget, 
-                                          static_cast<ShadowMapEngine *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&ShadowMapEngine::setRenderTarget,
+                    static_cast<ShadowMapEngine *>(this), _1));
 
     editSField(RenderTargetFieldMask);
 
@@ -543,7 +544,7 @@ GetFieldHandlePtr ShadowMapEngineBase::getHandleWidth           (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
 
     return returnValue;
@@ -553,8 +554,9 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleWidth          (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
+
 
     editSField(WidthFieldMask);
 
@@ -565,7 +567,7 @@ GetFieldHandlePtr ShadowMapEngineBase::getHandleHeight          (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
 
     return returnValue;
@@ -575,8 +577,9 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleHeight         (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
+
 
     editSField(HeightFieldMask);
 
@@ -587,7 +590,7 @@ GetFieldHandlePtr ShadowMapEngineBase::getHandleShadowColor     (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
-             &_sfShadowColor, 
+             &_sfShadowColor,
              this->getType().getFieldDesc(ShadowColorFieldId)));
 
     return returnValue;
@@ -597,8 +600,9 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleShadowColor    (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
-             &_sfShadowColor, 
+             &_sfShadowColor,
              this->getType().getFieldDesc(ShadowColorFieldId)));
+
 
     editSField(ShadowColorFieldMask);
 
@@ -609,7 +613,7 @@ GetFieldHandlePtr ShadowMapEngineBase::getHandleOffsetBias      (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfOffsetBias, 
+             &_sfOffsetBias,
              this->getType().getFieldDesc(OffsetBiasFieldId)));
 
     return returnValue;
@@ -619,8 +623,9 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleOffsetBias     (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfOffsetBias, 
+             &_sfOffsetBias,
              this->getType().getFieldDesc(OffsetBiasFieldId)));
+
 
     editSField(OffsetBiasFieldMask);
 
@@ -631,7 +636,7 @@ GetFieldHandlePtr ShadowMapEngineBase::getHandleOffsetFactor    (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfOffsetFactor, 
+             &_sfOffsetFactor,
              this->getType().getFieldDesc(OffsetFactorFieldId)));
 
     return returnValue;
@@ -641,8 +646,9 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleOffsetFactor   (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfOffsetFactor, 
+             &_sfOffsetFactor,
              this->getType().getFieldDesc(OffsetFactorFieldId)));
+
 
     editSField(OffsetFactorFieldMask);
 
@@ -683,12 +689,12 @@ DataType FieldTraits<ShadowMapEngine *>::_type("ShadowMapEnginePtr", "LightEngin
 
 OSG_FIELDTRAITS_GETTYPE(ShadowMapEngine *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShadowMapEngine *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShadowMapEngine *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShadowMapEngine *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShadowMapEngine *,
                            0);
 
 OSG_END_NAMESPACE

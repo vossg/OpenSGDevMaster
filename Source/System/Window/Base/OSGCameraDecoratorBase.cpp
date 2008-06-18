@@ -207,7 +207,7 @@ const SFWeakNodePtr *CameraDecoratorBase::getSFBeacon(void) const
     }
 }
 //! Get the CameraDecorator::_sfBeacon field.
-SFWeakNodePtr *CameraDecoratorBase::editSFBeacon(void) 
+SFWeakNodePtr *CameraDecoratorBase::editSFBeacon(void)
 {
     if(_sfDecoratee.getValue() != NULL)
     {
@@ -361,7 +361,7 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleDecoratee(void)
             &_sfDecoratee,
             this->getType().getFieldDesc(DecorateeFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CameraDecorator::setDecoratee, 
+    returnValue->setSetMethod(boost::bind(&CameraDecorator::setDecoratee,
                               static_cast<CameraDecorator *>(this), _1));
 
     editSField(DecorateeFieldMask);
@@ -373,7 +373,7 @@ GetFieldHandlePtr CameraDecoratorBase::getHandleBeacon          (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
     return returnValue;
@@ -383,11 +383,12 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleBeacon         (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CameraDecorator::setBeacon, 
-                                          static_cast<CameraDecorator *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CameraDecorator::setBeacon,
+                    static_cast<CameraDecorator *>(this), _1));
 
     editSField(BeaconFieldMask);
 
@@ -398,7 +399,7 @@ GetFieldHandlePtr CameraDecoratorBase::getHandleNear            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfNear, 
+             &_sfNear,
              this->getType().getFieldDesc(NearFieldId)));
 
     return returnValue;
@@ -408,8 +409,9 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleNear           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfNear, 
+             &_sfNear,
              this->getType().getFieldDesc(NearFieldId)));
+
 
     editSField(NearFieldMask);
 
@@ -420,7 +422,7 @@ GetFieldHandlePtr CameraDecoratorBase::getHandleFar             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfFar, 
+             &_sfFar,
              this->getType().getFieldDesc(FarFieldId)));
 
     return returnValue;
@@ -430,8 +432,9 @@ EditFieldHandlePtr CameraDecoratorBase::editHandleFar            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfFar, 
+             &_sfFar,
              this->getType().getFieldDesc(FarFieldId)));
+
 
     editSField(FarFieldMask);
 
@@ -581,12 +584,12 @@ DataType FieldTraits<CameraDecorator *>::_type("CameraDecoratorPtr", "CameraPtr"
 
 OSG_FIELDTRAITS_GETTYPE(CameraDecorator *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CameraDecorator *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CameraDecorator *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CameraDecorator *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CameraDecorator *,
                            0);
 
 OSG_END_NAMESPACE

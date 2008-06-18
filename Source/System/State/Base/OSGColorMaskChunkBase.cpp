@@ -109,7 +109,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         "Used to mask the writing of the R value to the color buffer.\n",
         MaskRFieldId, MaskRFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskR),
         static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskR));
 
@@ -121,7 +121,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         "Used to mask the writing of the G value to the color buffer.\n",
         MaskGFieldId, MaskGFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskG),
         static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskG));
 
@@ -133,7 +133,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         "Used to mask the writing of the B value to the color buffer.\n",
         MaskBFieldId, MaskBFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskB),
         static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskB));
 
@@ -145,7 +145,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
         "Used to mask the writing of the A value to the color buffer.\n",
         MaskAFieldId, MaskAFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ColorMaskChunk::editHandleMaskA),
         static_cast<FieldGetMethodSig >(&ColorMaskChunk::getHandleMaskA));
 
@@ -420,8 +420,8 @@ ColorMaskChunk *ColorMaskChunkBase::createEmpty(void)
 
     newPtr<ColorMaskChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -445,8 +445,8 @@ FieldContainerTransitPtr ColorMaskChunkBase::shallowCopy(void) const
 {
     ColorMaskChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ColorMaskChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ColorMaskChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -491,7 +491,7 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskR           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfMaskR, 
+             &_sfMaskR,
              this->getType().getFieldDesc(MaskRFieldId)));
 
     return returnValue;
@@ -501,8 +501,9 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskR          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfMaskR, 
+             &_sfMaskR,
              this->getType().getFieldDesc(MaskRFieldId)));
+
 
     editSField(MaskRFieldMask);
 
@@ -513,7 +514,7 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskG           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfMaskG, 
+             &_sfMaskG,
              this->getType().getFieldDesc(MaskGFieldId)));
 
     return returnValue;
@@ -523,8 +524,9 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskG          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfMaskG, 
+             &_sfMaskG,
              this->getType().getFieldDesc(MaskGFieldId)));
+
 
     editSField(MaskGFieldMask);
 
@@ -535,7 +537,7 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskB           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfMaskB, 
+             &_sfMaskB,
              this->getType().getFieldDesc(MaskBFieldId)));
 
     return returnValue;
@@ -545,8 +547,9 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskB          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfMaskB, 
+             &_sfMaskB,
              this->getType().getFieldDesc(MaskBFieldId)));
+
 
     editSField(MaskBFieldMask);
 
@@ -557,7 +560,7 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskA           (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfMaskA, 
+             &_sfMaskA,
              this->getType().getFieldDesc(MaskAFieldId)));
 
     return returnValue;
@@ -567,8 +570,9 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskA          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfMaskA, 
+             &_sfMaskA,
              this->getType().getFieldDesc(MaskAFieldId)));
+
 
     editSField(MaskAFieldMask);
 
@@ -618,12 +622,12 @@ DataType FieldTraits<ColorMaskChunk *>::_type("ColorMaskChunkPtr", "StateChunkPt
 
 OSG_FIELDTRAITS_GETTYPE(ColorMaskChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ColorMaskChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ColorMaskChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ColorMaskChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ColorMaskChunk *,
                            0);
 
 OSG_END_NAMESPACE

@@ -494,7 +494,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                               UInt16           const parentFieldId);
     virtual bool unlinkParent(FieldContainer * const pParent,
                               UInt16           const parentFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

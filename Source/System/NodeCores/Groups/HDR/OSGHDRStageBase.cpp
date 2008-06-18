@@ -118,7 +118,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         "",
         ExposureFieldId, ExposureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStage::editHandleExposure),
         static_cast<FieldGetMethodSig >(&HDRStage::getHandleExposure));
 
@@ -130,7 +130,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         "",
         BlurWidthFieldId, BlurWidthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStage::editHandleBlurWidth),
         static_cast<FieldGetMethodSig >(&HDRStage::getHandleBlurWidth));
 
@@ -142,7 +142,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         "",
         BlurAmountFieldId, BlurAmountFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStage::editHandleBlurAmount),
         static_cast<FieldGetMethodSig >(&HDRStage::getHandleBlurAmount));
 
@@ -154,7 +154,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         "",
         EffectAmountFieldId, EffectAmountFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStage::editHandleEffectAmount),
         static_cast<FieldGetMethodSig >(&HDRStage::getHandleEffectAmount));
 
@@ -166,7 +166,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         "",
         GammaFieldId, GammaFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStage::editHandleGamma),
         static_cast<FieldGetMethodSig >(&HDRStage::getHandleGamma));
 
@@ -178,7 +178,7 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         "",
         BufferFormatFieldId, BufferFormatFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStage::editHandleBufferFormat),
         static_cast<FieldGetMethodSig >(&HDRStage::getHandleBufferFormat));
 
@@ -567,7 +567,7 @@ GetFieldHandlePtr HDRStageBase::getHandleExposure        (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfExposure, 
+             &_sfExposure,
              this->getType().getFieldDesc(ExposureFieldId)));
 
     return returnValue;
@@ -577,8 +577,9 @@ EditFieldHandlePtr HDRStageBase::editHandleExposure       (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfExposure, 
+             &_sfExposure,
              this->getType().getFieldDesc(ExposureFieldId)));
+
 
     editSField(ExposureFieldMask);
 
@@ -589,7 +590,7 @@ GetFieldHandlePtr HDRStageBase::getHandleBlurWidth       (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfBlurWidth, 
+             &_sfBlurWidth,
              this->getType().getFieldDesc(BlurWidthFieldId)));
 
     return returnValue;
@@ -599,8 +600,9 @@ EditFieldHandlePtr HDRStageBase::editHandleBlurWidth      (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfBlurWidth, 
+             &_sfBlurWidth,
              this->getType().getFieldDesc(BlurWidthFieldId)));
+
 
     editSField(BlurWidthFieldMask);
 
@@ -611,7 +613,7 @@ GetFieldHandlePtr HDRStageBase::getHandleBlurAmount      (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfBlurAmount, 
+             &_sfBlurAmount,
              this->getType().getFieldDesc(BlurAmountFieldId)));
 
     return returnValue;
@@ -621,8 +623,9 @@ EditFieldHandlePtr HDRStageBase::editHandleBlurAmount     (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfBlurAmount, 
+             &_sfBlurAmount,
              this->getType().getFieldDesc(BlurAmountFieldId)));
+
 
     editSField(BlurAmountFieldMask);
 
@@ -633,7 +636,7 @@ GetFieldHandlePtr HDRStageBase::getHandleEffectAmount    (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfEffectAmount, 
+             &_sfEffectAmount,
              this->getType().getFieldDesc(EffectAmountFieldId)));
 
     return returnValue;
@@ -643,8 +646,9 @@ EditFieldHandlePtr HDRStageBase::editHandleEffectAmount   (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfEffectAmount, 
+             &_sfEffectAmount,
              this->getType().getFieldDesc(EffectAmountFieldId)));
+
 
     editSField(EffectAmountFieldMask);
 
@@ -655,7 +659,7 @@ GetFieldHandlePtr HDRStageBase::getHandleGamma           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfGamma, 
+             &_sfGamma,
              this->getType().getFieldDesc(GammaFieldId)));
 
     return returnValue;
@@ -665,8 +669,9 @@ EditFieldHandlePtr HDRStageBase::editHandleGamma          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfGamma, 
+             &_sfGamma,
              this->getType().getFieldDesc(GammaFieldId)));
+
 
     editSField(GammaFieldMask);
 
@@ -677,7 +682,7 @@ GetFieldHandlePtr HDRStageBase::getHandleBufferFormat    (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfBufferFormat, 
+             &_sfBufferFormat,
              this->getType().getFieldDesc(BufferFormatFieldId)));
 
     return returnValue;
@@ -687,8 +692,9 @@ EditFieldHandlePtr HDRStageBase::editHandleBufferFormat   (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfBufferFormat, 
+             &_sfBufferFormat,
              this->getType().getFieldDesc(BufferFormatFieldId)));
+
 
     editSField(BufferFormatFieldMask);
 

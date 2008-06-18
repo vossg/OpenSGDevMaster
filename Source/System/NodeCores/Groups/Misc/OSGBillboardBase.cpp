@@ -113,7 +113,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "",
         AxisOfRotationFieldId, AxisOfRotationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Billboard::editHandleAxisOfRotation),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleAxisOfRotation));
 
@@ -125,7 +125,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "",
         FocusOnCameraFieldId, FocusOnCameraFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Billboard::editHandleFocusOnCamera),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleFocusOnCamera));
 
@@ -137,7 +137,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "",
         AlignToScreenFieldId, AlignToScreenFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Billboard::editHandleAlignToScreen),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleAlignToScreen));
 
@@ -149,7 +149,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "",
         MinAngleFieldId, MinAngleFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Billboard::editHandleMinAngle),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleMinAngle));
 
@@ -161,7 +161,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
         "",
         MaxAngleFieldId, MaxAngleFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Billboard::editHandleMaxAngle),
         static_cast<FieldGetMethodSig >(&Billboard::getHandleMaxAngle));
 
@@ -464,8 +464,8 @@ Billboard *BillboardBase::createEmpty(void)
 
     newPtr<Billboard>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -489,8 +489,8 @@ FieldContainerTransitPtr BillboardBase::shallowCopy(void) const
 {
     Billboard *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Billboard *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Billboard *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -537,7 +537,7 @@ GetFieldHandlePtr BillboardBase::getHandleAxisOfRotation  (void) const
 {
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
-             &_sfAxisOfRotation, 
+             &_sfAxisOfRotation,
              this->getType().getFieldDesc(AxisOfRotationFieldId)));
 
     return returnValue;
@@ -547,8 +547,9 @@ EditFieldHandlePtr BillboardBase::editHandleAxisOfRotation (void)
 {
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
-             &_sfAxisOfRotation, 
+             &_sfAxisOfRotation,
              this->getType().getFieldDesc(AxisOfRotationFieldId)));
+
 
     editSField(AxisOfRotationFieldMask);
 
@@ -559,7 +560,7 @@ GetFieldHandlePtr BillboardBase::getHandleFocusOnCamera   (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfFocusOnCamera, 
+             &_sfFocusOnCamera,
              this->getType().getFieldDesc(FocusOnCameraFieldId)));
 
     return returnValue;
@@ -569,8 +570,9 @@ EditFieldHandlePtr BillboardBase::editHandleFocusOnCamera  (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfFocusOnCamera, 
+             &_sfFocusOnCamera,
              this->getType().getFieldDesc(FocusOnCameraFieldId)));
+
 
     editSField(FocusOnCameraFieldMask);
 
@@ -581,7 +583,7 @@ GetFieldHandlePtr BillboardBase::getHandleAlignToScreen   (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfAlignToScreen, 
+             &_sfAlignToScreen,
              this->getType().getFieldDesc(AlignToScreenFieldId)));
 
     return returnValue;
@@ -591,8 +593,9 @@ EditFieldHandlePtr BillboardBase::editHandleAlignToScreen  (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfAlignToScreen, 
+             &_sfAlignToScreen,
              this->getType().getFieldDesc(AlignToScreenFieldId)));
+
 
     editSField(AlignToScreenFieldMask);
 
@@ -603,7 +606,7 @@ GetFieldHandlePtr BillboardBase::getHandleMinAngle        (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfMinAngle, 
+             &_sfMinAngle,
              this->getType().getFieldDesc(MinAngleFieldId)));
 
     return returnValue;
@@ -613,8 +616,9 @@ EditFieldHandlePtr BillboardBase::editHandleMinAngle       (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfMinAngle, 
+             &_sfMinAngle,
              this->getType().getFieldDesc(MinAngleFieldId)));
+
 
     editSField(MinAngleFieldMask);
 
@@ -625,7 +629,7 @@ GetFieldHandlePtr BillboardBase::getHandleMaxAngle        (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfMaxAngle, 
+             &_sfMaxAngle,
              this->getType().getFieldDesc(MaxAngleFieldId)));
 
     return returnValue;
@@ -635,8 +639,9 @@ EditFieldHandlePtr BillboardBase::editHandleMaxAngle       (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfMaxAngle, 
+             &_sfMaxAngle,
              this->getType().getFieldDesc(MaxAngleFieldId)));
+
 
     editSField(MaxAngleFieldMask);
 
@@ -686,12 +691,12 @@ DataType FieldTraits<Billboard *>::_type("BillboardPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Billboard *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Billboard *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Billboard *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Billboard *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Billboard *,
                            0);
 
 OSG_END_NAMESPACE

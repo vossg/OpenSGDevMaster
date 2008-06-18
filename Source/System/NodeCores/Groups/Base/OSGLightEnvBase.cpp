@@ -205,8 +205,8 @@ LightEnv *LightEnvBase::createEmpty(void)
 
     newPtr<LightEnv>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -230,8 +230,8 @@ FieldContainerTransitPtr LightEnvBase::shallowCopy(void) const
 {
     LightEnv *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const LightEnv *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const LightEnv *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();

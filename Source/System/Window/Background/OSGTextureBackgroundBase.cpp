@@ -125,7 +125,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         "",
         ColorFieldId, ColorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBackground::editHandleColor),
         static_cast<FieldGetMethodSig >(&TextureBackground::getHandleColor));
 
@@ -137,7 +137,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         "",
         TextureFieldId, TextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBackground::editHandleTexture),
         static_cast<FieldGetMethodSig >(&TextureBackground::getHandleTexture));
 
@@ -149,7 +149,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         "",
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBackground::editHandleTexCoords),
         static_cast<FieldGetMethodSig >(&TextureBackground::getHandleTexCoords));
 
@@ -161,7 +161,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         "",
         RadialDistortionFieldId, RadialDistortionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBackground::editHandleRadialDistortion),
         static_cast<FieldGetMethodSig >(&TextureBackground::getHandleRadialDistortion));
 
@@ -173,7 +173,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         "",
         CenterOfDistortionFieldId, CenterOfDistortionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBackground::editHandleCenterOfDistortion),
         static_cast<FieldGetMethodSig >(&TextureBackground::getHandleCenterOfDistortion));
 
@@ -185,7 +185,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         "Horizontal subdivision.\n",
         HorFieldId, HorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBackground::editHandleHor),
         static_cast<FieldGetMethodSig >(&TextureBackground::getHandleHor));
 
@@ -197,7 +197,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
         "Vertical subdivision.\n",
         VertFieldId, VertFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBackground::editHandleVert),
         static_cast<FieldGetMethodSig >(&TextureBackground::getHandleVert));
 
@@ -575,8 +575,8 @@ TextureBackground *TextureBackgroundBase::createEmpty(void)
 
     newPtr<TextureBackground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -600,8 +600,8 @@ FieldContainerTransitPtr TextureBackgroundBase::shallowCopy(void) const
 {
     TextureBackground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TextureBackground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TextureBackground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -663,7 +663,7 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleColor           (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
-             &_sfColor, 
+             &_sfColor,
              this->getType().getFieldDesc(ColorFieldId)));
 
     return returnValue;
@@ -673,8 +673,9 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleColor          (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
-             &_sfColor, 
+             &_sfColor,
              this->getType().getFieldDesc(ColorFieldId)));
+
 
     editSField(ColorFieldMask);
 
@@ -685,7 +686,7 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleTexture         (void) const
 {
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
-             &_sfTexture, 
+             &_sfTexture,
              this->getType().getFieldDesc(TextureFieldId)));
 
     return returnValue;
@@ -695,11 +696,12 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleTexture        (void)
 {
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
-             &_sfTexture, 
+             &_sfTexture,
              this->getType().getFieldDesc(TextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TextureBackground::setTexture, 
-                                          static_cast<TextureBackground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&TextureBackground::setTexture,
+                    static_cast<TextureBackground *>(this), _1));
 
     editSField(TextureFieldMask);
 
@@ -710,7 +712,7 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleTexCoords       (void) const
 {
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
-             &_mfTexCoords, 
+             &_mfTexCoords,
              this->getType().getFieldDesc(TexCoordsFieldId)));
 
     return returnValue;
@@ -720,8 +722,9 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleTexCoords      (void)
 {
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(
-             &_mfTexCoords, 
+             &_mfTexCoords,
              this->getType().getFieldDesc(TexCoordsFieldId)));
+
 
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
@@ -732,7 +735,7 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleRadialDistortion (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfRadialDistortion, 
+             &_sfRadialDistortion,
              this->getType().getFieldDesc(RadialDistortionFieldId)));
 
     return returnValue;
@@ -742,8 +745,9 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleRadialDistortion(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfRadialDistortion, 
+             &_sfRadialDistortion,
              this->getType().getFieldDesc(RadialDistortionFieldId)));
+
 
     editSField(RadialDistortionFieldMask);
 
@@ -754,7 +758,7 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleCenterOfDistortion (void) cons
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfCenterOfDistortion, 
+             &_sfCenterOfDistortion,
              this->getType().getFieldDesc(CenterOfDistortionFieldId)));
 
     return returnValue;
@@ -764,8 +768,9 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleCenterOfDistortion(void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfCenterOfDistortion, 
+             &_sfCenterOfDistortion,
              this->getType().getFieldDesc(CenterOfDistortionFieldId)));
+
 
     editSField(CenterOfDistortionFieldMask);
 
@@ -776,7 +781,7 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleHor             (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfHor, 
+             &_sfHor,
              this->getType().getFieldDesc(HorFieldId)));
 
     return returnValue;
@@ -786,8 +791,9 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleHor            (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfHor, 
+             &_sfHor,
              this->getType().getFieldDesc(HorFieldId)));
+
 
     editSField(HorFieldMask);
 
@@ -798,7 +804,7 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleVert            (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfVert, 
+             &_sfVert,
              this->getType().getFieldDesc(VertFieldId)));
 
     return returnValue;
@@ -808,8 +814,9 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleVert           (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfVert, 
+             &_sfVert,
              this->getType().getFieldDesc(VertFieldId)));
+
 
     editSField(VertFieldMask);
 
@@ -858,7 +865,7 @@ void TextureBackgroundBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfTexCoords.terminateShare(Thread::getCurrentAspect(), 
+    _mfTexCoords.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -870,8 +877,8 @@ DataType FieldTraits<TextureBackground *>::_type("TextureBackgroundPtr", "Backgr
 
 OSG_FIELDTRAITS_GETTYPE(TextureBackground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureBackground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureBackground *,
                            0);
 
 

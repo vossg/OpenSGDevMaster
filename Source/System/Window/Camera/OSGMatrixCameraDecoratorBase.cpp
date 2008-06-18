@@ -132,7 +132,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "applied before the viewing matrix.\n",
         PreViewingFieldId, PreViewingFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePreViewing),
         static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePreViewing));
 
@@ -145,7 +145,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "applied after the viewing matrix.\n",
         PostViewingFieldId, PostViewingFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePostViewing),
         static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePostViewing));
 
@@ -158,7 +158,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "applied before the projectionTranslation matrix.\n",
         PreProjectionTranslationFieldId, PreProjectionTranslationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePreProjectionTranslation),
         static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePreProjectionTranslation));
 
@@ -171,7 +171,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "applied before the projectionTranslation matrix.\n",
         PostProjectionTranslationFieldId, PostProjectionTranslationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePostProjectionTranslation),
         static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePostProjectionTranslation));
 
@@ -184,7 +184,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "applied before the projection matrix.\n",
         PreProjectionFieldId, PreProjectionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePreProjection),
         static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePreProjection));
 
@@ -197,7 +197,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "applied before the projection matrix.\n",
         PostProjectionFieldId, PostProjectionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MatrixCameraDecorator::editHandlePostProjection),
         static_cast<FieldGetMethodSig >(&MatrixCameraDecorator::getHandlePostProjection));
 
@@ -562,8 +562,8 @@ MatrixCameraDecorator *MatrixCameraDecoratorBase::createEmpty(void)
 
     newPtr<MatrixCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -587,8 +587,8 @@ FieldContainerTransitPtr MatrixCameraDecoratorBase::shallowCopy(void) const
 {
     MatrixCameraDecorator *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const MatrixCameraDecorator *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const MatrixCameraDecorator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -637,7 +637,7 @@ GetFieldHandlePtr MatrixCameraDecoratorBase::getHandlePreViewing      (void) con
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfPreViewing, 
+             &_sfPreViewing,
              this->getType().getFieldDesc(PreViewingFieldId)));
 
     return returnValue;
@@ -647,8 +647,9 @@ EditFieldHandlePtr MatrixCameraDecoratorBase::editHandlePreViewing     (void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfPreViewing, 
+             &_sfPreViewing,
              this->getType().getFieldDesc(PreViewingFieldId)));
+
 
     editSField(PreViewingFieldMask);
 
@@ -659,7 +660,7 @@ GetFieldHandlePtr MatrixCameraDecoratorBase::getHandlePostViewing     (void) con
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfPostViewing, 
+             &_sfPostViewing,
              this->getType().getFieldDesc(PostViewingFieldId)));
 
     return returnValue;
@@ -669,8 +670,9 @@ EditFieldHandlePtr MatrixCameraDecoratorBase::editHandlePostViewing    (void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfPostViewing, 
+             &_sfPostViewing,
              this->getType().getFieldDesc(PostViewingFieldId)));
+
 
     editSField(PostViewingFieldMask);
 
@@ -681,7 +683,7 @@ GetFieldHandlePtr MatrixCameraDecoratorBase::getHandlePreProjectionTranslation (
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfPreProjectionTranslation, 
+             &_sfPreProjectionTranslation,
              this->getType().getFieldDesc(PreProjectionTranslationFieldId)));
 
     return returnValue;
@@ -691,8 +693,9 @@ EditFieldHandlePtr MatrixCameraDecoratorBase::editHandlePreProjectionTranslation
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfPreProjectionTranslation, 
+             &_sfPreProjectionTranslation,
              this->getType().getFieldDesc(PreProjectionTranslationFieldId)));
+
 
     editSField(PreProjectionTranslationFieldMask);
 
@@ -703,7 +706,7 @@ GetFieldHandlePtr MatrixCameraDecoratorBase::getHandlePostProjectionTranslation 
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfPostProjectionTranslation, 
+             &_sfPostProjectionTranslation,
              this->getType().getFieldDesc(PostProjectionTranslationFieldId)));
 
     return returnValue;
@@ -713,8 +716,9 @@ EditFieldHandlePtr MatrixCameraDecoratorBase::editHandlePostProjectionTranslatio
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfPostProjectionTranslation, 
+             &_sfPostProjectionTranslation,
              this->getType().getFieldDesc(PostProjectionTranslationFieldId)));
+
 
     editSField(PostProjectionTranslationFieldMask);
 
@@ -725,7 +729,7 @@ GetFieldHandlePtr MatrixCameraDecoratorBase::getHandlePreProjection   (void) con
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfPreProjection, 
+             &_sfPreProjection,
              this->getType().getFieldDesc(PreProjectionFieldId)));
 
     return returnValue;
@@ -735,8 +739,9 @@ EditFieldHandlePtr MatrixCameraDecoratorBase::editHandlePreProjection  (void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfPreProjection, 
+             &_sfPreProjection,
              this->getType().getFieldDesc(PreProjectionFieldId)));
+
 
     editSField(PreProjectionFieldMask);
 
@@ -747,7 +752,7 @@ GetFieldHandlePtr MatrixCameraDecoratorBase::getHandlePostProjection  (void) con
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfPostProjection, 
+             &_sfPostProjection,
              this->getType().getFieldDesc(PostProjectionFieldId)));
 
     return returnValue;
@@ -757,8 +762,9 @@ EditFieldHandlePtr MatrixCameraDecoratorBase::editHandlePostProjection (void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfPostProjection, 
+             &_sfPostProjection,
              this->getType().getFieldDesc(PostProjectionFieldId)));
+
 
     editSField(PostProjectionFieldMask);
 
@@ -808,12 +814,12 @@ DataType FieldTraits<MatrixCameraDecorator *>::_type("MatrixCameraDecoratorPtr",
 
 OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecorator *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MatrixCameraDecorator *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MatrixCameraDecorator *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MatrixCameraDecorator *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MatrixCameraDecorator *,
                            0);
 
 OSG_END_NAMESPACE

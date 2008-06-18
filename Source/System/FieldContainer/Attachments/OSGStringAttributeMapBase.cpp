@@ -103,7 +103,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         "",
         KeysFieldId, KeysFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StringAttributeMap::editHandleKeys),
         static_cast<FieldGetMethodSig >(&StringAttributeMap::getHandleKeys));
 
@@ -115,7 +115,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
         "",
         ValuesFieldId, ValuesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StringAttributeMap::editHandleValues),
         static_cast<FieldGetMethodSig >(&StringAttributeMap::getHandleValues));
 
@@ -320,8 +320,8 @@ StringAttributeMap *StringAttributeMapBase::createEmpty(void)
 
     newPtr<StringAttributeMap>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -345,8 +345,8 @@ FieldContainerTransitPtr StringAttributeMapBase::shallowCopy(void) const
 {
     StringAttributeMap *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const StringAttributeMap *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const StringAttributeMap *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -387,7 +387,7 @@ GetFieldHandlePtr StringAttributeMapBase::getHandleKeys            (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
-             &_mfKeys, 
+             &_mfKeys,
              this->getType().getFieldDesc(KeysFieldId)));
 
     return returnValue;
@@ -397,8 +397,9 @@ EditFieldHandlePtr StringAttributeMapBase::editHandleKeys           (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
-             &_mfKeys, 
+             &_mfKeys,
              this->getType().getFieldDesc(KeysFieldId)));
+
 
     editMField(KeysFieldMask, _mfKeys);
 
@@ -409,7 +410,7 @@ GetFieldHandlePtr StringAttributeMapBase::getHandleValues          (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
-             &_mfValues, 
+             &_mfValues,
              this->getType().getFieldDesc(ValuesFieldId)));
 
     return returnValue;
@@ -419,8 +420,9 @@ EditFieldHandlePtr StringAttributeMapBase::editHandleValues         (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
-             &_mfValues, 
+             &_mfValues,
              this->getType().getFieldDesc(ValuesFieldId)));
+
 
     editMField(ValuesFieldMask, _mfValues);
 
@@ -467,11 +469,11 @@ void StringAttributeMapBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfKeys.terminateShare(Thread::getCurrentAspect(), 
+    _mfKeys.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfValues.terminateShare(Thread::getCurrentAspect(), 
+    _mfValues.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -483,8 +485,8 @@ DataType FieldTraits<StringAttributeMap *>::_type("StringAttributeMapPtr", "Atta
 
 OSG_FIELDTRAITS_GETTYPE(StringAttributeMap *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StringAttributeMap *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StringAttributeMap *,
                            0);
 
 

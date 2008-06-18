@@ -103,7 +103,7 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
         "",
         GlobalsFieldId, GlobalsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleGlobals),
         static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleGlobals));
 
@@ -115,7 +115,7 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
         "",
         DrawManagerFieldId, DrawManagerFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleDrawManager),
         static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleDrawManager));
 
@@ -259,7 +259,7 @@ void ComplexSceneManagerBase::removeFromGlobals(UInt32 uiIndex)
     }
 }
 
-void ComplexSceneManagerBase::removeFromGlobals(FieldContainer * const value)
+void ComplexSceneManagerBase::removeObjFromGlobals(FieldContainer * const value)
 {
     Int32 iElemIdx = _mfGlobals.findIndex(value);
 
@@ -445,7 +445,7 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleGlobals         (void) const
 {
     MFUnrecFieldContainerPtr::GetHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::GetHandle(
-             &_mfGlobals, 
+             &_mfGlobals,
              this->getType().getFieldDesc(GlobalsFieldId)));
 
     return returnValue;
@@ -455,11 +455,21 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleGlobals        (void)
 {
     MFUnrecFieldContainerPtr::EditHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::EditHandle(
-             &_mfGlobals, 
+             &_mfGlobals,
              this->getType().getFieldDesc(GlobalsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ComplexSceneManager::pushToGlobals, 
-                              static_cast<ComplexSceneManager *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&ComplexSceneManager::pushToGlobals,
+                    static_cast<ComplexSceneManager *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&ComplexSceneManager::removeFromGlobals,
+                    static_cast<ComplexSceneManager *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&ComplexSceneManager::removeObjFromGlobals,
+                    static_cast<ComplexSceneManager *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&ComplexSceneManager::clearGlobals,
+                    static_cast<ComplexSceneManager *>(this)));
 
     editMField(GlobalsFieldMask, _mfGlobals);
 
@@ -470,7 +480,7 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleDrawManager     (void) const
 {
     SFUnrecDrawManagerPtr::GetHandlePtr returnValue(
         new  SFUnrecDrawManagerPtr::GetHandle(
-             &_sfDrawManager, 
+             &_sfDrawManager,
              this->getType().getFieldDesc(DrawManagerFieldId)));
 
     return returnValue;
@@ -480,11 +490,12 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleDrawManager    (void)
 {
     SFUnrecDrawManagerPtr::EditHandlePtr returnValue(
         new  SFUnrecDrawManagerPtr::EditHandle(
-             &_sfDrawManager, 
+             &_sfDrawManager,
              this->getType().getFieldDesc(DrawManagerFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&ComplexSceneManager::setDrawManager, 
-                                          static_cast<ComplexSceneManager *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&ComplexSceneManager::setDrawManager,
+                    static_cast<ComplexSceneManager *>(this), _1));
 
     editSField(DrawManagerFieldMask);
 

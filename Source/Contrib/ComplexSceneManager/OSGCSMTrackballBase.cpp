@@ -129,7 +129,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         ModifierMaskFieldId, ModifierMaskFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleModifierMask),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleModifierMask));
 
@@ -141,7 +141,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         ProcessingFieldId, ProcessingFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleProcessing),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleProcessing));
 
@@ -153,7 +153,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         TranslationScaleFactorFieldId, TranslationScaleFactorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleTranslationScaleFactor),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleTranslationScaleFactor));
 
@@ -165,7 +165,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         MatrixResultFieldId, MatrixResultFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleMatrixResult),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleMatrixResult));
 
@@ -177,7 +177,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         ReferencePositionFieldId, ReferencePositionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleReferencePosition),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleReferencePosition));
 
@@ -189,7 +189,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         ReferenceMatrixFieldId, ReferenceMatrixFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleReferenceMatrix),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleReferenceMatrix));
 
@@ -201,7 +201,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         TransformCenterFieldId, TransformCenterFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleTransformCenter),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleTransformCenter));
 
@@ -213,7 +213,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         WorldDiagFieldId, WorldDiagFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleWorldDiag),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleWorldDiag));
 
@@ -225,7 +225,7 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         "",
         MouseDataFieldId, MouseDataFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleMouseData),
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleMouseData));
 
@@ -713,7 +713,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleModifierMask    (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfModifierMask, 
+             &_sfModifierMask,
              this->getType().getFieldDesc(ModifierMaskFieldId)));
 
     return returnValue;
@@ -723,8 +723,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleModifierMask   (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfModifierMask, 
+             &_sfModifierMask,
              this->getType().getFieldDesc(ModifierMaskFieldId)));
+
 
     editSField(ModifierMaskFieldMask);
 
@@ -735,7 +736,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleProcessing      (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfProcessing, 
+             &_sfProcessing,
              this->getType().getFieldDesc(ProcessingFieldId)));
 
     return returnValue;
@@ -745,8 +746,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleProcessing     (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfProcessing, 
+             &_sfProcessing,
              this->getType().getFieldDesc(ProcessingFieldId)));
+
 
     editSField(ProcessingFieldMask);
 
@@ -757,7 +759,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleTranslationScaleFactor (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfTranslationScaleFactor, 
+             &_sfTranslationScaleFactor,
              this->getType().getFieldDesc(TranslationScaleFactorFieldId)));
 
     return returnValue;
@@ -767,8 +769,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleTranslationScaleFactor(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfTranslationScaleFactor, 
+             &_sfTranslationScaleFactor,
              this->getType().getFieldDesc(TranslationScaleFactorFieldId)));
+
 
     editSField(TranslationScaleFactorFieldMask);
 
@@ -779,7 +782,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleMatrixResult    (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfMatrixResult, 
+             &_sfMatrixResult,
              this->getType().getFieldDesc(MatrixResultFieldId)));
 
     return returnValue;
@@ -789,8 +792,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleMatrixResult   (void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfMatrixResult, 
+             &_sfMatrixResult,
              this->getType().getFieldDesc(MatrixResultFieldId)));
+
 
     editSField(MatrixResultFieldMask);
 
@@ -801,7 +805,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleReferencePosition (void) const
 {
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
-             &_sfReferencePosition, 
+             &_sfReferencePosition,
              this->getType().getFieldDesc(ReferencePositionFieldId)));
 
     return returnValue;
@@ -811,8 +815,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleReferencePosition(void)
 {
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
-             &_sfReferencePosition, 
+             &_sfReferencePosition,
              this->getType().getFieldDesc(ReferencePositionFieldId)));
+
 
     editSField(ReferencePositionFieldMask);
 
@@ -823,7 +828,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleReferenceMatrix (void) const
 {
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
-             &_sfReferenceMatrix, 
+             &_sfReferenceMatrix,
              this->getType().getFieldDesc(ReferenceMatrixFieldId)));
 
     return returnValue;
@@ -833,8 +838,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleReferenceMatrix(void)
 {
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
-             &_sfReferenceMatrix, 
+             &_sfReferenceMatrix,
              this->getType().getFieldDesc(ReferenceMatrixFieldId)));
+
 
     editSField(ReferenceMatrixFieldMask);
 
@@ -845,7 +851,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleTransformCenter (void) const
 {
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
-             &_sfTransformCenter, 
+             &_sfTransformCenter,
              this->getType().getFieldDesc(TransformCenterFieldId)));
 
     return returnValue;
@@ -855,8 +861,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleTransformCenter(void)
 {
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
-             &_sfTransformCenter, 
+             &_sfTransformCenter,
              this->getType().getFieldDesc(TransformCenterFieldId)));
+
 
     editSField(TransformCenterFieldMask);
 
@@ -867,7 +874,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleWorldDiag       (void) const
 {
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
-             &_sfWorldDiag, 
+             &_sfWorldDiag,
              this->getType().getFieldDesc(WorldDiagFieldId)));
 
     return returnValue;
@@ -877,8 +884,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleWorldDiag      (void)
 {
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
-             &_sfWorldDiag, 
+             &_sfWorldDiag,
              this->getType().getFieldDesc(WorldDiagFieldId)));
+
 
     editSField(WorldDiagFieldMask);
 
@@ -889,7 +897,7 @@ GetFieldHandlePtr CSMTrackballBase::getHandleMouseData       (void) const
 {
     SFMouseData::GetHandlePtr returnValue(
         new  SFMouseData::GetHandle(
-             &_sfMouseData, 
+             &_sfMouseData,
              this->getType().getFieldDesc(MouseDataFieldId)));
 
     return returnValue;
@@ -899,8 +907,9 @@ EditFieldHandlePtr CSMTrackballBase::editHandleMouseData      (void)
 {
     SFMouseData::EditHandlePtr returnValue(
         new  SFMouseData::EditHandle(
-             &_sfMouseData, 
+             &_sfMouseData,
              this->getType().getFieldDesc(MouseDataFieldId)));
+
 
     editSField(MouseDataFieldMask);
 
@@ -950,12 +959,12 @@ DataType FieldTraits<CSMTrackball *>::_type("CSMTrackballPtr", "AttachmentContai
 
 OSG_FIELDTRAITS_GETTYPE(CSMTrackball *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CSMTrackball *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMTrackball *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CSMTrackball *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMTrackball *,
                            0);
 
 OSG_END_NAMESPACE

@@ -103,7 +103,7 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         "Materials to choose from.\n",
         MaterialsFieldId, MaterialsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SwitchMaterial::editHandleMaterials),
         static_cast<FieldGetMethodSig >(&SwitchMaterial::getHandleMaterials));
 
@@ -115,7 +115,7 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
         "The material to actually use for drawing.\n",
         ChoiceFieldId, ChoiceFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SwitchMaterial::editHandleChoice),
         static_cast<FieldGetMethodSig >(&SwitchMaterial::getHandleChoice));
 
@@ -258,7 +258,7 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
     }
 }
 
-void SwitchMaterialBase::removeFromMaterials(Material * const value)
+void SwitchMaterialBase::removeObjFromMaterials(Material * const value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -381,8 +381,8 @@ SwitchMaterial *SwitchMaterialBase::createEmpty(void)
 
     newPtr<SwitchMaterial>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -406,8 +406,8 @@ FieldContainerTransitPtr SwitchMaterialBase::shallowCopy(void) const
 {
     SwitchMaterial *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SwitchMaterial *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SwitchMaterial *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -469,7 +469,7 @@ GetFieldHandlePtr SwitchMaterialBase::getHandleMaterials       (void) const
 {
     MFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  MFUnrecMaterialPtr::GetHandle(
-             &_mfMaterials, 
+             &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
     return returnValue;
@@ -479,11 +479,21 @@ EditFieldHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
 {
     MFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  MFUnrecMaterialPtr::EditHandle(
-             &_mfMaterials, 
+             &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&SwitchMaterial::pushToMaterials, 
-                              static_cast<SwitchMaterial *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&SwitchMaterial::pushToMaterials,
+                    static_cast<SwitchMaterial *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&SwitchMaterial::removeFromMaterials,
+                    static_cast<SwitchMaterial *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&SwitchMaterial::removeObjFromMaterials,
+                    static_cast<SwitchMaterial *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&SwitchMaterial::clearMaterials,
+                    static_cast<SwitchMaterial *>(this)));
 
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -494,7 +504,7 @@ GetFieldHandlePtr SwitchMaterialBase::getHandleChoice          (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfChoice, 
+             &_sfChoice,
              this->getType().getFieldDesc(ChoiceFieldId)));
 
     return returnValue;
@@ -504,8 +514,9 @@ EditFieldHandlePtr SwitchMaterialBase::editHandleChoice         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfChoice, 
+             &_sfChoice,
              this->getType().getFieldDesc(ChoiceFieldId)));
+
 
     editSField(ChoiceFieldMask);
 
@@ -556,12 +567,12 @@ DataType FieldTraits<SwitchMaterial *>::_type("SwitchMaterialPtr", "MaterialPtr"
 
 OSG_FIELDTRAITS_GETTYPE(SwitchMaterial *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SwitchMaterial *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SwitchMaterial *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SwitchMaterial *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SwitchMaterial *,
                            0);
 
 OSG_END_NAMESPACE

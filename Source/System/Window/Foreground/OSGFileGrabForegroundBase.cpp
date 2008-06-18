@@ -114,7 +114,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         "The filename template. %d is replaced by the frame number.\n",
         NameFieldId, NameFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FileGrabForeground::editHandleName),
         static_cast<FieldGetMethodSig >(&FileGrabForeground::getHandleName));
 
@@ -126,7 +126,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         "The frame number to use.\n",
         FrameFieldId, FrameFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FileGrabForeground::editHandleFrame),
         static_cast<FieldGetMethodSig >(&FileGrabForeground::getHandleFrame));
 
@@ -138,7 +138,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
         "Flag to start/stop automatic frame increments after each grab.\n",
         IncrementFieldId, IncrementFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FileGrabForeground::editHandleIncrement),
         static_cast<FieldGetMethodSig >(&FileGrabForeground::getHandleIncrement));
 
@@ -395,8 +395,8 @@ FileGrabForeground *FileGrabForegroundBase::createEmpty(void)
 
     newPtr<FileGrabForeground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -420,8 +420,8 @@ FieldContainerTransitPtr FileGrabForegroundBase::shallowCopy(void) const
 {
     FileGrabForeground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const FileGrabForeground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const FileGrabForeground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -464,7 +464,7 @@ GetFieldHandlePtr FileGrabForegroundBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
 
     return returnValue;
@@ -474,8 +474,9 @@ EditFieldHandlePtr FileGrabForegroundBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
+
 
     editSField(NameFieldMask);
 
@@ -486,7 +487,7 @@ GetFieldHandlePtr FileGrabForegroundBase::getHandleFrame           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfFrame, 
+             &_sfFrame,
              this->getType().getFieldDesc(FrameFieldId)));
 
     return returnValue;
@@ -496,8 +497,9 @@ EditFieldHandlePtr FileGrabForegroundBase::editHandleFrame          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfFrame, 
+             &_sfFrame,
              this->getType().getFieldDesc(FrameFieldId)));
+
 
     editSField(FrameFieldMask);
 
@@ -508,7 +510,7 @@ GetFieldHandlePtr FileGrabForegroundBase::getHandleIncrement       (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfIncrement, 
+             &_sfIncrement,
              this->getType().getFieldDesc(IncrementFieldId)));
 
     return returnValue;
@@ -518,8 +520,9 @@ EditFieldHandlePtr FileGrabForegroundBase::editHandleIncrement      (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfIncrement, 
+             &_sfIncrement,
              this->getType().getFieldDesc(IncrementFieldId)));
+
 
     editSField(IncrementFieldMask);
 
@@ -569,12 +572,12 @@ DataType FieldTraits<FileGrabForeground *>::_type("FileGrabForegroundPtr", "Grab
 
 OSG_FIELDTRAITS_GETTYPE(FileGrabForeground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FileGrabForeground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FileGrabForeground *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FileGrabForeground *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FileGrabForeground *,
                            0);
 
 OSG_END_NAMESPACE

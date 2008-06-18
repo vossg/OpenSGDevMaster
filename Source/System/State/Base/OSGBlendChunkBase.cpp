@@ -145,7 +145,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "The incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.\n",
         SrcFactorFieldId, SrcFactorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleSrcFactor),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleSrcFactor));
 
@@ -157,7 +157,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "The frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.\n",
         DestFactorFieldId, DestFactorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleDestFactor),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleDestFactor));
 
@@ -169,7 +169,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "The equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.\n",
         EquationFieldId, EquationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleEquation),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleEquation));
 
@@ -181,7 +181,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "This is the constant color used by blend modes *_CONSTANT_*.\n",
         ColorFieldId, ColorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleColor),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleColor));
 
@@ -194,7 +194,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.\n",
         AlphaFuncFieldId, AlphaFuncFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaFunc),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaFunc));
 
@@ -206,7 +206,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "The value used in alpha comparison.\n",
         AlphaValueFieldId, AlphaValueFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaValue),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaValue));
 
@@ -220,7 +220,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "The default is GL_NONE, which indicates using the standard BlendFunction.\n",
         AlphaSrcFactorFieldId, AlphaSrcFactorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaSrcFactor),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaSrcFactor));
 
@@ -234,7 +234,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
         "The default is GL_NONE, which indicates using the standard BlendFunction.\n",
         AlphaDestFactorFieldId, AlphaDestFactorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&BlendChunk::editHandleAlphaDestFactor),
         static_cast<FieldGetMethodSig >(&BlendChunk::getHandleAlphaDestFactor));
 
@@ -678,8 +678,8 @@ BlendChunk *BlendChunkBase::createEmpty(void)
 
     newPtr<BlendChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -703,8 +703,8 @@ FieldContainerTransitPtr BlendChunkBase::shallowCopy(void) const
 {
     BlendChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const BlendChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const BlendChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -757,7 +757,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleSrcFactor       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfSrcFactor, 
+             &_sfSrcFactor,
              this->getType().getFieldDesc(SrcFactorFieldId)));
 
     return returnValue;
@@ -767,8 +767,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleSrcFactor      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfSrcFactor, 
+             &_sfSrcFactor,
              this->getType().getFieldDesc(SrcFactorFieldId)));
+
 
     editSField(SrcFactorFieldMask);
 
@@ -779,7 +780,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleDestFactor      (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfDestFactor, 
+             &_sfDestFactor,
              this->getType().getFieldDesc(DestFactorFieldId)));
 
     return returnValue;
@@ -789,8 +790,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleDestFactor     (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfDestFactor, 
+             &_sfDestFactor,
              this->getType().getFieldDesc(DestFactorFieldId)));
+
 
     editSField(DestFactorFieldMask);
 
@@ -801,7 +803,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleEquation        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfEquation, 
+             &_sfEquation,
              this->getType().getFieldDesc(EquationFieldId)));
 
     return returnValue;
@@ -811,8 +813,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleEquation       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfEquation, 
+             &_sfEquation,
              this->getType().getFieldDesc(EquationFieldId)));
+
 
     editSField(EquationFieldMask);
 
@@ -823,7 +826,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleColor           (void) const
 {
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
-             &_sfColor, 
+             &_sfColor,
              this->getType().getFieldDesc(ColorFieldId)));
 
     return returnValue;
@@ -833,8 +836,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleColor          (void)
 {
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
-             &_sfColor, 
+             &_sfColor,
              this->getType().getFieldDesc(ColorFieldId)));
+
 
     editSField(ColorFieldMask);
 
@@ -845,7 +849,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaFunc       (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfAlphaFunc, 
+             &_sfAlphaFunc,
              this->getType().getFieldDesc(AlphaFuncFieldId)));
 
     return returnValue;
@@ -855,8 +859,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaFunc      (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfAlphaFunc, 
+             &_sfAlphaFunc,
              this->getType().getFieldDesc(AlphaFuncFieldId)));
+
 
     editSField(AlphaFuncFieldMask);
 
@@ -867,7 +872,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaValue      (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfAlphaValue, 
+             &_sfAlphaValue,
              this->getType().getFieldDesc(AlphaValueFieldId)));
 
     return returnValue;
@@ -877,8 +882,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaValue     (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfAlphaValue, 
+             &_sfAlphaValue,
              this->getType().getFieldDesc(AlphaValueFieldId)));
+
 
     editSField(AlphaValueFieldMask);
 
@@ -889,7 +895,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaSrcFactor  (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfAlphaSrcFactor, 
+             &_sfAlphaSrcFactor,
              this->getType().getFieldDesc(AlphaSrcFactorFieldId)));
 
     return returnValue;
@@ -899,8 +905,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaSrcFactor (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfAlphaSrcFactor, 
+             &_sfAlphaSrcFactor,
              this->getType().getFieldDesc(AlphaSrcFactorFieldId)));
+
 
     editSField(AlphaSrcFactorFieldMask);
 
@@ -911,7 +918,7 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaDestFactor (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfAlphaDestFactor, 
+             &_sfAlphaDestFactor,
              this->getType().getFieldDesc(AlphaDestFactorFieldId)));
 
     return returnValue;
@@ -921,8 +928,9 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaDestFactor(void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfAlphaDestFactor, 
+             &_sfAlphaDestFactor,
              this->getType().getFieldDesc(AlphaDestFactorFieldId)));
+
 
     editSField(AlphaDestFactorFieldMask);
 
@@ -972,12 +980,12 @@ DataType FieldTraits<BlendChunk *>::_type("BlendChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(BlendChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           BlendChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           BlendChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           BlendChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           BlendChunk *,
                            0);
 
 OSG_END_NAMESPACE

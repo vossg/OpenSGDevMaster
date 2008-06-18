@@ -98,7 +98,7 @@ void MultiCoreBase::classDescInserter(TypeObject &oType)
         "",
         CoresFieldId, CoresFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MultiCore::editHandleCores),
         static_cast<FieldGetMethodSig >(&MultiCore::getHandleCores));
 
@@ -142,9 +142,9 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     "        assignMFieldAs=\"assignCoresFrom\"\n"
     "        insertIntoMFieldAs=\"insertCore\"\n"
     "        replaceInMFieldIndexAs=\"replaceCore\"\n"
-    "        replaceInMFieldObjectAs=\"replaceCore\"\n"
+    "        replaceInMFieldObjectAs=\"replaceCoreByObj\"\n"
     "        removeFromMFieldIndexAs=\"subCore\"\n"
-    "        removeFromMFieldObjectAs=\"subCore\"\n"
+    "        removeFromMFieldObjectAs=\"subCoreByObj\"\n"
     "        clearFieldAs=\"clearCores\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -225,7 +225,7 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
     }
 }
 
-void MultiCoreBase::subCore(NodeCore * const value)
+void MultiCoreBase::subCoreByObj(NodeCore * const value)
 {
     Int32 iElemIdx = _mfCores.findIndex(value);
 
@@ -336,8 +336,8 @@ MultiCore *MultiCoreBase::createEmpty(void)
 
     newPtr<MultiCore>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -361,8 +361,8 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopy(void) const
 {
     MultiCore *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const MultiCore *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const MultiCore *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -379,7 +379,7 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopy(void) const
 
 MultiCoreBase::MultiCoreBase(void) :
     Inherited(),
-    _mfCores                  (this, 
+    _mfCores                  (this,
                           CoresFieldId,
                           NodeCore::ParentsFieldId)
 {
@@ -387,7 +387,7 @@ MultiCoreBase::MultiCoreBase(void) :
 
 MultiCoreBase::MultiCoreBase(const MultiCoreBase &source) :
     Inherited(source),
-    _mfCores                  (this, 
+    _mfCores                  (this,
                           CoresFieldId,
                           NodeCore::ParentsFieldId)
 {
@@ -411,7 +411,7 @@ bool MultiCoreBase::unlinkChild(
     {
         NodeCore * pTypedChild =
             dynamic_cast<NodeCore *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildNodeCorePtr::iterator pI =
@@ -419,26 +419,26 @@ bool MultiCoreBase::unlinkChild(
 
             MFUnrecChildNodeCorePtr::const_iterator pEnd =
                 _mfCores.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(CoresFieldMask, _mfCores);
 
                 _mfCores.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("MultiCoreBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
-    
+
+
     return Inherited::unlinkChild(pChild, childFieldId);
 }
 
@@ -468,7 +468,7 @@ GetFieldHandlePtr MultiCoreBase::getHandleCores           (void) const
 {
     MFUnrecChildNodeCorePtr::GetHandlePtr returnValue(
         new  MFUnrecChildNodeCorePtr::GetHandle(
-             &_mfCores, 
+             &_mfCores,
              this->getType().getFieldDesc(CoresFieldId)));
 
     return returnValue;
@@ -478,11 +478,21 @@ EditFieldHandlePtr MultiCoreBase::editHandleCores          (void)
 {
     MFUnrecChildNodeCorePtr::EditHandlePtr returnValue(
         new  MFUnrecChildNodeCorePtr::EditHandle(
-             &_mfCores, 
+             &_mfCores,
              this->getType().getFieldDesc(CoresFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&MultiCore::addCore, 
-                              static_cast<MultiCore *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&MultiCore::addCore,
+                    static_cast<MultiCore *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&MultiCore::subCore,
+                    static_cast<MultiCore *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&MultiCore::subCoreByObj,
+                    static_cast<MultiCore *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&MultiCore::clearCores,
+                    static_cast<MultiCore *>(this)));
 
     editMField(CoresFieldMask, _mfCores);
 
@@ -533,12 +543,12 @@ DataType FieldTraits<MultiCore *>::_type("MultiCorePtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MultiCore *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MultiCore *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MultiCore *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MultiCore *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MultiCore *,
                            0);
 
 OSG_END_NAMESPACE

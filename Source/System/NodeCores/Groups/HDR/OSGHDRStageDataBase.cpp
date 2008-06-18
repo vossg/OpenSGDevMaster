@@ -136,7 +136,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         ToneMappingMaterialFieldId, ToneMappingMaterialFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleToneMappingMaterial),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleToneMappingMaterial));
 
@@ -148,7 +148,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         BlurRenderTargetFieldId, BlurRenderTargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleBlurRenderTarget),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleBlurRenderTarget));
 
@@ -160,7 +160,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         BlurMaterialFieldId, BlurMaterialFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleBlurMaterial),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleBlurMaterial));
 
@@ -172,7 +172,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         HBlurShaderFieldId, HBlurShaderFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleHBlurShader),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleHBlurShader));
 
@@ -184,7 +184,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         VBlurShaderFieldId, VBlurShaderFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleVBlurShader),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleVBlurShader));
 
@@ -196,7 +196,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         WidthFieldId, WidthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleWidth),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleWidth));
 
@@ -208,7 +208,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         HeightFieldId, HeightFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleHeight),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleHeight));
 
@@ -220,7 +220,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         ShrinkRenderTargetFieldId, ShrinkRenderTargetFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleShrinkRenderTarget),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleShrinkRenderTarget));
 
@@ -232,7 +232,7 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
         "",
         ShrinkMaterialFieldId, ShrinkMaterialFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&HDRStageData::editHandleShrinkMaterial),
         static_cast<FieldGetMethodSig >(&HDRStageData::getHandleShrinkMaterial));
 
@@ -675,8 +675,8 @@ HDRStageData *HDRStageDataBase::createEmpty(void)
 
     newPtr<HDRStageData>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -700,8 +700,8 @@ FieldContainerTransitPtr HDRStageDataBase::shallowCopy(void) const
 {
     HDRStageData *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const HDRStageData *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const HDRStageData *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -779,7 +779,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleToneMappingMaterial (void) const
 {
     SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::GetHandle(
-             &_sfToneMappingMaterial, 
+             &_sfToneMappingMaterial,
              this->getType().getFieldDesc(ToneMappingMaterialFieldId)));
 
     return returnValue;
@@ -789,11 +789,12 @@ EditFieldHandlePtr HDRStageDataBase::editHandleToneMappingMaterial(void)
 {
     SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::EditHandle(
-             &_sfToneMappingMaterial, 
+             &_sfToneMappingMaterial,
              this->getType().getFieldDesc(ToneMappingMaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setToneMappingMaterial, 
-                                          static_cast<HDRStageData *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&HDRStageData::setToneMappingMaterial,
+                    static_cast<HDRStageData *>(this), _1));
 
     editSField(ToneMappingMaterialFieldMask);
 
@@ -804,7 +805,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleBlurRenderTarget (void) const
 {
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
-             &_sfBlurRenderTarget, 
+             &_sfBlurRenderTarget,
              this->getType().getFieldDesc(BlurRenderTargetFieldId)));
 
     return returnValue;
@@ -814,11 +815,12 @@ EditFieldHandlePtr HDRStageDataBase::editHandleBlurRenderTarget(void)
 {
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
-             &_sfBlurRenderTarget, 
+             &_sfBlurRenderTarget,
              this->getType().getFieldDesc(BlurRenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurRenderTarget, 
-                                          static_cast<HDRStageData *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&HDRStageData::setBlurRenderTarget,
+                    static_cast<HDRStageData *>(this), _1));
 
     editSField(BlurRenderTargetFieldMask);
 
@@ -829,7 +831,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleBlurMaterial    (void) const
 {
     SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::GetHandle(
-             &_sfBlurMaterial, 
+             &_sfBlurMaterial,
              this->getType().getFieldDesc(BlurMaterialFieldId)));
 
     return returnValue;
@@ -839,11 +841,12 @@ EditFieldHandlePtr HDRStageDataBase::editHandleBlurMaterial   (void)
 {
     SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::EditHandle(
-             &_sfBlurMaterial, 
+             &_sfBlurMaterial,
              this->getType().getFieldDesc(BlurMaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setBlurMaterial, 
-                                          static_cast<HDRStageData *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&HDRStageData::setBlurMaterial,
+                    static_cast<HDRStageData *>(this), _1));
 
     editSField(BlurMaterialFieldMask);
 
@@ -854,7 +857,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleHBlurShader     (void) const
 {
     SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::GetHandle(
-             &_sfHBlurShader, 
+             &_sfHBlurShader,
              this->getType().getFieldDesc(HBlurShaderFieldId)));
 
     return returnValue;
@@ -864,11 +867,12 @@ EditFieldHandlePtr HDRStageDataBase::editHandleHBlurShader    (void)
 {
     SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::EditHandle(
-             &_sfHBlurShader, 
+             &_sfHBlurShader,
              this->getType().getFieldDesc(HBlurShaderFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setHBlurShader, 
-                                          static_cast<HDRStageData *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&HDRStageData::setHBlurShader,
+                    static_cast<HDRStageData *>(this), _1));
 
     editSField(HBlurShaderFieldMask);
 
@@ -879,7 +883,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleVBlurShader     (void) const
 {
     SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::GetHandle(
-             &_sfVBlurShader, 
+             &_sfVBlurShader,
              this->getType().getFieldDesc(VBlurShaderFieldId)));
 
     return returnValue;
@@ -889,11 +893,12 @@ EditFieldHandlePtr HDRStageDataBase::editHandleVBlurShader    (void)
 {
     SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::EditHandle(
-             &_sfVBlurShader, 
+             &_sfVBlurShader,
              this->getType().getFieldDesc(VBlurShaderFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setVBlurShader, 
-                                          static_cast<HDRStageData *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&HDRStageData::setVBlurShader,
+                    static_cast<HDRStageData *>(this), _1));
 
     editSField(VBlurShaderFieldMask);
 
@@ -904,7 +909,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleWidth           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
 
     return returnValue;
@@ -914,8 +919,9 @@ EditFieldHandlePtr HDRStageDataBase::editHandleWidth          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
+
 
     editSField(WidthFieldMask);
 
@@ -926,7 +932,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleHeight          (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
 
     return returnValue;
@@ -936,8 +942,9 @@ EditFieldHandlePtr HDRStageDataBase::editHandleHeight         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
+
 
     editSField(HeightFieldMask);
 
@@ -948,7 +955,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleShrinkRenderTarget (void) const
 {
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
-             &_sfShrinkRenderTarget, 
+             &_sfShrinkRenderTarget,
              this->getType().getFieldDesc(ShrinkRenderTargetFieldId)));
 
     return returnValue;
@@ -958,11 +965,12 @@ EditFieldHandlePtr HDRStageDataBase::editHandleShrinkRenderTarget(void)
 {
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
-             &_sfShrinkRenderTarget, 
+             &_sfShrinkRenderTarget,
              this->getType().getFieldDesc(ShrinkRenderTargetFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkRenderTarget, 
-                                          static_cast<HDRStageData *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&HDRStageData::setShrinkRenderTarget,
+                    static_cast<HDRStageData *>(this), _1));
 
     editSField(ShrinkRenderTargetFieldMask);
 
@@ -973,7 +981,7 @@ GetFieldHandlePtr HDRStageDataBase::getHandleShrinkMaterial  (void) const
 {
     SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::GetHandle(
-             &_sfShrinkMaterial, 
+             &_sfShrinkMaterial,
              this->getType().getFieldDesc(ShrinkMaterialFieldId)));
 
     return returnValue;
@@ -983,11 +991,12 @@ EditFieldHandlePtr HDRStageDataBase::editHandleShrinkMaterial (void)
 {
     SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::EditHandle(
-             &_sfShrinkMaterial, 
+             &_sfShrinkMaterial,
              this->getType().getFieldDesc(ShrinkMaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&HDRStageData::setShrinkMaterial, 
-                                          static_cast<HDRStageData *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&HDRStageData::setShrinkMaterial,
+                    static_cast<HDRStageData *>(this), _1));
 
     editSField(ShrinkMaterialFieldMask);
 

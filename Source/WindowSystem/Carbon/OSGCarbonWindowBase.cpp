@@ -97,7 +97,7 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
         "",
         ContextFieldId, ContextFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CarbonWindow::editHandleContext),
         static_cast<FieldGetMethodSig >(&CarbonWindow::getHandleContext));
 
@@ -265,8 +265,8 @@ CarbonWindow *CarbonWindowBase::createEmpty(void)
 
     newPtr<CarbonWindow>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -290,8 +290,8 @@ FieldContainerTransitPtr CarbonWindowBase::shallowCopy(void) const
 {
     CarbonWindow *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const CarbonWindow *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const CarbonWindow *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,7 +330,7 @@ GetFieldHandlePtr CarbonWindowBase::getHandleContext         (void) const
 {
     SFAGLContext::GetHandlePtr returnValue(
         new  SFAGLContext::GetHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
 
     return returnValue;
@@ -340,8 +340,9 @@ EditFieldHandlePtr CarbonWindowBase::editHandleContext        (void)
 {
     SFAGLContext::EditHandlePtr returnValue(
         new  SFAGLContext::EditHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
+
 
     editSField(ContextFieldMask);
 
@@ -391,12 +392,12 @@ DataType FieldTraits<CarbonWindow *>::_type("CarbonWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(CarbonWindow *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CarbonWindow *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CarbonWindow *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CarbonWindow *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CarbonWindow *,
                            0);
 
 OSG_END_NAMESPACE

@@ -97,7 +97,7 @@ void ShaderParameterPnt2fBase::classDescInserter(TypeObject &oType)
         "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderParameterPnt2f::editHandleValue),
         static_cast<FieldGetMethodSig >(&ShaderParameterPnt2f::getHandleValue));
 
@@ -265,8 +265,8 @@ ShaderParameterPnt2f *ShaderParameterPnt2fBase::createEmpty(void)
 
     newPtr<ShaderParameterPnt2f>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -290,8 +290,8 @@ FieldContainerTransitPtr ShaderParameterPnt2fBase::shallowCopy(void) const
 {
     ShaderParameterPnt2f *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ShaderParameterPnt2f *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ShaderParameterPnt2f *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,7 +330,7 @@ GetFieldHandlePtr ShaderParameterPnt2fBase::getHandleValue           (void) cons
 {
     SFPnt2f::GetHandlePtr returnValue(
         new  SFPnt2f::GetHandle(
-             &_sfValue, 
+             &_sfValue,
              this->getType().getFieldDesc(ValueFieldId)));
 
     return returnValue;
@@ -340,8 +340,9 @@ EditFieldHandlePtr ShaderParameterPnt2fBase::editHandleValue          (void)
 {
     SFPnt2f::EditHandlePtr returnValue(
         new  SFPnt2f::EditHandle(
-             &_sfValue, 
+             &_sfValue,
              this->getType().getFieldDesc(ValueFieldId)));
+
 
     editSField(ValueFieldMask);
 
@@ -391,12 +392,12 @@ DataType FieldTraits<ShaderParameterPnt2f *>::_type("ShaderParameterPnt2fPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterPnt2f *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterPnt2f *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterPnt2f *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterPnt2f *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterPnt2f *,
                            0);
 
 OSG_END_NAMESPACE

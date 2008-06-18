@@ -97,7 +97,7 @@ void TestStageBase::classDescInserter(TypeObject &oType)
         "",
         MessageFieldId, MessageFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TestStage::editHandleMessage),
         static_cast<FieldGetMethodSig >(&TestStage::getHandleMessage));
 
@@ -266,8 +266,8 @@ TestStage *TestStageBase::createEmpty(void)
 
     newPtr<TestStage>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -291,8 +291,8 @@ FieldContainerTransitPtr TestStageBase::shallowCopy(void) const
 {
     TestStage *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TestStage *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TestStage *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -331,7 +331,7 @@ GetFieldHandlePtr TestStageBase::getHandleMessage         (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfMessage, 
+             &_sfMessage,
              this->getType().getFieldDesc(MessageFieldId)));
 
     return returnValue;
@@ -341,8 +341,9 @@ EditFieldHandlePtr TestStageBase::editHandleMessage        (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfMessage, 
+             &_sfMessage,
              this->getType().getFieldDesc(MessageFieldId)));
+
 
     editSField(MessageFieldMask);
 

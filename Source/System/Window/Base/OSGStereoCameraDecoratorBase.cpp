@@ -106,7 +106,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "Flag to distinguish between left and right eye views.\n",
         LeftEyeFieldId, LeftEyeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StereoCameraDecorator::editHandleLeftEye),
         static_cast<FieldGetMethodSig >(&StereoCameraDecorator::getHandleLeftEye));
 
@@ -118,7 +118,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "The distance between the two eyes.\n",
         EyeSeparationFieldId, EyeSeparationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&StereoCameraDecorator::editHandleEyeSeparation),
         static_cast<FieldGetMethodSig >(&StereoCameraDecorator::getHandleEyeSeparation));
 
@@ -311,7 +311,7 @@ GetFieldHandlePtr StereoCameraDecoratorBase::getHandleLeftEye         (void) con
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfLeftEye, 
+             &_sfLeftEye,
              this->getType().getFieldDesc(LeftEyeFieldId)));
 
     return returnValue;
@@ -321,8 +321,9 @@ EditFieldHandlePtr StereoCameraDecoratorBase::editHandleLeftEye        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfLeftEye, 
+             &_sfLeftEye,
              this->getType().getFieldDesc(LeftEyeFieldId)));
+
 
     editSField(LeftEyeFieldMask);
 
@@ -333,7 +334,7 @@ GetFieldHandlePtr StereoCameraDecoratorBase::getHandleEyeSeparation   (void) con
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfEyeSeparation, 
+             &_sfEyeSeparation,
              this->getType().getFieldDesc(EyeSeparationFieldId)));
 
     return returnValue;
@@ -343,8 +344,9 @@ EditFieldHandlePtr StereoCameraDecoratorBase::editHandleEyeSeparation  (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfEyeSeparation, 
+             &_sfEyeSeparation,
              this->getType().getFieldDesc(EyeSeparationFieldId)));
+
 
     editSField(EyeSeparationFieldMask);
 
@@ -383,12 +385,12 @@ DataType FieldTraits<StereoCameraDecorator *>::_type("StereoCameraDecoratorPtr",
 
 OSG_FIELDTRAITS_GETTYPE(StereoCameraDecorator *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StereoCameraDecorator *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StereoCameraDecorator *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StereoCameraDecorator *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StereoCameraDecorator *,
                            0);
 
 OSG_END_NAMESPACE

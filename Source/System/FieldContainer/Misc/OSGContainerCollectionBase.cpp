@@ -102,7 +102,7 @@ void ContainerCollectionBase::classDescInserter(TypeObject &oType)
         "The name of the container collection.  Can be used to identify collections.\n",
         NameFieldId, NameFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ContainerCollection::editHandleName),
         static_cast<FieldGetMethodSig >(&ContainerCollection::getHandleName));
 
@@ -114,7 +114,7 @@ void ContainerCollectionBase::classDescInserter(TypeObject &oType)
         "A list of containers held in the collection.\n",
         ContainersFieldId, ContainersFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ContainerCollection::editHandleContainers),
         static_cast<FieldGetMethodSig >(&ContainerCollection::getHandleContainers));
 
@@ -252,7 +252,7 @@ void ContainerCollectionBase::removeFromContainers(UInt32 uiIndex)
     }
 }
 
-void ContainerCollectionBase::removeFromContainers(FieldContainer * const value)
+void ContainerCollectionBase::removeObjFromContainers(FieldContainer * const value)
 {
     Int32 iElemIdx = _mfContainers.findIndex(value);
 
@@ -375,8 +375,8 @@ ContainerCollection *ContainerCollectionBase::createEmpty(void)
 
     newPtr<ContainerCollection>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -400,8 +400,8 @@ FieldContainerTransitPtr ContainerCollectionBase::shallowCopy(void) const
 {
     ContainerCollection *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ContainerCollection *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ContainerCollection *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -463,7 +463,7 @@ GetFieldHandlePtr ContainerCollectionBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
 
     return returnValue;
@@ -473,8 +473,9 @@ EditFieldHandlePtr ContainerCollectionBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
+
 
     editSField(NameFieldMask);
 
@@ -485,7 +486,7 @@ GetFieldHandlePtr ContainerCollectionBase::getHandleContainers      (void) const
 {
     MFUnrecFieldContainerPtr::GetHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::GetHandle(
-             &_mfContainers, 
+             &_mfContainers,
              this->getType().getFieldDesc(ContainersFieldId)));
 
     return returnValue;
@@ -495,11 +496,21 @@ EditFieldHandlePtr ContainerCollectionBase::editHandleContainers     (void)
 {
     MFUnrecFieldContainerPtr::EditHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::EditHandle(
-             &_mfContainers, 
+             &_mfContainers,
              this->getType().getFieldDesc(ContainersFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ContainerCollection::pushToContainers, 
-                              static_cast<ContainerCollection *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&ContainerCollection::pushToContainers,
+                    static_cast<ContainerCollection *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&ContainerCollection::removeFromContainers,
+                    static_cast<ContainerCollection *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&ContainerCollection::removeObjFromContainers,
+                    static_cast<ContainerCollection *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&ContainerCollection::clearContainers,
+                    static_cast<ContainerCollection *>(this)));
 
     editMField(ContainersFieldMask, _mfContainers);
 
@@ -550,12 +561,12 @@ DataType FieldTraits<ContainerCollection *>::_type("ContainerCollectionPtr", "At
 
 OSG_FIELDTRAITS_GETTYPE(ContainerCollection *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ContainerCollection *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ContainerCollection *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ContainerCollection *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ContainerCollection *,
                            0);
 
 OSG_END_NAMESPACE

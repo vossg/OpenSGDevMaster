@@ -133,7 +133,7 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         "The number of vertices in the subtree.\n",
         VerticesFieldId, VerticesFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleVertices),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleVertices));
 
@@ -145,7 +145,7 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         "The number of points in the subtree.\n",
         PointsFieldId, PointsFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandlePoints),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandlePoints));
 
@@ -157,7 +157,7 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         "The number of lines in the subtree.\n",
         LinesFieldId, LinesFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleLines),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleLines));
 
@@ -169,7 +169,7 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         "The number of triangles in the subtree.\n",
         TrianglesFieldId, TrianglesFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleTriangles),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleTriangles));
 
@@ -181,7 +181,7 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         "The number of bytes in vertex attribute data that are processed while rendering.\n",
         ProcessedAttributeBytesFieldId, ProcessedAttributeBytesFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleProcessedAttributeBytes),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleProcessedAttributeBytes));
 
@@ -193,7 +193,7 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         "The number of bytes in vertex attribute data that are stored.\n",
         StoredAttributeBytesFieldId, StoredAttributeBytesFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleStoredAttributeBytes),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleStoredAttributeBytes));
 
@@ -205,7 +205,7 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         "Flags whether the data is valid or needs to be updated.\n",
         ValidFieldId, ValidFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleValid),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleValid));
 
@@ -602,8 +602,8 @@ DrawableStatsAttachment *DrawableStatsAttachmentBase::createEmpty(void)
 
     newPtr<DrawableStatsAttachment>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -627,8 +627,8 @@ FieldContainerTransitPtr DrawableStatsAttachmentBase::shallowCopy(void) const
 {
     DrawableStatsAttachment *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const DrawableStatsAttachment *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const DrawableStatsAttachment *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -679,7 +679,7 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleVertices        (void) c
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfVertices, 
+             &_sfVertices,
              this->getType().getFieldDesc(VerticesFieldId)));
 
     return returnValue;
@@ -689,8 +689,9 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleVertices       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfVertices, 
+             &_sfVertices,
              this->getType().getFieldDesc(VerticesFieldId)));
+
 
     editSField(VerticesFieldMask);
 
@@ -701,7 +702,7 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandlePoints          (void) c
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfPoints, 
+             &_sfPoints,
              this->getType().getFieldDesc(PointsFieldId)));
 
     return returnValue;
@@ -711,8 +712,9 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandlePoints         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfPoints, 
+             &_sfPoints,
              this->getType().getFieldDesc(PointsFieldId)));
+
 
     editSField(PointsFieldMask);
 
@@ -723,7 +725,7 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleLines           (void) c
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfLines, 
+             &_sfLines,
              this->getType().getFieldDesc(LinesFieldId)));
 
     return returnValue;
@@ -733,8 +735,9 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleLines          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfLines, 
+             &_sfLines,
              this->getType().getFieldDesc(LinesFieldId)));
+
 
     editSField(LinesFieldMask);
 
@@ -745,7 +748,7 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleTriangles       (void) c
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfTriangles, 
+             &_sfTriangles,
              this->getType().getFieldDesc(TrianglesFieldId)));
 
     return returnValue;
@@ -755,8 +758,9 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleTriangles      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfTriangles, 
+             &_sfTriangles,
              this->getType().getFieldDesc(TrianglesFieldId)));
+
 
     editSField(TrianglesFieldMask);
 
@@ -767,7 +771,7 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleProcessedAttributeBytes 
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfProcessedAttributeBytes, 
+             &_sfProcessedAttributeBytes,
              this->getType().getFieldDesc(ProcessedAttributeBytesFieldId)));
 
     return returnValue;
@@ -777,8 +781,9 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleProcessedAttributeByte
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfProcessedAttributeBytes, 
+             &_sfProcessedAttributeBytes,
              this->getType().getFieldDesc(ProcessedAttributeBytesFieldId)));
+
 
     editSField(ProcessedAttributeBytesFieldMask);
 
@@ -789,7 +794,7 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleStoredAttributeBytes (vo
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfStoredAttributeBytes, 
+             &_sfStoredAttributeBytes,
              this->getType().getFieldDesc(StoredAttributeBytesFieldId)));
 
     return returnValue;
@@ -799,8 +804,9 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleStoredAttributeBytes(v
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfStoredAttributeBytes, 
+             &_sfStoredAttributeBytes,
              this->getType().getFieldDesc(StoredAttributeBytesFieldId)));
+
 
     editSField(StoredAttributeBytesFieldMask);
 
@@ -811,7 +817,7 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleValid           (void) c
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfValid, 
+             &_sfValid,
              this->getType().getFieldDesc(ValidFieldId)));
 
     return returnValue;
@@ -821,8 +827,9 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleValid          (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfValid, 
+             &_sfValid,
              this->getType().getFieldDesc(ValidFieldId)));
+
 
     editSField(ValidFieldMask);
 
@@ -872,12 +879,12 @@ DataType FieldTraits<DrawableStatsAttachment *>::_type("DrawableStatsAttachmentP
 
 OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachment *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DrawableStatsAttachment *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DrawableStatsAttachment *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DrawableStatsAttachment *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DrawableStatsAttachment *,
                            0);
 
 OSG_END_NAMESPACE

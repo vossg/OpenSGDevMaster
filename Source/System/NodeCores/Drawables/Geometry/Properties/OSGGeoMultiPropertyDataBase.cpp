@@ -101,7 +101,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         "The data for the multi-properties.\n",
         IDataFieldId, IDataFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoMultiPropertyData::editHandleIData),
         static_cast<FieldGetMethodSig >(&GeoMultiPropertyData::getHandleIData));
 
@@ -316,8 +316,8 @@ GeoMultiPropertyData *GeoMultiPropertyDataBase::createEmpty(void)
 
     newPtr<GeoMultiPropertyData>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -341,8 +341,8 @@ FieldContainerTransitPtr GeoMultiPropertyDataBase::shallowCopy(void) const
 {
     GeoMultiPropertyData *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const GeoMultiPropertyData *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const GeoMultiPropertyData *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -383,7 +383,7 @@ GetFieldHandlePtr GeoMultiPropertyDataBase::getHandleIData           (void) cons
 {
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
-             &_mfIData, 
+             &_mfIData,
              this->getType().getFieldDesc(IDataFieldId)));
 
     return returnValue;
@@ -393,8 +393,9 @@ EditFieldHandlePtr GeoMultiPropertyDataBase::editHandleIData          (void)
 {
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
-             &_mfIData, 
+             &_mfIData,
              this->getType().getFieldDesc(IDataFieldId)));
+
 
     editMField(IDataFieldMask, _mfIData);
 
@@ -405,7 +406,7 @@ GetFieldHandlePtr GeoMultiPropertyDataBase::getHandleGLId            (void) cons
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
 
     return returnValue;
@@ -415,8 +416,9 @@ EditFieldHandlePtr GeoMultiPropertyDataBase::editHandleGLId           (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
+
 
     editSField(GLIdFieldMask);
 
@@ -463,7 +465,7 @@ void GeoMultiPropertyDataBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfIData.terminateShare(Thread::getCurrentAspect(), 
+    _mfIData.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -475,12 +477,12 @@ DataType FieldTraits<GeoMultiPropertyData *>::_type("GeoMultiPropertyDataPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyData *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoMultiPropertyData *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoMultiPropertyData *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoMultiPropertyData *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoMultiPropertyData *,
                            0);
 
 OSG_END_NAMESPACE

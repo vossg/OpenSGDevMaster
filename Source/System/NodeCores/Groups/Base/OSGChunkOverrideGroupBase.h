@@ -222,6 +222,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

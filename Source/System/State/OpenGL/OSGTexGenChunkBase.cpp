@@ -162,7 +162,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncSFieldId, GenFuncSFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncS),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncS));
 
@@ -174,7 +174,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncTFieldId, GenFuncTFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncT),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncT));
 
@@ -186,7 +186,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncRFieldId, GenFuncRFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncR),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncR));
 
@@ -198,7 +198,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncQFieldId, GenFuncQFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncQ),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncQ));
 
@@ -210,7 +210,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncSPlaneFieldId, GenFuncSPlaneFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncSPlane),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncSPlane));
 
@@ -222,7 +222,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncTPlaneFieldId, GenFuncTPlaneFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncTPlane),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncTPlane));
 
@@ -234,7 +234,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncRPlaneFieldId, GenFuncRPlaneFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncRPlane),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncRPlane));
 
@@ -246,7 +246,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         GenFuncQPlaneFieldId, GenFuncQPlaneFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleGenFuncQPlane),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleGenFuncQPlane));
 
@@ -258,7 +258,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         SBeaconFieldId, SBeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleSBeacon),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleSBeacon));
 
@@ -270,7 +270,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         TBeaconFieldId, TBeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleTBeacon),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleTBeacon));
 
@@ -282,7 +282,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         RBeaconFieldId, RBeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleRBeacon),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleRBeacon));
 
@@ -294,7 +294,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         "",
         QBeaconFieldId, QBeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleQBeacon),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleQBeacon));
 
@@ -867,8 +867,8 @@ TexGenChunk *TexGenChunkBase::createEmpty(void)
 
     newPtr<TexGenChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -892,8 +892,8 @@ FieldContainerTransitPtr TexGenChunkBase::shallowCopy(void) const
 {
     TexGenChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TexGenChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TexGenChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -971,7 +971,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncS        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGenFuncS, 
+             &_sfGenFuncS,
              this->getType().getFieldDesc(GenFuncSFieldId)));
 
     return returnValue;
@@ -981,8 +981,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncS       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGenFuncS, 
+             &_sfGenFuncS,
              this->getType().getFieldDesc(GenFuncSFieldId)));
+
 
     editSField(GenFuncSFieldMask);
 
@@ -993,7 +994,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncT        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGenFuncT, 
+             &_sfGenFuncT,
              this->getType().getFieldDesc(GenFuncTFieldId)));
 
     return returnValue;
@@ -1003,8 +1004,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncT       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGenFuncT, 
+             &_sfGenFuncT,
              this->getType().getFieldDesc(GenFuncTFieldId)));
+
 
     editSField(GenFuncTFieldMask);
 
@@ -1015,7 +1017,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncR        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGenFuncR, 
+             &_sfGenFuncR,
              this->getType().getFieldDesc(GenFuncRFieldId)));
 
     return returnValue;
@@ -1025,8 +1027,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncR       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGenFuncR, 
+             &_sfGenFuncR,
              this->getType().getFieldDesc(GenFuncRFieldId)));
+
 
     editSField(GenFuncRFieldMask);
 
@@ -1037,7 +1040,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncQ        (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGenFuncQ, 
+             &_sfGenFuncQ,
              this->getType().getFieldDesc(GenFuncQFieldId)));
 
     return returnValue;
@@ -1047,8 +1050,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncQ       (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGenFuncQ, 
+             &_sfGenFuncQ,
              this->getType().getFieldDesc(GenFuncQFieldId)));
+
 
     editSField(GenFuncQFieldMask);
 
@@ -1059,7 +1063,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncSPlane   (void) const
 {
     SFVec4f::GetHandlePtr returnValue(
         new  SFVec4f::GetHandle(
-             &_sfGenFuncSPlane, 
+             &_sfGenFuncSPlane,
              this->getType().getFieldDesc(GenFuncSPlaneFieldId)));
 
     return returnValue;
@@ -1069,8 +1073,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncSPlane  (void)
 {
     SFVec4f::EditHandlePtr returnValue(
         new  SFVec4f::EditHandle(
-             &_sfGenFuncSPlane, 
+             &_sfGenFuncSPlane,
              this->getType().getFieldDesc(GenFuncSPlaneFieldId)));
+
 
     editSField(GenFuncSPlaneFieldMask);
 
@@ -1081,7 +1086,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncTPlane   (void) const
 {
     SFVec4f::GetHandlePtr returnValue(
         new  SFVec4f::GetHandle(
-             &_sfGenFuncTPlane, 
+             &_sfGenFuncTPlane,
              this->getType().getFieldDesc(GenFuncTPlaneFieldId)));
 
     return returnValue;
@@ -1091,8 +1096,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncTPlane  (void)
 {
     SFVec4f::EditHandlePtr returnValue(
         new  SFVec4f::EditHandle(
-             &_sfGenFuncTPlane, 
+             &_sfGenFuncTPlane,
              this->getType().getFieldDesc(GenFuncTPlaneFieldId)));
+
 
     editSField(GenFuncTPlaneFieldMask);
 
@@ -1103,7 +1109,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncRPlane   (void) const
 {
     SFVec4f::GetHandlePtr returnValue(
         new  SFVec4f::GetHandle(
-             &_sfGenFuncRPlane, 
+             &_sfGenFuncRPlane,
              this->getType().getFieldDesc(GenFuncRPlaneFieldId)));
 
     return returnValue;
@@ -1113,8 +1119,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncRPlane  (void)
 {
     SFVec4f::EditHandlePtr returnValue(
         new  SFVec4f::EditHandle(
-             &_sfGenFuncRPlane, 
+             &_sfGenFuncRPlane,
              this->getType().getFieldDesc(GenFuncRPlaneFieldId)));
+
 
     editSField(GenFuncRPlaneFieldMask);
 
@@ -1125,7 +1132,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleGenFuncQPlane   (void) const
 {
     SFVec4f::GetHandlePtr returnValue(
         new  SFVec4f::GetHandle(
-             &_sfGenFuncQPlane, 
+             &_sfGenFuncQPlane,
              this->getType().getFieldDesc(GenFuncQPlaneFieldId)));
 
     return returnValue;
@@ -1135,8 +1142,9 @@ EditFieldHandlePtr TexGenChunkBase::editHandleGenFuncQPlane  (void)
 {
     SFVec4f::EditHandlePtr returnValue(
         new  SFVec4f::EditHandle(
-             &_sfGenFuncQPlane, 
+             &_sfGenFuncQPlane,
              this->getType().getFieldDesc(GenFuncQPlaneFieldId)));
+
 
     editSField(GenFuncQPlaneFieldMask);
 
@@ -1147,7 +1155,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleSBeacon         (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfSBeacon, 
+             &_sfSBeacon,
              this->getType().getFieldDesc(SBeaconFieldId)));
 
     return returnValue;
@@ -1157,11 +1165,12 @@ EditFieldHandlePtr TexGenChunkBase::editHandleSBeacon        (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfSBeacon, 
+             &_sfSBeacon,
              this->getType().getFieldDesc(SBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setSBeacon, 
-                                          static_cast<TexGenChunk *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&TexGenChunk::setSBeacon,
+                    static_cast<TexGenChunk *>(this), _1));
 
     editSField(SBeaconFieldMask);
 
@@ -1172,7 +1181,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleTBeacon         (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfTBeacon, 
+             &_sfTBeacon,
              this->getType().getFieldDesc(TBeaconFieldId)));
 
     return returnValue;
@@ -1182,11 +1191,12 @@ EditFieldHandlePtr TexGenChunkBase::editHandleTBeacon        (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfTBeacon, 
+             &_sfTBeacon,
              this->getType().getFieldDesc(TBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setTBeacon, 
-                                          static_cast<TexGenChunk *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&TexGenChunk::setTBeacon,
+                    static_cast<TexGenChunk *>(this), _1));
 
     editSField(TBeaconFieldMask);
 
@@ -1197,7 +1207,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleRBeacon         (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfRBeacon, 
+             &_sfRBeacon,
              this->getType().getFieldDesc(RBeaconFieldId)));
 
     return returnValue;
@@ -1207,11 +1217,12 @@ EditFieldHandlePtr TexGenChunkBase::editHandleRBeacon        (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfRBeacon, 
+             &_sfRBeacon,
              this->getType().getFieldDesc(RBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setRBeacon, 
-                                          static_cast<TexGenChunk *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&TexGenChunk::setRBeacon,
+                    static_cast<TexGenChunk *>(this), _1));
 
     editSField(RBeaconFieldMask);
 
@@ -1222,7 +1233,7 @@ GetFieldHandlePtr TexGenChunkBase::getHandleQBeacon         (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfQBeacon, 
+             &_sfQBeacon,
              this->getType().getFieldDesc(QBeaconFieldId)));
 
     return returnValue;
@@ -1232,11 +1243,12 @@ EditFieldHandlePtr TexGenChunkBase::editHandleQBeacon        (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfQBeacon, 
+             &_sfQBeacon,
              this->getType().getFieldDesc(QBeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&TexGenChunk::setQBeacon, 
-                                          static_cast<TexGenChunk *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&TexGenChunk::setQBeacon,
+                    static_cast<TexGenChunk *>(this), _1));
 
     editSField(QBeaconFieldMask);
 
@@ -1294,12 +1306,12 @@ DataType FieldTraits<TexGenChunk *>::_type("TexGenChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(TexGenChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TexGenChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TexGenChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TexGenChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TexGenChunk *,
                            0);
 
 OSG_END_NAMESPACE

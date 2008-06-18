@@ -215,7 +215,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
                               UInt16           const parentFieldId);
     virtual bool unlinkParent(FieldContainer * const pParent,
                               UInt16           const parentFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

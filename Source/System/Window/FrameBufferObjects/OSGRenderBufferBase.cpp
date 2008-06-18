@@ -116,7 +116,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         "",
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&RenderBuffer::editHandleInternalFormat),
         static_cast<FieldGetMethodSig >(&RenderBuffer::getHandleInternalFormat));
 
@@ -326,8 +326,8 @@ RenderBuffer *RenderBufferBase::createEmpty(void)
 
     newPtr<RenderBuffer>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -351,8 +351,8 @@ FieldContainerTransitPtr RenderBufferBase::shallowCopy(void) const
 {
     RenderBuffer *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const RenderBuffer *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const RenderBuffer *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -393,7 +393,7 @@ GetFieldHandlePtr RenderBufferBase::getHandleGLId            (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
 
     return returnValue;
@@ -403,8 +403,9 @@ EditFieldHandlePtr RenderBufferBase::editHandleGLId           (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
+
 
     editSField(GLIdFieldMask);
 
@@ -415,7 +416,7 @@ GetFieldHandlePtr RenderBufferBase::getHandleInternalFormat  (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfInternalFormat, 
+             &_sfInternalFormat,
              this->getType().getFieldDesc(InternalFormatFieldId)));
 
     return returnValue;
@@ -425,8 +426,9 @@ EditFieldHandlePtr RenderBufferBase::editHandleInternalFormat (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfInternalFormat, 
+             &_sfInternalFormat,
              this->getType().getFieldDesc(InternalFormatFieldId)));
+
 
     editSField(InternalFormatFieldMask);
 
@@ -476,12 +478,12 @@ DataType FieldTraits<RenderBuffer *>::_type("RenderBufferPtr", "FrameBufferAttac
 
 OSG_FIELDTRAITS_GETTYPE(RenderBuffer *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           RenderBuffer *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           RenderBuffer *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           RenderBuffer *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           RenderBuffer *,
                            0);
 
 OSG_END_NAMESPACE

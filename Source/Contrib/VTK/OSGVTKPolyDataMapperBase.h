@@ -223,64 +223,64 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     void pushToGeoRoots            (Node * const value   );
     void assignGeoRoots           (const MFUnrecNodePtr    &value);
     void removeFromGeoRoots (UInt32               uiIndex );
-    void removeFromGeoRoots(Node * const value   );
-    void clearGeoRoots              (void                          );
+    void removeObjFromGeoRoots(Node * const value   );
+    void clearGeoRoots              (void                         );
 
 
     void pushToGeometries           (Geometry * const value   );
     void assignGeometries          (const MFUnrecGeometryPtr &value);
     void removeFromGeometries (UInt32               uiIndex );
-    void removeFromGeometries(Geometry * const value   );
-    void clearGeometries            (void                          );
+    void removeObjFromGeometries(Geometry * const value   );
+    void clearGeometries            (void                         );
 
 
     void pushToMaterials           (ChunkMaterial * const value   );
     void assignMaterials          (const MFUnrecChunkMaterialPtr &value);
     void removeFromMaterials (UInt32               uiIndex );
-    void removeFromMaterials(ChunkMaterial * const value   );
-    void clearMaterials             (void                          );
+    void removeObjFromMaterials(ChunkMaterial * const value   );
+    void clearMaterials             (void                         );
 
 
     void pushToMaterialChunks           (MaterialChunk * const value   );
     void assignMaterialChunks          (const MFUnrecMaterialChunkPtr &value);
     void removeFromMaterialChunks (UInt32               uiIndex );
-    void removeFromMaterialChunks(MaterialChunk * const value   );
-    void clearMaterialChunks            (void                          );
+    void removeObjFromMaterialChunks(MaterialChunk * const value   );
+    void clearMaterialChunks            (void                         );
 
 
     void pushToPositions           (GeoPnt3fProperty * const value   );
     void assignPositions          (const MFUnrecGeoPnt3fPropertyPtr &value);
     void removeFromPositions (UInt32               uiIndex );
-    void removeFromPositions(GeoPnt3fProperty * const value   );
-    void clearPositions             (void                          );
+    void removeObjFromPositions(GeoPnt3fProperty * const value   );
+    void clearPositions             (void                         );
 
 
     void pushToLength              (GeoUInt32Property * const value   );
     void assignLength             (const MFUnrecGeoUInt32PropertyPtr &value);
     void removeFromLength (UInt32               uiIndex );
-    void removeFromLength(GeoUInt32Property * const value   );
-    void clearLength                (void                          );
+    void removeObjFromLength(GeoUInt32Property * const value   );
+    void clearLength                (void                         );
 
 
     void pushToTypes               (GeoUInt8Property * const value   );
     void assignTypes              (const MFUnrecGeoUInt8PropertyPtr &value);
     void removeFromTypes (UInt32               uiIndex );
-    void removeFromTypes(GeoUInt8Property * const value   );
-    void clearTypes                 (void                          );
+    void removeObjFromTypes(GeoUInt8Property * const value   );
+    void clearTypes                 (void                         );
 
 
     void pushToColors              (GeoColor4fProperty * const value   );
     void assignColors             (const MFUnrecGeoColor4fPropertyPtr &value);
     void removeFromColors (UInt32               uiIndex );
-    void removeFromColors(GeoColor4fProperty * const value   );
-    void clearColors                (void                          );
+    void removeObjFromColors(GeoColor4fProperty * const value   );
+    void clearColors                (void                         );
 
 
     void pushToNormals             (GeoVec3fProperty * const value   );
     void assignNormals            (const MFUnrecGeoVec3fPropertyPtr &value);
     void removeFromNormals (UInt32               uiIndex );
-    void removeFromNormals(GeoVec3fProperty * const value   );
-    void clearNormals               (void                          );
+    void removeObjFromNormals(GeoVec3fProperty * const value   );
+    void clearNormals               (void                         );
 
 
     /*! \}                                                                 */

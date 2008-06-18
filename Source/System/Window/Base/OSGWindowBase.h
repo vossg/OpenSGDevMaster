@@ -204,15 +204,15 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
     void addPort                   (Viewport * const value   );
     void assignPort               (const MFUnrecChildViewportPtr &value);
-    void clearPorts                 (void                          );
+    void clearPorts                 (void                         );
     void insertPort           (UInt32               uiIndex,
                                              Viewport * const value   );
     void replacePort      (      UInt32         uiIndex,
                                              Viewport * const value   );
-    void replacePortBy   (Viewport * const pOldElem,
+    void replacePortByObj (Viewport * const pOldElem,
                                              Viewport * const pNewElem);
     void subPort         (UInt32               uiIndex );
-    void subPort        (Viewport * const value   );
+    void subPortByObj   (Viewport * const value   );
 
 
     /*! \}                                                                 */
@@ -276,10 +276,10 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name Child linking                                                */
     /*! \{                                                                 */
-    
+
     virtual bool unlinkChild(FieldContainer * const pChild,
                              UInt16           const childFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

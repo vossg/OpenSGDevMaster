@@ -150,8 +150,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     void pushToDrawer              (Drawer * const value   );
     void assignDrawer             (const MFUnrecDrawerPtr  &value);
     void removeFromDrawer (UInt32               uiIndex );
-    void removeFromDrawer(Drawer * const value   );
-    void clearDrawer                (void                          );
+    void removeObjFromDrawer(Drawer * const value   );
+    void clearDrawer                (void                         );
 
 
     /*! \}                                                                 */

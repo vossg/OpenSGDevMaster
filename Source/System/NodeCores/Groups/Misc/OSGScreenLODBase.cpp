@@ -108,7 +108,7 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
         "Ex: [0.05, 0.01, 0.001]\n",
         CoverageOverrideFieldId, CoverageOverrideFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ScreenLOD::editHandleCoverageOverride),
         static_cast<FieldGetMethodSig >(&ScreenLOD::getHandleCoverageOverride));
 
@@ -286,8 +286,8 @@ ScreenLOD *ScreenLODBase::createEmpty(void)
 
     newPtr<ScreenLOD>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -311,8 +311,8 @@ FieldContainerTransitPtr ScreenLODBase::shallowCopy(void) const
 {
     ScreenLOD *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ScreenLOD *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ScreenLOD *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -351,7 +351,7 @@ GetFieldHandlePtr ScreenLODBase::getHandleCoverageOverride (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
-             &_mfCoverageOverride, 
+             &_mfCoverageOverride,
              this->getType().getFieldDesc(CoverageOverrideFieldId)));
 
     return returnValue;
@@ -361,8 +361,9 @@ EditFieldHandlePtr ScreenLODBase::editHandleCoverageOverride(void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
-             &_mfCoverageOverride, 
+             &_mfCoverageOverride,
              this->getType().getFieldDesc(CoverageOverrideFieldId)));
+
 
     editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
 
@@ -409,7 +410,7 @@ void ScreenLODBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfCoverageOverride.terminateShare(Thread::getCurrentAspect(), 
+    _mfCoverageOverride.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

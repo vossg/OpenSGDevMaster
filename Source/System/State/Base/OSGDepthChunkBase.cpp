@@ -119,7 +119,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         "Whether the depth test should be enabled or not.\n",
         EnableFieldId, EnableFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DepthChunk::editHandleEnable),
         static_cast<FieldGetMethodSig >(&DepthChunk::getHandleEnable));
 
@@ -131,7 +131,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         "The depth function to use. If GL_NONE, it's not changed. The default is GL_LEQUAL.\n",
         FuncFieldId, FuncFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DepthChunk::editHandleFunc),
         static_cast<FieldGetMethodSig >(&DepthChunk::getHandleFunc));
 
@@ -143,7 +143,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         "The near value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
         NearFieldId, NearFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DepthChunk::editHandleNear),
         static_cast<FieldGetMethodSig >(&DepthChunk::getHandleNear));
 
@@ -155,7 +155,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         "The far value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
         FarFieldId, FarFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DepthChunk::editHandleFar),
         static_cast<FieldGetMethodSig >(&DepthChunk::getHandleFar));
 
@@ -167,7 +167,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
         "Whether the depth buffer is enabled for writing or not.\n",
         ReadOnlyFieldId, ReadOnlyFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DepthChunk::editHandleReadOnly),
         static_cast<FieldGetMethodSig >(&DepthChunk::getHandleReadOnly));
 
@@ -488,8 +488,8 @@ DepthChunk *DepthChunkBase::createEmpty(void)
 
     newPtr<DepthChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -513,8 +513,8 @@ FieldContainerTransitPtr DepthChunkBase::shallowCopy(void) const
 {
     DepthChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const DepthChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const DepthChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -561,7 +561,7 @@ GetFieldHandlePtr DepthChunkBase::getHandleEnable          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfEnable, 
+             &_sfEnable,
              this->getType().getFieldDesc(EnableFieldId)));
 
     return returnValue;
@@ -571,8 +571,9 @@ EditFieldHandlePtr DepthChunkBase::editHandleEnable         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfEnable, 
+             &_sfEnable,
              this->getType().getFieldDesc(EnableFieldId)));
+
 
     editSField(EnableFieldMask);
 
@@ -583,7 +584,7 @@ GetFieldHandlePtr DepthChunkBase::getHandleFunc            (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfFunc, 
+             &_sfFunc,
              this->getType().getFieldDesc(FuncFieldId)));
 
     return returnValue;
@@ -593,8 +594,9 @@ EditFieldHandlePtr DepthChunkBase::editHandleFunc           (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfFunc, 
+             &_sfFunc,
              this->getType().getFieldDesc(FuncFieldId)));
+
 
     editSField(FuncFieldMask);
 
@@ -605,7 +607,7 @@ GetFieldHandlePtr DepthChunkBase::getHandleNear            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfNear, 
+             &_sfNear,
              this->getType().getFieldDesc(NearFieldId)));
 
     return returnValue;
@@ -615,8 +617,9 @@ EditFieldHandlePtr DepthChunkBase::editHandleNear           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfNear, 
+             &_sfNear,
              this->getType().getFieldDesc(NearFieldId)));
+
 
     editSField(NearFieldMask);
 
@@ -627,7 +630,7 @@ GetFieldHandlePtr DepthChunkBase::getHandleFar             (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfFar, 
+             &_sfFar,
              this->getType().getFieldDesc(FarFieldId)));
 
     return returnValue;
@@ -637,8 +640,9 @@ EditFieldHandlePtr DepthChunkBase::editHandleFar            (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfFar, 
+             &_sfFar,
              this->getType().getFieldDesc(FarFieldId)));
+
 
     editSField(FarFieldMask);
 
@@ -649,7 +653,7 @@ GetFieldHandlePtr DepthChunkBase::getHandleReadOnly        (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfReadOnly, 
+             &_sfReadOnly,
              this->getType().getFieldDesc(ReadOnlyFieldId)));
 
     return returnValue;
@@ -659,8 +663,9 @@ EditFieldHandlePtr DepthChunkBase::editHandleReadOnly       (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfReadOnly, 
+             &_sfReadOnly,
              this->getType().getFieldDesc(ReadOnlyFieldId)));
+
 
     editSField(ReadOnlyFieldMask);
 
@@ -710,12 +715,12 @@ DataType FieldTraits<DepthChunk *>::_type("DepthChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(DepthChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           DepthChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DepthChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           DepthChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DepthChunk *,
                            0);
 
 OSG_END_NAMESPACE

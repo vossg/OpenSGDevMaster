@@ -142,7 +142,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         RootFieldId, RootFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleRoot),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleRoot));
 
@@ -154,7 +154,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         ExcludeFieldId, ExcludeFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleExclude),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleExclude));
 
@@ -166,7 +166,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         TextureFieldId, TextureFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTexture),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTexture));
 
@@ -178,7 +178,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         TextureSizeFieldId, TextureSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTextureSize),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTextureSize));
 
@@ -190,7 +190,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         TextureFormatFieldId, TextureFormatFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTextureFormat),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTextureFormat));
 
@@ -202,7 +202,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         BeaconFieldId, BeaconFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleBeacon),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleBeacon));
 
@@ -214,7 +214,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         OriginFieldId, OriginFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleOrigin),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleOrigin));
 
@@ -226,7 +226,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         OriginModeFieldId, OriginModeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleOriginMode),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleOriginMode));
 
@@ -238,7 +238,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         TexUnitFieldId, TexUnitFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleTexUnit),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleTexUnit));
 
@@ -250,7 +250,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         SetupModeFieldId, SetupModeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleSetupMode),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleSetupMode));
 
@@ -262,7 +262,7 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         "",
         BackgroundFieldId, BackgroundFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleBackground),
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleBackground));
 
@@ -602,7 +602,7 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
     }
 }
 
-void CubeMapGeneratorBase::removeFromExclude(Node * const value)
+void CubeMapGeneratorBase::removeObjFromExclude(Node * const value)
 {
     Int32 iElemIdx = _mfExclude.findIndex(value);
 
@@ -833,8 +833,8 @@ CubeMapGenerator *CubeMapGeneratorBase::createEmpty(void)
 
     newPtr<CubeMapGenerator>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -858,8 +858,8 @@ FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopy(void) const
 {
     CubeMapGenerator *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const CubeMapGenerator *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const CubeMapGenerator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -947,7 +947,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleRoot            (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
     return returnValue;
@@ -957,11 +957,12 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleRoot           (void)
 {
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeMapGenerator::setRoot, 
-                                          static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CubeMapGenerator::setRoot,
+                    static_cast<CubeMapGenerator *>(this), _1));
 
     editSField(RootFieldMask);
 
@@ -972,7 +973,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleExclude         (void) const
 {
     MFUnrecNodePtr::GetHandlePtr returnValue(
         new  MFUnrecNodePtr::GetHandle(
-             &_mfExclude, 
+             &_mfExclude,
              this->getType().getFieldDesc(ExcludeFieldId)));
 
     return returnValue;
@@ -982,11 +983,21 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleExclude        (void)
 {
     MFUnrecNodePtr::EditHandlePtr returnValue(
         new  MFUnrecNodePtr::EditHandle(
-             &_mfExclude, 
+             &_mfExclude,
              this->getType().getFieldDesc(ExcludeFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&CubeMapGenerator::pushToExclude, 
-                              static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&CubeMapGenerator::pushToExclude,
+                    static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&CubeMapGenerator::removeFromExclude,
+                    static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&CubeMapGenerator::removeObjFromExclude,
+                    static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&CubeMapGenerator::clearExclude,
+                    static_cast<CubeMapGenerator *>(this)));
 
     editMField(ExcludeFieldMask, _mfExclude);
 
@@ -997,7 +1008,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleTexture         (void) const
 {
     SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::GetHandle(
-             &_sfTexture, 
+             &_sfTexture,
              this->getType().getFieldDesc(TextureFieldId)));
 
     return returnValue;
@@ -1007,11 +1018,12 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleTexture        (void)
 {
     SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::EditHandle(
-             &_sfTexture, 
+             &_sfTexture,
              this->getType().getFieldDesc(TextureFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeMapGenerator::setTexture, 
-                                          static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CubeMapGenerator::setTexture,
+                    static_cast<CubeMapGenerator *>(this), _1));
 
     editSField(TextureFieldMask);
 
@@ -1022,7 +1034,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleTextureSize     (void) const
 {
     SFVec2s::GetHandlePtr returnValue(
         new  SFVec2s::GetHandle(
-             &_sfTextureSize, 
+             &_sfTextureSize,
              this->getType().getFieldDesc(TextureSizeFieldId)));
 
     return returnValue;
@@ -1032,8 +1044,9 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleTextureSize    (void)
 {
     SFVec2s::EditHandlePtr returnValue(
         new  SFVec2s::EditHandle(
-             &_sfTextureSize, 
+             &_sfTextureSize,
              this->getType().getFieldDesc(TextureSizeFieldId)));
+
 
     editSField(TextureSizeFieldMask);
 
@@ -1044,7 +1057,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleTextureFormat   (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfTextureFormat, 
+             &_sfTextureFormat,
              this->getType().getFieldDesc(TextureFormatFieldId)));
 
     return returnValue;
@@ -1054,8 +1067,9 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleTextureFormat  (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfTextureFormat, 
+             &_sfTextureFormat,
              this->getType().getFieldDesc(TextureFormatFieldId)));
+
 
     editSField(TextureFormatFieldMask);
 
@@ -1066,7 +1080,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleBeacon          (void) const
 {
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
     return returnValue;
@@ -1076,11 +1090,12 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleBeacon         (void)
 {
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
-             &_sfBeacon, 
+             &_sfBeacon,
              this->getType().getFieldDesc(BeaconFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeMapGenerator::setBeacon, 
-                                          static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CubeMapGenerator::setBeacon,
+                    static_cast<CubeMapGenerator *>(this), _1));
 
     editSField(BeaconFieldMask);
 
@@ -1091,7 +1106,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleOrigin          (void) const
 {
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
-             &_sfOrigin, 
+             &_sfOrigin,
              this->getType().getFieldDesc(OriginFieldId)));
 
     return returnValue;
@@ -1101,8 +1116,9 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleOrigin         (void)
 {
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
-             &_sfOrigin, 
+             &_sfOrigin,
              this->getType().getFieldDesc(OriginFieldId)));
+
 
     editSField(OriginFieldMask);
 
@@ -1113,7 +1129,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleOriginMode      (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfOriginMode, 
+             &_sfOriginMode,
              this->getType().getFieldDesc(OriginModeFieldId)));
 
     return returnValue;
@@ -1123,8 +1139,9 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleOriginMode     (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfOriginMode, 
+             &_sfOriginMode,
              this->getType().getFieldDesc(OriginModeFieldId)));
+
 
     editSField(OriginModeFieldMask);
 
@@ -1135,7 +1152,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleTexUnit         (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfTexUnit, 
+             &_sfTexUnit,
              this->getType().getFieldDesc(TexUnitFieldId)));
 
     return returnValue;
@@ -1145,8 +1162,9 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleTexUnit        (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfTexUnit, 
+             &_sfTexUnit,
              this->getType().getFieldDesc(TexUnitFieldId)));
+
 
     editSField(TexUnitFieldMask);
 
@@ -1157,7 +1175,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleSetupMode       (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfSetupMode, 
+             &_sfSetupMode,
              this->getType().getFieldDesc(SetupModeFieldId)));
 
     return returnValue;
@@ -1167,8 +1185,9 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleSetupMode      (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfSetupMode, 
+             &_sfSetupMode,
              this->getType().getFieldDesc(SetupModeFieldId)));
+
 
     editSField(SetupModeFieldMask);
 
@@ -1179,7 +1198,7 @@ GetFieldHandlePtr CubeMapGeneratorBase::getHandleBackground      (void) const
 {
     SFUnrecBackgroundPtr::GetHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::GetHandle(
-             &_sfBackground, 
+             &_sfBackground,
              this->getType().getFieldDesc(BackgroundFieldId)));
 
     return returnValue;
@@ -1189,11 +1208,12 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleBackground     (void)
 {
     SFUnrecBackgroundPtr::EditHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::EditHandle(
-             &_sfBackground, 
+             &_sfBackground,
              this->getType().getFieldDesc(BackgroundFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&CubeMapGenerator::setBackground, 
-                                          static_cast<CubeMapGenerator *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&CubeMapGenerator::setBackground,
+                    static_cast<CubeMapGenerator *>(this), _1));
 
     editSField(BackgroundFieldMask);
 

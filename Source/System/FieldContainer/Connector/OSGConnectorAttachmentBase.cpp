@@ -281,12 +281,12 @@ DataType FieldTraits<ConnectorAttachment *>::_type("ConnectorAttachmentPtr", "At
 
 OSG_FIELDTRAITS_GETTYPE(ConnectorAttachment *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ConnectorAttachment *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ConnectorAttachment *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ConnectorAttachment *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ConnectorAttachment *,
                            0);
 
 OSG_END_NAMESPACE

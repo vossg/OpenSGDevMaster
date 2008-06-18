@@ -104,7 +104,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "The distance to the zero parallax plane.\n",
         ZeroParallaxDistanceFieldId, ZeroParallaxDistanceFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecorator::editHandleZeroParallaxDistance),
         static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecorator::getHandleZeroParallaxDistance));
 
@@ -116,7 +116,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
         "The overlap between left and right eye.\n",
         OverlapFieldId, OverlapFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShearedStereoCameraDecorator::editHandleOverlap),
         static_cast<FieldGetMethodSig >(&ShearedStereoCameraDecorator::getHandleOverlap));
 
@@ -326,8 +326,8 @@ ShearedStereoCameraDecorator *ShearedStereoCameraDecoratorBase::createEmpty(void
 
     newPtr<ShearedStereoCameraDecorator>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -351,8 +351,8 @@ FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) con
 {
     ShearedStereoCameraDecorator *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const ShearedStereoCameraDecorator *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const ShearedStereoCameraDecorator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -393,7 +393,7 @@ GetFieldHandlePtr ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistanc
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfZeroParallaxDistance, 
+             &_sfZeroParallaxDistance,
              this->getType().getFieldDesc(ZeroParallaxDistanceFieldId)));
 
     return returnValue;
@@ -403,8 +403,9 @@ EditFieldHandlePtr ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDista
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfZeroParallaxDistance, 
+             &_sfZeroParallaxDistance,
              this->getType().getFieldDesc(ZeroParallaxDistanceFieldId)));
+
 
     editSField(ZeroParallaxDistanceFieldMask);
 
@@ -415,7 +416,7 @@ GetFieldHandlePtr ShearedStereoCameraDecoratorBase::getHandleOverlap         (vo
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfOverlap, 
+             &_sfOverlap,
              this->getType().getFieldDesc(OverlapFieldId)));
 
     return returnValue;
@@ -425,8 +426,9 @@ EditFieldHandlePtr ShearedStereoCameraDecoratorBase::editHandleOverlap        (v
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfOverlap, 
+             &_sfOverlap,
              this->getType().getFieldDesc(OverlapFieldId)));
+
 
     editSField(OverlapFieldMask);
 
@@ -476,12 +478,12 @@ DataType FieldTraits<ShearedStereoCameraDecorator *>::_type("ShearedStereoCamera
 
 OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecorator *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShearedStereoCameraDecorator *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShearedStereoCameraDecorator *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShearedStereoCameraDecorator *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShearedStereoCameraDecorator *,
                            0);
 
 OSG_END_NAMESPACE

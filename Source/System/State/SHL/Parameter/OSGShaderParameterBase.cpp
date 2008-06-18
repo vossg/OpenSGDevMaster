@@ -102,7 +102,7 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
         "parameter name\n",
         NameFieldId, NameFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderParameter::editHandleName),
         static_cast<FieldGetMethodSig >(&ShaderParameter::getHandleName));
 
@@ -114,7 +114,7 @@ void ShaderParameterBase::classDescInserter(TypeObject &oType)
         "parameter name\n",
         ParentsFieldId, ParentsFieldMask,
         true,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&ShaderParameter::invalidEditField),
         static_cast     <FieldGetMethodSig >(&ShaderParameter::invalidGetField));
 
@@ -297,19 +297,19 @@ bool ShaderParameterBase::linkParent(
     {
         FieldContainer * pTypedParent =
             dynamic_cast< FieldContainer * >(pParent);
-        
+
         if(pTypedParent != NULL)
         {
             editMField(ParentsFieldMask, _mfParents);
 
             _mfParents.push_back(pParent, childFieldId);
-            
+
             return true;
         }
-    
+
         return false;
     }
-    
+
     return Inherited::linkParent(pParent, childFieldId, parentFieldId);
 }
 
@@ -321,33 +321,33 @@ bool ShaderParameterBase::unlinkParent(
     {
         FieldContainer * pTypedParent =
             dynamic_cast< FieldContainer * >(pParent);
-            
+
         if(pTypedParent != NULL)
         {
-            MFParentFieldContainerPtr::iterator pI = 
+            MFParentFieldContainerPtr::iterator pI =
                 _mfParents.find_nc(pParent);
 
-            MFParentFieldContainerPtr::iterator pEnd = 
+            MFParentFieldContainerPtr::iterator pEnd =
                 _mfParents.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(ParentsFieldMask, _mfParents);
-                
+
                 _mfParents.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("ShaderParameterBase::unlinkParent: "
                       "Child <-> Parent link inconsistent.\n"));
-            
+
             return false;
         }
 
         return false;
     }
-    
+
     return Inherited::unlinkParent(pParent, parentFieldId);
 }
 
@@ -366,7 +366,7 @@ GetFieldHandlePtr ShaderParameterBase::getHandleName            (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
 
     return returnValue;
@@ -376,8 +376,9 @@ EditFieldHandlePtr ShaderParameterBase::editHandleName           (void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
-             &_sfName, 
+             &_sfName,
              this->getType().getFieldDesc(NameFieldId)));
+
 
     editSField(NameFieldMask);
 
@@ -430,23 +431,23 @@ DataType FieldTraits<ShaderParameter *>::_type("ShaderParameterPtr", "Attachment
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameter *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameter *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameter *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameter *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameter *,
                            0);
 
 DataType &FieldTraits< ShaderParameter *, 1 >::getType(void)
-{                                                           
+{
     return FieldTraits<ShaderParameter *, 0>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      ShaderParameter *,       
-                      UnrecordedRefCountPolicy,  
+                      ShaderParameter *,
+                      UnrecordedRefCountPolicy,
                       1);
 
 

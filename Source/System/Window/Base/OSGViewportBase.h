@@ -247,8 +247,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     void addForeground             (Foreground * const value   );
     void assignForegrounds          (const MFUnrecForegroundPtr &value);
     void removeFromForegrounds (UInt32               uiIndex );
-    void removeFromForegrounds(Foreground * const value   );
-    void clearForegrounds            (void                          );
+    void removeObjFromForegrounds(Foreground * const value   );
+    void clearForegrounds            (void                         );
 
 
     /*! \}                                                                 */
@@ -344,7 +344,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                               UInt16           const parentFieldId);
     virtual bool unlinkParent(FieldContainer * const pParent,
                               UInt16           const parentFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

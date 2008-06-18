@@ -98,7 +98,7 @@ void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
         "",
         SHLChunkFieldId, SHLChunkFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SHLParameterChunk::editHandleSHLChunk),
         static_cast<FieldGetMethodSig >(&SHLParameterChunk::getHandleSHLChunk));
 
@@ -266,8 +266,8 @@ SHLParameterChunk *SHLParameterChunkBase::createEmpty(void)
 
     newPtr<SHLParameterChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -291,8 +291,8 @@ FieldContainerTransitPtr SHLParameterChunkBase::shallowCopy(void) const
 {
     SHLParameterChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SHLParameterChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SHLParameterChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -342,7 +342,7 @@ GetFieldHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (void) const
 {
     SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::GetHandle(
-             &_sfSHLChunk, 
+             &_sfSHLChunk,
              this->getType().getFieldDesc(SHLChunkFieldId)));
 
     return returnValue;
@@ -352,11 +352,12 @@ EditFieldHandlePtr SHLParameterChunkBase::editHandleSHLChunk       (void)
 {
     SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::EditHandle(
-             &_sfSHLChunk, 
+             &_sfSHLChunk,
              this->getType().getFieldDesc(SHLChunkFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&SHLParameterChunk::setSHLChunk, 
-                                          static_cast<SHLParameterChunk *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&SHLParameterChunk::setSHLChunk,
+                    static_cast<SHLParameterChunk *>(this), _1));
 
     editSField(SHLChunkFieldMask);
 
@@ -408,12 +409,12 @@ DataType FieldTraits<SHLParameterChunk *>::_type("SHLParameterChunkPtr", "Shader
 
 OSG_FIELDTRAITS_GETTYPE(SHLParameterChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SHLParameterChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SHLParameterChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           SHLParameterChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SHLParameterChunk *,
                            0);
 
 OSG_END_NAMESPACE

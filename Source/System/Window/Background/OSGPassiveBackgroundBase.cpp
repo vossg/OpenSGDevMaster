@@ -207,8 +207,8 @@ PassiveBackground *PassiveBackgroundBase::createEmpty(void)
 
     newPtr<PassiveBackground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -232,8 +232,8 @@ FieldContainerTransitPtr PassiveBackgroundBase::shallowCopy(void) const
 {
     PassiveBackground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const PassiveBackground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const PassiveBackground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -309,8 +309,8 @@ DataType FieldTraits<PassiveBackground *>::_type("PassiveBackgroundPtr", "Backgr
 
 OSG_FIELDTRAITS_GETTYPE(PassiveBackground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PassiveBackground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PassiveBackground *,
                            0);
 
 

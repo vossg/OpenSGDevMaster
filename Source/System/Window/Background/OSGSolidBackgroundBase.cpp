@@ -106,7 +106,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         "The background color.\n",
         ColorFieldId, ColorFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SolidBackground::editHandleColor),
         static_cast<FieldGetMethodSig >(&SolidBackground::getHandleColor));
 
@@ -118,7 +118,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         "Alpha value (to allow transparent clears).\n",
         AlphaFieldId, AlphaFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SolidBackground::editHandleAlpha),
         static_cast<FieldGetMethodSig >(&SolidBackground::getHandleAlpha));
 
@@ -329,8 +329,8 @@ SolidBackground *SolidBackgroundBase::createEmpty(void)
 
     newPtr<SolidBackground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -354,8 +354,8 @@ FieldContainerTransitPtr SolidBackgroundBase::shallowCopy(void) const
 {
     SolidBackground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const SolidBackground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const SolidBackground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -396,7 +396,7 @@ GetFieldHandlePtr SolidBackgroundBase::getHandleColor           (void) const
 {
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
-             &_sfColor, 
+             &_sfColor,
              this->getType().getFieldDesc(ColorFieldId)));
 
     return returnValue;
@@ -406,8 +406,9 @@ EditFieldHandlePtr SolidBackgroundBase::editHandleColor          (void)
 {
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
-             &_sfColor, 
+             &_sfColor,
              this->getType().getFieldDesc(ColorFieldId)));
+
 
     editSField(ColorFieldMask);
 
@@ -418,7 +419,7 @@ GetFieldHandlePtr SolidBackgroundBase::getHandleAlpha           (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfAlpha, 
+             &_sfAlpha,
              this->getType().getFieldDesc(AlphaFieldId)));
 
     return returnValue;
@@ -428,8 +429,9 @@ EditFieldHandlePtr SolidBackgroundBase::editHandleAlpha          (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfAlpha, 
+             &_sfAlpha,
              this->getType().getFieldDesc(AlphaFieldId)));
+
 
     editSField(AlphaFieldMask);
 
@@ -479,8 +481,8 @@ DataType FieldTraits<SolidBackground *>::_type("SolidBackgroundPtr", "Background
 
 OSG_FIELDTRAITS_GETTYPE(SolidBackground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           SolidBackground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SolidBackground *,
                            0);
 
 

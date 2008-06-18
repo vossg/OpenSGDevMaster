@@ -147,7 +147,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "The point's size in pixel.\n",
         SizeFieldId, SizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleSize),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleSize));
 
@@ -159,7 +159,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "Defines if line antialiasing is used.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleSmooth),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleSmooth));
 
@@ -171,7 +171,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "Minimum point size for attenuation, use less than 0 to disable it. See ARB_point_parameters extension.\n",
         MinSizeFieldId, MinSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleMinSize),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleMinSize));
 
@@ -183,7 +183,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "Maximum point size for attenuation. See ARB_point_parameters extension.\n",
         MaxSizeFieldId, MaxSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleMaxSize),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleMaxSize));
 
@@ -195,7 +195,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "The point size's constant attenuation.\n",
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleConstantAttenuation),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleConstantAttenuation));
 
@@ -207,7 +207,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "The point size's linear attenuation.\n",
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleLinearAttenuation),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleLinearAttenuation));
 
@@ -219,7 +219,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "The point size's quadratic attenuation.\n",
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleQuadraticAttenuation),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleQuadraticAttenuation));
 
@@ -231,7 +231,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "Minimum point size for attenuation. See ARB_point_parameters extension.\n",
         FadeThresholdFieldId, FadeThresholdFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleFadeThreshold),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleFadeThreshold));
 
@@ -243,7 +243,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "Flag to enable point sprites, see NV_point_sprite for details.\n",
         SpriteFieldId, SpriteFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleSprite),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleSprite));
 
@@ -255,7 +255,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
         "",
         RModeFieldId, RModeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointChunk::editHandleRMode),
         static_cast<FieldGetMethodSig >(&PointChunk::getHandleRMode));
 
@@ -763,8 +763,8 @@ PointChunk *PointChunkBase::createEmpty(void)
 
     newPtr<PointChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -788,8 +788,8 @@ FieldContainerTransitPtr PointChunkBase::shallowCopy(void) const
 {
     PointChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const PointChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const PointChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -846,7 +846,7 @@ GetFieldHandlePtr PointChunkBase::getHandleSize            (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfSize, 
+             &_sfSize,
              this->getType().getFieldDesc(SizeFieldId)));
 
     return returnValue;
@@ -856,8 +856,9 @@ EditFieldHandlePtr PointChunkBase::editHandleSize           (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfSize, 
+             &_sfSize,
              this->getType().getFieldDesc(SizeFieldId)));
+
 
     editSField(SizeFieldMask);
 
@@ -868,7 +869,7 @@ GetFieldHandlePtr PointChunkBase::getHandleSmooth          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfSmooth, 
+             &_sfSmooth,
              this->getType().getFieldDesc(SmoothFieldId)));
 
     return returnValue;
@@ -878,8 +879,9 @@ EditFieldHandlePtr PointChunkBase::editHandleSmooth         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfSmooth, 
+             &_sfSmooth,
              this->getType().getFieldDesc(SmoothFieldId)));
+
 
     editSField(SmoothFieldMask);
 
@@ -890,7 +892,7 @@ GetFieldHandlePtr PointChunkBase::getHandleMinSize         (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfMinSize, 
+             &_sfMinSize,
              this->getType().getFieldDesc(MinSizeFieldId)));
 
     return returnValue;
@@ -900,8 +902,9 @@ EditFieldHandlePtr PointChunkBase::editHandleMinSize        (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfMinSize, 
+             &_sfMinSize,
              this->getType().getFieldDesc(MinSizeFieldId)));
+
 
     editSField(MinSizeFieldMask);
 
@@ -912,7 +915,7 @@ GetFieldHandlePtr PointChunkBase::getHandleMaxSize         (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfMaxSize, 
+             &_sfMaxSize,
              this->getType().getFieldDesc(MaxSizeFieldId)));
 
     return returnValue;
@@ -922,8 +925,9 @@ EditFieldHandlePtr PointChunkBase::editHandleMaxSize        (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfMaxSize, 
+             &_sfMaxSize,
              this->getType().getFieldDesc(MaxSizeFieldId)));
+
 
     editSField(MaxSizeFieldMask);
 
@@ -934,7 +938,7 @@ GetFieldHandlePtr PointChunkBase::getHandleConstantAttenuation (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfConstantAttenuation, 
+             &_sfConstantAttenuation,
              this->getType().getFieldDesc(ConstantAttenuationFieldId)));
 
     return returnValue;
@@ -944,8 +948,9 @@ EditFieldHandlePtr PointChunkBase::editHandleConstantAttenuation(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfConstantAttenuation, 
+             &_sfConstantAttenuation,
              this->getType().getFieldDesc(ConstantAttenuationFieldId)));
+
 
     editSField(ConstantAttenuationFieldMask);
 
@@ -956,7 +961,7 @@ GetFieldHandlePtr PointChunkBase::getHandleLinearAttenuation (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfLinearAttenuation, 
+             &_sfLinearAttenuation,
              this->getType().getFieldDesc(LinearAttenuationFieldId)));
 
     return returnValue;
@@ -966,8 +971,9 @@ EditFieldHandlePtr PointChunkBase::editHandleLinearAttenuation(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfLinearAttenuation, 
+             &_sfLinearAttenuation,
              this->getType().getFieldDesc(LinearAttenuationFieldId)));
+
 
     editSField(LinearAttenuationFieldMask);
 
@@ -978,7 +984,7 @@ GetFieldHandlePtr PointChunkBase::getHandleQuadraticAttenuation (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfQuadraticAttenuation, 
+             &_sfQuadraticAttenuation,
              this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
 
     return returnValue;
@@ -988,8 +994,9 @@ EditFieldHandlePtr PointChunkBase::editHandleQuadraticAttenuation(void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfQuadraticAttenuation, 
+             &_sfQuadraticAttenuation,
              this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
+
 
     editSField(QuadraticAttenuationFieldMask);
 
@@ -1000,7 +1007,7 @@ GetFieldHandlePtr PointChunkBase::getHandleFadeThreshold   (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfFadeThreshold, 
+             &_sfFadeThreshold,
              this->getType().getFieldDesc(FadeThresholdFieldId)));
 
     return returnValue;
@@ -1010,8 +1017,9 @@ EditFieldHandlePtr PointChunkBase::editHandleFadeThreshold  (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfFadeThreshold, 
+             &_sfFadeThreshold,
              this->getType().getFieldDesc(FadeThresholdFieldId)));
+
 
     editSField(FadeThresholdFieldMask);
 
@@ -1022,7 +1030,7 @@ GetFieldHandlePtr PointChunkBase::getHandleSprite          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfSprite, 
+             &_sfSprite,
              this->getType().getFieldDesc(SpriteFieldId)));
 
     return returnValue;
@@ -1032,8 +1040,9 @@ EditFieldHandlePtr PointChunkBase::editHandleSprite         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfSprite, 
+             &_sfSprite,
              this->getType().getFieldDesc(SpriteFieldId)));
+
 
     editSField(SpriteFieldMask);
 
@@ -1044,7 +1053,7 @@ GetFieldHandlePtr PointChunkBase::getHandleRMode           (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfRMode, 
+             &_sfRMode,
              this->getType().getFieldDesc(RModeFieldId)));
 
     return returnValue;
@@ -1054,8 +1063,9 @@ EditFieldHandlePtr PointChunkBase::editHandleRMode          (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfRMode, 
+             &_sfRMode,
              this->getType().getFieldDesc(RModeFieldId)));
+
 
     editSField(RModeFieldMask);
 
@@ -1105,12 +1115,12 @@ DataType FieldTraits<PointChunk *>::_type("PointChunkPtr", "StateChunkPtr");
 
 OSG_FIELDTRAITS_GETTYPE(PointChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           PointChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PointChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           PointChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PointChunk *,
                            0);
 
 OSG_END_NAMESPACE

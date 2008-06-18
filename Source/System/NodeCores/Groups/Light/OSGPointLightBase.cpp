@@ -101,7 +101,7 @@ void PointLightBase::classDescInserter(TypeObject &oType)
         "",
         PositionFieldId, PositionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PointLight::editHandlePosition),
         static_cast<FieldGetMethodSig >(&PointLight::getHandlePosition));
 
@@ -276,8 +276,8 @@ PointLight *PointLightBase::createEmpty(void)
 
     newPtr<PointLight>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -301,8 +301,8 @@ FieldContainerTransitPtr PointLightBase::shallowCopy(void) const
 {
     PointLight *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const PointLight *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const PointLight *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -341,7 +341,7 @@ GetFieldHandlePtr PointLightBase::getHandlePosition        (void) const
 {
     SFPnt3r::GetHandlePtr returnValue(
         new  SFPnt3r::GetHandle(
-             &_sfPosition, 
+             &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId)));
 
     return returnValue;
@@ -351,8 +351,9 @@ EditFieldHandlePtr PointLightBase::editHandlePosition       (void)
 {
     SFPnt3r::EditHandlePtr returnValue(
         new  SFPnt3r::EditHandle(
-             &_sfPosition, 
+             &_sfPosition,
              this->getType().getFieldDesc(PositionFieldId)));
+
 
     editSField(PositionFieldMask);
 

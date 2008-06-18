@@ -290,15 +290,15 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     void pushToHeightTiles           (Image * const value   );
     void assignHeightTiles          (const MFUnrecImagePtr   &value);
     void removeFromHeightTiles (UInt32               uiIndex );
-    void removeFromHeightTiles(Image * const value   );
-    void clearHeightTiles            (void                          );
+    void removeObjFromHeightTiles(Image * const value   );
+    void clearHeightTiles            (void                         );
 
 
     void pushToHeightTextures           (Material * const value   );
     void assignHeightTextures          (const MFUnrecMaterialPtr &value);
     void removeFromHeightTextures (UInt32               uiIndex );
-    void removeFromHeightTextures(Material * const value   );
-    void clearHeightTextures            (void                          );
+    void removeObjFromHeightTextures(Material * const value   );
+    void clearHeightTextures            (void                         );
 
 
     /*! \}                                                                 */

@@ -177,8 +177,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     void pushToForegrounds           (Foreground * const value   );
     void assignForegrounds          (const MFUnrecForegroundPtr &value);
     void removeFromForegrounds (UInt32               uiIndex );
-    void removeFromForegrounds(Foreground * const value   );
-    void clearForegrounds            (void                          );
+    void removeObjFromForegrounds(Foreground * const value   );
+    void clearForegrounds            (void                         );
 
 
     /*! \}                                                                 */

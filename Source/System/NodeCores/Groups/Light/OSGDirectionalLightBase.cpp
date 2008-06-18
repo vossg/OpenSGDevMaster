@@ -98,7 +98,7 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
         "",
         DirectionFieldId, DirectionFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DirectionalLight::editHandleDirection),
         static_cast<FieldGetMethodSig >(&DirectionalLight::getHandleDirection));
 
@@ -267,8 +267,8 @@ DirectionalLight *DirectionalLightBase::createEmpty(void)
 
     newPtr<DirectionalLight>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -292,8 +292,8 @@ FieldContainerTransitPtr DirectionalLightBase::shallowCopy(void) const
 {
     DirectionalLight *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const DirectionalLight *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const DirectionalLight *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -332,7 +332,7 @@ GetFieldHandlePtr DirectionalLightBase::getHandleDirection       (void) const
 {
     SFVec3r::GetHandlePtr returnValue(
         new  SFVec3r::GetHandle(
-             &_sfDirection, 
+             &_sfDirection,
              this->getType().getFieldDesc(DirectionFieldId)));
 
     return returnValue;
@@ -342,8 +342,9 @@ EditFieldHandlePtr DirectionalLightBase::editHandleDirection      (void)
 {
     SFVec3r::EditHandlePtr returnValue(
         new  SFVec3r::EditHandle(
-             &_sfDirection, 
+             &_sfDirection,
              this->getType().getFieldDesc(DirectionFieldId)));
+
 
     editSField(DirectionFieldMask);
 

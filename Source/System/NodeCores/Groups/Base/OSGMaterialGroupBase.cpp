@@ -101,7 +101,7 @@ void MaterialGroupBase::classDescInserter(TypeObject &oType)
         "",
         MaterialFieldId, MaterialFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MaterialGroup::editHandleMaterial),
         static_cast<FieldGetMethodSig >(&MaterialGroup::getHandleMaterial));
 
@@ -275,8 +275,8 @@ MaterialGroup *MaterialGroupBase::createEmpty(void)
 
     newPtr<MaterialGroup>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -300,8 +300,8 @@ FieldContainerTransitPtr MaterialGroupBase::shallowCopy(void) const
 {
     MaterialGroup *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const MaterialGroup *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const MaterialGroup *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -351,7 +351,7 @@ GetFieldHandlePtr MaterialGroupBase::getHandleMaterial        (void) const
 {
     SFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecMaterialPtr::GetHandle(
-             &_sfMaterial, 
+             &_sfMaterial,
              this->getType().getFieldDesc(MaterialFieldId)));
 
     return returnValue;
@@ -361,11 +361,12 @@ EditFieldHandlePtr MaterialGroupBase::editHandleMaterial       (void)
 {
     SFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecMaterialPtr::EditHandle(
-             &_sfMaterial, 
+             &_sfMaterial,
              this->getType().getFieldDesc(MaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&MaterialGroup::setMaterial, 
-                                          static_cast<MaterialGroup *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&MaterialGroup::setMaterial,
+                    static_cast<MaterialGroup *>(this), _1));
 
     editSField(MaterialFieldMask);
 
@@ -417,12 +418,12 @@ DataType FieldTraits<MaterialGroup *>::_type("MaterialGroupPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(MaterialGroup *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MaterialGroup *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MaterialGroup *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MaterialGroup *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MaterialGroup *,
                            0);
 
 OSG_END_NAMESPACE

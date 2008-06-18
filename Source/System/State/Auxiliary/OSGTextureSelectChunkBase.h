@@ -161,8 +161,8 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     void pushToTextures            (TextureBaseChunk * const value   );
     void assignTextures           (const MFUnrecTextureBaseChunkPtr &value);
     void removeFromTextures (UInt32               uiIndex );
-    void removeFromTextures(TextureBaseChunk * const value   );
-    void clearTextures              (void                          );
+    void removeObjFromTextures(TextureBaseChunk * const value   );
+    void clearTextures              (void                         );
 
 
     /*! \}                                                                 */

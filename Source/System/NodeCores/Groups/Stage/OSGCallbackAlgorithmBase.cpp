@@ -97,7 +97,7 @@ void CallbackAlgorithmBase::classDescInserter(TypeObject &oType)
         "Inherited the parent target if none is set  \n",
         CallbackFieldId, CallbackFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&CallbackAlgorithm::invalidEditField),
         static_cast     <FieldGetMethodSig >(&CallbackAlgorithm::invalidGetField));
 
@@ -254,8 +254,8 @@ CallbackAlgorithm *CallbackAlgorithmBase::createEmpty(void)
 
     newPtr<CallbackAlgorithm>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -279,8 +279,8 @@ FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
 {
     CallbackAlgorithm *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const CallbackAlgorithm *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const CallbackAlgorithm *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -372,12 +372,12 @@ DataType FieldTraits<CallbackAlgorithm *>::_type("CallbackAlgorithmPtr", "Algori
 
 OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithm *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           CallbackAlgorithm *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CallbackAlgorithm *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           CallbackAlgorithm *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CallbackAlgorithm *,
                            0);
 
 OSG_END_NAMESPACE

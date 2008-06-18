@@ -101,7 +101,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         WidthFieldId, WidthFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferAttachment::editHandleWidth),
         static_cast<FieldGetMethodSig >(&FrameBufferAttachment::getHandleWidth));
 
@@ -113,7 +113,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         HeightFieldId, HeightFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferAttachment::editHandleHeight),
         static_cast<FieldGetMethodSig >(&FrameBufferAttachment::getHandleHeight));
 
@@ -294,7 +294,7 @@ GetFieldHandlePtr FrameBufferAttachmentBase::getHandleWidth           (void) con
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
 
     return returnValue;
@@ -304,8 +304,9 @@ EditFieldHandlePtr FrameBufferAttachmentBase::editHandleWidth          (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
+
 
     editSField(WidthFieldMask);
 
@@ -316,7 +317,7 @@ GetFieldHandlePtr FrameBufferAttachmentBase::getHandleHeight          (void) con
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
 
     return returnValue;
@@ -326,8 +327,9 @@ EditFieldHandlePtr FrameBufferAttachmentBase::editHandleHeight         (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
+
 
     editSField(HeightFieldMask);
 
@@ -366,12 +368,12 @@ DataType FieldTraits<FrameBufferAttachment *>::_type("FrameBufferAttachmentPtr",
 
 OSG_FIELDTRAITS_GETTYPE(FrameBufferAttachment *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FrameBufferAttachment *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FrameBufferAttachment *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FrameBufferAttachment *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FrameBufferAttachment *,
                            0);
 
 OSG_END_NAMESPACE

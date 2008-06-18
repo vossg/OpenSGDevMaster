@@ -101,7 +101,7 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         "Do composition if value is true\n",
         EnabledFieldId, EnabledFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ImageComposer::editHandleEnabled),
         static_cast<FieldGetMethodSig >(&ImageComposer::getHandleEnabled));
 
@@ -113,7 +113,7 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
         "",
         StatisticsFieldId, StatisticsFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ImageComposer::editHandleStatistics),
         static_cast<FieldGetMethodSig >(&ImageComposer::getHandleStatistics));
 
@@ -298,7 +298,7 @@ GetFieldHandlePtr ImageComposerBase::getHandleEnabled         (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfEnabled, 
+             &_sfEnabled,
              this->getType().getFieldDesc(EnabledFieldId)));
 
     return returnValue;
@@ -308,8 +308,9 @@ EditFieldHandlePtr ImageComposerBase::editHandleEnabled        (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfEnabled, 
+             &_sfEnabled,
              this->getType().getFieldDesc(EnabledFieldId)));
+
 
     editSField(EnabledFieldMask);
 
@@ -320,7 +321,7 @@ GetFieldHandlePtr ImageComposerBase::getHandleStatistics      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfStatistics, 
+             &_sfStatistics,
              this->getType().getFieldDesc(StatisticsFieldId)));
 
     return returnValue;
@@ -330,8 +331,9 @@ EditFieldHandlePtr ImageComposerBase::editHandleStatistics     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfStatistics, 
+             &_sfStatistics,
              this->getType().getFieldDesc(StatisticsFieldId)));
+
 
     editSField(StatisticsFieldMask);
 
@@ -370,12 +372,12 @@ DataType FieldTraits<ImageComposer *>::_type("ImageComposerPtr", "AttachmentCont
 
 OSG_FIELDTRAITS_GETTYPE(ImageComposer *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ImageComposer *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ImageComposer *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ImageComposer *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ImageComposer *,
                            0);
 
 OSG_END_NAMESPACE

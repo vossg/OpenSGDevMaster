@@ -218,8 +218,8 @@ FragmentProgramChunk *FragmentProgramChunkBase::createEmpty(void)
 
     newPtr<FragmentProgramChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -243,8 +243,8 @@ FieldContainerTransitPtr FragmentProgramChunkBase::shallowCopy(void) const
 {
     FragmentProgramChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const FragmentProgramChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const FragmentProgramChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -320,12 +320,12 @@ DataType FieldTraits<FragmentProgramChunk *>::_type("FragmentProgramChunkPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FragmentProgramChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FragmentProgramChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FragmentProgramChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FragmentProgramChunk *,
                            0);
 
 OSG_END_NAMESPACE

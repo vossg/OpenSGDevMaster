@@ -98,7 +98,7 @@ void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
         "parameter list\n",
         ParametersFieldId, ParametersFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderParameterChunk::editHandleParameters),
         static_cast<FieldGetMethodSig >(&ShaderParameterChunk::getHandleParameters));
 
@@ -143,9 +143,9 @@ ShaderParameterChunkBase::TypeObject ShaderParameterChunkBase::_type(
     "        pushToFieldAs=\"addParameter\"\n"
     "        insertIntoMFieldAs=\"insertParameter\"\n"
     "        replaceInMFieldIndexAs=\"replaceParameter\"\n"
-    "        replaceInMFieldObjectAs=\"replaceParameterBy\"\n"
+    "        replaceInMFieldObjectAs=\"replaceParameterByObj\"\n"
     "        removeFromMFieldIndexAs=\"subParameter\"\n"
-    "        removeFromMFieldObjectAs=\"subParameter\"\n"
+    "        removeFromMFieldObjectAs=\"subParameterByObj\"\n"
     "        clearFieldAs=\"clearParameters\"        \n"
     "\t>\n"
     "\tparameter list\n"
@@ -227,7 +227,7 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
     }
 }
 
-void ShaderParameterChunkBase::subParameter(ShaderParameter * const value)
+void ShaderParameterChunkBase::subParameterByObj(ShaderParameter * const value)
 {
     Int32 iElemIdx = _mfParameters.findIndex(value);
 
@@ -295,7 +295,7 @@ void ShaderParameterChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShaderParameterChunkBase::ShaderParameterChunkBase(void) :
     Inherited(),
-    _mfParameters             (this, 
+    _mfParameters             (this,
                           ParametersFieldId,
                           ShaderParameter::ParentsFieldId)
 {
@@ -303,7 +303,7 @@ ShaderParameterChunkBase::ShaderParameterChunkBase(void) :
 
 ShaderParameterChunkBase::ShaderParameterChunkBase(const ShaderParameterChunkBase &source) :
     Inherited(source),
-    _mfParameters             (this, 
+    _mfParameters             (this,
                           ParametersFieldId,
                           ShaderParameter::ParentsFieldId)
 {
@@ -327,7 +327,7 @@ bool ShaderParameterChunkBase::unlinkChild(
     {
         ShaderParameter * pTypedChild =
             dynamic_cast<ShaderParameter *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildShaderParameterPtr::iterator pI =
@@ -335,26 +335,26 @@ bool ShaderParameterChunkBase::unlinkChild(
 
             MFUnrecChildShaderParameterPtr::const_iterator pEnd =
                 _mfParameters.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(ParametersFieldMask, _mfParameters);
 
                 _mfParameters.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("ShaderParameterChunkBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
-    
+
+
     return Inherited::unlinkChild(pChild, childFieldId);
 }
 
@@ -384,7 +384,7 @@ GetFieldHandlePtr ShaderParameterChunkBase::getHandleParameters      (void) cons
 {
     MFUnrecChildShaderParameterPtr::GetHandlePtr returnValue(
         new  MFUnrecChildShaderParameterPtr::GetHandle(
-             &_mfParameters, 
+             &_mfParameters,
              this->getType().getFieldDesc(ParametersFieldId)));
 
     return returnValue;
@@ -394,11 +394,21 @@ EditFieldHandlePtr ShaderParameterChunkBase::editHandleParameters     (void)
 {
     MFUnrecChildShaderParameterPtr::EditHandlePtr returnValue(
         new  MFUnrecChildShaderParameterPtr::EditHandle(
-             &_mfParameters, 
+             &_mfParameters,
              this->getType().getFieldDesc(ParametersFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&ShaderParameterChunk::addParameter, 
-                              static_cast<ShaderParameterChunk *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&ShaderParameterChunk::addParameter,
+                    static_cast<ShaderParameterChunk *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&ShaderParameterChunk::subParameter,
+                    static_cast<ShaderParameterChunk *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&ShaderParameterChunk::subParameterByObj,
+                    static_cast<ShaderParameterChunk *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&ShaderParameterChunk::clearParameters,
+                    static_cast<ShaderParameterChunk *>(this)));
 
     editMField(ParametersFieldMask, _mfParameters);
 
@@ -438,12 +448,12 @@ DataType FieldTraits<ShaderParameterChunk *>::_type("ShaderParameterChunkPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           ShaderParameterChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           ShaderParameterChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterChunk *,
                            0);
 
 OSG_END_NAMESPACE

@@ -105,7 +105,7 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         "The image to write to.\n",
         ImageFieldId, ImageFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GrabForeground::editHandleImage),
         static_cast<FieldGetMethodSig >(&GrabForeground::getHandleImage));
 
@@ -117,7 +117,7 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
         "Automatically resize the image when the viewport size changes.\n",
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GrabForeground::editHandleAutoResize),
         static_cast<FieldGetMethodSig >(&GrabForeground::getHandleAutoResize));
 
@@ -327,8 +327,8 @@ GrabForeground *GrabForegroundBase::createEmpty(void)
 
     newPtr<GrabForeground>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -352,8 +352,8 @@ FieldContainerTransitPtr GrabForegroundBase::shallowCopy(void) const
 {
     GrabForeground *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const GrabForeground *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const GrabForeground *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -405,7 +405,7 @@ GetFieldHandlePtr GrabForegroundBase::getHandleImage           (void) const
 {
     SFUnrecImagePtr::GetHandlePtr returnValue(
         new  SFUnrecImagePtr::GetHandle(
-             &_sfImage, 
+             &_sfImage,
              this->getType().getFieldDesc(ImageFieldId)));
 
     return returnValue;
@@ -415,11 +415,12 @@ EditFieldHandlePtr GrabForegroundBase::editHandleImage          (void)
 {
     SFUnrecImagePtr::EditHandlePtr returnValue(
         new  SFUnrecImagePtr::EditHandle(
-             &_sfImage, 
+             &_sfImage,
              this->getType().getFieldDesc(ImageFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&GrabForeground::setImage, 
-                                          static_cast<GrabForeground *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&GrabForeground::setImage,
+                    static_cast<GrabForeground *>(this), _1));
 
     editSField(ImageFieldMask);
 
@@ -430,7 +431,7 @@ GetFieldHandlePtr GrabForegroundBase::getHandleAutoResize      (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfAutoResize, 
+             &_sfAutoResize,
              this->getType().getFieldDesc(AutoResizeFieldId)));
 
     return returnValue;
@@ -440,8 +441,9 @@ EditFieldHandlePtr GrabForegroundBase::editHandleAutoResize     (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfAutoResize, 
+             &_sfAutoResize,
              this->getType().getFieldDesc(AutoResizeFieldId)));
+
 
     editSField(AutoResizeFieldMask);
 
@@ -493,12 +495,12 @@ DataType FieldTraits<GrabForeground *>::_type("GrabForegroundPtr", "ForegroundPt
 
 OSG_FIELDTRAITS_GETTYPE(GrabForeground *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GrabForeground *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GrabForeground *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GrabForeground *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GrabForeground *,
                            0);
 
 OSG_END_NAMESPACE

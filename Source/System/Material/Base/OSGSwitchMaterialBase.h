@@ -161,8 +161,8 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     void pushToMaterials           (Material * const value   );
     void assignMaterials          (const MFUnrecMaterialPtr &value);
     void removeFromMaterials (UInt32               uiIndex );
-    void removeFromMaterials(Material * const value   );
-    void clearMaterials             (void                          );
+    void removeObjFromMaterials(Material * const value   );
+    void clearMaterials             (void                         );
 
 
     /*! \}                                                                 */

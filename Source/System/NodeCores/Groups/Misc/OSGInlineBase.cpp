@@ -106,7 +106,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
         "",
         UrlFieldId, UrlFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Inline::editHandleUrl),
         static_cast<FieldGetMethodSig >(&Inline::getHandleUrl));
 
@@ -118,7 +118,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
         "",
         LoadedFieldId, LoadedFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Inline::editHandleLoaded),
         static_cast<FieldGetMethodSig >(&Inline::getHandleLoaded));
 
@@ -130,7 +130,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
         "",
         RootFieldId, RootFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Inline::editHandleRoot),
         static_cast<FieldGetMethodSig >(&Inline::getHandleRoot));
 
@@ -364,8 +364,8 @@ Inline *InlineBase::createEmpty(void)
 
     newPtr<Inline>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -389,8 +389,8 @@ FieldContainerTransitPtr InlineBase::shallowCopy(void) const
 {
     Inline *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const Inline *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const Inline *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -444,7 +444,7 @@ GetFieldHandlePtr InlineBase::getHandleUrl             (void) const
 {
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
-             &_mfUrl, 
+             &_mfUrl,
              this->getType().getFieldDesc(UrlFieldId)));
 
     return returnValue;
@@ -454,8 +454,9 @@ EditFieldHandlePtr InlineBase::editHandleUrl            (void)
 {
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
-             &_mfUrl, 
+             &_mfUrl,
              this->getType().getFieldDesc(UrlFieldId)));
+
 
     editMField(UrlFieldMask, _mfUrl);
 
@@ -466,7 +467,7 @@ GetFieldHandlePtr InlineBase::getHandleLoaded          (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfLoaded, 
+             &_sfLoaded,
              this->getType().getFieldDesc(LoadedFieldId)));
 
     return returnValue;
@@ -476,8 +477,9 @@ EditFieldHandlePtr InlineBase::editHandleLoaded         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfLoaded, 
+             &_sfLoaded,
              this->getType().getFieldDesc(LoadedFieldId)));
+
 
     editSField(LoadedFieldMask);
 
@@ -488,7 +490,7 @@ GetFieldHandlePtr InlineBase::getHandleRoot            (void) const
 {
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
     return returnValue;
@@ -498,11 +500,12 @@ EditFieldHandlePtr InlineBase::editHandleRoot           (void)
 {
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
-             &_sfRoot, 
+             &_sfRoot,
              this->getType().getFieldDesc(RootFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&Inline::setRoot, 
-                                          static_cast<Inline *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&Inline::setRoot,
+                    static_cast<Inline *>(this), _1));
 
     editSField(RootFieldMask);
 
@@ -551,7 +554,7 @@ void InlineBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfUrl.terminateShare(Thread::getCurrentAspect(), 
+    _mfUrl.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -563,12 +566,12 @@ DataType FieldTraits<Inline *>::_type("InlinePtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(Inline *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           Inline *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Inline *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           Inline *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Inline *,
                            0);
 
 OSG_END_NAMESPACE

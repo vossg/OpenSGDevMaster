@@ -161,8 +161,8 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     void pushToContainers           (FieldContainer * const value   );
     void assignContainers          (const MFUnrecFieldContainerPtr &value);
     void removeFromContainers (UInt32               uiIndex );
-    void removeFromContainers(FieldContainer * const value   );
-    void clearContainers            (void                          );
+    void removeObjFromContainers(FieldContainer * const value   );
+    void clearContainers            (void                         );
 
 
     /*! \}                                                                 */

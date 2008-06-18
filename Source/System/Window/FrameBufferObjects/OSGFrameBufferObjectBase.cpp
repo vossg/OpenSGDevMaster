@@ -141,7 +141,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         "This defines the target buffers for color attachments.\n",
         ColorAttachmentsFieldId, ColorAttachmentsFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleColorAttachments),
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleColorAttachments));
 
@@ -155,7 +155,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         "to render into.\n",
         DrawBuffersFieldId, DrawBuffersFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleDrawBuffers),
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleDrawBuffers));
 
@@ -167,7 +167,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         "GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n",
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleDepthAttachment),
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleDepthAttachment));
 
@@ -179,7 +179,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         "GL_STENCIL_ATTACHMENT_EXT slot.\n",
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleStencilAttachment),
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleStencilAttachment));
 
@@ -191,7 +191,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         "",
         WidthFieldId, WidthFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleWidth),
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleWidth));
 
@@ -203,7 +203,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         "",
         HeightFieldId, HeightFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleHeight),
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleHeight));
 
@@ -459,7 +459,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
     }
 }
 
-void FrameBufferObjectBase::removeFromColorAttachments(FrameBufferAttachment * const value)
+void FrameBufferObjectBase::removeObjFromColorAttachments(FrameBufferAttachment * const value)
 {
     Int32 iElemIdx = _mfColorAttachments.findIndex(value);
 
@@ -642,8 +642,8 @@ FrameBufferObject *FrameBufferObjectBase::createEmpty(void)
 
     newPtr<FrameBufferObject>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -667,8 +667,8 @@ FieldContainerTransitPtr FrameBufferObjectBase::shallowCopy(void) const
 {
     FrameBufferObject *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const FrameBufferObject *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const FrameBufferObject *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -744,7 +744,7 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleGLId            (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
 
     return returnValue;
@@ -754,8 +754,9 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleGLId           (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGLId, 
+             &_sfGLId,
              this->getType().getFieldDesc(GLIdFieldId)));
+
 
     editSField(GLIdFieldMask);
 
@@ -766,7 +767,7 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleColorAttachments (void) const
 {
     MFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
         new  MFUnrecFrameBufferAttachmentPtr::GetHandle(
-             &_mfColorAttachments, 
+             &_mfColorAttachments,
              this->getType().getFieldDesc(ColorAttachmentsFieldId)));
 
     return returnValue;
@@ -776,11 +777,21 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleColorAttachments(void)
 {
     MFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
         new  MFUnrecFrameBufferAttachmentPtr::EditHandle(
-             &_mfColorAttachments, 
+             &_mfColorAttachments,
              this->getType().getFieldDesc(ColorAttachmentsFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FrameBufferObject::pushToColorAttachments, 
-                              static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FrameBufferObject::pushToColorAttachments,
+                    static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FrameBufferObject::removeFromColorAttachments,
+                    static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FrameBufferObject::removeObjFromColorAttachments,
+                    static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FrameBufferObject::clearColorAttachments,
+                    static_cast<FrameBufferObject *>(this)));
 
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
@@ -791,7 +802,7 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleDrawBuffers     (void) const
 {
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
-             &_mfDrawBuffers, 
+             &_mfDrawBuffers,
              this->getType().getFieldDesc(DrawBuffersFieldId)));
 
     return returnValue;
@@ -801,8 +812,9 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleDrawBuffers    (void)
 {
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
-             &_mfDrawBuffers, 
+             &_mfDrawBuffers,
              this->getType().getFieldDesc(DrawBuffersFieldId)));
+
 
     editMField(DrawBuffersFieldMask, _mfDrawBuffers);
 
@@ -813,7 +825,7 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleDepthAttachment (void) const
 {
     SFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferAttachmentPtr::GetHandle(
-             &_sfDepthAttachment, 
+             &_sfDepthAttachment,
              this->getType().getFieldDesc(DepthAttachmentFieldId)));
 
     return returnValue;
@@ -823,11 +835,12 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleDepthAttachment(void)
 {
     SFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferAttachmentPtr::EditHandle(
-             &_sfDepthAttachment, 
+             &_sfDepthAttachment,
              this->getType().getFieldDesc(DepthAttachmentFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FrameBufferObject::setDepthAttachment, 
-                                          static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FrameBufferObject::setDepthAttachment,
+                    static_cast<FrameBufferObject *>(this), _1));
 
     editSField(DepthAttachmentFieldMask);
 
@@ -838,7 +851,7 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleStencilAttachment (void) const
 {
     SFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferAttachmentPtr::GetHandle(
-             &_sfStencilAttachment, 
+             &_sfStencilAttachment,
              this->getType().getFieldDesc(StencilAttachmentFieldId)));
 
     return returnValue;
@@ -848,11 +861,12 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleStencilAttachment(void)
 {
     SFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferAttachmentPtr::EditHandle(
-             &_sfStencilAttachment, 
+             &_sfStencilAttachment,
              this->getType().getFieldDesc(StencilAttachmentFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FrameBufferObject::setStencilAttachment, 
-                                          static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FrameBufferObject::setStencilAttachment,
+                    static_cast<FrameBufferObject *>(this), _1));
 
     editSField(StencilAttachmentFieldMask);
 
@@ -863,7 +877,7 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleWidth           (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
 
     return returnValue;
@@ -873,8 +887,9 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleWidth          (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfWidth, 
+             &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId)));
+
 
     editSField(WidthFieldMask);
 
@@ -885,7 +900,7 @@ GetFieldHandlePtr FrameBufferObjectBase::getHandleHeight          (void) const
 {
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
 
     return returnValue;
@@ -895,8 +910,9 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleHeight         (void)
 {
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
-             &_sfHeight, 
+             &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId)));
+
 
     editSField(HeightFieldMask);
 
@@ -948,7 +964,7 @@ void FrameBufferObjectBase::resolveLinks(void)
 
     static_cast<FrameBufferObject *>(this)->clearColorAttachments();
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfDrawBuffers.terminateShare(Thread::getCurrentAspect(), 
+    _mfDrawBuffers.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
@@ -960,12 +976,12 @@ DataType FieldTraits<FrameBufferObject *>::_type("FrameBufferObjectPtr", "Attach
 
 OSG_FIELDTRAITS_GETTYPE(FrameBufferObject *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FrameBufferObject *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FrameBufferObject *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FrameBufferObject *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FrameBufferObject *,
                            0);
 
 OSG_END_NAMESPACE

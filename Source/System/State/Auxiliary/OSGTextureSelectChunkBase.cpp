@@ -107,7 +107,7 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         "Texture selector\n",
         ChoiceFieldId, ChoiceFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureSelectChunk::editHandleChoice),
         static_cast<FieldGetMethodSig >(&TextureSelectChunk::getHandleChoice));
 
@@ -119,7 +119,7 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
         "Texture chunks to choose from \n",
         TexturesFieldId, TexturesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureSelectChunk::editHandleTextures),
         static_cast<FieldGetMethodSig >(&TextureSelectChunk::getHandleTextures));
 
@@ -271,7 +271,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     }
 }
 
-void TextureSelectChunkBase::removeFromTextures(TextureBaseChunk * const value)
+void TextureSelectChunkBase::removeObjFromTextures(TextureBaseChunk * const value)
 {
     Int32 iElemIdx = _mfTextures.findIndex(value);
 
@@ -394,8 +394,8 @@ TextureSelectChunk *TextureSelectChunkBase::createEmpty(void)
 
     newPtr<TextureSelectChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -419,8 +419,8 @@ FieldContainerTransitPtr TextureSelectChunkBase::shallowCopy(void) const
 {
     TextureSelectChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TextureSelectChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TextureSelectChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -482,7 +482,7 @@ GetFieldHandlePtr TextureSelectChunkBase::getHandleChoice          (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfChoice, 
+             &_sfChoice,
              this->getType().getFieldDesc(ChoiceFieldId)));
 
     return returnValue;
@@ -492,8 +492,9 @@ EditFieldHandlePtr TextureSelectChunkBase::editHandleChoice         (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfChoice, 
+             &_sfChoice,
              this->getType().getFieldDesc(ChoiceFieldId)));
+
 
     editSField(ChoiceFieldMask);
 
@@ -504,7 +505,7 @@ GetFieldHandlePtr TextureSelectChunkBase::getHandleTextures        (void) const
 {
     MFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecTextureBaseChunkPtr::GetHandle(
-             &_mfTextures, 
+             &_mfTextures,
              this->getType().getFieldDesc(TexturesFieldId)));
 
     return returnValue;
@@ -514,11 +515,21 @@ EditFieldHandlePtr TextureSelectChunkBase::editHandleTextures       (void)
 {
     MFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecTextureBaseChunkPtr::EditHandle(
-             &_mfTextures, 
+             &_mfTextures,
              this->getType().getFieldDesc(TexturesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&TextureSelectChunk::pushToTextures, 
-                              static_cast<TextureSelectChunk *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&TextureSelectChunk::pushToTextures,
+                    static_cast<TextureSelectChunk *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&TextureSelectChunk::removeFromTextures,
+                    static_cast<TextureSelectChunk *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&TextureSelectChunk::removeObjFromTextures,
+                    static_cast<TextureSelectChunk *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&TextureSelectChunk::clearTextures,
+                    static_cast<TextureSelectChunk *>(this)));
 
     editMField(TexturesFieldMask, _mfTextures);
 
@@ -569,12 +580,12 @@ DataType FieldTraits<TextureSelectChunk *>::_type("TextureSelectChunkPtr", "Text
 
 OSG_FIELDTRAITS_GETTYPE(TextureSelectChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TextureSelectChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureSelectChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TextureSelectChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureSelectChunk *,
                            0);
 
 OSG_END_NAMESPACE

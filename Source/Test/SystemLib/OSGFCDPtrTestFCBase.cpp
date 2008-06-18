@@ -213,7 +213,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPub_ptrFieldId, FieldSFPub_ptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPub_ptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPub_ptr));
 
@@ -225,7 +225,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPub_weakptrFieldId, FieldSFPub_weakptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPub_weakptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPub_weakptr));
 
@@ -237,7 +237,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPub_mpchildptrFieldId, FieldSFPub_mpchildptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPub_mpchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPub_mpchildptr));
 
@@ -249,7 +249,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPro_ptrFieldId, FieldSFPro_ptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPro_ptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPro_ptr));
 
@@ -261,7 +261,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPro_weakptrFieldId, FieldSFPro_weakptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPro_weakptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPro_weakptr));
 
@@ -273,7 +273,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPro_mpchildptrFieldId, FieldSFPro_mpchildptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPro_mpchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPro_mpchildptr));
 
@@ -285,7 +285,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFNo_ptrFieldId, FieldSFNo_ptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -297,7 +297,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFNo_weakptrFieldId, FieldSFNo_weakptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -309,7 +309,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFNo_mpchildptrFieldId, FieldSFNo_mpchildptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -321,7 +321,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPub_ptrFieldId, FieldMFPub_ptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPub_ptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPub_ptr));
 
@@ -333,7 +333,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPub_weakptrFieldId, FieldMFPub_weakptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPub_weakptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPub_weakptr));
 
@@ -345,7 +345,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPub_mpchildptrFieldId, FieldMFPub_mpchildptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPub_mpchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPub_mpchildptr));
 
@@ -357,7 +357,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPro_ptrFieldId, FieldMFPro_ptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPro_ptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPro_ptr));
 
@@ -369,7 +369,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPro_weakptrFieldId, FieldMFPro_weakptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPro_weakptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPro_weakptr));
 
@@ -381,7 +381,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPro_mpchildptrFieldId, FieldMFPro_mpchildptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPro_mpchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPro_mpchildptr));
 
@@ -393,7 +393,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFNo_ptrFieldId, FieldMFNo_ptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -405,7 +405,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFNo_weakptrFieldId, FieldMFNo_weakptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -417,7 +417,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFNo_mpchildptrFieldId, FieldMFNo_mpchildptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -429,7 +429,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPub_spchildptrFieldId, FieldSFPub_spchildptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPub_spchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPub_spchildptr));
 
@@ -441,7 +441,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFPro_spchildptrFieldId, FieldSFPro_spchildptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldSFPro_spchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldSFPro_spchildptr));
 
@@ -453,7 +453,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldSFNo_spchildptrFieldId, FieldSFNo_spchildptrFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -465,7 +465,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPub_spchildptrFieldId, FieldMFPub_spchildptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPub_spchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPub_spchildptr));
 
@@ -477,7 +477,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFPro_spchildptrFieldId, FieldMFPro_spchildptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&FCDPtrTestFC::editHandleFieldMFPro_spchildptr),
         static_cast<FieldGetMethodSig >(&FCDPtrTestFC::getHandleFieldMFPro_spchildptr));
 
@@ -489,7 +489,7 @@ void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
         "",
         FieldMFNo_spchildptrFieldId, FieldMFNo_spchildptrFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&FCDPtrTestFC::invalidEditField),
         static_cast     <FieldGetMethodSig >(&FCDPtrTestFC::invalidGetField));
 
@@ -526,7 +526,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"pointer\"\n"
     "    >\n"
@@ -537,7 +537,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"weakpointer\"\n"
     "    >\n"
@@ -548,7 +548,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parents\"\n"
@@ -565,7 +565,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"pointer\"\n"
     "    >\n"
@@ -576,7 +576,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"weakpointer\"\n"
     "    >\n"
@@ -587,7 +587,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parents\"\n"
@@ -602,7 +602,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"pointer\"\n"
     "    >\n"
@@ -613,7 +613,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"weakpointer\"\n"
     "    >\n"
@@ -624,7 +624,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parents\"\n"
@@ -641,7 +641,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"pointer\"\n"
     "    >\n"
@@ -652,7 +652,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"weakpointer\"\n"
     "    >\n"
@@ -663,7 +663,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parents\"\n"
@@ -680,7 +680,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"pointer\"\n"
     "    >\n"
@@ -691,7 +691,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"weakpointer\"\n"
     "    >\n"
@@ -702,7 +702,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parents\"\n"
@@ -718,7 +718,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"pointer\"\n"
     "    >\n"
@@ -729,7 +729,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"weakpointer\"\n"
     "    >\n"
@@ -740,7 +740,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parents\"\n"
@@ -757,7 +757,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDSParTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parent\"\n"
@@ -771,7 +771,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDSParTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parent\"\n"
@@ -786,7 +786,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDSParTestFC\"\n"
     "        cardinality = \"single\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parent\"\n"
@@ -801,7 +801,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDSParTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"public\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parent\"\n"
@@ -815,7 +815,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDSParTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"protected\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parent\"\n"
@@ -830,7 +830,7 @@ FCDPtrTestFCBase::TypeObject FCDPtrTestFCBase::_type(
     "        type = \"FCDSParTestFC\"\n"
     "        cardinality = \"multi\"\n"
     "        visibility = \"external\"\n"
-    "        default = \"0\"\n"
+    "        defaultValue = \"0\"\n"
     "        access = \"none\"\n"
     "        category = \"childpointer\"\n"
     "        linkParentField=\"Parent\"\n"
@@ -1117,7 +1117,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_ptr(FCDTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPub_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_ptr.findIndex(value);
 
@@ -1178,7 +1178,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_weakptr(FCDTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPub_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_weakptr.findIndex(value);
 
@@ -1239,7 +1239,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_mpchildptr(FCDTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPub_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_mpchildptr.findIndex(value);
 
@@ -1300,7 +1300,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_ptr(FCDTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPro_ptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_ptr.findIndex(value);
 
@@ -1361,7 +1361,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_weakptr(FCDTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPro_weakptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_weakptr.findIndex(value);
 
@@ -1422,7 +1422,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_mpchildptr(FCDTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPro_mpchildptr(FCDTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_mpchildptr.findIndex(value);
 
@@ -1483,7 +1483,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPub_spchildptr(FCDSParTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPub_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPub_spchildptr.findIndex(value);
 
@@ -1544,7 +1544,7 @@ void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(UInt32 uiIndex)
     }
 }
 
-void FCDPtrTestFCBase::removeFromFieldMFPro_spchildptr(FCDSParTestFC * const value)
+void FCDPtrTestFCBase::removeObjFromFieldMFPro_spchildptr(FCDSParTestFC * const value)
 {
     Int32 iElemIdx = _mfFieldMFPro_spchildptr.findIndex(value);
 
@@ -1931,8 +1931,8 @@ FCDPtrTestFC *FCDPtrTestFCBase::createEmpty(void)
 
     newPtr<FCDPtrTestFC>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -1956,8 +1956,8 @@ FieldContainerTransitPtr FCDPtrTestFCBase::shallowCopy(void) const
 {
     FCDPtrTestFC *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const FCDPtrTestFC *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const FCDPtrTestFC *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -1974,52 +1974,52 @@ FieldContainerTransitPtr FCDPtrTestFCBase::shallowCopy(void) const
 
 FCDPtrTestFCBase::FCDPtrTestFCBase(void) :
     Inherited(),
-    _sfFieldSFPub_ptr         (NULL),
-    _sfFieldSFPub_weakptr     (NULL),
-    _sfFieldSFPub_mpchildptr  (this, 
+    _sfFieldSFPub_ptr         (0),
+    _sfFieldSFPub_weakptr     (0),
+    _sfFieldSFPub_mpchildptr  (this,
                           FieldSFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPro_ptr         (NULL),
-    _sfFieldSFPro_weakptr     (NULL),
-    _sfFieldSFPro_mpchildptr  (this, 
+    _sfFieldSFPro_ptr         (0),
+    _sfFieldSFPro_weakptr     (0),
+    _sfFieldSFPro_mpchildptr  (this,
                           FieldSFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFNo_ptr          (NULL),
-    _sfFieldSFNo_weakptr      (NULL),
-    _sfFieldSFNo_mpchildptr   (this, 
+    _sfFieldSFNo_ptr          (0),
+    _sfFieldSFNo_weakptr      (0),
+    _sfFieldSFNo_mpchildptr   (this,
                           FieldSFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _mfFieldMFPub_ptr         (),
     _mfFieldMFPub_weakptr     (),
-    _mfFieldMFPub_mpchildptr  (this, 
+    _mfFieldMFPub_mpchildptr  (this,
                           FieldMFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _mfFieldMFPro_ptr         (),
     _mfFieldMFPro_weakptr     (),
-    _mfFieldMFPro_mpchildptr  (this, 
+    _mfFieldMFPro_mpchildptr  (this,
                           FieldMFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _mfFieldMFNo_ptr          (),
     _mfFieldMFNo_weakptr      (),
-    _mfFieldMFNo_mpchildptr   (this, 
+    _mfFieldMFNo_mpchildptr   (this,
                           FieldMFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPub_spchildptr  (this, 
+    _sfFieldSFPub_spchildptr  (this,
                           FieldSFPub_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _sfFieldSFPro_spchildptr  (this, 
+    _sfFieldSFPro_spchildptr  (this,
                           FieldSFPro_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _sfFieldSFNo_spchildptr   (this, 
+    _sfFieldSFNo_spchildptr   (this,
                           FieldSFNo_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _mfFieldMFPub_spchildptr  (this, 
+    _mfFieldMFPub_spchildptr  (this,
                           FieldMFPub_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _mfFieldMFPro_spchildptr  (this, 
+    _mfFieldMFPro_spchildptr  (this,
                           FieldMFPro_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _mfFieldMFNo_spchildptr   (this, 
+    _mfFieldMFNo_spchildptr   (this,
                           FieldMFNo_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId)
 {
@@ -2029,50 +2029,50 @@ FCDPtrTestFCBase::FCDPtrTestFCBase(const FCDPtrTestFCBase &source) :
     Inherited(source),
     _sfFieldSFPub_ptr         (NULL),
     _sfFieldSFPub_weakptr     (NULL),
-    _sfFieldSFPub_mpchildptr  (this, 
+    _sfFieldSFPub_mpchildptr  (this,
                           FieldSFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _sfFieldSFPro_ptr         (NULL),
     _sfFieldSFPro_weakptr     (NULL),
-    _sfFieldSFPro_mpchildptr  (this, 
+    _sfFieldSFPro_mpchildptr  (this,
                           FieldSFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _sfFieldSFNo_ptr          (NULL),
     _sfFieldSFNo_weakptr      (NULL),
-    _sfFieldSFNo_mpchildptr   (this, 
+    _sfFieldSFNo_mpchildptr   (this,
                           FieldSFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _mfFieldMFPub_ptr         (),
     _mfFieldMFPub_weakptr     (),
-    _mfFieldMFPub_mpchildptr  (this, 
+    _mfFieldMFPub_mpchildptr  (this,
                           FieldMFPub_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _mfFieldMFPro_ptr         (),
     _mfFieldMFPro_weakptr     (),
-    _mfFieldMFPro_mpchildptr  (this, 
+    _mfFieldMFPro_mpchildptr  (this,
                           FieldMFPro_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
     _mfFieldMFNo_ptr          (),
     _mfFieldMFNo_weakptr      (),
-    _mfFieldMFNo_mpchildptr   (this, 
+    _mfFieldMFNo_mpchildptr   (this,
                           FieldMFNo_mpchildptrFieldId,
                           FCDTestFC::ParentsFieldId),
-    _sfFieldSFPub_spchildptr  (this, 
+    _sfFieldSFPub_spchildptr  (this,
                           FieldSFPub_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _sfFieldSFPro_spchildptr  (this, 
+    _sfFieldSFPro_spchildptr  (this,
                           FieldSFPro_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _sfFieldSFNo_spchildptr   (this, 
+    _sfFieldSFNo_spchildptr   (this,
                           FieldSFNo_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _mfFieldMFPub_spchildptr  (this, 
+    _mfFieldMFPub_spchildptr  (this,
                           FieldMFPub_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _mfFieldMFPro_spchildptr  (this, 
+    _mfFieldMFPro_spchildptr  (this,
                           FieldMFPro_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId),
-    _mfFieldMFNo_spchildptr   (this, 
+    _mfFieldMFNo_spchildptr   (this,
                           FieldMFNo_spchildptrFieldId,
                           FCDSParTestFC::ParentFieldId)
 {
@@ -2096,7 +2096,7 @@ bool FCDPtrTestFCBase::unlinkChild(
     {
         FCDTestFC * pTypedChild =
             dynamic_cast<FCDTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPub_mpchildptr.getValue())
@@ -2104,24 +2104,24 @@ bool FCDPtrTestFCBase::unlinkChild(
                 editSField(FieldSFPub_mpchildptrFieldMask);
 
                 _sfFieldSFPub_mpchildptr.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldSFPro_mpchildptrFieldId)
     {
         FCDTestFC * pTypedChild =
             dynamic_cast<FCDTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPro_mpchildptr.getValue())
@@ -2129,24 +2129,24 @@ bool FCDPtrTestFCBase::unlinkChild(
                 editSField(FieldSFPro_mpchildptrFieldMask);
 
                 _sfFieldSFPro_mpchildptr.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldSFNo_mpchildptrFieldId)
     {
         FCDTestFC * pTypedChild =
             dynamic_cast<FCDTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFNo_mpchildptr.getValue())
@@ -2154,24 +2154,24 @@ bool FCDPtrTestFCBase::unlinkChild(
                 editSField(FieldSFNo_mpchildptrFieldMask);
 
                 _sfFieldSFNo_mpchildptr.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldMFPub_mpchildptrFieldId)
     {
         FCDTestFC * pTypedChild =
             dynamic_cast<FCDTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
@@ -2179,30 +2179,30 @@ bool FCDPtrTestFCBase::unlinkChild(
 
             MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
                 _mfFieldMFPub_mpchildptr.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
 
                 _mfFieldMFPub_mpchildptr.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldMFPro_mpchildptrFieldId)
     {
         FCDTestFC * pTypedChild =
             dynamic_cast<FCDTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
@@ -2210,30 +2210,30 @@ bool FCDPtrTestFCBase::unlinkChild(
 
             MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
                 _mfFieldMFPro_mpchildptr.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
 
                 _mfFieldMFPro_mpchildptr.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldMFNo_mpchildptrFieldId)
     {
         FCDTestFC * pTypedChild =
             dynamic_cast<FCDTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildFCDTestFCPtr::iterator pI =
@@ -2241,30 +2241,30 @@ bool FCDPtrTestFCBase::unlinkChild(
 
             MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
                 _mfFieldMFNo_mpchildptr.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(FieldMFNo_mpchildptrFieldMask, _mfFieldMFNo_mpchildptr);
 
                 _mfFieldMFNo_mpchildptr.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldSFPub_spchildptrFieldId)
     {
         FCDSParTestFC * pTypedChild =
             dynamic_cast<FCDSParTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPub_spchildptr.getValue())
@@ -2272,24 +2272,24 @@ bool FCDPtrTestFCBase::unlinkChild(
                 editSField(FieldSFPub_spchildptrFieldMask);
 
                 _sfFieldSFPub_spchildptr.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldSFPro_spchildptrFieldId)
     {
         FCDSParTestFC * pTypedChild =
             dynamic_cast<FCDSParTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFPro_spchildptr.getValue())
@@ -2297,24 +2297,24 @@ bool FCDPtrTestFCBase::unlinkChild(
                 editSField(FieldSFPro_spchildptrFieldMask);
 
                 _sfFieldSFPro_spchildptr.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldSFNo_spchildptrFieldId)
     {
         FCDSParTestFC * pTypedChild =
             dynamic_cast<FCDSParTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             if(pTypedChild == _sfFieldSFNo_spchildptr.getValue())
@@ -2322,24 +2322,24 @@ bool FCDPtrTestFCBase::unlinkChild(
                 editSField(FieldSFNo_spchildptrFieldMask);
 
                 _sfFieldSFNo_spchildptr.setValue(NULL);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldMFPub_spchildptrFieldId)
     {
         FCDSParTestFC * pTypedChild =
             dynamic_cast<FCDSParTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
@@ -2347,30 +2347,30 @@ bool FCDPtrTestFCBase::unlinkChild(
 
             MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
                 _mfFieldMFPub_spchildptr.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
 
                 _mfFieldMFPub_spchildptr.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldMFPro_spchildptrFieldId)
     {
         FCDSParTestFC * pTypedChild =
             dynamic_cast<FCDSParTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
@@ -2378,30 +2378,30 @@ bool FCDPtrTestFCBase::unlinkChild(
 
             MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
                 _mfFieldMFPro_spchildptr.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
 
                 _mfFieldMFPro_spchildptr.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
+
     if(childFieldId == FieldMFNo_spchildptrFieldId)
     {
         FCDSParTestFC * pTypedChild =
             dynamic_cast<FCDSParTestFC *>(pChild);
-            
+
         if(pTypedChild != NULL)
         {
             MFUnrecChildFCDSParTestFCPtr::iterator pI =
@@ -2409,26 +2409,26 @@ bool FCDPtrTestFCBase::unlinkChild(
 
             MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
                 _mfFieldMFNo_spchildptr.end_nc();
-                
+
             if(pI != pEnd)
             {
                 editMField(FieldMFNo_spchildptrFieldMask, _mfFieldMFNo_spchildptr);
 
                 _mfFieldMFNo_spchildptr.erase(pI);
-                
+
                 return true;
             }
-            
+
             FWARNING(("FCDPtrTestFCBase::unlinkParent: Child <-> "
                       "Parent link inconsistent.\n"));
-            
+
             return false;
         }
-        
+
         return false;
     }
-    
-    
+
+
     return Inherited::unlinkChild(pChild, childFieldId);
 }
 
@@ -2558,7 +2558,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPub_ptr  (void) const
 {
     SFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::GetHandle(
-             &_sfFieldSFPub_ptr, 
+             &_sfFieldSFPub_ptr,
              this->getType().getFieldDesc(FieldSFPub_ptrFieldId)));
 
     return returnValue;
@@ -2568,11 +2568,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPub_ptr (void)
 {
     SFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::EditHandle(
-             &_sfFieldSFPub_ptr, 
+             &_sfFieldSFPub_ptr,
              this->getType().getFieldDesc(FieldSFPub_ptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPub_ptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPub_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPub_ptrFieldMask);
 
@@ -2583,7 +2584,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPub_weakptr (void) const
 {
     SFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::GetHandle(
-             &_sfFieldSFPub_weakptr, 
+             &_sfFieldSFPub_weakptr,
              this->getType().getFieldDesc(FieldSFPub_weakptrFieldId)));
 
     return returnValue;
@@ -2593,11 +2594,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPub_weakptr(void)
 {
     SFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::EditHandle(
-             &_sfFieldSFPub_weakptr, 
+             &_sfFieldSFPub_weakptr,
              this->getType().getFieldDesc(FieldSFPub_weakptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPub_weakptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPub_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPub_weakptrFieldMask);
 
@@ -2608,7 +2610,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPub_mpchildptr (void) const
 {
     SFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::GetHandle(
-             &_sfFieldSFPub_mpchildptr, 
+             &_sfFieldSFPub_mpchildptr,
              this->getType().getFieldDesc(FieldSFPub_mpchildptrFieldId)));
 
     return returnValue;
@@ -2618,11 +2620,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPub_mpchildptr(void)
 {
     SFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::EditHandle(
-             &_sfFieldSFPub_mpchildptr, 
+             &_sfFieldSFPub_mpchildptr,
              this->getType().getFieldDesc(FieldSFPub_mpchildptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPub_mpchildptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPub_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPub_mpchildptrFieldMask);
 
@@ -2633,7 +2636,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPro_ptr  (void) const
 {
     SFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::GetHandle(
-             &_sfFieldSFPro_ptr, 
+             &_sfFieldSFPro_ptr,
              this->getType().getFieldDesc(FieldSFPro_ptrFieldId)));
 
     return returnValue;
@@ -2643,11 +2646,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPro_ptr (void)
 {
     SFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::EditHandle(
-             &_sfFieldSFPro_ptr, 
+             &_sfFieldSFPro_ptr,
              this->getType().getFieldDesc(FieldSFPro_ptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPro_ptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPro_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPro_ptrFieldMask);
 
@@ -2658,7 +2662,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPro_weakptr (void) const
 {
     SFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::GetHandle(
-             &_sfFieldSFPro_weakptr, 
+             &_sfFieldSFPro_weakptr,
              this->getType().getFieldDesc(FieldSFPro_weakptrFieldId)));
 
     return returnValue;
@@ -2668,11 +2672,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPro_weakptr(void)
 {
     SFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::EditHandle(
-             &_sfFieldSFPro_weakptr, 
+             &_sfFieldSFPro_weakptr,
              this->getType().getFieldDesc(FieldSFPro_weakptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPro_weakptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPro_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPro_weakptrFieldMask);
 
@@ -2683,7 +2688,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPro_mpchildptr (void) const
 {
     SFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::GetHandle(
-             &_sfFieldSFPro_mpchildptr, 
+             &_sfFieldSFPro_mpchildptr,
              this->getType().getFieldDesc(FieldSFPro_mpchildptrFieldId)));
 
     return returnValue;
@@ -2693,11 +2698,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPro_mpchildptr(void)
 {
     SFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::EditHandle(
-             &_sfFieldSFPro_mpchildptr, 
+             &_sfFieldSFPro_mpchildptr,
              this->getType().getFieldDesc(FieldSFPro_mpchildptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPro_mpchildptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPro_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPro_mpchildptrFieldMask);
 
@@ -2750,7 +2756,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPub_ptr  (void) const
 {
     MFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::GetHandle(
-             &_mfFieldMFPub_ptr, 
+             &_mfFieldMFPub_ptr,
              this->getType().getFieldDesc(FieldMFPub_ptrFieldId)));
 
     return returnValue;
@@ -2760,11 +2766,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPub_ptr (void)
 {
     MFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::EditHandle(
-             &_mfFieldMFPub_ptr, 
+             &_mfFieldMFPub_ptr,
              this->getType().getFieldDesc(FieldMFPub_ptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPub_ptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPub_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPub_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPub_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPub_ptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPub_ptrFieldMask, _mfFieldMFPub_ptr);
 
@@ -2775,7 +2791,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPub_weakptr (void) const
 {
     MFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::GetHandle(
-             &_mfFieldMFPub_weakptr, 
+             &_mfFieldMFPub_weakptr,
              this->getType().getFieldDesc(FieldMFPub_weakptrFieldId)));
 
     return returnValue;
@@ -2785,11 +2801,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPub_weakptr(void)
 {
     MFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::EditHandle(
-             &_mfFieldMFPub_weakptr, 
+             &_mfFieldMFPub_weakptr,
              this->getType().getFieldDesc(FieldMFPub_weakptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPub_weakptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPub_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPub_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPub_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPub_weakptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPub_weakptrFieldMask, _mfFieldMFPub_weakptr);
 
@@ -2800,7 +2826,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPub_mpchildptr (void) const
 {
     MFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::GetHandle(
-             &_mfFieldMFPub_mpchildptr, 
+             &_mfFieldMFPub_mpchildptr,
              this->getType().getFieldDesc(FieldMFPub_mpchildptrFieldId)));
 
     return returnValue;
@@ -2810,11 +2836,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPub_mpchildptr(void)
 {
     MFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::EditHandle(
-             &_mfFieldMFPub_mpchildptr, 
+             &_mfFieldMFPub_mpchildptr,
              this->getType().getFieldDesc(FieldMFPub_mpchildptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPub_mpchildptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPub_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPub_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPub_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPub_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
 
@@ -2825,7 +2861,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPro_ptr  (void) const
 {
     MFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::GetHandle(
-             &_mfFieldMFPro_ptr, 
+             &_mfFieldMFPro_ptr,
              this->getType().getFieldDesc(FieldMFPro_ptrFieldId)));
 
     return returnValue;
@@ -2835,11 +2871,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPro_ptr (void)
 {
     MFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::EditHandle(
-             &_mfFieldMFPro_ptr, 
+             &_mfFieldMFPro_ptr,
              this->getType().getFieldDesc(FieldMFPro_ptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPro_ptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPro_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPro_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPro_ptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPro_ptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPro_ptrFieldMask, _mfFieldMFPro_ptr);
 
@@ -2850,7 +2896,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPro_weakptr (void) const
 {
     MFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::GetHandle(
-             &_mfFieldMFPro_weakptr, 
+             &_mfFieldMFPro_weakptr,
              this->getType().getFieldDesc(FieldMFPro_weakptrFieldId)));
 
     return returnValue;
@@ -2860,11 +2906,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPro_weakptr(void)
 {
     MFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::EditHandle(
-             &_mfFieldMFPro_weakptr, 
+             &_mfFieldMFPro_weakptr,
              this->getType().getFieldDesc(FieldMFPro_weakptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPro_weakptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPro_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPro_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPro_weakptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPro_weakptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPro_weakptrFieldMask, _mfFieldMFPro_weakptr);
 
@@ -2875,7 +2931,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPro_mpchildptr (void) const
 {
     MFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::GetHandle(
-             &_mfFieldMFPro_mpchildptr, 
+             &_mfFieldMFPro_mpchildptr,
              this->getType().getFieldDesc(FieldMFPro_mpchildptrFieldId)));
 
     return returnValue;
@@ -2885,11 +2941,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPro_mpchildptr(void)
 {
     MFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::EditHandle(
-             &_mfFieldMFPro_mpchildptr, 
+             &_mfFieldMFPro_mpchildptr,
              this->getType().getFieldDesc(FieldMFPro_mpchildptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPro_mpchildptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPro_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPro_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPro_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPro_mpchildptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
 
@@ -2942,7 +3008,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPub_spchildptr (void) const
 {
     SFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::GetHandle(
-             &_sfFieldSFPub_spchildptr, 
+             &_sfFieldSFPub_spchildptr,
              this->getType().getFieldDesc(FieldSFPub_spchildptrFieldId)));
 
     return returnValue;
@@ -2952,11 +3018,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPub_spchildptr(void)
 {
     SFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::EditHandle(
-             &_sfFieldSFPub_spchildptr, 
+             &_sfFieldSFPub_spchildptr,
              this->getType().getFieldDesc(FieldSFPub_spchildptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPub_spchildptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPub_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPub_spchildptrFieldMask);
 
@@ -2967,7 +3034,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldSFPro_spchildptr (void) const
 {
     SFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::GetHandle(
-             &_sfFieldSFPro_spchildptr, 
+             &_sfFieldSFPro_spchildptr,
              this->getType().getFieldDesc(FieldSFPro_spchildptrFieldId)));
 
     return returnValue;
@@ -2977,11 +3044,12 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldSFPro_spchildptr(void)
 {
     SFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::EditHandle(
-             &_sfFieldSFPro_spchildptr, 
+             &_sfFieldSFPro_spchildptr,
              this->getType().getFieldDesc(FieldSFPro_spchildptrFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&FCDPtrTestFC::setFieldSFPro_spchildptr, 
-                                          static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&FCDPtrTestFC::setFieldSFPro_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
 
     editSField(FieldSFPro_spchildptrFieldMask);
 
@@ -3006,7 +3074,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPub_spchildptr (void) const
 {
     MFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::GetHandle(
-             &_mfFieldMFPub_spchildptr, 
+             &_mfFieldMFPub_spchildptr,
              this->getType().getFieldDesc(FieldMFPub_spchildptrFieldId)));
 
     return returnValue;
@@ -3016,11 +3084,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPub_spchildptr(void)
 {
     MFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::EditHandle(
-             &_mfFieldMFPub_spchildptr, 
+             &_mfFieldMFPub_spchildptr,
              this->getType().getFieldDesc(FieldMFPub_spchildptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPub_spchildptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPub_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPub_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPub_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPub_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
 
@@ -3031,7 +3109,7 @@ GetFieldHandlePtr FCDPtrTestFCBase::getHandleFieldMFPro_spchildptr (void) const
 {
     MFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::GetHandle(
-             &_mfFieldMFPro_spchildptr, 
+             &_mfFieldMFPro_spchildptr,
              this->getType().getFieldDesc(FieldMFPro_spchildptrFieldId)));
 
     return returnValue;
@@ -3041,11 +3119,21 @@ EditFieldHandlePtr FCDPtrTestFCBase::editHandleFieldMFPro_spchildptr(void)
 {
     MFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::EditHandle(
-             &_mfFieldMFPro_spchildptr, 
+             &_mfFieldMFPro_spchildptr,
              this->getType().getFieldDesc(FieldMFPro_spchildptrFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&FCDPtrTestFC::pushToFieldMFPro_spchildptr, 
-                              static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&FCDPtrTestFC::pushToFieldMFPro_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FCDPtrTestFC::removeFromFieldMFPro_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FCDPtrTestFC::removeObjFromFieldMFPro_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FCDPtrTestFC::clearFieldMFPro_spchildptr,
+                    static_cast<FCDPtrTestFC *>(this)));
 
     editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
 
@@ -3133,12 +3221,12 @@ DataType FieldTraits<FCDPtrTestFC *>::_type("FCDPtrTestFCPtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFC *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           FCDPtrTestFC *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FCDPtrTestFC *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           FCDPtrTestFC *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FCDPtrTestFC *,
                            0);
 
 OSG_END_NAMESPACE

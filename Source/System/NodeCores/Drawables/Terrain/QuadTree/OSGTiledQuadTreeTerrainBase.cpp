@@ -151,7 +151,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "Terrain tile array.\n",
         HeightTilesFieldId, HeightTilesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleHeightTiles),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleHeightTiles));
 
@@ -163,7 +163,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "Terrain textures.\n",
         HeightTexturesFieldId, HeightTexturesFieldMask,
         false,
-        Field::MFDefaultFlags,
+        (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleHeightTextures),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleHeightTextures));
 
@@ -175,7 +175,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "x-size of 2-dimensional tile array.\n",
         SizeXFieldId, SizeXFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleSizeX),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleSizeX));
 
@@ -187,7 +187,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "y-size of 2-dimensional tile array.\n",
         SizeYFieldId, SizeYFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleSizeY),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleSizeY));
 
@@ -199,7 +199,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "",
         HeightScaleFieldId, HeightScaleFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleHeightScale),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleHeightScale));
 
@@ -211,7 +211,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "",
         VertexSpacingFieldId, VertexSpacingFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleVertexSpacing),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleVertexSpacing));
 
@@ -223,7 +223,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "",
         GeoMorphingFieldId, GeoMorphingFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleGeoMorphing),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleGeoMorphing));
 
@@ -235,7 +235,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "Detail of terrain tesselation.\n",
         DetailFieldId, DetailFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleDetail),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleDetail));
 
@@ -247,7 +247,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "",
         CurrentXFieldId, CurrentXFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleCurrentX),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleCurrentX));
 
@@ -259,7 +259,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "",
         CurrentYFieldId, CurrentYFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleCurrentY),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleCurrentY));
 
@@ -271,7 +271,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "Number of tiles (0, 1, 2, 3) around current eye point.\n",
         SizeROIFieldId, SizeROIFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleSizeROI),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleSizeROI));
 
@@ -283,7 +283,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "Perform any updates (tiling, terrain tiles).\n",
         UpdateFieldId, UpdateFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleUpdate),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleUpdate));
 
@@ -295,7 +295,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "Update terrain tiles in the next frame.\n",
         UpdateTerrainFieldId, UpdateTerrainFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandleUpdateTerrain),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandleUpdateTerrain));
 
@@ -307,7 +307,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
         "Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.\n",
         PerPixelLightingFieldId, PerPixelLightingFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TiledQuadTreeTerrain::editHandlePerPixelLighting),
         static_cast<FieldGetMethodSig >(&TiledQuadTreeTerrain::getHandlePerPixelLighting));
 
@@ -719,7 +719,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
     }
 }
 
-void TiledQuadTreeTerrainBase::removeFromHeightTiles(Image * const value)
+void TiledQuadTreeTerrainBase::removeObjFromHeightTiles(Image * const value)
 {
     Int32 iElemIdx = _mfHeightTiles.findIndex(value);
 
@@ -780,7 +780,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
     }
 }
 
-void TiledQuadTreeTerrainBase::removeFromHeightTextures(Material * const value)
+void TiledQuadTreeTerrainBase::removeObjFromHeightTextures(Material * const value)
 {
     Int32 iElemIdx = _mfHeightTextures.findIndex(value);
 
@@ -1047,8 +1047,8 @@ TiledQuadTreeTerrain *TiledQuadTreeTerrainBase::createEmpty(void)
 
     newPtr<TiledQuadTreeTerrain>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -1072,8 +1072,8 @@ FieldContainerTransitPtr TiledQuadTreeTerrainBase::shallowCopy(void) const
 {
     TiledQuadTreeTerrain *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const TiledQuadTreeTerrain *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const TiledQuadTreeTerrain *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -1171,7 +1171,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTiles     (void) cons
 {
     MFUnrecImagePtr::GetHandlePtr returnValue(
         new  MFUnrecImagePtr::GetHandle(
-             &_mfHeightTiles, 
+             &_mfHeightTiles,
              this->getType().getFieldDesc(HeightTilesFieldId)));
 
     return returnValue;
@@ -1181,11 +1181,21 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTiles    (void)
 {
     MFUnrecImagePtr::EditHandlePtr returnValue(
         new  MFUnrecImagePtr::EditHandle(
-             &_mfHeightTiles, 
+             &_mfHeightTiles,
              this->getType().getFieldDesc(HeightTilesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTiles, 
-                              static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&TiledQuadTreeTerrain::pushToHeightTiles,
+                    static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&TiledQuadTreeTerrain::removeFromHeightTiles,
+                    static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&TiledQuadTreeTerrain::removeObjFromHeightTiles,
+                    static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&TiledQuadTreeTerrain::clearHeightTiles,
+                    static_cast<TiledQuadTreeTerrain *>(this)));
 
     editMField(HeightTilesFieldMask, _mfHeightTiles);
 
@@ -1196,7 +1206,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleHeightTextures  (void) cons
 {
     MFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  MFUnrecMaterialPtr::GetHandle(
-             &_mfHeightTextures, 
+             &_mfHeightTextures,
              this->getType().getFieldDesc(HeightTexturesFieldId)));
 
     return returnValue;
@@ -1206,11 +1216,21 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightTextures (void)
 {
     MFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  MFUnrecMaterialPtr::EditHandle(
-             &_mfHeightTextures, 
+             &_mfHeightTextures,
              this->getType().getFieldDesc(HeightTexturesFieldId)));
 
-    returnValue->setAddMethod(boost::bind(&TiledQuadTreeTerrain::pushToHeightTextures, 
-                              static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&TiledQuadTreeTerrain::pushToHeightTextures,
+                    static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&TiledQuadTreeTerrain::removeFromHeightTextures,
+                    static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&TiledQuadTreeTerrain::removeObjFromHeightTextures,
+                    static_cast<TiledQuadTreeTerrain *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&TiledQuadTreeTerrain::clearHeightTextures,
+                    static_cast<TiledQuadTreeTerrain *>(this)));
 
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
@@ -1221,7 +1241,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleSizeX           (void) cons
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfSizeX, 
+             &_sfSizeX,
              this->getType().getFieldDesc(SizeXFieldId)));
 
     return returnValue;
@@ -1231,8 +1251,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleSizeX          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfSizeX, 
+             &_sfSizeX,
              this->getType().getFieldDesc(SizeXFieldId)));
+
 
     editSField(SizeXFieldMask);
 
@@ -1243,7 +1264,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleSizeY           (void) cons
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfSizeY, 
+             &_sfSizeY,
              this->getType().getFieldDesc(SizeYFieldId)));
 
     return returnValue;
@@ -1253,8 +1274,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleSizeY          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfSizeY, 
+             &_sfSizeY,
              this->getType().getFieldDesc(SizeYFieldId)));
+
 
     editSField(SizeYFieldMask);
 
@@ -1265,7 +1287,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleHeightScale     (void) cons
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfHeightScale, 
+             &_sfHeightScale,
              this->getType().getFieldDesc(HeightScaleFieldId)));
 
     return returnValue;
@@ -1275,8 +1297,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleHeightScale    (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfHeightScale, 
+             &_sfHeightScale,
              this->getType().getFieldDesc(HeightScaleFieldId)));
+
 
     editSField(HeightScaleFieldMask);
 
@@ -1287,7 +1310,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleVertexSpacing   (void) cons
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfVertexSpacing, 
+             &_sfVertexSpacing,
              this->getType().getFieldDesc(VertexSpacingFieldId)));
 
     return returnValue;
@@ -1297,8 +1320,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleVertexSpacing  (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfVertexSpacing, 
+             &_sfVertexSpacing,
              this->getType().getFieldDesc(VertexSpacingFieldId)));
+
 
     editSField(VertexSpacingFieldMask);
 
@@ -1309,7 +1333,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleGeoMorphing     (void) cons
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfGeoMorphing, 
+             &_sfGeoMorphing,
              this->getType().getFieldDesc(GeoMorphingFieldId)));
 
     return returnValue;
@@ -1319,8 +1343,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleGeoMorphing    (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfGeoMorphing, 
+             &_sfGeoMorphing,
              this->getType().getFieldDesc(GeoMorphingFieldId)));
+
 
     editSField(GeoMorphingFieldMask);
 
@@ -1331,7 +1356,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleDetail          (void) cons
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfDetail, 
+             &_sfDetail,
              this->getType().getFieldDesc(DetailFieldId)));
 
     return returnValue;
@@ -1341,8 +1366,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleDetail         (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfDetail, 
+             &_sfDetail,
              this->getType().getFieldDesc(DetailFieldId)));
+
 
     editSField(DetailFieldMask);
 
@@ -1353,7 +1379,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleCurrentX        (void) cons
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfCurrentX, 
+             &_sfCurrentX,
              this->getType().getFieldDesc(CurrentXFieldId)));
 
     return returnValue;
@@ -1363,8 +1389,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleCurrentX       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfCurrentX, 
+             &_sfCurrentX,
              this->getType().getFieldDesc(CurrentXFieldId)));
+
 
     editSField(CurrentXFieldMask);
 
@@ -1375,7 +1402,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleCurrentY        (void) cons
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfCurrentY, 
+             &_sfCurrentY,
              this->getType().getFieldDesc(CurrentYFieldId)));
 
     return returnValue;
@@ -1385,8 +1412,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleCurrentY       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfCurrentY, 
+             &_sfCurrentY,
              this->getType().getFieldDesc(CurrentYFieldId)));
+
 
     editSField(CurrentYFieldMask);
 
@@ -1397,7 +1425,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleSizeROI         (void) cons
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfSizeROI, 
+             &_sfSizeROI,
              this->getType().getFieldDesc(SizeROIFieldId)));
 
     return returnValue;
@@ -1407,8 +1435,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleSizeROI        (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfSizeROI, 
+             &_sfSizeROI,
              this->getType().getFieldDesc(SizeROIFieldId)));
+
 
     editSField(SizeROIFieldMask);
 
@@ -1419,7 +1448,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleUpdate          (void) cons
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfUpdate, 
+             &_sfUpdate,
              this->getType().getFieldDesc(UpdateFieldId)));
 
     return returnValue;
@@ -1429,8 +1458,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleUpdate         (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfUpdate, 
+             &_sfUpdate,
              this->getType().getFieldDesc(UpdateFieldId)));
+
 
     editSField(UpdateFieldMask);
 
@@ -1441,7 +1471,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandleUpdateTerrain   (void) cons
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfUpdateTerrain, 
+             &_sfUpdateTerrain,
              this->getType().getFieldDesc(UpdateTerrainFieldId)));
 
     return returnValue;
@@ -1451,8 +1481,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandleUpdateTerrain  (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfUpdateTerrain, 
+             &_sfUpdateTerrain,
              this->getType().getFieldDesc(UpdateTerrainFieldId)));
+
 
     editSField(UpdateTerrainFieldMask);
 
@@ -1463,7 +1494,7 @@ GetFieldHandlePtr TiledQuadTreeTerrainBase::getHandlePerPixelLighting (void) con
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
-             &_sfPerPixelLighting, 
+             &_sfPerPixelLighting,
              this->getType().getFieldDesc(PerPixelLightingFieldId)));
 
     return returnValue;
@@ -1473,8 +1504,9 @@ EditFieldHandlePtr TiledQuadTreeTerrainBase::editHandlePerPixelLighting(void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
-             &_sfPerPixelLighting, 
+             &_sfPerPixelLighting,
              this->getType().getFieldDesc(PerPixelLightingFieldId)));
+
 
     editSField(PerPixelLightingFieldMask);
 
@@ -1526,12 +1558,12 @@ DataType FieldTraits<TiledQuadTreeTerrain *>::_type("TiledQuadTreeTerrainPtr", "
 
 OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrain *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           TiledQuadTreeTerrain *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TiledQuadTreeTerrain *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           TiledQuadTreeTerrain *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TiledQuadTreeTerrain *,
                            0);
 
 OSG_END_NAMESPACE

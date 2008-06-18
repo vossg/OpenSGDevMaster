@@ -203,7 +203,7 @@ class OSG_SYSTEM_DLLMAPPING FCDSParTestFCBase : public AttachmentContainer
                               UInt16           const parentFieldId);
     virtual bool unlinkParent(FieldContainer * const pParent,
                               UInt16           const parentFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */

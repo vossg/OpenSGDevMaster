@@ -98,7 +98,7 @@ void MaterialDrawableBase::classDescInserter(TypeObject &oType)
         "The material used to render the Drawable.\n",
         MaterialFieldId, MaterialFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&MaterialDrawable::editHandleMaterial),
         static_cast<FieldGetMethodSig >(&MaterialDrawable::getHandleMaterial));
 
@@ -255,7 +255,7 @@ GetFieldHandlePtr MaterialDrawableBase::getHandleMaterial        (void) const
 {
     SFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecMaterialPtr::GetHandle(
-             &_sfMaterial, 
+             &_sfMaterial,
              this->getType().getFieldDesc(MaterialFieldId)));
 
     return returnValue;
@@ -265,11 +265,12 @@ EditFieldHandlePtr MaterialDrawableBase::editHandleMaterial       (void)
 {
     SFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecMaterialPtr::EditHandle(
-             &_sfMaterial, 
+             &_sfMaterial,
              this->getType().getFieldDesc(MaterialFieldId)));
 
-    returnValue->setSetMethod(boost::bind(&MaterialDrawable::setMaterial, 
-                                          static_cast<MaterialDrawable *>(this), _1));
+    returnValue->setSetMethod(
+        boost::bind(&MaterialDrawable::setMaterial,
+                    static_cast<MaterialDrawable *>(this), _1));
 
     editSField(MaterialFieldMask);
 
@@ -310,12 +311,12 @@ DataType FieldTraits<MaterialDrawable *>::_type("MaterialDrawablePtr", "Drawable
 
 OSG_FIELDTRAITS_GETTYPE(MaterialDrawable *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           MaterialDrawable *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MaterialDrawable *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           MaterialDrawable *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MaterialDrawable *,
                            0);
 
 OSG_END_NAMESPACE

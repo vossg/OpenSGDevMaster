@@ -171,8 +171,8 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     void pushToGroupNodes           (Node * const value   );
     void assignGroupNodes          (const MFUnrecNodePtr    &value);
     void removeFromGroupNodes (UInt32               uiIndex );
-    void removeFromGroupNodes(Node * const value   );
-    void clearGroupNodes            (void                          );
+    void removeObjFromGroupNodes(Node * const value   );
+    void clearGroupNodes            (void                         );
 
 
     /*! \}                                                                 */

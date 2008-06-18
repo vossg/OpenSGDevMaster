@@ -159,8 +159,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     void pushToGlobals             (FieldContainer * const value   );
     void assignGlobals            (const MFUnrecFieldContainerPtr &value);
     void removeFromGlobals (UInt32               uiIndex );
-    void removeFromGlobals(FieldContainer * const value   );
-    void clearGlobals               (void                          );
+    void removeObjFromGlobals(FieldContainer * const value   );
+    void clearGlobals               (void                         );
 
 
     /*! \}                                                                 */

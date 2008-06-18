@@ -226,8 +226,8 @@ VertexProgramChunk *VertexProgramChunkBase::createEmpty(void)
 
     newPtr<VertexProgramChunk>(returnValue, Thread::getCurrentLocalFlags());
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
@@ -251,8 +251,8 @@ FieldContainerTransitPtr VertexProgramChunkBase::shallowCopy(void) const
 {
     VertexProgramChunk *tmpPtr;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const VertexProgramChunk *>(this), 
+    newPtr(tmpPtr,
+           dynamic_cast<const VertexProgramChunk *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -328,12 +328,12 @@ DataType FieldTraits<VertexProgramChunk *>::_type("VertexProgramChunkPtr", "Prog
 
 OSG_FIELDTRAITS_GETTYPE(VertexProgramChunk *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           VertexProgramChunk *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           VertexProgramChunk *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           VertexProgramChunk *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           VertexProgramChunk *,
                            0);
 
 OSG_END_NAMESPACE

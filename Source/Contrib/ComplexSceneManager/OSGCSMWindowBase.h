@@ -198,8 +198,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     void pushToViewports           (CSMViewport * const value   );
     void assignViewports          (const MFUnrecCSMViewportPtr &value);
     void removeFromViewports (UInt32               uiIndex );
-    void removeFromViewports(CSMViewport * const value   );
-    void clearViewports             (void                          );
+    void removeObjFromViewports(CSMViewport * const value   );
+    void clearViewports             (void                         );
 
 
     /*! \}                                                                 */
@@ -267,7 +267,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                               UInt16           const parentFieldId);
     virtual bool unlinkParent(FieldContainer * const pParent,
                               UInt16           const parentFieldId);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
