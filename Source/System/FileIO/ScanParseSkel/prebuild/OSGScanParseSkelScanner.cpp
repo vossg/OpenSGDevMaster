@@ -328,7 +328,8 @@ typedef unsigned char YY_CHAR;
 #define yytext_ptr yytext
 #define YY_INTERACTIVE
 
-#include <FlexLexer.h>
+//#include <FlexLexer.h>
+#include <OSGScanParseSkelScanner_FlexLexer.h>
 int yyFlexLexer::yylex()
 	{
 	LexerError( "yyFlexLexer::yylex invoked but %option yyclass used" );
