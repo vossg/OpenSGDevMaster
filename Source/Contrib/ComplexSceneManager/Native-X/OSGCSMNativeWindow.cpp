@@ -109,7 +109,8 @@ void CSMNativeWindow::xMainLoop(void)
 
     // Sleep 2 sec to open the window;
     //sleep(_uiCreateNapTime);
-    sleep(1);
+    //sleep(1);
+    osgSleep(100);
 
     while(_bRun == true)
     {
@@ -130,7 +131,7 @@ void CSMNativeWindow::xMainLoop(void)
                         
                         XLookupString(&event.xkey, buffer, 30, &keysym, NULL);
                         
-                        fprintf(stderr, "%x\n", keysym);
+                        //fprintf(stderr, "%x\n", keysym);
 
                         if(keysym == XK_Escape) 
                         {
@@ -253,7 +254,7 @@ bool CSMNativeWindow::init(void)
 
     Display *pDisplay = XOpenDisplay(szDisplayName.c_str());
 
-    fprintf(stderr, "Opened Display %p\n", pDisplay);
+    //fprintf(stderr, "Opened Display %p\n", pDisplay);
     
     if(pDisplay == NULL) 
     {
@@ -356,7 +357,7 @@ bool CSMNativeWindow::init(void)
                           this->getYSize());
     }
 
-    fprintf(stderr, "Win size %d %d\n", uiWidth, uiHeight);
+    //fprintf(stderr, "Win size %d %d\n", uiWidth, uiHeight);
 
     ::Window pHWin = XCreateWindow( pDisplay,
                                     RootWindow(pDisplay,

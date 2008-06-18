@@ -51,6 +51,7 @@
 #include "OSGOSGSceneFileType.h"
 #include "OSGContainerCollection.h"
 #include "OSGSceneFileHandler.h"
+#include "OSGImageFileHandler.h"
 #include "OSGNameAttachment.h"
 #include "OSGAction.h"
 
@@ -61,11 +62,44 @@ OSG_BEGIN_NAMESPACE
 // To modify it, please change the .fcd file (OSGComplexSceneManager.fcd) and
 // regenerate the base file.
 
+struct NodeFinder
+{
+    std::string  _szRefName;
+    Node        *_pResult;
+
+    NodeFinder(void) :
+        _szRefName(    ),
+        _pResult  (NULL)
+    {
+    }
+
+    Action::ResultE enter(Node * const pNode)
+    {
+        Action::ResultE returnValue = Action::Continue;
+
+        const Char8 *szName = OSG::getName(pNode);
+
+        if(szName != NULL)
+        {
+            if(osgStringCmp(_szRefName.c_str(), szName) == 0)
+            {
+                _pResult = pNode;
+
+                returnValue = Action::Quit;
+            }
+        }
+        
+        return returnValue;
+    }
+};
+
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
-ComplexSceneManagerUnrecPtr ComplexSceneManager::_the = NULL;
+ComplexSceneManagerUnrecPtr         ComplexSceneManager::_the = NULL;
+PathHandler                         ComplexSceneManager::_oPathHandler;
+std::vector<FieldContainerUnrecPtr> ComplexSceneManager::_vStaticGlobals;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -84,6 +118,264 @@ void ComplexSceneManager::initMethod(InitPhase ePhase)
 ComplexSceneManager *ComplexSceneManager::the(void)
 {
     return _the;
+}
+
+FieldContainer *ComplexSceneManager::resolveStatic(const Char8 *szName)
+{
+    std::vector<FieldContainerUnrecPtr>::const_iterator gIt  = 
+        _vStaticGlobals.begin();
+
+    std::vector<FieldContainerUnrecPtr>::const_iterator gEnd = 
+        _vStaticGlobals.end  ();
+
+          AttachmentContainer *pAttCnt     = NULL;
+          Node                *pNode       = NULL;
+    const Char8               *szTmpName   = NULL;
+
+    while(gIt != gEnd)
+    {
+        pNode = dynamic_cast<Node *>((*gIt).get());
+
+        if(pNode != NULL)
+        {
+            NodeFinder oFinder;
+
+            oFinder._szRefName = szName;
+
+            traverse(pNode, boost::bind(&NodeFinder::enter, &oFinder, _1));
+
+            if(oFinder._pResult != NULL)
+            {
+                return oFinder._pResult;
+            }
+         }
+        
+        pAttCnt = dynamic_cast<AttachmentContainer *>((*gIt).get());
+
+        if(pAttCnt != NULL)
+        {
+            szTmpName = OSG::getName(pAttCnt);
+           
+            if(szTmpName != NULL && osgStringCmp(szTmpName, szName) == 0)
+            {
+                return pAttCnt;
+            }
+            else
+            {
+#if 0                                                                    
+                FieldContainer *tmpVal = pAttCnt->findNamedComponent(szName);
+                
+                if(tmpVal != NULL)
+                    return tmpVal;
+#endif
+            }
+        }
+
+        ++gIt;
+    }
+
+    return NULL;
+}
+
+void ComplexSceneManager::addStaticGlobals(const Char8 *szFilename)
+{
+    std::string szFilenameResolved = _oPathHandler.findFile(szFilename);
+
+    if(szFilenameResolved.empty() == true)
+    {
+        fprintf(stderr, "Could not find static global file %s\n",
+                szFilename);
+
+        return;
+    }
+
+    FieldContainerUnrecPtr pRes = 
+        readOSGFile(szFilenameResolved,
+                    boost::bind(&ComplexSceneManager::resolveStatic, _1));
+    
+    if(pRes == NULL)
+        return;
+
+    ContainerCollectionUnrecPtr pColl = 
+        dynamic_pointer_cast<ContainerCollection>(pRes);
+
+    if(pColl == NULL)
+        return;
+
+    MFUnrecFieldContainerPtr::const_iterator fIt  = 
+        pColl->getMFContainers()->begin();
+
+    MFUnrecFieldContainerPtr::const_iterator fEnd = 
+        pColl->getMFContainers()->end();
+
+    while(fIt != fEnd)
+    {
+        _vStaticGlobals.push_back(*fIt);
+
+        ++fIt;
+    }
+}
+
+void ComplexSceneManager::scanParamFile(
+    const Char8                    *szFilename,
+          std::vector<std::string> &vParams   )
+{
+    FILE *pIn = fopen(szFilename, "r");
+
+    Char8 szRow[1024];
+
+          std::string  szBuffer;
+    const Char8       *szDelim = " \t\n ";
+
+    vParams.clear();
+
+    while(!feof(pIn))
+    {
+        fgets(szRow, 1024, pIn);
+        
+        szBuffer = szRow;
+
+        if(feof(pIn)                ||
+           szBuffer.empty() == true || 
+           szBuffer[0]      == '\n' || 
+           szBuffer[0]      == '#'   )
+        {
+            continue;
+        }
+
+        string_token_iterator cIt (szBuffer, szDelim);
+        string_token_iterator cEnd;
+
+        while(cIt != cEnd)
+        {
+            vParams.push_back(*cIt);
+            ++cIt;
+        }
+    }
+}
+
+void ComplexSceneManager::scanPreSystem(std::vector<std::string> &vParams)
+{
+    static const UInt32 ScanSystem  = 0;
+    static const UInt32 ScanData    = 1;
+    static const UInt32 ScanGlobals = 2;
+
+    UInt32 uiState = ScanSystem;
+
+    std::vector<std::string>::iterator       pIt  = vParams.begin();
+    std::vector<std::string>::const_iterator pEnd = vParams.end  ();
+
+    while(pIt != pEnd)
+    {
+        if((*pIt)[0] == '-' && (*pIt)[1] == '-')
+        {
+            if((*pIt)[2] == 'd' && (*pIt)[3] == 'a' && 
+               (*pIt)[4] == 't' && (*pIt)[5] == 'a')
+            {
+                uiState = ScanData;
+            }
+            else if((*pIt)[2] == 'g' && (*pIt)[3] == 'l' && 
+                    (*pIt)[4] == 'o' && (*pIt)[5] == 'b' &&
+                    (*pIt)[6] == 'a' && (*pIt)[7] == 'l')
+            {
+                uiState = ScanGlobals;
+            }
+            else if((*pIt)[2] == 's' && (*pIt)[3] == 'y' && 
+                    (*pIt)[4] == 's' && (*pIt)[5] == 't' &&
+                    (*pIt)[6] == 'e' && (*pIt)[7] == 'm')
+            {
+                uiState = ScanSystem;
+            }
+            else
+            {
+                fprintf(stderr, "Unknow option %s\n", (*pIt).c_str());
+                break;
+            }
+        }
+        else
+        {
+            if(uiState == ScanSystem)
+            {
+                break;
+            }
+            else if(uiState == ScanGlobals)
+            {
+                addStaticGlobals((*pIt).c_str());
+            }
+            else if(uiState == ScanData)
+            {
+                FWARNING(("Error data not allowed at this point, "
+                          "ignoring %s\n", (*pIt).c_str()));
+            }
+        }
+
+        ++pIt;
+    }
+
+    if(pIt != vParams.begin())
+    {
+        vParams.erase(vParams.begin(), pIt);
+    }
+}
+
+void ComplexSceneManager::startFrom(const std::string &szParamFilename)
+{
+    _oPathHandler.clearPathList();
+    _oPathHandler.clearBaseFile();
+
+    _oPathHandler.push_frontCurrentDir();
+
+    std::string szParamFileResolved = 
+        _oPathHandler.findFile(szParamFilename.c_str());
+
+    if(szParamFileResolved.empty() == true)
+    {
+        fprintf(stderr, "Could not find param file %s\n", 
+                szParamFilename.c_str());
+
+        return;
+    }
+
+    _oPathHandler.setBaseFile(szParamFileResolved.c_str());
+
+    OSG::SceneFileHandler::the()->setPathHandler(&_oPathHandler);
+
+    std::vector<std::string> vParams;
+
+    scanParamFile(szParamFileResolved.c_str(), vParams);
+    
+    scanPreSystem(vParams);
+
+    std::string szSystemFile         = vParams[0];
+
+    std::string szSystemFileResolved = 
+        _oPathHandler.findFile(szSystemFile.c_str());
+
+    if(szSystemFileResolved.empty() == true)
+    {
+        fprintf(stderr, "Could not find system file %s\n",
+                szSystemFile.c_str());
+
+        return;
+    }
+
+    readOSGFile(szSystemFileResolved,
+                boost::bind(&ComplexSceneManager::resolveStatic, _1));
+
+    _vStaticGlobals.clear();
+
+    if(OSG::ComplexSceneManager::the() == NULL)
+    {
+        fprintf(stderr, "Error could not find any complex scenemanager\n");
+        return;
+    }
+
+    OSG::SceneFileHandler::the()->setGlobalResolver(
+        boost::bind(&ComplexSceneManager::resolve, _the.get(), _1));
+
+    OSG::ComplexSceneManager::the()->init(vParams);
+    
+    OSG::ComplexSceneManager::the()->run();
 }
 
 /***************************************************************************\
@@ -125,10 +417,16 @@ void ComplexSceneManager::addGlobals(const std::string &filename)
         return;
     }
 
-    FieldContainerUnrecPtr pRes =
-        OSGSceneFileType::the().readContainer(
-            filename.c_str(),
-            boost::bind(&ComplexSceneManager::resolve, this, _1));
+    std::string szFilenameResolved = _oPathHandler.findFile(filename.c_str());
+
+    if(szFilenameResolved.empty() == true)
+    {
+        return;
+    }
+
+    FieldContainerUnrecPtr pRes = 
+        readOSGFile(szFilenameResolved,
+                    boost::bind(&ComplexSceneManager::resolve, this, _1));
 
     if(pRes == NULL)
         return;
@@ -149,8 +447,7 @@ void ComplexSceneManager::addGlobals(const std::string &filename)
     {
         this->pushToGlobals(*fIt);
         ++fIt;
-    }
-    
+    }   
 }
 
 void ComplexSceneManager::addData(const std::string &filename)
@@ -162,48 +459,36 @@ void ComplexSceneManager::addData(const std::string &filename)
         return;
     }
 
+    std::string szFilenameResolved = _oPathHandler.findFile(filename.c_str());
+
+    if(szFilenameResolved.empty() == true)
+    {
+        fprintf(stderr, "Could not find data file %s\n",
+                filename.c_str());
+
+        return;
+    }
+
+    _oPathHandler.pushState();
+
+    _oPathHandler.setBaseFile(szFilenameResolved.c_str());
+
+    fprintf(stderr, "loading data %s ...\n",
+            filename.c_str());
+
     NodeUnrecPtr pFile = 
         OSG::SceneFileHandler::the()->read(
             filename.c_str(), 
             NULL,
             boost::bind(&ComplexSceneManager::resolve, this, _1));
 
+    _oPathHandler.popState();
+
     if(pFile != NULL)
     {
         pModelRoot->addChild(pFile);
     }
 }
-
-struct NodeFinder
-{
-    std::string  _szRefName;
-    Node        *_pResult;
-
-    NodeFinder(void) :
-        _szRefName(    ),
-        _pResult  (NULL)
-    {
-    }
-
-    Action::ResultE enter(Node * const pNode)
-    {
-        Action::ResultE returnValue = Action::Continue;
-
-        const Char8 *szName = OSG::getName(pNode);
-
-        if(szName != NULL)
-        {
-            if(osgStringCmp(_szRefName.c_str(), szName) == 0)
-            {
-                _pResult = pNode;
-
-                returnValue = Action::Quit;
-            }
-        }
-        
-        return returnValue;
-    }
-};
 
 Node *ComplexSceneManager::findNode(const std::string &filename) const
 {
@@ -234,6 +519,32 @@ Node *ComplexSceneManager::findNode(const std::string &filename) const
 
         ++gIt;
     }
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ComplexSceneManager::readOSGFile(
+    const std::string &filename,
+          Resolver     resolver)
+{
+    FieldContainerTransitPtr returnValue(NULL);
+
+    _oPathHandler.pushState();
+
+    _oPathHandler.setBaseFile(filename.c_str());
+
+    ImageFileHandler::the()->setPathHandler(&_oPathHandler);
+
+    fprintf(stderr, "loading osg file %s ...\n",
+            filename.c_str());
+
+    returnValue = OSG::OSGSceneFileType::the().readContainer(
+        filename.c_str(),
+        resolver);
+
+    ImageFileHandler::the()->setPathHandler(NULL);
+
+    _oPathHandler.popState();
 
     return returnValue;
 }
@@ -340,34 +651,66 @@ void ComplexSceneManager::onCreate(const ComplexSceneManager *source)
     }
 
     _the = this;
+
+    std::vector<FieldContainerUnrecPtr>::const_iterator gIt  = 
+        _vStaticGlobals.begin();
+    
+    std::vector<FieldContainerUnrecPtr>::const_iterator gEnd = 
+        _vStaticGlobals.end  ();
+
+    while(gIt != gEnd)
+    {
+        this->pushToGlobals(*gIt);
+        ++gIt;
+    }   
 }
 
 bool ComplexSceneManager::init(int argc, char **argv)
+{
+    _oPathHandler.clearPathList();
+    _oPathHandler.clearBaseFile();
+
+    _oPathHandler.push_frontCurrentDir();
+
+    std::vector<std::string> vParams;
+    std::string              szTmp;
+
+    for(UInt32 i = 1; i < argc; ++i)
+    {
+        szTmp = argv[i];
+
+        vParams.push_back(szTmp);
+    }
+
+    scanPreSystem(vParams);
+
+    return init(vParams);
+}
+
+bool ComplexSceneManager::init(const std::vector<std::string> &vParams)
 {
     bool returnValue = true;
 
     bool bDoData = false;
 
-    for(UInt32 i = 2; i < argc; ++i)
+    for(UInt32 i = 1; i < vParams.size(); ++i)
     {
-        if(argv[i][0] == '-' && argv[i][1] == '-')
+        if(vParams[i][0] == '-' && vParams[i][1] == '-')
         {
-            fprintf(stderr, "Switch option %s\n", argv[i]);
-
-            if(argv[i][2] == 'd' && argv[i][3] == 'a' && argv[i][4] == 't' &&
-               argv[i][5] == 'a')
+            if(vParams[i][2] == 'd' && vParams[i][3] == 'a' && 
+               vParams[i][4] == 't' && vParams[i][5] == 'a')
             {
                 bDoData = true;
             }
-            else if(argv[i][2] == 'g' && argv[i][3] == 'l' && 
-                    argv[i][4] == 'o' && argv[i][5] == 'b' &&
-                    argv[i][6] == 'a' && argv[i][7] == 'l')
+            else if(vParams[i][2] == 'g' && vParams[i][3] == 'l' && 
+                    vParams[i][4] == 'o' && vParams[i][5] == 'b' &&
+                    vParams[i][6] == 'a' && vParams[i][7] == 'l')
             {
                 bDoData = false;
             }
             else
             {
-                fprintf(stderr, "Unknow option %s\n", argv[i]);
+                fprintf(stderr, "Unknow option %s\n", vParams[i].c_str());
                 return false;
             }
                
@@ -376,13 +719,11 @@ bool ComplexSceneManager::init(int argc, char **argv)
         {
             if(bDoData == true)
             {
-                fprintf(stderr, "Adding Data %s\n", argv[i]);
-                addData(argv[i]);
+                addData(vParams[i].c_str());
             }
             else
             {
-                fprintf(stderr, "Adding Globals %s\n", argv[i]);
-                addGlobals(argv[i]);
+                addGlobals(vParams[i].c_str());
             }
         }
     }
@@ -392,6 +733,8 @@ bool ComplexSceneManager::init(int argc, char **argv)
         return false;
     }
 
+    commitChanges();
+
     returnValue = _sfDrawManager.getValue()->init();
 
     return returnValue;
@@ -399,6 +742,8 @@ bool ComplexSceneManager::init(int argc, char **argv)
 
 void ComplexSceneManager::terminate(void)
 {
+    _vStaticGlobals.clear();
+
     _the = NULL;
 }
 
