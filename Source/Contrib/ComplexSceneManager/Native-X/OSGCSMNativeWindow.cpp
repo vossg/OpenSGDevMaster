@@ -79,7 +79,10 @@ void CSMNativeWindow::initMethod(InitPhase ePhase)
 
 static int waitMapNotify(Display *, XEvent *event, char *arg)
 {
-    return (event->type == MapNotify && event->xmap.window == (::Window) arg);
+    typedef ::Window GlobalWinType;
+
+    return (event->type == MapNotify && 
+            event->xmap.window == reinterpret_cast<GlobalWinType>(arg));
 }
 
 static UInt32 mapModifier(int iState)
@@ -240,6 +243,17 @@ void CSMNativeWindow::dump(      UInt32    ,
 {
     SLOG << "Dump CSMNativeWindow NI" << std::endl;
 }
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+#ifdef ScreenOfDisplay
+#undef ScreenOfDisplay
+#endif
+#ifdef DefaultScreen
+#undef DefaultScreen
+#endif
+#define ScreenOfDisplay(dpy, scr)(&(_XPrivDisplay(dpy))->screens[scr])
+#define DefaultScreen(dpy) 	((_XPrivDisplay(dpy))->default_screen)
+#endif
 
 bool CSMNativeWindow::init(void)
 {
@@ -425,12 +439,16 @@ bool CSMNativeWindow::init(void)
                         noDecorAtom, 
                         32,
                         PropModeReplace, 
-                        (unsigned char *) &oHints, 4);
+                        reinterpret_cast<unsigned char *>(&oHints), 4);
     }
     
     XEvent event;
 
-    XIfEvent      (pDisplay, &event, waitMapNotify,  (char *) pHWin);
+    XIfEvent      (pDisplay, 
+                   &event, 
+                   waitMapNotify,  
+                   reinterpret_cast<char *>(pHWin));
+
     XSetInputFocus(pDisplay,  pHWin, RevertToParent, CurrentTime);
 
     XWindowUnrecPtr pXWindow = OSG::XWindow::create();

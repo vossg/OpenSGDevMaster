@@ -837,8 +837,9 @@ bool RenderPartition::pushVisibility(Node * const pNode)
     Color3f col;
     bool result = true;
    
-    
-    BoxVolume     vol     = pNode->editVolume(true);
+    pNode->updateVolume();
+
+    BoxVolume     vol     = pNode->getVolume();
     FrustumVolume frustum = _oFrustum;
 
 #if 1

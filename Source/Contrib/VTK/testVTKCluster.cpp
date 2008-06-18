@@ -1249,8 +1249,8 @@ void init(std::vector<std::string> &filenames)
 
     OSG::Pnt3f center;
 
-    vol->getBounds(min, max);
-    vol->getCenter(center);
+    vol.getBounds(min, max);
+    vol.getCenter(center);
 
     size = max - min;
 

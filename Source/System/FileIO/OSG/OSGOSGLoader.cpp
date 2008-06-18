@@ -156,7 +156,7 @@ void OSGLoader::initFieldTypeMapper(void)
                      ScanParseSkel::OSGsfVec2f);
 
     setIntExtMapping(SFVec2s::getClassType().getId(),
-                     ScanParseSkel::OSGsfVec2f);
+                     ScanParseSkel::OSGsfVec2i);
 
     setIntExtMapping(SFVec3f::getClassType().getId(),
                      ScanParseSkel::OSGsfVec3f);
