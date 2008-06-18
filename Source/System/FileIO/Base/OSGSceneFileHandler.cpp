@@ -199,7 +199,9 @@ NodeTransitPtr SceneFileHandlerBase::read(
 
                 zip_istream unzipper(is);
 
-                scene = type->read(unzipper, fileNameOrExtension, resolver);
+                scene = type->read(unzipper, 
+                                   fileNameOrExtension, 
+                                   resolver ? resolver : _oGlobalResolver);
 
                 if(scene != NULL)
                 {
@@ -225,7 +227,9 @@ NodeTransitPtr SceneFileHandlerBase::read(
             {
                 initReadProgress(is);
 
-                scene = type->read(is, fileNameOrExtension, resolver);
+                scene = type->read(is, 
+                                   fileNameOrExtension, 
+                                   resolver  ? resolver : _oGlobalResolver);
 
                 terminateReadProgress();
             }
@@ -256,6 +260,8 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
                                                 GraphOpSeq *graphOpSeq,       
                                                 Resolver    resolver  )
 {
+    NodeTransitPtr returnValue(NULL);
+
     if(fileName == NULL)
     {
         SWARNING << "cannot read NULL file" << std::endl;
@@ -276,20 +282,21 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
                 // create a dummy stream with the bad flag set.
                 std::ifstream in;
                 in.setstate(std::ios::badbit);
-                return _readFP(type, in, fileName);
+                returnValue = _readFP(type, in, fileName);
             }
             else
             {
                 SWARNING << "Couldn't open file " << fileName << std::endl;
-                return NodeTransitPtr(NULL);
             }
         }
         else
         {
             SWARNING << "Couldn't open file " << fileName << std::endl;
-            return NodeTransitPtr(NULL);
         }
+
+        return returnValue;
     }
+
 
     SceneFileType *type  = getFileType(fullFilePath.c_str());
     NodeUnrecPtr   scene = NULL;
@@ -502,6 +509,17 @@ PathHandler *SceneFileHandlerBase::getPathHandler(void)
 void SceneFileHandlerBase::setPathHandler(PathHandler *pathHandler)
 {
     _pathHandler = pathHandler;
+}
+
+SceneFileHandlerBase::Resolver 
+    SceneFileHandlerBase::getGlobalResolver(void) const
+{
+    return _oGlobalResolver;
+}
+
+void SceneFileHandlerBase::setGlobalResolver(Resolver oResolver)
+{
+    _oGlobalResolver = oResolver;
 }
 
 std::string SceneFileHandlerBase::initPathHandler(const Char8 *fileName)
@@ -814,7 +832,8 @@ SceneFileHandlerBase::SceneFileHandlerBase(void) :
     _pathHandler       (NULL          ),
     _defaultPathHandler(              ),
     _readFP            (NULL          ),
-    _writeFP           (NULL          )
+    _writeFP           (NULL          ),
+    _oGlobalResolver   (NULL          )
 {
     _progressData.length = 0;
     _progressData.is = NULL;

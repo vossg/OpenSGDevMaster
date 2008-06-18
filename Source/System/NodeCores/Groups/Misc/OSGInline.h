@@ -64,6 +64,13 @@ class OSG_GROUP_DLLMAPPING Inline : public InlineBase
  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    void postOSGLoading(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
@@ -92,13 +99,22 @@ class OSG_GROUP_DLLMAPPING Inline : public InlineBase
     virtual ~Inline(void); 
 
     /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
 
-  private:
+    ActionBase::ResultE render      (Action *action);
 
-    friend class FieldContainer;
-    friend class InlineBase;
+    void                adjustVolume(Volume &volume);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Init                                     */
+    /*! \{                                                                 */
+
+    void rootChanged(FieldContainer *pFC, ConstFieldMaskArg whichField);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Init                                     */
     /*! \{                                                                 */
@@ -106,6 +122,13 @@ class OSG_GROUP_DLLMAPPING Inline : public InlineBase
     static void initMethod(InitPhase ePhase);
     
     /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    friend class FieldContainer;
+    friend class InlineBase;
+
     /*---------------------------------------------------------------------*/
 
     /*!\brief prohibit default function (move to 'public' if needed) */

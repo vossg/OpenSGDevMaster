@@ -191,10 +191,19 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 
     _pCurrNodeHelper = findNodeHelper(szNodeTypename);
 
-    if(_pCurrNodeHelper == NULL)
-        return;
-
     _sNodeHelpers.push(_pCurrNodeHelper);
+
+    if(_pCurrNodeHelper == NULL)
+    {
+        std::string szTmp = "Unknow node type '#";
+
+        szTmp += szNodeTypename;
+        szTmp += "#";
+
+        Inherited::handleError(szTmp.c_str());
+
+        return;
+    }
 
     _pCurrNodeHelper->reset();
 
@@ -280,6 +289,18 @@ void VRMLFile::endNode(void)
         indentLog(VRMLNodeHelper::getIndent(), PINFO);
         PINFO << "End Node " << std::endl;
 #endif
+
+        _sNodeHelpers.pop();
+
+        if(_sNodeHelpers.size() != 0)
+        {
+            _pCurrNodeHelper = _sNodeHelpers.top();
+        }
+        else
+        {
+            _pCurrNodeHelper = NULL;
+        }
+
         return;
     }
 

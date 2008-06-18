@@ -69,6 +69,13 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    void setSubTreeRoot(Node * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
@@ -112,7 +119,10 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
     /*! \name                      NodeCore Specific                       */
     /*! \{                                                                 */
 
-    void adjustVolume(Volume & volume);
+    void adjustVolume(Volume            &volume    );
+
+    void rootChanged (FieldContainer    *pFC, 
+                      ConstFieldMaskArg  whichField);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

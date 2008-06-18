@@ -61,6 +61,7 @@
 
 
 
+#include <OSGNode.h> // Root Class
 
 #include "OSGInlineBase.h"
 #include "OSGInline.h"
@@ -89,6 +90,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Node *          InlineBase::_sfRoot
+    
+*/
+
 
 void InlineBase::classDescInserter(TypeObject &oType)
 {
@@ -100,7 +105,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
         "url",
         "",
         UrlFieldId, UrlFieldMask,
-        true,
+        false,
         Field::MFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Inline::editHandleUrl),
         static_cast<FieldGetMethodSig >(&Inline::getHandleUrl));
@@ -116,6 +121,18 @@ void InlineBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Inline::editHandleLoaded),
         static_cast<FieldGetMethodSig >(&Inline::getHandleLoaded));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecNodePtr::Description(
+        SFUnrecNodePtr::getClassType(),
+        "root",
+        "",
+        RootFieldId, RootFieldMask,
+        true,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&Inline::editHandleRoot),
+        static_cast<FieldGetMethodSig >(&Inline::getHandleRoot));
 
     oType.addInitialDesc(pDesc);
 }
@@ -148,7 +165,7 @@ InlineBase::TypeObject InlineBase::_type(
     "\t\tname=\"url\"\n"
     "\t\ttype=\"std::string\"\n"
     "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"internal\"\n"
+    "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -159,6 +176,15 @@ InlineBase::TypeObject InlineBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "\t\tdefaultValue=\"true\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"root\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
+    "\t\taccess=\"protected\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -211,6 +237,19 @@ const SFBool *InlineBase::getSFLoaded(void) const
 }
 
 
+//! Get the Inline::_sfRoot field.
+const SFUnrecNodePtr *InlineBase::getSFRoot(void) const
+{
+    return &_sfRoot;
+}
+
+SFUnrecNodePtr      *InlineBase::editSFRoot           (void)
+{
+    editSField(RootFieldMask);
+
+    return &_sfRoot;
+}
+
 
 
 
@@ -229,6 +268,10 @@ UInt32 InlineBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfLoaded.getBinSize();
     }
+    if(FieldBits::NoField != (RootFieldMask & whichField))
+    {
+        returnValue += _sfRoot.getBinSize();
+    }
 
     return returnValue;
 }
@@ -246,6 +289,10 @@ void InlineBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfLoaded.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RootFieldMask & whichField))
+    {
+        _sfRoot.copyToBin(pMem);
+    }
 }
 
 void InlineBase::copyFromBin(BinaryDataHandler &pMem,
@@ -260,6 +307,10 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (LoadedFieldMask & whichField))
     {
         _sfLoaded.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RootFieldMask & whichField))
+    {
+        _sfRoot.copyFromBin(pMem);
     }
 }
 
@@ -357,14 +408,16 @@ FieldContainerTransitPtr InlineBase::shallowCopy(void) const
 InlineBase::InlineBase(void) :
     Inherited(),
     _mfUrl                    (),
-    _sfLoaded                 (bool(true))
+    _sfLoaded                 (bool(true)),
+    _sfRoot                   (NULL)
 {
 }
 
 InlineBase::InlineBase(const InlineBase &source) :
     Inherited(source),
     _mfUrl                    (source._mfUrl                    ),
-    _sfLoaded                 (source._sfLoaded                 )
+    _sfLoaded                 (source._sfLoaded                 ),
+    _sfRoot                   (NULL)
 {
 }
 
@@ -375,6 +428,17 @@ InlineBase::~InlineBase(void)
 {
 }
 
+void InlineBase::onCreate(const Inline *source)
+{
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        Inline *pThis = static_cast<Inline *>(this);
+
+        pThis->setRoot(source->getRoot());
+    }
+}
 
 GetFieldHandlePtr InlineBase::getHandleUrl             (void) const
 {
@@ -420,6 +484,31 @@ EditFieldHandlePtr InlineBase::editHandleLoaded         (void)
     return returnValue;
 }
 
+GetFieldHandlePtr InlineBase::getHandleRoot            (void) const
+{
+    SFUnrecNodePtr::GetHandlePtr returnValue(
+        new  SFUnrecNodePtr::GetHandle(
+             &_sfRoot, 
+             this->getType().getFieldDesc(RootFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr InlineBase::editHandleRoot           (void)
+{
+    SFUnrecNodePtr::EditHandlePtr returnValue(
+        new  SFUnrecNodePtr::EditHandle(
+             &_sfRoot, 
+             this->getType().getFieldDesc(RootFieldId)));
+
+    returnValue->setSetMethod(boost::bind(&Inline::setRoot, 
+                                          static_cast<Inline *>(this), _1));
+
+    editSField(RootFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void InlineBase::execSyncV(      FieldContainer    &oFrom,
@@ -452,6 +541,8 @@ FieldContainer *InlineBase::createAspectCopy(void) const
 void InlineBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<Inline *>(this)->setRoot(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

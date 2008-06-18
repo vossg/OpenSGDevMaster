@@ -42,6 +42,8 @@
 #include <sstream>
 #include <fstream>
 
+#include <boost/bind.hpp>
+
 #include <OSGConfig.h>
 
 #include <OSGAction.h>
@@ -67,6 +69,36 @@ void VisitSubTree::changed(ConstFieldMaskArg whichField,
                            BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
+}
+
+//! Set the value of the VisitSubTree::_sfSubTreeRoot field.
+void VisitSubTree::setSubTreeRoot(Node * const value)
+{
+    editSField(SubTreeRootFieldMask);
+
+    if(_sfSubTreeRoot.getValue() != NULL)
+    {
+        _sfSubTreeRoot.getValue()->subChangedFunctor(
+            boost::bind(&VisitSubTree::rootChanged, this, _1, _2));
+    }
+
+    if(value != NULL)
+    {
+        value->addChangedFunctor(
+            boost::bind(&VisitSubTree::rootChanged, this, _1, _2),
+            "");
+    }
+
+    _sfSubTreeRoot.setValue(value);
+}
+
+void VisitSubTree::rootChanged(FieldContainer    *pFC, 
+                               ConstFieldMaskArg  whichField)
+{
+    if(0x0000 != (whichField & Node::VolumeFieldMask))
+    {
+        this->invalidateVolume();
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -115,26 +147,6 @@ void VisitSubTree::adjustVolume(Volume &volume)
 
 /*-------------------------------------------------------------------------*/
 /*                                Draw                                     */
-
-/*!
-  Draw loaded geometry. If nothing was loaded until now, start
-  loading. If loading is not finished, draw the children of 
-  thid group.
- */
-
-#ifdef OSG_OLD_RENDER_ACTION
-ActionBase::ResultE VisitSubTree::render(Action *action)
-{
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
-
-    da->useNodeList();
-    
-    if(da->isVisible(getSubTreeRoot()))
-        da->addNode(getSubTreeRoot());
-
-    return Action::Continue;
-}
-#endif
 
 ActionBase::ResultE VisitSubTree::render(Action *action)
 {

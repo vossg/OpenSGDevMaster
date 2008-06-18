@@ -99,6 +99,22 @@ void InlineBase::setLoaded(const bool value)
     _sfLoaded.setValue(value);
 }
 
+//! Get the value of the Inline::_sfRoot field.
+inline
+Node * InlineBase::getRoot(void) const
+{
+    return _sfRoot.getValue();
+}
+
+//! Set the value of the Inline::_sfRoot field.
+inline
+void InlineBase::setRoot(Node * const value)
+{
+    editSField(RootFieldMask);
+
+    _sfRoot.setValue(value);
+}
+
 //! Get the value of the \a index element the Inline::_mfUrl field.
 inline
 const std::string &InlineBase::getUrl(const UInt32 index) const
@@ -134,6 +150,9 @@ void InlineBase::execSync (      InlineBase *pFrom,
 
     if(FieldBits::NoField != (LoadedFieldMask & whichField))
         _sfLoaded.syncWith(pFrom->_sfLoaded);
+
+    if(FieldBits::NoField != (RootFieldMask & whichField))
+        _sfRoot.syncWith(pFrom->_sfRoot);
 }
 #endif
 

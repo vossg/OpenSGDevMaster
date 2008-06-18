@@ -23,7 +23,8 @@ without duplicating the nodes.
                 cardinality="single"
                 visibility="external"
                 defaultValue="NULL"
-                access="public"
+                access="protected"
+                ptrFieldAccess = "custom"
         >
         Reference to the sub-graph to draw in place of this node.
         Whatever node is pointed to will be drawn here as if it was duplicated

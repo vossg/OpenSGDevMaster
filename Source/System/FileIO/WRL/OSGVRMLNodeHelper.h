@@ -1486,6 +1486,103 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
 };
 
 
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \brief VRML Group Helper
+*/
+
+class OSG_FILEIO_DLLMAPPING VRMLInlineHelper : public VRMLNodeHelper
+{
+    /*==========================  PUBLIC  =================================*/
+  public :
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~VRMLInlineHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helper                                    */
+    /*! \{                                                                 */
+
+    virtual void init(const Char8 *szName);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Field                                    */
+    /*! \{                                                                 */
+
+    virtual bool prototypeAddField(const Char8                * szFieldType,
+                                   const UInt32                 uiFieldTypeId,
+                                   const Char8                * szFieldName);
+
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
+                                   const Char8                * szFieldname,
+                                         FieldContainer       *&pFieldFC,
+                                         EditFieldHandlePtr    &pField,
+                                   const FieldDescriptionBase *&pDesc);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Node                                     */
+    /*! \{                                                                 */
+
+    virtual void endNode(FieldContainer *pFC);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(const Char8 *szNodeName);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelper *create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    VRMLInlineHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelper;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    typedef VRMLNodeHelper Inherited;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    VRMLInlineHelper(const VRMLInlineHelper &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const VRMLInlineHelper &source);
+};
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGVRMLNODEHELPER_H_ */

@@ -69,6 +69,7 @@
 #include "OSGImageFileHandler.h"
 #include "OSGSimpleGeometry.h"
 #include "OSGComponentTransform.h"
+#include "OSGInline.h"
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"
@@ -197,7 +198,7 @@ void VRMLNodeHelper::decIndent(void)
 {
     if(_uiIndent < 4)
     {
-        PWARNING << "Indent smaller 4 decremented" << std::endl;
+//        PWARNING << "Indent smaller 4 decremented" << std::endl;
 
         _uiIndent = 4;
     }
@@ -3581,5 +3582,131 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLImageTextureHelper::_regHelper(
     &VRMLImageTextureHelper::create,
     "ImageTexture");
 
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::VRMLInlineHelper
+    \ingroup GrpSystemFileIOVRML
+    VRML Group description
+*/
+
+VRMLNodeHelper *VRMLInlineHelper::create(void)
+{
+    return new VRMLInlineHelper();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLInlineHelper::VRMLInlineHelper(void) :
+    Inherited()
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLInlineHelper::~VRMLInlineHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+void VRMLInlineHelper::init(const Char8 *szName)
+{
+    Inherited::init(szName);
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "InlineHelper::init : " << szName << std::endl;
+#endif
+
+    _pNodeProto     = Node  ::create();
+    _pNodeCoreProto = Inline::create();
+
+    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto->setInternal(true);
+
+//    addRefX(_pNodeProto    );
+//    addRefX(_pNodeCoreProto);
+//    addRefX(_pGenAttProto  );
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Field                                     */
+
+bool VRMLInlineHelper::prototypeAddField(const Char8  *szFieldType,
+                                         const UInt32  uiFieldTypeId,
+                                         const Char8  *szFieldname)
+{
+    return Inherited::prototypeAddField(szFieldType,
+                                        uiFieldTypeId,
+                                        szFieldname);
+}
+
+void VRMLInlineHelper::getFieldAndDesc(
+          FieldContainer       * pFC,
+    const Char8                * szFieldname,
+          FieldContainer       *&pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+    if(szFieldname == NULL)
+        return;
+
+    if(pFC == NULL)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
+        return;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    incIndent();
+#endif
+
+    Inherited::getFieldAndDesc(pFC,
+                               szFieldname,
+                               pFieldFC,
+                               pField,
+                               pDesc);
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+#endif
+}
+
+void VRMLInlineHelper::endNode(FieldContainer *pFC)
+{
+    Node *pNode = dynamic_cast<Node *>(pFC);
+
+    if(pNode != NULL)
+    {
+        Inline *pInline = dynamic_cast<Inline *>(pNode->getCore());
+
+        if(pInline != NULL)
+        {
+            pInline->postOSGLoading();
+        }
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLInlineHelper::dump(const Char8 *)
+{
+}
+
+
+VRMLNodeHelperFactoryBase::RegisterHelper VRMLInlineHelper::_regHelper(
+    &VRMLInlineHelper::create,
+    "Inline");
 
 OSG_END_NAMESPACE

@@ -149,7 +149,8 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     "                cardinality=\"single\"\n"
     "                visibility=\"external\"\n"
     "                defaultValue=\"NULL\"\n"
-    "                access=\"public\"\n"
+    "                access=\"protected\"\n"
+    "                ptrFieldAccess = \"custom\"\n"
     "        >\n"
     "        Reference to the sub-graph to draw in place of this node.\n"
     "        Whatever node is pointed to will be drawn here as if it was duplicated\n"
@@ -185,13 +186,6 @@ UInt32 VisitSubTreeBase::getContainerSize(void) const
 //! Get the VisitSubTree::_sfSubTreeRoot field.
 const SFWeakNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
 {
-    return &_sfSubTreeRoot;
-}
-
-SFWeakNodePtr       *VisitSubTreeBase::editSFSubTreeRoot    (void)
-{
-    editSField(SubTreeRootFieldMask);
-
     return &_sfSubTreeRoot;
 }
 

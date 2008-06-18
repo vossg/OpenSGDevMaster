@@ -72,11 +72,15 @@ const Char8 PathHandler::_pathSepOther = _pathSepWin32;
 
 PathHandler::PathHandler(void) :
     _pathList    (),
-    _baseFilePath()
+    _baseFilePath(),
+    _sState      ()
 {
 }
 
-PathHandler::PathHandler(const Char8 *initialPathList)
+PathHandler::PathHandler(const Char8 *initialPathList) :
+    _pathList    (),
+    _baseFilePath(),
+    _sState      ()
 {
     push_backUnixPath(initialPathList);
 }
@@ -303,6 +307,35 @@ void PathHandler::setBaseFile(const Char8 *fileName)
 void PathHandler::clearBaseFile(void)
 {
     _baseFilePath.erase();
+}
+
+void PathHandler::pushState(void)
+{
+    HandlerState oTmp;
+
+    _sState.push(oTmp);
+
+    _sState.top().first  = _pathList;
+    _sState.top().second = _baseFilePath;
+}
+
+void PathHandler::popState (void)
+{
+    if(_sState.empty() == false)
+    {
+        _pathList     = _sState.top().first;
+        _baseFilePath = _sState.top().second;
+
+        _sState.pop();
+    }
+}
+
+void PathHandler::clearStateStack(void)
+{
+    while(_sState.empty() == false)
+    {
+        _sState.pop();
+    }
 }
 
 /*------------------------------- Dump ------------------------------------*/

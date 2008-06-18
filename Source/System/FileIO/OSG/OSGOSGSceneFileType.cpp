@@ -117,7 +117,7 @@ NodeTransitPtr OSGSceneFileType::read(      std::istream &is,
                                       const Char8        *,
                                             Resolver      resolver) const
 {
-    OSGLoader *_pFile = new OSGLoader;
+    OSGLoader *_pFile = new OSGLoader(_endNodeFunctors);
 
     NodeTransitPtr returnValue = _pFile->scanStream(is, resolver);
 
@@ -138,7 +138,7 @@ FieldContainerTransitPtr OSGSceneFileType::readContainer(
         return FieldContainerTransitPtr(NULL);
     }
 
-    OSGLoader *_pFile = new OSGLoader;
+    OSGLoader *_pFile = new OSGLoader(_endNodeFunctors);
 
     std::ifstream is(fileName, std::ios::binary);
 
@@ -146,8 +146,6 @@ FieldContainerTransitPtr OSGSceneFileType::readContainer(
         _pFile->scanStreamContainer(is, resolver);
 
     delete _pFile;
-
-    commitChanges();
 
     return returnValue;
 }
@@ -192,6 +190,14 @@ bool OSGSceneFileType::writeContainer(FieldContainer * const  pContainer,
 
 /*---------------------------- properties ---------------------------------*/
 
+void OSGSceneFileType::registerEndNodeCallback(const FieldContainerType &type, 
+                                               const Functor            &func)
+{
+    _endNodeFunctors.resize(type.getId() + 1, NULL);
+
+    _endNodeFunctors[type.getId()] = func;
+}
+
 /*-------------------------- your_category---------------------------------*/
 
 /*-------------------------- assignment -----------------------------------*/
@@ -212,11 +218,12 @@ OSGSceneFileType::OSGSceneFileType(const char   *suffixArray[],
                                          bool    override,
                                          UInt32  overridePriority,
                                          UInt32  flags) :
-    Inherited(suffixArray,
-              suffixByteCount,
-              override,
-              overridePriority,
-              flags)
+     Inherited(suffixArray,
+               suffixByteCount,
+               override,
+               overridePriority,
+               flags),
+    _endNodeFunctors()
 {
     return;
 }

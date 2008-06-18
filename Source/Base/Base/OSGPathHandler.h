@@ -50,6 +50,7 @@
 #endif
 #include <list>
 #include <string>
+#include <stack>
 
 #ifndef WIN32
 #include <unistd.h>
@@ -124,6 +125,16 @@ class OSG_BASE_DLLMAPPING PathHandler
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    void pushState      (void);
+    void popState       (void);
+
+    void clearStateStack(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
     void dump(void);
 
     /*! \}                                                                 */
@@ -144,6 +155,8 @@ class OSG_BASE_DLLMAPPING PathHandler
     
     typedef std::list<std::string>           PathList;
     typedef std::list<std::string>::iterator PathListIter;
+
+    typedef std::pair<PathList, std::string> HandlerState;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Static Constants                          */
@@ -166,8 +179,10 @@ class OSG_BASE_DLLMAPPING PathHandler
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    PathList    _pathList;
-    std::string _baseFilePath;
+    PathList                 _pathList;
+    std::string              _baseFilePath;
+
+    std::stack<HandlerState> _sState;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

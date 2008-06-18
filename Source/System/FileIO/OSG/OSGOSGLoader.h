@@ -76,11 +76,13 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
 
   public :
 
+    typedef boost::function<void(FieldContainer * const)> Functor;
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    OSGLoader(void);
+    OSGLoader(const std::vector<Functor> &endNodeFunctors);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -154,6 +156,7 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
           NamedFCMap                            _defMap;
           bool                                  _bReadContainer;
           Resolver                              _fResolver;
+    const std::vector<Functor>                 &_endNodeFunctors;
 
           std::stack<      FieldContainer       *>  _fcStack;
           std::stack<      EditFieldHandlePtr    >  _fStack;

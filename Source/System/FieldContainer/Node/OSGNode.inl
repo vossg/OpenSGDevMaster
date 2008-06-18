@@ -141,10 +141,8 @@ BoxVolume &Node::editVolume(bool update)
     {
         updateVolume();
     }
-    else
-    {
-        editSField(VolumeFieldMask);
-    }
+
+    editSField(VolumeFieldMask);
 
     return _sfVolume.getValue();
 }

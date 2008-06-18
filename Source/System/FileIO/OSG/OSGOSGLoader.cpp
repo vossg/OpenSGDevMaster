@@ -155,6 +155,9 @@ void OSGLoader::initFieldTypeMapper(void)
     setIntExtMapping(SFVec2f::getClassType().getId(),
                      ScanParseSkel::OSGsfVec2f);
 
+    setIntExtMapping(SFVec2s::getClassType().getId(),
+                     ScanParseSkel::OSGsfVec2f);
+
     setIntExtMapping(SFVec3f::getClassType().getId(),
                      ScanParseSkel::OSGsfVec3f);
 
@@ -306,7 +309,7 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
             pAMapHandle->add(pNewNode, 0);
         }
     }
-}
+    ;}
 
 /*-------------------------------------------------------------------------*\
  -  public                                                                 -
@@ -317,20 +320,22 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
 /** \brief Constructor
  */
 
-OSGLoader::OSGLoader(void) :
-     Inherited        (      ),
-    _pCurrentFC       (NULL  ),
-    _pRootNode        (NULL  ),
-    _pRootContainer   (NULL  ),
-    _pCurrentField    (      ),
-    _pCurrentFieldDesc(NULL  ),
-    _defMap           (      ),
-    _bReadContainer   (false ),
-    _fcStack          (      ),
-    _fStack           (      ),
-    _fdStack          (      ),
-    _bvChanged        (     0),
-    _sChangedStack    (      )
+OSGLoader::OSGLoader(const std::vector<Functor> &endNodeFunctors) :
+     Inherited        (               ),
+    _pCurrentFC       (NULL           ),
+    _pRootNode        (NULL           ),
+    _pRootContainer   (NULL           ),
+    _pCurrentField    (               ),
+    _pCurrentFieldDesc(NULL           ),
+    _defMap           (               ),
+    _bReadContainer   (false          ),
+    _fResolver        (NULL           ),
+    _endNodeFunctors  (endNodeFunctors),
+    _fcStack          (               ),
+    _fStack           (               ),
+    _fdStack          (               ),
+    _bvChanged        (              0),
+    _sChangedStack    (               )
 {
     Self::setReferenceHeader("#OSG V1.0 ");
     initFieldTypeMapper();
@@ -531,6 +536,14 @@ void OSGLoader::endNode(void)
                 pNode->setCore(pGroup);
             }
         }
+
+        UInt32 uiFunctorIndex = _pCurrentFC->getType().getId();
+
+        if(uiFunctorIndex < _endNodeFunctors.size() && 
+           _endNodeFunctors[uiFunctorIndex])
+        {
+            (_endNodeFunctors[uiFunctorIndex])(_pCurrentFC);
+        }
     }
 
     _fcStack.pop();
@@ -554,8 +567,6 @@ void OSGLoader::endNode(void)
     }
 
     _sChangedStack.pop();
-
-//    commitChanges();
 }
 
 void OSGLoader::nullNode(void)

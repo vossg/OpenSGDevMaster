@@ -67,6 +67,7 @@
 
 #include "OSGStringFields.h" // Url type
 #include "OSGBoolFields.h" // Loaded type
+#include "OSGNodeFields.h" // Root type
 
 #include "OSGInlineFields.h"
 
@@ -96,13 +97,16 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     {
         UrlFieldId = Inherited::NextFieldId,
         LoadedFieldId = UrlFieldId + 1,
-        NextFieldId = LoadedFieldId + 1
+        RootFieldId = LoadedFieldId + 1,
+        NextFieldId = RootFieldId + 1
     };
 
     static const OSG::BitVector UrlFieldMask =
         (TypeTraits<BitVector>::One << UrlFieldId);
     static const OSG::BitVector LoadedFieldMask =
         (TypeTraits<BitVector>::One << LoadedFieldId);
+    static const OSG::BitVector RootFieldMask =
+        (TypeTraits<BitVector>::One << RootFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -149,6 +153,11 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \{                                                                 */
 
             void setLoaded         (const bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,6 +215,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
 
     MFString          _mfUrl;
     SFBool            _sfLoaded;
+    SFUnrecNodePtr    _sfRoot;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -227,6 +237,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const Inline *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -237,6 +248,31 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     EditFieldHandlePtr editHandleUrl            (void);
     GetFieldHandlePtr  getHandleLoaded          (void) const;
     EditFieldHandlePtr editHandleLoaded         (void);
+    GetFieldHandlePtr  getHandleRoot            (void) const;
+    EditFieldHandlePtr editHandleRoot           (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecNodePtr      *getSFRoot            (void) const;
+                  SFUnrecNodePtr      *editSFRoot           (void);
+
+
+                  Node * getRoot           (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setRoot           (Node * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

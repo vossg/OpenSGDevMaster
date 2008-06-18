@@ -42,12 +42,15 @@
 #pragma once
 #endif
 
+#include "boost/function.hpp"
+
 #include "OSGBaseTypes.h"
 #include "OSGSceneFileType.h"
 
 OSG_BEGIN_NAMESPACE
 
 class OSGLoader;
+class FieldContainer;
 
 /*! \brief OSGSceneFileType
 */
@@ -57,6 +60,10 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef boost::function<void(FieldContainer * const)> Functor;
+
+    typedef void (FieldContainer::*Callback)(void);
 
     /*---------------------------------------------------------------------*/
     /*! \name                Class Get                                     */
@@ -115,6 +122,14 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
                                 Char8            const *fileName  ) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Write                                      */
+    /*! \{                                                                 */
+
+    void registerEndNodeCallback(const FieldContainerType &type, 
+                                 const Functor            &func);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -123,8 +138,10 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    static const Char8            *_suffixA[];
-    static       OSGSceneFileType  _the;
+    static const Char8                *_suffixA[];
+    static       OSGSceneFileType      _the;
+
+                 std::vector<Functor>  _endNodeFunctors;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

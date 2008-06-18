@@ -122,34 +122,6 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const SFWeakNodePtr       *getSFSubTreeRoot    (void) const;
-                  SFWeakNodePtr       *editSFSubTreeRoot    (void);
-
-
-                  Node * getSubTreeRoot    (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setSubTreeRoot    (Node * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -228,6 +200,27 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
 
     GetFieldHandlePtr  getHandleSubTreeRoot     (void) const;
     EditFieldHandlePtr editHandleSubTreeRoot    (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFWeakNodePtr       *getSFSubTreeRoot     (void) const;
+
+
+                  Node * getSubTreeRoot    (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

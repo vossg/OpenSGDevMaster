@@ -81,14 +81,6 @@ Node * VisitSubTreeBase::getSubTreeRoot(void) const
     return _sfSubTreeRoot.getValue();
 }
 
-//! Set the value of the VisitSubTree::_sfSubTreeRoot field.
-inline
-void VisitSubTreeBase::setSubTreeRoot(Node * const value)
-{
-    editSField(SubTreeRootFieldMask);
-
-    _sfSubTreeRoot.setValue(value);
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

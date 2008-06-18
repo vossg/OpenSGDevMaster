@@ -180,6 +180,14 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   PathHandler                                */
+    /*! \{                                                                 */
+
+    Resolver getGlobalResolver(void              ) const;
+    void     setGlobalResolver(Resolver oResolver);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   DefaultGraphOp                             */
     /*! \{                                                                 */
     
@@ -313,6 +321,8 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     
            FileIOReadCBF  _readFP;
            FileIOWriteCBF _writeFP;
+
+           Resolver       _oGlobalResolver;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const SceneFileHandlerBase &source);

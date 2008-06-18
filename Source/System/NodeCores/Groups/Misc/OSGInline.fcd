@@ -14,7 +14,7 @@
 		name="url"
 		type="std::string"
 		cardinality="multi"
-		visibility="internal"
+		visibility="external"
 		access="public"
 	>
 	</Field>
@@ -25,6 +25,15 @@
 		visibility="internal"
 		access="public"
 		defaultValue="true"
+	>
+	</Field>
+	<Field
+		name="root"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="NULL"
+		access="protected"
 	>
 	</Field>
 </FieldContainer>

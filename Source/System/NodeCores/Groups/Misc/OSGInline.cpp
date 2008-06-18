@@ -39,9 +39,14 @@
 #include <cstdlib>
 #include <cstdio>
 
+#include <boost/bind.hpp>
+
 #include <OSGConfig.h>
 
 #include "OSGInline.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGOSGSceneFileType.h"
+#include "OSGRenderAction.h"
 
 OSG_USING_NAMESPACE
 
@@ -99,5 +104,95 @@ void Inline::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
+        OSGSceneFileType::the().registerEndNodeCallback(
+            Inline::getClassType(),
+            reinterpret_cast<OSGSceneFileType::Callback>(
+                &Inline::postOSGLoading));
+
+        RenderAction::registerEnterDefault(
+            Inline::getClassType(),
+            reinterpret_cast<Action::Callback>(&Inline::render));
+    }
+}
+ 
+
+void Inline::postOSGLoading(void)
+{
+    UInt32 i = 0;
+
+    for(; i < _mfUrl.size(); ++i)
+    {
+        std::string szFilenameResolved = 
+            SceneFileHandler::the()->getPathHandler()->findFile(
+                _mfUrl[i].c_str());
+
+
+        SceneFileHandler::the()->getPathHandler()->pushState();
+
+        // could be a real url with a relative inline path.
+        if(szFilenameResolved.empty() == true)
+        {
+            szFilenameResolved = _mfUrl[i];
+        }
+
+        SceneFileHandler::the()->getPathHandler()->setBaseFile(
+            szFilenameResolved.c_str());
+
+        NodeUnrecPtr pFile = SceneFileHandler::the()->read(
+            _mfUrl[i].c_str());
+
+
+        if(pFile != NULL)
+        {
+            pFile->addChangedFunctor(
+                boost::bind(&Inline::rootChanged, this, _1, _2),
+                "");
+
+            setRoot(pFile);
+
+            SceneFileHandler::the()->getPathHandler()->popState();
+
+            break;
+        }
+
+        SceneFileHandler::the()->getPathHandler()->popState();
+    }
+
+    if(i == _mfUrl.size() && _sfRoot.getValue() != NULL)
+    {
+        _sfRoot.getValue()->subChangedFunctor(
+            boost::bind(&Inline::rootChanged, this, _1, _2));
+
+        setRoot(NULL);
+    }
+}
+
+ActionBase::ResultE Inline::render(Action *action)
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    a->useNodeList();
+    
+    if(a->isVisible(this->getRoot()))
+        a->addNode(this->getRoot());
+
+    return Action::Continue;
+}
+
+void Inline::adjustVolume(Volume &volume)
+{
+    if(getRoot() != NULL)
+    {
+        getRoot()->updateVolume();
+
+        volume.extendBy(getRoot()->getVolume());
+    }
+}
+
+void Inline::rootChanged(FieldContainer *pFC, ConstFieldMaskArg whichField)
+{
+    if(0x0000 != (whichField & Node::VolumeFieldMask))
+    {
+        this->invalidateVolume();
     }
 }
