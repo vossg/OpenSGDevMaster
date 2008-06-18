@@ -68,7 +68,7 @@ OSG_USING_NAMESPACE
 
 int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 
-#define SKEL ((ScanParseSkel *) pSkel)
+#define SKEL (static_cast<ScanParseSkel *>(pSkel))
 
 #if(!defined(__GNUC__) && defined(__ICL) && __INTEL_COMPILER_VERSION >= 900)
 # define alloca(size)   __builtin_alloca (size)
@@ -155,6 +155,7 @@ int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 %token <intVal> TOK_SFPnt4f
 %token <intVal> TOK_SFPlane
 %token <intVal> TOK_SFVolume
+%token <intVal> TOK_SFVec2i
 
 %token <intVal> TOK_hex
 %token <intVal> TOK_int32
@@ -557,6 +558,7 @@ fieldValue:
     | TOK_SFPnt4f sfpnt4fValue
     | TOK_SFPlane sfplaneValue
     | TOK_SFVolume sfVolumeValue;
+    | TOK_SFVec2i sfvec2iValue
 
 int32:
     TOK_hex { $$ = $1; }
@@ -1037,6 +1039,14 @@ sfVolumeValue:
         
         SKEL->addVolumeValue(bv);
     }
+
+sfvec2iValue:
+    int32 { SKEL->beginValue(); }
+    int32
+    {
+        SKEL->appendValue();
+        SKEL->addVec2iValue(Vec2i($1, $3));
+    };
 
 mfcolor4iValue:
     sfcolor4iValue

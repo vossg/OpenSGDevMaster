@@ -495,6 +495,11 @@ void ScanParseSkel::addPnt4fValue(const Pnt4f &p)
     addFieldValue(_tmpString1.c_str());
 }
 
+void ScanParseSkel::addVec2iValue(const Vec2i &)
+{
+    addFieldValue(_tmpString1.c_str());
+}
+
 void ScanParseSkel::addPlaneValue(const Plane &p)
 {
     addFieldValue(_tmpString1.c_str());
