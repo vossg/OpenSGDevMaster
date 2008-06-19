@@ -379,77 +379,77 @@ class Field(FCDElement):
             self.m_log.warning("finalize: \"visibility\" has invalid value: %s",
                 self.getFCD("visibility"));
 
-        self["generatePushToField"]            = False;
-        self["hasPushToField"]                 = False;
-        self["generateAssignMField"]           = False;
-        self["hasAssignMField"]                = False;
-        self["generateInsertIntoMField"]       = False;
-        self["hasInsertIntoMField"]            = False;
-        self["generateReplaceInMFieldIndex"]   = False;
-        self["hasRemoveFromMFieldIndex"]       = False;
-        self["generateReplaceInMFieldObject"]  = False;
-        self["hasReplaceInMFieldObject"]       = False;
-        self["generateRemoveFromMFieldIndex"]  = False;
-        self["hasRemoveFromMFieldIndex"]       = False;
-        self["generateRemoveFromMFieldObject"] = False;
-        self["hasRemoveFromMFieldObject"]      = False;
-        self["generateClearField"]             = False;
-        self["hasClearField"]                  = False;
+        self["writePushToField"]            = False;
+        self["hasPushToField"]              = False;
+        self["writeAssignMField"]           = False;
+        self["hasAssignMField"]             = False;
+        self["writeInsertIntoMField"]       = False;
+        self["hasInsertIntoMField"]         = False;
+        self["writeReplaceInMFieldIndex"]   = False;
+        self["hasRemoveFromMFieldIndex"]    = False;
+        self["writeReplaceInMFieldObject"]  = False;
+        self["hasReplaceInMFieldObject"]    = False;
+        self["writeRemoveFromMFieldIndex"]  = False;
+        self["hasRemoveFromMFieldIndex"]    = False;
+        self["writeRemoveFromMFieldObject"] = False;
+        self["hasRemoveFromMFieldObject"]   = False;
+        self["writeClearField"]             = False;
+        self["hasClearField"]               = False;
 
-        self["ptrFieldCustomAccess"]           = False;
-        self["ptrFieldNullCheckAccess"]        = False;
-        self["ptrFieldStandardAccess"]         = False;
+        self["ptrFieldCustomAccess"]        = False;
+        self["ptrFieldNullCheckAccess"]     = False;
+        self["ptrFieldStandardAccess"]      = False;
 
         if self.getFCD("ptrFieldAccess") == "std":
-            self["ptrFieldStandardAccess"]         = True;
-            self["generatePushToField"]            = True;
-            self["hasPushToField"]                 = True;
-            self["generateRemoveFromMFieldIndex"]  = True;
-            self["hasRemoveFromMFieldIndex"]       = True;
-            self["generateRemoveFromMFieldObject"] = True;
-            self["hasRemoveFromMFieldObject"]      = True;
-            self["generateClearField"]             = True;
-            self["hasClearField"]                  = True;
-            self["generateAssignMField"]           = True;
-            self["hasAssignMField"]                = True;
+            self["ptrFieldStandardAccess"]      = True;
+            self["writePushToField"]            = True;
+            self["hasPushToField"]              = True;
+            self["writeRemoveFromMFieldIndex"]  = True;
+            self["hasRemoveFromMFieldIndex"]    = True;
+            self["writeRemoveFromMFieldObject"] = True;
+            self["hasRemoveFromMFieldObject"]   = True;
+            self["writeClearField"]             = True;
+            self["hasClearField"]               = True;
+            self["writeAssignMField"]           = True;
+            self["hasAssignMField"]             = True;
     
         elif self.getFCD("ptrFieldAccess") == "nullCheck":
-            self["ptrFieldNullCheckAccess"]        = True;
-            self["generatePushToField"]            = True;
-            self["hasPushToField"]                 = True;
-            self["generateAssignMField"]           = True;
-            self["hasAssignMField"]                = True;
-            self["generateInsertIntoMField"]       = True;
-            self["hasInsertIntoMField"]            = True;
-            self["generateReplaceInMFieldIndex"]   = True;
-            self["hasReplaceInMFieldIndex"]        = True;
-            self["generateReplaceInMFieldObject"]  = True;
-            self["hasReplaceInMFieldObject"]       = True;
-            self["generateRemoveFromMFieldIndex"]  = True;
-            self["hasRemoveFromMFieldIndex"]       = True;
-            self["generateRemoveFromMFieldObject"] = True;
-            self["hasRemoveFromMFieldObject"]      = True;
-            self["generateClearField"]             = True;
-            self["hasClearField"]                  = True;
+            self["ptrFieldNullCheckAccess"]     = True;
+            self["writePushToField"]            = True;
+            self["hasPushToField"]              = True;
+            self["writeAssignMField"]           = True;
+            self["hasAssignMField"]             = True;
+            self["writeInsertIntoMField"]       = True;
+            self["hasInsertIntoMField"]         = True;
+            self["writeReplaceInMFieldIndex"]   = True;
+            self["hasReplaceInMFieldIndex"]     = True;
+            self["writeReplaceInMFieldObject"]  = True;
+            self["hasReplaceInMFieldObject"]    = True;
+            self["writeRemoveFromMFieldIndex"]  = True;
+            self["hasRemoveFromMFieldIndex"]    = True;
+            self["writeRemoveFromMFieldObject"] = True;
+            self["hasRemoveFromMFieldObject"]   = True;
+            self["writeClearField"]             = True;
+            self["hasClearField"]               = True;
             
         elif self.getFCD("ptrFieldAccess") == "custom":
-            self["ptrFieldCustomAccess"]           = True;
-            self["hasPushToField"]                 = (self.getFCD("hasPushToField")                 == "true" or
-                                                      self.getFCD("pushToFieldAs")                  != ""       );
-            self["hasAssignMField"]                = (self.getFCD("hasAssignMField")                == "true" or
-                                                      self.getFCD("assignMFieldAs")                 != ""       );
-            self["hasInsertIntoMField"]            = (self.getFCD("hasInsertIntoMField")            == "true" or
-                                                      self.getFCD("insertIntoMFieldAs")             != ""       );
-            self["hasReplaceInMFieldIndex"]        = (self.getFCD("hasReplaceInMFieldIndex")        == "true" or
-                                                      self.getFCD("replaceInMFieldIndexAs")         != ""       );
-            self["hasReplaceInMFieldObject"]       = (self.getFCD("hasReplaceInMFieldObject")       == "true" or
-                                                      self.getFCD("replaceInMFieldObjectAs")        != ""       );
-            self["hasRemoveFromMFieldIndex"]       = (self.getFCD("hasRemoveFromMFieldIndex")       == "true" or
-                                                      self.getFCD("removeFromMFieldIndexAs")        != ""       );
-            self["hasRemoveFromMFieldObject"]      = (self.getFCD("hasRemoveFromMFieldObject")      == "true" or
-                                                      self.getFCD("removeFromMFieldObjectAs")       != ""       );
-            self["hasClearField"]                  = (self.getFCD("hasClearField")                  == "true" or
-                                                      self.getFCD("clearFieldAs")                   != ""       );
+            self["ptrFieldCustomAccess"]      = True;
+            self["hasPushToField"]            = (self.getFCD("hasPushToField")            == "true" or
+                                                 self.getFCD("pushToFieldAs")             != ""       );
+            self["hasAssignMField"]           = (self.getFCD("hasAssignMField")           == "true" or
+                                                 self.getFCD("assignMFieldAs")            != ""       );
+            self["hasInsertIntoMField"]       = (self.getFCD("hasInsertIntoMField")       == "true" or
+                                                 self.getFCD("insertIntoMFieldAs")        != ""       );
+            self["hasReplaceInMFieldIndex"]   = (self.getFCD("hasReplaceInMFieldIndex")   == "true" or
+                                                 self.getFCD("replaceInMFieldIndexAs")    != ""       );
+            self["hasReplaceInMFieldObject"]  = (self.getFCD("hasReplaceInMFieldObject")  == "true" or
+                                                 self.getFCD("replaceInMFieldObjectAs")   != ""       );
+            self["hasRemoveFromMFieldIndex"]  = (self.getFCD("hasRemoveFromMFieldIndex")  == "true" or
+                                                 self.getFCD("removeFromMFieldIndexAs")   != ""       );
+            self["hasRemoveFromMFieldObject"] = (self.getFCD("hasRemoveFromMFieldObject") == "true" or
+                                                 self.getFCD("removeFromMFieldObjectAs")  != ""       );
+            self["hasClearField"]             = (self.getFCD("hasClearField")             == "true" or
+                                                 self.getFCD("clearFieldAs")              != ""       );
             
         else:
             print "Unknown pointer field acess mode ", self.getFCD("ptrFieldAccess")

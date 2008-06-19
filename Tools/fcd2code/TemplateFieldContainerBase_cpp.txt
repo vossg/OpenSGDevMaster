@@ -324,7 +324,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
 @@BeginMFFieldLoop@@
     @@if field.isPtrField
     @@if !field.noAccess
-        @@if field.generatePushToField
+        @@if field.writePushToField
 void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ const value)
 {
             @@if field.ptrFieldNullCheckAccess
@@ -337,8 +337,8 @@ void @!Classname!@Base::@!field.PushToField!@(@!field.Type!@ const value)
     _mf@!field.Name!@.push_back(value);
 }
 
-        @@endif // field.generatePushToField
-        @@if field.generateAssignMField
+        @@endif // field.writePushToField
+        @@if field.writeAssignMField
 void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ &value)
 {
     @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@::const_iterator elemIt  =
@@ -356,8 +356,8 @@ void @!Classname!@Base::@!field.AssignMField:15!@(const @!field.FieldTypeNS!@@!f
     }
 }
 
-        @@endif // field.generateAssignMField
-        @@if field.generateInsertIntoMField
+        @@endif // field.writeAssignMField
+        @@if field.writeInsertIntoMField
 void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32               uiIndex,
                                                    @!field.Type!@ const value   )
 {
@@ -375,8 +375,8 @@ void @!Classname!@Base::@!field.InsertIntoMField!@(UInt32               uiIndex,
     _mf@!field.Name!@.insert(fieldIt, value);
 }
 
-        @@endif // field.generateInsertIntoMField
-        @@if field.generateReplaceInMFieldIndex
+        @@endif // field.writeInsertIntoMField
+        @@if field.writeReplaceInMFieldIndex
 void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32               uiIndex,
                                                        @!field.Type!@ const value   )
 {
@@ -393,8 +393,8 @@ void @!Classname!@Base::@!field.ReplaceInMFieldIndex!@(UInt32               uiIn
     _mf@!field.Name!@.replace(uiIndex, value);
 }
 
-        @@endif // field.generateReplaceInMFieldIndex
-        @@if field.generateReplaceInMFieldObject
+        @@endif // field.writeReplaceInMFieldIndex
+        @@if field.writeReplaceInMFieldObject
 void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ const pOldElem,
                                                         @!field.Type!@ const pNewElem)
 {
@@ -413,8 +413,8 @@ void @!Classname!@Base::@!field.ReplaceInMFieldObject!@(@!field.Type!@ const pOl
     }
 }
 
-        @@endif // field.generateReplaceInMFieldObject
-        @@if field.generateRemoveFromMFieldIndex
+        @@endif // field.writeReplaceInMFieldObject
+        @@if field.writeRemoveFromMFieldIndex
 void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
 {
     if(uiIndex < _mf@!field.Name!@.size())
@@ -429,8 +429,8 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
     }
 }
 
-        @@endif // field.generateRemoveFromMFieldIndex
-        @@if field.generateRemoveFromMFieldObject
+        @@endif // field.writeRemoveFromMFieldIndex
+        @@if field.writeRemoveFromMFieldObject
 void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ const value)
 {
     Int32 iElemIdx = _mf@!field.Name!@.findIndex(value);
@@ -446,8 +446,8 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ const va
             @@endif // field.isRemoveToSet
     }
 }
-        @@endif // field.generateRemoveFromMFieldObject
-        @@if field.generateClearField
+        @@endif // field.writeRemoveFromMFieldObject
+        @@if field.writeClearField
 void @!Classname!@Base::@!field.ClearField!@(void)
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
@@ -469,7 +469,7 @@ void @!Classname!@Base::@!field.ClearField!@(void)
             @@endif // field.doClearMField
             @@endif // field.isRemoveToSet
 }
-        @@endif // field.generateClearField
+        @@endif // field.writeClearField
 
     @@endif //!field.noAccess
     @@endif // field.isPtrField
