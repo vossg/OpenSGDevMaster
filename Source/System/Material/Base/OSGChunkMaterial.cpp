@@ -174,6 +174,18 @@ void ChunkMaterial::removeFromChunksByObj(StateChunk * const value)
     }
 }
 
+void ChunkMaterial::replaceChunk(UInt32                       uiIndex,
+                                 StateChunk           * const value  )
+{
+    if(uiIndex < _mfChunks.size())
+    {
+        editMField(ChunksFieldMask, _mfChunks);
+
+        _mfChunks.replace(uiIndex, value);
+    }    
+}
+
+
 void ChunkMaterial::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)

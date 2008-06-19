@@ -169,8 +169,13 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     "        access=\"protected\"\n"
     "        ptrFieldAccess = \"custom\"\n"
     "        pushToFieldAs=\"pushToChunks\"\n"
-    "        removeFromMFieldIndex=\"removeFromChunks\"\n"
-    "        removeFromMFieldObject=\"removeFromChunksByObj\"\n"
+    "        removeFromMFieldIndexAs=\"removeFromChunks\"\n"
+    "        removeFromMFieldObjectAs=\"removeFromChunksByObj\"\n"
+    "        replaceInMFieldIndexAs=\"replaceChunk\"\n"
+    "        hasPushToField=\"True\"\n"
+    "        hasRemoveFromMFieldIndex=\"True\"\n"
+    "        hasRemoveFromMFieldObject=\"True\"\n"
+    "        hasReplaceInMFieldIndex=\"True\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -438,6 +443,15 @@ EditFieldHandlePtr ChunkMaterialBase::editHandleChunks         (void)
 
     returnValue->setAddMethod(
         boost::bind(&ChunkMaterial::pushToChunks,
+                    static_cast<ChunkMaterial *>(this), _1));
+    returnValue->setReplaceMethod(
+        boost::bind(&ChunkMaterial::replaceChunk,
+                    static_cast<ChunkMaterial *>(this), _1, _2));
+    returnValue->setRemoveMethod(
+        boost::bind(&ChunkMaterial::removeFromChunks,
+                    static_cast<ChunkMaterial *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&ChunkMaterial::removeFromChunksByObj,
                     static_cast<ChunkMaterial *>(this), _1));
 
     editMField(ChunksFieldMask, _mfChunks);

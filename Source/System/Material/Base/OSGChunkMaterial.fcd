@@ -26,8 +26,13 @@ field's functions.
         access="protected"
         ptrFieldAccess = "custom"
         pushToFieldAs="pushToChunks"
-        removeFromMFieldIndex="removeFromChunks"
-        removeFromMFieldObject="removeFromChunksByObj"
+        removeFromMFieldIndexAs="removeFromChunks"
+        removeFromMFieldObjectAs="removeFromChunksByObj"
+        replaceInMFieldIndexAs="replaceChunk"
+        hasPushToField="True"
+        hasRemoveFromMFieldIndex="True"
+        hasRemoveFromMFieldObject="True"
+        hasReplaceInMFieldIndex="True"
 	>
 	</Field>
 	<Field

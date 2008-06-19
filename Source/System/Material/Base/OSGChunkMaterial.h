@@ -169,10 +169,13 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
 
     void pushToChunks         (      StateChunk           * const value  );
 #if 0
-    void assignChunks    (const MFUnrecStateChunkPtr &       value  );
+    void assignChunks         (const MFUnrecStateChunkPtr &       value  );
 #endif
     void removeFromChunks     (      UInt32                       uiIndex);
     void removeFromChunksByObj(      StateChunk           * const value  );
+
+    void replaceChunk         (      UInt32                       uiIndex,
+                                     StateChunk           * const value  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

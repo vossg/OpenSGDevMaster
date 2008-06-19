@@ -794,6 +794,25 @@ void VRMLNodeHelper::getField(const Char8                * szFieldname,
         returnValue = OSG_CREATE_DESC(TYPE);                \
     }
 
+#define OSG_CREATE_PTRDESC(TYPE) new TYPE::Description(     \
+        TYPE::getClassType(),                               \
+        szFieldName,                                        \
+        "",                                                 \
+        0,                                                  \
+        0,                                                  \
+        false,                                              \
+        (OSG::Field::SFDefaultFlags | Field::FStdAccess),   \
+        static_cast<OSG::FieldIndexEditMethodSig>(          \
+            &VRMLGenericAtt::editDynamicField),             \
+        static_cast<OSG::FieldIndexGetMethodSig >(          \
+            &VRMLGenericAtt::getDynamicField ))
+
+#define OSG_CREATE_PTRDESC_ELSE(TYPE)                       \
+    else if(uiFieldTypeId == TYPE::getClassType().getId())  \
+    {                                                       \
+        returnValue = OSG_CREATE_PTRDESC(TYPE);             \
+    }
+
 
 
 FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
@@ -823,7 +842,7 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     OSG_CREATE_DESC_ELSE(MFColor3f)
     OSG_CREATE_DESC_ELSE(SFColor3f)
 
-    OSG_CREATE_DESC_ELSE(SFUnrecFieldContainerPtr)
+    OSG_CREATE_PTRDESC_ELSE(SFUnrecFieldContainerPtr)
 
     return returnValue;
 }
