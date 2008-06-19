@@ -646,18 +646,19 @@ bool EditFCPtrMFieldHandle<FieldT>::remove(UInt32 index)
     }
     else if(0x0000 != (_pDescription->getFlags() & Field::FNullCheckAccess))
     {
-        dcast()->erase(dcast()->begin_nc() + index);
+        dcast()->erase(index);
         retVal = true;
     }
     else if(0x0000 != (_pDescription->getFlags() & Field::FStdAccess))
     {
-        dcast()->erase(dcast()->begin_nc() + index);
+        dcast()->erase(index);
         retVal = true;
     }
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::remove: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::remove: Field has unknown "
+                "access.\n", typeid(FieldT).name()));
     }
 
     return retVal;
@@ -688,7 +689,8 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(FieldContainer *existingFC)
             else
             {
                 FFATAL(("EditFCPtrMFieldHandle<%s>::removeObject called, but "
-                        "_fRemoveObjMethod is not set.\n", typeid(FieldT).name()));
+                        "_fRemoveObjMethod is not set.\n", 
+                        typeid(FieldT).name()));
             }
         }
     }
@@ -696,11 +698,11 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(FieldContainer *existingFC)
     {
         if(typedExistingFC != NULL)
         {
-            typename FieldT::iterator iter = dcast()->find(typedExistingFC);
+            Int32 iElemIdx = dcast()->findIndex(typedExistingFC);
         
-            if(iter != dcast()->end())
+            if(iElemIdx != -1)
             {
-                dcast()->erase(iter);
+                dcast()->erase(iElemIdx);
                 retVal = true;
             }
         }
@@ -709,11 +711,11 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(FieldContainer *existingFC)
     {
         if(typedExistingFC != NULL || existingFC == NULL)
         {
-            typename FieldT::iterator iter = dcast()->find(typedExistingFC);
+            Int32 iElemIdx = dcast()->findIndex(typedExistingFC);
         
-            if(iter != dcast()->end())
+            if(iElemIdx != -1)
             {
-                dcast()->erase(iter);
+                dcast()->erase(iElemIdx);
                 retVal = true;
             }
         }
@@ -721,7 +723,8 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(FieldContainer *existingFC)
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::removeObject: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::removeObject: Field has unknown "
+                "access.\n", typeid(FieldT).name()));
     }
 
     return retVal;
@@ -862,7 +865,8 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
             else
             {
                 FFATAL(("EditFCPtrMFieldHandle<%s>::replaceObject called, "
-                        "but _fReplaceMethod is not set.\n", typeid(FieldT).name()));
+                        "but _fReplaceMethod is not set.\n", 
+                        typeid(FieldT).name()));
             }
         }
     }
@@ -870,11 +874,11 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
     {
         if((typedExistingFC != NULL) && (typedNewFC != NULL))
         {
-            typename FieldT::iterator iter = dcast()->find(typedExistingFC);
+            Int32 iElemIdx = dcast()->findIndex(typedExistingFC);
         
-            if(iter != dcast()->end())
+            if(iElemIdx != -1)
             {
-                dcast()->replace(iter, typedNewFC);
+                dcast()->replace(iElemIdx, typedNewFC);
                 retVal = true;
             }
         }
@@ -884,11 +888,11 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
         if((typedExistingFC != NULL || existingFC == NULL) &&
            (typedNewFC      != NULL || newFC      == NULL)   )
         {
-            typename FieldT::iterator iter = dcast()->find(typedExistingFC);
+            Int32 iElemIdx = dcast()->findIndex(typedExistingFC);
         
-            if(iter != dcast()->end())
+            if(iElemIdx != -1)
             {
-                dcast()->replace(iter, typedNewFC);
+                dcast()->replace(iElemIdx, typedNewFC);
                 retVal = true;
             }
         }
@@ -896,7 +900,8 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::replaceObject: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::replaceObject: Field has unknown "
+                "access.\n", typeid(FieldT).name()));
     }
 
     return retVal;

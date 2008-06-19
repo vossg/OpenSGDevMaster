@@ -251,11 +251,7 @@ void ComplexSceneManagerBase::removeFromGlobals(UInt32 uiIndex)
     {
         editMField(GlobalsFieldMask, _mfGlobals);
 
-        MFUnrecFieldContainerPtr::iterator fieldIt = _mfGlobals.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfGlobals.erase(fieldIt);
+        _mfGlobals.erase(uiIndex);
     }
 }
 
@@ -267,11 +263,7 @@ void ComplexSceneManagerBase::removeObjFromGlobals(FieldContainer * const value)
     {
         editMField(GlobalsFieldMask, _mfGlobals);
 
-        MFUnrecFieldContainerPtr::iterator fieldIt = _mfGlobals.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfGlobals.erase(fieldIt);
+        _mfGlobals.erase(iElemIdx);
     }
 }
 void ComplexSceneManagerBase::clearGlobals(void)

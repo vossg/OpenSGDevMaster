@@ -557,11 +557,7 @@ void VTKPolyDataMapperBase::removeFromGeoRoots(UInt32 uiIndex)
     {
         editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfGeoRoots.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfGeoRoots.erase(fieldIt);
+        _mfGeoRoots.erase(uiIndex);
     }
 }
 
@@ -573,11 +569,7 @@ void VTKPolyDataMapperBase::removeObjFromGeoRoots(Node * const value)
     {
         editMField(GeoRootsFieldMask, _mfGeoRoots);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfGeoRoots.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfGeoRoots.erase(fieldIt);
+        _mfGeoRoots.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearGeoRoots(void)
@@ -618,11 +610,7 @@ void VTKPolyDataMapperBase::removeFromGeometries(UInt32 uiIndex)
     {
         editMField(GeometriesFieldMask, _mfGeometries);
 
-        MFUnrecGeometryPtr::iterator fieldIt = _mfGeometries.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfGeometries.erase(fieldIt);
+        _mfGeometries.erase(uiIndex);
     }
 }
 
@@ -634,11 +622,7 @@ void VTKPolyDataMapperBase::removeObjFromGeometries(Geometry * const value)
     {
         editMField(GeometriesFieldMask, _mfGeometries);
 
-        MFUnrecGeometryPtr::iterator fieldIt = _mfGeometries.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfGeometries.erase(fieldIt);
+        _mfGeometries.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearGeometries(void)
@@ -679,11 +663,7 @@ void VTKPolyDataMapperBase::removeFromMaterials(UInt32 uiIndex)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfMaterials.erase(fieldIt);
+        _mfMaterials.erase(uiIndex);
     }
 }
 
@@ -695,11 +675,7 @@ void VTKPolyDataMapperBase::removeObjFromMaterials(ChunkMaterial * const value)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecChunkMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfMaterials.erase(fieldIt);
+        _mfMaterials.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearMaterials(void)
@@ -740,11 +716,7 @@ void VTKPolyDataMapperBase::removeFromMaterialChunks(UInt32 uiIndex)
     {
         editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-        MFUnrecMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfMaterialChunks.erase(fieldIt);
+        _mfMaterialChunks.erase(uiIndex);
     }
 }
 
@@ -756,11 +728,7 @@ void VTKPolyDataMapperBase::removeObjFromMaterialChunks(MaterialChunk * const va
     {
         editMField(MaterialChunksFieldMask, _mfMaterialChunks);
 
-        MFUnrecMaterialChunkPtr::iterator fieldIt = _mfMaterialChunks.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfMaterialChunks.erase(fieldIt);
+        _mfMaterialChunks.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearMaterialChunks(void)
@@ -801,11 +769,7 @@ void VTKPolyDataMapperBase::removeFromPositions(UInt32 uiIndex)
     {
         editMField(PositionsFieldMask, _mfPositions);
 
-        MFUnrecGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfPositions.erase(fieldIt);
+        _mfPositions.erase(uiIndex);
     }
 }
 
@@ -817,11 +781,7 @@ void VTKPolyDataMapperBase::removeObjFromPositions(GeoPnt3fProperty * const valu
     {
         editMField(PositionsFieldMask, _mfPositions);
 
-        MFUnrecGeoPnt3fPropertyPtr::iterator fieldIt = _mfPositions.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfPositions.erase(fieldIt);
+        _mfPositions.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearPositions(void)
@@ -862,11 +822,7 @@ void VTKPolyDataMapperBase::removeFromLength(UInt32 uiIndex)
     {
         editMField(LengthFieldMask, _mfLength);
 
-        MFUnrecGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfLength.erase(fieldIt);
+        _mfLength.erase(uiIndex);
     }
 }
 
@@ -878,11 +834,7 @@ void VTKPolyDataMapperBase::removeObjFromLength(GeoUInt32Property * const value)
     {
         editMField(LengthFieldMask, _mfLength);
 
-        MFUnrecGeoUInt32PropertyPtr::iterator fieldIt = _mfLength.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfLength.erase(fieldIt);
+        _mfLength.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearLength(void)
@@ -923,11 +875,7 @@ void VTKPolyDataMapperBase::removeFromTypes(UInt32 uiIndex)
     {
         editMField(TypesFieldMask, _mfTypes);
 
-        MFUnrecGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfTypes.erase(fieldIt);
+        _mfTypes.erase(uiIndex);
     }
 }
 
@@ -939,11 +887,7 @@ void VTKPolyDataMapperBase::removeObjFromTypes(GeoUInt8Property * const value)
     {
         editMField(TypesFieldMask, _mfTypes);
 
-        MFUnrecGeoUInt8PropertyPtr::iterator fieldIt = _mfTypes.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfTypes.erase(fieldIt);
+        _mfTypes.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearTypes(void)
@@ -984,11 +928,7 @@ void VTKPolyDataMapperBase::removeFromColors(UInt32 uiIndex)
     {
         editMField(ColorsFieldMask, _mfColors);
 
-        MFUnrecGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfColors.erase(fieldIt);
+        _mfColors.erase(uiIndex);
     }
 }
 
@@ -1000,11 +940,7 @@ void VTKPolyDataMapperBase::removeObjFromColors(GeoColor4fProperty * const value
     {
         editMField(ColorsFieldMask, _mfColors);
 
-        MFUnrecGeoColor4fPropertyPtr::iterator fieldIt = _mfColors.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfColors.erase(fieldIt);
+        _mfColors.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearColors(void)
@@ -1045,11 +981,7 @@ void VTKPolyDataMapperBase::removeFromNormals(UInt32 uiIndex)
     {
         editMField(NormalsFieldMask, _mfNormals);
 
-        MFUnrecGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfNormals.erase(fieldIt);
+        _mfNormals.erase(uiIndex);
     }
 }
 
@@ -1061,11 +993,7 @@ void VTKPolyDataMapperBase::removeObjFromNormals(GeoVec3fProperty * const value)
     {
         editMField(NormalsFieldMask, _mfNormals);
 
-        MFUnrecGeoVec3fPropertyPtr::iterator fieldIt = _mfNormals.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfNormals.erase(fieldIt);
+        _mfNormals.erase(iElemIdx);
     }
 }
 void VTKPolyDataMapperBase::clearNormals(void)

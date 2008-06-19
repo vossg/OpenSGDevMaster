@@ -42,7 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
 #include "OSGMField.h"
 
 #include "OSGFieldContainerFieldTraits.h"

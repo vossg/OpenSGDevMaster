@@ -219,11 +219,7 @@ void ShaderParameterChunkBase::subParameter(UInt32 uiIndex)
     {
         editMField(ParametersFieldMask, _mfParameters);
 
-        MFUnrecChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfParameters.erase(fieldIt);
+        _mfParameters.erase(uiIndex);
     }
 }
 
@@ -235,11 +231,7 @@ void ShaderParameterChunkBase::subParameterByObj(ShaderParameter * const value)
     {
         editMField(ParametersFieldMask, _mfParameters);
 
-        MFUnrecChildShaderParameterPtr::iterator fieldIt = _mfParameters.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfParameters.erase(fieldIt);
+        _mfParameters.erase(iElemIdx);
     }
 }
 void ShaderParameterChunkBase::clearParameters(void)
@@ -330,17 +322,13 @@ bool ShaderParameterChunkBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildShaderParameterPtr::iterator pI =
-                _mfParameters.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfParameters.findIndex(pTypedChild);
 
-            MFUnrecChildShaderParameterPtr::const_iterator pEnd =
-                _mfParameters.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(ParametersFieldMask, _mfParameters);
 
-                _mfParameters.erase(pI);
+                _mfParameters.erase(iChildIdx);
 
                 return true;
             }

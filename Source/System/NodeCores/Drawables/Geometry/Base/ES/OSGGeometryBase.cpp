@@ -429,11 +429,7 @@ void GeometryBase::removeFromProperties(UInt32 uiIndex)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFUnrecChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfProperties.erase(fieldIt);
+        _mfProperties.erase(uiIndex);
     }
 }
 
@@ -445,11 +441,7 @@ void GeometryBase::removeObjFromProperties(GeoVectorProperty * const value)
     {
         editMField(PropertiesFieldMask, _mfProperties);
 
-        MFUnrecChildGeoVectorPropertyPtr::iterator fieldIt = _mfProperties.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfProperties.erase(fieldIt);
+        _mfProperties.erase(iElemIdx);
     }
 }
 void GeometryBase::clearProperties(void)
@@ -490,11 +482,7 @@ void GeometryBase::removeFromPropIndices(UInt32 uiIndex)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFUnrecChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfPropIndices.erase(fieldIt);
+        _mfPropIndices.erase(uiIndex);
     }
 }
 
@@ -506,11 +494,7 @@ void GeometryBase::removeObjFromPropIndices(GeoIntegralProperty * const value)
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
 
-        MFUnrecChildGeoIntegralPropertyPtr::iterator fieldIt = _mfPropIndices.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfPropIndices.erase(fieldIt);
+        _mfPropIndices.erase(iElemIdx);
     }
 }
 void GeometryBase::clearPropIndices(void)
@@ -819,17 +803,13 @@ bool GeometryBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildGeoVectorPropertyPtr::iterator pI =
-                _mfProperties.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfProperties.findIndex(pTypedChild);
 
-            MFUnrecChildGeoVectorPropertyPtr::const_iterator pEnd =
-                _mfProperties.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(PropertiesFieldMask, _mfProperties);
 
-                _mfProperties.erase(pI);
+                _mfProperties.erase(iChildIdx);
 
                 return true;
             }
@@ -850,17 +830,13 @@ bool GeometryBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildGeoIntegralPropertyPtr::iterator pI =
-                _mfPropIndices.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfPropIndices.findIndex(pTypedChild);
 
-            MFUnrecChildGeoIntegralPropertyPtr::const_iterator pEnd =
-                _mfPropIndices.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(PropIndicesFieldMask, _mfPropIndices);
 
-                _mfPropIndices.erase(pI);
+                _mfPropIndices.erase(iChildIdx);
 
                 return true;
             }

@@ -562,11 +562,7 @@ void WindowBase::subPort(UInt32 uiIndex)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfPort.erase(fieldIt);
+        _mfPort.erase(uiIndex);
     }
 }
 
@@ -578,11 +574,7 @@ void WindowBase::subPortByObj(Viewport * const value)
     {
         editMField(PortFieldMask, _mfPort);
 
-        MFUnrecChildViewportPtr::iterator fieldIt = _mfPort.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfPort.erase(fieldIt);
+        _mfPort.erase(iElemIdx);
     }
 }
 void WindowBase::clearPorts(void)
@@ -771,17 +763,13 @@ bool WindowBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildViewportPtr::iterator pI =
-                _mfPort.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfPort.findIndex(pTypedChild);
 
-            MFUnrecChildViewportPtr::const_iterator pEnd =
-                _mfPort.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(PortFieldMask, _mfPort);
 
-                _mfPort.erase(pI);
+                _mfPort.erase(iChildIdx);
 
                 return true;
             }

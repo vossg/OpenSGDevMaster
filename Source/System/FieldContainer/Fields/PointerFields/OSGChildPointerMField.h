@@ -583,12 +583,17 @@ class ChildPointerMField :
                                      InputIteratorT first,
                                      InputIteratorT last            );
  
+    void                   erase    (size_type      index           );
+#ifndef OSG_CLEAN_FCFIELDS
     iterator               erase    (iterator       pos             );
 
     iterator               erase    (iterator       first,
                                      iterator       last            );
+#endif
     
+#ifndef OSG_CLEAN_FCFIELDS
     iterator               find     (const_value    value           );
+#endif
     const_iterator         find     (const_value    value           ) const;
 
     void                   push_back(const_value    value           );

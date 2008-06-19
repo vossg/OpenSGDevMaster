@@ -210,11 +210,7 @@ void DrawManagerBase::removeFromDrawer(UInt32 uiIndex)
     {
         editMField(DrawerFieldMask, _mfDrawer);
 
-        MFUnrecDrawerPtr::iterator fieldIt = _mfDrawer.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfDrawer.erase(fieldIt);
+        _mfDrawer.erase(uiIndex);
     }
 }
 
@@ -226,11 +222,7 @@ void DrawManagerBase::removeObjFromDrawer(Drawer * const value)
     {
         editMField(DrawerFieldMask, _mfDrawer);
 
-        MFUnrecDrawerPtr::iterator fieldIt = _mfDrawer.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfDrawer.erase(fieldIt);
+        _mfDrawer.erase(iElemIdx);
     }
 }
 void DrawManagerBase::clearDrawer(void)

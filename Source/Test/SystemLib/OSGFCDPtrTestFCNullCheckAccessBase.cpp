@@ -1126,11 +1126,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_ptr(UInt32 uiIndex)
     {
         editMField(FieldMFPub_ptrFieldMask, _mfFieldMFPub_ptr);
 
-        MFUnrecFCDTestFCPtr::iterator fieldIt = _mfFieldMFPub_ptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPub_ptr.erase(fieldIt);
+        _mfFieldMFPub_ptr.erase(uiIndex);
     }
 }
 
@@ -1142,11 +1138,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPub_ptr(FCDTestFC * co
     {
         editMField(FieldMFPub_ptrFieldMask, _mfFieldMFPub_ptr);
 
-        MFUnrecFCDTestFCPtr::iterator fieldIt = _mfFieldMFPub_ptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPub_ptr.erase(fieldIt);
+        _mfFieldMFPub_ptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_ptr(void)
@@ -1235,11 +1227,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_weakptr(UInt32 uiInde
     {
         editMField(FieldMFPub_weakptrFieldMask, _mfFieldMFPub_weakptr);
 
-        MFWeakFCDTestFCPtr::iterator fieldIt = _mfFieldMFPub_weakptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPub_weakptr.erase(fieldIt);
+        _mfFieldMFPub_weakptr.erase(uiIndex);
     }
 }
 
@@ -1251,11 +1239,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPub_weakptr(FCDTestFC 
     {
         editMField(FieldMFPub_weakptrFieldMask, _mfFieldMFPub_weakptr);
 
-        MFWeakFCDTestFCPtr::iterator fieldIt = _mfFieldMFPub_weakptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPub_weakptr.erase(fieldIt);
+        _mfFieldMFPub_weakptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_weakptr(void)
@@ -1344,11 +1328,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_mpchildptr(UInt32 uiI
     {
         editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
 
-        MFUnrecChildFCDTestFCPtr::iterator fieldIt = _mfFieldMFPub_mpchildptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPub_mpchildptr.erase(fieldIt);
+        _mfFieldMFPub_mpchildptr.erase(uiIndex);
     }
 }
 
@@ -1360,11 +1340,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPub_mpchildptr(FCDTest
     {
         editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
 
-        MFUnrecChildFCDTestFCPtr::iterator fieldIt = _mfFieldMFPub_mpchildptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPub_mpchildptr.erase(fieldIt);
+        _mfFieldMFPub_mpchildptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_mpchildptr(void)
@@ -1453,11 +1429,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_ptr(UInt32 uiIndex)
     {
         editMField(FieldMFPro_ptrFieldMask, _mfFieldMFPro_ptr);
 
-        MFUnrecFCDTestFCPtr::iterator fieldIt = _mfFieldMFPro_ptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPro_ptr.erase(fieldIt);
+        _mfFieldMFPro_ptr.erase(uiIndex);
     }
 }
 
@@ -1469,11 +1441,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPro_ptr(FCDTestFC * co
     {
         editMField(FieldMFPro_ptrFieldMask, _mfFieldMFPro_ptr);
 
-        MFUnrecFCDTestFCPtr::iterator fieldIt = _mfFieldMFPro_ptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPro_ptr.erase(fieldIt);
+        _mfFieldMFPro_ptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_ptr(void)
@@ -1562,11 +1530,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_weakptr(UInt32 uiInde
     {
         editMField(FieldMFPro_weakptrFieldMask, _mfFieldMFPro_weakptr);
 
-        MFWeakFCDTestFCPtr::iterator fieldIt = _mfFieldMFPro_weakptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPro_weakptr.erase(fieldIt);
+        _mfFieldMFPro_weakptr.erase(uiIndex);
     }
 }
 
@@ -1578,11 +1542,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPro_weakptr(FCDTestFC 
     {
         editMField(FieldMFPro_weakptrFieldMask, _mfFieldMFPro_weakptr);
 
-        MFWeakFCDTestFCPtr::iterator fieldIt = _mfFieldMFPro_weakptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPro_weakptr.erase(fieldIt);
+        _mfFieldMFPro_weakptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_weakptr(void)
@@ -1671,11 +1631,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_mpchildptr(UInt32 uiI
     {
         editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
 
-        MFUnrecChildFCDTestFCPtr::iterator fieldIt = _mfFieldMFPro_mpchildptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPro_mpchildptr.erase(fieldIt);
+        _mfFieldMFPro_mpchildptr.erase(uiIndex);
     }
 }
 
@@ -1687,11 +1643,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPro_mpchildptr(FCDTest
     {
         editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
 
-        MFUnrecChildFCDTestFCPtr::iterator fieldIt = _mfFieldMFPro_mpchildptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPro_mpchildptr.erase(fieldIt);
+        _mfFieldMFPro_mpchildptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_mpchildptr(void)
@@ -1780,11 +1732,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPub_spchildptr(UInt32 uiI
     {
         editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
 
-        MFUnrecChildFCDSParTestFCPtr::iterator fieldIt = _mfFieldMFPub_spchildptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPub_spchildptr.erase(fieldIt);
+        _mfFieldMFPub_spchildptr.erase(uiIndex);
     }
 }
 
@@ -1796,11 +1744,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPub_spchildptr(FCDSPar
     {
         editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
 
-        MFUnrecChildFCDSParTestFCPtr::iterator fieldIt = _mfFieldMFPub_spchildptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPub_spchildptr.erase(fieldIt);
+        _mfFieldMFPub_spchildptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPub_spchildptr(void)
@@ -1889,11 +1833,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeFromFieldMFPro_spchildptr(UInt32 uiI
     {
         editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
 
-        MFUnrecChildFCDSParTestFCPtr::iterator fieldIt = _mfFieldMFPro_spchildptr.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfFieldMFPro_spchildptr.erase(fieldIt);
+        _mfFieldMFPro_spchildptr.erase(uiIndex);
     }
 }
 
@@ -1905,11 +1845,7 @@ void FCDPtrTestFCNullCheckAccessBase::removeObjFromFieldMFPro_spchildptr(FCDSPar
     {
         editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
 
-        MFUnrecChildFCDSParTestFCPtr::iterator fieldIt = _mfFieldMFPro_spchildptr.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfFieldMFPro_spchildptr.erase(fieldIt);
+        _mfFieldMFPro_spchildptr.erase(iElemIdx);
     }
 }
 void FCDPtrTestFCNullCheckAccessBase::clearFieldMFPro_spchildptr(void)
@@ -2527,17 +2463,13 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildFCDTestFCPtr::iterator pI =
-                _mfFieldMFPub_mpchildptr.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfFieldMFPub_mpchildptr.findIndex(pTypedChild);
 
-            MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
-                _mfFieldMFPub_mpchildptr.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(FieldMFPub_mpchildptrFieldMask, _mfFieldMFPub_mpchildptr);
 
-                _mfFieldMFPub_mpchildptr.erase(pI);
+                _mfFieldMFPub_mpchildptr.erase(iChildIdx);
 
                 return true;
             }
@@ -2558,17 +2490,13 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildFCDTestFCPtr::iterator pI =
-                _mfFieldMFPro_mpchildptr.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfFieldMFPro_mpchildptr.findIndex(pTypedChild);
 
-            MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
-                _mfFieldMFPro_mpchildptr.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(FieldMFPro_mpchildptrFieldMask, _mfFieldMFPro_mpchildptr);
 
-                _mfFieldMFPro_mpchildptr.erase(pI);
+                _mfFieldMFPro_mpchildptr.erase(iChildIdx);
 
                 return true;
             }
@@ -2589,17 +2517,13 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildFCDTestFCPtr::iterator pI =
-                _mfFieldMFNo_mpchildptr.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfFieldMFNo_mpchildptr.findIndex(pTypedChild);
 
-            MFUnrecChildFCDTestFCPtr::const_iterator pEnd =
-                _mfFieldMFNo_mpchildptr.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(FieldMFNo_mpchildptrFieldMask, _mfFieldMFNo_mpchildptr);
 
-                _mfFieldMFNo_mpchildptr.erase(pI);
+                _mfFieldMFNo_mpchildptr.erase(iChildIdx);
 
                 return true;
             }
@@ -2695,17 +2619,13 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildFCDSParTestFCPtr::iterator pI =
-                _mfFieldMFPub_spchildptr.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfFieldMFPub_spchildptr.findIndex(pTypedChild);
 
-            MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
-                _mfFieldMFPub_spchildptr.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(FieldMFPub_spchildptrFieldMask, _mfFieldMFPub_spchildptr);
 
-                _mfFieldMFPub_spchildptr.erase(pI);
+                _mfFieldMFPub_spchildptr.erase(iChildIdx);
 
                 return true;
             }
@@ -2726,17 +2646,13 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildFCDSParTestFCPtr::iterator pI =
-                _mfFieldMFPro_spchildptr.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfFieldMFPro_spchildptr.findIndex(pTypedChild);
 
-            MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
-                _mfFieldMFPro_spchildptr.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(FieldMFPro_spchildptrFieldMask, _mfFieldMFPro_spchildptr);
 
-                _mfFieldMFPro_spchildptr.erase(pI);
+                _mfFieldMFPro_spchildptr.erase(iChildIdx);
 
                 return true;
             }
@@ -2757,17 +2673,13 @@ bool FCDPtrTestFCNullCheckAccessBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildFCDSParTestFCPtr::iterator pI =
-                _mfFieldMFNo_spchildptr.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfFieldMFNo_spchildptr.findIndex(pTypedChild);
 
-            MFUnrecChildFCDSParTestFCPtr::const_iterator pEnd =
-                _mfFieldMFNo_spchildptr.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(FieldMFNo_spchildptrFieldMask, _mfFieldMFNo_spchildptr);
 
-                _mfFieldMFNo_spchildptr.erase(pI);
+                _mfFieldMFNo_spchildptr.erase(iChildIdx);
 
                 return true;
             }

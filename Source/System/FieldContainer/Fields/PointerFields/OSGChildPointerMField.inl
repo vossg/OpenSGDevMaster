@@ -965,7 +965,15 @@ void ChildPointerMField<PtrTypeT,
     return this->ptrStoreInsert(pos.base(), first, last);
 }
 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+void ChildPointerMField<PtrTypeT,
+                        RefCountPolicy, 
+                        NamespaceI    >::erase(size_type index)
+{
+    return this->ptrStoreErase(index);
+}
 
+#ifndef OSG_CLEAN_FCFIELDS
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
@@ -988,7 +996,9 @@ typename ChildPointerMField<PtrTypeT,
 {
     return iterator(this->ptrStoreErase(first.base(), last.base()), this);
 }
-   
+#endif
+
+#ifndef OSG_CLEAN_FCFIELDS
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ChildPointerMField<PtrTypeT,
                             RefCountPolicy, 
@@ -1003,6 +1013,7 @@ typename ChildPointerMField<PtrTypeT,
 
     return iterator(this->ptrStoreFind(value), this);
 }
+#endif
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ChildPointerMField<PtrTypeT,

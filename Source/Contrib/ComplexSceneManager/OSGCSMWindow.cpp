@@ -132,6 +132,8 @@ void CSMWindow::mouse(Int32 iButton,
                              x, 
                              y,
                             _pWindow);
+
+    commitChanges();
 }
 
 void CSMWindow::motion(Int32 x, 

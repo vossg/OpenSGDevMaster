@@ -772,6 +772,7 @@ typename ParentPointerMField<PtrTypeT,
 }
 
 
+#ifndef OSG_CLEAN_FCFIELDS
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<PtrTypeT,
                              RefCountPolicy,
@@ -789,7 +790,7 @@ typename ParentPointerMField<PtrTypeT,
 
     return iterator(ptrIt, posIt);
 }
-
+#endif
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 void ParentPointerMField<PtrTypeT,
@@ -817,6 +818,7 @@ void ParentPointerMField<PtrTypeT,
     this->_vParentPos.reserve(newsize);
 }
 
+#ifndef OSG_CLEAN_FCFIELDS
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<PtrTypeT,
                              RefCountPolicy,
@@ -837,6 +839,7 @@ typename ParentPointerMField<PtrTypeT,
 
     return iterator(ptrIt, posIt);
 }
+#endif
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<PtrTypeT,

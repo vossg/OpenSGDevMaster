@@ -263,11 +263,7 @@ void ImageForegroundBase::removeFromImages(UInt32 uiIndex)
     {
         editMField(ImagesFieldMask, _mfImages);
 
-        MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfImages.erase(fieldIt);
+        _mfImages.erase(uiIndex);
     }
 }
 
@@ -279,11 +275,7 @@ void ImageForegroundBase::removeObjFromImages(Image * const value)
     {
         editMField(ImagesFieldMask, _mfImages);
 
-        MFUnrecImagePtr::iterator fieldIt = _mfImages.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfImages.erase(fieldIt);
+        _mfImages.erase(iElemIdx);
     }
 }
 void ImageForegroundBase::clearImages(void)

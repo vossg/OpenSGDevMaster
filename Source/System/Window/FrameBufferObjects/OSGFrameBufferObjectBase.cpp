@@ -451,11 +451,7 @@ void FrameBufferObjectBase::removeFromColorAttachments(UInt32 uiIndex)
     {
         editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-        MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfColorAttachments.erase(fieldIt);
+        _mfColorAttachments.erase(uiIndex);
     }
 }
 
@@ -467,11 +463,7 @@ void FrameBufferObjectBase::removeObjFromColorAttachments(FrameBufferAttachment 
     {
         editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
 
-        MFUnrecFrameBufferAttachmentPtr::iterator fieldIt = _mfColorAttachments.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfColorAttachments.erase(fieldIt);
+        _mfColorAttachments.erase(iElemIdx);
     }
 }
 void FrameBufferObjectBase::clearColorAttachments(void)

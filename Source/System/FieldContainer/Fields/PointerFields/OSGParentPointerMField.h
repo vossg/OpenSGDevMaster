@@ -466,11 +466,15 @@ class ParentPointerMField :
                                      const_value  value,
                                      UInt16       parentFieldPos);
 
+#ifndef OSG_CLEAN_FCFIELDS
     iterator               erase    (iterator     pos           );
+#endif
 
     void                   erase    (size_type    pos           );
 
+#ifndef OSG_CLEAN_FCFIELDS
     iterator               find     (const_value value          );
+#endif
     iterator               find_nc  (const_value value          );
 
     const_iterator         find     (const_value value          ) const;

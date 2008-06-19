@@ -329,11 +329,7 @@ void CSMViewportBase::removeFromForegrounds(UInt32 uiIndex)
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
 
-        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfForegrounds.erase(fieldIt);
+        _mfForegrounds.erase(uiIndex);
     }
 }
 
@@ -345,11 +341,7 @@ void CSMViewportBase::removeObjFromForegrounds(Foreground * const value)
     {
         editMField(ForegroundsFieldMask, _mfForegrounds);
 
-        MFUnrecForegroundPtr::iterator fieldIt = _mfForegrounds.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfForegrounds.erase(fieldIt);
+        _mfForegrounds.erase(iElemIdx);
     }
 }
 void CSMViewportBase::clearForegrounds(void)

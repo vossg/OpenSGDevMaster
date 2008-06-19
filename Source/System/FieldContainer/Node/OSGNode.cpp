@@ -155,7 +155,7 @@ void Node::classDescInserter(TypeObject &oType)
         "A list of our children in the scene graph.",
         OSG_RC_FIELD_DESC(Node::Children),
         false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::MFDefaultFlags | Field::FNullCheckAccess),
         static_cast<FieldEditMethodSig>(&Node::editHandleChildren),
         static_cast<FieldGetMethodSig >(&Node::getHandleChildren));
 
@@ -298,11 +298,11 @@ void Node::subChild(Node * const childP)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecChildNodePtr::iterator childIt = _mfChildren.begin_nc();
+//        MFUnrecChildNodePtr::iterator childIt = _mfChildren.begin_nc();
 
-        childIt += childIdx;
+//        childIt += childIdx;
 
-        _mfChildren.erase(childIt);
+        _mfChildren.erase(childIdx);
     }
     else
     {
@@ -317,11 +317,11 @@ void Node::subChild(UInt32 childIndex)
     {
         editMField(ChildrenFieldMask, _mfChildren);
 
-        MFUnrecChildNodePtr::iterator childIt = _mfChildren.begin_nc();
+//        MFUnrecChildNodePtr::iterator childIt = _mfChildren.begin_nc();
 
-        childIt += childIndex;
+//        childIt += childIndex;
 
-        _mfChildren.erase(childIt);
+        _mfChildren.erase(childIndex);
     }
 }
 
@@ -630,17 +630,13 @@ bool Node::unlinkChild (FieldContainer * const pChild,
         
         if(pTypedChild != NULL)
         {
-            MFUnrecChildNodePtr::iterator       pI = 
-                _mfChildren.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfChildren.findIndex(pTypedChild);
 
-            MFUnrecChildNodePtr::const_iterator pEnd = 
-                _mfChildren.end_nc();
-            
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(ParentFieldMask, _mfChildren);
 
-                _mfChildren.erase(pI);
+                _mfChildren.erase(iChildIdx);
                 
                 return true;
             }

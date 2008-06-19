@@ -244,11 +244,7 @@ void ContainerCollectionBase::removeFromContainers(UInt32 uiIndex)
     {
         editMField(ContainersFieldMask, _mfContainers);
 
-        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfContainers.erase(fieldIt);
+        _mfContainers.erase(uiIndex);
     }
 }
 
@@ -260,11 +256,7 @@ void ContainerCollectionBase::removeObjFromContainers(FieldContainer * const val
     {
         editMField(ContainersFieldMask, _mfContainers);
 
-        MFUnrecFieldContainerPtr::iterator fieldIt = _mfContainers.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfContainers.erase(fieldIt);
+        _mfContainers.erase(iElemIdx);
     }
 }
 void ContainerCollectionBase::clearContainers(void)

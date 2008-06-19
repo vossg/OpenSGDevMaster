@@ -250,11 +250,7 @@ void SwitchMaterialBase::removeFromMaterials(UInt32 uiIndex)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfMaterials.erase(fieldIt);
+        _mfMaterials.erase(uiIndex);
     }
 }
 
@@ -266,11 +262,7 @@ void SwitchMaterialBase::removeObjFromMaterials(Material * const value)
     {
         editMField(MaterialsFieldMask, _mfMaterials);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfMaterials.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfMaterials.erase(fieldIt);
+        _mfMaterials.erase(iElemIdx);
     }
 }
 void SwitchMaterialBase::clearMaterials(void)

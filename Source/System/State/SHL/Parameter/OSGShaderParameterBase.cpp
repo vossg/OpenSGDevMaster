@@ -324,17 +324,13 @@ bool ShaderParameterBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            MFParentFieldContainerPtr::iterator pI =
-                _mfParents.find_nc(pParent);
+            Int32 iParentIdx = _mfParents.findIndex(pParent);
 
-            MFParentFieldContainerPtr::iterator pEnd =
-                _mfParents.end_nc();
-
-            if(pI != pEnd)
+            if(iParentIdx != -1)
             {
                 editMField(ParentsFieldMask, _mfParents);
 
-                _mfParents.erase(pI);
+                _mfParents.erase(iParentIdx);
 
                 return true;
             }

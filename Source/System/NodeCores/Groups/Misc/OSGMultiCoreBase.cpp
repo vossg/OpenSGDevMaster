@@ -217,11 +217,7 @@ void MultiCoreBase::subCore(UInt32 uiIndex)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfCores.erase(fieldIt);
+        _mfCores.erase(uiIndex);
     }
 }
 
@@ -233,11 +229,7 @@ void MultiCoreBase::subCoreByObj(NodeCore * const value)
     {
         editMField(CoresFieldMask, _mfCores);
 
-        MFUnrecChildNodeCorePtr::iterator fieldIt = _mfCores.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfCores.erase(fieldIt);
+        _mfCores.erase(iElemIdx);
     }
 }
 void MultiCoreBase::clearCores(void)
@@ -414,17 +406,13 @@ bool MultiCoreBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildNodeCorePtr::iterator pI =
-                _mfCores.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfCores.findIndex(pTypedChild);
 
-            MFUnrecChildNodeCorePtr::const_iterator pEnd =
-                _mfCores.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(CoresFieldMask, _mfCores);
 
-                _mfCores.erase(pI);
+                _mfCores.erase(iChildIdx);
 
                 return true;
             }

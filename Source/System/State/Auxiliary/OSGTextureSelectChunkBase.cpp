@@ -263,11 +263,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfTextures.erase(fieldIt);
+        _mfTextures.erase(uiIndex);
     }
 }
 
@@ -279,11 +275,7 @@ void TextureSelectChunkBase::removeObjFromTextures(TextureBaseChunk * const valu
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFUnrecTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfTextures.erase(fieldIt);
+        _mfTextures.erase(iElemIdx);
     }
 }
 void TextureSelectChunkBase::clearTextures(void)

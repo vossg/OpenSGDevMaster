@@ -277,17 +277,13 @@ bool NodeCore::unlinkParent(FieldContainer * const pParent,
         
         if(pTypedParent != NULL)
         {
-            MFParentFieldContainerPtr::iterator pIt = 
-                _mfParents.find_nc(pParent);
+            Int32 iParentIdx = _mfParents.findIndex(pParent);
 
-            MFParentFieldContainerPtr::iterator pEnd = 
-                _mfParents.end_nc();
-                
-            if(pIt != pEnd)
+            if(iParentIdx != -1)
             {
                 editMField(ParentsFieldMask, _mfParents);
             
-                _mfParents.erase(pIt);
+                _mfParents.erase(iParentIdx);
 
                 return true;
             }

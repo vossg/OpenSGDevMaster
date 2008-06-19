@@ -594,11 +594,7 @@ void CubeMapGeneratorBase::removeFromExclude(UInt32 uiIndex)
     {
         editMField(ExcludeFieldMask, _mfExclude);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfExclude.erase(fieldIt);
+        _mfExclude.erase(uiIndex);
     }
 }
 
@@ -610,11 +606,7 @@ void CubeMapGeneratorBase::removeObjFromExclude(Node * const value)
     {
         editMField(ExcludeFieldMask, _mfExclude);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfExclude.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfExclude.erase(fieldIt);
+        _mfExclude.erase(iElemIdx);
     }
 }
 void CubeMapGeneratorBase::clearExclude(void)

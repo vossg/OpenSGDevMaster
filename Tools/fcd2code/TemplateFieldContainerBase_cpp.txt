@@ -421,14 +421,10 @@ void @!Classname!@Base::@!field.RemoveFromMFieldIndex!@(UInt32 uiIndex)
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin_nc();
-
-        fieldIt += uiIndex;
-
             @@if field.isRemoveToSet
         _mf@!field.Name!@.replace(uiIndex, @!field.RemoveTo!@);
             @@else // field.isRemoveToSet
-        _mf@!field.Name!@.erase(fieldIt);
+        _mf@!field.Name!@.erase(uiIndex);
             @@endif // field.isRemoveToSet
     }
 }
@@ -443,14 +439,10 @@ void @!Classname!@Base::@!field.RemoveFromMFieldObject!@(@!field.Type!@ const va
     {
         editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-        MF@!field.FieldTypeCaps!@::iterator fieldIt = _mf@!field.Name!@.begin_nc();
-
-        fieldIt += iElemIdx;
-
             @@if field.isRemoveToSet
         _mf@!field.Name!@.replace(iElemIdx, @!field.RemoveTo!@);
             @@else // field.isRemoveToSet
-        _mf@!field.Name!@.erase(fieldIt);
+        _mf@!field.Name!@.erase(iElemIdx);
             @@endif // field.isRemoveToSet
     }
 }
@@ -787,17 +779,13 @@ bool @!Classname!@Base::unlinkParent(
             }
             @@endif // @!field.cardinality!@ == "single"
             @@if field.isMField
-            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pI =
-                _@!field.VarName!@.find_nc(pParent);
+            Int32 iParentIdx = _@!field.VarName!@.findIndex(pParent);
 
-            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@::iterator pEnd =
-                _@!field.VarName!@.end_nc();
-
-            if(pI != pEnd)
+            if(iParentIdx != -1)
             {
                 editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-                _@!field.VarName!@.erase(pI);
+                _@!field.VarName!@.erase(iParentIdx);
 
                 return true;
             }
@@ -847,17 +835,13 @@ bool @!Classname!@Base::unlinkChild(
             }
             @@endif // @!field.cardinality!@ == "single"
             @@if field.isMField
-            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldType!@::iterator pI =
-                _@!field.VarName!@.find_nc(pTypedChild);
+            Int32 iChildIdx = _@!field.VarName!@.findIndex(pTypedChild);
 
-            @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldType!@::const_iterator pEnd =
-                _@!field.VarName!@.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
-                _@!field.VarName!@.erase(pI);
+                _@!field.VarName!@.erase(iChildIdx);
 
                 return true;
             }

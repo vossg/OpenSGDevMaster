@@ -711,11 +711,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTiles(UInt32 uiIndex)
     {
         editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-        MFUnrecImagePtr::iterator fieldIt = _mfHeightTiles.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfHeightTiles.erase(fieldIt);
+        _mfHeightTiles.erase(uiIndex);
     }
 }
 
@@ -727,11 +723,7 @@ void TiledQuadTreeTerrainBase::removeObjFromHeightTiles(Image * const value)
     {
         editMField(HeightTilesFieldMask, _mfHeightTiles);
 
-        MFUnrecImagePtr::iterator fieldIt = _mfHeightTiles.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfHeightTiles.erase(fieldIt);
+        _mfHeightTiles.erase(iElemIdx);
     }
 }
 void TiledQuadTreeTerrainBase::clearHeightTiles(void)
@@ -772,11 +764,7 @@ void TiledQuadTreeTerrainBase::removeFromHeightTextures(UInt32 uiIndex)
     {
         editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfHeightTextures.erase(fieldIt);
+        _mfHeightTextures.erase(uiIndex);
     }
 }
 
@@ -788,11 +776,7 @@ void TiledQuadTreeTerrainBase::removeObjFromHeightTextures(Material * const valu
     {
         editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
-        MFUnrecMaterialPtr::iterator fieldIt = _mfHeightTextures.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfHeightTextures.erase(fieldIt);
+        _mfHeightTextures.erase(iElemIdx);
     }
 }
 void TiledQuadTreeTerrainBase::clearHeightTextures(void)

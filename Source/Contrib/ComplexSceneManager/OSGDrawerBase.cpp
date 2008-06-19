@@ -251,11 +251,7 @@ void DrawerBase::removeFromWindows(UInt32 uiIndex)
     {
         editMField(WindowsFieldMask, _mfWindows);
 
-        MFUnrecChildCSMWindowPtr::iterator fieldIt = _mfWindows.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfWindows.erase(fieldIt);
+        _mfWindows.erase(uiIndex);
     }
 }
 
@@ -267,11 +263,7 @@ void DrawerBase::removeObjFromWindows(CSMWindow * const value)
     {
         editMField(WindowsFieldMask, _mfWindows);
 
-        MFUnrecChildCSMWindowPtr::iterator fieldIt = _mfWindows.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfWindows.erase(fieldIt);
+        _mfWindows.erase(iElemIdx);
     }
 }
 void DrawerBase::clearWindows(void)
@@ -435,17 +427,13 @@ bool DrawerBase::unlinkChild(
 
         if(pTypedChild != NULL)
         {
-            MFUnrecChildCSMWindowPtr::iterator pI =
-                _mfWindows.find_nc(pTypedChild);
+            Int32 iChildIdx = _mfWindows.findIndex(pTypedChild);
 
-            MFUnrecChildCSMWindowPtr::const_iterator pEnd =
-                _mfWindows.end_nc();
-
-            if(pI != pEnd)
+            if(iChildIdx != -1)
             {
                 editMField(WindowsFieldMask, _mfWindows);
 
-                _mfWindows.erase(pI);
+                _mfWindows.erase(iChildIdx);
 
                 return true;
             }

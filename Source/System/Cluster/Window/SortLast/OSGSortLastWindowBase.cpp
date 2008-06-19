@@ -282,11 +282,7 @@ void SortLastWindowBase::removeFromGroupNodes(UInt32 uiIndex)
     {
         editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfGroupNodes.erase(fieldIt);
+        _mfGroupNodes.erase(uiIndex);
     }
 }
 
@@ -298,11 +294,7 @@ void SortLastWindowBase::removeObjFromGroupNodes(Node * const value)
     {
         editMField(GroupNodesFieldMask, _mfGroupNodes);
 
-        MFUnrecNodePtr::iterator fieldIt = _mfGroupNodes.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfGroupNodes.erase(fieldIt);
+        _mfGroupNodes.erase(iElemIdx);
     }
 }
 void SortLastWindowBase::clearGroupNodes(void)

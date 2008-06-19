@@ -391,11 +391,7 @@ void CSMWindowBase::removeFromViewports(UInt32 uiIndex)
     {
         editMField(ViewportsFieldMask, _mfViewports);
 
-        MFUnrecCSMViewportPtr::iterator fieldIt = _mfViewports.begin_nc();
-
-        fieldIt += uiIndex;
-
-        _mfViewports.erase(fieldIt);
+        _mfViewports.erase(uiIndex);
     }
 }
 
@@ -407,11 +403,7 @@ void CSMWindowBase::removeObjFromViewports(CSMViewport * const value)
     {
         editMField(ViewportsFieldMask, _mfViewports);
 
-        MFUnrecCSMViewportPtr::iterator fieldIt = _mfViewports.begin_nc();
-
-        fieldIt += iElemIdx;
-
-        _mfViewports.erase(fieldIt);
+        _mfViewports.erase(iElemIdx);
     }
 }
 void CSMWindowBase::clearViewports(void)

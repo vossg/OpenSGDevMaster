@@ -124,11 +124,13 @@ void ChunkMaterial::removeFromChunks(UInt32 uiIndex)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
+/*
         MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
 
         fieldIt += uiIndex;
+ */
 
-        _mfChunks.erase(fieldIt);
+        _mfChunks.erase(uiIndex);
 
         if(uiIndex < _mfSlots.size())
         {
@@ -151,11 +153,13 @@ void ChunkMaterial::removeFromChunksByObj(StateChunk * const value)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
+/*
         MFUnrecStateChunkPtr::iterator fieldIt = _mfChunks.begin_nc();
 
         fieldIt += iElemIdx;
+ */
 
-        _mfChunks.erase(fieldIt);
+        _mfChunks.erase(iElemIdx);
 
         if(iElemIdx < _mfSlots.size())
         {
@@ -232,7 +236,7 @@ bool ChunkMaterial::subChunk(StateChunk *chunk, Int32 slot)
 
             //subRef(chunk);
 
-            _mfChunks.erase(_mfChunks.begin_nc() + i);
+            _mfChunks.erase(i);
 
             if(i < _mfSlots.size())
             {
