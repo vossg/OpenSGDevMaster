@@ -1591,13 +1591,16 @@ inline void
     vecOut.setValues(
         (_matrix[0][0] * vecIn[0] +
          _matrix[1][0] * vecIn[1] +
-         _matrix[2][0] * vecIn[2]  ),
+         _matrix[2][0] * vecIn[2] +
+         _matrix[3][0] * vecIn[3]  ),
         (_matrix[0][1] * vecIn[0] +
          _matrix[1][1] * vecIn[1] +
-         _matrix[2][1] * vecIn[2]  ),
+         _matrix[2][1] * vecIn[2] +
+         _matrix[3][1] * vecIn[3]  ),
         (_matrix[0][2] * vecIn[0] +
          _matrix[1][2] * vecIn[1] +
-         _matrix[2][2] * vecIn[2]  ),
+         _matrix[2][2] * vecIn[2] +
+         _matrix[3][2] * vecIn[3]  ),
         (_matrix[0][3] * vecIn[0] +
          _matrix[1][3] * vecIn[1] +
          _matrix[2][3] * vecIn[2] +
