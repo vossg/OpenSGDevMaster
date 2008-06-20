@@ -226,13 +226,11 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     void removeObjFromGeoRoots(Node * const value   );
     void clearGeoRoots              (void                         );
 
-
     void pushToGeometries           (Geometry * const value   );
     void assignGeometries          (const MFUnrecGeometryPtr &value);
     void removeFromGeometries (UInt32               uiIndex );
     void removeObjFromGeometries(Geometry * const value   );
     void clearGeometries            (void                         );
-
 
     void pushToMaterials           (ChunkMaterial * const value   );
     void assignMaterials          (const MFUnrecChunkMaterialPtr &value);
@@ -240,13 +238,11 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     void removeObjFromMaterials(ChunkMaterial * const value   );
     void clearMaterials             (void                         );
 
-
     void pushToMaterialChunks           (MaterialChunk * const value   );
     void assignMaterialChunks          (const MFUnrecMaterialChunkPtr &value);
     void removeFromMaterialChunks (UInt32               uiIndex );
     void removeObjFromMaterialChunks(MaterialChunk * const value   );
     void clearMaterialChunks            (void                         );
-
 
     void pushToPositions           (GeoPnt3fProperty * const value   );
     void assignPositions          (const MFUnrecGeoPnt3fPropertyPtr &value);
@@ -254,13 +250,11 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     void removeObjFromPositions(GeoPnt3fProperty * const value   );
     void clearPositions             (void                         );
 
-
     void pushToLength              (GeoUInt32Property * const value   );
     void assignLength             (const MFUnrecGeoUInt32PropertyPtr &value);
     void removeFromLength (UInt32               uiIndex );
     void removeObjFromLength(GeoUInt32Property * const value   );
     void clearLength                (void                         );
-
 
     void pushToTypes               (GeoUInt8Property * const value   );
     void assignTypes              (const MFUnrecGeoUInt8PropertyPtr &value);
@@ -268,20 +262,17 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     void removeObjFromTypes(GeoUInt8Property * const value   );
     void clearTypes                 (void                         );
 
-
     void pushToColors              (GeoColor4fProperty * const value   );
     void assignColors             (const MFUnrecGeoColor4fPropertyPtr &value);
     void removeFromColors (UInt32               uiIndex );
     void removeObjFromColors(GeoColor4fProperty * const value   );
     void clearColors                (void                         );
 
-
     void pushToNormals             (GeoVec3fProperty * const value   );
     void assignNormals            (const MFUnrecGeoVec3fPropertyPtr &value);
     void removeFromNormals (UInt32               uiIndex );
     void removeObjFromNormals(GeoVec3fProperty * const value   );
     void clearNormals               (void                         );
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

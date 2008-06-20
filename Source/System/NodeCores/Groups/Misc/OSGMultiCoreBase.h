@@ -153,7 +153,6 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     void subCoreByObj   (NodeCore * const value   );
     void clearCores                 (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

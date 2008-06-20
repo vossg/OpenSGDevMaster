@@ -164,7 +164,6 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     void removeObjFromWindows(CSMWindow * const value   );
     void clearWindows               (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

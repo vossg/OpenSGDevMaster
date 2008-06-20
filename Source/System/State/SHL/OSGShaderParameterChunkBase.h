@@ -153,7 +153,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     void subParameterByObj(ShaderParameter * const value   );
     void clearParameters            (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

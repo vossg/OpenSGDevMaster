@@ -250,7 +250,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     void removeObjFromForegrounds(Foreground * const value   );
     void clearForegrounds            (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

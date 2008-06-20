@@ -187,13 +187,11 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     void removeObjFromProperties(GeoVectorProperty * const value   );
     void clearProperties            (void                         );
 
-
     void pushToPropIndices           (GeoIntegralProperty * const value   );
     void assignPropIndices          (const MFUnrecChildGeoIntegralPropertyPtr &value);
     void removeFromPropIndices (UInt32               uiIndex );
     void removeObjFromPropIndices(GeoIntegralProperty * const value   );
     void clearPropIndices            (void                         );
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

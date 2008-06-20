@@ -214,7 +214,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     void subPort         (UInt32               uiIndex );
     void subPortByObj   (Viewport * const value   );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

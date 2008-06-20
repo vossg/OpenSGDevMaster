@@ -153,7 +153,6 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     void removeObjFromDrawer(Drawer * const value   );
     void clearDrawer                (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -163,7 +163,6 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     void removeObjFromImages(Image * const value   );
     void clearImages                (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

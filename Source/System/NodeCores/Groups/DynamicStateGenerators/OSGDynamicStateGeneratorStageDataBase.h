@@ -257,7 +257,6 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorStageDataBase : public StageData
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

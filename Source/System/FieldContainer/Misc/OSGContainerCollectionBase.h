@@ -164,7 +164,6 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     void removeObjFromContainers(FieldContainer * const value   );
     void clearContainers            (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

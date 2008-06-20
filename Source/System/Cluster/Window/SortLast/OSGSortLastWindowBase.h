@@ -174,7 +174,6 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     void removeObjFromGroupNodes(Node * const value   );
     void clearGroupNodes            (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

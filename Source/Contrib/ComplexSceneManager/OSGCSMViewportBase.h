@@ -180,7 +180,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     void removeObjFromForegrounds(Foreground * const value   );
     void clearForegrounds            (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

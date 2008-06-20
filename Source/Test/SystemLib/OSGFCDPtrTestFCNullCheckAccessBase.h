@@ -279,7 +279,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     void removeFromFieldMFPub_ptr (UInt32               uiIndex );
     void removeObjFromFieldMFPub_ptr(FCDTestFC * const value   );
 
-
     void pushToFieldMFPub_weakptr           (FCDTestFC * const value   );
     void assignFieldMFPub_weakptr          (const MFWeakFCDTestFCPtr &value);
     void clearFieldMFPub_weakptr            (void                         );
@@ -291,7 +290,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
                                              FCDTestFC * const pNewElem);
     void removeFromFieldMFPub_weakptr (UInt32               uiIndex );
     void removeObjFromFieldMFPub_weakptr(FCDTestFC * const value   );
-
 
     void pushToFieldMFPub_mpchildptr           (FCDTestFC * const value   );
     void assignFieldMFPub_mpchildptr          (const MFUnrecChildFCDTestFCPtr &value);
@@ -305,7 +303,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     void removeFromFieldMFPub_mpchildptr (UInt32               uiIndex );
     void removeObjFromFieldMFPub_mpchildptr(FCDTestFC * const value   );
 
-
     void pushToFieldMFPub_spchildptr           (FCDSParTestFC * const value   );
     void assignFieldMFPub_spchildptr          (const MFUnrecChildFCDSParTestFCPtr &value);
     void clearFieldMFPub_spchildptr            (void                         );
@@ -317,7 +314,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
                                              FCDSParTestFC * const pNewElem);
     void removeFromFieldMFPub_spchildptr (UInt32               uiIndex );
     void removeObjFromFieldMFPub_spchildptr(FCDSParTestFC * const value   );
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -164,7 +164,6 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     void removeObjFromTextures(TextureBaseChunk * const value   );
     void clearTextures              (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

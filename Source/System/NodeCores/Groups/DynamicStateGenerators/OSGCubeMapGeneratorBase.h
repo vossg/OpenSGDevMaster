@@ -264,7 +264,6 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     void removeObjFromExclude(Node * const value   );
     void clearExclude               (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

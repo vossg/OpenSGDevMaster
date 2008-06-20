@@ -259,10 +259,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-
-
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -462,10 +458,6 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCCustomAccessBase : public NodeCore
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-
-
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

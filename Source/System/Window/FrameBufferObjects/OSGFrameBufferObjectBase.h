@@ -214,7 +214,6 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     void removeObjFromColorAttachments(FrameBufferAttachment * const value   );
     void clearColorAttachments            (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -153,7 +153,6 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     void subMaterialByObj(Material * const value   );
     void clearMaterials             (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

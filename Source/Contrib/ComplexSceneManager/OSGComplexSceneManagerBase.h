@@ -162,7 +162,6 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     void removeObjFromGlobals(FieldContainer * const value   );
     void clearGlobals               (void                         );
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

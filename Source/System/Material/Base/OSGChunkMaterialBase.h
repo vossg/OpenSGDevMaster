@@ -235,7 +235,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
