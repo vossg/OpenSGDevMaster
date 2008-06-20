@@ -142,7 +142,7 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     "<FieldContainer\n"
     "\tname=\"PerspectiveCamera\"\n"
     "\tparent=\"Camera\"\n"
-    "\tlibrary=\"Window\"\n"
+    "\tlibrary=\"System\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"

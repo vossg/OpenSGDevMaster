@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
   for a description.
 */
 
-class OSG_WINDOW_DLLMAPPING PerspectiveCamera : public PerspectiveCameraBase
+class OSG_SYSTEM_DLLMAPPING PerspectiveCamera : public PerspectiveCameraBase
 {
    /*==========================  PUBLIC  =================================*/
 

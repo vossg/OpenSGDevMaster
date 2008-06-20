@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -74,7 +74,7 @@ OSG_GEN_CONTAINERPTR(PerspectiveCamera);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpWindowFieldTraits
+/*! \ingroup GrpSystemFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -94,7 +94,7 @@ struct FieldTraits<PerspectiveCamera *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -164,7 +164,7 @@ const Char8 *FieldTraits<PerspectiveCamera *, 0>::getMName<NoRefCountPolicy>(voi
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
+/*! \ingroup GrpSystemFieldSingle */
 
 typedef PointerSField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > SFRecPerspectiveCameraPtr;
@@ -178,7 +178,7 @@ typedef PointerSField<PerspectiveCamera *,
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
+/*! \ingroup GrpSystemFieldMulti */
 
 typedef PointerMField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > MFRecPerspectiveCameraPtr;

@@ -3,7 +3,7 @@
 <FieldContainer
 	name="PerspectiveCamera"
 	parent="Camera"
-	library="Window"
+	library="System"
 	structure="concrete"
 	pointerfieldtypes="both"
 	systemcomponent="true"
