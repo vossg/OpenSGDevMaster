@@ -66,6 +66,7 @@
 #include "OSGBlendChunk.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
+#include "OSGFieldConnector.h"
 
 
 #include "OSGSceneFileHandler.h"
@@ -565,6 +566,38 @@ void VRMLFile::use(const Char8 *szName)
 #endif
 
     useTime += (getSystemTime() - beginUse);
+}
+
+void VRMLFile::addRoute(const Char8  *szOutNodename,
+                        const Char8  *szOutFieldname,
+                        const Char8  *szInNodename,
+                        const Char8  *szInFieldname )
+{
+    if(szOutNodename == NULL || szOutFieldname == NULL ||
+       szInNodename  == NULL || szInFieldname  == NULL  )
+    {
+        FWARNING(("addRoute missing params\n"));
+    }
+
+    FieldContainer *pSrcNode = findReference(szOutNodename);
+    FieldContainer *pDstNode = findReference(szInNodename);
+
+    AttachmentContainer *pSrc = dynamic_cast<AttachmentContainer *>(pSrcNode);
+
+    if(pSrc == NULL)
+    {
+        FWARNING(("Unknow src node %s\n", szOutNodename));
+        return;
+    }
+
+    if(pDstNode == NULL)
+    {
+        FWARNING(("Unknow dst node %s\n", szInNodename));
+        return;
+    }
+
+    addConnection(pSrc,     szOutFieldname,
+                  pDstNode, szInFieldname );
 }
 
 /*-------------------------------------------------------------------------*/

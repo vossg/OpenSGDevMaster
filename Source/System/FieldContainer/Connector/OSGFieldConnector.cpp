@@ -66,6 +66,8 @@ bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
         if(pNode != NULL && pNode->getCore() != NULL)
         {
             pSrcDesc = pNode->getCore()->getFieldDescription(szSrcName);
+
+            pSrcContainer = pNode->getCore();
         }
     }
 

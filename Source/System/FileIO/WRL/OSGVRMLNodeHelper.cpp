@@ -841,6 +841,7 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     OSG_CREATE_DESC_ELSE(SFVec3f)
     OSG_CREATE_DESC_ELSE(MFColor3f)
     OSG_CREATE_DESC_ELSE(SFColor3f)
+    OSG_CREATE_DESC_ELSE(MFQuaternion)
 
     OSG_CREATE_PTRDESC_ELSE(SFUnrecFieldContainerPtr)
 

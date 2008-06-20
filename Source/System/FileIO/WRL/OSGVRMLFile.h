@@ -150,6 +150,11 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
     virtual void   use          (const Char8 *szName);
 
+    virtual void   addRoute     (const Char8  *szOutNodename,
+                                 const Char8  *szOutFieldname,
+                                 const Char8  *szInNodename,
+                                 const Char8  *szInFieldname    );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Helper                                  */
