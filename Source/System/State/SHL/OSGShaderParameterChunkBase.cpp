@@ -425,8 +425,9 @@ void ShaderParameterChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
     static_cast<ShaderParameterChunk *>(this)->clearParameters();
+
+
 }
 
 

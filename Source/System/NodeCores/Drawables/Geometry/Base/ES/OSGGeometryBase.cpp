@@ -1097,9 +1097,11 @@ void GeometryBase::resolveLinks(void)
 
     static_cast<Geometry *>(this)->setLengths(NULL);
 
-
     static_cast<Geometry *>(this)->clearProperties();
+
     static_cast<Geometry *>(this)->clearPropIndices();
+
+
 }
 
 

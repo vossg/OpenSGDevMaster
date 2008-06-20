@@ -520,8 +520,9 @@ void MultiCoreBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
     static_cast<MultiCore *>(this)->clearCores();
+
+
 }
 
 

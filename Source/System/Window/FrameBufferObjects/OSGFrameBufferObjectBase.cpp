@@ -944,6 +944,8 @@ void FrameBufferObjectBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+    static_cast<FrameBufferObject *>(this)->clearColorAttachments();
+
     static_cast<FrameBufferObject *>(this)->setDepthAttachment(NULL);
 
     static_cast<FrameBufferObject *>(this)->setStencilAttachment(NULL);
@@ -954,7 +956,6 @@ void FrameBufferObjectBase::resolveLinks(void)
     _pAspectStore->fillOffsetArray(oOffsets, this);
 #endif
 
-    static_cast<FrameBufferObject *>(this)->clearColorAttachments();
 #ifdef OSG_MT_CPTR_ASPECT
     _mfDrawBuffers.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);

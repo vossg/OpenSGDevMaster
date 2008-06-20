@@ -458,8 +458,9 @@ void DynamicStateGeneratorStageDataBase::resolveLinks(void)
 
     static_cast<DynamicStateGeneratorStageData *>(this)->setRenderTarget(NULL);
 
-
     static_cast<DynamicStateGeneratorStageData *>(this)->clearChunks();
+
+
 }
 
 

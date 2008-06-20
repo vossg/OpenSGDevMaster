@@ -561,13 +561,14 @@ void ImageForegroundBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+    static_cast<ImageForeground *>(this)->clearImages();
+
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
 
     _pAspectStore->fillOffsetArray(oOffsets, this);
 #endif
 
-    static_cast<ImageForeground *>(this)->clearImages();
 #ifdef OSG_MT_CPTR_ASPECT
     _mfPositions.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);

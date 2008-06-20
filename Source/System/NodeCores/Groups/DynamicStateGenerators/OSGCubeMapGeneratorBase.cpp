@@ -1328,6 +1328,8 @@ void CubeMapGeneratorBase::resolveLinks(void)
 
     static_cast<CubeMapGenerator *>(this)->setRoot(NULL);
 
+    static_cast<CubeMapGenerator *>(this)->clearExclude();
+
     static_cast<CubeMapGenerator *>(this)->setTexture(NULL);
 
     static_cast<CubeMapGenerator *>(this)->setBeacon(NULL);
@@ -1337,7 +1339,6 @@ void CubeMapGeneratorBase::resolveLinks(void)
     static_cast<CubeMapGenerator *>(this)->setCamera(NULL);
 
 
-    static_cast<CubeMapGenerator *>(this)->clearExclude();
 }
 
 

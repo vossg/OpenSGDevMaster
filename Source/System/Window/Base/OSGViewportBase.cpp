@@ -1399,8 +1399,9 @@ void ViewportBase::resolveLinks(void)
 
     static_cast<Viewport *>(this)->setBackground(NULL);
 
-
     static_cast<Viewport *>(this)->clearForegrounds();
+
+
 }
 
 

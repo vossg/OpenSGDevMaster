@@ -542,8 +542,9 @@ void ContainerCollectionBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
     static_cast<ContainerCollection *>(this)->clearContainers();
+
+
 }
 
 

@@ -1774,16 +1774,25 @@ void VTKPolyDataMapperBase::resolveLinks(void)
 
     static_cast<VTKPolyDataMapper *>(this)->setRoot(NULL);
 
-
     static_cast<VTKPolyDataMapper *>(this)->clearGeoRoots();
+
     static_cast<VTKPolyDataMapper *>(this)->clearGeometries();
+
     static_cast<VTKPolyDataMapper *>(this)->clearMaterials();
+
     static_cast<VTKPolyDataMapper *>(this)->clearMaterialChunks();
+
     static_cast<VTKPolyDataMapper *>(this)->clearPositions();
+
     static_cast<VTKPolyDataMapper *>(this)->clearLength();
+
     static_cast<VTKPolyDataMapper *>(this)->clearTypes();
+
     static_cast<VTKPolyDataMapper *>(this)->clearColors();
+
     static_cast<VTKPolyDataMapper *>(this)->clearNormals();
+
+
 }
 
 

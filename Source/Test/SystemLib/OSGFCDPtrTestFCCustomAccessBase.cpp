@@ -2512,19 +2512,27 @@ void FCDPtrTestFCCustomAccessBase::resolveLinks(void)
 
     static_cast<FCDPtrTestFCCustomAccess *>(this)->setFieldSFPro_mpchildptr(NULL);
 
+    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPub_ptr();
+
+    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPub_weakptr();
+
+    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPub_mpchildptr();
+
+    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPro_ptr();
+
+    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPro_weakptr();
+
+    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPro_mpchildptr();
+
     static_cast<FCDPtrTestFCCustomAccess *>(this)->setFieldSFPub_spchildptr(NULL);
 
     static_cast<FCDPtrTestFCCustomAccess *>(this)->setFieldSFPro_spchildptr(NULL);
 
-
-    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPub_ptr();
-    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPub_weakptr();
-    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPub_mpchildptr();
-    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPro_ptr();
-    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPro_weakptr();
-    static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPro_mpchildptr();
     static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPub_spchildptr();
+
     static_cast<FCDPtrTestFCCustomAccess *>(this)->clearFieldMFPro_spchildptr();
+
+
 }
 
 

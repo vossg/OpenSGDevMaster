@@ -407,8 +407,9 @@ void ChunkOverrideGroupBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
     static_cast<ChunkOverrideGroup *>(this)->clearChunks();
+
+
 }
 
 

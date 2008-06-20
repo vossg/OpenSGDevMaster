@@ -617,13 +617,14 @@ void SortLastWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+    static_cast<SortLastWindow *>(this)->clearGroupNodes();
+
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;
 
     _pAspectStore->fillOffsetArray(oOffsets, this);
 #endif
 
-    static_cast<SortLastWindow *>(this)->clearGroupNodes();
 #ifdef OSG_MT_CPTR_ASPECT
     _mfGroupLengths.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);

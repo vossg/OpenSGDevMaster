@@ -548,8 +548,9 @@ void SwitchMaterialBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
     static_cast<SwitchMaterial *>(this)->clearMaterials();
+
+
 }
 
 
