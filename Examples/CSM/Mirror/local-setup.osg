@@ -1,0 +1,84 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF BGnd SkyBackground
+    {
+       backTexture TextureObjChunk
+       {
+         wrapS 0x812F
+         wrapT 0x812F
+         wrapR 0x812F
+
+         image ImageFile
+         {
+           url "textures/cm_back.jpg"
+         }
+       }
+
+       frontTexture TextureObjChunk
+       {
+         wrapS 0x812F
+         wrapT 0x812F
+         wrapR 0x812F
+
+         image ImageFile
+         {
+           url "textures/cm_front.jpg"
+         }
+       }
+
+       leftTexture TextureObjChunk
+       {
+         wrapS 0x812F
+         wrapT 0x812F
+         wrapR 0x812F
+
+         image ImageFile
+         {
+           url "textures/cm_left.jpg"
+         }
+       }
+
+       rightTexture TextureObjChunk
+       {
+         wrapS 0x812F
+         wrapT 0x812F
+         wrapR 0x812F
+
+         image ImageFile
+         {
+           url "textures/cm_right.jpg"
+         }
+       }
+
+       topTexture  TextureObjChunk
+       {
+         wrapS 0x812F
+         wrapT 0x812F
+         wrapR 0x812F
+
+         image ImageFile
+         {
+           url "textures/cm_top.jpg"
+         }
+       }
+
+       bottomTexture TextureObjChunk
+       {
+         wrapS 0x812F
+         wrapT 0x812F
+         wrapR 0x812F
+
+         image ImageFile
+         {
+           url "textures/cm_bottom.jpg"
+         }
+       }
+
+    }
+  ]
+}
+

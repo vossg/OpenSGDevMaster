@@ -1,0 +1,4 @@
+--global ../Common/default-setup.osg
+--system ../Common/system-native.osg
+--data   ./object.wrl
+--global ../Common/simple_mouse.osg

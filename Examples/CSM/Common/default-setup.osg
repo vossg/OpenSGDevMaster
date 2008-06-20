@@ -1,0 +1,13 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF BGnd SolidBackground
+    {
+      color 0.4 0.4 0.4
+    }
+  ]
+}
+

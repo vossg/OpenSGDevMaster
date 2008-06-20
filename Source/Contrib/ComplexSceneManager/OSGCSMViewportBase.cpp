@@ -695,8 +695,9 @@ void CSMViewportBase::resolveLinks(void)
 
     static_cast<CSMViewport *>(this)->setBackground(NULL);
 
-
     static_cast<CSMViewport *>(this)->clearForegrounds();
+
+
 }
 
 

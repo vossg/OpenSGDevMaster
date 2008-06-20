@@ -564,8 +564,9 @@ void DrawerBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
     static_cast<Drawer *>(this)->clearWindows();
+
+
 }
 
 

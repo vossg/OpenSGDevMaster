@@ -7,11 +7,11 @@ else:
 
    library = "OSGContribCSM"
    osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGDrawable', 'OSGGroup', 
-                   'OSGUtil']
+                   'OSGFileIO', 'OSGUtil']
 
    # Tests' dependencies
    osg_test_libs = ['OSGBase', 'OSGSystem', 'OSGGroup', 'OSGDrawable',
-                    'OSGFileIO', 'OSGImageFileIO']
+                    'OSGImageFileIO']
    test_cpppath = []
    test_libpath = []
      

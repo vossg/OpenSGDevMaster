@@ -45,13 +45,13 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DrawManager!
+ **     class SensorTask!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#define OSG_COMPILEDRAWMANAGERINST
+#define OSG_COMPILESENSORTASKINST
 
 #include <cstdlib>
 #include <cstdio>
@@ -61,10 +61,10 @@
 
 
 
-#include <OSGDrawer.h> // Drawer Class
+#include <OSGSensor.h> // Sensors Class
 
-#include "OSGDrawManagerBase.h"
-#include "OSGDrawManager.h"
+#include "OSGSensorTaskBase.h"
+#include "OSGSensorTask.h"
 
 #include "boost/bind.hpp"
 
@@ -74,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::DrawManager
+/*! \class OSG::SensorTask
     
  */
 
@@ -82,48 +82,48 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var Drawer *        DrawManagerBase::_mfDrawer
+/*! \var Sensor *        SensorTaskBase::_mfSensors
     
 */
 
 
-void DrawManagerBase::classDescInserter(TypeObject &oType)
+void SensorTaskBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecDrawerPtr::Description(
-        MFUnrecDrawerPtr::getClassType(),
-        "drawer",
+    pDesc = new MFUncountedSensorPtr::Description(
+        MFUncountedSensorPtr::getClassType(),
+        "sensors",
         "",
-        DrawerFieldId, DrawerFieldMask,
+        SensorsFieldId, SensorsFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&DrawManager::editHandleDrawer),
-        static_cast<FieldGetMethodSig >(&DrawManager::getHandleDrawer));
+        static_cast<FieldEditMethodSig>(&SensorTask::editHandleSensors),
+        static_cast<FieldGetMethodSig >(&SensorTask::getHandleSensors));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-DrawManagerBase::TypeObject DrawManagerBase::_type(
-    DrawManagerBase::getClassname(),
+SensorTaskBase::TypeObject SensorTaskBase::_type(
+    SensorTaskBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&DrawManagerBase::createEmptyLocal),
-    DrawManager::initMethod,
-    DrawManager::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DrawManagerBase::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&SensorTaskBase::createEmptyLocal),
+    SensorTask::initMethod,
+    SensorTask::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&SensorTaskBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"DrawManager\"\n"
+    "    name=\"SensorTask\"\n"
     "    parent=\"AttachmentContainer\"\n"
     "    library=\"ContribCSM\"\n"
-    "    pointerfieldtypes=\"both\"\n"
+    "    pointerfieldtypes=\"single\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
@@ -131,14 +131,15 @@ DrawManagerBase::TypeObject DrawManagerBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
+    "    parentFields=\"none\"\n"
     ">\n"
     "\t<Field\n"
-    "\t\tname=\"drawer\"\n"
-    "\t\ttype=\"Drawer\"\n"
+    "\t\tname=\"sensors\"\n"
+    "\t\ttype=\"Sensor\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        category=\"pointer\"\n"
+    "        category=\"uncountedpointer\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -147,157 +148,157 @@ DrawManagerBase::TypeObject DrawManagerBase::_type(
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DrawManagerBase::getType(void)
+FieldContainerType &SensorTaskBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &DrawManagerBase::getType(void) const
+const FieldContainerType &SensorTaskBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 DrawManagerBase::getContainerSize(void) const
+UInt32 SensorTaskBase::getContainerSize(void) const
 {
-    return sizeof(DrawManager);
+    return sizeof(SensorTask);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the DrawManager::_mfDrawer field.
-const MFUnrecDrawerPtr *DrawManagerBase::getMFDrawer(void) const
+//! Get the SensorTask::_mfSensors field.
+const MFUncountedSensorPtr *SensorTaskBase::getMFSensors(void) const
 {
-    return &_mfDrawer;
+    return &_mfSensors;
 }
 
-MFUnrecDrawerPtr    *DrawManagerBase::editMFDrawer         (void)
+MFUncountedSensorPtr *SensorTaskBase::editMFSensors        (void)
 {
-    editMField(DrawerFieldMask, _mfDrawer);
+    editMField(SensorsFieldMask, _mfSensors);
 
-    return &_mfDrawer;
+    return &_mfSensors;
 }
 
 
 
-void DrawManagerBase::pushToDrawer(Drawer * const value)
+void SensorTaskBase::pushToSensors(Sensor * const value)
 {
-    editMField(DrawerFieldMask, _mfDrawer);
+    editMField(SensorsFieldMask, _mfSensors);
 
-    _mfDrawer.push_back(value);
+    _mfSensors.push_back(value);
 }
 
-void DrawManagerBase::assignDrawer   (const MFUnrecDrawerPtr  &value)
+void SensorTaskBase::assignSensors  (const MFUncountedSensorPtr &value)
 {
-    MFUnrecDrawerPtr ::const_iterator elemIt  =
+    MFUncountedSensorPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecDrawerPtr ::const_iterator elemEnd =
+    MFUncountedSensorPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<DrawManager *>(this)->clearDrawer();
+    static_cast<SensorTask *>(this)->clearSensors();
 
     while(elemIt != elemEnd)
     {
-        this->pushToDrawer(*elemIt);
+        this->pushToSensors(*elemIt);
 
         ++elemIt;
     }
 }
 
-void DrawManagerBase::removeFromDrawer(UInt32 uiIndex)
+void SensorTaskBase::removeFromSensors(UInt32 uiIndex)
 {
-    if(uiIndex < _mfDrawer.size())
+    if(uiIndex < _mfSensors.size())
     {
-        editMField(DrawerFieldMask, _mfDrawer);
+        editMField(SensorsFieldMask, _mfSensors);
 
-        _mfDrawer.erase(uiIndex);
+        _mfSensors.erase(uiIndex);
     }
 }
 
-void DrawManagerBase::removeObjFromDrawer(Drawer * const value)
+void SensorTaskBase::removeObjFromSensors(Sensor * const value)
 {
-    Int32 iElemIdx = _mfDrawer.findIndex(value);
+    Int32 iElemIdx = _mfSensors.findIndex(value);
 
     if(iElemIdx != -1)
     {
-        editMField(DrawerFieldMask, _mfDrawer);
+        editMField(SensorsFieldMask, _mfSensors);
 
-        _mfDrawer.erase(iElemIdx);
+        _mfSensors.erase(iElemIdx);
     }
 }
-void DrawManagerBase::clearDrawer(void)
+void SensorTaskBase::clearSensors(void)
 {
-    editMField(DrawerFieldMask, _mfDrawer);
+    editMField(SensorsFieldMask, _mfSensors);
 
 
-    _mfDrawer.clear();
+    _mfSensors.clear();
 }
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DrawManagerBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 SensorTaskBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (DrawerFieldMask & whichField))
+    if(FieldBits::NoField != (SensorsFieldMask & whichField))
     {
-        returnValue += _mfDrawer.getBinSize();
+        returnValue += _mfSensors.getBinSize();
     }
 
     return returnValue;
 }
 
-void DrawManagerBase::copyToBin(BinaryDataHandler &pMem,
+void SensorTaskBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (DrawerFieldMask & whichField))
+    if(FieldBits::NoField != (SensorsFieldMask & whichField))
     {
-        _mfDrawer.copyToBin(pMem);
+        _mfSensors.copyToBin(pMem);
     }
 }
 
-void DrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
+void SensorTaskBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (DrawerFieldMask & whichField))
+    if(FieldBits::NoField != (SensorsFieldMask & whichField))
     {
-        _mfDrawer.copyFromBin(pMem);
+        _mfSensors.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-DrawManagerTransitPtr DrawManagerBase::createLocal(BitVector bFlags)
+SensorTaskTransitPtr SensorTaskBase::createLocal(BitVector bFlags)
 {
-    DrawManagerTransitPtr fc;
+    SensorTaskTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<DrawManager>(tmpPtr);
+        fc = dynamic_pointer_cast<SensorTask>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-DrawManagerTransitPtr DrawManagerBase::create(void)
+SensorTaskTransitPtr SensorTaskBase::create(void)
 {
     return createLocal();
 }
 
-DrawManager *DrawManagerBase::createEmptyLocal(BitVector bFlags)
+SensorTask *SensorTaskBase::createEmptyLocal(BitVector bFlags)
 {
-    DrawManager *returnValue;
+    SensorTask *returnValue;
 
-    newPtr<DrawManager>(returnValue, bFlags);
+    newPtr<SensorTask>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -305,18 +306,18 @@ DrawManager *DrawManagerBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DrawManager *DrawManagerBase::createEmpty(void)
+SensorTask *SensorTaskBase::createEmpty(void)
 {
     return createEmptyLocal();
 }
 
 
-FieldContainerTransitPtr DrawManagerBase::shallowCopyLocal(
+FieldContainerTransitPtr SensorTaskBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DrawManager *tmpPtr;
+    SensorTask *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const DrawManager *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const SensorTask *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -325,7 +326,7 @@ FieldContainerTransitPtr DrawManagerBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr DrawManagerBase::shallowCopy(void) const
+FieldContainerTransitPtr SensorTaskBase::shallowCopy(void) const
 {
     return shallowCopyLocal();
 }
@@ -335,91 +336,91 @@ FieldContainerTransitPtr DrawManagerBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-DrawManagerBase::DrawManagerBase(void) :
+SensorTaskBase::SensorTaskBase(void) :
     Inherited(),
-    _mfDrawer                 ()
+    _mfSensors                ()
 {
 }
 
-DrawManagerBase::DrawManagerBase(const DrawManagerBase &source) :
+SensorTaskBase::SensorTaskBase(const SensorTaskBase &source) :
     Inherited(source),
-    _mfDrawer                 ()
+    _mfSensors                ()
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-DrawManagerBase::~DrawManagerBase(void)
+SensorTaskBase::~SensorTaskBase(void)
 {
 }
 
-void DrawManagerBase::onCreate(const DrawManager *source)
+void SensorTaskBase::onCreate(const SensorTask *source)
 {
     Inherited::onCreate(source);
 
     if(source != NULL)
     {
-        DrawManager *pThis = static_cast<DrawManager *>(this);
+        SensorTask *pThis = static_cast<SensorTask *>(this);
 
-        MFUnrecDrawerPtr::const_iterator DrawerIt  =
-            source->_mfDrawer.begin();
-        MFUnrecDrawerPtr::const_iterator DrawerEnd =
-            source->_mfDrawer.end  ();
+        MFUncountedSensorPtr::const_iterator SensorsIt  =
+            source->_mfSensors.begin();
+        MFUncountedSensorPtr::const_iterator SensorsEnd =
+            source->_mfSensors.end  ();
 
-        while(DrawerIt != DrawerEnd)
+        while(SensorsIt != SensorsEnd)
         {
-            pThis->pushToDrawer(*DrawerIt);
+            pThis->pushToSensors(*SensorsIt);
 
-            ++DrawerIt;
+            ++SensorsIt;
         }
     }
 }
 
-GetFieldHandlePtr DrawManagerBase::getHandleDrawer          (void) const
+GetFieldHandlePtr SensorTaskBase::getHandleSensors         (void) const
 {
-    MFUnrecDrawerPtr::GetHandlePtr returnValue(
-        new  MFUnrecDrawerPtr::GetHandle(
-             &_mfDrawer,
-             this->getType().getFieldDesc(DrawerFieldId)));
+    MFUncountedSensorPtr::GetHandlePtr returnValue(
+        new  MFUncountedSensorPtr::GetHandle(
+             &_mfSensors,
+             this->getType().getFieldDesc(SensorsFieldId)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr DrawManagerBase::editHandleDrawer         (void)
+EditFieldHandlePtr SensorTaskBase::editHandleSensors        (void)
 {
-    MFUnrecDrawerPtr::EditHandlePtr returnValue(
-        new  MFUnrecDrawerPtr::EditHandle(
-             &_mfDrawer,
-             this->getType().getFieldDesc(DrawerFieldId)));
+    MFUncountedSensorPtr::EditHandlePtr returnValue(
+        new  MFUncountedSensorPtr::EditHandle(
+             &_mfSensors,
+             this->getType().getFieldDesc(SensorsFieldId)));
 
     returnValue->setAddMethod(
-        boost::bind(&DrawManager::pushToDrawer,
-                    static_cast<DrawManager *>(this), _1));
+        boost::bind(&SensorTask::pushToSensors,
+                    static_cast<SensorTask *>(this), _1));
     returnValue->setRemoveMethod(
-        boost::bind(&DrawManager::removeFromDrawer,
-                    static_cast<DrawManager *>(this), _1));
+        boost::bind(&SensorTask::removeFromSensors,
+                    static_cast<SensorTask *>(this), _1));
     returnValue->setRemoveObjMethod(
-        boost::bind(&DrawManager::removeObjFromDrawer,
-                    static_cast<DrawManager *>(this), _1));
+        boost::bind(&SensorTask::removeObjFromSensors,
+                    static_cast<SensorTask *>(this), _1));
     returnValue->setClearMethod(
-        boost::bind(&DrawManager::clearDrawer,
-                    static_cast<DrawManager *>(this)));
+        boost::bind(&SensorTask::clearSensors,
+                    static_cast<SensorTask *>(this)));
 
-    editMField(DrawerFieldMask, _mfDrawer);
+    editMField(SensorsFieldMask, _mfSensors);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void DrawManagerBase::execSyncV(      FieldContainer    &oFrom,
+void SensorTaskBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DrawManagerBase *>(&oFrom),
+    this->execSync(static_cast<SensorTaskBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -429,39 +430,36 @@ void DrawManagerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DrawManagerBase::createAspectCopy(void) const
+FieldContainer *SensorTaskBase::createAspectCopy(void) const
 {
-    DrawManager *returnValue;
+    SensorTask *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const DrawManager *>(this));
+                  dynamic_cast<const SensorTask *>(this));
 
     return returnValue;
 }
 #endif
 
-void DrawManagerBase::resolveLinks(void)
+void SensorTaskBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<DrawManager *>(this)->clearDrawer();
+    static_cast<SensorTask *>(this)->clearSensors();
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DrawManager *>::_type("DrawManagerPtr", "AttachmentContainerPtr");
+DataType FieldTraits<SensorTask *>::_type("SensorTaskPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DrawManager *)
+OSG_FIELDTRAITS_GETTYPE(SensorTask *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DrawManager *,
+                           SensorTask *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DrawManager *,
-                           0);
 
 OSG_END_NAMESPACE

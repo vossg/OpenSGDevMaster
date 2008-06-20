@@ -97,6 +97,8 @@ struct NodeFinder
  *                           Class variables                               *
 \***************************************************************************/
 
+Time                                ComplexSceneManager::SystemTime = 0.0;
+
 ComplexSceneManagerUnrecPtr         ComplexSceneManager::_the = NULL;
 PathHandler                         ComplexSceneManager::_oPathHandler;
 std::vector<FieldContainerUnrecPtr> ComplexSceneManager::_vStaticGlobals;
@@ -663,6 +665,10 @@ void ComplexSceneManager::onCreate(const ComplexSceneManager *source)
         this->pushToGlobals(*gIt);
         ++gIt;
     }   
+
+    SensorTaskUnrecPtr pSensorTask = SensorTask::create();
+
+    setSensorTask(pSensorTask);
 }
 
 bool ComplexSceneManager::init(int argc, char **argv)
@@ -764,9 +770,57 @@ void ComplexSceneManager::run(void)
 
 void ComplexSceneManager::frame(void)
 {
+    setCurrTime(getSystemTime());
+    
+    if(osgAbs(_sfStartTime.getValue()) < 0.00001)
+    {
+        setStartTime(_sfCurrTime.getValue());
+        
+        setLastTime(0.f);
+    }
+    
+    _sfCurrTime.getValue() -= _sfStartTime.getValue();
+
+    if(_sfPaused.getValue() == false)
+    {
+        SFTime *pSFTimeStamp = editSFTimeStamp();
+
+        if(_sfConstantTime.getValue() == true)
+        {
+            pSFTimeStamp->getValue() += _sfConstantTimeStep.getValue();
+
+            if(pSFTimeStamp->getValue() < 0.)
+                pSFTimeStamp->setValue(0.0);
+        }
+        else
+        {
+            pSFTimeStamp->getValue() += 
+                (_sfCurrTime.getValue() - _sfLastTime.getValue()) * 
+                _sfTimeScale.getValue();
+            
+            if(pSFTimeStamp->getValue() < 0.)
+                pSFTimeStamp->setValue(0.0);
+        }
+    }
+    
+    setLastTime(_sfCurrTime.getValue());
+
+    SystemTime = _sfTimeStamp.getValue();
+
+    ++(editSFFrameCount()->getValue());
+
+    if(_sfSensorTask.getValue() != NULL)
+    {
+        _sfSensorTask.getValue()->frame(_sfTimeStamp.getValue (), 
+                                        _sfFrameCount.getValue());
+    }
+
+    commitChanges();
+
     if(_sfDrawManager.getValue() != NULL)
     {
-        _sfDrawManager.getValue()->frame(0., 0);
+        _sfDrawManager.getValue()->frame(_sfTimeStamp.getValue (), 
+                                         _sfFrameCount.getValue());
     }
 }
 

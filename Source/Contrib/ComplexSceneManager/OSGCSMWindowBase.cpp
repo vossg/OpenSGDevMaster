@@ -802,8 +802,9 @@ void CSMWindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
     static_cast<CSMWindow *>(this)->clearViewports();
+
+
 }
 
 

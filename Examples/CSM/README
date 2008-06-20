@@ -1,0 +1,10 @@
+
+Some examples for the ComplexSceneManager structure and general OpenSG features.
+
+Start with <build-dir>/<build-type>/test/testCSM <exampleDir>,
+e.g.
+
+./build.linux.g++/type-debug--arch-x64/test/testCSM Examples/CSM/Mirror
+
+Enjoy ;-)
+  gerrit

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="ComplexSceneManager"
-    parent="FieldContainer"
+    name="TimeSensor"
+    parent="Sensor"
     library="ContribCSM"
     pointerfieldtypes="none"
     structure="concrete"
@@ -11,47 +11,43 @@
     decoratable="false"
     useLocalIncludes="false"
     isNodeCore="false"
-    isBundle="true"
+    isBundle="false"
+    parentFields="none"
 >
-  
 	<Field
-		name="globals"
-		type="FieldContainer"
-		cardinality="multi"
-		visibility="external"
-		access="public"
-        category="pointer"
-	>
-	</Field>
-	<Field
-		name="drawManager"
-		type="DrawManager"
-		cardinality="single"
-		visibility="external"
-		defaultValue="NULL"
-		access="public"
-        category="pointer"
-	>
-	</Field>
-
-	<Field
-		name="sensorTask"
-		type="SensorTask"
-		cardinality="single"
-		visibility="external"
-		defaultValue="NULL"
-		access="public"
-        category="pointer"
-	>
-	</Field>
-
-	<Field
-		name="frameCount"
-		type="UInt64"
+		name="enabled"
+		type="bool"
 		cardinality="single"
 		visibility="internal"
 		access="public"
-        defaultValue="0"
+        defaultValue="true"
+	>
+	</Field>
+	<Field
+		name="isActive"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="false"
+	>
+	</Field>
+	<Field
+		name="loop"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="false"
+	>
+	</Field>
+	<Field
+		name="fraction"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="0.0"
 	>
 	</Field>
 	<Field
@@ -64,7 +60,7 @@
 	>
 	</Field>
 	<Field
-		name="lastTime"
+		name="stopTime"
 		type="Time"
 		cardinality="single"
 		visibility="internal"
@@ -73,7 +69,7 @@
 	>
 	</Field>
 	<Field
-		name="currTime"
+		name="cycleTime"
 		type="Time"
 		cardinality="single"
 		visibility="internal"
@@ -82,7 +78,7 @@
 	>
 	</Field>
 	<Field
-		name="timeStamp"
+		name="time"
 		type="Time"
 		cardinality="single"
 		visibility="internal"
@@ -91,7 +87,7 @@
 	>
 	</Field>
 	<Field
-		name="timeScale"
+		name="cycleInterval"
 		type="Time"
 		cardinality="single"
 		visibility="internal"
@@ -99,33 +95,4 @@
         defaultValue="1.0"
 	>
 	</Field>
-	<Field
-		name="constantTimeStep"
-		type="Time"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-        defaultValue="0.0"
-	>
-	</Field>
-	<Field
-		name="constantTime"
-		type="bool"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-        defaultValue="false"
-	>
-	</Field>
-	<Field
-		name="paused"
-		type="bool"
-		cardinality="single"
-		visibility="internal"
-		access="public"
-        defaultValue="false"
-	>
-	</Field>
-
-
 </FieldContainer>
