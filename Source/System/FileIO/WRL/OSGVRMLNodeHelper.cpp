@@ -2998,6 +2998,10 @@ void VRMLGeometryObjectHelper::init(const Char8 *szName)
     {
         _eVRMLObjectType = SphereGeo;
     }
+    else if(osgStringCaseCmp("Teapot", szName) == 0)
+    {
+        _eVRMLObjectType = TeapotGeo;
+    }
 
     _pNodeProto = Node::create();
 
@@ -3317,6 +3321,52 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
             pNode->setCore(pGeo);
         }
     }
+    else if(_eVRMLObjectType == TeapotGeo)
+    {
+        SFReal32 *pScale = NULL;
+        SFInt32  *pDepth = NULL;
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "scale",
+                                   pDummyFC,
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            SFReal32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFReal32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pScale = pValField->getField();
+            }
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "depth",
+                                   pDummyFC,
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            SFInt32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFInt32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pDepth = pValField->getField();
+            }
+        }
+
+        GeometryUnrecPtr pGeo = makeTeapotGeo(
+            (pDepth != NULL) ? pDepth->getValue() : 5,
+            (pScale != NULL) ? pScale->getValue() : 1.f);
+
+        pNode->setCore(pGeo);
+
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -3335,6 +3385,11 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRMLGeometryObjectHelper::_regHelperSphere(
         &VRMLGeometryObjectHelper::create,
         "Sphere");
+
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGeometryObjectHelper::_regHelperTeapot(
+        &VRMLGeometryObjectHelper::create,
+        "Teapot");
 
 
 //---------------------------------------------------------------------------

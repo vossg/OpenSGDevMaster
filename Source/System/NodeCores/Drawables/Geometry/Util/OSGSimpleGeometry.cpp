@@ -1704,9 +1704,9 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-NodeTransitPtr makeTeapot(UInt16 depth)
+NodeTransitPtr makeTeapot(UInt16 depth, Real32 rScale)
 {
-    GeometryTransitPtr pGeo = makeTeapotGeo(depth);
+    GeometryTransitPtr pGeo = makeTeapotGeo(depth, rScale);
 
     if(pGeo == NULL)
     {
@@ -2185,7 +2185,7 @@ points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3],
 
     \ingroup GrpSystemDrawablesGeometrySimpleGeometry
  */
-GeometryTransitPtr makeTeapotGeo(UInt16 depth)
+GeometryTransitPtr makeTeapotGeo(UInt16 depth, Real32 rScale)
 {
     GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
     GeoVec3fPropertyUnrecPtr  norms = GeoVec3fProperty ::create();
@@ -2256,6 +2256,10 @@ GeometryTransitPtr makeTeapotGeo(UInt16 depth)
                     /* don't output degenerate polygons */
                     if(check_for_cusp( 3, vert, norm))
                     {
+                        vert[0] *= rScale;
+                        vert[1] *= rScale;
+                        vert[2] *= rScale;
+
                         p->push_back(vert[0]);
                         p->push_back(vert[1]);
                         p->push_back(vert[2]);

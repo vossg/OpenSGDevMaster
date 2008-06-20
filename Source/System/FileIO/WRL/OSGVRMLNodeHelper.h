@@ -1326,7 +1326,8 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
     {
         UnknownGeo = 0x0000,
         BoxGeo     = 0x0001,
-        SphereGeo  = 0x0002
+        SphereGeo  = 0x0002,
+        TeapotGeo  = 0x0003
     };
 
     /*---------------------------------------------------------------------*/
@@ -1356,6 +1357,7 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
 
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperSphere;
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperBox;
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperTeapot;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

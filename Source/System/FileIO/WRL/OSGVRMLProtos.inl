@@ -1996,6 +1996,34 @@ PROTO WorldInfo [
  endProtoInterface();
  endProto  ();
 
+// Custom
+
+#if 0
+PROTO Teapot [
+  field SFInt    depth 5
+  field SFFloat scale 1
+] { }
+#endif
+
+ beginProto("Teapot");
+ {
+     beginFieldDecl("SFInt", Self::OSGsfInt32, "depth");
+     addFieldValue("5");
+     endFieldDecl  ();
+
+     beginFieldDecl("SFInt", Self::OSGsfFloat, "scale");
+     addFieldValue("1.0");
+     endFieldDecl  ();
+
+/*
+     beginFieldDecl("SFString", Self::OSGsfString, "title");
+     addFieldValue("");
+     endFieldDecl();
+ */
+ }
+ endProtoInterface();
+ endProto  ();
+
  postStandardProtos();
 
 }

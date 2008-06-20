@@ -214,10 +214,12 @@ GeometryTransitPtr        makeCoordAxisGeo(Real32 length,
                                            bool   showAxisName = true);
 
 OSG_DRAWABLE_DLLMAPPING
-GeometryTransitPtr        makeTeapotGeo(UInt16 depth);
+GeometryTransitPtr        makeTeapotGeo(UInt16 depth, 
+                                        Real32 rScale = 1.f);
 
 OSG_DRAWABLE_DLLMAPPING
-NodeTransitPtr            makeTeapot         (UInt16 depth);
+NodeTransitPtr            makeTeapot   (UInt16 depth, 
+                                        Real32 rScale = 1.f);
 
 /*! \}                                                                 */
 
