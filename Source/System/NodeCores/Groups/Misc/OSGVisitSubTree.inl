@@ -36,4 +36,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+Node *VisitSubTree::getSubTreeRoot(void) const
+{
+    return Inherited::getSubTreeRoot();
+}
+
 OSG_END_NAMESPACE

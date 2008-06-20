@@ -69,7 +69,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    void setSubTreeRoot(Node * const value);
+    void  setSubTreeRoot(Node * const value);
+    Node *getSubTreeRoot(void              ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
