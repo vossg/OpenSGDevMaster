@@ -215,6 +215,16 @@ class Field(FCDElement):
             FieldType     = "Weak" + TypeRaw + "Ptr"; #TypeRaw + "WeakPtr";
             FieldTypeNS   = TypeNS;
             FieldTypeCaps = "Weak" + TypeRawCaps + "Ptr"; #TypeRawCaps + "WeakPtr";
+        elif self.getFCD("category") == "uncountedpointer":
+            self["category"]        = "pointer";
+            self["pointertype"]     = "uncounted";
+         
+            TypeCaps      = self._upcaseFirst(Type + "Ptr");
+            Type          = Type + " *";
+            FieldType     = "Uncounted" + TypeRaw + "Ptr"; #TypeRaw + "WeakPtr";
+            FieldTypeNS   = TypeNS;
+            FieldTypeCaps = "Uncounted" + TypeRawCaps + "Ptr"; #TypeRawCaps + "WeakPtr";
+            
             
         else:
             self.m_log.warning("finalize: \"category\" has invalid value: >%s<",

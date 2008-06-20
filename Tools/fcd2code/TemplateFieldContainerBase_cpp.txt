@@ -1039,14 +1039,19 @@ FieldContainer *@!Classname!@Base::createAspectCopy(void) const
 void @!Classname!@Base::resolveLinks(void)
 {
     Inherited::resolveLinks();
-@@BeginSFFieldLoop@@
+@@BeginFieldLoop@@
     @@if field.isPtrField
     @@if !field.noAccess
+      @@if field.isSField
 
     static_cast<@!Classname!@ *>(this)->set@!field.Name!@(NULL);
+      @@else
+
+    static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
+      @@endif
     @@endif //!field.noAccess
     @@endif // field.isPtrField
-@@EndSFFieldLoop@@
+@@EndFieldLoop@@
 
 @@if hasValueMField
 #ifdef OSG_MT_CPTR_ASPECT
@@ -1057,11 +1062,7 @@ void @!Classname!@Base::resolveLinks(void)
 @@endif
 
 @@BeginMFFieldLoop@@
-    @@if field.isPtrField
-    @@if !field.noAccess
-    static_cast<@!Classname!@ *>(this)->@!field.ClearField!@();
-    @@endif //!field.noAccess
-    @@else
+    @@if !field.isPtrField
 #ifdef OSG_MT_CPTR_ASPECT
     _@!field.VarName!@.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
