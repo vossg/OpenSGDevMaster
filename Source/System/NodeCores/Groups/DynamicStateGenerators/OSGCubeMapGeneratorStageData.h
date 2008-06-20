@@ -43,6 +43,8 @@
 #endif
 
 #include "OSGCubeMapGeneratorStageDataBase.h"
+#include "OSGCamera.h"
+#include "OSGTextureTransformChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -50,7 +52,8 @@ OSG_BEGIN_NAMESPACE
            PageGroupCubeMapGeneratorStageData for a description.
 */
 
-class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageData : public CubeMapGeneratorStageDataBase
+class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageData : 
+    public CubeMapGeneratorStageDataBase
 {
   protected:
 

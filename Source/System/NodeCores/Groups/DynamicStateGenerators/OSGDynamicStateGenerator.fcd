@@ -14,14 +14,14 @@
     isNodeCore="true"
 >
 Base for dynamic materials like dynamic cube env maps
-        <Field
-                name="renderTarget"
-                type="FrameBufferObjectPtr"
-                cardinality="single"
-                visibility="external"
-                defaultValue="NULL"
-                access="protected"
-        >
-        The FBO to target for rendering this subtree.
-        </Field>
+    <Field
+        name="renderTarget"
+        type="FrameBufferObjectPtr"
+        cardinality="single"
+        visibility="external"
+        defaultValue="NULL"
+        access="protected"
+    >
+    The FBO to target for rendering this subtree.
+    </Field>
 </FieldContainer>

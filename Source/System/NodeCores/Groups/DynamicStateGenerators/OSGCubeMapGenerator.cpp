@@ -54,7 +54,9 @@
 #include "OSGTextureBuffer.h"
 #include "OSGTextureEnvChunk.h"
 #include "OSGTexGenChunk.h"
+#include "OSGTextureTransformChunk.h"
 #include "OSGRenderAction.h"
+#include "OSGPerspectiveCamera.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -168,12 +170,19 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
 
     Action::ResultE  returnValue = Action::Continue;
 
-    Camera          *pCam     = a->getCamera();
     Background      *pBack    = a->getBackground();
 
     Viewport        *pPort    = a->getViewport();
 
     Node            *pActNode = a->getActNode();
+
+    CubeMapGeneratorStageData *pData = 
+        a->getData<CubeMapGeneratorStageData *>(_iDataSlotId);
+
+    if(pData == NULL)
+    {
+        pData = this->initData(a);
+    }
 
     a->beginPartitionGroup();
     {
@@ -181,11 +190,8 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                 
         if(pTarget == NULL)
         {
-            this->initData(a);
-            
-            pTarget  = this->getRenderTarget();
+            pTarget  = pData->getRenderTarget();
         }
-
 
         Pnt3f oOrigin;
 
@@ -216,6 +222,8 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
             fprintf(stderr, "CubemapGen::UseParentsCenter NYI\n");
         }
 
+        Camera *pCam = pData->getCamera();
+
         for(UInt32 i = 0; i < 6; ++i)
         {
             a->pushPartition();
@@ -234,8 +242,6 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                                              this->getWidth (),
                                              this->getHeight());
                 
-                Camera            *pCam     = a->getCamera  ();
-
                 Matrix m, t;
             
                 // set the projection
@@ -301,6 +307,20 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
 
     OSG_ASSERT(pActNode == a->getActNode());
 
+    if(0x0000 != (_sfSetupMode.getValue() & SetupTexGen))
+    {
+        Matrix m = a->getActivePartition()->getCameraToWorld();
+
+        m[3][0] = 0.f;
+        m[3][1] = 0.f;
+        m[3][2] = 0.f;
+
+        CubeMapGeneratorStageData *pData = 
+            a->getData<CubeMapGeneratorStageData *>(_iDataSlotId);
+
+        pData->getTexTransform()->setMatrix(m);
+    }
+
     returnValue = Inherited::renderEnter(action);
 
     action->useNodeList(false);
@@ -329,11 +349,24 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
     if(returnValue == NULL)
         return returnValue;
 
-    FrameBufferObjectUnrecPtr pCubeTarget  = FrameBufferObject::createLocal();
+    FrameBufferObjectUnrecPtr pCubeTarget  = NULL;
+    RenderBufferUnrecPtr      pDepthBuffer = NULL;
 
-    RenderBufferUnrecPtr      pDepthBuffer = RenderBuffer     ::createLocal();
+    if(this->getRenderTarget() == NULL)
+    {
+        pCubeTarget  = FrameBufferObject::createLocal();
+        pDepthBuffer = RenderBuffer     ::createLocal();
 
-    pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
+        pDepthBuffer->setInternalFormat (GL_DEPTH_COMPONENT24);
+
+        pCubeTarget ->setDepthAttachment(pDepthBuffer        );
+
+        returnValue ->setRenderTarget   (pCubeTarget         );
+    }
+    else
+    {
+        pCubeTarget = this->getRenderTarget();
+    }
 
     TextureObjChunkUnrecPtr   pCubeTex     = NULL;
 
@@ -376,7 +409,8 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTexEnv->setEnvMode       (GL_REPLACE       );
     }
 
-    TexGenChunkUnrecPtr     pCubeTexGen  = NULL;
+    TexGenChunkUnrecPtr           pCubeTexGen   = NULL;
+    TextureTransformChunkUnrecPtr pCubeTexTrans = NULL;
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexGen))
     {
@@ -385,10 +419,8 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTexGen->setGenFuncS(GL_REFLECTION_MAP);
         pCubeTexGen->setGenFuncT(GL_REFLECTION_MAP);
         pCubeTexGen->setGenFuncR(GL_REFLECTION_MAP);
-        
-        pCubeTexGen->setSBeacon(pAction->getActNode());
-        pCubeTexGen->setTBeacon(pAction->getActNode());
-        pCubeTexGen->setRBeacon(pAction->getActNode());
+
+        pCubeTexTrans = TextureTransformChunk::createLocal();
     }
 
 
@@ -409,36 +441,50 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTexBuffer->setTexture  (pCubeTex  );
         pCubeTexBuffer->setTexTarget(targets[i]);
 
-        pCubeTarget->setSize           (getWidth (),
-                                        getHeight());
         pCubeTarget->setColorAttachment(pCubeTexBuffer,    i);
-        pCubeTarget->setDepthAttachment(pDepthBuffer        );
-        
-        setRenderTarget(pCubeTarget);
     }
+
+    pCubeTarget->setSize(getWidth (),
+                         getHeight());
 
     if(0x0000 != (_sfSetupMode.getValue() & OverrideTex))
     {
-        this->addChunk(pCubeTex,
-                       getTexUnit());
+        returnValue->addChunk(pCubeTex,
+                              getTexUnit());
     }
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexEnv))
     {
-        this->addChunk(pCubeTexEnv,
-                       getTexUnit());
+        returnValue->addChunk(pCubeTexEnv,
+                              getTexUnit());
     }
 
     if(0x0000 != (_sfSetupMode.getValue() & SetupTexGen))
     {
-        this->addChunk(pCubeTexGen,
-                       getTexUnit());
+        returnValue->addChunk(pCubeTexGen,
+                              getTexUnit());
+        returnValue->addChunk(pCubeTexTrans,
+                              getTexUnit());
+
+        returnValue->setTexTransform(pCubeTexTrans);
+    }
+
+    if(this->getCamera() == NULL)
+    {
+        PerspectiveCameraUnrecPtr pCam = PerspectiveCamera::createLocal();
+
+        pCam->setNear(pAction->getCamera()->getNear());
+        pCam->setFar (pAction->getCamera()->getFar ());
+        
+        pCam->setFov (osgDegree2Rad(90.f));
+
+        returnValue->setCamera(pCam);
     }
 
     return returnValue;
 }
 
-void CubeMapGenerator::initData(RenderActionBase *pAction)
+CubeMapGeneratorStageData *CubeMapGenerator::initData(RenderActionBase *pAction)
 {
     CubeMapGeneratorStageDataUnrecPtr pData = 
         pAction->getData<CubeMapGeneratorStageData *>(_iDataSlotId);
@@ -449,6 +495,8 @@ void CubeMapGenerator::initData(RenderActionBase *pAction)
         
         this->setData(pData, _iDataSlotId, pAction);
     }
+
+    return pData;
 }
 
 

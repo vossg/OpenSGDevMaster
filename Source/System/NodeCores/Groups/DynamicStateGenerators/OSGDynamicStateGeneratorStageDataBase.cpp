@@ -45,13 +45,13 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DynamicStateGenerator!
+ **     class DynamicStateGeneratorStageData!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#define OSG_COMPILEDYNAMICSTATEGENERATORINST
+#define OSG_COMPILEDYNAMICSTATEGENERATORSTAGEDATAINST
 
 #include <cstdlib>
 #include <cstdio>
@@ -62,9 +62,10 @@
 
 
 #include <OSGFrameBufferObject.h> // RenderTarget Class
+#include <OSGStateChunk.h> // Chunks Class
 
-#include "OSGDynamicStateGeneratorBase.h"
-#include "OSGDynamicStateGenerator.h"
+#include "OSGDynamicStateGeneratorStageDataBase.h"
+#include "OSGDynamicStateGeneratorStageData.h"
 
 #include "boost/bind.hpp"
 
@@ -74,24 +75,26 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::DynamicStateGenerator
-    Base for dynamic materials like dynamic cube env maps
+/*! \class OSG::DynamicStateGeneratorStageData
+    Data use for rendering by the cubemap generator stage
  */
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var FrameBufferObject * DynamicStateGeneratorBase::_sfRenderTarget
+/*! \var FrameBufferObject * DynamicStateGeneratorStageDataBase::_sfRenderTarget
     The FBO to target for rendering this subtree.
 */
 
+/*! \var StateChunk *    DynamicStateGeneratorStageDataBase::_mfChunks
+    
+*/
 
-void DynamicStateGeneratorBase::classDescInserter(TypeObject &oType)
+
+void DynamicStateGeneratorStageDataBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
-
-    Inherited::classDescInserter(oType);
 
 
     pDesc = new SFUnrecFrameBufferObjectPtr::Description(
@@ -101,86 +104,114 @@ void DynamicStateGeneratorBase::classDescInserter(TypeObject &oType)
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&DynamicStateGenerator::editHandleRenderTarget),
-        static_cast<FieldGetMethodSig >(&DynamicStateGenerator::getHandleRenderTarget));
+        static_cast<FieldEditMethodSig>(&DynamicStateGeneratorStageData::editHandleRenderTarget),
+        static_cast<FieldGetMethodSig >(&DynamicStateGeneratorStageData::getHandleRenderTarget));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUnrecStateChunkPtr::Description(
+        MFUnrecStateChunkPtr::getClassType(),
+        "chunks",
+        "",
+        ChunksFieldId, ChunksFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FCustomAccess),
+        static_cast<FieldEditMethodSig>(&DynamicStateGeneratorStageData::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&DynamicStateGeneratorStageData::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
-    DynamicStateGeneratorBase::getClassname(),
+DynamicStateGeneratorStageDataBase::TypeObject DynamicStateGeneratorStageDataBase::_type(
+    DynamicStateGeneratorStageDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorBase::createEmptyLocal),
-    DynamicStateGenerator::initMethod,
-    DynamicStateGenerator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGeneratorBase::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorStageDataBase::createEmptyLocal),
+    DynamicStateGeneratorStageData::initMethod,
+    DynamicStateGeneratorStageData::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGeneratorStageDataBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "        name=\"DynamicStateGenerator\"\n"
-    "        parent=\"ChunkOverrideGroup\"\n"
-    "        mixinparent=\"DynamicStateGeneratorParent\"\n"
-    "        library=\"Group\"\n"
-    "        pointerfieldtypes=\"both\"\n"
-    "        structure=\"concrete\"\n"
-    "        systemcomponent=\"true\"\n"
-    "        parentsystemcomponent=\"true\"\n"
-    "        decoratable=\"false\"\n"
-    "        useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"true\"\n"
+    "    name=\"DynamicStateGeneratorStageData\"\n"
+    "    parent=\"StageData\"\n"
+    "    library=\"Group\"\n"
+    "    pointerfieldtypes=\"none\"\n"
+    "    structure=\"concrete\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
+    "    useLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"false\"\n"
+    "    isBundle=\"true\"\n"
     ">\n"
-    "Base for dynamic materials like dynamic cube env maps\n"
+    "Data use for rendering by the cubemap generator stage\n"
     "    <Field\n"
     "        name=\"renderTarget\"\n"
     "        type=\"FrameBufferObjectPtr\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
     "        defaultValue=\"NULL\"\n"
-    "        access=\"protected\"\n"
+    "        access=\"public\"\n"
     "    >\n"
     "    The FBO to target for rendering this subtree.\n"
     "    </Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"chunks\"\n"
+    "\t\ttype=\"StateChunkPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        access=\"protected\"\n"
+    "        ptrFieldAccess = \"custom\"\n"
+    "    >\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
-    "Base for dynamic materials like dynamic cube env maps\n"
+    "Data use for rendering by the cubemap generator stage\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DynamicStateGeneratorBase::getType(void)
+FieldContainerType &DynamicStateGeneratorStageDataBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &DynamicStateGeneratorBase::getType(void) const
+const FieldContainerType &DynamicStateGeneratorStageDataBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 DynamicStateGeneratorBase::getContainerSize(void) const
+UInt32 DynamicStateGeneratorStageDataBase::getContainerSize(void) const
 {
-    return sizeof(DynamicStateGenerator);
+    return sizeof(DynamicStateGeneratorStageData);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the DynamicStateGenerator::_sfRenderTarget field.
-const SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::getSFRenderTarget(void) const
+//! Get the DynamicStateGeneratorStageData::_sfRenderTarget field.
+const SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorStageDataBase::getSFRenderTarget(void) const
 {
     return &_sfRenderTarget;
 }
 
-SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::editSFRenderTarget   (void)
+SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorStageDataBase::editSFRenderTarget   (void)
 {
     editSField(RenderTargetFieldMask);
 
     return &_sfRenderTarget;
 }
+
+//! Get the DynamicStateGeneratorStageData::_mfChunks field.
+const MFUnrecStateChunkPtr *DynamicStateGeneratorStageDataBase::getMFChunks(void) const
+{
+    return &_mfChunks;
+}
+
 
 
 
@@ -188,7 +219,7 @@ SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::editSFRenderTarget   (vo
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DynamicStateGeneratorBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 DynamicStateGeneratorStageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -196,11 +227,15 @@ UInt32 DynamicStateGeneratorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderTarget.getBinSize();
     }
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+    {
+        returnValue += _mfChunks.getBinSize();
+    }
 
     return returnValue;
 }
 
-void DynamicStateGeneratorBase::copyToBin(BinaryDataHandler &pMem,
+void DynamicStateGeneratorStageDataBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
@@ -209,9 +244,13 @@ void DynamicStateGeneratorBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderTarget.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+    {
+        _mfChunks.copyToBin(pMem);
+    }
 }
 
-void DynamicStateGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
+void DynamicStateGeneratorStageDataBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
@@ -220,45 +259,39 @@ void DynamicStateGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfRenderTarget.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+    {
+        _mfChunks.copyFromBin(pMem);
+    }
 }
 
 //! create a new instance of the class
-DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::createLocal(BitVector bFlags)
+DynamicStateGeneratorStageDataTransitPtr DynamicStateGeneratorStageDataBase::createLocal(BitVector bFlags)
 {
-    DynamicStateGeneratorTransitPtr fc;
+    DynamicStateGeneratorStageDataTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<DynamicStateGenerator>(tmpPtr);
+        fc = dynamic_pointer_cast<DynamicStateGeneratorStageData>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-DynamicStateGeneratorTransitPtr DynamicStateGeneratorBase::create(void)
+DynamicStateGeneratorStageDataTransitPtr DynamicStateGeneratorStageDataBase::create(void)
 {
-    DynamicStateGeneratorTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<DynamicStateGenerator>(tmpPtr);
-    }
-
-    return fc;
+    return createLocal();
 }
 
-DynamicStateGenerator *DynamicStateGeneratorBase::createEmptyLocal(BitVector bFlags)
+DynamicStateGeneratorStageData *DynamicStateGeneratorStageDataBase::createEmptyLocal(BitVector bFlags)
 {
-    DynamicStateGenerator *returnValue;
+    DynamicStateGeneratorStageData *returnValue;
 
-    newPtr<DynamicStateGenerator>(returnValue, bFlags);
+    newPtr<DynamicStateGeneratorStageData>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -266,25 +299,18 @@ DynamicStateGenerator *DynamicStateGeneratorBase::createEmptyLocal(BitVector bFl
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DynamicStateGenerator *DynamicStateGeneratorBase::createEmpty(void)
+DynamicStateGeneratorStageData *DynamicStateGeneratorStageDataBase::createEmpty(void)
 {
-    DynamicStateGenerator *returnValue;
-
-    newPtr<DynamicStateGenerator>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &=
-        ~Thread::getCurrentLocalFlags();
-
-    return returnValue;
+    return createEmptyLocal();
 }
 
 
-FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopyLocal(
+FieldContainerTransitPtr DynamicStateGeneratorStageDataBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DynamicStateGenerator *tmpPtr;
+    DynamicStateGeneratorStageData *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const DynamicStateGenerator *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const DynamicStateGeneratorStageData *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -293,19 +319,9 @@ FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopy(void) const
+FieldContainerTransitPtr DynamicStateGeneratorStageDataBase::shallowCopy(void) const
 {
-    DynamicStateGenerator *tmpPtr;
-
-    newPtr(tmpPtr,
-           dynamic_cast<const DynamicStateGenerator *>(this),
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return shallowCopyLocal();
 }
 
 
@@ -313,38 +329,52 @@ FieldContainerTransitPtr DynamicStateGeneratorBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-DynamicStateGeneratorBase::DynamicStateGeneratorBase(void) :
+DynamicStateGeneratorStageDataBase::DynamicStateGeneratorStageDataBase(void) :
     Inherited(),
-    _sfRenderTarget           (NULL)
+    _sfRenderTarget           (NULL),
+    _mfChunks                 ()
 {
 }
 
-DynamicStateGeneratorBase::DynamicStateGeneratorBase(const DynamicStateGeneratorBase &source) :
+DynamicStateGeneratorStageDataBase::DynamicStateGeneratorStageDataBase(const DynamicStateGeneratorStageDataBase &source) :
     Inherited(source),
-    _sfRenderTarget           (NULL)
+    _sfRenderTarget           (NULL),
+    _mfChunks                 ()
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-DynamicStateGeneratorBase::~DynamicStateGeneratorBase(void)
+DynamicStateGeneratorStageDataBase::~DynamicStateGeneratorStageDataBase(void)
 {
 }
 
-void DynamicStateGeneratorBase::onCreate(const DynamicStateGenerator *source)
+void DynamicStateGeneratorStageDataBase::onCreate(const DynamicStateGeneratorStageData *source)
 {
     Inherited::onCreate(source);
 
     if(source != NULL)
     {
-        DynamicStateGenerator *pThis = static_cast<DynamicStateGenerator *>(this);
+        DynamicStateGeneratorStageData *pThis = static_cast<DynamicStateGeneratorStageData *>(this);
 
         pThis->setRenderTarget(source->getRenderTarget());
+
+        MFUnrecStateChunkPtr::const_iterator ChunksIt  =
+            source->_mfChunks.begin();
+        MFUnrecStateChunkPtr::const_iterator ChunksEnd =
+            source->_mfChunks.end  ();
+
+        while(ChunksIt != ChunksEnd)
+        {
+            pThis->pushToChunks(*ChunksIt);
+
+            ++ChunksIt;
+        }
     }
 }
 
-GetFieldHandlePtr DynamicStateGeneratorBase::getHandleRenderTarget    (void) const
+GetFieldHandlePtr DynamicStateGeneratorStageDataBase::getHandleRenderTarget    (void) const
 {
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
@@ -354,7 +384,7 @@ GetFieldHandlePtr DynamicStateGeneratorBase::getHandleRenderTarget    (void) con
     return returnValue;
 }
 
-EditFieldHandlePtr DynamicStateGeneratorBase::editHandleRenderTarget   (void)
+EditFieldHandlePtr DynamicStateGeneratorStageDataBase::editHandleRenderTarget   (void)
 {
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
@@ -362,23 +392,46 @@ EditFieldHandlePtr DynamicStateGeneratorBase::editHandleRenderTarget   (void)
              this->getType().getFieldDesc(RenderTargetFieldId)));
 
     returnValue->setSetMethod(
-        boost::bind(&DynamicStateGenerator::setRenderTarget,
-                    static_cast<DynamicStateGenerator *>(this), _1));
+        boost::bind(&DynamicStateGeneratorStageData::setRenderTarget,
+                    static_cast<DynamicStateGeneratorStageData *>(this), _1));
 
     editSField(RenderTargetFieldMask);
 
     return returnValue;
 }
 
+GetFieldHandlePtr DynamicStateGeneratorStageDataBase::getHandleChunks          (void) const
+{
+    MFUnrecStateChunkPtr::GetHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::GetHandle(
+             &_mfChunks,
+             this->getType().getFieldDesc(ChunksFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DynamicStateGeneratorStageDataBase::editHandleChunks         (void)
+{
+    MFUnrecStateChunkPtr::EditHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::EditHandle(
+             &_mfChunks,
+             this->getType().getFieldDesc(ChunksFieldId)));
+
+
+    editMField(ChunksFieldMask, _mfChunks);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
-void DynamicStateGeneratorBase::execSyncV(      FieldContainer    &oFrom,
+void DynamicStateGeneratorStageDataBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DynamicStateGeneratorBase *>(&oFrom),
+    this->execSync(static_cast<DynamicStateGeneratorStageDataBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -388,39 +441,31 @@ void DynamicStateGeneratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DynamicStateGeneratorBase::createAspectCopy(void) const
+FieldContainer *DynamicStateGeneratorStageDataBase::createAspectCopy(void) const
 {
-    DynamicStateGenerator *returnValue;
+    DynamicStateGeneratorStageData *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const DynamicStateGenerator *>(this));
+                  dynamic_cast<const DynamicStateGeneratorStageData *>(this));
 
     return returnValue;
 }
 #endif
 
-void DynamicStateGeneratorBase::resolveLinks(void)
+void DynamicStateGeneratorStageDataBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<DynamicStateGenerator *>(this)->setRenderTarget(NULL);
+    static_cast<DynamicStateGeneratorStageData *>(this)->setRenderTarget(NULL);
 
 
+    static_cast<DynamicStateGeneratorStageData *>(this)->clearChunks();
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DynamicStateGenerator *>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr");
+DataType FieldTraits<DynamicStateGeneratorStageData *>::_type("DynamicStateGeneratorStageDataPtr", "StageDataPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DynamicStateGenerator *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DynamicStateGenerator *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DynamicStateGenerator *,
-                           0);
 
 OSG_END_NAMESPACE

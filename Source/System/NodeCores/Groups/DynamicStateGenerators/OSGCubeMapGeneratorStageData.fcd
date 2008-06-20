@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="CubeMapGeneratorStageData"
-    parent="StageData"
+    parent="DynamicStateGeneratorStageData"
     library="Group"
     pointerfieldtypes="none"
     structure="concrete"
@@ -13,5 +13,23 @@
     isNodeCore="false"
     isBundle="true"
 >
-Data use for rendering by the cubemap generator stage
+Data use for rendering by the generator stage
+	<Field
+		name="camera"
+		type="CameraPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NULL"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="texTransform"
+		type="TextureTransformChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NULL"
+		access="public"
+	>
+	</Field>
 </FieldContainer>

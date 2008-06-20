@@ -66,6 +66,7 @@
 #include <OSGTextureObjChunk.h> // Texture Class
 #include <OSGNode.h> // Beacon Class
 #include <OSGBackground.h> // Background Class
+#include <OSGCamera.h> // Camera Class
 
 #include "OSGCubeMapGeneratorBase.h"
 #include "OSGCubeMapGenerator.h"
@@ -127,6 +128,10 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var Background *    CubeMapGeneratorBase::_sfBackground
+    
+*/
+
+/*! \var Camera *        CubeMapGeneratorBase::_sfCamera
     
 */
 
@@ -267,6 +272,18 @@ void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecCameraPtr::Description(
+        SFUnrecCameraPtr::getClassType(),
+        "camera",
+        "",
+        CameraFieldId, CameraFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CubeMapGenerator::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&CubeMapGenerator::getHandleCamera));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -389,6 +406,15 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     "\t<Field\n"
     "\t\tname=\"background\"\n"
     "\t\ttype=\"BackgroundPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"camera\"\n"
+    "\t\ttype=\"CameraPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
@@ -562,6 +588,19 @@ SFUnrecBackgroundPtr *CubeMapGeneratorBase::editSFBackground     (void)
     return &_sfBackground;
 }
 
+//! Get the CubeMapGenerator::_sfCamera field.
+const SFUnrecCameraPtr *CubeMapGeneratorBase::getSFCamera(void) const
+{
+    return &_sfCamera;
+}
+
+SFUnrecCameraPtr    *CubeMapGeneratorBase::editSFCamera         (void)
+{
+    editSField(CameraFieldMask);
+
+    return &_sfCamera;
+}
+
 
 
 void CubeMapGeneratorBase::pushToExclude(Node * const value)
@@ -669,6 +708,10 @@ UInt32 CubeMapGeneratorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfBackground.getBinSize();
     }
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+    {
+        returnValue += _sfCamera.getBinSize();
+    }
 
     return returnValue;
 }
@@ -722,6 +765,10 @@ void CubeMapGeneratorBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfBackground.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+    {
+        _sfCamera.copyToBin(pMem);
+    }
 }
 
 void CubeMapGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
@@ -772,6 +819,10 @@ void CubeMapGeneratorBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
     {
         _sfBackground.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+    {
+        _sfCamera.copyFromBin(pMem);
     }
 }
 
@@ -878,7 +929,8 @@ CubeMapGeneratorBase::CubeMapGeneratorBase(void) :
     _sfOriginMode             (UInt32(CubeMapGenerator::UseCurrentVolumeCenter)),
     _sfTexUnit                (UInt32(0)),
     _sfSetupMode              (UInt32(CubeMapGenerator::SetupAll)),
-    _sfBackground             (NULL)
+    _sfBackground             (NULL),
+    _sfCamera                 (NULL)
 {
 }
 
@@ -894,7 +946,8 @@ CubeMapGeneratorBase::CubeMapGeneratorBase(const CubeMapGeneratorBase &source) :
     _sfOriginMode             (source._sfOriginMode             ),
     _sfTexUnit                (source._sfTexUnit                ),
     _sfSetupMode              (source._sfSetupMode              ),
-    _sfBackground             (NULL)
+    _sfBackground             (NULL),
+    _sfCamera                 (NULL)
 {
 }
 
@@ -932,6 +985,8 @@ void CubeMapGeneratorBase::onCreate(const CubeMapGenerator *source)
         pThis->setBeacon(source->getBeacon());
 
         pThis->setBackground(source->getBackground());
+
+        pThis->setCamera(source->getCamera());
     }
 }
 
@@ -1212,6 +1267,32 @@ EditFieldHandlePtr CubeMapGeneratorBase::editHandleBackground     (void)
     return returnValue;
 }
 
+GetFieldHandlePtr CubeMapGeneratorBase::getHandleCamera          (void) const
+{
+    SFUnrecCameraPtr::GetHandlePtr returnValue(
+        new  SFUnrecCameraPtr::GetHandle(
+             &_sfCamera,
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CubeMapGeneratorBase::editHandleCamera         (void)
+{
+    SFUnrecCameraPtr::EditHandlePtr returnValue(
+        new  SFUnrecCameraPtr::EditHandle(
+             &_sfCamera,
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    returnValue->setSetMethod(
+        boost::bind(&CubeMapGenerator::setCamera,
+                    static_cast<CubeMapGenerator *>(this), _1));
+
+    editSField(CameraFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void CubeMapGeneratorBase::execSyncV(      FieldContainer    &oFrom,
@@ -1252,6 +1333,8 @@ void CubeMapGeneratorBase::resolveLinks(void)
     static_cast<CubeMapGenerator *>(this)->setBeacon(NULL);
 
     static_cast<CubeMapGenerator *>(this)->setBackground(NULL);
+
+    static_cast<CubeMapGenerator *>(this)->setCamera(NULL);
 
 
     static_cast<CubeMapGenerator *>(this)->clearExclude();

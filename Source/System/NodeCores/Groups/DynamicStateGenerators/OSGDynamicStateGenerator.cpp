@@ -46,6 +46,8 @@
 #include <OSGConfig.h>
 
 #include "OSGDynamicStateGenerator.h"
+#include "OSGDynamicStateGeneratorStageData.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -87,7 +89,8 @@ DynamicStateGenerator::DynamicStateGenerator(void) :
 {
 }
 
-DynamicStateGenerator::DynamicStateGenerator(const DynamicStateGenerator &source) :
+DynamicStateGenerator::DynamicStateGenerator(
+    const DynamicStateGenerator &source) :
     Inherited(source)
 {
 }
@@ -110,5 +113,45 @@ void DynamicStateGenerator::dump(      UInt32    ,
 {
     SLOG << "Dump DynamicStateGenerator NI" << std::endl;
 }
+
+ActionBase::ResultE DynamicStateGenerator::renderEnter(Action *action)
+{
+    RenderAction *pAction = 
+        dynamic_cast<RenderAction *>(action);
+
+    // pop the state and make sure we have the last word.
+    ActionBase::ResultE returnValue = Inherited::renderEnter(action);
+
+    if(pAction != NULL)
+    {
+        DynamicStateGeneratorStageData *pData = 
+            pAction->getData<DynamicStateGeneratorStageData *>(_iDataSlotId);
+
+        if(pData != NULL)
+        {
+            MFUnrecStateChunkPtr::const_iterator chIt   = pData->beginChunks();
+            MFUnrecStateChunkPtr::const_iterator chEnd  = pData->endChunks  ();
+            UInt32                               uiSlot = 0;
+
+            while(chIt != chEnd)
+            {
+                if(*chIt != NULL)
+                    pAction->addOverride(uiSlot, *chIt);
+                
+                ++uiSlot;
+                ++chIt;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+ActionBase::ResultE DynamicStateGenerator::renderLeave(Action *action)
+{
+    return Inherited::renderLeave(action);
+}
+
+
 
 OSG_END_NAMESPACE

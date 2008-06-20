@@ -36,25 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCUBEMAPGENERATOR_H_
-#define _OSGCUBEMAPGENERATOR_H_
+#ifndef _OSGDYNAMICSTATEGENERATORSTAGEDATA_H_
+#define _OSGDYNAMICSTATEGENERATORSTAGEDATA_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCubeMapGeneratorBase.h"
-#include "OSGCubeMapGeneratorStageDataFields.h"
-#include "OSGTextureObjChunk.h"
+#include "OSGDynamicStateGeneratorStageDataBase.h"
+#include "OSGFrameBufferObject.h"
+#include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE
 
-class RenderActionBase;
-
-/*! \brief CubeMapGenerator class. See \ref
-           PageGroupCubeMapGenerator for a description.
+/*! \brief DynamicStateGeneratorStageData class. See \ref
+           PageGroupDynamicStateGeneratorStageData for a description.
 */
 
-class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
+class OSG_GROUP_DLLMAPPING DynamicStateGeneratorStageData : 
+    public DynamicStateGeneratorStageDataBase
 {
   protected:
 
@@ -62,48 +61,9 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
 
   public:
 
-    typedef CubeMapGeneratorBase Inherited;
-    typedef CubeMapGenerator     Self;
+    typedef DynamicStateGeneratorStageDataBase Inherited;
+    typedef DynamicStateGeneratorStageData     Self;
 
-    enum SetupMode
-    {
-        NoSetup      = 0x0000,
-        SetupTexture = 0x0001,
-        SetupTexEnv  = 0x0002,
-        SetupTexGen  = 0x0004,
-        
-        OverrideTex  = 0x0010,
-        AutoTexture  = 0x0011,
-
-        SetupAll     = 0x0017
-    };
-
-    enum OriginMode
-    {
-        UseStoredValue         = 0x0001,
-        UseBeacon              = 0x0002,
-        UseCurrentVolumeCenter = 0x0003,
-        UseParentsVolumeCenter = 0x0004
-    };
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    CubeMapGeneratorStageData *initData(RenderActionBase *pAction);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
-    /*! \{                                                                 */
-
-    void   setSize  (UInt16 uiWidth, 
-                     UInt16 uiHeight);
-
-    UInt16 getWidth (void);
-    UInt16 getHeight(void);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -111,6 +71,25 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    bool addChunk(StateChunk *chunk, 
+                  Int32       slot = State::AutoSlotReplace);
+
+    bool subChunk(StateChunk *chunk, 
+                  Int32       slot = State::AutoSlotReplace);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    MFUnrecStateChunkPtr::const_iterator beginChunks(void) const;
+    MFUnrecStateChunkPtr::const_iterator endChunks  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -125,37 +104,22 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
 
   protected:
 
-    // Variables should all be in CubeMapGeneratorBase.
+    // Variables should all be in DynamicStateGeneratorStageDataBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CubeMapGenerator(void);
-    CubeMapGenerator(const CubeMapGenerator &source);
+    DynamicStateGeneratorStageData(void);
+    DynamicStateGeneratorStageData(
+        const DynamicStateGeneratorStageData &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CubeMapGenerator(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    CubeMapGeneratorStageDataTransitPtr setupStageData(
-        RenderActionBase *pAction);
+    virtual ~DynamicStateGeneratorStageData(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -165,22 +129,30 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    void pushToChunks(StateChunk * const value);
+    void clearChunks (void                    );
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class CubeMapGeneratorBase;
+    friend class DynamicStateGeneratorStageDataBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CubeMapGenerator &source);
+    void operator =(const DynamicStateGeneratorStageData &source);
 };
 
-typedef CubeMapGenerator *CubeMapGeneratorP;
+typedef DynamicStateGeneratorStageData *DynamicStateGeneratorStageDataP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCubeMapGeneratorBase.inl"
-#include "OSGCubeMapGenerator.inl"
+#include "OSGDynamicStateGeneratorStageDataBase.inl"
+#include "OSGDynamicStateGeneratorStageData.inl"
 
-#endif /* _OSGCUBEMAPGENERATOR_H_ */
+#endif /* _OSGDYNAMICSTATEGENERATORSTAGEDATA_H_ */

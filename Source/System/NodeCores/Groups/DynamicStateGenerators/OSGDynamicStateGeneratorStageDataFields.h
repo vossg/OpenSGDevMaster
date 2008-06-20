@@ -4,6 +4,8 @@
  *                                                                           *
  *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
@@ -42,96 +44,69 @@
  **          Any changes made to this file WILL be lost when it is          **
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
- **     Do not change this file, changes should be done in the derived      **
- **     class CubeMapGeneratorStageData!
- **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
-OSG_BEGIN_NAMESPACE
 
-
-//! access the type of the class
-inline
-OSG::FieldContainerType &CubeMapGeneratorStageDataBase::getClassType(void)
-{
-    return _type;
-}
-
-//! access the numerical type of the class
-inline
-OSG::UInt32 CubeMapGeneratorStageDataBase::getClassTypeId(void)
-{
-    return _type.getId();
-}
-
-inline
-OSG::UInt16 CubeMapGeneratorStageDataBase::getClassGroupId(void)
-{
-    return _type.getGroupId();
-}
-
-/*------------------------------ get -----------------------------------*/
-
-
-//! Get the value of the CubeMapGeneratorStageData::_sfCamera field.
-inline
-Camera * CubeMapGeneratorStageDataBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the CubeMapGeneratorStageData::_sfCamera field.
-inline
-void CubeMapGeneratorStageDataBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the CubeMapGeneratorStageData::_sfTexTransform field.
-inline
-TextureTransformChunk * CubeMapGeneratorStageDataBase::getTexTransform(void) const
-{
-    return _sfTexTransform.getValue();
-}
-
-//! Set the value of the CubeMapGeneratorStageData::_sfTexTransform field.
-inline
-void CubeMapGeneratorStageDataBase::setTexTransform(TextureTransformChunk * const value)
-{
-    editSField(TexTransformFieldMask);
-
-    _sfTexTransform.setValue(value);
-}
-
-
-#ifdef OSG_MT_CPTR_ASPECT
-inline
-void CubeMapGeneratorStageDataBase::execSync (      CubeMapGeneratorStageDataBase *pFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo)
-{
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (CameraFieldMask & whichField))
-        _sfCamera.syncWith(pFrom->_sfCamera);
-
-    if(FieldBits::NoField != (TexTransformFieldMask & whichField))
-        _sfTexTransform.syncWith(pFrom->_sfTexTransform);
-}
+#ifndef _OSGDYNAMICSTATEGENERATORSTAGEDATAFIELDS_H_
+#define _OSGDYNAMICSTATEGENERATORSTAGEDATAFIELDS_H_
+#ifdef __sgi
+#pragma once
 #endif
 
+#include "OSGConfig.h"
+#include "OSGGroupDef.h"
 
-inline
-Char8 *CubeMapGeneratorStageDataBase::getClassname(void)
+#include "OSGFieldContainerFields.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
+
+
+OSG_BEGIN_NAMESPACE
+
+class DynamicStateGeneratorStageData;
+
+#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
+//! DynamicStateGeneratorStageDataPtr
+
+OSG_GEN_CONTAINERPTR(DynamicStateGeneratorStageData);
+
+#endif
+
+#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+/*! \ingroup GrpGroupFieldTraits
+ */
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \hideinhierarchy */
+#endif
+
+template <>
+struct FieldTraits<DynamicStateGeneratorStageData *> :
+    public FieldTraitsFCPtrBase<DynamicStateGeneratorStageData *>
 {
-    return "CubeMapGeneratorStageData";
-}
-OSG_GEN_CONTAINERPTR(CubeMapGeneratorStageData);
+  private:
+
+    static DataType             _type;
+
+  public:
+
+    typedef FieldTraits<DynamicStateGeneratorStageData *>  Self;
+
+    enum                        { Convertible = NotConvertible };
+};
+
+
+
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \class  FieldTraitsTemplateBase<DynamicStateGeneratorStageDataPtr, 0>
+    \hideinhierarchy
+ */
+#endif
+
+#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+
+
 
 OSG_END_NAMESPACE
 
+#endif /* _OSGDYNAMICSTATEGENERATORSTAGEDATAFIELDS_H_ */

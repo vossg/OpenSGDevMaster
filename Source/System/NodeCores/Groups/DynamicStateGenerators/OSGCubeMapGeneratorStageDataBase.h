@@ -63,8 +63,10 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGStageData.h" // Parent
+#include "OSGDynamicStateGeneratorStageData.h" // Parent
 
+#include "OSGCameraFields.h" // Camera type
+#include "OSGTextureTransformChunkFields.h" // TexTransform type
 
 #include "OSGCubeMapGeneratorStageDataFields.h"
 
@@ -74,12 +76,12 @@ class CubeMapGeneratorStageData;
 
 //! \brief CubeMapGeneratorStageData Base Class.
 
-class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
+class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public DynamicStateGeneratorStageData
 {
   public:
 
-    typedef StageData Inherited;
-    typedef StageData ParentContainer;
+    typedef DynamicStateGeneratorStageData Inherited;
+    typedef DynamicStateGeneratorStageData ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -90,6 +92,19 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
 
   public:
 
+    enum
+    {
+        CameraFieldId = Inherited::NextFieldId,
+        TexTransformFieldId = CameraFieldId + 1,
+        NextFieldId = TexTransformFieldId + 1
+    };
+
+    static const OSG::BitVector CameraFieldMask =
+        (TypeTraits<BitVector>::One << CameraFieldId);
+    static const OSG::BitVector TexTransformFieldMask =
+        (TypeTraits<BitVector>::One << TexTransformFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -108,6 +123,39 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecCameraPtr    *getSFCamera         (void) const;
+                  SFUnrecCameraPtr    *editSFCamera         (void);
+            const SFUnrecTextureTransformChunkPtr *getSFTexTransform   (void) const;
+                  SFUnrecTextureTransformChunkPtr *editSFTexTransform   (void);
+
+
+                  Camera * getCamera         (void) const;
+
+                  TextureTransformChunk * getTexTransform   (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setCamera         (Camera * const value);
+            void setTexTransform   (TextureTransformChunk * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -155,6 +203,14 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
     static Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUnrecCameraPtr  _sfCamera;
+    SFUnrecTextureTransformChunkPtr _sfTexTransform;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
@@ -173,12 +229,17 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public StageData
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const CubeMapGeneratorStageData *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleCamera          (void) const;
+    EditFieldHandlePtr editHandleCamera         (void);
+    GetFieldHandlePtr  getHandleTexTransform    (void) const;
+    EditFieldHandlePtr editHandleTexTransform   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

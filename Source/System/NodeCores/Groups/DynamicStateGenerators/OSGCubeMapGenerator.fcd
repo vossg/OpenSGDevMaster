@@ -112,4 +112,13 @@
 		access="public"
 	>
 	</Field>
+	<Field
+		name="camera"
+		type="CameraPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NULL"
+		access="public"
+	>
+	</Field>
 </FieldContainer>

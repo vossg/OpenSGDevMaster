@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CubeMapGenerator
+ **     class DynamicStateGeneratorStageData
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCUBEMAPGENERATORBASE_H_
-#define _OSGCUBEMAPGENERATORBASE_H_
+#ifndef _OSGDYNAMICSTATEGENERATORSTAGEDATABASE_H_
+#define _OSGDYNAMICSTATEGENERATORSTAGEDATABASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,40 +63,30 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGDynamicStateGenerator.h" // Parent
+#include "OSGStageData.h" // Parent
 
-#include "OSGNodeFields.h" // Root type
-#include "OSGNodeFields.h" // Exclude type
-#include "OSGTextureObjChunkFields.h" // Texture type
-#include "OSGVec2sFields.h" // TextureSize type
-#include "OSGGLenumFields.h" // TextureFormat type
-#include "OSGNodeFields.h" // Beacon type
-#include "OSGPnt3fFields.h" // Origin type
-#include "OSGUInt32Fields.h" // OriginMode type
-#include "OSGUInt32Fields.h" // TexUnit type
-#include "OSGUInt32Fields.h" // SetupMode type
-#include "OSGBackgroundFields.h" // Background type
-#include "OSGCameraFields.h" // Camera type
+#include "OSGFrameBufferObjectFields.h" // RenderTarget type
+#include "OSGStateChunkFields.h" // Chunks type
 
-#include "OSGCubeMapGeneratorFields.h"
+#include "OSGDynamicStateGeneratorStageDataFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class CubeMapGenerator;
+class DynamicStateGeneratorStageData;
 
-//! \brief CubeMapGenerator Base Class.
+//! \brief DynamicStateGeneratorStageData Base Class.
 
-class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
+class OSG_GROUP_DLLMAPPING DynamicStateGeneratorStageDataBase : public StageData
 {
   public:
 
-    typedef DynamicStateGenerator Inherited;
-    typedef DynamicStateGenerator ParentContainer;
+    typedef StageData Inherited;
+    typedef StageData ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(CubeMapGenerator);
+    OSG_GEN_INTERNALPTR(DynamicStateGeneratorStageData);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -104,45 +94,15 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
 
     enum
     {
-        RootFieldId = Inherited::NextFieldId,
-        ExcludeFieldId = RootFieldId + 1,
-        TextureFieldId = ExcludeFieldId + 1,
-        TextureSizeFieldId = TextureFieldId + 1,
-        TextureFormatFieldId = TextureSizeFieldId + 1,
-        BeaconFieldId = TextureFormatFieldId + 1,
-        OriginFieldId = BeaconFieldId + 1,
-        OriginModeFieldId = OriginFieldId + 1,
-        TexUnitFieldId = OriginModeFieldId + 1,
-        SetupModeFieldId = TexUnitFieldId + 1,
-        BackgroundFieldId = SetupModeFieldId + 1,
-        CameraFieldId = BackgroundFieldId + 1,
-        NextFieldId = CameraFieldId + 1
+        RenderTargetFieldId = Inherited::NextFieldId,
+        ChunksFieldId = RenderTargetFieldId + 1,
+        NextFieldId = ChunksFieldId + 1
     };
 
-    static const OSG::BitVector RootFieldMask =
-        (TypeTraits<BitVector>::One << RootFieldId);
-    static const OSG::BitVector ExcludeFieldMask =
-        (TypeTraits<BitVector>::One << ExcludeFieldId);
-    static const OSG::BitVector TextureFieldMask =
-        (TypeTraits<BitVector>::One << TextureFieldId);
-    static const OSG::BitVector TextureSizeFieldMask =
-        (TypeTraits<BitVector>::One << TextureSizeFieldId);
-    static const OSG::BitVector TextureFormatFieldMask =
-        (TypeTraits<BitVector>::One << TextureFormatFieldId);
-    static const OSG::BitVector BeaconFieldMask =
-        (TypeTraits<BitVector>::One << BeaconFieldId);
-    static const OSG::BitVector OriginFieldMask =
-        (TypeTraits<BitVector>::One << OriginFieldId);
-    static const OSG::BitVector OriginModeFieldMask =
-        (TypeTraits<BitVector>::One << OriginModeFieldId);
-    static const OSG::BitVector TexUnitFieldMask =
-        (TypeTraits<BitVector>::One << TexUnitFieldId);
-    static const OSG::BitVector SetupModeFieldMask =
-        (TypeTraits<BitVector>::One << SetupModeFieldId);
-    static const OSG::BitVector BackgroundFieldMask =
-        (TypeTraits<BitVector>::One << BackgroundFieldId);
-    static const OSG::BitVector CameraFieldMask =
-        (TypeTraits<BitVector>::One << CameraFieldId);
+    static const OSG::BitVector RenderTargetFieldMask =
+        (TypeTraits<BitVector>::One << RenderTargetFieldId);
+    static const OSG::BitVector ChunksFieldMask =
+        (TypeTraits<BitVector>::One << ChunksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -169,84 +129,18 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecNodePtr      *getSFRoot           (void) const;
-                  SFUnrecNodePtr      *editSFRoot           (void);
-            const MFUnrecNodePtr      *getMFExclude        (void) const;
-                  MFUnrecNodePtr      *editMFExclude        (void);
-            const SFUnrecTextureObjChunkPtr *getSFTexture        (void) const;
-                  SFUnrecTextureObjChunkPtr *editSFTexture        (void);
-
-                  SFVec2s             *editSFTextureSize    (void);
-            const SFVec2s             *getSFTextureSize     (void) const;
-
-                  SFGLenum            *editSFTextureFormat  (void);
-            const SFGLenum            *getSFTextureFormat   (void) const;
-            const SFWeakNodePtr       *getSFBeacon         (void) const;
-                  SFWeakNodePtr       *editSFBeacon         (void);
-
-                  SFPnt3f             *editSFOrigin         (void);
-            const SFPnt3f             *getSFOrigin          (void) const;
-
-                  SFUInt32            *editSFOriginMode     (void);
-            const SFUInt32            *getSFOriginMode      (void) const;
-
-                  SFUInt32            *editSFTexUnit        (void);
-            const SFUInt32            *getSFTexUnit         (void) const;
-
-                  SFUInt32            *editSFSetupMode      (void);
-            const SFUInt32            *getSFSetupMode       (void) const;
-            const SFUnrecBackgroundPtr *getSFBackground     (void) const;
-                  SFUnrecBackgroundPtr *editSFBackground     (void);
-            const SFUnrecCameraPtr    *getSFCamera         (void) const;
-                  SFUnrecCameraPtr    *editSFCamera         (void);
+            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget   (void) const;
+                  SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
 
 
-                  Node * getRoot           (void) const;
-
-                  Node * getExclude        (const UInt32 index) const;
-
-                  TextureObjChunk * getTexture        (void) const;
-
-                  Vec2s               &editTextureSize    (void);
-            const Vec2s               &getTextureSize     (void) const;
-
-                  GLenum              &editTextureFormat  (void);
-            const GLenum              &getTextureFormat   (void) const;
-
-                  Node * getBeacon         (void) const;
-
-                  Pnt3f               &editOrigin         (void);
-            const Pnt3f               &getOrigin          (void) const;
-
-                  UInt32              &editOriginMode     (void);
-                  UInt32               getOriginMode      (void) const;
-
-                  UInt32              &editTexUnit        (void);
-                  UInt32               getTexUnit         (void) const;
-
-                  UInt32              &editSetupMode      (void);
-                  UInt32               getSetupMode       (void) const;
-
-                  Background * getBackground     (void) const;
-
-                  Camera * getCamera         (void) const;
+                  FrameBufferObject * getRenderTarget   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRoot           (Node * const value);
-            void setTexture        (TextureObjChunk * const value);
-            void setTextureSize    (const Vec2s &value);
-            void setTextureFormat  (const GLenum &value);
-            void setBeacon         (Node * const value);
-            void setOrigin         (const Pnt3f &value);
-            void setOriginMode     (const UInt32 value);
-            void setTexUnit        (const UInt32 value);
-            void setSetupMode      (const UInt32 value);
-            void setBackground     (Background * const value);
-            void setCamera         (Camera * const value);
+            void setRenderTarget   (FrameBufferObject * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,13 +151,6 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToExclude             (Node * const value   );
-    void assignExclude            (const MFUnrecNodePtr    &value);
-    void removeFromExclude (UInt32               uiIndex );
-    void removeObjFromExclude(Node * const value   );
-    void clearExclude               (void                         );
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -282,13 +169,13 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeMapGeneratorTransitPtr  create          (void);
-    static  CubeMapGenerator           *createEmpty     (void);
+    static  DynamicStateGeneratorStageDataTransitPtr  create          (void);
+    static  DynamicStateGeneratorStageData           *createEmpty     (void);
 
-    static  CubeMapGeneratorTransitPtr  createLocal     (
+    static  DynamicStateGeneratorStageDataTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  CubeMapGenerator            *createEmptyLocal(
+    static  DynamicStateGeneratorStageData            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -314,70 +201,62 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecNodePtr    _sfRoot;
-    MFUnrecNodePtr    _mfExclude;
-    SFUnrecTextureObjChunkPtr _sfTexture;
-    SFVec2s           _sfTextureSize;
-    SFGLenum          _sfTextureFormat;
-    SFWeakNodePtr     _sfBeacon;
-    SFPnt3f           _sfOrigin;
-    SFUInt32          _sfOriginMode;
-    SFUInt32          _sfTexUnit;
-    SFUInt32          _sfSetupMode;
-    SFUnrecBackgroundPtr _sfBackground;
-    SFUnrecCameraPtr  _sfCamera;
+    SFUnrecFrameBufferObjectPtr _sfRenderTarget;
+    MFUnrecStateChunkPtr _mfChunks;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    CubeMapGeneratorBase(void);
-    CubeMapGeneratorBase(const CubeMapGeneratorBase &source);
+    DynamicStateGeneratorStageDataBase(void);
+    DynamicStateGeneratorStageDataBase(const DynamicStateGeneratorStageDataBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CubeMapGeneratorBase(void);
+    virtual ~DynamicStateGeneratorStageDataBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const CubeMapGenerator *source = NULL);
+    void onCreate(const DynamicStateGeneratorStageData *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRoot            (void) const;
-    EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleExclude         (void) const;
-    EditFieldHandlePtr editHandleExclude        (void);
-    GetFieldHandlePtr  getHandleTexture         (void) const;
-    EditFieldHandlePtr editHandleTexture        (void);
-    GetFieldHandlePtr  getHandleTextureSize     (void) const;
-    EditFieldHandlePtr editHandleTextureSize    (void);
-    GetFieldHandlePtr  getHandleTextureFormat   (void) const;
-    EditFieldHandlePtr editHandleTextureFormat  (void);
-    GetFieldHandlePtr  getHandleBeacon          (void) const;
-    EditFieldHandlePtr editHandleBeacon         (void);
-    GetFieldHandlePtr  getHandleOrigin          (void) const;
-    EditFieldHandlePtr editHandleOrigin         (void);
-    GetFieldHandlePtr  getHandleOriginMode      (void) const;
-    EditFieldHandlePtr editHandleOriginMode     (void);
-    GetFieldHandlePtr  getHandleTexUnit         (void) const;
-    EditFieldHandlePtr editHandleTexUnit        (void);
-    GetFieldHandlePtr  getHandleSetupMode       (void) const;
-    EditFieldHandlePtr editHandleSetupMode      (void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
+    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+    EditFieldHandlePtr editHandleRenderTarget   (void);
+    GetFieldHandlePtr  getHandleChunks          (void) const;
+    EditFieldHandlePtr editHandleChunks         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const MFUnrecStateChunkPtr *getMFChunks          (void) const;
+
+
+                  StateChunk * getChunks         (const UInt32 index) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -391,7 +270,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      CubeMapGeneratorBase *pFrom,
+            void execSync (      DynamicStateGeneratorStageDataBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -430,14 +309,11 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CubeMapGeneratorBase &source);
+    void operator =(const DynamicStateGeneratorStageDataBase &source);
 };
 
-typedef CubeMapGeneratorBase *CubeMapGeneratorBaseP;
-
-typedef CoredNodeRefPtr  <CubeMapGenerator> CubeMapGeneratorNodeRefPtr;
-typedef CoredNodeMTRefPtr<CubeMapGenerator> CubeMapGeneratorNodeMTRefPtr;
+typedef DynamicStateGeneratorStageDataBase *DynamicStateGeneratorStageDataBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCUBEMAPGENERATORBASE_H_ */
+#endif /* _OSGDYNAMICSTATEGENERATORSTAGEDATABASE_H_ */

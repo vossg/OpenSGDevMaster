@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CubeMapGeneratorStageData!
+ **     class DynamicStateGeneratorStageData!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,20 +53,20 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &CubeMapGeneratorStageDataBase::getClassType(void)
+OSG::FieldContainerType &DynamicStateGeneratorStageDataBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CubeMapGeneratorStageDataBase::getClassTypeId(void)
+OSG::UInt32 DynamicStateGeneratorStageDataBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 CubeMapGeneratorStageDataBase::getClassGroupId(void)
+OSG::UInt16 DynamicStateGeneratorStageDataBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
@@ -74,42 +74,33 @@ OSG::UInt16 CubeMapGeneratorStageDataBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the CubeMapGeneratorStageData::_sfCamera field.
+//! Get the value of the DynamicStateGeneratorStageData::_sfRenderTarget field.
 inline
-Camera * CubeMapGeneratorStageDataBase::getCamera(void) const
+FrameBufferObject * DynamicStateGeneratorStageDataBase::getRenderTarget(void) const
 {
-    return _sfCamera.getValue();
+    return _sfRenderTarget.getValue();
 }
 
-//! Set the value of the CubeMapGeneratorStageData::_sfCamera field.
+//! Set the value of the DynamicStateGeneratorStageData::_sfRenderTarget field.
 inline
-void CubeMapGeneratorStageDataBase::setCamera(Camera * const value)
+void DynamicStateGeneratorStageDataBase::setRenderTarget(FrameBufferObject * const value)
 {
-    editSField(CameraFieldMask);
+    editSField(RenderTargetFieldMask);
 
-    _sfCamera.setValue(value);
+    _sfRenderTarget.setValue(value);
 }
 
-//! Get the value of the CubeMapGeneratorStageData::_sfTexTransform field.
+//! Get the value of the \a index element the DynamicStateGeneratorStageData::_mfChunks field.
 inline
-TextureTransformChunk * CubeMapGeneratorStageDataBase::getTexTransform(void) const
+StateChunk * DynamicStateGeneratorStageDataBase::getChunks(const UInt32 index) const
 {
-    return _sfTexTransform.getValue();
-}
-
-//! Set the value of the CubeMapGeneratorStageData::_sfTexTransform field.
-inline
-void CubeMapGeneratorStageDataBase::setTexTransform(TextureTransformChunk * const value)
-{
-    editSField(TexTransformFieldMask);
-
-    _sfTexTransform.setValue(value);
+    return _mfChunks[index];
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void CubeMapGeneratorStageDataBase::execSync (      CubeMapGeneratorStageDataBase *pFrom,
+void DynamicStateGeneratorStageDataBase::execSync (      DynamicStateGeneratorStageDataBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -117,21 +108,24 @@ void CubeMapGeneratorStageDataBase::execSync (      CubeMapGeneratorStageDataBas
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (CameraFieldMask & whichField))
-        _sfCamera.syncWith(pFrom->_sfCamera);
+    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+        _sfRenderTarget.syncWith(pFrom->_sfRenderTarget);
 
-    if(FieldBits::NoField != (TexTransformFieldMask & whichField))
-        _sfTexTransform.syncWith(pFrom->_sfTexTransform);
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+        _mfChunks.syncWith(pFrom->_mfChunks,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 
 
 inline
-Char8 *CubeMapGeneratorStageDataBase::getClassname(void)
+Char8 *DynamicStateGeneratorStageDataBase::getClassname(void)
 {
-    return "CubeMapGeneratorStageData";
+    return "DynamicStateGeneratorStageData";
 }
-OSG_GEN_CONTAINERPTR(CubeMapGeneratorStageData);
+OSG_GEN_CONTAINERPTR(DynamicStateGeneratorStageData);
 
 OSG_END_NAMESPACE
 

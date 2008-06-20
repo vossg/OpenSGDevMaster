@@ -288,6 +288,22 @@ void CubeMapGeneratorBase::setBackground(Background * const value)
     _sfBackground.setValue(value);
 }
 
+//! Get the value of the CubeMapGenerator::_sfCamera field.
+inline
+Camera * CubeMapGeneratorBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the CubeMapGenerator::_sfCamera field.
+inline
+void CubeMapGeneratorBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
 //! Get the value of the \a index element the CubeMapGenerator::_mfExclude field.
 inline
 Node * CubeMapGeneratorBase::getExclude(const UInt32 index) const
@@ -341,6 +357,9 @@ void CubeMapGeneratorBase::execSync (      CubeMapGeneratorBase *pFrom,
 
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
         _sfBackground.syncWith(pFrom->_sfBackground);
+
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+        _sfCamera.syncWith(pFrom->_sfCamera);
 }
 #endif
 

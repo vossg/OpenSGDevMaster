@@ -61,6 +61,8 @@
 
 
 
+#include <OSGCamera.h> // Camera Class
+#include <OSGTextureTransformChunk.h> // TexTransform Class
 
 #include "OSGCubeMapGeneratorStageDataBase.h"
 #include "OSGCubeMapGeneratorStageData.h"
@@ -74,8 +76,51 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::CubeMapGeneratorStageData
-    Data use for rendering by the cubemap generator stage
+    Data use for rendering by the generator stage
  */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Camera *        CubeMapGeneratorStageDataBase::_sfCamera
+    
+*/
+
+/*! \var TextureTransformChunk * CubeMapGeneratorStageDataBase::_sfTexTransform
+    
+*/
+
+
+void CubeMapGeneratorStageDataBase::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUnrecCameraPtr::Description(
+        SFUnrecCameraPtr::getClassType(),
+        "camera",
+        "",
+        CameraFieldId, CameraFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CubeMapGeneratorStageData::editHandleCamera),
+        static_cast<FieldGetMethodSig >(&CubeMapGeneratorStageData::getHandleCamera));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecTextureTransformChunkPtr::Description(
+        SFUnrecTextureTransformChunkPtr::getClassType(),
+        "texTransform",
+        "",
+        TexTransformFieldId, TexTransformFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CubeMapGeneratorStageData::editHandleTexTransform),
+        static_cast<FieldGetMethodSig >(&CubeMapGeneratorStageData::getHandleTexTransform));
+
+    oType.addInitialDesc(pDesc);
+}
 
 
 CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
@@ -86,14 +131,14 @@ CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CubeMapGeneratorStageDataBase::createEmptyLocal),
     CubeMapGeneratorStageData::initMethod,
     CubeMapGeneratorStageData::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&CubeMapGeneratorStageDataBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
     "    name=\"CubeMapGeneratorStageData\"\n"
-    "    parent=\"StageData\"\n"
+    "    parent=\"DynamicStateGeneratorStageData\"\n"
     "    library=\"Group\"\n"
     "    pointerfieldtypes=\"none\"\n"
     "    structure=\"concrete\"\n"
@@ -104,9 +149,27 @@ CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
     ">\n"
-    "Data use for rendering by the cubemap generator stage\n"
+    "Data use for rendering by the generator stage\n"
+    "\t<Field\n"
+    "\t\tname=\"camera\"\n"
+    "\t\ttype=\"CameraPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"texTransform\"\n"
+    "\t\ttype=\"TextureTransformChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
-    "Data use for rendering by the cubemap generator stage\n"
+    "Data use for rendering by the generator stage\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -129,6 +192,32 @@ UInt32 CubeMapGeneratorStageDataBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+//! Get the CubeMapGeneratorStageData::_sfCamera field.
+const SFUnrecCameraPtr *CubeMapGeneratorStageDataBase::getSFCamera(void) const
+{
+    return &_sfCamera;
+}
+
+SFUnrecCameraPtr    *CubeMapGeneratorStageDataBase::editSFCamera         (void)
+{
+    editSField(CameraFieldMask);
+
+    return &_sfCamera;
+}
+
+//! Get the CubeMapGeneratorStageData::_sfTexTransform field.
+const SFUnrecTextureTransformChunkPtr *CubeMapGeneratorStageDataBase::getSFTexTransform(void) const
+{
+    return &_sfTexTransform;
+}
+
+SFUnrecTextureTransformChunkPtr *CubeMapGeneratorStageDataBase::editSFTexTransform   (void)
+{
+    editSField(TexTransformFieldMask);
+
+    return &_sfTexTransform;
+}
+
 
 
 
@@ -139,6 +228,14 @@ UInt32 CubeMapGeneratorStageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+    {
+        returnValue += _sfCamera.getBinSize();
+    }
+    if(FieldBits::NoField != (TexTransformFieldMask & whichField))
+    {
+        returnValue += _sfTexTransform.getBinSize();
+    }
 
     return returnValue;
 }
@@ -148,6 +245,14 @@ void CubeMapGeneratorStageDataBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+    {
+        _sfCamera.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (TexTransformFieldMask & whichField))
+    {
+        _sfTexTransform.copyToBin(pMem);
+    }
 }
 
 void CubeMapGeneratorStageDataBase::copyFromBin(BinaryDataHandler &pMem,
@@ -155,6 +260,14 @@ void CubeMapGeneratorStageDataBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+    {
+        _sfCamera.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TexTransformFieldMask & whichField))
+    {
+        _sfTexTransform.copyFromBin(pMem);
+    }
 }
 
 //! create a new instance of the class
@@ -222,12 +335,16 @@ FieldContainerTransitPtr CubeMapGeneratorStageDataBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 CubeMapGeneratorStageDataBase::CubeMapGeneratorStageDataBase(void) :
-    Inherited()
+    Inherited(),
+    _sfCamera                 (NULL),
+    _sfTexTransform           (NULL)
 {
 }
 
 CubeMapGeneratorStageDataBase::CubeMapGeneratorStageDataBase(const CubeMapGeneratorStageDataBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfCamera                 (NULL),
+    _sfTexTransform           (NULL)
 {
 }
 
@@ -238,6 +355,71 @@ CubeMapGeneratorStageDataBase::~CubeMapGeneratorStageDataBase(void)
 {
 }
 
+void CubeMapGeneratorStageDataBase::onCreate(const CubeMapGeneratorStageData *source)
+{
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        CubeMapGeneratorStageData *pThis = static_cast<CubeMapGeneratorStageData *>(this);
+
+        pThis->setCamera(source->getCamera());
+
+        pThis->setTexTransform(source->getTexTransform());
+    }
+}
+
+GetFieldHandlePtr CubeMapGeneratorStageDataBase::getHandleCamera          (void) const
+{
+    SFUnrecCameraPtr::GetHandlePtr returnValue(
+        new  SFUnrecCameraPtr::GetHandle(
+             &_sfCamera,
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CubeMapGeneratorStageDataBase::editHandleCamera         (void)
+{
+    SFUnrecCameraPtr::EditHandlePtr returnValue(
+        new  SFUnrecCameraPtr::EditHandle(
+             &_sfCamera,
+             this->getType().getFieldDesc(CameraFieldId)));
+
+    returnValue->setSetMethod(
+        boost::bind(&CubeMapGeneratorStageData::setCamera,
+                    static_cast<CubeMapGeneratorStageData *>(this), _1));
+
+    editSField(CameraFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CubeMapGeneratorStageDataBase::getHandleTexTransform    (void) const
+{
+    SFUnrecTextureTransformChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureTransformChunkPtr::GetHandle(
+             &_sfTexTransform,
+             this->getType().getFieldDesc(TexTransformFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CubeMapGeneratorStageDataBase::editHandleTexTransform   (void)
+{
+    SFUnrecTextureTransformChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureTransformChunkPtr::EditHandle(
+             &_sfTexTransform,
+             this->getType().getFieldDesc(TexTransformFieldId)));
+
+    returnValue->setSetMethod(
+        boost::bind(&CubeMapGeneratorStageData::setTexTransform,
+                    static_cast<CubeMapGeneratorStageData *>(this), _1));
+
+    editSField(TexTransformFieldMask);
+
+    return returnValue;
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -272,12 +454,16 @@ void CubeMapGeneratorStageDataBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+    static_cast<CubeMapGeneratorStageData *>(this)->setCamera(NULL);
+
+    static_cast<CubeMapGeneratorStageData *>(this)->setTexTransform(NULL);
+
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeMapGeneratorStageData *>::_type("CubeMapGeneratorStageDataPtr", "StageDataPtr");
+DataType FieldTraits<CubeMapGeneratorStageData *>::_type("CubeMapGeneratorStageDataPtr", "DynamicStateGeneratorStageDataPtr");
 #endif
 
 

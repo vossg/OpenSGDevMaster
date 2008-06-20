@@ -51,7 +51,8 @@ OSG_BEGIN_NAMESPACE
            PageGroupDynamicStateGenerator for a description.
 */
 
-class OSG_GROUP_DLLMAPPING DynamicStateGenerator : public DynamicStateGeneratorBase
+class OSG_GROUP_DLLMAPPING DynamicStateGenerator : 
+    public DynamicStateGeneratorBase
 {
   protected:
 
@@ -105,6 +106,14 @@ class OSG_GROUP_DLLMAPPING DynamicStateGenerator : public DynamicStateGeneratorB
     /*! \{                                                                 */
 
     virtual ~DynamicStateGenerator(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Render                                  */
+    /*! \{                                                                 */
+
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

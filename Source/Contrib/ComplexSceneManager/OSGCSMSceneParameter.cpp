@@ -133,6 +133,9 @@ void CSMSceneParameter::changed(ConstFieldMaskArg whichField,
                 Pnt3f(_sfSceneCenter.getValue()[0],
                       _sfSceneCenter.getValue()[1],
                       _sfSceneCenter.getValue()[2] + rDist));
+
+            std::cerr << "Center: " << getSceneCenter()
+                      << std::endl;
         }
     }
 }

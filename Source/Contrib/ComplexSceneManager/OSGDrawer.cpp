@@ -135,6 +135,8 @@ bool Drawer::init(void)
 
     _pAction = RenderAction::create();
 
+//    _pAction->setFrustumCulling(false);
+
     return returnValue;
 }
 
