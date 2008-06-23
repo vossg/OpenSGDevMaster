@@ -583,6 +583,7 @@ void VRMLFile::addRoute(const Char8  *szOutNodename,
     FieldContainer *pDstNode = findReference(szInNodename);
 
     AttachmentContainer *pSrc = dynamic_cast<AttachmentContainer *>(pSrcNode);
+    AttachmentContainer *pDst = dynamic_cast<AttachmentContainer *>(pDstNode);
 
     if(pSrc == NULL)
     {
@@ -596,8 +597,86 @@ void VRMLFile::addRoute(const Char8  *szOutNodename,
         return;
     }
 
-    addConnection(pSrc,     szOutFieldname,
-                  pDstNode, szInFieldname );
+    VRMLGenericAtt *pSrcAtt = dynamic_cast<VRMLGenericAtt *>(
+        pSrc->findAttachment(VRMLGenericAtt::getClassType()));
+
+    VRMLGenericAtt *pDstAtt = NULL;
+
+    if(pDst != NULL)
+    {
+        pDstAtt = dynamic_cast<VRMLGenericAtt *>(
+            pDst->findAttachment(VRMLGenericAtt::getClassType()));
+    }
+
+    if(pSrcAtt == NULL)
+    {
+        Node *pNode = dynamic_cast<Node *>(pSrc);
+
+        if(pNode != NULL && pNode->getCore() != NULL)
+        {
+            pSrcAtt = dynamic_cast<VRMLGenericAtt *>(
+                pNode->getCore()->findAttachment(
+                    VRMLGenericAtt::getClassType())); 
+        }
+    }
+
+    if(pDstAtt == NULL)
+    {
+        Node *pNode = dynamic_cast<Node *>(pDst);
+
+        if(pNode != NULL && pNode->getCore() != NULL)
+        {
+            pDstAtt = dynamic_cast<VRMLGenericAtt *>(
+                pNode->getCore()->findAttachment(
+                    VRMLGenericAtt::getClassType())); 
+        }
+    }
+
+   
+    std::string szOutFName = szOutFieldname;
+    std::string szInFName  = szInFieldname;
+
+    
+    std::string::size_type uiPos = szOutFName.rfind(std::string("_changed"));
+
+
+    if(uiPos != std::string::npos)
+    {
+        szOutFName[uiPos] = '\0';
+    }
+    
+    uiPos = szInFName.find(std::string("set_"));
+
+    if(uiPos != std::string::npos)
+    {
+        szInFName.erase(uiPos, uiPos + 4);
+    }
+
+
+    if(pSrcAtt != NULL)
+    {
+        VRMLNodeHelper *pHelper = findNodeHelper(
+            pSrcAtt->getVrmlNodeTypename().c_str());
+
+        if(pHelper != NULL)
+        {
+            pHelper->mapFieldname(pSrcAtt->getVrmlNodeTypename(), szOutFName);
+        }
+    }
+
+    if(pSrcAtt != NULL)
+    {
+        VRMLNodeHelper *pHelper = findNodeHelper(
+            pDstAtt->getVrmlNodeTypename().c_str());
+
+        if(pHelper != NULL)
+        {
+            pHelper->mapFieldname(pDstAtt->getVrmlNodeTypename(), szInFName);
+        }
+    }
+
+    addConnection(pSrc,     szOutFName.c_str(),
+                  pDstNode, szInFName .c_str());
 }
 
 /*-------------------------------------------------------------------------*/

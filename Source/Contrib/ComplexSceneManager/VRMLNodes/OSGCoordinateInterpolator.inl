@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2008 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,47 +34,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMOUSEDATA_H_
-#define _OSGMOUSEDATA_H_
-
-#include "OSGBaseTypes.h"
-#include "OSGQuaternionFields.h"
-#include "OSGVec3fFields.h"
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
 OSG_BEGIN_NAMESPACE
 
-template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT>
-struct InterpolationHelper
-{
-  public:
-
-
-    static void copyFirstValue(const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-
-    static void copyLastValue (const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-
-    static void lerp          (const UInt32          uiStopIndex,
-                               const UInt32          uiStartIndex,
-                               const Real32          rFraction,
-                               const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-
-    static void interpolate   (const Real32          rFraction,
-                               const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-     
-
-};
-
-
 OSG_END_NAMESPACE
-
-#include "OSGInterpolationHelper.inl"
-
-#endif

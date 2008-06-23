@@ -54,6 +54,7 @@
 
 #include "OSGChunkMaterial.h"
 #include "OSGMaterialChunk.h"
+#include "OSGVRMLAttachment.h"
 
 #ifdef OSG_STL_HAS_HASH_MAP
 #ifdef OSG_HASH_MAP_AS_EXT
@@ -80,13 +81,13 @@ class Image;
 
 struct VRMLGenericAttDesc
 {
-    typedef Attachment  Parent;
-    typedef Attachment *ParentPtr;
+    typedef VRMLAttachment  Parent;
+    typedef VRMLAttachment *ParentPtr;
 
     static const Char8 *getTypeName      (void) { return "VRMLGenericAtt"; }
     static const Char8 *getParentTypeName(void) 
     {
-        return "Attachment"; 
+        return "VRMLAttachment"; 
     }
     static const Char8 *getGroupName     (void) { return "VRMLGenAtt"; }
 
@@ -288,6 +289,14 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
 
     virtual 
         void                     endNode  (      FieldContainer *          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Field                                    */
+    /*! \{                                                                 */
+
+    virtual void mapFieldname(const std::string &szVRMLNodeName,
+                                    std::string &szFieldName   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1100,6 +1109,9 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryPartHelper : public VRMLNodeHelper
     /*---------------------------------------------------------------------*/
     /*! \name                     Node                                     */
     /*! \{                                                                 */
+
+    virtual void mapFieldname(const std::string &szVRMLNodeName,
+                                    std::string &szFieldName   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

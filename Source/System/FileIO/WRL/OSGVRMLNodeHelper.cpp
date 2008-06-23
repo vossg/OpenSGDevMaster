@@ -313,6 +313,8 @@ FieldContainerTransitPtr VRMLNodeHelper::beginNode(
 
             pAtt = dynamic_cast<VRMLGenericAtt *>(pAttClone);
 
+            pAtt->setVrmlNodeTypename(szTypename);
+
             OSG_ASSERT(pAttClone == pAtt);
 
             if(pAtt != NULL)
@@ -341,6 +343,10 @@ FieldContainerTransitPtr VRMLNodeHelper::beginNode(
 }
 
 void VRMLNodeHelper::endNode(FieldContainer *)
+{
+}
+
+void VRMLNodeHelper::mapFieldname(const std::string &, std::string &)
 {
 }
 
@@ -2717,6 +2723,12 @@ void VRMLGeometryPartHelper::getFieldAndDesc(
 
 /*-------------------------------------------------------------------------*/
 /*                                Node                                     */
+
+void VRMLGeometryPartHelper::mapFieldname(const std::string &,
+                                                std::string &szFieldName)
+{
+    szFieldName.assign("values");
+}
 
 
 /*-------------------------------------------------------------------------*/

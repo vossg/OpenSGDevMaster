@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2008 by the OpenSG Forum                          *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,47 +36,79 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMOUSEDATA_H_
-#define _OSGMOUSEDATA_H_
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
-#include "OSGBaseTypes.h"
-#include "OSGQuaternionFields.h"
-#include "OSGVec3fFields.h"
+#include <cstdlib>
+#include <cstdio>
+
+#include <OSGConfig.h>
+
+#include "OSGVRMLAttachment.h"
 
 OSG_BEGIN_NAMESPACE
 
-template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT>
-struct InterpolationHelper
+// Documentation for this class is emitted in the
+// OSGVRMLAttachmentBase.cpp file.
+// To modify it, please change the .fcd file (OSGVRMLAttachment.fcd) and
+// regenerate the base file.
+
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
+
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
+
+void VRMLAttachment::initMethod(InitPhase ePhase)
 {
-  public:
+    Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
+}
 
 
-    static void copyFirstValue(const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
 
-    static void copyLastValue (const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
 
-    static void lerp          (const UInt32          uiStopIndex,
-                               const UInt32          uiStartIndex,
-                               const Real32          rFraction,
-                               const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
+/*----------------------- constructors & destructors ----------------------*/
 
-    static void interpolate   (const Real32          rFraction,
-                               const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-     
+VRMLAttachment::VRMLAttachment(void) :
+    Inherited()
+{
+}
 
-};
+VRMLAttachment::VRMLAttachment(const VRMLAttachment &source) :
+    Inherited(source)
+{
+}
 
+VRMLAttachment::~VRMLAttachment(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void VRMLAttachment::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
+
+void VRMLAttachment::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump VRMLAttachment NI" << std::endl;
+}
 
 OSG_END_NAMESPACE
-
-#include "OSGInterpolationHelper.inl"
-
-#endif

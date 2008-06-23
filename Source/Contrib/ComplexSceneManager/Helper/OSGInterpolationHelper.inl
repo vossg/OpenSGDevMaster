@@ -42,6 +42,7 @@ template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT> inline
 void InterpolationHelper<KeyFieldT,
                          KeyValueFieldT,
                          ValueFieldT>::copyFirstValue(
+                             const KeyFieldT      &,
                              const KeyValueFieldT &mfKeyValues,
                                    ValueFieldT    &fValue     )
 {
@@ -52,12 +53,14 @@ template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT> inline
 void InterpolationHelper<KeyFieldT,
                          KeyValueFieldT,
                          ValueFieldT>::copyLastValue (
+                             const KeyFieldT      &,
                              const KeyValueFieldT &mfKeyValues,
                                    ValueFieldT    &fValue     )
 {
     fValue.setValue(mfKeyValues.back());
 }
 
+// Orientation
 
 template<> inline
 void InterpolationHelper<MFReal32, 
@@ -90,9 +93,126 @@ void InterpolationHelper<MFReal32,
     }
 }
 
+// Position
+
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFVec3f, 
+                         SFVec3f>::lerp( 
+                             const UInt32    uiStopIndex,
+                             const UInt32    uiStartIndex,
+                             const Real32    rFraction,
+                             const MFReal32 &mfKeys,
+                             const MFVec3f  &mfKeyValues,
+                                   SFVec3f  &fValue  )
+{
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) < Eps)
+    {
+        return;
+    }
+    else
+    {
+        Vec3f vResult;
+
+        Real32 t =
+            (rFraction           - mfKeys[uiStartIndex]) /
+            (mfKeys[uiStopIndex] - mfKeys[uiStartIndex]);
+        
+        vResult  = mfKeyValues[uiStopIndex ];
+        vResult -= mfKeyValues[uiStartIndex];
+        vResult *= t;
+
+        vResult += mfKeyValues[uiStartIndex];
+
+        fValue.setValue(vResult);
+    }
+}
 
 
+// Coordinate
 
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFPnt3f, 
+                         MFPnt3f>::copyFirstValue(
+                             const MFReal32 &mfKeys,
+                             const MFPnt3f  &mfKeyValues,
+                                   MFPnt3f  &fValue     )
+{
+    UInt32 uiNumPoints = UInt32(mfKeyValues.size() / mfKeys.size());
+
+    MFPnt3f::const_iterator startIt = mfKeyValues.begin();
+    MFPnt3f::const_iterator stopIt  = startIt + uiNumPoints;
+    
+    fValue.clear();
+    fValue.insert(fValue.begin(), startIt, stopIt);
+}
+
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFPnt3f, 
+                         MFPnt3f>::copyLastValue (
+                             const MFReal32 &mfKeys,
+                             const MFPnt3f  &mfKeyValues,
+                                   MFPnt3f  &fValue     )
+{
+    UInt32 uiNumPoints = UInt32(mfKeyValues.size() / mfKeys.size());
+
+    MFPnt3f::const_iterator stopIt  = mfKeyValues.end();
+    MFPnt3f::const_iterator startIt = stopIt - (uiNumPoints + 1);
+    
+    fValue.clear();
+    fValue.insert(fValue.begin(), startIt, stopIt);
+}
+
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFPnt3f, 
+                         MFPnt3f>::lerp( 
+                             const UInt32    uiStopIndex,
+                             const UInt32    uiStartIndex,
+                             const Real32    rFraction,
+                             const MFReal32 &mfKeys,
+                             const MFPnt3f  &mfKeyValues,
+                                   MFPnt3f  &fValue  )
+{
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) < Eps)
+    {
+        return;
+    }
+    else
+    {
+        Pnt3f vResult;
+
+        UInt32 uiNumPoints = UInt32(mfKeyValues.size() / mfKeys.size());
+
+        Real32 t =
+            (rFraction           - mfKeys[uiStartIndex]) /
+            (mfKeys[uiStopIndex] - mfKeys[uiStartIndex]);
+
+        UInt32 uiIndex1    = uiStartIndex * uiNumPoints;
+        UInt32 uiIndex2    = uiStopIndex  * uiNumPoints;
+        
+        fValue.clear();
+
+        for(UInt32 i = 0; i < uiNumPoints; i++)
+        {
+            vResult  = mfKeyValues[uiIndex2];
+            vResult -= mfKeyValues[uiIndex1].subZero();
+            vResult *= t;
+            
+            vResult += mfKeyValues[uiIndex1].subZero();
+                
+            fValue.push_back(vResult);
+            
+            ++uiIndex1;
+            ++uiIndex2;
+        }
+    }
+}
+
+
+// Interpolate
 
 template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT> inline
 void InterpolationHelper<KeyFieldT,
@@ -113,7 +233,7 @@ void InterpolationHelper<KeyFieldT,
     {
         if(keyIt == mfKeys.begin())
         {
-            copyFirstValue(mfKeyValues, fValue);
+            copyFirstValue(mfKeys, mfKeyValues, fValue);
         }
         else
         {
@@ -130,7 +250,7 @@ void InterpolationHelper<KeyFieldT,
     }
     else
     {
-        copyLastValue(mfKeyValues, fValue);
+        copyLastValue(mfKeys, mfKeyValues, fValue);
     }
 }
 

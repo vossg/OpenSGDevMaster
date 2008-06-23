@@ -52,8 +52,8 @@ OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
 // OSGOrientationInterpolatorBase.cpp file.
-// To modify it, please change the .fcd file (OSGOrientationInterpolator.fcd) and
-// regenerate the base file.
+// To modify it, please change the .fcd file (OSGOrientationInterpolator.fcd) 
+// and regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -88,7 +88,9 @@ OrientationInterpolator::OrientationInterpolator(void) :
 {
 }
 
-OrientationInterpolator::OrientationInterpolator(const OrientationInterpolator &source) :
+OrientationInterpolator::OrientationInterpolator(
+    const OrientationInterpolator &source) :
+
     Inherited(source)
 {
 }
@@ -105,10 +107,13 @@ void OrientationInterpolator::changed(ConstFieldMaskArg whichField,
 {
     if(0x0000 != (whichField & FractionFieldMask))
     {
-        InterpolationHelper<MFReal32, MFQuaternion, SFQuaternion>::interpolate(  _sfFraction.getValue(),
-                                                                                 _mfKey,
-                                                                                 _mfKeyValue,
-                                                                               *(this->editSFValue()));
+        InterpolationHelper<MFReal32, 
+                            MFQuaternion, 
+                            SFQuaternion>::interpolate(  
+                                  _sfFraction.getValue(),
+                                  _mfKey,
+                                  _mfKeyValue,
+                                *(this->editSFValue()));
     }
 
     Inherited::changed(whichField, origin, details);
