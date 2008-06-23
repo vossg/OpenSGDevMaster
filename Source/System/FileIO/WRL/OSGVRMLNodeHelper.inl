@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *             Copyright (C) 2008 by the OpenSG Forum                        *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *   contact: dirk@opensg.org, vossg@vossg.org, carsten_neumann@gmx.net      *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,31 +36,46 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGCSMVRMLNodeHelper.h>
-#include <OSGTimeSensor.h>
-#include <OSGOrientationInterpolator.h>
-#include <OSGGroup.h>
-
 OSG_BEGIN_NAMESPACE
 
-//---------------------------------------------------------------------------
-//  Generic Helper with 1:1 mapping
-//---------------------------------------------------------------------------
+template<class ContainerT> inline
+VRMLNodeHelper *VRMLGenericHelper<ContainerT>::create(void)
+{
+    return new VRMLGenericHelper<ContainerT>();
+}
+       
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<TimeSensor>::_regHelper(
-        &VRMLGenericHelper<TimeSensor>::create,
-        "TimeSensor");
+template<class ContainerT> inline
+VRMLGenericHelper<ContainerT>::~VRMLGenericHelper(void)
+{
+}
 
-template class VRMLGenericHelper<TimeSensor>;
+template<class ContainerT> inline
+void VRMLGenericHelper<ContainerT>::init(const Char8 *szName)
+{
+    Inherited::init(szName);
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<OrientationInterpolator>::_regHelper(
-        &VRMLGenericHelper<OrientationInterpolator>::create,
-        "OrientationInterpolator");
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "GroupHelper::init : " << szName << std::endl;
+#endif
 
-template class VRMLGenericHelper<OrientationInterpolator>;
+    _pNodeProto     = Node      ::create();
+    _pNodeCoreProto = ContainerT::create();
+
+    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto->setInternal(true);
+}
+
+template<class ContainerT> inline
+void VRMLGenericHelper<ContainerT>::dump(const Char8 *szNodeName)
+{
+}
+
+template<class ContainerT> inline
+VRMLGenericHelper<ContainerT>::VRMLGenericHelper(void) :
+    Inherited()
+{
+}
 
 OSG_END_NAMESPACE

@@ -43,8 +43,78 @@
 #endif
 
 #include <boost/function.hpp>  
+#include <boost/type_traits.hpp>
 
 OSG_BEGIN_NAMESPACE
+
+/*---------------------------------------------------------------------------*/
+/* GetMFieldHandle<FieldContainerPtrMFieldBase>                              */
+/*---------------------------------------------------------------------------*/
+
+template<>
+class OSG_SYSTEM_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> : 
+    public GetFieldHandle
+{
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef GetFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef boost::shared_ptr<GetMFieldHandle> Ptr;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
+
+    GetMFieldHandle(const GetMFieldHandle             &source);
+    GetMFieldHandle(const FieldContainerPtrMFieldBase *pField, 
+                    const FieldDescriptionBase        *pDescription);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Field Type Query                                             */
+    /*! \{                                                                 */
+
+    virtual const FieldType &getType       (void) const;
+    virtual       bool       isPointerField(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Stream/String IO                                             */
+    /*! \{                                                                 */
+
+    virtual void pushValueToStream(OutStream &str) const;
+    virtual void pushSizeToStream (OutStream &str) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Comparison                                                   */
+    /*! \{                                                                 */
+
+    virtual bool equal(Inherited::Ptr rhs) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+    
+    virtual FieldContainer *get    (UInt32          index     ) const = 0;
+    virtual UInt32          size   (void                      ) const = 0;
+    virtual Int32           find   (FieldContainer *existingFC) const = 0;
+
+    FieldContainerPtrMFieldBase const * get        (void);
+    FieldContainerPtrMFieldBase const * operator ->(void);
+    FieldContainerPtrMFieldBase const & operator * (void);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+};
+
 
 /*---------------------------------------------------------------------------*/
 /* EditMFieldHandle<FieldContainerPtrMFieldBase>                             */
@@ -58,10 +128,15 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 
   protected:
 
-    typedef EditFieldHandle Inherited;
+    typedef EditFieldHandle                                Inherited;
+
+    typedef GetMFieldHandle<FieldContainerPtrMFieldBase>   GetMFHandle;
+    typedef boost::shared_ptr<GetMFHandle>                 GetMFHandlePtr;
     
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
@@ -102,7 +177,7 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
     virtual UInt32          size(void                      ) const = 0;
     virtual Int32           find(FieldContainer *existingFC) const = 0;
     
-    virtual bool add          (FieldContainer *newFC      ) = 0;
+    virtual bool add          (FieldContainer *newFC      ) const = 0;
     virtual bool remove       (UInt32          index      ) = 0;
     virtual bool removeObject (FieldContainer *existingFC ) = 0;
     virtual bool insert       (UInt32          index,
@@ -151,72 +226,6 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 
 
 /*---------------------------------------------------------------------------*/
-/* GetMFieldHandle<FieldContainerPtrMFieldBase>                              */
-/*---------------------------------------------------------------------------*/
-
-template<>
-class OSG_SYSTEM_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> : 
-    public GetFieldHandle
-{
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-
-    typedef GetFieldHandle Inherited;
-
-    /*==========================  PUBLIC  =================================*/
-  public:
-
-    typedef boost::shared_ptr<GetMFieldHandle> Ptr;
-
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructors                                                 */
-    /*! \{                                                                 */
-
-    GetMFieldHandle(const GetMFieldHandle             &source);
-    GetMFieldHandle(const FieldContainerPtrMFieldBase *pField, 
-                    const FieldDescriptionBase        *pDescription);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Field Type Query                                             */
-    /*! \{                                                                 */
-
-    virtual const FieldType &getType       (void) const;
-    virtual       bool       isPointerField(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Stream/String IO                                             */
-    /*! \{                                                                 */
-
-    virtual void pushValueToStream(OutStream &str) const;
-    virtual void pushSizeToStream (OutStream &str) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Comparison                                                   */
-    /*! \{                                                                 */
-
-    virtual bool equal(Inherited::Ptr rhs) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
-    /*! \{                                                                 */
-    
-    virtual FieldContainer *get    (UInt32          index     ) const = 0;
-    virtual UInt32          size   (void                      ) const = 0;
-    virtual Int32           find   (FieldContainer *existingFC) const = 0;
-
-    FieldContainerPtrMFieldBase const * operator ->(void);
-    FieldContainerPtrMFieldBase const & operator * (void);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-};
-
-
-/*---------------------------------------------------------------------------*/
 /* GetFCPtrMFieldHandle<FieldT>                                              */
 /*---------------------------------------------------------------------------*/
 
@@ -224,12 +233,16 @@ template <class FieldT>
 class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
 {
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     typedef FieldT                                       HandledField;
     typedef GetMFieldHandle<FieldContainerPtrMFieldBase> Inherited;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
@@ -267,7 +280,9 @@ class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
+
     const HandledField *dcast_const(void) const;
 };
 
@@ -281,24 +296,42 @@ class EditFCPtrMFieldHandle :
     public EditMFieldHandle<FieldContainerPtrMFieldBase>
 {
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Protected Types                                              */
     /*! \{                                                                 */
 
-    typedef FieldT                                               HandledField;
-    typedef EditMFieldHandle<FieldContainerPtrMFieldBase>        Inherited;
+    typedef FieldT                                              HandledField;
+    typedef EditMFieldHandle<FieldContainerPtrMFieldBase>       Inherited;
+    typedef EditFCPtrMFieldHandle                               Self;
 
-    typedef boost::function<void (typename FieldT::const_value)> AddMethod;
-    typedef boost::function<void (UInt32)                      > RemoveMethod;
-    typedef boost::function<void (typename FieldT::const_value)> RemoveObjMethod;
-    typedef boost::function<void (UInt32,
-                                  typename FieldT::const_value)> InsertMethod;
-    typedef boost::function<void (UInt32,
-                                  typename FieldT::const_value)> ReplaceMethod;
-    typedef boost::function<void (typename FieldT::const_value, 
-                                  typename FieldT::const_value)> ReplaceObjMethod;
-    typedef boost::function<void (void)                        > ClearMethod;
+    typedef typename FieldT::value_type                         StoredPtrType;
+
+    typedef typename boost::remove_pointer<StoredPtrType>::type StoredType;
+
+    typedef          RefCountPtr<StoredType,
+                                 UnrecordedRefCountPolicy>      StoredUnrecPtr;
+
+
+    typedef 
+        boost::function<void (typename FieldT::const_value)>   AddMethod;
+    typedef 
+        boost::function<void (UInt32)                      >   RemoveMethod;
+    typedef 
+        boost::function<void (typename FieldT::const_value)>   RemoveObjMethod;
+    typedef 
+        boost::function<void (UInt32,
+                              typename FieldT::const_value)>   InsertMethod;
+    typedef 
+        boost::function<void (UInt32,
+                              typename FieldT::const_value)>   ReplaceMethod;
+    typedef 
+        boost::function<void (typename FieldT::const_value, 
+                              typename FieldT::const_value)>   ReplaceObjMethod;
+    typedef 
+        boost::function<void (void)                        >   ClearMethod;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -348,7 +381,7 @@ class EditFCPtrMFieldHandle :
     virtual UInt32          size(void                      ) const;
     virtual Int32           find(FieldContainer *existingFC) const;
     
-    virtual bool add          (FieldContainer *newFC      );
+    virtual bool add          (FieldContainer *newFC      ) const;
     virtual bool remove       (UInt32          index      );
     virtual bool removeObject (FieldContainer *existingFC );
     virtual bool insert       (UInt32          index,
@@ -400,7 +433,7 @@ class EditFCPtrMFieldHandle :
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
-          HandledField *dcast      (void);
+          HandledField *dcast      (void) const;
     const HandledField *dcast_const(void) const;
 };
 

@@ -242,6 +242,13 @@ bool GetMFieldHandle<FieldContainerPtrMFieldBase>::equal(
 
 inline
 FieldContainerPtrMFieldBase const *
+    GetMFieldHandle<FieldContainerPtrMFieldBase>::get(void)
+{
+    return static_cast<FieldContainerPtrMFieldBase const *>(_pField);
+}
+
+inline
+FieldContainerPtrMFieldBase const *
     GetMFieldHandle<FieldContainerPtrMFieldBase>::operator ->(void)
 {
     return static_cast<FieldContainerPtrMFieldBase const *>(_pField);
@@ -574,7 +581,7 @@ Int32 EditFCPtrMFieldHandle<FieldT>::find(FieldContainer *existingFC) const
     \note This operation is only available if \c supportsAdd returns \c true.
  */
 template <class FieldT>
-bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC)
+bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC) const
 {
     bool                         retVal     = false;
     typename FieldT::const_value typedNewFC =
@@ -1035,7 +1042,25 @@ void EditFCPtrMFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
 template <class FieldT> inline
 void EditFCPtrMFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source) const
 {
-    OSG_ASSERT(false);
+    typename Self::GetMFHandlePtr pSrcBase = 
+        boost::dynamic_pointer_cast<GetMFHandle>(source);
+
+    FieldContainerUnrecPtr pDst = NULL;
+
+    if(pSrcBase != NULL && pSrcBase->isValid() == true)
+    {
+        const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->get();
+            
+        for(UInt32 i = 0; i < pSrcField->size(); ++i)
+        {
+            this->add((*pSrcField)[i]);
+        }
+    }
+    else
+    {
+        FWARNING(("shareValues illegal source for %s\n", 
+                  this->getName().c_str()));
+    }
 }
 
 template <class FieldT> inline
@@ -1046,7 +1071,40 @@ void EditFCPtrMFieldHandle<FieldT>::cloneValues(
         const TypeIdVector      &shareGroupIds,
         const TypeIdVector      &ignoreGroupIds) const
 {
-    OSG_ASSERT(false);
+    typename Self::GetMFHandlePtr pSrcBase = 
+        boost::dynamic_pointer_cast<GetMFHandle>(pSrc);
+
+    FieldContainerUnrecPtr pDst = NULL;
+
+    if(pSrcBase != NULL && pSrcBase->isValid() == true)
+    {
+        const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->get();
+            
+        for(UInt32 i = 0; i < pSrcField->size(); ++i)
+        {
+            StoredPtrType pSrc = dynamic_cast<StoredPtrType>((*pSrcField)[i]);
+
+            if(pSrc != NULL)
+            {
+                pDst = deepClone(pSrc,
+                                 shareTypes,
+                                 ignoreTypes,
+                                 shareGroupIds,
+                                 ignoreGroupIds);
+            }
+            else
+            {
+                pDst = NULL;
+            }
+            
+            this->add(pDst);
+        }
+    }
+    else
+    {
+        FWARNING(("cloneValues illegal source for %s\n", 
+                  this->getName().c_str()));
+    }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -1054,7 +1112,7 @@ void EditFCPtrMFieldHandle<FieldT>::cloneValues(
 
 template <class FieldT> inline
 typename EditFCPtrMFieldHandle<FieldT>::HandledField *
-    EditFCPtrMFieldHandle<FieldT>::dcast(void)
+    EditFCPtrMFieldHandle<FieldT>::dcast(void) const
 {
     return static_cast<HandledField *>(_pField);
 }

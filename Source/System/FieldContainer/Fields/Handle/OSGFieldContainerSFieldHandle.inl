@@ -406,7 +406,7 @@ FieldContainer *EditFCPtrSFieldHandle<FieldT>::get(void) const
 }
 
 template <class FieldT>
-bool EditFCPtrSFieldHandle<FieldT>::set(FieldContainer *newFC)
+bool EditFCPtrSFieldHandle<FieldT>::set(FieldContainer *newFC) const
 {
     bool                         retVal     = false;
     typename FieldT::const_value typedNewFC =
@@ -504,7 +504,18 @@ void EditFCPtrSFieldHandle<FieldT>::copyValues(GetFieldHandlePtr source) const
 template <class FieldT> inline
 void EditFCPtrSFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source) const
 {
-    OSG_ASSERT(false);
+    typename Self::GetSFHandlePtr pSrcBase = 
+        boost::dynamic_pointer_cast<GetSFHandle>(source);
+
+    if(pSrcBase != NULL && pSrcBase->isValid() == true)
+    {
+        this->set(pSrcBase->get());
+    }
+    else
+    {
+        FWARNING(("shareValues illegal source for %s\n", 
+                  this->getName().c_str()));
+    }
 }
 
 template <class FieldT> inline
@@ -515,7 +526,29 @@ void EditFCPtrSFieldHandle<FieldT>::cloneValues(
         const TypeIdVector      &shareGroupIds,
         const TypeIdVector      &ignoreGroupIds) const
 {
-    OSG_ASSERT(false);
+    typename Self::GetSFHandlePtr pSrcBase = 
+        boost::dynamic_pointer_cast<GetSFHandle>(pSrc);
+
+    if(pSrcBase != NULL && pSrcBase->isValid() == true)
+    {
+        StoredPtrType pSrc = dynamic_cast<StoredPtrType>(pSrcBase->get());
+
+        if(pSrc != NULL)
+        {
+            FieldContainerUnrecPtr pDst = deepClone(pSrc,
+                                                    shareTypes,
+                                                    ignoreTypes,
+                                                    shareGroupIds,
+                                                    ignoreGroupIds);
+
+            this->set(pDst);
+        }
+    }
+    else
+    {
+        FWARNING(("cloneValues illegal source for %s\n", 
+                  this->getName().c_str()));
+    }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -523,7 +556,7 @@ void EditFCPtrSFieldHandle<FieldT>::cloneValues(
 
 template <class FieldT> inline
 typename EditFCPtrSFieldHandle<FieldT>::HandledField *
-    EditFCPtrSFieldHandle<FieldT>::dcast(void)
+    EditFCPtrSFieldHandle<FieldT>::dcast(void) const
 {
     return static_cast<HandledField *>(_pField);
 }

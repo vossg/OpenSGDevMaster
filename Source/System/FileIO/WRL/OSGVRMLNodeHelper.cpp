@@ -36,8 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-// AMZ disabled for now.
-
 #define OSG_COMPILEVRMLNODEDESCINST
 
 #include <cstdlib>
@@ -70,6 +68,7 @@
 #include "OSGSimpleGeometry.h"
 #include "OSGComponentTransform.h"
 #include "OSGInline.h"
+#include "OSGSwitch.h"
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"
@@ -443,6 +442,9 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainer       * pFC,
                                            EditFieldHandlePtr    &pField,
                                      const FieldDescriptionBase *&pDesc)
 {
+    if(szFieldname == NULL)
+        return;
+
     FieldContainer *pTmpFC    = NULL;
     Node           *pNode     = NULL;
     NodeCore       *pNodeCore = NULL;
@@ -835,6 +837,8 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     OSG_CREATE_DESC_ELSE(SFTime)
     OSG_CREATE_DESC_ELSE(MFTime)
 
+    OSG_CREATE_DESC_ELSE(MFVec2f)
+    OSG_CREATE_DESC_ELSE(SFVec2f)
     OSG_CREATE_DESC_ELSE(MFPnt3f)
     OSG_CREATE_DESC_ELSE(SFPnt3f)
     OSG_CREATE_DESC_ELSE(MFVec3f)
@@ -842,8 +846,19 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     OSG_CREATE_DESC_ELSE(MFColor3f)
     OSG_CREATE_DESC_ELSE(SFColor3f)
     OSG_CREATE_DESC_ELSE(MFQuaternion)
+    OSG_CREATE_DESC_ELSE(SFQuaternion)
 
     OSG_CREATE_PTRDESC_ELSE(SFUnrecFieldContainerPtr)
+    OSG_CREATE_PTRDESC_ELSE(MFUnrecFieldContainerPtr)
+
+    OSG_CREATE_PTRDESC_ELSE(SFUnrecImagePtr)
+
+    if(returnValue == NULL)
+    {
+        FWARNING(("could not create field desc for %s (%d)\n",
+                  szFieldName,
+                  uiFieldTypeId));
+    }
 
     return returnValue;
 }
@@ -936,6 +951,7 @@ VRMLDefaultHelper::~VRMLDefaultHelper(void)
 void VRMLDefaultHelper::init(const Char8 *szName)
 {
     Inherited::init(szName);
+
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
     PINFO << "GroupHelper::init : " << szName << std::endl;
@@ -946,12 +962,18 @@ void VRMLDefaultHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pNodeCoreProto);
-//    addRefX(_pGenAttProto  );
 }
 
+FieldContainerTransitPtr VRMLDefaultHelper::beginNode(
+    const Char8          *szTypename,
+    const Char8          *szName,
+          FieldContainer *pCurrentFC)
+{
+    FWARNING(("Use default helper for %s, functionality currently not "
+              "supported\n", szTypename));
+
+    return Inherited::beginNode(szTypename, szName, pCurrentFC);
+}
 
 /*-------------------------------------------------------------------------*/
 /*                                Dump                                     */
@@ -964,229 +986,24 @@ void VRMLDefaultHelper::dump(const Char8 *)
 
 
 
-
 //---------------------------------------------------------------------------
-//  Class
+//  Generic Helper with 1:1 mapping
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLGroupHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Group description
-*/
-
-VRMLNodeHelper *VRMLGroupHelper::create(void)
-{
-    return new VRMLGroupHelper();
-}
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-VRMLGroupHelper::VRMLGroupHelper(void) :
-    Inherited()
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
-
-VRMLGroupHelper::~VRMLGroupHelper(void)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                               Helper                                    */
-
-void VRMLGroupHelper::init(const Char8 *szName)
-{
-    Inherited::init(szName);
-#ifdef OSG_DEBUG_VRML
-    indentLog(getIndent(), PINFO);
-    PINFO << "GroupHelper::init : " << szName << std::endl;
-#endif
-
-    _pNodeProto     = Node ::create();
-    _pNodeCoreProto = Group::create();
-
-    _pGenAttProto   = VRMLGenericAtt::create();
-    _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pNodeCoreProto);
-//    addRefX(_pGenAttProto  );
-}
-
-/*-------------------------------------------------------------------------*/
-/*                               Field                                     */
-
-bool VRMLGroupHelper::prototypeAddField(const Char8  *szFieldType,
-                                        const UInt32  uiFieldTypeId,
-                                        const Char8  *szFieldname)
-{
-    return Inherited::prototypeAddField(szFieldType,
-                                        uiFieldTypeId,
-                                        szFieldname);
-}
-
-void VRMLGroupHelper::getFieldAndDesc(
-          FieldContainer       * pFC,
-    const Char8                * szFieldname,
-          FieldContainer       *&pFieldFC,
-          EditFieldHandlePtr    &pField,
-    const FieldDescriptionBase *&pDesc)
-{
-    if(szFieldname == NULL)
-        return;
-
-    if(pFC == NULL)
-    {
-        if(_bProtoInterfaceDone == false)
-        {
-            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
-        }
-
-        return;
-    }
-
-#ifdef OSG_DEBUG_VRML
-    incIndent();
-#endif
-
-    Inherited::getFieldAndDesc(pFC,
-                               szFieldname,
-                               pFieldFC,
-                               pField,
-                               pDesc);
-
-#ifdef OSG_DEBUG_VRML
-    decIndent();
-#endif
-}
-
-/*-------------------------------------------------------------------------*/
-/*                                Dump                                     */
-
-void VRMLGroupHelper::dump(const Char8 *)
-{
-}
-
-
-VRMLNodeHelperFactoryBase::RegisterHelper VRMLGroupHelper::_regHelper(
-    &VRMLGroupHelper::create,
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper VRMLGenericHelper<Group>::_regHelper(
+    &VRMLGenericHelper<Group>::create,
     "Group");
 
+template class VRMLGenericHelper<Group>;
 
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGenericHelper<ComponentTransform>::_regHelper(
+        &VRMLGenericHelper<ComponentTransform>::create,
+        "Transform");
 
-
-//---------------------------------------------------------------------------
-//  Class
-//---------------------------------------------------------------------------
-
-/*! \class OSG::VRMLTransformHelper
-    \ingroup GrpSystemFileIOVRML
-    VRML Group description
-*/
-
-VRMLNodeHelper *VRMLTransformHelper::create(void)
-{
-    return new VRMLTransformHelper();
-}
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-VRMLTransformHelper::VRMLTransformHelper(void) :
-    Inherited()
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
-
-VRMLTransformHelper::~VRMLTransformHelper(void)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                               Helper                                    */
-
-void VRMLTransformHelper::init(const Char8 *szName)
-{
-    Inherited::init(szName);
-
-#ifdef OSG_DEBUG_VRML
-    indentLog(getIndent(), PINFO);
-    PINFO << "TransformHelper::init : " << szName << std::endl;
-#endif
-
-    _pNodeProto     = Node              ::create();
-    _pNodeCoreProto = ComponentTransform::create();
-
-    _pGenAttProto   = VRMLGenericAtt::create();
-    _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pNodeCoreProto);
-//    addRefX(_pGenAttProto  );
-}
-
-/*-------------------------------------------------------------------------*/
-/*                               Field                                     */
-
-bool VRMLTransformHelper::prototypeAddField(const Char8  *szFieldType,
-                                            const UInt32  uiFieldTypeId,
-                                            const Char8  *szFieldname)
-{
-    return Inherited::prototypeAddField(szFieldType,
-                                        uiFieldTypeId,
-                                        szFieldname);
-}
-
-void VRMLTransformHelper::getFieldAndDesc(
-          FieldContainer       * pFC,
-    const Char8                * szFieldname,
-          FieldContainer       *&pFieldFC,
-          EditFieldHandlePtr    &pField,
-    const FieldDescriptionBase *&pDesc)
-{
-    if(szFieldname == NULL)
-        return;
-
-    if(pFC == NULL)
-    {
-        if(_bProtoInterfaceDone == false)
-        {
-            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
-        }
-
-        return;
-    }
-
-#ifdef OSG_DEBUG_VRML
-    incIndent();
-#endif
-
-    Inherited::getFieldAndDesc(pFC,
-                               szFieldname,
-                               pFieldFC,
-                               pField,
-                               pDesc);
-#ifdef OSG_DEBUG_VRML
-    decIndent();
-#endif
-}
-
-/*-------------------------------------------------------------------------*/
-/*                                Dump                                     */
-
-void VRMLTransformHelper::dump(const Char8 *)
-{
-}
-
-
-VRMLNodeHelperFactoryBase::RegisterHelper VRMLTransformHelper::_regHelper(
-    &VRMLTransformHelper::create,
-    "Transform");
+template class VRMLGenericHelper<ComponentTransform>;
 
 
 
@@ -1336,7 +1153,6 @@ void VRMLMaterialHelper::endProtoInterface(void)
                        1.f - _defaultTransparency    .getValue());
 
     _pDefMat = ChunkMaterial::create();
-//    addRefX(_pDefMat);
 
     pMatChunk = MaterialChunk::create();
 
@@ -1600,10 +1416,6 @@ void VRMLShapeHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pNodeCoreProto);
-//    addRefX(_pGenAttProto  );
 }
 
 void VRMLShapeHelper::setMaterialHelper(VRMLMaterialHelper *pMaterialHelper)
@@ -1862,9 +1674,6 @@ void VRMLAppearanceHelper::init(const Char8 *szName)
 
     _pGenAttProto  = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pGenAttProto  );
 }
 
 void VRMLAppearanceHelper::setMaterialHelper(
@@ -2151,7 +1960,7 @@ VRMLNodeHelper *VRMLIndexedGeometryHelper::create(void)
 
 VRMLIndexedGeometryHelper::VRMLIndexedGeometryHelper(void) :
      Inherited      (                        ),
-    _bIsFaceSet     (true                    ),
+    _bIsFaceSet     (false                   ),
     _uiPropertyIndex(Geometry::PositionsIndex)
 {
 }
@@ -2180,10 +1989,6 @@ void VRMLIndexedGeometryHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pNodeCoreProto);
-//    addRefX(_pGenAttProto  );
 
     if(osgStringCaseCmp("IndexedFaceSet", szName) == 0)
     {
@@ -2806,9 +2611,6 @@ void VRMLGeometryPartHelper::init(const Char8 *szName)
 
     _pGenAttProto = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2999,6 +2801,14 @@ void VRMLGeometryObjectHelper::init(const Char8 *szName)
     {
         _eVRMLObjectType = SphereGeo;
     }
+    else if(osgStringCaseCmp("Cone", szName) == 0)
+    {
+        _eVRMLObjectType = ConeGeo;
+    }
+    else if(osgStringCaseCmp("Cylinder", szName) == 0)
+    {
+        _eVRMLObjectType = CylinderGeo;
+    }
     else if(osgStringCaseCmp("Teapot", szName) == 0)
     {
         _eVRMLObjectType = TeapotGeo;
@@ -3013,64 +2823,10 @@ void VRMLGeometryObjectHelper::init(const Char8 *szName)
 
     _pGenAttProto = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
 /*                               Field                                     */
-
-bool VRMLGeometryObjectHelper::prototypeAddField(const Char8  *szFieldType,
-                                                 const UInt32  uiFieldTypeId,
-                                                 const Char8  *szFieldname)
-{
-    return Inherited::prototypeAddField(szFieldType,
-                                        uiFieldTypeId,
-                                        szFieldname);
-}
-
-void VRMLGeometryObjectHelper::getFieldAndDesc(
-          FieldContainer       * pFC,
-    const Char8                * szFieldname,
-          FieldContainer       *&pFieldFC,
-          EditFieldHandlePtr    &pField,
-    const FieldDescriptionBase *&pDesc)
-{
-#ifdef OSG_DEBUG_VRML
-    indentLog(getIndent(), PINFO);
-    PINFO << "VRMLGeometryObjectHelper::getFieldAndDesc : looking for "
-          << szFieldname
-          << std::endl;
-#endif
-
-    if(szFieldname == NULL)
-        return;
-
-    if(pFC == NULL)
-    {
-        if(_bProtoInterfaceDone == false)
-        {
-            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
-        }
-
-        return;
-    }
-
-#ifdef OSG_DEBUG_VRML
-    incIndent();
-#endif
-
-    Inherited::getFieldAndDesc(pFC,
-                               szFieldname,
-                               pFieldFC,
-                               pField,
-                               pDesc);
-
-#ifdef OSG_DEBUG_VRML
-    decIndent();
-#endif
-}
 
 /*-------------------------------------------------------------------------*/
 /*                                Node                                     */
@@ -3119,8 +2875,7 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
             }
         }
     }
-#if 0
-    else if(stringcasecmp("Cone",     _szVRMLObjectname) == 0)
+    else if(_eVRMLObjectType == ConeGeo)
     {
         SFReal32 *pBotRad = NULL;
         SFReal32 *pHeight = NULL;
@@ -3129,42 +2884,70 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
 
         Inherited::getFieldAndDesc(pFC,
                                    "bottomRadius",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pBotRad = static_cast<SFReal32 *>(pField);
+            SFReal32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFReal32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pBotRad = pValField->getField();
+            }
         }
 
         Inherited::getFieldAndDesc(pFC,
                                    "height",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pHeight = static_cast<SFReal32 *>(pField);
+            SFReal32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFReal32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pHeight = pValField->getField();
+            }
         }
 
         Inherited::getFieldAndDesc(pFC,
                                    "side",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pSide = static_cast<SFBool *>(pField);
+            SFBool::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pSide = pValField->getField();
+            }
         }
 
         Inherited::getFieldAndDesc(pFC,
                                    "bottom",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pBottom = static_cast<SFBool *>(pField);
+            SFBool::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pBottom = pValField->getField();
+            }
         }
 
         if(pBotRad != NULL &&
@@ -3184,14 +2967,10 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
                                                 pSide  ->getValue(),
                                                 pBottom->getValue());
             
-            beginEditCP(pNode, Node::CoreFieldMask);
-            {
-                pNode->setCore(pGeo);
-            }
-            endEditCP  (pNode, Node::CoreFieldMask);
+            pNode->setCore(pGeo);
         }
     }
-    else if(stringcasecmp("Cylinder", _szVRMLObjectname) == 0)
+    else if(_eVRMLObjectType == CylinderGeo)
     {
         SFBool   *pBottom = NULL;
         SFReal32 *pHeight = NULL;
@@ -3201,52 +2980,87 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
 
         Inherited::getFieldAndDesc(pFC,
                                    "bottom",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pBottom = static_cast<SFBool *>(pField);
+            SFBool::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pBottom = pValField->getField();
+            }
         }
 
         Inherited::getFieldAndDesc(pFC,
                                    "height",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pHeight = static_cast<SFReal32 *>(pField);
+            SFReal32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFReal32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pHeight = pValField->getField();
+            }
         }
 
         Inherited::getFieldAndDesc(pFC,
                                    "radius",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pRadius = static_cast<SFReal32 *>(pField);
+            SFReal32::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFReal32::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pRadius = pValField->getField();
+            }
         }
 
         Inherited::getFieldAndDesc(pFC,
                                    "side",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pSide = static_cast<SFBool *>(pField);
+            SFBool::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pSide = pValField->getField();
+            }
         }
 
         Inherited::getFieldAndDesc(pFC,
                                    "top",
+                                   pDummyFC,
                                    pField,
                                    pDesc);
 
         if(pField != NULL)
         {
-            pTop = static_cast<SFBool *>(pField);
+            SFBool::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFBool::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pTop = pValField->getField();
+            }
         }
 
 
@@ -3272,7 +3086,6 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
             pNode->setCore(pGeo);
         }
     }
-#endif
     else if(_eVRMLObjectType == SphereGeo)
     {
         SFReal32 *pSize       = NULL;
@@ -3386,6 +3199,16 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRMLGeometryObjectHelper::_regHelperSphere(
         &VRMLGeometryObjectHelper::create,
         "Sphere");
+
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGeometryObjectHelper::_regHelperCone(
+        &VRMLGeometryObjectHelper::create,
+        "Cone");
+
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGeometryObjectHelper::_regHelperCylinder(
+        &VRMLGeometryObjectHelper::create,
+        "Cylinder");
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryObjectHelper::_regHelperTeapot(
@@ -3705,57 +3528,10 @@ void VRMLInlineHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
-
-//    addRefX(_pNodeProto    );
-//    addRefX(_pNodeCoreProto);
-//    addRefX(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
 /*                               Field                                     */
-
-bool VRMLInlineHelper::prototypeAddField(const Char8  *szFieldType,
-                                         const UInt32  uiFieldTypeId,
-                                         const Char8  *szFieldname)
-{
-    return Inherited::prototypeAddField(szFieldType,
-                                        uiFieldTypeId,
-                                        szFieldname);
-}
-
-void VRMLInlineHelper::getFieldAndDesc(
-          FieldContainer       * pFC,
-    const Char8                * szFieldname,
-          FieldContainer       *&pFieldFC,
-          EditFieldHandlePtr    &pField,
-    const FieldDescriptionBase *&pDesc)
-{
-    if(szFieldname == NULL)
-        return;
-
-    if(pFC == NULL)
-    {
-        if(_bProtoInterfaceDone == false)
-        {
-            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
-        }
-
-        return;
-    }
-
-#ifdef OSG_DEBUG_VRML
-    incIndent();
-#endif
-
-    Inherited::getFieldAndDesc(pFC,
-                               szFieldname,
-                               pFieldFC,
-                               pField,
-                               pDesc);
-#ifdef OSG_DEBUG_VRML
-    decIndent();
-#endif
-}
 
 void VRMLInlineHelper::endNode(FieldContainer *pFC)
 {
@@ -3783,5 +3559,219 @@ void VRMLInlineHelper::dump(const Char8 *)
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLInlineHelper::_regHelper(
     &VRMLInlineHelper::create,
     "Inline");
+
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::VRMLSwitchHelper
+    \ingroup GrpSystemFileIOVRML
+    VRML Swich description
+*/
+
+VRMLNodeHelper *VRMLSwitchHelper::create(void)
+{
+    return new VRMLSwitchHelper();
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLSwitchHelper::VRMLSwitchHelper(void) :
+    Inherited()
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLSwitchHelper::~VRMLSwitchHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+void VRMLSwitchHelper::init(const Char8 *szName)
+{
+    Inherited::init(szName);
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "SwitchHelper::init : " << szName << std::endl;
+#endif
+
+    _pNodeProto     = Node  ::create();
+    _pNodeCoreProto = Switch::create();
+
+    _pGenAttProto   = VRMLGenericAtt::create();
+    _pGenAttProto->setInternal(true);
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Get                                      */
+
+bool VRMLSwitchHelper::prototypeAddField(const Char8  *szFieldType,
+                                        const UInt32  uiFieldTypeId,
+                                        const Char8  *szFieldname)
+{
+    bool returnValue = false;
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "VRMLSwitchHelper::prototypeAddField | add request : "
+          << szFieldname
+          << std::endl;
+#endif
+
+    if(szFieldname == NULL)
+        return false;
+
+    incIndent();
+
+    if(osgStringCaseCmp("choice", szFieldname) == 0)
+    {
+        returnValue = true;
+
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "VRMLSwitchHelper::prototypeAddField | request internal : "
+              << szFieldname
+              << " "
+              << std::endl;
+#endif
+    }
+
+    if(osgStringCaseCmp("whichChoice", szFieldname) == 0)
+    {
+        returnValue = true;
+
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+
+        PINFO << "VRMLSwitchHelper::prototypeAddField | request internal : "
+              << szFieldname
+              << " "
+              << std::endl;
+#endif
+    }
+
+    if(returnValue == false)
+    {
+        returnValue =  Inherited::prototypeAddField(szFieldType,
+                                                    uiFieldTypeId,
+                                                    szFieldname);
+    }
+
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+#endif
+
+    return returnValue;
+}
+
+void VRMLSwitchHelper::getFieldAndDesc(
+          FieldContainer       * pFC,
+    const Char8                * szFieldname,
+          FieldContainer       *&pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+    if(szFieldname == NULL)
+        return;
+
+    if(pFC == NULL)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
+        return;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "VRMLSwitchHelper::getFieldAndDesc : looking for "
+          << szFieldname
+          << std::endl;
+
+    incIndent();
+#endif
+
+    if(osgStringCaseCmp("choice", szFieldname) == 0)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "VRMLSwitchHelper::getFieldAndDesc : request internal "
+              << szFieldname
+              << std::endl;
+#endif
+        pFieldFC = pFC;
+        pField   = pFC->editField("children");
+        pDesc    = pFC->getFieldDescription("children");
+    }
+    else if(osgStringCaseCmp("whichChoice", szFieldname) == 0)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "VRMLSwitchHelper::getFieldAndDesc : request internal "
+              << szFieldname
+              << std::endl;
+#endif
+
+        Node *pNode = dynamic_cast<Node *>(pFC);
+
+        if(pNode != NULL)
+        {
+            if(pNode->getCore() != NULL)
+            {
+                pFieldFC = pNode->getCore();
+                pField   = pNode->getCore()->editField("choice");
+                pDesc    = pNode->getCore()->getFieldDescription("choice");
+            }
+        }
+        else
+        {
+            Inherited::getFieldAndDesc(pFC,
+                                       szFieldname,
+                                       pFC,
+                                       pField,
+                                       pDesc);
+        }
+    }
+    else
+    {
+        Inherited::getFieldAndDesc(pFC,
+                                   szFieldname,
+                                   pFC,
+                                   pField,
+                                   pDesc);
+    }
+
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+#endif
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Node                                     */
+
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLSwitchHelper::dump(const Char8 *)
+{
+}
+
+VRMLNodeHelperFactoryBase::RegisterHelper VRMLSwitchHelper::_regHelper(
+    &VRMLSwitchHelper::create,
+    "Switch");
+
 
 OSG_END_NAMESPACE

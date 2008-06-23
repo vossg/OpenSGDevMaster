@@ -444,6 +444,11 @@ class OSG_FILEIO_DLLMAPPING VRMLDefaultHelper : public VRMLNodeHelper
     /*! \name                     Field                                    */
     /*! \{                                                                 */
 
+    virtual 
+        FieldContainerTransitPtr beginNode(const Char8          *szTypename,
+                                           const Char8          *szName,
+                                                 FieldContainer *pCurrentFC);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Node                                     */
@@ -492,8 +497,6 @@ class OSG_FILEIO_DLLMAPPING VRMLDefaultHelper : public VRMLNodeHelper
 
 
 
-
-
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -501,7 +504,8 @@ class OSG_FILEIO_DLLMAPPING VRMLDefaultHelper : public VRMLNodeHelper
 /*! \brief VRML Group Helper
 */
 
-class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
+template<class ContainerT>
+class VRMLGenericHelper : public VRMLNodeHelper
 {
     /*==========================  PUBLIC  =================================*/
   public :
@@ -510,7 +514,14 @@ class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~VRMLGroupHelper(void);
+    static VRMLNodeHelper *create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~VRMLGenericHelper(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -523,16 +534,6 @@ class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
     /*---------------------------------------------------------------------*/
     /*! \name                     Field                                    */
     /*! \{                                                                 */
-
-    virtual bool prototypeAddField(const Char8                * szFieldType,
-                                   const UInt32                 uiFieldTypeId,
-                                   const Char8                * szFieldName);
-
-    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
-                                   const Char8                * szFieldname,
-                                         FieldContainer       *&pFieldFC,
-                                         EditFieldHandlePtr    &pField,
-                                   const FieldDescriptionBase *&pDesc);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -552,17 +553,10 @@ class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
   protected:
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    static VRMLNodeHelper *create(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    VRMLGroupHelper(void);
+    VRMLGenericHelper(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -584,108 +578,10 @@ class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
     typedef VRMLNodeHelper Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    VRMLGroupHelper(const VRMLGroupHelper &source);
+    VRMLGenericHelper(const VRMLGenericHelper &source);
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const VRMLGroupHelper &source);
+    void operator =(const VRMLGenericHelper &source);
 };
-
-
-
-//---------------------------------------------------------------------------
-//  Class
-//---------------------------------------------------------------------------
-
-/*! \brief VRML Group Helper
-*/
-
-class OSG_FILEIO_DLLMAPPING VRMLTransformHelper : public VRMLNodeHelper
-{
-    /*==========================  PUBLIC  =================================*/
-  public :
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~VRMLTransformHelper(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
-    /*! \{                                                                 */
-
-    virtual void init(const Char8 *szName);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Field                                    */
-    /*! \{                                                                 */
-
-    virtual bool prototypeAddField(const Char8                * szFieldType,
-                                   const UInt32                 uiFieldTypeId,
-                                   const Char8                * szFieldName);
-
-    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
-                                   const Char8                * szFieldname,
-                                         FieldContainer       *&pFieldFC,
-                                         EditFieldHandlePtr    &pField,
-                                   const FieldDescriptionBase *&pDesc);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Node                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    virtual void dump(const Char8 *szNodeName);
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    static VRMLNodeHelper *create(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    VRMLTransformHelper(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelper;
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-
-  private:
-
-    typedef VRMLNodeHelper Inherited;
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    VRMLTransformHelper(const VRMLTransformHelper &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const VRMLTransformHelper &source);
-};
-
 
 
 
@@ -1293,16 +1189,6 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
     /*! \name                     Field                                    */
     /*! \{                                                                 */
 
-    virtual bool prototypeAddField(const Char8             * szFieldType,
-                                   const UInt32              uiFieldTypeId,
-                                   const Char8             * szFieldName);
-
-    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
-                                   const Char8                * szFieldname,
-                                         FieldContainer       *&pFieldFC,
-                                         EditFieldHandlePtr    &pField,
-                                   const FieldDescriptionBase *&pDesc);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Node                                    */
@@ -1324,10 +1210,12 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
 
     enum GeoObjectType
     {
-        UnknownGeo = 0x0000,
-        BoxGeo     = 0x0001,
-        SphereGeo  = 0x0002,
-        TeapotGeo  = 0x0003
+        UnknownGeo  = 0x0000,
+        BoxGeo      = 0x0001,
+        SphereGeo   = 0x0002,
+        ConeGeo     = 0x0003,
+        CylinderGeo = 0x0004,
+        TeapotGeo   = 0x0005
     };
 
     /*---------------------------------------------------------------------*/
@@ -1357,6 +1245,8 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
 
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperSphere;
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperBox;
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperCone;
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperCylinder;
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperTeapot;
 
     /*! \}                                                                 */
@@ -1518,16 +1408,6 @@ class OSG_FILEIO_DLLMAPPING VRMLInlineHelper : public VRMLNodeHelper
     /*! \name                     Field                                    */
     /*! \{                                                                 */
 
-    virtual bool prototypeAddField(const Char8                * szFieldType,
-                                   const UInt32                 uiFieldTypeId,
-                                   const Char8                * szFieldName);
-
-    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
-                                   const Char8                * szFieldname,
-                                         FieldContainer       *&pFieldFC,
-                                         EditFieldHandlePtr    &pField,
-                                   const FieldDescriptionBase *&pDesc);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Node                                     */
@@ -1585,7 +1465,102 @@ class OSG_FILEIO_DLLMAPPING VRMLInlineHelper : public VRMLNodeHelper
     void operator =(const VRMLInlineHelper &source);
 };
 
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \brief VRML Shape Helper
+*/
+
+class OSG_FILEIO_DLLMAPPING VRMLSwitchHelper : public VRMLNodeHelper
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public :
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~VRMLSwitchHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helper                                    */
+    /*! \{                                                                 */
+
+    virtual void init(const Char8 *szName);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    virtual bool prototypeAddField(const Char8  *szFieldType,
+                                   const UInt32  uiFieldTypeId,
+                                   const Char8  *szFieldName);
+
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
+                                   const Char8                * szFieldname,
+                                         FieldContainer       *&pFieldFC,
+                                         EditFieldHandlePtr    &pField,
+                                   const FieldDescriptionBase *&pDesc);
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(const Char8 *szNodeName);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelper *create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    VRMLSwitchHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelper;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    typedef VRMLNodeHelper Inherited;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    VRMLSwitchHelper(const VRMLSwitchHelper &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const VRMLSwitchHelper &source);
+};
+
 OSG_END_NAMESPACE
+
+#include "OSGVRMLNodeHelper.inl"
 
 #endif /* _OSGVRMLNODEHELPER_H_ */
 

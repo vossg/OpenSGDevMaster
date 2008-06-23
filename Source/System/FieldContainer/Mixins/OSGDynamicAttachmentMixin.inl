@@ -258,7 +258,14 @@ FieldContainer *DynFieldAttachment<AttachmentDescT>::clone(void)
 
         if(fTarget != NULL && fTarget->isValid() == true)
         {
-            fTarget->copyValues(this->getDynamicField(i));
+            if(fTarget->isPointerField() == true)
+            {
+                fTarget->cloneValues(this->getDynamicField(i));
+            }
+            else
+            {
+                fTarget->copyValues (this->getDynamicField(i));
+            }
         }
     }
 
