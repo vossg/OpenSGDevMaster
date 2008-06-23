@@ -39,6 +39,104 @@
 OSG_BEGIN_NAMESPACE
 
 /*---------------------------------------------------------------------------*/
+/* GetMFieldHandle<FieldContainerPtrMFieldBase>                              */
+/*---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------*/
+/* Constructors                                                              */
+
+inline
+GetMFieldHandle<FieldContainerPtrMFieldBase>::GetMFieldHandle(
+    const GetMFieldHandle &source) :
+
+    Inherited(source)
+{
+}
+
+inline
+GetMFieldHandle<FieldContainerPtrMFieldBase>::GetMFieldHandle(
+    const FieldContainerPtrMFieldBase *pField, 
+    const FieldDescriptionBase        *pDescription) :
+
+    Inherited(pField, pDescription)
+{
+}
+
+inline
+const FieldType &
+    GetMFieldHandle<FieldContainerPtrMFieldBase>::getType(void) const
+{
+    return FieldContainerPtrMFieldBase::getClassType();
+}
+
+
+inline
+bool GetMFieldHandle<FieldContainerPtrMFieldBase>::isPointerField(void) const
+{
+    return true;
+}
+
+
+inline
+void GetMFieldHandle<FieldContainerPtrMFieldBase>::pushValueToStream(
+    OutStream &str) const
+{
+    FWARNING(("illegal pushValueToStream called for %s\n", 
+              this->getName().c_str()));
+    OSG_ASSERT(false);
+}
+
+inline
+void GetMFieldHandle<FieldContainerPtrMFieldBase>::pushSizeToStream(
+    OutStream &str) const
+{
+    FWARNING(("illegal pushSizeToStream called for %s\n", 
+              this->getName().c_str()));
+    OSG_ASSERT(false);
+}
+
+inline
+bool GetMFieldHandle<FieldContainerPtrMFieldBase>::equal(
+    Inherited::Ptr rhs) const
+{
+    Ptr pOther = boost::dynamic_pointer_cast<GetMFieldHandle>(rhs);
+
+    if(pOther == NULL)
+    {
+        return false;
+    }
+    
+    const FieldContainerPtrMFieldBase *pLhs = 
+        static_cast<const FieldContainerPtrMFieldBase *>(        _pField);
+
+    const FieldContainerPtrMFieldBase *pRhs = 
+        static_cast<const FieldContainerPtrMFieldBase *>(pOther->_pField);
+
+    return (*pLhs) == (*pRhs);
+}
+
+inline
+const FieldContainerPtrMFieldBase *
+    GetMFieldHandle<FieldContainerPtrMFieldBase>::getField(void)
+{
+    return static_cast<const FieldContainerPtrMFieldBase *>(_pField);
+}
+
+inline
+const FieldContainerPtrMFieldBase *
+    GetMFieldHandle<FieldContainerPtrMFieldBase>::operator ->(void)
+{
+    return static_cast<const FieldContainerPtrMFieldBase *>(_pField);
+}
+
+inline
+const FieldContainerPtrMFieldBase &
+    GetMFieldHandle<FieldContainerPtrMFieldBase>::operator * (void)
+{
+    return *(static_cast<const FieldContainerPtrMFieldBase *>(_pField));
+}
+
+/*---------------------------------------------------------------------------*/
 /* EditMFieldHandle<FieldContainerPtrMFieldBase>                             */
 /*---------------------------------------------------------------------------*/
 
@@ -164,104 +262,6 @@ void EditMFieldHandle<FieldContainerPtrMFieldBase>::cloneValues(
 }
 
 /*---------------------------------------------------------------------------*/
-/* GetMFieldHandle<FieldContainerPtrMFieldBase>                              */
-/*---------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------*/
-/* Constructors                                                              */
-
-inline
-GetMFieldHandle<FieldContainerPtrMFieldBase>::GetMFieldHandle(
-    const GetMFieldHandle &source) :
-
-    Inherited(source)
-{
-}
-
-inline
-GetMFieldHandle<FieldContainerPtrMFieldBase>::GetMFieldHandle(
-    const FieldContainerPtrMFieldBase *pField, 
-    const FieldDescriptionBase        *pDescription) :
-
-    Inherited(pField, pDescription)
-{
-}
-
-inline
-const FieldType &
-    GetMFieldHandle<FieldContainerPtrMFieldBase>::getType(void) const
-{
-    return FieldContainerPtrMFieldBase::getClassType();
-}
-
-
-inline
-bool GetMFieldHandle<FieldContainerPtrMFieldBase>::isPointerField(void) const
-{
-    return true;
-}
-
-
-inline
-void GetMFieldHandle<FieldContainerPtrMFieldBase>::pushValueToStream(
-    OutStream &str) const
-{
-    FWARNING(("illegal pushValueToStream called for %s\n", 
-              this->getName().c_str()));
-    OSG_ASSERT(false);
-}
-
-inline
-void GetMFieldHandle<FieldContainerPtrMFieldBase>::pushSizeToStream(
-    OutStream &str) const
-{
-    FWARNING(("illegal pushSizeToStream called for %s\n", 
-              this->getName().c_str()));
-    OSG_ASSERT(false);
-}
-
-inline
-bool GetMFieldHandle<FieldContainerPtrMFieldBase>::equal(
-    Inherited::Ptr rhs) const
-{
-    Ptr pOther = boost::dynamic_pointer_cast<GetMFieldHandle>(rhs);
-
-    if(pOther == NULL)
-    {
-        return false;
-    }
-    
-    FieldContainerPtrMFieldBase const *pLhs = 
-        static_cast<FieldContainerPtrMFieldBase const *>(        _pField);
-
-    FieldContainerPtrMFieldBase const *pRhs = 
-        static_cast<FieldContainerPtrMFieldBase const *>(pOther->_pField);
-
-    return (*pLhs) == (*pRhs);
-}
-
-inline
-FieldContainerPtrMFieldBase const *
-    GetMFieldHandle<FieldContainerPtrMFieldBase>::get(void)
-{
-    return static_cast<FieldContainerPtrMFieldBase const *>(_pField);
-}
-
-inline
-FieldContainerPtrMFieldBase const *
-    GetMFieldHandle<FieldContainerPtrMFieldBase>::operator ->(void)
-{
-    return static_cast<FieldContainerPtrMFieldBase const *>(_pField);
-}
-
-inline
-FieldContainerPtrMFieldBase const &
-    GetMFieldHandle<FieldContainerPtrMFieldBase>::operator * (void)
-{
-    return *(static_cast<FieldContainerPtrMFieldBase const *>(_pField));
-}
-
-/*---------------------------------------------------------------------------*/
 /* GetFCPtrMFieldHandle<FieldT>                                              */
 /*---------------------------------------------------------------------------*/
 
@@ -356,17 +356,22 @@ Int32 GetFCPtrMFieldHandle<FieldT>::find(FieldContainer *existingFC) const
     return retVal;
 }
 
-
 template <class FieldT> inline
-FieldT const *GetFCPtrMFieldHandle<FieldT>::operator ->(void)
+const FieldT *GetFCPtrMFieldHandle<FieldT>::getField(void)
 {
-    return static_cast<FieldT const *>(_pField);
+    return dcast_const();
 }
 
 template <class FieldT> inline
-FieldT const &GetFCPtrMFieldHandle<FieldT>::operator * (void)
+const FieldT *GetFCPtrMFieldHandle<FieldT>::operator ->(void)
 {
-    return *(static_cast<FieldT const *>(_pField));
+    return dcast_const();
+}
+
+template <class FieldT> inline
+const FieldT &GetFCPtrMFieldHandle<FieldT>::operator * (void)
+{
+    return *dcast_const();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -570,7 +575,8 @@ Int32 EditFCPtrMFieldHandle<FieldT>::find(FieldContainer *existingFC) const
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::find: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::find: Field has unknown "
+                "access.\n", typeid(FieldT).name()                   ));
     }
         
     return retVal;
@@ -622,7 +628,8 @@ bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC) const
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::add: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::add: Field has unknown "
+                "access.\n", typeid(FieldT).name()                  ));
     }
 
     return retVal;
@@ -634,7 +641,7 @@ bool EditFCPtrMFieldHandle<FieldT>::add(FieldContainer *newFC) const
     \note This operation is only available if \c supportsRemove returns \c true.
  */
 template <class FieldT>
-bool EditFCPtrMFieldHandle<FieldT>::remove(UInt32 index)
+bool EditFCPtrMFieldHandle<FieldT>::remove(UInt32 index) const
 {
     bool retVal = false;
     
@@ -665,7 +672,7 @@ bool EditFCPtrMFieldHandle<FieldT>::remove(UInt32 index)
     {
         // this should never happen
         FFATAL(("EditFCPtrMFieldHandle<%s>::remove: Field has unknown "
-                "access.\n", typeid(FieldT).name()));
+                "access.\n", typeid(FieldT).name()                     ));
     }
 
     return retVal;
@@ -678,7 +685,8 @@ bool EditFCPtrMFieldHandle<FieldT>::remove(UInt32 index)
           returns \c true.
  */
 template <class FieldT>
-bool EditFCPtrMFieldHandle<FieldT>::removeObject(FieldContainer *existingFC)
+bool EditFCPtrMFieldHandle<FieldT>::removeObject(
+    FieldContainer *existingFC) const
 {
     bool                         retVal          = false;
     typename FieldT::const_value typedExistingFC =
@@ -695,9 +703,9 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(FieldContainer *existingFC)
             }
             else
             {
-                FFATAL(("EditFCPtrMFieldHandle<%s>::removeObject called, but "
-                        "_fRemoveObjMethod is not set.\n", 
-                        typeid(FieldT).name()));
+                FFATAL(("EditFCPtrMFieldHandle<%s>::removeObject called, "
+                        "but _fRemoveObjMethod is not set.\n", 
+                        typeid(FieldT).name()                             ));
             }
         }
     }
@@ -743,7 +751,8 @@ bool EditFCPtrMFieldHandle<FieldT>::removeObject(FieldContainer *existingFC)
     \note This operation is only available if \c supportsInsert returns \c true.
  */
 template <class FieldT>
-bool EditFCPtrMFieldHandle<FieldT>::insert(UInt32 index, FieldContainer *newFC)
+bool EditFCPtrMFieldHandle<FieldT>::insert(
+    UInt32 index, FieldContainer *newFC) const
 {
     bool                         retVal     = false;
     typename FieldT::const_value typedNewFC =
@@ -784,7 +793,8 @@ bool EditFCPtrMFieldHandle<FieldT>::insert(UInt32 index, FieldContainer *newFC)
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::insert: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::insert: Field has unknown "
+                " access.\n", typeid(FieldT).name()                    ));
     }
 
     return retVal;
@@ -796,7 +806,8 @@ bool EditFCPtrMFieldHandle<FieldT>::insert(UInt32 index, FieldContainer *newFC)
     \note This operation is only available if \c supportsReplace returns \c true.
  */
 template <class FieldT>
-bool EditFCPtrMFieldHandle<FieldT>::replace(UInt32 index, FieldContainer *newFC)
+bool EditFCPtrMFieldHandle<FieldT>::replace(
+    UInt32 index, FieldContainer *newFC) const
 {
     bool                         retVal     = false;
     typename FieldT::const_value typedNewFC =
@@ -837,7 +848,8 @@ bool EditFCPtrMFieldHandle<FieldT>::replace(UInt32 index, FieldContainer *newFC)
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::replace: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::replace: Field has unknown "
+                "access.\n", typeid(FieldT).name()                      ));
     }
 
     return retVal;
@@ -851,7 +863,7 @@ bool EditFCPtrMFieldHandle<FieldT>::replace(UInt32 index, FieldContainer *newFC)
  */
 template <class FieldT>
 bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
-    FieldContainer *existingFC, FieldContainer *newFC)
+    FieldContainer *existingFC, FieldContainer *newFC) const
 {
     bool                         retVal          = false;
     typename FieldT::const_value typedExistingFC =
@@ -919,7 +931,7 @@ bool EditFCPtrMFieldHandle<FieldT>::replaceObject(
     \note This operation is only available if \c supportsClear returns \c true.
  */
 template <class FieldT>
-bool EditFCPtrMFieldHandle<FieldT>::clear(void)
+bool EditFCPtrMFieldHandle<FieldT>::clear(void) const
 {
     bool retVal = false;
     
@@ -949,7 +961,8 @@ bool EditFCPtrMFieldHandle<FieldT>::clear(void)
     else
     {
         // this should never happen
-        FFATAL(("EditFCPtrMFieldHandle<%s>::clear: Field has unknown access.\n", typeid(FieldT).name()));
+        FFATAL(("EditFCPtrMFieldHandle<%s>::clear: Field has unknown "
+                "access.\n", typeid(FieldT).name()                    ));
     }
 
     return retVal;
@@ -1049,7 +1062,7 @@ void EditFCPtrMFieldHandle<FieldT>::shareValues(GetFieldHandlePtr source) const
 
     if(pSrcBase != NULL && pSrcBase->isValid() == true)
     {
-        const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->get();
+        const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->getField();
             
         for(UInt32 i = 0; i < pSrcField->size(); ++i)
         {
@@ -1078,7 +1091,7 @@ void EditFCPtrMFieldHandle<FieldT>::cloneValues(
 
     if(pSrcBase != NULL && pSrcBase->isValid() == true)
     {
-        const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->get();
+        const FieldContainerPtrMFieldBase *pSrcField = pSrcBase->getField();
             
         for(UInt32 i = 0; i < pSrcField->size(); ++i)
         {

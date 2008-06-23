@@ -39,6 +39,114 @@
 OSG_BEGIN_NAMESPACE
 
 /*---------------------------------------------------------------------------*/
+/* GetSFieldHandle<FieldContainerPtrSFieldBase>                              */
+/*---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------*/
+/* Constructors                                                              */
+
+inline
+GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
+    const GetSFieldHandle &source) :
+
+    Inherited(source)
+{
+}
+
+inline
+GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
+    const FieldContainerPtrSFieldBase *pField, 
+    const FieldDescriptionBase        *pDescription) :
+
+    Inherited(pField, pDescription)
+{
+}
+
+/*---------------------------------------------------------------------------*/
+/* Field Type Query                                                          */
+
+inline
+const FieldType &
+    GetSFieldHandle<FieldContainerPtrSFieldBase>::getType(void) const
+{
+    return FieldContainerPtrSFieldBase::getClassType();
+}
+
+inline
+bool GetSFieldHandle<FieldContainerPtrSFieldBase>::isPointerField(void) const
+{
+    return true;
+}
+
+/*---------------------------------------------------------------------------*/
+/* Stream/String IO                                                          */
+
+inline
+void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushValueToStream(
+    OutStream &str) const
+{
+    FWARNING(("illegal pushValueToStream called for %s\n", 
+              this->getName().c_str()));
+    OSG_ASSERT(false);
+}
+
+inline
+void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
+    OutStream &str) const
+{
+    FWARNING(("illegal pushSizeToStream called for %s\n", 
+              this->getName().c_str()));
+    OSG_ASSERT(false);
+}
+
+/*---------------------------------------------------------------------------*/
+/* Comparison                                                                */
+
+inline
+bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(
+    Inherited::Ptr rhs) const
+{
+    Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
+
+    if(pOther == NULL)
+    {
+        return false;
+    }
+
+    FieldContainerPtrSFieldBase const *pLhs = 
+        static_cast<FieldContainerPtrSFieldBase const *>(        _pField);
+
+    FieldContainerPtrSFieldBase const *pRhs = 
+        static_cast<FieldContainerPtrSFieldBase const *>(pOther->_pField);
+
+    return (*pLhs) == (*pRhs);
+}
+
+/*---------------------------------------------------------------------------*/
+/* Access                                                                    */
+
+inline
+const FieldContainerPtrSFieldBase *
+    GetSFieldHandle<FieldContainerPtrSFieldBase>::getField(void)
+{
+    return static_cast<const FieldContainerPtrSFieldBase *>(_pField);
+}
+
+inline
+const FieldContainerPtrSFieldBase *
+    GetSFieldHandle<FieldContainerPtrSFieldBase>::operator ->(void)
+{
+    return static_cast<const FieldContainerPtrSFieldBase *>(_pField);
+}
+
+inline
+const FieldContainerPtrSFieldBase &
+    GetSFieldHandle<FieldContainerPtrSFieldBase>::operator * (void)
+{
+    return *(static_cast<const FieldContainerPtrSFieldBase *>(_pField));
+}
+
+/*---------------------------------------------------------------------------*/
 /* EditSFieldHandle<FieldContainerPtrSFieldBase>                             */
 /*---------------------------------------------------------------------------*/
 
@@ -162,109 +270,6 @@ void EditSFieldHandle<FieldContainerPtrSFieldBase>::cloneValues(
     OSG_ASSERT(false);
 }
 
-
-/*---------------------------------------------------------------------------*/
-/* GetSFieldHandle<FieldContainerPtrSFieldBase>                              */
-/*---------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------*/
-/* Constructors                                                              */
-
-inline
-GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
-    const GetSFieldHandle &source) :
-
-    Inherited(source)
-{
-}
-
-inline
-GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
-    const FieldContainerPtrSFieldBase *pField, 
-    const FieldDescriptionBase        *pDescription) :
-
-    Inherited(pField, pDescription)
-{
-}
-
-/*---------------------------------------------------------------------------*/
-/* Field Type Query                                                          */
-
-inline
-const FieldType &
-    GetSFieldHandle<FieldContainerPtrSFieldBase>::getType(void) const
-{
-    return FieldContainerPtrSFieldBase::getClassType();
-}
-
-inline
-bool GetSFieldHandle<FieldContainerPtrSFieldBase>::isPointerField(void) const
-{
-    return true;
-}
-
-/*---------------------------------------------------------------------------*/
-/* Stream/String IO                                                          */
-
-inline
-void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushValueToStream(
-    OutStream &str) const
-{
-    FWARNING(("illegal pushValueToStream called for %s\n", 
-              this->getName().c_str()));
-    OSG_ASSERT(false);
-}
-
-inline
-void GetSFieldHandle<FieldContainerPtrSFieldBase>::pushSizeToStream(
-    OutStream &str) const
-{
-    FWARNING(("illegal pushSizeToStream called for %s\n", 
-              this->getName().c_str()));
-    OSG_ASSERT(false);
-}
-
-/*---------------------------------------------------------------------------*/
-/* Comparison                                                                */
-
-inline
-bool GetSFieldHandle<FieldContainerPtrSFieldBase>::equal(
-    Inherited::Ptr rhs) const
-{
-    Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
-
-    if(pOther == NULL)
-    {
-        return false;
-    }
-
-    FieldContainerPtrSFieldBase const *pLhs = 
-        static_cast<FieldContainerPtrSFieldBase const *>(        _pField);
-
-    FieldContainerPtrSFieldBase const *pRhs = 
-        static_cast<FieldContainerPtrSFieldBase const *>(pOther->_pField);
-
-    return (*pLhs) == (*pRhs);
-}
-
-/*---------------------------------------------------------------------------*/
-/* Access                                                                    */
-
-inline
-FieldContainerPtrSFieldBase const *
-    GetSFieldHandle<FieldContainerPtrSFieldBase>::operator ->(void)
-{
-    return static_cast<FieldContainerPtrSFieldBase const *>(_pField);
-}
-
-inline
-FieldContainerPtrSFieldBase const &
-    GetSFieldHandle<FieldContainerPtrSFieldBase>::operator * (void)
-{
-    return *(static_cast<FieldContainerPtrSFieldBase const *>(_pField));
-}
-
-
 /*---------------------------------------------------------------------------*/
 /* GetFCPtrSFieldHandle<FieldT>                                              */
 /*---------------------------------------------------------------------------*/
@@ -327,15 +332,21 @@ FieldContainer *GetFCPtrSFieldHandle<FieldT>::get(void) const
 }
 
 template <class FieldT> inline
-FieldT const *GetFCPtrSFieldHandle<FieldT>::operator ->(void)
+const FieldT *GetFCPtrSFieldHandle<FieldT>::getField(void)
 {
-    return static_cast<FieldT const *>(_pField);
+    return static_cast<const FieldT *>(_pField);
 }
 
 template <class FieldT> inline
-FieldT const &GetFCPtrSFieldHandle<FieldT>::operator * (void)
+const FieldT *GetFCPtrSFieldHandle<FieldT>::operator ->(void)
 {
-    return *(static_cast<FieldT const *>(_pField));
+    return static_cast<const FieldT *>(_pField);
+}
+
+template <class FieldT> inline
+const FieldT &GetFCPtrSFieldHandle<FieldT>::operator * (void)
+{
+    return *(static_cast<const FieldT *>(_pField));
 }
 
 /*---------------------------------------------------------------------------*/

@@ -105,8 +105,10 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<FieldContainerPtrSFieldBase> :
     
     virtual FieldContainer *get(void) const = 0;
 
-    FieldContainerPtrSFieldBase const * operator ->(void);
-    FieldContainerPtrSFieldBase const & operator * (void);
+    const FieldContainerPtrSFieldBase *getField   (void);
+    
+    const FieldContainerPtrSFieldBase *operator ->(void);
+    const FieldContainerPtrSFieldBase &operator * (void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -127,7 +129,6 @@ class OSG_SYSTEM_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
     typedef boost::shared_ptr<GetSFHandle>                 GetSFHandlePtr;
 
     /*==========================  PUBLIC  =================================*/
-
   public:
 
     /*---------------------------------------------------------------------*/
@@ -246,8 +247,10 @@ class GetFCPtrSFieldHandle :
 
     virtual FieldContainer *get(void) const;
     
-    FieldT const * operator ->(void);
-    FieldT const & operator * (void);
+    const FieldT *getField   (void);
+    
+    const FieldT *operator ->(void);
+    const FieldT &operator * (void);
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

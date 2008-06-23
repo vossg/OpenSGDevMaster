@@ -107,9 +107,10 @@ class OSG_SYSTEM_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
     virtual UInt32          size   (void                      ) const = 0;
     virtual Int32           find   (FieldContainer *existingFC) const = 0;
 
-    FieldContainerPtrMFieldBase const * get        (void);
-    FieldContainerPtrMFieldBase const * operator ->(void);
-    FieldContainerPtrMFieldBase const & operator * (void);
+    const FieldContainerPtrMFieldBase *getField   (void);
+    
+    const FieldContainerPtrMFieldBase *operator ->(void);
+    const FieldContainerPtrMFieldBase &operator * (void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -178,15 +179,15 @@ class OSG_SYSTEM_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
     virtual Int32           find(FieldContainer *existingFC) const = 0;
     
     virtual bool add          (FieldContainer *newFC      ) const = 0;
-    virtual bool remove       (UInt32          index      ) = 0;
-    virtual bool removeObject (FieldContainer *existingFC ) = 0;
+    virtual bool remove       (UInt32          index      ) const = 0;
+    virtual bool removeObject (FieldContainer *existingFC ) const = 0;
     virtual bool insert       (UInt32          index,
-                               FieldContainer *newFC      ) = 0;
+                               FieldContainer *newFC      ) const = 0;
     virtual bool replace      (UInt32          index,
-                               FieldContainer *newFC      ) = 0;
+                               FieldContainer *newFC      ) const = 0;
     virtual bool replaceObject(FieldContainer *existingFC,
-                               FieldContainer *newFC      ) = 0;
-    virtual bool clear        (void                       ) = 0;
+                               FieldContainer *newFC      ) const = 0;
+    virtual bool clear        (void                       ) const = 0;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,8 +276,10 @@ class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
     virtual UInt32          size(void                      ) const;
     virtual Int32           find(FieldContainer *existingFC) const;
     
-    FieldT const * operator ->(void);
-    FieldT const & operator * (void);
+    const FieldT *getField   (void);
+    
+    const FieldT *operator ->(void);
+    const FieldT &operator * (void);
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -382,15 +385,15 @@ class EditFCPtrMFieldHandle :
     virtual Int32           find(FieldContainer *existingFC) const;
     
     virtual bool add          (FieldContainer *newFC      ) const;
-    virtual bool remove       (UInt32          index      );
-    virtual bool removeObject (FieldContainer *existingFC );
+    virtual bool remove       (UInt32          index      ) const;
+    virtual bool removeObject (FieldContainer *existingFC ) const;
     virtual bool insert       (UInt32          index,
-                               FieldContainer *newFC      );
+                               FieldContainer *newFC      ) const;
     virtual bool replace      (UInt32          index,
-                               FieldContainer *newFC      );
+                               FieldContainer *newFC      ) const;
     virtual bool replaceObject(FieldContainer *existingFC,
-                               FieldContainer *newFC      );
-    virtual bool clear        (void                       );
+                               FieldContainer *newFC      ) const;
+    virtual bool clear        (void                       ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
