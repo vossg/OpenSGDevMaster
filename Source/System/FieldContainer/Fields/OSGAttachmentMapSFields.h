@@ -164,34 +164,6 @@ class OSG_SYSTEM_DLLMAPPING
 
 };
 
-#if 0
-template <>
-OSG_SYSTEM_DLLMAPPING
-void
-FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
-                 SingleField                                    >::cloneValues(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &shareTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &shareGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const;
-
-template <>
-OSG_SYSTEM_DLLMAPPING
-void
-FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
-                 SingleField                                    >::shareValues(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &cloneTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &cloneGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const;
-#endif
-
 OSG_END_NAMESPACE
 
 #ifndef OSG_COMPILEATTACHMENTMAPFIELDINST

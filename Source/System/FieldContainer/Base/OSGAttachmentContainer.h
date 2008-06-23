@@ -43,12 +43,12 @@
 #endif
 
 #include "OSGFieldContainer.h"
-#include "OSGAttachment.h"
 #include "OSGAttachmentMapSFields.h"
 
 OSG_BEGIN_NAMESPACE
 
 class BasicFieldConnector;
+class Attachment;
 
 /**
 * An AttachmentContainer is a field container that can store attachments to 
@@ -350,6 +350,7 @@ void deepCloneAttachments(
 
 OSG_END_NAMESPACE
 
+#include "OSGAttachment.h"
 #include "OSGAttachmentContainer.inl"
 
 #endif /* _OSGATTACHMENTCONTAINER_H_ */

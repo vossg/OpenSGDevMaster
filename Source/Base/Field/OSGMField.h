@@ -213,16 +213,10 @@ class MField : public Field
     
     iterator               insert   (iterator     pos, 
                                      ArgumentType value                );
-#ifdef __STL_MEMBER_TEMPLATES
     template <class InputIterator>
     void                   insert   (iterator      pos, 
                                      InputIterator first, 
                                      InputIterator last                );
-#else
-    void                   insert   (iterator      pos, 
-                                     iterator      first,
-                                     iterator      last                );
-#endif /* __STL_MEMBER_TEMPLATES */
  
     iterator               erase    (iterator     pos                  );
     

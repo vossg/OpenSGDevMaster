@@ -162,24 +162,6 @@ bool EditSFieldHandle<SFAttachmentPtrMap>::isPointerField(void) const
 }
 
 inline
-void EditSFieldHandle<SFAttachmentPtrMap>::add(
-    FieldContainer * const rhs,
-    UInt32                 uiBindings)
-{
-    Attachment * const pVal = 
-        dynamic_cast<Attachment * const>(rhs);
-
-    if(rhs != NULL && pVal == NULL)
-        return;
-
-    // for whatever reason VS2003 does not like == NULL
-    if(_fAddMethod)
-    {
-        _fAddMethod(pVal, uiBindings);
-    }
-}
-
-inline
 void EditSFieldHandle<SFAttachmentPtrMap>::pushValueToStream(
     OutStream &str) const
 {
@@ -270,67 +252,5 @@ void EditSFieldHandle<SFAttachmentPtrMap>::shareValues(
         }
     }
 }
-
-
-inline
-void EditSFieldHandle<SFAttachmentPtrMap>::cloneValues(
-          GetFieldHandlePtr  pSrc,
-    const TypePtrVector     &shareTypes,
-    const TypePtrVector     &ignoreTypes,
-    const TypeIdVector      &shareGroupIds,
-    const TypeIdVector      &ignoreGroupIds) const
-{
-    SFAttachmentPtrMap::GetHandlePtr pGetHandle = 
-        boost::dynamic_pointer_cast<
-            SFAttachmentPtrMap::GetHandle>(pSrc);
-
-    if(pGetHandle == NULL || pGetHandle->isValid() == false)
-        return;
-
-    const SFAttachmentPtrMap &pAttMap = **pGetHandle;
-
-    AttachmentMap::const_iterator mapIt  = pAttMap.getValue().begin();
-    AttachmentMap::const_iterator mapEnd = pAttMap.getValue().end();
-
-    for(; mapIt != mapEnd; ++mapIt)
-    {
-        AttachmentUnrecPtr att       = mapIt->second;
-        UInt16             uiBinding = UInt16(mapIt->first &
-                                              0x0000FFFF    );
-
-        if(att != NULL)
-        {
-            const FieldContainerType &attType = att->getType();
-
-            // test if att type should NOT be ignored
-            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
-                                                ignoreGroupIds.end(),
-                                                attType                ) &&
-               !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
-                                                ignoreTypes.end(),
-                                                attType                )   )
-            {
-                // test if att should cloned
-                if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
-                                                    shareGroupIds.end(),
-                                                    attType               ) &&
-                   !TypePredicates::typeDerivedFrom(shareTypes.begin(),
-                                                    shareTypes.end(),
-                                                    attType               )   )
-                {
-                    att = dynamic_pointer_cast<Attachment>(
-                        OSG::deepClone(att, shareTypes,    ignoreTypes,
-                                            shareGroupIds, ignoreGroupIds));
-                }
-            }
-        }
-
-        if(_fAddMethod)
-        {
-            _fAddMethod(att, uiBinding);
-        }
-    }
-}
-
 
 OSG_END_NAMESPACE

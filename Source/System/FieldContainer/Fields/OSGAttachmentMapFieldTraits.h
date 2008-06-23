@@ -45,11 +45,11 @@
 #include "OSGFieldTraits.h"
 #include "OSGContainerForwards.h"
 
-#include "OSGAttachment.h"
-
 #include "map"
 
 OSG_BEGIN_NAMESPACE
+
+class Attachment;
 
 typedef std::map<UInt32, Attachment *>  AttachmentMap;
 
@@ -96,25 +96,7 @@ struct FieldTraits<AttachmentMap> :
         return "MFAttachmentPtrMap"; 
     }
     
-    static UInt32 getBinSize(const AttachmentMap &aMap)
-    {
-        AttachmentMap::const_iterator mapIt  = aMap.begin();
-        AttachmentMap::const_iterator mapEnd = aMap.end  ();
-
-        UInt32 numPublicObjects = 0;
-
-        for(; mapIt != mapEnd; ++mapIt)
-        {
-            if(mapIt->second->getInternal().getValue() == false)
-            {
-                ++numPublicObjects;
-            }
-        }
-
-        // number of elements in map + binding and pointer id for each element
-        return sizeof(UInt32) +
-                numPublicObjects * (sizeof(UInt16) + sizeof(UInt32));
-    }
+    static UInt32 getBinSize(const AttachmentMap &aMap);
 
     static UInt32 getBinSize(const AttachmentMap *aMaps,
                                    UInt32         numObjects)
@@ -131,37 +113,7 @@ struct FieldTraits<AttachmentMap> :
     }
     
     static void copyToBin(      BinaryDataHandler &pMem,
-                          const AttachmentMap     &aMap )
-    {
-        AttachmentMap::const_iterator mapIt  = aMap.begin();
-        AttachmentMap::const_iterator mapEnd = aMap.end  ();
-        
-        UInt32 numPublicObjects = 0;
-        UInt16 binding;
-        UInt32 fcId;
-        
-        for(; mapIt != mapEnd; ++mapIt)
-        {
-            if(mapIt->second->getInternal().getValue() == false)
-            {
-                ++numPublicObjects;
-            }
-        }
-        
-        pMem.putValue(numPublicObjects);
-        
-        for(mapIt = aMap.begin(); mapIt != mapEnd; ++mapIt)
-        {
-            if(mapIt->second->getInternal().getValue() == false)
-            {
-                binding = mapIt->first & 0xFFFF;
-                fcId    = mapIt->second->getId();
-                
-                pMem.putValue(binding);
-                pMem.putValue(fcId   );
-            }
-        }
-    }
+                          const AttachmentMap     &aMap );
     
     static void copyToBin(      BinaryDataHandler &pMem,
                           const AttachmentMap     *aMaps,
@@ -174,48 +126,8 @@ struct FieldTraits<AttachmentMap> :
     }
     
     static void copyFromBin(BinaryDataHandler &pMem,
-                            AttachmentMap     &aMap )
-    {
-        Attachment *attPtr;
-        UInt32      key;
-        UInt16      binding;
-        UInt32      fcId;
-        UInt32      size;
-        
-        pMem.getValue(size);
+                            AttachmentMap     &aMap );
 
-
-        AttachmentMap::const_iterator mapIt  = aMap.begin();
-        AttachmentMap::const_iterator mapEnd = aMap.begin();
-
-        for(; mapIt != mapEnd; ++mapIt)
-        {
-            if((*mapIt).second != NULL)
-            {
-                Thread::getCurrentChangeList()->addDelayedSubRef<
-                    UnrecordedRefCountPolicy>((*mapIt).second);
-            }
-        }
-        
-        aMap.clear();
-
-        
-        for(UInt32 i = 0; i < size; ++i)
-        {
-            pMem.getValue(binding);
-            pMem.getValue(fcId   );
-            
-            attPtr = dynamic_cast<Attachment *>(
-                FieldContainerFactory::the()->getMappedContainer(fcId));
-            
-            key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;
-
-            UnrecordedRefCountPolicy::addRef(attPtr);
-
-            aMap.insert(AttachmentMap::value_type(key, attPtr));
-        }
-    }
-    
     static void copyFromBin(BinaryDataHandler &pMem,
                             AttachmentMap     *aMaps,
                             UInt32             numObjects)

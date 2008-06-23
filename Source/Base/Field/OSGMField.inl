@@ -420,7 +420,6 @@ typename MField<ValueT,
     return _values.insert(pos, value);
 }
 
-#ifdef __STL_MEMBER_TEMPLATES
 template <class ValueT, Int32 iNamespace, class AllocT> 
 template <class InputIterator> inline
 void MField<ValueT, iNamespace, AllocT>::insert(iterator      pos, 
@@ -429,15 +428,6 @@ void MField<ValueT, iNamespace, AllocT>::insert(iterator      pos,
 {
     _values.insert(pos, first, last);
 }
-#else
-template <class ValueT, Int32 iNamespace, class AllocT> inline
-void MField<ValueT, iNamespace, AllocT>::insert(iterator      pos, 
-                                                iterator      first,
-                                                iterator      last )
-{
-    _values.insert(pos, first, last);
-}
-#endif /* __STL_MEMBER_TEMPLATES */
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 

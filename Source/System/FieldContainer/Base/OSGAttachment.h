@@ -45,21 +45,20 @@
 #include "OSGFieldContainer.h"
 #include "OSGFieldContainerMFields.h"
 #include "OSGSysSFields.h"
+#include "OSGAttachmentContainer.h"
 
 OSG_BEGIN_NAMESPACE
-
-class AttachmentContainer;
 
 //! Brief
 //! \ingroup baselib
 
-class OSG_SYSTEM_DLLMAPPING Attachment : public FieldContainer
+class OSG_SYSTEM_DLLMAPPING Attachment : public AttachmentContainer
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef FieldContainer Inherited;
+    typedef AttachmentContainer Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
