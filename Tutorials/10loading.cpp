@@ -44,10 +44,10 @@ class NamedNodeFinder
 
     NamedNodeFinder(void) : _name(), _found() {}
 
-    NodePtr operator() (NodePtr root, std::string name)
+    Node *operator() (Node *root, const std::string &name)
     {
-        _name=&name;
-        _found=NullFC;
+        _name  = name;
+        _found = NULL;
 
         TraverseEnterFunctor enter =
             boost::bind(&NamedNodeFinder::check, this, _1);
@@ -56,18 +56,18 @@ class NamedNodeFinder
         return _found;
     }
 
-    static NodePtr find(NodePtr root, std::string name)
+    static Node *find(Node *root, const std::string &name)
     {
         NamedNodeFinder f;
 
-        return f(root,name);
+        return f(root, name);
     }
 
   private:
 
-    Action::ResultE check(NodePtr node)
+    Action::ResultE check(Node *node)
     {
-        if(getName(node) && *_name == getName(node))
+        if(getName(node) && _name == getName(node))
         {
             _found = node;
             return Action::Quit;
@@ -76,8 +76,8 @@ class NamedNodeFinder
         return Action::Continue;
     }
 
-    NodePtr  _found;
-    std::string  *_name;
+    Node        *_found;
+    std::string  _name;
 };
 
 // Initialize GLUT & OpenSG and set up the scene
@@ -89,83 +89,90 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // load the scene
-
-    NodePtr scene;
-
-    if(argc < 2)
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
-        FWARNING(("No file given!\n"));
-        FWARNING(("Supported file formats:\n"));
-
-        std::list<const char*> suffixes;
-        SceneFileHandler::the()->getSuffixList(suffixes);
-        //SceneFileHandler::the()->print();
-
-        for(std::list<const char*>::iterator it  = suffixes.begin();
-                                             it != suffixes.end();
-                                           ++it)
+        // the connection between GLUT and OpenSG
+        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        // load the scene
+    
+        NodeRefPtr scene;
+    
+        if(argc < 2)
         {
-            FWARNING(("%s\n", *it));
+            FWARNING(("No file given!\n"));
+            FWARNING(("Supported file formats:\n"));
+    
+            std::list<const char*> suffixes;
+            SceneFileHandler::the()->getSuffixList(suffixes);
+            //SceneFileHandler::the()->print();
+    
+            for(std::list<const char*>::iterator it  = suffixes.begin();
+                                                it != suffixes.end();
+                                            ++it)
+            {
+                FWARNING(("%s\n", *it));
+            }
+    
+            scene = makeTorus(.5, 2, 16, 16);
         }
-
-        scene = makeTorus(.5, 2, 16, 16);
+        else
+        {
+            /*
+                All scene file loading is handled via the SceneFileHandler.
+            */
+            scene = SceneFileHandler::the()->read(argv[1]);
+        }
+    
+    
+        NodeRefPtr found;
+    
+        NamedNodeFinder f;
+    
+        // Try to find the Scene object. As it hasn't been named yet,
+        // it's not expected to be found.
+        found = f(scene, "Scene");
+        
+        if(found == NULL)
+        {
+            SLOG << "Found no object named 'Scene'.\n";
+        }
+        else
+        {
+            SLOG << "Found object " << found 
+                 << " named 'Scene'. How did that happen?\n";
+        }
+    
+        // Try to find the TF_DETAIL object. An object in Data/tie.wrl is called
+        // TF_DETAIL, so we might find it.
+        found = NamedNodeFinder::find(scene, "TF_DETAIL");
+        
+        if(found == NULL)
+        {
+            SLOG << "Found no object named 'TF_DETAIL' (did you load the tie?)."
+                << endLog;
+        }
+        else
+        {
+            SLOG << "Found object " << found << " named 'TF_DETAIL'." << endLog;
+        }
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
     }
-    else
-    {
-        /*
-            All scene file loading is handled via the SceneFileHandler.
-        */
-        scene = SceneFileHandler::the()->read(argv[1]);
-    }
-
-
-    NodePtr found;
-
-    NamedNodeFinder f;
-
-    // Try to find the Scene object. As it hasn't been named yet,
-    // it's not expected to be found.
-    found = f(scene, "Scene");
-    if(found == NullFC)
-    {
-        SLOG << "Found no object named Scene." << endLog;
-    }
-    else
-    {
-        SLOG << "Found object " << found << " named Scene. How did that happen?"
-             << endLog;
-    }
-
-    // Try to find the TF_DETAIL object. An object in Data/tie.wrl is called
-    // TF_DETAIL, so we might find it.
-    found = NamedNodeFinder::find(scene, "TF_DETAIL");
-    if(found == NullFC)
-    {
-        SLOG << "Found no object named TF_DETAIL (did you load the tie?)."
-             << endLog;
-    }
-    else
-    {
-        SLOG << "Found object " << found << " named TF_DETAIL." << endLog;
-    }
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
 
     // GLUT main loop
     glutMainLoop();
@@ -218,6 +225,9 @@ void keyboard(unsigned char k, int , int )
     {
         case 27:
         {
+            // clean up global variables
+            delete mgr;
+            
             OSG::osgExit();
             exit(0);
         }

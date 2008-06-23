@@ -44,25 +44,30 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // create the scene
-    NodePtr scene = makeTorus(.5, 2, 16, 16);
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
+    // open a new scope, because the pointers gwin and scene below should
+    // go out of scope before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
+    {
+        // the connection between GLUT and OpenSG
+        GLUTWindowRefPtr gwin= GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        // create the scene
+        NodeRefPtr scene = makeTorus(.5, 2, 16, 16);
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
+    }
     
     // GLUT main loop
     glutMainLoop();
@@ -112,6 +117,8 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:        
         {
+            delete mgr;
+        
             OSG::osgExit();
             exit(0);
         }

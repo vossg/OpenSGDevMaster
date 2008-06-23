@@ -34,13 +34,13 @@ OSG_USING_NAMESPACE
 SimpleSceneManager *mgr;
 
 // The file root node, needed for intersection
-NodePtr fileroot;
+NodeRefPtr fileroot;
 
 // The points used for visualising the ray and hit object
-GeoPnt3fPropertyPtr isectPoints;
+GeoPnt3fPropertyRefPtr isectPoints;
 
 // The visualisation geometry, needed for update.
-GeometryPtr testgeocore;
+GeometryRefPtr testgeocore;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -52,6 +52,12 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:    
         {
+            // clean up global variables
+            fileroot    = NULL;
+            isectPoints = NULL;
+            testgeocore = NULL;
+            delete mgr;
+        
             OSG::osgExit();
             exit(0);
         }
@@ -121,13 +127,13 @@ void keyboard(unsigned char k, int x, int y)
             
                     // and turn them into a triangle
                     Pnt3f p = it.getPosition(0);
-                    m.multMatrixPnt(p);
+                    m.mult(p, p);
                     isectPoints->setValue(p, 2);
                     p = it.getPosition(1);
-                    m.multMatrixPnt(p);
+                    m.mult(p, p);
                     isectPoints->setValue(p, 3);
                     p = it.getPosition(2);
-                    m.multMatrixPnt(p);
+                    m.mult(p, p);
                     isectPoints->setValue(p, 4);
                 }
                 else
@@ -137,7 +143,7 @@ void keyboard(unsigned char k, int x, int y)
                     isectPoints->setValue(Pnt3f(0,0,0), 3);
                     isectPoints->setValue(Pnt3f(0,0,0), 4);
                     
-                    mgr->setHighlight(NullFC);
+                    mgr->setHighlight(NULL);
                 }
 
                 commitChanges();
@@ -168,100 +174,105 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // The scene group
-    
-    NodePtr  scene = Node::create();
-    GroupPtr g     = Group::create();
-    
-    scene->setCore(g);
-    
-    if(argc < 2)
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
-        FWARNING(("No file given!\n"));
-        FWARNING(("Supported file formats:\n"));
+        // the connection between GLUT and OpenSG
+        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        // The scene group
         
-        std::list<const char*> suffixes;
-        SceneFileHandler::the()->getSuffixList(suffixes);
+        NodeRefPtr  scene = Node::create();
+        GroupRefPtr g     = Group::create();
         
-        for(std::list<const char*>::iterator it  = suffixes.begin();
-                                             it != suffixes.end();
-                                           ++it)
+        scene->setCore(g);
+        
+        if(argc < 2)
         {
-            FWARNING(("%s\n", *it));
+            FWARNING(("No file given!\n"));
+            FWARNING(("Supported file formats:\n"));
+            
+            std::list<const char*> suffixes;
+            SceneFileHandler::the()->getSuffixList(suffixes);
+            
+            for(std::list<const char*>::iterator it  = suffixes.begin();
+                                                it != suffixes.end();
+                                            ++it)
+            {
+                FWARNING(("%s\n", *it));
+            }
+    
+            fileroot = makeTorus(.5, 2, 16, 16);
         }
-
-        fileroot = makeTorus(.5, 2, 16, 16);
+        else
+        {
+            /*
+                All scene file loading is handled via the SceneFileHandler.
+            */
+            fileroot = SceneFileHandler::the()->read(argv[1]);
+        }
+    
+        scene->addChild(fileroot);
+        
+        // Create a small geometry to show the ray and what was hit
+        // Contains a line and a single triangle.
+        // The line shows the ray, the triangle whatever was hit.
+        
+        SimpleMaterialRefPtr red = SimpleMaterial::create();
+        
+        red->setDiffuse     (Color3f( 1,0,0 ));   
+        red->setTransparency(0.5);   
+        red->setLit         (false);   
+    
+        isectPoints = GeoPnt3fProperty::create();
+        isectPoints->addValue(Pnt3f(0,0,0));
+        isectPoints->addValue(Pnt3f(0,0,0));
+        isectPoints->addValue(Pnt3f(0,0,0));
+        isectPoints->addValue(Pnt3f(0,0,0));
+        isectPoints->addValue(Pnt3f(0,0,0));
+    
+        GeoUInt32PropertyRefPtr index = GeoUInt32Property::create();
+        index->addValue(0);
+        index->addValue(1);
+        index->addValue(2);
+        index->addValue(3);
+        index->addValue(4);
+    
+        GeoUInt32PropertyRefPtr lens = GeoUInt32Property::create();
+        lens->addValue(2);
+        lens->addValue(3);
+        
+        GeoUInt8PropertyRefPtr type = GeoUInt8Property::create();
+        type->addValue(GL_LINES);
+        type->addValue(GL_TRIANGLES);
+    
+        testgeocore = Geometry::create();
+        testgeocore->setPositions(isectPoints);
+        testgeocore->setIndices(index);
+        testgeocore->setLengths(lens);
+        testgeocore->setTypes(type);
+        testgeocore->setMaterial(red);
+        
+        NodeRefPtr testgeo = Node::create();
+        testgeo->setCore(testgeocore);
+        
+        scene->addChild(testgeo);
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
     }
-    else
-    {
-        /*
-            All scene file loading is handled via the SceneFileHandler.
-        */
-        fileroot = SceneFileHandler::the()->read(argv[1]);
-    }
-
-    scene->addChild(fileroot);
-    
-    // Create a small geometry to show the ray and what was hit
-    // Contains a line and a single triangle.
-    // The line shows the ray, the triangle whatever was hit.
-    
-    SimpleMaterialPtr red = SimpleMaterial::create();
-    
-    red->setDiffuse     (Color3f( 1,0,0 ));   
-    red->setTransparency(0.5);   
-    red->setLit         (false);   
-
-    isectPoints = GeoPnt3fProperty::create();
-    isectPoints->addValue(Pnt3f(0,0,0));
-    isectPoints->addValue(Pnt3f(0,0,0));
-    isectPoints->addValue(Pnt3f(0,0,0));
-    isectPoints->addValue(Pnt3f(0,0,0));
-    isectPoints->addValue(Pnt3f(0,0,0));
-
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
-    index->addValue(0);
-    index->addValue(1);
-    index->addValue(2);
-    index->addValue(3);
-    index->addValue(4);
-
-    GeoUInt32PropertyPtr lens = GeoUInt32Property::create();
-    lens->addValue(2);
-    lens->addValue(3);
-    
-    GeoUInt8PropertyPtr type = GeoUInt8Property::create();
-    type->addValue(GL_LINES);
-    type->addValue(GL_TRIANGLES);
-
-    testgeocore = Geometry::create();
-    testgeocore->setPositions(isectPoints);
-    testgeocore->setIndices(index);
-    testgeocore->setLengths(lens);
-    testgeocore->setTypes(type);
-    testgeocore->setMaterial(red);
-    
-    NodePtr testgeo = Node::create();
-    testgeo->setCore(testgeocore);
-    
-    scene->addChild(testgeo);
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
 
     // GLUT main loop
     glutMainLoop();

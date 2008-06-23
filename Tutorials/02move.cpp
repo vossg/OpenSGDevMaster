@@ -23,8 +23,7 @@
 OSG_USING_NAMESPACE
 
 // The pointer to the transformation
-TransformPtr trans;
-
+TransformRefPtr trans;
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
@@ -63,41 +62,46 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // create the scene
-
-    NodePtr torus = makeTorus( .5, 2, 16, 32 );
-
-    // create the transformation node
-    // scenegraph nodes are split into 2 parts: the node and its core
+    // open a new scope, because the pointers gwin and scene below should
+    // go out of scope before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
+    {
+        // the connection between GLUT and OpenSG
+        GLUTWindowRefPtr gwin= GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
     
-    // 1. create the Node
-    NodePtr scene = Node::create();
+        // create the scene
     
-    // 2. create the core
-    trans = Transform::create();
+        NodeRefPtr torus = makeTorus( .5, 2, 16, 32 );
     
-    // 3. associate the core with the node
- 
-    scene->setCore(trans);
-    // add the torus as a child
-    scene->addChild(torus);
+        // create the transformation node
+        // scenegraph nodes are split into 2 parts: the node and its core
+        
+        // 1. create the Node
+        NodeRefPtr scene = Node::create();
+        
+        // 2. create the core
+        trans = Transform::create();
+        
+        // 3. associate the core with the node
     
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
+        scene->setCore(trans);
+        // add the torus as a child
+        scene->addChild(torus);
+        
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
+    }
 
     // GLUT main loop
     glutMainLoop();
@@ -141,6 +145,10 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:  
         {
+            // clean up global variables
+            trans = NULL;
+            delete mgr;
+        
             OSG::osgExit();
             exit(0);
         }

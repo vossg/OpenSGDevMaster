@@ -21,7 +21,7 @@ OSG_USING_NAMESPACE
 const UInt16 ncopies = 10;
 
 // just use a single transformation that is shared
-TransformPtr trans;
+TransformRefPtr trans;
 
 
 // The SimpleSceneManager to manage simple applications
@@ -56,82 +56,85 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // create the scene
-
-    /*
-        Transformation accumulate through the graph, i.e. all nodes below
-        a Transformation are influenced by it, even other Transformations.
-        
-        This can be used to create models of objects that move together and
-        in relation to each other, the prime examples being a robot arm and
-        a planetary system. This example does something not quite unlike a
-        robot arm.
-    */    
-
-    // create the scene
-    
-    /*
-       This time the graph is not wide, but deep, i.e. every Transformation
-       only has two children, a Geometry and another transformation.
-       The end resulting motion of the geometry is the accumulation of
-       all the Transformations above it.
-    */
-     
-    // use a cylinder this time
-    GeometryPtr cyl = makeCylinderGeo( 1, .3, 8, true, true, true );
-    
-    // the single transformation Core used
-    trans = Transform::create();
-    
-    // setup an intial transformation
-    Matrix m;
-    m.setTransform(Vec3f(0, .9, 0));
-
-    trans->setMatrix(m);
-    
-    /*
-       NullFC is the generic NULL value for FieldContainer pointer.
-    */
-    NodePtr last = NullFC;
-    
-    // create the copied transformations and their geometry nodes
-    for(UInt16 i = 1; i < ncopies; ++i)
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
-        // create the shared Geometry
-        NodePtr geonode = Node::create();
-        geonode->setCore(cyl);
-
-        // add a transformation to the Geometry
-        NodePtr transnode = Node::create();
-
-        transnode->setCore (trans);
-        transnode->addChild(geonode );
-        if(last != NullFC)
+        // the connection between GLUT and OpenSG
+        GLUTWindowRefPtr gwin= GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        // create the scene
+    
+        /*
+            Transformation accumulate through the graph, i.e. all nodes below
+            a Transformation are influenced by it, even other Transformations.
+            
+            This can be used to create models of objects that move together and
+            in relation to each other, the prime examples being a robot arm and
+            a planetary system. This example does something not quite unlike a
+            robot arm.
+        */    
+    
+        // create the scene
+        
+        /*
+        This time the graph is not wide, but deep, i.e. every Transformation
+        only has two children, a Geometry and another transformation.
+        The end resulting motion of the geometry is the accumulation of
+        all the Transformations above it.
+        */
+        
+        // use a cylinder this time
+        GeometryRefPtr cyl = makeCylinderGeo( 1, .3, 8, true, true, true );
+        
+        // the single transformation Core used
+        trans = Transform::create();
+        
+        // setup an intial transformation
+        Matrix m;
+        m.setTransform(Vec3f(0, .9, 0));
+    
+        trans->setMatrix(m);
+        
+        NodeRefPtr last = NULL;
+        
+        // create the copied transformations and their geometry nodes
+        for(UInt16 i = 1; i < ncopies; ++i)
         {
-            transnode->addChild(last);       
+            // create the shared Geometry
+            NodeRefPtr geonode = Node::create();
+            geonode->setCore(cyl);
+    
+            // add a transformation to the Geometry
+            NodeRefPtr transnode = Node::create();
+    
+            transnode->setCore (trans  );
+            transnode->addChild(geonode);
+            
+            if(last != NULL)
+            {
+                transnode->addChild(last);       
+            }
+        
+            last = transnode;
         }
-       
-        last = transnode;
+    
+        NodeRefPtr scene = last;
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
     }
- 
-    NodePtr scene = last;
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
 
     // GLUT main loop
     glutMainLoop();
@@ -175,6 +178,10 @@ void keyboard(unsigned char k, int x, int y)
     {
         case 27:    
         {
+            // clean up global variables
+            trans = NULL;
+            delete mgr;
+        
             OSG::osgExit();
             exit(0);
         }
