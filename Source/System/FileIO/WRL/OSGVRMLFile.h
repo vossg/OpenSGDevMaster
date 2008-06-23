@@ -179,7 +179,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
                VRMLNodeHelper *               _pCurrNodeHelper;
     std::stack<VRMLNodeHelper *>              _sNodeHelpers;
 
-               FieldContainer                *_pCurrentFC;
+               FieldContainerUnrecPtr         _pCurrentFC;
                FieldContainer                *_pCurrentFieldFC;
                EditFieldHandlePtr             _pCurrentField;
     const      FieldDescriptionBase          *_pCurrentFieldDesc;

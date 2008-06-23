@@ -134,6 +134,7 @@ NodeTransitPtr VRMLFile::scanStream(std::istream &is)
     startTime = getSystemTime();
 
     _pSceneRootNode      = NULL;
+    _pCurrentFC          = NULL;
 
     _nameFCMap.clear();
 
@@ -151,6 +152,7 @@ NodeTransitPtr VRMLFile::scanStream(std::istream &is)
     NodeTransitPtr returnValue(_pSceneRootNode);
 
     _pSceneRootNode      = NULL;
+    _pCurrentFC          = NULL;
 
     FINFO(("Full Time : %lf | Use Time %lf\n",
             getSystemTime() - startTime,
@@ -265,7 +267,7 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
 
     if(_fcStack.size() == 1)
     {
-        Node *pNode = dynamic_cast<Node *>(_pCurrentFC);
+        Node *pNode = dynamic_cast<Node *>(_pCurrentFC.get());
 
         if(_pSceneRootNode == NULL)
         {
@@ -322,7 +324,7 @@ void VRMLFile::endNode(void)
     {
         if(_pCurrentFC->getType().isNode() == true)
         {
-            Node *pNode = dynamic_cast<Node *>(_pCurrentFC);
+            Node *pNode = dynamic_cast<Node *>(_pCurrentFC.get());
 
             if(pNode->getCore() == NULL)
             {
