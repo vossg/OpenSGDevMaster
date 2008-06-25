@@ -206,9 +206,7 @@ class TransformationMatrix
 
     void setValue          (const VectorType           *pMat               );
 
-#ifndef WIN32
     void setValue          (const VectorType3f         *pMat               );
-#endif
 
     void setValue           (const Char8               *string,
                                    bool                 bTransposed = true );

@@ -322,8 +322,6 @@ void TransformationMatrix<ValueTypeT>::setValue(const VectorType *pMat)
     }
 }
 
-#ifndef WIN32
-
 //! Set value from an VectorType3f array, be shure the sizes match
 
 template<class ValueTypeT> inline
@@ -334,8 +332,6 @@ void TransformationMatrix<ValueTypeT>::setValue(const VectorType3f *pMat)
         _matrix[i].setValue(pMat[i]);
     }
 }
-
-#endif
 
 /*! \brief Set matrix by a given str (like "1.0 0.0 0.0 0.0 ...
     (16 entries at all)"), be shure the size matches
