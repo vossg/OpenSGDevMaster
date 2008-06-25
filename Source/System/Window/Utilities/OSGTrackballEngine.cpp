@@ -563,8 +563,8 @@ void TrackballEngine::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
     Matrix cctowc;
     myCalcCCtoWCMatrix(cctowc, view, vp);
 
-    Real32 rx = ( toX / Real32(vp->getPixelWidth()) ) * 2.f - 1.f;
-    Real32 ry = 1.f - ( toY / Real32(vp->getPixelHeight()) ) * 2.f;
+    Real32 rx(0.f), ry(0.f);
+    vp->getNormalizedCoordinates(rx, ry, toX, toY);
 
     Pnt3f at;
     cctowc.multFull( Pnt3f( rx, ry, 1 ), at );

@@ -91,6 +91,11 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
 
     Window       *getParent(void) const;
 
+    void          getNormalizedCoordinates(      Real32& normX,
+                                                 Real32& normY,
+                                           const Int32   vpX  ,
+                                           const Int32   vpY  ) const;
+                                          
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    your_category                             */

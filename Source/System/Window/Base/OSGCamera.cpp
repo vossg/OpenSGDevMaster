@@ -341,13 +341,8 @@ bool Camera::calcViewRay(      Line    &line,
 
     cctowc.invertFrom(wctocc);
 
-    Real32  rx =
-        (x - port.getPixelLeft()) /
-        Real32(port.getPixelWidth()) * 2.f - 1.f;
-
-    Real32 ry = 1.f - (
-        ( y - (port.getParent()->getHeight() - port.getPixelTop()) ) /
-        Real32(port.getPixelHeight())) * 2.f;
+    Real32 rx(0.f), ry(0.f);
+    port.getNormalizedCoordinates(rx, ry, x, y);
 
     Pnt3f from, at;
 

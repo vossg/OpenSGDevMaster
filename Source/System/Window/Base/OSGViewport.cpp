@@ -255,6 +255,29 @@ Window *Viewport::getParent(void) const
     return dynamic_cast<Window *>(_sfParent.getValue());
 }
 
+/*! Returns normalized coordintes from viewport coordinates.
+
+   @param normX Normalized X coordinate in the range [-1.0,1.0].
+   @param normY Normalized Y coordinate in the range [-1.0,1.0].
+   @param vpX   X coordinate of this viewport in the range [0,width].
+   @param vpY   Y coordinate of this viewport in the range [0,height].
+
+   @note Out-of-range input values lead to out-of-range output values.
+ */
+void Viewport::getNormalizedCoordinates(      Real32& normX,
+                                              Real32& normY,
+                                        const Int32   vpX  ,
+                                        const Int32   vpY  ) const
+{
+    normX =
+        (vpX - getPixelLeft()) /
+        static_cast<Real32>(getPixelWidth()) * 2.f - 1.f;
+
+    normY = 1.f - (
+        (vpY - (getParent()->getHeight() - getPixelTop())) /
+        static_cast<Real32>(getPixelHeight())) * 2.f;
+}
+
 /*-------------------------- your_category---------------------------------*/
 
 /*! Draw the viewport. Restrict the OpenGL rendering to the given part of the
