@@ -2715,6 +2715,87 @@ bool Image::scale(Int32  width,
     return true;
 }
 
+/*! Mirror the image along horizontal, vertical, or depth.
+    The method can operate on the object or stores the result in
+    the optional destination Image.
+ */
+
+bool Image::mirror(bool   horizontal,
+                   bool   vertical,
+                   bool   flipDepth,
+                   Image *destination)
+{
+    if ( !horizontal && !vertical)
+    {
+        if(destination != NULL)
+            *destination = *this;
+        
+        return true;
+    }
+
+    Image *destImage;
+
+    if(destination != NULL)
+    {
+        destImage = destination;
+    }
+    else
+    {
+        destImage = this;
+    }
+
+    // Get pixels.
+    const MFUInt8* srcPixel = getMFPixel();
+
+    UInt32 width = getWidth();
+    UInt32 height = getHeight();
+    UInt32 depth = getDepth();
+
+    destImage->set(PixelFormat(getPixelFormat()),
+                   width,
+                   height,
+                   depth,
+                   getMipMapCount(),
+                   getFrameCount (),
+                   getFrameDelay (),
+                   0,
+                   getDataType   (),
+                   true,
+                   getSideCount  ());
+
+    Int32         frame, side, mipmap;
+    const UChar8 *src;
+    UChar8       *dest;
+
+    // copy every mipmap in every side in every frame
+    for(frame = 0; frame < getFrameCount(); frame++)
+    {
+        for (side = 0; side < getSideCount(); side++)
+        {
+            for(mipmap = 0; mipmap < getMipMapCount(); mipmap++)
+            {
+                // get the memory pointer
+                src = (&((*srcPixel)[0])) +
+                      (side  * getSideSize ()) +
+                      (frame * getFrameSize());
+
+                if(mipmap)
+                {
+                    src += calcMipmapSumSize(mipmap, width, height, depth);
+                }
+
+                dest = destImage->editData(mipmap, frame, side);
+                destImage->calcMipmapGeometry(mipmap, width, height, depth);
+
+                // copy and mirror the data
+                mirrorData(src, dest, width, height, depth, horizontal,
+                           vertical, flipDepth);
+            }
+        }
+    }
+    return true;
+}
+
 /*! Scale the image to the next power of 2 dimensions
     The method can operate on the object or stores the result in
     the optional destination Image.
@@ -4036,6 +4117,51 @@ void Image::calcMipmapOffsets(void)
     }
 }
 
+/*! Internal method to mirror image data blocks
+ */
+bool Image::mirrorData(const UInt8 *srcData,
+                             UInt8 *destData,
+                             Int32  width,
+                             Int32  height,
+                             Int32  depth,
+                             bool   horizontal,
+                             bool   vertical,
+                             bool   flipDepth)
+{
+    int dx_step = horizontal ? -1 : 1;
+    int dx_start = horizontal ? width-1 : 0;
+    int dy_step = vertical ? -1 : 1;
+    int dy_start = vertical ? height-1 : 0;
+    int dz_step = flipDepth ? -1 : 1;
+    int dz_start = flipDepth ? depth-1 : 0;
+
+    int dz = dz_start;
+    for(int sz = 0; sz < depth; sz++, dz += dz_step)
+    {
+        const UInt8 *src_slice = srcData + (sz * getBpp() * width * height);
+        UInt8       *dst_slice = destData + (dz * getBpp() * width * height);
+        int dy = dy_start;
+        for(int sy = 0; sy < height; sy++, dy += dy_step)
+        {
+            const UInt8 *src_line = src_slice + (sy * getBpp() * width);
+            UInt8       *dst_line = dst_slice + (dy * getBpp() * width);
+            int dx = dx_start;
+            for(int sx = 0; sx < width; sx++, dx += dx_step)
+            {
+                const UInt8 *src_pixel = src_line + (sx * getBpp());
+                UInt8       *dst_pixel = dst_line + (dx * getBpp());
+ 
+                Int32 p = getBpp();
+ 
+                while(p--)
+                {
+                    *dst_pixel++ = *src_pixel++;
+                }
+             }
+        }
+    }
+    return true;
+}
 
 /*! Assign operator. Does a copy of the given Image object.
  */

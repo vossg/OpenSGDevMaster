@@ -227,6 +227,16 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Mirror                                  */
+    /*! \{                                                                 */
+
+    bool mirror         (bool   horizontal,
+                         bool   vertical,
+                         bool   flipDepth   = false,
+                         Image *destination = NULL  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      SubImage                                */
     /*! \{                                                                 */
 
@@ -441,7 +451,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \{                                                                 */
 
     bool createData       (const UInt8 *data, 
-                                 bool   allocMem = true);
+                                 bool   allocMem = true  );
     bool scaleData        (const UInt8 *srcData,
                                  Int32  srcW, 
                                  Int32  srcH, 
@@ -449,9 +459,18 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
                                  UInt8 *destData,
                                  Int32  destW, 
                                  Int32  destH, 
-                                 Int32  destD          );
+                                 Int32  destD            );
 
-    void calcMipmapOffsets(      void                  );
+    void calcMipmapOffsets(      void                    );
+
+    bool mirrorData       (const UInt8 *srcData,
+                                 UInt8 *destData,
+                                 Int32  width,
+                                 Int32  height,
+                                 Int32  depth,
+                                 bool   horizontal,
+                                 bool   vertical,
+                                 bool   flipDepth = false);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
