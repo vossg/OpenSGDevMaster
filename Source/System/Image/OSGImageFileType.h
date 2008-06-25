@@ -204,17 +204,13 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType : public IOFileTypeBase
                         UInt32  flags = OSG_READ_SUPPORTED);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Copy Op                                  */
-    /*! \{                                                                 */
-
-          ImageFileType            (const ImageFileType &obj);
-    const ImageFileType &operator =(const ImageFileType &obj);
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /* prohibit default function (move to 'public' if needed) */
+          ImageFileType            (const ImageFileType &obj);
+    const ImageFileType &operator =(const ImageFileType &obj);
+
 
     std::list<std::string> _suffixList;
 

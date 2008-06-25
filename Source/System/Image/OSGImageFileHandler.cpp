@@ -246,6 +246,16 @@ Int32 ImageFileHandlerBase::getSuffixList(std::list<const Char8 *> &suffixList,
     return count;
 }
 
+const ImageFileHandlerBase::TypeMap& ImageFileHandlerBase::getSuffixTypeMap() const
+{
+    return _suffixTypeMap;
+}
+
+const ImageFileHandlerBase::TypeMap& ImageFileHandlerBase::getMimeTypeMap() const
+{
+    return _mimeTypeMap;
+}
+
 //-------------------------------------------------------------------------
 /*!
   Tries to determine the mime type from the file name.

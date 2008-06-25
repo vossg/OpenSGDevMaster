@@ -203,14 +203,18 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     /*! \name                  Get Method                                  */
     /*! \{                                                                 */
 
+    typedef std::map<std::string, ImageFileType *> TypeMap;
+
+    const TypeMap& getSuffixTypeMap() const;
+
+    const TypeMap& getMimeTypeMap()   const;
+
     /*! \}                                                                 */
 
     /*=========================  PROTECTED  ===============================*/
 
   protected:
     
-    typedef std::map<std::string, ImageFileType *> TypeMap;
-
     ReadCB       _pReadCallback;
 
     PathHandler *_pPathHandler;
