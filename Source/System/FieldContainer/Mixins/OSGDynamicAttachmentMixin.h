@@ -227,7 +227,7 @@ DynFieldAttachment< DESC >::TypeObject                                        \
         true,                                                                 \
         0);                                                                   \
                                                                               \
-template<>                                                                    \
+template<> OSG_DLL_EXPORT                                                     \
 DynFieldAttachment< DESC >::TypeObject &                                      \
     DynFieldAttachment< DESC >::getClassType(void)                            \
 {                                                                             \

@@ -52,7 +52,8 @@ class BasicFieldConnector;
            PageSystemConnectorAttachment for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING ConnectorAttachment : public ConnectorAttachmentBase
+class OSG_SYSTEM_DLLMAPPING ConnectorAttachment : 
+    public ConnectorAttachmentBase
 {
   protected:
 
@@ -143,6 +144,7 @@ class OSG_SYSTEM_DLLMAPPING ConnectorAttachment : public ConnectorAttachmentBase
 
 typedef ConnectorAttachment *ConnectorAttachmentP;
 
+OSG_SYSTEM_DLLMAPPING
 void addConnector(AttachmentContainer *pContainer,
                   BasicFieldConnector *pConn     );
 

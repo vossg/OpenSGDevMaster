@@ -117,7 +117,7 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
 
     typedef boost::function<VRMLNodeHelper *(void)> CreateHelper;
 
-    class RegisterHelper
+    class OSG_FILEIO_DLLMAPPING RegisterHelper
     {
       public:
         

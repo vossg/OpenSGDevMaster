@@ -115,6 +115,7 @@ class MFieldConnector : public BasicFieldConnector
           FieldT    *_pDstField;
 };
 
+OSG_SYSTEM_DLLMAPPING
 bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
                    FieldContainer      *pDstContainer, const Char8 *szDstName);
 
