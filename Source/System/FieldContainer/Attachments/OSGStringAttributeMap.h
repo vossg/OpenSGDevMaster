@@ -139,6 +139,7 @@ typedef StringAttributeMap *StringAttributeMapP;
 /*! \name              StringAttributeMap Util                         */
 /*! \{                                                                 */
 
+OSG_SYSTEM_DLLMAPPING
 StringAttributeMapTransitPtr stringAttributeMap(
     AttachmentContainer *container);
 
