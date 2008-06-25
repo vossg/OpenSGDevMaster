@@ -339,6 +339,7 @@ void CubeTextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
     pEnv->setActiveTexTarget(idx, GL_TEXTURE_CUBE_MAP_ARB);
 
+    glEnable(GL_TEXTURE_CUBE_MAP_ARB);
     glErr("CubeTextureObjChunk::activate");
 }
 
