@@ -141,7 +141,7 @@ bool DrawManager::init(void)
 
         addRef(_pSyncBarrier);
 
-        if(_sfSwapBarrierName.getValue().empty() != false)
+        if(_sfSwapBarrierName.getValue().empty() == false)
         {
             _pSwapBarrier = Barrier::get(_sfSwapBarrierName.getValue().c_str());
 
@@ -158,7 +158,7 @@ bool DrawManager::init(void)
             (*dIt)->setParallel      ( true           );
 
             (*dIt)->setSyncBarrier   (_pSyncBarrier   );
-//            (*dIt)->setSwapBarrier   (_pSwapBarrier );
+            (*dIt)->setSwapBarrier   (_pSwapBarrier );
 
             (*dIt)->setSyncCount     (_uiSyncCount    );
             (*dIt)->setSyncFromThread(_pThread        );

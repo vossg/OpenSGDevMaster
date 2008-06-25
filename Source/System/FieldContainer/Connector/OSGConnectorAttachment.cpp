@@ -145,6 +145,18 @@ void ConnectorAttachment::processChanged(FieldContainer      *pObj,
     }
 }
 
+bool ConnectorAttachment::unlinkParent(FieldContainer * const pParent,
+                                       UInt16           const parentFieldId)
+{
+    pParent->subChangedFunctor(
+        boost::bind(&ConnectorAttachment::processChanged, 
+                    this, 
+                    _1, 
+                    _2));
+    
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
 void addConnector(AttachmentContainer *pContainer,
                   BasicFieldConnector *pConn     )
 {

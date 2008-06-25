@@ -119,6 +119,14 @@ class OSG_SYSTEM_DLLMAPPING ConnectorAttachment : public ConnectorAttachmentBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

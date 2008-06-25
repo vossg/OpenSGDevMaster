@@ -36,6 +36,7 @@
 		cardinality="single"
 		visibility="internal"
 		access="public"
+        defaultValue="&quot;&quot;"
 	>
 	</Field>
 	<Field
@@ -44,6 +45,7 @@
 		cardinality="single"
 		visibility="internal"
 		access="public"
+        defaultValue="&quot;&quot;"
 	>
 	</Field>
 </FieldContainer>

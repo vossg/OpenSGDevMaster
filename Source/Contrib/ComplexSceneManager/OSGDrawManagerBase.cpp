@@ -203,6 +203,7 @@ DrawManagerBase::TypeObject DrawManagerBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
+    "        defaultValue=\"&quot;&quot;\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -211,6 +212,7 @@ DrawManagerBase::TypeObject DrawManagerBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
+    "        defaultValue=\"&quot;&quot;\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -486,8 +488,8 @@ DrawManagerBase::DrawManagerBase(void) :
     Inherited(),
     _mfDrawer                 (),
     _sfParallel               (),
-    _sfSyncBarrierName        (),
-    _sfSwapBarrierName        ()
+    _sfSyncBarrierName        (std::string("")),
+    _sfSwapBarrierName        (std::string(""))
 {
 }
 

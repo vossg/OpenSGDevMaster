@@ -65,6 +65,7 @@ ComplexSceneManager
 	parallel TRUE
 
 	syncBarrierName "drawSyncBarrier"
+#    swapBarrierName "drawSwapBarrier"
 
     drawer
     [
