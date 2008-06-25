@@ -254,6 +254,8 @@ void ComplexSceneManager::scanParamFile(
             ++cIt;
         }
     }
+
+    fclose(pIn);
 }
 
 void ComplexSceneManager::scanPreSystem(std::vector<std::string> &vParams)
@@ -750,7 +752,22 @@ void ComplexSceneManager::terminate(void)
 {
     _vStaticGlobals.clear();
 
+    _the->shutdown();
+
     _the = NULL;
+}
+
+void ComplexSceneManager::shutdown(void)
+{
+    this->clearGlobals();
+
+    if(_sfDrawManager.getValue() != NULL)
+    {
+        _sfDrawManager.getValue()->shutdown();
+    }
+
+    this->setDrawManager(NULL);
+    this->setSensorTask (NULL);
 }
 
 void ComplexSceneManager::setMainloop(MainLoopFuncF fMainloop)

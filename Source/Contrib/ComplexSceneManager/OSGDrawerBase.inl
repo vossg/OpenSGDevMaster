@@ -98,6 +98,31 @@ void DrawerBase::setDisplayString(const std::string &value)
 
     _sfDisplayString.setValue(value);
 }
+//! Get the value of the Drawer::_sfAspect field.
+
+inline
+UInt32 &DrawerBase::editAspect(void)
+{
+    editSField(AspectFieldMask);
+
+    return _sfAspect.getValue();
+}
+
+//! Get the value of the Drawer::_sfAspect field.
+inline
+      UInt32  DrawerBase::getAspect(void) const
+{
+    return _sfAspect.getValue();
+}
+
+//! Set the value of the Drawer::_sfAspect field.
+inline
+void DrawerBase::setAspect(const UInt32 value)
+{
+    editSField(AspectFieldMask);
+
+    _sfAspect.setValue(value);
+}
 
 //! Get the value of the \a index element the Drawer::_mfWindows field.
 inline
@@ -125,6 +150,9 @@ void DrawerBase::execSync (      DrawerBase *pFrom,
 
     if(FieldBits::NoField != (DisplayStringFieldMask & whichField))
         _sfDisplayString.syncWith(pFrom->_sfDisplayString);
+
+    if(FieldBits::NoField != (AspectFieldMask & whichField))
+        _sfAspect.syncWith(pFrom->_sfAspect);
 }
 #endif
 

@@ -109,7 +109,7 @@ void OrientationInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         FractionFieldId, FractionFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleFraction),
         static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleFraction));
 
@@ -121,7 +121,7 @@ void OrientationInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         KeyFieldId, KeyFieldMask,
         false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleKey),
         static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleKey));
 
@@ -133,7 +133,7 @@ void OrientationInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         KeyValueFieldId, KeyValueFieldMask,
         false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleKeyValue),
         static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleKeyValue));
 
@@ -145,7 +145,7 @@ void OrientationInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         ValueFieldId, ValueFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleValue),
         static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleValue));
 
@@ -187,6 +187,7 @@ OrientationInterpolatorBase::TypeObject OrientationInterpolatorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"0.f\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -196,6 +197,7 @@ OrientationInterpolatorBase::TypeObject OrientationInterpolatorBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -205,6 +207,7 @@ OrientationInterpolatorBase::TypeObject OrientationInterpolatorBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -214,6 +217,7 @@ OrientationInterpolatorBase::TypeObject OrientationInterpolatorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",

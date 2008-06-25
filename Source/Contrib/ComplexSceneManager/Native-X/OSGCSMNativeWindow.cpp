@@ -215,13 +215,15 @@ void CSMNativeWindow::xMainLoop(void)
 
 CSMNativeWindow::CSMNativeWindow(void) :
      Inherited(    ),
-    _pXWindow (NULL)
+    _pXWindow (NULL),
+    _pDisplay (NULL)
 {
 }
 
 CSMNativeWindow::CSMNativeWindow(const CSMNativeWindow &source) :
      Inherited(source),
-    _pXWindow (NULL  )
+    _pXWindow (NULL  ),
+    _pDisplay (NULL  )
 {
 }
 
@@ -242,6 +244,21 @@ void CSMNativeWindow::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump CSMNativeWindow NI" << std::endl;
+}
+
+void CSMNativeWindow::resolveLinks(void)
+{
+    if(_pXWindow != NULL)
+    {
+        _pXWindow->terminate();
+    }
+
+    if(_pDisplay != NULL)
+    {
+        XCloseDisplay(_pDisplay);
+    }
+
+    Inherited::resolveLinks();
 }
 
 #ifdef OSG_DEBUG_OLD_C_CASTS
@@ -266,11 +283,11 @@ bool CSMNativeWindow::init(void)
         szDisplayName = pDrawer->getDisplayString();
     }
 
-    Display *pDisplay = XOpenDisplay(szDisplayName.c_str());
+    _pDisplay = XOpenDisplay(szDisplayName.c_str());
 
-    //fprintf(stderr, "Opened Display %p\n", pDisplay);
+    //fprintf(stderr, "Opened Display %p\n", _pDisplay);
     
-    if(pDisplay == NULL) 
+    if(_pDisplay == NULL) 
     {
         fprintf(stderr, "Error: Could not open display: %s\n",
                 szDisplayName.c_str());
@@ -280,7 +297,7 @@ bool CSMNativeWindow::init(void)
     
     int iDummy;
 
-    if(!glXQueryExtension(pDisplay, &iDummy, &iDummy))
+    if(!glXQueryExtension(_pDisplay, &iDummy, &iDummy))
     {
         fprintf(stderr, 
                 "Error: X server has no OpenGL GLX extension: :0.0\n"); 
@@ -294,8 +311,8 @@ bool CSMNativeWindow::init(void)
 //                    (_pVSCWindow->stereo() == true) ? GLX_STEREO : None,
                     None};
 
-    XVisualInfo          *vi = glXChooseVisual(pDisplay, 
-                                               DefaultScreen(pDisplay), 
+    XVisualInfo          *vi = glXChooseVisual(_pDisplay, 
+                                               DefaultScreen(_pDisplay), 
                                                dblBuf);
 
     if(vi == NULL) 
@@ -306,8 +323,8 @@ bool CSMNativeWindow::init(void)
     }
 
 
-    Colormap cmap = XCreateColormap(pDisplay, 
-                                    RootWindow(pDisplay,
+    Colormap cmap = XCreateColormap(_pDisplay, 
+                                    RootWindow(_pDisplay,
                                                vi->screen), 
                                     vi->visual, 
                                     AllocNone);
@@ -349,11 +366,11 @@ bool CSMNativeWindow::init(void)
     }
     else if(this->getXSize() <= 0.f)
     {
-        uiWidth = DisplayWidth(pDisplay, vi->screen);
+        uiWidth = DisplayWidth(_pDisplay, vi->screen);
     }
     else
     {
-        uiWidth = UInt32(Real32(DisplayWidth(pDisplay, vi->screen)) *
+        uiWidth = UInt32(Real32(DisplayWidth(_pDisplay, vi->screen)) *
                          this->getXSize());
     }
 
@@ -363,18 +380,18 @@ bool CSMNativeWindow::init(void)
     }
     else if(this->getYSize() <= 0.f)
     {
-        uiHeight = DisplayHeight(pDisplay, vi->screen);
+        uiHeight = DisplayHeight(_pDisplay, vi->screen);
     }
     else
     {
-        uiHeight = UInt32(Real32(DisplayHeight(pDisplay, vi->screen)) *
+        uiHeight = UInt32(Real32(DisplayHeight(_pDisplay, vi->screen)) *
                           this->getYSize());
     }
 
     //fprintf(stderr, "Win size %d %d\n", uiWidth, uiHeight);
 
-    ::Window pHWin = XCreateWindow( pDisplay,
-                                    RootWindow(pDisplay,
+    ::Window pHWin = XCreateWindow(_pDisplay,
+                                    RootWindow(_pDisplay,
                                                vi->screen),
                                     0, 
                                     0, 
@@ -396,24 +413,24 @@ bool CSMNativeWindow::init(void)
     Char8 *argv[] = { "testCSM" };
 
 
-    XSetStandardProperties(pDisplay, 
-                           pHWin, 
-                           "OpenSG - CSM", 
-                           None,
-                           None,
-                           argv, 
-                           argc, 
-                           NULL);
+    XSetStandardProperties(_pDisplay, 
+                            pHWin, 
+                            "OpenSG - CSM", 
+                            None,
+                            None,
+                            argv, 
+                            argc, 
+                            NULL);
         
-    XMapWindow(pDisplay, pHWin);
+    XMapWindow(_pDisplay, pHWin);
 
-    XMoveWindow(pDisplay, pHWin, iXPos, iYPos);
+    XMoveWindow(_pDisplay, pHWin, iXPos, iYPos);
 
     if(this->getDecorEnabled() == false)
     {
-        Atom noDecorAtom = XInternAtom(pDisplay, 
-                                       "_MOTIF_WM_HINTS",
-                                       0);
+        Atom noDecorAtom = XInternAtom(_pDisplay, 
+                                        "_MOTIF_WM_HINTS",
+                                        0);
 
         if(noDecorAtom == None) 
         {
@@ -433,34 +450,34 @@ bool CSMNativeWindow::init(void)
         oHints.flags = 2;
         oHints.decorations = 0;
 
-        XChangeProperty(pDisplay, 
-                        pHWin,
-                        noDecorAtom, 
-                        noDecorAtom, 
-                        32,
-                        PropModeReplace, 
-                        reinterpret_cast<unsigned char *>(&oHints), 4);
+        XChangeProperty(_pDisplay, 
+                         pHWin,
+                         noDecorAtom, 
+                         noDecorAtom, 
+                         32,
+                         PropModeReplace, 
+                         reinterpret_cast<unsigned char *>(&oHints), 4);
     }
     
     XEvent event;
 
-    XIfEvent      (pDisplay, 
-                   &event, 
-                   waitMapNotify,  
-                   reinterpret_cast<char *>(pHWin));
+    XIfEvent      (_pDisplay, 
+                    &event, 
+                    waitMapNotify,  
+                    reinterpret_cast<char *>(pHWin));
 
-    XSetInputFocus(pDisplay,  pHWin, RevertToParent, CurrentTime);
+    XSetInputFocus(_pDisplay,  pHWin, RevertToParent, CurrentTime);
 
     XWindowUnrecPtr pXWindow = OSG::XWindow::create();
 
     _pXWindow = pXWindow;
 
-    _pXWindow->setDisplay(pDisplay);
-    _pXWindow->setWindow (pHWin   );
-    _pXWindow->init      (        );
-    _pXWindow->resize    (uiWidth,
-                          uiHeight);
-    _pXWindow->deactivate(        );
+    _pXWindow->setDisplay(_pDisplay);
+    _pXWindow->setWindow ( pHWin   );
+    _pXWindow->init      (         );
+    _pXWindow->resize    ( uiWidth,
+                           uiHeight);
+    _pXWindow->deactivate(         );
 
     ComplexSceneManager::the()->setMainloop(&CSMNativeWindow::xMainLoop);
     

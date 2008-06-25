@@ -103,6 +103,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
 
 
     XWindow *_pXWindow;
+    Display *_pDisplay;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -124,6 +125,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     /*! \{                                                                 */
 
     Display *getDisplay(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

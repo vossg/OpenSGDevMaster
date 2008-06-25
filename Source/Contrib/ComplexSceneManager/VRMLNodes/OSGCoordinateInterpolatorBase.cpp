@@ -109,7 +109,7 @@ void CoordinateInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         FractionFieldId, FractionFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&CoordinateInterpolator::editHandleFraction),
         static_cast<FieldGetMethodSig >(&CoordinateInterpolator::getHandleFraction));
 
@@ -121,7 +121,7 @@ void CoordinateInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         KeyFieldId, KeyFieldMask,
         false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&CoordinateInterpolator::editHandleKey),
         static_cast<FieldGetMethodSig >(&CoordinateInterpolator::getHandleKey));
 
@@ -133,7 +133,7 @@ void CoordinateInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         KeyValueFieldId, KeyValueFieldMask,
         false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&CoordinateInterpolator::editHandleKeyValue),
         static_cast<FieldGetMethodSig >(&CoordinateInterpolator::getHandleKeyValue));
 
@@ -145,7 +145,7 @@ void CoordinateInterpolatorBase::classDescInserter(TypeObject &oType)
         "",
         ValueFieldId, ValueFieldMask,
         true,
-        (Field::MFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&CoordinateInterpolator::editHandleValue),
         static_cast<FieldGetMethodSig >(&CoordinateInterpolator::getHandleValue));
 
@@ -187,6 +187,7 @@ CoordinateInterpolatorBase::TypeObject CoordinateInterpolatorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"0.f\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -196,6 +197,7 @@ CoordinateInterpolatorBase::TypeObject CoordinateInterpolatorBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -205,6 +207,7 @@ CoordinateInterpolatorBase::TypeObject CoordinateInterpolatorBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -214,6 +217,7 @@ CoordinateInterpolatorBase::TypeObject CoordinateInterpolatorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",

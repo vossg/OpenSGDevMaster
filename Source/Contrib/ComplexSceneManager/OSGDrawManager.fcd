@@ -22,4 +22,28 @@
         category="pointer"
 	>
 	</Field>
+    <Field
+       name="parallel"
+       type="bool"
+       cardinality="single"
+       visibility="external"
+       access="public"
+    >
+    </Field>
+	<Field
+		name="syncBarrierName"
+		type="std::string"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="swapBarrierName"
+		type="std::string"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
 </FieldContainer>

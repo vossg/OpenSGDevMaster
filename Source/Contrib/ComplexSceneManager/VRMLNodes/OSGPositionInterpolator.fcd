@@ -21,6 +21,7 @@
 		visibility="internal"
 		access="public"
         defaultValue="0.f"
+        fieldFlags="FThreadLocal"
 	>
 	</Field>
 	<Field
@@ -30,6 +31,7 @@
 		visibility="external"
 		access="public"
         defaultValue=""
+        fieldFlags="FThreadLocal"
 	>
 	</Field>
 	<Field
@@ -39,6 +41,7 @@
 		visibility="external"
 		access="public"
         defaultValue=""
+        fieldFlags="FThreadLocal"
 	>
 	</Field>
 	<Field
@@ -48,6 +51,7 @@
 		visibility="internal"
 		access="public"
         defaultValue=""
+        fieldFlags="FThreadLocal"
 	>
 	</Field>
 </FieldContainer>

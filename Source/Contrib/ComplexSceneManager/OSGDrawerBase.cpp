@@ -90,6 +90,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          DrawerBase::_sfAspect
+    
+*/
+
 
 void DrawerBase::classDescInserter(TypeObject &oType)
 {
@@ -117,6 +121,18 @@ void DrawerBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Drawer::editHandleDisplayString),
         static_cast<FieldGetMethodSig >(&Drawer::getHandleDisplayString));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "aspect",
+        "",
+        AspectFieldId, AspectFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Drawer::editHandleAspect),
+        static_cast<FieldGetMethodSig >(&Drawer::getHandleAspect));
 
     oType.addInitialDesc(pDesc);
 }
@@ -168,7 +184,14 @@ DrawerBase::TypeObject DrawerBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
-    "\n"
+    "    <Field\n"
+    "       name=\"aspect\"\n"
+    "       type=\"UInt32\"\n"
+    "       cardinality=\"single\"\n"
+    "       visibility=\"external\"\n"
+    "       access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -216,6 +239,19 @@ SFString *DrawerBase::editSFDisplayString(void)
 const SFString *DrawerBase::getSFDisplayString(void) const
 {
     return &_sfDisplayString;
+}
+
+
+SFUInt32 *DrawerBase::editSFAspect(void)
+{
+    editSField(AspectFieldMask);
+
+    return &_sfAspect;
+}
+
+const SFUInt32 *DrawerBase::getSFAspect(void) const
+{
+    return &_sfAspect;
 }
 
 
@@ -290,6 +326,10 @@ UInt32 DrawerBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDisplayString.getBinSize();
     }
+    if(FieldBits::NoField != (AspectFieldMask & whichField))
+    {
+        returnValue += _sfAspect.getBinSize();
+    }
 
     return returnValue;
 }
@@ -307,6 +347,10 @@ void DrawerBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDisplayString.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (AspectFieldMask & whichField))
+    {
+        _sfAspect.copyToBin(pMem);
+    }
 }
 
 void DrawerBase::copyFromBin(BinaryDataHandler &pMem,
@@ -321,6 +365,10 @@ void DrawerBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DisplayStringFieldMask & whichField))
     {
         _sfDisplayString.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AspectFieldMask & whichField))
+    {
+        _sfAspect.copyFromBin(pMem);
     }
 }
 
@@ -393,7 +441,8 @@ DrawerBase::DrawerBase(void) :
     _mfWindows                (this,
                           WindowsFieldId,
                           CSMWindow::ParentFieldId),
-    _sfDisplayString          ()
+    _sfDisplayString          (),
+    _sfAspect                 ()
 {
 }
 
@@ -402,7 +451,8 @@ DrawerBase::DrawerBase(const DrawerBase &source) :
     _mfWindows                (this,
                           WindowsFieldId,
                           CSMWindow::ParentFieldId),
-    _sfDisplayString          (source._sfDisplayString          )
+    _sfDisplayString          (source._sfDisplayString          ),
+    _sfAspect                 (source._sfAspect                 )
 {
 }
 
@@ -527,6 +577,29 @@ EditFieldHandlePtr DrawerBase::editHandleDisplayString  (void)
 
 
     editSField(DisplayStringFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DrawerBase::getHandleAspect          (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfAspect,
+             this->getType().getFieldDesc(AspectFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DrawerBase::editHandleAspect         (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfAspect,
+             this->getType().getFieldDesc(AspectFieldId)));
+
+
+    editSField(AspectFieldMask);
 
     return returnValue;
 }

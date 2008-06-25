@@ -53,6 +53,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 class RenderAction;
+class Drawer;
 
 class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 {
@@ -79,13 +80,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \{                                                                 */
 
     virtual bool init(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    void render(RenderAction *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -158,6 +152,24 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    void render             (RenderAction *pAction);
+
+    void frameRenderActivate(RenderAction *pAction);
+    void frameSwapActivate  (void                 );
+    void frameExit          (void                 );
+
+    void activate           (void                 );
+    void frameRender        (RenderAction *pAction);
+    void frameSwap          (void                 );
+    void deactivate         (void                 );
+
+    void shutdown           (void                 );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
@@ -170,6 +182,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
     friend class FieldContainer;
     friend class CSMWindowBase;
+    friend class Drawer;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CSMWindow &source);

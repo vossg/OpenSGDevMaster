@@ -66,6 +66,9 @@
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGDrawerFields.h" // Drawer type
+#include "OSGBoolFields.h" // Parallel type
+#include "OSGStringFields.h" // SyncBarrierName type
+#include "OSGStringFields.h" // SwapBarrierName type
 
 #include "OSGDrawManagerFields.h"
 
@@ -94,11 +97,20 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     enum
     {
         DrawerFieldId = Inherited::NextFieldId,
-        NextFieldId = DrawerFieldId + 1
+        ParallelFieldId = DrawerFieldId + 1,
+        SyncBarrierNameFieldId = ParallelFieldId + 1,
+        SwapBarrierNameFieldId = SyncBarrierNameFieldId + 1,
+        NextFieldId = SwapBarrierNameFieldId + 1
     };
 
     static const OSG::BitVector DrawerFieldMask =
         (TypeTraits<BitVector>::One << DrawerFieldId);
+    static const OSG::BitVector ParallelFieldMask =
+        (TypeTraits<BitVector>::One << ParallelFieldId);
+    static const OSG::BitVector SyncBarrierNameFieldMask =
+        (TypeTraits<BitVector>::One << SyncBarrierNameFieldId);
+    static const OSG::BitVector SwapBarrierNameFieldMask =
+        (TypeTraits<BitVector>::One << SwapBarrierNameFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -128,14 +140,35 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
             const MFUnrecDrawerPtr    *getMFDrawer         (void) const;
                   MFUnrecDrawerPtr    *editMFDrawer         (void);
 
+                  SFBool              *editSFParallel       (void);
+            const SFBool              *getSFParallel        (void) const;
+
+                  SFString            *editSFSyncBarrierName(void);
+            const SFString            *getSFSyncBarrierName (void) const;
+
+                  SFString            *editSFSwapBarrierName(void);
+            const SFString            *getSFSwapBarrierName (void) const;
+
 
                   Drawer * getDrawer         (const UInt32 index) const;
+
+                  bool                &editParallel       (void);
+                  bool                 getParallel        (void) const;
+
+                  std::string         &editSyncBarrierName(void);
+            const std::string         &getSyncBarrierName (void) const;
+
+                  std::string         &editSwapBarrierName(void);
+            const std::string         &getSwapBarrierName (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setParallel       (const bool value);
+            void setSyncBarrierName(const std::string &value);
+            void setSwapBarrierName(const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -203,6 +236,9 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     /*! \{                                                                 */
 
     MFUnrecDrawerPtr  _mfDrawer;
+    SFBool            _sfParallel;
+    SFString          _sfSyncBarrierName;
+    SFString          _sfSwapBarrierName;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -233,6 +269,12 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
 
     GetFieldHandlePtr  getHandleDrawer          (void) const;
     EditFieldHandlePtr editHandleDrawer         (void);
+    GetFieldHandlePtr  getHandleParallel        (void) const;
+    EditFieldHandlePtr editHandleParallel       (void);
+    GetFieldHandlePtr  getHandleSyncBarrierName (void) const;
+    EditFieldHandlePtr editHandleSyncBarrierName(void);
+    GetFieldHandlePtr  getHandleSwapBarrierName (void) const;
+    EditFieldHandlePtr editHandleSwapBarrierName(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -205,7 +205,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    bool init(const std::vector<std::string> &vParams);
+    bool init    (const std::vector<std::string> &vParams);
+    void shutdown(      void                             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

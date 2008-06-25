@@ -198,9 +198,9 @@ void CSMWindow::render(RenderAction *pAction)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window* pThreadLocalWin = 
-        convertToCurrentAspect<Window *>(_pWindow);
+        convertToCurrentAspect<Window *>(_pWindow.get());
 #else
-    OSG::Window *pThreadLocalWin = _pOSGWindow;
+    OSG::Window *pThreadLocalWin = _pWindow;
 #endif
 
     if(_bFirstFrame == true)
@@ -244,6 +244,144 @@ void CSMWindow::render(RenderAction *pAction)
 #endif
     }
 
+}
+
+void CSMWindow::frameRenderActivate(RenderAction *pAction)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+    pThreadLocalWin->activate          (       );
+    pThreadLocalWin->frameInit         (       );
+
+    if(_bFirstFrame == true)
+    {
+        _bFirstFrame = false;
+
+        pAction->setFrustumCulling(false);
+
+        pThreadLocalWin->renderAllViewports(pAction);
+
+        pAction->setFrustumCulling(true);
+    }
+    else
+    {
+        pThreadLocalWin->renderAllViewports(pAction);
+    }
+
+    pThreadLocalWin->deactivate        (       );
+}
+
+void CSMWindow::frameSwapActivate(void)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+    pThreadLocalWin->activate  ();
+    pThreadLocalWin->swap      ();
+    pThreadLocalWin->frameExit ();
+    pThreadLocalWin->deactivate();
+}
+
+void CSMWindow::frameExit(void)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+    pThreadLocalWin->activate  ();
+    pThreadLocalWin->frameExit ();
+    pThreadLocalWin->deactivate();
+}
+
+void CSMWindow::activate(void)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+    pThreadLocalWin->activate();
+}
+
+void CSMWindow::frameRender(RenderAction *pAction)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+//    fprintf(stderr, "%p %p\n", pThreadLocalWin, _pWindow.get());
+
+    pThreadLocalWin->frameInit();
+
+    if(_bFirstFrame == true)
+    {
+        _bFirstFrame = false;
+
+        pAction->setFrustumCulling(false);
+
+        pThreadLocalWin->renderAllViewports(pAction);
+
+        pAction->setFrustumCulling(true);
+    }
+    else
+    {
+        pThreadLocalWin->renderAllViewports(pAction);
+    }
+}
+
+void CSMWindow::frameSwap(void)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+    pThreadLocalWin->swap     ();
+    pThreadLocalWin->frameExit();
+}
+
+void CSMWindow::deactivate(void)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+    pThreadLocalWin->deactivate();
+}
+
+void CSMWindow::shutdown(void)
+{
+#ifdef OSG_MT_CPTR_ASPECT
+    Window *pThreadLocalWin = 
+        convertToCurrentAspect<Window *>(_pWindow.get());
+#else
+    Window *pThreadLocalWin = _pWindow;
+#endif
+
+    Inherited::resolveLinks();
+    pThreadLocalWin->resolveLinks();
 }
 
 OSG_END_NAMESPACE

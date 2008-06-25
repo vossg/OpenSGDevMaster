@@ -67,6 +67,7 @@
 
 #include "OSGCSMWindowFields.h" // Windows type
 #include "OSGStringFields.h" // DisplayString type
+#include "OSGUInt32Fields.h" // Aspect type
 
 #include "OSGDrawerFields.h"
 
@@ -96,13 +97,16 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     {
         WindowsFieldId = Inherited::NextFieldId,
         DisplayStringFieldId = WindowsFieldId + 1,
-        NextFieldId = DisplayStringFieldId + 1
+        AspectFieldId = DisplayStringFieldId + 1,
+        NextFieldId = AspectFieldId + 1
     };
 
     static const OSG::BitVector WindowsFieldMask =
         (TypeTraits<BitVector>::One << WindowsFieldId);
     static const OSG::BitVector DisplayStringFieldMask =
         (TypeTraits<BitVector>::One << DisplayStringFieldId);
+    static const OSG::BitVector AspectFieldMask =
+        (TypeTraits<BitVector>::One << AspectFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -135,11 +139,17 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
                   SFString            *editSFDisplayString  (void);
             const SFString            *getSFDisplayString   (void) const;
 
+                  SFUInt32            *editSFAspect         (void);
+            const SFUInt32            *getSFAspect          (void) const;
+
 
                   CSMWindow * getWindows        (const UInt32 index) const;
 
                   std::string         &editDisplayString  (void);
             const std::string         &getDisplayString   (void) const;
+
+                  UInt32              &editAspect         (void);
+                  UInt32               getAspect          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,6 +157,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*! \{                                                                 */
 
             void setDisplayString  (const std::string &value);
+            void setAspect         (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -215,6 +226,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
 
     MFUnrecChildCSMWindowPtr _mfWindows;
     SFString          _sfDisplayString;
+    SFUInt32          _sfAspect;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -255,6 +267,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     EditFieldHandlePtr editHandleWindows        (void);
     GetFieldHandlePtr  getHandleDisplayString   (void) const;
     EditFieldHandlePtr editHandleDisplayString  (void);
+    GetFieldHandlePtr  getHandleAspect          (void) const;
+    EditFieldHandlePtr editHandleAspect         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -84,12 +84,23 @@ void DrawManager::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 DrawManager::DrawManager(void) :
-    Inherited()
+     Inherited   (    ),
+
+    _pThread     (NULL),
+    _pSyncBarrier(NULL),
+    _pSwapBarrier(NULL),
+    _uiSyncCount (0   )
+
 {
 }
 
 DrawManager::DrawManager(const DrawManager &source) :
-    Inherited(source)
+    Inherited    (source),
+
+    _pThread     (NULL  ),
+    _pSyncBarrier(NULL  ),
+    _pSwapBarrier(NULL  ),
+    _uiSyncCount (0     )
 {
 }
 
@@ -119,33 +130,174 @@ bool DrawManager::init(void)
     MFUnrecDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
     MFUnrecDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
 
-    while(dIt != dEnd)
+
+    if(_sfParallel.getValue() == true)
     {
-        returnValue = (*dIt)->init();
+        _pThread      = Thread::getCurrent();
 
-        if(returnValue == false)
-            break;
+        addRef(_pThread);
 
-        ++dIt;
+        _pSyncBarrier = Barrier::get(_sfSyncBarrierName.getValue().c_str());
+
+        addRef(_pSyncBarrier);
+
+        if(_sfSwapBarrierName.getValue().empty() != false)
+        {
+            _pSwapBarrier = Barrier::get(_sfSwapBarrierName.getValue().c_str());
+
+            addRef(_pSwapBarrier);
+        }
+
+        OSG_ASSERT(_pSyncBarrier != NULL);
+        OSG_ASSERT(_pThread      != NULL);
+       
+        _uiSyncCount = _mfDrawer.size() + 1;
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->setParallel      ( true           );
+
+            (*dIt)->setSyncBarrier   (_pSyncBarrier   );
+//            (*dIt)->setSwapBarrier   (_pSwapBarrier );
+
+            (*dIt)->setSyncCount     (_uiSyncCount    );
+            (*dIt)->setSyncFromThread(_pThread        );
+
+            (*dIt)->setSwapCount     (_mfDrawer.size());
+            (*dIt)->init();
+            
+            ++dIt;
+        }
+    }
+    else
+    {
+        while(dIt != dEnd)
+        {
+            returnValue = (*dIt)->init();
+            
+            if(returnValue == false)
+                break;
+            
+            ++dIt;
+        }
     }
 
     return returnValue;
+}
+
+void DrawManager::shutdown(void)
+{
+    if(_sfParallel.getValue() == true)
+    {
+        MFUnrecDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
+        MFUnrecDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
+
+
+        // Stop drawer
+
+        commitChanges();
+
+        _pSyncBarrier->enter(_uiSyncCount);
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->endDrawThread();
+            
+            ++dIt;
+        }
+
+        _pSyncBarrier->enter(_uiSyncCount);
+
+        _pThread->getChangeList()->clear();
+
+
+        // resolve structure
+
+        dIt  = getMFDrawer()->begin();
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->shutdown();
+            
+            ++dIt;
+        }
+
+
+        // sync structure takedown
+
+        commitChanges();
+
+        _pSyncBarrier->enter(_uiSyncCount);
+        _pSyncBarrier->enter(_uiSyncCount);
+
+        _pThread->getChangeList()->clear();
+
+
+        // release windows
+
+        dIt  = getMFDrawer()->begin();
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->resolveLinks();
+            
+            ++dIt;
+        }
+
+        commitChanges();
+
+        _pSyncBarrier->enter(_uiSyncCount);
+        _pSyncBarrier->enter(_uiSyncCount);
+
+        _pThread->getChangeList()->clear();
+
+
+        // wait for draw threads to finish
+
+        dIt  = getMFDrawer()->begin();
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->joinDrawThread();
+            
+            ++dIt;
+        }
+
+        dIt  = getMFDrawer()->begin();
+
+        while(dIt != dEnd)
+        {
+            (*dIt)->setSyncBarrier   (NULL);
+            (*dIt)->setSwapBarrier   (NULL);
+
+            (*dIt)->setSyncFromThread(NULL);
+           
+            ++dIt;
+        }
+
+        subRef(_pThread);
+        _pThread = NULL;
+
+        subRef(_pSyncBarrier);
+        _pSyncBarrier = NULL;
+
+        subRef(_pSwapBarrier);
+        _pSwapBarrier = NULL;
+    }
 }
 
 void DrawManager::frame(Time oTime, UInt32 uiFrame)
 {
     commitChanges();
 
-#ifdef OSG_CSM_PAR
     if(_sfParallel.getValue() == true)
     {
         _pSyncBarrier->enter(_uiSyncCount);
         _pSyncBarrier->enter(_uiSyncCount);
 
-        _pOSGThread->getChangeList()->clear();
+        _pThread->getChangeList()->clear();
     }
     else
-#endif
     {
         MFUnrecDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
         MFUnrecDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();

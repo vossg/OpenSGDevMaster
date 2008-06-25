@@ -75,7 +75,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool init(void);
+    bool init    (void);
+    void shutdown(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -106,6 +107,12 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
 
     // Variables should all be in DrawManagerBase.
 
+    Thread  *_pThread;
+    Barrier *_pSyncBarrier;
+    Barrier *_pSwapBarrier;
+
+    UInt32   _uiSyncCount;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -119,6 +126,11 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
     /*! \{                                                                 */
 
     virtual ~DrawManager(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -129,7 +129,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         EnabledFieldId, EnabledFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleEnabled),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleEnabled));
 
@@ -141,7 +141,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         IsActiveFieldId, IsActiveFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleIsActive),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleIsActive));
 
@@ -153,7 +153,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         LoopFieldId, LoopFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleLoop),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleLoop));
 
@@ -165,7 +165,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         FractionFieldId, FractionFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleFraction),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleFraction));
 
@@ -177,7 +177,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         StartTimeFieldId, StartTimeFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleStartTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleStartTime));
 
@@ -189,7 +189,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         StopTimeFieldId, StopTimeFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleStopTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleStopTime));
 
@@ -201,7 +201,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         CycleTimeFieldId, CycleTimeFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleCycleTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleCycleTime));
 
@@ -213,7 +213,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         TimeFieldId, TimeFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleTime),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleTime));
 
@@ -225,7 +225,7 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         "",
         CycleIntervalFieldId, CycleIntervalFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&TimeSensor::editHandleCycleInterval),
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleCycleInterval));
 
@@ -267,7 +267,8 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"true\"\n"
-    "\t>\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
+    " \t>\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"isActive\"\n"
@@ -276,6 +277,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"false\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -285,6 +287,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"false\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -294,6 +297,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"0.0\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -303,6 +307,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"0.0\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -312,6 +317,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"0.0\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -321,6 +327,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"0.0\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -330,6 +337,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"0.0\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -339,6 +347,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"1.0\"\n"
+    "        fieldFlags=\"FThreadLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",

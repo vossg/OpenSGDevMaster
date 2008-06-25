@@ -47,6 +47,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class DrawThread;
+
 /*! \brief Drawer class. See \ref
            PageContribCSMDrawer for a description.
 */
@@ -75,7 +77,30 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool init(void);
+    bool init          (void);
+    void endDrawThread (void);
+    void shutdown      (void);
+    void joinDrawThread(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    void setSyncFromThread(Thread  *pThread     );
+    void setSyncBarrier   (Barrier *pSyncBarrier);
+    void setSwapBarrier   (Barrier *pSwapBarrier);
+
+    void setSyncCount     (UInt32   uiSyncCount );
+    void setSwapCount     (UInt32   uiSwapCount );
+    void setParallel      (bool     bParallel   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Output                                  */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -108,6 +133,17 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
 
     RenderAction *_pAction;
 
+    DrawThread   *_pDrawThread;
+
+    Thread       *_pSyncFromThread;
+    Barrier      *_pSyncBarrier;
+    Barrier      *_pSwapBarrier;
+
+    UInt32        _uiSyncCount;
+    UInt32        _uiSwapCount;
+    bool          _bParallel;
+    bool          _bRun;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -127,6 +163,24 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    void runParallel        (void               );
+
+    void frameRenderActivate(void               );
+    void frameSwapActivate  (void               );
+    void frameExit          (void               );
+    
+    void activate           (UInt32 uiWindow = 0);
+    void frameRender        (UInt32 uiWindow = 0);
+    void frameSwap          (UInt32 uiWindow = 0);
+    void deactivate         (UInt32 uiWindow = 0);
+
+    void setRunning         (bool   bVal        );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
@@ -136,12 +190,95 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
 
     friend class FieldContainer;
     friend class DrawerBase;
+    friend class DrawThread;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Drawer &source);
 };
 
 typedef Drawer *DrawerP;
+
+
+class OSG_CONTRIBCSM_DLLMAPPING DrawThread : public Thread
+{
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    static DrawThread *get (Char8 *szName);
+    static DrawThread *find(Char8 *szName);
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    void setDrawer (Drawer *pDrawer);
+    void setRunning(bool    bVal   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef Thread        Inherited;
+
+    static  MPThreadType _type;
+
+    Drawer *_pDrawer;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    static BaseThread *create(const Char8  *szName, 
+                                    UInt32  uiId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+ 
+    DrawThread(const Char8 *szName, UInt32 uiId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~DrawThread(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual void workProc(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+   /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    DrawThread(const DrawThread &source);
+    void operator =(const DrawThread &source);
+};
+
 
 OSG_END_NAMESPACE
 

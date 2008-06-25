@@ -73,6 +73,81 @@ OSG::UInt16 DrawManagerBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the DrawManager::_sfParallel field.
+
+inline
+bool &DrawManagerBase::editParallel(void)
+{
+    editSField(ParallelFieldMask);
+
+    return _sfParallel.getValue();
+}
+
+//! Get the value of the DrawManager::_sfParallel field.
+inline
+      bool  DrawManagerBase::getParallel(void) const
+{
+    return _sfParallel.getValue();
+}
+
+//! Set the value of the DrawManager::_sfParallel field.
+inline
+void DrawManagerBase::setParallel(const bool value)
+{
+    editSField(ParallelFieldMask);
+
+    _sfParallel.setValue(value);
+}
+//! Get the value of the DrawManager::_sfSyncBarrierName field.
+
+inline
+std::string &DrawManagerBase::editSyncBarrierName(void)
+{
+    editSField(SyncBarrierNameFieldMask);
+
+    return _sfSyncBarrierName.getValue();
+}
+
+//! Get the value of the DrawManager::_sfSyncBarrierName field.
+inline
+const std::string &DrawManagerBase::getSyncBarrierName(void) const
+{
+    return _sfSyncBarrierName.getValue();
+}
+
+//! Set the value of the DrawManager::_sfSyncBarrierName field.
+inline
+void DrawManagerBase::setSyncBarrierName(const std::string &value)
+{
+    editSField(SyncBarrierNameFieldMask);
+
+    _sfSyncBarrierName.setValue(value);
+}
+//! Get the value of the DrawManager::_sfSwapBarrierName field.
+
+inline
+std::string &DrawManagerBase::editSwapBarrierName(void)
+{
+    editSField(SwapBarrierNameFieldMask);
+
+    return _sfSwapBarrierName.getValue();
+}
+
+//! Get the value of the DrawManager::_sfSwapBarrierName field.
+inline
+const std::string &DrawManagerBase::getSwapBarrierName(void) const
+{
+    return _sfSwapBarrierName.getValue();
+}
+
+//! Set the value of the DrawManager::_sfSwapBarrierName field.
+inline
+void DrawManagerBase::setSwapBarrierName(const std::string &value)
+{
+    editSField(SwapBarrierNameFieldMask);
+
+    _sfSwapBarrierName.setValue(value);
+}
 
 //! Get the value of the \a index element the DrawManager::_mfDrawer field.
 inline
@@ -97,6 +172,15 @@ void DrawManagerBase::execSync (      DrawManagerBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (ParallelFieldMask & whichField))
+        _sfParallel.syncWith(pFrom->_sfParallel);
+
+    if(FieldBits::NoField != (SyncBarrierNameFieldMask & whichField))
+        _sfSyncBarrierName.syncWith(pFrom->_sfSyncBarrierName);
+
+    if(FieldBits::NoField != (SwapBarrierNameFieldMask & whichField))
+        _sfSwapBarrierName.syncWith(pFrom->_sfSwapBarrierName);
 }
 #endif
 

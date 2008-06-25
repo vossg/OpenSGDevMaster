@@ -86,6 +86,18 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            DrawManagerBase::_sfParallel
+    
+*/
+
+/*! \var std::string     DrawManagerBase::_sfSyncBarrierName
+    
+*/
+
+/*! \var std::string     DrawManagerBase::_sfSwapBarrierName
+    
+*/
+
 
 void DrawManagerBase::classDescInserter(TypeObject &oType)
 {
@@ -101,6 +113,42 @@ void DrawManagerBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawManager::editHandleDrawer),
         static_cast<FieldGetMethodSig >(&DrawManager::getHandleDrawer));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "parallel",
+        "",
+        ParallelFieldId, ParallelFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DrawManager::editHandleParallel),
+        static_cast<FieldGetMethodSig >(&DrawManager::getHandleParallel));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "syncBarrierName",
+        "",
+        SyncBarrierNameFieldId, SyncBarrierNameFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DrawManager::editHandleSyncBarrierName),
+        static_cast<FieldGetMethodSig >(&DrawManager::getHandleSyncBarrierName));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "swapBarrierName",
+        "",
+        SwapBarrierNameFieldId, SwapBarrierNameFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DrawManager::editHandleSwapBarrierName),
+        static_cast<FieldGetMethodSig >(&DrawManager::getHandleSwapBarrierName));
 
     oType.addInitialDesc(pDesc);
 }
@@ -141,6 +189,30 @@ DrawManagerBase::TypeObject DrawManagerBase::_type(
     "        category=\"pointer\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "       name=\"parallel\"\n"
+    "       type=\"bool\"\n"
+    "       cardinality=\"single\"\n"
+    "       visibility=\"external\"\n"
+    "       access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"syncBarrierName\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"swapBarrierName\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -177,6 +249,45 @@ MFUnrecDrawerPtr    *DrawManagerBase::editMFDrawer         (void)
 
     return &_mfDrawer;
 }
+
+SFBool *DrawManagerBase::editSFParallel(void)
+{
+    editSField(ParallelFieldMask);
+
+    return &_sfParallel;
+}
+
+const SFBool *DrawManagerBase::getSFParallel(void) const
+{
+    return &_sfParallel;
+}
+
+
+SFString *DrawManagerBase::editSFSyncBarrierName(void)
+{
+    editSField(SyncBarrierNameFieldMask);
+
+    return &_sfSyncBarrierName;
+}
+
+const SFString *DrawManagerBase::getSFSyncBarrierName(void) const
+{
+    return &_sfSyncBarrierName;
+}
+
+
+SFString *DrawManagerBase::editSFSwapBarrierName(void)
+{
+    editSField(SwapBarrierNameFieldMask);
+
+    return &_sfSwapBarrierName;
+}
+
+const SFString *DrawManagerBase::getSFSwapBarrierName(void) const
+{
+    return &_sfSwapBarrierName;
+}
+
 
 
 
@@ -245,6 +356,18 @@ UInt32 DrawManagerBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfDrawer.getBinSize();
     }
+    if(FieldBits::NoField != (ParallelFieldMask & whichField))
+    {
+        returnValue += _sfParallel.getBinSize();
+    }
+    if(FieldBits::NoField != (SyncBarrierNameFieldMask & whichField))
+    {
+        returnValue += _sfSyncBarrierName.getBinSize();
+    }
+    if(FieldBits::NoField != (SwapBarrierNameFieldMask & whichField))
+    {
+        returnValue += _sfSwapBarrierName.getBinSize();
+    }
 
     return returnValue;
 }
@@ -258,6 +381,18 @@ void DrawManagerBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfDrawer.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ParallelFieldMask & whichField))
+    {
+        _sfParallel.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (SyncBarrierNameFieldMask & whichField))
+    {
+        _sfSyncBarrierName.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (SwapBarrierNameFieldMask & whichField))
+    {
+        _sfSwapBarrierName.copyToBin(pMem);
+    }
 }
 
 void DrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
@@ -268,6 +403,18 @@ void DrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DrawerFieldMask & whichField))
     {
         _mfDrawer.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ParallelFieldMask & whichField))
+    {
+        _sfParallel.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SyncBarrierNameFieldMask & whichField))
+    {
+        _sfSyncBarrierName.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SwapBarrierNameFieldMask & whichField))
+    {
+        _sfSwapBarrierName.copyFromBin(pMem);
     }
 }
 
@@ -337,13 +484,19 @@ FieldContainerTransitPtr DrawManagerBase::shallowCopy(void) const
 
 DrawManagerBase::DrawManagerBase(void) :
     Inherited(),
-    _mfDrawer                 ()
+    _mfDrawer                 (),
+    _sfParallel               (),
+    _sfSyncBarrierName        (),
+    _sfSwapBarrierName        ()
 {
 }
 
 DrawManagerBase::DrawManagerBase(const DrawManagerBase &source) :
     Inherited(source),
-    _mfDrawer                 ()
+    _mfDrawer                 (),
+    _sfParallel               (source._sfParallel               ),
+    _sfSyncBarrierName        (source._sfSyncBarrierName        ),
+    _sfSwapBarrierName        (source._sfSwapBarrierName        )
 {
 }
 
@@ -407,6 +560,75 @@ EditFieldHandlePtr DrawManagerBase::editHandleDrawer         (void)
                     static_cast<DrawManager *>(this)));
 
     editMField(DrawerFieldMask, _mfDrawer);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DrawManagerBase::getHandleParallel        (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfParallel,
+             this->getType().getFieldDesc(ParallelFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DrawManagerBase::editHandleParallel       (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfParallel,
+             this->getType().getFieldDesc(ParallelFieldId)));
+
+
+    editSField(ParallelFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DrawManagerBase::getHandleSyncBarrierName (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfSyncBarrierName,
+             this->getType().getFieldDesc(SyncBarrierNameFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DrawManagerBase::editHandleSyncBarrierName(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfSyncBarrierName,
+             this->getType().getFieldDesc(SyncBarrierNameFieldId)));
+
+
+    editSField(SyncBarrierNameFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DrawManagerBase::getHandleSwapBarrierName (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfSwapBarrierName,
+             this->getType().getFieldDesc(SwapBarrierNameFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DrawManagerBase::editHandleSwapBarrierName(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfSwapBarrierName,
+             this->getType().getFieldDesc(SwapBarrierNameFieldId)));
+
+
+    editSField(SwapBarrierNameFieldMask);
 
     return returnValue;
 }
