@@ -363,17 +363,6 @@ typename DynFieldAttachment<AttachmentDescT>::ObjCPtr
 }
 
 template <class AttachmentDescT> inline
-void DynFieldAttachment<AttachmentDescT>::execSyncV(
-          FieldContainer     &oFrom,
-          ConstFieldMaskArg   whichField,
-          AspectOffsetStore  &oOffsets,
-          ConstFieldMaskArg   syncMode  ,
-    const UInt32              uiSyncInfo)
-{
-//    OSG_ASSERT(false);
-}
-
-template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::execSync (
           DynFieldAttachment *pFrom,
           ConstFieldMaskArg   whichField,
@@ -381,9 +370,28 @@ void DynFieldAttachment<AttachmentDescT>::execSync (
           ConstFieldMaskArg   syncMode  ,
     const UInt32              uiSyncInfo)
 {
-//    OSG_ASSERT(false);
+    // At least sync the parents for now
+    Inherited::execSync(pFrom,
+                        whichField,
+                        oOffsets,
+                        syncMode,
+                        uiSyncInfo);
 }
 
+template <class AttachmentDescT> inline
+void DynFieldAttachment<AttachmentDescT>::execSyncV(
+          FieldContainer     &oFrom,
+          ConstFieldMaskArg   whichField,
+          AspectOffsetStore  &oOffsets,
+          ConstFieldMaskArg   syncMode  ,
+    const UInt32              uiSyncInfo)
+{
+    this->execSync(static_cast<Self *>(&oFrom),
+                   whichField,
+                   oOffsets,
+                   syncMode,
+                   uiSyncInfo);
+}
 #endif
 
 template <class AttachmentDescT> inline

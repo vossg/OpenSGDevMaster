@@ -175,6 +175,7 @@ XWindowBase::TypeObject XWindowBase::_type(
     "\t\ttype=\"X11Window\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\theader=\"OSGXWindowDataFields.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -184,6 +185,7 @@ XWindowBase::TypeObject XWindowBase::_type(
     "\t\ttype=\"GLXContext\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
     "\t\theader=\"OSGXWindowDataFields.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -409,8 +411,8 @@ FieldContainerTransitPtr XWindowBase::shallowCopy(void) const
 XWindowBase::XWindowBase(void) :
     Inherited(),
     _sfDisplay                (DisplayP(NULL)),
-    _sfWindow                 (),
-    _sfContext                ()
+    _sfWindow                 (X11Window(NULL)),
+    _sfContext                (GLXContext(NULL))
 {
 }
 

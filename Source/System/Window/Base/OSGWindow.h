@@ -269,6 +269,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
+    virtual void resolveLinks(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Output                                  */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
@@ -400,9 +407,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     static std::vector<Window *> _allWindows;
     static UInt32                _currentWindowId;
 
-    //! Does init() not to be called?
-    bool    _initNeeded;
-    
     /*---------------------------------------------------------------------*/
     /*! \name   Static GL Object / Extension variables                     */
     /*! \{                                                                 */

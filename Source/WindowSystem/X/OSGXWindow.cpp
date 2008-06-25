@@ -190,6 +190,12 @@ bool XWindow::swap(void)
     return true;
 }
 
+void XWindow::onDestroy(UInt32 uiContainerId)
+{
+    Inherited::onDestroy(uiContainerId);
+}
+
+
 #include <OSGSField.ins>
 #include <OSGMField.ins>
 

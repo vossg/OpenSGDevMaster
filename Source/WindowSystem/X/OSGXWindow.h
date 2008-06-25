@@ -105,6 +105,13 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    virtual void onDestroy(UInt32 uiContainerId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 

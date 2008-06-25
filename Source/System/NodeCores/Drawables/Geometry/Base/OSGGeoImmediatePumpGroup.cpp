@@ -486,6 +486,12 @@ static UInt32 NormAttribIDs[numFormats][4];
 
 // define and initialize the variables needed to access the data
 
+#ifdef OSG_GV_BETA
+#define OSG_GV_ASSERT(X) OSG_ASSERT(X)
+#else
+#define OSG_GV_ASSERT(X)
+#endif
+
 #define pumpInternalSetup( name, typename, getmethod, mandatory )           \
     GeoIntegralProperty *name##Ptr;                                         \
     UInt32 name##Ind = 0;                                                   \
@@ -495,6 +501,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     {                                                                       \
         SWARNING << "masterPump: Geometry " << geo << " has no "            \
                  << #name << "s!" << std::endl;                             \
+        OSG_GV_ASSERT(false);                                               \
         return;                                                             \
     }
 
@@ -665,6 +672,7 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     {
         SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
                  << endLog;
+        OSG_GV_ASSERT(false);                                              
         return;
     }
 
@@ -1051,6 +1059,7 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     {
         SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
                  << endLog;
+        OSG_GV_ASSERT(false);                                              
         return;
     }
 

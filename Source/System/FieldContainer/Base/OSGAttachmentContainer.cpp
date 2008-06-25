@@ -275,7 +275,43 @@ void AttachmentContainer::execSync(
 
     if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
     {
-        _sfAttachments.syncWith(pFrom->_sfAttachments);
+//        _sfAttachments.syncWith(pFrom->_sfAttachments);
+
+        // needs optimizing
+
+        AttachmentMap tmpMap;
+
+        AttachmentObjPtrMapIt fcI = pFrom->_sfAttachments.getValue().begin();
+        AttachmentObjPtrMapIt fcE = pFrom->_sfAttachments.getValue().end  ();
+        
+        while(fcI != fcE)
+        {
+            Attachment *pAtt = convertToCurrentAspect((*fcI).second);
+
+            if(pAtt != NULL)
+            {
+                tmpMap[(*fcI).first] = pAtt;
+
+                pAtt->addReferenceUnrecordedX();
+            }
+
+            ++fcI;
+        }
+
+        fcI = _sfAttachments.getValue().begin();
+        fcE = _sfAttachments.getValue().end  ();
+
+        while(fcI != fcE)
+        {
+            (*fcI).second->unlinkParent(this, 
+                                        Attachment::ParentsFieldId);
+
+            (*fcI).second->subReferenceUnrecordedX();
+            
+            ++fcI;
+        }
+
+        _sfAttachments.setValue(tmpMap);
     }
 }
 #endif

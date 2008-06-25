@@ -507,27 +507,32 @@ void ChangeList::doApply(bool bClear)
         {
             if(pSrc != NULL && pDst != NULL) // be safe for now
             {
-                pHandler->fillOffsetArray(oOffsets, pDst);
+                BitVector mask = ((*cIt)->whichField & 
+                                  pSrc->getFieldFlags()->_bThreadLocalFlags);
 
-#ifndef SILENT_CPTR
-                for(UInt32 i = 0; i < ThreadManager::getNumAspects(); ++i)
+                if(mask != 0x0000)
                 {
-                    fprintf(stderr, "offset %d %d\n", i, oOffsets[i]);
-                }
+                    pHandler->fillOffsetArray(oOffsets, pDst);
+                   
+#ifndef SILENT_CPTR
+                    for(UInt32 i = 0; i < ThreadManager::getNumAspects(); ++i)
+                    {
+                        fprintf(stderr, "offset %d %d\n", i, oOffsets[i]);
+                    }
 #endif
-
-               UInt32 uiSInfo =
-                   /*uiSyncInfo*/ 0 |
-                   (_uiAspect << 24) |
-                   (Thread::getCurrentAspect() << 16);
-
-
-                pDst->execSyncV(*pSrc,
-                                (*cIt)->whichField,
-                                oOffsets,
-                                syncMode,
-                                uiSInfo);
-
+                    
+                    UInt32 uiSInfo =
+                        /*uiSyncInfo*/ 0 |
+                        (_uiAspect << 24) |
+                        (Thread::getCurrentAspect() << 16);
+                    
+                    pDst->execSyncV(*pSrc,
+                                    mask,
+                                    oOffsets,
+                                    syncMode,
+                                    uiSInfo);
+                }
+                
                 if(bClear == true)
                 {
                     pSrc->clearChangeEntry(*cIt);

@@ -79,8 +79,6 @@ void SimpleMaterial::prepareLocalChunks(void)
     if(_materialChunk == NULL)
     {
         _materialChunk = MaterialChunk::createLocal();
-
-//        addRefX(_materialChunk);
     }
 
     if(_blendChunk == NULL)
@@ -89,8 +87,6 @@ void SimpleMaterial::prepareLocalChunks(void)
 
         _blendChunk->setSrcFactor (GL_SRC_ALPHA);
         _blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
-
-//        addRefX(_blendChunk);
     }
 }
 
@@ -107,10 +103,8 @@ void SimpleMaterial::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    //subRefLocalVarX(_materialChunk);
     _materialChunk = NULL;
 
-    //subRefLocalVarX(_blendChunk   );    
     _blendChunk = NULL;
 }
 

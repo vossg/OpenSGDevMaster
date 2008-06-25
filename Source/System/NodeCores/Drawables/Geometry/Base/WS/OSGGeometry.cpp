@@ -506,7 +506,6 @@ void Geometry::changed(ConstFieldMaskArg whichField,
                        UInt32            origin,
                        BitVector         details)
 {
-
     // invalidate the dlist cache
     if(getDlistCache())
     {

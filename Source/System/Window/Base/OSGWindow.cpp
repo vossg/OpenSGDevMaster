@@ -81,7 +81,7 @@
 
 #include "OSGStageValidator.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
 #pragma warning (disable)
@@ -297,7 +297,6 @@ bool OSG::Window::terminate(void)
 OSG::Window::Window(void) :
      Inherited      (    ),
     _windowId       (   0),
-    _initNeeded     (true),
     _pStageValidator(NULL)
 {
     // only called for prototypes, no need to init them
@@ -317,7 +316,6 @@ OSG::Window::Window(const Window &source) :
     _availConstants     (                              ),
     _numAvailConstants  (                             0),
     _windowId           (                             0),
-    _initNeeded         (                          true),
     _pStageValidator    (NULL                          )
 {       
 }
@@ -698,11 +696,19 @@ void OSG::Window::validateGLObject(UInt32 osgId, DrawEnv *pEnv)
 
     if(osgId >= _lastValidate.size()) // can happen if multi-threading
     {
+/*
         _lastValidate.insert(_lastValidate.end(), 
                              osgId + 1 - _lastValidate.size(),
                              0);
+ */
+        _lastValidate.resize(osgId + 1, 0);
     }
     
+    if(osgId >= _mfGlObjectLastReinitialize.size())
+    {
+        _mfGlObjectLastReinitialize.resize(osgId + 1, 0);
+    }
+
     FDEBUG(("Window 0x%p (event %d,ri:%d,rf:%d): "
             "Validating object %d: last reinit:%d, last validate:"
             "%d last refresh: %d => %s\n", 
@@ -1246,14 +1252,6 @@ void OSG::Window::frameInit(void)
         if(p)
             ignoreExtensions(p);
 #endif
-    }
-    
-    // Do we need to call init()
-    if(_initNeeded)
-    {
-        _initNeeded = false;
-        
-        init();
     }
     
     // get version/extensions and split them
@@ -1937,3 +1935,9 @@ void OSG::Window::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
     SLOG << "Dump Window NI" << std::endl;
 }
 
+void Window::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+}
+
+OSG_END_NAMESPACE

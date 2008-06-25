@@ -212,7 +212,12 @@ void SimpleAttachment<AttachmentDescT>::execSync(
           ConstFieldMaskArg  syncMode  ,
     const UInt32             uiSyncInfo)
 {
-//    OSG_ASSERT(false);
+    // At least sync the parents for now
+    Inherited::execSync(pFrom,
+                        whichField,
+                        oOffsets,
+                        syncMode,
+                        uiSyncInfo);
 }
 
 template <class AttachmentDescT> inline
