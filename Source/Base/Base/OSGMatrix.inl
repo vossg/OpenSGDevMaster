@@ -1116,8 +1116,8 @@ void TransformationMatrix<ValueTypeT>::setTransform(const VectorType3f   &t,
                                                     const VectorType3f   &s,
                                                     const QuaternionType &so)
 {
-    Matrix tmpMat1;
-    Matrix tmpMat2;
+    TransformationMatrix<ValueTypeT> tmpMat1;
+    TransformationMatrix<ValueTypeT> tmpMat2;
 
     // Concatenate the rotations r and so
     QuaternionType rg(r);
@@ -1211,8 +1211,8 @@ void TransformationMatrix<ValueTypeT>::setTransform(
 {
     typedef TypeTraits<ValueTypeT> ValueTraits;
 
-    Matrixr tmpMat1;
-    Matrixr tmpMat2;
+    TransformationMatrix<ValueTypeT> tmpMat1;
+    TransformationMatrix<ValueTypeT> tmpMat2;
 
     // Concatenate the translations t and c
     VectorType3f tg(translation);
