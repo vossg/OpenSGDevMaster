@@ -193,8 +193,8 @@ struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
 
     typedef FieldTraits<Matrix4d>  Self;
 
-    enum             { StringConvertable = (Self::FromStringConvertible |
-                                            Self::ToStreamConvertible   ) };
+    enum             { Convertible = (Self::FromStringConvertible |
+                                      Self::ToStreamConvertible   ) };
 
     static OSG_BASE_DLLMAPPING
                  DataType &getType       (void);
