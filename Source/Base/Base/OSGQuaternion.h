@@ -290,6 +290,13 @@ OSG_BASE_DLLMAPPING std::istream &operator >>(
 
 typedef QuaternionBase<Real32> Quaternion;
 
+/*! \var typedef QuaternionBase<Real64> Quaterniond;
+    \brief Quaternion
+    \ingroup GrpBaseBaseMathObj
+ */
+
+typedef QuaternionBase<Real64> Quaterniond;
+
 /*! \var typedef QuaternionBase<Fixed32> Quaternionfx;
     \brief Quaternion
     \ingroup GrpBaseBaseMathObj
