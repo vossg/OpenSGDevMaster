@@ -500,8 +500,7 @@ static void myCalcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,
 */
 void TrackballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
 {
-    IntersectAction *act = IntersectAction::create();
-    Viewport        *vp  = nav->getViewport();
+    Viewport *vp  = nav->getViewport();
     Line line;
     
     vp->getCamera()->calcViewRay(line, x, y, *vp);
@@ -514,6 +513,7 @@ void TrackballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
         return;
     }
 
+    IntersectAction *act = IntersectAction::create();
     act->setLine(line);
     act->apply(vp->getRoot());
 
