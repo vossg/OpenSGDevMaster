@@ -347,8 +347,6 @@ void PThreadBase::shutdown(void)
 
     pthread_setspecific(_namespaceMaskKey, NULL);  
 
-    BitVector *pBitVec;
-
     pBitVec = (BitVector *) pthread_getspecific(_localFlagsKey);
 
     delete pBitVec;
