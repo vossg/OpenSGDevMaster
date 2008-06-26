@@ -225,6 +225,11 @@ void InterpolationHelper<KeyFieldT,
 {
     typename KeyFieldT::const_iterator keyIt;
 
+    if(mfKeys.size() == 0 || mfKeyValues.size() == 0)
+    {
+        return;
+    }
+
     keyIt = lower_bound(mfKeys.begin(), 
                         mfKeys.end  (),
                         rFraction);

@@ -40,4 +40,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+HWND CSMNativeWindow::getHWND(void)
+{
+    return _pHWND;
+}
+
 OSG_END_NAMESPACE

@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGCSMNativeWindowBase.h"
+#include "OSGWIN32Window.h"
 #include "OSGDrawer.h"
 
 OSG_BEGIN_NAMESPACE
@@ -79,6 +80,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    HWND getHWND(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
@@ -91,6 +99,18 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
   protected:
 
     // Variables should all be in CSMNativeWindowBase.
+
+    typedef std::vector<CSMNativeWindow *>                 WindowList;
+
+    typedef std::vector<CSMNativeWindow *>::iterator       WindowListIt;
+    typedef std::vector<CSMNativeWindow *>::const_iterator WindowListConstIt;
+
+    static bool       _bRun;
+    static WindowList _vWindowList;
+
+
+    WIN32Window *_pWin32Window;
+    HWND         _pHWND;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -105,6 +125,20 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMNativeWindow : public CSMNativeWindowBase
     /*! \{                                                                 */
 
     virtual ~CSMNativeWindow(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    static CSMNativeWindow *findWindowBy  (HWND hwnd    );
+
+    static LRESULT CALLBACK  WndProc      (HWND   hwnd, 
+                                           UINT   uMsg,
+                                           WPARAM wParam, 
+                                           LPARAM lParam);
+
+    static void OSG_APIENTRY win32MainLoop(void         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

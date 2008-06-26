@@ -209,7 +209,7 @@ struct FieldTraits<MouseData> : public FieldTraitsTemplateBase<MouseData>
 
     enum             { Convertible = Self::NotConvertible  };
 
-    static OSG_BASE_DLLMAPPING
+    static OSG_CONTRIBCSM_DLLMAPPING
                  DataType   &getType      (void);
 
     static const Char8      *getSName     (void) { return "SFMouseData";    }

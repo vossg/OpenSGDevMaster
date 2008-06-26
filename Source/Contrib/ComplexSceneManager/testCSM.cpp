@@ -5,6 +5,10 @@
 
 int init(int argc, char **argv)
 {
+#ifdef WIN32
+    OSG::preloadSharedObject("OSGImageFileIO");
+#endif
+
     OSG::osgInit(argc,argv);
 
     // Assume dir is given
