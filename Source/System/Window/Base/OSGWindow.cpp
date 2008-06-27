@@ -977,7 +977,7 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
 #ifdef OSG_DEBUG
         if(osgId + num > pWin->_mfGlObjectLastReinitialize.size())
         {
-            FWARNING(("Window::destroyGLObject: id %d + num %d exceed"
+            FWARNING(("Window::destroyGLObject: id %d + num %d exceed "
                       "registered objects size %d!\n", osgId, num, 
                       pWin->_mfGlObjectLastReinitialize.size()));
             return;

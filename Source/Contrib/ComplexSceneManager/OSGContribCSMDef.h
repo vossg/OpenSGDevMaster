@@ -60,4 +60,6 @@
 #define OSG_CONTRIBCSM_DLLTMPLMAPPING
 #endif
 
+#define OSG_GLOBAL_SYNC_LOCK 1
+
 #endif /* _OSGCONTRIBCSMDEF_H_ */

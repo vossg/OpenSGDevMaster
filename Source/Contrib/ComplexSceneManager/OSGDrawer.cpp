@@ -91,6 +91,9 @@ Drawer::Drawer(void) :
     _pSyncFromThread(NULL ),
     _pSyncBarrier   (NULL ),
     _pSwapBarrier   (NULL ),
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    _pSyncLock      (NULL ),
+#endif
 
     _uiSyncCount    (0    ),
     _uiSwapCount    (0    ),
@@ -106,6 +109,9 @@ Drawer::Drawer(const Drawer &source) :
     _pSyncFromThread(NULL ),
     _pSyncBarrier   (NULL  ),
     _pSwapBarrier   (NULL  ),
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    _pSyncLock      (NULL ),
+#endif
 
     _uiSyncCount    (0     ),
     _uiSwapCount    (0     ),
@@ -133,6 +139,14 @@ void Drawer::setSwapBarrier(Barrier *pSwapBarrier)
 {
     _pSwapBarrier = pSwapBarrier;
 }
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+void Drawer::setSyncLock(Lock *pSyncLock)
+{
+    _pSyncLock = pSyncLock;
+}
+#endif
+
 
 void Drawer::setSyncCount(UInt32 uiSyncCount)
 {
@@ -190,6 +204,9 @@ bool Drawer::init(void)
         OSG_ASSERT(_pDrawThread     != NULL);
         OSG_ASSERT(_pSyncBarrier    != NULL);
         OSG_ASSERT(_pSyncFromThread != NULL);
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        OSG_ASSERT(_pSyncLock       != NULL);
+#endif
 
         addRef(_pDrawThread );
 
@@ -290,7 +307,15 @@ void Drawer::runParallel(void)
     {
         _pSyncBarrier->enter(_uiSyncCount);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->acquire();
+#endif
+
         _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->release();
+#endif
 
         _pSyncBarrier->enter(_uiSyncCount);
 
@@ -313,7 +338,15 @@ void Drawer::runParallel(void)
             {
                 _pSyncBarrier->enter(_uiSyncCount);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->acquire();
+#endif
+
                 _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->release();
+#endif
 
                 _pSyncBarrier->enter(_uiSyncCount);
                 
@@ -338,7 +371,15 @@ void Drawer::runParallel(void)
             {
                 _pSyncBarrier->enter               (_uiSyncCount);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->acquire();
+#endif
+
                 _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->release();
+#endif
 
                 _pSyncBarrier->enter               (_uiSyncCount);
 
@@ -368,7 +409,15 @@ void Drawer::runParallel(void)
             {
                 _pSyncBarrier->enter       (_uiSyncCount);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->acquire();
+#endif
+
                 _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->release();
+#endif
 
                 _pSyncBarrier->enter       (_uiSyncCount);
                 
@@ -399,7 +448,14 @@ void Drawer::runParallel(void)
             {
                 _pSyncBarrier->enter               (_uiSyncCount);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->acquire();
+#endif
                 _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->release();
+#endif
 
                 _pSyncBarrier->enter               (_uiSyncCount);
 
@@ -423,7 +479,15 @@ void Drawer::runParallel(void)
     // Main structure
     _pSyncBarrier->enter(_uiSyncCount);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->acquire();
+#endif
+
     _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->release();
+#endif
 
     Thread::getCurrentChangeList()->commitChangesAndClear();
 
@@ -435,7 +499,15 @@ void Drawer::runParallel(void)
     // Windows
     _pSyncBarrier->enter(_uiSyncCount);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->acquire();
+#endif
+
     _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock->release();
+#endif
 
     _pSyncBarrier->enter(_uiSyncCount);
                 
@@ -528,7 +600,7 @@ void Drawer::resolveLinks(void)
 MPThreadType DrawThread::_type(
     "OSGDrawThread",
     "OSGThread",
-    (CreateThreadF) DrawThread::create,
+    static_cast<CreateThreadF>(DrawThread::create),
     NULL);
 
 /***************************************************************************\

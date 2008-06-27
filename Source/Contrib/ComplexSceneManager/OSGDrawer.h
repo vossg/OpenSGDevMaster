@@ -90,6 +90,9 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
     void setSyncFromThread(Thread  *pThread     );
     void setSyncBarrier   (Barrier *pSyncBarrier);
     void setSwapBarrier   (Barrier *pSwapBarrier);
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    void setSyncLock      (Lock    *pSyncLock   );
+#endif
 
     void setSyncCount     (UInt32   uiSyncCount );
     void setSwapCount     (UInt32   uiSwapCount );
@@ -138,6 +141,9 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
     Thread       *_pSyncFromThread;
     Barrier      *_pSyncBarrier;
     Barrier      *_pSwapBarrier;
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    Lock         *_pSyncLock;
+#endif
 
     UInt32        _uiSyncCount;
     UInt32        _uiSwapCount;

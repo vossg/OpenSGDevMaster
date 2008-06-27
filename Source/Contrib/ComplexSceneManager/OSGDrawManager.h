@@ -111,6 +111,11 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
     Barrier *_pSyncBarrier;
     Barrier *_pSwapBarrier;
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    Lock    *_pSyncLock;
+#endif
+
+
     UInt32   _uiSyncCount;
 
     /*---------------------------------------------------------------------*/

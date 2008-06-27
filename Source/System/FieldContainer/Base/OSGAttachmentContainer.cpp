@@ -174,7 +174,14 @@ void AttachmentContainer::addAttachment(
 
     key = (UInt32 (pAttachment->getGroupId()) << 16) | binding;
 
-    pAttachment->addReferenceUnrecordedX();
+    if(this->isMTLocal())
+    {
+        pAttachment->addReferenceX();
+    }
+    else
+    {
+        pAttachment->addReferenceUnrecordedX();
+    }
 
     pAttachment->linkParent(this, 
                             AttachmentsFieldId, 
@@ -189,7 +196,14 @@ void AttachmentContainer::addAttachment(
         (*fcI).second->unlinkParent(this, 
                                     Attachment::ParentsFieldId);
 
-        (*fcI).second->subReferenceUnrecordedX();
+        if(this->isMTLocal())
+        {
+            (*fcI).second->subReferenceX();
+        }
+        else
+        {
+            (*fcI).second->subReferenceUnrecordedX();
+        }
 
         (*fcI).second = pAttachment;
     }
@@ -232,7 +246,14 @@ void AttachmentContainer::subAttachment(
         (*fcI).second->unlinkParent(this, 
                                     Attachment::ParentsFieldId);
 
-        (*fcI).second->subReferenceUnrecordedX();
+        if(this->isMTLocal())
+        {
+            (*fcI).second->subReferenceX();
+        }
+        else
+        {
+            (*fcI).second->subReferenceUnrecordedX();
+        }
 
         _sfAttachments.getValue().erase(fcI);
     }
@@ -306,7 +327,14 @@ void AttachmentContainer::execSync(
             (*fcI).second->unlinkParent(this, 
                                         Attachment::ParentsFieldId);
 
-            (*fcI).second->subReferenceUnrecordedX();
+            if(this->isMTLocal())
+            {
+                (*fcI).second->subReferenceX();
+            }
+            else
+            {
+                (*fcI).second->subReferenceUnrecordedX();
+            }
             
             ++fcI;
         }
@@ -328,7 +356,15 @@ void AttachmentContainer::resolveLinks(void)
         (*fcI).second->unlinkParent(this, 
                                     Attachment::ParentsFieldId);
 
-        (*fcI).second->subReferenceUnrecordedX();
+
+        if(this->isMTLocal())
+        {
+            (*fcI).second->subReferenceX();
+        }
+        else
+        {
+            (*fcI).second->subReferenceUnrecordedX();
+        }
 
         ++fcI;
     }

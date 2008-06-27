@@ -182,6 +182,8 @@ class FieldContainer : public ReflexiveContainer
 
     const FieldFlags *getFieldFlags(void);
 
+          bool        isMTLocal    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */

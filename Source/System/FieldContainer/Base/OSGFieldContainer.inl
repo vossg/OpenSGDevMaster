@@ -486,6 +486,16 @@ const FieldFlags *FieldContainer::getFieldFlags(void)
     return _pFieldFlags;
 }
 
+inline
+bool FieldContainer::isMTLocal(void) const
+{
+    bool returnValue =         
+        ((this->_pFieldFlags->_bNamespaceMask & FCLocal::MTMask) == 
+         TypeTraits<BitVector>::BitsClear);
+
+    return returnValue;
+}
+
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 FieldContainer *FieldContainer::getAspectPtr(UInt32 uiAspect) const

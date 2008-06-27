@@ -89,8 +89,10 @@ DrawManager::DrawManager(void) :
     _pThread     (NULL),
     _pSyncBarrier(NULL),
     _pSwapBarrier(NULL),
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    _pSyncLock   (NULL),
+#endif
     _uiSyncCount (0   )
-
 {
 }
 
@@ -100,6 +102,9 @@ DrawManager::DrawManager(const DrawManager &source) :
     _pThread     (NULL  ),
     _pSyncBarrier(NULL  ),
     _pSwapBarrier(NULL  ),
+#ifdef OSG_GLOBAL_SYNC_LOCK
+    _pSyncLock   (NULL  ),
+#endif
     _uiSyncCount (0     )
 {
 }
@@ -137,6 +142,12 @@ bool DrawManager::init(void)
 
         addRef(_pThread);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        _pSyncLock    = Lock::get("DM::synclock");
+
+        addRef(_pSyncLock);
+#endif
+
         _pSyncBarrier = Barrier::get(_sfSyncBarrierName.getValue().c_str());
 
         addRef(_pSyncBarrier);
@@ -150,6 +161,9 @@ bool DrawManager::init(void)
 
         OSG_ASSERT(_pSyncBarrier != NULL);
         OSG_ASSERT(_pThread      != NULL);
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        OSG_ASSERT(_pSyncLock    != NULL);
+#endif
        
         _uiSyncCount = _mfDrawer.size() + 1;
 
@@ -158,7 +172,10 @@ bool DrawManager::init(void)
             (*dIt)->setParallel      ( true           );
 
             (*dIt)->setSyncBarrier   (_pSyncBarrier   );
-            (*dIt)->setSwapBarrier   (_pSwapBarrier );
+            (*dIt)->setSwapBarrier   (_pSwapBarrier   );
+#ifdef OSG_GLOBAL_SYNC_LOCK
+            (*dIt)->setSyncLock      (_pSyncLock      );
+#endif
 
             (*dIt)->setSyncCount     (_uiSyncCount    );
             (*dIt)->setSyncFromThread(_pThread        );
@@ -222,6 +239,7 @@ void DrawManager::shutdown(void)
             ++dIt;
         }
 
+        AttachmentContainer::resolveLinks();
 
         // sync structure takedown
 
@@ -270,6 +288,10 @@ void DrawManager::shutdown(void)
             (*dIt)->setSyncBarrier   (NULL);
             (*dIt)->setSwapBarrier   (NULL);
 
+#ifdef OSG_GLOBAL_SYNC_LOCK
+            (*dIt)->setSyncLock      (NULL);
+#endif
+
             (*dIt)->setSyncFromThread(NULL);
            
             ++dIt;
@@ -283,6 +305,11 @@ void DrawManager::shutdown(void)
 
         subRef(_pSwapBarrier);
         _pSwapBarrier = NULL;
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+        subRef(_pSyncLock);
+        _pSyncLock = NULL;
+#endif
     }
 }
 
