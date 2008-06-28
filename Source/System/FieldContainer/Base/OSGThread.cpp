@@ -289,10 +289,11 @@ void PThreadBase::setChangelistTo(ChangeList *pNewList)
 #if defined(OSG_PTHREAD_ELF_TLS)
     _pTLSChangeList = pNewList;
 #else
-    ChangeList **pChangeList = pNewList;
+    ChangeList **pChangeList = NULL;
 
+    pChangeList = (ChangeList **) pthread_getspecific(_changeListKey);
 
-    pthread_setspecific(_changeListKey, (void *) pChangeList);  
+    *pChangeList = pNewList;
 #endif
 }
 #endif
