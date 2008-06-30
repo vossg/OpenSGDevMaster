@@ -45,13 +45,13 @@
 
 #include <OSGConfig.h>
 
-#include "OSGCSMViewport.h"
+#include "OSGCSMMultiWinOptions.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGCSMViewportBase.cpp file.
-// To modify it, please change the .fcd file (OSGCSMViewport.fcd) and
+// OSGCSMMultiWinOptionsBase.cpp file.
+// To modify it, please change the .fcd file (OSGCSMMultiWinOptions.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void CSMViewport::initMethod(InitPhase ePhase)
+void CSMMultiWinOptions::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -82,74 +82,33 @@ void CSMViewport::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-CSMViewport::CSMViewport(void) :
+CSMMultiWinOptions::CSMMultiWinOptions(void) :
     Inherited()
 {
 }
 
-CSMViewport::CSMViewport(const CSMViewport &source) :
+CSMMultiWinOptions::CSMMultiWinOptions(const CSMMultiWinOptions &source) :
     Inherited(source)
 {
 }
 
-CSMViewport::~CSMViewport(void)
+CSMMultiWinOptions::~CSMMultiWinOptions(void)
 {
-}
-
-void CSMViewport::resolveLinks(void)
-{
-    Inherited::resolveLinks();
-
-    _pViewport = NULL;
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void CSMViewport::changed(ConstFieldMaskArg whichField, 
+void CSMMultiWinOptions::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void CSMViewport::dump(      UInt32    ,
+void CSMMultiWinOptions::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump CSMViewport NI" << std::endl;
-}
-
-bool CSMViewport::init(void)
-{
-    bool returnValue = true;
-
-    _pViewport = Viewport::create();
-
-    _pViewport->setRoot      (_sfRoot      .getValue());
-    _pViewport->setCamera    (_sfCamera    .getValue());
-    _pViewport->setBackground(_sfBackground.getValue());
-
-    MFUnrecForegroundPtr::const_iterator fIt  = getMFForegrounds()->begin();
-    MFUnrecForegroundPtr::const_iterator fEnd = getMFForegrounds()->end  ();
-
-    while(fIt != fEnd)
-    {
-        _pViewport->addForeground(*fIt);
-
-        ++fIt;
-    }
-
-    _pViewport->setLeft  (_sfLeftBottom.getValue()[0]);
-    _pViewport->setBottom(_sfLeftBottom.getValue()[1]);
-
-    _pViewport->setRight (_sfRightTop  .getValue()[0]);
-    _pViewport->setTop   (_sfRightTop  .getValue()[1]);
-
-    return returnValue;
-}
-
-Viewport *CSMViewport::getPort(void)
-{
-    return _pViewport;
+    SLOG << "Dump CSMMultiWinOptions NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

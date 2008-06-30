@@ -61,7 +61,7 @@
 
 
 
-#include <OSGDrawer.h> // Parent Class
+#include <OSGFieldContainer.h> // Parent Class
 #include <OSGCSMViewport.h> // Viewports Class
 
 #include "OSGCSMWindowBase.h"
@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var Drawer *        CSMWindowBase::_sfParent
+/*! \var FieldContainer * CSMWindowBase::_sfParent
     
 */
 
@@ -113,8 +113,8 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFParentDrawerPtr::Description(
-        SFParentDrawerPtr::getClassType(),
+    pDesc = new SFParentFieldContainerPtr::Description(
+        SFParentFieldContainerPtr::getClassType(),
         "parent",
         "",
         ParentFieldId, ParentFieldMask,
@@ -212,13 +212,13 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
-    "    childfieldparent=\"Drawer\"\n"
+    "    childfieldparent=\"FieldContainer\"\n"
     "    parentfieldcard=\"single\"\n"
-    "    childFields=\"multi\"\n"
+    "    childFields=\"both\"\n"
     ">\n"
     "\t<Field\n"
     "\t\tname=\"parent\"\n"
-    "\t\ttype=\"Drawer\"\n"
+    "\t\ttype=\"FieldContainer\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"none\"\n"
@@ -555,8 +555,8 @@ bool CSMWindowBase::linkParent(
 {
     if(parentFieldId == ParentFieldId)
     {
-        Drawer * pTypedParent =
-            dynamic_cast< Drawer * >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
 
         if(pTypedParent != NULL)
         {
@@ -573,7 +573,7 @@ bool CSMWindowBase::linkParent(
 
             editSField(ParentFieldMask);
 
-            _sfParent.setValue(static_cast<Drawer *>(pParent), childFieldId);
+            _sfParent.setValue(static_cast<FieldContainer *>(pParent), childFieldId);
 
             return true;
         }
@@ -590,8 +590,8 @@ bool CSMWindowBase::unlinkParent(
 {
     if(parentFieldId == ParentFieldId)
     {
-        Drawer * pTypedParent =
-            dynamic_cast< Drawer * >(pParent);
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
 
         if(pTypedParent != NULL)
         {
@@ -641,7 +641,7 @@ void CSMWindowBase::onCreate(const CSMWindow *source)
 
 GetFieldHandlePtr CSMWindowBase::getHandleParent          (void) const
 {
-    SFParentDrawerPtr::GetHandlePtr returnValue;
+    SFParentFieldContainerPtr::GetHandlePtr returnValue;
 
     return returnValue;
 }
@@ -826,6 +826,12 @@ DataType &FieldTraits< CSMWindow *, 1 >::getType(void)
 {
     return FieldTraits<CSMWindow *, 0>::getType();
 }
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      CSMWindow *,
+                      UnrecordedRefCountPolicy,
+                      1);
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,

@@ -282,12 +282,10 @@ FieldContainer *Drawer::findNamedComponent(const Char8 *szName) const
         }
         else
         {
-/*
-            FieldContainer *tmpVal = (*drawerIt)->findNamedComponent(szName);
+            FieldContainer *tmpVal = (*winIt)->findNamedComponent(szName);
                 
             if(tmpVal != NULL)
                 return tmpVal;
- */
         }
         
         ++winIt;

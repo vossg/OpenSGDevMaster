@@ -12,13 +12,13 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
-    childfieldparent="Drawer"
+    childfieldparent="FieldContainer"
     parentfieldcard="single"
-    childFields="multi"
+    childFields="both"
 >
 	<Field
 		name="parent"
-		type="Drawer"
+		type="FieldContainer"
 		cardinality="single"
 		visibility="internal"
 		access="none"

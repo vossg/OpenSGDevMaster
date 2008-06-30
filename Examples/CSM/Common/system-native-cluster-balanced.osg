@@ -1,0 +1,122 @@
+#OSG V1.0 
+
+ComplexSceneManager
+{
+  globals
+  [
+    DEF RootNode Node
+    { 
+      core Group {}
+
+      children
+      [ 
+        DEF CameraRoot Node
+        {
+          core Transform {}
+
+          children 
+          [ 
+          ]
+        },
+
+
+        Node 
+        {
+          core Group {}
+
+          children
+          [
+            DEF ZLight Node
+            {
+              core DirectionalLight
+              {
+                ambient    0.24 0.24 0.24 1.0
+                diffuse    0.80 0.80 0.80 1.0
+                direction  0.0 0.0 1.0
+                on         TRUE
+                beacon     USE CameraRoot
+              }
+              children
+              [
+                DEF ModelRoot Node
+                {
+                  core Group {}
+                }
+              ]
+            }
+          ]
+        }
+      ] 
+    }
+
+    DEF PerspCamGL PerspectiveCamera
+    {
+      near   0.1
+      far    20000.0
+      fov    60.0
+
+      beacon USE CameraRoot
+    }
+
+  ]
+
+  drawManager DEF DrawManager DrawManager
+  {
+    drawer
+    [
+      Drawer
+      {
+        windows
+        [
+           CSMClusterWindow
+           {
+             clientWindow DEF MainWindow CSMGLUTWindow
+             {
+               size 300 300
+               position 200, 200
+               decorEnabled TRUE
+             }
+
+             servers    ["tile-0-0", "tile-1-0"]
+             serverRows 1
+
+             connectionType "Multicast"
+             clusterMode    "Balanced"
+
+             options CSMMultiWinOptions     
+             {
+               balance FALSE
+             }
+
+             size 600 300
+
+             viewports
+             [
+               CSMViewport
+               {
+                 root       USE RootNode
+                 camera     USE PerspCamGL
+                 background USE BGnd
+
+                 foregrounds
+                 [
+                 ]
+               }
+
+               CSMViewport
+               {
+                 root       USE RootNode
+                 camera     USE PerspCamGL
+                 background USE BGnd
+
+                 foregrounds
+                 [
+                 ]
+               }
+             ]
+           }
+        ]  
+      }
+    ]
+  }
+}

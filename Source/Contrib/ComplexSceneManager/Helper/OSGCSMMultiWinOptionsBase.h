@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMWindow
+ **     class CSMMultiWinOptions
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCSMWINDOWBASE_H_
-#define _OSGCSMWINDOWBASE_H_
+#ifndef _OSGCSMMULTIWINOPTIONSBASE_H_
+#define _OSGCSMMULTIWINOPTIONSBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,34 +63,34 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGCSMClusterWinOptions.h" // Parent
 
-#include "OSGFieldContainerFields.h" // Parent type
-#include "OSGCSMViewportFields.h" // Viewports type
-#include "OSGMouseDataFields.h" // MouseData type
-#include "OSGVec2fFields.h" // Size type
-#include "OSGVec2fFields.h" // Position type
-#include "OSGBoolFields.h" // DecorEnabled type
+#include "OSGInt32Fields.h" // XOverlap type
+#include "OSGInt32Fields.h" // YOverlap type
+#include "OSGBoolFields.h" // ManageClientViewports type
+#include "OSGBoolFields.h" // Balance type
+#include "OSGBoolFields.h" // BestCut type
+#include "OSGBoolFields.h" // ShowBalancing type
 
-#include "OSGCSMWindowFields.h"
+#include "OSGCSMMultiWinOptionsFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class CSMWindow;
+class CSMMultiWinOptions;
 
-//! \brief CSMWindow Base Class.
+//! \brief CSMMultiWinOptions Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
+class OSG_CONTRIBCSM_DLLMAPPING CSMMultiWinOptionsBase : public CSMClusterWinOptions
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef CSMClusterWinOptions Inherited;
+    typedef CSMClusterWinOptions ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(CSMWindow);
+    OSG_GEN_INTERNALPTR(CSMMultiWinOptions);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -98,27 +98,27 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
     enum
     {
-        ParentFieldId = Inherited::NextFieldId,
-        ViewportsFieldId = ParentFieldId + 1,
-        MouseDataFieldId = ViewportsFieldId + 1,
-        SizeFieldId = MouseDataFieldId + 1,
-        PositionFieldId = SizeFieldId + 1,
-        DecorEnabledFieldId = PositionFieldId + 1,
-        NextFieldId = DecorEnabledFieldId + 1
+        XOverlapFieldId = Inherited::NextFieldId,
+        YOverlapFieldId = XOverlapFieldId + 1,
+        ManageClientViewportsFieldId = YOverlapFieldId + 1,
+        BalanceFieldId = ManageClientViewportsFieldId + 1,
+        BestCutFieldId = BalanceFieldId + 1,
+        ShowBalancingFieldId = BestCutFieldId + 1,
+        NextFieldId = ShowBalancingFieldId + 1
     };
 
-    static const OSG::BitVector ParentFieldMask =
-        (TypeTraits<BitVector>::One << ParentFieldId);
-    static const OSG::BitVector ViewportsFieldMask =
-        (TypeTraits<BitVector>::One << ViewportsFieldId);
-    static const OSG::BitVector MouseDataFieldMask =
-        (TypeTraits<BitVector>::One << MouseDataFieldId);
-    static const OSG::BitVector SizeFieldMask =
-        (TypeTraits<BitVector>::One << SizeFieldId);
-    static const OSG::BitVector PositionFieldMask =
-        (TypeTraits<BitVector>::One << PositionFieldId);
-    static const OSG::BitVector DecorEnabledFieldMask =
-        (TypeTraits<BitVector>::One << DecorEnabledFieldId);
+    static const OSG::BitVector XOverlapFieldMask =
+        (TypeTraits<BitVector>::One << XOverlapFieldId);
+    static const OSG::BitVector YOverlapFieldMask =
+        (TypeTraits<BitVector>::One << YOverlapFieldId);
+    static const OSG::BitVector ManageClientViewportsFieldMask =
+        (TypeTraits<BitVector>::One << ManageClientViewportsFieldId);
+    static const OSG::BitVector BalanceFieldMask =
+        (TypeTraits<BitVector>::One << BalanceFieldId);
+    static const OSG::BitVector BestCutFieldMask =
+        (TypeTraits<BitVector>::One << BestCutFieldId);
+    static const OSG::BitVector ShowBalancingFieldMask =
+        (TypeTraits<BitVector>::One << ShowBalancingFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -145,61 +145,60 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecCSMViewportPtr *getMFViewports      (void) const;
-                  MFUnrecCSMViewportPtr *editMFViewports      (void);
 
-                  SFMouseData         *editSFMouseData      (void);
-            const SFMouseData         *getSFMouseData       (void) const;
+                  SFInt32             *editSFXOverlap       (void);
+            const SFInt32             *getSFXOverlap        (void) const;
 
-                  SFVec2f             *editSFSize           (void);
-            const SFVec2f             *getSFSize            (void) const;
+                  SFInt32             *editSFYOverlap       (void);
+            const SFInt32             *getSFYOverlap        (void) const;
 
-                  SFVec2f             *editSFPosition       (void);
-            const SFVec2f             *getSFPosition        (void) const;
+                  SFBool              *editSFManageClientViewports(void);
+            const SFBool              *getSFManageClientViewports (void) const;
 
-                  SFBool              *editSFDecorEnabled   (void);
-            const SFBool              *getSFDecorEnabled    (void) const;
+                  SFBool              *editSFBalance        (void);
+            const SFBool              *getSFBalance         (void) const;
+
+                  SFBool              *editSFBestCut        (void);
+            const SFBool              *getSFBestCut         (void) const;
+
+                  SFBool              *editSFShowBalancing  (void);
+            const SFBool              *getSFShowBalancing   (void) const;
 
 
-                  CSMViewport * getViewports      (const UInt32 index) const;
+                  Int32               &editXOverlap       (void);
+                  Int32                getXOverlap        (void) const;
 
-                  MouseData           &editMouseData      (void);
-            const MouseData           &getMouseData       (void) const;
+                  Int32               &editYOverlap       (void);
+                  Int32                getYOverlap        (void) const;
 
-                  Vec2f               &editSize           (void);
-            const Vec2f               &getSize            (void) const;
+                  bool                &editManageClientViewports(void);
+                  bool                 getManageClientViewports (void) const;
 
-                  Vec2f               &editPosition       (void);
-            const Vec2f               &getPosition        (void) const;
+                  bool                &editBalance        (void);
+                  bool                 getBalance         (void) const;
 
-                  bool                &editDecorEnabled   (void);
-                  bool                 getDecorEnabled    (void) const;
+                  bool                &editBestCut        (void);
+                  bool                 getBestCut         (void) const;
+
+                  bool                &editShowBalancing  (void);
+                  bool                 getShowBalancing   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMouseData      (const MouseData &value);
-            void setSize           (const Vec2f &value);
-            void setPosition       (const Vec2f &value);
-            void setDecorEnabled   (const bool value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setXOverlap       (const Int32 value);
+            void setYOverlap       (const Int32 value);
+            void setManageClientViewports(const bool value);
+            void setBalance        (const bool value);
+            void setBestCut        (const bool value);
+            void setShowBalancing  (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToViewports           (CSMViewport * const value   );
-    void assignViewports          (const MFUnrecCSMViewportPtr &value);
-    void removeFromViewports (UInt32               uiIndex );
-    void removeObjFromViewports(CSMViewport * const value   );
-    void clearViewports             (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -212,6 +211,29 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    static  CSMMultiWinOptionsTransitPtr  create          (void);
+    static  CSMMultiWinOptions           *createEmpty     (void);
+
+    static  CSMMultiWinOptionsTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
+
+    static  CSMMultiWinOptions            *createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Copy                                   */
+    /*! \{                                                                 */
+
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -227,63 +249,51 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentFieldContainerPtr _sfParent;
-    MFUnrecCSMViewportPtr _mfViewports;
-    SFMouseData       _sfMouseData;
-    SFVec2f           _sfSize;
-    SFVec2f           _sfPosition;
-    SFBool            _sfDecorEnabled;
+    SFInt32           _sfXOverlap;
+    SFInt32           _sfYOverlap;
+    SFBool            _sfManageClientViewports;
+    SFBool            _sfBalance;
+    SFBool            _sfBestCut;
+    SFBool            _sfShowBalancing;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    CSMWindowBase(void);
-    CSMWindowBase(const CSMWindowBase &source);
+    CSMMultiWinOptionsBase(void);
+    CSMMultiWinOptionsBase(const CSMMultiWinOptionsBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMWindowBase(void);
+    virtual ~CSMMultiWinOptionsBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const CSMWindow *source = NULL);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Parent linking                                               */
-    /*! \{                                                                 */
-
-    virtual bool linkParent  (FieldContainer * const pParent,
-                              UInt16           const childFieldId,
-                              UInt16           const parentFieldId);
-    virtual bool unlinkParent(FieldContainer * const pParent,
-                              UInt16           const parentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParent          (void) const;
-    EditFieldHandlePtr editHandleParent         (void);
-    GetFieldHandlePtr  getHandleViewports       (void) const;
-    EditFieldHandlePtr editHandleViewports      (void);
-    GetFieldHandlePtr  getHandleMouseData       (void) const;
-    EditFieldHandlePtr editHandleMouseData      (void);
-    GetFieldHandlePtr  getHandleSize            (void) const;
-    EditFieldHandlePtr editHandleSize           (void);
-    GetFieldHandlePtr  getHandlePosition        (void) const;
-    EditFieldHandlePtr editHandlePosition       (void);
-    GetFieldHandlePtr  getHandleDecorEnabled    (void) const;
-    EditFieldHandlePtr editHandleDecorEnabled   (void);
+    GetFieldHandlePtr  getHandleXOverlap        (void) const;
+    EditFieldHandlePtr editHandleXOverlap       (void);
+    GetFieldHandlePtr  getHandleYOverlap        (void) const;
+    EditFieldHandlePtr editHandleYOverlap       (void);
+    GetFieldHandlePtr  getHandleManageClientViewports (void) const;
+    EditFieldHandlePtr editHandleManageClientViewports(void);
+    GetFieldHandlePtr  getHandleBalance         (void) const;
+    EditFieldHandlePtr editHandleBalance        (void);
+    GetFieldHandlePtr  getHandleBestCut         (void) const;
+    EditFieldHandlePtr editHandleBestCut        (void);
+    GetFieldHandlePtr  getHandleShowBalancing   (void) const;
+    EditFieldHandlePtr editHandleShowBalancing  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -297,7 +307,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      CSMWindowBase *pFrom,
+            void execSync (      CSMMultiWinOptionsBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -313,6 +323,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(void) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -332,11 +346,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMWindowBase &source);
+    void operator =(const CSMMultiWinOptionsBase &source);
 };
 
-typedef CSMWindowBase *CSMWindowBaseP;
+typedef CSMMultiWinOptionsBase *CSMMultiWinOptionsBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCSMWINDOWBASE_H_ */
+#endif /* _OSGCSMMULTIWINOPTIONSBASE_H_ */

@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMViewport!
+ **     class CSMSortFirstWinOptions!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,136 +53,131 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &CSMViewportBase::getClassType(void)
+OSG::FieldContainerType &CSMSortFirstWinOptionsBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CSMViewportBase::getClassTypeId(void)
+OSG::UInt32 CSMSortFirstWinOptionsBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 CSMViewportBase::getClassGroupId(void)
+OSG::UInt16 CSMSortFirstWinOptionsBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the CSMSortFirstWinOptions::_sfCompression field.
 
-//! Get the value of the CSMViewport::_sfRoot field.
 inline
-Node * CSMViewportBase::getRoot(void) const
+std::string &CSMSortFirstWinOptionsBase::editCompression(void)
 {
-    return _sfRoot.getValue();
+    editSField(CompressionFieldMask);
+
+    return _sfCompression.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfRoot field.
+//! Get the value of the CSMSortFirstWinOptions::_sfCompression field.
 inline
-void CSMViewportBase::setRoot(Node * const value)
+const std::string &CSMSortFirstWinOptionsBase::getCompression(void) const
 {
-    editSField(RootFieldMask);
-
-    _sfRoot.setValue(value);
+    return _sfCompression.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfCamera field.
+//! Set the value of the CSMSortFirstWinOptions::_sfCompression field.
 inline
-Camera * CSMViewportBase::getCamera(void) const
+void CSMSortFirstWinOptionsBase::setCompression(const std::string &value)
 {
-    return _sfCamera.getValue();
+    editSField(CompressionFieldMask);
+
+    _sfCompression.setValue(value);
+}
+//! Get the value of the CSMSortFirstWinOptions::_sfSubtileSize field.
+
+inline
+UInt32 &CSMSortFirstWinOptionsBase::editSubtileSize(void)
+{
+    editSField(SubtileSizeFieldMask);
+
+    return _sfSubtileSize.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfCamera field.
+//! Get the value of the CSMSortFirstWinOptions::_sfSubtileSize field.
 inline
-void CSMViewportBase::setCamera(Camera * const value)
+      UInt32  CSMSortFirstWinOptionsBase::getSubtileSize(void) const
 {
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
+    return _sfSubtileSize.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfBackground field.
+//! Set the value of the CSMSortFirstWinOptions::_sfSubtileSize field.
 inline
-Background * CSMViewportBase::getBackground(void) const
+void CSMSortFirstWinOptionsBase::setSubtileSize(const UInt32 value)
 {
-    return _sfBackground.getValue();
+    editSField(SubtileSizeFieldMask);
+
+    _sfSubtileSize.setValue(value);
+}
+//! Get the value of the CSMSortFirstWinOptions::_sfCompose field.
+
+inline
+bool &CSMSortFirstWinOptionsBase::editCompose(void)
+{
+    editSField(ComposeFieldMask);
+
+    return _sfCompose.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfBackground field.
+//! Get the value of the CSMSortFirstWinOptions::_sfCompose field.
 inline
-void CSMViewportBase::setBackground(Background * const value)
+      bool  CSMSortFirstWinOptionsBase::getCompose(void) const
 {
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
-//! Get the value of the CSMViewport::_sfLeftBottom field.
-
-inline
-Vec2f &CSMViewportBase::editLeftBottom(void)
-{
-    editSField(LeftBottomFieldMask);
-
-    return _sfLeftBottom.getValue();
+    return _sfCompose.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfLeftBottom field.
+//! Set the value of the CSMSortFirstWinOptions::_sfCompose field.
 inline
-const Vec2f &CSMViewportBase::getLeftBottom(void) const
+void CSMSortFirstWinOptionsBase::setCompose(const bool value)
 {
-    return _sfLeftBottom.getValue();
+    editSField(ComposeFieldMask);
+
+    _sfCompose.setValue(value);
+}
+//! Get the value of the CSMSortFirstWinOptions::_sfUseFaceDistribution field.
+
+inline
+bool &CSMSortFirstWinOptionsBase::editUseFaceDistribution(void)
+{
+    editSField(UseFaceDistributionFieldMask);
+
+    return _sfUseFaceDistribution.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfLeftBottom field.
+//! Get the value of the CSMSortFirstWinOptions::_sfUseFaceDistribution field.
 inline
-void CSMViewportBase::setLeftBottom(const Vec2f &value)
+      bool  CSMSortFirstWinOptionsBase::getUseFaceDistribution(void) const
 {
-    editSField(LeftBottomFieldMask);
-
-    _sfLeftBottom.setValue(value);
-}
-//! Get the value of the CSMViewport::_sfRightTop field.
-
-inline
-Vec2f &CSMViewportBase::editRightTop(void)
-{
-    editSField(RightTopFieldMask);
-
-    return _sfRightTop.getValue();
+    return _sfUseFaceDistribution.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfRightTop field.
+//! Set the value of the CSMSortFirstWinOptions::_sfUseFaceDistribution field.
 inline
-const Vec2f &CSMViewportBase::getRightTop(void) const
+void CSMSortFirstWinOptionsBase::setUseFaceDistribution(const bool value)
 {
-    return _sfRightTop.getValue();
-}
+    editSField(UseFaceDistributionFieldMask);
 
-//! Set the value of the CSMViewport::_sfRightTop field.
-inline
-void CSMViewportBase::setRightTop(const Vec2f &value)
-{
-    editSField(RightTopFieldMask);
-
-    _sfRightTop.setValue(value);
-}
-
-//! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
-inline
-Foreground * CSMViewportBase::getForegrounds(const UInt32 index) const
-{
-    return _mfForegrounds[index];
+    _sfUseFaceDistribution.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
+void CSMSortFirstWinOptionsBase::execSync (      CSMSortFirstWinOptionsBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -190,36 +185,27 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (RootFieldMask & whichField))
-        _sfRoot.syncWith(pFrom->_sfRoot);
+    if(FieldBits::NoField != (CompressionFieldMask & whichField))
+        _sfCompression.syncWith(pFrom->_sfCompression);
 
-    if(FieldBits::NoField != (CameraFieldMask & whichField))
-        _sfCamera.syncWith(pFrom->_sfCamera);
+    if(FieldBits::NoField != (SubtileSizeFieldMask & whichField))
+        _sfSubtileSize.syncWith(pFrom->_sfSubtileSize);
 
-    if(FieldBits::NoField != (BackgroundFieldMask & whichField))
-        _sfBackground.syncWith(pFrom->_sfBackground);
+    if(FieldBits::NoField != (ComposeFieldMask & whichField))
+        _sfCompose.syncWith(pFrom->_sfCompose);
 
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pFrom->_mfForegrounds,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (LeftBottomFieldMask & whichField))
-        _sfLeftBottom.syncWith(pFrom->_sfLeftBottom);
-
-    if(FieldBits::NoField != (RightTopFieldMask & whichField))
-        _sfRightTop.syncWith(pFrom->_sfRightTop);
+    if(FieldBits::NoField != (UseFaceDistributionFieldMask & whichField))
+        _sfUseFaceDistribution.syncWith(pFrom->_sfUseFaceDistribution);
 }
 #endif
 
 
 inline
-Char8 *CSMViewportBase::getClassname(void)
+Char8 *CSMSortFirstWinOptionsBase::getClassname(void)
 {
-    return "CSMViewport";
+    return "CSMSortFirstWinOptions";
 }
-OSG_GEN_CONTAINERPTR(CSMViewport);
+OSG_GEN_CONTAINERPTR(CSMSortFirstWinOptions);
 
 OSG_END_NAMESPACE
 

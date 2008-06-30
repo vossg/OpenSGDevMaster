@@ -36,27 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCSMWINDOW_H_
-#define _OSGCSMWINDOW_H_
+#ifndef _OSGCSMCLUSTERWINDOW_H_
+#define _OSGCSMCLUSTERWINDOW_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCSMWindowBase.h"
-#include "OSGWindow.h"
-#include "OSGCSMViewport.h"
-#include "OSGImageComposer.h"
+#include "OSGCSMClusterWindowBase.h"
+#include "OSGDrawer.h"
+#include "OSGCSMClusterWinOptions.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CSMWindow class. See \ref
-           PageContribCSMCSMWindow for a description.
+class ClusterWindow;
+
+/*! \brief CSMClusterWindow class. See \ref
+           PageContribCSMCSMClusterWindow for a description.
 */
 
-class RenderAction;
-class Drawer;
-
-class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindow : public CSMClusterWindowBase
 {
   protected:
 
@@ -64,8 +62,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
   public:
 
-    typedef CSMWindowBase Inherited;
-    typedef CSMWindow     Self;
+    typedef CSMClusterWindowBase Inherited;
+    typedef CSMClusterWindow     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -82,20 +80,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
     virtual bool init(void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    Real32  getXPos  (void) const;
-    Real32  getYPos  (void) const;
-
-    Real32  getXSize (void) const;
-    Real32  getYSize (void) const;
-
-    Drawer *getParent(void) const;
-
-    Window *getWindow(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -117,66 +101,25 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
   protected:
 
-    // Variables should all be in CSMWindowBase.
+    // Variables should all be in CSMClusterWindowBase.
 
-    WindowRecPtr _pWindow;
-    bool         _bFirstFrame;
+    static bool           _bRun;
+    
+           ClusterWindow *_pClusterWindow;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CSMWindow(void);
-    CSMWindow(const CSMWindow &source);
+    CSMClusterWindow(void);
+    CSMClusterWindow(const CSMClusterWindow &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMWindow(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    void reshape(Int32 w, 
-                 Int32 h        );
-
-    void mouse  (Int32 iButton, 
-                 Int32 iState,
-                 Int32 iModifier,
-                 Int32 x,       
-                 Int32 y        );
-
-    void motion (Int32 x, 
-                 Int32 y        );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    void render             (RenderAction *pAction);
-
-    void frameRenderActivate(RenderAction *pAction);
-    void frameSwapActivate  (void                 );
-    void frameExit          (void                 );
-
-    void activate           (void                 );
-    void frameRender        (RenderAction *pAction);
-    void frameSwap          (void                 );
-    void deactivate         (void                 );
-
-    void shutdown           (void                 );
+    virtual ~CSMClusterWindow(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -191,18 +134,17 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
   private:
 
     friend class FieldContainer;
-    friend class CSMWindowBase;
-    friend class Drawer;
+    friend class CSMClusterWindowBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMWindow &source);
+    void operator =(const CSMClusterWindow &source);
 };
 
-typedef CSMWindow *CSMWindowP;
+typedef CSMClusterWindow *CSMClusterWindowP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCSMWindowBase.inl"
-#include "OSGCSMWindow.inl"
+#include "OSGCSMClusterWindowBase.inl"
+#include "OSGCSMClusterWindow.inl"
 
-#endif /* _OSGCSMWINDOW_H_ */
+#endif /* _OSGCSMCLUSTERWINDOW_H_ */

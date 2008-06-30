@@ -51,4 +51,22 @@
         category="pointer"
 	>
 	</Field>
+	<Field
+		name="leftBottom"
+		type="Vec2f"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        defaultValue="0.f, 0.f"
+	>
+	</Field>
+	<Field
+		name="rightTop"
+		type="Vec2f"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        defaultValue="1.f, 1.f"
+	>
+	</Field>
 </FieldContainer>

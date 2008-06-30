@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGCSMWINDOWFIELDS_H_
-#define _OSGCSMWINDOWFIELDS_H_
+#ifndef _OSGCSMCLUSTERWINOPTIONSFIELDS_H_
+#define _OSGCSMCLUSTERWINOPTIONSFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,12 +64,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-class CSMWindow;
+class CSMClusterWinOptions;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMWindowPtr
+//! CSMClusterWinOptionsPtr
 
-OSG_GEN_CONTAINERPTR(CSMWindow);
+OSG_GEN_CONTAINERPTR(CSMClusterWinOptions);
 
 #endif
 
@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(CSMWindow);
 #endif
 
 template <>
-struct FieldTraits<CSMWindow *> :
-    public FieldTraitsFCPtrBase<CSMWindow *>
+struct FieldTraits<CSMClusterWinOptions *> :
+    public FieldTraitsFCPtrBase<CSMClusterWinOptions *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<CSMWindow *> :
 
   public:
 
-    typedef FieldTraits<CSMWindow *>  Self;
+    typedef FieldTraits<CSMClusterWinOptions *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -99,81 +99,53 @@ struct FieldTraits<CSMWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMWindowPtr"; }
-    template<typename RefCountPolicy> inline
-    static const Char8    *getMName     (void);
-
-//    static const char *getMName(void) { return "MFCSMWindowPtr"; }
+//    static const char *getSName(void) { return "SFCSMClusterWinOptionsPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecCSMWindowPtr"; 
+    return "SFRecCSMClusterWinOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecCSMWindowPtr"; 
+    return "SFUnrecCSMClusterWinOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 0>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakCSMWindowPtr"; 
+    return "SFWeakCSMClusterWinOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 0>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdCSMWindowPtr"; 
+    return "SFUnrefdCSMClusterWinOptionsPtr"; 
 }
 
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
-{
-    return "MFRecCSMWindowPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
-{
-    return "MFUnrecCSMWindowPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getMName<WeakRefCountPolicy>(void)
-{
-    return "MFWeakCSMWindowPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 0>::getMName<NoRefCountPolicy>(void)
-{
-    return "MFUnrefdCSMWindowPtr"; 
-}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMWindowPtr, 0>
+/*! \class  FieldTraitsTemplateBase<CSMClusterWinOptionsPtr, 0>
     \hideinhierarchy
  */
 #endif
 
-class FieldContainer;
+class CSMClusterWindow;
 
 template <>
-struct FieldTraits<CSMWindow *, 1> :
-    public FieldTraitsFCPtrBase<CSMWindow *, 1>
+struct FieldTraits<CSMClusterWinOptions *, 1> :
+    public FieldTraitsFCPtrBase<CSMClusterWinOptions *, 1>
 {
   private:
 
   public:
 
-    typedef FieldContainer            *ParentType;
-    typedef FieldTraits<CSMWindow *, 1>  Self;
+    typedef CSMClusterWindow            *ParentType;
+    typedef FieldTraits<CSMClusterWinOptions *, 1>  Self;
 
-    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
 
     enum                        { Convertible = NotConvertible };
 
@@ -182,60 +154,33 @@ struct FieldTraits<CSMWindow *, 1> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMWindowPtr"; }
-    template<typename RefCountPolicy> inline
-    static const Char8    *getMName     (void);
-
-//    static const char *getMName(void) { return "MFCSMWindowPtr"; }
+//    static const char *getSName(void) { return "SFCSMClusterWinOptionsPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 1>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecChildCSMWindowPtr"; 
+    return "SFRecChildCSMClusterWinOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecChildCSMWindowPtr"; 
+    return "SFUnrecChildCSMClusterWinOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 1>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakChildCSMWindowPtr"; 
+    return "SFWeakChildCSMClusterWinOptionsPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMClusterWinOptions *, 1>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdChildCSMWindowPtr"; 
+    return "SFUnrefdChildCSMClusterWinOptionsPtr"; 
 }
 
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getMName<RecordedRefCountPolicy>(void)
-{
-    return "MFRecChildCSMWindowPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getMName<UnrecordedRefCountPolicy>(void)
-{
-    return "MFUnrecChildCSMWindowPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getMName<WeakRefCountPolicy>(void)
-{
-    return "MFWeakChildCSMWindowPtr"; 
-}
-
-template<> inline
-const Char8 *FieldTraits<CSMWindow *, 1>::getMName<NoRefCountPolicy>(void)
-{
-    return "MFUnrefdChildCSMWindowPtr"; 
-}
 
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -244,43 +189,23 @@ const Char8 *FieldTraits<CSMWindow *, 1>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribCSMFieldSingle */
 
-typedef PointerSField<CSMWindow *,
-                      RecordedRefCountPolicy  > SFRecCSMWindowPtr;
-typedef PointerSField<CSMWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecCSMWindowPtr;
-typedef PointerSField<CSMWindow *,
-                      WeakRefCountPolicy      > SFWeakCSMWindowPtr;
-typedef PointerSField<CSMWindow *,
-                      NoRefCountPolicy        > SFUncountedCSMWindowPtr;
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
-typedef PointerMField<CSMWindow *,
-                      RecordedRefCountPolicy  > MFRecCSMWindowPtr;
-typedef PointerMField<CSMWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecCSMWindowPtr;
-typedef PointerMField<CSMWindow *,
-                      WeakRefCountPolicy      > MFWeakCSMWindowPtr;
-typedef PointerMField<CSMWindow *,
-                      NoRefCountPolicy        > MFUncountedCSMWindowPtr;
+typedef PointerSField<CSMClusterWinOptions *,
+                      RecordedRefCountPolicy  > SFRecCSMClusterWinOptionsPtr;
+typedef PointerSField<CSMClusterWinOptions *,
+                      UnrecordedRefCountPolicy> SFUnrecCSMClusterWinOptionsPtr;
+typedef PointerSField<CSMClusterWinOptions *,
+                      WeakRefCountPolicy      > SFWeakCSMClusterWinOptionsPtr;
+typedef PointerSField<CSMClusterWinOptions *,
+                      NoRefCountPolicy        > SFUncountedCSMClusterWinOptionsPtr;
 #endif
 
 
 
 typedef ChildPointerSField<
-          CSMWindow *, 
+          CSMClusterWinOptions *, 
           UnrecordedRefCountPolicy,
-          1             > SFUnrecChildCSMWindowPtr;
-
-
-typedef ChildPointerMField<
-          CSMWindow *, 
-          UnrecordedRefCountPolicy,
-          1             > MFUnrecChildCSMWindowPtr;
+          1             > SFUnrecChildCSMClusterWinOptionsPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCSMWINDOWFIELDS_H_ */
+#endif /* _OSGCSMCLUSTERWINOPTIONSFIELDS_H_ */

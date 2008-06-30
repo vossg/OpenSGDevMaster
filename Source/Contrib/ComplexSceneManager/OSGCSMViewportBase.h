@@ -69,6 +69,8 @@
 #include "OSGCameraFields.h" // Camera type
 #include "OSGBackgroundFields.h" // Background type
 #include "OSGForegroundFields.h" // Foregrounds type
+#include "OSGVec2fFields.h" // LeftBottom type
+#include "OSGVec2fFields.h" // RightTop type
 
 #include "OSGCSMViewportFields.h"
 
@@ -100,7 +102,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         CameraFieldId = RootFieldId + 1,
         BackgroundFieldId = CameraFieldId + 1,
         ForegroundsFieldId = BackgroundFieldId + 1,
-        NextFieldId = ForegroundsFieldId + 1
+        LeftBottomFieldId = ForegroundsFieldId + 1,
+        RightTopFieldId = LeftBottomFieldId + 1,
+        NextFieldId = RightTopFieldId + 1
     };
 
     static const OSG::BitVector RootFieldMask =
@@ -111,6 +115,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         (TypeTraits<BitVector>::One << BackgroundFieldId);
     static const OSG::BitVector ForegroundsFieldMask =
         (TypeTraits<BitVector>::One << ForegroundsFieldId);
+    static const OSG::BitVector LeftBottomFieldMask =
+        (TypeTraits<BitVector>::One << LeftBottomFieldId);
+    static const OSG::BitVector RightTopFieldMask =
+        (TypeTraits<BitVector>::One << RightTopFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -146,6 +154,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
             const MFUnrecForegroundPtr *getMFForegrounds    (void) const;
                   MFUnrecForegroundPtr *editMFForegrounds    (void);
 
+                  SFVec2f             *editSFLeftBottom     (void);
+            const SFVec2f             *getSFLeftBottom      (void) const;
+
+                  SFVec2f             *editSFRightTop       (void);
+            const SFVec2f             *getSFRightTop        (void) const;
+
 
                   Node * getRoot           (void) const;
 
@@ -155,6 +169,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
 
                   Foreground * getForegrounds    (const UInt32 index) const;
 
+                  Vec2f               &editLeftBottom     (void);
+            const Vec2f               &getLeftBottom      (void) const;
+
+                  Vec2f               &editRightTop       (void);
+            const Vec2f               &getRightTop        (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -163,6 +183,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
             void setRoot           (Node * const value);
             void setCamera         (Camera * const value);
             void setBackground     (Background * const value);
+            void setLeftBottom     (const Vec2f &value);
+            void setRightTop       (const Vec2f &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -233,6 +255,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     SFUnrecCameraPtr  _sfCamera;
     SFUnrecBackgroundPtr _sfBackground;
     MFUnrecForegroundPtr _mfForegrounds;
+    SFVec2f           _sfLeftBottom;
+    SFVec2f           _sfRightTop;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,6 +293,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     EditFieldHandlePtr editHandleBackground     (void);
     GetFieldHandlePtr  getHandleForegrounds     (void) const;
     EditFieldHandlePtr editHandleForegrounds    (void);
+    GetFieldHandlePtr  getHandleLeftBottom      (void) const;
+    EditFieldHandlePtr editHandleLeftBottom     (void);
+    GetFieldHandlePtr  getHandleRightTop        (void) const;
+    EditFieldHandlePtr editHandleRightTop       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

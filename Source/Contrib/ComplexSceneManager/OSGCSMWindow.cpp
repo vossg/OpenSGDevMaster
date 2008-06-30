@@ -142,6 +142,18 @@ void CSMWindow::motion(Int32 x,
     editMouseData().setData(x, y, _pWindow);
 }
 
+
+Drawer *CSMWindow::getParent(void) const
+{
+    return dynamic_cast<Drawer *>(_sfParent.getValue());
+}
+
+FieldContainer *CSMWindow::findNamedComponent(const Char8 *szName) const
+{
+    return NULL;
+}
+
+
 /*----------------------------- class specific ----------------------------*/
 
 void CSMWindow::changed(ConstFieldMaskArg whichField, 

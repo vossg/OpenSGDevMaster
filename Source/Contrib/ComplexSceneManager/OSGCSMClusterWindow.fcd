@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CSMClusterWindow"
+    parent="CSMWindow"
+    library="ContribCSM"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+    parentFields="single"
+>
+	<Field
+		name="clientWindow"
+		type="CSMWindow"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        category="childpointer"
+        childParentType="CSMClusterWindow"
+        linkParentField="Parent"
+	>
+	</Field>
+    <Field
+       name="renderClient"
+       type="bool"
+       cardinality="single"
+       visibility="external"
+       access="public"
+    >
+    </Field>
+
+	<Field
+		name="servers"
+		type="std::string"
+		cardinality="multi"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+    <Field
+       name="serverRows"
+       type="UInt32"
+       cardinality="single"
+       visibility="external"
+       access="public"
+    >
+    </Field>
+
+	<Field
+		name="connectionType"
+		type="std::string"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="clusterMode"
+		type="std::string"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+
+
+	<Field
+		name="composer"
+		type="ImageComposer"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        category="pointer"
+	>
+	</Field>
+	<Field
+		name="options"
+		type="CSMClusterWinOptions"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        category="childpointer"
+        childParentType="CSMClusterWindow"
+        linkParentField="Parent"
+	>
+	</Field>
+</FieldContainer>

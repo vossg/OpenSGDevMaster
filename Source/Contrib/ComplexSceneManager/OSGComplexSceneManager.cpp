@@ -482,7 +482,7 @@ void ComplexSceneManager::addData(const std::string &filename)
 
     NodeUnrecPtr pFile = 
         OSG::SceneFileHandler::the()->read(
-            filename.c_str(), 
+            szFilenameResolved.c_str(), 
             NULL,
             boost::bind(&ComplexSceneManager::resolve, this, _1));
 

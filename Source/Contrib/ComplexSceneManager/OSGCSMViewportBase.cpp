@@ -101,6 +101,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Vec2f           CSMViewportBase::_sfLeftBottom
+    
+*/
+
+/*! \var Vec2f           CSMViewportBase::_sfRightTop
+    
+*/
+
 
 void CSMViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -152,6 +160,30 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleForegrounds),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleForegrounds));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(),
+        "leftBottom",
+        "",
+        LeftBottomFieldId, LeftBottomFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleLeftBottom),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleLeftBottom));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(),
+        "rightTop",
+        "",
+        RightTopFieldId, RightTopFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleRightTop),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleRightTop));
 
     oType.addInitialDesc(pDesc);
 }
@@ -219,6 +251,24 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "        category=\"pointer\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"leftBottom\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"0.f, 0.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"rightTop\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"1.f, 1.f\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -296,6 +346,32 @@ MFUnrecForegroundPtr *CSMViewportBase::editMFForegrounds    (void)
 
     return &_mfForegrounds;
 }
+
+SFVec2f *CSMViewportBase::editSFLeftBottom(void)
+{
+    editSField(LeftBottomFieldMask);
+
+    return &_sfLeftBottom;
+}
+
+const SFVec2f *CSMViewportBase::getSFLeftBottom(void) const
+{
+    return &_sfLeftBottom;
+}
+
+
+SFVec2f *CSMViewportBase::editSFRightTop(void)
+{
+    editSField(RightTopFieldMask);
+
+    return &_sfRightTop;
+}
+
+const SFVec2f *CSMViewportBase::getSFRightTop(void) const
+{
+    return &_sfRightTop;
+}
+
 
 
 
@@ -376,6 +452,14 @@ UInt32 CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfForegrounds.getBinSize();
     }
+    if(FieldBits::NoField != (LeftBottomFieldMask & whichField))
+    {
+        returnValue += _sfLeftBottom.getBinSize();
+    }
+    if(FieldBits::NoField != (RightTopFieldMask & whichField))
+    {
+        returnValue += _sfRightTop.getBinSize();
+    }
 
     return returnValue;
 }
@@ -401,6 +485,14 @@ void CSMViewportBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfForegrounds.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (LeftBottomFieldMask & whichField))
+    {
+        _sfLeftBottom.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RightTopFieldMask & whichField))
+    {
+        _sfRightTop.copyToBin(pMem);
+    }
 }
 
 void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
@@ -423,6 +515,14 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
     {
         _mfForegrounds.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (LeftBottomFieldMask & whichField))
+    {
+        _sfLeftBottom.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RightTopFieldMask & whichField))
+    {
+        _sfRightTop.copyFromBin(pMem);
     }
 }
 
@@ -495,7 +595,9 @@ CSMViewportBase::CSMViewportBase(void) :
     _sfRoot                   (NULL),
     _sfCamera                 (NULL),
     _sfBackground             (NULL),
-    _mfForegrounds            ()
+    _mfForegrounds            (),
+    _sfLeftBottom             (Vec2f(0.f, 0.f)),
+    _sfRightTop               (Vec2f(1.f, 1.f))
 {
 }
 
@@ -504,7 +606,9 @@ CSMViewportBase::CSMViewportBase(const CSMViewportBase &source) :
     _sfRoot                   (NULL),
     _sfCamera                 (NULL),
     _sfBackground             (NULL),
-    _mfForegrounds            ()
+    _mfForegrounds            (),
+    _sfLeftBottom             (source._sfLeftBottom             ),
+    _sfRightTop               (source._sfRightTop               )
 {
 }
 
@@ -652,6 +756,52 @@ EditFieldHandlePtr CSMViewportBase::editHandleForegrounds    (void)
                     static_cast<CSMViewport *>(this)));
 
     editMField(ForegroundsFieldMask, _mfForegrounds);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandleLeftBottom      (void) const
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfLeftBottom,
+             this->getType().getFieldDesc(LeftBottomFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleLeftBottom     (void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfLeftBottom,
+             this->getType().getFieldDesc(LeftBottomFieldId)));
+
+
+    editSField(LeftBottomFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandleRightTop        (void) const
+{
+    SFVec2f::GetHandlePtr returnValue(
+        new  SFVec2f::GetHandle(
+             &_sfRightTop,
+             this->getType().getFieldDesc(RightTopFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleRightTop       (void)
+{
+    SFVec2f::EditHandlePtr returnValue(
+        new  SFVec2f::EditHandle(
+             &_sfRightTop,
+             this->getType().getFieldDesc(RightTopFieldId)));
+
+
+    editSField(RightTopFieldMask);
 
     return returnValue;
 }

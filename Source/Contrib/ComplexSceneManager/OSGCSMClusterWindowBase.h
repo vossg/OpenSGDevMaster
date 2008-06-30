@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMWindow
+ **     class CSMClusterWindow
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCSMWINDOWBASE_H_
-#define _OSGCSMWINDOWBASE_H_
+#ifndef _OSGCSMCLUSTERWINDOWBASE_H_
+#define _OSGCSMCLUSTERWINDOWBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,34 +63,36 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGCSMWindow.h" // Parent
 
-#include "OSGFieldContainerFields.h" // Parent type
-#include "OSGCSMViewportFields.h" // Viewports type
-#include "OSGMouseDataFields.h" // MouseData type
-#include "OSGVec2fFields.h" // Size type
-#include "OSGVec2fFields.h" // Position type
-#include "OSGBoolFields.h" // DecorEnabled type
+#include "OSGCSMWindowFields.h" // ClientWindow type
+#include "OSGBoolFields.h" // RenderClient type
+#include "OSGStringFields.h" // Servers type
+#include "OSGUInt32Fields.h" // ServerRows type
+#include "OSGStringFields.h" // ConnectionType type
+#include "OSGStringFields.h" // ClusterMode type
+#include "OSGImageComposerFields.h" // Composer type
+#include "OSGCSMClusterWinOptionsFields.h" // Options type
 
-#include "OSGCSMWindowFields.h"
+#include "OSGCSMClusterWindowFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class CSMWindow;
+class CSMClusterWindow;
 
-//! \brief CSMWindow Base Class.
+//! \brief CSMClusterWindow Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
+class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef CSMWindow Inherited;
+    typedef CSMWindow ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(CSMWindow);
+    OSG_GEN_INTERNALPTR(CSMClusterWindow);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -98,27 +100,33 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
     enum
     {
-        ParentFieldId = Inherited::NextFieldId,
-        ViewportsFieldId = ParentFieldId + 1,
-        MouseDataFieldId = ViewportsFieldId + 1,
-        SizeFieldId = MouseDataFieldId + 1,
-        PositionFieldId = SizeFieldId + 1,
-        DecorEnabledFieldId = PositionFieldId + 1,
-        NextFieldId = DecorEnabledFieldId + 1
+        ClientWindowFieldId = Inherited::NextFieldId,
+        RenderClientFieldId = ClientWindowFieldId + 1,
+        ServersFieldId = RenderClientFieldId + 1,
+        ServerRowsFieldId = ServersFieldId + 1,
+        ConnectionTypeFieldId = ServerRowsFieldId + 1,
+        ClusterModeFieldId = ConnectionTypeFieldId + 1,
+        ComposerFieldId = ClusterModeFieldId + 1,
+        OptionsFieldId = ComposerFieldId + 1,
+        NextFieldId = OptionsFieldId + 1
     };
 
-    static const OSG::BitVector ParentFieldMask =
-        (TypeTraits<BitVector>::One << ParentFieldId);
-    static const OSG::BitVector ViewportsFieldMask =
-        (TypeTraits<BitVector>::One << ViewportsFieldId);
-    static const OSG::BitVector MouseDataFieldMask =
-        (TypeTraits<BitVector>::One << MouseDataFieldId);
-    static const OSG::BitVector SizeFieldMask =
-        (TypeTraits<BitVector>::One << SizeFieldId);
-    static const OSG::BitVector PositionFieldMask =
-        (TypeTraits<BitVector>::One << PositionFieldId);
-    static const OSG::BitVector DecorEnabledFieldMask =
-        (TypeTraits<BitVector>::One << DecorEnabledFieldId);
+    static const OSG::BitVector ClientWindowFieldMask =
+        (TypeTraits<BitVector>::One << ClientWindowFieldId);
+    static const OSG::BitVector RenderClientFieldMask =
+        (TypeTraits<BitVector>::One << RenderClientFieldId);
+    static const OSG::BitVector ServersFieldMask =
+        (TypeTraits<BitVector>::One << ServersFieldId);
+    static const OSG::BitVector ServerRowsFieldMask =
+        (TypeTraits<BitVector>::One << ServerRowsFieldId);
+    static const OSG::BitVector ConnectionTypeFieldMask =
+        (TypeTraits<BitVector>::One << ConnectionTypeFieldId);
+    static const OSG::BitVector ClusterModeFieldMask =
+        (TypeTraits<BitVector>::One << ClusterModeFieldId);
+    static const OSG::BitVector ComposerFieldMask =
+        (TypeTraits<BitVector>::One << ComposerFieldId);
+    static const OSG::BitVector OptionsFieldMask =
+        (TypeTraits<BitVector>::One << OptionsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -145,45 +153,62 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecCSMViewportPtr *getMFViewports      (void) const;
-                  MFUnrecCSMViewportPtr *editMFViewports      (void);
+            const SFUnrecChildCSMWindowPtr *getSFClientWindow   (void) const;
+                  SFUnrecChildCSMWindowPtr *editSFClientWindow   (void);
 
-                  SFMouseData         *editSFMouseData      (void);
-            const SFMouseData         *getSFMouseData       (void) const;
+                  SFBool              *editSFRenderClient   (void);
+            const SFBool              *getSFRenderClient    (void) const;
 
-                  SFVec2f             *editSFSize           (void);
-            const SFVec2f             *getSFSize            (void) const;
+                  MFString            *editMFServers        (void);
+            const MFString            *getMFServers         (void) const;
 
-                  SFVec2f             *editSFPosition       (void);
-            const SFVec2f             *getSFPosition        (void) const;
+                  SFUInt32            *editSFServerRows     (void);
+            const SFUInt32            *getSFServerRows      (void) const;
 
-                  SFBool              *editSFDecorEnabled   (void);
-            const SFBool              *getSFDecorEnabled    (void) const;
+                  SFString            *editSFConnectionType (void);
+            const SFString            *getSFConnectionType  (void) const;
+
+                  SFString            *editSFClusterMode    (void);
+            const SFString            *getSFClusterMode     (void) const;
+            const SFUnrecImageComposerPtr *getSFComposer       (void) const;
+                  SFUnrecImageComposerPtr *editSFComposer       (void);
+            const SFUnrecChildCSMClusterWinOptionsPtr *getSFOptions        (void) const;
+                  SFUnrecChildCSMClusterWinOptionsPtr *editSFOptions        (void);
 
 
-                  CSMViewport * getViewports      (const UInt32 index) const;
+                  CSMWindow * getClientWindow   (void) const;
 
-                  MouseData           &editMouseData      (void);
-            const MouseData           &getMouseData       (void) const;
+                  bool                &editRenderClient   (void);
+                  bool                 getRenderClient    (void) const;
 
-                  Vec2f               &editSize           (void);
-            const Vec2f               &getSize            (void) const;
+                  std::string         &editServers        (const UInt32 index);
+            const std::string         &getServers         (const UInt32 index) const;
 
-                  Vec2f               &editPosition       (void);
-            const Vec2f               &getPosition        (void) const;
+                  UInt32              &editServerRows     (void);
+                  UInt32               getServerRows      (void) const;
 
-                  bool                &editDecorEnabled   (void);
-                  bool                 getDecorEnabled    (void) const;
+                  std::string         &editConnectionType (void);
+            const std::string         &getConnectionType  (void) const;
+
+                  std::string         &editClusterMode    (void);
+            const std::string         &getClusterMode     (void) const;
+
+                  ImageComposer * getComposer       (void) const;
+
+                  CSMClusterWinOptions * getOptions        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMouseData      (const MouseData &value);
-            void setSize           (const Vec2f &value);
-            void setPosition       (const Vec2f &value);
-            void setDecorEnabled   (const bool value);
+            void setClientWindow   (CSMWindow * const value);
+            void setRenderClient   (const bool value);
+            void setServerRows     (const UInt32 value);
+            void setConnectionType (const std::string &value);
+            void setClusterMode    (const std::string &value);
+            void setComposer       (ImageComposer * const value);
+            void setOptions        (CSMClusterWinOptions * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -194,12 +219,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToViewports           (CSMViewport * const value   );
-    void assignViewports          (const MFUnrecCSMViewportPtr &value);
-    void removeFromViewports (UInt32               uiIndex );
-    void removeObjFromViewports(CSMViewport * const value   );
-    void clearViewports             (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -212,6 +231,29 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    static  CSMClusterWindowTransitPtr  create          (void);
+    static  CSMClusterWindow           *createEmpty     (void);
+
+    static  CSMClusterWindowTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
+
+    static  CSMClusterWindow            *createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Copy                                   */
+    /*! \{                                                                 */
+
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -227,63 +269,66 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentFieldContainerPtr _sfParent;
-    MFUnrecCSMViewportPtr _mfViewports;
-    SFMouseData       _sfMouseData;
-    SFVec2f           _sfSize;
-    SFVec2f           _sfPosition;
-    SFBool            _sfDecorEnabled;
+    SFUnrecChildCSMWindowPtr _sfClientWindow;
+    SFBool            _sfRenderClient;
+    MFString          _mfServers;
+    SFUInt32          _sfServerRows;
+    SFString          _sfConnectionType;
+    SFString          _sfClusterMode;
+    SFUnrecImageComposerPtr _sfComposer;
+    SFUnrecChildCSMClusterWinOptionsPtr _sfOptions;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    CSMWindowBase(void);
-    CSMWindowBase(const CSMWindowBase &source);
+    CSMClusterWindowBase(void);
+    CSMClusterWindowBase(const CSMClusterWindowBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMWindowBase(void);
+    virtual ~CSMClusterWindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const CSMWindow *source = NULL);
+    void onCreate(const CSMClusterWindow *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Parent linking                                               */
+    /*! \name Child linking                                                */
     /*! \{                                                                 */
 
-    virtual bool linkParent  (FieldContainer * const pParent,
-                              UInt16           const childFieldId,
-                              UInt16           const parentFieldId);
-    virtual bool unlinkParent(FieldContainer * const pParent,
-                              UInt16           const parentFieldId);
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParent          (void) const;
-    EditFieldHandlePtr editHandleParent         (void);
-    GetFieldHandlePtr  getHandleViewports       (void) const;
-    EditFieldHandlePtr editHandleViewports      (void);
-    GetFieldHandlePtr  getHandleMouseData       (void) const;
-    EditFieldHandlePtr editHandleMouseData      (void);
-    GetFieldHandlePtr  getHandleSize            (void) const;
-    EditFieldHandlePtr editHandleSize           (void);
-    GetFieldHandlePtr  getHandlePosition        (void) const;
-    EditFieldHandlePtr editHandlePosition       (void);
-    GetFieldHandlePtr  getHandleDecorEnabled    (void) const;
-    EditFieldHandlePtr editHandleDecorEnabled   (void);
+    GetFieldHandlePtr  getHandleClientWindow    (void) const;
+    EditFieldHandlePtr editHandleClientWindow   (void);
+    GetFieldHandlePtr  getHandleRenderClient    (void) const;
+    EditFieldHandlePtr editHandleRenderClient   (void);
+    GetFieldHandlePtr  getHandleServers         (void) const;
+    EditFieldHandlePtr editHandleServers        (void);
+    GetFieldHandlePtr  getHandleServerRows      (void) const;
+    EditFieldHandlePtr editHandleServerRows     (void);
+    GetFieldHandlePtr  getHandleConnectionType  (void) const;
+    EditFieldHandlePtr editHandleConnectionType (void);
+    GetFieldHandlePtr  getHandleClusterMode     (void) const;
+    EditFieldHandlePtr editHandleClusterMode    (void);
+    GetFieldHandlePtr  getHandleComposer        (void) const;
+    EditFieldHandlePtr editHandleComposer       (void);
+    GetFieldHandlePtr  getHandleOptions         (void) const;
+    EditFieldHandlePtr editHandleOptions        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -297,7 +342,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      CSMWindowBase *pFrom,
+            void execSync (      CSMClusterWindowBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -313,6 +358,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(void) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -332,11 +381,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMWindowBase &source);
+    void operator =(const CSMClusterWindowBase &source);
 };
 
-typedef CSMWindowBase *CSMWindowBaseP;
+typedef CSMClusterWindowBase *CSMClusterWindowBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCSMWINDOWBASE_H_ */
+#endif /* _OSGCSMCLUSTERWINDOWBASE_H_ */

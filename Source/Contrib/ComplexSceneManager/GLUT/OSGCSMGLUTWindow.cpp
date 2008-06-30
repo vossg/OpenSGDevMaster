@@ -227,6 +227,12 @@ bool CSMGLUTWindow::init(void)
 
     pGLUTWindow->setGlutId(iWinId);
 
+    if(this->getXSize() > 0.f && this->getYSize() > 0.f)
+    {
+        pGLUTWindow->resize(Int32(this->getXSize()), 
+                            Int32(this->getYSize()));
+    }
+
     ComplexSceneManager::the()->setMainloop(glutMainLoop);
 //    vscSetMainLoop(static_cast<MainLoopFuncF>(glutMainLoop));
 
@@ -261,6 +267,8 @@ bool CSMGLUTWindow::init(void)
         glutMotionFunc    (csmGlutMouseMotionHandler); 
         glutIdleFunc      (csmGlutFrameHandler      );  
     }
+
+    pGLUTWindow->init();
 
 #if 0
     OSG::IndentFileOutStream outFileStream("/tmp/window.osg");

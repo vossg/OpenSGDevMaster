@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMViewport!
+ **     class CSMMultiWinOptions!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,136 +53,181 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &CSMViewportBase::getClassType(void)
+OSG::FieldContainerType &CSMMultiWinOptionsBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CSMViewportBase::getClassTypeId(void)
+OSG::UInt32 CSMMultiWinOptionsBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 CSMViewportBase::getClassGroupId(void)
+OSG::UInt16 CSMMultiWinOptionsBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the CSMMultiWinOptions::_sfXOverlap field.
 
-//! Get the value of the CSMViewport::_sfRoot field.
 inline
-Node * CSMViewportBase::getRoot(void) const
+Int32 &CSMMultiWinOptionsBase::editXOverlap(void)
 {
-    return _sfRoot.getValue();
+    editSField(XOverlapFieldMask);
+
+    return _sfXOverlap.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfRoot field.
+//! Get the value of the CSMMultiWinOptions::_sfXOverlap field.
 inline
-void CSMViewportBase::setRoot(Node * const value)
+      Int32  CSMMultiWinOptionsBase::getXOverlap(void) const
 {
-    editSField(RootFieldMask);
-
-    _sfRoot.setValue(value);
+    return _sfXOverlap.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfCamera field.
+//! Set the value of the CSMMultiWinOptions::_sfXOverlap field.
 inline
-Camera * CSMViewportBase::getCamera(void) const
+void CSMMultiWinOptionsBase::setXOverlap(const Int32 value)
 {
-    return _sfCamera.getValue();
+    editSField(XOverlapFieldMask);
+
+    _sfXOverlap.setValue(value);
+}
+//! Get the value of the CSMMultiWinOptions::_sfYOverlap field.
+
+inline
+Int32 &CSMMultiWinOptionsBase::editYOverlap(void)
+{
+    editSField(YOverlapFieldMask);
+
+    return _sfYOverlap.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfCamera field.
+//! Get the value of the CSMMultiWinOptions::_sfYOverlap field.
 inline
-void CSMViewportBase::setCamera(Camera * const value)
+      Int32  CSMMultiWinOptionsBase::getYOverlap(void) const
 {
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
+    return _sfYOverlap.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfBackground field.
+//! Set the value of the CSMMultiWinOptions::_sfYOverlap field.
 inline
-Background * CSMViewportBase::getBackground(void) const
+void CSMMultiWinOptionsBase::setYOverlap(const Int32 value)
 {
-    return _sfBackground.getValue();
+    editSField(YOverlapFieldMask);
+
+    _sfYOverlap.setValue(value);
+}
+//! Get the value of the CSMMultiWinOptions::_sfManageClientViewports field.
+
+inline
+bool &CSMMultiWinOptionsBase::editManageClientViewports(void)
+{
+    editSField(ManageClientViewportsFieldMask);
+
+    return _sfManageClientViewports.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfBackground field.
+//! Get the value of the CSMMultiWinOptions::_sfManageClientViewports field.
 inline
-void CSMViewportBase::setBackground(Background * const value)
+      bool  CSMMultiWinOptionsBase::getManageClientViewports(void) const
 {
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
-//! Get the value of the CSMViewport::_sfLeftBottom field.
-
-inline
-Vec2f &CSMViewportBase::editLeftBottom(void)
-{
-    editSField(LeftBottomFieldMask);
-
-    return _sfLeftBottom.getValue();
+    return _sfManageClientViewports.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfLeftBottom field.
+//! Set the value of the CSMMultiWinOptions::_sfManageClientViewports field.
 inline
-const Vec2f &CSMViewportBase::getLeftBottom(void) const
+void CSMMultiWinOptionsBase::setManageClientViewports(const bool value)
 {
-    return _sfLeftBottom.getValue();
+    editSField(ManageClientViewportsFieldMask);
+
+    _sfManageClientViewports.setValue(value);
+}
+//! Get the value of the CSMMultiWinOptions::_sfBalance field.
+
+inline
+bool &CSMMultiWinOptionsBase::editBalance(void)
+{
+    editSField(BalanceFieldMask);
+
+    return _sfBalance.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfLeftBottom field.
+//! Get the value of the CSMMultiWinOptions::_sfBalance field.
 inline
-void CSMViewportBase::setLeftBottom(const Vec2f &value)
+      bool  CSMMultiWinOptionsBase::getBalance(void) const
 {
-    editSField(LeftBottomFieldMask);
-
-    _sfLeftBottom.setValue(value);
-}
-//! Get the value of the CSMViewport::_sfRightTop field.
-
-inline
-Vec2f &CSMViewportBase::editRightTop(void)
-{
-    editSField(RightTopFieldMask);
-
-    return _sfRightTop.getValue();
+    return _sfBalance.getValue();
 }
 
-//! Get the value of the CSMViewport::_sfRightTop field.
+//! Set the value of the CSMMultiWinOptions::_sfBalance field.
 inline
-const Vec2f &CSMViewportBase::getRightTop(void) const
+void CSMMultiWinOptionsBase::setBalance(const bool value)
 {
-    return _sfRightTop.getValue();
+    editSField(BalanceFieldMask);
+
+    _sfBalance.setValue(value);
+}
+//! Get the value of the CSMMultiWinOptions::_sfBestCut field.
+
+inline
+bool &CSMMultiWinOptionsBase::editBestCut(void)
+{
+    editSField(BestCutFieldMask);
+
+    return _sfBestCut.getValue();
 }
 
-//! Set the value of the CSMViewport::_sfRightTop field.
+//! Get the value of the CSMMultiWinOptions::_sfBestCut field.
 inline
-void CSMViewportBase::setRightTop(const Vec2f &value)
+      bool  CSMMultiWinOptionsBase::getBestCut(void) const
 {
-    editSField(RightTopFieldMask);
-
-    _sfRightTop.setValue(value);
+    return _sfBestCut.getValue();
 }
 
-//! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
+//! Set the value of the CSMMultiWinOptions::_sfBestCut field.
 inline
-Foreground * CSMViewportBase::getForegrounds(const UInt32 index) const
+void CSMMultiWinOptionsBase::setBestCut(const bool value)
 {
-    return _mfForegrounds[index];
+    editSField(BestCutFieldMask);
+
+    _sfBestCut.setValue(value);
+}
+//! Get the value of the CSMMultiWinOptions::_sfShowBalancing field.
+
+inline
+bool &CSMMultiWinOptionsBase::editShowBalancing(void)
+{
+    editSField(ShowBalancingFieldMask);
+
+    return _sfShowBalancing.getValue();
+}
+
+//! Get the value of the CSMMultiWinOptions::_sfShowBalancing field.
+inline
+      bool  CSMMultiWinOptionsBase::getShowBalancing(void) const
+{
+    return _sfShowBalancing.getValue();
+}
+
+//! Set the value of the CSMMultiWinOptions::_sfShowBalancing field.
+inline
+void CSMMultiWinOptionsBase::setShowBalancing(const bool value)
+{
+    editSField(ShowBalancingFieldMask);
+
+    _sfShowBalancing.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
+void CSMMultiWinOptionsBase::execSync (      CSMMultiWinOptionsBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -190,36 +235,33 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (RootFieldMask & whichField))
-        _sfRoot.syncWith(pFrom->_sfRoot);
+    if(FieldBits::NoField != (XOverlapFieldMask & whichField))
+        _sfXOverlap.syncWith(pFrom->_sfXOverlap);
 
-    if(FieldBits::NoField != (CameraFieldMask & whichField))
-        _sfCamera.syncWith(pFrom->_sfCamera);
+    if(FieldBits::NoField != (YOverlapFieldMask & whichField))
+        _sfYOverlap.syncWith(pFrom->_sfYOverlap);
 
-    if(FieldBits::NoField != (BackgroundFieldMask & whichField))
-        _sfBackground.syncWith(pFrom->_sfBackground);
+    if(FieldBits::NoField != (ManageClientViewportsFieldMask & whichField))
+        _sfManageClientViewports.syncWith(pFrom->_sfManageClientViewports);
 
-    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pFrom->_mfForegrounds,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (BalanceFieldMask & whichField))
+        _sfBalance.syncWith(pFrom->_sfBalance);
 
-    if(FieldBits::NoField != (LeftBottomFieldMask & whichField))
-        _sfLeftBottom.syncWith(pFrom->_sfLeftBottom);
+    if(FieldBits::NoField != (BestCutFieldMask & whichField))
+        _sfBestCut.syncWith(pFrom->_sfBestCut);
 
-    if(FieldBits::NoField != (RightTopFieldMask & whichField))
-        _sfRightTop.syncWith(pFrom->_sfRightTop);
+    if(FieldBits::NoField != (ShowBalancingFieldMask & whichField))
+        _sfShowBalancing.syncWith(pFrom->_sfShowBalancing);
 }
 #endif
 
 
 inline
-Char8 *CSMViewportBase::getClassname(void)
+Char8 *CSMMultiWinOptionsBase::getClassname(void)
 {
-    return "CSMViewport";
+    return "CSMMultiWinOptions";
 }
-OSG_GEN_CONTAINERPTR(CSMViewport);
+OSG_GEN_CONTAINERPTR(CSMMultiWinOptions);
 
 OSG_END_NAMESPACE
 
