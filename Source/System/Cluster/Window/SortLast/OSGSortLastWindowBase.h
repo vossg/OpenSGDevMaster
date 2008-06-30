@@ -130,52 +130,6 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const MFUnrecNodePtr      *getMFGroupNodes     (void) const;
-                  MFUnrecNodePtr      *editMFGroupNodes     (void);
-
-                  MFUInt32            *editMFGroupLengths   (void);
-            const MFUInt32            *getMFGroupLengths    (void) const;
-
-                  SFBool              *editSFGroupsChanged  (void);
-            const SFBool              *getSFGroupsChanged   (void) const;
-
-
-                  Node * getGroupNodes     (const UInt32 index) const;
-
-                  UInt32              &editGroupLengths   (const UInt32 index);
-                  UInt32               getGroupLengths    (const UInt32 index) const;
-
-                  bool                &editGroupsChanged  (void);
-                  bool                 getGroupsChanged   (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setGroupsChanged  (const bool value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void pushToGroupNodes           (Node * const value   );
-    void assignGroupNodes          (const MFUnrecNodePtr    &value);
-    void removeFromGroupNodes (UInt32               uiIndex );
-    void removeObjFromGroupNodes(Node * const value   );
-    void clearGroupNodes            (void                         );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -260,6 +214,47 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     EditFieldHandlePtr editHandleGroupLengths   (void);
     GetFieldHandlePtr  getHandleGroupsChanged   (void) const;
     EditFieldHandlePtr editHandleGroupsChanged  (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const MFUnrecNodePtr      *getMFGroupNodes      (void) const;
+                  MFUnrecNodePtr      *editMFGroupNodes     (void);
+
+                  MFUInt32            *editMFGroupLengths   (void);
+            const MFUInt32            *getMFGroupLengths    (void) const;
+
+                  SFBool              *editSFGroupsChanged  (void);
+            const SFBool              *getSFGroupsChanged   (void) const;
+
+
+                  Node * getGroupNodes     (const UInt32 index) const;
+
+                  UInt32              &editGroupLengths   (const UInt32 index);
+                  UInt32               getGroupLengths    (const UInt32 index) const;
+
+                  bool                &editGroupsChanged  (void);
+                  bool                 getGroupsChanged   (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setGroupsChanged  (const bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    void pushToGroupNodes           (Node * const value   );
+    void assignGroupNodes           (const MFUnrecNodePtr    &value);
+    void removeFromGroupNodes (UInt32                uiIndex );
+    void removeObjFromGroupNodes(Node * const value   );
+    void clearGroupNodes            (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

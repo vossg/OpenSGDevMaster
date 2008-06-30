@@ -113,8 +113,13 @@ void ChangeList::addCreated(const UInt32 uiContainerId,
 #endif
 
 #ifndef SILENT
-    fprintf(stderr, "Add Create %u\n",
-            uiContainerId);
+    FieldContainer *fcPtr =  
+        FieldContainerFactory::the()->getContainer(uiContainerId);
+
+    fprintf(stderr, "Add Create %u : %d : %s\n",
+            uiContainerId,
+            fcPtr != NULL ? fcPtr->getTypeId() : -1,
+            fcPtr != NULL ? fcPtr->getType  ().getCName() : "Unknow");
 #endif
 
     ContainerChangeEntry *pEntry = getNewCreatedEntry();

@@ -92,8 +92,6 @@ class ChildPointerSField :
                                    RefCountPolicy,
                                    FieldType::ChildPtrField> Description;
 
-    typedef typename SFieldTraits::ParentType                ParentT;
-
     // handles
     typedef EditFCPtrSFieldHandle<Self                  > EditHandle;
     typedef boost::shared_ptr    <EditHandle            > EditHandlePtr;
@@ -121,14 +119,14 @@ class ChildPointerSField :
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-    ChildPointerSField(ParentT     pParent,
-                       UInt16      usChildFieldId,
-                       UInt16      usParentFieldId); 
+    ChildPointerSField(FieldContainer * const pParent,
+                       UInt16                 usChildFieldId,
+                       UInt16                 usParentFieldId); 
 
-    ChildPointerSField(const_value value,
-                       ParentT     pParent,
-                       UInt16      usChildFieldId,
-                       UInt16      usParentFieldId); 
+    ChildPointerSField(const_value            value,
+                       FieldContainer * const pParent,
+                       UInt16                 usChildFieldId,
+                       UInt16                 usParentFieldId); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

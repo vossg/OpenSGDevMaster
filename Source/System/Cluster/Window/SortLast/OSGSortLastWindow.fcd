@@ -17,7 +17,7 @@ Cluster rendering configuration for sort first image composition
 		type="NodePtr"
 		cardinality="multi"
 		visibility="external"
-		access="public"
+		access="protected"
 	>
 	</Field>
 	<Field
@@ -25,7 +25,7 @@ Cluster rendering configuration for sort first image composition
 		type="UInt32"
 		cardinality="multi"
 		visibility="external"
-		access="public"
+		access="protected"
 	>
 	</Field>
 	<Field
@@ -33,7 +33,7 @@ Cluster rendering configuration for sort first image composition
 		type="bool"
 		cardinality="single"
 		visibility="internal"
-		access="public"
+		access="protected"
 	>
 	</Field>
 </FieldContainer>

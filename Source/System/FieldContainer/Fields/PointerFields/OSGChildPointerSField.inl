@@ -59,9 +59,9 @@ template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 ChildPointerSField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::ChildPointerSField(
-                       ParentT pParent,
-                       UInt16  usChildFieldId,
-                       UInt16  usParentFieldId) : 
+                       FieldContainer * const pParent,
+                       UInt16                 usChildFieldId,
+                       UInt16                 usParentFieldId) : 
     Inherited(pParent, 
               usChildFieldId,
               usParentFieldId)
@@ -72,10 +72,10 @@ template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 ChildPointerSField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::ChildPointerSField(
-                       const_value value,
-                       ParentT     pParent,
-                       UInt16      usChildFieldId,
-                       UInt16      usParentFieldId) :
+                       const_value            value,
+                       FieldContainer * const pParent,
+                       UInt16                 usChildFieldId,
+                       UInt16                 usParentFieldId) :
     Inherited(value,
               pParent,
               usChildFieldId,
