@@ -132,30 +132,39 @@ ActionBase::ResultE Switch::render(Action *action)
 
 ActionBase::ResultE Switch::renderEnter(Action *action)
 {
-    Action::ResultE        returnValue = Action::Continue;
-
-    RenderAction *pAction     =
-        dynamic_cast<RenderAction*>(action);
+    Action::ResultE  returnValue = Action::Continue;
+    RenderAction    *ra          = dynamic_cast<RenderAction*>(action);
     
-    if((this->getChoice()                      >= 0                   ) &&
-       (static_cast<UInt32>(this->getChoice()) <  pAction->getNNodes())    )
+    if(ra->pushVisibility() == true)
     {
-        pAction->useNodeList();
-        
-        if(pAction->isVisible(pAction->getNode(this->getChoice())))
+       if((this->getChoice()                      >= 0              ) &&
+          (static_cast<UInt32>(this->getChoice()) <  ra->getNNodes())   )
         {
-            pAction->addNode(pAction->getNode(this->getChoice()));
-        }
+            ra->useNodeList();
         
-        returnValue = Inherited::renderEnter(action);
-    }
-    else if(this->getChoice() == Switch::ALL)
-    {
-        returnValue = Inherited::renderEnter(action);
-    }
-    else
-    {
-        returnValue = Action::Skip;
+            if(ra->isVisible(ra->getNode(this->getChoice())))
+            {
+                ra->addNode(ra->getNode(this->getChoice()));
+            }
+            else
+            {
+                ra->popVisibility();
+                returnValue = Action::Skip;
+            }
+        }
+        else if(this->getChoice() == Switch::ALL)
+        {
+            if(ra->selectVisibles() == 0)
+            {
+                ra->popVisibility();
+                returnValue = Action::Skip;
+            }
+        }
+        else
+        {
+            ra->popVisibility();
+            returnValue = Action::Skip;
+        }
     }
     
     return returnValue;
@@ -163,7 +172,11 @@ ActionBase::ResultE Switch::renderEnter(Action *action)
 
 ActionBase::ResultE Switch::renderLeave(Action *action)
 {
-    return Inherited::renderLeave(action);
+    RenderAction *ra = dynamic_cast<RenderAction *>(action);
+
+    ra->popVisibility();
+    
+    return ActionBase::Continue;
 }
 
 #ifndef OSG_WINCE
