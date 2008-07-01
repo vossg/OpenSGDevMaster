@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
         (TypeTraits<BitVector>::One << SubTreeRootFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFWeakNodePtr     SFSubTreeRootType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

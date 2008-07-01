@@ -109,6 +109,10 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
         (TypeTraits<BitVector>::One << RootFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFString          MFUrlType;
+    typedef SFBool            SFLoadedType;
+    typedef SFUnrecNodePtr    SFRootType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

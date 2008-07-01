@@ -101,6 +101,8 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCameraBase : public PerspectiveC
         (TypeTraits<BitVector>::One << PrincipalPointFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFVec2f           SFPrincipalPointType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

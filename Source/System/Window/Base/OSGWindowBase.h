@@ -129,6 +129,15 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << DrawerIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt16          SFWidthType;
+    typedef SFUInt16          SFHeightType;
+    typedef MFUnrecChildViewportPtr MFPortType;
+    typedef SFBool            SFResizePendingType;
+    typedef SFUInt32          SFGlObjectEventCounterType;
+    typedef MFUInt32          MFGlObjectLastRefreshType;
+    typedef MFUInt32          MFGlObjectLastReinitializeType;
+    typedef SFUInt32          SFDrawerIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

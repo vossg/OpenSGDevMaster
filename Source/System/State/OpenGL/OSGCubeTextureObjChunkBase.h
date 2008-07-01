@@ -117,6 +117,12 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunkBase : public TextureObjChunk
         (TypeTraits<BitVector>::One << NegYImageFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecImagePtr   SFPosZImageType;
+    typedef SFUnrecImagePtr   SFPosXImageType;
+    typedef SFUnrecImagePtr   SFNegXImageType;
+    typedef SFUnrecImagePtr   SFPosYImageType;
+    typedef SFUnrecImagePtr   SFNegYImageType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

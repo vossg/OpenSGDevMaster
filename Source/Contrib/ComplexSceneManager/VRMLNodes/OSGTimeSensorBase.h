@@ -133,6 +133,16 @@ class OSG_CONTRIBCSM_DLLMAPPING TimeSensorBase : public Sensor
         (TypeTraits<BitVector>::One << CycleIntervalFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFEnabledType;
+    typedef SFBool            SFIsActiveType;
+    typedef SFBool            SFLoopType;
+    typedef SFReal32          SFFractionType;
+    typedef SFTime            SFStartTimeType;
+    typedef SFTime            SFStopTimeType;
+    typedef SFTime            SFCycleTimeType;
+    typedef SFTime            SFTimeType;
+    typedef SFTime            SFCycleIntervalType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

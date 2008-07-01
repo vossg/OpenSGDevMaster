@@ -101,6 +101,8 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
         (TypeTraits<BitVector>::One << ContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFNSOpenGLContextP SFContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

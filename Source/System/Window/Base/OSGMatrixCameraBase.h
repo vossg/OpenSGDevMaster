@@ -109,6 +109,10 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
         (TypeTraits<BitVector>::One << UseBeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFMatrix          SFProjectionMatrixType;
+    typedef SFMatrix          SFModelviewMatrixType;
+    typedef SFBool            SFUseBeaconType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

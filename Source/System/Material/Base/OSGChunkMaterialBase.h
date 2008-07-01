@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
         (TypeTraits<BitVector>::One << SlotsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecStateChunkPtr MFChunksType;
+    typedef MFInt32           MFSlotsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -109,6 +109,10 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
         (TypeTraits<BitVector>::One << IncrementFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFNameType;
+    typedef SFUInt32          SFFrameType;
+    typedef SFBool            SFIncrementType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

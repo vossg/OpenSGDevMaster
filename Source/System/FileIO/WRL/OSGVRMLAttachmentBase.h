@@ -101,6 +101,8 @@ class OSG_FILEIO_DLLMAPPING VRMLAttachmentBase : public Attachment
         (TypeTraits<BitVector>::One << VrmlNodeTypenameFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFVrmlNodeTypenameType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

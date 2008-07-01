@@ -113,6 +113,11 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
         (TypeTraits<BitVector>::One << CopyTargetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecTextureObjChunkPtr SFTextureType;
+    typedef SFBool            SFAutoResizeType;
+    typedef SFGLenum          SFBindTargetType;
+    typedef SFGLenum          SFCopyTargetType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

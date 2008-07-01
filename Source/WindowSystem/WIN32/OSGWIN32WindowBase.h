@@ -109,6 +109,10 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
         (TypeTraits<BitVector>::One << HglrcFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFHWND            SFHwndType;
+    typedef SFHDC             SFHdcType;
+    typedef SFHGLRC           SFHglrcType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

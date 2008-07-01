@@ -113,6 +113,11 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFProgramType;
+    typedef MFVec4f           MFParamValuesType;
+    typedef MFString          MFParamNamesType;
+    typedef SFUInt32          SFGLIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

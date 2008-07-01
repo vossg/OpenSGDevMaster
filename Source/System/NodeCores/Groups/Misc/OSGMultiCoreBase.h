@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
         (TypeTraits<BitVector>::One << CoresFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecChildNodeCorePtr MFCoresType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

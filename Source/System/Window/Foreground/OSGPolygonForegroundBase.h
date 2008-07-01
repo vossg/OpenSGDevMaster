@@ -133,6 +133,16 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
         (TypeTraits<BitVector>::One << TileFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecMaterialPtr SFMaterialType;
+    typedef MFPnt2f           MFPositionsType;
+    typedef MFVec3f           MFTexCoordsType;
+    typedef SFBool            SFNormalizedXType;
+    typedef SFBool            SFNormalizedYType;
+    typedef SFUInt16          SFAspectHeightType;
+    typedef SFUInt16          SFAspectWidthType;
+    typedef SFReal32          SFScaleType;
+    typedef SFBool            SFTileType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

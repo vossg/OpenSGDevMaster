@@ -129,6 +129,15 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
         (TypeTraits<BitVector>::One << PostRenderCallbacksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFLeftType;
+    typedef SFReal32          SFRightType;
+    typedef SFReal32          SFBottomType;
+    typedef SFReal32          SFTopType;
+    typedef SFUnrecCameraPtr  SFCameraType;
+    typedef SFUnrecBackgroundPtr SFBackgroundType;
+    typedef MFRenderFunctorCallback MFPreRenderCallbacksType;
+    typedef MFRenderFunctorCallback MFPostRenderCallbacksType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

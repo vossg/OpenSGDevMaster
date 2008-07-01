@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
         (TypeTraits<BitVector>::One << ValuesFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFString          MFKeysType;
+    typedef MFString          MFValuesType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

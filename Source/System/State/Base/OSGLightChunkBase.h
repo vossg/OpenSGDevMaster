@@ -141,6 +141,18 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << BeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFColor4r         SFDiffuseType;
+    typedef SFColor4r         SFAmbientType;
+    typedef SFColor4r         SFSpecularType;
+    typedef SFVec4r           SFPositionType;
+    typedef SFVec3r           SFDirectionType;
+    typedef SFReal            SFExponentType;
+    typedef SFReal            SFCutoffType;
+    typedef SFReal            SFConstantAttenuationType;
+    typedef SFReal            SFLinearAttenuationType;
+    typedef SFReal            SFQuadraticAttenuationType;
+    typedef SFWeakNodePtr     SFBeaconType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

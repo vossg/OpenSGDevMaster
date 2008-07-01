@@ -117,6 +117,12 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindowBase : public MultiDisplayWindow
         (TypeTraits<BitVector>::One << ShortFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFBalanceType;
+    typedef SFBool            SFBestCutType;
+    typedef SFBool            SFShowBalancingType;
+    typedef SFUInt32          SFTileSizeType;
+    typedef SFBool            SFShortType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

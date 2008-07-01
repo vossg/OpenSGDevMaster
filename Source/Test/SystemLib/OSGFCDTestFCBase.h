@@ -121,6 +121,13 @@ class OSG_SYSTEM_DLLMAPPING FCDTestFCBase : public NodeCore
         (TypeTraits<BitVector>::One << FieldMFNoFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFFieldSFPubType;
+    typedef SFUInt32          SFFieldSFProType;
+    typedef SFUInt32          SFFieldSFNoType;
+    typedef MFUInt32          MFFieldMFPubType;
+    typedef MFUInt32          MFFieldMFProType;
+    typedef MFUInt32          MFFieldMFNoType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

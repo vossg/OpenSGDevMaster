@@ -101,6 +101,8 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
         (TypeTraits<BitVector>::One << ContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFCGLContextObj   SFContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

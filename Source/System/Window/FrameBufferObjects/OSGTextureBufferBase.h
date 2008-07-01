@@ -113,6 +113,11 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
         (TypeTraits<BitVector>::One << ZoffsetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecTextureObjChunkPtr SFTextureType;
+    typedef SFGLenum          SFTexTargetType;
+    typedef SFUInt32          SFLevelType;
+    typedef SFUInt32          SFZoffsetType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

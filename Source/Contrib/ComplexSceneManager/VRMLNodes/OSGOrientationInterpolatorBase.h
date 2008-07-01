@@ -113,6 +113,11 @@ class OSG_CONTRIBCSM_DLLMAPPING OrientationInterpolatorBase : public NodeCore
         (TypeTraits<BitVector>::One << ValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFFractionType;
+    typedef MFReal32          MFKeyType;
+    typedef MFQuaternion      MFKeyValueType;
+    typedef SFQuaternion      SFValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

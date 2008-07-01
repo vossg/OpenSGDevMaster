@@ -145,6 +145,19 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
         (TypeTraits<BitVector>::One << TextMarginFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFString          MFFormatsType;
+    typedef SFReal32          SFSizeType;
+    typedef SFColor4f         SFColorType;
+    typedef SFColor4f         SFShadowColorType;
+    typedef SFColor4f         SFBgColorType;
+    typedef SFString          SFFamilyType;
+    typedef SFVec2f           SFShadowOffsetType;
+    typedef SFUInt8           SFHorizontalAlignType;
+    typedef SFUInt8           SFVerticalAlignType;
+    typedef SFColor4f         SFBorderColorType;
+    typedef SFVec2f           SFBorderOffsetType;
+    typedef SFVec2f           SFTextMarginType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

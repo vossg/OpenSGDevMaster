@@ -193,6 +193,31 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ResUnitFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFParentFieldContainerPtr MFParentsType;
+    typedef SFInt32           SFDimensionType;
+    typedef SFInt32           SFWidthType;
+    typedef SFInt32           SFHeightType;
+    typedef SFInt32           SFDepthType;
+    typedef SFInt32           SFBppType;
+    typedef SFInt32           SFMipMapCountType;
+    typedef SFInt32           SFFrameCountType;
+    typedef SFTime            SFFrameDelayType;
+    typedef SFUInt32          SFPixelFormatType;
+    typedef MFUInt8           MFPixelType;
+    typedef SFInt32           SFFrameSizeType;
+    typedef SFString          SFNameType;
+    typedef SFInt32           SFDataTypeType;
+    typedef SFInt32           SFComponentSizeType;
+    typedef SFInt32           SFSideCountType;
+    typedef SFInt32           SFSideSizeType;
+    typedef SFBool            SFForceCompressedDataType;
+    typedef SFBool            SFForceAlphaChannelType;
+    typedef SFBool            SFForceColorChannelType;
+    typedef SFBool            SFForceAlphaBinaryType;
+    typedef SFReal32          SFResXType;
+    typedef SFReal32          SFResYType;
+    typedef SFUInt16          SFResUnitType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

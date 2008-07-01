@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
         (TypeTraits<BitVector>::One << MaterialsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecMaterialPtr MFMaterialsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -145,6 +145,19 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         (TypeTraits<BitVector>::One << PausedFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecFieldContainerPtr MFGlobalsType;
+    typedef SFUnrecDrawManagerPtr SFDrawManagerType;
+    typedef SFUnrecSensorTaskPtr SFSensorTaskType;
+    typedef SFUInt64          SFFrameCountType;
+    typedef SFTime            SFStartTimeType;
+    typedef SFTime            SFLastTimeType;
+    typedef SFTime            SFCurrTimeType;
+    typedef SFTime            SFTimeStampType;
+    typedef SFTime            SFTimeScaleType;
+    typedef SFTime            SFConstantTimeStepType;
+    typedef SFBool            SFConstantTimeType;
+    typedef SFBool            SFPausedType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -109,6 +109,10 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
         (TypeTraits<BitVector>::One << PcLibPathFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFShortType;
+    typedef SFBool            SFAlphaType;
+    typedef SFString          SFPcLibPathType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

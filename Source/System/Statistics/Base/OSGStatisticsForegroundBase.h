@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
         (TypeTraits<BitVector>::One << CollectorFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFInt32           MFElementIDsType;
+    typedef SFStatCollectorP  SFCollectorType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

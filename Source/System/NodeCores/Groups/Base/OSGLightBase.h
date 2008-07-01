@@ -133,6 +133,16 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
         (TypeTraits<BitVector>::One << LightEngineFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFColor4r         SFAmbientType;
+    typedef SFColor4r         SFDiffuseType;
+    typedef SFColor4r         SFSpecularType;
+    typedef SFWeakNodePtr     SFBeaconType;
+    typedef SFBool            SFOnType;
+    typedef SFReal            SFConstantAttenuationType;
+    typedef SFReal            SFLinearAttenuationType;
+    typedef SFReal            SFQuadraticAttenuationType;
+    typedef SFUnrecLightEnginePtr SFLightEngineType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -105,6 +105,9 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ParentsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFNameType;
+    typedef MFParentFieldContainerPtr MFParentsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

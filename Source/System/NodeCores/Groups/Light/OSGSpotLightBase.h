@@ -109,6 +109,10 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
         (TypeTraits<BitVector>::One << SpotCutOffFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFVec3r           SFDirectionType;
+    typedef SFReal            SFSpotExponentType;
+    typedef SFReal            SFSpotCutOffType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

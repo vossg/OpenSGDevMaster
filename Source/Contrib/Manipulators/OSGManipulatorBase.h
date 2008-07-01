@@ -161,6 +161,23 @@ class OSG_CONTRIBGUI_DLLMAPPING ManipulatorBase : public Transform
         (TypeTraits<BitVector>::One << AxisLinesNFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecNodePtr    SFTargetType;
+    typedef SFUnrecNodePtr    SFActiveSubHandleType;
+    typedef SFPnt2f           SFLastMousePosType;
+    typedef SFUnrecViewportPtr SFViewportType;
+    typedef SFBool            SFActiveType;
+    typedef SFVec3f           SFLengthType;
+    typedef SFUnrecNodePtr    SFHandleXNodeType;
+    typedef SFUnrecNodePtr    SFHandleYNodeType;
+    typedef SFUnrecNodePtr    SFHandleZNodeType;
+    typedef SFUnrecNodePtr    SFTransXNodeType;
+    typedef SFUnrecNodePtr    SFTransYNodeType;
+    typedef SFUnrecNodePtr    SFTransZNodeType;
+    typedef SFUnrecMaterialPtr SFMaterialXType;
+    typedef SFUnrecMaterialPtr SFMaterialYType;
+    typedef SFUnrecMaterialPtr SFMaterialZType;
+    typedef SFUnrecNodePtr    SFAxisLinesNType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

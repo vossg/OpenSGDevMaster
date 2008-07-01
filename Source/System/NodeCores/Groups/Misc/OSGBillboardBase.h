@@ -117,6 +117,12 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
         (TypeTraits<BitVector>::One << MaxAngleFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFVec3f           SFAxisOfRotationType;
+    typedef SFBool            SFFocusOnCameraType;
+    typedef SFBool            SFAlignToScreenType;
+    typedef SFReal32          SFMinAngleType;
+    typedef SFReal32          SFMaxAngleType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

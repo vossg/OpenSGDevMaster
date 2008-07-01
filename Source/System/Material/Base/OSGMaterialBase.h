@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << TransparencyModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFInt32           SFSortKeyType;
+    typedef SFInt32           SFTransparencyModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

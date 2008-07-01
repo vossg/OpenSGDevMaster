@@ -105,6 +105,9 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public Background
         (TypeTraits<BitVector>::One << PositionFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFColor3f         MFColorType;
+    typedef MFReal32          MFPositionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -101,6 +101,8 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
         (TypeTraits<BitVector>::One << UseCameraBeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFUseCameraBeaconType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

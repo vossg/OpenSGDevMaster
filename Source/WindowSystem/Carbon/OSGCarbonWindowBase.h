@@ -101,6 +101,8 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
         (TypeTraits<BitVector>::One << ContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFAGLContext      SFContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

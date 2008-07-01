@@ -133,6 +133,16 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << MouseDataFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFModifierMaskType;
+    typedef SFUInt32          SFProcessingType;
+    typedef SFReal32          SFTranslationScaleFactorType;
+    typedef SFMatrix          SFMatrixResultType;
+    typedef SFPnt3f           SFReferencePositionType;
+    typedef SFMatrix          SFReferenceMatrixType;
+    typedef SFPnt3f           SFTransformCenterType;
+    typedef SFVec3f           SFWorldDiagType;
+    typedef SFMouseData       SFMouseDataType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

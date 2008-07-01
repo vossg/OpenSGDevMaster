@@ -129,6 +129,15 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
         (TypeTraits<BitVector>::One << OptionsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecChildCSMWindowPtr SFClientWindowType;
+    typedef SFBool            SFRenderClientType;
+    typedef MFString          MFServersType;
+    typedef SFUInt32          SFServerRowsType;
+    typedef SFString          SFConnectionTypeType;
+    typedef SFString          SFClusterModeType;
+    typedef SFUnrecImageComposerPtr SFComposerType;
+    typedef SFUnrecChildCSMClusterWinOptionsPtr SFOptionsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

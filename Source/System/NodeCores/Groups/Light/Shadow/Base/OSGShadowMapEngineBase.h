@@ -123,6 +123,13 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
         (TypeTraits<BitVector>::One << OffsetFactorFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecFrameBufferObjectPtr SFRenderTargetType;
+    typedef SFInt32           SFWidthType;
+    typedef SFInt32           SFHeightType;
+    typedef SFColor4f         SFShadowColorType;
+    typedef SFReal32          SFOffsetBiasType;
+    typedef SFReal32          SFOffsetFactorType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

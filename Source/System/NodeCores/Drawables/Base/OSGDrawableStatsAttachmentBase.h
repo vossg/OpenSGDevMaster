@@ -125,6 +125,14 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
         (TypeTraits<BitVector>::One << ValidFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFVerticesType;
+    typedef SFUInt32          SFPointsType;
+    typedef SFUInt32          SFLinesType;
+    typedef SFUInt32          SFTrianglesType;
+    typedef SFUInt32          SFProcessedAttributeBytesType;
+    typedef SFUInt32          SFStoredAttributeBytesType;
+    typedef SFBool            SFValidType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

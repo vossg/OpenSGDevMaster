@@ -117,6 +117,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
         (TypeTraits<BitVector>::One << SceneCenterFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecNodePtr    SFSceneRefType;
+    typedef SFReal32          SFDistScaleType;
+    typedef SFVec3f           SFSceneDiagType;
+    typedef SFPnt3f           SFInitViewPosType;
+    typedef SFPnt3f           SFSceneCenterType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

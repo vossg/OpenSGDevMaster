@@ -129,6 +129,15 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << BitMaskFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFGLenum          SFStencilFuncType;
+    typedef SFInt32           SFStencilValueType;
+    typedef SFUInt32          SFStencilMaskType;
+    typedef SFGLenum          SFStencilOpFailType;
+    typedef SFGLenum          SFStencilOpZFailType;
+    typedef SFGLenum          SFStencilOpZPassType;
+    typedef SFInt32           SFClearBufferType;
+    typedef SFUInt32          SFBitMaskType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -117,6 +117,12 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
         (TypeTraits<BitVector>::One << TranslationFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFVec3r           SFCenterType;
+    typedef SFQuaternionr     SFRotationType;
+    typedef SFVec3r           SFScaleType;
+    typedef SFQuaternionr     SFScaleOrientationType;
+    typedef SFVec3r           SFTranslationType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

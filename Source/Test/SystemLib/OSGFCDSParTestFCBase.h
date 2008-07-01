@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING FCDSParTestFCBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ParentFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFParentFieldContainerPtr SFParentType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

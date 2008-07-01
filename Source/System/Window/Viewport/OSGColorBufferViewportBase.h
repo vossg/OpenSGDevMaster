@@ -113,6 +113,11 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
         (TypeTraits<BitVector>::One << AlphaFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFRedType;
+    typedef SFBool            SFBlueType;
+    typedef SFBool            SFGreenType;
+    typedef SFBool            SFAlphaType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -101,6 +101,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec3fBase : public ShaderParameter
         (TypeTraits<BitVector>::One << ValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFVec3f           MFValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

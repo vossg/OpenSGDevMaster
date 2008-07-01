@@ -105,6 +105,9 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
         (TypeTraits<BitVector>::One << OverlapFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFZeroParallaxDistanceType;
+    typedef SFReal32          SFOverlapType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

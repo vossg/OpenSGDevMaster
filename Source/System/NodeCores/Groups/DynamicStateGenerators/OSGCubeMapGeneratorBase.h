@@ -145,6 +145,19 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
         (TypeTraits<BitVector>::One << CameraFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecNodePtr    SFRootType;
+    typedef MFUnrecNodePtr    MFExcludeType;
+    typedef SFUnrecTextureObjChunkPtr SFTextureType;
+    typedef SFVec2s           SFTextureSizeType;
+    typedef SFGLenum          SFTextureFormatType;
+    typedef SFWeakNodePtr     SFBeaconType;
+    typedef SFPnt3f           SFOriginType;
+    typedef SFUInt32          SFOriginModeType;
+    typedef SFUInt32          SFTexUnitType;
+    typedef SFUInt32          SFSetupModeType;
+    typedef SFUnrecBackgroundPtr SFBackgroundType;
+    typedef SFUnrecCameraPtr  SFCameraType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

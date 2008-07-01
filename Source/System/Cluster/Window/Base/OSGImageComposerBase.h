@@ -105,6 +105,9 @@ class OSG_CLUSTER_DLLMAPPING ImageComposerBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << StatisticsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFEnabledType;
+    typedef SFBool            SFStatisticsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

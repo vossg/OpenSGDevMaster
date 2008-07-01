@@ -121,6 +121,13 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
         (TypeTraits<BitVector>::One << UnknownParameterWarningFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFCgFrontEndType;
+    typedef SFBool            SFPointSizeType;
+    typedef MFGLenum          MFProgramParameterNamesType;
+    typedef MFUInt32          MFProgramParameterValuesType;
+    typedef SFUInt32          SFGLIdType;
+    typedef SFBool            SFUnknownParameterWarningType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

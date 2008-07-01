@@ -113,6 +113,11 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
         (TypeTraits<BitVector>::One << ProjectionMatrixFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecAlgorithmPtr SFAlgorithmType;
+    typedef SFUInt32          SFProjectionModeType;
+    typedef SFBool            SFCopyViewingType;
+    typedef SFMatrix          SFProjectionMatrixType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

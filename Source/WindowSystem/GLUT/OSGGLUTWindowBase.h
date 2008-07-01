@@ -101,6 +101,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
         (TypeTraits<BitVector>::One << GlutIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFInt32           SFGlutIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -105,6 +105,9 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
         (TypeTraits<BitVector>::One << RangeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFPnt3f           SFCenterType;
+    typedef MFReal32          MFRangeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

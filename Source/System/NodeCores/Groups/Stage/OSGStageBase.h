@@ -107,6 +107,9 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
         (TypeTraits<BitVector>::One << InheritedTargetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecFrameBufferObjectPtr SFRenderTargetType;
+    typedef SFBool            SFInheritedTargetType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -109,6 +109,10 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
         (TypeTraits<BitVector>::One << ContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFDisplayP        SFDisplayType;
+    typedef SFX11Window       SFWindowType;
+    typedef SFGLXContext      SFContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

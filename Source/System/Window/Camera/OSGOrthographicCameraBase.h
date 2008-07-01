@@ -105,6 +105,9 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
         (TypeTraits<BitVector>::One << AspectFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFVerticalSizeType;
+    typedef SFReal32          SFAspectType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

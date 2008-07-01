@@ -113,6 +113,11 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << MaskAFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFMaskRType;
+    typedef SFBool            SFMaskGType;
+    typedef SFBool            SFMaskBType;
+    typedef SFBool            SFMaskAType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

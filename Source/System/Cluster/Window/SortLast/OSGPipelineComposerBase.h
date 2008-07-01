@@ -113,6 +113,11 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
         (TypeTraits<BitVector>::One << PipelinedFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFShortType;
+    typedef SFBool            SFAlphaType;
+    typedef SFUInt32          SFTileSizeType;
+    typedef SFBool            SFPipelinedType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

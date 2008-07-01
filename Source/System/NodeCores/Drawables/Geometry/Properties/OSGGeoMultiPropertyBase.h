@@ -125,6 +125,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
         (TypeTraits<BitVector>::One << IStrideFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecGeoMultiPropertyDataPtr SFContainerType;
+    typedef SFUInt32          SFOffsetType;
+    typedef SFGLenum          SFIFormatType;
+    typedef SFUInt32          SFIDimensionType;
+    typedef SFUInt32          SFISizeType;
+    typedef SFBool            SFINormalizeType;
+    typedef SFUInt32          SFIStrideType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

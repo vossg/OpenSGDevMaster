@@ -149,6 +149,20 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
         (TypeTraits<BitVector>::One << AutostartFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFString          MFServersType;
+    typedef SFString          SFConnectionTypeType;
+    typedef SFString          SFConnectionInterfaceType;
+    typedef SFString          SFConnectionDestinationType;
+    typedef SFString          SFConnectionParamsType;
+    typedef SFUInt32          SFServicePortType;
+    typedef SFString          SFServiceAddressType;
+    typedef SFString          SFServiceInterfaceType;
+    typedef SFUnrecWindowPtr  SFClientWindowType;
+    typedef SFUInt32          SFInterleaveType;
+    typedef SFUInt32          SFFrameCountType;
+    typedef SFUnrecImageComposerPtr SFComposerType;
+    typedef MFString          MFAutostartType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

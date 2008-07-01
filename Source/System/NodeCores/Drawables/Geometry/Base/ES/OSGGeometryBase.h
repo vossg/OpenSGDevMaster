@@ -121,6 +121,13 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
         (TypeTraits<BitVector>::One << AttGLIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecChildGeoIntegralPropertyPtr SFTypesType;
+    typedef SFUnrecChildGeoIntegralPropertyPtr SFLengthsType;
+    typedef MFUnrecChildGeoVectorPropertyPtr MFPropertiesType;
+    typedef MFUnrecChildGeoIntegralPropertyPtr MFPropIndicesType;
+    typedef SFInt32           SFClassicGLIdType;
+    typedef SFInt32           SFAttGLIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

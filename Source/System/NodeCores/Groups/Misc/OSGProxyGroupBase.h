@@ -145,6 +145,19 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
         (TypeTraits<BitVector>::One << InlineFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFEnabledType;
+    typedef SFString          SFUrlType;
+    typedef SFUnrecNodePtr    SFRootType;
+    typedef SFUInt32          SFStateType;
+    typedef SFBool            SFConcurrentLoadType;
+    typedef SFBoxVolume       SFVolumeType;
+    typedef SFUInt32          SFIndicesType;
+    typedef SFUInt32          SFTrianglesType;
+    typedef SFUInt32          SFPositionsType;
+    typedef SFUInt32          SFGeometriesType;
+    typedef SFString          SFAbsoluteUrlType;
+    typedef MFUInt8           MFInlineType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

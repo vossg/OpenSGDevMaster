@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
         (TypeTraits<BitVector>::One << CoverageOverrideFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFReal32          MFCoverageOverrideType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -137,6 +137,17 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << RModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFSizeType;
+    typedef SFBool            SFSmoothType;
+    typedef SFReal32          SFMinSizeType;
+    typedef SFReal32          SFMaxSizeType;
+    typedef SFReal32          SFConstantAttenuationType;
+    typedef SFReal32          SFLinearAttenuationType;
+    typedef SFReal32          SFQuadraticAttenuationType;
+    typedef SFReal32          SFFadeThresholdType;
+    typedef SFBool            SFSpriteType;
+    typedef SFGLenum          SFRModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

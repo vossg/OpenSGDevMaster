@@ -193,6 +193,31 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
         (TypeTraits<BitVector>::One << PerPixelLightingFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecImagePtr   SFHeightDataType;
+    typedef SFReal32          SFHeightScaleType;
+    typedef MFReal32          MFHeightErrorType;
+    typedef MFReal32          MFHeightQuadType;
+    typedef SFUInt32          SFWidthType;
+    typedef SFUInt32          SFLevelType;
+    typedef SFReal32          SFDetailType;
+    typedef SFInt32           SFBorderDetailType;
+    typedef SFReal32          SFVertexSpacingType;
+    typedef SFUnrecGeoVectorPropertyPtr SFHeightVerticesType;
+    typedef SFBool            SFGeoMorphingType;
+    typedef SFPnt3f           SFBoundMinType;
+    typedef SFPnt3f           SFBoundMaxType;
+    typedef SFPnt3f           SFEyePointType;
+    typedef SFReal32          SFEyeHeightType;
+    typedef SFBool            SFEyePointValidType;
+    typedef SFReal32          SFOriginXType;
+    typedef SFReal32          SFOriginYType;
+    typedef SFReal32          SFOriginTexXType;
+    typedef SFReal32          SFOriginTexYType;
+    typedef SFReal32          SFTexSpacingType;
+    typedef SFReal32          SFTexYSpacingType;
+    typedef SFBool            SFUpdateTerrainType;
+    typedef SFBool            SFPerPixelLightingType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -141,6 +141,18 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << StippleFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFGLenum          SFCullFaceType;
+    typedef SFGLenum          SFFrontFaceType;
+    typedef SFGLenum          SFFrontModeType;
+    typedef SFGLenum          SFBackModeType;
+    typedef SFBool            SFSmoothType;
+    typedef SFReal32          SFOffsetFactorType;
+    typedef SFReal32          SFOffsetBiasType;
+    typedef SFBool            SFOffsetPointType;
+    typedef SFBool            SFOffsetLineType;
+    typedef SFBool            SFOffsetFillType;
+    typedef MFInt32           MFStippleType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

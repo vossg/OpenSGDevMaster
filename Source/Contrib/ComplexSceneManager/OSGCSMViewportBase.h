@@ -121,6 +121,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         (TypeTraits<BitVector>::One << RightTopFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecNodePtr    SFRootType;
+    typedef SFUnrecCameraPtr  SFCameraType;
+    typedef SFUnrecBackgroundPtr SFBackgroundType;
+    typedef MFUnrecForegroundPtr MFForegroundsType;
+    typedef SFVec2f           SFLeftBottomType;
+    typedef SFVec2f           SFRightTopType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

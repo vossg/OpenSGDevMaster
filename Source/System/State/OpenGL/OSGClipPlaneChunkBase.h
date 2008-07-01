@@ -109,6 +109,10 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << BeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFVec4f           SFEquationType;
+    typedef SFBool            SFEnableType;
+    typedef SFWeakNodePtr     SFBeaconType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

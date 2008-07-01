@@ -121,6 +121,13 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
         (TypeTraits<BitVector>::One << FullHeightFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFLeftType;
+    typedef SFReal32          SFRightType;
+    typedef SFReal32          SFBottomType;
+    typedef SFReal32          SFTopType;
+    typedef SFUInt32          SFFullWidthType;
+    typedef SFUInt32          SFFullHeightType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

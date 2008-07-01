@@ -137,6 +137,17 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
         (TypeTraits<BitVector>::One << NormalsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecNodePtr    SFRootType;
+    typedef MFUnrecNodePtr    MFGeoRootsType;
+    typedef MFUnrecGeometryPtr MFGeometriesType;
+    typedef MFUnrecChunkMaterialPtr MFMaterialsType;
+    typedef MFUnrecMaterialChunkPtr MFMaterialChunksType;
+    typedef MFUnrecGeoPnt3fPropertyPtr MFPositionsType;
+    typedef MFUnrecGeoUInt32PropertyPtr MFLengthType;
+    typedef MFUnrecGeoUInt8PropertyPtr MFTypesType;
+    typedef MFUnrecGeoColor4fPropertyPtr MFColorsType;
+    typedef MFUnrecGeoVec3fPropertyPtr MFNormalsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

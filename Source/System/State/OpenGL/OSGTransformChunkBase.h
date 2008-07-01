@@ -101,6 +101,8 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << MatrixFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFMatrix          SFMatrixType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

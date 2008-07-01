@@ -105,6 +105,9 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorStageDataBase : public StageData
         (TypeTraits<BitVector>::One << ChunksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecFrameBufferObjectPtr SFRenderTargetType;
+    typedef MFUnrecStateChunkPtr MFChunksType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

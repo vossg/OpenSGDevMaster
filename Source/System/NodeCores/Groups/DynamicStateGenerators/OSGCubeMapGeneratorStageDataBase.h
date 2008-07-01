@@ -105,6 +105,9 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public DynamicStateGe
         (TypeTraits<BitVector>::One << TexTransformFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecCameraPtr  SFCameraType;
+    typedef SFUnrecTextureTransformChunkPtr SFTexTransformType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -113,6 +113,11 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << SwapBarrierNameFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecDrawerPtr  MFDrawerType;
+    typedef SFBool            SFParallelType;
+    typedef SFString          SFSyncBarrierNameType;
+    typedef SFString          SFSwapBarrierNameType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

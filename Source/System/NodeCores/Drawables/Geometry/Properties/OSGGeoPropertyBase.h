@@ -109,6 +109,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
         (TypeTraits<BitVector>::One << UsageFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFUseVBOType;
+    typedef SFUInt32          SFGLIdType;
+    typedef SFInt32           SFUsageType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

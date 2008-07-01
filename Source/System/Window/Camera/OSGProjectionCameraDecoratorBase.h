@@ -125,6 +125,14 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
         (TypeTraits<BitVector>::One << HeightFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecNodePtr    SFUserType;
+    typedef MFPnt3f           MFSurfaceType;
+    typedef SFPlane           SFLeftType;
+    typedef SFPlane           SFBottomType;
+    typedef SFPlane           SFNormalType;
+    typedef SFReal32          SFWidthType;
+    typedef SFReal32          SFHeightType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -113,6 +113,11 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << SmoothFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFWidthType;
+    typedef SFInt32           SFStippleRepeatType;
+    typedef SFUInt16          SFStipplePatternType;
+    typedef SFBool            SFSmoothType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -121,6 +121,13 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
         (TypeTraits<BitVector>::One << BufferFormatFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFExposureType;
+    typedef SFReal32          SFBlurWidthType;
+    typedef SFReal32          SFBlurAmountType;
+    typedef SFReal32          SFEffectAmountType;
+    typedef SFReal32          SFGammaType;
+    typedef SFGLenum          SFBufferFormatType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -101,6 +101,8 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFGLenum          SFGLIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

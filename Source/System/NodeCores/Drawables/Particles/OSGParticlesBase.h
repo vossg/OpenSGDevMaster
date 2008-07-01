@@ -149,6 +149,20 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
         (TypeTraits<BitVector>::One << NumParticlesFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFModeType;
+    typedef SFUnrecChildGeoVectorPropertyPtr SFPositionsType;
+    typedef MFVec3f           MFSizesType;
+    typedef SFUnrecChildGeoVectorPropertyPtr SFSecPositionsType;
+    typedef SFUnrecChildGeoVectorPropertyPtr SFColorsType;
+    typedef SFUnrecChildGeoVectorPropertyPtr SFNormalsType;
+    typedef MFInt32           MFIndicesType;
+    typedef MFReal32          MFTextureZsType;
+    typedef SFUInt32          SFDrawOrderType;
+    typedef SFBool            SFDynamicType;
+    typedef SFUInt32          SFPumpType;
+    typedef SFParticleBSPTree SFBspType;
+    typedef SFInt32           SFNumParticlesType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

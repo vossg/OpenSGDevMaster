@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
         (TypeTraits<BitVector>::One << FrameBufferObjectFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecFrameBufferObjectPtr SFFrameBufferObjectType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

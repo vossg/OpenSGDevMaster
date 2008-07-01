@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ActiveFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFActiveType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -109,6 +109,10 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << AspectFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecChildCSMWindowPtr MFWindowsType;
+    typedef SFString          SFDisplayStringType;
+    typedef SFUInt32          SFAspectType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

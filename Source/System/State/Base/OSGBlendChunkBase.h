@@ -129,6 +129,15 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << AlphaDestFactorFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFGLenum          SFSrcFactorType;
+    typedef SFGLenum          SFDestFactorType;
+    typedef SFGLenum          SFEquationType;
+    typedef SFColor4f         SFColorType;
+    typedef SFGLenum          SFAlphaFuncType;
+    typedef SFReal32          SFAlphaValueType;
+    typedef SFGLenum          SFAlphaSrcFactorType;
+    typedef SFGLenum          SFAlphaDestFactorType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

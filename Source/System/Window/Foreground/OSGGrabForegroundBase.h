@@ -105,6 +105,9 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
         (TypeTraits<BitVector>::One << AutoResizeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecImagePtr   SFImageType;
+    typedef SFBool            SFAutoResizeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

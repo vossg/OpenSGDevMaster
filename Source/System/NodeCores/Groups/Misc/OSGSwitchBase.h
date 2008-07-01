@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
         (TypeTraits<BitVector>::One << ChoiceFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFInt32           SFChoiceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

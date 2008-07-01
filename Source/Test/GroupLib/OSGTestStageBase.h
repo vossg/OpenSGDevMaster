@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
         (TypeTraits<BitVector>::One << MessageFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFMessageType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

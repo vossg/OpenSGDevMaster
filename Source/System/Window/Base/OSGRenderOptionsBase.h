@@ -205,6 +205,34 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
         (TypeTraits<BitVector>::One << FogModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFStatisticType;
+    typedef SFGLenum          SFPolygonModeType;
+    typedef SFBool            SFTwoSidedLightingType;
+    typedef SFBool            SFSpecTexLightingType;
+    typedef SFBool            SFSortTransType;
+    typedef SFBool            SFZWriteTransType;
+    typedef SFBool            SFLocalLightsType;
+    typedef SFBool            SFCorrectTwoSidedLightingType;
+    typedef SFBool            SFOcclusionCullingType;
+    typedef SFInt32           SFOcclusionCullingModeType;
+    typedef SFUInt32          SFOcclusionCullingPixelsType;
+    typedef SFBool            SFAntialiasingType;
+    typedef SFReal32          SFAntialiasingDistanceType;
+    typedef SFReal32          SFAntialiasingScaleType;
+    typedef SFUInt32          SFAntialiasingTriggerType;
+    typedef SFBool            SFFrustumCullingType;
+    typedef SFBool            SFBackfaceCullingType;
+    typedef SFBool            SFSmallFeatureCullingType;
+    typedef SFReal32          SFSmallFeaturePixelsType;
+    typedef SFUInt32          SFSmallFeatureThresholdType;
+    typedef SFBool            SFFirstFrameType;
+    typedef SFBool            SFDepthOnlyPassType;
+    typedef SFColor4f         SFLightModelAmbientType;
+    typedef SFColor4f         SFFogColorType;
+    typedef SFVec2f           SFFogRangeType;
+    typedef SFReal32          SFFogDensityType;
+    typedef SFInt32           SFFogModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

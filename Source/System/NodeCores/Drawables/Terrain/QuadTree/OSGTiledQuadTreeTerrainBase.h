@@ -153,6 +153,21 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
         (TypeTraits<BitVector>::One << PerPixelLightingFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecImagePtr   MFHeightTilesType;
+    typedef MFUnrecMaterialPtr MFHeightTexturesType;
+    typedef SFUInt32          SFSizeXType;
+    typedef SFUInt32          SFSizeYType;
+    typedef SFReal32          SFHeightScaleType;
+    typedef SFReal32          SFVertexSpacingType;
+    typedef SFBool            SFGeoMorphingType;
+    typedef SFReal32          SFDetailType;
+    typedef SFInt32           SFCurrentXType;
+    typedef SFInt32           SFCurrentYType;
+    typedef SFInt32           SFSizeROIType;
+    typedef SFBool            SFUpdateType;
+    typedef SFBool            SFUpdateTerrainType;
+    typedef SFBool            SFPerPixelLightingType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

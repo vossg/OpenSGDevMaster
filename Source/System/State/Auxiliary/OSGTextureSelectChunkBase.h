@@ -105,6 +105,9 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << TexturesFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFChoiceType;
+    typedef MFUnrecTextureBaseChunkPtr MFTexturesType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

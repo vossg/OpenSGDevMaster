@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
         (TypeTraits<BitVector>::One << ChunksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecStateChunkPtr MFChunksType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
         (TypeTraits<BitVector>::One << MatrixFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFMatrixr         SFMatrixType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

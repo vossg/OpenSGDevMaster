@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
         (TypeTraits<BitVector>::One << ChunksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecStateChunkPtr MFChunksType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

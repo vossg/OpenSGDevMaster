@@ -101,6 +101,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFileBase : public Image
         (TypeTraits<BitVector>::One << UrlFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFUrlType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

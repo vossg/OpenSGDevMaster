@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
         (TypeTraits<BitVector>::One << ChoiceFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecMaterialPtr MFMaterialsType;
+    typedef SFUInt32          SFChoiceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

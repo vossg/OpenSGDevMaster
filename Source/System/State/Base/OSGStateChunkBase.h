@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public Attachment
         (TypeTraits<BitVector>::One << IgnoreFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFIgnoreType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

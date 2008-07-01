@@ -121,6 +121,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << DecorEnabledFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFParentFieldContainerPtr SFParentType;
+    typedef MFUnrecCSMViewportPtr MFViewportsType;
+    typedef SFMouseData       SFMouseDataType;
+    typedef SFVec2f           SFSizeType;
+    typedef SFVec2f           SFPositionType;
+    typedef SFBool            SFDecorEnabledType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

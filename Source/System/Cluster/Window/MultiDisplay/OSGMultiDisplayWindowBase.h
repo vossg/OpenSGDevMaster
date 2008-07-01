@@ -117,6 +117,12 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
         (TypeTraits<BitVector>::One << YOverlapFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFHServersType;
+    typedef SFUInt32          SFVServersType;
+    typedef SFBool            SFManageClientViewportsType;
+    typedef SFInt32           SFXOverlapType;
+    typedef SFInt32           SFYOverlapType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

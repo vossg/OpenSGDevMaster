@@ -101,6 +101,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterBoolBase : public ShaderParameter
         (TypeTraits<BitVector>::One << ValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

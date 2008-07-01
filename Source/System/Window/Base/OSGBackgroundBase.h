@@ -113,6 +113,11 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ClearColorFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFInt32           SFClearStencilBitType;
+    typedef SFReal32          SFDepthType;
+    typedef SFBool            SFClearDepthType;
+    typedef SFBool            SFClearColorType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

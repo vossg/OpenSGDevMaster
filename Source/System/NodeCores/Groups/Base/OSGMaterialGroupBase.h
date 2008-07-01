@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
         (TypeTraits<BitVector>::One << MaterialFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecMaterialPtr SFMaterialType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

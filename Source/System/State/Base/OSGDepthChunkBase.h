@@ -117,6 +117,12 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << ReadOnlyFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFEnableType;
+    typedef SFGLenum          SFFuncType;
+    typedef SFReal32          SFNearType;
+    typedef SFReal32          SFFarType;
+    typedef SFBool            SFReadOnlyType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -125,6 +125,14 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
         (TypeTraits<BitVector>::One << PolyChunkFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecCameraPtr  SFCameraType;
+    typedef SFUnrecTextureObjChunkPtr SFTexChunkType;
+    typedef SFUnrecTextureBufferPtr SFTexBufferType;
+    typedef SFUnrecLightChunkPtr SFLightChunkType;
+    typedef SFUnrecBlendChunkPtr SFBlendChunkType;
+    typedef SFUnrecTexGenChunkPtr SFTexGenChunkType;
+    typedef SFUnrecPolygonChunkPtr SFPolyChunkType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

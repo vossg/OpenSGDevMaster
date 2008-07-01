@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING PerspectiveCameraBase : public Camera
         (TypeTraits<BitVector>::One << AspectFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFFovType;
+    typedef SFReal32          SFAspectType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

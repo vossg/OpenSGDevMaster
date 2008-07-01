@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
         (TypeTraits<BitVector>::One << InternalFormatFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFGLenum          SFGLIdType;
+    typedef SFGLenum          SFInternalFormatType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

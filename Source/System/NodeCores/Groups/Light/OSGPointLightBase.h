@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
         (TypeTraits<BitVector>::One << PositionFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFPnt3r           SFPositionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -103,6 +103,8 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
         (TypeTraits<BitVector>::One << RenderTargetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecFrameBufferObjectPtr SFRenderTargetType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

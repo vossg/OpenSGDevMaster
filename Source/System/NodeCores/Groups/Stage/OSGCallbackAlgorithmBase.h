@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
         (TypeTraits<BitVector>::One << CallbackFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFRenderFunctorCallback SFCallbackType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

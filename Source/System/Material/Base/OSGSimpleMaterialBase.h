@@ -129,6 +129,15 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
         (TypeTraits<BitVector>::One << ColorMaterialFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFColor3r         SFAmbientType;
+    typedef SFColor3r         SFDiffuseType;
+    typedef SFColor3r         SFSpecularType;
+    typedef SFReal            SFShininessType;
+    typedef SFColor3r         SFEmissionType;
+    typedef SFReal            SFTransparencyType;
+    typedef SFBool            SFLitType;
+    typedef SFGLenum          SFColorMaterialType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

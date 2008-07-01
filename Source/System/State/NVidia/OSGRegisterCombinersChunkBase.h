@@ -221,6 +221,38 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << PerStageConstantsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFColor4f         SFColor0Type;
+    typedef SFColor4f         SFColor1Type;
+    typedef SFBool            SFColorSumClampType;
+    typedef MFGLenum          MFVariableArgbType;
+    typedef MFGLenum          MFVariableBrgbType;
+    typedef MFGLenum          MFVariableCrgbType;
+    typedef MFGLenum          MFVariableDrgbType;
+    typedef MFGLenum          MFVariableAalphaType;
+    typedef MFGLenum          MFVariableBalphaType;
+    typedef MFGLenum          MFVariableCalphaType;
+    typedef MFGLenum          MFVariableDalphaType;
+    typedef MFGLenum          MFOutputABrgbType;
+    typedef MFGLenum          MFOutputCDrgbType;
+    typedef MFGLenum          MFOutputSumrgbType;
+    typedef MFGLenum          MFScalergbType;
+    typedef MFGLenum          MFBiasrgbType;
+    typedef MFGLenum          MFOutputABalphaType;
+    typedef MFGLenum          MFOutputCDalphaType;
+    typedef MFGLenum          MFOutputSumalphaType;
+    typedef MFUInt8           MFDotABrgbType;
+    typedef MFUInt8           MFDotCDrgbType;
+    typedef MFUInt8           MFMuxSumrgbType;
+    typedef MFGLenum          MFScalealphaType;
+    typedef MFGLenum          MFBiasalphaType;
+    typedef MFUInt8           MFMuxSumalphaType;
+    typedef MFGLenum          MFVariableEType;
+    typedef MFGLenum          MFVariableFType;
+    typedef MFGLenum          MFVariableGType;
+    typedef MFColor4f         MFCombinerColor0Type;
+    typedef MFColor4f         MFCombinerColor1Type;
+    typedef SFUInt8           SFPerStageConstantsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

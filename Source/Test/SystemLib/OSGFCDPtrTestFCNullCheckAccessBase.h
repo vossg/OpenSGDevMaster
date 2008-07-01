@@ -193,6 +193,31 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
         (TypeTraits<BitVector>::One << FieldMFNo_spchildptrFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecFCDTestFCPtr SFFieldSFPub_ptrType;
+    typedef SFWeakFCDTestFCPtr SFFieldSFPub_weakptrType;
+    typedef SFUnrecChildFCDTestFCPtr SFFieldSFPub_mpchildptrType;
+    typedef SFUnrecFCDTestFCPtr SFFieldSFPro_ptrType;
+    typedef SFWeakFCDTestFCPtr SFFieldSFPro_weakptrType;
+    typedef SFUnrecChildFCDTestFCPtr SFFieldSFPro_mpchildptrType;
+    typedef SFUnrecFCDTestFCPtr SFFieldSFNo_ptrType;
+    typedef SFWeakFCDTestFCPtr SFFieldSFNo_weakptrType;
+    typedef SFUnrecChildFCDTestFCPtr SFFieldSFNo_mpchildptrType;
+    typedef MFUnrecFCDTestFCPtr MFFieldMFPub_ptrType;
+    typedef MFWeakFCDTestFCPtr MFFieldMFPub_weakptrType;
+    typedef MFUnrecChildFCDTestFCPtr MFFieldMFPub_mpchildptrType;
+    typedef MFUnrecFCDTestFCPtr MFFieldMFPro_ptrType;
+    typedef MFWeakFCDTestFCPtr MFFieldMFPro_weakptrType;
+    typedef MFUnrecChildFCDTestFCPtr MFFieldMFPro_mpchildptrType;
+    typedef MFUnrecFCDTestFCPtr MFFieldMFNo_ptrType;
+    typedef MFWeakFCDTestFCPtr MFFieldMFNo_weakptrType;
+    typedef MFUnrecChildFCDTestFCPtr MFFieldMFNo_mpchildptrType;
+    typedef SFUnrecChildFCDSParTestFCPtr SFFieldSFPub_spchildptrType;
+    typedef SFUnrecChildFCDSParTestFCPtr SFFieldSFPro_spchildptrType;
+    typedef SFUnrecChildFCDSParTestFCPtr SFFieldSFNo_spchildptrType;
+    typedef MFUnrecChildFCDSParTestFCPtr MFFieldMFPub_spchildptrType;
+    typedef MFUnrecChildFCDSParTestFCPtr MFFieldMFPro_spchildptrType;
+    typedef MFUnrecChildFCDSParTestFCPtr MFFieldMFNo_spchildptrType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

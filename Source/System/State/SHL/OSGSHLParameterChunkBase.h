@@ -101,6 +101,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
         (TypeTraits<BitVector>::One << SHLChunkFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecSHLChunkPtr SFSHLChunkType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

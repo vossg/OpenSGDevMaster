@@ -109,6 +109,10 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
         (TypeTraits<BitVector>::One << GroupModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFInt32           SFPartitionRangeBeginType;
+    typedef SFInt32           SFPartitionRangeEndType;
+    typedef SFInt32           SFGroupModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

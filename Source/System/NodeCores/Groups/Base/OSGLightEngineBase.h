@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING LightEngineBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << EnabledFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFEnabledType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

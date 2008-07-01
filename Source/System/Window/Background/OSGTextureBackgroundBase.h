@@ -125,6 +125,14 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
         (TypeTraits<BitVector>::One << VertFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFColor4f         SFColorType;
+    typedef SFUnrecTextureBaseChunkPtr SFTextureType;
+    typedef MFPnt2f           MFTexCoordsType;
+    typedef SFReal32          SFRadialDistortionType;
+    typedef SFVec2f           SFCenterOfDistortionType;
+    typedef SFUInt16          SFHorType;
+    typedef SFUInt16          SFVertType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

@@ -141,6 +141,18 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << DrawTimeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFLeftType;
+    typedef SFReal32          SFRightType;
+    typedef SFReal32          SFBottomType;
+    typedef SFReal32          SFTopType;
+    typedef SFParentFieldContainerPtr SFParentType;
+    typedef SFUnrecCameraPtr  SFCameraType;
+    typedef SFUnrecNodePtr    SFRootType;
+    typedef SFUnrecBackgroundPtr SFBackgroundType;
+    typedef MFUnrecForegroundPtr MFForegroundsType;
+    typedef SFUInt32          SFTravMaskType;
+    typedef SFReal32          SFDrawTimeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

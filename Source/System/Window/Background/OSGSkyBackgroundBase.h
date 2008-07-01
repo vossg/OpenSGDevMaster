@@ -173,6 +173,26 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
         (TypeTraits<BitVector>::One << BeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFColor4f         MFSkyColorType;
+    typedef MFReal32          MFSkyAngleType;
+    typedef MFColor4f         MFGroundColorType;
+    typedef MFReal32          MFGroundAngleType;
+    typedef SFUInt32          SFSphereResType;
+    typedef SFUnrecTextureBaseChunkPtr SFBackTextureType;
+    typedef SFUnrecTextureBaseChunkPtr SFBottomTextureType;
+    typedef SFUnrecTextureBaseChunkPtr SFFrontTextureType;
+    typedef SFUnrecTextureBaseChunkPtr SFLeftTextureType;
+    typedef SFUnrecTextureBaseChunkPtr SFRightTextureType;
+    typedef SFUnrecTextureBaseChunkPtr SFTopTextureType;
+    typedef SFBool            SFBoxInsideType;
+    typedef MFVec3f           MFTopTexCoordType;
+    typedef MFVec3f           MFBottomTexCoordType;
+    typedef MFVec3f           MFRightTexCoordType;
+    typedef MFVec3f           MFLeftTexCoordType;
+    typedef MFVec3f           MFFrontTexCoordType;
+    typedef MFVec3f           MFBackTexCoordType;
+    typedef SFWeakNodePtr     SFBeaconType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

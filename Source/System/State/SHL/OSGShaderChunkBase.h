@@ -109,6 +109,10 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
         (TypeTraits<BitVector>::One << GeometryProgramFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFVertexProgramType;
+    typedef SFString          SFFragmentProgramType;
+    typedef SFString          SFGeometryProgramType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

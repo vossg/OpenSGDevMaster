@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
         (TypeTraits<BitVector>::One << EyeSeparationFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFLeftEyeType;
+    typedef SFReal32          SFEyeSeparationType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

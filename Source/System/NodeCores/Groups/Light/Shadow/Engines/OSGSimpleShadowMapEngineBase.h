@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
         (TypeTraits<BitVector>::One << ForceTextureUnitFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFInt32           SFForceTextureUnitType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

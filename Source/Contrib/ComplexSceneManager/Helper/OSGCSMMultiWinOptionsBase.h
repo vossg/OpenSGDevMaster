@@ -121,6 +121,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMMultiWinOptionsBase : public CSMClusterWinOpt
         (TypeTraits<BitVector>::One << ShowBalancingFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFInt32           SFXOverlapType;
+    typedef SFInt32           SFYOverlapType;
+    typedef SFBool            SFManageClientViewportsType;
+    typedef SFBool            SFBalanceType;
+    typedef SFBool            SFBestCutType;
+    typedef SFBool            SFShowBalancingType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

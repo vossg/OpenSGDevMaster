@@ -113,6 +113,11 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStageBase : public Stage
         (TypeTraits<BitVector>::One << UseGroupFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFMessageType;
+    typedef SFInt32           SFNumPartitionsType;
+    typedef MFInt32           MFOrderType;
+    typedef SFBool            SFUseGroupType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

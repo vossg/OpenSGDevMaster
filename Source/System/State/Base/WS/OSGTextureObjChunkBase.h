@@ -209,6 +209,35 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << SkipMipMapLevelsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecChildImagePtr SFImageType;
+    typedef SFGLenum          SFInternalFormatType;
+    typedef SFGLenum          SFExternalFormatType;
+    typedef SFBool            SFScaleType;
+    typedef SFUInt32          SFFrameType;
+    typedef SFGLenum          SFMinFilterType;
+    typedef SFGLenum          SFMagFilterType;
+    typedef SFGLenum          SFWrapSType;
+    typedef SFGLenum          SFWrapTType;
+    typedef SFGLenum          SFWrapRType;
+    typedef SFGLenum          SFGLIdType;
+    typedef SFInt32           SFIgnoreGLForAspectType;
+    typedef SFReal32          SFPriorityType;
+    typedef SFInt32           SFDirtyLeftType;
+    typedef SFInt32           SFDirtyMinXType;
+    typedef SFInt32           SFDirtyMaxXType;
+    typedef SFInt32           SFDirtyMinYType;
+    typedef SFInt32           SFDirtyMaxYType;
+    typedef SFInt32           SFDirtyMinZType;
+    typedef SFInt32           SFDirtyMaxZType;
+    typedef SFReal32          SFAnisotropyType;
+    typedef SFColor4f         SFBorderColorType;
+    typedef SFGLenum          SFCompareModeType;
+    typedef SFGLenum          SFCompareFuncType;
+    typedef SFGLenum          SFDepthModeType;
+    typedef SFUInt32          SFBorderWidthType;
+    typedef SFUInt32          SFNPOTMatrixScaleType;
+    typedef SFReal32          SFSkipMipMapLevelsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

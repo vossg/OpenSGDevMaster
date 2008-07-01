@@ -109,6 +109,10 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
         (TypeTraits<BitVector>::One << ContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFEGLDisplay      SFDisplayType;
+    typedef SFEGLSurface      SFWindowType;
+    typedef SFEGLContext      SFContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

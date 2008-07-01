@@ -121,6 +121,13 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
         (TypeTraits<BitVector>::One << PostProjectionFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFMatrix          SFPreViewingType;
+    typedef SFMatrix          SFPostViewingType;
+    typedef SFMatrix          SFPreProjectionTranslationType;
+    typedef SFMatrix          SFPostProjectionTranslationType;
+    typedef SFMatrix          SFPreProjectionType;
+    typedef SFMatrix          SFPostProjectionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

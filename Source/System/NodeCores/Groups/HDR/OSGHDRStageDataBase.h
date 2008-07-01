@@ -133,6 +133,16 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
         (TypeTraits<BitVector>::One << ShrinkMaterialFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecChunkMaterialPtr SFToneMappingMaterialType;
+    typedef SFUnrecFrameBufferObjectPtr SFBlurRenderTargetType;
+    typedef SFUnrecChunkMaterialPtr SFBlurMaterialType;
+    typedef SFUnrecSHLChunkPtr SFHBlurShaderType;
+    typedef SFUnrecSHLChunkPtr SFVBlurShaderType;
+    typedef SFUInt32          SFWidthType;
+    typedef SFUInt32          SFHeightType;
+    typedef SFUnrecFrameBufferObjectPtr SFShrinkRenderTargetType;
+    typedef SFUnrecChunkMaterialPtr SFShrinkMaterialType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

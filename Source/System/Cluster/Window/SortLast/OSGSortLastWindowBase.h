@@ -109,6 +109,10 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
         (TypeTraits<BitVector>::One << GroupsChangedFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecNodePtr    MFGroupNodesType;
+    typedef MFUInt32          MFGroupLengthsType;
+    typedef SFBool            SFGroupsChangedType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

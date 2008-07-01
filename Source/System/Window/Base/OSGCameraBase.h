@@ -109,6 +109,10 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << FarFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFWeakNodePtr     SFBeaconType;
+    typedef SFReal32          SFNearType;
+    typedef SFReal32          SFFarType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

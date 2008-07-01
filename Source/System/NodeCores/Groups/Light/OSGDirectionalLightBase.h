@@ -101,6 +101,8 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
         (TypeTraits<BitVector>::One << DirectionFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFVec3r           SFDirectionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

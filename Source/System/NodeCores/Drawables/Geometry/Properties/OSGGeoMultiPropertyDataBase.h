@@ -105,6 +105,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUInt8           MFIDataType;
+    typedef SFUInt32          SFGLIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

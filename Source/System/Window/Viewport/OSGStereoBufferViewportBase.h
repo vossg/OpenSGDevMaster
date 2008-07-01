@@ -105,6 +105,9 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
         (TypeTraits<BitVector>::One << RightBufferFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFLeftBufferType;
+    typedef SFBool            SFRightBufferType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

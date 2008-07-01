@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
         (TypeTraits<BitVector>::One << ContainersFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFNameType;
+    typedef MFUnrecFieldContainerPtr MFContainersType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

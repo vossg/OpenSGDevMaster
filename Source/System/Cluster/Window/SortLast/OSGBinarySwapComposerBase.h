@@ -109,6 +109,10 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
         (TypeTraits<BitVector>::One << TileSizeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFShortType;
+    typedef SFBool            SFAlphaType;
+    typedef SFUInt32          SFTileSizeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

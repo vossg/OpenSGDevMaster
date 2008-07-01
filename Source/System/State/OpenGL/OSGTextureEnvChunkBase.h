@@ -209,6 +209,35 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << LodBiasFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFGLenum          SFEnvModeType;
+    typedef SFColor4r         SFEnvColorType;
+    typedef SFGLenum          SFEnvCombineRGBType;
+    typedef SFGLenum          SFEnvCombineAlphaType;
+    typedef SFReal32          SFEnvScaleRGBType;
+    typedef SFReal32          SFEnvScaleAlphaType;
+    typedef SFGLenum          SFEnvSource0RGBType;
+    typedef SFGLenum          SFEnvSource1RGBType;
+    typedef SFGLenum          SFEnvSource2RGBType;
+    typedef SFGLenum          SFEnvSource0AlphaType;
+    typedef SFGLenum          SFEnvSource1AlphaType;
+    typedef SFGLenum          SFEnvSource2AlphaType;
+    typedef SFGLenum          SFEnvOperand0RGBType;
+    typedef SFGLenum          SFEnvOperand1RGBType;
+    typedef SFGLenum          SFEnvOperand2RGBType;
+    typedef SFGLenum          SFEnvOperand0AlphaType;
+    typedef SFGLenum          SFEnvOperand1AlphaType;
+    typedef SFGLenum          SFEnvOperand2AlphaType;
+    typedef SFBool            SFPointSpriteType;
+    typedef SFGLenum          SFShaderOperationType;
+    typedef SFGLenum          SFShaderInputType;
+    typedef MFReal32          MFShaderOffsetMatrixType;
+    typedef SFReal32          SFShaderOffsetScaleType;
+    typedef SFReal32          SFShaderOffsetBiasType;
+    typedef SFGLenum          SFShaderRGBADotProductType;
+    typedef SFUInt8           SFShaderCullModesType;
+    typedef SFVec3r           SFShaderConstEyeType;
+    typedef SFReal32          SFLodBiasType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

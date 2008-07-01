@@ -105,6 +105,9 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
         (TypeTraits<BitVector>::One << AlphaFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFColor3r         SFColorType;
+    typedef SFReal32          SFAlphaType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

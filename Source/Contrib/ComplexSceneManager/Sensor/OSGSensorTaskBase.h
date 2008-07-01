@@ -101,6 +101,8 @@ class OSG_CONTRIBCSM_DLLMAPPING SensorTaskBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << SensorsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUncountedSensorPtr MFSensorsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

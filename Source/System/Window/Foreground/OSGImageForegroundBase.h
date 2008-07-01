@@ -105,6 +105,9 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
         (TypeTraits<BitVector>::One << PositionsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef MFUnrecImagePtr   MFImagesType;
+    typedef MFPnt2f           MFPositionsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

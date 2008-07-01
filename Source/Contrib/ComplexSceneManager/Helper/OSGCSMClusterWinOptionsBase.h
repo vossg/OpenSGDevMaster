@@ -101,6 +101,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWinOptionsBase : public FieldContainer
         (TypeTraits<BitVector>::One << ParentFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFParentCSMClusterWindowPtr SFParentType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

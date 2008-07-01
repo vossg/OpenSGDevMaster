@@ -117,6 +117,12 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
         (TypeTraits<BitVector>::One << EnvMapFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecImagePtr   SFImageType;
+    typedef SFGLenum          SFMinFilterType;
+    typedef SFGLenum          SFMagFilterType;
+    typedef SFGLenum          SFEnvModeType;
+    typedef SFBool            SFEnvMapType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

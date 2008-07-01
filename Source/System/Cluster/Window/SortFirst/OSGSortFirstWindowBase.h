@@ -117,6 +117,12 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
         (TypeTraits<BitVector>::One << UseFaceDistributionFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFCompressionType;
+    typedef SFUInt32          SFSubtileSizeType;
+    typedef SFBool            SFComposeType;
+    typedef MFUInt32          MFRegionType;
+    typedef SFBool            SFUseFaceDistributionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

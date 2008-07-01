@@ -145,6 +145,19 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << QBeaconFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFGLenum          SFGenFuncSType;
+    typedef SFGLenum          SFGenFuncTType;
+    typedef SFGLenum          SFGenFuncRType;
+    typedef SFGLenum          SFGenFuncQType;
+    typedef SFVec4f           SFGenFuncSPlaneType;
+    typedef SFVec4f           SFGenFuncTPlaneType;
+    typedef SFVec4f           SFGenFuncRPlaneType;
+    typedef SFVec4f           SFGenFuncQPlaneType;
+    typedef SFWeakNodePtr     SFSBeaconType;
+    typedef SFWeakNodePtr     SFTBeaconType;
+    typedef SFWeakNodePtr     SFRBeaconType;
+    typedef SFWeakNodePtr     SFQBeaconType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

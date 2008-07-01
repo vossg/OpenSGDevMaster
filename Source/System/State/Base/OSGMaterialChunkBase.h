@@ -153,6 +153,21 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << BackColorMaterialFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFColor4r         SFDiffuseType;
+    typedef SFColor4r         SFAmbientType;
+    typedef SFColor4r         SFSpecularType;
+    typedef SFColor4r         SFEmissionType;
+    typedef SFReal            SFShininessType;
+    typedef SFBool            SFLitType;
+    typedef SFGLenum          SFColorMaterialType;
+    typedef SFBool            SFBackMaterialType;
+    typedef SFColor4r         SFBackDiffuseType;
+    typedef SFColor4r         SFBackAmbientType;
+    typedef SFColor4r         SFBackSpecularType;
+    typedef SFColor4r         SFBackEmissionType;
+    typedef SFReal            SFBackShininessType;
+    typedef SFGLenum          SFBackColorMaterialType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

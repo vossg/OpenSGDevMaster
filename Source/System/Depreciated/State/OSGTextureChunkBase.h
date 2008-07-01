@@ -321,6 +321,63 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << SkipMipMapLevelsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecImagePtr   SFImageType;
+    typedef SFGLenum          SFInternalFormatType;
+    typedef SFGLenum          SFExternalFormatType;
+    typedef SFBool            SFScaleType;
+    typedef SFUInt32          SFFrameType;
+    typedef SFGLenum          SFMinFilterType;
+    typedef SFGLenum          SFMagFilterType;
+    typedef SFGLenum          SFWrapSType;
+    typedef SFGLenum          SFWrapTType;
+    typedef SFGLenum          SFWrapRType;
+    typedef SFGLenum          SFEnvModeType;
+    typedef SFColor4f         SFEnvColorType;
+    typedef SFGLenum          SFEnvCombineRGBType;
+    typedef SFGLenum          SFEnvCombineAlphaType;
+    typedef SFReal32          SFEnvScaleRGBType;
+    typedef SFReal32          SFEnvScaleAlphaType;
+    typedef SFGLenum          SFEnvSource0RGBType;
+    typedef SFGLenum          SFEnvSource1RGBType;
+    typedef SFGLenum          SFEnvSource2RGBType;
+    typedef SFGLenum          SFEnvSource0AlphaType;
+    typedef SFGLenum          SFEnvSource1AlphaType;
+    typedef SFGLenum          SFEnvSource2AlphaType;
+    typedef SFGLenum          SFEnvOperand0RGBType;
+    typedef SFGLenum          SFEnvOperand1RGBType;
+    typedef SFGLenum          SFEnvOperand2RGBType;
+    typedef SFGLenum          SFEnvOperand0AlphaType;
+    typedef SFGLenum          SFEnvOperand1AlphaType;
+    typedef SFGLenum          SFEnvOperand2AlphaType;
+    typedef SFGLenum          SFGLIdType;
+    typedef SFInt32           SFIgnoreGLForAspectType;
+    typedef SFBool            SFPointSpriteType;
+    typedef SFReal32          SFPriorityType;
+    typedef SFGLenum          SFShaderOperationType;
+    typedef SFGLenum          SFShaderInputType;
+    typedef MFReal32          MFShaderOffsetMatrixType;
+    typedef SFReal32          SFShaderOffsetScaleType;
+    typedef SFReal32          SFShaderOffsetBiasType;
+    typedef SFGLenum          SFShaderRGBADotProductType;
+    typedef SFUInt8           SFShaderCullModesType;
+    typedef SFVec3f           SFShaderConstEyeType;
+    typedef SFReal32          SFLodBiasType;
+    typedef SFInt32           SFDirtyLeftType;
+    typedef SFInt32           SFDirtyMinXType;
+    typedef SFInt32           SFDirtyMaxXType;
+    typedef SFInt32           SFDirtyMinYType;
+    typedef SFInt32           SFDirtyMaxYType;
+    typedef SFInt32           SFDirtyMinZType;
+    typedef SFInt32           SFDirtyMaxZType;
+    typedef SFReal32          SFAnisotropyType;
+    typedef SFColor4f         SFBorderColorType;
+    typedef SFGLenum          SFCompareModeType;
+    typedef SFGLenum          SFCompareFuncType;
+    typedef SFGLenum          SFDepthModeType;
+    typedef SFUInt32          SFBorderWidthType;
+    typedef SFUInt32          SFNPOTMatrixScaleType;
+    typedef SFReal32          SFSkipMipMapLevelsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

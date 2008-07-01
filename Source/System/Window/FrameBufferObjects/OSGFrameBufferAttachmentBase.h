@@ -105,6 +105,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
         (TypeTraits<BitVector>::One << HeightFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt16          SFWidthType;
+    typedef SFUInt16          SFHeightType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */

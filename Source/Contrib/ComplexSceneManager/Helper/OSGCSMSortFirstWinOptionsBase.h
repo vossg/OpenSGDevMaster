@@ -113,6 +113,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSortFirstWinOptionsBase : public CSMClusterWi
         (TypeTraits<BitVector>::One << UseFaceDistributionFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFCompressionType;
+    typedef SFUInt32          SFSubtileSizeType;
+    typedef SFBool            SFComposeType;
+    typedef SFBool            SFUseFaceDistributionType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
