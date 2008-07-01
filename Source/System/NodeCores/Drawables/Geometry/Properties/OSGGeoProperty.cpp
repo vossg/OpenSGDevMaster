@@ -185,8 +185,10 @@ GeoProperty::~GeoProperty(void)
 
 /*----------------------------- onCreate --------------------------------*/
 
-void GeoProperty::onCreate(const GeoProperty *)
+void GeoProperty::onCreate(const GeoProperty *source)
 {
+    Inherited::onCreate(source);
+
     if(GlobalSystemState == Startup)
         return;
 

@@ -200,10 +200,24 @@ void GeoMultiProperty::setNormalize(bool val)
     setINormalize(val);
 }
 
-void
-GeoMultiProperty::setValue(const MaxTypeT &val, const UInt32 index)
+void GeoMultiProperty::setValue(const MaxTypeT &val, const UInt32 index)
 {
     setGenericValue(val, index);
+}
+
+GeoPropertyTransitPtr GeoMultiProperty::clone(void)
+{
+    ObjTransitPtr obj = GeoMultiProperty::create();
+    
+    obj->setContainer (this->getContainer ());
+    obj->setOffset    (this->getOffset    ());
+    obj->setIFormat   (this->getIFormat   ());
+    obj->setIDimension(this->getIDimension());
+    obj->setISize     (this->getISize     ());
+    obj->setINormalize(this->getINormalize());
+    obj->setIStride   (this->getIStride   ());
+    
+    return GeoPropertyTransitPtr(obj);
 }
 
 /*! \}                                                                 */

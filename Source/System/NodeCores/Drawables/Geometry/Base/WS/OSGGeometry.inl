@@ -233,6 +233,44 @@ void Geometry::setProperty(GeoVectorProperty * const value, UInt16 index)
     {
         _mfProperties.push_back(NULL);
     }
+    
+    if(0x0000 != (value->getUsage() & GeoProperty::UsageSystemSet))
+    {
+        switch(index)
+        {
+        case PositionsIndex:
+            value->setUsage(GeoProperty::UsageObjectSpace |
+                            GeoProperty::UsageSystemSet    );
+        break;
+        
+        case NormalsIndex:
+            value->setUsage(GeoProperty::UsageTangentSpace |
+                            GeoProperty::UsageSystemSet     );
+        break;
+        
+        case ColorsIndex:
+        case SecondaryColorsIndex:
+            value->setUsage(GeoProperty::UsageColorSpace |
+                            GeoProperty::UsageSystemSet   );
+        break;
+        
+        case TexCoordsIndex:
+        case TexCoords1Index:
+        case TexCoords2Index:
+        case TexCoords3Index:
+        case TexCoords4Index:
+        case TexCoords5Index:
+        case TexCoords6Index:
+        case TexCoords7Index:
+            value->setUsage(GeoProperty::UsageParameterSpace |
+                            GeoProperty::UsageSystemSet       );
+        break;
+        
+        default:
+            value->setUsage(GeoProperty::UsageUnspecified |
+                            GeoProperty::UsageSystemSet       );
+        }
+    }
 
     _mfProperties.replace(index, value);
 }

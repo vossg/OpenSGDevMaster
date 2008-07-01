@@ -67,19 +67,30 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
 
     typedef GeoPropertyBase                             Inherited;
 
+    static const UInt32 UsageUnspecified      = 0x00000000;
+    
+    static const UInt32 UsageObjectSpace      = 0x00000001;  // pos
+    static const UInt32 UsageTangentSpace     = 0x00000002;  // norm, binorm, tang
+    static const UInt32 UsageParameterSpace   = 0x00000004;  // tex coord
+    static const UInt32 UsageColorSpace       = 0x00000008;  // color
+    
+    static const UInt32 UsageSystemSet        = 0x10000000;  // mark as set by OpenSG
+        
     /*---------------------------------------------------------------------*/
     /*! \name                 Property Interface                           */
     /*! \{                                                                 */
 
-    virtual       UInt32  getFormat    (void) const = 0;
-    virtual       UInt32  getFormatSize(void) const = 0;
-    virtual       UInt32  getStride    (void) const = 0;
-    virtual       UInt32  getDimension (void) const = 0;
-    virtual       UInt32  getSize      (void) const;
-    virtual       UInt32  size         (void) const = 0;
-    virtual const UInt8  *getData      (void) const
+    virtual       UInt32                 getFormat    (void) const = 0;
+    virtual       UInt32                 getFormatSize(void) const = 0;
+    virtual       UInt32                 getStride    (void) const = 0;
+    virtual       UInt32                 getDimension (void) const = 0;
+    virtual       UInt32                 getSize      (void) const;
+    virtual       UInt32                 size         (void) const = 0;
+    virtual const UInt8                 *getData      (void) const
     { return NULL;  }
 
+    virtual       GeoPropertyTransitPtr  clone        (void)       = 0;
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

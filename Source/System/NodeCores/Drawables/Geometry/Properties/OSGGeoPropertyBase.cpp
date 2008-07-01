@@ -60,7 +60,7 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGLEXT.h>                     // Usage default header
+#include <OSGGLEXT.h>                     // VboUsage default header
 
 
 #include "OSGGeoPropertyBase.h"
@@ -86,11 +86,16 @@ OSG_BEGIN_NAMESPACE
     The id used to register with the Window, 0 if not set up yet.
 */
 
+/*! \var UInt32          GeoPropertyBase::_sfUsage
+    Provides information about the semantics of this property. Valid values
+    are the GeoProperty::Usage... constants.    
+*/
+
 /*! \var UInt32          GeoPropertyBase::_sfGLId
     The id used to register with the Window, 0 if not set up yet.
 */
 
-/*! \var Int32           GeoPropertyBase::_sfUsage
+/*! \var Int32           GeoPropertyBase::_sfVboUsage
     The usage pattern, only valid for VBO use.
 */
 
@@ -114,6 +119,19 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
+        "usage",
+        "Provides information about the semantics of this property. Valid values\n"
+        "are the GeoProperty::Usage... constants.    \n",
+        UsageFieldId, UsageFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&GeoProperty::editHandleUsage),
+        static_cast<FieldGetMethodSig >(&GeoProperty::getHandleUsage));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
         "GLId",
         "The id used to register with the Window, 0 if not set up yet.\n",
         GLIdFieldId, GLIdFieldMask,
@@ -126,13 +144,13 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
-        "usage",
+        "vboUsage",
         "The usage pattern, only valid for VBO use.\n",
-        UsageFieldId, UsageFieldMask,
+        VboUsageFieldId, VboUsageFieldMask,
         true,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&GeoProperty::editHandleUsage),
-        static_cast<FieldGetMethodSig >(&GeoProperty::getHandleUsage));
+        static_cast<FieldEditMethodSig>(&GeoProperty::editHandleVboUsage),
+        static_cast<FieldGetMethodSig >(&GeoProperty::getHandleVboUsage));
 
     oType.addInitialDesc(pDesc);
 }
@@ -152,47 +170,58 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"GeoProperty\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"Drawable\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
+    "    name=\"GeoProperty\"\n"
+    "    parent=\"StateChunk\"\n"
+    "    library=\"Drawable\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    structure=\"abstract\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
     ">\n"
-    "\t<Field\n"
-    "\t\tname=\"useVBO\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"false\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tThe id used to register with the Window, 0 if not set up yet.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"GLId\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\taccess=\"protected\"\n"
-    "\t\tfieldFlags=\"FClusterLocal\"\n"
-    "\t>\n"
-    "\tThe id used to register with the Window, 0 if not set up yet.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"usage\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"GL_STATIC_DRAW_ARB\"\n"
+    "    <Field\n"
+    "        name=\"useVBO\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"false\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    The id used to register with the Window, 0 if not set up yet.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"usage\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    Provides information about the semantics of this property. Valid values\n"
+    "    are the GeoProperty::Usage... constants.    \n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"GLId\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        defaultValue=\"0\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "    >\n"
+    "    The id used to register with the Window, 0 if not set up yet.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"vboUsage\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        defaultValue=\"GL_STATIC_DRAW_ARB\"\n"
     "                defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
-    "\t\taccess=\"protected\"\n"
-    "\t>\n"
-    "\tThe usage pattern, only valid for VBO use.\n"
-    "\t</Field>\n"
+    "        access=\"protected\"\n"
+    "    >\n"
+    "    The usage pattern, only valid for VBO use.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -230,6 +259,19 @@ const SFBool *GeoPropertyBase::getSFUseVBO(void) const
 }
 
 
+SFUInt32 *GeoPropertyBase::editSFUsage(void)
+{
+    editSField(UsageFieldMask);
+
+    return &_sfUsage;
+}
+
+const SFUInt32 *GeoPropertyBase::getSFUsage(void) const
+{
+    return &_sfUsage;
+}
+
+
 SFUInt32 *GeoPropertyBase::editSFGLId(void)
 {
     editSField(GLIdFieldMask);
@@ -243,16 +285,16 @@ const SFUInt32 *GeoPropertyBase::getSFGLId(void) const
 }
 
 
-SFInt32 *GeoPropertyBase::editSFUsage(void)
+SFInt32 *GeoPropertyBase::editSFVboUsage(void)
 {
-    editSField(UsageFieldMask);
+    editSField(VboUsageFieldMask);
 
-    return &_sfUsage;
+    return &_sfVboUsage;
 }
 
-const SFInt32 *GeoPropertyBase::getSFUsage(void) const
+const SFInt32 *GeoPropertyBase::getSFVboUsage(void) const
 {
-    return &_sfUsage;
+    return &_sfVboUsage;
 }
 
 
@@ -270,13 +312,17 @@ UInt32 GeoPropertyBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfUseVBO.getBinSize();
     }
+    if(FieldBits::NoField != (UsageFieldMask & whichField))
+    {
+        returnValue += _sfUsage.getBinSize();
+    }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         returnValue += _sfGLId.getBinSize();
     }
-    if(FieldBits::NoField != (UsageFieldMask & whichField))
+    if(FieldBits::NoField != (VboUsageFieldMask & whichField))
     {
-        returnValue += _sfUsage.getBinSize();
+        returnValue += _sfVboUsage.getBinSize();
     }
 
     return returnValue;
@@ -291,13 +337,17 @@ void GeoPropertyBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfUseVBO.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (UsageFieldMask & whichField))
+    {
+        _sfUsage.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (UsageFieldMask & whichField))
+    if(FieldBits::NoField != (VboUsageFieldMask & whichField))
     {
-        _sfUsage.copyToBin(pMem);
+        _sfVboUsage.copyToBin(pMem);
     }
 }
 
@@ -310,13 +360,17 @@ void GeoPropertyBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfUseVBO.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (UsageFieldMask & whichField))
+    {
+        _sfUsage.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (UsageFieldMask & whichField))
+    if(FieldBits::NoField != (VboUsageFieldMask & whichField))
     {
-        _sfUsage.copyFromBin(pMem);
+        _sfVboUsage.copyFromBin(pMem);
     }
 }
 
@@ -328,16 +382,18 @@ void GeoPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 GeoPropertyBase::GeoPropertyBase(void) :
     Inherited(),
     _sfUseVBO                 (bool(false)),
+    _sfUsage                  (UInt32(0)),
     _sfGLId                   (UInt32(0)),
-    _sfUsage                  (Int32(GL_STATIC_DRAW_ARB))
+    _sfVboUsage               (Int32(GL_STATIC_DRAW_ARB))
 {
 }
 
 GeoPropertyBase::GeoPropertyBase(const GeoPropertyBase &source) :
     Inherited(source),
     _sfUseVBO                 (source._sfUseVBO                 ),
+    _sfUsage                  (source._sfUsage                  ),
     _sfGLId                   (source._sfGLId                   ),
-    _sfUsage                  (source._sfUsage                  )
+    _sfVboUsage               (source._sfVboUsage               )
 {
 }
 
@@ -372,6 +428,29 @@ EditFieldHandlePtr GeoPropertyBase::editHandleUseVBO         (void)
     return returnValue;
 }
 
+GetFieldHandlePtr GeoPropertyBase::getHandleUsage           (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfUsage,
+             this->getType().getFieldDesc(UsageFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeoPropertyBase::editHandleUsage          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfUsage,
+             this->getType().getFieldDesc(UsageFieldId)));
+
+
+    editSField(UsageFieldMask);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr GeoPropertyBase::getHandleGLId            (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
@@ -395,25 +474,25 @@ EditFieldHandlePtr GeoPropertyBase::editHandleGLId           (void)
     return returnValue;
 }
 
-GetFieldHandlePtr GeoPropertyBase::getHandleUsage           (void) const
+GetFieldHandlePtr GeoPropertyBase::getHandleVboUsage        (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfUsage,
-             this->getType().getFieldDesc(UsageFieldId)));
+             &_sfVboUsage,
+             this->getType().getFieldDesc(VboUsageFieldId)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr GeoPropertyBase::editHandleUsage          (void)
+EditFieldHandlePtr GeoPropertyBase::editHandleVboUsage       (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfUsage,
-             this->getType().getFieldDesc(UsageFieldId)));
+             &_sfVboUsage,
+             this->getType().getFieldDesc(VboUsageFieldId)));
 
 
-    editSField(UsageFieldMask);
+    editSField(VboUsageFieldMask);
 
     return returnValue;
 }

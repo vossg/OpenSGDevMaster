@@ -116,15 +116,15 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
           StoredFieldType &editField   (void);
     const StoredFieldType &getField    (void) const;
 
-    virtual GeoIntegralPropertyTransitPtr clone(void);
+    virtual       UInt32                 getFormat    (void) const;
+    virtual       UInt32                 getFormatSize(void) const;
+    virtual       UInt32                 getStride    (void) const;
+    virtual       UInt32                 getDimension (void) const;
+    virtual const UInt8                 *getData      (void) const;
+    virtual       UInt32                 size         (void) const;
 
-    virtual       UInt32  getFormat    (void) const;
-    virtual       UInt32  getFormatSize(void) const;
-    virtual       UInt32  getStride    (void) const;
-    virtual       UInt32  getDimension (void) const;
-    virtual const UInt8  *getData      (void) const;
-    virtual       UInt32  size         (void) const;
-
+    virtual       GeoPropertyTransitPtr  clone        (void);
+    
             const StoredFieldType &operator->(      void               ) const;
 
                   StoredType       getValue  (const UInt32      index  ) const;
@@ -297,6 +297,8 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
 //    static const ObjPtr NullPtr;
 
     static TypeObject  _type;
+    
+           void onCreate  (const Self *source = NULL);
 };
 
 struct TypedGeoIntegralPropertyDescBase
@@ -314,9 +316,14 @@ struct TypedGeoIntegralPropertyDescBase
     static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
     static void exitMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
-    static UInt32         getStride    (void) { return 0; }
+    static UInt32         getStride      (void) { return 0; }
 
-    static UInt32         getDimension (void) { return 1; }
+    static UInt32         getDimension   (void) { return 1; }
+    
+    static UInt32         getDefaultUsage(void)
+    {
+        return GeoProperty::UsageUnspecified | GeoProperty::UsageSystemSet;
+    }
 };
 
 

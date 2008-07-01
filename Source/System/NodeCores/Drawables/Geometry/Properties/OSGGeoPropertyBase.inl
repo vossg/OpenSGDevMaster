@@ -98,6 +98,31 @@ void GeoPropertyBase::setUseVBO(const bool value)
 
     _sfUseVBO.setValue(value);
 }
+//! Get the value of the GeoProperty::_sfUsage field.
+
+inline
+UInt32 &GeoPropertyBase::editUsage(void)
+{
+    editSField(UsageFieldMask);
+
+    return _sfUsage.getValue();
+}
+
+//! Get the value of the GeoProperty::_sfUsage field.
+inline
+      UInt32  GeoPropertyBase::getUsage(void) const
+{
+    return _sfUsage.getValue();
+}
+
+//! Set the value of the GeoProperty::_sfUsage field.
+inline
+void GeoPropertyBase::setUsage(const UInt32 value)
+{
+    editSField(UsageFieldMask);
+
+    _sfUsage.setValue(value);
+}
 //! Get the value of the GeoProperty::_sfGLId field.
 
 inline
@@ -123,30 +148,30 @@ void GeoPropertyBase::setGLId(const UInt32 value)
 
     _sfGLId.setValue(value);
 }
-//! Get the value of the GeoProperty::_sfUsage field.
+//! Get the value of the GeoProperty::_sfVboUsage field.
 
 inline
-Int32 &GeoPropertyBase::editUsage(void)
+Int32 &GeoPropertyBase::editVboUsage(void)
 {
-    editSField(UsageFieldMask);
+    editSField(VboUsageFieldMask);
 
-    return _sfUsage.getValue();
+    return _sfVboUsage.getValue();
 }
 
-//! Get the value of the GeoProperty::_sfUsage field.
+//! Get the value of the GeoProperty::_sfVboUsage field.
 inline
-      Int32  GeoPropertyBase::getUsage(void) const
+      Int32  GeoPropertyBase::getVboUsage(void) const
 {
-    return _sfUsage.getValue();
+    return _sfVboUsage.getValue();
 }
 
-//! Set the value of the GeoProperty::_sfUsage field.
+//! Set the value of the GeoProperty::_sfVboUsage field.
 inline
-void GeoPropertyBase::setUsage(const Int32 value)
+void GeoPropertyBase::setVboUsage(const Int32 value)
 {
-    editSField(UsageFieldMask);
+    editSField(VboUsageFieldMask);
 
-    _sfUsage.setValue(value);
+    _sfVboUsage.setValue(value);
 }
 
 
@@ -163,11 +188,14 @@ void GeoPropertyBase::execSync (      GeoPropertyBase *pFrom,
     if(FieldBits::NoField != (UseVBOFieldMask & whichField))
         _sfUseVBO.syncWith(pFrom->_sfUseVBO);
 
+    if(FieldBits::NoField != (UsageFieldMask & whichField))
+        _sfUsage.syncWith(pFrom->_sfUsage);
+
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);
 
-    if(FieldBits::NoField != (UsageFieldMask & whichField))
-        _sfUsage.syncWith(pFrom->_sfUsage);
+    if(FieldBits::NoField != (VboUsageFieldMask & whichField))
+        _sfVboUsage.syncWith(pFrom->_sfVboUsage);
 }
 #endif
 

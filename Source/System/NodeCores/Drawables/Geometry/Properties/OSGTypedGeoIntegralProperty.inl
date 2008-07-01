@@ -302,16 +302,16 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::reference
     \return A copy of this property.
  */
 template <class GeoPropertyDesc> inline
-GeoIntegralPropertyTransitPtr
+GeoPropertyTransitPtr
 TypedGeoIntegralProperty<GeoPropertyDesc>::clone(void)
 {
-    ObjTransitPtr obj = TypedGeoIntegralProperty<GeoPropertyDesc>::create();
+    ObjTransitPtr obj = Self::create();
 
     editMField(GeoPropDataFieldMask, obj->_field);
     
     obj->_field.setValues(_field);
 
-    return GeoIntegralPropertyTransitPtr(obj);
+    return GeoPropertyTransitPtr(obj);
 }
 
 /*! \copydoc OSG::GeoIntegralProperty::getFormat
@@ -528,6 +528,17 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::exitMethod(InitPhase ePhase)
     GeoPropertyDesc::exitMethod(ePhase);
 
     Inherited::exitMethod(ePhase);
+}
+
+template <class GeoPropertyDesc> inline
+void TypedGeoIntegralProperty<GeoPropertyDesc>::onCreate(
+    const Self *source)
+{
+    Inherited::onCreate(source);
+    
+    editSField(UsageFieldMask);
+    
+    _sfUsage.setValue(GeoPropertyDesc::getDefaultUsage());
 }
 
 template <class GeoPropertyDesc> inline

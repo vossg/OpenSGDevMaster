@@ -598,13 +598,17 @@ bool Geometry::isSingleIndex(void) const
     return returnValue;
 }
 
+/*! Returns the indices properties of this geometry together with information
+    for which properties they are used.
+    Each element of the returned vector holds a pointer to an indices property
+    and a vector indicating which properties are indexed by it.
+*/
 Geometry::IndexBag Geometry::getUniqueIndexBag(void) const
 {
+    typedef IndexBag::value_type IndexBagEntry;
+
     IndexBag returnValue;
     UInt32   i;
-
-    typedef std::pair<GeoIntegralProperty *, 
-                      std::vector<UInt16>  > IndexBagEntry;
 
     // Find the first valid prop
     for(i = 0; i < _mfPropIndices.size(); ++i)
@@ -627,7 +631,7 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void) const
 
     bool bFoundProp;
 
-    for(UInt32 j = i + 1; j < _mfPropIndices.size(); j++)
+    for(UInt32 j = i + 1; j < _mfPropIndices.size(); ++j)
     {
         bFoundProp = false;
 

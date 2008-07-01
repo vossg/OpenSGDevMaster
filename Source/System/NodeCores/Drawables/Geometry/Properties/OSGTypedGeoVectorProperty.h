@@ -131,20 +131,15 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \name                      Assigment                               */
     /*! \{                                                                 */
 
-    virtual GeoVectorPropertyTransitPtr clone(void);
+    virtual       UInt32                 getFormat    (void) const;
+    virtual       UInt32                 getFormatSize(void) const;
+    virtual       UInt32                 getStride    (void) const;
+    virtual       UInt32                 getDimension (void) const;
+    virtual       UInt32                 size         (void) const;
+    virtual const UInt8                 *getData      (void) const;
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Assigment                               */
-    /*! \{                                                                 */
-
-    virtual       UInt32  getFormat    (void) const;
-    virtual       UInt32  getFormatSize(void) const;
-    virtual       UInt32  getStride    (void) const;
-    virtual       UInt32  getDimension (void) const;
-    virtual       UInt32  size         (void) const;
-    virtual const UInt8  *getData      (void) const;
-
+    virtual       GeoPropertyTransitPtr  clone        (void);
+    
             const StoredFieldType &operator->  (       void              ) const;
 
             StoredType             getValue    (const UInt32      index  ) const;
@@ -389,6 +384,8 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     static void exitMethod(InitPhase ePhase);
 
     static TypeObject  _type;
+    
+           void onCreate  (const Self *source = NULL);
 };
 
 
@@ -407,9 +404,12 @@ struct TypedGeoVectorPropertyDescBase
     static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
     static void exitMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
-    static UInt32             getStride    (void) { return 0;               }
-
-    static const Char8 *getTypeName (void) { return "GeoVectorProperty"; }
+    static UInt32       getStride      (void) { return 0;                   }
+    static const Char8 *getTypeName    (void) { return "GeoVectorProperty"; }
+    static UInt32       getDefaultUsage(void)
+    { 
+        return GeoProperty::UsageObjectSpace;
+    }
 
     /* Don't normalize */
     typedef GeoConvert Converter;
@@ -435,26 +435,32 @@ struct TypedNormGeoVectorPropertyDescBase
     static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
     static void exitMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
-    static UInt32             getStride    (void) { return 0;               }
+    static UInt32       getStride      (void) { return 0;                   }
+    static const Char8 *getTypeName    (void) { return "GeoVectorProperty"; }
+    static UInt32       getDefaultUsage(void)
+    {
+        return GeoProperty::UsageTangentSpace;
+    }
 
-    static const Char8 *getTypeName (void) { return "GeoVectorProperty"; }
 
     /* Normalize */
     typedef GeoConvertNormalize     Converter;
+    
     static const bool normalize = true;
-    static const int offset = 0;
+    static const int  offset    = 0;
 };
 
 
 // Helper Macro to define Properties
 
-#undef makeProp
+#undef OSG_MAKE_PROP
+#undef OSG_MAKE_NORM_PROP
 
 #if !defined(OSG_DO_DOC)
 
 /*! Helper macro for auto building geo property header information.
 */
-#define makeProp(typename, gltypename, gltype)                                \
+#define OSG_MAKE_PROP(typename, gltypename, gltype, OSG_USAGE)                \
 struct Geo##typename##PropertyDesc :                                          \
     public TypedGeoVectorPropertyDescBase                                     \
 {                                                                             \
@@ -462,14 +468,18 @@ struct Geo##typename##PropertyDesc :                                          \
     /*! \name                          Get                                 */ \
     /*! \{                                                                 */ \
                                                                               \
-    static const Char8 *getTypeName (void)                                    \
+    static const Char8 *getTypeName    (void)                                 \
     {                                                                         \
         return "Geo" #typename "Property";                                    \
     }                                                                         \
                                                                               \
-    static UInt32             getFormat    (void) { return gltypename;      } \
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
-    static UInt32             getDimension (void) { return typename::_uiSize;}\
+    static UInt32       getFormat      (void) { return gltypename;        }   \
+    static UInt32       getFormatSize  (void) { return sizeof(gltype);    }   \
+    static UInt32       getDimension   (void) { return typename::_uiSize; }   \
+    static UInt32       getDefaultUsage(void)                                 \
+    {                                                                         \
+        return GeoProperty::OSG_USAGE | GeoProperty::UsageSystemSet;          \
+    }                                                                         \
                                                                               \
     typedef typename          StoredType;                                     \
     typedef MF##typename      StoredFieldType;                                \
@@ -479,10 +489,10 @@ struct Geo##typename##PropertyDesc :                                          \
 typedef TypedGeoVectorProperty<Geo##typename##PropertyDesc>                   \
         Geo##typename##Property;                                              \
                                                                               \
-OSG_GEN_CONTAINERPTR(Geo##typename##Property);
+OSG_GEN_CONTAINERPTR(Geo##typename##Property)
 
 
-#define makeNormProp(typename, propname, nscale, gltypename, gltype)          \
+#define OSG_MAKE_NORM_PROP(typename, propname, nscale, gltypename, gltype, OSG_USAGE) \
 struct Geo##propname##PropertyDesc :                                          \
     public TypedNormGeoVectorPropertyDescBase                                 \
 {                                                                             \
@@ -495,9 +505,13 @@ struct Geo##propname##PropertyDesc :                                          \
         return "Geo" #propname "Property";                                    \
     }                                                                         \
                                                                               \
-    static UInt32             getFormat    (void) { return gltypename;      } \
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
-    static UInt32             getDimension (void) { return typename::_uiSize;}\
+    static UInt32       getFormat      (void) { return gltypename;        }   \
+    static UInt32       getFormatSize  (void) { return sizeof(gltype);    }   \
+    static UInt32       getDimension   (void) { return typename::_uiSize; }   \
+    static UInt32       getDefaultUsage(void)                                 \
+    {                                                                         \
+        return GeoProperty::OSG_USAGE | GeoProperty::UsageSystemSet;          \
+    }                                                                         \
                                                                               \
     typedef typename          StoredType;                                     \
     typedef MF##typename      StoredFieldType;                                \
@@ -509,11 +523,11 @@ struct Geo##propname##PropertyDesc :                                          \
 typedef TypedGeoVectorProperty<Geo##propname##PropertyDesc>                   \
         Geo##propname##Property;                                              \
                                                                               \
-OSG_GEN_CONTAINERPTR(Geo##propname##Property);
+OSG_GEN_CONTAINERPTR(Geo##propname##Property)
 
 #else // !defined(OSG_DO_DOC)
 
-#define makeProp(typename, gltypename, gltype)                                \
+#define OSG_MAKE_PROP(typename, gltypename, gltype, USAGE)                    \
 struct Geo##typename##PropertyDesc :                                          \
     public TypedGeoVectorPropertyDescBase                                     \
 {                                                                             \
@@ -521,21 +535,25 @@ struct Geo##typename##PropertyDesc :                                          \
     /*! \name                          Get                                 */ \
     /*! \{                                                                 */ \
                                                                               \
-    static const Char8 *getTypeName (void)                                    \
+    static const Char8 *getTypeName    (void)                                 \
     {                                                                         \
         return "Geo" #typename "Property";                                    \
     }                                                                         \
                                                                               \
-    static UInt32             getFormat    (void) { return gltypename;      } \
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
-    static UInt32             getDimension (void) { return typename::_uiSize;}\
+    static UInt32       getFormat      (void) { return gltypename;        }   \
+    static UInt32       getFormatSize  (void) { return sizeof(gltype);    }   \
+    static UInt32       getDimension   (void) { return typename::_uiSize; }   \
+    static UInt32       getDefaultUsage(void)                                 \
+    {                                                                         \
+        return GeoProperty::USAGE | GeoProperty::UsageSystemSet;          \
+    }                                                                         \
                                                                               \
     typedef typename          StoredType;                                     \
     typedef MF##typename      StoredFieldType;                                \
     /*! \}                                                                 */ \
 }
 
-#define makeNormProp(typename, propname, nscale, gltypename, gltype)          \
+#define OSG_MAKE_NORM_PROP(typename, propname, nscale, gltypename, gltype, USAGE) \
 struct Geo##propname##PropertyDesc :                                          \
     public TypedNormGeoVectorPropertyDescBase                                 \
 {                                                                             \
@@ -543,14 +561,18 @@ struct Geo##propname##PropertyDesc :                                          \
     /*! \name                          Get                                 */ \
     /*! \{                                                                 */ \
                                                                               \
-    static const Char8 *getTypeName (void)                                    \
+    static const Char8 *getTypeName    (void)                                 \
     {                                                                         \
         return "Geo" #propname "Property";                                    \
     }                                                                         \
                                                                               \
-    static UInt32             getFormat    (void) { return gltypename;      } \
-    static UInt32             getFormatSize(void) { return sizeof(gltype);  } \
-    static UInt32             getDimension (void) { return typename::_uiSize;}\
+    static UInt32       getFormat      (void) { return gltypename;        }   \
+    static UInt32       getFormatSize  (void) { return sizeof(gltype);    }   \
+    static UInt32       getDimension   (void) { return typename::_uiSize; }   \
+    static UInt32       getDefaultUsage(void)                                 \
+    {                                                                         \
+        return GeoProperty::USAGE | GeoProperty::UsageSystemSet;          \
+    }                                                                         \
                                                                               \
     typedef typename          StoredType;                                     \
     typedef MF##typename      StoredFieldType;                                \
@@ -564,63 +586,78 @@ struct Geo##propname##PropertyDesc :                                          \
 
 // Meta-Macros
 
-#define make1to4dprop(tbase, ttype, gltypename, gltype)                     \
-makeProp(tbase##1##ttype, gltypename, gltype);                              \
-makeProp(tbase##2##ttype, gltypename, gltype);                              \
-makeProp(tbase##3##ttype, gltypename, gltype);                              \
-makeProp(tbase##4##ttype, gltypename, gltype)
+#define OSG_MAKE_1D_TO_4D_PROP(TBASE, TTYPE, GLTYPENAME, GLTYPE, USAGE)     \
+OSG_MAKE_PROP(TBASE##1##TTYPE, GLTYPENAME, GLTYPE, USAGE);                  \
+OSG_MAKE_PROP(TBASE##2##TTYPE, GLTYPENAME, GLTYPE, USAGE);                  \
+OSG_MAKE_PROP(TBASE##3##TTYPE, GLTYPENAME, GLTYPE, USAGE);                  \
+OSG_MAKE_PROP(TBASE##4##TTYPE, GLTYPENAME, GLTYPE, USAGE)
 
-#define maketypesprop(ttype, gltypename, gltype)                            \
-make1to4dprop(Vec, ttype, gltypename, gltype);                              \
-make1to4dprop(Pnt, ttype, gltypename, gltype);                              \
+#define OSG_MAKE_1D_TO_4D_NORM_PROP(TBASE, TTYPE, SCALE, GLTYPENAME, GLTYPE, USAGE)         \
+OSG_MAKE_NORM_PROP(TBASE##1##TTYPE, TBASE##1N##TTYPE, SCALE, GLTYPENAME, GLTYPE, USAGE);    \
+OSG_MAKE_NORM_PROP(TBASE##2##TTYPE, TBASE##2N##TTYPE, SCALE, GLTYPENAME, GLTYPE, USAGE);    \
+OSG_MAKE_NORM_PROP(TBASE##3##TTYPE, TBASE##3N##TTYPE, SCALE, GLTYPENAME, GLTYPE, USAGE);    \
+OSG_MAKE_NORM_PROP(TBASE##4##TTYPE, TBASE##4N##TTYPE, SCALE, GLTYPENAME, GLTYPE, USAGE)
 
-#define make1to4dnprop(tbase, ttype, scale, gltypename, gltype)             \
-makeNormProp(tbase##1##ttype, tbase##1N##ttype, scale, gltypename, gltype); \
-makeNormProp(tbase##2##ttype, tbase##2N##ttype, scale, gltypename, gltype); \
-makeNormProp(tbase##3##ttype, tbase##3N##ttype, scale, gltypename, gltype); \
-makeNormProp(tbase##4##ttype, tbase##4N##ttype, scale, gltypename, gltype)
-
-#define maketypesnprop(ttype, scale, gltypename, gltype)                    \
-make1to4dnprop(Vec, ttype, scale, gltypename, gltype);                      \
-make1to4dnprop(Pnt, ttype, scale, gltypename, gltype);                      \
-make1to4dprop(Vec, ttype, gltypename, gltype);                              \
-make1to4dprop(Pnt, ttype, gltypename, gltype)
-
-#define makecolorprop(ttype, scale, gltypename, gltype)                     \
-makeProp(Color3##ttype, gltypename, gltype);                                \
-makeProp(Color4##ttype, gltypename, gltype);                                \
-makeNormProp(Color3##ttype, Color3N##ttype, scale, gltypename, gltype);     \
-makeNormProp(Color4##ttype, Color4N##ttype, scale, gltypename, gltype)
+#define OSG_MAKE_COLOR_PROP(TTYPE, SCALE, GLTYPENAME, GLTYPE)                                  \
+OSG_MAKE_PROP(Color3##TTYPE, GLTYPENAME, GLTYPE, UsageColorSpace);                             \
+OSG_MAKE_PROP(Color4##TTYPE, GLTYPENAME, GLTYPE, UsageColorSpace);                             \
+OSG_MAKE_NORM_PROP(Color3##TTYPE, Color3N##TTYPE, SCALE, GLTYPENAME, GLTYPE, UsageColorSpace); \
+OSG_MAKE_NORM_PROP(Color4##TTYPE, Color4N##TTYPE, SCALE, GLTYPENAME, GLTYPE, UsageColorSpace)
 
 // Now create all the necessary properties
+OSG_MAKE_1D_TO_4D_NORM_PROP(Vec, ub,         255, GL_UNSIGNED_BYTE,  GLubyte,  UsageUnspecified);
+OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt, ub,         255, GL_UNSIGNED_BYTE,  GLubyte,  UsageObjectSpace);
+OSG_MAKE_1D_TO_4D_NORM_PROP(Vec,  b,         127, GL_BYTE,           GLbyte,   UsageUnspecified);
+OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt,  b,         127, GL_BYTE,           GLbyte,   UsageObjectSpace);
+OSG_MAKE_1D_TO_4D_NORM_PROP(Vec, us,       65535, GL_UNSIGNED_SHORT, GLushort, UsageUnspecified);
+OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt, us,       65535, GL_UNSIGNED_SHORT, GLushort, UsageObjectSpace);
+OSG_MAKE_1D_TO_4D_NORM_PROP(Vec,  s,       32767, GL_SHORT,          GLshort,  UsageUnspecified);
+OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt,  s,       32767, GL_SHORT,          GLshort,  UsageObjectSpace);
 
-maketypesnprop(ub,         255, GL_UNSIGNED_BYTE,  GLubyte);
-maketypesnprop( b,         127, GL_BYTE,           GLbyte);
-maketypesnprop(us,       65535, GL_UNSIGNED_SHORT, GLushort);
-maketypesnprop( s,       32767, GL_SHORT,          GLshort);
 // Does anybody need those? *DR*
-//maketypesnprop(ui, 4294967295U, GL_UNSIGNED_INT,   GLuint);
-//maketypesnprop( i, 2147483647U, GL_INT,            GLint);
+// OSG_MAKE_1D_TO_4D_NORM_PROP(Vec, ui, 4294967295U, GL_UNSIGNED_INT,   GLuint,   UsageUnspecified);
+// OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt, ui, 4294967295U, GL_UNSIGNED_INT,   GLuint,   UsageObjectSpace);
+// OSG_MAKE_1D_TO_4D_NORM_PROP(Vec,  i, 2147483647U, GL_INT,            GLint,    UsageUnspecified);
+// OSG_MAKE_1D_TO_4D_NORM_PROP(Pnt,  i, 2147483647U, GL_INT,            GLint,    UsageObjectSpace);
+
+OSG_MAKE_1D_TO_4D_PROP(Vec, ub, GL_UNSIGNED_BYTE,  GLubyte,  UsageUnspecified);
+OSG_MAKE_1D_TO_4D_PROP(Pnt, ub, GL_UNSIGNED_BYTE,  GLubyte,  UsageObjectSpace);
+OSG_MAKE_1D_TO_4D_PROP(Vec,  b, GL_BYTE,           GLbyte,   UsageUnspecified);
+OSG_MAKE_1D_TO_4D_PROP(Pnt,  b, GL_BYTE,           GLbyte,   UsageObjectSpace);
+OSG_MAKE_1D_TO_4D_PROP(Vec, us, GL_UNSIGNED_SHORT, GLushort, UsageUnspecified);
+OSG_MAKE_1D_TO_4D_PROP(Pnt, us, GL_UNSIGNED_SHORT, GLushort, UsageObjectSpace);
+OSG_MAKE_1D_TO_4D_PROP(Vec,  s, GL_SHORT,          GLshort,  UsageUnspecified);
+OSG_MAKE_1D_TO_4D_PROP(Pnt,  s, GL_SHORT,          GLshort,  UsageObjectSpace);
+
+// Does anybody need those? *DR*
+// OSG_MAKE_1D_TO_4D_PROP(Vec, ui, GL_UNSIGNED_INT,   GLuint,   UsageUnspecified);
+// OSG_MAKE_1D_TO_4D_PROP(Pnt, ui, GL_UNSIGNED_INT,   GLuint,   UsageObjectSpace);
+// OSG_MAKE_1D_TO_4D_PROP(Vec,  i, GL_INT,            GLint,    UsageUnspecified);
+// OSG_MAKE_1D_TO_4D_PROP(Pnt,  i, GL_INT,            GLint,    UsageObjectSpace);
 
 #ifndef OSG_WINCE
-maketypesprop(f, GL_FLOAT,  GLfloat);
+OSG_MAKE_1D_TO_4D_PROP(Vec, f, GL_FLOAT, GLfloat, UsageUnspecified);
+OSG_MAKE_1D_TO_4D_PROP(Pnt, f, GL_FLOAT, GLfloat, UsageObjectSpace);
 #endif
 
 #ifdef OSG_WINCE
-maketypesprop(fx, GL_FIXED, GLfixed);
+OSG_MAKE_1D_TO_4D_PROP(Vec, fx, GL_FIXED, GLfixed, UsageUnspecified);
+OSG_MAKE_1D_TO_4D_PROP(Pnt, fx, GL_FIXED, GLfixed, UsageObjectSpace);
 #endif
 
 #ifndef OSG_WINCE
-maketypesprop(d, GL_DOUBLE, GLdouble);
+OSG_MAKE_1D_TO_4D_PROP(Vec, d, GL_DOUBLE, GLdouble, UsageUnspecified);
+OSG_MAKE_1D_TO_4D_PROP(Pnt, d, GL_DOUBLE, GLdouble, UsageObjectSpace);
 #endif
 
-makecolorprop(ub,         255, GL_UNSIGNED_BYTE,  GLubyte);
-makeProp(Color3f, GL_FLOAT,  GLfloat);
-makeProp(Color4f, GL_FLOAT,  GLfloat);
+OSG_MAKE_COLOR_PROP(ub, 255, GL_UNSIGNED_BYTE, GLubyte);
+
+OSG_MAKE_PROP(Color3f, GL_FLOAT,  GLfloat, UsageColorSpace);
+OSG_MAKE_PROP(Color4f, GL_FLOAT,  GLfloat, UsageColorSpace);
 
 #ifdef OSG_WINCE
-makeProp(Color3fx, GL_FIXED,  GLfixed);
-makeProp(Color4fx, GL_FIXED,  GLfixed);
+OSG_MAKE_PROP(Color3fx, GL_FIXED,  GLfixed, UsageColorSpace);
+OSG_MAKE_PROP(Color4fx, GL_FIXED,  GLfixed, UsageColorSpace);
 #endif
 
 
@@ -629,50 +666,30 @@ makeProp(Color4fx, GL_FIXED,  GLfixed);
 */
 
 // Positions
-//typedef GeoVectorPropertyPtr         GeoPositionsPtr;
-//typedef ConstGeoVectorPropertyPtr    ConstGeoPositionsPtr;
 
 typedef GeoPnt2sProperty    GeoPositions2s;
 typedef GeoPnt3sProperty    GeoPositions3s;
 typedef GeoPnt4sProperty    GeoPositions4s;
-//typedef GeoPnt2sPropertyPtr GeoPositions2sPtr;
-//typedef GeoPnt3sPropertyPtr GeoPositions3sPtr;
-//typedef GeoPnt4sPropertyPtr GeoPositions4sPtr;
 
 #ifndef OSG_WINCE
 typedef GeoPnt2fProperty    GeoPositions2f;
 typedef GeoPnt3fProperty    GeoPositions3f;
 typedef GeoPnt4fProperty    GeoPositions4f;
-//typedef GeoPnt2fPropertyPtr GeoPositions2fPtr;
-//typedef GeoPnt3fPropertyPtr GeoPositions3fPtr;
-//typedef GeoPnt4fPropertyPtr GeoPositions4fPtr;
 
 typedef GeoPnt2dProperty    GeoPositions2d;
 typedef GeoPnt3dProperty    GeoPositions3d;
 typedef GeoPnt4dProperty    GeoPositions4d;
-//typedef GeoPnt2dPropertyPtr GeoPositions2dPtr;
-//typedef GeoPnt3dPropertyPtr GeoPositions3dPtr;
-//typedef GeoPnt4dPropertyPtr GeoPositions4dPtr;
 #endif
 
 // Normals
-//typedef GeoVectorPropertyPtr         GeoNormalsPtr;
-//typedef ConstGeoVectorPropertyPtr    ConstGeoNormalsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoVec3fProperty    GeoNormals3f;
 #endif
 typedef GeoVec3sProperty    GeoNormals3s;
 typedef GeoVec3bProperty    GeoNormals3b;
-#ifndef OSG_WINCE
-//typedef GeoVec3fPropertyPtr GeoNormals3fPtr;
-#endif
-//typedef GeoVec3sPropertyPtr GeoNormals3sPtr;
-//typedef GeoVec3bPropertyPtr GeoNormals3bPtr;
 
 // Colors
-//typedef GeoVectorPropertyPtr         GeoColorsPtr;
-//typedef ConstGeoVectorPropertyPtr    ConstGeoColorsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoColor3fProperty     GeoColors3f;
@@ -680,16 +697,8 @@ typedef GeoColor4fProperty     GeoColors4f;
 #endif
 typedef GeoColor3ubProperty    GeoColors3ub;
 typedef GeoColor4ubProperty    GeoColors4ub;
-#ifndef OSG_WINCE
-//typedef GeoColor3fPropertyPtr  GeoColors3fPtr;
-//typedef GeoColor4fPropertyPtr  GeoColors4fPtr;
-#endif
-//typedef GeoColor3ubPropertyPtr GeoColors3ubPtr;
-//typedef GeoColor4ubPropertyPtr GeoColors4ubPtr;
 
 // TexCoords
-//typedef GeoVectorPropertyPtr         GeoTexCoordsPtr;
-//typedef ConstGeoVectorPropertyPtr    ConstGeoTexCoordsPtr;
 
 #ifndef OSG_WINCE
 typedef GeoVec1fProperty     GeoTexCoords1f;
@@ -697,23 +706,13 @@ typedef GeoVec2fProperty     GeoTexCoords2f;
 typedef GeoVec3fProperty     GeoTexCoords3f;
 typedef GeoVec4fProperty     GeoTexCoords4f;
 
-//typedef GeoVec1fPropertyPtr  GeoTexCoords1fPtr;
-//typedef GeoVec2fPropertyPtr  GeoTexCoords2fPtr;
-//typedef GeoVec3fPropertyPtr  GeoTexCoords3fPtr;
-//typedef GeoVec4fPropertyPtr  GeoTexCoords4fPtr;
-
 typedef GeoVec1dProperty     GeoTexCoords1d;
 typedef GeoVec2dProperty     GeoTexCoords2d;
 typedef GeoVec3dProperty     GeoTexCoords3d;
 typedef GeoVec4dProperty     GeoTexCoords4d;
-
-//typedef GeoVec1dPropertyPtr  GeoTexCoords1dPtr;
-//typedef GeoVec2dPropertyPtr  GeoTexCoords2dPtr;
-//typedef GeoVec3dPropertyPtr  GeoTexCoords3dPtr;
-//typedef GeoVec4dPropertyPtr  GeoTexCoords4dPtr;
 #endif
 
-#endif
+#endif // OSG_DEPRECIATED_PROPS
 
 #ifdef OSG_GLES
 #ifdef OSG_FLOAT_PROFILE
@@ -722,18 +721,11 @@ typedef GeoPnt3fxProperty     GeoPnt3rProperty;
 typedef GeoVec2fxProperty     GeoVec2rProperty;
 typedef GeoVec3fxProperty     GeoVec3rProperty;
 
-//typedef GeoPnt3fxPropertyPtr  GeoPnt3rPropertyPtr;
-//typedef GeoVec2fxPropertyPtr  GeoVec2rPropertyPtr;
-//typedef GeoVec3fxPropertyPtr  GeoVec3rPropertyPtr;
 #endif
 #else
 typedef GeoPnt3fProperty      GeoPnt3rProperty;
 typedef GeoVec2fProperty      GeoVec2rProperty;
 typedef GeoVec3fProperty      GeoVec3rProperty;
-
-//typedef GeoPnt3fPropertyPtr   GeoPnt3rPropertyPtr;
-//typedef GeoVec2fPropertyPtr   GeoVec2rPropertyPtr;
-//typedef GeoVec3fPropertyPtr   GeoVec3rPropertyPtr;
 
 typedef GeoPnt3fPropertyUnrecPtr   GeoPnt3rPropertyUnrecPtr;
 typedef GeoVec2fPropertyUnrecPtr   GeoVec2rPropertyUnrecPtr;
@@ -744,6 +736,13 @@ typedef GeoVec2fPropertyRecPtr   GeoVec2rPropertyRecPtr;
 typedef GeoVec3fPropertyRecPtr   GeoVec3rPropertyRecPtr;
 #endif
 
+
+#undef OSG_MAKE_PROP
+#undef OSG_MAKE_NORM_PROP
+
+#undef OSG_MAKE_1D_TO_4D_PROP
+#undef OSG_MAKE_1D_TO_4D_NORM_PROP
+#undef OSG_MAKE_COLOR_PROP
 
 OSG_END_NAMESPACE
 

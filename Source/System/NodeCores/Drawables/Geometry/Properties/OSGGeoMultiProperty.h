@@ -91,6 +91,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
                   void      setValue     (const MaxTypeT &val,
                                           const UInt32    index  );
 
+    virtual GeoPropertyTransitPtr clone(void);
+                                          
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */

@@ -297,16 +297,16 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::reference
     \return A copy of this property.
  */
 template <class GeoPropertyDesc> inline
-GeoVectorPropertyTransitPtr
+GeoPropertyTransitPtr
 TypedGeoVectorProperty<GeoPropertyDesc>::clone(void)
 {
-    ObjTransitPtr obj = TypedGeoVectorProperty<GeoPropertyDesc>::create();
+    ObjTransitPtr obj = Self::create();
 
     editMField(GeoPropDataFieldMask, obj->_field);
 
     obj->_field.setValues(_field);
 
-    return GeoVectorPropertyTransitPtr(obj);
+    return GeoPropertyTransitPtr(obj);
 }
 
 
@@ -540,6 +540,17 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::exitMethod(InitPhase ePhase)
     GeoPropertyDesc::exitMethod(ePhase);
 
     Inherited::exitMethod(ePhase);
+}
+
+template <class GeoPropertyDesc> inline
+void TypedGeoVectorProperty<GeoPropertyDesc>::onCreate(
+    const Self *source)
+{
+    Inherited::onCreate(source);
+    
+    editSField(UsageFieldMask);
+    
+    _sfUsage.setValue(GeoPropertyDesc::getDefaultUsage());
 }
 
 template <class GeoPropertyDesc> inline

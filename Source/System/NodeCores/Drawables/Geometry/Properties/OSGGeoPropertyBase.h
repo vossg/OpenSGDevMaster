@@ -66,8 +66,9 @@
 #include "OSGStateChunk.h" // Parent
 
 #include "OSGBoolFields.h" // UseVBO type
+#include "OSGUInt32Fields.h" // Usage type
 #include "OSGUInt32Fields.h" // GLId type
-#include "OSGInt32Fields.h" // Usage type
+#include "OSGInt32Fields.h" // VboUsage type
 
 #include "OSGGeoPropertyFields.h"
 
@@ -96,23 +97,27 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     enum
     {
         UseVBOFieldId = Inherited::NextFieldId,
-        GLIdFieldId = UseVBOFieldId + 1,
-        UsageFieldId = GLIdFieldId + 1,
-        NextFieldId = UsageFieldId + 1
+        UsageFieldId = UseVBOFieldId + 1,
+        GLIdFieldId = UsageFieldId + 1,
+        VboUsageFieldId = GLIdFieldId + 1,
+        NextFieldId = VboUsageFieldId + 1
     };
 
     static const OSG::BitVector UseVBOFieldMask =
         (TypeTraits<BitVector>::One << UseVBOFieldId);
-    static const OSG::BitVector GLIdFieldMask =
-        (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector UsageFieldMask =
         (TypeTraits<BitVector>::One << UsageFieldId);
+    static const OSG::BitVector GLIdFieldMask =
+        (TypeTraits<BitVector>::One << GLIdFieldId);
+    static const OSG::BitVector VboUsageFieldMask =
+        (TypeTraits<BitVector>::One << VboUsageFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFBool            SFUseVBOType;
+    typedef SFUInt32          SFUsageType;
     typedef SFUInt32          SFGLIdType;
-    typedef SFInt32           SFUsageType;
+    typedef SFInt32           SFVboUsageType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -141,9 +146,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
                   SFBool              *editSFUseVBO         (void);
             const SFBool              *getSFUseVBO          (void) const;
 
+                  SFUInt32            *editSFUsage          (void);
+            const SFUInt32            *getSFUsage           (void) const;
+
 
                   bool                &editUseVBO         (void);
                   bool                 getUseVBO          (void) const;
+
+                  UInt32              &editUsage          (void);
+                  UInt32               getUsage           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -151,6 +162,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \{                                                                 */
 
             void setUseVBO         (const bool value);
+            void setUsage          (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,8 +196,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \{                                                                 */
 
     SFBool            _sfUseVBO;
+    SFUInt32          _sfUsage;
     SFUInt32          _sfGLId;
-    SFInt32           _sfUsage;
+    SFInt32           _sfVboUsage;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -215,10 +228,12 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
 
     GetFieldHandlePtr  getHandleUseVBO          (void) const;
     EditFieldHandlePtr editHandleUseVBO         (void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
     GetFieldHandlePtr  getHandleUsage           (void) const;
     EditFieldHandlePtr editHandleUsage          (void);
+    GetFieldHandlePtr  getHandleGLId            (void) const;
+    EditFieldHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleVboUsage        (void) const;
+    EditFieldHandlePtr editHandleVboUsage       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -229,15 +244,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
-                  SFInt32             *editSFUsage          (void);
-            const SFInt32             *getSFUsage           (void) const;
+                  SFInt32             *editSFVboUsage       (void);
+            const SFInt32             *getSFVboUsage        (void) const;
 
 
                   UInt32              &editGLId           (void);
                   UInt32               getGLId            (void) const;
 
-                  Int32               &editUsage          (void);
-                  Int32                getUsage           (void) const;
+                  Int32               &editVboUsage       (void);
+                  Int32                getVboUsage        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -245,7 +260,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \{                                                                 */
 
             void setGLId           (const UInt32 value);
-            void setUsage          (const Int32 value);
+            void setVboUsage       (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
