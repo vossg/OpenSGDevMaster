@@ -153,6 +153,10 @@ class @!Classname!@Base : public @!Parent!@
         @@EndFieldLoop
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+        @@BeginFieldLoop
+    typedef @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:15!@ @!field.CARD!@@!field.Name!@Type;
+        @@EndFieldLoop
     @@endif // hasFields
 @@endif // isDecorator
 
