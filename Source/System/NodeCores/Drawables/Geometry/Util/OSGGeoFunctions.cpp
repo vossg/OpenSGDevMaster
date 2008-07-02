@@ -3329,36 +3329,128 @@ void IndexMap::set(UInt32 idx, UInt32 val)
 }
 
 
-// TODO: optimize the following four copy... functions
-
 /*! Copies and rewrites the index \a srcIdx to \a dstIdx storing the mapping
     between old and new indices in \a idxMap.
+    This function must be called with a correct type argument.
     
     \warning \a dstIdx is expected to have sufficient storage allocated.
  */
-void
-copyIndex(      GeoIntegralProperty *dstIdx,
-          const GeoIntegralProperty *srcIdx,
-                UInt32               srcSz,
-                IndexMap            &idxMap,
-                UInt32              &offset,
-                UInt32               dstOffset)
+template <class DescTypeT> inline
+void copyIndex(      GeoIntegralProperty *dstIdx,
+               const GeoIntegralProperty *srcIdx,
+                     UInt32               srcSz,
+                     IndexMap            &idxMap,
+                     UInt32              &offset,
+                     UInt32               dstOffset)
 {
-    typedef GeoIntegralProperty::MaxTypeT IndexType;
-   
+    typedef          TypedGeoIntegralProperty<DescTypeT> TypedProp;
+    typedef typename TypedProp::StoredType               StoredType;
+    typedef typename TypedProp::StoredFieldType          StoredField;
+    
+          TypedProp   *typedDst = dynamic_cast<      TypedProp *>(dstIdx);
+    const TypedProp   *typedSrc = dynamic_cast<const TypedProp *>(srcIdx);
+          StoredField &dstF     = typedDst->editField();
+    const StoredField &srcF     = typedSrc->getField ();
+    
     for(UInt32 i = 0; i < srcSz; ++i)
     {
-        IndexType si = srcIdx->getValue<IndexType>(i);
-        IndexType di = idxMap.get(si);
-        
+        StoredType si = srcF[i];
+        UInt32     di = idxMap.get(si);
+    
         if(di == TypeTraits<UInt32>::getMax())
         {
             di = offset++;
             idxMap.set(si, di);
         }
         
-        dstIdx->setValue(di, i + dstOffset);
+        dstF[i + dstOffset] = di;
     }
+}
+
+
+/*! Copies and rewrites the index \a srcIdx to \a dstIdx storing the mapping
+    between old and new indices in \a idxMap.
+    
+    \warning \a dstIdx is expected to have sufficient storage allocated.
+ */
+inline
+void copyIndex(      GeoIntegralProperty *dstIdx,
+               const GeoIntegralProperty *srcIdx,
+                     UInt32               srcSz,
+                     IndexMap            &idxMap,
+                     UInt32              &offset,
+                     UInt32               dstOffset)
+{
+    UInt32 dstFormat = dstIdx->getFormat();
+    UInt32 srcFormat = srcIdx->getFormat();
+
+    if(dstFormat == srcFormat)
+    {
+        // if the types are equal, use more efficient copying
+    
+        switch(srcFormat)
+        {
+        case GL_UNSIGNED_BYTE:
+            copyIndex<GeoUInt8PropertyDesc>(
+                dstIdx, srcIdx, srcSz, idxMap, offset, dstOffset);
+        break;
+        
+        case GL_UNSIGNED_SHORT:
+            copyIndex<GeoUInt16PropertyDesc>(
+                dstIdx, srcIdx, srcSz, idxMap, offset, dstOffset);
+        break;
+        
+        case GL_UNSIGNED_INT:
+            copyIndex<GeoUInt32PropertyDesc>(
+                dstIdx, srcIdx, srcSz, idxMap, offset, dstOffset);
+        break;
+        }
+        
+    }
+    else
+    {
+        // fallback to using the generic interface
+    
+        typedef GeoIntegralProperty::MaxTypeT IndexType;
+    
+        for(UInt32 i = 0; i < srcSz; ++i)
+        {
+            IndexType si = srcIdx->getValue<IndexType>(i);
+            IndexType di = idxMap.get(si);
+            
+            if(di == TypeTraits<UInt32>::getMax())
+            {
+                di = offset++;
+                idxMap.set(si, di);
+            }
+            
+            dstIdx->setValue(di, i + dstOffset);
+        }
+    }
+}
+
+/*! Copies from \a srcProp to \a dstProp the first srcSz values and stores them
+    at positions starting at \a dstOffset.
+    This function must be called with a correct type argument.
+    
+    \warning \a dstProp is expected to have sufficient storage allocated.
+ */
+template <class DescTypeT> inline
+void copyIntegral(      GeoIntegralProperty *dstProp,
+                  const GeoIntegralProperty *srcProp,
+                        UInt32               srcSz,
+                        UInt32               dstOffset)
+{
+    typedef          TypedGeoIntegralProperty<DescTypeT> TypedProp;
+    typedef typename TypedProp::StoredFieldType          StoredField;
+    
+          TypedProp   *typedDst = dynamic_cast<      TypedProp *>(dstProp);
+    const TypedProp   *typedSrc = dynamic_cast<const TypedProp *>(srcProp);
+          StoredField &dstF     = typedDst->editField();
+    const StoredField &srcF     = typedSrc->getField ();
+    
+    for(UInt32 i = 0; i < srcSz; ++i)
+        dstF[dstOffset + i] = srcF[i];
 }
 
 /*! Copies from \a srcProp to \a dstProp the first srcSz values and stores them
@@ -3366,17 +3458,49 @@ copyIndex(      GeoIntegralProperty *dstIdx,
     
     \warning \a dstProp is expected to have sufficient storage allocated.
  */
-void
-copyIntegral(      GeoIntegralProperty *dstProp,
-             const GeoIntegralProperty *srcProp,
-                   UInt32               srcSz,
-                   UInt32               dstOffset)
+inline
+void copyIntegral(      GeoIntegralProperty *dstProp,
+                  const GeoIntegralProperty *srcProp,
+                        UInt32               srcSz,
+                        UInt32               dstOffset)
 {
-    typedef GeoIntegralProperty::MaxTypeT ValueType;
+    UInt32 dstFormat = dstProp->getFormat();
+    UInt32 srcFormat = srcProp->getFormat();
+
+    if(dstFormat == srcFormat)
+    {
+        // if the types are equal, use more efficient copying
     
-    for(UInt32 i = 0; i < srcSz; ++i)
-        dstProp->setValue(srcProp->getValue<ValueType>(i), dstOffset + i);
+        switch(srcFormat)
+        {
+        case GL_UNSIGNED_BYTE:
+            copyIntegral<GeoUInt8PropertyDesc>(
+                dstProp, srcProp, srcSz, dstOffset);
+        break;
+        
+        case GL_UNSIGNED_SHORT:
+            copyIntegral<GeoUInt16PropertyDesc>(
+                dstProp, srcProp, srcSz, dstOffset);
+        break;
+        
+        case GL_UNSIGNED_INT:
+            copyIntegral<GeoUInt32PropertyDesc>(
+                dstProp, srcProp, srcSz, dstOffset);
+        break;
+        }
+    }
+    else
+    {
+        // fallback to using the generic interface
+
+        typedef GeoIntegralProperty::MaxTypeT ValueType;
+    
+        for(UInt32 i = 0; i < srcSz; ++i)
+            dstProp->setValue(srcProp->getValue<ValueType>(i), dstOffset + i);
+    }
 }
+
+// TODO: Optimize copyVectorMapped and copyVector like the above.
 
 /*! Copies from \a srcProp to \a dstProp values indexed by the first \a srcSz
     indices from \a srcIdx. The values are stored at the positions indicated
@@ -3384,12 +3508,12 @@ copyIntegral(      GeoIntegralProperty *dstProp,
     
     \warning \a dstProp is expected to have sufficient storage allocated.
  */
-void
-copyVectorMapped(      GeoVectorProperty   *dstProp, 
-                 const GeoVectorProperty   *srcProp,
-                 const GeoIntegralProperty *srcIdx,
-                       UInt32               srcSz,
-                 const IndexMap            &idxMap  )
+inline
+void copyVectorMapped(      GeoVectorProperty   *dstProp, 
+                      const GeoVectorProperty   *srcProp,
+                      const GeoIntegralProperty *srcIdx,
+                            UInt32               srcSz,
+                      const IndexMap            &idxMap  )
 {
     typedef GeoIntegralProperty::MaxTypeT IndexType;
     typedef GeoVectorProperty  ::MaxTypeT ValueType;
@@ -3408,12 +3532,14 @@ copyVectorMapped(      GeoVectorProperty   *dstProp,
 
     \warning \a dstProp is expected to have sufficient storage allocated.
  */
-void
-copyVector(       GeoVectorProperty *dstProp,
-            const GeoVectorProperty *srcProp,
-                  UInt32             srcSz,
-                  UInt32             dstOffset )
+inline
+void copyVector(      GeoVectorProperty *dstProp,
+                const GeoVectorProperty *srcProp,
+                      UInt32             srcSz,
+                      UInt32             dstOffset)
 {
+    // fallback to using the generic interface
+
     typedef GeoVectorProperty::MaxTypeT ValueType;
 
     for(UInt32 i = 0; i < srcSz; ++i)
