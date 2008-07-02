@@ -69,6 +69,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
 
     static const UInt32 UsageUnspecified      = 0x00000000;
     
+    static const UInt32 UsageSpaceMask        = 0x0000000F;
+    
     static const UInt32 UsageObjectSpace      = 0x00000001;  // pos
     static const UInt32 UsageTangentSpace     = 0x00000002;  // norm, binorm, tang
     static const UInt32 UsageParameterSpace   = 0x00000004;  // tex coord

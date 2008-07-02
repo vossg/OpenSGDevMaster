@@ -50,6 +50,8 @@
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGStriperHalfEdgeGraph.h"
 
+#include "OSGSingletonHolder.ins"
+
 OSG_BEGIN_NAMESPACE
 
 //Helper
@@ -120,10 +122,10 @@ UInt32 IndexDic::entryCount(void) const
 /*! \ingroup STLHelpers
     memory comparison
 */
-template<class type>
+template <class TypeT>
 struct memless
 {
-    bool operator ()(const type &a, const type &b) const
+    bool operator ()(const TypeT &a, const TypeT &b) const
     {
         if(a.second && b.second)
         {
@@ -162,13 +164,9 @@ properties.
 */
 void calcVertexNormals(Geometry *geo)
 {
-    typedef std::set<UInt32> IndexSet;
-
     GeoVectorPropertyUnrecPtr   norms;
     GeoIntegralPropertyUnrecPtr normsIndex;
     GeoIntegralPropertyUnrecPtr posIndex;
-
-    IndexSet                    used_indices;
 
     posIndex = geo->getIndex(Geometry::PositionsIndex);
 
@@ -213,8 +211,8 @@ void calcVertexNormals(Geometry *geo)
         {
             UInt32 val;
 
-            posIndex->getValue(val, i);
-            normsIndex->addValue(val);
+            posIndex  ->getValue(val, i);
+            normsIndex->addValue(val   );
         }
     }     
 
@@ -2555,6 +2553,10 @@ void createConvexPrimitives(Geometry *geo)
     FFATAL(("createConvexPrimitives:: NYI!\n"));
 }
 
+/*! Adjusts the indices of \a geoPtr such that data is as much as possible
+    reused.
+    
+ */
 Int32 createSharedIndex(Geometry *geoPtr)
 {
     UInt32 indexSharedCount = 0, dataRemapCount = 0, indexRemapCount = 0;
@@ -2570,14 +2572,15 @@ Int32 createSharedIndex(Geometry *geoPtr)
 
     UInt16 mapMask, propMask, masterPropMask;
 
+    // data pointer and size pair
     typedef std::pair<const UInt8 *, UInt32> Mem;
 
-    Mem mem;
+    Mem masterMem;
 
-    std::map<Mem, UInt32, memless<Mem> > memMap;
+    std::map<Mem, UInt32, memless<Mem> >           memMap;
     std::map<Mem, UInt32, memless<Mem> >::iterator mmI;
 
-//    GeoIntegralPropertyPtr indexPtr;
+   GeoIntegralProperty *indexPtr;
 
     const UChar8 *dataElem;
 
@@ -2633,8 +2636,10 @@ Int32 createSharedIndex(Geometry *geoPtr)
     dataRemapCount   = 0;
     indexRemapCount  = 0;
     
+    // iterator over all index properties
     for(UInt32 i = 0; i < indexBag.size(); ++i)
     {
+        // first property indexed by index i is the master property
         masterProp = geoPtr->getProperty(indexBag[i].second[0]);
         masterData = masterProp->getData();
 
@@ -2646,42 +2651,41 @@ Int32 createSharedIndex(Geometry *geoPtr)
                 masterProp->getDimension () +
                 masterProp->getStride    ();
 
-            // find and store slave property data and size
-            slaveDataVec.clear();
+            // all other properties indexed by index i are slave properties
+            // find and store slave property data and sizes
+            slaveDataVec .clear();
             slaveDSizeVec.clear();
 
+            // store pointers to data and sizes of slave properties
             for(UInt32 j = 1; j < indexBag[i].second.size(); ++j)
             {
                 slaveProp = geoPtr->getProperty(indexBag[i].second[j]);
 
-                if(slaveProp != NULL)
+                if(slaveProp->getData() != NULL)
                 {
-                    slaveDataVec .push_back(slaveProp->getData());
+                    slaveDataVec .push_back(slaveProp->getData      ()  );
                     slaveDSizeVec.push_back(slaveProp->getFormatSize() *
-                                            slaveProp->getDimension());
+                                            slaveProp->getDimension ()  );
                 }
                 else
                 {
-#if 0
-                    // disabled as wrongly triggered by setindices
-                    FWARNING(("Invalid slaveProp %d\n", 
+                    FWARNING(("createSharedIndex: slaveProp %d has no data!\n", 
                               indexBag[i].second[j]));
-#endif
                 }
             }
 
-            GeoIntegralProperty *indexPtr = indexBag[i].first;
+            indexPtr = indexBag[i].first;       // index i  
 
-            sN = slaveDataVec.size();
-
-            iN = indexPtr->size();
+            sN       = slaveDataVec. size();    // number of slave properties
+            iN       = indexPtr    ->size();    // number of indices
 
             memMap.clear();
 
             indexRemap.clear();
             indexRemap.resize(masterProp->size(), -1);
 
-            mem.second = masterProp->getFormatSize() * masterProp->getDimension();
+            masterMem.second = 
+                masterProp->getFormatSize() * masterProp->getDimension();
 
             for(i = 0; i < iN; i++)
             {
@@ -2704,22 +2708,22 @@ Int32 createSharedIndex(Geometry *geoPtr)
                     // find/include the data block
                     dataElem = masterData + (index * masterDSize);
 
-                    mem.first = dataElem;
+                    masterMem.first = dataElem;
 
-                    mmI = memMap.find(mem);
+                    mmI = memMap.find(masterMem);
 
                     if(mmI == memMap.end())
                     {
                         // index not found; store new data/index
-                        memMap[mem] = index;
-                        indexRemap[index] = index;
+                        memMap    [masterMem] = index;
+                        indexRemap[index    ] = index;
                     }
                     else
                     {
                         // data found; check slave property
                         for(si = 0; si < sN; si++)
                         {
-                            if(memcmp(slaveDataVec[si] + (index * slaveDSizeVec[si]),
+                            if(memcmp(slaveDataVec[si] + (index       * slaveDSizeVec[si]),
                                       slaveDataVec[si] + (mmI->second * slaveDSizeVec[si]),
                                       slaveDSizeVec[si]))
                                 break;
@@ -3019,6 +3023,1747 @@ void mergeGeometries(std::vector<Node *> &nodes,
 {
     FFATAL(("mergeGeometries: not implemented yet!\n"));
 }
+
+
+class GeoPropertyFactoryBase
+{
+  public:
+  
+    GeoIntegralPropertyTransitPtr create(UInt32 format                  );
+    GeoVectorPropertyTransitPtr   create(UInt32 format, UInt32 dim,
+                                         UInt32 usage,  bool   normalize);
+  
+  protected:
+    typedef GeoVectorPropertyTransitPtr (*CreatePropFuncP)(void);
+    
+    UInt32 mapFormat   (UInt32 format   ) const;
+    UInt32 mapDimension(UInt32 dim      ) const;
+    UInt32 mapUsage    (UInt32 usage    ) const;
+    UInt32 mapNormalize(bool   normalize) const;
+    
+    template <class PropertyTypeT>
+    static GeoVectorPropertyTransitPtr createPropFunc       (void);
+    static GeoVectorPropertyTransitPtr invalidCreatePropFunc(void);
+    
+    static CreatePropFuncP _createFuncMap[3][4][8][2];
+};
+
+typedef SingletonHolder<GeoPropertyFactoryBase> GeoPropertyFactory;
+
+
+/*! Creates a GeoIntegralProperty that stores values of type \a format, which
+    must be an appropriate OpenGL type constant (\c GL_UNSIGNED_BYTE,
+    \c GL_UNSIGNED_SHORT or \c GL_UNSIGNED_INT ).
+ */
+GeoIntegralPropertyTransitPtr GeoPropertyFactoryBase::create(UInt32 format)
+{
+    GeoIntegralPropertyTransitPtr returnValue;
+
+    switch(format)
+    {
+    case GL_UNSIGNED_BYTE:  returnValue = GeoUInt8Property::create();
+    break;
+    
+    case GL_UNSIGNED_SHORT: returnValue = GeoUInt16Property::create();
+    break;
+    
+    case GL_UNSIGNED_INT:   returnValue = GeoUInt32Property::create();
+    break;
+    
+    default:
+        FWARNING(("GeoPropertyFactoryBase::create: Invalid paramter: format [%d].\n",
+                  format));
+    }
+    
+    return returnValue;
+}
+
+/*! Creates a GeoVectorProperty that stores values described by \a format,
+    \a dim, \a usage and \a normalize.
+ */
+GeoVectorPropertyTransitPtr GeoPropertyFactoryBase::create(
+    UInt32 format, UInt32 dim, UInt32 usage, bool normalize)
+{
+    GeoVectorPropertyTransitPtr returnValue;
+
+    UInt32 formatIdx    = mapFormat   (format   );
+    UInt32 dimIdx       = mapDimension(dim      );
+    UInt32 usageIdx     = mapUsage    (usage    );
+    UInt32 normalizeIdx = mapNormalize(normalize);
+    
+    if(formatIdx    == TypeTraits<UInt32>::getMax() ||
+       dimIdx       == TypeTraits<UInt32>::getMax() ||
+       usageIdx     == TypeTraits<UInt32>::getMax() ||
+       normalizeIdx == TypeTraits<UInt32>::getMax()   )
+    {
+        FWARNING(("GeoPropertyFactoryBase::create: Invalid parameters: "
+                  "format [%d] dim [%d] usage [%d] normalize [%d].\n",
+                  format, dim, usage, normalize));
+    }
+    
+    returnValue = _createFuncMap[usageIdx][dimIdx][formatIdx][normalizeIdx]();
+    
+    return returnValue;
+}
+
+template <class PropertyTypeT> inline
+GeoVectorPropertyTransitPtr GeoPropertyFactoryBase::createPropFunc(void)
+{
+    return GeoVectorPropertyTransitPtr(PropertyTypeT::create());
+}
+
+inline
+GeoVectorPropertyTransitPtr GeoPropertyFactoryBase::invalidCreatePropFunc(void)
+{
+    FWARNING(("GeoPropertyFactoryBase::invalidCreatePropFunc: "
+              "Unsupported property type.\n"));
+
+    return GeoVectorPropertyTransitPtr();
+}
+
+/*! Maps an OpenGL type constant to an index for the property creation function
+    LUT.
+ */
+inline
+UInt32 GeoPropertyFactoryBase::mapFormat(UInt32 format) const
+{
+    UInt32 returnValue = TypeTraits<UInt32>::getMax();
+
+    switch(format)
+    {
+    case GL_BYTE:           returnValue = 0;    break;
+    case GL_UNSIGNED_BYTE:  returnValue = 1;    break;
+    case GL_SHORT:          returnValue = 2;    break;
+    case GL_UNSIGNED_SHORT: returnValue = 3;    break;
+    case GL_INT:            returnValue = 4;    break;
+    case GL_UNSIGNED_INT:   returnValue = 5;    break;
+    case GL_FLOAT:          returnValue = 6;    break;
+    case GL_DOUBLE:         returnValue = 7;    break;
+    
+    default:
+        FWARNING(("GeoPropertyFactoryBase::mapFormat: Unsupported format [%d].\n",
+                  format));
+    }
+    
+    return returnValue;
+}
+
+/*! Maps a dimension to an index for the property creation function LUT.
+ */
+inline
+UInt32 GeoPropertyFactoryBase::mapDimension(UInt32 dim) const
+{
+    UInt32 returnValue = TypeTraits<UInt32>::getMax();
+    
+    switch(dim)
+    {
+    case 1:     returnValue = 0;    break;
+    case 2:     returnValue = 1;    break;
+    case 3:     returnValue = 2;    break;
+    case 4:     returnValue = 3;    break;
+    
+    default:
+        FWARNING(("GeoPropertyFactoryBase::mapDim: Unsupported dimension [%d].\n",
+                  dim));
+    }
+    
+    return returnValue;
+}
+
+inline
+UInt32 GeoPropertyFactoryBase::mapUsage(UInt32 usage) const
+{
+    UInt32 returnValue = TypeTraits<UInt32>::getMax();
+    
+    switch(usage)
+    {
+    case GeoProperty::UsageObjectSpace:     returnValue = 0;    break;
+    case GeoProperty::UsageTangentSpace:    returnValue = 1;    break;
+    case GeoProperty::UsageParameterSpace:  returnValue = 1;    break;
+    case GeoProperty::UsageColorSpace:      returnValue = 2;    break;
+    
+    case GeoProperty::UsageUnspecified:     returnValue = 0;    break;
+    
+    default:
+        FWARNING(("GeoPropertyFactoryBase::mapUsage: Unsupported usage [%d].\n",
+                  usage));
+    }
+    
+    return returnValue;
+}
+
+inline
+UInt32 GeoPropertyFactoryBase::mapNormalize(bool normalize) const
+{
+    UInt32 returnValue = TypeTraits<UInt32>::getMax();
+    
+    if(normalize)
+        returnValue = 1;
+    else
+        returnValue = 0;
+        
+    return returnValue;
+}
+
+/*! GeoVectorProperty create function LUT.
+    The dimensions are:  1      usage       - Obj, Tan/Tex, Col
+                         2      dimension   - 1 to 4
+                         3      format      - GL_BYTE,...
+                         4      normalize
+ */
+GeoPropertyFactoryBase::CreatePropFuncP
+    GeoPropertyFactoryBase::_createFuncMap[3][4][8][2] =
+    {
+        {
+            {   { &createPropFunc<GeoPnt1bProperty >,   // Obj, 1, byte
+                  &createPropFunc<GeoPnt1NbProperty>
+                },
+                { &createPropFunc<GeoPnt1ubProperty >,  // Obj, 1, ubyte
+                  &createPropFunc<GeoPnt1NubProperty>
+                },
+                { &createPropFunc<GeoPnt1sProperty >,   // Obj, 1, short
+                  &createPropFunc<GeoPnt1NsProperty>
+                },
+                { &createPropFunc<GeoPnt1usProperty >,  // Obj, 1, ushort
+                  &createPropFunc<GeoPnt1NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Obj, 1, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Obj, 1, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt1fProperty>,    // Obj, 1, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt1dProperty>,    // Obj, 1, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &createPropFunc<GeoPnt2bProperty>,    // Obj, 2, byte
+                  &createPropFunc<GeoPnt2NbProperty>
+                },
+                { &createPropFunc<GeoPnt2ubProperty>,   // Obj, 2, ubyte
+                  &createPropFunc<GeoPnt2NubProperty>
+                },
+                { &createPropFunc<GeoPnt2sProperty>,    // Obj, 2, short
+                  &createPropFunc<GeoPnt2NsProperty>
+                },
+                { &createPropFunc<GeoPnt2usProperty>,   // Obj, 2, ushort
+                  &createPropFunc<GeoPnt2NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Obj, 2, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Obj, 2, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt2fProperty>,    // Obj, 2, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt2dProperty>,    // Obj, 2, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &createPropFunc<GeoPnt3bProperty>,    // Obj, 3, byte
+                  &createPropFunc<GeoPnt3NbProperty>
+                },
+                { &createPropFunc<GeoPnt3ubProperty>,   // Obj, 3, ubyte
+                  &createPropFunc<GeoPnt3NubProperty>
+                },
+                { &createPropFunc<GeoPnt3sProperty>,    // Obj, 3, short
+                  &createPropFunc<GeoPnt3NsProperty>
+                },
+                { &createPropFunc<GeoPnt3usProperty>,   // Obj, 3, ushort
+                  &createPropFunc<GeoPnt3NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Obj, 3, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Obj, 3, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt3fProperty>,    // Obj, 3, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt3dProperty>,    // Obj, 3, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &createPropFunc<GeoPnt4bProperty>,    // Obj, 4, byte
+                  &createPropFunc<GeoPnt4NbProperty>
+                },
+                { &createPropFunc<GeoPnt4ubProperty>,   // Obj, 4, ubyte
+                  &createPropFunc<GeoPnt4NubProperty>
+                },
+                { &createPropFunc<GeoPnt4sProperty>,    // Obj, 4, short
+                  &createPropFunc<GeoPnt4NsProperty>
+                },
+                { &createPropFunc<GeoPnt4usProperty>,   // Obj, 4, ushort
+                  &createPropFunc<GeoPnt4NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Obj, 4, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Obj, 4, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt4fProperty>,    // Obj, 4, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoPnt4dProperty>,    // Obj, 4, double
+                  &invalidCreatePropFunc
+                }
+            }
+        },
+        {   {   { &createPropFunc<GeoVec1bProperty >,   // Tan/Tex, 1, byte
+                  &createPropFunc<GeoVec1NbProperty>
+                },
+                { &createPropFunc<GeoVec1ubProperty >,  // Tan/Tex, 1, ubyte
+                  &createPropFunc<GeoVec1NubProperty>
+                },
+                { &createPropFunc<GeoVec1sProperty >,   // Tan/Tex, 1, short
+                  &createPropFunc<GeoVec1NsProperty>
+                },
+                { &createPropFunc<GeoVec1usProperty >,  // Tan/Tex, 1, ushort
+                  &createPropFunc<GeoVec1NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 1, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 1, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec1fProperty>,    // Tan/Tex, 1, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec1dProperty>,    // Tan/Tex, 1, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &createPropFunc<GeoVec2bProperty>,    // Tan/Tex, 2, byte
+                  &createPropFunc<GeoVec2NbProperty>
+                },
+                { &createPropFunc<GeoVec2ubProperty>,   // Tan/Tex, 2, ubyte
+                  &createPropFunc<GeoVec2NubProperty>
+                },
+                { &createPropFunc<GeoVec2sProperty>,    // Tan/Tex, 2, short
+                  &createPropFunc<GeoVec2NsProperty>
+                },
+                { &createPropFunc<GeoVec2usProperty>,   // Tan/Tex, 2, ushort
+                  &createPropFunc<GeoVec2NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 2, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 2, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec2fProperty>,    // Tan/Tex, 2, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec2dProperty>,    // Tan/Tex, 2, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &createPropFunc<GeoVec3bProperty>,    // Tan/Tex, 3, byte
+                  &createPropFunc<GeoVec3NbProperty>
+                },
+                { &createPropFunc<GeoVec3ubProperty>,   // Tan/Tex, 3, ubyte
+                  &createPropFunc<GeoVec3NubProperty>
+                },
+                { &createPropFunc<GeoVec3sProperty>,    // Tan/Tex, 3, short
+                  &createPropFunc<GeoVec3NsProperty>
+                },
+                { &createPropFunc<GeoVec3usProperty>,   // Tan/Tex, 3, ushort
+                  &createPropFunc<GeoVec3NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 3, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 3, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec3fProperty>,    // Tan/Tex, 3, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec3dProperty>,    // Tan/Tex, 3, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &createPropFunc<GeoVec4bProperty>,    // Tan/Tex, 4, byte
+                  &createPropFunc<GeoVec4NbProperty>
+                },
+                { &createPropFunc<GeoVec4ubProperty>,   // Tan/Tex, 4, ubyte
+                  &createPropFunc<GeoVec4NubProperty>
+                },
+                { &createPropFunc<GeoVec4sProperty>,    // Tan/Tex, 4, short
+                  &createPropFunc<GeoVec4NsProperty>
+                },
+                { &createPropFunc<GeoVec4usProperty>,   // Tan/Tex, 4, ushort
+                  &createPropFunc<GeoVec4NusProperty>
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 4, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Tan/Tex, 4, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec4fProperty>,    // Tan/Tex, 4, float
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoVec4dProperty>,    // Tan/Tex, 4, double
+                  &invalidCreatePropFunc
+                }
+            }
+        },
+        {   {   { &invalidCreatePropFunc,               // Col, 1, byte
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 1, ubyte
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 1, short
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 1, ushort
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 1, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 1, uint
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 1, float
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 1, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &invalidCreatePropFunc,               // Col, 2, byte
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 2, ubyte
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 2, short
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 2, ushort
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 2, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 2, uint
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 2, float
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 2, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &invalidCreatePropFunc,               // Col, 3, byte
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoColor3ubProperty>, // Col, 3, ubyte
+                  &createPropFunc<GeoColor3NubProperty>
+                },
+                { &invalidCreatePropFunc,               // Col, 3, short
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 3, ushort
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 3, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 3, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoColor3fProperty>,  // Col, 3, float
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 3, double
+                  &invalidCreatePropFunc
+                }
+            },
+            {   { &invalidCreatePropFunc,               // Col, 4, byte
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoColor4ubProperty>, // Col, 4, ubyte
+                  &createPropFunc<GeoColor4NubProperty>
+                },
+                { &invalidCreatePropFunc,               // Col, 4, short
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 4, ushort
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 4, int
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 4, uint
+                  &invalidCreatePropFunc
+                },
+                { &createPropFunc<GeoColor4fProperty>,  // Col, 4, float
+                  &invalidCreatePropFunc
+                },
+                { &invalidCreatePropFunc,               // Col, 4, double
+                  &invalidCreatePropFunc
+                }
+            }
+        },
+    };
+    
+OSG_SINGLETON_INST(GeoPropertyFactoryBase)
+
+
+namespace
+{
+
+UInt32 calcMergeFormat(UInt32 format1, UInt32 format2)
+{
+    UInt32 format;
+
+    switch(format1)
+    {
+    case GL_BYTE:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_BYTE;           break;
+        case GL_UNSIGNED_BYTE:  format = GL_SHORT;          break;
+        case GL_SHORT:          format = GL_SHORT;          break;
+        case GL_UNSIGNED_SHORT: format = GL_INT;            break;
+        case GL_INT:            format = GL_INT;            break;
+        case GL_UNSIGNED_INT:   format = GL_INT;            break;
+        
+        case GL_FLOAT:          format = GL_FLOAT;          break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        
+        }
+    break;
+    
+    case GL_UNSIGNED_BYTE:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_SHORT;          break;
+        case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_BYTE;  break;
+        case GL_SHORT:          format = GL_SHORT;          break;
+        case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_SHORT; break;
+        case GL_INT:            format = GL_INT;            break;
+        case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
+        
+        case GL_FLOAT:          format = GL_FLOAT;          break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        }
+    break;
+    
+    case GL_SHORT:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_SHORT;          break;
+        case GL_UNSIGNED_BYTE:  format = GL_SHORT;          break;
+        case GL_SHORT:          format = GL_SHORT;          break;
+        case GL_UNSIGNED_SHORT: format = GL_INT;            break;
+        case GL_INT:            format = GL_INT;            break;
+        case GL_UNSIGNED_INT:   format = GL_INT;            break;
+        
+        case GL_FLOAT:          format = GL_FLOAT;          break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        }
+    break;
+    
+    case GL_UNSIGNED_SHORT:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_INT;            break;
+        case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_SHORT; break;
+        case GL_SHORT:          format = GL_INT;            break;
+        case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_SHORT; break;
+        case GL_INT:            format = GL_INT;            break;
+        case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
+        
+        case GL_FLOAT:          format = GL_FLOAT;          break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        }
+    break;
+    
+    case GL_INT:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_INT;            break;
+        case GL_UNSIGNED_BYTE:  format = GL_INT;            break;
+        case GL_SHORT:          format = GL_INT;            break;
+        case GL_UNSIGNED_SHORT: format = GL_INT;            break;
+        case GL_INT:            format = GL_INT;            break;
+        case GL_UNSIGNED_INT:   format = GL_INT;            break;
+        
+        case GL_FLOAT:          format = GL_FLOAT;          break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        }
+    break;
+    
+    case GL_UNSIGNED_INT:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_INT;            break;
+        case GL_UNSIGNED_BYTE:  format = GL_UNSIGNED_INT;   break;
+        case GL_SHORT:          format = GL_INT;            break;
+        case GL_UNSIGNED_SHORT: format = GL_UNSIGNED_INT;   break;
+        case GL_INT:            format = GL_INT;            break;
+        case GL_UNSIGNED_INT:   format = GL_UNSIGNED_INT;   break;
+        
+        case GL_FLOAT:          format = GL_FLOAT;          break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        }
+    break;
+    
+    case GL_FLOAT:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_FLOAT;          break;
+        case GL_UNSIGNED_BYTE:  format = GL_FLOAT;          break;
+        case GL_SHORT:          format = GL_FLOAT;          break;
+        case GL_UNSIGNED_SHORT: format = GL_FLOAT;          break;
+        case GL_INT:            format = GL_FLOAT;          break;
+        case GL_UNSIGNED_INT:   format = GL_FLOAT;          break;
+        
+        case GL_FLOAT:          format = GL_FLOAT;          break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        }
+    break;
+    
+    case GL_DOUBLE:
+        switch(format2)
+        {
+        case GL_BYTE:           format = GL_DOUBLE;         break;
+        case GL_UNSIGNED_BYTE:  format = GL_DOUBLE;         break;
+        case GL_SHORT:          format = GL_DOUBLE;         break;
+        case GL_UNSIGNED_SHORT: format = GL_DOUBLE;         break;
+        case GL_INT:            format = GL_DOUBLE;         break;
+        case GL_UNSIGNED_INT:   format = GL_DOUBLE;         break;
+        
+        case GL_FLOAT:          format = GL_DOUBLE;         break;
+        case GL_DOUBLE:         format = GL_DOUBLE;         break;
+        }
+    break;   
+    }
+    
+    return format;
+}
+
+/*! Determines a format to store the combination of \a prop1 and \a prop2.
+    If \a combineValues is \c true the contents are scanned to ensure the
+    determined format can store the sum of the largest entries.
+ */
+void calcMergePropertyType(
+    const GeoIntegralProperty *prop1,
+    const GeoIntegralProperty *prop2,
+          bool                 combineValues,
+          UInt32              &format        )
+{
+    UInt32 form1 = prop1->getFormat();
+    UInt32 form2 = prop2->getFormat();
+    
+    format = calcMergeFormat(form1, form2);
+    
+    if(combineValues && format != GL_INT && format != GL_UNSIGNED_INT)
+    {
+        Int64 max1 = TypeTraits<Int64>::getMin();
+        Int64 max2 = TypeTraits<Int64>::getMin();
+        
+        for(UInt32 i = 0; i < prop1->size(); ++i)
+        {
+            if(max1 < prop1->getValue<Int64>(i))
+                max1 = prop1->getValue<Int64>(i);
+        }
+        
+        for(UInt32 i = 0; i < prop2->size(); ++i)
+        {
+            if(max2 < prop2->getValue<Int64>(i))
+                max2 = prop2->getValue<Int64>(i);
+        }
+        
+        if(format        == GL_BYTE                   && 
+           (max1 + max2) >  TypeTraits<Int8>::getMax()  )
+        {
+            format = GL_SHORT;
+        }
+        else if(format        == GL_UNSIGNED_BYTE           &&
+                (max1 + max2) >  TypeTraits<UInt8>::getMax()  )
+        {
+            format = GL_UNSIGNED_SHORT;
+        }
+        else if(format        == GL_SHORT                   &&
+                (max1 + max2) >  TypeTraits<Int16>::getMax()  )
+        {
+            format = GL_INT;
+        }
+        else if(format        == GL_UNSIGNED_SHORT           &&
+                (max1 + max2) >  TypeTraits<UInt16>::getMax()  )
+        {
+            format = GL_UNSIGNED_INT;
+        }
+    }
+}
+
+void calcMergePropertyType(
+    const GeoVectorProperty *prop1, const GeoVectorProperty *prop2,
+          UInt32            &format,      UInt32            &dim,
+          UInt32            &usage,       UInt32            &normalize)
+{
+    UInt32 dim1       = prop1->getDimension();
+    UInt32 dim2       = prop2->getDimension();
+    UInt32 form1      = prop1->getFormat   ();
+    UInt32 form2      = prop2->getFormat   ();
+    UInt32 usage1     = prop1->getUsage    () & GeoProperty::UsageSpaceMask;
+    UInt32 usage2     = prop2->getUsage    () & GeoProperty::UsageSpaceMask;
+    bool   normalize1 = prop1->getNormalize();
+    bool   normalize2 = prop2->getNormalize();
+    
+    format = calcMergeFormat(form1, form2);
+    dim    = osgMax         (dim1,  dim2 );
+    
+    if(usage1 != usage2)
+    {
+        if(usage1 == GeoProperty::UsageUnspecified)
+            usage = usage2;
+        else if(usage2 == GeoProperty::UsageUnspecified)
+            usage == usage1;
+        else
+            FWARNING(("calcMergePropertyType: Can not merge properties with "
+                      "conflicting usage.\n"));
+    }
+    else
+    {
+        usage = usage1;
+    }
+    
+    if(normalize1 != normalize2)
+    {
+        FWARNING(("calcMergePropertyType: Can not merge normalizing and "
+                  "non-normalizing property.\n"));
+    }
+    else
+    {
+        normalize = normalize1;
+    }
+}
+
+/*
+
+template <class DestTypeT, class SrcTypeT>
+struct AppendIntegralProp
+{
+    typedef          DestTypeT             DestType;
+    typedef          SrcTypeT              SrcType;
+    typedef typename DestType::StoredType  DestValueType;
+    
+    static void apply(      GeoIntegralProperty *dst,
+                      const GeoIntegralProperty *src,
+                            DestValueType        offset = 0)
+    {
+        typedef typename DestType::StoredFieldType DestFieldType;
+        typedef typename SrcType ::StoredFieldType SrcFieldType;
+        
+              DestFieldType *dstF =
+                dynamic_cast<      DestType *>(dst)->editFieldPtr();
+        const SrcFieldType  *srcF =
+                dynamic_cast<const SrcType  *>(src)->getFieldPtr ();
+        
+        typename SrcFieldType::const_iterator srcIt  = srcF->begin();
+        typename SrcFieldType::const_iterator srcEnd = srcF->end  ();
+        
+        dstF->reserve(dstF->size() + srcF->size());
+        for(; srcIt != srcEnd; ++srcIt)
+            dstF->push_back(static_cast<DestValueType>(*srcIt) + offset);
+    }
+};
+
+template <class TypeT>
+struct AppendIntegralProp<TypeT, TypeT>
+{
+    typedef          TypeT                 DestType;
+    typedef          TypeT                 SrcType;
+    typedef typename DestType::StoredType  DestValueType;
+
+    static void apply(      GeoIntegralProperty *dst,
+                      const GeoIntegralProperty *src,
+                            DestValueType        offset = 0)
+    {
+        typedef typename DestType::StoredFieldType DestFieldType;
+        typedef typename SrcType ::StoredFieldType SrcFieldType;
+    
+              DestFieldType *dstF =
+                dynamic_cast<      DestType *>(dst)->editFieldPtr();
+        const SrcFieldType  *srcF =
+                dynamic_cast<const SrcType  *>(src)->getFieldPtr ();
+        
+        dstF->reserve(dstF->size() + srcF->size());
+        
+        if(offset == 0)
+        {        
+            dstF->insert(dstF->end(), srcF->begin(), srcF->end());
+        }
+        else
+        {
+            typename SrcFieldType::const_iterator srcIt  = srcF->begin();
+            typename SrcFieldType::const_iterator srcEnd = srcF->end  ();
+            
+            for(; srcIt != srcEnd; ++srcIt)
+                dstF->push_back(*srcIt + offset);
+        }
+    }
+};*/
+
+
+/*! Merges integral properties by appending \a src1Prop and \a src2Prop to a
+    new property.
+    \note It is intended to merge the types and length properties.
+ */
+GeoIntegralPropertyTransitPtr mergeIntegralProp(
+    const GeoIntegralProperty *src1Prop,
+    const GeoIntegralProperty *src2Prop )
+{
+    GeoIntegralPropertyTransitPtr dstProp;
+    UInt32                        dstFormat;
+    
+    calcMergePropertyType(src1Prop, src2Prop, false, dstFormat);
+    dstProp = GeoPropertyFactory::the()->create(dstFormat);
+    
+    UInt32 szSrc1 = src1Prop->size();
+    UInt32 szSrc2 = src2Prop->size();
+
+    // TODO: Optimize for matching src and dst types by not using generic interface
+    for(UInt32 i = 0; i < szSrc1; ++i)
+        dstProp->addValue(src1Prop->getValue(i));
+        
+    for(UInt32 i = 0; i < szSrc2; ++i)
+        dstProp->addValue(src2Prop->getValue(i));
+    
+    return dstProp;
+}
+
+class IndexMap
+{
+  public:
+    UInt32 get(UInt32 idx            ) const;
+    void   set(UInt32 idx, UInt32 val);
+
+  private:
+    typedef std::vector<UInt32> IMap;
+    
+    IMap _iMap;
+};
+
+inline
+UInt32 IndexMap::get(UInt32 idx) const
+{
+    UInt32 returnValue;
+
+    if(idx >= _iMap.size())
+        returnValue = TypeTraits<UInt32>::getMax();
+    else
+        returnValue = _iMap[idx];
+        
+    return returnValue;
+}
+
+inline
+void IndexMap::set(UInt32 idx, UInt32 val)
+{
+    if(idx >= _iMap.size())
+        _iMap.resize(idx + 1, TypeTraits<UInt32>::getMax());
+        
+    _iMap[idx] = val;
+}
+
+
+// TODO: copyIndex and both copyProperty functions need optimizing!
+//       examine the type of the source and destination properties and if they
+//       are the same use the direct field interface to copy values instead of
+//       the generic interface
+
+void
+copyIndex(      GeoIntegralProperty *dstIdx,
+          const GeoIntegralProperty *srcIdx,
+                UInt32               srcSz,
+                IndexMap            &idxMap,
+                UInt32              &offset,
+                UInt32               idxOffset)
+{
+    typedef GeoIntegralProperty::MaxTypeT IndexType;
+   
+    for(UInt32 i = 0; i < srcSz; ++i)
+    {
+        IndexType si = srcIdx->getValue<IndexType>(i);
+        IndexType di = idxMap.get(si);
+        
+        if(di == TypeTraits<UInt32>::getMax())
+        {
+            di = offset++;
+            idxMap.set(si, di);
+        }
+        
+        dstIdx->setValue(di, i + idxOffset);
+    }
+}
+
+void
+copyIntegral(      GeoIntegralProperty *dstProp,
+             const GeoIntegralProperty *srcProp,
+                   UInt32               srcSz,
+                   UInt32               dstOffset)
+{
+    typedef GeoIntegralProperty::MaxTypeT ValueType;
+    
+    for(UInt32 i = 0; i < srcSz; ++i)
+        dstProp->setValue(srcProp->getValue<ValueType>(i), dstOffset + i);
+}
+
+/*! Copies from \a srcProp to \a dstProp values indexed by the first \a srcSz
+    indices from \a srcIdx. The values are stored at the positions indicated
+    by \a idxMap.
+    
+    \warning \a dstProp is expected to have sufficient storage allocated.
+ */
+void
+copyVectorMapped(      GeoVectorProperty   *dstProp, 
+                 const GeoVectorProperty   *srcProp,
+                 const GeoIntegralProperty *srcIdx,
+                       UInt32               srcSz,
+                 const IndexMap            &idxMap  )
+{
+    typedef GeoIntegralProperty::MaxTypeT IndexType;
+    typedef GeoVectorProperty  ::MaxTypeT ValueType;
+    
+    for(UInt32 i = 0; i < srcSz; ++i)
+    {
+        IndexType si = srcIdx->getValue<IndexType>(i);
+        IndexType di = idxMap .get(si);
+        
+        dstProp->setValue(srcProp->getValue<ValueType>(si), di);
+    }
+}
+
+/*! Copies from \a srcProp to \a dstProp the first \a srcSz values and stores
+    them at positions starting at \a dstOffset.
+
+    \warning \a dstProp is expected to have sufficient storage allocated.
+ */
+void
+copyVector(       GeoVectorProperty *dstProp,
+            const GeoVectorProperty *srcProp,
+                  UInt32             srcSz,
+                  UInt32             dstOffset )
+{
+    typedef GeoVectorProperty::MaxTypeT ValueType;
+
+    for(UInt32 i = 0; i < srcSz; ++i)
+        dstProp->setValue(srcProp->getValue<ValueType>(i), dstOffset + i);
+}
+
+void mergeGeoTypes(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    GeoIntegralPropertyUnrecPtr dstTypes;
+    UInt32                      dstFormat;
+    
+    calcMergePropertyType(srcGeo1->getSFTypes()->getValue(),
+                          srcGeo2->getSFTypes()->getValue(), false, dstFormat);
+    dstTypes = GeoPropertyFactory::the()->create(dstFormat);
+    
+    UInt32 src1Sz = srcGeo1->getSFTypes()->getValue()->size();
+    UInt32 src2Sz = srcGeo2->getSFTypes()->getValue()->size();
+    
+    dstTypes->resize(src1Sz + src2Sz);
+    
+    copyIntegral(dstTypes, srcGeo1->getSFTypes()->getValue(), src1Sz, 0     );
+    copyIntegral(dstTypes, srcGeo2->getSFTypes()->getValue(), src2Sz, src1Sz);
+    
+    dstGeo->setTypes(dstTypes);
+}
+
+void mergeGeoLengths(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    GeoIntegralPropertyUnrecPtr dstLengths;
+    UInt32                      dstFormat;
+    
+    calcMergePropertyType(srcGeo1->getSFLengths()->getValue(),
+                          srcGeo2->getSFLengths()->getValue(), false, dstFormat);
+    dstLengths = GeoPropertyFactory::the()->create(dstFormat);
+    
+    UInt32 src1Sz = srcGeo1->getSFLengths()->getValue()->size();
+    UInt32 src2Sz = srcGeo2->getSFLengths()->getValue()->size();
+    
+    dstLengths->resize(src1Sz + src2Sz);
+    
+    copyIntegral(dstLengths, srcGeo1->getSFLengths()->getValue(), src1Sz, 0     );
+    copyIntegral(dstLengths, srcGeo2->getSFLengths()->getValue(), src2Sz, src1Sz);
+    
+    dstGeo->setLengths(dstLengths);
+}
+
+// The following are functions implementing merges between all different 
+// indexing variants for geometries.
+// The last four letters indicate the indexing that is assumed for the
+// arguments. NI - non indexed, SI - single indexed, MI - multi indexed
+
+
+/*! Merge geometry \a srcGeo1 and \a srcGeo2 into \a dstGeo, assuming they have
+    the same set of properties and both are unindexed.
+ */
+void mergeGeoNINI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
+    mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
+                          
+    // count number of _used_ property elements                      
+    UInt32 src1Used = 0;
+    UInt32 src2Used = 0;
+    
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    for(UInt32 i = 0; i < srcGeo2->getSFLengths()->getValue()->size(); ++i)
+        src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    const Geometry::MFPropertiesType  *src1PropF = srcGeo1->getMFProperties ();
+    const Geometry::MFPropertiesType  *src2PropF = srcGeo2->getMFProperties ();
+    
+    UInt32 szProp = osgMin(src1PropF->size(), src2PropF->size());
+    
+    for(UInt32 i = 0; i < szProp; ++i)
+    {
+        const GeoVectorProperty *src1Prop = (*src1PropF)[i];
+        const GeoVectorProperty *src2Prop = (*src2PropF)[i];
+        
+        FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
+                 ("mergeGeoNINI: Inconsistent properties!\n");)
+        
+        if(src1Prop == NULL || src2Prop == NULL)
+            continue;
+    
+        UInt32 dstFormat;
+        UInt32 dstDim;
+        UInt32 dstUsage;
+        UInt32 dstNorm;
+        
+        calcMergePropertyType(src1Prop, src2Prop,
+                              dstFormat, dstDim, dstUsage, dstNorm);
+        GeoVectorPropertyUnrecPtr dstProp =
+            GeoPropertyFactory::the()->create(dstFormat, dstDim,
+                                              dstUsage,  dstNorm);
+        
+        dstProp->resize(src1Used + src2Used);
+        
+        copyVector(dstProp, src1Prop, src1Used, 0       );
+        copyVector(dstProp, src2Prop, src2Used, src1Used);
+                    
+        dstGeo->setProperty(dstProp, i);
+    }
+    
+}
+
+/*! Merge geometry \a srcGeo1 and \a srcGeo2 into \a dstGeo, assuming they have
+    the same set of properties and \a srcGeo1 is not indexed, \a srcGeo2 is
+    single indexed. The result \a dstGeo will be single indexed.
+ */
+void mergeGeoNISI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    typedef GeoVectorProperty::MaxTypeT ValueType;
+
+    // 1. merge types and lengths
+    mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
+    mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
+    
+    // 2. merge properties
+    
+    // find number of _used_ properties/indices in both geometries
+    UInt32 src1Used = 0;
+    UInt32 src2Used = 0;
+    
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
+    
+    for(UInt32 i = 0; i < srcGeo2->getSFLengths()->getValue()->size(); ++i)
+        src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
+    
+    // get index bag for single indexed geo
+    Geometry::IndexBag src2IBag = srcGeo2->getUniqueIndexBag();
+    
+    FFASSERT(src2IBag.size() == 1, 1, ("mergeGeoNISI: Not single indexed!\n");)
+    
+    const GeoIntegralProperty *src2Idx = src2IBag[0].first;
+    
+    // create new index - be conservative and use UInt32 indices
+    GeoIntegralPropertyUnrecPtr dstIdx = 
+        GeoPropertyFactory::the()->create(GL_UNSIGNED_INT);
+    
+    // allocate storage
+    dstIdx->resize(src1Used + src2Used);
+        
+    // populate index with entries for srcGeo1
+    for(UInt32 i = 0; i < src1Used; ++i)
+        dstIdx->setValue(i, i);
+    
+    IndexMap idxMap;
+    UInt32   offset = src1Used;
+    copyIndex(dstIdx, src2Idx, src2Used, idxMap, offset, src1Used);
+    
+    // copy each property
+    for(UInt32 i = 0; i < src2IBag[0].second.size(); ++i)
+    {
+        const GeoVectorProperty *src1Prop =
+            srcGeo1->getProperty(src2IBag[0].second[i]);
+        const GeoVectorProperty *src2Prop =
+            srcGeo2->getProperty(src2IBag[0].second[i]);
+                
+        FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
+                 ("mergeGeoNISI: Inconsistent properties!\n");)
+        
+        if(src1Prop == NULL || src2Prop == NULL)
+            continue;
+        
+        UInt32 dstFormat;
+        UInt32 dstDim;
+        UInt32 dstUsage;
+        UInt32 dstNorm;
+        
+        // create destination property
+        calcMergePropertyType(src1Prop, src2Prop,
+                              dstFormat, dstDim, dstUsage, dstNorm);
+        GeoVectorPropertyUnrecPtr dstProp =
+            GeoPropertyFactory::the()->create(dstFormat, dstDim,
+                                              dstUsage,  dstNorm);
+        
+        // allocate storage
+        dstProp->resize(offset);
+               
+        copyVector      (dstProp, src1Prop, src1Used, 0               );
+        copyVectorMapped(dstProp, src2Prop, src2Idx,  src2Used, idxMap);
+        
+        dstGeo->setProperty(dstProp, src2IBag[0].second[i]);
+        dstGeo->setIndex   (dstIdx,  src2IBag[0].second[i]);
+    }
+}
+
+inline
+void mergeGeoSINI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    mergeGeoNISI(dstGeo, srcGeo2, srcGeo1);
+}
+
+/*! Merge geometry \a srcGeo1 and \a srcGeo2 into \a dstGeo, assuming they
+    have the same set of properties and \a srcGeo1 is not indexed, \a srcGeo2 is
+    multi indexed. The result \a dstGeo will be multi indexed.
+ */
+void mergeGeoNIMI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    // 1. merge types and lengths
+    mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
+    mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
+    
+    // 2. merge properties
+            
+    // find number of _used_ properties/indices in both geometries
+    UInt32 src1Used = 0;
+    UInt32 src2Used = 0;
+    
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    for(UInt32 i = 0; i < srcGeo2->getSFLengths()->getValue()->size(); ++i)
+        src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    // get index bag for multi indexed geo
+    Geometry::IndexBag src2IBag = srcGeo2->getUniqueIndexBag();
+    
+    for(UInt32 i = 0; i < src2IBag.size(); ++i)
+    {
+        const GeoIntegralProperty *src2Idx = src2IBag[i].first;
+    
+        // create new index - be conservative and use UInt32 indices
+        GeoIntegralPropertyUnrecPtr dstIdx = 
+            GeoPropertyFactory::the()->create(GL_UNSIGNED_INT);
+        
+        // allocate storage
+        dstIdx->resize(src1Used + src2Used);
+        
+        // populate index with entries for srcGeo1
+        for(UInt32 j = 0; j < src1Used; ++j)
+            dstIdx->setValue(j, j);
+            
+        IndexMap idxMap;
+        UInt32   offset = src1Used;
+        copyIndex(dstIdx, src2Idx, src2Used, idxMap, offset, src1Used);
+        
+        // copy properties indexed by this index
+        for(UInt32 j = 0; j < src2IBag[i].second.size(); ++j)
+        {
+            const GeoVectorProperty *src1Prop =
+                srcGeo1->getProperty(src2IBag[i].second[j]);
+            const GeoVectorProperty *src2Prop =
+                srcGeo2->getProperty(src2IBag[i].second[j]);
+            
+            FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
+                 ("mergeGeoNIMI: Inconsistent properties!\n");)
+        
+            if(src1Prop == NULL || src2Prop == NULL)
+                continue;
+            
+            UInt32 dstFormat;
+            UInt32 dstDim;
+            UInt32 dstUsage;
+            UInt32 dstNorm;
+            
+            // create destination property
+            calcMergePropertyType(src1Prop, src2Prop,
+                                  dstFormat, dstDim, dstUsage, dstNorm);
+            GeoVectorPropertyUnrecPtr dstProp =
+                GeoPropertyFactory::the()->create(dstFormat, dstDim,
+                                                  dstUsage,  dstNorm);
+            
+            // allocate storage
+            dstProp->resize(offset);
+                    
+            copyVector      (dstProp, src1Prop, src1Used, 0               );
+            copyVectorMapped(dstProp, src2Prop, src2Idx,  src2Used, idxMap);
+            
+            dstGeo->setProperty(dstProp, src2IBag[i].second[j]);
+            dstGeo->setIndex   (dstIdx,  src2IBag[i].second[j]);
+        }
+    }
+}
+
+inline
+void mergeGeoMINI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    mergeGeoNIMI(dstGeo, srcGeo2, srcGeo1);
+}
+
+/*! Merge geometry \a srcGeo1 and \a srcGeo2 into \a dstGeo, assuming they have
+    the same set of properties and both are single indexed.
+ */
+void mergeGeoSISI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    // 1. merge types and lengths
+    mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
+    mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
+    
+    // 2. merge properties
+            
+    // find number of _used_ indices in both geometries
+    UInt32 src1Used = 0;
+    UInt32 src2Used = 0;
+    
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
+
+    // index bags should be same - except for the actual indices ptr
+    Geometry::IndexBag src1IBag = srcGeo1->getUniqueIndexBag();
+    Geometry::IndexBag src2IBag = srcGeo2->getUniqueIndexBag();
+    
+    FFASSERT(src1IBag.size() == src2IBag.size(), 1, ("mergeGeoSISI: Indexing missmatch!\n");)
+    FFASSERT(src1IBag.size() == 1,               1, ("mergeGeoSISI: Not single indexed!\n");)
+    FFASSERT(src1IBag[0].second.size() == src2IBag[0].second.size(), 1, ("mergeGeoSISI: Property missmatch!\n");)
+    
+    const GeoIntegralProperty *src1Idx = src1IBag[0].first;
+    const GeoIntegralProperty *src2Idx = src2IBag[0].first;
+    
+    // create new index
+    UInt32   dstIdxFormat;
+    calcMergePropertyType(src1Idx, src2Idx, true, dstIdxFormat);
+    GeoIntegralPropertyUnrecPtr dstIdx = 
+        GeoPropertyFactory::the()->create(dstIdxFormat);
+    
+    dstIdx->resize(src1Used + src2Used);
+        
+    // copy index values to destination
+    IndexMap idxMap1;
+    IndexMap idxMap2;
+    UInt32   offset = 0;
+    copyIndex(dstIdx, src1Idx, src1Used, idxMap1, offset, 0       );
+    copyIndex(dstIdx, src2Idx, src2Used, idxMap2, offset, src1Used);
+    
+    // copy each property 
+    for(UInt32 i = 0; i < src1IBag[0].second.size(); ++i)
+    {
+        const GeoVectorProperty *src1Prop =
+            srcGeo1->getProperty(src1IBag[0].second[i]);
+        const GeoVectorProperty *src2Prop =
+            srcGeo2->getProperty(src2IBag[0].second[i]);
+        
+        FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
+                 ("mergeGeoSISI: Inconsistent properties!\n");)
+        
+        if(src1Prop == NULL || src2Prop == NULL)
+            continue;
+        
+        UInt32 dstFormat;
+        UInt32 dstDim;
+        UInt32 dstUsage;
+        UInt32 dstNorm;
+        
+        // create destination property
+        calcMergePropertyType(src1Prop, src2Prop,
+                              dstFormat, dstDim, dstUsage, dstNorm);
+        GeoVectorPropertyUnrecPtr dstProp = 
+            GeoPropertyFactory::the()->create(dstFormat, dstDim,
+                                              dstUsage,  dstNorm);
+        
+        // allocate storage
+        dstProp->resize(offset);
+     
+        // copy property values - only those referenced by an index are copied
+        // and stored to the new position indicated by idxMap
+        copyVectorMapped(dstProp, src1Prop, src1Idx, src1Used, idxMap1);
+        copyVectorMapped(dstProp, src2Prop, src2Idx, src2Used, idxMap2);
+        
+        dstGeo->setProperty(dstProp, src1IBag[0].second[i]);
+        dstGeo->setIndex   (dstIdx,  src1IBag[0].second[i]);
+    }
+}   
+
+/*! Merge geometry \a srcGeo1 and \a srcGeo2 into \a dstGeo, assuming they have
+    the same set of properties and \a srcGeo1 is single indexed, \a srcGeo2 is
+    multi indexed. The result \a dstGeo will be multi indexed.
+ */
+void mergeGeoSIMI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    // 1. merge types and lengths
+    mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
+    mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
+    
+    // 2. merge properties
+            
+    // find number of _used_ indices in both geometries
+    UInt32 src1Used = 0;
+    UInt32 src2Used = 0;
+    
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    for(UInt32 i = 0; i < srcGeo2->getSFLengths()->getValue()->size(); ++i)
+        src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    // get indices sorted by the properties they index
+    Geometry::IndexBag src1IBag = srcGeo1->getUniqueIndexBag();
+    Geometry::IndexBag src2IBag = srcGeo2->getUniqueIndexBag();
+    
+    for(UInt32 i = 0; i < src2IBag.size(); ++i)
+    {
+        const GeoIntegralProperty *src1Idx = src1IBag[0].first;
+        const GeoIntegralProperty *src2Idx = src2IBag[i].first;
+    
+        // create new index
+        UInt32   dstIdxFormat;
+        calcMergePropertyType(src1Idx, src2Idx, true, dstIdxFormat);
+        GeoIntegralPropertyUnrecPtr dstIdx = 
+            GeoPropertyFactory::the()->create(dstIdxFormat);
+        
+        // allocate storage
+        dstIdx->resize(src1Used + src2Used);
+        
+        // copy index values to destination
+        IndexMap idxMap1;
+        IndexMap idxMap2;
+        UInt32   offset = 0;
+        copyIndex(dstIdx, src1Idx, src1Used, idxMap1, offset, 0       );
+        copyIndex(dstIdx, src2Idx, src2Used, idxMap2, offset, src1Used);
+        
+        // copy properties indexed by this index
+        for(UInt32 j = 0; j < src2IBag[i].second.size(); ++j)
+        {
+            const GeoVectorProperty *src1Prop =
+                srcGeo1->getProperty(src2IBag[i].second[j]);
+            const GeoVectorProperty *src2Prop =
+                srcGeo2->getProperty(src2IBag[i].second[j]);
+            
+            FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
+                     ("mergeGeoSIMI: Inconsistent properties!");)
+        
+            if(src1Prop == NULL || src2Prop == NULL)
+                continue;
+        
+            UInt32 dstFormat;
+            UInt32 dstDim;
+            UInt32 dstUsage;
+            UInt32 dstNorm;
+            
+            // create destination property
+            calcMergePropertyType(src1Prop, src2Prop,
+                                  dstFormat, dstDim, dstUsage, dstNorm);
+            GeoVectorPropertyUnrecPtr dstProp =
+                GeoPropertyFactory::the()->create(dstFormat, dstDim,
+                                                  dstUsage,  dstNorm);
+            
+            // allocate storage
+            dstProp->resize(offset);
+                    
+            copyVectorMapped(dstProp, src1Prop, src1Idx, src1Used, idxMap1);
+            copyVectorMapped(dstProp, src2Prop, src2Idx, src2Used, idxMap2);
+            
+            dstGeo->setProperty(dstProp, src2IBag[i].second[j]);
+            dstGeo->setIndex   (dstIdx,  src2IBag[i].second[j]);
+        }
+    }
+}
+
+inline
+void mergeGeoMISI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    mergeGeoSIMI(dstGeo, srcGeo2, srcGeo1);
+}
+
+/*! Merge geometry \a srcGeo1 and \a srcGeo2 into \a dstGeo, assuming they have
+    the same set of properties and both are multi indexed.
+ */
+void mergeGeoMIMI(
+    Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
+{
+    // 1. merge types and lengths
+    mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
+    mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
+    
+    // 2. merge properties
+            
+    // find number of _used_ indices in both geometries
+    UInt32 src1Used = 0;
+    UInt32 src2Used = 0;
+    
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+        src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
+        
+    // get indices sorted by the properties they index
+    Geometry::IndexBag src1IBag = srcGeo1->getUniqueIndexBag();
+    Geometry::IndexBag src2IBag = srcGeo2->getUniqueIndexBag();
+    
+    // Property N may be indexed by different indices in both geometries.
+    // We build a 2D map (mipMap) that is indexed by i1, i2 and gives the list
+    // of properties that is indexed by the concatenation of indices
+    // src1IBag[i1].first and src2IBag[i2].first
+    
+    typedef std::vector<std::vector< std::vector<UInt32> > > MergedIndexPropMap;
+    
+    MergedIndexPropMap mipMap;
+    mipMap.resize(src1IBag.size());
+    
+    // find indices that index the same property
+    for(UInt32 i1 = 0; i1 < src1IBag.size(); ++i1)
+    {
+        mipMap[i1].resize(src2IBag.size());
+    
+        for(UInt32 j1 = 0; j1 < src1IBag[i1].second.size(); ++j1)
+        {
+            for(UInt32 i2 = 0; i2 < src2IBag.size(); ++i2)
+            {
+                for(UInt32 j2 = 0; j2 < src2IBag[i2].second.size(); ++j2)
+                {
+                    if(src1IBag[i1].second[j1] == src2IBag[i2].second[j2])
+                    {
+                        mipMap[i1][i2].push_back(src1IBag[i1].second[j1]);
+                    }
+                }
+            }
+        }
+    }
+    
+    // Iterating over mipMap, concatenate the corresponding indices from
+    // the two geometries and copy the properties indexed by this combined
+    // index 
+    
+    for(UInt32 i1 = 0; i1 < src1IBag.size(); ++i1)
+    {
+        for(UInt32 i2 = 0; i2 < src2IBag.size(); ++i2)
+        {
+            if(mipMap[i1][i2].empty())
+                continue;
+            
+            const GeoIntegralProperty *src1Idx = src1IBag[i1].first;
+            const GeoIntegralProperty *src2Idx = src2IBag[i2].first;
+            
+            // create new index
+            UInt32   dstIdxFormat;
+            calcMergePropertyType(src1Idx, src2Idx, true, dstIdxFormat);
+            GeoIntegralPropertyUnrecPtr dstIdx = 
+                GeoPropertyFactory::the()->create(dstIdxFormat);
+        
+            // allocate storage
+            dstIdx->resize(src1Used + src2Used);
+        
+            // copy index values to destination
+            IndexMap idxMap1;
+            IndexMap idxMap2;
+            UInt32   offset = 0;
+            copyIndex(dstIdx, src1Idx, src1Used, idxMap1, offset, 0       );
+            copyIndex(dstIdx, src2Idx, src2Used, idxMap2, offset, src1Used);
+            
+            // copy properties indexed by this index
+            for(UInt32 j = 0; j < mipMap[i1][i2].size(); ++j)
+            {
+                const GeoVectorProperty *src1Prop =
+                    srcGeo1->getProperty(mipMap[i1][i2][j]);
+                const GeoVectorProperty *src2Prop =
+                    srcGeo2->getProperty(mipMap[i1][i2][j]);
+                
+                FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
+                         ("mergeGeoMIMI: Inconsistent properties!");)
+        
+                if(src1Prop == NULL || src2Prop == NULL)
+                    continue;
+            
+                UInt32 dstFormat;
+                UInt32 dstDim;
+                UInt32 dstUsage;
+                UInt32 dstNorm;
+                
+                // create destination property
+                calcMergePropertyType(src1Prop, src2Prop,
+                                      dstFormat, dstDim, dstUsage, dstNorm);
+                GeoVectorPropertyUnrecPtr dstProp =
+                    GeoPropertyFactory::the()->create(dstFormat, dstDim,
+                                                      dstUsage,  dstNorm);
+                
+                // allocate storage
+                dstProp->resize(offset);
+                        
+                copyVectorMapped(dstProp, src1Prop, src1Idx, src1Used, idxMap1);
+                copyVectorMapped(dstProp, src2Prop, src2Idx, src2Used, idxMap2);
+                
+                dstGeo->setProperty(dstProp, mipMap[i1][i2][j]);
+                dstGeo->setIndex   (dstIdx,  mipMap[i1][i2][j]);
+            }
+        }
+    }
+}
+
+
+} // namespace
+
+
+/*! Returns whether the two geometries \a geo1 and \a geo2 can be merged, based
+    on the properties and indexing they use.
+    Geometries are mergeable if they have the same set of properties.
+    
+    \warning Materials are not considered in this function!
+ */
+bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
+{
+    const Geometry::MFPropertiesType &prop1 = *(geo1->getMFProperties());
+    const Geometry::MFPropertiesType &prop2 = *(geo2->getMFProperties());
+    
+    // number of properties may differ, but additional entries must be NULL.
+    // first compare common entries
+    UInt32 minSize = osgMin(prop1.size(), prop2.size());
+    UInt32 maxSize = osgMax(prop1.size(), prop2.size());
+    UInt32 i;
+    
+    // common entries must either be both present or both absent
+    for(i = 0; i < minSize; ++i)
+    {
+        if((prop1[i] != NULL) ^ (prop2[i] != NULL))
+            return false;
+    }
+    
+    // additional entries must be NULL
+    for(; i < maxSize; ++i)
+    {
+        if(i < prop1.size() && prop2[i] != NULL)
+            return false;
+            
+        if(i < prop2.size() && prop2[i] != NULL)
+            return false;
+    }
+    
+    // geometries have the same properties, now check indexing
+    
+    UInt32 szIBag1 = geo1->getUniqueIndexBag().size();
+    UInt32 szIBag2 = geo2->getUniqueIndexBag().size();
+    
+    if(szIBag1 == 0 && szIBag2 == 0)
+    {
+        // no index +   no index    ->  no index
+        return true;
+    }
+    else if(szIBag1 == 1 && szIBag2 == 1)
+    {
+        // single   +   single      ->  single
+        return true;
+    }
+    else if(szIBag1 > 1 && szIBag2 > 1)
+    {
+        // multi    +   multi       ->  multi
+        return true;
+    }
+    else if(szIBag1 == 0 && szIBag2 == 1)
+    {
+        // no index +   single      -> single
+        return true;
+    }
+    else if(szIBag1 == 1 && szIBag2 == 0)
+    {
+        // single   +   no index    -> single
+        return true;
+    }
+    else if(szIBag1 > 1 && szIBag2 == 0)
+    {
+        // multi    +   no index    -> multi
+        return true;
+    }
+    else if(szIBag1 == 0 && szIBag2 > 1)
+    {
+        // no index +   multi       -> multi
+        return true;
+    }
+    else if(szIBag1 == 1 && szIBag2 > 1)
+    {
+        // single   +   multi       -> multi
+        return true;
+    }
+    else if(szIBag1 > 1 && szIBag2 == 1)
+    {
+        // multi    +   single      -> multi
+        return true;
+    }
+    
+    // should not happen
+    FWARNING(("mergeableGeo: Unrecognized indexing. Geometry may be invalid.\n"));
+    
+    return false;
+}
+
+/*! Attempts to merge \a geo1 and \a geo2 and returns the merged geometry or a
+    NULL pointer if  merging is not possible.
+ */
+GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
+{
+    GeometryUnrecPtr returnValue;
+
+    const Geometry::MFPropertiesType &prop1 = *(geo1->getMFProperties());
+    const Geometry::MFPropertiesType &prop2 = *(geo2->getMFProperties());
+    
+    // number of properties may differ, but additional entries must be NULL.
+    // first compare common entries
+    UInt32 minSize = osgMin(prop1.size(), prop2.size());
+    UInt32 maxSize = osgMax(prop1.size(), prop2.size());
+    UInt32 i;
+    
+    // common entries must either be both present or both absent
+    for(i = 0; i < minSize; ++i)
+    {
+        if((prop1[i] != NULL) ^ (prop2[i] != NULL))
+        {
+            FWARNING(("mergeGeo: Geometries have different properties, "
+                      "can not merge.\n"));
+                      
+            return GeometryTransitPtr();
+        }
+    }
+    
+    // additional entries must be NULL
+    for(; i < maxSize; ++i)
+    {
+        if(i < prop1.size() && prop1[i] != NULL)
+        {
+            FWARNING(("mergeGeo: Geometries have different properties, "
+                      "can not merge.\n"));
+        
+            return GeometryTransitPtr();
+        }
+            
+        if(i < prop2.size() && prop2[i] != NULL)
+        {
+            FWARNING(("mergeGeo: Geometries have different properties, "
+                      "can not merge.\n"));
+            
+            return GeometryTransitPtr();
+        }
+    }
+    
+    // geometries have the same properties, now check indexing
+    
+    UInt32 szIBag1 = geo1->getUniqueIndexBag().size();
+    UInt32 szIBag2 = geo2->getUniqueIndexBag().size();
+    
+    if(szIBag1 == 0 && szIBag2 == 0)
+    {
+        // no index +   no index    ->  no index
+        returnValue = Geometry::create();
+        mergeGeoNINI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 == 1 && szIBag2 == 1)
+    {
+        // single   +   single      ->  single
+        returnValue = Geometry::create();
+        mergeGeoSISI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 > 1 && szIBag2 > 1)
+    {
+        // multi    +   multi       ->  multi
+        returnValue = Geometry::create();
+        mergeGeoMIMI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 == 0 && szIBag2 == 1)
+    {
+        // no index +   single      -> single
+        returnValue = Geometry::create();
+        mergeGeoNISI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 == 1 && szIBag2 == 0)
+    {
+        // single   +   no index    -> single
+        returnValue = Geometry::create();
+        mergeGeoSINI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 > 1 && szIBag2 == 0)
+    {
+        // multi    +   no index    -> multi
+        returnValue = Geometry::create();
+        mergeGeoMINI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 == 0 && szIBag2 > 1)
+    {
+        // no index +   multi       -> multi
+        returnValue = Geometry::create();
+        mergeGeoNIMI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 == 1 && szIBag2 > 1)
+    {
+        // single   +   multi       -> multi
+        returnValue = Geometry::create();
+        mergeGeoSIMI(returnValue, geo1, geo2);
+    }
+    else if(szIBag1 > 1 && szIBag2 == 1)
+    {
+        // multi    +   single      -> multi
+        returnValue = Geometry::create();
+        mergeGeoMISI(returnValue, geo1, geo2);
+    }
+    
+    return GeometryTransitPtr(returnValue);
+}
+
 
 OSG_END_NAMESPACE
 
