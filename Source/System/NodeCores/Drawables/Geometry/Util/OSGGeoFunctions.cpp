@@ -45,12 +45,13 @@
 
 #include "OSGGeoFunctions.h"
 #include "OSGGeoProperties.h"
+#include "OSGGeoPropertyFactory.h"
 #include "OSGTriangleIterator.h"
 #include "OSGFaceIterator.h"
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGStriperHalfEdgeGraph.h"
 
-#include "OSGSingletonHolder.ins"
+// #include "OSGSingletonHolder.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -3025,507 +3026,15 @@ void mergeGeometries(std::vector<Node *> &nodes,
 }
 
 
-class GeoPropertyFactoryBase
-{
-  public:
-  
-    GeoIntegralPropertyTransitPtr create(UInt32 format                  );
-    GeoVectorPropertyTransitPtr   create(UInt32 format, UInt32 dim,
-                                         UInt32 usage,  bool   normalize);
-  
-  protected:
-    typedef GeoVectorPropertyTransitPtr (*CreatePropFuncP)(void);
-    
-    UInt32 mapFormat   (UInt32 format   ) const;
-    UInt32 mapDimension(UInt32 dim      ) const;
-    UInt32 mapUsage    (UInt32 usage    ) const;
-    UInt32 mapNormalize(bool   normalize) const;
-    
-    template <class PropertyTypeT>
-    static GeoVectorPropertyTransitPtr createPropFunc       (void);
-    static GeoVectorPropertyTransitPtr invalidCreatePropFunc(void);
-    
-    static CreatePropFuncP _createFuncMap[3][4][8][2];
-};
-
-typedef SingletonHolder<GeoPropertyFactoryBase> GeoPropertyFactory;
-
-
-/*! Creates a GeoIntegralProperty that stores values of type \a format, which
-    must be an appropriate OpenGL type constant (\c GL_UNSIGNED_BYTE,
-    \c GL_UNSIGNED_SHORT or \c GL_UNSIGNED_INT ).
- */
-GeoIntegralPropertyTransitPtr GeoPropertyFactoryBase::create(UInt32 format)
-{
-    GeoIntegralPropertyTransitPtr returnValue;
-
-    switch(format)
-    {
-    case GL_UNSIGNED_BYTE:  returnValue = GeoUInt8Property::create();
-    break;
-    
-    case GL_UNSIGNED_SHORT: returnValue = GeoUInt16Property::create();
-    break;
-    
-    case GL_UNSIGNED_INT:   returnValue = GeoUInt32Property::create();
-    break;
-    
-    default:
-        FWARNING(("GeoPropertyFactoryBase::create: Invalid paramter: format [%d].\n",
-                  format));
-    }
-    
-    return returnValue;
-}
-
-/*! Creates a GeoVectorProperty that stores values described by \a format,
-    \a dim, \a usage and \a normalize.
- */
-GeoVectorPropertyTransitPtr GeoPropertyFactoryBase::create(
-    UInt32 format, UInt32 dim, UInt32 usage, bool normalize)
-{
-    GeoVectorPropertyTransitPtr returnValue;
-
-    UInt32 formatIdx    = mapFormat   (format   );
-    UInt32 dimIdx       = mapDimension(dim      );
-    UInt32 usageIdx     = mapUsage    (usage    );
-    UInt32 normalizeIdx = mapNormalize(normalize);
-    
-    if(formatIdx    == TypeTraits<UInt32>::getMax() ||
-       dimIdx       == TypeTraits<UInt32>::getMax() ||
-       usageIdx     == TypeTraits<UInt32>::getMax() ||
-       normalizeIdx == TypeTraits<UInt32>::getMax()   )
-    {
-        FWARNING(("GeoPropertyFactoryBase::create: Invalid parameters: "
-                  "format [%d] dim [%d] usage [%d] normalize [%d].\n",
-                  format, dim, usage, normalize));
-    }
-    
-    returnValue = _createFuncMap[usageIdx][dimIdx][formatIdx][normalizeIdx]();
-    
-    return returnValue;
-}
-
-template <class PropertyTypeT> inline
-GeoVectorPropertyTransitPtr GeoPropertyFactoryBase::createPropFunc(void)
-{
-    return GeoVectorPropertyTransitPtr(PropertyTypeT::create());
-}
-
-inline
-GeoVectorPropertyTransitPtr GeoPropertyFactoryBase::invalidCreatePropFunc(void)
-{
-    FWARNING(("GeoPropertyFactoryBase::invalidCreatePropFunc: "
-              "Unsupported property type.\n"));
-
-    return GeoVectorPropertyTransitPtr();
-}
-
-/*! Maps an OpenGL type constant to an index for the property creation function
-    LUT.
- */
-inline
-UInt32 GeoPropertyFactoryBase::mapFormat(UInt32 format) const
-{
-    UInt32 returnValue = TypeTraits<UInt32>::getMax();
-
-    switch(format)
-    {
-    case GL_BYTE:           returnValue = 0;    break;
-    case GL_UNSIGNED_BYTE:  returnValue = 1;    break;
-    case GL_SHORT:          returnValue = 2;    break;
-    case GL_UNSIGNED_SHORT: returnValue = 3;    break;
-    case GL_INT:            returnValue = 4;    break;
-    case GL_UNSIGNED_INT:   returnValue = 5;    break;
-    case GL_FLOAT:          returnValue = 6;    break;
-    case GL_DOUBLE:         returnValue = 7;    break;
-    
-    default:
-        FWARNING(("GeoPropertyFactoryBase::mapFormat: Unsupported format [%d].\n",
-                  format));
-    }
-    
-    return returnValue;
-}
-
-/*! Maps a dimension to an index for the property creation function LUT.
- */
-inline
-UInt32 GeoPropertyFactoryBase::mapDimension(UInt32 dim) const
-{
-    UInt32 returnValue = TypeTraits<UInt32>::getMax();
-    
-    switch(dim)
-    {
-    case 1:     returnValue = 0;    break;
-    case 2:     returnValue = 1;    break;
-    case 3:     returnValue = 2;    break;
-    case 4:     returnValue = 3;    break;
-    
-    default:
-        FWARNING(("GeoPropertyFactoryBase::mapDim: Unsupported dimension [%d].\n",
-                  dim));
-    }
-    
-    return returnValue;
-}
-
-inline
-UInt32 GeoPropertyFactoryBase::mapUsage(UInt32 usage) const
-{
-    UInt32 returnValue = TypeTraits<UInt32>::getMax();
-    
-    switch(usage)
-    {
-    case GeoProperty::UsageObjectSpace:     returnValue = 0;    break;
-    case GeoProperty::UsageTangentSpace:    returnValue = 1;    break;
-    case GeoProperty::UsageParameterSpace:  returnValue = 1;    break;
-    case GeoProperty::UsageColorSpace:      returnValue = 2;    break;
-    
-    case GeoProperty::UsageUnspecified:     returnValue = 0;    break;
-    
-    default:
-        FWARNING(("GeoPropertyFactoryBase::mapUsage: Unsupported usage [%d].\n",
-                  usage));
-    }
-    
-    return returnValue;
-}
-
-inline
-UInt32 GeoPropertyFactoryBase::mapNormalize(bool normalize) const
-{
-    UInt32 returnValue = TypeTraits<UInt32>::getMax();
-    
-    if(normalize)
-        returnValue = 1;
-    else
-        returnValue = 0;
-        
-    return returnValue;
-}
-
-/*! GeoVectorProperty create function LUT.
-    The dimensions are:  1      usage       - Obj, Tan/Tex, Col
-                         2      dimension   - 1 to 4
-                         3      format      - GL_BYTE,...
-                         4      normalize
- */
-GeoPropertyFactoryBase::CreatePropFuncP
-    GeoPropertyFactoryBase::_createFuncMap[3][4][8][2] =
-    {
-        {
-            {   { &createPropFunc<GeoPnt1bProperty >,   // Obj, 1, byte
-                  &createPropFunc<GeoPnt1NbProperty>
-                },
-                { &createPropFunc<GeoPnt1ubProperty >,  // Obj, 1, ubyte
-                  &createPropFunc<GeoPnt1NubProperty>
-                },
-                { &createPropFunc<GeoPnt1sProperty >,   // Obj, 1, short
-                  &createPropFunc<GeoPnt1NsProperty>
-                },
-                { &createPropFunc<GeoPnt1usProperty >,  // Obj, 1, ushort
-                  &createPropFunc<GeoPnt1NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Obj, 1, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Obj, 1, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt1fProperty>,    // Obj, 1, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt1dProperty>,    // Obj, 1, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &createPropFunc<GeoPnt2bProperty>,    // Obj, 2, byte
-                  &createPropFunc<GeoPnt2NbProperty>
-                },
-                { &createPropFunc<GeoPnt2ubProperty>,   // Obj, 2, ubyte
-                  &createPropFunc<GeoPnt2NubProperty>
-                },
-                { &createPropFunc<GeoPnt2sProperty>,    // Obj, 2, short
-                  &createPropFunc<GeoPnt2NsProperty>
-                },
-                { &createPropFunc<GeoPnt2usProperty>,   // Obj, 2, ushort
-                  &createPropFunc<GeoPnt2NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Obj, 2, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Obj, 2, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt2fProperty>,    // Obj, 2, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt2dProperty>,    // Obj, 2, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &createPropFunc<GeoPnt3bProperty>,    // Obj, 3, byte
-                  &createPropFunc<GeoPnt3NbProperty>
-                },
-                { &createPropFunc<GeoPnt3ubProperty>,   // Obj, 3, ubyte
-                  &createPropFunc<GeoPnt3NubProperty>
-                },
-                { &createPropFunc<GeoPnt3sProperty>,    // Obj, 3, short
-                  &createPropFunc<GeoPnt3NsProperty>
-                },
-                { &createPropFunc<GeoPnt3usProperty>,   // Obj, 3, ushort
-                  &createPropFunc<GeoPnt3NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Obj, 3, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Obj, 3, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt3fProperty>,    // Obj, 3, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt3dProperty>,    // Obj, 3, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &createPropFunc<GeoPnt4bProperty>,    // Obj, 4, byte
-                  &createPropFunc<GeoPnt4NbProperty>
-                },
-                { &createPropFunc<GeoPnt4ubProperty>,   // Obj, 4, ubyte
-                  &createPropFunc<GeoPnt4NubProperty>
-                },
-                { &createPropFunc<GeoPnt4sProperty>,    // Obj, 4, short
-                  &createPropFunc<GeoPnt4NsProperty>
-                },
-                { &createPropFunc<GeoPnt4usProperty>,   // Obj, 4, ushort
-                  &createPropFunc<GeoPnt4NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Obj, 4, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Obj, 4, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt4fProperty>,    // Obj, 4, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoPnt4dProperty>,    // Obj, 4, double
-                  &invalidCreatePropFunc
-                }
-            }
-        },
-        {   {   { &createPropFunc<GeoVec1bProperty >,   // Tan/Tex, 1, byte
-                  &createPropFunc<GeoVec1NbProperty>
-                },
-                { &createPropFunc<GeoVec1ubProperty >,  // Tan/Tex, 1, ubyte
-                  &createPropFunc<GeoVec1NubProperty>
-                },
-                { &createPropFunc<GeoVec1sProperty >,   // Tan/Tex, 1, short
-                  &createPropFunc<GeoVec1NsProperty>
-                },
-                { &createPropFunc<GeoVec1usProperty >,  // Tan/Tex, 1, ushort
-                  &createPropFunc<GeoVec1NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 1, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 1, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec1fProperty>,    // Tan/Tex, 1, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec1dProperty>,    // Tan/Tex, 1, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &createPropFunc<GeoVec2bProperty>,    // Tan/Tex, 2, byte
-                  &createPropFunc<GeoVec2NbProperty>
-                },
-                { &createPropFunc<GeoVec2ubProperty>,   // Tan/Tex, 2, ubyte
-                  &createPropFunc<GeoVec2NubProperty>
-                },
-                { &createPropFunc<GeoVec2sProperty>,    // Tan/Tex, 2, short
-                  &createPropFunc<GeoVec2NsProperty>
-                },
-                { &createPropFunc<GeoVec2usProperty>,   // Tan/Tex, 2, ushort
-                  &createPropFunc<GeoVec2NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 2, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 2, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec2fProperty>,    // Tan/Tex, 2, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec2dProperty>,    // Tan/Tex, 2, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &createPropFunc<GeoVec3bProperty>,    // Tan/Tex, 3, byte
-                  &createPropFunc<GeoVec3NbProperty>
-                },
-                { &createPropFunc<GeoVec3ubProperty>,   // Tan/Tex, 3, ubyte
-                  &createPropFunc<GeoVec3NubProperty>
-                },
-                { &createPropFunc<GeoVec3sProperty>,    // Tan/Tex, 3, short
-                  &createPropFunc<GeoVec3NsProperty>
-                },
-                { &createPropFunc<GeoVec3usProperty>,   // Tan/Tex, 3, ushort
-                  &createPropFunc<GeoVec3NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 3, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 3, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec3fProperty>,    // Tan/Tex, 3, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec3dProperty>,    // Tan/Tex, 3, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &createPropFunc<GeoVec4bProperty>,    // Tan/Tex, 4, byte
-                  &createPropFunc<GeoVec4NbProperty>
-                },
-                { &createPropFunc<GeoVec4ubProperty>,   // Tan/Tex, 4, ubyte
-                  &createPropFunc<GeoVec4NubProperty>
-                },
-                { &createPropFunc<GeoVec4sProperty>,    // Tan/Tex, 4, short
-                  &createPropFunc<GeoVec4NsProperty>
-                },
-                { &createPropFunc<GeoVec4usProperty>,   // Tan/Tex, 4, ushort
-                  &createPropFunc<GeoVec4NusProperty>
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 4, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Tan/Tex, 4, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec4fProperty>,    // Tan/Tex, 4, float
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoVec4dProperty>,    // Tan/Tex, 4, double
-                  &invalidCreatePropFunc
-                }
-            }
-        },
-        {   {   { &invalidCreatePropFunc,               // Col, 1, byte
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 1, ubyte
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 1, short
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 1, ushort
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 1, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 1, uint
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 1, float
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 1, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &invalidCreatePropFunc,               // Col, 2, byte
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 2, ubyte
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 2, short
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 2, ushort
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 2, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 2, uint
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 2, float
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 2, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &invalidCreatePropFunc,               // Col, 3, byte
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoColor3ubProperty>, // Col, 3, ubyte
-                  &createPropFunc<GeoColor3NubProperty>
-                },
-                { &invalidCreatePropFunc,               // Col, 3, short
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 3, ushort
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 3, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 3, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoColor3fProperty>,  // Col, 3, float
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 3, double
-                  &invalidCreatePropFunc
-                }
-            },
-            {   { &invalidCreatePropFunc,               // Col, 4, byte
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoColor4ubProperty>, // Col, 4, ubyte
-                  &createPropFunc<GeoColor4NubProperty>
-                },
-                { &invalidCreatePropFunc,               // Col, 4, short
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 4, ushort
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 4, int
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 4, uint
-                  &invalidCreatePropFunc
-                },
-                { &createPropFunc<GeoColor4fProperty>,  // Col, 4, float
-                  &invalidCreatePropFunc
-                },
-                { &invalidCreatePropFunc,               // Col, 4, double
-                  &invalidCreatePropFunc
-                }
-            }
-        },
-    };
-    
-OSG_SINGLETON_INST(GeoPropertyFactoryBase)
-
 
 namespace
 {
+    // this anonymous namespace contains functions that are implementation
+    // details for geometry merging
 
+/*! Returns the format to be used when merging a property of \a format1 with
+    one of \a format2.
+ */
 UInt32 calcMergeFormat(UInt32 format1, UInt32 format2)
 {
     UInt32 format;
@@ -3712,10 +3221,13 @@ void calcMergePropertyType(
     }
 }
 
+/*! Determines a format to store the combination of \a prop1 and \a prop2.
+ */
 void calcMergePropertyType(
-    const GeoVectorProperty *prop1, const GeoVectorProperty *prop2,
-          UInt32            &format,      UInt32            &dim,
-          UInt32            &usage,       UInt32            &normalize)
+    const GeoVectorProperty *prop1, 
+    const GeoVectorProperty *prop2,
+          UInt32            &format, UInt32 &dim,
+          UInt32            &usage,  UInt32 &normalize)
 {
     UInt32 dim1       = prop1->getDimension();
     UInt32 dim2       = prop2->getDimension();
@@ -3754,73 +3266,6 @@ void calcMergePropertyType(
         normalize = normalize1;
     }
 }
-
-/*
-
-template <class DestTypeT, class SrcTypeT>
-struct AppendIntegralProp
-{
-    typedef          DestTypeT             DestType;
-    typedef          SrcTypeT              SrcType;
-    typedef typename DestType::StoredType  DestValueType;
-    
-    static void apply(      GeoIntegralProperty *dst,
-                      const GeoIntegralProperty *src,
-                            DestValueType        offset = 0)
-    {
-        typedef typename DestType::StoredFieldType DestFieldType;
-        typedef typename SrcType ::StoredFieldType SrcFieldType;
-        
-              DestFieldType *dstF =
-                dynamic_cast<      DestType *>(dst)->editFieldPtr();
-        const SrcFieldType  *srcF =
-                dynamic_cast<const SrcType  *>(src)->getFieldPtr ();
-        
-        typename SrcFieldType::const_iterator srcIt  = srcF->begin();
-        typename SrcFieldType::const_iterator srcEnd = srcF->end  ();
-        
-        dstF->reserve(dstF->size() + srcF->size());
-        for(; srcIt != srcEnd; ++srcIt)
-            dstF->push_back(static_cast<DestValueType>(*srcIt) + offset);
-    }
-};
-
-template <class TypeT>
-struct AppendIntegralProp<TypeT, TypeT>
-{
-    typedef          TypeT                 DestType;
-    typedef          TypeT                 SrcType;
-    typedef typename DestType::StoredType  DestValueType;
-
-    static void apply(      GeoIntegralProperty *dst,
-                      const GeoIntegralProperty *src,
-                            DestValueType        offset = 0)
-    {
-        typedef typename DestType::StoredFieldType DestFieldType;
-        typedef typename SrcType ::StoredFieldType SrcFieldType;
-    
-              DestFieldType *dstF =
-                dynamic_cast<      DestType *>(dst)->editFieldPtr();
-        const SrcFieldType  *srcF =
-                dynamic_cast<const SrcType  *>(src)->getFieldPtr ();
-        
-        dstF->reserve(dstF->size() + srcF->size());
-        
-        if(offset == 0)
-        {        
-            dstF->insert(dstF->end(), srcF->begin(), srcF->end());
-        }
-        else
-        {
-            typename SrcFieldType::const_iterator srcIt  = srcF->begin();
-            typename SrcFieldType::const_iterator srcEnd = srcF->end  ();
-            
-            for(; srcIt != srcEnd; ++srcIt)
-                dstF->push_back(*srcIt + offset);
-        }
-    }
-};*/
-
 
 /*! Merges integral properties by appending \a src1Prop and \a src2Prop to a
     new property.
@@ -3884,18 +3329,20 @@ void IndexMap::set(UInt32 idx, UInt32 val)
 }
 
 
-// TODO: copyIndex and both copyProperty functions need optimizing!
-//       examine the type of the source and destination properties and if they
-//       are the same use the direct field interface to copy values instead of
-//       the generic interface
+// TODO: optimize the following four copy... functions
 
+/*! Copies and rewrites the index \a srcIdx to \a dstIdx storing the mapping
+    between old and new indices in \a idxMap.
+    
+    \warning \a dstIdx is expected to have sufficient storage allocated.
+ */
 void
 copyIndex(      GeoIntegralProperty *dstIdx,
           const GeoIntegralProperty *srcIdx,
                 UInt32               srcSz,
                 IndexMap            &idxMap,
                 UInt32              &offset,
-                UInt32               idxOffset)
+                UInt32               dstOffset)
 {
     typedef GeoIntegralProperty::MaxTypeT IndexType;
    
@@ -3910,10 +3357,15 @@ copyIndex(      GeoIntegralProperty *dstIdx,
             idxMap.set(si, di);
         }
         
-        dstIdx->setValue(di, i + idxOffset);
+        dstIdx->setValue(di, i + dstOffset);
     }
 }
 
+/*! Copies from \a srcProp to \a dstProp the first srcSz values and stores them
+    at positions starting at \a dstOffset.
+    
+    \warning \a dstProp is expected to have sufficient storage allocated.
+ */
 void
 copyIntegral(      GeoIntegralProperty *dstProp,
              const GeoIntegralProperty *srcProp,
@@ -4010,7 +3462,7 @@ void mergeGeoLengths(
     dstGeo->setLengths(dstLengths);
 }
 
-// The following are functions implementing merges between all different 
+// The following functions are implementing merges between all different 
 // indexing variants for geometries.
 // The last four letters indicate the indexing that is assumed for the
 // arguments. NI - non indexed, SI - single indexed, MI - multi indexed
@@ -4655,6 +4107,8 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
 
 /*! Attempts to merge \a geo1 and \a geo2 and returns the merged geometry or a
     NULL pointer if  merging is not possible.
+    
+    \warning Materials are not considered in this function!
  */
 GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
 {
