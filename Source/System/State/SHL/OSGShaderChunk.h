@@ -79,6 +79,13 @@ class OSG_STATE_DLLMAPPING ShaderChunk : public ShaderChunkBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      State                                   */
+    /*! \{                                                                 */
+                      
+    bool isShader(void) const;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                 ShaderChunk Access                           */
     /*! \{                                                                 */
 

@@ -93,6 +93,7 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase
     virtual UInt32     getNPasses   (void            ) const;
 
     virtual bool       isTransparent(void            ) const;
+    virtual bool       isShader     (void            ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

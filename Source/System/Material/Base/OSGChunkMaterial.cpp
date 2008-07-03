@@ -387,14 +387,29 @@ bool ChunkMaterial::isTransparent(void) const
 
     bool             returnValue = false;
 
-    MFUnrecStateChunkPtr::const_iterator it        = _mfChunks.begin();
-    MFUnrecStateChunkPtr::const_iterator chunksEnd = _mfChunks.end();
+    MFChunksType::const_iterator chunksIt  = _mfChunks.begin();
+    MFChunksType::const_iterator chunksEnd = _mfChunks.end  ();
 
-    for(; it != chunksEnd && returnValue == false; ++it)
+    for(; chunksIt != chunksEnd && returnValue == false; ++chunksIt)
     {
-        returnValue =(*it)->isTransparent();
+        returnValue = (*chunksIt)->isTransparent();
     }
 
+    return returnValue;
+}
+
+bool ChunkMaterial::isShader(void) const
+{
+    bool returnValue = false;
+    
+    MFChunksType::const_iterator chunksIt  = _mfChunks.begin();
+    MFChunksType::const_iterator chunksEnd = _mfChunks.end  ();
+    
+    for(; chunksIt != chunksEnd && returnValue == false; ++chunksIt)
+    {
+        returnValue = (*chunksIt)->isShader();
+    }
+    
     return returnValue;
 }
 

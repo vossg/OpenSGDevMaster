@@ -199,6 +199,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunk : public StateChunkBase
                                UInt32      index = 0) = 0;
 
     virtual bool isTransparent(void) const;
+    virtual bool isShader     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

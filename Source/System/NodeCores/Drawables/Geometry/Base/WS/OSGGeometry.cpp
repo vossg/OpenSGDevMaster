@@ -369,9 +369,12 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
 
 Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
 {
-    // !!! HACK this needs to be decided by the used material/state
-    bool usesShader = false;
-
+    bool          usesShader = false;
+    RenderAction *ra         = dynamic_cast<RenderAction *>(pEnv->getAction());
+    
+    if(ra != NULL && ra->getMaterial() != NULL)
+        usesShader = ra->getMaterial()->isShader();
+    
     // store glColor.
     Color4f color;
 

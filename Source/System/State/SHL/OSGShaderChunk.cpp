@@ -106,6 +106,13 @@ void ShaderChunk::dump(      UInt32    ,
     SLOG << "Dump ShaderChunk NI" << std::endl;
 }
 
+/*----------------------------------- State -------------------------------*/
+
+bool ShaderChunk::isShader(void) const
+{
+    return true;
+}
+
 /*---------------------------------- Access -------------------------------*/
 
 /*! Read the program string from the given file

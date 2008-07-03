@@ -121,6 +121,7 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     virtual UInt32   getNPasses    (void                       );
   
     virtual bool     isTransparent (void                       ) const = 0;
+    virtual bool     isShader      (void                       ) const = 0;
 
     virtual Int32    getRealSortKey(void                       ) const;
 

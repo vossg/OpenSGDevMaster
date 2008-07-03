@@ -91,6 +91,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     virtual void     rebuildState (void                    );
 
     virtual bool     isTransparent(void                    ) const;
+    virtual bool     isShader     (void                    ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

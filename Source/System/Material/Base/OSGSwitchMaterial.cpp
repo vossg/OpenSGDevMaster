@@ -351,6 +351,27 @@ bool SwitchMaterial::isTransparent(void) const
     return false;
 }
 
+bool SwitchMaterial::isShader(void) const
+{
+    UInt32 choice = getChoice();
+    
+    if(choice >= _mfMaterials.size())
+    {
+        if(!_mfMaterials.empty())
+        {
+            SWARNING << "SwitchMaterial::isShader: choice index out of range!"
+                     << std::endl;
+        }
+        
+        return false;
+    }
+    
+    if(_mfMaterials[choice] != NULL)
+        return _mfMaterials[choice]->isShader();
+        
+    return false;
+}
+
 void SwitchMaterial::dump(      UInt32    , 
                          const BitVector ) const
 {

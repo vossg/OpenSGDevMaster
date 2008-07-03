@@ -92,6 +92,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterial : public MultiPassMaterialBase
     virtual UInt32  getNPasses   (void                    );
 
     virtual bool    isTransparent(void                    ) const;
+    virtual bool    isShader     (void                    ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

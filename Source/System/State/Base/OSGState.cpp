@@ -572,17 +572,31 @@ bool State::isTransparent(void) const
 {
     bool returnValue = false;
 
-    MFUnrecStateChunkPtr::const_iterator it        = _mfChunks.begin();
+    MFUnrecStateChunkPtr::const_iterator chunksIt  = _mfChunks.begin();
     MFUnrecStateChunkPtr::const_iterator chunksEnd = _mfChunks.end();
 
-    for(; it != chunksEnd && returnValue == false; ++it)
+    for(; chunksIt != chunksEnd && returnValue == false; ++chunksIt)
     {
-        if((*it) != NULL)
-        {
-            returnValue =(*it)->isTransparent();
-        }
+        if((*chunksIt) != NULL)
+            returnValue =(*chunksIt)->isTransparent();
     }
 
+    return returnValue;
+}
+
+bool State::isShader(void) const
+{
+    bool returnValue = false;
+    
+    MFChunksType::const_iterator chunksIt  = _mfChunks.begin();
+    MFChunksType::const_iterator chunksEnd = _mfChunks.end  ();
+    
+    for(; chunksIt != chunksEnd && returnValue == false; ++chunksIt)
+    {
+        if((*chunksIt) != NULL)
+            returnValue = (*chunksIt)->isShader();
+    }
+    
     return returnValue;
 }
 

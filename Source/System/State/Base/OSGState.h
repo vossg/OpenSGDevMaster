@@ -138,6 +138,7 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \{                                                                 */
 
     bool isTransparent(void) const;
+    bool isShader     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
