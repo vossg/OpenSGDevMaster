@@ -36,8 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#define OSG_COMPILETYPEDGEOINTEGRALPROPFIELDINST
-
 #include <OSGField.h>
 
 #include <OSGSField.h>

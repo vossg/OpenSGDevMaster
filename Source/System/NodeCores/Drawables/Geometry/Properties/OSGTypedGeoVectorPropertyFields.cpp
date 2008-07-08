@@ -36,8 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#define OSG_COMPILETYPEDGEOVECTORPROPFIELDINST
-
 #include <OSGField.h>
 
 #include <OSGSField.h>

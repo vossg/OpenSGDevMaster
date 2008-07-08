@@ -36,8 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#define OSG_COMPILEVRMLNODEDESCINST
-
 #include <cstdlib>
 #include <cstdio>
 

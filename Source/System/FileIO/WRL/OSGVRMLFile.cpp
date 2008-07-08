@@ -38,8 +38,6 @@
 
 // AMZ disabled for now.
 
-#define OSG_COMPILEVRMLLOADERINST
-
 #include <cstdlib>
 #include <cstdio>
 
