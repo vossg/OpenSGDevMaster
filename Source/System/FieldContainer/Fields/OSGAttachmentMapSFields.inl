@@ -58,14 +58,6 @@ GetSFieldHandle<SFAttachmentPtrMap>::GetSFieldHandle(
 }
 
 inline
-const FieldType &
-    GetSFieldHandle<SFAttachmentPtrMap>::getType(void) const
-{
-    return SFAttachmentPtrMap::getClassType();
-}
-
-
-inline
 bool 
    GetSFieldHandle<SFAttachmentPtrMap>::isPointerField(void) const
 {
@@ -148,12 +140,6 @@ EditSFieldHandle<SFAttachmentPtrMap>::EditSFieldHandle(
 {
 }
 
-inline
-const FieldType &
-    EditSFieldHandle<SFAttachmentPtrMap>::getType(void) const
-{
-    return SFAttachmentPtrMap::getClassType();
-}
 
 inline
 bool EditSFieldHandle<SFAttachmentPtrMap>::isPointerField(void) const

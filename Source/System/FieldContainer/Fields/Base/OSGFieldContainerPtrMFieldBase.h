@@ -233,8 +233,6 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrMFieldBase : public Field
 
 OSG_END_NAMESPACE
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
 #include "OSGFieldContainerPtrMFieldBase.inl"
-#endif
 
 #endif /* _OSGFIELDCONTAINERMFIELDBASE_H_ */

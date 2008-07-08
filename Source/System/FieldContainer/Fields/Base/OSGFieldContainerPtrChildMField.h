@@ -684,8 +684,6 @@ class FieldContainerPtrChildMField : public FieldContainerPtrMFieldBase
 
 OSG_END_NAMESPACE
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
 #include "OSGFieldContainerPtrChildMField.inl"
-#endif
 
 #endif /* _OSGFIELDCONTAINERPTRCHILDMFIELD_H_ */

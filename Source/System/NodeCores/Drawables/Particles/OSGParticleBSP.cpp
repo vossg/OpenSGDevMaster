@@ -40,8 +40,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#define OSG_COMPILEPARTICLEBSPINST
-
 #include <cstdlib>
 #include <cstdio>
 

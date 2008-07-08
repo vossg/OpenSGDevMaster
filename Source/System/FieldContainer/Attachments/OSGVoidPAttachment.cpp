@@ -42,8 +42,6 @@
  */
 #endif
 
-#define OSG_COMPILESIMPLEATTACHMENTSINST
-
 #include <cstdlib>
 #include <cstdio>
 

@@ -86,10 +86,6 @@ typedef
 
 OSG_END_NAMESPACE
 
-//#include "OSGFieldContainerParentMFieldHandle.h"
-
-#ifndef OSG_COMPILECONTAINERFIELDINST
 #include "OSGFieldContainerMFields.inl"
-#endif
 
 #endif /* _OSGFIELDCONTAINERMFIELDS_H_ */

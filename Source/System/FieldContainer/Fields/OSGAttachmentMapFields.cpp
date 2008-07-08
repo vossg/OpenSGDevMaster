@@ -40,8 +40,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#define OSG_COMPILEATTACHMENTMAPFIELDINST
-
 #include <OSGFieldContainer.h>
 #include <OSGAttachmentMapSFields.h>
 #include <OSGAttachment.h>
@@ -55,6 +53,19 @@
 
 
 OSG_BEGIN_NAMESPACE
+
+OSG_FIELD_DLLEXPORT_DEF1(SField, AttachmentMap);
+
+
+const FieldType &GetSFieldHandle<SFAttachmentPtrMap>::getType(void) const
+{
+    return SFAttachmentPtrMap::getClassType();
+}
+
+const FieldType &EditSFieldHandle<SFAttachmentPtrMap>::getType(void) const
+{
+    return SFAttachmentPtrMap::getClassType();
+}
 
 UInt32 FieldTraits<AttachmentMap>::getBinSize(const AttachmentMap &aMap)
 {
@@ -237,7 +248,5 @@ DataType FieldTraits<AttachmentMap>::_type(
 OSG_FIELDTRAITS_GETTYPE(AttachmentMap)
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-OSG_FIELD_DLLEXPORT_DEF1(SField, AttachmentMap);
 
 OSG_END_NAMESPACE

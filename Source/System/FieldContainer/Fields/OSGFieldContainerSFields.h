@@ -84,10 +84,6 @@ typedef ParentPointerSField<FieldContainer *,
 
 OSG_END_NAMESPACE
 
-//#include "OSGFieldContainerParentSFieldHandle.h"
-
-#ifndef OSG_COMPILECONTAINERFIELDINST
 #include "OSGFieldContainerSFields.inl"
-#endif
 
 #endif /* _OSGFIELDCONTAINERSFIELDS_H_ */

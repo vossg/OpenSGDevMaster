@@ -40,8 +40,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#define OSG_COMPILESTATCOLLECTORINST
-
 #include <cstdlib>
 #include <cstdio>
 

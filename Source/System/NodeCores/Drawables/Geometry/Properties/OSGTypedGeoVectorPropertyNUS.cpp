@@ -40,8 +40,6 @@
  //  Includes
 //---------------------------------------------------------------------------
 
-#define OSG_COMPILENAMEDGEOPROPINST
-
 #include <cstdlib>
 #include <cstdio>
 

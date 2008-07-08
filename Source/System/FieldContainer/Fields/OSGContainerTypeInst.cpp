@@ -36,8 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#define OSG_COMPILECONTAINERFIELDINST
-
 #include <OSGField.h>
 
 #include <OSGSField.h>

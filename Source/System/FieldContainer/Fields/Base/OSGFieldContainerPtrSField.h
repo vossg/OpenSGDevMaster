@@ -204,8 +204,6 @@ class FieldContainerPtrSField : public FieldContainerPtrSFieldBase
 
 OSG_END_NAMESPACE
 
-#ifndef OSG_COMPILECONTAINERFIELDINST
 #include "OSGFieldContainerPtrSField.inl"
-#endif
 
 #endif /* _OSGFIELDCONTAINERPTRSFIELD_H_ */
