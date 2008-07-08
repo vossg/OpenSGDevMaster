@@ -919,6 +919,12 @@ if not SConsAddons.Util.hasHelpFlag():
       except:
          default_combo_type = None
       
+      # XXX: This is a hack to deal with what seems to be a bug in SCons. It
+      # sets up the shared linker flags for the Apple GCC case to use -shared
+      # instead of -dynamiclib.
+      if "darwin" == platform:
+         common_env['SHLINKFLAGS'] = SCons.Util.CLVar('$LINKFLAGS -dynamiclib')
+
       for combo in variant_helper.iterate(locals(), base_bldr, common_env):
       #baseEnv = env_bldr.applyToEnvironment(common_env.Copy(), variant=combo,options=opts)
          print "   Processing combo: ", ", ".join(['%s:%s'%(i[0],i[1]) for i in combo.iteritems()])
