@@ -518,6 +518,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     {                                                                       \
         name##Index = geo->getIndex(propindex);                             \
         name##Data = name##Ptr->getData();                                  \
+        OSG_GV_ASSERT(name##Data != NULL);                                  \
         if(!(name##Stride = name##Ptr->getStride()))                        \
             name##Stride = name##Ptr->getFormatSize() *                     \
             name##Ptr->getDimension();                                      \

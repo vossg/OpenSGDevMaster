@@ -552,6 +552,7 @@ OSG_END_NAMESPACE
 
 #include "OSGTransitPtr.h"
 #include "OSGRefCountPtr.h"
+#include "OSGMTPtr.h"
 
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"

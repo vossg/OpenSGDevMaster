@@ -81,6 +81,7 @@
 
 #define OSG_GEN_CONTAINERPTR(CLASST)                                     \
     typedef TransitPtr < CLASST                  > CLASST##TransitPtr;   \
+    typedef MTPtr      < CLASST                  > CLASST##MTPtr;        \
     typedef RefCountPtr< CLASST,                                         \
                          RecordedRefCountPolicy  > CLASST##RecPtr;       \
     typedef RefCountPtr< CLASST,                                         \
@@ -136,6 +137,9 @@ class TransitPtr;
 
 template<class ObjT, class RefCountPolicyT> 
 class RefCountPtr;
+
+template<class ObjT>
+class MTPtr;
 
 OSG_GEN_CONTAINERPTR(FieldContainer);
 OSG_GEN_CONTAINERPTR(Attachment);

@@ -121,11 +121,10 @@ void FragmentProgramChunk::onCreate(const FragmentProgramChunk *chunk)
         return;
 
     setGLId(Window::registerGLObject(
-                    boost::bind(&FragmentProgramChunk::handleGL, this, 
-                                    _1, _2, _3),
-                    boost::bind(&FragmentProgramChunk::handleDestroyGL, this, 
-                                    _1, _2, _3)
-           ));
+                    boost::bind(&FragmentProgramChunk::handleGL, 
+                                FragmentProgramChunkMTPtr(this), 
+                                _1, _2, _3),
+                    &FragmentProgramChunk::handleDestroyGL));
 }
 
 

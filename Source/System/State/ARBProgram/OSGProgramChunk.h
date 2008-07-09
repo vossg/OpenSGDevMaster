@@ -198,14 +198,16 @@ class OSG_STATE_DLLMAPPING ProgramChunk : public ProgramChunkBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id, 
-                    Window::GLObjectStatusE mode, 
-                    GLenum Target, 
-                    UInt32 extension);
-    void handleDestroyGL(DrawEnv *pEnv, UInt32 id, 
-                    Window::GLObjectStatusE mode, 
-                    GLenum Target, 
-                    UInt32 extension);
+           void handleGL       (DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode, 
+                                GLenum                   Target, 
+                                UInt32                   extension);
+    static void handleDestroyGL(DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode, 
+                                GLenum                   Target, 
+                                UInt32                   extension);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

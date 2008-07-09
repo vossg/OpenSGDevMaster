@@ -122,11 +122,10 @@ void CubeTextureObjChunk::onCreate(const CubeTextureObjChunk *)
 
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&CubeTextureObjChunk::handleGL, this, 
-                            _1, _2, _3),
-            boost::bind(&CubeTextureObjChunk::handleDestroyGL, this, 
-                            _1, _2, _3)
-            ));
+            boost::bind(&CubeTextureObjChunk::handleGL, 
+                        CubeTextureObjChunkMTPtr(this), 
+                        _1, _2, _3),
+            &CubeTextureObjChunk::handleDestroyGL));
 }
 
 /*------------------------------ Output ----------------------------------*/
@@ -260,8 +259,8 @@ void CubeTextureObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "Win:" << win << "TextureObjChunk(" << this 
-                 << "::handleGL: Illegal mode: "
+        SWARNING << "Win:" << win << "TextureObjChunk" 
+                 << "::handleDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 }

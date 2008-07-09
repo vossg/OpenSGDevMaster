@@ -188,10 +188,10 @@ void RenderBuffer::onCreate(const RenderBuffer *source)
 
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&RenderBuffer::handleGL, this, 
-                            _1, _2, _3),
-            &RenderBuffer::handleDestroyGL
-            ));
+            boost::bind(&RenderBuffer::handleGL, 
+                        RenderBufferMTPtr(this), 
+                        _1, _2, _3),
+            &RenderBuffer::handleDestroyGL));
 }
 
 void RenderBuffer::changed(ConstFieldMaskArg whichField, 

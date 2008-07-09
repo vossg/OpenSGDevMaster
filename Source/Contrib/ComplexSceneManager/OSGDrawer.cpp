@@ -337,13 +337,13 @@ void Drawer::runParallel(void)
                 _pSyncBarrier->enter(_uiSyncCount);
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->acquire();
+                _pSyncLock->acquire();
 #endif
 
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->release();
+                _pSyncLock->release();
 #endif
 
                 _pSyncBarrier->enter(_uiSyncCount);
@@ -370,13 +370,13 @@ void Drawer::runParallel(void)
                 _pSyncBarrier->enter               (_uiSyncCount);
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->acquire();
+                _pSyncLock->acquire();
 #endif
 
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->release();
+                _pSyncLock->release();
 #endif
 
                 _pSyncBarrier->enter               (_uiSyncCount);
@@ -408,13 +408,13 @@ void Drawer::runParallel(void)
                 _pSyncBarrier->enter       (_uiSyncCount);
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->acquire();
+                _pSyncLock->acquire();
 #endif
 
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->release();
+                _pSyncLock->release();
 #endif
 
                 _pSyncBarrier->enter       (_uiSyncCount);
@@ -447,12 +447,12 @@ void Drawer::runParallel(void)
                 _pSyncBarrier->enter               (_uiSyncCount);
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->acquire();
+                _pSyncLock->acquire();
 #endif
                 _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->release();
+                _pSyncLock->release();
 #endif
 
                 _pSyncBarrier->enter               (_uiSyncCount);
@@ -478,13 +478,13 @@ void Drawer::runParallel(void)
     _pSyncBarrier->enter(_uiSyncCount);
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->acquire();
+    _pSyncLock->acquire();
 #endif
 
     _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->release();
+    _pSyncLock->release();
 #endif
 
     Thread::getCurrentChangeList()->commitChangesAndClear();
@@ -498,13 +498,13 @@ void Drawer::runParallel(void)
     _pSyncBarrier->enter(_uiSyncCount);
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->acquire();
+    _pSyncLock->acquire();
 #endif
 
     _pSyncFromThread->getChangeList()->applyNoClear();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock->release();
+    _pSyncLock->release();
 #endif
 
     _pSyncBarrier->enter(_uiSyncCount);

@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                       Copyright 2008 by OpenSG Forum                      *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,148 +34,111 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFRAGMENTPROGRAMCHUNK_H_
-#define _OSGFRAGMENTPROGRAMCHUNK_H_
+#ifndef _OSGMTPOINTER_H_
+#define _OSGMTPOINTER_H_
+
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGFragmentProgramChunkBase.h"
-#include "OSGWindow.h"
+#include "OSGConfig.h"
+#include "OSGBaseFunctions.h"
+
+#ifdef OSG_DOC_FILES_IN_MODULE
+/*! \file OSGReferenceCountPointerDecl.h
+    \ingroup GrpSystemFieldContainer
+ */
+#endif
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief FragmentProgramChunk class. See \ref 
-           PageSystemFragmentProgramChunk for a description.
-*/
+/*! \ingroup GrpSystemFieldContainer
+ */
 
-class OSG_STATE_DLLMAPPING FragmentProgramChunk : 
-    public FragmentProgramChunkBase
+template <class ObjectT>
+class MTPtr
 {
-  private:
-
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef FragmentProgramChunkBase                          Inherited;
-
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
+    /*! \name Public Types                                                 */
     /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
+  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
+    /*! \name Constructors                                                 */
     /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
+  
+    MTPtr(ObjectT * const pObj);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name Desctructor                                                  */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         details);
-
+    ~MTPtr(void);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name Assignment                                                   */
+    /*! \{                                                                 */
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Conversion                                                   */
+    /*! \{                                                                 */
+    
+    operator ObjectT *(void) const;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+    
+    ObjectT *operator->(void) const;
+    ObjectT &operator *(void) const;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
-                      const BitVector  bvFlags  = 0) const;
+    ObjectT *get(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in FragmentProgramChunkBase.
-
-     /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    void onCreate(const FragmentProgramChunk *source = NULL);
-
-    /*! \}                                                                 */
-   /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
-    /*! \{                                                                 */
-
-    FragmentProgramChunk(void);
-    FragmentProgramChunk(const FragmentProgramChunk &source);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~FragmentProgramChunk(void); 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name             Program-Specific Methods                         */
-    /*! \{                                                                 */
-
-    virtual       UInt32  getExtension(void)  const; 
-    virtual       GLenum  getTarget(void)     const; 
-    virtual const char   *getTargetName(void) const; 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
-  private:
-
-    friend class FieldContainer;
-    friend class FragmentProgramChunkBase;
-
-    static StateChunkClass _class;
-
     /*---------------------------------------------------------------------*/
-    /*! \name            OpenGL Extension Handling                         */
+    /*! \name Member                                                       */
     /*! \{                                                                 */
-
-    static UInt32 _arbFragmentProgram;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
-    /*! \{                                                                 */
-
-           void handleGL       (DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
-    static void handleDestroyGL(DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
+    
+    ObjectT *_pObj;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
+  private:
 
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const FragmentProgramChunk &source);
+    /*---------------------------------------------------------------------*/
+    /*! \name Internal Helpers                                             */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+  
 };
 
-typedef FragmentProgramChunk *FragmentProgramChunkP;
+template<class ObjectT> inline
+ObjectT *get_pointer(const MTPtr<ObjectT> &pIn);
 
 OSG_END_NAMESPACE
 
-#include "OSGFragmentProgramChunkBase.inl"
-#include "OSGFragmentProgramChunk.inl"
+#include "OSGMTPtr.inl"
 
-#endif /* _OSGFRAGMENTPROGRAMCHUNK_H_ */
+#endif // _OSGMTPOINTER_H_

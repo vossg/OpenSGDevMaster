@@ -194,10 +194,10 @@ void GeoProperty::onCreate(const GeoProperty *source)
 
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&GeoProperty::handleGL, this, 
-                            _1, _2, _3),
-            &GeoProperty::handleDestroyGL
-            ));
+            boost::bind(&GeoProperty::handleGL, 
+                        GeoPropertyMTPtr(this), 
+                        _1, _2, _3),
+            &GeoProperty::handleDestroyGL));
 }
 
 void GeoProperty::onDestroy(UInt32)

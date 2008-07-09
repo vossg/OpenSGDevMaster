@@ -374,11 +374,10 @@ void SHLChunk::onCreate(const SHLChunk *source)
 
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&SHLChunk::handleGL, this, 
-                            _1, _2, _3),
-            boost::bind(&SHLChunk::handleDestroyGL, this, 
-                            _1, _2, _3)
-            ));
+            boost::bind(&SHLChunk::handleGL, 
+                        SHLChunkMTPtr(this), 
+                        _1, _2, _3),
+            &SHLChunk::handleDestroyGL));
 
     _uiChunkId = _uiChunkCounter++;
 }
@@ -514,7 +513,7 @@ void SHLChunk::handleDestroyGL(DrawEnv                 *pEnv,
         FWARNING(("OpenGL Shading Language is not supported, couldn't find "
                   "extension 'GL_ARB_shading_language_100'!\n"));
 
-        win->setGLObjectId(getGLId(), 0);
+        win->setGLObjectId(id, 0);
 
         return;
     }
@@ -547,9 +546,8 @@ void SHLChunk::handleDestroyGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "SHLChunk("
-                 << this
-                 << "::handleGL: Illegal mode: "
+        SWARNING << "SHLChunk"
+                 << "::handleDestroyGL: Illegal mode: "
                  << mode
                  << " for id "
                  << id

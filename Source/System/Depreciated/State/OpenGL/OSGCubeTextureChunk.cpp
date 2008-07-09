@@ -120,10 +120,10 @@ void CubeTextureChunk::onCreate(const CubeTextureChunk *)
 
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&CubeTextureChunk::handleGL, this, 
-                            _1, _2, _3),
-            &CubeTextureChunk::handleDestroyGL
-            ));
+            boost::bind(&CubeTextureChunk::handleGL, 
+                        CubeTextureChunkMTPtr(this), 
+                        _1, _2, _3),
+            &CubeTextureChunk::handleDestroyGL));
 }
 
 /*------------------------------ Output ----------------------------------*/

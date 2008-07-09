@@ -239,10 +239,10 @@ void FrameBufferObject::onCreate(const FrameBufferObject *source)
 
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&FrameBufferObject::handleGL, this, 
-                            _1, _2, _3),
-            &FrameBufferObject::handleDestroyGL
-            ));
+            boost::bind(&FrameBufferObject::handleGL, 
+                        FrameBufferObjectMTPtr(this), 
+                        _1, _2, _3),
+            &FrameBufferObject::handleDestroyGL));
 }
 
 void FrameBufferObject::changed(ConstFieldMaskArg whichField, 

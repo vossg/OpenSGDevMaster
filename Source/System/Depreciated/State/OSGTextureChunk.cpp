@@ -245,16 +245,16 @@ void TextureChunk::changed(ConstFieldMaskArg whichField,
     {
         if(getGLId() == 0)
         {
-            TextureChunk *tmpPtr(*this);
+            TextureChunkMTPtr tmpPtr(this);
 
             beginEditCP(tmpPtr, TextureChunk::GLIdFieldMask);
             
             setGLId(               
                 Window::registerGLObject(
-                    boost::bind(&TextureChunk::handleGL, tmpPtr, 
-                                    _1, _2, _3),
-                    &TextureChunk::handleDestroyGL
-                    ));
+                    boost::bind(&TextureChunk::handleGL, 
+                                tmpPtr, 
+                                _1, _2, _3),
+                    &TextureChunk::handleDestroyGL));
             
             endEditCP(tmpPtr, TextureChunk::GLIdFieldMask);
         }
@@ -337,10 +337,10 @@ void TextureChunk::onCreate(const TextureChunk *source)
        
         setGLId(               
             Window::registerGLObject(
-                boost::bind(&TextureChunk::handleGL, this, 
-                                _1, _2, _3),
-                &TextureChunk::handleDestroyGL
-                ));
+                boost::bind(&TextureChunk::handleGL, 
+                            TextureChunkMTPtr(this), 
+                            _1, _2, _3),
+                &TextureChunk::handleDestroyGL));
 
 #ifdef GV_CHECK
     }

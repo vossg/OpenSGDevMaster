@@ -172,8 +172,12 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunk : public CubeTextureObjChunkBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
-    void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+           void handleGL       (DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode);
+    static void handleDestroyGL(DrawEnv                 *pEnv, 
+                                UInt32                   id, 
+                                Window::GLObjectStatusE  mode);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

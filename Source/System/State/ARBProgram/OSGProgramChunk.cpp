@@ -497,7 +497,7 @@ void ProgramChunk::handleDestroyGL(DrawEnv *pEnv, UInt32 osgid,
     }
     else
     {
-        SWARNING << "ProgramChunk(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "ProgramChunk" << "::handleDestroyGL: Illegal mode: "
              << mode << " for id " << id << std::endl;
     }
 

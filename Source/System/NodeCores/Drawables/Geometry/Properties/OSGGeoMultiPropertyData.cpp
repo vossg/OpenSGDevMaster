@@ -130,10 +130,10 @@ void GeoMultiPropertyData::onCreate(const GeoMultiPropertyData *)
 
     setGLId(               
         Window::registerGLObject(
-            boost::bind(&GeoMultiPropertyData::handleGL, this, 
-                            _1, _2, _3),
-            &GeoMultiPropertyData::handleDestroyGL
-            ));
+            boost::bind(&GeoMultiPropertyData::handleGL, 
+                        GeoMultiPropertyDataMTPtr(this), 
+                        _1, _2, _3),
+            &GeoMultiPropertyData::handleDestroyGL));
 }
 
 void GeoMultiPropertyData::onDestroy(UInt32)

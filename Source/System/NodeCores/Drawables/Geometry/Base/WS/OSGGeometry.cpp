@@ -156,17 +156,15 @@ void Geometry::onCreate(const Geometry *)
 
     setClassicGLId(               
         Window::registerGLObject(
-            boost::bind(&Geometry::handleClassicGL, this, 
+            boost::bind(&Geometry::handleClassicGL, GeometryMTPtr(this), 
                             _1, _2, _3),
-            &Geometry::handleClassicDestroyGL
-            ));
+            &Geometry::handleClassicDestroyGL));
 
     setAttGLId(               
         Window::registerGLObject(
-            boost::bind(&Geometry::handleAttGL, this, 
+            boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
                             _1, _2, _3),
-            &Geometry::handleAttDestroyGL
-            ));
+            &Geometry::handleAttDestroyGL));
 }
 
 void Geometry::onDestroy(UInt32)
@@ -220,6 +218,10 @@ void Geometry::handleClassicGL(DrawEnv                 *pEnv,
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
+
+    Geometry *pAspectGeo = convertToCurrentAspect<Geometry *>(this);
+
+    OSG_ASSERT(pAspectGeo == this);
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
@@ -516,19 +518,18 @@ void Geometry::changed(ConstFieldMaskArg whichField,
         {
             setClassicGLId(               
                 Window::registerGLObject(
-                    boost::bind(&Geometry::handleClassicGL, this, 
-                                    _1, _2, _3),
-                    &Geometry::handleClassicDestroyGL
-                    ));
+                    boost::bind(&Geometry::handleClassicGL, 
+                                GeometryMTPtr(this), 
+                                _1, _2, _3),
+                    &Geometry::handleClassicDestroyGL));
         }
         if(getAttGLId() == 0)
         {
             setAttGLId(               
                 Window::registerGLObject(
-                    boost::bind(&Geometry::handleAttGL, this, 
-                                    _1, _2, _3),
-                    &Geometry::handleAttDestroyGL
-                    ));
+                    boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
+                                _1, _2, _3),
+                    &Geometry::handleAttDestroyGL));
         }
 
         Window::refreshGLObject(getClassicGLId());
