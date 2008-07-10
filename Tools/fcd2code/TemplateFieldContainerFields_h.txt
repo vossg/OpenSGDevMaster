@@ -295,7 +295,7 @@ struct FieldTraits<@!Classname!@ *, @!ParentNS!@> :
 
     enum             { Convertible = Self::NotConvertible };
     
-    static OSG_SYSTEM_DLLMAPPING
+    static OSG_@!LIBNAME!@_DLLMAPPING
                  DataType &getType (void);
 
     static const Char8    *getSName(void) 

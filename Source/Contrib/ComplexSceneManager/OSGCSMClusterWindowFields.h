@@ -177,7 +177,7 @@ struct FieldTraits<CSMClusterWindow *, 1> :
 
     enum             { Convertible = Self::NotConvertible };
     
-    static OSG_SYSTEM_DLLMAPPING
+    static OSG_CONTRIBCSM_DLLMAPPING
                  DataType &getType (void);
 
     static const Char8    *getSName(void) 
