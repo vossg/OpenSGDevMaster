@@ -76,7 +76,6 @@
 #include "OSGGLenumFields.h" // WrapT type
 #include "OSGGLenumFields.h" // WrapR type
 #include "OSGGLenumFields.h" // GLId type
-#include "OSGInt32Fields.h" // IgnoreGLForAspect type
 #include "OSGReal32Fields.h" // Priority type
 #include "OSGInt32Fields.h" // DirtyLeft type
 #include "OSGInt32Fields.h" // DirtyMinX type
@@ -131,8 +130,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         WrapTFieldId = WrapSFieldId + 1,
         WrapRFieldId = WrapTFieldId + 1,
         GLIdFieldId = WrapRFieldId + 1,
-        IgnoreGLForAspectFieldId = GLIdFieldId + 1,
-        PriorityFieldId = IgnoreGLForAspectFieldId + 1,
+        PriorityFieldId = GLIdFieldId + 1,
         DirtyLeftFieldId = PriorityFieldId + 1,
         DirtyMinXFieldId = DirtyLeftFieldId + 1,
         DirtyMaxXFieldId = DirtyMinXFieldId + 1,
@@ -173,8 +171,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << WrapRFieldId);
     static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector IgnoreGLForAspectFieldMask =
-        (TypeTraits<BitVector>::One << IgnoreGLForAspectFieldId);
     static const OSG::BitVector PriorityFieldMask =
         (TypeTraits<BitVector>::One << PriorityFieldId);
     static const OSG::BitVector DirtyLeftFieldMask =
@@ -221,7 +217,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     typedef SFGLenum          SFWrapTType;
     typedef SFGLenum          SFWrapRType;
     typedef SFGLenum          SFGLIdType;
-    typedef SFInt32           SFIgnoreGLForAspectType;
     typedef SFReal32          SFPriorityType;
     typedef SFInt32           SFDirtyLeftType;
     typedef SFInt32           SFDirtyMinXType;
@@ -294,9 +289,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
 
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
-
-                  SFInt32             *editSFIgnoreGLForAspect(void);
-            const SFInt32             *getSFIgnoreGLForAspect (void) const;
 
                   SFReal32            *editSFPriority       (void);
             const SFReal32            *getSFPriority        (void) const;
@@ -379,9 +371,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
                   GLenum              &editGLId           (void);
             const GLenum              &getGLId            (void) const;
 
-                  Int32               &editIgnoreGLForAspect(void);
-                  Int32                getIgnoreGLForAspect (void) const;
-
                   Real32              &editPriority       (void);
                   Real32               getPriority        (void) const;
 
@@ -446,7 +435,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
             void setWrapT          (const GLenum &value);
             void setWrapR          (const GLenum &value);
             void setGLId           (const GLenum &value);
-            void setIgnoreGLForAspect(const Int32 value);
             void setPriority       (const Real32 value);
             void setDirtyLeft      (const Int32 value);
             void setDirtyMinX      (const Int32 value);
@@ -534,7 +522,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     SFGLenum          _sfWrapT;
     SFGLenum          _sfWrapR;
     SFGLenum          _sfGLId;
-    SFInt32           _sfIgnoreGLForAspect;
     SFReal32          _sfPriority;
     SFInt32           _sfDirtyLeft;
     SFInt32           _sfDirtyMinX;
@@ -609,8 +596,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     EditFieldHandlePtr editHandleWrapR          (void);
     GetFieldHandlePtr  getHandleGLId            (void) const;
     EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandleIgnoreGLForAspect (void) const;
-    EditFieldHandlePtr editHandleIgnoreGLForAspect(void);
     GetFieldHandlePtr  getHandlePriority        (void) const;
     EditFieldHandlePtr editHandlePriority       (void);
     GetFieldHandlePtr  getHandleDirtyLeft       (void) const;

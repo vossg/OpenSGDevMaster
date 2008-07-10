@@ -250,43 +250,13 @@ void TextureObjChunk::changed(ConstFieldMaskArg whichField,
                               UInt32            origin,
                               BitVector         details)
 {
-#ifdef GV_CHECK
-    if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-    {
-        if(getGLId() == 0)
-        {
-            TextureObjChunkMTPtr tmpPtr(this);
-
-            beginEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
-            
-            setGLId(
-                Window::registerGLObject(
-                    osgTypedMethodVoidFunctor2ObjCPtrPtr<TextureObjChunkPtr,
-                                                 Window ,
-                                                 UInt32>(
-                                                     tmpPtr,
-                                                     &TextureObjChunk::handleGL),
-                    1));
-            
-            endEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
-        }
-    }
-#endif
-
     // Only filter changed? Mipmaps need reinit.
     if((whichField & ~(MinFilterFieldMask | MagFilterFieldMask)) == 0)
     {
         if((getMinFilter() != GL_NEAREST) &&
            (getMinFilter() != GL_LINEAR))
         {
-#ifdef GV_CHECK
-            if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-            {
-#endif
-                Window::reinitializeGLObject(getGLId());
-#ifdef GV_CHECK
-            }
-#endif
+            Window::reinitializeGLObject(getGLId());
         }
         else
         {
@@ -301,25 +271,11 @@ void TextureObjChunk::changed(ConstFieldMaskArg whichField,
                              DirtyMinYFieldMask | DirtyMaxYFieldMask |
                              DirtyMinZFieldMask | DirtyMaxZFieldMask)) == 0)
     {
-#ifdef GV_CHECK
-        if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-        {
-#endif
-            Window::refreshGLObject(getGLId());
-#ifdef GV_CHECK
-        }
-#endif
+        Window::refreshGLObject(getGLId());
     }  
     else
     {
-#ifdef GV_CHECK
-        if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-        {
-#endif
-            Window::reinitializeGLObject(getGLId());
-#ifdef GV_CHECK
-        }
-#endif
+        Window::reinitializeGLObject(getGLId());
     }
 
     Inherited::changed(whichField, origin, details);
@@ -342,22 +298,14 @@ void TextureObjChunk::onCreate(const TextureObjChunk *source)
     if(GlobalSystemState == Startup)
         return;
 
-#ifdef GV_CHECK
-    if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-    {
-#endif
-        setGLId(Window::registerGLObject(
-                    boost::bind(&TextureObjChunk::handleGL, 
-                                TextureObjChunk(this), 
-                                _1, 
-                                _2, 
-                                _3),
-                    &TextureObjChunk::handleDestroyGL));
-
-#ifdef GV_CHECK
-    }
-#endif
-
+    setGLId(Window::registerGLObject(
+                boost::bind(&TextureObjChunk::handleGL, 
+                            TextureObjChunk(this), 
+                            _1, 
+                            _2, 
+                            _3),
+                &TextureObjChunk::handleDestroyGL));
+    
     _uiChunkId = _uiChunkCounter++;
 }
 

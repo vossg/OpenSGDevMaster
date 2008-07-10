@@ -230,25 +230,6 @@ void TextureObjChunk::changed(ConstFieldMaskArg whichField,
                               BitVector         details)
 {
     GLenum id = _sfGLId.getValue();
-#ifdef GV_CHECK
-    if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-    {
-        if(getGLId() == 0)
-        {
-            TextureObjChunkMTPtr tmpPtr(*this);
-
-            beginEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
-
-            setGLId(               
-                Window::registerGLObject(
-                    boost::bind(&TextureObjChunk::handleGL, tmpPtr, 
-                                _1, _2, _3),
-                    &TextureObjChunk::handleDestroyGL));
-
-            endEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
-        }
-    }
-#endif
 
     // Only filter changed? Mipmaps need reinit.
     if((whichField & ~(MinFilterFieldMask | MagFilterFieldMask)) == 0)
@@ -256,14 +237,7 @@ void TextureObjChunk::changed(ConstFieldMaskArg whichField,
         if((getMinFilter() != GL_NEAREST) &&
            (getMinFilter() != GL_LINEAR))
         {
-#ifdef GV_CHECK
-            if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-            {
-#endif
-                Window::reinitializeGLObject(id);
-#ifdef GV_CHECK
-            }
-#endif
+            Window::reinitializeGLObject(id);
         }
         else
         {
@@ -278,45 +252,31 @@ void TextureObjChunk::changed(ConstFieldMaskArg whichField,
                              DirtyMinYFieldMask | DirtyMaxYFieldMask |
                              DirtyMinZFieldMask | DirtyMaxZFieldMask)) == 0)
     {
-#ifdef GV_CHECK
-        if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-        {
-#endif
-            Window::refreshGLObject(id);
-#ifdef GV_CHECK
-        }
-#endif
+        Window::refreshGLObject(id);
     }
     else
     {
-#ifdef GV_CHECK
-        if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
+        if(origin  == ChangedOrigin::Child       && 
+           0x0000 != (whichField & ImageFieldMask))
         {
-#endif
-            if(origin  == ChangedOrigin::Child       && 
-               0x0000 != (whichField & ImageFieldMask))
+            if((details & ~(Image::PixelFieldMask)) == 0)
             {
-                if((details & ~(Image::PixelFieldMask)) == 0)
-                {
-                    Window::refreshGLObject(id);
-                }
-                else
-                {
-                    if(0x0000 != (whichField & (Image::WidthFieldMask  |
-                                                Image::HeightFieldMask |
-                                                Image::DepthFieldMask)))
-                    {
-                        Window::reinitializeGLObject(id);
-                    }
-                }
+                Window::refreshGLObject(id);
             }
             else
             {
-                Window::reinitializeGLObject(id);
+                if(0x0000 != (whichField & (Image::WidthFieldMask  |
+                                            Image::HeightFieldMask |
+                                            Image::DepthFieldMask)))
+                {
+                    Window::reinitializeGLObject(id);
+                }
             }
-#ifdef GV_CHECK
         }
-#endif
+        else
+        {
+            Window::reinitializeGLObject(id);
+        }
     }
 
     Inherited::changed(whichField, origin, details);
@@ -339,20 +299,11 @@ void TextureObjChunk::onCreate(const TextureObjChunk *source)
     if(GlobalSystemState == Startup)
         return;
 
-#ifdef GV_CHECK
-    if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
-    {
-#endif
-
-        setGLId(Window::registerGLObject(
-                    boost::bind(&TextureObjChunk::handleGL, 
-                                TextureObjChunkMTPtr(this), 
-                                _1, _2, _3),
-                    &TextureObjChunk::handleDestroyGL));
-
-#ifdef GV_CHECK
-    }
-#endif
+    setGLId(Window::registerGLObject(
+                boost::bind(&TextureObjChunk::handleGL, 
+                            TextureObjChunkMTPtr(this), 
+                            _1, _2, _3),
+                &TextureObjChunk::handleDestroyGL));
 }
 
 void TextureObjChunk::onCreateAspect(const TextureObjChunk *createAspect,

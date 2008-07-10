@@ -261,10 +261,6 @@ OSG_BEGIN_NAMESPACE
     The OpenGL texture id for this texture.
 */
 
-/*! \var Int32           TextureChunkBase::_sfIgnoreGLForAspect
-    Don't do any GL calls for aspect of given id.
-*/
-
 /*! \var bool            TextureChunkBase::_sfPointSprite
     Flag to use this texture for Point Sprites.
 */
@@ -748,18 +744,6 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
         (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&TextureChunk::editHandleGLId),
         static_cast<FieldGetMethodSig >(&TextureChunk::getHandleGLId));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "IgnoreGLForAspect",
-        "Don't do any GL calls for aspect of given id.\n",
-        IgnoreGLForAspectFieldId, IgnoreGLForAspectFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleIgnoreGLForAspect),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleIgnoreGLForAspect));
 
     oType.addInitialDesc(pDesc);
 
@@ -1470,16 +1454,6 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "        The OpenGL texture id for this texture.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"IgnoreGLForAspect\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"-1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t    Don't do any GL calls for aspect of given id.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"pointSprite\"\n"
@@ -2194,19 +2168,6 @@ const SFGLenum *TextureChunkBase::getSFGLId(void) const
 }
 
 
-SFInt32 *TextureChunkBase::editSFIgnoreGLForAspect(void)
-{
-    editSField(IgnoreGLForAspectFieldMask);
-
-    return &_sfIgnoreGLForAspect;
-}
-
-const SFInt32 *TextureChunkBase::getSFIgnoreGLForAspect(void) const
-{
-    return &_sfIgnoreGLForAspect;
-}
-
-
 SFBool *TextureChunkBase::editSFPointSprite(void)
 {
     editSField(PointSpriteFieldMask);
@@ -2671,10 +2632,6 @@ UInt32 TextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfGLId.getBinSize();
     }
-    if(FieldBits::NoField != (IgnoreGLForAspectFieldMask & whichField))
-    {
-        returnValue += _sfIgnoreGLForAspect.getBinSize();
-    }
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
     {
         returnValue += _sfPointSprite.getBinSize();
@@ -2904,10 +2861,6 @@ void TextureChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfGLId.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (IgnoreGLForAspectFieldMask & whichField))
-    {
-        _sfIgnoreGLForAspect.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
     {
         _sfPointSprite.copyToBin(pMem);
@@ -3134,10 +3087,6 @@ void TextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (IgnoreGLForAspectFieldMask & whichField))
-    {
-        _sfIgnoreGLForAspect.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
     {
@@ -3367,7 +3316,6 @@ TextureChunkBase::TextureChunkBase(void) :
     _sfEnvOperand1Alpha       (GLenum(GL_SRC_ALPHA)),
     _sfEnvOperand2Alpha       (GLenum(GL_SRC_ALPHA)),
     _sfGLId                   (GLenum(0)),
-    _sfIgnoreGLForAspect      (Int32(-1)),
     _sfPointSprite            (bool(GL_FALSE)),
     _sfPriority               (Real32(1.f)),
     _sfShaderOperation        (GLenum(GL_NONE)),
@@ -3428,7 +3376,6 @@ TextureChunkBase::TextureChunkBase(const TextureChunkBase &source) :
     _sfEnvOperand1Alpha       (source._sfEnvOperand1Alpha       ),
     _sfEnvOperand2Alpha       (source._sfEnvOperand2Alpha       ),
     _sfGLId                   (source._sfGLId                   ),
-    _sfIgnoreGLForAspect      (source._sfIgnoreGLForAspect      ),
     _sfPointSprite            (source._sfPointSprite            ),
     _sfPriority               (source._sfPriority               ),
     _sfShaderOperation        (source._sfShaderOperation        ),
@@ -4143,29 +4090,6 @@ EditFieldHandlePtr TextureChunkBase::editHandleGLId           (void)
 
 
     editSField(GLIdFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleIgnoreGLForAspect (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfIgnoreGLForAspect,
-             this->getType().getFieldDesc(IgnoreGLForAspectFieldId)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleIgnoreGLForAspect(void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfIgnoreGLForAspect,
-             this->getType().getFieldDesc(IgnoreGLForAspectFieldId)));
-
-
-    editSField(IgnoreGLForAspectFieldMask);
 
     return returnValue;
 }

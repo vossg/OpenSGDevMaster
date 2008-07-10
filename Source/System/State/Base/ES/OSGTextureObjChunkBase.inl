@@ -789,31 +789,6 @@ void TextureObjChunkBase::setGLId(const GLenum &value)
 
     _sfGLId.setValue(value);
 }
-//! Get the value of the TextureObjChunk::_sfIgnoreGLForAspect field.
-
-inline
-Int32 &TextureObjChunkBase::editIgnoreGLForAspect(void)
-{
-    editSField(IgnoreGLForAspectFieldMask);
-
-    return _sfIgnoreGLForAspect.getValue();
-}
-
-//! Get the value of the TextureObjChunk::_sfIgnoreGLForAspect field.
-inline
-      Int32  TextureObjChunkBase::getIgnoreGLForAspect(void) const
-{
-    return _sfIgnoreGLForAspect.getValue();
-}
-
-//! Set the value of the TextureObjChunk::_sfIgnoreGLForAspect field.
-inline
-void TextureObjChunkBase::setIgnoreGLForAspect(const Int32 value)
-{
-    editSField(IgnoreGLForAspectFieldMask);
-
-    _sfIgnoreGLForAspect.setValue(value);
-}
 //! Get the value of the TextureObjChunk::_sfPointSprite field.
 
 inline
@@ -1478,9 +1453,6 @@ void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);
-
-    if(FieldBits::NoField != (IgnoreGLForAspectFieldMask & whichField))
-        _sfIgnoreGLForAspect.syncWith(pFrom->_sfIgnoreGLForAspect);
 
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
         _sfPointSprite.syncWith(pFrom->_sfPointSprite);

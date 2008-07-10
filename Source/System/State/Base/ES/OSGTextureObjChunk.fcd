@@ -363,16 +363,6 @@ extension(s) are also available.
         The OpenGL texture id for this texture.
 	</Field>
 	<Field
-		name="IgnoreGLForAspect"
-		type="Int32"
-		cardinality="single"
-		visibility="internal"
-		defaultValue="-1"
-		access="public"
-	>
-	    Don't do any GL calls for aspect of given id.
-	</Field>
-	<Field
 		name="pointSprite"
 		type="bool"
 		cardinality="single"
