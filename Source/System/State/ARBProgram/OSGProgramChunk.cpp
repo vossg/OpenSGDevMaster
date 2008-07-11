@@ -301,14 +301,12 @@ Int16 ProgramChunk::findParameter(const std::string &name)
 */
 void ProgramChunk::printCompileError(Window *win, UInt32 id)
 {
-    Window::GLObjectStatusE mode;
-        
     GLint pos;   
     glGetIntegerv(GL_PROGRAM_ERROR_POSITION_ARB, &pos);
     
     FWARNING(("ProgramChunk(%p:%d,%d): error compiling program "
               "at position %d: %s\n",
-              win, id, mode, pos, glGetString(GL_PROGRAM_ERROR_STRING_ARB)));
+              win, id, pos, glGetString(GL_PROGRAM_ERROR_STRING_ARB)));
     
     UInt32 start = 0, end, line = 0;
     

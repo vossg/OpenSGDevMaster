@@ -100,14 +100,15 @@ time. See \ref PageSystemLineIterator for details.
 /*------------- constructors & destructors --------------------------------*/
 
 LineIterator::LineIterator(void) : PrimitiveIterator(),
-    _lineIndex(0), _actPrimIndex(0), _linePntIndex()
+    _lineIndex(0), _actPrimIndex(0)
 {
+    _linePntIndex[0] = 0;
+    _linePntIndex[1] = 0;
 }
 
 LineIterator::LineIterator(const LineIterator &source) : 
     PrimitiveIterator(source),
-    _lineIndex(source._lineIndex), _actPrimIndex(source._actPrimIndex),
-    _linePntIndex()
+    _lineIndex(source._lineIndex), _actPrimIndex(source._actPrimIndex)
 {
     _linePntIndex[0] = source._linePntIndex[0];
     _linePntIndex[1] = source._linePntIndex[1];
@@ -121,8 +122,11 @@ LineIterator::LineIterator(const LineIterator &source) :
 */
 LineIterator::LineIterator(Geometry const * geo) :
     PrimitiveIterator(),
-    _lineIndex(0), _actPrimIndex(0), _linePntIndex()
+    _lineIndex(0), _actPrimIndex(0)
 {
+    _linePntIndex[0] = 0;
+    _linePntIndex[1] = 0;
+
     setGeo(geo);
 }
 
@@ -135,8 +139,11 @@ LineIterator::LineIterator(Geometry const * geo) :
 
 LineIterator::LineIterator(Node * const geo) : 
     PrimitiveIterator(),
-    _lineIndex(0), _actPrimIndex(0), _linePntIndex()
+    _lineIndex(0), _actPrimIndex(0)
 {
+    _linePntIndex[0] = 0;
+    _linePntIndex[1] = 0;
+
     setGeo(geo);
 }
 

@@ -195,13 +195,15 @@ void SprocBarrierBase::shutdown(void)
 
 WinThreadBarrierBase::WinThreadBarrierBase(const Char8  *szName,
                                                  UInt32  uiId  ) :
-     Inherited   (szName, uiId),
+     Inherited    (szName, uiId),
 
-    _pMutex1     (NULL),
-    _pBarrierSema(NULL),
-    _uiNumWaiters(0   )
+    _pMutex1      (NULL),
+    _uiCount      (0   ),
+    _uiCurrentCond(0   )
 
 {
+    _pBarrierSema[0] = NULL;
+    _pBarrierSema[1] = NULL;
 }
 
 /*---------------------------- Destructor ---------------------------------*/
@@ -235,16 +237,37 @@ bool WinThreadBarrierBase::init(void)
 
     if(_szName != NULL)
     {
-        sprintf(pTmp, "%sS", _szName);
+        sprintf(pTmp, "%sS1", _szName);
     }
 
-    _pBarrierSema = CreateSemaphore(NULL, 0, 42, pTmp);
+    _pBarrierSema[0] = CreateSemaphore(NULL, 0, 42, pTmp);
 
-    if(_pBarrierSema == NULL)
+    if(_pBarrierSema[0] == NULL)
     {
         CloseHandle(_pMutex1);
 
-        fprintf(stderr, "Create semaphore failed\n");
+        _pMutex1 = NULL;
+
+        fprintf(stderr, "Create semaphore 1 failed\n");
+        return false;
+    }
+
+    if(_szName != NULL)
+    {
+        sprintf(pTmp, "%sS2", _szName);
+    }
+
+    _pBarrierSema[1] = CreateSemaphore(NULL, 0, 42, pTmp);
+
+    if(_pBarrierSema[1] == NULL)
+    {
+        CloseHandle(_pMutex1        );
+        CloseHandle(_pBarrierSema[0]);
+
+        _pMutex1         = NULL;
+        _pBarrierSema[0] = NULL;
+
+        fprintf(stderr, "Create semaphore 2 failed\n");
         return false;
     }
 
@@ -260,8 +283,11 @@ void WinThreadBarrierBase::shutdown(void)
     if(_pMutex1 != NULL)
         CloseHandle(_pMutex1);
 
-    if(_pBarrierSema != NULL)
-        CloseHandle(_pBarrierSema);
+    if(_pBarrierSema[0] != NULL)
+        CloseHandle(_pBarrierSema[0]);
+
+    if(_pBarrierSema[1] != NULL)
+        CloseHandle(_pBarrierSema[1]);
 }
 
 #endif /* OSG_USE_WINTHREADS */

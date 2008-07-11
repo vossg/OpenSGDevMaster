@@ -54,6 +54,10 @@
 
 #include "boost/bind.hpp"
 
+#ifdef WIN32 // turn of 'this' : used in base member initializer lits warning
+#pragma warning(disable:4355)
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\

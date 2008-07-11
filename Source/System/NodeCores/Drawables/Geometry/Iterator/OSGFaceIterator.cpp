@@ -107,15 +107,18 @@ time. See \ref PageSystemFaceIterator for a description.
 /*------------- constructors & destructors --------------------------------*/
 
 FaceIterator::FaceIterator(void) :  PrimitiveIterator(),
-    _faceIndex(0), _actPrimIndex(), _facePntIndex()
+    _faceIndex(0), _actPrimIndex()
 {
+    _facePntIndex[0] = 0;
+    _facePntIndex[1] = 0;
+    _facePntIndex[2] = 0;
+    _facePntIndex[3] = 0;
 }
 
 FaceIterator::FaceIterator(const FaceIterator &source) :
     PrimitiveIterator(source),
     _faceIndex(source._faceIndex),
-    _actPrimIndex(source._actPrimIndex),
-    _facePntIndex()
+    _actPrimIndex(source._actPrimIndex)
 {
     _facePntIndex[0] = source._facePntIndex[0];
     _facePntIndex[1] = source._facePntIndex[1];
@@ -129,8 +132,13 @@ FaceIterator::FaceIterator(const FaceIterator &source) :
     an iterator.
 */
 FaceIterator::FaceIterator(Node * const geo) : PrimitiveIterator(),
-    _faceIndex(0), _actPrimIndex(), _facePntIndex()
+    _faceIndex(0), _actPrimIndex()
 {
+    _facePntIndex[0] = 0;
+    _facePntIndex[1] = 0;
+    _facePntIndex[2] = 0;
+    _facePntIndex[3] = 0;
+
     setGeo(geo);
 }
 
@@ -141,8 +149,13 @@ FaceIterator::FaceIterator(Node * const geo) : PrimitiveIterator(),
 */
 FaceIterator::FaceIterator(Geometry const * geo) : 
     PrimitiveIterator(),
-    _faceIndex(0), _actPrimIndex(), _facePntIndex()
+    _faceIndex(0), _actPrimIndex()
 {
+    _facePntIndex[0] = 0;
+    _facePntIndex[1] = 0;
+    _facePntIndex[2] = 0;
+    _facePntIndex[3] = 0;
+
     setGeo(geo);
 }
 

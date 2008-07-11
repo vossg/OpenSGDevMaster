@@ -101,14 +101,16 @@ time. See \ref PageSystemTriangleIterator for details.
 /*------------- constructors & destructors --------------------------------*/
 
 TriangleIterator::TriangleIterator(void) : PrimitiveIterator(),
-    _triIndex(0), _actPrimIndex(0), _triPntIndex()
+    _triIndex(0), _actPrimIndex(0)
 {
+    _triPntIndex[0] = 0;
+    _triPntIndex[1] = 0;
+    _triPntIndex[2] = 0;
 }
 
 TriangleIterator::TriangleIterator(const TriangleIterator &source) : 
     PrimitiveIterator(source),
-    _triIndex(source._triIndex), _actPrimIndex(source._actPrimIndex),
-    _triPntIndex()
+    _triIndex(source._triIndex), _actPrimIndex(source._actPrimIndex)
 {
     _triPntIndex[0] = source._triPntIndex[0];
     _triPntIndex[1] = source._triPntIndex[1];
@@ -123,8 +125,12 @@ TriangleIterator::TriangleIterator(const TriangleIterator &source) :
 */
 TriangleIterator::TriangleIterator(Geometry const * geo) :
     PrimitiveIterator(),
-    _triIndex(0), _actPrimIndex(0), _triPntIndex()
+    _triIndex(0), _actPrimIndex(0)
 {
+    _triPntIndex[0] = 0;
+    _triPntIndex[1] = 0;
+    _triPntIndex[2] = 0;
+
     setGeo(geo);
 }
 
@@ -137,8 +143,12 @@ TriangleIterator::TriangleIterator(Geometry const * geo) :
 
 TriangleIterator::TriangleIterator(Node * const geo) : 
     PrimitiveIterator(),
-    _triIndex(0), _actPrimIndex(0), _triPntIndex()
+    _triIndex(0), _actPrimIndex(0)
 {
+    _triPntIndex[0] = 0;
+    _triPntIndex[1] = 0;
+    _triPntIndex[2] = 0;
+
     setGeo(geo);
 }
 

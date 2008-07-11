@@ -131,10 +131,13 @@ PrimitiveIterator::PrimitiveIterator(void) :
     _actPrimType        (     0), 
     _actPrimLength      (     0),
     _types              (NULL  ), 
-    _lengths            (NULL  ),
-    _inds               (      ),
-    _props              (      )
+    _lengths            (NULL  )
 {
+    for(UInt32 i = 0; i < Geometry::MaxAttribs; ++i)
+    {
+        _inds [i] = NULL;
+        _props[i] = NULL;
+    }
 }
 
 /*! This constructor creates an iterator for the given node. It is useful to
@@ -150,10 +153,14 @@ PrimitiveIterator::PrimitiveIterator(Geometry const * geo) :
     _actPrimType        (     0), 
     _actPrimLength      (     0),
     _types              (NULL  ), 
-    _lengths            (NULL  ),
-    _inds               (      ),
-    _props              (      )
+    _lengths            (NULL  )
 {
+    for(UInt32 i = 0; i < Geometry::MaxAttribs; ++i)
+    {
+        _inds [i] = NULL;
+        _props[i] = NULL;
+    }
+
     setGeo(geo);
 }
 
@@ -170,10 +177,14 @@ PrimitiveIterator::PrimitiveIterator(Node * const geo) :
     _actPrimType        (     0), 
     _actPrimLength      (     0),
     _types              (NULL  ), 
-    _lengths            (NULL  ),
-    _inds               (      ),
-    _props              (      )
+    _lengths            (NULL  )
 {
+    for(UInt32 i = 0; i < Geometry::MaxAttribs; ++i)
+    {
+        _inds [i] = NULL;
+        _props[i] = NULL;
+    }
+
     setGeo(geo);
 }
 
@@ -186,9 +197,7 @@ PrimitiveIterator::PrimitiveIterator(const PrimitiveIterator &source) :
     _actPrimType        (source._actPrimType        ), 
     _actPrimLength      (source._actPrimLength      ),  
     _types              (source._types              ), 
-    _lengths            (source._lengths            ),
-    _inds               (                           ),
-    _props              (                           ) 
+    _lengths            (source._lengths            ) 
 {
     for(UInt16 i = 0; i < Geometry::MaxAttribs; ++i)
     {

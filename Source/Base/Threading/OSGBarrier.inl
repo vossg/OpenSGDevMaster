@@ -122,32 +122,37 @@ void SprocBarrierBase::enter(UInt32 uiNumWaitFor)
 inline
 void WinThreadBarrierBase::enter(void)
 {
+    if(_uiNumWaitFor <= 1)
+        return;
+
 	WaitForSingleObject(_pMutex1, INFINITE);
 
-	++_uiNumWaiters;
+    _uiCount++;
 
-	if(_uiNumWaiters == _uiNumWaitFor) 
-	{
-		--_uiNumWaiters;
+    if(_uiCount < _uiNumWaitFor)
+    {
+        /* not enough threads are waiting => wait */
+
+        SignalObjectAndWait(_pMutex1, 
+                            _pBarrierSema[_uiCurrentCond], 
+                             INFINITE, 
+                             FALSE);
+    }
+    else
+    {
+        /* ok, enough threads are waiting
+           => wake up all waiting threads
+        */
+
+		ReleaseSemaphore(_pBarrierSema[_uiCurrentCond], 
+                         _uiNumWaitFor - 1, 
+                          NULL);
+
+        _uiCount       = 0;
+        _uiCurrentCond = 1 - _uiCurrentCond;
 
 		ReleaseMutex(_pMutex1);
-
-		ReleaseSemaphore(_pBarrierSema, _uiNumWaitFor - 1, NULL);
-
-		return;
-	}
-	else
-	{
-		ReleaseMutex(_pMutex1);
-
-		WaitForSingleObject(_pBarrierSema, INFINITE);
-		
-		WaitForSingleObject(_pMutex1, INFINITE);
-
-		--_uiNumWaiters;
-
-		ReleaseMutex(_pMutex1);
-	}
+    }
 }
 
 inline

@@ -46,6 +46,7 @@
 #include "OSGDataType.h"
 
 #include "OSGContainerForwards.h"
+#include "OSGGroupDef.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -88,7 +89,7 @@ struct FieldTraits<RenderFunctorCallback> :
 
     enum             { Convertible = Self::NotConvertible                  };
 
-    static OSG_SYSTEM_DLLMAPPING
+    static OSG_GROUP_DLLMAPPING
                  DataType &getType      (void);
 
     static const Char8    *getSName     (void) 

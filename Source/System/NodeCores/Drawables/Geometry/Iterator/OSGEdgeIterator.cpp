@@ -107,15 +107,16 @@ time. See \ref PageSystemEdgeIterator for a description.
 /*------------- constructors & destructors --------------------------------*/
 
 EdgeIterator::EdgeIterator(void) :  PrimitiveIterator(),
-    _edgeIndex(0), _actPrimIndex(), _edgePntIndex()
+    _edgeIndex(0), _actPrimIndex()
 {
+    _edgePntIndex[0] = 0;
+    _edgePntIndex[1] = 0;
 }
 
 EdgeIterator::EdgeIterator(const EdgeIterator &source) :
     PrimitiveIterator(source),
     _edgeIndex(source._edgeIndex),
-    _actPrimIndex(source._actPrimIndex),
-    _edgePntIndex()
+    _actPrimIndex(source._actPrimIndex)
 {
     _edgePntIndex[0] = source._edgePntIndex[0];
     _edgePntIndex[1] = source._edgePntIndex[1];
@@ -127,8 +128,11 @@ EdgeIterator::EdgeIterator(const EdgeIterator &source) :
     an iterator.
 */
 EdgeIterator::EdgeIterator(Node * const geo) : PrimitiveIterator(),
-    _edgeIndex(0), _actPrimIndex(), _edgePntIndex()
+    _edgeIndex(0), _actPrimIndex()
 {
+    _edgePntIndex[0] = 0;
+    _edgePntIndex[1] = 0;
+
     setGeo(geo);
 }
 
@@ -139,8 +143,11 @@ EdgeIterator::EdgeIterator(Node * const geo) : PrimitiveIterator(),
 */
 EdgeIterator::EdgeIterator(Geometry const * geo) : 
     PrimitiveIterator(),
-    _edgeIndex(0), _actPrimIndex(), _edgePntIndex()
+    _edgeIndex(0), _actPrimIndex()
 {
+    _edgePntIndex[0] = 0;
+    _edgePntIndex[1] = 0;
+
     setGeo(geo);
 }
 

@@ -3246,7 +3246,7 @@ void calcMergePropertyType(
         if(usage1 == GeoProperty::UsageUnspecified)
             usage = usage2;
         else if(usage2 == GeoProperty::UsageUnspecified)
-            usage == usage1;
+            usage = usage1;
         else
             FWARNING(("calcMergePropertyType: Can not merge properties with "
                       "conflicting usage.\n"));

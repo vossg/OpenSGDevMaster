@@ -336,9 +336,10 @@ class OSG_BASE_DLLMAPPING WinThreadBarrierBase : public BarrierCommonBase
 
     typedef BarrierCommonBase Inherited;
 
-             Handle _pMutex1;
-             Handle _pBarrierSema;
-    volatile UInt32 _uiNumWaiters;
+    Handle _pMutex1;
+    Handle _pBarrierSema[2];
+    UInt32 _uiCount;
+    UInt32 _uiCurrentCond;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     WinThreadBarrierBase(const WinThreadBarrierBase &source);
