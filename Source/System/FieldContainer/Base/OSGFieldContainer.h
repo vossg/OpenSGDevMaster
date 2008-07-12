@@ -280,26 +280,23 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    void  addReferenceX          (void);
+    void  addReferenceRecorded  (void);
 
     OSG_SYSTEM_DLLMAPPING
-    void  addReferenceUnrecordedX(void);
+    void  addReferenceUnrecorded(void);
 
     OSG_SYSTEM_DLLMAPPING
-    void  subReferenceX          (void);
+    void  subReferenceRecorded  (void);
 
     OSG_SYSTEM_DLLMAPPING
-    void  subReferenceUnrecordedX(void);
-
-//    OSG_SYSTEM_DLLMAPPING
-//    void  subReferenceLocalVarX(void);
+    void  subReferenceUnrecorded(void);
 
 
     OSG_SYSTEM_DLLMAPPING
-    void  addWeakReference       (void);
+    void  addWeakReference      (void);
 
     OSG_SYSTEM_DLLMAPPING
-    void  subWeakReference       (void);
+    void  subWeakReference      (void);
 
 
     /*! \}                                                                 */

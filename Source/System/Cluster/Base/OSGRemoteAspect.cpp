@@ -326,7 +326,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                             fcPtr->getType().getName().str(),
                             fcPtr->getId()));
 
-                    fcPtr->addReferenceX();
+                    fcPtr->addReferenceRecorded();
                 }
                 else
                 {
@@ -349,7 +349,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                             fcPtr->getType().getName().str(),
                             fcPtr->getId()));
                     
-                    fcPtr->subReferenceX();
+                    fcPtr->subReferenceRecorded();
                 }
                 else
                 {

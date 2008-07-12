@@ -73,6 +73,9 @@ class OSG_BASE_DLLMAPPING MemoryObject
     void  subRef     (void);    
     Int32 getRefCount(void);
 
+    void addReferenceUnrecorded(void);
+    void subReferenceUnrecorded(void);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -127,5 +130,54 @@ void addRefP(MemoryObjectPConst pObject)
 OSG_END_NAMESPACE
 
 #include "OSGMemoryObject.inl"
+
+OSG_BEGIN_NAMESPACE
+
+struct MemObjRefCountPolicy
+{
+    static void addRef(MemoryObject * const objectP)
+    {
+        if(objectP != NULL)
+            objectP->addRef();
+    }
+    static void subRef(MemoryObject * const objectP)
+    {
+        if(objectP != NULL)
+            objectP->subRef();
+    }
+
+    template <class StoreT, class SourceT> 
+    static void setRefd(StoreT  &pTarget,
+                        SourceT  pSource)
+    {
+        MemObjRefCountPolicy::addRef(pSource);
+        MemObjRefCountPolicy::subRef(pTarget);
+    
+        pTarget = pSource;
+    }
+
+    template<class T>
+    static T *validate(T *pIn)
+    {
+        return pIn;
+    }
+
+    template<class T>
+    static T &dereference(T *pIn)
+    {
+        return *pIn;
+    }
+
+    template<class T, class U>
+    static void convertTransitPtr(T *&pOut, U *&pIn)
+    {
+        MemObjRefCountPolicy::subRef(pOut);
+
+        pOut = pIn;
+        pIn  = NULL;
+    } 
+};
+
+OSG_END_NAMESPACE
 
 #endif /* _OSGMEMORYOBJECT_H_ */

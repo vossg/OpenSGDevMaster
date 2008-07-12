@@ -50,7 +50,7 @@ struct RecordedRefCountPolicy
     {
         if(objectP != NULL)
         {
-            objectP->addReferenceX();
+            objectP->addReferenceRecorded();
 
 //            Thread::getCurrentChangeList()->addAddRefd(objectP->getId());
         }
@@ -58,7 +58,7 @@ struct RecordedRefCountPolicy
     static void subRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
-            objectP->subReferenceX();
+            objectP->subReferenceRecorded();
     }
 
     template <class StoreT, class SourceT> 
@@ -118,12 +118,12 @@ struct UnrecordedRefCountPolicy
     static void addRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
-            objectP->addReferenceUnrecordedX();
+            objectP->addReferenceUnrecorded();
     }
     static void subRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
-            objectP->subReferenceUnrecordedX();
+            objectP->subReferenceUnrecorded();
     }
 
     template <class StoreT, class SourceT> 

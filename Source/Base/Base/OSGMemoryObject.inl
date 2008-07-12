@@ -74,6 +74,18 @@ Int32 MemoryObject::getRefCount(void)
     return _refCount;
 }
 
+inline
+void MemoryObject::addReferenceUnrecorded(void)
+{
+    addRef();
+}
+
+inline
+void MemoryObject::subReferenceUnrecorded(void)
+{
+    subRef();
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 

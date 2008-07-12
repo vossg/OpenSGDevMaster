@@ -85,7 +85,7 @@ void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
 }
 
 inline
-void FieldContainer::addReferenceX(void)
+void FieldContainer::addReferenceRecorded(void)
 {
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::addReference [%p] [%d] [%s] START - [%d %d]\n",
@@ -110,7 +110,7 @@ void FieldContainer::addReferenceX(void)
 }
 
 inline
-void FieldContainer::addReferenceUnrecordedX(void)
+void FieldContainer::addReferenceUnrecorded(void)
 {
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::addReferenceUnrec [%p] [%d] [%s] START - [%d %d]\n",
@@ -136,7 +136,7 @@ void FieldContainer::addReferenceUnrecordedX(void)
 }
 
 inline
-void FieldContainer::subReferenceX(void)
+void FieldContainer::subReferenceRecorded(void)
 {
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::subReference [%p] [%d] [%s] START - [%d %d]\n",
@@ -214,7 +214,7 @@ void FieldContainer::subReferenceX(void)
 }
 
 inline
-void FieldContainer::subReferenceUnrecordedX(void)
+void FieldContainer::subReferenceUnrecorded(void)
 {
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::subReferenceUnrec [%p] [%d] [%s] START - [%d %d]\n",

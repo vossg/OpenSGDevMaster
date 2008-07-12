@@ -552,7 +552,7 @@ void ChangeList::doApply(bool bClear)
 #endif
 
             if(pDst != NULL)
-                pDst->addReferenceX();
+                pDst->addReferenceRecorded();
         }
         else if((*cIt)->uiEntryDesc == ContainerChangeEntry::SubReference)// ||
 //            (*cIt)->uiEntryDesc == ContainerChangeEntry::DepSubReference)
@@ -563,7 +563,7 @@ void ChangeList::doApply(bool bClear)
 #endif
             
             if(pDst != NULL)
-                pDst->subReferenceX();
+                pDst->subReferenceRecorded();
         }
 
         ++cIt;
@@ -740,7 +740,7 @@ void ChangeList::commitDelayedSubRefs(void)
 
     while(vIt != vEnd)
     {
-        (*vIt)->subReferenceUnrecordedX();
+        (*vIt)->subReferenceUnrecorded();
 
         ++vIt;
     }
@@ -753,7 +753,7 @@ void ChangeList::commitDelayedSubRefs(void)
 
     while(vIt != vEnd)
     {
-        (*vIt)->subReferenceX();
+        (*vIt)->subReferenceRecorded();
 
         ++vIt;
     }

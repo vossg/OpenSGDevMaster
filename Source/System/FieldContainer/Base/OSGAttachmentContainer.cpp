@@ -176,11 +176,11 @@ void AttachmentContainer::addAttachment(
 
     if(this->isMTLocal())
     {
-        pAttachment->addReferenceX();
+        pAttachment->addReferenceRecorded();
     }
     else
     {
-        pAttachment->addReferenceUnrecordedX();
+        pAttachment->addReferenceUnrecorded();
     }
 
     pAttachment->linkParent(this, 
@@ -198,11 +198,11 @@ void AttachmentContainer::addAttachment(
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceX();
+            (*fcI).second->subReferenceRecorded();
         }
         else
         {
-            (*fcI).second->subReferenceUnrecordedX();
+            (*fcI).second->subReferenceUnrecorded();
         }
 
         (*fcI).second = pAttachment;
@@ -248,11 +248,11 @@ void AttachmentContainer::subAttachment(
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceX();
+            (*fcI).second->subReferenceRecorded();
         }
         else
         {
-            (*fcI).second->subReferenceUnrecordedX();
+            (*fcI).second->subReferenceUnrecorded();
         }
 
         _sfAttachments.getValue().erase(fcI);
@@ -313,7 +313,7 @@ void AttachmentContainer::execSync(
             {
                 tmpMap[(*fcI).first] = pAtt;
 
-                pAtt->addReferenceUnrecordedX();
+                pAtt->addReferenceUnrecorded();
             }
 
             ++fcI;
@@ -329,11 +329,11 @@ void AttachmentContainer::execSync(
 
             if(this->isMTLocal())
             {
-                (*fcI).second->subReferenceX();
+                (*fcI).second->subReferenceRecorded();
             }
             else
             {
-                (*fcI).second->subReferenceUnrecordedX();
+                (*fcI).second->subReferenceUnrecorded();
             }
             
             ++fcI;
@@ -359,11 +359,11 @@ void AttachmentContainer::resolveLinks(void)
 
         if(this->isMTLocal())
         {
-            (*fcI).second->subReferenceX();
+            (*fcI).second->subReferenceRecorded();
         }
         else
         {
-            (*fcI).second->subReferenceUnrecordedX();
+            (*fcI).second->subReferenceUnrecorded();
         }
 
         ++fcI;
