@@ -56,7 +56,13 @@ class OSG_SYSTEM_DLLMAPPING BasicFieldConnector
 
     bool match(BitVector fieldMask);
 
+    bool match(      BitVector       bSrcMask,
+               const FieldContainer *pDst,
+                     BitVector       bDstMask);
+
     virtual void process(void) = 0;
+
+    FieldContainer *getDst(void) const;
 
   protected:
 
@@ -117,6 +123,10 @@ class MFieldConnector : public BasicFieldConnector
 
 OSG_SYSTEM_DLLMAPPING
 bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
+                   FieldContainer      *pDstContainer, const Char8 *szDstName);
+
+OSG_SYSTEM_DLLMAPPING
+bool subConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
                    FieldContainer      *pDstContainer, const Char8 *szDstName);
 
 

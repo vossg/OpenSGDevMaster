@@ -65,6 +65,27 @@ bool BasicFieldConnector::match(BitVector fieldMask)
     return (_bSrcMask & fieldMask);
 }
 
+inline
+bool BasicFieldConnector::match(      BitVector       bSrcMask,
+                                const FieldContainer *pDst,
+                                      BitVector       bDstMask)
+{
+    bool returnValue = (_bSrcMask & bSrcMask);
+
+    if(pDst != NULL)
+    {
+        returnValue &= (_pDst == pDst) && (_bDstMask & bDstMask);
+    }
+
+    return returnValue;
+}
+
+inline
+FieldContainer *BasicFieldConnector::getDst(void) const
+{
+    return _pDst;
+}
+
 template <class FieldT> inline
 SFieldConnector<FieldT>::SFieldConnector(const FieldT    *pSrcField,
                                                BitVector  bSrcMask,

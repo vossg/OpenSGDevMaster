@@ -112,4 +112,81 @@ bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
     return true;
 }
 
+bool subConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
+                   FieldContainer      *pDstContainer, const Char8 *szDstName)
+{
+    if(pSrcContainer == NULL)
+    {
+        return false;
+    }
+
+    
+    FieldDescriptionBase *pSrcDesc = NULL;
+
+    if(szSrcName != NULL)
+    {
+        pSrcDesc = pSrcContainer->getFieldDescription(szSrcName);
+
+        // check core for node
+        if(pSrcDesc == NULL)
+        {
+            Node *pNode = dynamic_cast<Node *>(pSrcContainer);
+            
+            if(pNode != NULL && pNode->getCore() != NULL)
+            {
+                pSrcDesc = pNode->getCore()->getFieldDescription(szSrcName);
+                
+                pSrcContainer = pNode->getCore();
+            }
+        }
+    }
+
+
+    FieldDescriptionBase *pDstDesc = NULL;
+
+    if(pDstContainer != NULL && szDstName != NULL)
+    {
+        pDstDesc = pDstContainer->getFieldDescription(szDstName);
+
+        // same here
+        if(pDstDesc == NULL)
+        {
+            Node *pNode = dynamic_cast<Node *>(pDstContainer);
+
+            if(pNode != NULL && pNode->getCore() != NULL)
+            {
+                pDstDesc = pNode->getCore()->getFieldDescription(szDstName);
+                
+                pDstContainer = pNode->getCore();
+            }
+        }
+    }
+
+    BitVector bSrcMask = TypeTraits<BitVector>::BitsClear;
+    BitVector bDstMask = TypeTraits<BitVector>::BitsClear;
+
+    if(pSrcDesc != NULL)
+    {
+        bSrcMask = pSrcDesc->getFieldMask();
+    }
+    else if(szSrcName == NULL)
+    {
+        bSrcMask = TypeTraits<BitVector>::BitsSet;
+    }
+
+    if(pDstDesc != NULL)
+    {
+        bDstMask = pDstDesc->getFieldMask();
+    }
+    else if(szDstName == NULL)
+    {
+        bDstMask = TypeTraits<BitVector>::BitsSet;
+    }
+
+    subConnector(pSrcContainer, bSrcMask,
+                 pDstContainer, bDstMask);
+
+    return false;
+}
+
 OSG_END_NAMESPACE

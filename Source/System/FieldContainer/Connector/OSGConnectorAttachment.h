@@ -77,10 +77,30 @@ class OSG_SYSTEM_DLLMAPPING ConnectorAttachment :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void addConnection (BasicFieldConnector *pConnector);
+    void addConnection  (BasicFieldConnector *pConnector);
 
-    void processChanged(FieldContainer      *pObj, 
-                        BitVector            whichField);
+    void processChanged (FieldContainer      *pObj, 
+                         BitVector            whichField);
+
+    void targetDestroyed(FieldContainer      *pObj, 
+                         BitVector            whichField);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    bool hasConnectionTo   (const FieldContainer *pDst) const;
+    void removeConnectionTo(const FieldContainer *pDst); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    void removeConnections(      BitVector       bSrcMask,
+                           const FieldContainer *pDst,
+                                 BitVector       bDstMask);  
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -96,6 +116,8 @@ class OSG_SYSTEM_DLLMAPPING ConnectorAttachment :
   protected:
 
     typedef std::vector<BasicFieldConnector *> ConnectionStore;
+    typedef std::map   <FieldContainer *, 
+                        UInt32               > ConnectionCount;
 
     // Variables should all be in ConnectorAttachmentBase.
 
@@ -123,12 +145,21 @@ class OSG_SYSTEM_DLLMAPPING ConnectorAttachment :
     virtual bool unlinkParent(FieldContainer * const pParent,
                               UInt16           const parentFieldId);
 
+    virtual void resolveLinks(void                                );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    void countConnections(ConnectionCount &mCount);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -147,6 +178,10 @@ typedef ConnectorAttachment *ConnectorAttachmentP;
 OSG_SYSTEM_DLLMAPPING
 void addConnector(AttachmentContainer *pContainer,
                   BasicFieldConnector *pConn     );
+
+OSG_SYSTEM_DLLMAPPING
+void subConnector(AttachmentContainer *pSrcContainer, BitVector bSrcMask,
+                  FieldContainer      *pDstContainer, BitVector bDstMask);
 
 OSG_END_NAMESPACE
 

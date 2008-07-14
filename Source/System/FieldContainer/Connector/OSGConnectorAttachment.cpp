@@ -99,10 +99,6 @@ ConnectorAttachment::ConnectorAttachment(const ConnectorAttachment &source) :
 
 ConnectorAttachment::~ConnectorAttachment(void)
 {
-    for(UInt32 i = 0; i < _vConnections.size(); ++i)
-    {
-        delete _vConnections[i];
-    }
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -145,6 +141,130 @@ void ConnectorAttachment::processChanged(FieldContainer      *pObj,
     }
 }
 
+void ConnectorAttachment::targetDestroyed(FieldContainer      *pObj, 
+                                          BitVector            whichField)
+{
+    if(whichField == 0x0000)
+    {
+        this->removeConnectionTo(pObj);
+    }
+}
+
+bool ConnectorAttachment::hasConnectionTo(const FieldContainer *pDst) const
+{
+    bool returnValue = false;
+
+    ConnectionStore::const_iterator cIt  = _vConnections.begin();
+    ConnectionStore::const_iterator cEnd = _vConnections.end  ();
+
+    while(cIt != cEnd)
+    {
+        if((*cIt)->getDst() == pDst)
+        {
+            returnValue = true;
+            break;
+        }
+
+        ++cIt;
+    }
+
+    return returnValue;
+}
+
+void ConnectorAttachment::removeConnectionTo(const FieldContainer *pDst)
+{
+    ConnectionStore::iterator       cIt  = _vConnections.begin();
+    ConnectionStore::const_iterator cEnd = _vConnections.end  ();
+
+    while(cIt != cEnd)
+    {
+        if((*cIt)->getDst() == pDst)
+        {
+            delete (*cIt);
+
+            cIt = _vConnections.erase(cIt);
+
+            cEnd = _vConnections.end();
+        }
+        else
+        {
+            ++cIt;
+        }
+    }
+}
+
+void ConnectorAttachment::removeConnections(      BitVector       bSrcMask,
+                                            const FieldContainer *pDst,
+                                                  BitVector       bDstMask)
+{
+    ConnectionStore::iterator       cIt  = _vConnections.begin();
+    ConnectionStore::const_iterator cEnd = _vConnections.end  ();
+
+    ConnectionCount mConnCount;
+
+    this->countConnections(mConnCount);
+
+    while(cIt != cEnd)
+    {
+        if((*cIt)->match(bSrcMask, pDst, bDstMask) == true)
+        {
+            --(mConnCount[(*cIt)->getDst()]);
+
+            delete (*cIt);
+
+            cIt = _vConnections.erase(cIt);
+
+            cEnd = _vConnections.end();
+        }
+        else
+        {
+            ++cIt;
+        }
+    }
+
+    ConnectionCount::const_iterator ccIt  = mConnCount.begin();
+    ConnectionCount::const_iterator ccEnd = mConnCount.end  ();
+
+    while(ccIt != ccEnd)
+    {
+        if(ccIt->second == 0)
+        {
+            ccIt->first->subChangedFunctor(
+                boost::bind(&ConnectorAttachment::targetDestroyed, 
+                            this, 
+                            _1, 
+                            _2));
+        }
+
+        ++ccIt;
+    }
+}
+
+void ConnectorAttachment::countConnections(ConnectionCount &mCount)
+{
+    ConnectionStore::const_iterator cIt  = _vConnections.begin();
+    ConnectionStore::const_iterator cEnd = _vConnections.end  ();
+
+    ConnectionCount::iterator ccIt;
+
+    while(cIt != cEnd)
+    {
+        ccIt = mCount.find((*cIt)->getDst());
+
+        if(ccIt == mCount.end())
+        {
+            mCount[(*cIt)->getDst()] = 1;
+        }
+        else
+        {
+            ++(ccIt->second);
+        }
+
+        ++cIt;
+    }
+    
+}
+
 bool ConnectorAttachment::unlinkParent(FieldContainer * const pParent,
                                        UInt16           const parentFieldId)
 {
@@ -155,6 +275,24 @@ bool ConnectorAttachment::unlinkParent(FieldContainer * const pParent,
                     _2));
     
     return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
+void ConnectorAttachment::resolveLinks(void)
+{
+    for(UInt32 i = 0; i < _vConnections.size(); ++i)
+    {
+        FieldContainer *pDst = _vConnections[i]->getDst();
+
+        pDst->subChangedFunctor(
+            boost::bind(&ConnectorAttachment::targetDestroyed, 
+                        this, 
+                        _1, 
+                        _2));
+
+        delete _vConnections[i];
+    }
+
+    _vConnections.clear();
 }
 
 void addConnector(AttachmentContainer *pContainer,
@@ -201,7 +339,41 @@ void addConnector(AttachmentContainer *pContainer,
         }
     }
 
+    if(pCA->hasConnectionTo(pConn->getDst()) == false)
+    {
+        FieldContainer *pDst = pConn->getDst();
+
+        pDst->addChangedFunctor(
+            boost::bind(&ConnectorAttachment::targetDestroyed, 
+                        pCA.get(), 
+                        _1, 
+                        _2),
+            "");
+    }
+
     pCA->addConnection(pConn);
+}
+
+void subConnector(AttachmentContainer *pSrcContainer, BitVector bSrcMask,
+                  FieldContainer      *pDstContainer, BitVector bDstMask)
+{
+    if(pSrcContainer == NULL)
+    {
+        FFATAL(("subConnector: no container?!?"));
+        return;
+    }
+
+    ConnectorAttachmentUnrecPtr pCA = NULL;
+
+    Attachment          *att = pSrcContainer->findAttachment(
+        ConnectorAttachment::getClassType().getGroupId());
+
+    pCA = dynamic_cast<ConnectorAttachment *>(att);
+    
+    if(pCA != NULL)
+    {
+        pCA->removeConnections(bSrcMask, pDstContainer, bDstMask);
+    }
 }
 
 OSG_END_NAMESPACE
