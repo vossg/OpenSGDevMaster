@@ -89,7 +89,7 @@ void PassiveViewportBase::execSync (      PassiveViewportBase *pFrom,
 
 
 inline
-Char8 *PassiveViewportBase::getClassname(void)
+const Char8 *PassiveViewportBase::getClassname(void)
 {
     return "PassiveViewport";
 }

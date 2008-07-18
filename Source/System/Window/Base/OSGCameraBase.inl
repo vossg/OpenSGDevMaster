@@ -95,7 +95,7 @@ void CameraBase::execSync (      CameraBase *pFrom,
 
 
 inline
-Char8 *CameraBase::getClassname(void)
+const Char8 *CameraBase::getClassname(void)
 {
     return "Camera";
 }

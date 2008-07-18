@@ -146,8 +146,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
 
     static TypeObject _type;
 
-    static void   classDescInserter(TypeObject &oType);
-    static Char8 *getClassname     (void             );
+    static       void   classDescInserter(TypeObject &oType);
+    static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */

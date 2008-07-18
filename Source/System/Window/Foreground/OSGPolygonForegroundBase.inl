@@ -320,7 +320,7 @@ void PolygonForegroundBase::execSync (      PolygonForegroundBase *pFrom,
 
 
 inline
-Char8 *PolygonForegroundBase::getClassname(void)
+const Char8 *PolygonForegroundBase::getClassname(void)
 {
     return "PolygonForeground";
 }

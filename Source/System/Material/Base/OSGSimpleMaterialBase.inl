@@ -313,7 +313,7 @@ void SimpleMaterialBase::execSync (      SimpleMaterialBase *pFrom,
 
 
 inline
-Char8 *SimpleMaterialBase::getClassname(void)
+const Char8 *SimpleMaterialBase::getClassname(void)
 {
     return "SimpleMaterial";
 }

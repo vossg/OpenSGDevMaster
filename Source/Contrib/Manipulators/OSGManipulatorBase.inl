@@ -420,7 +420,7 @@ void ManipulatorBase::execSync (      ManipulatorBase *pFrom,
 
 
 inline
-Char8 *ManipulatorBase::getClassname(void)
+const Char8 *ManipulatorBase::getClassname(void)
 {
     return "Manipulator";
 }

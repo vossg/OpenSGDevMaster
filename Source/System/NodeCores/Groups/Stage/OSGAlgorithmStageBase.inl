@@ -192,7 +192,7 @@ void AlgorithmStageBase::execSync (      AlgorithmStageBase *pFrom,
 
 
 inline
-Char8 *AlgorithmStageBase::getClassname(void)
+const Char8 *AlgorithmStageBase::getClassname(void)
 {
     return "AlgorithmStage";
 }

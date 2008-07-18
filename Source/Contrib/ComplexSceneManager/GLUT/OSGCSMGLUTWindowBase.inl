@@ -89,7 +89,7 @@ void CSMGLUTWindowBase::execSync (      CSMGLUTWindowBase *pFrom,
 
 
 inline
-Char8 *CSMGLUTWindowBase::getClassname(void)
+const Char8 *CSMGLUTWindowBase::getClassname(void)
 {
     return "CSMGLUTWindow";
 }

@@ -108,7 +108,7 @@ void SHLParameterChunkBase::execSync (      SHLParameterChunkBase *pFrom,
 
 
 inline
-Char8 *SHLParameterChunkBase::getClassname(void)
+const Char8 *SHLParameterChunkBase::getClassname(void)
 {
     return "SHLParameterChunk";
 }

@@ -229,7 +229,7 @@ void BillboardBase::execSync (      BillboardBase *pFrom,
 
 
 inline
-Char8 *BillboardBase::getClassname(void)
+const Char8 *BillboardBase::getClassname(void)
 {
     return "Billboard";
 }

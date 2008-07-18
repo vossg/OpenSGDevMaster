@@ -229,7 +229,7 @@ void BalancedMultiWindowBase::execSync (      BalancedMultiWindowBase *pFrom,
 
 
 inline
-Char8 *BalancedMultiWindowBase::getClassname(void)
+const Char8 *BalancedMultiWindowBase::getClassname(void)
 {
     return "BalancedMultiWindow";
 }

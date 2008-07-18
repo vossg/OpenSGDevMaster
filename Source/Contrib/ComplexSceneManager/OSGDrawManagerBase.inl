@@ -186,7 +186,7 @@ void DrawManagerBase::execSync (      DrawManagerBase *pFrom,
 
 
 inline
-Char8 *DrawManagerBase::getClassname(void)
+const Char8 *DrawManagerBase::getClassname(void)
 {
     return "DrawManager";
 }

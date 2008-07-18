@@ -121,7 +121,7 @@ void DynamicStateGeneratorStageDataBase::execSync (      DynamicStateGeneratorSt
 
 
 inline
-Char8 *DynamicStateGeneratorStageDataBase::getClassname(void)
+const Char8 *DynamicStateGeneratorStageDataBase::getClassname(void)
 {
     return "DynamicStateGeneratorStageData";
 }

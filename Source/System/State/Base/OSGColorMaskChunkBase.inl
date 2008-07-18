@@ -201,7 +201,7 @@ void ColorMaskChunkBase::execSync (      ColorMaskChunkBase *pFrom,
 
 
 inline
-Char8 *ColorMaskChunkBase::getClassname(void)
+const Char8 *ColorMaskChunkBase::getClassname(void)
 {
     return "ColorMaskChunk";
 }

@@ -173,7 +173,7 @@ void MatrixCameraBase::execSync (      MatrixCameraBase *pFrom,
 
 
 inline
-Char8 *MatrixCameraBase::getClassname(void)
+const Char8 *MatrixCameraBase::getClassname(void)
 {
     return "MatrixCamera";
 }

@@ -220,7 +220,7 @@ void CSMSceneParameterBase::execSync (      CSMSceneParameterBase *pFrom,
 
 
 inline
-Char8 *CSMSceneParameterBase::getClassname(void)
+const Char8 *CSMSceneParameterBase::getClassname(void)
 {
     return "CSMSceneParameter";
 }

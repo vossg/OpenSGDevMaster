@@ -156,9 +156,9 @@ OSG_END_NAMESPACE
     is optional, default is 1. 
 */
 
-StateChunkClass::StateChunkClass(Char8  *name, 
-                                 UInt32  numslots,
-                                 UInt32  priority) : 
+StateChunkClass::StateChunkClass(const Char8  *name, 
+                                       UInt32  numslots,
+                                       UInt32  priority) : 
     _classId  (       0),
     _numSlots (numslots),
     _priority (priority),

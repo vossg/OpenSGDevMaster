@@ -1530,7 +1530,7 @@ void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
 
 
 inline
-Char8 *TextureObjChunkBase::getClassname(void)
+const Char8 *TextureObjChunkBase::getClassname(void)
 {
     return "TextureObjChunk";
 }

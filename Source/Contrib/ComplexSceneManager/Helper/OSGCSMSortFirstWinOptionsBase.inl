@@ -201,7 +201,7 @@ void CSMSortFirstWinOptionsBase::execSync (      CSMSortFirstWinOptionsBase *pFr
 
 
 inline
-Char8 *CSMSortFirstWinOptionsBase::getClassname(void)
+const Char8 *CSMSortFirstWinOptionsBase::getClassname(void)
 {
     return "CSMSortFirstWinOptions";
 }

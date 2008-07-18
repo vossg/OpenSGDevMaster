@@ -391,7 +391,7 @@ void PolygonChunkBase::execSync (      PolygonChunkBase *pFrom,
 
 
 inline
-Char8 *PolygonChunkBase::getClassname(void)
+const Char8 *PolygonChunkBase::getClassname(void)
 {
     return "PolygonChunk";
 }

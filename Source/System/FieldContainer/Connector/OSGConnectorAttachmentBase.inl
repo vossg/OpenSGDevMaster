@@ -89,7 +89,7 @@ void ConnectorAttachmentBase::execSync (      ConnectorAttachmentBase *pFrom,
 
 
 inline
-Char8 *ConnectorAttachmentBase::getClassname(void)
+const Char8 *ConnectorAttachmentBase::getClassname(void)
 {
     return "ConnectorAttachment";
 }

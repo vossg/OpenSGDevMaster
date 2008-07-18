@@ -201,7 +201,7 @@ void PipelineComposerBase::execSync (      PipelineComposerBase *pFrom,
 
 
 inline
-Char8 *PipelineComposerBase::getClassname(void)
+const Char8 *PipelineComposerBase::getClassname(void)
 {
     return "PipelineComposer";
 }

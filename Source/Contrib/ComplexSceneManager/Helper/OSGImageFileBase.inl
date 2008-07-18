@@ -117,7 +117,7 @@ void ImageFileBase::execSync (      ImageFileBase *pFrom,
 
 
 inline
-Char8 *ImageFileBase::getClassname(void)
+const Char8 *ImageFileBase::getClassname(void)
 {
     return "ImageFile";
 }

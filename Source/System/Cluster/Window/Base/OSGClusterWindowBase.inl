@@ -423,7 +423,7 @@ void ClusterWindowBase::execSync (      ClusterWindowBase *pFrom,
 
 
 inline
-Char8 *ClusterWindowBase::getClassname(void)
+const Char8 *ClusterWindowBase::getClassname(void)
 {
     return "ClusterWindow";
 }

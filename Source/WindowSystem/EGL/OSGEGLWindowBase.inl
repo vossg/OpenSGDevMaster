@@ -173,7 +173,7 @@ void EGLWindowBase::execSync (      EGLWindowBase *pFrom,
 
 
 inline
-Char8 *EGLWindowBase::getClassname(void)
+const Char8 *EGLWindowBase::getClassname(void)
 {
     return "EGLWindow";
 }

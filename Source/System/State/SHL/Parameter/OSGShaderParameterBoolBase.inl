@@ -117,7 +117,7 @@ void ShaderParameterBoolBase::execSync (      ShaderParameterBoolBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterBoolBase::getClassname(void)
+const Char8 *ShaderParameterBoolBase::getClassname(void)
 {
     return "ShaderParameterBool";
 }

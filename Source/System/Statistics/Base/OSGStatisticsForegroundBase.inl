@@ -139,7 +139,7 @@ void StatisticsForegroundBase::execSync (      StatisticsForegroundBase *pFrom,
 
 
 inline
-Char8 *StatisticsForegroundBase::getClassname(void)
+const Char8 *StatisticsForegroundBase::getClassname(void)
 {
     return "StatisticsForeground";
 }

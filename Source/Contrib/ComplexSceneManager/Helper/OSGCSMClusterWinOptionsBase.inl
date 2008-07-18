@@ -92,7 +92,7 @@ void CSMClusterWinOptionsBase::execSync (      CSMClusterWinOptionsBase *pFrom,
 
 
 inline
-Char8 *CSMClusterWinOptionsBase::getClassname(void)
+const Char8 *CSMClusterWinOptionsBase::getClassname(void)
 {
     return "CSMClusterWinOptions";
 }

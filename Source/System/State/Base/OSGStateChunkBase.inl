@@ -117,7 +117,7 @@ void StateChunkBase::execSync (      StateChunkBase *pFrom,
 
 
 inline
-Char8 *StateChunkBase::getClassname(void)
+const Char8 *StateChunkBase::getClassname(void)
 {
     return "StateChunk";
 }

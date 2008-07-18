@@ -145,7 +145,7 @@ void FrameBufferAttachmentBase::execSync (      FrameBufferAttachmentBase *pFrom
 
 
 inline
-Char8 *FrameBufferAttachmentBase::getClassname(void)
+const Char8 *FrameBufferAttachmentBase::getClassname(void)
 {
     return "FrameBufferAttachment";
 }

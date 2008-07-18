@@ -733,7 +733,7 @@ void ImageBase::execSync (      ImageBase *pFrom,
 
 
 inline
-Char8 *ImageBase::getClassname(void)
+const Char8 *ImageBase::getClassname(void)
 {
     return "Image";
 }

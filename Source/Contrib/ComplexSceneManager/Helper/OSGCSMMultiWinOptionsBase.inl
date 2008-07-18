@@ -257,7 +257,7 @@ void CSMMultiWinOptionsBase::execSync (      CSMMultiWinOptionsBase *pFrom,
 
 
 inline
-Char8 *CSMMultiWinOptionsBase::getClassname(void)
+const Char8 *CSMMultiWinOptionsBase::getClassname(void)
 {
     return "CSMMultiWinOptions";
 }

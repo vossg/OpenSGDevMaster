@@ -348,7 +348,7 @@ void PolygonBackgroundBase::execSync (      PolygonBackgroundBase *pFrom,
 
 
 inline
-Char8 *PolygonBackgroundBase::getClassname(void)
+const Char8 *PolygonBackgroundBase::getClassname(void)
 {
     return "PolygonBackground";
 }

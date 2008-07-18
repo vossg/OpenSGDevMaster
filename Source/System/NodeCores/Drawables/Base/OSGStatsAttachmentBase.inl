@@ -89,7 +89,7 @@ void StatsAttachmentBase::execSync (      StatsAttachmentBase *pFrom,
 
 
 inline
-Char8 *StatsAttachmentBase::getClassname(void)
+const Char8 *StatsAttachmentBase::getClassname(void)
 {
     return "StatsAttachment";
 }

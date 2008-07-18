@@ -130,7 +130,7 @@ void ContainerCollectionBase::execSync (      ContainerCollectionBase *pFrom,
 
 
 inline
-Char8 *ContainerCollectionBase::getClassname(void)
+const Char8 *ContainerCollectionBase::getClassname(void)
 {
     return "ContainerCollection";
 }

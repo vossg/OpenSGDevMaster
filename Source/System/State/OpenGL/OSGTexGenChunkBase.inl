@@ -389,7 +389,7 @@ void TexGenChunkBase::execSync (      TexGenChunkBase *pFrom,
 
 
 inline
-Char8 *TexGenChunkBase::getClassname(void)
+const Char8 *TexGenChunkBase::getClassname(void)
 {
     return "TexGenChunk";
 }

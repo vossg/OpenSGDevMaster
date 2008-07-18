@@ -145,7 +145,7 @@ void ShearedStereoCameraDecoratorBase::execSync (      ShearedStereoCameraDecora
 
 
 inline
-Char8 *ShearedStereoCameraDecoratorBase::getClassname(void)
+const Char8 *ShearedStereoCameraDecoratorBase::getClassname(void)
 {
     return "ShearedStereoCameraDecorator";
 }

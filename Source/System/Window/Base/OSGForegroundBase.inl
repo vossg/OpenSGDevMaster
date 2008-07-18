@@ -117,7 +117,7 @@ void ForegroundBase::execSync (      ForegroundBase *pFrom,
 
 
 inline
-Char8 *ForegroundBase::getClassname(void)
+const Char8 *ForegroundBase::getClassname(void)
 {
     return "Foreground";
 }

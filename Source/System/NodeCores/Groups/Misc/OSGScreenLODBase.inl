@@ -111,7 +111,7 @@ void ScreenLODBase::execSync (      ScreenLODBase *pFrom,
 
 
 inline
-Char8 *ScreenLODBase::getClassname(void)
+const Char8 *ScreenLODBase::getClassname(void)
 {
     return "ScreenLOD";
 }

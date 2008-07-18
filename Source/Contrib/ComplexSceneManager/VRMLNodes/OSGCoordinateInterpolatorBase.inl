@@ -183,7 +183,7 @@ void CoordinateInterpolatorBase::execSync (      CoordinateInterpolatorBase *pFr
 
 
 inline
-Char8 *CoordinateInterpolatorBase::getClassname(void)
+const Char8 *CoordinateInterpolatorBase::getClassname(void)
 {
     return "CoordinateInterpolator";
 }

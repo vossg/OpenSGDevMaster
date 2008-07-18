@@ -130,7 +130,7 @@ void SwitchMaterialBase::execSync (      SwitchMaterialBase *pFrom,
 
 
 inline
-Char8 *SwitchMaterialBase::getClassname(void)
+const Char8 *SwitchMaterialBase::getClassname(void)
 {
     return "SwitchMaterial";
 }

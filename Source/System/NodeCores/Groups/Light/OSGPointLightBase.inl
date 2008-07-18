@@ -117,7 +117,7 @@ void PointLightBase::execSync (      PointLightBase *pFrom,
 
 
 inline
-Char8 *PointLightBase::getClassname(void)
+const Char8 *PointLightBase::getClassname(void)
 {
     return "PointLight";
 }

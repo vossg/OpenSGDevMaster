@@ -731,7 +731,7 @@ void QuadTreeTerrainBase::execSync (      QuadTreeTerrainBase *pFrom,
 
 
 inline
-Char8 *QuadTreeTerrainBase::getClassname(void)
+const Char8 *QuadTreeTerrainBase::getClassname(void)
 {
     return "QuadTreeTerrain";
 }

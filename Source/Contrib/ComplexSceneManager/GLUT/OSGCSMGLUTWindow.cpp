@@ -185,10 +185,10 @@ bool CSMGLUTWindow::init(void)
 {
     if(_bGLUTInitialized == false)
     {
-        Int32  argc   = 1;
-        Char8 *argv[] = { "testCSM" };
+              Int32  argc   = 1;
+        const Char8 *argv[] = { "testCSM" };
 
-        glutInit(&argc, argv);
+        glutInit(&argc, const_cast<Char8 **>(argv));
     }
 
     UInt32 uiDisplayMode = (GLUT_RGBA       | 

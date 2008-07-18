@@ -189,7 +189,7 @@ void ProgramChunkBase::execSync (      ProgramChunkBase *pFrom,
 
 
 inline
-Char8 *ProgramChunkBase::getClassname(void)
+const Char8 *ProgramChunkBase::getClassname(void)
 {
     return "ProgramChunk";
 }

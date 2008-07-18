@@ -117,7 +117,7 @@ void ShaderParameterPnt2fBase::execSync (      ShaderParameterPnt2fBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterPnt2fBase::getClassname(void)
+const Char8 *ShaderParameterPnt2fBase::getClassname(void)
 {
     return "ShaderParameterPnt2f";
 }

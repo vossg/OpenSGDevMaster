@@ -388,7 +388,7 @@ void LightChunkBase::execSync (      LightChunkBase *pFrom,
 
 
 inline
-Char8 *LightChunkBase::getClassname(void)
+const Char8 *LightChunkBase::getClassname(void)
 {
     return "LightChunk";
 }

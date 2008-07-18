@@ -121,7 +121,7 @@ int setupGLUT( int *argc, char *argv[] );
 int main(int argc, char **argv)
 {
     printf("Usage: testCGShader [normal map filename]\n");
-    char *normal_map_img_name = "opensg_logoDOT3.png";
+    const char *normal_map_img_name = "opensg_logoDOT3.png";
 
     Color4f tmp;
 

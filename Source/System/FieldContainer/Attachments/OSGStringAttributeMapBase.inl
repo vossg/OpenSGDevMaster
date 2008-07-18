@@ -133,7 +133,7 @@ void StringAttributeMapBase::execSync (      StringAttributeMapBase *pFrom,
 
 
 inline
-Char8 *StringAttributeMapBase::getClassname(void)
+const Char8 *StringAttributeMapBase::getClassname(void)
 {
     return "StringAttributeMap";
 }

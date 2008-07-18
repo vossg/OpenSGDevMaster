@@ -145,7 +145,7 @@ void StereoCameraDecoratorBase::execSync (      StereoCameraDecoratorBase *pFrom
 
 
 inline
-Char8 *StereoCameraDecoratorBase::getClassname(void)
+const Char8 *StereoCameraDecoratorBase::getClassname(void)
 {
     return "StereoCameraDecorator";
 }

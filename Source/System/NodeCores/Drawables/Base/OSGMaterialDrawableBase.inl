@@ -108,7 +108,7 @@ void MaterialDrawableBase::execSync (      MaterialDrawableBase *pFrom,
 
 
 inline
-Char8 *MaterialDrawableBase::getClassname(void)
+const Char8 *MaterialDrawableBase::getClassname(void)
 {
     return "MaterialDrawable";
 }

@@ -72,7 +72,7 @@ void TestFC::execSync (      TestFC            *pFrom,
 #endif
 
 inline
-Char8 *TestFC::getClassname(void)
+const Char8 *TestFC::getClassname(void)
 {
     return "TestFC";
 }

@@ -246,7 +246,7 @@ void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
 
 
 inline
-Char8 *FrameBufferObjectBase::getClassname(void)
+const Char8 *FrameBufferObjectBase::getClassname(void)
 {
     return "FrameBufferObject";
 }

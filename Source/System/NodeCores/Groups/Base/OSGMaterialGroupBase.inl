@@ -108,7 +108,7 @@ void MaterialGroupBase::execSync (      MaterialGroupBase *pFrom,
 
 
 inline
-Char8 *MaterialGroupBase::getClassname(void)
+const Char8 *MaterialGroupBase::getClassname(void)
 {
     return "MaterialGroup";
 }

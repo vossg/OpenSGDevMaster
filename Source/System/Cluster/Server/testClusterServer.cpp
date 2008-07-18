@@ -104,9 +104,9 @@ void key(unsigned char key, int /*x*/, int /*y*/)
 
 int main(int argc,char **argv)
 {
-    char           *name          ="ClusterServer";
+    const char           *name          ="ClusterServer";
 //    char           *connectionType="StreamSock";
-    char           *connectionType="Multicast";
+    const char           *connectionType="Multicast";
     bool           fullscreen     =true;
     std::string    address        ="";
     int            width=-1,height=300,x=0,y=0;

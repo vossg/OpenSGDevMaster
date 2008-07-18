@@ -189,7 +189,7 @@ void PositionInterpolatorBase::execSync (      PositionInterpolatorBase *pFrom,
 
 
 inline
-Char8 *PositionInterpolatorBase::getClassname(void)
+const Char8 *PositionInterpolatorBase::getClassname(void)
 {
     return "PositionInterpolator";
 }

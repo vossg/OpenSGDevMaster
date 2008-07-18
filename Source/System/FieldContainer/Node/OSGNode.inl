@@ -204,7 +204,7 @@ void Node::execSync(      Node              *pFrom,
 #endif
 
 inline
-Char8 *Node::getClassname(void)
+const Char8 *Node::getClassname(void)
 {
     return "Node";
 }

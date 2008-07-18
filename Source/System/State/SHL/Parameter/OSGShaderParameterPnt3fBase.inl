@@ -117,7 +117,7 @@ void ShaderParameterPnt3fBase::execSync (      ShaderParameterPnt3fBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterPnt3fBase::getClassname(void)
+const Char8 *ShaderParameterPnt3fBase::getClassname(void)
 {
     return "ShaderParameterPnt3f";
 }

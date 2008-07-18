@@ -102,7 +102,7 @@ void SensorTaskBase::execSync (      SensorTaskBase *pFrom,
 
 
 inline
-Char8 *SensorTaskBase::getClassname(void)
+const Char8 *SensorTaskBase::getClassname(void)
 {
     return "SensorTask";
 }

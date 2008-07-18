@@ -173,7 +173,7 @@ void FileGrabForegroundBase::execSync (      FileGrabForegroundBase *pFrom,
 
 
 inline
-Char8 *FileGrabForegroundBase::getClassname(void)
+const Char8 *FileGrabForegroundBase::getClassname(void)
 {
     return "FileGrabForeground";
 }

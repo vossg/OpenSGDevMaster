@@ -164,7 +164,7 @@ void ClipPlaneChunkBase::execSync (      ClipPlaneChunkBase *pFrom,
 
 
 inline
-Char8 *ClipPlaneChunkBase::getClassname(void)
+const Char8 *ClipPlaneChunkBase::getClassname(void)
 {
     return "ClipPlaneChunk";
 }

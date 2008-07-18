@@ -285,7 +285,7 @@ void DrawableStatsAttachmentBase::execSync (      DrawableStatsAttachmentBase *p
 
 
 inline
-Char8 *DrawableStatsAttachmentBase::getClassname(void)
+const Char8 *DrawableStatsAttachmentBase::getClassname(void)
 {
     return "DrawableStatsAttachment";
 }

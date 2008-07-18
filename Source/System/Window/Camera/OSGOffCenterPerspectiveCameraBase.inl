@@ -117,7 +117,7 @@ void OffCenterPerspectiveCameraBase::execSync (      OffCenterPerspectiveCameraB
 
 
 inline
-Char8 *OffCenterPerspectiveCameraBase::getClassname(void)
+const Char8 *OffCenterPerspectiveCameraBase::getClassname(void)
 {
     return "OffCenterPerspectiveCamera";
 }

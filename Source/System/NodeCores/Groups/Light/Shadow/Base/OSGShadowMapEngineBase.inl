@@ -248,7 +248,7 @@ void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
 
 
 inline
-Char8 *ShadowMapEngineBase::getClassname(void)
+const Char8 *ShadowMapEngineBase::getClassname(void)
 {
     return "ShadowMapEngine";
 }

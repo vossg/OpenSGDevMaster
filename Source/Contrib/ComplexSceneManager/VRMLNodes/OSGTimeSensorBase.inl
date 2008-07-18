@@ -341,7 +341,7 @@ void TimeSensorBase::execSync (      TimeSensorBase *pFrom,
 
 
 inline
-Char8 *TimeSensorBase::getClassname(void)
+const Char8 *TimeSensorBase::getClassname(void)
 {
     return "TimeSensor";
 }

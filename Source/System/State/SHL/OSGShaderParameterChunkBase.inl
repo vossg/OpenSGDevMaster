@@ -102,7 +102,7 @@ void ShaderParameterChunkBase::execSync (      ShaderParameterChunkBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterChunkBase::getClassname(void)
+const Char8 *ShaderParameterChunkBase::getClassname(void)
 {
     return "ShaderParameterChunk";
 }

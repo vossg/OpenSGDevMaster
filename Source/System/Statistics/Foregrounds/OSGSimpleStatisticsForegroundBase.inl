@@ -419,7 +419,7 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
 
 
 inline
-Char8 *SimpleStatisticsForegroundBase::getClassname(void)
+const Char8 *SimpleStatisticsForegroundBase::getClassname(void)
 {
     return "SimpleStatisticsForeground";
 }

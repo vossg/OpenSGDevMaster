@@ -117,7 +117,7 @@ void TextureObjRefChunkBase::execSync (      TextureObjRefChunkBase *pFrom,
 
 
 inline
-Char8 *TextureObjRefChunkBase::getClassname(void)
+const Char8 *TextureObjRefChunkBase::getClassname(void)
 {
     return "TextureObjRefChunk";
 }

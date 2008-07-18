@@ -409,8 +409,8 @@ bool CSMNativeWindow::init(void)
 
     XFree(vi);
 
-    Int32  argc   = 1;
-    Char8 *argv[] = { "testCSM" };
+          Int32  argc   = 1;
+    const Char8 *argv[] = { "testCSM" };
 
 
     XSetStandardProperties(_pDisplay, 
@@ -418,7 +418,7 @@ bool CSMNativeWindow::init(void)
                             "OpenSG - CSM", 
                             None,
                             None,
-                            argv, 
+                            const_cast<Char8 **>(argv), 
                             argc, 
                             NULL);
         

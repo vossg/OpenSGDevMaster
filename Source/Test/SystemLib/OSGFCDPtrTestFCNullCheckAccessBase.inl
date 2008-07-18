@@ -381,7 +381,7 @@ void FCDPtrTestFCNullCheckAccessBase::execSync (      FCDPtrTestFCNullCheckAcces
 
 
 inline
-Char8 *FCDPtrTestFCNullCheckAccessBase::getClassname(void)
+const Char8 *FCDPtrTestFCNullCheckAccessBase::getClassname(void)
 {
     return "FCDPtrTestFCNullCheckAccess";
 }

@@ -84,7 +84,7 @@ void Attachment::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 }
 
-Char8 *Attachment::getClassname(void)
+const Char8 *Attachment::getClassname(void)
 {
     return "Attachment";
 }

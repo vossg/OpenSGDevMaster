@@ -173,7 +173,7 @@ void ParallelComposerBase::execSync (      ParallelComposerBase *pFrom,
 
 
 inline
-Char8 *ParallelComposerBase::getClassname(void)
+const Char8 *ParallelComposerBase::getClassname(void)
 {
     return "ParallelComposer";
 }

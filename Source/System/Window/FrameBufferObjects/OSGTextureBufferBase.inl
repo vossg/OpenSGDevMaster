@@ -192,7 +192,7 @@ void TextureBufferBase::execSync (      TextureBufferBase *pFrom,
 
 
 inline
-Char8 *TextureBufferBase::getClassname(void)
+const Char8 *TextureBufferBase::getClassname(void)
 {
     return "TextureBuffer";
 }

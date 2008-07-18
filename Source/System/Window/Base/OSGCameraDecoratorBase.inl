@@ -105,7 +105,7 @@ void CameraDecoratorBase::execSync (      CameraDecoratorBase *pFrom,
 
 
 inline
-Char8 *CameraDecoratorBase::getClassname(void)
+const Char8 *CameraDecoratorBase::getClassname(void)
 {
     return "CameraDecorator";
 }

@@ -117,7 +117,7 @@ void LightEngineBase::execSync (      LightEngineBase *pFrom,
 
 
 inline
-Char8 *LightEngineBase::getClassname(void)
+const Char8 *LightEngineBase::getClassname(void)
 {
     return "LightEngine";
 }

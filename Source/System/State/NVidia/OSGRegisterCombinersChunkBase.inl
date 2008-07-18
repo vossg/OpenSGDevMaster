@@ -795,7 +795,7 @@ void RegisterCombinersChunkBase::execSync (      RegisterCombinersChunkBase *pFr
 
 
 inline
-Char8 *RegisterCombinersChunkBase::getClassname(void)
+const Char8 *RegisterCombinersChunkBase::getClassname(void)
 {
     return "RegisterCombinersChunk";
 }

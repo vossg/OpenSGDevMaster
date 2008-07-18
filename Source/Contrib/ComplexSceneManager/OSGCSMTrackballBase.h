@@ -278,8 +278,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
 
     static TypeObject _type;
 
-    static void   classDescInserter(TypeObject &oType);
-    static Char8 *getClassname     (void             );
+    static       void   classDescInserter(TypeObject &oType);
+    static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */

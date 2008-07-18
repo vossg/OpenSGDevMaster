@@ -66,9 +66,9 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     /*! \name                   Constructor                                */
     /*! \{                                                                 */
 
-    StateChunkClass(Char8  *name, 
-                    UInt32  numslots  = 1,
-                    UInt32  priortity = 50);
+    StateChunkClass(const Char8  *name, 
+                          UInt32  numslots  = 1,
+                          UInt32  priortity = 50);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -145,7 +145,7 @@ void RenderBufferBase::execSync (      RenderBufferBase *pFrom,
 
 
 inline
-Char8 *RenderBufferBase::getClassname(void)
+const Char8 *RenderBufferBase::getClassname(void)
 {
     return "RenderBuffer";
 }

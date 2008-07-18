@@ -102,7 +102,7 @@ void MultiPassMaterialBase::execSync (      MultiPassMaterialBase *pFrom,
 
 
 inline
-Char8 *MultiPassMaterialBase::getClassname(void)
+const Char8 *MultiPassMaterialBase::getClassname(void)
 {
     return "MultiPassMaterial";
 }

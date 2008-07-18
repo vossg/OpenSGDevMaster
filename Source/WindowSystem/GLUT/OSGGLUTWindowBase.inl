@@ -117,7 +117,7 @@ void GLUTWindowBase::execSync (      GLUTWindowBase *pFrom,
 
 
 inline
-Char8 *GLUTWindowBase::getClassname(void)
+const Char8 *GLUTWindowBase::getClassname(void)
 {
     return "GLUTWindow";
 }

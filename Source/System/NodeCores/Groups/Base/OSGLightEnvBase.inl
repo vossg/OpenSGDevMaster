@@ -89,7 +89,7 @@ void LightEnvBase::execSync (      LightEnvBase *pFrom,
 
 
 inline
-Char8 *LightEnvBase::getClassname(void)
+const Char8 *LightEnvBase::getClassname(void)
 {
     return "LightEnv";
 }

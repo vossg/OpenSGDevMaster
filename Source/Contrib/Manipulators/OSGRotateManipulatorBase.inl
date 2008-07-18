@@ -89,7 +89,7 @@ void RotateManipulatorBase::execSync (      RotateManipulatorBase *pFrom,
 
 
 inline
-Char8 *RotateManipulatorBase::getClassname(void)
+const Char8 *RotateManipulatorBase::getClassname(void)
 {
     return "RotateManipulator";
 }

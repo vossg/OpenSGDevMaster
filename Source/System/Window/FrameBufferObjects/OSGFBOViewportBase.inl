@@ -108,7 +108,7 @@ void FBOViewportBase::execSync (      FBOViewportBase *pFrom,
 
 
 inline
-Char8 *FBOViewportBase::getClassname(void)
+const Char8 *FBOViewportBase::getClassname(void)
 {
     return "FBOViewport";
 }

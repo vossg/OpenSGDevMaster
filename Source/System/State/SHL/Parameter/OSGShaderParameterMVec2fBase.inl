@@ -111,7 +111,7 @@ void ShaderParameterMVec2fBase::execSync (      ShaderParameterMVec2fBase *pFrom
 
 
 inline
-Char8 *ShaderParameterMVec2fBase::getClassname(void)
+const Char8 *ShaderParameterMVec2fBase::getClassname(void)
 {
     return "ShaderParameterMVec2f";
 }

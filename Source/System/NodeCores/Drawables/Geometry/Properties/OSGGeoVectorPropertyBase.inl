@@ -89,7 +89,7 @@ void GeoVectorPropertyBase::execSync (      GeoVectorPropertyBase *pFrom,
 
 
 inline
-Char8 *GeoVectorPropertyBase::getClassname(void)
+const Char8 *GeoVectorPropertyBase::getClassname(void)
 {
     return "GeoVectorProperty";
 }

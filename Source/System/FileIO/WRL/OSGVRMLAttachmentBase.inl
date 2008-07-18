@@ -117,7 +117,7 @@ void VRMLAttachmentBase::execSync (      VRMLAttachmentBase *pFrom,
 
 
 inline
-Char8 *VRMLAttachmentBase::getClassname(void)
+const Char8 *VRMLAttachmentBase::getClassname(void)
 {
     return "VRMLAttachment";
 }

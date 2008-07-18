@@ -110,7 +110,10 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     std::vector<GraphOp *> _GraphOperators;
     std::list<std::string> _excludeNames;
 
-    UInt16 extractStr(const std::string param, UInt16 spos, char* delim, std::string& result);
+    UInt16 extractStr(const std::string  param, 
+                            UInt16       spos, 
+                      const Char8       *delim, 
+                            std::string &result);
 };
 
 typedef GraphOpSeq *GraphOpSeqP;

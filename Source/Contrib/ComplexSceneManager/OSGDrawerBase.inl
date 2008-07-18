@@ -158,7 +158,7 @@ void DrawerBase::execSync (      DrawerBase *pFrom,
 
 
 inline
-Char8 *DrawerBase::getClassname(void)
+const Char8 *DrawerBase::getClassname(void)
 {
     return "Drawer";
 }

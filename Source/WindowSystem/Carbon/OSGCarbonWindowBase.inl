@@ -117,7 +117,7 @@ void CarbonWindowBase::execSync (      CarbonWindowBase *pFrom,
 
 
 inline
-Char8 *CarbonWindowBase::getClassname(void)
+const Char8 *CarbonWindowBase::getClassname(void)
 {
     return "CarbonWindow";
 }

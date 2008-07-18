@@ -100,7 +100,7 @@ void VisitSubTreeBase::execSync (      VisitSubTreeBase *pFrom,
 
 
 inline
-Char8 *VisitSubTreeBase::getClassname(void)
+const Char8 *VisitSubTreeBase::getClassname(void)
 {
     return "VisitSubTree";
 }

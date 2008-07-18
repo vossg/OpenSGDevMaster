@@ -257,7 +257,7 @@ void MatrixCameraDecoratorBase::execSync (      MatrixCameraDecoratorBase *pFrom
 
 
 inline
-Char8 *MatrixCameraDecoratorBase::getClassname(void)
+const Char8 *MatrixCameraDecoratorBase::getClassname(void)
 {
     return "MatrixCameraDecorator";
 }

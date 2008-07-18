@@ -845,7 +845,7 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
 
 
 inline
-Char8 *RenderOptionsBase::getClassname(void)
+const Char8 *RenderOptionsBase::getClassname(void)
 {
     return "RenderOptions";
 }

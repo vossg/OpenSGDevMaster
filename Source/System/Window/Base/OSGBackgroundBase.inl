@@ -201,7 +201,7 @@ void BackgroundBase::execSync (      BackgroundBase *pFrom,
 
 
 inline
-Char8 *BackgroundBase::getClassname(void)
+const Char8 *BackgroundBase::getClassname(void)
 {
     return "Background";
 }

@@ -38,7 +38,7 @@ int init(int argc, char **argv)
         
         fprintf(stderr, "Got %p\n", OSG::ComplexSceneManager::the());
         
-        char *argvTmp[] = 
+        const char *argvTmp[] = 
         {
             "testCSM",
             "Source/Contrib/ComplexSceneManager/data/system-native.osg",
@@ -50,7 +50,8 @@ int init(int argc, char **argv)
     
         int argcTmp = 6;
         
-        OSG::ComplexSceneManager::the()->init(argcTmp, argvTmp);
+        OSG::ComplexSceneManager::the()->init(argcTmp, 
+                                              const_cast<char **>(argvTmp));
         
         OSG::ComplexSceneManager::the()->run();
     }

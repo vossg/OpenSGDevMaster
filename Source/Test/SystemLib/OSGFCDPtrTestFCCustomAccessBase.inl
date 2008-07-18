@@ -317,7 +317,7 @@ void FCDPtrTestFCCustomAccessBase::execSync (      FCDPtrTestFCCustomAccessBase 
 
 
 inline
-Char8 *FCDPtrTestFCCustomAccessBase::getClassname(void)
+const Char8 *FCDPtrTestFCCustomAccessBase::getClassname(void)
 {
     return "FCDPtrTestFCCustomAccess";
 }

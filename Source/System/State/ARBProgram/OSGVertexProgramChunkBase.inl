@@ -89,7 +89,7 @@ void VertexProgramChunkBase::execSync (      VertexProgramChunkBase *pFrom,
 
 
 inline
-Char8 *VertexProgramChunkBase::getClassname(void)
+const Char8 *VertexProgramChunkBase::getClassname(void)
 {
     return "VertexProgramChunk";
 }

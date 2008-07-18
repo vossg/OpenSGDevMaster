@@ -217,7 +217,7 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
 
 inline
-Char8 *CSMWindowBase::getClassname(void)
+const Char8 *CSMWindowBase::getClassname(void)
 {
     return "CSMWindow";
 }

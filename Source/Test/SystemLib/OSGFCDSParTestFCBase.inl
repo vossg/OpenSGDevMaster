@@ -92,7 +92,7 @@ void FCDSParTestFCBase::execSync (      FCDSParTestFCBase *pFrom,
 
 
 inline
-Char8 *FCDSParTestFCBase::getClassname(void)
+const Char8 *FCDSParTestFCBase::getClassname(void)
 {
     return "FCDSParTestFC";
 }

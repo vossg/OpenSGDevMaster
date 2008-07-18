@@ -313,7 +313,7 @@ void BlendChunkBase::execSync (      BlendChunkBase *pFrom,
 
 
 inline
-Char8 *BlendChunkBase::getClassname(void)
+const Char8 *BlendChunkBase::getClassname(void)
 {
     return "BlendChunk";
 }

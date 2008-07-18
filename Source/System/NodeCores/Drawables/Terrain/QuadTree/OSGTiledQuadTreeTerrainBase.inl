@@ -451,7 +451,7 @@ void TiledQuadTreeTerrainBase::execSync (      TiledQuadTreeTerrainBase *pFrom,
 
 
 inline
-Char8 *TiledQuadTreeTerrainBase::getClassname(void)
+const Char8 *TiledQuadTreeTerrainBase::getClassname(void)
 {
     return "TiledQuadTreeTerrain";
 }

@@ -111,7 +111,7 @@ void ShaderParameterMVec4fBase::execSync (      ShaderParameterMVec4fBase *pFrom
 
 
 inline
-Char8 *ShaderParameterMVec4fBase::getClassname(void)
+const Char8 *ShaderParameterMVec4fBase::getClassname(void)
 {
     return "ShaderParameterMVec4f";
 }

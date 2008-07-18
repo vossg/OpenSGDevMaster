@@ -108,7 +108,7 @@ void DynamicStateGeneratorBase::execSync (      DynamicStateGeneratorBase *pFrom
 
 
 inline
-Char8 *DynamicStateGeneratorBase::getClassname(void)
+const Char8 *DynamicStateGeneratorBase::getClassname(void)
 {
     return "DynamicStateGenerator";
 }

@@ -257,7 +257,7 @@ void TileCameraDecoratorBase::execSync (      TileCameraDecoratorBase *pFrom,
 
 
 inline
-Char8 *TileCameraDecoratorBase::getClassname(void)
+const Char8 *TileCameraDecoratorBase::getClassname(void)
 {
     return "TileCameraDecorator";
 }

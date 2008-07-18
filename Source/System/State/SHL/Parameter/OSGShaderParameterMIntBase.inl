@@ -111,7 +111,7 @@ void ShaderParameterMIntBase::execSync (      ShaderParameterMIntBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterMIntBase::getClassname(void)
+const Char8 *ShaderParameterMIntBase::getClassname(void)
 {
     return "ShaderParameterMInt";
 }

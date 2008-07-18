@@ -117,7 +117,7 @@ void DirectionalLightBase::execSync (      DirectionalLightBase *pFrom,
 
 
 inline
-Char8 *DirectionalLightBase::getClassname(void)
+const Char8 *DirectionalLightBase::getClassname(void)
 {
     return "DirectionalLight";
 }

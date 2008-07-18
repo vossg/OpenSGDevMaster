@@ -215,7 +215,7 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 
 
 inline
-Char8 *CSMViewportBase::getClassname(void)
+const Char8 *CSMViewportBase::getClassname(void)
 {
     return "CSMViewport";
 }

@@ -89,7 +89,7 @@ void GroupBase::execSync (      GroupBase *pFrom,
 
 
 inline
-Char8 *GroupBase::getClassname(void)
+const Char8 *GroupBase::getClassname(void)
 {
     return "Group";
 }

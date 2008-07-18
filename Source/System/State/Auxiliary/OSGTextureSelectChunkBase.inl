@@ -130,7 +130,7 @@ void TextureSelectChunkBase::execSync (      TextureSelectChunkBase *pFrom,
 
 
 inline
-Char8 *TextureSelectChunkBase::getClassname(void)
+const Char8 *TextureSelectChunkBase::getClassname(void)
 {
     return "TextureSelectChunk";
 }

@@ -145,7 +145,7 @@ void StereoBufferViewportBase::execSync (      StereoBufferViewportBase *pFrom,
 
 
 inline
-Char8 *StereoBufferViewportBase::getClassname(void)
+const Char8 *StereoBufferViewportBase::getClassname(void)
 {
     return "StereoBufferViewport";
 }

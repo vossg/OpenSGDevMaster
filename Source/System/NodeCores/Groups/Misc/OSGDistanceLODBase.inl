@@ -139,7 +139,7 @@ void DistanceLODBase::execSync (      DistanceLODBase *pFrom,
 
 
 inline
-Char8 *DistanceLODBase::getClassname(void)
+const Char8 *DistanceLODBase::getClassname(void)
 {
     return "DistanceLOD";
 }

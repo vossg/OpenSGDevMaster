@@ -229,7 +229,7 @@ void ComponentTransformBase::execSync (      ComponentTransformBase *pFrom,
 
 
 inline
-Char8 *ComponentTransformBase::getClassname(void)
+const Char8 *ComponentTransformBase::getClassname(void)
 {
     return "ComponentTransform";
 }

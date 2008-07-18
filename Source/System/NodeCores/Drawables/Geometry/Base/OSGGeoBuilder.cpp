@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
 
 
 // Default Typenames for the given attribute
-char* GeoBuilder::_defaultPropTypes[Geometry::MaxAttribs] =
+const char* GeoBuilder::_defaultPropTypes[Geometry::MaxAttribs] =
 {
     "GeoPnt3fProperty",  // Positions            = 0
     "GeoVec3fProperty",  // 1 unused

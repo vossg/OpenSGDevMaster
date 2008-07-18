@@ -95,7 +95,7 @@ void StateBase::execSync (      StateBase *pFrom,
 
 
 inline
-Char8 *StateBase::getClassname(void)
+const Char8 *StateBase::getClassname(void)
 {
     return "State";
 }

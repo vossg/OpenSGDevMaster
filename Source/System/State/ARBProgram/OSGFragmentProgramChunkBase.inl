@@ -89,7 +89,7 @@ void FragmentProgramChunkBase::execSync (      FragmentProgramChunkBase *pFrom,
 
 
 inline
-Char8 *FragmentProgramChunkBase::getClassname(void)
+const Char8 *FragmentProgramChunkBase::getClassname(void)
 {
     return "FragmentProgramChunk";
 }

@@ -89,7 +89,7 @@ void DrawableBase::execSync (      DrawableBase *pFrom,
 
 
 inline
-Char8 *DrawableBase::getClassname(void)
+const Char8 *DrawableBase::getClassname(void)
 {
     return "Drawable";
 }

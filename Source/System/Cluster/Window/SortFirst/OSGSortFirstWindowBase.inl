@@ -223,7 +223,7 @@ void SortFirstWindowBase::execSync (      SortFirstWindowBase *pFrom,
 
 
 inline
-Char8 *SortFirstWindowBase::getClassname(void)
+const Char8 *SortFirstWindowBase::getClassname(void)
 {
     return "SortFirstWindow";
 }

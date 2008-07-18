@@ -481,7 +481,7 @@ void MaterialChunkBase::execSync (      MaterialChunkBase *pFrom,
 
 
 inline
-Char8 *MaterialChunkBase::getClassname(void)
+const Char8 *MaterialChunkBase::getClassname(void)
 {
     return "MaterialChunk";
 }

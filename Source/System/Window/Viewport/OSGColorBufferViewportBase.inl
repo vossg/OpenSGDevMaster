@@ -201,7 +201,7 @@ void ColorBufferViewportBase::execSync (      ColorBufferViewportBase *pFrom,
 
 
 inline
-Char8 *ColorBufferViewportBase::getClassname(void)
+const Char8 *ColorBufferViewportBase::getClassname(void)
 {
     return "ColorBufferViewport";
 }

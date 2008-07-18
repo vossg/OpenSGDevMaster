@@ -117,7 +117,7 @@ void TestStageBase::execSync (      TestStageBase *pFrom,
 
 
 inline
-Char8 *TestStageBase::getClassname(void)
+const Char8 *TestStageBase::getClassname(void)
 {
     return "TestStage";
 }

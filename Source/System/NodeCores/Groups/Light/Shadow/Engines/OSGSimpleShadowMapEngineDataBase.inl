@@ -222,7 +222,7 @@ void SimpleShadowMapEngineDataBase::execSync (      SimpleShadowMapEngineDataBas
 
 
 inline
-Char8 *SimpleShadowMapEngineDataBase::getClassname(void)
+const Char8 *SimpleShadowMapEngineDataBase::getClassname(void)
 {
     return "SimpleShadowMapEngineData";
 }

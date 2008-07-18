@@ -139,7 +139,7 @@ void GeoMultiPropertyDataBase::execSync (      GeoMultiPropertyDataBase *pFrom,
 
 
 inline
-Char8 *GeoMultiPropertyDataBase::getClassname(void)
+const Char8 *GeoMultiPropertyDataBase::getClassname(void)
 {
     return "GeoMultiPropertyData";
 }

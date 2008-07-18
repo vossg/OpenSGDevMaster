@@ -152,7 +152,7 @@ void SortLastWindowBase::execSync (      SortLastWindowBase *pFrom,
 
 
 inline
-Char8 *SortLastWindowBase::getClassname(void)
+const Char8 *SortLastWindowBase::getClassname(void)
 {
     return "SortLastWindow";
 }

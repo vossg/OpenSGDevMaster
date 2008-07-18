@@ -117,7 +117,7 @@ void SimpleShadowMapEngineBase::execSync (      SimpleShadowMapEngineBase *pFrom
 
 
 inline
-Char8 *SimpleShadowMapEngineBase::getClassname(void)
+const Char8 *SimpleShadowMapEngineBase::getClassname(void)
 {
     return "SimpleShadowMapEngine";
 }

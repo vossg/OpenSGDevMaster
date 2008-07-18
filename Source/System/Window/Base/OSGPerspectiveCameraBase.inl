@@ -145,7 +145,7 @@ void PerspectiveCameraBase::execSync (      PerspectiveCameraBase *pFrom,
 
 
 inline
-Char8 *PerspectiveCameraBase::getClassname(void)
+const Char8 *PerspectiveCameraBase::getClassname(void)
 {
     return "PerspectiveCamera";
 }

@@ -136,7 +136,7 @@ void GrabForegroundBase::execSync (      GrabForegroundBase *pFrom,
 
 
 inline
-Char8 *GrabForegroundBase::getClassname(void)
+const Char8 *GrabForegroundBase::getClassname(void)
 {
     return "GrabForeground";
 }

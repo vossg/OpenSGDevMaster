@@ -201,7 +201,7 @@ void LineChunkBase::execSync (      LineChunkBase *pFrom,
 
 
 inline
-Char8 *LineChunkBase::getClassname(void)
+const Char8 *LineChunkBase::getClassname(void)
 {
     return "LineChunk";
 }

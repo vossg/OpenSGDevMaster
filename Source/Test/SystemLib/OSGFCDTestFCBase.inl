@@ -198,7 +198,7 @@ void FCDTestFCBase::execSync (      FCDTestFCBase *pFrom,
 
 
 inline
-Char8 *FCDTestFCBase::getClassname(void)
+const Char8 *FCDTestFCBase::getClassname(void)
 {
     return "FCDTestFC";
 }

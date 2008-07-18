@@ -399,7 +399,7 @@ void ParticlesBase::execSync (      ParticlesBase *pFrom,
 
 
 inline
-Char8 *ParticlesBase::getClassname(void)
+const Char8 *ParticlesBase::getClassname(void)
 {
     return "Particles";
 }

@@ -89,7 +89,7 @@ void DepthClearBackgroundBase::execSync (      DepthClearBackgroundBase *pFrom,
 
 
 inline
-Char8 *DepthClearBackgroundBase::getClassname(void)
+const Char8 *DepthClearBackgroundBase::getClassname(void)
 {
     return "DepthClearBackground";
 }

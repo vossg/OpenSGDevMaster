@@ -229,7 +229,7 @@ void MultiDisplayWindowBase::execSync (      MultiDisplayWindowBase *pFrom,
 
 
 inline
-Char8 *MultiDisplayWindowBase::getClassname(void)
+const Char8 *MultiDisplayWindowBase::getClassname(void)
 {
     return "MultiDisplayWindow";
 }

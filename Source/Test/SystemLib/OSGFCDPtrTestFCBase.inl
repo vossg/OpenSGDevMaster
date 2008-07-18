@@ -381,7 +381,7 @@ void FCDPtrTestFCBase::execSync (      FCDPtrTestFCBase *pFrom,
 
 
 inline
-Char8 *FCDPtrTestFCBase::getClassname(void)
+const Char8 *FCDPtrTestFCBase::getClassname(void)
 {
     return "FCDPtrTestFC";
 }

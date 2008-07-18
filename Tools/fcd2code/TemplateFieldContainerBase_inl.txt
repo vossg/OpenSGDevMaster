@@ -210,7 +210,7 @@ void @!Classname!@Base::execSync (      @!Classname!@Base *pFrom,
 
 
 inline
-Char8 *@!Classname!@Base::getClassname(void)
+const Char8 *@!Classname!@Base::getClassname(void)
 {
     return "@!Classname!@";
 }

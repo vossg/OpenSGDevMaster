@@ -117,7 +117,7 @@ void SwitchBase::execSync (      SwitchBase *pFrom,
 
 
 inline
-Char8 *SwitchBase::getClassname(void)
+const Char8 *SwitchBase::getClassname(void)
 {
     return "Switch";
 }

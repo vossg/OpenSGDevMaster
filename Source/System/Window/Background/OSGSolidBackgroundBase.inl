@@ -145,7 +145,7 @@ void SolidBackgroundBase::execSync (      SolidBackgroundBase *pFrom,
 
 
 inline
-Char8 *SolidBackgroundBase::getClassname(void)
+const Char8 *SolidBackgroundBase::getClassname(void)
 {
     return "SolidBackground";
 }

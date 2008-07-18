@@ -323,7 +323,7 @@ void LightBase::execSync (      LightBase *pFrom,
 
 
 inline
-Char8 *LightBase::getClassname(void)
+const Char8 *LightBase::getClassname(void)
 {
     return "Light";
 }

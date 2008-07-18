@@ -89,7 +89,7 @@ void AlgorithmBase::execSync (      AlgorithmBase *pFrom,
 
 
 inline
-Char8 *AlgorithmBase::getClassname(void)
+const Char8 *AlgorithmBase::getClassname(void)
 {
     return "Algorithm";
 }

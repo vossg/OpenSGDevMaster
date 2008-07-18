@@ -89,7 +89,7 @@ void TwoSidedLightingChunkBase::execSync (      TwoSidedLightingChunkBase *pFrom
 
 
 inline
-Char8 *TwoSidedLightingChunkBase::getClassname(void)
+const Char8 *TwoSidedLightingChunkBase::getClassname(void)
 {
     return "TwoSidedLightingChunk";
 }

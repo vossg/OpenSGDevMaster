@@ -102,7 +102,7 @@ void MultiCoreBase::execSync (      MultiCoreBase *pFrom,
 
 
 inline
-Char8 *MultiCoreBase::getClassname(void)
+const Char8 *MultiCoreBase::getClassname(void)
 {
     return "MultiCore";
 }

@@ -173,7 +173,7 @@ void SpotLightBase::execSync (      SpotLightBase *pFrom,
 
 
 inline
-Char8 *SpotLightBase::getClassname(void)
+const Char8 *SpotLightBase::getClassname(void)
 {
     return "SpotLight";
 }

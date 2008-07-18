@@ -192,7 +192,7 @@ void TextureGrabForegroundBase::execSync (      TextureGrabForegroundBase *pFrom
 
 
 inline
-Char8 *TextureGrabForegroundBase::getClassname(void)
+const Char8 *TextureGrabForegroundBase::getClassname(void)
 {
     return "TextureGrabForeground";
 }

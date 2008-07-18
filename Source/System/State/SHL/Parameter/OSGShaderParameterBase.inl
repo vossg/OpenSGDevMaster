@@ -123,7 +123,7 @@ void ShaderParameterBase::execSync (      ShaderParameterBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterBase::getClassname(void)
+const Char8 *ShaderParameterBase::getClassname(void)
 {
     return "ShaderParameter";
 }

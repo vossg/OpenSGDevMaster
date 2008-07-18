@@ -89,7 +89,7 @@ void PassiveWindowBase::execSync (      PassiveWindowBase *pFrom,
 
 
 inline
-Char8 *PassiveWindowBase::getClassname(void)
+const Char8 *PassiveWindowBase::getClassname(void)
 {
     return "PassiveWindow";
 }

@@ -124,7 +124,7 @@ void ChunkMaterialBase::execSync (      ChunkMaterialBase *pFrom,
 
 
 inline
-Char8 *ChunkMaterialBase::getClassname(void)
+const Char8 *ChunkMaterialBase::getClassname(void)
 {
     return "ChunkMaterial";
 }

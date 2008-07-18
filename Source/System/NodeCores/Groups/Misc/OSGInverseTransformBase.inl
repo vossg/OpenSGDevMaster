@@ -89,7 +89,7 @@ void InverseTransformBase::execSync (      InverseTransformBase *pFrom,
 
 
 inline
-Char8 *InverseTransformBase::getClassname(void)
+const Char8 *InverseTransformBase::getClassname(void)
 {
     return "InverseTransform";
 }

@@ -220,7 +220,7 @@ void SimpleTexturedMaterialBase::execSync (      SimpleTexturedMaterialBase *pFr
 
 
 inline
-Char8 *SimpleTexturedMaterialBase::getClassname(void)
+const Char8 *SimpleTexturedMaterialBase::getClassname(void)
 {
     return "SimpleTexturedMaterial";
 }

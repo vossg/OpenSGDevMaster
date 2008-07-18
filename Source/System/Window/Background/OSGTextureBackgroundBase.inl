@@ -270,7 +270,7 @@ void TextureBackgroundBase::execSync (      TextureBackgroundBase *pFrom,
 
 
 inline
-Char8 *TextureBackgroundBase::getClassname(void)
+const Char8 *TextureBackgroundBase::getClassname(void)
 {
     return "TextureBackground";
 }

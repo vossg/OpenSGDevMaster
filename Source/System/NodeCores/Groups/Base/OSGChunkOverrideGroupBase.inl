@@ -102,7 +102,7 @@ void ChunkOverrideGroupBase::execSync (      ChunkOverrideGroupBase *pFrom,
 
 
 inline
-Char8 *ChunkOverrideGroupBase::getClassname(void)
+const Char8 *ChunkOverrideGroupBase::getClassname(void)
 {
     return "ChunkOverrideGroup";
 }

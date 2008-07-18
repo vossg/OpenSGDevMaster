@@ -89,7 +89,7 @@ void ScaleManipulatorBase::execSync (      ScaleManipulatorBase *pFrom,
 
 
 inline
-Char8 *ScaleManipulatorBase::getClassname(void)
+const Char8 *ScaleManipulatorBase::getClassname(void)
 {
     return "ScaleManipulator";
 }

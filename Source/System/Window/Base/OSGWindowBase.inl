@@ -286,7 +286,7 @@ void WindowBase::execSync (      WindowBase *pFrom,
 
 
 inline
-Char8 *WindowBase::getClassname(void)
+const Char8 *WindowBase::getClassname(void)
 {
     return "Window";
 }

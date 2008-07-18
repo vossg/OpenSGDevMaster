@@ -136,7 +136,7 @@ void StageBase::execSync (      StageBase *pFrom,
 
 
 inline
-Char8 *StageBase::getClassname(void)
+const Char8 *StageBase::getClassname(void)
 {
     return "Stage";
 }

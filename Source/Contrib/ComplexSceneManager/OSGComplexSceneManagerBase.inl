@@ -392,7 +392,7 @@ void ComplexSceneManagerBase::execSync (      ComplexSceneManagerBase *pFrom,
 
 
 inline
-Char8 *ComplexSceneManagerBase::getClassname(void)
+const Char8 *ComplexSceneManagerBase::getClassname(void)
 {
     return "ComplexSceneManager";
 }

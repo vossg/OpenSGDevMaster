@@ -89,7 +89,7 @@ void PassiveBackgroundBase::execSync (      PassiveBackgroundBase *pFrom,
 
 
 inline
-Char8 *PassiveBackgroundBase::getClassname(void)
+const Char8 *PassiveBackgroundBase::getClassname(void)
 {
     return "PassiveBackground";
 }

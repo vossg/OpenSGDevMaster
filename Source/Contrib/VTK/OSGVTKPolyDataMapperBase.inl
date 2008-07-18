@@ -225,7 +225,7 @@ void VTKPolyDataMapperBase::execSync (      VTKPolyDataMapperBase *pFrom,
 
 
 inline
-Char8 *VTKPolyDataMapperBase::getClassname(void)
+const Char8 *VTKPolyDataMapperBase::getClassname(void)
 {
     return "VTKPolyDataMapper";
 }

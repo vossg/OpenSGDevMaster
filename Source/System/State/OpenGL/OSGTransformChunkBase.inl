@@ -117,7 +117,7 @@ void TransformChunkBase::execSync (      TransformChunkBase *pFrom,
 
 
 inline
-Char8 *TransformChunkBase::getClassname(void)
+const Char8 *TransformChunkBase::getClassname(void)
 {
     return "TransformChunk";
 }

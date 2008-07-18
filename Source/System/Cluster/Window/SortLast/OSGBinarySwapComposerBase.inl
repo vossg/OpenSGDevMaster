@@ -173,7 +173,7 @@ void BinarySwapComposerBase::execSync (      BinarySwapComposerBase *pFrom,
 
 
 inline
-Char8 *BinarySwapComposerBase::getClassname(void)
+const Char8 *BinarySwapComposerBase::getClassname(void)
 {
     return "BinarySwapComposer";
 }

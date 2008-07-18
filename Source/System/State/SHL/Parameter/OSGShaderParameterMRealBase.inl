@@ -111,7 +111,7 @@ void ShaderParameterMRealBase::execSync (      ShaderParameterMRealBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterMRealBase::getClassname(void)
+const Char8 *ShaderParameterMRealBase::getClassname(void)
 {
     return "ShaderParameterMReal";
 }

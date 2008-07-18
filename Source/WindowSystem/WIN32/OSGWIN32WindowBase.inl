@@ -173,7 +173,7 @@ void WIN32WindowBase::execSync (      WIN32WindowBase *pFrom,
 
 
 inline
-Char8 *WIN32WindowBase::getClassname(void)
+const Char8 *WIN32WindowBase::getClassname(void)
 {
     return "WIN32Window";
 }

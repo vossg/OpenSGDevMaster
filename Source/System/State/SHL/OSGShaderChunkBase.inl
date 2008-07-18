@@ -173,7 +173,7 @@ void ShaderChunkBase::execSync (      ShaderChunkBase *pFrom,
 
 
 inline
-Char8 *ShaderChunkBase::getClassname(void)
+const Char8 *ShaderChunkBase::getClassname(void)
 {
     return "ShaderChunk";
 }

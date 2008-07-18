@@ -410,7 +410,7 @@ void ProxyGroupBase::execSync (      ProxyGroupBase *pFrom,
 
 
 inline
-Char8 *ProxyGroupBase::getClassname(void)
+const Char8 *ProxyGroupBase::getClassname(void)
 {
     return "ProxyGroup";
 }

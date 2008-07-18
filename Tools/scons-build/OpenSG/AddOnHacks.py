@@ -555,6 +555,7 @@ def EnvironmentBuilder_gcc_linux_misc(bldr, env):
 #                                '-Wold-style-cast', '-DOSG_DEBUG_OLD_C_CASTS',
                                 '-DOSG_CLEAN_FCFIELDS',
                                 '-DOSG_CHECK_CONST_CORRECT_FIELD_USAGE',
+                                '-Wwrite-strings',
                                 '-Werror' ])
           env.Append(LINKFLAGS = ['-Wl,--no-undefined'])
 

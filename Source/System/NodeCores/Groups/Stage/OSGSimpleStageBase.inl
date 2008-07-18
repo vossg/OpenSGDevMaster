@@ -251,7 +251,7 @@ void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
 
 
 inline
-Char8 *SimpleStageBase::getClassname(void)
+const Char8 *SimpleStageBase::getClassname(void)
 {
     return "SimpleStage";
 }

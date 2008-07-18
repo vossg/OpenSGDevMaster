@@ -89,7 +89,7 @@ void SensorBase::execSync (      SensorBase *pFrom,
 
 
 inline
-Char8 *SensorBase::getClassname(void)
+const Char8 *SensorBase::getClassname(void)
 {
     return "Sensor";
 }

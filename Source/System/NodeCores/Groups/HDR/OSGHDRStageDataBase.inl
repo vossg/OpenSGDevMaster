@@ -278,7 +278,7 @@ void HDRStageDataBase::execSync (      HDRStageDataBase *pFrom,
 
 
 inline
-Char8 *HDRStageDataBase::getClassname(void)
+const Char8 *HDRStageDataBase::getClassname(void)
 {
     return "HDRStageData";
 }

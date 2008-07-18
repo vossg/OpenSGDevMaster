@@ -117,7 +117,7 @@ void CocoaWindowBase::execSync (      CocoaWindowBase *pFrom,
 
 
 inline
-Char8 *CocoaWindowBase::getClassname(void)
+const Char8 *CocoaWindowBase::getClassname(void)
 {
     return "CocoaWindow";
 }

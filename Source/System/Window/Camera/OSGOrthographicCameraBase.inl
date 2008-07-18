@@ -145,7 +145,7 @@ void OrthographicCameraBase::execSync (      OrthographicCameraBase *pFrom,
 
 
 inline
-Char8 *OrthographicCameraBase::getClassname(void)
+const Char8 *OrthographicCameraBase::getClassname(void)
 {
     return "OrthographicCamera";
 }

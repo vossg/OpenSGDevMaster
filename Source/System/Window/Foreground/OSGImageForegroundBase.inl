@@ -124,7 +124,7 @@ void ImageForegroundBase::execSync (      ImageForegroundBase *pFrom,
 
 
 inline
-Char8 *ImageForegroundBase::getClassname(void)
+const Char8 *ImageForegroundBase::getClassname(void)
 {
     return "ImageForeground";
 }

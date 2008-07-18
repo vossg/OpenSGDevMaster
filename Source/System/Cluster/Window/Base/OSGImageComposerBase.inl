@@ -145,7 +145,7 @@ void ImageComposerBase::execSync (      ImageComposerBase *pFrom,
 
 
 inline
-Char8 *ImageComposerBase::getClassname(void)
+const Char8 *ImageComposerBase::getClassname(void)
 {
     return "ImageComposer";
 }

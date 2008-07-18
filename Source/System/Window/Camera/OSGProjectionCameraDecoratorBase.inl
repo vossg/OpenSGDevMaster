@@ -270,7 +270,7 @@ void ProjectionCameraDecoratorBase::execSync (      ProjectionCameraDecoratorBas
 
 
 inline
-Char8 *ProjectionCameraDecoratorBase::getClassname(void)
+const Char8 *ProjectionCameraDecoratorBase::getClassname(void)
 {
     return "ProjectionCameraDecorator";
 }

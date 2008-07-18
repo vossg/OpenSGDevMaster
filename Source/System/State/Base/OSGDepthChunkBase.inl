@@ -229,7 +229,7 @@ void DepthChunkBase::execSync (      DepthChunkBase *pFrom,
 
 
 inline
-Char8 *DepthChunkBase::getClassname(void)
+const Char8 *DepthChunkBase::getClassname(void)
 {
     return "DepthChunk";
 }

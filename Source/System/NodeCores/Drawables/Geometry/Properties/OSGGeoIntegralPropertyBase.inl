@@ -89,7 +89,7 @@ void GeoIntegralPropertyBase::execSync (      GeoIntegralPropertyBase *pFrom,
 
 
 inline
-Char8 *GeoIntegralPropertyBase::getClassname(void)
+const Char8 *GeoIntegralPropertyBase::getClassname(void)
 {
     return "GeoIntegralProperty";
 }

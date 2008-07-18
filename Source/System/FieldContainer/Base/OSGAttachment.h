@@ -182,8 +182,8 @@ class OSG_SYSTEM_DLLMAPPING Attachment : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    static void   classDescInserter(TypeObject &oType);
-    static Char8 *getClassname     (void             );
+    static       void   classDescInserter(TypeObject &oType);
+    static const Char8 *getClassname     (void             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

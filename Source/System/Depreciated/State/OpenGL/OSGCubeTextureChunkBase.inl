@@ -184,7 +184,7 @@ void CubeTextureChunkBase::execSync (      CubeTextureChunkBase *pFrom,
 
 
 inline
-Char8 *CubeTextureChunkBase::getClassname(void)
+const Char8 *CubeTextureChunkBase::getClassname(void)
 {
     return "CubeTextureChunk";
 }

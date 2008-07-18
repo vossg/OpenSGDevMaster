@@ -313,7 +313,7 @@ void StencilChunkBase::execSync (      StencilChunkBase *pFrom,
 
 
 inline
-Char8 *StencilChunkBase::getClassname(void)
+const Char8 *StencilChunkBase::getClassname(void)
 {
     return "StencilChunk";
 }

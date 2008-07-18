@@ -365,7 +365,7 @@ void CubeMapGeneratorBase::execSync (      CubeMapGeneratorBase *pFrom,
 
 
 inline
-Char8 *CubeMapGeneratorBase::getClassname(void)
+const Char8 *CubeMapGeneratorBase::getClassname(void)
 {
     return "CubeMapGenerator";
 }

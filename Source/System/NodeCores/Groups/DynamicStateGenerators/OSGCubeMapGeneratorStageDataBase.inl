@@ -127,7 +127,7 @@ void CubeMapGeneratorStageDataBase::execSync (      CubeMapGeneratorStageDataBas
 
 
 inline
-Char8 *CubeMapGeneratorStageDataBase::getClassname(void)
+const Char8 *CubeMapGeneratorStageDataBase::getClassname(void)
 {
     return "CubeMapGeneratorStageData";
 }

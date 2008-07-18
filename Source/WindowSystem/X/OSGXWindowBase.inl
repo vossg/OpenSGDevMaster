@@ -173,7 +173,7 @@ void XWindowBase::execSync (      XWindowBase *pFrom,
 
 
 inline
-Char8 *XWindowBase::getClassname(void)
+const Char8 *XWindowBase::getClassname(void)
 {
     return "XWindow";
 }

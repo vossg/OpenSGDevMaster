@@ -92,7 +92,7 @@ void CallbackAlgorithmBase::execSync (      CallbackAlgorithmBase *pFrom,
 
 
 inline
-Char8 *CallbackAlgorithmBase::getClassname(void)
+const Char8 *CallbackAlgorithmBase::getClassname(void)
 {
     return "CallbackAlgorithm";
 }

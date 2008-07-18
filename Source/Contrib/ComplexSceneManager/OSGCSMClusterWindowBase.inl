@@ -280,7 +280,7 @@ void CSMClusterWindowBase::execSync (      CSMClusterWindowBase *pFrom,
 
 
 inline
-Char8 *CSMClusterWindowBase::getClassname(void)
+const Char8 *CSMClusterWindowBase::getClassname(void)
 {
     return "CSMClusterWindow";
 }

@@ -341,7 +341,7 @@ void CSMTrackballBase::execSync (      CSMTrackballBase *pFrom,
 
 
 inline
-Char8 *CSMTrackballBase::getClassname(void)
+const Char8 *CSMTrackballBase::getClassname(void)
 {
     return "CSMTrackball";
 }

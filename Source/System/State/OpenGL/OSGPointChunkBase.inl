@@ -369,7 +369,7 @@ void PointChunkBase::execSync (      PointChunkBase *pFrom,
 
 
 inline
-Char8 *PointChunkBase::getClassname(void)
+const Char8 *PointChunkBase::getClassname(void)
 {
     return "PointChunk";
 }

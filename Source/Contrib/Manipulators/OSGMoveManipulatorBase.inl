@@ -89,7 +89,7 @@ void MoveManipulatorBase::execSync (      MoveManipulatorBase *pFrom,
 
 
 inline
-Char8 *MoveManipulatorBase::getClassname(void)
+const Char8 *MoveManipulatorBase::getClassname(void)
 {
     return "MoveManipulator";
 }

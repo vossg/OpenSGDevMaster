@@ -195,7 +195,7 @@ void TestMultiPartitionStageBase::execSync (      TestMultiPartitionStageBase *p
 
 
 inline
-Char8 *TestMultiPartitionStageBase::getClassname(void)
+const Char8 *TestMultiPartitionStageBase::getClassname(void)
 {
     return "TestMultiPartitionStage";
 }

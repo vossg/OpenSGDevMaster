@@ -133,7 +133,7 @@ void GradientBackgroundBase::execSync (      GradientBackgroundBase *pFrom,
 
 
 inline
-Char8 *GradientBackgroundBase::getClassname(void)
+const Char8 *GradientBackgroundBase::getClassname(void)
 {
     return "GradientBackground";
 }

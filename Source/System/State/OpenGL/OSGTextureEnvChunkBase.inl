@@ -867,7 +867,7 @@ void TextureEnvChunkBase::execSync (      TextureEnvChunkBase *pFrom,
 
 
 inline
-Char8 *TextureEnvChunkBase::getClassname(void)
+const Char8 *TextureEnvChunkBase::getClassname(void)
 {
     return "TextureEnvChunk";
 }

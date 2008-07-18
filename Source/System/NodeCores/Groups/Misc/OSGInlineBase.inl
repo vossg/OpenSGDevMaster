@@ -158,7 +158,7 @@ void InlineBase::execSync (      InlineBase *pFrom,
 
 
 inline
-Char8 *InlineBase::getClassname(void)
+const Char8 *InlineBase::getClassname(void)
 {
     return "Inline";
 }

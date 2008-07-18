@@ -89,7 +89,7 @@ void CSMNativeWindowBase::execSync (      CSMNativeWindowBase *pFrom,
 
 
 inline
-Char8 *CSMNativeWindowBase::getClassname(void)
+const Char8 *CSMNativeWindowBase::getClassname(void)
 {
     return "CSMNativeWindow";
 }

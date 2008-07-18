@@ -498,7 +498,7 @@ void SkyBackgroundBase::execSync (      SkyBackgroundBase *pFrom,
 
 
 inline
-Char8 *SkyBackgroundBase::getClassname(void)
+const Char8 *SkyBackgroundBase::getClassname(void)
 {
     return "SkyBackground";
 }

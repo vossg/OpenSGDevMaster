@@ -245,7 +245,7 @@ void SHLChunkBase::execSync (      SHLChunkBase *pFrom,
 
 
 inline
-Char8 *SHLChunkBase::getClassname(void)
+const Char8 *SHLChunkBase::getClassname(void)
 {
     return "SHLChunk";
 }

@@ -173,7 +173,7 @@ void StageDataBase::execSync (      StageDataBase *pFrom,
 
 
 inline
-Char8 *StageDataBase::getClassname(void)
+const Char8 *StageDataBase::getClassname(void)
 {
     return "StageData";
 }

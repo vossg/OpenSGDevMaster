@@ -189,7 +189,7 @@ void OrientationInterpolatorBase::execSync (      OrientationInterpolatorBase *p
 
 
 inline
-Char8 *OrientationInterpolatorBase::getClassname(void)
+const Char8 *OrientationInterpolatorBase::getClassname(void)
 {
     return "OrientationInterpolator";
 }

@@ -330,7 +330,7 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
 
 
 inline
-Char8 *ViewportBase::getClassname(void)
+const Char8 *ViewportBase::getClassname(void)
 {
     return "Viewport";
 }

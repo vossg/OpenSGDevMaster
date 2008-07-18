@@ -111,7 +111,7 @@ void ShaderParameterMMatrixBase::execSync (      ShaderParameterMMatrixBase *pFr
 
 
 inline
-Char8 *ShaderParameterMMatrixBase::getClassname(void)
+const Char8 *ShaderParameterMMatrixBase::getClassname(void)
 {
     return "ShaderParameterMMatrix";
 }

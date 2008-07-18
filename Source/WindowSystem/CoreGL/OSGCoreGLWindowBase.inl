@@ -117,7 +117,7 @@ void CoreGLWindowBase::execSync (      CoreGLWindowBase *pFrom,
 
 
 inline
-Char8 *CoreGLWindowBase::getClassname(void)
+const Char8 *CoreGLWindowBase::getClassname(void)
 {
     return "CoreGLWindow";
 }

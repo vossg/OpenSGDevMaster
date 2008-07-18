@@ -117,7 +117,7 @@ void ShaderParameterVec3fBase::execSync (      ShaderParameterVec3fBase *pFrom,
 
 
 inline
-Char8 *ShaderParameterVec3fBase::getClassname(void)
+const Char8 *ShaderParameterVec3fBase::getClassname(void)
 {
     return "ShaderParameterVec3f";
 }

@@ -117,7 +117,7 @@ void TextureTransformChunkBase::execSync (      TextureTransformChunkBase *pFrom
 
 
 inline
-Char8 *TextureTransformChunkBase::getClassname(void)
+const Char8 *TextureTransformChunkBase::getClassname(void)
 {
     return "TextureTransformChunk";
 }

@@ -117,7 +117,7 @@ void TransformBase::execSync (      TransformBase *pFrom,
 
 
 inline
-Char8 *TransformBase::getClassname(void)
+const Char8 *TransformBase::getClassname(void)
 {
     return "Transform";
 }

@@ -209,7 +209,7 @@ void GeometryBase::execSync (      GeometryBase *pFrom,
 
 
 inline
-Char8 *GeometryBase::getClassname(void)
+const Char8 *GeometryBase::getClassname(void)
 {
     return "Geometry";
 }

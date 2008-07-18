@@ -145,7 +145,7 @@ void MaterialBase::execSync (      MaterialBase *pFrom,
 
 
 inline
-Char8 *MaterialBase::getClassname(void)
+const Char8 *MaterialBase::getClassname(void)
 {
     return "Material";
 }

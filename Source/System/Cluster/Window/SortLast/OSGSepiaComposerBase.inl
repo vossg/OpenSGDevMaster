@@ -89,7 +89,7 @@ void SepiaComposerBase::execSync (      SepiaComposerBase *pFrom,
 
 
 inline
-Char8 *SepiaComposerBase::getClassname(void)
+const Char8 *SepiaComposerBase::getClassname(void)
 {
     return "SepiaComposer";
 }

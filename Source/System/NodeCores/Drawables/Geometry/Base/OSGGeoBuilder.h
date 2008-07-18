@@ -180,7 +180,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     UInt32 _actLen;
      Int32 _actType;
 
-    static char* _defaultPropTypes[Geometry::MaxAttribs];
+    static const char* _defaultPropTypes[Geometry::MaxAttribs];
 };
 
 OSG_END_NAMESPACE
