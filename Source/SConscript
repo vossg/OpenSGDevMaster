@@ -63,12 +63,19 @@ for (lib_name, library) in lib_map.iteritems():
 
       lib_env.Append(LIBS = ["MSVCPRT$DEBUG_CHAR", "MSVCRT$DEBUG_CHAR"])
 
+      lib_env.Append(CPPDEFINES=['_WIN32_WINNT=0x0400',
+                                 'WINVER=0x0400']);
+
       if "debug" == combo["type"] or "hybrid" == combo["type"]: 
          lib_env["DEBUG_CHAR"]='D'
       else:
          lib_env["DEBUG_CHAR"]=''
 
    shared_lib = lib_env.SharedLibrary(full_lib_name, library.source_files)
+
+   if GetPlatform() == "win32":
+      lib_env.AddPostAction(shared_lib, 'mt.exe -nologo -manifest ${TARGET}.manifest -outputresource:$TARGET;2')
+
    shared_lib_inst = lib_env.Install(inst_paths['lib_inst_combo'], shared_lib)
       
    # If default combo type, then make links from lib dir
@@ -106,6 +113,8 @@ for (lib_name, library) in lib_map.iteritems():
       if GetPlatform() == "win32":
 
         test_env.Append(LIBS = ["MSVCPRT$DEBUG_CHAR", "MSVCRT$DEBUG_CHAR"])
+        test_env.Append(CPPDEFINES=['_WIN32_WINNT=0x0400',
+                                    'WINVER=0x0400']);
 
         if "debug" == combo["type"] or "hybrid" == combo["type"]: 
             test_env["DEBUG_CHAR"]='D'
@@ -128,6 +137,8 @@ for (lib_name, library) in lib_map.iteritems():
          if GetPlatform() == "win32":
 
             unittest_env.Append(LIBS = ["MSVCPRT$DEBUG_CHAR", "MSVCRT$DEBUG_CHAR"])
+            unittest_env.Append(CPPDEFINES=['_WIN32_WINNT=0x0400',
+                                            'WINVER=0x0400']);
 
             if "debug" == combo["type"] or "hybrid" == combo["type"]: 
                 unittest_env["DEBUG_CHAR"]='D'
