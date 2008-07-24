@@ -182,8 +182,9 @@ class OSG_FILEIO_DLLMAPPING ColladaFileType : public SceneFileType
 
     /*------------------------- your_category -------------------------------*/
 
-    virtual NodeTransitPtr read(      std::istream &is,
-                                 const Char8        *fileNameOrExtension) const;
+    virtual NodeTransitPtr read(       std::istream &is,
+                                 const Char8        *fileNameOrExtension,
+                                       Resolver      resolver  = NULL    ) const;
 
     /*------------------------- your_category -------------------------------*/
 

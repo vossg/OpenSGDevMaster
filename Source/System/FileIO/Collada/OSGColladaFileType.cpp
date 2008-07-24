@@ -139,7 +139,8 @@ const Char8 *ColladaFileType::getName(void) const
 
 NodeTransitPtr ColladaFileType::read(
           std::istream &is,
-    const Char8        *fileNameOrExtension) const
+    const Char8        *fileNameOrExtension,
+          Resolver                          ) const
 {
     NodeTransitPtr returnValue(NULL);
 
