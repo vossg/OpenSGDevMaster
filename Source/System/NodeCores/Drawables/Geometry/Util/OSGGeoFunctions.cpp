@@ -3226,34 +3226,29 @@ void calcMergePropertyType(
 void calcMergePropertyType(
     const GeoVectorProperty *prop1, 
     const GeoVectorProperty *prop2,
-          UInt32            &format, UInt32 &dim,
-          UInt32            &usage,  UInt32 &normalize)
+          UInt32            &format,  UInt32 &dim,
+          UInt32            &vecType, UInt32 &normalize)
 {
-    UInt32 dim1       = prop1->getDimension();
-    UInt32 dim2       = prop2->getDimension();
-    UInt32 form1      = prop1->getFormat   ();
-    UInt32 form2      = prop2->getFormat   ();
-    UInt32 usage1     = prop1->getUsage    () & GeoProperty::UsageSpaceMask;
-    UInt32 usage2     = prop2->getUsage    () & GeoProperty::UsageSpaceMask;
-    bool   normalize1 = prop1->getNormalize();
-    bool   normalize2 = prop2->getNormalize();
+    UInt32 dim1       = prop1->getDimension ();
+    UInt32 dim2       = prop2->getDimension ();
+    UInt32 form1      = prop1->getFormat    ();
+    UInt32 form2      = prop2->getFormat    ();
+    UInt32 vecType1   = prop1->getVectorType();
+    UInt32 vecType2   = prop2->getVectorType();
+    bool   normalize1 = prop1->getNormalize ();
+    bool   normalize2 = prop2->getNormalize ();
     
     format = calcMergeFormat(form1, form2);
     dim    = osgMax         (dim1,  dim2 );
     
-    if(usage1 != usage2)
+    if(vecType1 != vecType2)
     {
-        if(usage1 == GeoProperty::UsageUnspecified)
-            usage = usage2;
-        else if(usage2 == GeoProperty::UsageUnspecified)
-            usage = usage1;
-        else
-            FWARNING(("calcMergePropertyType: Can not merge properties with "
-                      "conflicting usage.\n"));
+        FWARNING(("calcMergePropertyType: Can not merge properties with "
+                  "conflicting vecTypes.\n"));
     }
     else
     {
-        usage = usage1;
+        vecType = vecType1;
     }
     
     if(normalize1 != normalize2)
@@ -3356,7 +3351,7 @@ void copyIndex(      GeoIntegralProperty *dstIdx,
     {
         StoredType si = srcF[i];
         UInt32     di = idxMap.get(si);
-    
+
         if(di == TypeTraits<UInt32>::getMax())
         {
             di = offset++;
@@ -3500,7 +3495,31 @@ void copyIntegral(      GeoIntegralProperty *dstProp,
     }
 }
 
-// TODO: Optimize copyVectorMapped and copyVector like the above.
+template <class DescTypeT> inline
+void copyVectorMapped(      GeoVectorProperty   *dstProp, 
+                      const GeoVectorProperty   *srcProp,
+                      const GeoIntegralProperty *srcIdx,
+                            UInt32               srcSz,
+                      const IndexMap            &idxMap  )
+{
+    typedef          GeoIntegralProperty::MaxTypeT     IndexType;
+    typedef          TypedGeoVectorProperty<DescTypeT> TypedProp;
+    typedef typename TypedProp::StoredType             StoredType;
+    typedef typename TypedProp::StoredFieldType        StoredField;
+    
+          TypedProp   *typedDst = dynamic_cast<      TypedProp *>(dstProp);
+    const TypedProp   *typedSrc = dynamic_cast<const TypedProp *>(srcProp);
+          StoredField &dstF     = typedDst->editField();
+    const StoredField &srcF     = typedSrc->getField ();
+    
+    for(UInt32 i = 0; i < srcSz; ++i)
+    {
+        IndexType si = srcIdx->getValue<IndexType>(i);
+        IndexType di = idxMap .get(si);
+        
+        dstF[di] = srcF[si];
+    }
+}
 
 /*! Copies from \a srcProp to \a dstProp values indexed by the first \a srcSz
     indices from \a srcIdx. The values are stored at the positions indicated
@@ -3515,6 +3534,76 @@ void copyVectorMapped(      GeoVectorProperty   *dstProp,
                             UInt32               srcSz,
                       const IndexMap            &idxMap  )
 {
+    UInt32 dstFormat  = dstProp->getFormat    ();
+    UInt32 dstDim     = dstProp->getDimension ();
+    UInt32 dstVecType = dstProp->getVectorType();
+    
+    UInt32 srcFormat  = srcProp->getFormat    ();
+    UInt32 srcDim     = srcProp->getDimension ();
+    UInt32 srcVecType = srcProp->getVectorType();
+
+    if(dstFormat == srcFormat && dstFormat == GL_FLOAT)
+    {
+        if(dstVecType == srcVecType &&
+           dstVecType == GeoProperty::VectorTypePoint)
+        {
+            if(dstDim == srcDim && dstDim == 1)
+            {
+                copyVectorMapped<GeoPnt1fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+            else if(dstDim == srcDim && dstDim == 2)
+            {
+                copyVectorMapped<GeoPnt2fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+            else if(dstDim == srcDim && dstDim == 3)
+            {
+                copyVectorMapped<GeoPnt3fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+            else if(dstDim == srcDim && dstDim == 4)
+            {
+                copyVectorMapped<GeoPnt4fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+        }
+        else if(dstVecType == srcVecType &&
+                dstVecType == GeoProperty::VectorTypeVector)
+        {
+            if(dstDim == srcDim && dstDim == 1)
+            {
+                copyVectorMapped<GeoVec1fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+            else if(dstDim == srcDim && dstDim == 2)
+            {
+                copyVectorMapped<GeoVec2fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+            else if(dstDim == srcDim && dstDim == 3)
+            {
+                copyVectorMapped<GeoVec3fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+            else if(dstDim == srcDim && dstDim == 4)
+            {
+                copyVectorMapped<GeoVec4fPropertyDesc>(
+                    dstProp, srcProp, srcIdx, srcSz, idxMap);
+                return;
+            }
+        }
+    }
+    
+    // if we get to this point: fallback to using the generic interface
+    
     typedef GeoIntegralProperty::MaxTypeT IndexType;
     typedef GeoVectorProperty  ::MaxTypeT ValueType;
     
@@ -3526,6 +3615,8 @@ void copyVectorMapped(      GeoVectorProperty   *dstProp,
         dstProp->setValue(srcProp->getValue<ValueType>(si), di);
     }
 }
+
+// TODO: Optimize copyVector like the above.
 
 /*! Copies from \a srcProp to \a dstProp the first \a srcSz values and stores
     them at positions starting at \a dstOffset.
@@ -3600,6 +3691,8 @@ void mergeGeoLengths(
 void mergeGeoNINI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
+    FDEBUG(("mergeGeoNINI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
     mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
                           
@@ -3631,14 +3724,14 @@ void mergeGeoNINI(
     
         UInt32 dstFormat;
         UInt32 dstDim;
-        UInt32 dstUsage;
+        UInt32 dstVecType;
         UInt32 dstNorm;
         
         calcMergePropertyType(src1Prop, src2Prop,
-                              dstFormat, dstDim, dstUsage, dstNorm);
+                              dstFormat, dstDim, dstVecType, dstNorm);
         GeoVectorPropertyUnrecPtr dstProp =
-            GeoPropertyFactory::the()->create(dstFormat, dstDim,
-                                              dstUsage,  dstNorm);
+            GeoPropertyFactory::the()->create(dstFormat,  dstDim,
+                                              dstVecType, dstNorm);
         
         dstProp->resize(src1Used + src2Used);
         
@@ -3657,6 +3750,8 @@ void mergeGeoNINI(
 void mergeGeoNISI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
+    FDEBUG(("mergeGeoNISI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    
     typedef GeoVectorProperty::MaxTypeT ValueType;
 
     // 1. merge types and lengths
@@ -3713,15 +3808,15 @@ void mergeGeoNISI(
         
         UInt32 dstFormat;
         UInt32 dstDim;
-        UInt32 dstUsage;
+        UInt32 dstVecType;
         UInt32 dstNorm;
         
         // create destination property
         calcMergePropertyType(src1Prop, src2Prop,
-                              dstFormat, dstDim, dstUsage, dstNorm);
+                              dstFormat, dstDim, dstVecType, dstNorm);
         GeoVectorPropertyUnrecPtr dstProp =
-            GeoPropertyFactory::the()->create(dstFormat, dstDim,
-                                              dstUsage,  dstNorm);
+            GeoPropertyFactory::the()->create(dstFormat,  dstDim,
+                                              dstVecType, dstNorm);
         
         // allocate storage
         dstProp->resize(offset);
@@ -3748,6 +3843,8 @@ void mergeGeoSINI(
 void mergeGeoNIMI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
+    FDEBUG(("mergeGeoNIMI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
     mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
@@ -3802,15 +3899,15 @@ void mergeGeoNIMI(
             
             UInt32 dstFormat;
             UInt32 dstDim;
-            UInt32 dstUsage;
+            UInt32 dstVecType;
             UInt32 dstNorm;
             
             // create destination property
             calcMergePropertyType(src1Prop, src2Prop,
-                                  dstFormat, dstDim, dstUsage, dstNorm);
+                                  dstFormat, dstDim, dstVecType, dstNorm);
             GeoVectorPropertyUnrecPtr dstProp =
-                GeoPropertyFactory::the()->create(dstFormat, dstDim,
-                                                  dstUsage,  dstNorm);
+                GeoPropertyFactory::the()->create(dstFormat,  dstDim,
+                                                  dstVecType, dstNorm);
             
             // allocate storage
             dstProp->resize(offset);
@@ -3837,6 +3934,8 @@ void mergeGeoMINI(
 void mergeGeoSISI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
+    FDEBUG(("mergeGeoSISI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
     mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
@@ -3850,19 +3949,29 @@ void mergeGeoSISI(
     for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
         src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
         
-    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+    for(UInt32 i = 0; i < srcGeo2->getSFLengths()->getValue()->size(); ++i)
         src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
 
-    // index bags should be same - except for the actual indices ptr
-    Geometry::IndexBag src1IBag = srcGeo1->getUniqueIndexBag();
-    Geometry::IndexBag src2IBag = srcGeo2->getUniqueIndexBag();
+    const GeoIntegralProperty *src1Idx = NULL;
+    const GeoIntegralProperty *src2Idx = NULL;
     
-    FFASSERT(src1IBag.size() == src2IBag.size(), 1, ("mergeGeoSISI: Indexing missmatch!\n");)
-    FFASSERT(src1IBag.size() == 1,               1, ("mergeGeoSISI: Not single indexed!\n");)
-    FFASSERT(src1IBag[0].second.size() == src2IBag[0].second.size(), 1, ("mergeGeoSISI: Property missmatch!\n");)
+    for(UInt32 i = 0; i < srcGeo1->getMFPropIndices()->size(); ++i)
+    {
+        if((*srcGeo1->getMFPropIndices())[i] != NULL)
+        {
+            src1Idx = (*srcGeo1->getMFPropIndices())[i];
+            break;
+        }
+    }
     
-    const GeoIntegralProperty *src1Idx = src1IBag[0].first;
-    const GeoIntegralProperty *src2Idx = src2IBag[0].first;
+    for(UInt32 i = 0; i < srcGeo2->getMFPropIndices()->size(); ++i)
+    {
+        if((*srcGeo2->getMFPropIndices())[i] != NULL)
+        {
+            src2Idx = (*srcGeo2->getMFPropIndices())[i];
+            break;
+        }
+    }
     
     // create new index
     UInt32   dstIdxFormat;
@@ -3879,42 +3988,41 @@ void mergeGeoSISI(
     copyIndex(dstIdx, src1Idx, src1Used, idxMap1, offset, 0       );
     copyIndex(dstIdx, src2Idx, src2Used, idxMap2, offset, src1Used);
     
-    // copy each property 
-    for(UInt32 i = 0; i < src1IBag[0].second.size(); ++i)
+    // copy each property
+    UInt32 minPropSz = osgMin(srcGeo1->getMFProperties()->size(),
+                              srcGeo2->getMFProperties()->size() );
+    
+    for(UInt32 i = 0; i < minPropSz; ++i)
     {
-        const GeoVectorProperty *src1Prop =
-            srcGeo1->getProperty(src1IBag[0].second[i]);
-        const GeoVectorProperty *src2Prop =
-            srcGeo2->getProperty(src2IBag[0].second[i]);
+        const GeoVectorProperty *src1Prop = srcGeo1->getProperty(i);
+        const GeoVectorProperty *src2Prop = srcGeo2->getProperty(i);
         
-        FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
-                 ("mergeGeoSISI: Inconsistent properties!\n");)
-        
+        // skip missing properties
         if(src1Prop == NULL || src2Prop == NULL)
             continue;
         
         UInt32 dstFormat;
         UInt32 dstDim;
-        UInt32 dstUsage;
+        UInt32 dstVecType;
         UInt32 dstNorm;
         
         // create destination property
         calcMergePropertyType(src1Prop, src2Prop,
-                              dstFormat, dstDim, dstUsage, dstNorm);
+                              dstFormat, dstDim, dstVecType, dstNorm);
         GeoVectorPropertyUnrecPtr dstProp = 
-            GeoPropertyFactory::the()->create(dstFormat, dstDim,
-                                              dstUsage,  dstNorm);
+            GeoPropertyFactory::the()->create(dstFormat,  dstDim,
+                                              dstVecType, dstNorm);
         
         // allocate storage
         dstProp->resize(offset);
-     
+        
         // copy property values - only those referenced by an index are copied
         // and stored to the new position indicated by idxMap
         copyVectorMapped(dstProp, src1Prop, src1Idx, src1Used, idxMap1);
         copyVectorMapped(dstProp, src2Prop, src2Idx, src2Used, idxMap2);
         
-        dstGeo->setProperty(dstProp, src1IBag[0].second[i]);
-        dstGeo->setIndex   (dstIdx,  src1IBag[0].second[i]);
+        dstGeo->setProperty(dstProp, i);
+        dstGeo->setIndex   (dstIdx,  i);
     }
 }   
 
@@ -3925,6 +4033,8 @@ void mergeGeoSISI(
 void mergeGeoSIMI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
+    FDEBUG(("mergeGeoSIMI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
     mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
@@ -3982,15 +4092,15 @@ void mergeGeoSIMI(
         
             UInt32 dstFormat;
             UInt32 dstDim;
-            UInt32 dstUsage;
+            UInt32 dstVecType;
             UInt32 dstNorm;
             
             // create destination property
             calcMergePropertyType(src1Prop, src2Prop,
-                                  dstFormat, dstDim, dstUsage, dstNorm);
+                                  dstFormat, dstDim, dstVecType, dstNorm);
             GeoVectorPropertyUnrecPtr dstProp =
-                GeoPropertyFactory::the()->create(dstFormat, dstDim,
-                                                  dstUsage,  dstNorm);
+                GeoPropertyFactory::the()->create(dstFormat,  dstDim,
+                                                  dstVecType, dstNorm);
             
             // allocate storage
             dstProp->resize(offset);
@@ -4017,6 +4127,8 @@ void mergeGeoMISI(
 void mergeGeoMIMI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
+    FDEBUG(("mergeGeoMIMI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
     mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
@@ -4030,7 +4142,7 @@ void mergeGeoMIMI(
     for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
         src1Used += srcGeo1->getSFLengths()->getValue()->getValue<UInt32>(i);
         
-    for(UInt32 i = 0; i < srcGeo1->getSFLengths()->getValue()->size(); ++i)
+    for(UInt32 i = 0; i < srcGeo2->getSFLengths()->getValue()->size(); ++i)
         src2Used += srcGeo2->getSFLengths()->getValue()->getValue<UInt32>(i);
         
     // get indices sorted by the properties they index
@@ -4067,13 +4179,12 @@ void mergeGeoMIMI(
         }
     }
     
-    // Iterating over mipMap, concatenate the corresponding indices from
-    // the two geometries and copy the properties indexed by this combined
-    // index 
+    // iterate over mipMap concatenating corresponding indices and copy
+    // the indexed properties.
     
-    for(UInt32 i1 = 0; i1 < src1IBag.size(); ++i1)
+    for(UInt32 i1 = 0; i1 < mipMap.size(); ++i1)
     {
-        for(UInt32 i2 = 0; i2 < src2IBag.size(); ++i2)
+        for(UInt32 i2 = 0; i2 < mipMap[i1].size(); ++i2)
         {
             if(mipMap[i1][i2].empty())
                 continue;
@@ -4084,9 +4195,9 @@ void mergeGeoMIMI(
             // create new index
             UInt32   dstIdxFormat;
             calcMergePropertyType(src1Idx, src2Idx, true, dstIdxFormat);
-            GeoIntegralPropertyUnrecPtr dstIdx = 
+            GeoIntegralPropertyUnrecPtr dstIdx =
                 GeoPropertyFactory::the()->create(dstIdxFormat);
-        
+            
             // allocate storage
             dstIdx->resize(src1Used + src2Used);
         
@@ -4097,31 +4208,27 @@ void mergeGeoMIMI(
             copyIndex(dstIdx, src1Idx, src1Used, idxMap1, offset, 0       );
             copyIndex(dstIdx, src2Idx, src2Used, idxMap2, offset, src1Used);
             
-            // copy properties indexed by this index
             for(UInt32 j = 0; j < mipMap[i1][i2].size(); ++j)
             {
                 const GeoVectorProperty *src1Prop =
-                    srcGeo1->getProperty(mipMap[i1][i2][j]);
+                        srcGeo1->getProperty(mipMap[i1][i2][j]);
                 const GeoVectorProperty *src2Prop =
-                    srcGeo2->getProperty(mipMap[i1][i2][j]);
+                        srcGeo2->getProperty(mipMap[i1][i2][j]);
                 
-                FFASSERT(!((src1Prop != NULL) ^ (src2Prop != NULL)), 1,
-                         ("mergeGeoMIMI: Inconsistent properties!");)
-        
                 if(src1Prop == NULL || src2Prop == NULL)
                     continue;
-            
+                
                 UInt32 dstFormat;
                 UInt32 dstDim;
-                UInt32 dstUsage;
+                UInt32 dstVecType;
                 UInt32 dstNorm;
                 
                 // create destination property
                 calcMergePropertyType(src1Prop, src2Prop,
-                                      dstFormat, dstDim, dstUsage, dstNorm);
+                                      dstFormat, dstDim, dstVecType, dstNorm);
                 GeoVectorPropertyUnrecPtr dstProp =
-                    GeoPropertyFactory::the()->create(dstFormat, dstDim,
-                                                      dstUsage,  dstNorm);
+                    GeoPropertyFactory::the()->create(dstFormat,  dstDim,
+                                                      dstVecType, dstNorm);
                 
                 // allocate storage
                 dstProp->resize(offset);
@@ -4135,7 +4242,6 @@ void mergeGeoMIMI(
         }
     }
 }
-
 
 } // namespace
 

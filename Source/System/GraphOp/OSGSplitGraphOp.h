@@ -54,7 +54,16 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING SplitGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
-public:
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef GraphOp                                 Inherited;
+    typedef SplitGraphOp                            Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -69,16 +78,14 @@ public:
     
     SplitGraphOp(const char* name = "Split", UInt16 max_polygons = 1000);
 
-    GraphOp* create();
+    virtual GraphOpTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(Node *root);
-
-    //virtual const std::string getName(void) { return _name; };
+    virtual bool traverse(Node *root);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -92,7 +99,7 @@ public:
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-protected:    
+protected:
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -115,22 +122,28 @@ private:
 
 typedef SplitGraphOp *SplitGraphOpP;
 
+typedef SplitGraphOp::ObjTransitPtr SplitGraphOpTransitPtr;
+typedef SplitGraphOp::ObjRefPtr     SplitGraphOpRefPtr;
+
 class OSG_UTIL_DLLMAPPING Pnt3fComparator : public std::binary_function<int,int,bool> 
 {
-    const std::vector<Pnt3f>    &_vec;
+    const std::vector<Pnt3f> &_vec;
 public:
-    Pnt3fComparator( const std::vector<Pnt3f>   &vec ) : _vec(vec) {}
+    Pnt3fComparator(const std::vector<Pnt3f> &vec) : _vec(vec) {}
 
     bool operator()(int a, int b) const
     {
-        if (_vec[a][0] < _vec[b][0])
+        if(_vec[a][0] < _vec[b][0])
             return true;
-        if (_vec[a][0] == _vec[b][0])
-            if (_vec[a][1] < _vec[b][1])
+        
+        if(_vec[a][0] == _vec[b][0])
+        {
+            if(_vec[a][1] < _vec[b][1])
                 return true;
-            else if (_vec[a][1] == _vec[b][1])
-                if (_vec[a][2] < _vec[b][2])
+            else if(_vec[a][1] == _vec[b][1])
+                if(_vec[a][2] < _vec[b][2])
                     return true;
+        }
 
         return false;
     }

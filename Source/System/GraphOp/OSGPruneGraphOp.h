@@ -50,38 +50,75 @@ OSG_BEGIN_NAMESPACE
 
 class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
 {
-public:
-    enum Method {
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef GraphOp                                 Inherited;
+    typedef PruneGraphOp                            Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    
+    enum Method
+    {
         VOLUME,
         SUM_OF_DIMENSIONS,
     };
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Classname                                                    */
+    /*! \{                                                                 */
+    
     static const char *getClassname(void) { return "PruneGraphOp"; };
 
-    PruneGraphOp(
-        float size = 1.0f,
-        Method method = SUM_OF_DIMENSIONS,
-        const char* name = "Prune");
-
-    GraphOp* create();
-
-    void setParams(const std::string params);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
     
-    std::string usage(void);
-protected:
+    PruneGraphOp(
+              float  size   = 1.0f,
+              Method method = SUM_OF_DIMENSIONS,
+        const char*  name   = "Prune"           );
 
+    virtual GraphOpTransitPtr create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Parameters                                                   */
+    /*! \{                                                                 */
+    
+    void        setParams(const std::string params);
+    std::string usage    (void                    );
+    
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructors                                                  */
+    /*! \{                                                                 */
+    
     virtual ~PruneGraphOp(void);
 
-private:
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+  private:
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 
-    bool isTooSmall(Node * const node);
-    float getSize  (Node * const node);
+    bool  isTooSmall(Node * const node);
+    float getSize   (Node * const node);
 
-    float _size;
+    float  _size;
     Method _method;
 };
+
+typedef PruneGraphOp::ObjTransitPtr PruneGraphOpTransitPtr;
+typedef PruneGraphOp::ObjRefPtr     PruneGraphOpRefPtr;
 
 OSG_END_NAMESPACE
 

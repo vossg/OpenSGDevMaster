@@ -77,13 +77,20 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     static const UInt32 UsageColorSpace       = 0x00000008;  // color
     
     static const UInt32 UsageSystemSet        = 0x10000000;  // mark as set by OpenSG
-        
+    
+    
+    static const UInt32 VectorTypeScalar      = 0x00000000;
+    static const UInt32 VectorTypePoint       = 0x00000001;
+    static const UInt32 VectorTypeVector      = 0x00000002;
+    static const UInt32 VectorTypeColor       = 0x00000003;
+    
     /*---------------------------------------------------------------------*/
     /*! \name                 Property Interface                           */
     /*! \{                                                                 */
 
     virtual       UInt32                 getFormat    (void) const = 0;
     virtual       UInt32                 getFormatSize(void) const = 0;
+    virtual       UInt32                 getVectorType(void) const = 0;
     virtual       UInt32                 getStride    (void) const = 0;
     virtual       UInt32                 getDimension (void) const = 0;
     virtual       UInt32                 getSize      (void) const;

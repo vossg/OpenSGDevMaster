@@ -419,7 +419,7 @@ int init(int argc, char **argv)
     }
 #endif
 
-    GraphOp *op = GraphOpFactory::the()->create("Stripe");
+    GraphOpRefPtr op = GraphOpFactory::the()->create("Stripe");
 
     op->traverse(file);
 //   createOptimizedPrimitives(pGeo);

@@ -59,13 +59,19 @@ A base class used to traverse geometries.
 
 */
 
-//! Register the GraphOp with the factory
-static bool registerOp(void)
+namespace
 {
-    GraphOpFactory::the()->registerOp(new VerifyGeoGraphOp);
-    return true;
-}
-static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+    
+    //! Register the GraphOp with the factory
+    static bool registerOp(void)
+    {
+        GraphOpFactory::the()->registerOp(new VerifyGeoGraphOp);
+        return true;
+    }
+    
+    static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+
+} // namespace
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -78,8 +84,10 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 /*------------- constructors & destructors --------------------------------*/
 
-VerifyGeoGraphOp::VerifyGeoGraphOp(const char* name, bool repair): 
-    SingleTypeGraphOpGeo(name), _repair(repair)
+VerifyGeoGraphOp::VerifyGeoGraphOp(const char* name, bool repair) :
+    Inherited  (name  ),
+    _errorCount(0),
+    _repair    (repair)
 {
 }
 
@@ -87,15 +95,27 @@ VerifyGeoGraphOp::~VerifyGeoGraphOp(void)
 {
 }
 
-GraphOp *VerifyGeoGraphOp::create()
+GraphOpTransitPtr VerifyGeoGraphOp::create(void)
 {
-    VerifyGeoGraphOp *inst = new VerifyGeoGraphOp();
-    return inst;
+    return GraphOpTransitPtr(new VerifyGeoGraphOp());
+}
+
+bool VerifyGeoGraphOp::traverse(Node *node)
+{
+    _errorCount = 0;
+    
+    Inherited::traverse(node);
+    
+    if(_errorCount > 0)
+    {
+        FWARNING(("VerifyGeoGraphOp::traverse: Found [%d] errors.\n",
+                  _errorCount));
+    }
 }
 
 void VerifyGeoGraphOp::setParams(const std::string params)
 {
-    ParamSet ps(params);   
+    ParamSet ps(params);
     
     ps("repair",  _repair);
     
@@ -124,308 +144,178 @@ void VerifyGeoGraphOp::setRepair(bool repair)
 
 bool VerifyGeoGraphOp::travNodeEnter(Node *node)
 {
-    if (!node->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
+    
+    if(geo->getTypes() == NULL || geo->getTypes()->size() == 0)
     {
-        FWARNING(("VerifyGeoOp: travNodeEnter got a non-Geometry Node\n"));
+        FINFO(("VerifyGeoGraphOp::travNodeEnter: No or empty types.\n"));
+        ++_errorCount;
         return false;
     }
-
-    bool _verified = true;
-
-    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
-
-    if(geo->getTypes() != NULL && geo->getTypes()->size() == 0)
+    
+    if(geo->getLengths() == NULL || geo->getLengths()->size() == 0)
     {
-        if (_repair)
-        {
-            //geo->setTypes(NULL);
-        }
-        else
-        {
-            //_verified = false;
-        }
-    }        
-
-    if(geo->getLengths() != NULL && geo->getLengths()->size() == 0)
-    {
-        if (_repair)
-        {
-            //geo->setLengths(NULL);
-        }
-        else
-        {
-            //_verified = false;
-        }
+        FINFO(("VerifyGeoGraphOp::travNodeEnter: No or empty lengths.\n"));
+        ++_errorCount;
+        return false;
     }
-
-    if(geo->getPositions() != NULL && geo->getPositions()->size() == 0)
+    
+    if(geo->getTypes()->size() != geo->getLengths()->size())
     {
-        if (_repair)
-            geo->setPositions(NULL);
-        else
-        {
-            _verified = false;
-        }
+        FINFO(("VerifyGeoGraphOp::travNodeEnter: Types and lengths have "
+               "different sizes [%d] vs [%d]",
+               geo->getTypes()->size(), geo->getLengths()->size()));
+        ++_errorCount;
+        return false;
     }
-
-    if(geo->getNormals() != NULL && geo->getNormals()->size() == 0)
+    
+    // get number of indices/properties used
+    UInt32 sumLengths = 0;
+    
+    for(UInt32 i = 0; i < geo->getSFLengths()->getValue()->size(); ++i)
+        sumLengths += geo->getSFLengths()->getValue()->getValue<UInt32>(i);
+    
+    const Geometry::MFPropertiesType  *mfProp = geo->getMFProperties ();
+    const Geometry::MFPropIndicesType *mfInd  = geo->getMFPropIndices();
+    
+    bool indexed = false;
+    
+    if(!mfInd->empty())
     {
-        if (_repair)
-            geo->setNormals(NULL);
-        else
+        for(UInt32 i = 0; i < mfInd->size(); ++i)
         {
-            _verified = false;
-        }
-    }
-
-    if(geo->getColors() != NULL && geo->getColors()->size() == 0)
-    {
-        if (_repair)
-            geo->setColors(NULL);
-        else
-        {
-            _verified = false;
-        }
-    }
-
-    if(geo->getSecondaryColors() != NULL && geo->getSecondaryColors()->size() == 0)
-    {
-        if (_repair)
-            geo->setSecondaryColors(NULL);
-        else
-        {
-            _verified = false;
-        }
-    }
-
-    if(geo->getTexCoords() != NULL && geo->getTexCoords()->size() == 0)
-    {
-        if (_repair)
-            geo->setTexCoords(NULL);
-        else
-        {
-            _verified = false;
-        }
-    }
-
-    if(geo->getTexCoords1() != NULL && geo->getTexCoords1()->size() == 0)
-    {
-        if (_repair)
-            geo->setTexCoords1(NULL);
-        else
-        {
-            _verified = false;
-        }
-    }
-
-    if(geo->getTexCoords2() != NULL && geo->getTexCoords2()->size() == 0)
-    {
-        if (_repair)
-            geo->setTexCoords2(NULL);
-        else
-        {
-            _verified = false;
-        }
-    }
-
-    if(geo->getTexCoords3() != NULL && geo->getTexCoords3()->size() == 0)
-    {
-        if (_repair)
-            geo->setTexCoords3(NULL);
-        else
-        {
-            _verified = false;
-        }
-    }
-
-    bool consistent=true;
-    int i, mind;
-
-    // PORTME
-#if 0
-    GeoIndices *ind = geo->getIndices();
-    UInt16 nmap = geo->getIndexMapping().size();
-
-    if (nmap==0) return Action::Continue;
-
-    UInt32* sizes = new UInt32[nmap];
-    for (i=0; i<nmap; i++) sizes[i]=UInt32(-1);
-
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapPosition ) ) >= 0 )
-    {
-        if (geo->getPositions()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getPositions()->size() );
-        else
-        {
-            if (_repair)
+            if((*mfInd)[i] != NULL)
             {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapPosition );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getPositions = NullFC\n"));
+                indexed = true;
+                break;
             }
         }
     }
 
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapNormal ) ) >= 0 )
+    if(indexed)
     {
-        if (geo->getNormals()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getNormals()->size() );
-        else
-        {
-            if (_repair)
-            {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapNormal );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getNormals = NullFC\n"));
-            }                
-        }
+        return checkIndexedGeo(geo, sumLengths);
     }
-
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapColor ) ) >= 0 )
-    {
-        if (geo->getColors()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getColors()->size() );
-        else
-        {
-            if (_repair)
-            {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapColor );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getColors = NullFC\n"));
-            }                
-        }                
-    }
-
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapSecondaryColor ) ) >= 0 )
-    {
-        if (geo->getSecondaryColors()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getSecondaryColors()->size() );
-        else
-        {
-            if (_repair)
-            {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapSecondaryColor );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getSecondaryColors = NullFC\n"));
-            }                
-        }
-    }
-
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapTexCoords ) ) >= 0 )
-    {
-        if (geo->getTexCoords()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getTexCoords()->size() );
-        else
-        {
-            if (_repair)
-            {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapTexCoords );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getTexCoords = NullFC\n"));
-            }                
-        }
-    }
-
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapTexCoords1 ) ) >= 0 )
-    {
-        if (geo->getTexCoords1()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getTexCoords1()->size() );
-        else
-        {
-            if (_repair)
-            {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapTexCoords1 );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getTexCoords1 = NullFC\n"));
-            }                
-        }
-                
-    }
-
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapTexCoords2 ) ) >= 0 )
-    {
-        if (geo->getTexCoords2()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getTexCoords2()->size() );
-        else
-        {
-            if (_repair)
-            {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapTexCoords2 );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getTexCoords2 = NullFC\n"));
-            }                
-        }
-                
-    }
-
-    if ( ( mind = geo->calcMappingIndex( Geometry::MapTexCoords3 ) ) >= 0 )
-    {
-        if (geo->getTexCoords3()!=NullFC)
-            sizes[ mind ] = osgMin ( sizes[ mind ], geo->getTexCoords3()->size() );
-        else
-        {
-            if (_repair)
-            {
-                UInt16 &im = geo->getIndexMapping(mind);
-                im &=~( Geometry::MapTexCoords3 );                
-            }
-            else
-            {
-                _verified = false;
-                FDEBUG(("calcMappingIndex>=0, getTexCoords3 = NullFC\n"));
-            }                
-        }                
-    }
-
-    for (UInt32 j=0; j<ind->size(); j++)
-        if (ind->getValue(j)>=sizes[j % nmap])
-        {
-            if (_repair)
-            {
-                ind->setValue(0,j);
-            }
-            else
-            {
-                consistent = false; break;
-            }
-        }
-
-#endif
-
-    _verified = (_verified && (_repair | consistent) );
-
-    if (_verified)
-        return Action::Continue;
     else
-        return Action::Quit;
+    {
+        return checkNonindexedGeo(geo, sumLengths);
+    }
+}
+
+bool VerifyGeoGraphOp::checkIndexedGeo(Geometry *geo, UInt32 sumLengths)
+{
+    const Geometry::MFPropertiesType  *mfProp = geo->getMFProperties ();
+    const Geometry::MFPropIndicesType *mfInd  = geo->getMFPropIndices();
+    
+    UInt32 numProp = mfProp->size();
+    UInt32 numInd  = mfInd ->size();
+    
+    // properties that are present must have an index
+    if(numProp < numInd)
+    {
+        for(UInt32 i = 0; i < numProp; ++i)
+        {
+            if((*mfProp)[i] != NULL && (*mfInd)[i] == NULL)
+            {
+                FINFO(("VerifyGeoGraphOp::checkIndexedGeo: "
+                       "Property [%d] present, but no index.\n", i));
+                ++_errorCount;
+                return false;
+            }
+        }
+    }
+    else
+    {
+        for(UInt32 i = 0; i < numInd; ++i)
+        {
+            if((*mfProp)[i] != NULL && (*mfInd)[i] == NULL)
+            {
+                FINFO(("VerifyGeoGraphOp::checkIndexedGeo: "
+                       "Property [%d] present, but no index.\n", i));
+                ++_errorCount;
+                return false;
+            }
+        }
+        
+        for(UInt32 i = numInd; i < numProp; ++i)
+        {
+            if((*mfProp)[i] != NULL)
+            {
+                FINFO(("VerifyGeoGraphOp::checkIndexedGeo: "
+                       "Property [%d] present, but no index.\n", i));
+                ++_errorCount;
+                return false;
+            }
+        }
+    }
+    
+    for(UInt32 i = 0; i < numInd; ++i)
+    {
+        if((*mfInd)[i] != NULL)
+        {
+            if((*mfInd)[i]->size() < sumLengths)
+            {
+                FINFO(("VerifyGeoGraphOp::checkIndexedGeo: "
+                       "Index [%d] has too few elements.\n", i));
+                ++_errorCount;
+                return false;
+            }
+        }
+    }
+    
+    // find largest indices
+    std::vector<UInt32> indexMax (Geometry::MaxAttribs, 0);
+    Geometry::IndexBag  ibag = geo->getUniqueIndexBag();
+    
+    for(UInt32 i = 0; i < ibag.size(); ++i)
+    {
+        UInt32 imax = 0;
+        
+        for(UInt32 j = 0; j < sumLengths; ++j)
+            imax = osgMax(imax, ibag[i].first->getValue<UInt32>(j));
+        
+        for(UInt32 j = 0; j < ibag[i].second.size(); ++j)
+            indexMax[ibag[i].second[j]] = imax;
+    }
+    
+    // largest indices must be less than prop size
+    for(UInt32 i = 0; i < numProp; ++i)
+    {
+        if((*mfProp)[i] != NULL && (*mfProp)[i]->size() <= indexMax[i])
+        {
+            FINFO(("VerifyGeoGraphOp::checkIndexedGeo: "
+                   "Property [%d] has fewer elements than "
+                   "referenced by the index.\n", i));
+            ++_errorCount;
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+bool VerifyGeoGraphOp::checkNonindexedGeo(Geometry *geo, UInt32 sumLengths)
+{
+    const Geometry::MFPropertiesType  *mfProp = geo->getMFProperties ();
+    const Geometry::MFPropIndicesType *mfInd  = geo->getMFPropIndices();
+    
+    UInt32 numProp = mfProp->size();
+    
+    for(UInt32 i = 0; i < numProp; ++i)
+    {
+        if((*mfProp)[i] != NULL)
+        {
+            if((*mfProp)[i]->size() < sumLengths)
+            {
+                FINFO(("VerifyGeoGraphOp::checkNonindexedGeo: "
+                        "Property [%d] has too few elements.\n", i));
+                ++_errorCount;
+                return false;
+            }
+        }
+    }
+    
+    return true;
 }
 
 bool VerifyGeoGraphOp::travNodeLeave(Node *)

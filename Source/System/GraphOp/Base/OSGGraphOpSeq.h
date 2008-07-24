@@ -71,7 +71,7 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     /*! \{                                                                 */
     
     GraphOpSeq(void);
-    GraphOpSeq(const std::string params);
+    GraphOpSeq(const std::string &params);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -82,7 +82,7 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
 
     /*! \}                                                                 */
 
-    void setGraphOps(const std::string params);     
+    void setGraphOps(const std::string &params);
 
     void addGraphOp            (GraphOp *op                 );
     void removeGraphOp         (GraphOp *op                 );    
@@ -107,8 +107,8 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
-    std::vector<GraphOp *> _GraphOperators;
-    std::list<std::string> _excludeNames;
+    std::vector<GraphOpRefPtr> _graphOperators;
+    std::list<std::string>     _excludeNames;
 
     UInt16 extractStr(const std::string  param, 
                             UInt16       spos, 

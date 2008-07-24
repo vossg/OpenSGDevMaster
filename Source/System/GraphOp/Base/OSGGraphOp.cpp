@@ -157,34 +157,106 @@ void GraphOp::clearExcludeList(void)
     _excludeListNodes.clear();
 }
 
-bool GraphOp::isInExcludeListNodes(Node * const node)
+bool GraphOp::isInExcludeListNodes(Node * const node) const
 {
-    std::list<Node const *>::iterator list_iter;
-    list_iter = std::find(_excludeListNodes.begin(),_excludeListNodes.end(),node);
+    NodeListType::const_iterator nodeIt;
+    nodeIt = std::find(_excludeListNodes.begin(),
+                       _excludeListNodes.end  (), node);
 
-    if (list_iter==_excludeListNodes.end()) 
+    if(nodeIt == _excludeListNodes.end())
         return false;
-    else 
-        return true;
-}
-
-bool GraphOp::isInExcludeListNames(const std::string &name)
-{
-    std::list<std::string>::iterator namelist_iter;
-    namelist_iter = std::find(_excludeListNames.begin(),_excludeListNames.end(),name);
-
-    if (namelist_iter==_excludeListNames.end()) 
-        return false;
-    else 
-        return true;
-}
-
-bool GraphOp::isInExcludeList(Node * const node)
-{
-    if (isInExcludeListNodes(node) || (OSG::getName(node)!=NULL && isInExcludeListNames(OSG::getName(node))))
-        return true;
     else
+        return true;
+}
+
+bool GraphOp::isInExcludeListNames(const std::string &name) const
+{
+    NameListType::const_iterator nameIt;
+    nameIt = std::find(_excludeListNames.begin(),
+                       _excludeListNames.end  (), name);
+
+    if(nameIt == _excludeListNames.end())
         return false;
+    else
+        return true;
+}
+
+bool GraphOp::isInExcludeList(Node * const node) const
+{
+    if(isInExcludeListNodes(node) ||
+       (OSG::getName(node) != NULL && isInExcludeListNames(OSG::getName(node))))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void GraphOp::addToPreserveList(Node * const node)
+{
+    if(!isInPreserveListNodes(node))
+        _preserveListNodes.push_back(node);
+}
+
+void GraphOp::addToPreserveList(const std::string &name)
+{
+    if(!isInPreserveListNames(name))
+        _preserveListNames.push_back(name);
+}
+
+void GraphOp::removeFromPreserveList(Node * const node)
+{
+    _preserveListNodes.remove(node);
+}
+
+void GraphOp::removeFromPreserveList(const std::string &name)
+{
+    _preserveListNames.remove(name);
+}
+
+void GraphOp::clearPreserveList(void)
+{
+    _preserveListNodes.clear();
+    _preserveListNames.clear();
+}
+
+bool GraphOp::isInPreserveListNodes(Node * const node) const
+{
+    NodeListType::const_iterator nodeIt;
+    nodeIt = std::find(_preserveListNodes.begin(),
+                       _preserveListNodes.end  (), node);
+
+    if(nodeIt == _preserveListNodes.end())
+        return false;
+    else
+        return true;
+}
+
+bool GraphOp::isInPreserveListNames(const std::string &name) const
+{
+    NameListType::const_iterator nameIt;
+    nameIt = std::find(_preserveListNames.begin(),
+                       _preserveListNames.end  (), name);
+
+    if(nameIt == _preserveListNames.end())
+        return false;
+    else
+        return true;
+}
+
+bool GraphOp::isInPreserveList(Node * const node) const
+{
+    if(isInPreserveListNodes(node) ||
+       (OSG::getName(node) != NULL && isInPreserveListNames(OSG::getName(node))))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 // Parameter Helpers

@@ -43,19 +43,23 @@
 
 OSG_USING_NAMESPACE
 
-    
+namespace
+{
+
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
     GraphOpFactory::the()->registerOp(new GeoTypeGraphOp);
     return true;
 }
+
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
+} // namespace
 
 GeoTypeGraphOp::GeoTypeGraphOp(const char* name)
-    : SingleTypeGraphOp<Geometry>(name),
-    _filter(TypeTraits<OSG::BitVector>::getMax())
+    : Inherited(name),
+      _filter  (TypeTraits<OSG::BitVector>::getMax())
 {
 }
 
@@ -63,9 +67,9 @@ GeoTypeGraphOp::~GeoTypeGraphOp(void)
 {
 }
 
-GraphOp* GeoTypeGraphOp::create()
+GraphOpTransitPtr GeoTypeGraphOp::create(void)
 {
-    return new GeoTypeGraphOp();
+    return GraphOpTransitPtr(new GeoTypeGraphOp());
 }
 
 

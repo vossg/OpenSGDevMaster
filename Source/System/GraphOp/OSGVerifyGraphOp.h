@@ -54,10 +54,20 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING VerifyGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
-public:
-
+  public:
     /*---------------------------------------------------------------------*/
-    /*! \name                    Class Get                                 */
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef GraphOp                                 Inherited;
+    typedef VerifyGraphOp                           Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Classname                                                    */
     /*! \{                                                                 */
 
     static const char *getClassname(void) { return "VerifyGraphOp"; };
@@ -70,25 +80,24 @@ public:
     VerifyGraphOp(const char* name = "Verify", bool repair = true, 
                   bool verbose = false);
 
-    GraphOp *create();
+    virtual GraphOpTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(Node *node);
+    virtual bool traverse(Node *node);
     
-    void setParams(const std::string params);
-    void setVerbose(bool verbose);    
-    void setRepair (bool repair);    
+    void setVerbose(bool verbose);
+    void setRepair (bool repair );
 
-    std::string usage(void);
+    void        setParams(const std::string params);
+    std::string usage    (      void              );
 
     /*! \}                                                                 */
-
     /*=========================  PROTECTED  ===============================*/
-protected:    
+protected:
 
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
@@ -110,9 +119,9 @@ private:
     bool repairGeometry(void);    
 
     /* Configuration variables */
- 
-    bool _repair;    
-    bool _verbose;    
+    
+    bool _repair;
+    bool _verbose;
     
     /* Traversal variables */
     
@@ -122,6 +131,9 @@ private:
    std::vector<OSG::Node     *> _corruptedNodes;
     
 };
+
+typedef VerifyGraphOp::ObjTransitPtr VerifyGraphOpTransitPtr;
+typedef VerifyGraphOp::ObjRefPtr     VerifyGraphOpRefPtr;
 
 OSG_END_NAMESPACE
 

@@ -45,6 +45,9 @@
 
 #include "OSGMaterialMergeGraphOp.h"
 #include "OSGGraphOpFactory.h"
+#include "OSGFieldContainerUtils.h"
+
+#include <boost/next_prior.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -54,9 +57,12 @@ OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::MaterialMergeGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
-    
-Merges equivalent materials in a scene.
+
+    Merges equivalent materials in a scene.
 */
+
+namespace
+{
 
 //! Register the GraphOp with the factory
 static bool registerOp(void)
@@ -64,8 +70,10 @@ static bool registerOp(void)
     GraphOpFactory::the()->registerOp(new MaterialMergeGraphOp);
     return true;
 }
+
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
+} // namespace
 
 MaterialMergeGraphOp::MaterialMergeGraphOp(const char* name)
     : GraphOp(name)
@@ -76,201 +84,58 @@ MaterialMergeGraphOp::~MaterialMergeGraphOp(void)
 {
 }
 
-GraphOp* MaterialMergeGraphOp::create()
+GraphOpTransitPtr MaterialMergeGraphOp::create(void)
 {
-    return new MaterialMergeGraphOp();
+    return GraphOpTransitPtr(new MaterialMergeGraphOp());
 }
-
-
-// Similar to boost's next iterator function.  (I think it's from
-// boost, at least.)
-template<typename T>
-T next(T t) { // Iterator passed by value.
-    ++t;
-    return t;
-}
-
-
-bool isEqual(FieldContainer * const a, FieldContainer * const b)
-{
-    // Compare the pointers.
-    if(a == b)
-        return true;
-
-    if(a == NULL || b == NULL)
-        return false;
-
-    if(a->getType() != b->getType())
-        return false;
-    
-    //printf("comparing: %s\n", a->getType().getName().str());
-
-    const FieldContainerType &type = a->getType();
-    UInt32 fcount = type.getNumFieldDescs();
-    
-    for(UInt32 i=1;i <= fcount;++i)
-    {
-        GetFieldHandlePtr fhandlea = a->getField(i);
-        GetFieldHandlePtr fhandleb = b->getField(i);
-        
-        if(fhandlea == NULL || fhandleb == NULL || (fhandlea != NULL &&
-                                                    fhandlea->isInternal()))
-        {
-            continue;
-        }
-
-        const FieldType &a_ftype = fhandlea->getType();
-        const FieldType &b_ftype = fhandleb->getType();
-
-        if(a_ftype != b_ftype)
-            return false;
-
-
-        // ignore attachments
-        if(strcmp(fhandlea->getName().c_str(), "attachments") == 0)
-            continue;
- 
-        // ignore parents
-        if(strcmp(fhandlea->getName().c_str(), "parents") == 0)
-            continue;
-       
-
-        FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandleA =
-            boost::dynamic_pointer_cast<
-                FieldContainerPtrSFieldBase::GetHandle>(fhandlea);
-
-        FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandleA =
-            boost::dynamic_pointer_cast<
-                FieldContainerPtrMFieldBase::GetHandle>(fhandlea);
-
-        if(sfPtrHandleA == NULL || mfPtrHandleA == NULL)
-        {
-            if(fhandlea->equal(fhandleb) == false)
-                return false;
-
-#if 0
-            // This is very slow with multi fields!!!!
-            std::ostringstream as;
-            OutStream outAS(as);
-            fhandlea.pushValueToStream(outAS);
-
-            std::ostringstream bs;
-            OutStream outBS(bs);
-            fhandleb.pushValueToStream(outBS);
-            if(as != bs)
-                return false;
-#endif
-        }
-        else
-        {
-            if(sfPtrHandleA != NULL && sfPtrHandleA->isValid() == true)
-            {
-                FieldContainerPtrSFieldBase::GetHandlePtr sfPtrHandleB =
-                    boost::dynamic_pointer_cast<
-                        FieldContainerPtrSFieldBase::GetHandle>(fhandleb);
-
-                if(isEqual((*sfPtrHandleA)->getValue(),
-                           (*sfPtrHandleB)->getValue()) == false)
-                {
-                    return false;
-                }
-            }
-            else if(mfPtrHandleA != NULL && mfPtrHandleA->isValid() == true)
-            {
-                FieldContainerPtrMFieldBase::GetHandlePtr mfPtrHandleB =
-                    boost::dynamic_pointer_cast<
-                        FieldContainerPtrMFieldBase::GetHandle>(fhandleb);
-
-                if((*mfPtrHandleA)->size() !=
-                   (*mfPtrHandleB)->size())
-                {
-                    return false;
-                }
-
-                for(UInt32 j = 0; j < (*mfPtrHandleA)->size(); ++j)
-                {
-                    if(isEqual((*(*mfPtrHandleA))[j],
-                               (*(*mfPtrHandleB))[j]) == false)
-                    {
-                        return false;
-                    }
-                }
-
-           }
-#if 0
-            if(fhandlea.getCardinality() == FieldType::SINGLE_FIELD)
-            {
-                if(!isEqual(((SFFieldContainerPtr *) fhandlea.getField())->getValue(),
-                            ((SFFieldContainerPtr *) fhandleb.getField())->getValue()))
-                    return false;
-            }
-            else if(fhandlea.getCardinality() == FieldType::MULTI_FIELD)
-            {
-                if(((MFFieldContainerPtr*)fhandlea.getField())->size() !=
-                   ((MFFieldContainerPtr*)fhandleb.getField())->size())
-                    return false;
-    
-                for(UInt32 j=0;j < ((MFFieldContainerPtr*)fhandlea.getField())->size();++j)
-                {
-                    if(!isEqual((*(((MFFieldContainerPtr *)fhandlea.getField())))[j],
-                                (*(((MFFieldContainerPtr *)fhandleb.getField())))[j]))
-                        return false;
-                }
-            }
-#endif
-        }
-    }
-
-    return true;
-}
-
-
-bool equal(Material *a, Material *b) {
-    // It's too bad Material::operator== doesn't work.
-    //return *a == *b;
-    return isEqual(a, b);
-}
-
 
 bool MaterialMergeGraphOp::traverse(Node *node)
 {
     // Find the materials.
-    if (!GraphOp::traverse(node)) {
+    if(!GraphOp::traverse(node))
+    {
         return false;
     }
 
     SINFO << "Number of materials before merge: " 
-          << _materialObjects.size() << std::endl;
+          << _materialMap.size() << std::endl;
 
     // Now do the merge.
-    MaterialObjectMap::iterator itr = _materialObjects.begin();
-    for (; itr != _materialObjects.end(); ++itr)
+    MaterialObjectMap::iterator mmIt = _materialMap.begin();
+    
+    for (; mmIt != _materialMap.end(); ++mmIt)
     {
-        Material *current = itr->first;
-        MaterialObjectList& currentList = itr->second;
-
-        MaterialObjectMap::iterator walker = next(itr);
-        while (walker != _materialObjects.end()) {
+        Material                    *currentMat  = mmIt->first;
+        MaterialObjectList          &currentList = mmIt->second;
+        MaterialObjectMap::iterator  mmWalker    = boost::next(mmIt);
+        
+        while(mmWalker != _materialMap.end())
+        {
             // Store the next iterator in case we have to delete
             // 'walker' from the map.
-            MaterialObjectMap::iterator nextStep = next(walker);
+            MaterialObjectMap::iterator nextStep = boost::next(mmWalker);
 
-            if (equal(current, walker->first)) {
+            if(compareContainerEqual(currentMat, mmWalker->first))
+            {
                 // Set the new objects to have the current material,
                 // and move the objects to the current list.
-                MaterialObjectList::iterator i = walker->second.begin();
-                for (; i != walker->second.end(); ++i) {
-                    i->setMaterial(current);
-                    currentList.push_back(*i);
+                MaterialObjectList::iterator mlIt  = mmWalker->second.begin();
+                MaterialObjectList::iterator mlEnd = mmWalker->second.end  ();
+                
+                for (; mlIt != mlEnd; ++mlIt)
+                {
+                    mlIt->setMaterial(currentMat);
+                    currentList.push_back(*mlIt);
                 }
-                _materialObjects.erase(walker);
+                
+                _materialMap.erase(mmWalker);
             }
 
-            walker = nextStep;
+            mmWalker = nextStep;
         }
     }
 
-    SINFO << "Number of materials after merge: " << _materialObjects.size() << std::endl;
+    SINFO << "Number of materials after merge: " << _materialMap.size() << std::endl;
     return true;
 }
 
@@ -298,15 +163,21 @@ std::string MaterialMergeGraphOp::usage(void)
 
 Action::ResultE MaterialMergeGraphOp::traverseEnter(Node * const node)
 {
-    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
-    if (geo != NULL)
+    if(isInExcludeList(node))
+        return Action::Skip;
+    
+    if(isInPreserveList(node))
+        return Action::Continue;
+    
+    MaterialDrawable *md = dynamic_cast<MaterialDrawable *>(node->getCore());
+    if(md != NULL)
     {
-        addObject(MaterialObject(geo));
+        addObject(MaterialObject(md));
         return Action::Continue;
     }
     
     MaterialGroup *mg = dynamic_cast<MaterialGroup *>(node->getCore());
-    if (mg != NULL)
+    if(mg != NULL)
     {
         addObject(MaterialObject(mg));
         return Action::Continue;
@@ -327,7 +198,7 @@ void MaterialMergeGraphOp::addObject(MaterialObject m)
     if (mat == NULL)
         return;
 
-    _materialObjects[mat].push_back(m);
+    _materialMap[mat].push_back(m);
 }
 
 OSG_END_NAMESPACE

@@ -59,13 +59,18 @@ A base class used to traverse geometries.
 
 */
 
-//! Register the GraphOp with the factory
-static bool registerOp(void)
+namespace
 {
-    GraphOpFactory::the()->registerOp(new StripeGraphOp);
-    return true;
-}
-static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+    //! Register the GraphOp with the factory
+    static bool registerOp(void)
+    {
+        GraphOpFactory::the()->registerOp(new StripeGraphOp);
+        return true;
+    }
+    
+    static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+    
+} // namespace
 
 
 /***************************************************************************\
@@ -79,10 +84,10 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 /*------------- constructors & destructors --------------------------------*/
 
-StripeGraphOp::StripeGraphOp(const char* name): 
-    SingleTypeGraphOpGeo(name),
-    _force(false),
-    _stitch(false)
+StripeGraphOp::StripeGraphOp(const char* name) :
+    Inherited(name),
+    _force   (false),
+    _stitch  (false)
 {
 }
 
@@ -90,10 +95,9 @@ StripeGraphOp::~StripeGraphOp(void)
 {
 }
 
-GraphOp *StripeGraphOp::create()
+GraphOpTransitPtr StripeGraphOp::create(void)
 {
-    StripeGraphOp *inst = new StripeGraphOp();
-    return inst;
+    return GraphOpTransitPtr(new StripeGraphOp());
 }
 
 void StripeGraphOp::setParams(const std::string params)

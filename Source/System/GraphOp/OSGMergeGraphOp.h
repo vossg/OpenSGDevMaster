@@ -54,10 +54,20 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
-public:
-
+  public:
     /*---------------------------------------------------------------------*/
-    /*! \name                    Class Get                                 */
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef GraphOp                                 Inherited;
+    typedef MergeGraphOp                            Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Classname                                                    */
     /*! \{                                                                 */
 
     static const char *getClassname(void) { return "MergeGraphOp"; };
@@ -69,30 +79,26 @@ public:
     
     MergeGraphOp(const char* name = "Merge");
 
-    GraphOp* create();
+    virtual GraphOpTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool traverse(Node *node);
-
-    //virtual const std::string getName(void) { return _name; };
+    virtual bool traverse(Node *node);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
 
-    void setParams(const std::string params);
-    
-    std::string usage(void);
+    void        setParams(const std::string params);
+    std::string usage    (      void              );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-protected:    
-
+  protected:
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
@@ -101,7 +107,7 @@ protected:
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+  private:
     // Use these params to transform tangent space vectors, just like normals.
     bool _color_is_vector;
     bool _secondary_color_is_vector;
@@ -128,6 +134,10 @@ private:
 };
 
 typedef MergeGraphOp *MergeGraphOpP;
+
+typedef MergeGraphOp::ObjTransitPtr MergeGraphOpTransitPtr;
+typedef MergeGraphOp::ObjRefPtr     MergeGraphOpRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGMERGEGRAPHOP_H_ */

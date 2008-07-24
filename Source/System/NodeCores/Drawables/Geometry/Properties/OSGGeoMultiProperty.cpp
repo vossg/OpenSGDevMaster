@@ -107,6 +107,11 @@ UInt32 GeoMultiProperty::getFormatSize(void) const
     return MapFormatToSize(getIFormat());
 }
 
+UInt32 GeoMultiProperty::getVectorType(void) const
+{
+    return GeoProperty::VectorTypeScalar;
+}
+
 UInt32 GeoMultiProperty::getStride    (void) const
 {
     return getIStride();

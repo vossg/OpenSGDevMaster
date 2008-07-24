@@ -51,17 +51,25 @@ OSG_BEGIN_NAMESPACE
 //! \ingroup GrpSystemRenderingBackend
 //! GraphOp class
 
-typedef SingleTypeGraphOp<Geometry> SingleTypeGraphOpGeo;
-
-class OSG_UTIL_DLLMAPPING StripeGraphOp : public SingleTypeGraphOpGeo
+class OSG_UTIL_DLLMAPPING StripeGraphOp : public SingleTypeGraphOp<Geometry>
 {
     /*==========================  PUBLIC  =================================*/
-public:
-
+  public:
     /*---------------------------------------------------------------------*/
-    /*! \name                    Class Get                                 */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
+    typedef SingleTypeGraphOp<Geometry>             Inherited;
+    typedef StripeGraphOp                           Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Classname                                                    */
+    /*! \{                                                                 */
+    
     static const char *getClassname(void) { return "StripeGraphOp"; };
 
     /*! \}                                                                 */
@@ -71,24 +79,22 @@ public:
     
     StripeGraphOp(const char* name = "Stripe");
 
-    GraphOp *create();
+    virtual GraphOpTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
     
-    void setParams(const std::string params);
-
-    std::string usage(void);
+    void        setParams(const std::string params);
+    std::string usage    (      void              );
 
     /*! \}                                                                 */
-
     /*=========================  PROTECTED  ===============================*/
-protected:    
+  protected:
 
     bool travNodeEnter(Node *node);
-    bool travNodeLeave(Node *node);       
+    bool travNodeLeave(Node *node);
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -98,11 +104,14 @@ protected:
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+  private:
 
     bool _force;  // Force striping striped geometries
     bool _stitch; // Stitch strips together
 };
+
+typedef StripeGraphOp::ObjTransitPtr StripeGraphOpTransitPtr;
+typedef StripeGraphOp::ObjRefPtr     StripeGraphOpRefPtr;
 
 OSG_END_NAMESPACE
 

@@ -105,9 +105,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
         setGenericValue(val, size() - 1);
     }
 
-    virtual void   clear (void          )       = 0;
-    virtual void   resize(size_t newsize)       = 0;
-    virtual UInt32 size  (void          ) const = 0;
+    virtual UInt32 getVectorType(void          ) const;
+    
+    virtual void   clear        (void          )       = 0;
+    virtual void   resize       (size_t newsize)       = 0;
+    virtual UInt32 size         (void          ) const = 0;
 
     /*---------------------------------------------------------------------*/
 

@@ -51,22 +51,63 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     : public SingleTypeGraphOp<Geometry>
 {
-public:
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef SingleTypeGraphOp<Geometry>             Inherited;
+    typedef GeoTypeGraphOp                          Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Classname                                                    */
+    /*! \{                                                                 */
+    
     static const char *getClassname(void) { return "GeoTypeGraphOp"; };
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
+    
     GeoTypeGraphOp(const char* name = "GeoType");
 
-    GraphOp* create();
+    virtual GraphOpTransitPtr create(void);
 
-    void setParams(const std::string params);
-    
-    std::string usage(void);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Parameters                                */
+    /*! \{                                                                 */
+
+    void        setParams(const std::string params);
+
+    std::string usage    (void                    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Filtering                                                    */
+    /*! \{                                                                 */
     
     // Individual sets
     void setFilter(const OSG::BitVector &filter);
-protected:
+    
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+    
     virtual ~GeoTypeGraphOp(void);
-private:
+    
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+  private:
     bool travNodeEnter(Node *node);
     bool travNodeLeave(Node *node);
 

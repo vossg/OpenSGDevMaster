@@ -104,9 +104,9 @@ SharePtrGraphOp::~SharePtrGraphOp(void)
 {
 }
 
-GraphOp *SharePtrGraphOp::create()
+GraphOpTransitPtr SharePtrGraphOp::create()
 {
-    return new SharePtrGraphOp();
+    return GraphOpTransitPtr(new SharePtrGraphOp());
 }
 
 bool SharePtrGraphOp::traverse(Node *root)

@@ -48,37 +48,50 @@
 
 #include "OSGGraphOp.h"
 #include "OSGAction.h"
-#include "OSGGeometry.h"
+#include "OSGMaterialDrawable.h"
 #include "OSGMaterialGroup.h"
 
 OSG_BEGIN_NAMESPACE
 
 class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
 {
-public:
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+    
+    typedef GraphOp                                 Inherited;
+    typedef MaterialMergeGraphOp                    Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    
     class MaterialObject
     {
-    public:
-        MaterialObject(Geometry *geo)
+      public:
+        MaterialObject(MaterialDrawable *md)
+            : _md(md  ),
+              _mg(NULL)
         {
-            _geo = geo;
         }
 
         MaterialObject(MaterialGroup *mg)
+            : _md(NULL),
+              _mg(mg  )
         {
-            _mg = mg;
         }
 
-        Material *getMaterial() {
-            return (_geo != NULL
-                    ? _geo->getMaterial()
-                    : _mg->getMaterial());
+        Material *getMaterial(void)
+        {
+            return (_md != NULL ? _md->getMaterial() : _mg->getMaterial());
         }
 
-        void setMaterial(Material *mat) {
-            if (_geo != NULL)
+        void setMaterial(Material *mat)
+        {
+            if(_md != NULL)
             {
-                _geo->setMaterial(mat);
+                _md->setMaterial(mat);
             }
             else
             {
@@ -86,37 +99,70 @@ public:
             }
         }
 
-    private:
-        Geometry      *_geo;
-        MaterialGroup *_mg;
+      private:
+        MaterialDrawable *_md;
+        MaterialGroup    *_mg;
     };
 
-    static const char *getClassname(void) { return "MaterialMergeGraphOp"; };
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Classname                                                    */
+    /*! \{                                                                 */
+    
+    static const char *getClassname(void)
+    {
+        return "MaterialMergeGraphOp";
+    };
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
+    
     MaterialMergeGraphOp(const char* name = "MaterialMerge");
 
-    GraphOp* create();
+    virtual GraphOpTransitPtr create(void);
 
-    bool traverse(Node *node);
-
-    void setParams(const std::string params);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Main methods                                                 */
+    /*! \{                                                                 */
     
-    std::string usage(void);
+    virtual bool traverse(Node *node);
 
-protected:
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Parameters                                                   */
+    /*! \{                                                                 */
+    
+    void        setParams(const std::string params);
+    std::string usage    (      void              );
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructors                                                  */
+    /*! \{                                                                 */
+    
     virtual ~MaterialMergeGraphOp(void);
 
-private:
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+  private:
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 
     void addObject(MaterialObject m);
 
-    typedef std::list<MaterialObject> MaterialObjectList;
-    typedef std::map<Material *, MaterialObjectList> MaterialObjectMap;
+    typedef std::list<MaterialObject                      > MaterialObjectList;
+    typedef std::map <MaterialUnrecPtr, MaterialObjectList> MaterialObjectMap;
 
-    MaterialObjectMap _materialObjects;
+    MaterialObjectMap _materialMap;
 };
+
+typedef MaterialMergeGraphOp::ObjTransitPtr MaterialMergeGraphOpTransitPtr;
+typedef MaterialMergeGraphOp::ObjRefPtr     MaterialMergeGraphOpRefPtr;
 
 OSG_END_NAMESPACE
 

@@ -69,29 +69,30 @@ A base class used to traverse geometries.
 
 /*------------- constructors & destructors --------------------------------*/
 
-GraphOpSeq::GraphOpSeq(): 
-    Inherited(),
-    _GraphOperators(), 
-    _excludeNames()
+GraphOpSeq::GraphOpSeq(void) :
+    Inherited      (),
+    _graphOperators(),
+    _excludeNames  ()
 {
 }
 
-GraphOpSeq::GraphOpSeq(const std::string params): 
-    _GraphOperators(), _excludeNames()
+GraphOpSeq::GraphOpSeq(const std::string &params) :
+    Inherited      (),
+    _graphOperators(),
+    _excludeNames  ()
 {
     setGraphOps(params);
 }
 
 GraphOpSeq::~GraphOpSeq()
 {
-    clearGraphOps();
 }
 
 bool GraphOpSeq::run(Node *root)
 {
     bool res=true;
-    std::vector<GraphOp *>::iterator it=_GraphOperators.begin();
-    std::vector<GraphOp *>::iterator en=_GraphOperators.end();
+    std::vector<GraphOpRefPtr>::iterator it = _graphOperators.begin();
+    std::vector<GraphOpRefPtr>::iterator en = _graphOperators.end();
 
     for ( ; it != en; ++it )
     {
@@ -126,7 +127,7 @@ bool GraphOpSeq::run(Node *root)
     Merge() Stripe(stitch=true force=true)   
 */
 
-void GraphOpSeq::setGraphOps(const std::string params)
+void GraphOpSeq::setGraphOps(const std::string &params)
 {
     UInt16 counter = 0;
     while (counter < params.length())
@@ -144,7 +145,7 @@ void GraphOpSeq::setGraphOps(const std::string params)
         UInt16 pos = extractStr(command, 0, "(", goname);
         FDEBUG(("GraphOpSeq::setGraphOps: goname: %s\n",goname.c_str()));
         
-        GraphOp * go = GraphOpFactory::the()->create(goname.c_str());
+        GraphOpRefPtr go = GraphOpFactory::the()->create(goname.c_str());
         if (go == NULL)
         {
             if (goname=="Exclude" || goname=="AddExclude")
@@ -180,65 +181,54 @@ void GraphOpSeq::setGraphOps(const std::string params)
                 go->addToExcludeList(*it);
                 FDEBUG(("GraphOpSeq::setGraphOps: Added to op: %s\n",(*it).c_str()));
             }
-            OSG::addRef(go);
-            _GraphOperators.push_back(go);
+            
+            _graphOperators.push_back(go);
         }
     }
 }
 
 void GraphOpSeq::addGraphOp(GraphOp *op)
 {
-    OSG::addRef(op);
-    _GraphOperators.push_back(op);
+    _graphOperators.push_back(op);
 }
 
 void GraphOpSeq::removeGraphOp(GraphOp *op)
 {
-    std::vector<GraphOp *>::iterator it=_GraphOperators.begin();
+    std::vector<GraphOpRefPtr>::iterator it = _graphOperators.begin();
 
-    for (; it!=_GraphOperators.end(); ++it)
-        if (*it==op)
+    for(; it != _graphOperators.end(); ++it)
+    {
+        if(*it == op)
         {
-            OSG::subRef(op);
-            _GraphOperators.erase(it);
+            _graphOperators.erase(it);
             break;
         }
+    }
 }
 
 void GraphOpSeq::clearGraphOps(void)
 {
-    std::vector<GraphOp *>::iterator it = _GraphOperators.begin();
-    std::vector<GraphOp *>::iterator en = _GraphOperators.end();
-
-    while(it != en)
-    {
-        OSG::subRef(*it);
-
-        ++it;
-    }
-    _GraphOperators.clear();
+    _graphOperators.clear();
 }
 
 UInt16 GraphOpSeq::getSize(void)
 {
-    return _GraphOperators.size();
+    return _graphOperators.size();
 }
 
 GraphOp* GraphOpSeq::getGraphOp(UInt16 index)
 {
-    if (index<getSize())
-        return _GraphOperators[index];
+    if(index < getSize())
+        return _graphOperators[index];
     else
         return NULL;
 }
 
 bool GraphOpSeq::setGraphOp(UInt16 index, GraphOp *op)
 {
-    if (index<getSize())
+    if(index < getSize())
     {
-        OSG::addRef(op);
-        OSG::subRef(_GraphOperators[index]);
-        _GraphOperators[index]=op;
+        _graphOperators[index]=op;
         return true;
     }
     else
@@ -249,8 +239,7 @@ bool GraphOpSeq::removeGraphOp(UInt16 index)
 {
     if (index<getSize())
     {
-        OSG::subRef(_GraphOperators[index]);
-        _GraphOperators.erase(_GraphOperators.begin()+index);
+        _graphOperators.erase(_graphOperators.begin() + index);
         return true;
     }
     else
@@ -274,6 +263,6 @@ UInt16 GraphOpSeq::extractStr(const std::string  param,
     if (pos == std::string::npos) 
         pos = param.length();
 
-    result=param.substr(spos,pos-spos);
+    result = param.substr(spos, pos - spos);
     return pos+1;
 }

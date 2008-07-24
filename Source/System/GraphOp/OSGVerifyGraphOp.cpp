@@ -88,10 +88,9 @@ VerifyGraphOp::~VerifyGraphOp(void)
 {
 }
 
-GraphOp *VerifyGraphOp::create()
+GraphOpTransitPtr VerifyGraphOp::create(void)
 {
-    VerifyGraphOp *inst = new VerifyGraphOp();
-    return inst;
+    return GraphOpTransitPtr(new VerifyGraphOp());
 }
 
 void VerifyGraphOp::setParams(const std::string params)
@@ -139,10 +138,8 @@ bool VerifyGraphOp::traverse(Node *node)
     _corruptedNodes.clear();
     
     // Find the bad nodes.
-    if (!GraphOp::traverse(node)) {
+    if(!GraphOp::traverse(node))
         return false;
-    }
-
 
     if(_repair)
     {

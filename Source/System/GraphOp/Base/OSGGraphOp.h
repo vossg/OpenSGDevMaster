@@ -62,6 +62,10 @@ class OSG_SYSTEM_DLLMAPPING GraphOp : public MemoryObject
 public:
 
     typedef MemoryObject Inherited;
+    typedef GraphOp      Self;
+    
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -76,15 +80,15 @@ public:
     
     GraphOp(const char* name = "");
 
-    virtual GraphOp *create(void) = 0;
+    virtual ObjTransitPtr create(void) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
 
-    virtual void setParams(const std::string params) = 0;
-    virtual std::string usage(void) = 0;
+    virtual void        setParams(const std::string params) = 0;
+    virtual std::string usage    (      void              ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,14 +105,23 @@ public:
     /*! \name                    Exclusion                                 */
     /*! \{                                                                 */    
     
-    void addToExcludeList       (Node        * const   node);
-    void addToExcludeList       (std::string   const  &name);
-    void removeFromExcludeList  (Node        * const   node);
-    void removeFromExcludeList  (std::string   const  &name);
-    void clearExcludeList       (void                      );
-    bool isInExcludeListNodes   (Node        * const   node);
-    bool isInExcludeListNames   (std::string   const  &name);
-    bool isInExcludeList        (Node        * const   node);        
+    void addToExcludeList      (      Node        * const node);
+    void addToExcludeList      (const std::string &       name);
+    void removeFromExcludeList (      Node        * const node);
+    void removeFromExcludeList (const std::string &       name);
+    void clearExcludeList      (void                          );
+    bool isInExcludeListNodes  (      Node        * const node) const;
+    bool isInExcludeListNames  (const std::string &       name) const;
+    bool isInExcludeList       (      Node        * const node) const;
+    
+    void addToPreserveList     (      Node        * const node);
+    void addToPreserveList     (const std::string &       name);
+    void removeFromPreserveList(      Node        * const node);
+    void removeFromPreserveList(const std::string &       name);
+    void clearPreserveList     (void                          );
+    bool isInPreserveListNodes (      Node        * const node) const;
+    bool isInPreserveListNames (const std::string &       name) const;
+    bool isInPreserveList      (      Node        * const node) const;
 
     /*! \}                                                                 */
 
@@ -143,7 +156,7 @@ protected:
         typedef std::map<std::string, bool>        usedT;
         
         valuesT _values;
-        usedT _used;    
+        usedT   _used;
     };
 
     /*! \}                                                                 */
@@ -160,8 +173,14 @@ protected:
     virtual Action::ResultE traverseLeave(Node            * const node, 
                                           Action::ResultE         res ) = 0;
 
-    std::list<Node const *> _excludeListNodes;
-    std::list<std::string >  _excludeListNames;
+    typedef std::list<Node const *> NodeListType;
+    typedef std::list<std::string > NameListType;
+    
+    NodeListType _excludeListNodes;
+    NameListType _excludeListNames;
+    
+    NodeListType _preserveListNodes;
+    NameListType _preserveListNames;
 
     /*==========================  PRIVATE  ================================*/
 private:
@@ -169,6 +188,11 @@ private:
 };
 
 typedef GraphOp *GraphOpP;
+
+typedef GraphOp::ObjTransitPtr GraphOpTransitPtr;
+typedef GraphOp::ObjRefPtr     GraphOpRefPtr;
+
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGGRAPHOP_H_ */

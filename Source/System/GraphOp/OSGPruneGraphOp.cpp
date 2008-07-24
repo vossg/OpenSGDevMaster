@@ -53,20 +53,26 @@ OSG_USING_NAMESPACE
 /*! \class OSG::PruneGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
-Removes nodes of size smaller than a given threshold from the scene.
+    Removes nodes of size smaller than a given threshold from the scene.
 */
 
-//! Register the GraphOp with the factory
-static bool registerOp(void)
+namespace
 {
-    GraphOpFactory::the()->registerOp(new PruneGraphOp);
-    return true;
-}
-static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+    //! Register the GraphOp with the factory
+    static bool registerOp(void)
+    {
+        GraphOpFactory::the()->registerOp(new PruneGraphOp);
+        return true;
+    }
+    
+    static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+
+} // namespace
+
 
 PruneGraphOp::PruneGraphOp(float size, Method method, const char* name)
     : GraphOp(name)
-    , _size(size)
+    , _size  (size)
     , _method(method)
 {
 }
@@ -75,14 +81,14 @@ PruneGraphOp::~PruneGraphOp(void)
 {
 }
 
-GraphOp* PruneGraphOp::create()
+GraphOpTransitPtr PruneGraphOp::create(void)
 {
-    return new PruneGraphOp(_size, _method);
+    return GraphOpTransitPtr(new PruneGraphOp(_size, _method));
 }
 
 void PruneGraphOp::setParams(const std::string params)
 {
-    ParamSet ps(params);   
+    ParamSet ps(params);
     
     ps("size",  _size);
 
@@ -135,8 +141,10 @@ Action::ResultE PruneGraphOp::traverseEnter(Node * const node)
 
 Action::ResultE PruneGraphOp::traverseLeave(Node * const node, Action::ResultE res)
 {
-    for (UInt32 i = 0; i < node->getNChildren(); ++i) {
-        if (isTooSmall(node->getChild(i))) {
+    for(UInt32 i = 0; i < node->getNChildren(); ++i)
+    {
+        if(isTooSmall(node->getChild(i)))
+        {
             node->subChild(i);
             --i;
         }
@@ -145,20 +153,28 @@ Action::ResultE PruneGraphOp::traverseLeave(Node * const node, Action::ResultE r
     return res;
 }
 
-bool PruneGraphOp::isTooSmall(Node * const node) {
+bool PruneGraphOp::isTooSmall(Node * const node)
+{
     return getSize(node) < _size;
 }
 
-float PruneGraphOp::getSize(Node * const node) {
+float PruneGraphOp::getSize(Node * const node)
+{
     const BoxVolume& bv = node->editVolume(true);
-    if (_method == VOLUME) {
+    
+    if(_method == VOLUME)
+    {
         return bv.getScalarVolume();
-    } else if (_method == SUM_OF_DIMENSIONS) {
+    }
+    else if(_method == SUM_OF_DIMENSIONS)
+    {
         Pnt3f min, max;
         bv.getBounds(min, max);
         Vec3f diff = max - min;
         return diff[0] + diff[1] + diff[2];
-    } else {
+    }
+    else
+    {
         SWARNING << "Unknown size calculation method" << std::endl;
         return 0;
     }

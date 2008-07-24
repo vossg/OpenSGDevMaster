@@ -64,18 +64,22 @@ OSG_USING_NAMESPACE
 /*! \class OSG::SplitGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
-A class used to optimize geometries a bit.
+    A class used to optimize geometries a bit.
 
 */
 
-
-//! Register the GraphOp with the factory
-static bool registerOp(void)
+namespace
 {
-    GraphOpFactory::the()->registerOp(new SplitGraphOp);
-    return true;
-}
-static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+    //! Register the GraphOp with the factory
+    static bool registerOp(void)
+    {
+        GraphOpFactory::the()->registerOp(new SplitGraphOp);
+        return true;
+    }
+    
+    static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+
+} // namespace
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -88,8 +92,9 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 /*------------- constructors & destructors --------------------------------*/
 
-SplitGraphOp::SplitGraphOp(const char* name, UInt16 max_polygons): 
-    GraphOp(name), _max_polygons(max_polygons)
+SplitGraphOp::SplitGraphOp(const char* name, UInt16 max_polygons) :
+    Inherited    (name        ),
+    _max_polygons(max_polygons)
 {
 }
 
@@ -97,10 +102,9 @@ SplitGraphOp::~SplitGraphOp(void)
 {
 }
 
-GraphOp* SplitGraphOp::create()
+GraphOpTransitPtr SplitGraphOp::create(void)
 {
-    SplitGraphOp * inst = new SplitGraphOp();
-    return inst;
+    return GraphOpTransitPtr(new SplitGraphOp());
 }
 
 bool SplitGraphOp::traverse(Node *root)

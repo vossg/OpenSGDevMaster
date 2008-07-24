@@ -326,6 +326,14 @@ UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getFormatSize(void) const
     return GeoPropertyDesc::getFormatSize();
 }
 
+/*! \copydoc OSG::GeoVectorProperty::getVectorType
+ */
+template <class GeoPropertyDesc> inline
+UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getVectorType(void) const
+{
+    return GeoPropertyDesc::getVectorType();
+}
+
 /*! \copydoc OSG::GeoVectorProperty::getStride
  */
 template <class GeoPropertyDesc> inline

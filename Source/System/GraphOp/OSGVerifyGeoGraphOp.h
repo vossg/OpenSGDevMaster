@@ -51,15 +51,23 @@ OSG_BEGIN_NAMESPACE
 //! \ingroup GrpSystemRenderingBackend
 //! GraphOp class
 
-typedef SingleTypeGraphOp<Geometry> SingleTypeGraphOpGeo;
-
-class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOpGeo
+class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
 {
     /*==========================  PUBLIC  =================================*/
-public:
-
+  public:
     /*---------------------------------------------------------------------*/
-    /*! \name                    Class Get                                 */
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef SingleTypeGraphOp<Geometry>             Inherited;
+    typedef VerifyGeoGraphOp                        Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Classname                                                    */
     /*! \{                                                                 */
 
     static const char *getClassname(void) { return "VerifyGeoGraphOp"; };
@@ -71,25 +79,26 @@ public:
     
     VerifyGeoGraphOp(const char* name = "VerifyGeo", bool repair = true);
 
-    GraphOp *create();
+    virtual GraphOpTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
+
+    virtual bool traverse(Node *root);
     
     void setParams(const std::string params);
-    void setRepair(bool repair);    
+    void setRepair(bool repair);
 
     std::string usage(void);
 
     /*! \}                                                                 */
-
     /*=========================  PROTECTED  ===============================*/
-protected:    
+  protected:
 
     bool travNodeEnter(Node *node);
-    bool travNodeLeave(Node *node);       
+    bool travNodeLeave(Node *node);
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -101,8 +110,15 @@ protected:
     /*==========================  PRIVATE  ================================*/
 private:
 
-    bool _repair;    
+    bool checkIndexedGeo   (Geometry *geo, UInt32 sumLengths);
+    bool checkNonindexedGeo(Geometry *geo, UInt32 sumLengths);
+    
+    UInt32 _errorCount;
+    bool   _repair;
 };
+
+typedef VerifyGeoGraphOp::ObjTransitPtr VerifyGeoGraphOpTransitPtr;
+typedef VerifyGeoGraphOp::ObjRefPtr     VerifyGeoGraphOpRefPtr;
 
 OSG_END_NAMESPACE
 

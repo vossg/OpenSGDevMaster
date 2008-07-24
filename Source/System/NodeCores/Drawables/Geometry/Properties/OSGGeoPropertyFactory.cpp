@@ -395,26 +395,26 @@ GeoIntegralPropertyTransitPtr GeoPropertyFactoryBase::create(UInt32 format)
     \a dim, \a usage and \a normalize.
  */
 GeoVectorPropertyTransitPtr GeoPropertyFactoryBase::create(
-    UInt32 format, UInt32 dim, UInt32 usage, bool normalize)
+    UInt32 format, UInt32 dim, UInt32 vecType, bool normalize)
 {
     GeoVectorPropertyTransitPtr returnValue;
 
-    UInt32 formatIdx    = mapFormat   (format   );
-    UInt32 dimIdx       = mapDimension(dim      );
-    UInt32 usageIdx     = mapUsage    (usage    );
-    UInt32 normalizeIdx = mapNormalize(normalize);
+    UInt32 formatIdx    = mapFormat    (format   );
+    UInt32 dimIdx       = mapDimension (dim      );
+    UInt32 vecTypeIdx   = mapVectorType(vecType  );
+    UInt32 normalizeIdx = mapNormalize (normalize);
     
     if(formatIdx    == TypeTraits<UInt32>::getMax() ||
        dimIdx       == TypeTraits<UInt32>::getMax() ||
-       usageIdx     == TypeTraits<UInt32>::getMax() ||
+       vecTypeIdx   == TypeTraits<UInt32>::getMax() ||
        normalizeIdx == TypeTraits<UInt32>::getMax()   )
     {
         FWARNING(("GeoPropertyFactoryBase::create: Invalid parameters: "
-                  "format [%d] dim [%d] usage [%d] normalize [%d].\n",
-                  format, dim, usage, normalize));
+                  "format [%d] dim [%d] vecType [%d] normalize [%d].\n",
+                  format, dim, vecType, normalize));
     }
-    
-    returnValue = _createFuncMap[usageIdx][dimIdx][formatIdx][normalizeIdx]();
+
+    returnValue = _createFuncMap[vecTypeIdx][dimIdx][formatIdx][normalizeIdx]();
     
     return returnValue;
 }

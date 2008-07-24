@@ -55,33 +55,28 @@ OSG_BEGIN_NAMESPACE
 class OSG_SYSTEM_DLLMAPPING GraphOpFactoryBase
 {
   public:
+    typedef std::map<std::string, GraphOpRefPtr> TypeMap;
+    typedef TypeMap::iterator                    TypeMapIt;
+    typedef TypeMap::const_iterator              TypeMapConstIt;
+    
+    void registerOp  (      GraphOp* prototype);
+    void unRegisterOp(      GraphOp* prototype);
+    void unRegisterOp(const char*    name     );
         
-    void registerOp(GraphOp* prototype);
-    void unRegisterOp(GraphOp* prototype);
-    void unRegisterOp(const char* name);
-        
-    GraphOp *create(const char* name);
+    GraphOpTransitPtr create(const char* name);
 
-    
-    /* map access */
-    typedef std::map<std::string, GraphOp*>::const_iterator iterator;
-    
-    iterator begin(void);
-    iterator end();  
+    TypeMapConstIt begin(void) const;
+    TypeMapConstIt end  (void) const;
     
   private:
 
     template <class SingletonT>
     friend class SingletonHolder;
 
-    typedef std::map<std::string, GraphOp*>::iterator MapIt;
-
-    typedef std::pair <std::string, GraphOp*> GraphOpPair;
-        
     GraphOpFactoryBase(void);
     ~GraphOpFactoryBase(void);
 
-    std::map<std::string, GraphOp*> _typeMap;
+    TypeMap _typeMap;
 };
 
 typedef SingletonHolder<GraphOpFactoryBase> GraphOpFactory;

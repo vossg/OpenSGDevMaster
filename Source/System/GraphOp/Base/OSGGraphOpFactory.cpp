@@ -73,20 +73,15 @@ A base class used to traverse geometries.
 
 void GraphOpFactoryBase::registerOp(GraphOp* prototype)
 {
-    MapIt iIt = _typeMap.find(prototype->getName());
+    TypeMapIt iIt = _typeMap.find(prototype->getName());
 
     if(iIt != _typeMap.end())
     {
-        addRef(prototype);
-        subRef(iIt->second);
-
         iIt->second = prototype;
     }
     else
     {
         _typeMap[prototype->getName()] = prototype;
-
-        addRef(prototype);
     }
 }
 
@@ -97,39 +92,37 @@ void GraphOpFactoryBase::unRegisterOp(GraphOp* prototype)
 
 void GraphOpFactoryBase::unRegisterOp(const char* name)
 {
-    MapIt iIt = _typeMap.find(name);
+    TypeMapIt iIt = _typeMap.find(name);
     
     if(iIt != _typeMap.end())
     {
-        subRef(iIt->second);
-
         _typeMap.erase(iIt);
     }
 }
     
-GraphOp *GraphOpFactoryBase::create(const char* name)
+GraphOpTransitPtr GraphOpFactoryBase::create(const char* name)
 {
-    iterator iIt = _typeMap.find(name);
+    TypeMapIt iIt = _typeMap.find(name);
     
     if(iIt != _typeMap.end())
     {
         if(iIt->second != NULL)
             return iIt->second->create();
         else
-            return NULL;
+            return GraphOpTransitPtr();
     }
     else
     {
-        return NULL;
+        return GraphOpTransitPtr();
     }
 }
 
-GraphOpFactoryBase::iterator GraphOpFactoryBase::begin()
+GraphOpFactoryBase::TypeMapConstIt GraphOpFactoryBase::begin(void) const
 {
     return _typeMap.begin();
 }
 
-GraphOpFactoryBase::iterator GraphOpFactoryBase::end()
+GraphOpFactoryBase::TypeMapConstIt GraphOpFactoryBase::end(void) const
 {
     return _typeMap.end();
 }
@@ -140,21 +133,12 @@ GraphOpFactoryBase::iterator GraphOpFactoryBase::end()
 
 GraphOpFactoryBase::GraphOpFactoryBase()
 {
+    // nothing to do
 }
 
 GraphOpFactoryBase::~GraphOpFactoryBase(void)
 {
-    MapIt    iIt  = _typeMap.begin();
-    iterator iEnd = _typeMap.end  ();
-
-    while(iIt != iEnd)
-    {
-        subRef(iIt->second);
-
-        iIt->second = NULL;
-
-        ++iIt;
-    }
+    // nothing to do
 }
 
 OSG_END_NAMESPACE

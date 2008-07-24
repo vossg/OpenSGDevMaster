@@ -78,7 +78,7 @@ SingleTypeGraphOp<Type>::~SingleTypeGraphOp(void)
 template < class Type > inline
 Action::ResultE SingleTypeGraphOp<Type>::traverseEnter(Node *node)
 {
-    if (node->getCore()->getType().isDerivedFrom(Type::getClassType()))
+    if(node->getCore()->getType().isDerivedFrom(Type::getClassType()))
         travNodeEnter(node);
     return Action::Continue;
 }
@@ -88,7 +88,7 @@ Action::ResultE SingleTypeGraphOp<Type>::traverseLeave(
     Node *node, 
     Action::ResultE)
 {
-    if (node->getCore()->getType().isDerivedFrom(Type::getClassType()))
+    if(node->getCore()->getType().isDerivedFrom(Type::getClassType()))
         travNodeLeave(node);
     return Action::Continue;
 }

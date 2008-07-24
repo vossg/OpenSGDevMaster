@@ -46,17 +46,24 @@
 
 OSG_USING_NAMESPACE
 
+namespace
+{
+
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
     GraphOpFactory::the()->registerOp(new MakeTransparentGraphOp);
     return true;
 }
+
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
+} // namespace
+
+
 MakeTransparentGraphOp::MakeTransparentGraphOp(const char* name)
-    : GraphOp(name),
-      _transparency(0.5)
+    : GraphOp      (name),
+      _transparency(0.5 )
 {
 }
 
@@ -64,49 +71,37 @@ MakeTransparentGraphOp::~MakeTransparentGraphOp(void)
 {
 }
 
-GraphOp* MakeTransparentGraphOp::create()
+GraphOpTransitPtr MakeTransparentGraphOp::create(void)
 {
-    return new MakeTransparentGraphOp();
+    return GraphOpTransitPtr(new MakeTransparentGraphOp());
 }
-
-
-// Similar to boost's next iterator function.  (I think it's from
-// boost, at least.)
-template<typename T>
-T next(T t) // Iterator passed by value.
-{
-    return ++t;
-}
-
 
 bool MakeTransparentGraphOp::traverse(Node *node)
 {
     // Find the materials.
-    if (!GraphOp::traverse(node)) {
+    if(!GraphOp::traverse(node))
         return false;
-    }
 
     // Now do the merge.
-    MaterialObjectMap::iterator itr = _materialObjects.begin();
-    for (; itr != _materialObjects.end(); ++itr)
+    MaterialObjectMap::iterator mmIt = _materialMap.begin();
+    for(; mmIt != _materialMap.end(); ++mmIt)
     {
-        Material         *oldMaterial = itr->first;
-        MaterialUnrecPtr  newMaterial = 
+        Material         *oldMaterial = mmIt->first;
+        MaterialUnrecPtr  newMaterial =
             dynamic_pointer_cast<Material>(deepClone(oldMaterial));
 
-        if (newMaterial != NULL)
+        if(newMaterial != NULL)
         {
             std::cout << "Applying transparency:  ";
 
             applyTransparency(newMaterial);
 
             // Put the new material in the objects in this subtree.
-            MaterialObjectList& currentList = itr->second;
-            MaterialObjectList::iterator i = currentList.begin();
-            for (; i != currentList.end(); ++i)
-            {
+            MaterialObjectList           &currentList = mmIt->second;
+            MaterialObjectList::iterator i            = currentList.begin();
+            
+            for(; i != currentList.end(); ++i)
                 i->setMaterial(newMaterial);
-            }
         }
     }
 
@@ -141,12 +136,15 @@ std::string MakeTransparentGraphOp::usage(void)
 Action::ResultE MakeTransparentGraphOp::traverseEnter(Node * const node)
 {
     if(isInExcludeList(node))
+        return Action::Skip;
+    
+    if(isInPreserveList(node))
         return Action::Continue;
 
-    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
-    if(geo != NULL)
+    MaterialDrawable *md = dynamic_cast<MaterialDrawable *>(node->getCore());
+    if(md != NULL)
     {
-        addObject(MaterialObject(geo));
+        addObject(MaterialObject(md));
         return Action::Continue;
     }
 
@@ -162,7 +160,7 @@ Action::ResultE MakeTransparentGraphOp::traverseEnter(Node * const node)
 }
 
 Action::ResultE MakeTransparentGraphOp::traverseLeave(
-    Node * const    node, 
+    Node * const    node,
     Action::ResultE res )
 {
     return res;
@@ -174,7 +172,7 @@ void MakeTransparentGraphOp::addObject(MaterialObject m)
     if (mat == NULL)
         return;
 
-    _materialObjects[mat].push_back(m);
+    _materialMap[mat].push_back(m);
 }
 
 
@@ -187,14 +185,16 @@ struct Type2Type {
 
 
 template<typename Chunk>
-typename Chunk::ObjUnrecPtr getOrAddChunk(ChunkMaterial *cm,
-                                     Type2Type<Chunk> = Type2Type<Chunk>()) {
+typename Chunk::ObjUnrecPtr getOrAddChunk(
+    ChunkMaterial *cm, Type2Type<Chunk> = Type2Type<Chunk>())
+{
     OSG::StateChunk *stateChunk = cm->find(Chunk::getClassType());
 
-    typename Chunk::ObjUnrecPtr chunk = 
+    typename Chunk::ObjUnrecPtr chunk =
         dynamic_cast<typename Chunk::ObjCPtr>(stateChunk);
 
-    if (!chunk) {
+    if(!chunk)
+    {
         chunk = Chunk::create();
         cm->addChunk(chunk);
     }
@@ -202,10 +202,11 @@ typename Chunk::ObjUnrecPtr getOrAddChunk(ChunkMaterial *cm,
 }
 
 
-void MakeTransparentGraphOp::applyTransparency(Material *m) {
- 
+void MakeTransparentGraphOp::applyTransparency(Material *m)
+{
     SimpleMaterial *sm = dynamic_cast<SimpleMaterial *>(m);
-    if (sm != NULL) {
+    if (sm != NULL)
+    {
         std::cout << "SimpleMaterial" << std::endl;
         sm->setTransparency(1.0f - (1.0f - sm->getTransparency()) * 
                             _transparency);
@@ -217,7 +218,8 @@ void MakeTransparentGraphOp::applyTransparency(Material *m) {
     }
 
     ChunkMaterial *cm = dynamic_cast<ChunkMaterial *>(m);
-    if (cm != NULL) {
+    if (cm != NULL)
+    {
         std::cout << "ChunkMaterial" << std::endl;
         BlendChunk *blendChunk = getOrAddChunk<BlendChunk>(cm);
         blendChunk->setColor(Color4f(1.f, 1.f, 1.f, 1.f - _transparency));

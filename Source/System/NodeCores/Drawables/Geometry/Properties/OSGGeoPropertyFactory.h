@@ -58,17 +58,17 @@ class GeoPropertyFactoryBase
 {
   public:
   
-    GeoIntegralPropertyTransitPtr create(UInt32 format                  );
-    GeoVectorPropertyTransitPtr   create(UInt32 format, UInt32 dim,
-                                         UInt32 usage,  bool   normalize);
+    GeoIntegralPropertyTransitPtr create(UInt32 format                   );
+    GeoVectorPropertyTransitPtr   create(UInt32 format,  UInt32 dim,
+                                         UInt32 vecType, bool   normalize);
   
   protected:
     typedef GeoVectorPropertyTransitPtr (*CreatePropFuncP)(void);
     
-    UInt32 mapFormat   (UInt32 format   ) const;
-    UInt32 mapDimension(UInt32 dim      ) const;
-    UInt32 mapUsage    (UInt32 usage    ) const;
-    UInt32 mapNormalize(bool   normalize) const;
+    UInt32 mapFormat    (UInt32 format   ) const;
+    UInt32 mapDimension (UInt32 dim      ) const;
+    UInt32 mapVectorType(UInt32 vecType  ) const;
+    UInt32 mapNormalize (bool   normalize) const;
     
     template <class PropertyTypeT>
     static GeoVectorPropertyTransitPtr createPropFunc       (void);

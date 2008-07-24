@@ -72,7 +72,7 @@ public:
     
     SharePtrGraphOp(const char* name = "SharePtr");
 
-    GraphOp *create();
+    virtual GraphOpTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

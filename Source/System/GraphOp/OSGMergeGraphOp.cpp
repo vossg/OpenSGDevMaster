@@ -107,10 +107,9 @@ MergeGraphOp::~MergeGraphOp(void)
 {
 }
 
-GraphOp* MergeGraphOp::create()
+GraphOpTransitPtr MergeGraphOp::create()
 {
-    MergeGraphOp* inst = new MergeGraphOp();
-    return inst;
+    return GraphOpTransitPtr(new MergeGraphOp());
 }
 
 UInt32 countNodes(Node * const node)

@@ -103,22 +103,20 @@ UInt32 GeoPropertyFactoryBase::mapDimension(UInt32 dim) const
 }
 
 inline
-UInt32 GeoPropertyFactoryBase::mapUsage(UInt32 usage) const
+UInt32 GeoPropertyFactoryBase::mapVectorType(UInt32 vecType) const
 {
     UInt32 returnValue = TypeTraits<UInt32>::getMax();
     
-    switch(usage)
+    switch(vecType)
     {
-    case GeoProperty::UsageObjectSpace:     returnValue = 0;    break;
-    case GeoProperty::UsageTangentSpace:    returnValue = 1;    break;
-    case GeoProperty::UsageParameterSpace:  returnValue = 1;    break;
-    case GeoProperty::UsageColorSpace:      returnValue = 2;    break;
+    case GeoProperty::VectorTypePoint:     returnValue = 0;    break;
+    case GeoProperty::VectorTypeVector:    returnValue = 1;    break;
+    case GeoProperty::VectorTypeColor:     returnValue = 2;    break;
     
-    case GeoProperty::UsageUnspecified:     returnValue = 0;    break;
-    
+    case GeoProperty::VectorTypeScalar:
     default:
-        FWARNING(("GeoPropertyFactoryBase::mapUsage: Unsupported usage [%d].\n",
-                  usage));
+        FWARNING(("GeoPropertyFactoryBase::mapVectorType: "
+                  "Unsupported vecType [%d].\n", vecType));
     }
     
     return returnValue;
