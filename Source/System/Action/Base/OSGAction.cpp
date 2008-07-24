@@ -432,7 +432,9 @@ ActionBase::ResultE Action::callNewList(void)
         if(result != Continue)
             break;
     }
-    
+
+    _actList = NULL;
+
     return result;
 }
 

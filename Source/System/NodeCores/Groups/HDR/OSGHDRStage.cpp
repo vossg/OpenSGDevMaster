@@ -344,8 +344,8 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     pSceneTex   ->setImage         (pImg             ); 
     pSceneTex   ->setMinFilter     (GL_LINEAR        );
     pSceneTex   ->setMagFilter     (GL_LINEAR        );
-    pSceneTex   ->setWrapS         (GL_REPEAT        );
-    pSceneTex   ->setWrapT         (GL_REPEAT        );
+    pSceneTex   ->setWrapS         (GL_CLAMP_TO_EDGE );
+    pSceneTex   ->setWrapT         (GL_CLAMP_TO_EDGE );
     pSceneTex   ->setInternalFormat(getBufferFormat());
 
     pSceneTexEnv->setEnvMode       (GL_REPLACE       );
@@ -390,8 +390,8 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     pShrinkTex   ->setImage         (pImg             ); 
     pShrinkTex   ->setMinFilter     (GL_LINEAR        );
     pShrinkTex   ->setMagFilter     (GL_LINEAR        );
-    pShrinkTex   ->setWrapS         (GL_REPEAT        );
-    pShrinkTex   ->setWrapT         (GL_REPEAT        );
+    pShrinkTex   ->setWrapS         (GL_CLAMP_TO_EDGE );
+    pShrinkTex   ->setWrapT         (GL_CLAMP_TO_EDGE );
     pShrinkTex   ->setInternalFormat(getBufferFormat());
 
     pShrinkTexEnv->setEnvMode       (GL_REPLACE       );
@@ -439,8 +439,8 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     pBlurTex1   ->setImage         (pImg             ); 
     pBlurTex1   ->setMinFilter     (GL_LINEAR        );
     pBlurTex1   ->setMagFilter     (GL_LINEAR        );
-    pBlurTex1   ->setWrapS         (GL_REPEAT        );
-    pBlurTex1   ->setWrapT         (GL_REPEAT        );
+    pBlurTex1   ->setWrapS         (GL_CLAMP_TO_EDGE );
+    pBlurTex1   ->setWrapT         (GL_CLAMP_TO_EDGE );
     pBlurTex1   ->setInternalFormat(getBufferFormat());
 
     pBlurTex1Env->setEnvMode       (GL_REPLACE       );
@@ -471,8 +471,8 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     pBlurTex2   ->setImage         (pImg             ); 
     pBlurTex2   ->setMinFilter     (GL_LINEAR        );
     pBlurTex2   ->setMagFilter     (GL_LINEAR        );
-    pBlurTex2   ->setWrapS         (GL_REPEAT        );
-    pBlurTex2   ->setWrapT         (GL_REPEAT        );
+    pBlurTex2   ->setWrapS         (GL_CLAMP_TO_EDGE );
+    pBlurTex2   ->setWrapT         (GL_CLAMP_TO_EDGE );
     pBlurTex2   ->setInternalFormat(getBufferFormat());
 
     pBlurTex2Env->setEnvMode       (GL_REPLACE       );
@@ -799,8 +799,8 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     glViewport(pEnv->getPixelLeft  (), 
                pEnv->getPixelBottom(),
-               pEnv->getPixelRight (),
-               pEnv->getPixelTop   ());
+               pEnv->getPixelWidth (),
+               pEnv->getPixelHeight());
 
     ChunkMaterial *pTCM = pData->getToneMappingMaterial();
 

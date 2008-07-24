@@ -782,6 +782,8 @@ bool osgExit(void)
         }
     }
 
+    delete osgPreMPExitFunctions;
+
     if(returnValue == false)
         return returnValue;
 

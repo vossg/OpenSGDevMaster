@@ -154,7 +154,7 @@ ActionBase::ResultE VisitSubTree::render(Action *action)
 
     a->useNodeList();
     
-    if(a->isVisible(this->getSubTreeRoot()))
+    if(this->getSubTreeRoot() != NULL && a->isVisible(this->getSubTreeRoot()))
         a->addNode(this->getSubTreeRoot());
 
     return Action::Continue;
