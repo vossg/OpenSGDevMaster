@@ -234,7 +234,8 @@ void Geometry::setProperty(GeoVectorProperty * const value, UInt16 index)
         _mfProperties.push_back(NULL);
     }
     
-    if(0x0000 != (value->getUsage() & GeoProperty::UsageSystemSet))
+    if(value  != NULL &&
+       0x0000 != (value->getUsage() & GeoProperty::UsageSystemSet))
     {
         switch(index)
         {

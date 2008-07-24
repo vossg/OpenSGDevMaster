@@ -4167,7 +4167,7 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2)
     // additional entries must be NULL
     for(; i < maxSize; ++i)
     {
-        if(i < prop1.size() && prop2[i] != NULL)
+        if(i < prop1.size() && prop1[i] != NULL)
             return false;
             
         if(i < prop2.size() && prop2[i] != NULL)

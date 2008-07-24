@@ -98,6 +98,12 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 
     static const BitVector bInvLocalFieldMask = ~bLocalFieldMask;
 
+    typedef SFBoxVolume             SFVolumeType;
+    typedef SFUInt32                SFTravMaskType;
+    typedef SFUncountedNodePtr      SFParentType;
+    typedef SFUnrecChildNodeCorePtr SFCoreType;
+    typedef MFUnrecChildNodePtr     MFChildrenType;
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */

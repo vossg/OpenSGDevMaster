@@ -122,8 +122,11 @@ class OSG_SYSTEM_DLLMAPPING Attachment : public AttachmentContainer
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-    FieldContainer *getParent(UInt32 uiIdx) const;
+          FieldContainer            *getParent   (UInt32 uiIdx) const;
 
+    const MFParentFieldContainerPtr &getParents  (void        ) const;
+    const MFParentFieldContainerPtr *getMFParents(void        ) const;
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -211,10 +214,6 @@ class OSG_SYSTEM_DLLMAPPING Attachment : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
-
-    const MFParentFieldContainerPtr &getParents   (void) const;
-
-    const MFParentFieldContainerPtr *getMFParents (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

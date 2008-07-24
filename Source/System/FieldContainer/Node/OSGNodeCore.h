@@ -81,6 +81,8 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     OSG_RC_FIRST_FIELD_DECL(Parents);
     OSG_RC_LAST_FIELD_DECL (Parents);
 
+    typedef MFParentFieldContainerPtr   MFParentsType;
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
