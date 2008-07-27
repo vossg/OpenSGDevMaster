@@ -63,6 +63,10 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     typedef TransitPtr <Self                      > ObjTransitPtr;
     typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
 
+    static const BitVector FilterNormals = OSGLL(1) << 1;
+    static const BitVector FilterIndices = OSGLL(1) << 2;
+    static const BitVector FilterLengths = OSGLL(1) << 3;
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Classname                                                    */
@@ -111,6 +115,10 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     bool travNodeEnter(Node *node);
     bool travNodeLeave(Node *node);
 
+    void processNormals(Geometry *geo);
+    void processIndices(Geometry *geo);
+    void processLengths(Geometry *geo);
+    
     OSG::BitVector _filter;
 };
 

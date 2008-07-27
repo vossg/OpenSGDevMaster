@@ -39,6 +39,8 @@
 #include <OSGBaseTypes.h>
 #include <OSGGeoTypeGraphOp.h>
 #include <OSGLog.h>
+#include <OSGTypedGeoIntegralProperty.h>
+#include <OSGTypedGeoVectorProperty.h>
 #include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
@@ -72,172 +74,179 @@ GraphOpTransitPtr GeoTypeGraphOp::create(void)
     return GraphOpTransitPtr(new GeoTypeGraphOp());
 }
 
-
 bool GeoTypeGraphOp::travNodeEnter(Node *node)
 {
-    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
-
-    if(geo == NULL)
-    {
-        return true;
-    }
-
-    GeoVectorProperty *positions = geo->getPositions();
-
-    // amz
-#if 0
-
-#if !defined(__sun) && !defined(OSG_NO_INT8_PNT)
-    // normals
-    if(_filter & Geometry::NormalsFieldMask)
-    {
-        GeoNormalsPtr   normals   = geo->getNormals();
-        GeoNormals3fPtr normals3f = GeoNormals3fPtr::dcast(normals);
-        if (normals3f != NullFC)
-        {
-            MFVec3f &src = normals3f->getField();
-            
-            GeoNormals3bPtr normals3b = GeoNormals3b::create();
-            MFVec3b &dst = normals3b->getField();
-            dst.reserve(src.size());
-            beginEditCP(normals3b);
-                for (UInt32 i = 0; i < src.size(); ++i)
-                {
-                    Vec3f vec = src[i];
-                    vec *= (0.9f / vec.length());
-                    normals3b->push_back(vec);
-                }
-            endEditCP(normals3b);
-    
-            beginEditCP(geo, Geometry::NormalsFieldMask);
-                geo->setNormals(normals3b);
-            endEditCP(geo, Geometry::NormalsFieldMask);
-        }
-    }
-#endif
-
-    GeoColorsPtr    colors    = geo->getColors();
-    GeoColorsPtr    scolors   = geo->getSecondaryColors();
-
-    if(_filter & Geometry::LengthsFieldMask)
-    {
-        // lengths
-        GeoPLengthsUI32Ptr lengthsUI32 = GeoPLengthsUI32Ptr::dcast(geo->getLengths());
-        if(lengthsUI32 != NullFC)
-        {
-            MFUInt32 &src = lengthsUI32->getField();
-    
-            // now check if maximum length is greater than 65535
-            UInt32 max_length = UInt32(TypeTraits<UInt16>::getMax());
-            bool max_length_ok = true;
-            for(UInt32 i=0;i<src.size();++i)
-            {
-                if(src[i] > max_length)
-                {
-                    max_length_ok = false;
-                    break;
-                }
-            }
-    
-            if(max_length_ok)
-            {
-                GeoPLengthsUI16Ptr lengthsUI16 = GeoPLengthsUI16::create();
-                MFUInt16 &dst = lengthsUI16->getField();
-                dst.reserve(src.size());
-                beginEditCP(lengthsUI16);
-                    for (UInt32 i = 0; i < src.size(); ++i)
-                        dst.push_back(UInt16(src[i]));
-                endEditCP(lengthsUI16);
-        
-                beginEditCP(geo, Geometry::LengthsFieldMask);
-                    geo->setLengths(lengthsUI16);
-                endEditCP(geo, Geometry::LengthsFieldMask);
-            }
-        }
-    }
-
-    // indices
-    if(_filter & Geometry::IndicesFieldMask)
-    {
-        GeoIndicesUI32Ptr indicesUI32 = GeoIndicesUI32Ptr::dcast(geo->getIndices());
-        if(indicesUI32 != NullFC)
-        {
-            MFUInt32 &src = indicesUI32->getField();
-    
-            // now check if maximum index is greater than 65535
-            UInt32 max_index = UInt32(TypeTraits<UInt16>::getMax());
-            bool max_index_ok = true;
-            for(UInt32 i=0;i<src.size();++i)
-            {
-                if(src[i] > max_index)
-                {
-                    max_index_ok = false;
-                    break;
-                }
-            }
-    
-            if(max_index_ok)
-            {
-                GeoIndicesUI16Ptr indicesUI16 = GeoIndicesUI16::create();
-                MFUInt16 &dst = indicesUI16->getField();
-                dst.reserve(src.size());
-                beginEditCP(indicesUI16);
-                    for (UInt32 i = 0; i < src.size(); ++i)
-                        dst.push_back(src[i]);
-                endEditCP(indicesUI16);
-        
-                beginEditCP(geo, Geometry::IndicesFieldMask);
-                    geo->setIndices(indicesUI16);
-                endEditCP(geo, Geometry::IndicesFieldMask);
-            }
-        }
-    }
-
-#endif
-
     return true;
 }
 
-
-bool GeoTypeGraphOp::travNodeLeave(Node *)
+bool GeoTypeGraphOp::travNodeLeave(Node *node)
 {
+    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
+    
+    if(geo == NULL)
+        return true;
+    
+    if(_filter & FilterNormals)
+        processNormals(geo);
+    
+    if(_filter & FilterIndices)
+        processIndices(geo);
+    
+    if(_filter & FilterLengths)
+        processLengths(geo);
+    
     return true;
+}
+
+void GeoTypeGraphOp::processNormals(Geometry *geo)
+{
+    GeoVectorProperty *norm   = geo->getProperty(Geometry::NormalsIndex);
+    GeoVec3fProperty  *norm3f = dynamic_cast<GeoVec3fProperty *>(norm);
+        
+    if(norm3f != NULL)
+    {
+        GeoVec3NbPropertyUnrecPtr norm3b = GeoVec3NbProperty::create();
+        
+        const GeoVec3fProperty::StoredFieldType *srcF = norm3f->getFieldPtr();
+        
+        norm3b->resize(srcF->size());
+        
+        for(UInt32 i = 0; i < srcF->size(); ++i)
+        {
+            Vec3f n = (*srcF)[i];
+            n.normalize();
+
+            norm3b->setValue(n, i);
+        }
+        
+        geo->setProperty(norm3b, Geometry::NormalsIndex);
+    }
+}
+
+void GeoTypeGraphOp::processIndices(Geometry *geo)
+{
+    Geometry::IndexBag ibag = geo->getUniqueIndexBag();
+        
+    for(UInt32 i = 0; i < ibag.size(); ++i)
+    {
+        GeoIntegralProperty *ind   = ibag[i].first;
+        GeoUInt32Property   *ind32 = dynamic_cast<GeoUInt32Property *>(ind);
+        
+        if(ind32 != NULL)
+        {
+            const GeoUInt32Property::StoredFieldType *srcF = ind32->getFieldPtr();
+            
+            UInt32 maxIndex     = TypeTraits<UInt16>::getMax();
+            bool   allowConvert = true;
+            
+            for(UInt32 j = 0; j < srcF->size(); ++j)
+            {
+                if((*srcF)[j] > maxIndex)
+                {
+                    allowConvert = false;
+                    break;
+                }
+            }
+            
+            if(allowConvert)
+            {
+                GeoUInt16PropertyUnrecPtr           ind16 =
+                        GeoUInt16Property::create();
+                GeoUInt16Property::StoredFieldType *dstF  =
+                        ind16->editFieldPtr();
+                
+                dstF->reserve(srcF->size());
+                
+                for(UInt32 j = 0; j < srcF->size(); ++j)
+                {
+                    UInt32 i = (*srcF)[j];
+                    dstF->push_back(i);
+                }
+                
+                // set index for all properties that use it
+                for(UInt32 j = 0; j < ibag[i].second.size(); ++j)
+                    geo->setIndex(ind16, ibag[i].second[j]);
+            }
+        }
+    }
+}
+
+void GeoTypeGraphOp::processLengths(Geometry *geo)
+{
+    GeoIntegralProperty *len   = geo->getLengths();
+    GeoUInt32Property   *len32 = dynamic_cast<GeoUInt32Property *>(len);
+        
+    if(len32 != NULL)
+    {
+        const GeoUInt32Property::StoredFieldType *srcF = len32->getFieldPtr();
+            
+        UInt32 maxLength    = TypeTraits<UInt16>::getMax();
+        bool   allowConvert = true;
+            
+        for(UInt32 i = 0; i < srcF->size(); ++i)
+        {
+            if((*srcF)[i] > maxLength)
+            {
+                allowConvert = false;
+                break;
+            }
+        }
+            
+        if(allowConvert)
+        {
+            GeoUInt16PropertyUnrecPtr           len16 =
+                    GeoUInt16Property::create();
+            GeoUInt16Property::StoredFieldType *dstF  =
+                    len16->editFieldPtr();
+                
+            dstF->reserve(srcF->size());
+                
+            for(UInt32 j = 0; j < srcF->size(); ++j)
+            {
+                UInt32 i = (*srcF)[j];
+                dstF->push_back(i);
+            }
+            
+            geo->setLengths(len16);
+        }
+    }
 }
 
 void GeoTypeGraphOp::setParams(const std::string params)
 {
-    ParamSet ps(params);   
+    ParamSet ps(params);
     std::string filter;
 
-    // amz
-#if 0
     if(ps("filter", filter))
     {
-        _filter = 0;
+        _filter = TypeTraits<BitVector>::BitsClear;
+        
         if(filter.find("Nor") != std::string::npos ||
-           filter.find("nor") != std::string::npos)
+           filter.find("nor") != std::string::npos   )
         {
-            _filter |= Geometry::NormalsFieldMask;
+            _filter |= FilterNormals;
         }
+        
         if(filter.find("Ind") != std::string::npos ||
-           filter.find("ind") != std::string::npos)
+           filter.find("ind") != std::string::npos   )
         {
-            _filter |= Geometry::IndicesFieldMask;
+            _filter |= FilterIndices;
         }
+        
         if(filter.find("Len") != std::string::npos ||
-           filter.find("len") != std::string::npos)
+           filter.find("len") != std::string::npos   )
         {
-            _filter |= Geometry::LengthsFieldMask;
+            _filter |= FilterLengths;
         }
     }
-    
+
     std::string out = ps.getUnusedParams();
+    
     if(out.length())
     {
         FWARNING(("GeoTypeGraphOp doesn't have parameters '%s'.\n",
                 out.c_str()));
     }
-#endif
 }
 
 std::string GeoTypeGraphOp::usage(void)
