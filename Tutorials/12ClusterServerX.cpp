@@ -25,11 +25,11 @@
 OSG_USING_NAMESPACE
 
 // local glut window
-XWindowPtr   window;
+XWindowRefPtr   window;
 // render action
-RenderAction   *ract;
+RenderAction   *ract        = NULL;
 // pointer the the cluster server instance
-ClusterServer  *server;
+ClusterServer  *server      = NULL;
 bool            exitOnError = false;
 
 // forward declaration so we can have the interesting stuff upfront
@@ -261,14 +261,14 @@ int main(int argc,char **argv)
         
 
         // create the render action
-        ract=RenderAction::create();
+        ract = RenderAction::create();
 
         // setup the OpenSG Glut window
         window     = XWindow::create();
         window->setDisplay ( dpy );
-        window->setWindow ( hwin );    
+        window->setWindow ( hwin );
         window->init();
- 
+
         XEvent        event;
 
         XMapWindow(dpy, hwin);
@@ -331,7 +331,7 @@ int main(int argc,char **argv)
                     {
                         reshape(event.xconfigure.width,
                                 event.xconfigure.height);
-                    }                                                   
+                    }
                     break;
 
                     case Expose:
@@ -349,6 +349,9 @@ int main(int argc,char **argv)
     {
         SLOG << e.what() << endLog;
         delete server;
+        delete ract;
+        window = NULL;
+        
         osgExit(); 
     }
     return 0;
@@ -372,6 +375,8 @@ void display()
             try
             {
                 delete server;
+                delete ract;
+                window = NULL;
             }
             catch(...)
             {
@@ -397,7 +402,7 @@ void display()
 void reshape( int width, int height )
 {
     // set new window size
-	window->resize( width, height );
+    window->resize( width, height );
 }
 
 #else

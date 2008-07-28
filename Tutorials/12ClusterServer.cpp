@@ -25,25 +25,25 @@
 OSG_USING_NAMESPACE
 
 // local glut window
-GLUTWindowPtr   window;
+GLUTWindowRefPtr  window;
 // render action
-RenderAction   *ract;
+RenderAction     *ract;
 // pointer the the cluster server instance
-ClusterServer  *server;
+ClusterServer    *server;
 
 // forward declaration so we can have the interesting stuff upfront
-void display();
-void update();
-void reshape( int width, int height );
+void display(void);
+void update (void);
+void reshape(int width, int height);
 
 // Initialize GLUT & OpenSG and start the cluster server
-int main(int argc,char **argv)
+int main(int argc, char **argv)
 {
     int             winid;
-    char           *name          ="ClusterServer";
-    char           *connectionType="StreamSock";
-    bool            fullscreen     =true;
-    std::string     address        ="";
+    char           *name           = "ClusterServer";
+    char           *connectionType = "StreamSock";
+    bool            fullscreen     = true;
+    std::string     address        = "";
     char           *opt;
 
     // initialize Glut
@@ -66,7 +66,7 @@ int main(int argc,char **argv)
                 case 'w': fullscreen=false;
                           break;
                 case 'a': address = argv[a][2] ? argv[a]+2 : argv[++a];
-                          if(address == argv[argc])
+                          if(address.empty())
                           { 
                               SLOG << "address missing" << endLog;
                               return 0;
@@ -105,7 +105,7 @@ int main(int argc,char **argv)
         glutSetCursor(GLUT_CURSOR_NONE);
 
         // create the render action
-        ract=RenderAction::create();
+        ract = RenderAction::create();
 
         // setup the OpenSG Glut window
         window     = GLUTWindow::create();
@@ -123,7 +123,12 @@ int main(int argc,char **argv)
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
         SLOG << e.what() << endLog;
+        
+        // clean up global variables
         delete server;
+        delete ract;
+        window = NULL;
+        
         osgExit(); 
     }
     return 0;

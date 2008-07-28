@@ -1,18 +1,16 @@
-// OpenSG Tutorial Example: Hello World
+// OpenSG Tutorial Example: Minimalistic OpenSG cluster client program
 //
-// Minimalistic OpenSG cluster client program
-// 
 // To test it, run 
 //   ./12ClusterServer -geometry 300x300+200+100 -m -w test1 &
 //   ./12ClusterServer -geometry 300x300+500+100 -m -w test2 &
-//   ./13ClusterClient -m -fData/tie.wrl test1 test2
+//   ./13ClusterClientShader -m -fData/tie.wrl test1 test2
 //
 // If you have trouble with multicasting, you can alternatively try
 //   ./12ClusterServer -geometry 300x300+200+100 -w 127.0.0.1:30000 &
 //   ./12ClusterServer -geometry 300x300+500+100 -w 127.0.0.1:30001 &
-//   ./13ClusterClient -m -fData/tie.wrl 127.0.0.1:30000 127.0.0.1:30001
+//   ./13ClusterClientShader -m -fData/tie.wrl 127.0.0.1:30000 127.0.0.1:30001
 // 
-// The client will open an emoty window that you can use to navigate. The
+// The client will open an empty window that you can use to navigate. The
 // display is shown in the server windows.
 //
 // This will run all three on the same machine, but you can also start the 
@@ -55,33 +53,45 @@
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE
 
-using namespace std;
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
 
-static SHLChunkPtr _shl = NullFC;
-static Int32 _animation = 1;
+SHLChunkRefPtr _shl;
+Int32          _animation = 1;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
 
-NodePtr createScene(void)
+/*
+    Note the use of NodeTransitPtr as return type for the function.
+    TransitPtr are intended as return types from functions that create
+    objects (factory functions). They can only be assigned to a smart pointer
+    type (RefPtr, MTRefPtr, UnrecPtr), but not to a raw C pointer. Therefore
+    the use of this return type prevents you from accidentally loosing all
+    references to a newly created object (as would happen if you assigned to
+    a raw C pointer).
+    It is strongly recommended to follow the practice of making all factory
+    functions return TransitPtr in order to prevent this hard to find class of
+    bugs.
+*/
+
+NodeTransitPtr createScene(void)
 {
-    NodePtr _scene;
+    NodeRefPtr _scene;
 
     // Create the shader material
-    ChunkMaterialPtr cmat = ChunkMaterial::create();
+    ChunkMaterialRefPtr cmat = ChunkMaterial::create();
 
     // Read the image for the normal texture
-    ImagePtr earth_map_img = Image::create();
+    ImageRefPtr earth_map_img = Image::create();
     if(!earth_map_img->read("Earth.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'Earth.jpg'\n");
-        return NullFC;
+        return NodeTransitPtr();
     }
-    TextureObjChunkPtr tex_earth     = TextureObjChunk::create();
-    TextureEnvChunkPtr tex_earth_env = TextureEnvChunk::create();
+    TextureObjChunkRefPtr tex_earth     = TextureObjChunk::create();
+    TextureEnvChunkRefPtr tex_earth_env = TextureEnvChunk::create();
 
     tex_earth->setImage(earth_map_img);
     tex_earth->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -92,15 +102,15 @@ NodePtr createScene(void)
     tex_earth_env->setEnvMode(GL_MODULATE);
 
     // Read the image for the normal texture
-    ImagePtr earth_night_map_img = Image::create();
+    ImageRefPtr earth_night_map_img = Image::create();
     if(!earth_night_map_img->read("EarthNight.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'EarthNight.jpg'\n");
-        return NullFC;
+        return NodeTransitPtr();
     }
 
-    TextureObjChunkPtr tex_earth_night     = TextureObjChunk::create();
-    TextureEnvChunkPtr tex_earth_night_env = TextureEnvChunk::create();
+    TextureObjChunkRefPtr tex_earth_night     = TextureObjChunk::create();
+    TextureEnvChunkRefPtr tex_earth_night_env = TextureEnvChunk::create();
 
     tex_earth_night->setImage(earth_night_map_img);
     tex_earth_night->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -111,15 +121,15 @@ NodePtr createScene(void)
     tex_earth_night_env->setEnvMode(GL_MODULATE);
     
     // Read the image for the normal texture
-    ImagePtr earth_clouds_map_img = Image::create();
+    ImageRefPtr earth_clouds_map_img = Image::create();
     if(!earth_clouds_map_img->read("EarthClouds.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'EarthClouds.jpg'\n");
-        return NullFC;
+        return NodeTransitPtr();
     }
 
-    TextureObjChunkPtr tex_earth_clouds     = TextureObjChunk::create();
-    TextureEnvChunkPtr tex_earth_clouds_env = TextureEnvChunk::create();
+    TextureObjChunkRefPtr tex_earth_clouds     = TextureObjChunk::create();
+    TextureEnvChunkRefPtr tex_earth_clouds_env = TextureEnvChunk::create();
 
     tex_earth_clouds->setImage(earth_clouds_map_img);
     tex_earth_clouds->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -144,7 +154,6 @@ NodePtr createScene(void)
     _shl->setUniformParameter("cos_time_0_2PI", -0.406652f);
     _shl->setUniformParameter("sin_time_0_2PI", -0.913583f);
     _shl->setUniformParameter("foo", -0.913583f);
-
     
     cmat->addChunk(_shl);
     cmat->addChunk(tex_earth);
@@ -154,34 +163,33 @@ NodePtr createScene(void)
     cmat->addChunk(tex_earth_clouds);
     cmat->addChunk(tex_earth_clouds_env);
 
-
     // create root node
     _scene = Node::create();
 
-    GeometryPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
+    GeometryRefPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
 
     geo->setMaterial(cmat);
 
 
-    NodePtr torus = Node::create();
+    NodeRefPtr torus = Node::create();
     
     torus->setCore(geo);
 
 
     // add torus to scene
-    GroupPtr group = Group::create();
+    GroupRefPtr group = Group::create();
 
     _scene->setCore(group);
     _scene->addChild(torus);
 
-    return _scene;
+    return NodeTransitPtr(_scene);
 }
 
 // Initialize GLUT & OpenSG and set up the scene
 int main(int argc, char **argv)
 {
-    char     *opt;
-    NodePtr   scene=NullFC;
+    char       *opt;
+    NodeRefPtr  scene;
 
     // OSG init
     osgInit(argc,argv);
@@ -189,21 +197,28 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between this client and the servers
-    MultiDisplayWindowPtr mwin= MultiDisplayWindow::create();
-
-    // evaluate params
-    for(int a=1 ; a<argc ; ++a)
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
-        if(argv[a][0] == '-')
+        
+        // the connection between this client and the servers
+        MultiDisplayWindowRefPtr mwin = MultiDisplayWindow::create();
+    
+        // evaluate params
+        for(int a=1 ; a<argc ; ++a)
         {
-            switch(argv[a][1])
+            if(argv[a][0] == '-')
             {
+                switch(argv[a][1])
+                {
                 case 'm': mwin->setConnectionType("Multicast");
-cout << "Connection type set to Multicast" << endl;
+                          std::cout << "Connection type set to Multicast"
+                                    << std::endl;
                           break;
                 case 'p': mwin->setConnectionType("SockPipeline");
-cout << "Connection type set to SockPipeline" << endl;
+                          std::cout << "Connection type set to SockPipeline"
+                                    << std::endl;
                           break;
                 case 'i': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
@@ -215,8 +230,7 @@ cout << "Connection type set to SockPipeline" << endl;
                           break;
                 case 'f': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
-                              scene = SceneFileHandler::the()->read(
-                                  opt,0);
+                              scene = SceneFileHandler::the()->read(opt, 0);
                           break;
                 case 'x': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
@@ -226,48 +240,49 @@ cout << "Connection type set to SockPipeline" << endl;
                           if(opt != argv[argc])
                               mwin->setVServers(atoi(opt));
                           break;
-                default:  std::cout << argv[0]  
+                default:  std::cout << argv[0]
                                     << " -m"
                                     << " -p"
                                     << " -i interface"
                                     << " -f file"
                                     << " -x horizontal server cnt"
                                     << " -y vertical server cnt"
-                                    << endLog;
-                          return 0;
+                                    << std::endl;
+                        return 0;
+                }
+            }
+            else
+            {
+                printf("%s\n",argv[a]);
+                mwin->editMFServers()->push_back(argv[a]);
             }
         }
-        else
-        {
-            printf("%s\n",argv[a]);
-            mwin->editServers().push_back(argv[a]);
-        }
-    }
-
-    // dummy size for navigator
-    mwin->setSize(300,300);
-
-    // create default scene
-    if(scene == NullFC)
-        scene = createScene();
-
-    if(scene == NullFC)
-        scene = makeTorus(.5, 2, 16, 16);
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(mwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
     
-    // initialize window
-    mwin->init();
+        // dummy size for navigator
+        mwin->setSize(300,300);
+    
+        // create default scene
+        if(scene == NULL)
+            scene = createScene();
+    
+        if(scene == NULL)
+            scene = makeTorus(.5, 2, 16, 16);
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(mwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
+        
+        // initialize window
+        mwin->init();
+    }
     
     // GLUT main loop
     glutMainLoop();

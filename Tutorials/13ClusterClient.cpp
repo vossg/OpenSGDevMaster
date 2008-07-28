@@ -1,6 +1,4 @@
-// OpenSG Tutorial Example: Hello World
-//
-// Minimalistic OpenSG cluster client program
+// OpenSG Tutorial Example: Minimalistic OpenSG cluster client program
 // 
 // To test it, run 
 //   ./12ClusterServer -geometry 300x300+200+100 -m -w test1 &
@@ -12,7 +10,7 @@
 //   ./12ClusterServer -geometry 300x300+500+100 -w 127.0.0.1:30001 &
 //   ./13ClusterClient -m -fData/tie.wrl 127.0.0.1:30000 127.0.0.1:30001
 // 
-// The client will open an emoty window that you can use to navigate. The
+// The client will open an empty window that you can use to navigate. The
 // display is shown in the server windows.
 //
 // This will run all three on the same machine, but you can also start the 
@@ -48,7 +46,6 @@
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE
 
-using namespace std;
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
 
@@ -58,8 +55,7 @@ int setupGLUT( int *argc, char *argv[] );
 // Initialize GLUT & OpenSG and set up the scene
 int main(int argc, char **argv)
 {
-    char     *opt;
-    NodePtr   scene=NullFC;
+    char *opt;
 
     // OSG init
     osgInit(argc,argv);
@@ -67,21 +63,28 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between this client and the servers
-    MultiDisplayWindowPtr mwin= MultiDisplayWindow::create();
-
-    // evaluate params
-    for(int a=1 ; a<argc ; ++a)
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
-        if(argv[a][0] == '-')
+        // the connection between this client and the servers
+        MultiDisplayWindowRefPtr mwin   = MultiDisplayWindow::create();
+        NodeRefPtr               scene;
+    
+        // evaluate params
+        for(int a=1 ; a<argc ; ++a)
         {
-            switch(argv[a][1])
+            if(argv[a][0] == '-')
             {
+                switch(argv[a][1])
+                {
                 case 'm': mwin->setConnectionType("Multicast");
-cout << "Connection type set to Multicast" << endl;
+                          std::cout << "Connection type set to Multicast"
+                                    << std::endl;
                           break;
                 case 'p': mwin->setConnectionType("SockPipeline");
-cout << "Connection type set to SockPipeline" << endl;
+                          std::cout << "Connection type set to SockPipeline"
+                                    << std::endl;
                           break;
                 case 'i': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
@@ -93,8 +96,7 @@ cout << "Connection type set to SockPipeline" << endl;
                           break;
                 case 'f': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
-                              scene = SceneFileHandler::the()->read(
-                                  opt,0);
+                              scene = SceneFileHandler::the()->read(opt, 0);
                           break;
                 case 'x': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
@@ -111,38 +113,39 @@ cout << "Connection type set to SockPipeline" << endl;
                                     << " -f file"
                                     << " -x horizontal server cnt"
                                     << " -y vertical server cnt"
-                                    << endLog;
+                                    << std::endl;
                           return 0;
+                }
+            }
+            else
+            {
+                printf("%s\n",argv[a]);
+                mwin->editMFServers()->push_back(argv[a]);
             }
         }
-        else
-        {
-            printf("%s\n",argv[a]);
-            mwin->editServers().push_back(argv[a]);
-        }
-    }
-
-    // dummy size for navigator
-    mwin->setSize(300,300);
-
-    // create default scene
-    if(scene == NullFC)
-       scene = makeTorus(.5, 2, 16, 16);
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(mwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
     
-    // initialize window
-    mwin->init();
+        // dummy size for navigator
+        mwin->setSize(300,300);
+    
+        // create default scene
+        if(scene == NULL)
+        scene = makeTorus(.5, 2, 16, 16);
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(mwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
+        
+        // initialize window
+        mwin->init();
+    }
     
     // GLUT main loop
     glutMainLoop();
@@ -196,8 +199,11 @@ void keyboard(unsigned char k, int x, int y)
 {
     switch(k)
     {
-        case 27:    
+        case 27:
         {
+            // clean up global variables
+            delete mgr;
+            
             OSG::osgExit();
             exit(0);
         }
