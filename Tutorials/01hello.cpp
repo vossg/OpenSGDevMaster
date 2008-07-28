@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin= GLUTWindow::create();
+        GLUTWindowRefPtr gwin = GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -115,8 +115,9 @@ void keyboard(unsigned char k, int x, int y)
 {
     switch(k)
     {
-        case 27:        
+        case 27:
         {
+            // clean up global variables
             delete mgr;
         
             OSG::osgExit();

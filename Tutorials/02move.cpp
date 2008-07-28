@@ -62,7 +62,7 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // open a new scope, because the pointers gwin and scene below should
+    // open a new scope, because the pointers gwin, torus and scene below should
     // go out of scope before entering glutMainLoop.
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
@@ -85,8 +85,8 @@ int main(int argc, char **argv)
         trans = Transform::create();
         
         // 3. associate the core with the node
-    
         scene->setCore(trans);
+        
         // add the torus as a child
         scene->addChild(torus);
         
