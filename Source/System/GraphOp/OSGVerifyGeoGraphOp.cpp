@@ -111,6 +111,8 @@ bool VerifyGeoGraphOp::traverse(Node *node)
         FWARNING(("VerifyGeoGraphOp::traverse: Found [%d] errors.\n",
                   _errorCount));
     }
+
+    return true;
 }
 
 void VerifyGeoGraphOp::setParams(const std::string params)

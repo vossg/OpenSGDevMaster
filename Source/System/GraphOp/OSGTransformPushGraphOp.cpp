@@ -294,11 +294,11 @@ void TransformPushGraphOp::pushToGeometry(
           Geometry::MFPropertiesType  *mfProp = dstGeo->editMFProperties ();
           Geometry::MFPropIndicesType *mfInd  = dstGeo->editMFPropIndices();
     
-    Geometry::MFPropertiesType::iterator  propIt  = mfProp->begin();
-    Geometry::MFPropertiesType::iterator  propEnd = mfProp->end  ();
+    Geometry::MFPropertiesType::const_iterator  propIt  = mfProp->begin();
+    Geometry::MFPropertiesType::const_iterator  propEnd = mfProp->end  ();
     
-    Geometry::MFPropIndicesType::iterator indIt   = mfInd ->begin();
-    Geometry::MFPropIndicesType::iterator indEnd  = mfInd ->end  ();
+    Geometry::MFPropIndicesType::const_iterator indIt   = mfInd ->begin();
+    Geometry::MFPropIndicesType::const_iterator indEnd  = mfInd ->end  ();
     
     UInt32 propUsed = 0;
     for(UInt32 i = 0; i < sfLen->getValue()->size(); ++i)
