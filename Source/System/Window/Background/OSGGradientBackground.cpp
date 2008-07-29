@@ -113,147 +113,106 @@ void GradientBackground::changed(ConstFieldMaskArg whichField,
 
 void GradientBackground::clear(DrawEnv *pEnv)
 {
-    Int32 bit = getClearStencilBit();
-
-	glClearDepth(1.f);
-
-    if(_mfPosition.size() < 2)
+    Int32      stencilBit = getClearStencilBit();   // 0x0
+    GLbitfield clearMask  = 0;
+    
+    if(getClearColor() == true)
     {
-        Real32 r = 0.f, g = 0.f, b = 0.f;
-
-        if(_mfPosition.size() == 1)
+        if(_mfPosition.size() < 2)
         {
-            Color3f col = _mfColor[0];
-            col.getValuesRGB(r, g, b);
-        }
-
-        glClearColor(r, g, b, 1);
-        
-        if (bit >= 0)
-        {
-            glClearStencil(bit);
-            glClear((GL_COLOR_BUFFER_BIT   | 
-                     GL_DEPTH_BUFFER_BIT   | 
-                     GL_STENCIL_BUFFER_BIT ));
+            // too few positions for a real gradient - just clear the buffer
+            
+            clearMask |= GL_COLOR_BUFFER_BIT;
+            
+            if(_mfPosition.size() == 1)
+            {
+                const Color3f &col = _mfColor[0];
+                
+                GLP::glClearColor(col[0], col[1], col[2], 1.0);
+            }
         }
         else
         {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            // draw gradient - don't need to clear the color buffer
+            
+            glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT |
+                         GL_LIGHTING_BIT                       );
+            
+            glDisable(GL_LIGHTING);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_COLOR_MATERIAL);
+
+            glMatrixMode(GL_MODELVIEW);
+            glPushMatrix();
+            glLoadIdentity();
+
+            glMatrixMode(GL_PROJECTION);
+            glPushMatrix();
+            glLoadIdentity();
+            
+            // FIXME This does not work with TileCameraDecorator
+            glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+
+            UInt32 size = _mfPosition.size();
+
+            glBegin(GL_QUAD_STRIP);
+        
+            Real32 pos = _mfPosition[0];
+
+            if(pos > 0.0f)
+            {
+                glColor3f(0.0, 0.0, 0.0);
+                glVertex3f(0, 0, 0);
+                glVertex3f(1, 0, 0);
+            }
+
+            for(UInt32 i = 0; i < size; i++)
+            {
+                pos = _mfPosition[i];
+
+                const Color3f &col = _mfColor[i];
+
+                glColor3f(col[0], col[1], col[2]);
+                glVertex3f(0, pos, 0);
+                glVertex3f(1, pos, 0);
+            }
+
+            if(pos < 1.0f)
+            {
+                glColor3f(0.0, 0.0, 0.0);
+                glVertex3f(0, 1, 0);
+                glVertex3f(1, 1, 0);
+            }
+        
+            glEnd();
+
+            glPopMatrix();
+            glMatrixMode(GL_MODELVIEW);
+            glPopMatrix();
+
+            glPopAttrib();
         }
     }
-    else
+    
+    if(getClearDepth() == true)
     {
-        glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
-                     GL_LIGHTING_BIT);
+        clearMask |= GL_DEPTH_BUFFER_BIT;
         
-        glDisable(GL_LIGHTING);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_COLOR_MATERIAL);
-
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        glLoadIdentity();
-
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        glLoadIdentity();
-
-#if 0
-        UInt32 width  = pEnv->getPixelWidth(),
-               height = pEnv->getPixelHeight();
-
-        Camera              *cP  = getCPtr(pPort->getCamera());
-        TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
-
-        while(cdP != NULL)
-        {
-            width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
-            height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
-
-            cP  = getCPtr(cdP->getDecoratee());
-            cdP = dynamic_cast<TileCameraDecorator*>(cP);
-        }
-
-        cP  = getCPtr(pEnv->getCamera());
-        cdP = dynamic_cast<TileCameraDecorator*>(cP);
-
-        if(cdP != NULL)
-        {
-            Real32 left   = cdP->getLeft(),
-                   right  = cdP->getRight(),
-                   top    = cdP->getTop(),
-                   bottom = cdP->getBottom();
-
-            glOrtho(left , right, bottom, top, 0, 1);
-        }
-        else
-        {
-            glOrtho(0, 1, 0, 1, 0, 1);
-        }
-#endif
-
-        glOrtho(pEnv->getPixelLeft  (), 
-                pEnv->getPixelRight (),
-                pEnv->getPixelBottom(),
-                pEnv->getPixelTop   (), 
-                0.f, 
-                1.f);
-
+        GLP::glClearDepth(getDepth());
+    }
+    
+    if(stencilBit >= 0)
+    {
+        clearMask |= GL_STENCIL_BUFFER_BIT;
         
-
-        Real32 r1, g1, b1;
-        UInt32 size = _mfPosition.size();
-
-        glBegin(GL_QUAD_STRIP);
-        
-        Real32 pos = _mfPosition[0];
-
-        if(pos > 0) 
-        {
-            glColor3f(0.0, 0.0, 0.0);
-            glVertex3f(0, 0, 0);
-            glVertex3f(1, 0, 0);
-        }
-
-        for(UInt32 i = 0; i < size; i++)
-        {
-            pos = _mfPosition[i];
-
-            Color3f col1 = _mfColor[i];
-            col1.getValuesRGB(r1, g1, b1);
-
-            glColor3f(r1, g1, b1);
-            glVertex3f(0, pos, 0);
-            glVertex3f(1, pos, 0);
-        }
-
-        if(pos < 1) 
-        {
-            glColor3f(0.0, 0.0, 0.0);
-            glVertex3f(0, 1, 0);
-            glVertex3f(1, 1, 0);
-        }
-        
-        glEnd();
-
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
-        glPopMatrix();
-
-        glPopAttrib();
-        
-        if(bit >= 0)
-        {
-            glClearStencil(bit);
-
-            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-        }
-        else
-        {
-            glClear(GL_DEPTH_BUFFER_BIT);
-        }
-     }
+        glClearStencil(stencilBit);
+    }
+    
+    if(clearMask != 0)
+    {
+        glClear(clearMask);
+    }
 }
 
 /*------------------------------- dump ----------------------------------*/
