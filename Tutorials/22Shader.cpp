@@ -31,8 +31,8 @@ OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *_mgr = NULL;
-NodePtr _scene = NullFC;
-SHLChunkPtr _shl = NullFC;
+NodeRefPtr          _scene;
+SHLChunkRefPtr      _shl;
 
 // vertex shader program.
 static std::string _vp_program =
@@ -128,125 +128,110 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // create the scene
-    _scene = makeCoredNode<Group>();
-
-    // create light
-    TransformPtr point1_trans;
-    PointLightPtr point1_core;
-    NodePtr point1 = makeCoredNode<PointLight>(&point1_core);
-    NodePtr point1_beacon = makeCoredNode<Transform>(&point1_trans);
-    point1_trans->editMatrix().setTranslate(0.0, 100.0, 0.0);
-
-    point1_core->setAmbient(0.15,0.15,0.15,1);
-    point1_core->setDiffuse(0.8,0.8,0.8,1);
-    point1_core->setSpecular(0.0,0.0,0.0,1);
-    point1_core->setBeacon(point1_beacon);
-    point1_core->setOn(true);
-
-    // create bottom
-    NodePtr bottom = makePlane(50.0, 50.0, 128, 128);
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
+    {
+        // create the scene
+        _scene = makeCoredNode<Group>();
     
-    UChar8 imgdata[] =
-        {  255,0,0,  0,255,0,  0,0,255, 255,255,0 };
-    ImagePtr bottom_img = Image::create();
-    bottom_img->set(Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, imgdata);
-
-    TextureObjChunkPtr bottom_tex     = TextureObjChunk::create();
-    TextureEnvChunkPtr bottom_tex_env = TextureEnvChunk::create();
-
-    bottom_tex->setImage(bottom_img);
-    bottom_tex->setMinFilter(GL_LINEAR);
-    bottom_tex->setMagFilter(GL_LINEAR);
-    bottom_tex->setWrapS(GL_REPEAT);
-    bottom_tex->setWrapT(GL_REPEAT);
-    bottom_tex_env->setEnvMode(GL_MODULATE);
-
-    SimpleMaterialPtr bottom_mat = SimpleMaterial::create();
-    bottom_mat->setAmbient(Color3f(0.3,0.3,0.3));
-    bottom_mat->setDiffuse(Color3f(1.0,1.0,1.0));
-    bottom_mat->addChunk(bottom_tex);
-    bottom_mat->addChunk(bottom_tex_env);
+        // create light
+        TransformRefPtr  point1_trans;
+        PointLightRefPtr point1_core;
+        NodeRefPtr point1        = makeCoredNode<PointLight>(&point1_core );
+        NodeRefPtr point1_beacon = makeCoredNode<Transform >(&point1_trans);
+        point1_trans->editMatrix().setTranslate(0.0, 100.0, 0.0);
     
-    GeometryPtr bottom_geo = dynamic_cast<Geometry *>(bottom->getCore());
-    bottom_geo->setMaterial(bottom_mat);
+        point1_core->setAmbient(0.15,0.15,0.15,1);
+        point1_core->setDiffuse(0.8,0.8,0.8,1);
+        point1_core->setSpecular(0.0,0.0,0.0,1);
+        point1_core->setBeacon(point1_beacon);
+        point1_core->setOn(true);
     
-    // rotate the bottom about 90 degree.
-    TransformPtr bottom_trans_core;
-    NodePtr bottom_trans = makeCoredNode<Transform>(&bottom_trans_core);
-    Quaternion q;
-    q.setValueAsAxisDeg(1, 0, 0, -90);
-    bottom_trans_core->editMatrix().setRotate(q);
-    bottom_trans->addChild(bottom);
-
-    // create a sphere.
-    NodePtr sphere = makeLatLongSphere(50, 50, 1.0);
+        // create bottom
+        NodeRefPtr bottom = makePlane(50.0, 50.0, 128, 128);
+        
+        UChar8 imgdata[] =
+            {  255,0,0,  0,255,0,  0,0,255, 255,255,0 };
+        ImageRefPtr bottom_img = Image::create();
+        bottom_img->set(Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, imgdata);
     
-    // create the shader material
-    ChunkMaterialPtr cmat = ChunkMaterial::create();
-    _shl = SHLChunk::create();
-    _shl->setVertexProgram(_vp_program);
-    _shl->setFragmentProgram(_fp_program);
-    _shl->setUniformParameter("groundHeight", 1.0f);
-    _shl->setUniformParameter("bounceMin", -0.1f);
-    _shl->setUniformParameter("bounceHeight", 75.0f);
-    _shl->setUniformParameter("bounceSpeed", 0.05f);
-    _shl->setUniformParameter("time", 0.0f);
-    _shl->setUniformParameter("squeezeHeight", 1.0f);
-    _shl->setUniformParameter("ballColor", Vec3f(1.0f, 0.0f, 0.0f));
-
-    cmat->addChunk(_shl);
-
-    GeometryPtr spheregeo = dynamic_cast<Geometry *>(sphere->getCore());
-    spheregeo->setMaterial(cmat);
-
-    point1->addChild(bottom_trans);
-    point1->addChild(sphere);
-
-    _scene->addChild(point1_beacon);
-    _scene->addChild(point1);
-
-    // create ShadowViewport with a gradient background.
-    //ShadowMapViewportPtr svp = ShadowMapViewport::create();
-    GradientBackgroundPtr gbg = GradientBackground::create();
-
-    gbg->addLine(Color3f(0.7, 0.7, 0.8), 0);
-    gbg->addLine(Color3f(0.0, 0.1, 0.3), 1);
-
-    // Shadow viewport
-    //svp->setBackground(gbg);
-    //svp->setRoot(_scene);
-    //svp->setSize(0,0,1,1);
-    //svp->setOffFactor(10.0);
-    //svp->setOffBias(4.0);
-    //svp->setShadowColor(Color4f(0.1, 0.1, 0.1, 1.0));
-    //svp->setMapSize(1024);
-    // you can add the light sources here, as default all light source in
-    // the scenegraph are used.
-    //svp->getLightNodes().push_back(point1);
-
-    // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    //gwin->addPort(svp);
-    gwin->init();
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    _mgr->setWindow(gwin );
-    _mgr->setRoot  (_scene);
-
-    //svp->setCamera(_mgr->getCamera());
-
-    _mgr->turnHeadlightOff();
-
-    // show the whole scene
-    _mgr->showAll();
-    _mgr->getNavigator()->setFrom(Pnt3f(0.0, 31, 47));
+        TextureObjChunkRefPtr bottom_tex     = TextureObjChunk::create();
+        TextureEnvChunkRefPtr bottom_tex_env = TextureEnvChunk::create();
+    
+        bottom_tex->setImage(bottom_img);
+        bottom_tex->setMinFilter(GL_LINEAR);
+        bottom_tex->setMagFilter(GL_LINEAR);
+        bottom_tex->setWrapS(GL_REPEAT);
+        bottom_tex->setWrapT(GL_REPEAT);
+        bottom_tex_env->setEnvMode(GL_MODULATE);
+    
+        SimpleMaterialRefPtr bottom_mat = SimpleMaterial::create();
+        bottom_mat->setAmbient(Color3f(0.3,0.3,0.3));
+        bottom_mat->setDiffuse(Color3f(1.0,1.0,1.0));
+        bottom_mat->addChunk(bottom_tex);
+        bottom_mat->addChunk(bottom_tex_env);
+        
+        GeometryRefPtr bottom_geo = dynamic_cast<Geometry *>(bottom->getCore());
+        bottom_geo->setMaterial(bottom_mat);
+        
+        // rotate the bottom about 90 degree.
+        TransformRefPtr bottom_trans_core;
+        NodeRefPtr bottom_trans = makeCoredNode<Transform>(&bottom_trans_core);
+        Quaternion q;
+        q.setValueAsAxisDeg(1, 0, 0, -90);
+        bottom_trans_core->editMatrix().setRotate(q);
+        bottom_trans->addChild(bottom);
+    
+        // create a sphere.
+        NodeRefPtr sphere = makeLatLongSphere(50, 50, 1.0);
+        
+        // create the shader material
+        ChunkMaterialRefPtr cmat = ChunkMaterial::create();
+        _shl = SHLChunk::create();
+        _shl->setVertexProgram  (_vp_program);
+        _shl->setFragmentProgram(_fp_program);
+        _shl->setUniformParameter("groundHeight", 1.0f);
+        _shl->setUniformParameter("bounceMin", -0.1f);
+        _shl->setUniformParameter("bounceHeight", 75.0f);
+        _shl->setUniformParameter("bounceSpeed", 0.05f);
+        _shl->setUniformParameter("time", 0.0f);
+        _shl->setUniformParameter("squeezeHeight", 1.0f);
+        _shl->setUniformParameter("ballColor", Vec3f(1.0f, 0.0f, 0.0f));
+    
+        cmat->addChunk(_shl);
+    
+        GeometryRefPtr spheregeo = dynamic_cast<Geometry *>(sphere->getCore());
+        spheregeo->setMaterial(cmat);
+    
+        point1->addChild(bottom_trans);
+        point1->addChild(sphere);
+    
+        _scene->addChild(point1_beacon);
+        _scene->addChild(point1);
+    
+        // the connection between GLUT and OpenSG
+        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        _mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        _mgr->setWindow(gwin );
+        _mgr->setRoot  (_scene);
+    
+        //svp->setCamera(_mgr->getCamera());
+    
+        _mgr->turnHeadlightOff();
+    
+        // show the whole scene
+        _mgr->showAll();
+        _mgr->getNavigator()->setFrom(Pnt3f(0.0, 31, 47));
+    }
 
     // GLUT main loop
     glutMainLoop();
@@ -289,6 +274,11 @@ void keyboard(unsigned char k, int x, int y)
     switch(k)
     {
         case 27:
+            // clean up global variables
+            delete _mgr;
+            _scene = NULL;
+            _shl   = NULL;
+            
             OSG::osgExit();
             exit(0);
         break;
