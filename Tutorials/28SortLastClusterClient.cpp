@@ -1,4 +1,4 @@
-// OpenSG Tutorial Example: Hello World
+// OpenSG Tutorial Example: Sort Last Cluster
 //
 // Minimalistic OpenSG cluster client program demonstrating sort-last
 // clustering (i.e. using multiple machine to draw a single image)
@@ -53,7 +53,6 @@
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE
 
-using namespace std;
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager *mgr;
 
@@ -63,8 +62,7 @@ int setupGLUT( int *argc, char *argv[] );
 // Initialize GLUT & OpenSG and set up the scene
 int main(int argc, char **argv)
 {
-    char     *opt;
-    NodePtr   scene=NullFC;
+    char *opt;
 
     // OSG init
     osgInit(argc,argv);
@@ -72,24 +70,32 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between this client and the servers
-    SortLastWindowPtr mwin= SortLastWindow::create();
-
-    // all changes must be enclosed in beginEditCP and endEditCP
-    // otherwise the changes will not be transfered over the network.
-
-    // evaluate params
-    for(int a=1 ; a<argc ; ++a)
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
-        if(argv[a][0] == '-')
+        NodeRefPtr scene;
+        
+        // the connection between this client and the servers
+        SortLastWindowRefPtr mwin = SortLastWindow::create();
+    
+        // all changes must be enclosed in beginEditCP and endEditCP
+        // otherwise the changes will not be transfered over the network.
+    
+        // evaluate params
+        for(int a=1 ; a<argc ; ++a)
         {
-            switch(argv[a][1])
+            if(argv[a][0] == '-')
             {
+                switch(argv[a][1])
+                {
                 case 'm': mwin->setConnectionType("Multicast");
-                          cout << "Connection type set to Multicast" << endl;
+                          std::cout << "Connection type set to Multicast"
+                                    << std::endl;
                           break;
                 case 'p': mwin->setConnectionType("SockPipeline");
-                          cout << "Connection type set to SockPipeline" << endl;
+                          std::cout << "Connection type set to SockPipeline"
+                                    << std::endl;
                           break;
                 case 'i': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
@@ -101,83 +107,91 @@ int main(int argc, char **argv)
                           break;
                 case 'f': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
-                              scene = SceneFileHandler::the()->read(
-                                  opt,0);
+                              scene = SceneFileHandler::the()->read(opt, 0);
                           break;
                 case 'L':
-                    mwin->setComposer(PipelineComposer::create());
-                    break;
+                {
+                    ImageComposerRefPtr comp = PipelineComposer::create();
+                    mwin->setComposer(comp);
+                }
+                break;
                 case 'B':
-                    mwin->setComposer(BinarySwapComposer::create());
-                    break;
+                {
+                    ImageComposerRefPtr comp = BinarySwapComposer::create();
+                    mwin->setComposer(comp);
+                }
+                break;
                 case 'P':
-                    mwin->setComposer(ParallelComposer::create());
-                    break;
+                {
+                    ImageComposerRefPtr comp = ParallelComposer::create();
+                    mwin->setComposer(comp);
+                }
+                break;
                 default:  std::cout << argv[0]  
                                     << " -m"
                                     << " -p"
                                     << " -i interface"
                                     << " -f file"
-                                   << endLog;
-                          return 0;
+                                << endLog;
+                        return 0;
+                }
+            }
+            else
+            {
+                printf("%s\n",argv[a]);
+                mwin->editMFServers()->push_back(argv[a]);
             }
         }
-        else
+    
+        // Set the composer to use
+    
+        if(mwin->getComposer() == NULL)
         {
-            printf("%s\n",argv[a]);
-            mwin->editServers().push_back(argv[a]);
+            ImageComposerRefPtr comp = PipelineComposer::create();
+            mwin->setComposer(comp);
         }
+    
+        fprintf(stderr, "Using : %s\n", mwin->getComposer()->getType().getCName());
+    
+        // window size
+        mwin->setSize(300,300);
+    
+        // Create/set the client window that will display the result
+        
+        GLUTWindowRefPtr clientWindow = GLUTWindow::create();
+        
+        glutReshapeWindow(300,300);
+        clientWindow->setGlutId(winid);
+        clientWindow->init();
+        
+        clientWindow->resize(300,300);
+        
+        // Set the client window that will display the result
+        mwin->setClientWindow(clientWindow);
+        
+        // create default scene
+        if(scene == NULL)
+        {
+            scene = makeNodeFor(Group::create());
+    
+            scene->addChild(makeTorus(.5, 2, 16, 16));
+            scene->addChild(makeCylinder(1, .3, 8, true, true, true));
+        }
+        
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(mwin );
+        mgr->setRoot  (scene);
+        mgr->setUseTraversalAction(false);
+    
+        // show the whole scene
+        mgr->showAll();
+        
+        // initialize window
+        mwin->init();
     }
-
-    // Set the composer to use
-
-    if(mwin->getComposer() == NullFC)
-    {
-        mwin->setComposer(PipelineComposer::create());
-    }
-
-    fprintf(stderr, "Using : %s\n", mwin->getComposer()->getType().getCName());
-
-    // window size
-    mwin->setSize(300,300);
-
-    // Create/set the client window that will display the result
-    
-    GLUTWindowPtr clientWindow = GLUTWindow::create();
-    
-    glutReshapeWindow(300,300);
-    clientWindow->setGlutId(winid);
-    clientWindow->init();
-    
-    clientWindow->resize(300,300);
-    
-    // Set the client window that will display the result
-    mwin->setClientWindow(clientWindow);
-    
-    // end edit of cluster window
-
-    // create default scene
-    if(scene == NullFC)
-    {
-        scene = makeNodeFor(Group::create());
-
-        scene->addChild(makeTorus(.5, 2, 16, 16));
-        scene->addChild(makeCylinder(1, .3, 8, true, true, true));
-    }
-    
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(mwin );
-    mgr->setRoot  (scene);
-    mgr->setUseTraversalAction(false);
-
-    // show the whole scene
-    mgr->showAll();
-    
-    // initialize window
-    mwin->init();
     
     // GLUT main loop
     glutMainLoop();
@@ -228,8 +242,11 @@ void keyboard(unsigned char k, int x, int y)
 {
     switch(k)
     {
-        case 27:    
+        case 27: 
         {
+            // clean up global variables
+            delete mgr;
+            
             OSG::osgExit();
             exit(0);
         }
