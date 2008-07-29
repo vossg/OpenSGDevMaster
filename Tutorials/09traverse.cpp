@@ -88,18 +88,28 @@ void update(void)
     will not go deeper but skip all children of this node (and their children
     etc.). Action::Quit will abort the traversal on the spot and just unwind
     the enters on the way up.
+    
+    You may notice that the traversal functions do not take NodeRefPtr
+    arguments, but raw Node * instead. This is true for all OpenSG functions
+    and prevents unecessary increments/decrements of the reference count only
+    to pass a pointer to a function.
+    Note that this works because the objects are alive for the duration of
+    the function call anyways. If the arguments to a function are stored in
+    some data structure to be used later (e.g. from a different function) you
+    should store the pointer in a RefPtr to prevent the object from being
+    destroyed.
 */
 
 // these are the trivial traversal function, they just print and return
 Action::ResultE enter(Node *node)
-{   
+{
     SLOG << "entering " << node << endLog;
 
     return Action::Continue; 
 }
 
 Action::ResultE leave(Node *node, Action::ResultE res) 
-{ 
+{
     SLOG << "leaving " << node << ", got code " << res << endLog;
 
     // you should return the result that you're passed, to propagate Quits

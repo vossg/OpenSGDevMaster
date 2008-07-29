@@ -107,7 +107,7 @@ int main(int argc, char **argv)
     
             Using the position of the light in the graph for geometry allows
             moving the Light just like any other node, by putting it below a
-            osg::Transform Node and changing the transformation. This consistency
+            OSG::Transform Node and changing the transformation. This consistency
             also simplifies attaching Lights to moving parts in the scene: just
             put them below the same Transform and they will move with the object.
     
@@ -139,11 +139,8 @@ int main(int argc, char **argv)
     
             Tip: Using the beacon of the camera (see \ref PageSystemWindowCamera)
             as the beacon of a light source creates a headlight.
-    
-            NOTE: Currently OpenSG does not implement the restricted influence
-            area. All Light sources are global and light the whole scene. Expect
-            that to change soon! 
-    
+
+
             Every light is closely related to OpenGL's light specification. It has
             a diffuse, specular and ambient color. Additionally it can be switched
             on and off using the on field.

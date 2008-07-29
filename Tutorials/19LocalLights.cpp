@@ -1,6 +1,6 @@
 // OpenSG Tutorial Example: LocalLights
 //
-// This example shows how to create use local light sources.
+// This example shows how to create and use local light sources.
 // It creates four light sources (red, green, blue, white)
 // each light source lights only its subtree.
 
@@ -26,8 +26,8 @@
 OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *_mgr = NULL;
-NodePtr _scene = NullFC;
+SimpleSceneManager *_mgr   = NULL;
+NodeRefPtr          _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT(int *argc, char *argv[]);
@@ -48,103 +48,104 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // create the scene
-    _scene = makeCoredNode<Group>();
-
-    // create four lights sharing the same beacon.
-    TransformPtr light_trans;
-    NodePtr light_beacon = makeCoredNode<Transform>(&light_trans);
-    light_trans->editMatrix().setTranslate(0.0, 0.0, 10.0);
-
-    // red light.
-    PointLightPtr light1_core;
-    NodePtr light1 = makeCoredNode<PointLight>(&light1_core);
-    light1_core->setAmbient(0.0,0.0,0.0,1);
-    light1_core->setDiffuse(1.0,0.0,0.0,1);
-    light1_core->setSpecular(0.8,0.8,0.8,1);
-    light1_core->setBeacon(light_beacon);
-    light1_core->setOn(true);
-
-    // green light.
-    PointLightPtr light2_core;
-    NodePtr light2 = makeCoredNode<PointLight>(&light2_core);
-    light2_core->setAmbient(0.0,0.0,0.0,1);
-    light2_core->setDiffuse(0.0,1.0,0.0,1);
-    light2_core->setSpecular(0.8,0.8,0.8,1);
-    light2_core->setBeacon(light_beacon);
-    light2_core->setOn(true);
+    // open a new scope, because the pointers below should go out of scope
+    // before entering glutMainLoop.
+    // Otherwise OpenSG will complain about objects being alive after shutdown.
+    {
+        // the connection between GLUT and OpenSG
+        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
     
-    // blue light.
-    PointLightPtr light3_core;
-    NodePtr light3 = makeCoredNode<PointLight>(&light3_core);
-    light3_core->setAmbient(0.0,0.0,0.0,1);
-    light3_core->setDiffuse(0.0,0.0,1.0,1);
-    light3_core->setSpecular(0.8,0.8,0.8,1);
-    light3_core->setBeacon(light_beacon);
-    light3_core->setOn(true);
-
-    // white light.
-    PointLightPtr light4_core;
-    NodePtr light4 = makeCoredNode<PointLight>(&light4_core);
-    light4_core->setAmbient(0.0,0.0,0.0,1);
-    light4_core->setDiffuse(1.0,1.0,1.0,1);
-    light4_core->setSpecular(0.0,0.0,0.0,1);
-    light4_core->setBeacon(light_beacon);
-    light4_core->setOn(true);
-
-    NodePtr bottom = makePlane(25.0, 25.0, 128, 128);
-
-    // create three spheres.
-    NodePtr sphere1 = makeLatLongSphere(50, 50, 1.0);
-    TransformPtr sphere1_trans_core;
-    NodePtr sphere1_trans = makeCoredNode<Transform>(&sphere1_trans_core);
-    sphere1_trans_core->editMatrix().setTranslate(-5.0, 0.0, 5.0);
-    sphere1_trans->addChild(sphere1);
+        // create the scene
+        _scene = makeCoredNode<Group>();
     
-    NodePtr sphere2 = makeLatLongSphere(50, 50, 1.0);
-    TransformPtr sphere2_trans_core;
-    NodePtr sphere2_trans = makeCoredNode<Transform>(&sphere2_trans_core);
-    sphere2_trans_core->editMatrix().setTranslate(0.0, 0.0, 5.0);
-    sphere2_trans->addChild(sphere2);
+        // create four lights sharing the same beacon.
+        TransformRefPtr light_trans;
+        NodeRefPtr      light_beacon = makeCoredNode<Transform>(&light_trans);
+        light_trans->editMatrix().setTranslate(0.0, 0.0, 10.0);
     
-    NodePtr sphere3 = makeLatLongSphere(50, 50, 1.0);
-    TransformPtr sphere3_trans_core;
-    NodePtr sphere3_trans = makeCoredNode<Transform>(&sphere3_trans_core);
-    sphere3_trans_core->editMatrix().setTranslate(5.0, 0.0, 5.0);
-    sphere3_trans->addChild(sphere3);
+        // red light.
+        PointLightRefPtr light1_core;
+        NodeRefPtr       light1      = makeCoredNode<PointLight>(&light1_core);
+        light1_core->setAmbient(0.0,0.0,0.0,1);
+        light1_core->setDiffuse(1.0,0.0,0.0,1);
+        light1_core->setSpecular(0.8,0.8,0.8,1);
+        light1_core->setBeacon(light_beacon);
+        light1_core->setOn(true);
     
-    light1->addChild(sphere1_trans);
-    light2->addChild(sphere2_trans);
-    light3->addChild(sphere3_trans);
-    light4->addChild(bottom);
-
-    _scene->addChild(light_beacon);
-    _scene->addChild(light1);
-    _scene->addChild(light2);
-    _scene->addChild(light3);
-    _scene->addChild(light4);
-
-    commitChanges();
-
-    // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    _mgr->setWindow(gwin );
-    _mgr->setRoot  (_scene);
-    _mgr->turnHeadlightOff();
-
-    // show the whole scene
-    _mgr->showAll();
-
-    // enable local lights.
-    RenderAction *ract = _mgr->getRenderAction();
-//    ract->setLocalLights(true);
+        // green light.
+        PointLightRefPtr light2_core;
+        NodeRefPtr       light2      = makeCoredNode<PointLight>(&light2_core);
+        light2_core->setAmbient(0.0,0.0,0.0,1);
+        light2_core->setDiffuse(0.0,1.0,0.0,1);
+        light2_core->setSpecular(0.8,0.8,0.8,1);
+        light2_core->setBeacon(light_beacon);
+        light2_core->setOn(true);
+        
+        // blue light.
+        PointLightRefPtr light3_core;
+        NodeRefPtr       light3      = makeCoredNode<PointLight>(&light3_core);
+        light3_core->setAmbient(0.0,0.0,0.0,1);
+        light3_core->setDiffuse(0.0,0.0,1.0,1);
+        light3_core->setSpecular(0.8,0.8,0.8,1);
+        light3_core->setBeacon(light_beacon);
+        light3_core->setOn(true);
+    
+        // white light.
+        PointLightRefPtr light4_core;
+        NodeRefPtr       light4      = makeCoredNode<PointLight>(&light4_core);
+        light4_core->setAmbient(0.0,0.0,0.0,1);
+        light4_core->setDiffuse(1.0,1.0,1.0,1);
+        light4_core->setSpecular(0.0,0.0,0.0,1);
+        light4_core->setBeacon(light_beacon);
+        light4_core->setOn(true);
+    
+        NodeRefPtr bottom = makePlane(25.0, 25.0, 128, 128);
+    
+        // create three spheres.
+        NodeRefPtr      sphere1 = makeLatLongSphere(50, 50, 1.0);
+        TransformRefPtr sphere1_trans_core;
+        NodeRefPtr      sphere1_trans = makeCoredNode<Transform>(&sphere1_trans_core);
+        sphere1_trans_core->editMatrix().setTranslate(-5.0, 0.0, 5.0);
+        sphere1_trans->addChild(sphere1);
+        
+        NodeRefPtr      sphere2 = makeLatLongSphere(50, 50, 1.0);
+        TransformRefPtr sphere2_trans_core;
+        NodeRefPtr      sphere2_trans = makeCoredNode<Transform>(&sphere2_trans_core);
+        sphere2_trans_core->editMatrix().setTranslate(0.0, 0.0, 5.0);
+        sphere2_trans->addChild(sphere2);
+        
+        NodeRefPtr      sphere3 = makeLatLongSphere(50, 50, 1.0);
+        TransformRefPtr sphere3_trans_core;
+        NodeRefPtr      sphere3_trans = makeCoredNode<Transform>(&sphere3_trans_core);
+        sphere3_trans_core->editMatrix().setTranslate(5.0, 0.0, 5.0);
+        sphere3_trans->addChild(sphere3);
+        
+        light1->addChild(sphere1_trans);
+        light2->addChild(sphere2_trans);
+        light3->addChild(sphere3_trans);
+        light4->addChild(bottom);
+    
+        _scene->addChild(light_beacon);
+        _scene->addChild(light1);
+        _scene->addChild(light2);
+        _scene->addChild(light3);
+        _scene->addChild(light4);
+    
+        commitChanges();
+    
+        // create the SimpleSceneManager helper
+        _mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        _mgr->setWindow(gwin );
+        _mgr->setRoot  (_scene);
+        _mgr->turnHeadlightOff();
+    
+        // show the whole scene
+        _mgr->showAll();
+    }
 
     // GLUT main loop
     glutMainLoop();
@@ -187,6 +188,11 @@ void keyboard(unsigned char k, int x, int y)
     switch(k)
     {
         case 27:
+            
+            // clean up global variables
+            delete _mgr;
+            _scene = NULL;
+            
             OSG::osgExit();
             exit(0);
         break;
