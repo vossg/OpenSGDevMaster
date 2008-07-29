@@ -143,8 +143,8 @@ int main(int argc, char **argv)
     _mgr->showAll();
 
     // enable local lights.
-    RenderAction *ract = (RenderAction *) _mgr->getAction();
-    ract->setLocalLights(true);
+    RenderAction *ract = _mgr->getRenderAction();
+//    ract->setLocalLights(true);
 
     // GLUT main loop
     glutMainLoop();

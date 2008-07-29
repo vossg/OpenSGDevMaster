@@ -168,7 +168,7 @@ int main(int argc, char **argv)
     bottom_mat->addChunk(bottom_tex);
     bottom_mat->addChunk(bottom_tex_env);
     
-    GeometryPtr bottom_geo = dynamic_cast<GeometryPtr>(bottom->getCore());
+    GeometryPtr bottom_geo = dynamic_cast<Geometry *>(bottom->getCore());
     bottom_geo->setMaterial(bottom_mat);
     
     // rotate the bottom about 90 degree.
@@ -197,7 +197,7 @@ int main(int argc, char **argv)
 
     cmat->addChunk(_shl);
 
-    GeometryPtr spheregeo = dynamic_cast<GeometryPtr>(sphere->getCore());
+    GeometryPtr spheregeo = dynamic_cast<Geometry *>(sphere->getCore());
     spheregeo->setMaterial(cmat);
 
     point1->addChild(bottom_trans);
