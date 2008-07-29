@@ -59,7 +59,7 @@ OSG_USING_NAMESPACE using namespace std;
  *  \brief cluster node information
  **/
 
-RenderNode *RenderNode::            _prefefined[] =
+RenderNode *RenderNode::            _predefined[] =
 {
     // some nvidia cards
     new
@@ -262,13 +262,13 @@ void RenderNode::determinePerformance(Window *window)
     setRenderer(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
 
     // try to find precalculated values
-    for(c = 0; _prefefined[c] != NULL; ++c)
+    for(c = 0; _predefined[c] != NULL; ++c)
     {
-        if(_prefefined[c]->getVendor() == getVendor() &&
-                   _prefefined[c]->getRenderer() == getRenderer())
+        if(_predefined[c]->getVendor() == getVendor() &&
+           _predefined[c]->getRenderer() == getRenderer())
         {
             SLOG << "Predefined performance values used." << endl;
-            *this = *_prefefined[c];
+            *this = *_predefined[c];
             return;
         }
     }
@@ -573,3 +573,25 @@ double RenderNode::runRasterBench(void)
     glDeleteLists(dList, 1);
     return (vw * vh * c) / t;
 }
+
+bool RenderNode::cleanPredefined(void)
+{
+    for(UInt32 c = 0; _predefined[c] != NULL; ++c)
+    {
+        delete _predefined[c];
+
+        _predefined[c] = NULL;
+    }
+
+    return true;
+}
+
+bool RenderNode::registerCleanup(void)
+{
+    addPreMPExitFunction(&RenderNode::cleanPredefined);
+
+    return true;
+}
+
+StaticInitFuncWrapper RenderNode::RenderNodeInitCleanup(
+    &RenderNode::registerCleanup);

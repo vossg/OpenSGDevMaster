@@ -118,6 +118,14 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
                         const StatisticsForeground *source      = NULL);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    virtual void onDestroyAspect(UInt32 uiContainerId,
+                                 UInt32 uiAspect     );
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:

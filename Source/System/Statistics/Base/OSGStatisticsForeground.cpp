@@ -92,6 +92,14 @@ void StatisticsForeground::onCreateAspect(
     }
 }
 
+void StatisticsForeground::onDestroyAspect(UInt32 uiContainerId,
+                                           UInt32 uiAspect     )
+{
+    subRef(_sfCollector.getValue());
+
+    _sfCollector.setValue(NULL);
+}
+
 void StatisticsForeground::changed(ConstFieldMaskArg whichField, 
                                    UInt32            origin,
                                    BitVector         details)

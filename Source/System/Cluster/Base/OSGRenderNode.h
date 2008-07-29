@@ -168,7 +168,11 @@ class OSG_CLUSTER_DLLMAPPING RenderNode
     /*! \name                   helper                                     */
     /*! \{                                                                 */
 
-    static RenderNode *_prefefined[];
+    static RenderNode            *_predefined[];
+    static StaticInitFuncWrapper   RenderNodeInitCleanup;
+
+    static bool registerCleanup(void);
+    static bool cleanPredefined(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
