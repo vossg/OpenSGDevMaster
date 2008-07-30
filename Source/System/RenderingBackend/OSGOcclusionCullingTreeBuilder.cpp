@@ -50,6 +50,7 @@
 #include "OSGRenderTreeNodePool.h"
 #include "OSGOcclusionCullingTreeBuilder.h"
 #include "OSGBaseFunctions.h"
+#include "OSGBaseInitFunctions.h"
 #include "OSGRenderPartition.h"
 #include "OSGRenderAction.h"
 #include "OSGVolumeDraw.h"
@@ -288,6 +289,10 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
     if(!_isOccStateCreated)
     {
         _isOccStateCreated = true;
+        
+        // register an exit function to clean up the State object
+        addPreFactoryExitFunction(&releaseTestingState);
+        
         // Create an empty state to render test nodes.
         _testingStatePtr = State::create();
         
@@ -899,4 +904,11 @@ void OcclusionCullingTreeBuilder::add(DrawEnv &denv,
             FFATAL(("Unknown sort mode %d!\n", _sortMode));
             break;
     }
+}
+
+bool OcclusionCullingTreeBuilder::releaseTestingState(void)
+{
+    _isOccStateCreated = false;
+    _testingStatePtr   = NULL;
+    _testingState      = NULL;
 }

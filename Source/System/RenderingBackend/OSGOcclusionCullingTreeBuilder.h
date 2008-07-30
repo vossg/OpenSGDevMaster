@@ -269,6 +269,8 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
+    static bool releaseTestingState(void);
+    
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const OcclusionCullingTreeBuilder &source);    
 };
