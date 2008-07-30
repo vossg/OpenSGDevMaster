@@ -2661,7 +2661,11 @@ Int32 createSharedIndex(Geometry *geoPtr)
             for(UInt32 j = 1; j < indexBag[i].second.size(); ++j)
             {
                 slaveProp = geoPtr->getProperty(indexBag[i].second[j]);
-
+                
+                // there may be no property to the index
+                if(slaveProp == NULL)
+                    continue;
+                
                 if(slaveProp->getData() != NULL)
                 {
                     slaveDataVec .push_back(slaveProp->getData      ()  );
