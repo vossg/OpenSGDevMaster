@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::OrthographicCamera
+/*! \class OSG::OrthographicCamera
 An orthographic camera.
 */
 

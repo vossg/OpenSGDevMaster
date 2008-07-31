@@ -90,30 +90,30 @@ OSG_BEGIN_NAMESPACE
 
     See \ref PageSystemTextureObjChunk for a description.
 
-    This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,
-    osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),
-    glTexParameter (osg::TextureObjChunk::_sfMinFilter,
-    osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,
-    osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv
-    (osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,
-    osg::TextureObjChunk::_sfPriority).
+    This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,
+    OSG::TextureObjChunk::_sfInternalFormat, OSG::TextureObjChunk::_sfExternalFormat),
+    glTexParameter (OSG::TextureObjChunk::_sfMinFilter,
+    OSG::TextureObjChunk::_sfMagFilter, OSG::TextureObjChunk::_sfWrapS,
+    OSG::TextureObjChunk::_sfWrapT, OSG::TextureObjChunk::_sfWrapR), glTexEnv
+    (OSG::TextureObjChunk::_sfEnvMode, OSG::TextureObjChunk::_sfEnvColor,
+    OSG::TextureObjChunk::_sfPriority).
 
     The ARB combine extension is also supported,
-    where available (osg::TextureObjChunk::_sfEnvCombineRGB,
-    osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,
-    osg::TextureObjChunk::_sfEnvSource1RGB, osg::TextureObjChunk::_sfEnvSource2RGB,
-    osg::TextureObjChunk::_sfEnvOperand0RGB, osg::TextureObjChunk::_sfEnvOperand1RGB,
-    osg::TextureObjChunk::_sfEnvOperand2RGB,
-    osg::TextureObjChunk::_sfEnvCombineAlpha,   osg::TextureObjChunk::_sfEnvScaleAlpha,
-    osg::TextureObjChunk::_sfEnvSource0Alpha, osg::TextureObjChunk::_sfEnvSource1Alpha,
-    osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,
-    osg::TextureObjChunk::_sfEnvOperand1Alpha,
-    osg::TextureObjChunk::_sfEnvOperand2Alpha).
+    where available (OSG::TextureObjChunk::_sfEnvCombineRGB,
+    OSG::TextureObjChunk::_sfEnvScaleRGB, OSG::TextureObjChunk::_sfEnvSource0RGB,
+    OSG::TextureObjChunk::_sfEnvSource1RGB, OSG::TextureObjChunk::_sfEnvSource2RGB,
+    OSG::TextureObjChunk::_sfEnvOperand0RGB, OSG::TextureObjChunk::_sfEnvOperand1RGB,
+    OSG::TextureObjChunk::_sfEnvOperand2RGB,
+    OSG::TextureObjChunk::_sfEnvCombineAlpha,   OSG::TextureObjChunk::_sfEnvScaleAlpha,
+    OSG::TextureObjChunk::_sfEnvSource0Alpha, OSG::TextureObjChunk::_sfEnvSource1Alpha,
+    OSG::TextureObjChunk::_sfEnvSource2Alpha, OSG::TextureObjChunk::_sfEnvOperand0Alpha,
+    OSG::TextureObjChunk::_sfEnvOperand1Alpha,
+    OSG::TextureObjChunk::_sfEnvOperand2Alpha).
 
     It is possible to enable the point
-    sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \ref
+    sprite coordinate replacement  (OSG::TextureObjChunk::_sfPointSprite), see \ref
     PageSystemPointChunk for details. The two parameters
-    osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details
+    OSG::TextureObjChunk::_sfScale and OSG::TextureObjChunk::_sfFrame specify details
     about the texture.
 
     On hardware that supports it (i.e. NVidia boards) the texture shader
@@ -147,7 +147,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var UInt32          TextureObjChunkBase::_sfFrame
-    Select the frame of the image to be used. See osg::Image about details
+    Select the frame of the image to be used. See OSG::Image about details
     concerning multi-frame images.
     @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.
 */
@@ -317,7 +317,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "frame",
-        "Select the frame of the image to be used. See osg::Image about details\n"
+        "Select the frame of the image to be used. See OSG::Image about details\n"
         "concerning multi-frame images.\n"
         "@hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n",
         FrameFieldId, FrameFieldMask,
@@ -636,30 +636,30 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\n"
     "See \\ref PageSystemTextureObjChunk for a description.\n"
     "\n"
-    "This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,\n"
-    "osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),\n"
-    "glTexParameter (osg::TextureObjChunk::_sfMinFilter,\n"
-    "osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,\n"
-    "osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv\n"
-    "(osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,\n"
-    "osg::TextureObjChunk::_sfPriority).\n"
+    "This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,\n"
+    "OSG::TextureObjChunk::_sfInternalFormat, OSG::TextureObjChunk::_sfExternalFormat),\n"
+    "glTexParameter (OSG::TextureObjChunk::_sfMinFilter,\n"
+    "OSG::TextureObjChunk::_sfMagFilter, OSG::TextureObjChunk::_sfWrapS,\n"
+    "OSG::TextureObjChunk::_sfWrapT, OSG::TextureObjChunk::_sfWrapR), glTexEnv\n"
+    "(OSG::TextureObjChunk::_sfEnvMode, OSG::TextureObjChunk::_sfEnvColor,\n"
+    "OSG::TextureObjChunk::_sfPriority).\n"
     "\n"
     "The ARB combine extension is also supported,\n"
-    "where available (osg::TextureObjChunk::_sfEnvCombineRGB,\n"
-    "osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,\n"
-    "osg::TextureObjChunk::_sfEnvSource1RGB, osg::TextureObjChunk::_sfEnvSource2RGB,\n"
-    "osg::TextureObjChunk::_sfEnvOperand0RGB, osg::TextureObjChunk::_sfEnvOperand1RGB,\n"
-    "osg::TextureObjChunk::_sfEnvOperand2RGB,\n"
-    "osg::TextureObjChunk::_sfEnvCombineAlpha,   osg::TextureObjChunk::_sfEnvScaleAlpha,\n"
-    "osg::TextureObjChunk::_sfEnvSource0Alpha, osg::TextureObjChunk::_sfEnvSource1Alpha,\n"
-    "osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,\n"
-    "osg::TextureObjChunk::_sfEnvOperand1Alpha,\n"
-    "osg::TextureObjChunk::_sfEnvOperand2Alpha).\n"
+    "where available (OSG::TextureObjChunk::_sfEnvCombineRGB,\n"
+    "OSG::TextureObjChunk::_sfEnvScaleRGB, OSG::TextureObjChunk::_sfEnvSource0RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvSource1RGB, OSG::TextureObjChunk::_sfEnvSource2RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand0RGB, OSG::TextureObjChunk::_sfEnvOperand1RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand2RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvCombineAlpha,   OSG::TextureObjChunk::_sfEnvScaleAlpha,\n"
+    "OSG::TextureObjChunk::_sfEnvSource0Alpha, OSG::TextureObjChunk::_sfEnvSource1Alpha,\n"
+    "OSG::TextureObjChunk::_sfEnvSource2Alpha, OSG::TextureObjChunk::_sfEnvOperand0Alpha,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand1Alpha,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand2Alpha).\n"
     "\n"
     "It is possible to enable the point\n"
-    "sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \\ref\n"
+    "sprite coordinate replacement  (OSG::TextureObjChunk::_sfPointSprite), see \\ref\n"
     "PageSystemPointChunk for details. The two parameters\n"
-    "osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details\n"
+    "OSG::TextureObjChunk::_sfScale and OSG::TextureObjChunk::_sfFrame specify details\n"
     "about the texture.\n"
     "\n"
     "On hardware that supports it (i.e. NVidia boards) the texture shader\n"
@@ -724,7 +724,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tdefaultValue=\"0\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
-    "        Select the frame of the image to be used. See osg::Image about details\n"
+    "        Select the frame of the image to be used. See OSG::Image about details\n"
     "        concerning multi-frame images.\n"
     "        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n"
     "\t</Field>\n"
@@ -981,30 +981,30 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\n"
     "See \\ref PageSystemTextureObjChunk for a description.\n"
     "\n"
-    "This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,\n"
-    "osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),\n"
-    "glTexParameter (osg::TextureObjChunk::_sfMinFilter,\n"
-    "osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,\n"
-    "osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv\n"
-    "(osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,\n"
-    "osg::TextureObjChunk::_sfPriority).\n"
+    "This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,\n"
+    "OSG::TextureObjChunk::_sfInternalFormat, OSG::TextureObjChunk::_sfExternalFormat),\n"
+    "glTexParameter (OSG::TextureObjChunk::_sfMinFilter,\n"
+    "OSG::TextureObjChunk::_sfMagFilter, OSG::TextureObjChunk::_sfWrapS,\n"
+    "OSG::TextureObjChunk::_sfWrapT, OSG::TextureObjChunk::_sfWrapR), glTexEnv\n"
+    "(OSG::TextureObjChunk::_sfEnvMode, OSG::TextureObjChunk::_sfEnvColor,\n"
+    "OSG::TextureObjChunk::_sfPriority).\n"
     "\n"
     "The ARB combine extension is also supported,\n"
-    "where available (osg::TextureObjChunk::_sfEnvCombineRGB,\n"
-    "osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,\n"
-    "osg::TextureObjChunk::_sfEnvSource1RGB, osg::TextureObjChunk::_sfEnvSource2RGB,\n"
-    "osg::TextureObjChunk::_sfEnvOperand0RGB, osg::TextureObjChunk::_sfEnvOperand1RGB,\n"
-    "osg::TextureObjChunk::_sfEnvOperand2RGB,\n"
-    "osg::TextureObjChunk::_sfEnvCombineAlpha,   osg::TextureObjChunk::_sfEnvScaleAlpha,\n"
-    "osg::TextureObjChunk::_sfEnvSource0Alpha, osg::TextureObjChunk::_sfEnvSource1Alpha,\n"
-    "osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,\n"
-    "osg::TextureObjChunk::_sfEnvOperand1Alpha,\n"
-    "osg::TextureObjChunk::_sfEnvOperand2Alpha).\n"
+    "where available (OSG::TextureObjChunk::_sfEnvCombineRGB,\n"
+    "OSG::TextureObjChunk::_sfEnvScaleRGB, OSG::TextureObjChunk::_sfEnvSource0RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvSource1RGB, OSG::TextureObjChunk::_sfEnvSource2RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand0RGB, OSG::TextureObjChunk::_sfEnvOperand1RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand2RGB,\n"
+    "OSG::TextureObjChunk::_sfEnvCombineAlpha,   OSG::TextureObjChunk::_sfEnvScaleAlpha,\n"
+    "OSG::TextureObjChunk::_sfEnvSource0Alpha, OSG::TextureObjChunk::_sfEnvSource1Alpha,\n"
+    "OSG::TextureObjChunk::_sfEnvSource2Alpha, OSG::TextureObjChunk::_sfEnvOperand0Alpha,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand1Alpha,\n"
+    "OSG::TextureObjChunk::_sfEnvOperand2Alpha).\n"
     "\n"
     "It is possible to enable the point\n"
-    "sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \\ref\n"
+    "sprite coordinate replacement  (OSG::TextureObjChunk::_sfPointSprite), see \\ref\n"
     "PageSystemPointChunk for details. The two parameters\n"
-    "osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details\n"
+    "OSG::TextureObjChunk::_sfScale and OSG::TextureObjChunk::_sfFrame specify details\n"
     "about the texture.\n"
     "\n"
     "On hardware that supports it (i.e. NVidia boards) the texture shader\n"

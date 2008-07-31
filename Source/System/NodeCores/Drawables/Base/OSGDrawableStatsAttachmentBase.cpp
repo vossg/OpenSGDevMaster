@@ -83,10 +83,10 @@ OSG_BEGIN_NAMESPACE
     changed callbacks, so that no manual bookkeeping is necessary.
 
     \warning To use the automatic update you have to use the
-    osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()
+    OSG::GeoStatsAttachment::addTo() or OSG::GeoStatsAttachment::attachTo()
     methods! Otherwise the necessary callbacks are not set!
 
-    \warning Before accessing the data osg::GeoStatsAttachment::validate() needs
+    \warning Before accessing the data OSG::GeoStatsAttachment::validate() needs
     to be called to calculate and aggregate the results.
  */
 
@@ -245,10 +245,10 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     "changed callbacks, so that no manual bookkeeping is necessary.\n"
     "\n"
     "\\warning To use the automatic update you have to use the\n"
-    "osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()\n"
+    "OSG::GeoStatsAttachment::addTo() or OSG::GeoStatsAttachment::attachTo()\n"
     "methods! Otherwise the necessary callbacks are not set!\n"
     "\n"
-    "\\warning Before accessing the data osg::GeoStatsAttachment::validate() needs\n"
+    "\\warning Before accessing the data OSG::GeoStatsAttachment::validate() needs\n"
     "to be called to calculate and aggregate the results.\n"
     "\t<Field\n"
     "\t\tname=\"vertices\"\n"
@@ -323,10 +323,10 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     "changed callbacks, so that no manual bookkeeping is necessary.\n"
     "\n"
     "\\warning To use the automatic update you have to use the\n"
-    "osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()\n"
+    "OSG::GeoStatsAttachment::addTo() or OSG::GeoStatsAttachment::attachTo()\n"
     "methods! Otherwise the necessary callbacks are not set!\n"
     "\n"
-    "\\warning Before accessing the data osg::GeoStatsAttachment::validate() needs\n"
+    "\\warning Before accessing the data OSG::GeoStatsAttachment::validate() needs\n"
     "to be called to calculate and aggregate the results.\n"
     );
 

@@ -71,7 +71,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::HDRStage
+/*! \class OSG::HDRStage
 
 */
 

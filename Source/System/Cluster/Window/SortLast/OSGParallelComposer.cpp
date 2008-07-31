@@ -55,7 +55,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ParallelComposer
+/*! \class OSG::ParallelComposer
 
 */
 

@@ -89,10 +89,10 @@ OSG_BEGIN_NAMESPACE
     directly and present them to the user in another way such as a GUI or text output.
 
     The format of every element is given by a format string for every element that
-    is directly passed to osg::StatElem::putToString(), so go there to see the
+    is directly passed to OSG::StatElem::putToString(), so go there to see the
     possible options.
 
-    If no elementIDs are given all elements in the osg::StatCollector are display,
+    If no elementIDs are given all elements in the OSG::StatCollector are display,
     using the default format.
 
     See \guide(Statistics) for further details.
@@ -179,10 +179,10 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     "directly and present them to the user in another way such as a GUI or text output.\n"
     "\n"
     "The format of every element is given by a format string for every element that\n"
-    "is directly passed to osg::StatElem::putToString(), so go there to see the\n"
+    "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
     "possible options.\n"
     "\n"
-    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "If no elementIDs are given all elements in the OSG::StatCollector are display,\n"
     "using the default format.\n"
     "\n"
     "See \\guide(Statistics) for further details.\n"
@@ -219,10 +219,10 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     "directly and present them to the user in another way such as a GUI or text output.\n"
     "\n"
     "The format of every element is given by a format string for every element that\n"
-    "is directly passed to osg::StatElem::putToString(), so go there to see the\n"
+    "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
     "possible options.\n"
     "\n"
-    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "If no elementIDs are given all elements in the OSG::StatCollector are display,\n"
     "using the default format.\n"
     "\n"
     "See \\guide(Statistics) for further details.\n"

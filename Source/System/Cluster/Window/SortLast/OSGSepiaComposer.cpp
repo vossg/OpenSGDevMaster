@@ -48,7 +48,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::SepiaComposer
+/*! \class OSG::SepiaComposer
 
  This composer implements the binary swap composition. 
 */

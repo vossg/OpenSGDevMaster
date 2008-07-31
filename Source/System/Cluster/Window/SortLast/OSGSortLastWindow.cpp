@@ -62,7 +62,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::SortLastWindow
+/*! \class OSG::SortLastWindow
 Cluster rendering configuration for sort first image composition
 */
 

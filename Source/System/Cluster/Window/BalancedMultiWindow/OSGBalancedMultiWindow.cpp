@@ -87,7 +87,7 @@ static void multFullMatrixPnt4 (Matrix m, Pnt4f &p)
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::BalancedMultiWindow
+/*! \class OSG::BalancedMultiWindow
 Load balanced sort first rendering for multiple windows
 */
 

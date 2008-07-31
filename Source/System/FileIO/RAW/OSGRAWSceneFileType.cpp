@@ -64,7 +64,7 @@ OSG_USING_NAMESPACE
 #endif
 
 
-/*! \class osg::RAWSceneFileType
+/*! \class OSG::RAWSceneFileType
     \ingroup GrpSystemFileIO
 
  */

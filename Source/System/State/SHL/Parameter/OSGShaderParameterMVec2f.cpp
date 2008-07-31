@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ShaderParameterMVec2f
+/*! \class OSG::ShaderParameterMVec2f
 
 */
 

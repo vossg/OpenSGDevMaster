@@ -76,7 +76,7 @@ OSG_USING_NAMESPACE
 /*! \class OSG::VRMLFile
  */
 
-/*! \var osg::VRMLFile::PushNames
+/*! \var OSG::VRMLFile::PushNames
     Option to push the name attachments for entities that can not have a
     NameAttachment in OpenSG to their respective parent.
     

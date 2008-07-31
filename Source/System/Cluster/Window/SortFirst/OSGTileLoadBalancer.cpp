@@ -56,7 +56,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::TileLoadBalancer
+/** \class OSG::TileLoadBalancer
  *  \ingroup Cluster
  *  \brief Manages geometry load
  *

@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ShaderParameterMInt
+/*! \class OSG::ShaderParameterMInt
 
 */
 

@@ -51,7 +51,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::TileGeometryLoad
+/** \class OSG::TileGeometryLoad
  *  \ingroup Cluster
  *  \brief TileGeometryLoad holds the load caused by geometry rendering
  *

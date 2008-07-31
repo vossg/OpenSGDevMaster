@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
 
     SimpleStatisticsForeground displays the Statistics info as simple lines of text.
 
-    osg::SimpleStatisticsForeground displays the statistics info as simple text
+    OSG::SimpleStatisticsForeground displays the statistics info as simple text
     lines. They are displayed using a compiled-in font that can use an arbitrary
     color and that can be arbitrarily resized, with the size per line given in
     pixel.
@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
     is directly passed to OSG::StatElem::putToString(), so go there to see the
     possible options.
 
-    If no elementIDs are given all elements in the osg::StatCollector are display,
+    If no elementIDs are given all elements in the OSG::StatCollector are display,
     using the default format.
 
     The format string for the given elements are stored in the _mfFormats Field,
@@ -328,7 +328,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     "\n"
     "SimpleStatisticsForeground displays the Statistics info as simple lines of text.\n"
     "\n"
-    "osg::SimpleStatisticsForeground displays the statistics info as simple text\n"
+    "OSG::SimpleStatisticsForeground displays the statistics info as simple text\n"
     "lines. They are displayed using a compiled-in font that can use an arbitrary\n"
     "color and that can be arbitrarily resized, with the size per line given in\n"
     "pixel.\n"
@@ -337,7 +337,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
     "possible options.\n"
     "\n"
-    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "If no elementIDs are given all elements in the OSG::StatCollector are display,\n"
     "using the default format.\n"
     "\n"
     "The format string for the given elements are stored in the _mfFormats Field,\n"
@@ -467,7 +467,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     "\n"
     "SimpleStatisticsForeground displays the Statistics info as simple lines of text.\n"
     "\n"
-    "osg::SimpleStatisticsForeground displays the statistics info as simple text\n"
+    "OSG::SimpleStatisticsForeground displays the statistics info as simple text\n"
     "lines. They are displayed using a compiled-in font that can use an arbitrary\n"
     "color and that can be arbitrarily resized, with the size per line given in\n"
     "pixel.\n"
@@ -476,7 +476,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
     "possible options.\n"
     "\n"
-    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "If no elementIDs are given all elements in the OSG::StatCollector are display,\n"
     "using the default format.\n"
     "\n"
     "The format string for the given elements are stored in the _mfFormats Field,\n"

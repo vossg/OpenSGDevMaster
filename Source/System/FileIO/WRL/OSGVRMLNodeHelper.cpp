@@ -2764,7 +2764,7 @@ VRMLNodeHelperFactoryBase::RegisterHelper
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLGeometryObjectDesc
+/*! \class OSG::VRMLGeometryObjectDesc
     \ingroup GrpSystemFileIOVRML
     VRML Geometry Object Set description
 */

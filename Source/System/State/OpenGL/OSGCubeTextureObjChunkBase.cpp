@@ -87,9 +87,9 @@ OSG_BEGIN_NAMESPACE
     The CubeTexture is defined by 6 separate texture images. As it is derived from 
     the standard texture chunk it already has an image, which is used for the 
     negative Z direction. The other 5 images are stored in variables that are named
-    according to the direction they represent (osg::CubeTextureObjChunk::_sfPosZImage,
-    osg::CubeTextureObjChunk::_sfNegYImage, osg::CubeTextureObjChunk::_sfPosYImage, 
-    osg::CubeTextureObjChunk::_sfNegXImage, osg::CubeTextureObjChunk::_sfPosXImage).
+    according to the direction they represent (OSG::CubeTextureObjChunk::_sfPosZImage,
+    OSG::CubeTextureObjChunk::_sfNegYImage, OSG::CubeTextureObjChunk::_sfPosYImage, 
+    OSG::CubeTextureObjChunk::_sfNegXImage, OSG::CubeTextureObjChunk::_sfPosXImage).
  */
 
 /***************************************************************************\
@@ -214,9 +214,9 @@ CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(
     "The CubeTexture is defined by 6 separate texture images. As it is derived from \n"
     "the standard texture chunk it already has an image, which is used for the \n"
     "negative Z direction. The other 5 images are stored in variables that are named\n"
-    "according to the direction they represent (osg::CubeTextureObjChunk::_sfPosZImage,\n"
-    "osg::CubeTextureObjChunk::_sfNegYImage, osg::CubeTextureObjChunk::_sfPosYImage, \n"
-    "osg::CubeTextureObjChunk::_sfNegXImage, osg::CubeTextureObjChunk::_sfPosXImage).\n"
+    "according to the direction they represent (OSG::CubeTextureObjChunk::_sfPosZImage,\n"
+    "OSG::CubeTextureObjChunk::_sfNegYImage, OSG::CubeTextureObjChunk::_sfPosYImage, \n"
+    "OSG::CubeTextureObjChunk::_sfNegXImage, OSG::CubeTextureObjChunk::_sfPosXImage).\n"
     "\t<Field\n"
     "\t\tname=\"posZImage\"\n"
     "\t\ttype=\"ImagePtr\"\n"
@@ -270,9 +270,9 @@ CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(
     "The CubeTexture is defined by 6 separate texture images. As it is derived from \n"
     "the standard texture chunk it already has an image, which is used for the \n"
     "negative Z direction. The other 5 images are stored in variables that are named\n"
-    "according to the direction they represent (osg::CubeTextureObjChunk::_sfPosZImage,\n"
-    "osg::CubeTextureObjChunk::_sfNegYImage, osg::CubeTextureObjChunk::_sfPosYImage, \n"
-    "osg::CubeTextureObjChunk::_sfNegXImage, osg::CubeTextureObjChunk::_sfPosXImage).\n"
+    "according to the direction they represent (OSG::CubeTextureObjChunk::_sfPosZImage,\n"
+    "OSG::CubeTextureObjChunk::_sfNegYImage, OSG::CubeTextureObjChunk::_sfPosYImage, \n"
+    "OSG::CubeTextureObjChunk::_sfNegXImage, OSG::CubeTextureObjChunk::_sfPosXImage).\n"
     );
 
 /*------------------------------ get -----------------------------------*/

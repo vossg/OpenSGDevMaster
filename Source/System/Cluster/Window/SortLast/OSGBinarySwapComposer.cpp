@@ -50,7 +50,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::BinarySwapComposer
+/*! \class OSG::BinarySwapComposer
 
  This composer implements the binary swap composition. 
 */

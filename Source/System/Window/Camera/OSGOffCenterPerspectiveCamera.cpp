@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::OffCenterPerspectiveCamera
+/*! \class OSG::OffCenterPerspectiveCamera
     \ingroup GrpSystemWindowCameras
 
 The OffCenter Perspective Camera class.

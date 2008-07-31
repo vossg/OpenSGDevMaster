@@ -62,7 +62,7 @@ ClusterViewBuffer SortFirstWindow::_bufferHandler;
 
 // #define USE_VPORT_SLICES
 
-/*! \class osg::SortFirstWindow
+/*! \class OSG::SortFirstWindow
     \ingroup GrpSystemCluster
     Cluster rendering configuration for sort first image composition
 */
