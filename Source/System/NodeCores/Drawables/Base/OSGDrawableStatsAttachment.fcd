@@ -18,10 +18,10 @@ the contributions of the underlying nodes. It can invalidate itself by using
 changed callbacks, so that no manual bookkeeping is necessary.
 
 \warning To use the automatic update you have to use the
-osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()
+OSG::GeoStatsAttachment::addTo() or OSG::GeoStatsAttachment::attachTo()
 methods! Otherwise the necessary callbacks are not set!
 
-\warning Before accessing the data osg::GeoStatsAttachment::validate() needs
+\warning Before accessing the data OSG::GeoStatsAttachment::validate() needs
 to be called to calculate and aggregate the results.
 	<Field
 		name="vertices"
