@@ -97,6 +97,8 @@
 #include "OSGFrameBufferObject.h"
 #include "OSGDrawEnv.h"
 #include "OSGFrameBufferAttachment.h"
+#include "OSGTextureBuffer.h"
+#include "OSGTextureObjChunk.h"
 
 OSG_USING_NAMESPACE
 
@@ -121,6 +123,9 @@ UInt32 FrameBufferObject::_uiFuncFramebufferRenderbuffer  =
 UInt32 FrameBufferObject::_uiFuncDrawBuffers              =
     Window::invalidFunctionID;
 
+UInt32 FrameBufferObject::_uiFuncGenerateMipmap           =
+    Window::invalidFunctionID;
+
 typedef void   (OSG_APIENTRY *GLGenFramebuffersEXTProcT)(GLsizei, 
                                                          GLuint *);
 
@@ -142,6 +147,8 @@ typedef void   (OSG_APIENTRY *GLFramebufferRenderbufferEXTProcT)(
 typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
           GLsizei  n, 
     const GLenum  *buffers);
+
+typedef void   (OSG_APIENTRY *GLGenerateMipmapEXTProcT)(GLenum target);
 
 // Documentation for this class is emited in the
 // OSGFrameBufferObjectBase.cpp file.
@@ -227,6 +234,11 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
         _uiFuncDrawBuffers  =
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
+                _uiFramebuffer_object_extension);
+
+        _uiFuncGenerateMipmap =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
                 _uiFramebuffer_object_extension);
     }
 
@@ -356,6 +368,42 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
             win->getFunction(_uiFuncBindFramebuffer));
 
     glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, 0);
+    
+    // If there are TextureBuffers with mipmap filters attached,
+    // the mipmaps need to be regenerated
+    GLGenerateMipmapEXTProcT glGenerateMipmapExtProc =
+        reinterpret_cast<GLGenerateMipmapEXTProcT>(
+            win->getFunction(_uiFuncGenerateMipmap));
+    
+    MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
+        _mfColorAttachments.begin();
+    MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
+        _mfColorAttachments.end  ();
+    
+    for(; attIt != attEnd; ++attIt)
+    {
+        TextureBuffer   *texBuf = dynamic_cast<TextureBuffer *>(*attIt);
+        
+        if(texBuf == NULL)
+            continue;
+        
+        TextureObjChunk *texObj = texBuf->getTexture();
+        
+        if(texObj == NULL)
+            continue;
+        
+        GLenum target = texObj->determineTextureTarget(win);
+        
+        if(target                  == GL_TEXTURE_2D                 &&
+           (texObj->getMinFilter() == GL_NEAREST_MIPMAP_NEAREST ||
+            texObj->getMinFilter() == GL_LINEAR_MIPMAP_NEAREST  ||
+            texObj->getMinFilter() == GL_NEAREST_MIPMAP_LINEAR  ||
+            texObj->getMinFilter() == GL_LINEAR_MIPMAP_LINEAR     )   )
+        {
+            glBindTexture(target, win->getGLObjectId(texObj->getGLId()));
+            glGenerateMipmapExtProc(target);
+        }
+    }
 }
 
 void FrameBufferObject::handleGL(DrawEnv                 *pEnv, 

@@ -140,6 +140,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     static UInt32 _uiFuncDeleteFramebuffers;
     static UInt32 _uiFuncFramebufferRenderbuffer;
     static UInt32 _uiFuncDrawBuffers;
+    static UInt32 _uiFuncGenerateMipmap;
 
            void handleGL       (DrawEnv                 *pEnv, 
                                 UInt32                   id, 
