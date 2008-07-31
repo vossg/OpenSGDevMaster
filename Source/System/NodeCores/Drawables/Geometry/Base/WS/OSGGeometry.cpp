@@ -193,8 +193,8 @@ void Geometry::adjustVolume(Volume & volume)
     if(pos == NULL)
         return;                  // Node has no points, no volume
 
-    volume.setValid();
-        
+    _volumeCache.setValid();
+    
     PrimitiveIterator it  = this->beginPrimitives();
     PrimitiveIterator end = this->endPrimitives  ();
 
@@ -202,11 +202,11 @@ void Geometry::adjustVolume(Volume & volume)
     {
         for(UInt32 v = 0; v < it.getLength(); ++v)
         {
-            volume.extendBy(it.getPosition(v));
+            _volumeCache.extendBy(it.getPosition(v));
         }
     }
 
-    _volumeCache.extendBy(volume);
+    volume.extendBy(_volumeCache);
 }
 
 
