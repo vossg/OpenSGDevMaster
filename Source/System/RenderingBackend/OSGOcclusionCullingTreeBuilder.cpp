@@ -911,4 +911,6 @@ bool OcclusionCullingTreeBuilder::releaseTestingState(void)
     _isOccStateCreated = false;
     _testingStatePtr   = NULL;
     _testingState      = NULL;
+
+    return true;
 }
