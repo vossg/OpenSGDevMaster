@@ -1,0 +1,25 @@
+OpenSG Tutorial
+===============
+
+The files in this directory are part of the OpenSG tutorial you can find on
+the project's website (opensg.vrsource.org/trac/wiki/Tutorial).
+
+To build the programs you need scons which you can download (www.scons.org) or
+(if you have a complete OpenSG source tree) use the version
+Tools/scons-local/scons.py.  In order to find the OpenSG libraries the
+included SConstruct file looks for the osg2-config tool that is normally
+installed with OpenSG. If osg2-config can not be found on your PATH, please
+pass the OPENSG2CONFIGDIR=/dir/where/osg2-config/can/be/found command line
+argument when invoking scons.
+
+Although the tutorial programs are better commented than the OpenSG code base
+in general ( ;) ) we still recommend that you follow the online tutorial as it
+conains information on what aspect of the system is demonstrated and how these
+relate to each other.
+The online tutorial is part of our wiki, so if you find typos or would like to
+improve the explanations there, you are welcome to edit the pages. For
+questions, ideas or contributions you can contact the opensg-users mailing
+list opensg-users@lists.sourceforge.net.
+
+    Enjoy,
+        The OpenSG Team
