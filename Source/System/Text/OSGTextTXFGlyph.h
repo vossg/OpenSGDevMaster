@@ -68,19 +68,19 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
   public:
 
     /** Destroys a %TextTXFGlyph object. */
-    virtual ~TextTXFGlyph();
+    virtual ~TextTXFGlyph(void);
 
     /**
      * Returns the width of the glyph.
      * @return The width of the glyph
      */
-    virtual Real32 getWidth() const;
+    virtual Real32 getWidth(void) const;
 
     /**
      * Returns the height of the glyph.
      * @return The height of the glyph
      */
-    virtual Real32 getHeight() const;
+    virtual Real32 getHeight(void) const;
 
     /**
      * Returns the x bearing of the glyph for horizontal layout.
@@ -88,7 +88,7 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * border of the glyph.
      * @return The x bearing of the glyph for horizontal layout
      */
-    virtual Real32 getHoriBearingX() const;
+    virtual Real32 getHoriBearingX(void) const;
 
     /**
      * Returns the y bearing of the glyph for horizontal layout.
@@ -96,7 +96,7 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * border of the glyph.
      * @return The y bearing of the glyph for horizontal layout
      */
-    virtual Real32 getHoriBearingY() const;
+    virtual Real32 getHoriBearingY(void) const;
 
     /**
      * Returns the x bearing of the glyph for vertical layout.
@@ -104,7 +104,7 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * border of the glyph.
      * @return The x bearing of the glyph for vertical layout
      */
-    virtual Real32 getVertBearingX() const;
+    virtual Real32 getVertBearingX(void) const;
 
     /**
      * Returns the y bearing of the glyph for vertical layout.
@@ -112,31 +112,31 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * border of the glyph.
      * @return The y bearing of the glyph for vertical layout
      */
-    virtual Real32 getVertBearingY() const;
+    virtual Real32 getVertBearingY(void) const;
 
     /**
      * Returns the x position of the glyph in the texture.
      * @return The x position of the glyph in the texture
      */
-    inline UInt32 getX() const;
+    inline UInt32 getX(void) const;
 
     /**
      * Returns the y position of the glyph in the texture.
      * @return The y position of the glyph in the texture
      */
-    inline UInt32 getY() const;
+    inline UInt32 getY(void) const;
 
     /**
      * Returns the width of the glyph in pixels.
      * @return The width of the glyph
      */
-    inline UInt32 getPixmapWidth() const;
+    inline UInt32 getPixmapWidth(void) const;
 
     /**
      * Returns the height of the glyph in pixels.
      * @return The height of the glyph
      */
-    inline UInt32 getPixmapHeight() const;
+    inline UInt32 getPixmapHeight(void) const;
 
     /**
      * Returns the x bearing of the glyph in pixels for horizontal layout.
@@ -144,7 +144,7 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * of the glyph.
      * @return The x bearing of the glyph for horizontal layout
      */
-    inline Int32 getPixmapHoriBearingX() const;
+    inline Int32 getPixmapHoriBearingX(void) const;
 
     /**
      * Returns the y bearing of the glyph in pixels for horizontal layout.
@@ -152,7 +152,7 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * of the glyph.
      * @return The y bearing of the glyph for horizontal layout
      */
-    inline Int32 getPixmapHoriBearingY() const;
+    inline Int32 getPixmapHoriBearingY(void) const;
 
     /**
      * Returns the x bearing of the glyph in pixels for vertical layout.
@@ -160,7 +160,7 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * of the glyph.
      * @return The x bearing of the glyph for vertical layout
      */
-    inline Int32 getPixmapVertBearingX() const;
+    inline Int32 getPixmapVertBearingX(void) const;
 
     /**
      * Returns the y bearing of the glyph in pixels for vertical layout.
@@ -168,13 +168,13 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
      * of the glyph.
      * @return The y bearing of the glyph for vertical layout
      */
-    inline Int32 getPixmapVertBearingY() const;
+    inline Int32 getPixmapVertBearingY(void) const;
 
     /**
      * Returns the scale factor.
      * @return The scale factor
      */
-    inline Real32 getScale() const;
+    inline Real32 getScale(void) const;
 
     /** Defines the coordinate indices */
     enum CoordIndex { COORD_LEFT = 0, COORD_TOP = 1, COORD_RIGHT = 2, COORD_BOTTOM = 3 };
@@ -199,7 +199,7 @@ class OSG_TEXT_DLLMAPPING TextTXFGlyph: public TextGlyph
   protected:
 
     /** Creates a new %TextTXFGlyph object. */
-    TextTXFGlyph();
+    TextTXFGlyph(void);
 
     /** The width of the glyph in pixels */
     UInt32 _width;

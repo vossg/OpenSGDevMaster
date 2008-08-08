@@ -65,9 +65,18 @@ inline Int32 TextPixmapGlyph::getPixmapVertBearingY() const { return _vertBearin
 inline const UInt8 *TextPixmapGlyph::getPixmap() const { return _pixmap; }
 
 
-inline TextPixmapGlyph::TextPixmapGlyph()
-: TextGlyph(), _width(0), _pitch(0), _height(0), _horiBearingX(0), _horiBearingY(0), _vertBearingX(0), _vertBearingY(0), _pixmap(0)
-{}
+inline TextPixmapGlyph::TextPixmapGlyph(void)
+    : TextGlyph    ( ),
+      _width       (0),
+      _pitch       (0),
+      _height      (0),
+      _horiBearingX(0),
+      _horiBearingY(0),
+      _vertBearingX(0),
+      _vertBearingY(0),
+      _pixmap      (0)
+{
+}
 
 
 OSG_END_NAMESPACE

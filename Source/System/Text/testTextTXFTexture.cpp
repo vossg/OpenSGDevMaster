@@ -61,7 +61,7 @@ StatElemDesc<OSG::StatIntElem> sizeDesc("size", "The height of the characters");
 StatElemDesc<OSG::StatIntElem> gapDesc("gap", "The gap between characters");
 StatElemDesc<OSG::StatStringElem> textureSizeDesc("textureSize", "The size of the texture");
 
-TextTXFFace *face = 0;
+TextTXFFaceRefPtr face = 0;
 string family;
 vector<string> families;
 TextFace::Style style = TextFace::STYLE_PLAIN;
@@ -153,17 +153,15 @@ NodeTransitPtr createMetrics(TextTXFFace *face, UInt32 width, UInt32 height)
     return nodePtr;
 }
 
-void updateFace()
+void updateFace(void)
 {
     // Try to create new face
     if (family.empty() == false)
     {
-        TextTXFFace *newFace = TextTXFFace::create(family, style, param);
+        TextTXFFaceRefPtr newFace = TextTXFFace::create(family, style, param);
         if (newFace == 0)
             return;
-        OSG::subRef(face);
         face = newFace;
-        OSG::addRef(face);
     }
     if (face == 0)
         return;
@@ -214,7 +212,7 @@ void updateFace()
     glutChangeToMenuEntry(6, (string("Write to ") + filename).c_str(), COMMAND_WRITE_TO_FILE);
 }
 
-void updateScene()
+void updateScene(void)
 {
     if(face == NULL)
         return;
@@ -271,61 +269,62 @@ int main(int argc, char **argv)
     // OSG init
     osgInit(argc,argv);
 
-    // GLUT init
-    int winid = setupGLUT(&argc, argv);
-
-    // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    // put the geometry core into a node
-    scene = Node::create();
-    GroupUnrecPtr groupPtr = Group::create();
-    scene->setCore(groupPtr);
-
-    statfg = SimpleStatisticsForeground::create();
-    statfg->setSize(25);
-    statfg->setColor(Color4f(0,1,0,0.9));
-    statfg->addElement(familyDesc, "Family: %s");
-    statfg->addElement(styleDesc, "Style: %s");
-    statfg->addElement(sizeDesc, "Size: %i");
-    statfg->addElement(gapDesc, "Gap: %i");
-    statfg->addElement(textureSizeDesc, "Texture Size: %s");
-
-    // Create the background
-    SolidBackgroundUnrecPtr bg = SolidBackground::create();
-    bg->setColor(Color3f(0.1, 0.1, 0.5));
-
-    if (argc > 1)
     {
-        face = TextTXFFace::createFromFile(argv[1]);
-        if (face == 0)
-            family = "SANS";
-        else
+        // GLUT init
+        int winid = setupGLUT(&argc, argv);
+    
+        // the connection between GLUT and OpenSG
+        GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        // put the geometry core into a node
+        scene = Node::create();
+        GroupUnrecPtr groupPtr = Group::create();
+        scene->setCore(groupPtr);
+    
+        statfg = SimpleStatisticsForeground::create();
+        statfg->setSize(25);
+        statfg->setColor(Color4f(0,1,0,0.9));
+        statfg->addElement(familyDesc, "Family: %s");
+        statfg->addElement(styleDesc, "Style: %s");
+        statfg->addElement(sizeDesc, "Size: %i");
+        statfg->addElement(gapDesc, "Gap: %i");
+        statfg->addElement(textureSizeDesc, "Texture Size: %s");
+    
+        // Create the background
+        SolidBackgroundUnrecPtr bg = SolidBackground::create();
+        bg->setColor(Color3f(0.1, 0.1, 0.5));
+    
+        if (argc > 1)
         {
-            OSG::addRef(face);
-            family.erase();
+            face = TextTXFFace::createFromFile(argv[1]);
+            if (face == 0)
+                family = "SANS";
+            else
+            {
+                family.erase();
+            }
         }
+        else
+            family = "SANS";
+        updateFace();
+        updateScene();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
+    
+        // add the statistics forground
+        gwin->getPort(0)->addForeground(statfg);
+        gwin->getPort(0)->setBackground(bg);
     }
-    else
-        family = "SANS";
-    updateFace();
-    updateScene();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
-
-    // add the statistics forground
-    gwin->getPort(0)->addForeground(statfg);
-    gwin->getPort(0)->setBackground(bg);
 
     // GLUT main loop
     glutMainLoop();
@@ -377,6 +376,7 @@ void keyboard(unsigned char k, int x, int y)
         {
             delete mgr;
 
+            face   = NULL;
             scene  = NULL;
             statfg = NULL;
 

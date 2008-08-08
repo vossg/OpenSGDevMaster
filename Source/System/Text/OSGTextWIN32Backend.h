@@ -96,7 +96,7 @@ class OSG_TEXT_DLLMAPPING TextWIN32Backend: public TextBackend
      * @param style The style of the face (bold, italic etc.)
      * @return The vector face object or 0 in case of an error.
      */
-    virtual TextVectorFace*
+    virtual TextVectorFaceTransitPtr
     createVectorFace(const std::string &family, TextFace::Style style);
 
     /**
@@ -106,7 +106,7 @@ class OSG_TEXT_DLLMAPPING TextWIN32Backend: public TextBackend
      * @param size The size of the pixmap font in pixels.
      * @return The pixmap face object or 0 in case of an error.
      */
-    virtual TextPixmapFace*
+    virtual TextPixmapFaceTransitPtr
     createPixmapFace(const std::string &family, TextFace::Style style, UInt32 size);
 
     /**
@@ -117,7 +117,7 @@ class OSG_TEXT_DLLMAPPING TextWIN32Backend: public TextBackend
      * TXF face.
      * @return The TXF face object or 0 in case of an error.
      */
-    virtual TextTXFFace*
+    virtual TextTXFFaceTransitPtr
     createTXFFace(const std::string &family, TextFace::Style style, const TextTXFParam &param);
 
     /**

@@ -47,7 +47,10 @@
 #include "OSGTextDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGVector.h"
+#include "OSGContainerForwards.h"
 #include "OSGMemoryObject.h"
+#include "OSGRefCountPtr.h"
+#include "OSGTransitPtr.h"
 
 #include "OSGTextGlyph.h"
 
@@ -66,11 +69,20 @@ class TextLayoutResult;
  * Abstract base class of all faces.
  * @author Patrick D&auml;hne
  */
-class OSG_TEXT_DLLMAPPING TextFace: public MemoryObject
+class OSG_TEXT_DLLMAPPING TextFace : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
+    typedef MemoryObject                            Inherited;
+    typedef TextFace                                Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+      
     /** Defines the styles of a face */
     enum Style
     {
@@ -80,24 +92,26 @@ class OSG_TEXT_DLLMAPPING TextFace: public MemoryObject
         STYLE_BOLDITALIC
     };
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /**
      * Returns the actual font family of the face.
      * @return The font family.
      */
-    inline const std::string getFamily() const;
+    inline const std::string getFamily(void) const;
 
     /**
      * Returns the actual style of the face.
      * @return The style.
      */
-    inline Style getStyle() const;
+    inline Style getStyle(void) const;
 
     /**
      * Returns the ascent of the face for horizontal layout. The ascent
      * is the distance from the baseline to the top of the face.
      * @return The ascent for horizontal layout.
      */
-    inline Real32 getHoriAscent() const;
+    inline Real32 getHoriAscent(void) const;
 
     /**
      * Returns the ascent of the face for vertical layout. The ascent
@@ -105,7 +119,7 @@ class OSG_TEXT_DLLMAPPING TextFace: public MemoryObject
      * This value is usually negative!
      * @return The ascent for vertical layout.
      */
-    inline Real32 getVertAscent() const;
+    inline Real32 getVertAscent(void) const;
     
     /**
      * Returns the descent of the face for horizontal layout. The descent
@@ -113,14 +127,14 @@ class OSG_TEXT_DLLMAPPING TextFace: public MemoryObject
      * This value is usually negative!
      * @return The descent for horizontal layout.
      */
-    inline Real32 getHoriDescent() const;
+    inline Real32 getHoriDescent(void) const;
 
     /**
      * Returns the descent of the face for vertical layout. The descent
      * is the distance from the baseline to the right side of the face.
      * @return The descent for vertical layout.
      */
-    inline Real32 getVertDescent() const;
+    inline Real32 getVertDescent(void) const;
 
     /**
      * Returns information about a glyph.
@@ -192,10 +206,10 @@ class OSG_TEXT_DLLMAPPING TextFace: public MemoryObject
   protected:
 
     /** Creates a new %TextFace object. */
-    inline TextFace();
+    inline TextFace(void);
 
     /** Destroys the %TextFace object. */
-    virtual ~TextFace();
+    virtual ~TextFace(void);
     
     /** The font family of the face */
     std::string _family;
@@ -250,9 +264,10 @@ class OSG_TEXT_DLLMAPPING TextFace: public MemoryObject
     const TextFace &operator=(const TextFace &);
 };
 
+typedef TextFace::ObjTransitPtr TextFaceTransitPtr;
+typedef TextFace::ObjRefPtr     TextFaceRefPtr;
 
 OSG_END_NAMESPACE
-
 
 #include "OSGTextFace.inl"
 

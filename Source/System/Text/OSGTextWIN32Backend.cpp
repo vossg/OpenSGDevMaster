@@ -62,8 +62,6 @@
 
 
 using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -213,7 +211,7 @@ public:
 // Author: pdaehne
 //----------------------------------------------------------------------
 TextWIN32Backend::TextWIN32Backend()
-: TextBackend(), _hDC(0)
+    : TextBackend(), _hDC(0)
 {
     // Create device context
     _hDC = CreateDC("DISPLAY", 0, 0, 0);
@@ -345,17 +343,21 @@ void TextWIN32Backend::createFonts(const string &family, UInt32 size, TextFace::
 // Creates a new vector face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace *TextWIN32Backend::createVectorFace(const string &family,
-                                                   TextFace::Style style)
+TextVectorFaceTransitPtr TextWIN32Backend::createVectorFace(
+    const string &family, TextFace::Style style)
 {
+    TextVectorFaceTransitPtr retVal;
+    
     // Try to create the font handles
     HFONT hHoriFont, hVertFont;
     createFonts(family, 0, style, hHoriFont, hVertFont);
-    if (hHoriFont == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextWIN32VectorFace(this, hHoriFont, hVertFont);
+    if (hHoriFont != 0)
+    {
+        // Create the new face object
+        retVal = new TextWIN32VectorFace(this, hHoriFont, hVertFont);
+    }
+    
+    return retVal;
 }
 
 
@@ -363,18 +365,21 @@ TextVectorFace *TextWIN32Backend::createVectorFace(const string &family,
 // Creates a new pixmap face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace *TextWIN32Backend::createPixmapFace(const string &family,
-                                                   TextFace::Style style,
-                                                   UInt32 size)
+TextPixmapFaceTransitPtr TextWIN32Backend::createPixmapFace(
+    const string &family, TextFace::Style style, UInt32 size)
 {
+    TextPixmapFaceTransitPtr retVal;
+    
     // Try to create the font handles
     HFONT hHoriFont, hVertFont;
     createFonts(family, size, style, hHoriFont, hVertFont);
-    if (hHoriFont == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextWIN32PixmapFace(this, hHoriFont, hVertFont, size);
+    if (hHoriFont != 0)
+    {
+        // Create the new face object
+        retVal = new TextWIN32PixmapFace(this, hHoriFont, hVertFont, size);
+    }
+    
+    return retVal;
 }
 
 
@@ -382,18 +387,21 @@ TextPixmapFace *TextWIN32Backend::createPixmapFace(const string &family,
 // Creates a new TXF face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextWIN32Backend::createTXFFace(const string &family,
-                                             TextFace::Style style,
-                                             const TextTXFParam &param)
+TextTXFFaceTransitPtr TextWIN32Backend::createTXFFace(
+    const string &family, TextFace::Style style, const TextTXFParam &param)
 {
+    TextTXFFaceTransitPtr retVal;
+    
     // Try to create the font handles
     HFONT hHoriFont, hVertFont;
     createFonts(family, param.size, style, hHoriFont, hVertFont);
-    if (hHoriFont == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextWIN32TXFFace(this, hHoriFont, hVertFont, param);
+    if (hHoriFont != 0)
+    {
+        // Create the new face object
+        retVal = new TextWIN32TXFFace(this, hHoriFont, hVertFont, param);
+    }
+    
+    return retVal;
 }
 
 

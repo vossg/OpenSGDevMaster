@@ -50,7 +50,6 @@
 #include "OSGSimpleStatisticsForeground.h"
 #include "OSGStatisticsDefaultFont.h"
 
-#include "OSGTextTXFFace.h"
 #include "OSGTextLayoutParam.h"
 #include "OSGTextLayoutResult.h"
 #include "OSGTextTXFGlyph.h"
@@ -68,7 +67,6 @@ SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
     Inherited(), _face(0), _texchunk(NULL), _texenvchunk(NULL)
 {
     _texenvchunk = TextureEnvChunk::createLocal();
-//    OSG::addRefX(_texenvchunk);
     _texenvchunk->setEnvMode(GL_MODULATE);
 }
 
@@ -76,16 +74,11 @@ SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
 SimpleStatisticsForeground::SimpleStatisticsForeground(
     const SimpleStatisticsForeground &source) :
 
-    Inherited(source), _face(source._face),
-    _texchunk(source._texchunk), _texenvchunk(source._texenvchunk)
+    Inherited   (source),
+    _face       (source._face),
+    _texchunk   (source._texchunk),
+    _texenvchunk(source._texenvchunk)
 {
-    if (_face != 0)
-        OSG::addRef(_face);
-
-//    if (_texchunk != NULL)
-//        OSG::addRefX(_texchunk);
-//    if (_texenvchunk != NULL)
-//        OSG::addRefX(_texenvchunk);
 }
 
 /* */
@@ -99,8 +92,7 @@ void SimpleStatisticsForeground::resolveLinks(void)
     
     _texchunk    = NULL;
     _texenvchunk = NULL;
-    
-    OSG::subRef(_face);
+    _face        = NULL;
 }
 
 
@@ -168,11 +160,7 @@ void SimpleStatisticsForeground::clearElems(void)
 void SimpleStatisticsForeground::initText(const std::string &family, Real32 size)
 {
     // Cleanup
-    if (_face != 0)
-        OSG::subRef(_face);
-//    if (_texchunk != NULL)
-//        OSG::subRefX(_texchunk);
-
+    _face     = NULL;
     _texchunk = NULL;
 
     // Create the font
@@ -199,10 +187,6 @@ void SimpleStatisticsForeground::initText(const std::string &family, Real32 size
         _face     = StatisticsDefaultFont::the()->getFace();
         _texchunk = StatisticsDefaultFont::the()->getTexture();
     }
-
-    // Increment reference counters
-    OSG::addRef(_face);
-//    OSG::addRefX(_texchunk);
 }
 
 /*! Draw the statistics lines.

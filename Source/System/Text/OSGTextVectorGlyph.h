@@ -150,19 +150,19 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
     typedef std::vector<VertexNormal> Normals;
 
     /** Destroys the %VectorGlyph object. */
-    virtual ~TextVectorGlyph();
+    virtual ~TextVectorGlyph(void);
 
     /**
      * Returns the width of the glyph.
      * @return The width of the glyph
      */
-    virtual Real32 getWidth() const;
+    virtual Real32 getWidth(void) const;
 
     /**
      * Returns the height of the glyph.
      * @return The height of the glyph
      */
-    virtual Real32 getHeight() const;
+    virtual Real32 getHeight(void) const;
 
     /**
      * Returns the x bearing of the glyph for horizontal layout.
@@ -170,7 +170,7 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
      * border of the glyph.
      * @return The x bearing of the glyph for horizontal layout
      */
-    virtual Real32 getHoriBearingX() const;
+    virtual Real32 getHoriBearingX(void) const;
 
     /**
      * Returns the y bearing of the glyph for horizontal layout.
@@ -178,7 +178,7 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
      * border of the glyph.
      * @return The y bearing of the glyph for horizontal layout
      */
-    virtual Real32 getHoriBearingY() const;
+    virtual Real32 getHoriBearingY(void) const;
 
     /**
      * Returns the x bearing of the glyph for vertical layout.
@@ -186,7 +186,7 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
      * border of the glyph.
      * @return The x bearing of the glyph for vertical layout
      */
-    virtual Real32 getVertBearingX() const;
+    virtual Real32 getVertBearingX(void) const;
 
     /**
      * Returns the y bearing of the glyph for vertical layout.
@@ -194,14 +194,14 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
      * border of the glyph.
      * @return The y bearing of the glyph for vertical layout
      */
-    virtual Real32 getVertBearingY() const;
+    virtual Real32 getVertBearingY(void) const;
 
     /**
      * Returns the contours that describe the outline
      * of the glyph.
      * @return The contours.
      */
-    inline const Outline &getOutline() const;
+    inline const Outline &getOutline(void) const;
 
     /**
      * Returns a polygon outline containing only on-curve points.
@@ -228,13 +228,13 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
      * Returns the orientations of the outlines.
      * @return The orientations of the outline.
      */
-    const std::vector<Orientation> &getContourOrientations() const;
+    const std::vector<Orientation> &getContourOrientations(void) const;
 
     /*=========================  PROTECTED  ===============================*/
   protected:
 
     /** Creates a new %VectorGlyph object. */
-    inline TextVectorGlyph();
+    inline TextVectorGlyph(void);
         
     /** The width of the glyph */
     Real32 _width;
@@ -282,7 +282,7 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
     const TextVectorGlyph &operator=(const TextVectorGlyph &);
 
     /** Computes the orientation of each contour */
-    void computeContourOrientations() const;
+    void computeContourOrientations(void) const;
 };
 
 

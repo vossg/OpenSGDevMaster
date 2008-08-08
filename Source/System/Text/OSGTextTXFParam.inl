@@ -43,11 +43,13 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline TextTXFParam::TextTXFParam()
-: size(46), gap(1), textureWidth(0),
-  _characters(_defaultCharacters)
-{}
-
+inline TextTXFParam::TextTXFParam(void)
+    : size(46),
+      gap(1),
+      textureWidth(0),
+      _characters(_defaultCharacters)
+{
+}
 
 inline void TextTXFParam::setCharacters(const std::string &utf8Characters)
 {
@@ -55,16 +57,16 @@ inline void TextTXFParam::setCharacters(const std::string &utf8Characters)
     normalizeCharacters();
 }
 
-
 inline void TextTXFParam::setCharacters(const std::wstring &characters)
 {
     _characters = characters;
     normalizeCharacters();
 }
 
-
-inline const std::wstring &TextTXFParam::getCharacters() const { return _characters; }
-
+inline const std::wstring &TextTXFParam::getCharacters(void) const
+{
+    return _characters;
+}
 
 OSG_END_NAMESPACE
 

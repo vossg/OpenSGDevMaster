@@ -145,6 +145,13 @@ typename TransitPtr<ObjectT>::Object *
     return _pObj;
 }
 
+template <class ObjectT> inline
+typename TransitPtr<ObjectT>::Object *
+    TransitPtr<ObjectT>::get(void) const
+{
+    return _pObj;
+}
+
 template<class ObjectT> inline
 bool TransitPtr<ObjectT>::operator ==(FieldContainer * const rhs)
 {

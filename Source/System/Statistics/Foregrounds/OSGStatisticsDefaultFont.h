@@ -45,10 +45,9 @@
 #include "OSGUtilDef.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGSingletonHolder.h"
+#include "OSGTextTXFFace.h"
 
 OSG_BEGIN_NAMESPACE
-
-class TextTXFFace;
 
 class OSG_UTIL_DLLMAPPING StatisticsDefaultFontBase
 {
@@ -83,7 +82,7 @@ class OSG_UTIL_DLLMAPPING StatisticsDefaultFontBase
     const StatisticsDefaultFontBase &operator=(const StatisticsDefaultFontBase &);
 
     /** The default face used for statistics */
-    TextTXFFace *_face;
+    TextTXFFaceRefPtr       _face;
 
     /** Texture object chunk that keeps the texture for the default font */
     TextureObjChunkMTRecPtr _texObjChunk;

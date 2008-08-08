@@ -38,7 +38,7 @@ StatElemDesc<OSG::StatStringElem> dirDesc("direction", "The direction (horizonta
 StatElemDesc<OSG::StatStringElem> horiDirDesc("horizontal direction", "The horizontal direction (left-to-right or right-to-left)");
 StatElemDesc<OSG::StatStringElem> vertDirDesc("vertical direction", "The vertical direction (top-to-bottom or bottom-to-top)");
 
-TextPixmapFace *face = 0;
+TextPixmapFaceRefPtr face;
 string family = "SANS";
 vector<string> families;
 TextFace::Style style = TextFace::STYLE_PLAIN;
@@ -462,15 +462,13 @@ NodeTransitPtr createMetrics(TextFace *face, Real32 scale, const TextLayoutParam
     return nodePtr;
 }
 
-void updateFace()
+void updateFace(void)
 {
     // Try to create new face
-    TextPixmapFace *newFace = TextPixmapFace::create(family, style, 78);
+    TextPixmapFaceRefPtr newFace = TextPixmapFace::create(family, style, 78);
     if (newFace == 0)
         return;
-    OSG::subRef(face);
     face = newFace;
-    OSG::addRef(face);
 
     // Update information on the screen
     family = face->getFamily();
@@ -515,7 +513,7 @@ const char *alignmentToString(TextLayoutParam::Alignment alignment)
     }
 }
 
-void updateScene()
+void updateScene(void)
 {
     if(statfg->getCollector() != NULL)
     {
@@ -602,55 +600,57 @@ int main(int argc, char **argv)
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-    // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    lines.push_back(argc >= 2 ? argv[1] : "Hello World!");
-    lines.push_back("Powered by OpenSG");
-    lines.push_back("3rd line");
-    layoutParam.spacing = 1.5f;
-    //layoutParam.length.push_back(10.f * 78.f);
-    //layoutParam.length.push_back(7.f * 78.f);
-    //layoutParam.length.push_back(-1.f * 78.f);
-
-    // put the geometry core into a node
-    scene = Node::create();
-    GroupUnrecPtr groupPtr = Group::create();
-    scene->setCore(groupPtr);
-
-    statfg = SimpleStatisticsForeground::create();
-    statfg->setSize(25);
-    statfg->setColor(Color4f(0,1,0,0.9));
-    statfg->addElement(familyDesc, "Family: %s");
-    statfg->addElement(styleDesc, "Style: %s");
-    statfg->addElement(majorAlignDesc, "Major Alignment: %s");
-    statfg->addElement(minorAlignDesc, "Minor Alignment: %s");
-    statfg->addElement(dirDesc, "%s");
-    statfg->addElement(horiDirDesc, "%s");
-    statfg->addElement(vertDirDesc, "%s");
-
-    // Create the background
-    SolidBackgroundUnrecPtr bg = SolidBackground::create();
-    bg->setColor(Color3f(0.1, 0.1, 0.5));
-
-    updateFace();
-    updateScene();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
-
-    // add the statistics forground and the background
-    gwin->getPort(0)->addForeground(statfg);
-    gwin->getPort(0)->setBackground(bg);
+    {
+        // the connection between GLUT and OpenSG
+        GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        lines.push_back(argc >= 2 ? argv[1] : "Hello World!");
+        lines.push_back("Powered by OpenSG");
+        lines.push_back("3rd line");
+        layoutParam.spacing = 1.5f;
+        //layoutParam.length.push_back(10.f * 78.f);
+        //layoutParam.length.push_back(7.f * 78.f);
+        //layoutParam.length.push_back(-1.f * 78.f);
+    
+        // put the geometry core into a node
+        scene = Node::create();
+        GroupUnrecPtr groupPtr = Group::create();
+        scene->setCore(groupPtr);
+    
+        statfg = SimpleStatisticsForeground::create();
+        statfg->setSize(25);
+        statfg->setColor(Color4f(0,1,0,0.9));
+        statfg->addElement(familyDesc, "Family: %s");
+        statfg->addElement(styleDesc, "Style: %s");
+        statfg->addElement(majorAlignDesc, "Major Alignment: %s");
+        statfg->addElement(minorAlignDesc, "Minor Alignment: %s");
+        statfg->addElement(dirDesc, "%s");
+        statfg->addElement(horiDirDesc, "%s");
+        statfg->addElement(vertDirDesc, "%s");
+    
+        // Create the background
+        SolidBackgroundUnrecPtr bg = SolidBackground::create();
+        bg->setColor(Color3f(0.1, 0.1, 0.5));
+    
+        updateFace();
+        updateScene();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
+    
+        // add the statistics forground and the background
+        gwin->getPort(0)->addForeground(statfg);
+        gwin->getPort(0)->setBackground(bg);
+    }
 
     // GLUT main loop
     glutMainLoop();
@@ -702,6 +702,7 @@ void keyboard(unsigned char k, int x, int y)
         {
             delete mgr;
 
+            face   = NULL;
             scene  = NULL;
             statfg = NULL;
 

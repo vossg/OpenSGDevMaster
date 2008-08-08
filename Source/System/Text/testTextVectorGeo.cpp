@@ -39,7 +39,7 @@ StatElemDesc<OSG::StatStringElem> dirDesc("direction", "The direction (horizonta
 StatElemDesc<OSG::StatStringElem> horiDirDesc("horizontal direction", "The horizontal direction (left-to-right or right-to-left)");
 StatElemDesc<OSG::StatStringElem> vertDirDesc("vertical direction", "The vertical direction (top-to-bottom or bottom-to-top)");
 
-TextVectorFace *face = 0;
+TextVectorFaceRefPtr face = 0;
 string family = "SANS";
 vector<string> families;
 TextFace::Style style = TextFace::STYLE_PLAIN;
@@ -466,15 +466,13 @@ NodeTransitPtr createMetrics(TextFace *face, Real32 scale, const TextLayoutParam
     return nodePtr;
 }
 
-void updateFace()
+void updateFace(void)
 {
     // Try to create new face
-    TextVectorFace *newFace = TextVectorFace::create(family, style);
+    TextVectorFaceRefPtr newFace = TextVectorFace::create(family, style);
     if (newFace == 0)
         return;
-    OSG::subRef(face);
     face = newFace;
-    OSG::addRef(face);
 
     // Update information on the screen
     family = face->getFamily();
@@ -561,92 +559,94 @@ int main(int argc, char **argv)
     // OSG init
     osgInit(argc,argv);
 
-    // GLUT init
-    int winid = setupGLUT(&argc, argv);
-
-    // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
-    gwin->setGlutId(winid);
-    gwin->init();
-
-    lines.push_back(argc >= 2 ? argv[1] : "Hello World!");
-    //lines.push_back(argc >= 2 ? argv[1] : "は");
-    lines.push_back("Powered by OpenSG");
-    lines.push_back("3rd line");
-    layoutParam.spacing = 1.5f;
-    //layoutParam.length.push_back(10.f);
-    //layoutParam.length.push_back(7.f);
-    //layoutParam.length.push_back(-1.f);
-
-    UChar8 *texture = new UChar8[3 * 256 * 256];
-    for(int i = 0; i < 256; i++)
-        for(int j = 0; j < 256; j++)
-        {
-            bool isOnLine = ((i % 8) > 1) & ((j % 8) > 1);
-            UChar8 baseLum = 0xff * static_cast<UChar8>(isOnLine);
-            texture[3 * (j + (i << 8))    ] = baseLum;
-            texture[3 * (j + (i << 8)) + 1] = baseLum;
-            texture[3 * (j + (i << 8)) + 2] = baseLum;
-        }
-    imPtr = Image::create();
-//    addRefX(imPtr);
-    //imPtr->read(argv[2]);
-    imPtr->set(Image::OSG_RGB_PF,
-                256, 256,
-                1, 1, 1, 0.f,
-                texture, Image::OSG_UINT8_IMAGEDATA,true);
-    delete [] texture;
-    matPtr = SimpleTexturedMaterial::create();
-//    addRefX(matPtr);
-    matPtr->setAmbient      (Color3f(0.2, 0.2, 0.2));
-    matPtr->setDiffuse      (Color3f(1.0, 1.0, 1.0));
-    matPtr->setEmission     (Color3f(0.2, 0.2, 0.2));
-    matPtr->setSpecular     (Color3f(1.0, 1.0, 1.0));
-    matPtr->setShininess    (30);
-    matPtr->setTransparency (0);
-    matPtr->setColorMaterial(GL_NONE);
-    matPtr->setImage(NULL);
-    matPtr->setMinFilter    (GL_NEAREST);
-    matPtr->setMagFilter    (GL_NEAREST);
-    matPtr->setEnvMode      (GL_MODULATE);
-    matPtr->setEnvMap       (false);
-
-    // put the geometry core into a node
-    scene = Node::create();
-    GroupUnrecPtr groupPtr = Group::create();
-    scene->setCore(groupPtr);
-
-    statfg = SimpleStatisticsForeground::create();
-    statfg->setSize(25);
-    statfg->setColor(Color4f(0,1,0,0.9));
-    statfg->addElement(familyDesc, "Family: %s");
-    statfg->addElement(styleDesc, "Style: %s");
-    statfg->addElement(majorAlignDesc, "Major Alignment: %s");
-    statfg->addElement(minorAlignDesc, "Minor Alignment: %s");
-    statfg->addElement(dirDesc, "%s");
-    statfg->addElement(horiDirDesc, "%s");
-    statfg->addElement(vertDirDesc, "%s");
-
-    // Create the background
-    SolidBackgroundUnrecPtr bg = SolidBackground::create();
-    bg->setColor(Color3f(0.1, 0.1, 0.5));
-
-    updateFace();
-    updateScene();
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // tell the manager what to manage
-    mgr->setWindow(gwin );
-    mgr->setRoot  (scene);
-
-    // show the whole scene
-    mgr->showAll();
-
-    // add the statistics forground
-    gwin->getPort(0)->addForeground(statfg);
-    gwin->getPort(0)->setBackground(bg);
+    {
+        // GLUT init
+        int winid = setupGLUT(&argc, argv);
+    
+        // the connection between GLUT and OpenSG
+        GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+        gwin->setGlutId(winid);
+        gwin->init();
+    
+        lines.push_back(argc >= 2 ? argv[1] : "Hello World!");
+        //lines.push_back(argc >= 2 ? argv[1] : "は");
+        lines.push_back("Powered by OpenSG");
+        lines.push_back("3rd line");
+        layoutParam.spacing = 1.5f;
+        //layoutParam.length.push_back(10.f);
+        //layoutParam.length.push_back(7.f);
+        //layoutParam.length.push_back(-1.f);
+    
+        UChar8 *texture = new UChar8[3 * 256 * 256];
+        for(int i = 0; i < 256; i++)
+            for(int j = 0; j < 256; j++)
+            {
+                bool isOnLine = ((i % 8) > 1) & ((j % 8) > 1);
+                UChar8 baseLum = 0xff * static_cast<UChar8>(isOnLine);
+                texture[3 * (j + (i << 8))    ] = baseLum;
+                texture[3 * (j + (i << 8)) + 1] = baseLum;
+                texture[3 * (j + (i << 8)) + 2] = baseLum;
+            }
+        imPtr = Image::create();
+    //    addRefX(imPtr);
+        //imPtr->read(argv[2]);
+        imPtr->set(Image::OSG_RGB_PF,
+                    256, 256,
+                    1, 1, 1, 0.f,
+                    texture, Image::OSG_UINT8_IMAGEDATA,true);
+        delete [] texture;
+        matPtr = SimpleTexturedMaterial::create();
+    //    addRefX(matPtr);
+        matPtr->setAmbient      (Color3f(0.2, 0.2, 0.2));
+        matPtr->setDiffuse      (Color3f(1.0, 1.0, 1.0));
+        matPtr->setEmission     (Color3f(0.2, 0.2, 0.2));
+        matPtr->setSpecular     (Color3f(1.0, 1.0, 1.0));
+        matPtr->setShininess    (30);
+        matPtr->setTransparency (0);
+        matPtr->setColorMaterial(GL_NONE);
+        matPtr->setImage(NULL);
+        matPtr->setMinFilter    (GL_NEAREST);
+        matPtr->setMagFilter    (GL_NEAREST);
+        matPtr->setEnvMode      (GL_MODULATE);
+        matPtr->setEnvMap       (false);
+    
+        // put the geometry core into a node
+        scene = Node::create();
+        GroupUnrecPtr groupPtr = Group::create();
+        scene->setCore(groupPtr);
+    
+        statfg = SimpleStatisticsForeground::create();
+        statfg->setSize(25);
+        statfg->setColor(Color4f(0,1,0,0.9));
+        statfg->addElement(familyDesc, "Family: %s");
+        statfg->addElement(styleDesc, "Style: %s");
+        statfg->addElement(majorAlignDesc, "Major Alignment: %s");
+        statfg->addElement(minorAlignDesc, "Minor Alignment: %s");
+        statfg->addElement(dirDesc, "%s");
+        statfg->addElement(horiDirDesc, "%s");
+        statfg->addElement(vertDirDesc, "%s");
+    
+        // Create the background
+        SolidBackgroundUnrecPtr bg = SolidBackground::create();
+        bg->setColor(Color3f(0.1, 0.1, 0.5));
+    
+        updateFace();
+        updateScene();
+    
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+    
+        // tell the manager what to manage
+        mgr->setWindow(gwin );
+        mgr->setRoot  (scene);
+    
+        // show the whole scene
+        mgr->showAll();
+    
+        // add the statistics forground
+        gwin->getPort(0)->addForeground(statfg);
+        gwin->getPort(0)->setBackground(bg);
+    }
 
     // GLUT main loop
     glutMainLoop();
@@ -724,6 +724,7 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
             delete mgr;
 
+            face   = NULL;
             imPtr  = NULL;
             matPtr = NULL;
             scene  = NULL;

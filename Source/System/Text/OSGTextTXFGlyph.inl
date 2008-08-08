@@ -47,32 +47,50 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline UInt32 TextTXFGlyph::getX() const { return _x; }
+inline UInt32 TextTXFGlyph::getX(void) const
+{
+    return _x;
+}
 
+inline UInt32 TextTXFGlyph::getY(void) const
+{
+    return _y;
+}
 
-inline UInt32 TextTXFGlyph::getY() const { return _y; }
+inline UInt32 TextTXFGlyph::getPixmapWidth(void) const
+{
+    return _width;
+}
 
+inline UInt32 TextTXFGlyph::getPixmapHeight(void) const
+{
+    return _height;
+}
 
-inline UInt32 TextTXFGlyph::getPixmapWidth() const { return _width; }
+inline Int32 TextTXFGlyph::getPixmapHoriBearingX(void) const
+{
+    return _horiBearingX;
+}
 
+inline Int32 TextTXFGlyph::getPixmapHoriBearingY(void) const
+{
+    return _horiBearingY;
+}
 
-inline UInt32 TextTXFGlyph::getPixmapHeight() const { return _height; }
+inline Int32 TextTXFGlyph::getPixmapVertBearingX(void) const
+{
+    return _vertBearingX;
+}
 
+inline Int32 TextTXFGlyph::getPixmapVertBearingY(void) const
+{
+    return _vertBearingY;
+}
 
-inline Int32 TextTXFGlyph::getPixmapHoriBearingX() const { return _horiBearingX; }
-
-
-inline Int32 TextTXFGlyph::getPixmapHoriBearingY() const { return _horiBearingY; }
-
-
-inline Int32 TextTXFGlyph::getPixmapVertBearingX() const { return _vertBearingX; }
-
-
-inline Int32 TextTXFGlyph::getPixmapVertBearingY() const { return _vertBearingY; }
-
-
-inline Real32 TextTXFGlyph::getScale() const { return _scale; }
-
+inline Real32 TextTXFGlyph::getScale(void) const
+{
+    return _scale;
+}
 
 inline Real32 TextTXFGlyph::getTexCoord(UInt32 index) const
 {

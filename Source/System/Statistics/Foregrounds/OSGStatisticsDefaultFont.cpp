@@ -40,7 +40,6 @@
 
 #include "OSGStatisticsDefaultFont.h"
 #include "OSGSingletonHolder.ins"
-#include "OSGTextTXFFace.h"
 #include <iostream>
 #ifdef OSG_HAS_SSTREAM
 #include <sstream>
@@ -606,10 +605,8 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
     std::istrstream is(statisticsDefaultFontData, dataSize);
 #endif
     _face = TextTXFFace::createFromStream(is, "Bitstream Vera Sans Mono", TextFace::STYLE_PLAIN);
-    OSG::addRef(_face);
 
     _texObjChunk = TextureObjChunk::create();
-//    addRefX(_texObjChunk);
     ImageUnrecPtr texture = _face->getTexture();
     _texObjChunk->setImage(texture);
     _texObjChunk->setWrapS(GL_CLAMP);
@@ -624,13 +621,8 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
 //----------------------------------------------------------------------
 StatisticsDefaultFontBase::~StatisticsDefaultFontBase()
 {
+    _face        = NULL;
     _texObjChunk = NULL;
-
-    if (_face != 0)
-    {
-        OSG::subRef(_face);
-        _face = 0;
-    }
 }
 
 

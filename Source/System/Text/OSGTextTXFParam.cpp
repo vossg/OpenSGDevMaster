@@ -44,12 +44,8 @@
 
 #include <algorithm>
 
-
 using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
-
 
 //----------------------------------------------------------------------
 // Static Class Variable implementations
@@ -76,8 +72,8 @@ bool TextTXFParam::operator==(const TextTXFParam &other) const
 //----------------------------------------------------------------------
 void TextTXFParam::normalizeCharacters()
 {
-    sort(_characters.begin(),  _characters.end());
-    wstring::iterator newEnd = unique(_characters.begin(),  _characters.end());
+    std::sort(_characters.begin(),  _characters.end());
+    std::wstring::iterator newEnd = std::unique(_characters.begin(),  _characters.end());
     _characters.erase(newEnd, _characters.end());
 }
 

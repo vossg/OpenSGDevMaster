@@ -40,20 +40,29 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline Real32 TextTXFFace::getScale() const { return _scale; }
+inline Real32 TextTXFFace::getScale(void) const
+{
+    return _scale;
+}
 
+inline const TextTXFParam &TextTXFFace::getParam(void) const
+{
+    return _param; 
+}
 
-inline const TextTXFParam &TextTXFFace::getParam() const { return _param; }
+inline Image *TextTXFFace::getTexture(void) const
+{
+    return _texture;
+}
 
-
-inline Image *TextTXFFace::getTexture() const { return _texture; }
-
-
-inline TextTXFFace::TextTXFFace()
-: TextFace(), _scale(), _param(),
-  _texture(), _glyphMap()
-{}
-
+inline TextTXFFace::TextTXFFace(void)
+    : TextFace (),
+      _scale   (),
+      _param   (),
+      _texture (),
+      _glyphMap()
+{
+}
 
 OSG_END_NAMESPACE
 

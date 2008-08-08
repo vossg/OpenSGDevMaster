@@ -40,7 +40,9 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline TextBackend::TextBackend() {}
+inline TextBackend::TextBackend(void)
+{
+}
 
 
 OSG_END_NAMESPACE

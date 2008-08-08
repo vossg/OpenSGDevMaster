@@ -57,10 +57,6 @@
 # include <cassert>
 #endif
 
-
-using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -73,8 +69,11 @@ template class SingletonHolder<TextFaceFactoryBase>;
 // Constructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextFaceFactoryBase::TextFaceFactoryBase()
-: _backend(), _vectorFaceMap(), _pixmapFaceMap(), _txfFaceMap()
+TextFaceFactoryBase::TextFaceFactoryBase(void)
+    : _backend      (),
+      _vectorFaceMap(),
+      _pixmapFaceMap(),
+      _txfFaceMap   ()
 {
 #if defined(_WIN32)
     _backend = new TextWIN32Backend();
@@ -93,7 +92,7 @@ TextFaceFactoryBase::TextFaceFactoryBase()
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextFaceFactoryBase::~TextFaceFactoryBase()
+TextFaceFactoryBase::~TextFaceFactoryBase(void)
 {
     clearCache();
     delete _backend;
@@ -104,8 +103,8 @@ TextFaceFactoryBase::~TextFaceFactoryBase()
 // Returns a vector face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace *TextFaceFactoryBase::createVectorFace(const string &family,
-                                                 TextFace::Style style)
+TextVectorFaceTransitPtr TextFaceFactoryBase::createVectorFace(
+    const string &family, TextFace::Style style)
 {
     // Try to find the face in the cache
     pair<VectorFaceMap::iterator, VectorFaceMap::iterator> range = _vectorFaceMap.equal_range(family);
@@ -114,18 +113,19 @@ TextVectorFace *TextFaceFactoryBase::createVectorFace(const string &family,
     {
         assert(it->second != 0);
         if (it->second->getStyle() == style)
-            return it->second;
+            return TextVectorFaceTransitPtr(it->second);
     }
 
     // We did not find the face in the cache, so let the backend create it
     if (_backend == 0)
-        return 0;
-    TextVectorFace *face = _backend->createVectorFace(family, style);
+        return TextVectorFaceTransitPtr();
+    
+    TextVectorFaceRefPtr face = _backend->createVectorFace(family, style);
     if (face == 0)
-        return 0;
+        return TextVectorFaceTransitPtr();
     _vectorFaceMap.insert(VectorFaceMap::value_type(family, face));
-    OSG::addRef(face);
-    return face;
+    
+    return TextVectorFaceTransitPtr(face);
 }
 
 
@@ -133,9 +133,8 @@ TextVectorFace *TextFaceFactoryBase::createVectorFace(const string &family,
 // Returns a pixmap face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace *TextFaceFactoryBase::createPixmapFace(const string &family,
-                                                  TextFace::Style style,
-                                                  UInt32 size)
+TextPixmapFaceTransitPtr TextFaceFactoryBase::createPixmapFace(
+    const string &family, TextFace::Style style, UInt32 size)
 {
     // Try to find the face in the cache
     pair<PixmapFaceMap::iterator, PixmapFaceMap::iterator> range = _pixmapFaceMap.equal_range(family);
@@ -144,18 +143,19 @@ TextPixmapFace *TextFaceFactoryBase::createPixmapFace(const string &family,
     {
         assert(it->second != 0);
         if ((it->second->getStyle() == style) && (it->second->getSize() == size))
-            return it->second;
+            return TextPixmapFaceTransitPtr(it->second);
     }
 
     // We did not find the face in the cache, so let the backend create it
-    if (_backend == 0)
-        return 0;
-    TextPixmapFace *face = _backend->createPixmapFace(family, style, size);
+    if(_backend == 0)
+        return TextPixmapFaceTransitPtr();
+    
+    TextPixmapFaceRefPtr face = _backend->createPixmapFace(family, style, size);
     if (face == 0)
-        return 0;
+        return TextPixmapFaceTransitPtr();
     _pixmapFaceMap.insert(PixmapFaceMap::value_type(family, face));
-    OSG::addRef(face);
-    return face;
+
+    return TextPixmapFaceTransitPtr(face);
 }
 
 
@@ -163,9 +163,8 @@ TextPixmapFace *TextFaceFactoryBase::createPixmapFace(const string &family,
 // Returns a TXF face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextFaceFactoryBase::createTXFFace(const string &family,
-                                            TextFace::Style style,
-                                            const TextTXFParam &param)
+TextTXFFaceTransitPtr TextFaceFactoryBase::createTXFFace(
+    const string &family, TextFace::Style style, const TextTXFParam &param)
 {
     // Try to find the face in the cache
     pair<TXFFaceMap::iterator, TXFFaceMap::iterator> range = _txfFaceMap.equal_range(family);
@@ -174,18 +173,19 @@ TextTXFFace *TextFaceFactoryBase::createTXFFace(const string &family,
     {
         assert(it->second != 0);
         if ((it->second->getStyle() == style) && (it->second->getParam() == param))
-            return it->second;
+            return TextTXFFaceTransitPtr(it->second);
     }
 
     // We did not find the face in the cache, so let the backend create it
     if (_backend == 0)
-        return 0;
-    TextTXFFace *face = _backend->createTXFFace(family, style, param);
+        return TextTXFFaceTransitPtr();
+    
+    TextTXFFaceRefPtr face = _backend->createTXFFace(family, style, param);
     if (face == 0)
-        return 0;
+        return TextTXFFaceTransitPtr();
     _txfFaceMap.insert(TXFFaceMap::value_type(family, face));
-    OSG::addRef(face);
-    return face;
+    
+    return TextTXFFaceTransitPtr(face);
 }
 
 
@@ -193,34 +193,11 @@ TextTXFFace *TextFaceFactoryBase::createTXFFace(const string &family,
 // Removes all faces from the face cache
 // Author: pdaehne
 //----------------------------------------------------------------------
-void TextFaceFactoryBase::clearCache()
+void TextFaceFactoryBase::clearCache(void)
 {
-    // Vector faces
-    VectorFaceMap::iterator vIt;
-    for (vIt = _vectorFaceMap.begin(); vIt != _vectorFaceMap.end(); ++vIt)
-    {
-        assert(vIt->second != 0);
-        OSG::subRef(vIt->second);
-    }
     _vectorFaceMap.clear();
-
-    // Pixmap faces
-    PixmapFaceMap::iterator pIt;
-    for (pIt = _pixmapFaceMap.begin(); pIt != _pixmapFaceMap.end(); ++pIt)
-    {
-        assert(pIt->second != 0);
-        OSG::subRef(pIt->second);
-    }
     _pixmapFaceMap.clear();
-
-    // TXF faces
-    TXFFaceMap::iterator tIt;
-    for (tIt = _txfFaceMap.begin(); tIt != _txfFaceMap.end(); ++tIt)
-    {
-        assert(tIt->second != 0);
-        OSG::subRef(tIt->second);
-    }
-    _txfFaceMap.clear();
+    _txfFaceMap   .clear();
 }
 
 

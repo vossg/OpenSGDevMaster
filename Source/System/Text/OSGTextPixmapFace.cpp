@@ -50,12 +50,8 @@
 # include <cassert>
 #endif
 
-
 using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
-
 
 //----------------------------------------------------------------------
 // Static Class Variable implementations:
@@ -68,7 +64,7 @@ TextPixmapGlyph TextPixmapFace::_emptyGlyph;
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace::~TextPixmapFace()
+TextPixmapFace::~TextPixmapFace(void)
 {
     // Delete all glyphs in the glyph cache
     GlyphMap::iterator it;
@@ -134,7 +130,7 @@ ImageTransitPtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, 
 
     ImageTransitPtr imagePtr = Image::create();
 
-    UInt32 width = static_cast<UInt32>(osgCeil(upperRight.x() - lowerLeft.x())) + (border << 1);
+    UInt32 width  = static_cast<UInt32>(osgCeil(upperRight.x() - lowerLeft.x())) + (border << 1);
     UInt32 height = static_cast<UInt32>(osgCeil(upperRight.y() - lowerLeft.y())) + (border << 1);
     imagePtr->set(Image::OSG_A_PF, width, height);
     imagePtr->clear();
@@ -159,8 +155,11 @@ ImageTransitPtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, 
 // Tries to create a pixmap face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace *TextPixmapFace::create(const std::string &family, Style style, UInt32 size)
-{ return TextFaceFactory::the()->createPixmapFace(family, style, size); }
+TextPixmapFaceTransitPtr TextPixmapFace::create(
+    const std::string &family, Style style, UInt32 size)
+{
+    return TextFaceFactory::the()->createPixmapFace(family, style, size);
+}
 
 
 OSG_END_NAMESPACE

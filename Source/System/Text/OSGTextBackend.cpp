@@ -42,47 +42,52 @@
 
 #include "OSGTextBackend.h"
 
+#include "OSGTextPixmapFace.h"
+#include "OSGTextTXFFace.h"
+#include "OSGTextVectorFace.h"
 
 using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
-
 
 //----------------------------------------------------------------------
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextBackend::~TextBackend() {}
-
+TextBackend::~TextBackend(void)
+{
+}
 
 //----------------------------------------------------------------------
 // Creates a new vector face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace *TextBackend::createVectorFace(const string &family,
-                                              TextFace::Style style)
-{ return 0; }
+TextVectorFaceTransitPtr TextBackend::createVectorFace(
+    const string &family, TextFace::Style style)
+{
+    return TextVectorFaceTransitPtr();
+}
 
 
 //----------------------------------------------------------------------
 // Creates a new pixmap face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace *TextBackend::createPixmapFace(const string &family,
-                                              TextFace::Style style,
-                                              UInt32 size)
-{ return 0; }
+TextPixmapFaceTransitPtr TextBackend::createPixmapFace(
+    const string &family, TextFace::Style style, UInt32 size)
+{
+    return TextPixmapFaceTransitPtr();
+}
 
 
 //----------------------------------------------------------------------
 // Creates a new TXF face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextBackend::createTXFFace(const string &family,
-                                        TextFace::Style style,
-                                        const TextTXFParam &param)
-{ return 0; }
+TextTXFFaceTransitPtr TextBackend::createTXFFace(
+    const string &family, TextFace::Style style, const TextTXFParam &param)
+{
+    return TextTXFFaceTransitPtr();
+}
 
 
 OSG_END_NAMESPACE

@@ -38,10 +38,6 @@
 
 #include "OSGTextPixmapGlyph.h"
 
-
-using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -49,57 +45,65 @@ OSG_BEGIN_NAMESPACE
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapGlyph::~TextPixmapGlyph()
-{ delete [] _pixmap; }
+TextPixmapGlyph::~TextPixmapGlyph(void)
+{
+    delete [] _pixmap;
+}
 
 
 //----------------------------------------------------------------------
 // Returns the width of the glyph
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextPixmapGlyph::getWidth() const
-{ return static_cast<Real32>(_width); }
-
+Real32 TextPixmapGlyph::getWidth(void) const
+{
+    return static_cast<Real32>(_width);
+}
 
 //----------------------------------------------------------------------
 // Returns the height of the glyph
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextPixmapGlyph::getHeight() const
-{ return static_cast<Real32>(_height); }
-
+Real32 TextPixmapGlyph::getHeight(void) const
+{
+    return static_cast<Real32>(_height);
+}
 
 //----------------------------------------------------------------------
 // Returns the x bearing of the glyph for horizontal layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextPixmapGlyph::getHoriBearingX() const
-{ return static_cast<Real32>(_horiBearingX); }
-
+Real32 TextPixmapGlyph::getHoriBearingX(void) const
+{
+     return static_cast<Real32>(_horiBearingX);
+}
 
 //----------------------------------------------------------------------
 // Returns the y bearing of the glyph for horizontal layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextPixmapGlyph::getHoriBearingY() const
-{ return static_cast<Real32>(_horiBearingY); }
-
+Real32 TextPixmapGlyph::getHoriBearingY(void) const
+{
+    return static_cast<Real32>(_horiBearingY);
+}
 
 //----------------------------------------------------------------------
 // Returns the x bearing of the glyph for vertical layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextPixmapGlyph::getVertBearingX() const
-{ return static_cast<Real32>(_vertBearingX); }
-
+Real32 TextPixmapGlyph::getVertBearingX(void) const
+{
+    return static_cast<Real32>(_vertBearingX);
+}
 
 //----------------------------------------------------------------------
 // Returns the y bearing of the glyph for vertical layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextPixmapGlyph::getVertBearingY() const
-{ return static_cast<Real32>(_vertBearingY); }
-
+Real32 TextPixmapGlyph::getVertBearingY(void) const
+{
+    return static_cast<Real32>(_vertBearingY);
+}
 
 //----------------------------------------------------------------------
 // Copies the glyph pixmap into a texture
@@ -172,7 +176,7 @@ void TextPixmapGlyph::putPixmap(Int32 x, Int32 y, UInt8 *tex,
 // Flips the glyph pixmap around the x axis
 // Author: pdaehne
 //----------------------------------------------------------------------
-void TextPixmapGlyph::flipPixmap()
+void TextPixmapGlyph::flipPixmap(void)
 {
     if (_pixmap == 0)
         return;

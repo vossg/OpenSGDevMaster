@@ -40,11 +40,17 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline UInt32 TextPixmapFace::getSize() const { return _size; }
+inline UInt32 TextPixmapFace::getSize(void) const
+{
+     return _size;
+}
 
-
-inline TextPixmapFace::TextPixmapFace(): TextFace(), _size(), _glyphMap() {}
-
+inline TextPixmapFace::TextPixmapFace(void)
+    : Inherited(),
+      _size    (),
+      _glyphMap()
+{
+}
 
 OSG_END_NAMESPACE
 

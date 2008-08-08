@@ -76,10 +76,7 @@
 # include FT_OUTLINE_H
 #endif
 
-
 using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -213,15 +210,17 @@ public:
 // Author: pdaehne
 //----------------------------------------------------------------------
 TextFT2Backend::TextFT2Backend()
-: TextBackend(), _library(0)
+    : TextBackend(),
+      _library  (0)
 #ifndef OSG_WITH_FONTCONFIG
   ,
 # ifdef FONT_SEARCHPATH
- _pathList(FONT_SEARCHPATH),
+      _pathList(FONT_SEARCHPATH),
 #else
-_pathList(),
+      _pathList(),
 #endif
- _scanForFonts(true), _fontMap()
+      _scanForFonts(true),
+      _fontMap()
 #endif
 {
     // Initialize Freetype library
@@ -472,16 +471,21 @@ FT_Face TextFT2Backend::createFace(const string &family, TextFace::Style style, 
 // Creates a new vector face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace*
+TextVectorFaceTransitPtr
 TextFT2Backend::createVectorFace(const string &family, TextFace::Style style)
 {
+    TextVectorFaceTransitPtr retVal;
+    
     // Try to create the freetype2 face
     FT_Face face = createFace(family, style, 0);
-    if (face == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextFT2VectorFace(face);
+    
+    if(face != 0)
+    {
+        // Create the new face object
+        retVal = new TextFT2VectorFace(face);
+    }
+    
+    return retVal;
 }
 
 
@@ -489,16 +493,20 @@ TextFT2Backend::createVectorFace(const string &family, TextFace::Style style)
 // Creates a new pixmap face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace*
+TextPixmapFaceTransitPtr
 TextFT2Backend::createPixmapFace(const string &family, TextFace::Style style, UInt32 size)
 {
+    TextPixmapFaceTransitPtr retVal;
+    
     // Try to create the freetype2 face
     FT_Face face = createFace(family, style, size);
-    if (face == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextFT2PixmapFace(face, size);
+    if (face != 0)
+    {
+        // Create the new face object
+        retVal = new TextFT2PixmapFace(face, size);
+    }
+    
+    return retVal;
 }
 
 
@@ -506,16 +514,20 @@ TextFT2Backend::createPixmapFace(const string &family, TextFace::Style style, UI
 // Creates a new TXF face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace*
+TextTXFFaceTransitPtr
 TextFT2Backend::createTXFFace(const string &family, TextFace::Style style, const TextTXFParam &param)
 {
+    TextTXFFaceTransitPtr retVal;
+    
     // Try to create the freetype2 face
     FT_Face face = createFace(family, style, param.size);
-    if (face == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextFT2TXFFace(face, param);
+    if (face != 0)
+    {
+        // Create and return the new face object
+        retVal = new TextFT2TXFFace(face, param);
+    }
+    
+    return retVal;
 }
 
 
@@ -587,7 +599,7 @@ void TextFT2Backend::getFontFamilies(vector<string> &families)
 // Author: pdaehne
 //----------------------------------------------------------------------
 #ifndef OSG_WITH_FONTCONFIG
-void TextFT2Backend::scanForFonts()
+void TextFT2Backend::scanForFonts(void)
 {
     // We scan the font directory only once
     if (_scanForFonts == true)
@@ -782,7 +794,8 @@ static void getFaceInfo(FT_Face face, string &family, TextFace::Style &style)
 // Author: pdaehne
 //----------------------------------------------------------------------
 TextFT2VectorFace::TextFT2VectorFace(FT_Face face)
-: TextVectorFace(), _face(face)
+    : TextVectorFace(),
+      _face(face)
 {
     // Get information about the face
     getFaceInfo(_face, _family, _style);
@@ -804,7 +817,7 @@ TextFT2VectorFace::TextFT2VectorFace(FT_Face face)
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextFT2VectorFace::~TextFT2VectorFace()
+TextFT2VectorFace::~TextFT2VectorFace(void)
 {
     // Close the font file
     FT_Done_Face(_face);

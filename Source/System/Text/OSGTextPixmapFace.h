@@ -78,14 +78,9 @@ class TextLayoutResult;
  *
  * // Try to create a new %TextPixmapFace object. The create
  * // method returns 0 in case of an error
- * TextPixmapFace *face = TextPixmapFace::create("SANS");
+ * TextPixmapFaceRefPtr face = TextPixmapFace::create("SANS");
  * if (face == 0)
  *   ; // error handling
- *
- * // Increment the reference counter of the face object.
- * // Faces are cached, and we might not be the only one
- * // using the face object
- * addRefP(face);
  *
  * // Lay out a single line of text. There are lots of parameters
  * // you can set in the layoutParam object, but for now we are
@@ -99,11 +94,10 @@ class TextLayoutResult;
  * // from the previous call to the layout method.
  * Real32 offset; // This is the offset from the coordinate origin to the
  *                // upper left corner of the texture (in pixels).
- * ImagePtr img = face->makeImage(layoutResult, offset);
+ * ImageRecPtr img = face->makeImage(layoutResult, offset);
  *
- * // We do not need the pixmap face anymore, so decrement
- * // the reference counter. Do not use the face object anymore!
- * subRefP(face);
+ * // We do not need the pixmap face anymore, so set the pointer to NULL.
+ * face = NULL;
  * @endcode
  *
  * @author Patrick D&auml;hne
@@ -112,12 +106,24 @@ class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
 {
     /*==========================  PUBLIC  =================================*/
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
+    typedef TextFace                                Inherited;
+    typedef TextPixmapFace                          Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    
     /**
      * Returns the actual size of the face in pixels.
      * @return The size in pixels.
      */
-    inline UInt32 getSize() const;
+    inline UInt32 getSize(void) const;
 
     /**
      * Returns information about a glyph.
@@ -155,18 +161,19 @@ class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
      * @param size The size of the pixmap font in pixels.
      * @return The pixmap face object or 0 in case of an error.
      */
-    static TextPixmapFace *create(const std::string &family,
-                                  Style style = STYLE_PLAIN,
-                                  UInt32 size = 32);
+    static ObjTransitPtr create(
+            const std::string &family,
+                  Style        style = STYLE_PLAIN,
+                  UInt32       size  = 32          );
 
     /*=========================  PROTECTED  ===============================*/
   protected:
 
     /** Creates a new %TextPixmapFace object. */
-    inline TextPixmapFace();
+    inline TextPixmapFace(void);
 
     /** Destroys the %TextPixmapFace object. */
-    virtual ~TextPixmapFace();
+    virtual ~TextPixmapFace(void);
 
     /** The size of the face in pixels */
     UInt32 _size;
@@ -199,6 +206,8 @@ class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
     const TextPixmapFace &operator=(const TextPixmapFace &);
 };
 
+typedef TextPixmapFace::ObjTransitPtr TextPixmapFaceTransitPtr;
+typedef TextPixmapFace::ObjRefPtr     TextPixmapFaceRefPtr;
 
 OSG_END_NAMESPACE
 

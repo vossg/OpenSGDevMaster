@@ -76,10 +76,10 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
   public:
 
     /** Creates a new %TextFT2Backend object. */
-    TextFT2Backend();
+    TextFT2Backend(void);
 
     /** Destroys the %TextFT2Backend object. */
-    virtual ~TextFT2Backend();
+    virtual ~TextFT2Backend(void);
 
     /**
      * Creates a new vector face.
@@ -87,8 +87,9 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
      * @param style The style of the face (bold, italic etc.)
      * @return The vector face object or 0 in case of an error.
      */
-    virtual TextVectorFace*
-    createVectorFace(const std::string &family, TextFace::Style style);
+    virtual TextVectorFaceTransitPtr
+    createVectorFace(const std::string     &family,
+                           TextFace::Style  style  );
 
     /**
      * Creates a new pixmap face.
@@ -97,8 +98,10 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
      * @param size The size of the pixmap font in pixels.
      * @return The pixmap face object or 0 in case of an error.
      */
-    virtual TextPixmapFace*
-    createPixmapFace(const std::string &family, TextFace::Style style, UInt32 size);
+    virtual TextPixmapFaceTransitPtr
+    createPixmapFace(const std::string     &family,
+                           TextFace::Style  style,
+                           UInt32           size   );
 
     /**
      * Creates a new TXF face.
@@ -108,8 +111,10 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
      * TXF face.
      * @return The TXF face object or 0 in case of an error.
      */
-    virtual TextTXFFace*
-    createTXFFace(const std::string &family, TextFace::Style style, const TextTXFParam &param);
+    virtual TextTXFFaceTransitPtr
+    createTXFFace(const std::string     &family,
+                        TextFace::Style  style,
+                  const TextTXFParam    &param  );
 
     /**
      * Returns the names of all font families available.
@@ -160,7 +165,7 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
     FontMap _fontMap;
 
     /** Scans the font search path for fonts. */
-    void scanForFonts();
+    void scanForFonts(void);
 
     /**
      * Scans a directory and its subdirectories for fonts.

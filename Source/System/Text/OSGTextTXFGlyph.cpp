@@ -46,11 +46,20 @@ OSG_BEGIN_NAMESPACE
 // Constructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFGlyph::TextTXFGlyph()
-: TextGlyph(), _width(0), _height(0), _horiBearingX(0), _horiBearingY(0),
-  _vertBearingX(0), _vertBearingY(0), _x(0), _y(0), _scale(1.f), _texCoord()
+TextTXFGlyph::TextTXFGlyph(void)
+    : TextGlyph    ( ),
+      _width       (0),
+      _height      (0),
+      _horiBearingX(0),
+      _horiBearingY(0),
+      _vertBearingX(0),
+      _vertBearingY(0),
+      _x           (0),
+      _y           (0),
+      _scale       (1.f),
+      _texCoord    ()
 {
-    _texCoord[COORD_LEFT] = _texCoord[COORD_BOTTOM] =
+    _texCoord[COORD_LEFT ] = _texCoord[COORD_BOTTOM] =
     _texCoord[COORD_RIGHT] = _texCoord[COORD_TOP] = 0.f;
 }
 
@@ -59,14 +68,15 @@ TextTXFGlyph::TextTXFGlyph()
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFGlyph::~TextTXFGlyph() {}
-
+TextTXFGlyph::~TextTXFGlyph(void)
+{
+}
 
 //----------------------------------------------------------------------
 // Returns the width of the glyph
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextTXFGlyph::getWidth() const
+Real32 TextTXFGlyph::getWidth(void) const
 { return static_cast<Real32>(_width) * _scale; }
 
 
@@ -74,7 +84,7 @@ Real32 TextTXFGlyph::getWidth() const
 // Returns the height of the glyph
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextTXFGlyph::getHeight() const
+Real32 TextTXFGlyph::getHeight(void) const
 { return static_cast<Real32>(_height) * _scale; }
 
 
@@ -82,7 +92,7 @@ Real32 TextTXFGlyph::getHeight() const
 // Returns the x bearing of the glyph for horizontal layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextTXFGlyph::getHoriBearingX() const
+Real32 TextTXFGlyph::getHoriBearingX(void) const
 { return static_cast<Real32>(_horiBearingX) * _scale; }
 
 
@@ -90,7 +100,7 @@ Real32 TextTXFGlyph::getHoriBearingX() const
 // Returns the y bearing of the glyph for horizontal layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextTXFGlyph::getHoriBearingY() const
+Real32 TextTXFGlyph::getHoriBearingY(void) const
 { return static_cast<Real32>(_horiBearingY) * _scale; }
 
 
@@ -98,7 +108,7 @@ Real32 TextTXFGlyph::getHoriBearingY() const
 // Returns the x bearing of the glyph for vertical layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextTXFGlyph::getVertBearingX() const
+Real32 TextTXFGlyph::getVertBearingX(void) const
 { return static_cast<Real32>(_vertBearingX) * _scale; }
 
 
@@ -106,7 +116,7 @@ Real32 TextTXFGlyph::getVertBearingX() const
 // Returns the y bearing of the glyph for vertical layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextTXFGlyph::getVertBearingY() const
+Real32 TextTXFGlyph::getVertBearingY(void) const
 { return static_cast<Real32>(_vertBearingY) * _scale; }
 
 

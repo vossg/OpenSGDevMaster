@@ -67,7 +67,7 @@ class OSG_TEXT_DLLMAPPING TextTXFParam
     /**
      * Creates a new TextTXFParam object.
      */
-    inline TextTXFParam();
+    inline TextTXFParam(void);
 
     /** The size of the glyphs in pixels */
     UInt32 size;
@@ -94,7 +94,7 @@ class OSG_TEXT_DLLMAPPING TextTXFParam
      * Returns the characters contained in the texture.
      * @return The characters contained in the texture.
      */
-    inline const std::wstring &getCharacters() const;
+    inline const std::wstring &getCharacters(void) const;
 
     /**
      * Compares the TextTXFParam object with another TextTXFParam object.
@@ -113,7 +113,7 @@ class OSG_TEXT_DLLMAPPING TextTXFParam
     static std::wstring _defaultCharacters;
 
     /** Sorts the characters in the character string and removes duplicates */
-    void normalizeCharacters();
+    void normalizeCharacters(void);
 };
 
 

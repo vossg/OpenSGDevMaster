@@ -40,10 +40,12 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline TextVectorFace::TextVectorFace()
-: TextFace(), _scale(), _glyphMap()
-{}
-
+inline TextVectorFace::TextVectorFace(void)
+    : TextFace (),
+      _scale   (),
+      _glyphMap()
+{
+}
 
 OSG_END_NAMESPACE
 

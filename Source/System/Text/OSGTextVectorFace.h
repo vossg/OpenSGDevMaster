@@ -78,14 +78,9 @@ class TextLayoutResult;
  *
  * // Try to create a new %TextVectorFace object. The create
  * // method returns 0 in case of an error
- * TextVectorFace *face = TextVectorFace::create("SANS");
+ * TextVectorFaceRefPtr face = TextVectorFace::create("SANS");
  * if (face == 0)
  *   ; // error handling
- *
- * // Increment the reference counter of the face object.
- * // Faces are cached, and we might not be the only one
- * // using the face object
- * addRefP(face);
  *
  * // Lay out a single line of text. There are lots of parameters
  * // you can set in the layoutParam object, but for now we are
@@ -99,11 +94,10 @@ class TextLayoutResult;
  * // from the previous call to the layout method.
  * Real32 scale = 2.f;  // This is the height of the glyphs
  * Real32 depth = 0.5f; // This is the depth of the glyphs
- * Geometry *geo = face->makeGeo(layoutResult, scale, depth);
+ * GeometryRecPtr geo = face->makeGeo(layoutResult, scale, depth);
  *
- * // We do not need the vector face anymore, so decrement
- * // the reference counter. Do not use the face object anymore!
- * subRefP(face);
+ * // We do not need the vector face anymore, so set the variable to NULL.
+ * face = NULL;
  * @endcode
  *
  * @author Patrick D&auml;hne
@@ -112,6 +106,18 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
 {
     /*==========================  PUBLIC  =================================*/
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef TextFace                                Inherited;
+    typedef TextVectorFace                          Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
     /**
      * Returns information about a glyph.
@@ -187,17 +193,17 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
      * @param style The style of the face (bold, italic etc.)
      * @return The vector face object or 0 in case of an error.
      */
-    static TextVectorFace *create(const std::string &family,
-                                  Style style = STYLE_PLAIN);
+    static ObjTransitPtr create(
+            const std::string &family,  Style style = STYLE_PLAIN);
 
     /*=========================  PROTECTED  ===============================*/
   protected:
 
     /** Creates a new %TextVectorFace object. */
-    inline TextVectorFace();
+    inline TextVectorFace(void);
 
     /** Destroys the %TextVectorFace object. */
-    virtual ~TextVectorFace();
+    virtual ~TextVectorFace(void);
 
     /** The scale factor used to scale font metrics */
     Real32 _scale;
@@ -230,6 +236,8 @@ class OSG_TEXT_DLLMAPPING TextVectorFace: public TextFace
     const TextVectorFace &operator=(const TextVectorFace &);
 };
 
+typedef TextVectorFace::ObjTransitPtr TextVectorFaceTransitPtr;
+typedef TextVectorFace::ObjRefPtr     TextVectorFaceRefPtr;
 
 OSG_END_NAMESPACE
 

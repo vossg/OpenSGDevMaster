@@ -121,6 +121,18 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
 {
     /*==========================  PUBLIC  =================================*/
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef TextFace                                Inherited;
+    typedef TextTXFFace                             Self;
+
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
     /**
      * Returns the scaling factor.
@@ -250,24 +262,27 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
      * TXF face.
      * @return The TXF face object or 0 in case of an error.
      */
-    static TextTXFFace *create(const std::string &family, Style style = STYLE_PLAIN,
-                               const TextTXFParam &param = TextTXFParam());
+    static ObjTransitPtr create(
+            const std::string  &family,
+                  Style         style = STYLE_PLAIN,
+            const TextTXFParam &param = TextTXFParam());
 
     /**
      * Reads a TXF face from an input stream.
      * @param is The input stream.
      * @return The TXF face or 0 in case of an error.
      */
-    static TextTXFFace *createFromStream(std::istream &is,
-                                         const std::string &family = std::string(),
-                                         Style style = STYLE_PLAIN);
+    static ObjTransitPtr createFromStream(
+                  std::istream &is,
+            const std::string  &family = std::string(),
+                  Style         style  = STYLE_PLAIN   );
 
     /**
      * Reads a TXF face from a file.
      * @param filename The name of the TXF file.
      * @return The TXF face or 0 in case of an error.
      */
-    static TextTXFFace *createFromFile(const std::string &filename);
+    static ObjTransitPtr createFromFile(const std::string &filename);
 
     /**
      * Writes a TXF face to an output stream.
@@ -323,6 +338,8 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
     static TextTXFGlyph _emptyGlyph;
 };
 
+typedef TextTXFFace::ObjTransitPtr TextTXFFaceTransitPtr;
+typedef TextTXFFace::ObjRefPtr     TextTXFFaceRefPtr;
 
 OSG_END_NAMESPACE
 

@@ -128,6 +128,8 @@ class TransitPtr
 
     Object *operator->(void) const;
 
+    Object *get       (void) const;
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */

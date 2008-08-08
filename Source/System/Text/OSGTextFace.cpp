@@ -51,10 +51,7 @@
 # include <cfloat>
 #endif
 
-
 using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -62,7 +59,9 @@ OSG_BEGIN_NAMESPACE
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextFace::~TextFace() {}
+TextFace::~TextFace(void)
+{
+}
 
 
 //----------------------------------------------------------------------

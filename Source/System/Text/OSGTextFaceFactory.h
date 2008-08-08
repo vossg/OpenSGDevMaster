@@ -56,7 +56,7 @@
 #include <vector>
 #include <string>
 
-
+using namespace std;
 OSG_BEGIN_NAMESPACE
 
 
@@ -65,6 +65,17 @@ class TextVectorFace;
 class TextPixmapFace;
 class TextTXFFace;
 
+typedef RefCountPtr<TextVectorFace,
+                    MemObjRefCountPolicy> TextVectorFaceRefPtr;
+typedef TransitPtr <TextVectorFace      > TextVectorFaceTransitPtr;
+
+typedef RefCountPtr<TextPixmapFace,
+                    MemObjRefCountPolicy> TextPixmapFaceRefPtr;
+typedef TransitPtr <TextPixmapFace      > TextPixmapFaceTransitPtr;
+
+typedef RefCountPtr<TextTXFFace,
+                    MemObjRefCountPolicy> TextTXFFaceRefPtr;
+typedef TransitPtr <TextTXFFace         > TextTXFFaceTransitPtr;
 
 /**
  * A singleton used to create new faces. The %TextFaceFactory
@@ -87,8 +98,9 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
      * @param style The style of the face (bold, italic etc.)
      * @return The vector face object or 0 in case of an error.
      */
-    TextVectorFace *createVectorFace(const std::string &family, 
-                                     TextFace::Style style = TextFace::STYLE_PLAIN);
+    TextVectorFaceTransitPtr
+    createVectorFace(const std::string     &family,
+                           TextFace::Style  style = TextFace::STYLE_PLAIN);
 
     /**
      * Tries to create a pixmap face.
@@ -97,9 +109,10 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
      * @param size The size of the pixmap font in pixels.
      * @return The pixmap face object or 0 in case of an error.
      */
-    TextPixmapFace *createPixmapFace(const std::string &family, 
-                                     TextFace::Style style = TextFace::STYLE_PLAIN, 
-                                     UInt32 size = 32);
+    TextPixmapFaceTransitPtr
+    createPixmapFace(const std::string     &family,
+                           TextFace::Style  style  = TextFace::STYLE_PLAIN,
+                           UInt32           size   = 32                    );
 
     /**
      * Tries to create a TXF face.
@@ -109,12 +122,13 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
      * TXF face.
      * @return The TXF face object or 0 in case of an error.
      */
-    TextTXFFace *createTXFFace(const std::string &family,
-                               TextFace::Style style = TextFace::STYLE_PLAIN,
-                               const TextTXFParam &param = TextTXFParam());
+    TextTXFFaceTransitPtr
+    createTXFFace(const std::string     &family,
+                        TextFace::Style  style = TextFace::STYLE_PLAIN,
+                  const TextTXFParam    &param = TextTXFParam()        );
 
     /** Removes all faces from the face cache. */
-    void clearCache();
+    void clearCache(void);
 
     /**
      * Returns the names of all font families available.
@@ -130,13 +144,13 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
     friend class SingletonHolder;
 
     /** Default Constructor */
-    TextFaceFactoryBase();
+    TextFaceFactoryBase(void);
 
     /** Copy constructor (not implemented!) */
     TextFaceFactoryBase(const TextFaceFactoryBase &);
 
     /** Destroys the %TextFaceFactoryBase object. */
-    ~TextFaceFactoryBase();
+    ~TextFaceFactoryBase(void);
 
     /** Copy operator (not implemented!) */
     const TextFaceFactoryBase &operator=(const TextFaceFactoryBase &);
@@ -145,19 +159,19 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
     TextBackend *_backend;
 
     /** Defines the map that contains the vector faces */
-    typedef std::multimap<std::string, TextVectorFace*> VectorFaceMap;
+    typedef std::multimap<std::string, TextVectorFaceRefPtr> VectorFaceMap;
 
     /** The map of vector faces currently instantiated (face cache) */
     VectorFaceMap _vectorFaceMap;
 
     /** Defines the map that contains the pixmap faces */
-    typedef std::multimap<std::string, TextPixmapFace*> PixmapFaceMap;
+    typedef std::multimap<std::string, TextPixmapFaceRefPtr> PixmapFaceMap;
 
     /** The map of pixmap faces currently instanciated (face cache) */
     PixmapFaceMap _pixmapFaceMap;
 
     /** Defines the map that contains the TXF faces */
-    typedef std::multimap<std::string, TextTXFFace*> TXFFaceMap;
+    typedef std::multimap<std::string, TextTXFFaceRefPtr> TXFFaceMap;
 
     /** The map of TXF faces currently instantiated (face cache) */
     TXFFaceMap _txfFaceMap;

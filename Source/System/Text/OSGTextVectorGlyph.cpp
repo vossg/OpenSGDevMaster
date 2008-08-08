@@ -63,14 +63,14 @@ OSG_BEGIN_NAMESPACE
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorGlyph::~TextVectorGlyph() {}
+TextVectorGlyph::~TextVectorGlyph(void) {}
 
 
 //----------------------------------------------------------------------
 // Returns the width of the glyph
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextVectorGlyph::getWidth() const
+Real32 TextVectorGlyph::getWidth(void) const
 { return _width; }
 
 
@@ -78,7 +78,7 @@ Real32 TextVectorGlyph::getWidth() const
 // Returns the height of the glyph
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextVectorGlyph::getHeight() const
+Real32 TextVectorGlyph::getHeight(void) const
 { return _height; }
 
 
@@ -86,7 +86,7 @@ Real32 TextVectorGlyph::getHeight() const
 // Returns the x bearing of the glyph for horizontal layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextVectorGlyph::getHoriBearingX() const
+Real32 TextVectorGlyph::getHoriBearingX(void) const
 { return _horiBearingX; }
 
 
@@ -94,7 +94,7 @@ Real32 TextVectorGlyph::getHoriBearingX() const
 // Returns the y bearing of the glyph for horizontal layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextVectorGlyph::getHoriBearingY() const
+Real32 TextVectorGlyph::getHoriBearingY(void) const
 { return _horiBearingY; }
 
 
@@ -102,7 +102,7 @@ Real32 TextVectorGlyph::getHoriBearingY() const
 // Returns the x bearing of the glyph for vertical layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextVectorGlyph::getVertBearingX() const
+Real32 TextVectorGlyph::getVertBearingX(void) const
 { return _vertBearingX; }
 
 
@@ -110,7 +110,7 @@ Real32 TextVectorGlyph::getVertBearingX() const
 // Returns the y bearing of the glyph for vertical layout
 // Author: pdaehne
 //----------------------------------------------------------------------
-Real32 TextVectorGlyph::getVertBearingY() const
+Real32 TextVectorGlyph::getVertBearingY(void) const
 { return _vertBearingY; }
 
 

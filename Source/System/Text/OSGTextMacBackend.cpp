@@ -63,12 +63,8 @@
 
 #include <ApplicationServices/ApplicationServices.h>
 
-
 using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
-
 
 //----------------------------------------------------------------------
 // MacOS X specific implementation of the TextVectorFace class
@@ -370,23 +366,28 @@ static ATSUStyle findFont(const string &family, TextFace::Style style, UInt32 si
 // Creates a new vector face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace *TextMacBackend::createVectorFace(const string &family, TextFace::Style style)
+TextVectorFaceTransitPtr TextMacBackend::createVectorFace(
+    const string &family, TextFace::Style style)
 {
+    TextVectorFaceTransitPtr retVal;
+    
     // Try to find the font
     ATSUStyle horiFontStyle = findFont(family, style, 1000);
-    if (horiFontStyle == 0)
-        return 0;
-
-    // Switch off hinting
-    ATSStyleRenderingOptions styleRenderingOptions = kATSStyleNoHinting;
-    ATSUAttributeTag attributeTag = kATSUStyleRenderingOptionsTag;
-    ByteCount attributeSize = sizeof(styleRenderingOptions);
-    ATSUAttributeValuePtr attributeValue = &styleRenderingOptions;
-    OSStatus result = ATSUSetAttributes(horiFontStyle, 1, &attributeTag, &attributeSize, &attributeValue);
-    // We don't care for errors - this is not really an important attribute
-
-    // Create and return the new face object
-    return new TextMacVectorFace(horiFontStyle);
+    if (horiFontStyle != 0)
+    {
+        // Switch off hinting
+        ATSStyleRenderingOptions styleRenderingOptions = kATSStyleNoHinting;
+        ATSUAttributeTag attributeTag = kATSUStyleRenderingOptionsTag;
+        ByteCount attributeSize = sizeof(styleRenderingOptions);
+        ATSUAttributeValuePtr attributeValue = &styleRenderingOptions;
+        OSStatus result = ATSUSetAttributes(horiFontStyle, 1, &attributeTag, &attributeSize, &attributeValue);
+        // We don't care for errors - this is not really an important attribute
+        
+        // Create the new face object
+        retVal = new TextMacVectorFace(horiFontStyle);
+    }
+    
+    return retVal;
 }
 
 
@@ -394,15 +395,19 @@ TextVectorFace *TextMacBackend::createVectorFace(const string &family, TextFace:
 // Creates a new pixmap face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace *TextMacBackend::createPixmapFace(const string &family, TextFace::Style style, UInt32 size)
+TextPixmapFaceTransitPtr TextMacBackend::createPixmapFace(
+    const string &family, TextFace::Style style, UInt32 size)
 {
+    TextPixmapFaceTransitPtr retVal;
+    
     // Try to find the font
     ATSUStyle horiFontStyle = findFont(family, style, size);
-    if (horiFontStyle == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextMacPixmapFace(horiFontStyle);
+    if (horiFontStyle != 0)
+    {
+        retVal = new TextMacPixmapFace(horiFontStyle);
+    }
+    
+    return retVal;
 }
 
 
@@ -410,17 +415,20 @@ TextPixmapFace *TextMacBackend::createPixmapFace(const string &family, TextFace:
 // Creates a new TXF face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextMacBackend::createTXFFace(const string &family,
-                                           TextFace::Style style,
-                                           const TextTXFParam &param)
+TextTXFFaceTransitPtr TextMacBackend::createTXFFace(
+    const string &family, TextFace::Style style, const TextTXFParam &param)
 {
+    TextTXFFaceTransitPtr retVal;
+    
     // Try to find the font
     ATSUStyle horiFontStyle = findFont(family, style, param.size);
-    if (horiFontStyle == 0)
-        return 0;
-
-    // Create and return the new face object
-    return new TextMacTXFFace(horiFontStyle, param);
+    if (horiFontStyle != 0)
+    {
+        // Create the new face object
+        retVal = new TextMacTXFFace(horiFontStyle, param);
+    }
+    
+    return retVal;
 }
 
 

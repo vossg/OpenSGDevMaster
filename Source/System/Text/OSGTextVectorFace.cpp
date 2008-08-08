@@ -52,12 +52,7 @@
 # include <cassert>
 #endif
 
-
-using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
-
 
 //----------------------------------------------------------------------
 // Static Class Variable implementations:
@@ -70,7 +65,7 @@ TextVectorGlyph TextVectorFace::_emptyGlyph;
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace::~TextVectorFace()
+TextVectorFace::~TextVectorFace(void)
 {
     // Delete all glyphs in the glyph cache
     GlyphMap::iterator it;
@@ -541,9 +536,9 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
 GeometryTransitPtr TextVectorFace::makeGeo(const TextLayoutResult &layoutResult, Real32 scale,
                                     Real32 depth, UInt32 level, Real32 creaseAngle)
 {
-    GeometryUnrecPtr geo = Geometry::create();
-    fillGeo(geo, layoutResult, scale, depth, level, creaseAngle);
-    return GeometryTransitPtr(geo);
+    GeometryTransitPtr geo = Geometry::create();
+    fillGeo(geo.get(), layoutResult, scale, depth, level, creaseAngle);
+    return geo;
 }
 
 
@@ -567,8 +562,10 @@ NodeTransitPtr TextVectorFace::makeNode(const TextLayoutResult &layoutResult, Re
 // Tries to create a vector face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace *TextVectorFace::create(const std::string &family, Style style)
-{ return TextFaceFactory::the()->createVectorFace(family, style); }
-
+TextVectorFaceTransitPtr TextVectorFace::create(
+    const std::string &family, Style style)
+{
+    return TextFaceFactory::the()->createVectorFace(family, style);
+}
 
 OSG_END_NAMESPACE

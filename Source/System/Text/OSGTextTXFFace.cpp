@@ -54,12 +54,7 @@
 # include <cassert>
 #endif
 
-
-using namespace std;
-
-
 OSG_BEGIN_NAMESPACE
-
 
 //----------------------------------------------------------------------
 // Static Class Variable implementations
@@ -83,7 +78,6 @@ TextTXFFace::~TextTXFFace()
     }
 
     // Delete the texture
-//    OSG::subRefX(_texture);
     _texture = NULL;
 }
 
@@ -324,9 +318,9 @@ GeometryTransitPtr TextTXFFace::makeGeo(const TextLayoutResult &layoutResult,
                                               Vec2f             offset, 
                                               Color3f           color       )
 {
-    GeometryUnrecPtr geo = Geometry::create();
-    fillGeo(geo, layoutResult, scale, offset, color);
-    return GeometryTransitPtr(geo);
+    GeometryTransitPtr geo = Geometry::create();
+    fillGeo(geo.get(), layoutResult, scale, offset, color);
+    return geo;
 }
 
 
@@ -348,9 +342,10 @@ NodeTransitPtr TextTXFFace::makeNode(const TextLayoutResult &layoutResult, Real3
 // Tries to create a TXF face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextTXFFace::create(const string &family, Style style, const TextTXFParam &param)
-{ return TextFaceFactory::the()->createTXFFace(family, style, param); }
-
+TextTXFFaceTransitPtr TextTXFFace::create(const string &family, Style style, const TextTXFParam &param)
+{
+    return TextFaceFactory::the()->createTXFFace(family, style, param);
+}
 
 //----------------------------------------------------------------------
 // Reads a long value in network byte order from the input stream
@@ -394,13 +389,14 @@ static UInt16 readShort(istream &is, bool swap)
 // Reads a TXF face from an input stream
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, Style style)
+TextTXFFaceTransitPtr TextTXFFace::createFromStream(
+    istream &is, const string &family, Style style)
 {
     // Check the magic bytes
     istream::char_type magicBytes[4];
     is.read(magicBytes, 4);
     if ((is.good() == false) || (strncmp(magicBytes, "\xfftxf", 4) != 0))
-        return 0;
+        return TextTXFFaceTransitPtr();
 
     // Check endianess
     UInt32 endianness = readLong(is, false);
@@ -410,30 +406,29 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
     else if (endianness == 0x78563412)
         swap = true;
     else
-        return 0;
+        return TextTXFFaceTransitPtr();
 
-    TextTXFFace *face = new TextTXFFace();
+    TextTXFFaceTransitPtr face(new TextTXFFace());
     face->_family = family;
-    face->_style = style;
+    face->_style  = style;
 
     // Read header
-    UInt32 format = readLong(is, swap);
-    UInt32 textureWidth = readLong(is, swap);
+    UInt32 format        = readLong(is, swap);
+    UInt32 textureWidth  = readLong(is, swap);
     UInt32 textureHeight = readLong(is, swap);
-    Int32 max_ascent = readLong(is, swap);
-    Int32 max_descent = readLong(is, swap);
+    Int32  max_ascent    = readLong(is, swap);
+    Int32  max_descent   = readLong(is, swap);
     if (max_descent < 0)
         max_descent = -max_descent;
     UInt32 num_glyphs = readLong(is, swap);
     if (is.good() == false)
     {
-        OSG::subRef(face);
-        return 0;
+        return TextTXFFaceTransitPtr();
     }
 
     // Determine parameters
-    face->_param.size = max_ascent + max_descent;
-    face->_param.gap = 0; // There is no way to determine the gap
+    face->_param.size         = max_ascent + max_descent;
+    face->_param.gap          = 0; // There is no way to determine the gap
     face->_param.textureWidth = textureWidth;
 
     // Determine the scale factor
@@ -493,15 +488,13 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
 
         if (is.good() == false)
         {
-            OSG::subRef(face);
-            return 0;
+            return TextTXFFaceTransitPtr();
         }
     }
     face->_param.setCharacters(characters);
 
     // Create the texture
     face->_texture = Image::create();
-//    OSG::addRefX(face->_texture);
 
     face->_texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     face->_texture->clear();
@@ -520,8 +513,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
 
                 if (is.good() == false)
                 {
-                    OSG::subRef(face);
-                    return 0;
+                    return TextTXFFaceTransitPtr();
                 }
             }
             break;
@@ -535,8 +527,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
                 {
                     delete [] buffer;
 
-                    OSG::subRef(face);
-                    return 0;
+                    return TextTXFFaceTransitPtr();
                 }
                 assert(face->_texture->getSize() == textureWidth * textureHeight);
                 UInt8 *dst = face->_texture->editData();
@@ -549,9 +540,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
             }
             break;
         default:
-
-            OSG::subRef(face);
-            return 0;
+            return TextTXFFaceTransitPtr();
     }
 
     return face;
@@ -562,12 +551,12 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
 // Reads a TXF face from a file
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextTXFFace::createFromFile(const string &filename)
+TextTXFFaceTransitPtr TextTXFFace::createFromFile(const string &filename)
 {
     // Open the file
     ifstream is(filename.c_str(), ios_base::in | ios_base::binary);
     if (is.good() == false)
-        return 0;
+        return TextTXFFaceTransitPtr();
 
     // Remove the directory and the suffix from the filename and use the
     // remaining filename as the family name
@@ -578,10 +567,8 @@ TextTXFFace *TextTXFFace::createFromFile(const string &filename)
         family.erase(pos);
 
     // Parse the file
-    TextTXFFace *face = createFromStream(is, family);
-    if (face == 0)
-        return 0;
-
+    TextTXFFaceTransitPtr face = createFromStream(is, family);
+    
     return face;
 }
 
