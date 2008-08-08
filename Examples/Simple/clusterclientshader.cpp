@@ -1,14 +1,14 @@
 // OpenSG Tutorial Example: Minimalistic OpenSG cluster client program
 //
 // To test it, run 
-//   ./12ClusterServer -geometry 300x300+200+100 -m -w test1 &
-//   ./12ClusterServer -geometry 300x300+500+100 -m -w test2 &
-//   ./13ClusterClientShader -m -fData/tie.wrl test1 test2
+//   ./clusterserver -geometry 300x300+200+100 -m -w test1 &
+//   ./clusterserver -geometry 300x300+500+100 -m -w test2 &
+//   ./clusterclientshader -m -fData/tie.wrl test1 test2
 //
 // If you have trouble with multicasting, you can alternatively try
-//   ./12ClusterServer -geometry 300x300+200+100 -w 127.0.0.1:30000 &
-//   ./12ClusterServer -geometry 300x300+500+100 -w 127.0.0.1:30001 &
-//   ./13ClusterClientShader -m -fData/tie.wrl 127.0.0.1:30000 127.0.0.1:30001
+//   ./clusterserver -geometry 300x300+200+100 -w 127.0.0.1:30000 &
+//   ./clusterserver -geometry 300x300+500+100 -w 127.0.0.1:30001 &
+//   ./clusterclientshader -m -fData/tie.wrl 127.0.0.1:30000 127.0.0.1:30001
 // 
 // The client will open an empty window that you can use to navigate. The
 // display is shown in the server windows.

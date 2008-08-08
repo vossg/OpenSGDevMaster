@@ -5,7 +5,7 @@
 // application is the client. Instances that are used for 
 // rendering are called server.
 //
-// See the ClusterClient.cpp for an example of how to use them.
+// See the clusterclient.cpp for an example of how to use them.
 //
 // Libs: Cluster
 

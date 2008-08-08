@@ -19,8 +19,8 @@ try:
    import SConsAddons.Util
    print "Using SConsAddons from: ", os.path.dirname(SConsAddons.Util.__file__)
 except:
-   sys.path.insert(0,pj('../Tools','scons-addons','src'))
-   print "Using SConsAddons from: ../Tools/scons-addons/src"
+   sys.path.insert(0,pj('../../Tools','scons-addons','src'))
+   print "Using SConsAddons from: ../../Tools/scons-addons/src"
 
 import SConsAddons.Options as sca_opts   # Get the modular options stuff
 import SConsAddons.Options.OpenSG2

@@ -1,4 +1,4 @@
-// OpenSG Tutorial Example: LocalLights
+// OpenSG Tutorial Example: Local Lights
 //
 // This example shows how to create and use local light sources.
 // It creates four light sources (red, green, blue, white)

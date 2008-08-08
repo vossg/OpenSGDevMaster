@@ -4,14 +4,14 @@
 // clustering (i.e. using multiple machine to draw a single image)
 // 
 // To test it, run 
-//   ./12ClusterServer -geometry 300x300+200+100 -m -w test1 &
-//   ./12ClusterServer -geometry 300x300+500+100 -m -w test2 &
-//   ./28SortLastClusterClient -m -fData/tie.wrl test1 test2
+//   ./clusterServer -geometry 300x300+200+100 -m -w test1 &
+//   ./clusterServer -geometry 300x300+500+100 -m -w test2 &
+//   ./sortlastclient -m -fData/tie.wrl test1 test2
 //
 // If you have trouble with multicasting, you can alternatively try
-//   ./12ClusterServer -geometry 300x300+200+100 -w 127.0.0.1:30000 &
-//   ./12ClusterServer -geometry 300x300+500+100 -w 127.0.0.1:30001 &
-//   ./28SortLastClusterClient -fData/tie.wrl 127.0.0.1:30000 127.0.0.1:30001
+//   ./clusterserver -geometry 300x300+200+100 -w 127.0.0.1:30000 &
+//   ./clusterserver -geometry 300x300+500+100 -w 127.0.0.1:30001 &
+//   ./sortlastclient -fData/tie.wrl 127.0.0.1:30000 127.0.0.1:30001
 // This will work as long as your loopback interface can handle broadcasts.
 // If that is not the case you need to use your local IP address instead
 // of 127.0.0.1.

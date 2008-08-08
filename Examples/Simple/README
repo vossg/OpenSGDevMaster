@@ -1,0 +1,32 @@
+OpenSG Simple Examples
+======================
+
+This directory has some relatively simple examples of how to use OpenSG. Some
+even demonstrate the use of more advanced features like the cluster support.
+
+To build the programs you need scons which you can download (www.scons.org) or
+(if you have a complete OpenSG source tree) use the version
+Tools/scons-local/scons.py.  In order to find the OpenSG libraries the
+included SConstruct file looks for the osg2-config tool that is normally
+installed with OpenSG. If osg2-config is not found by scons, you can pass the
+OpenSG2BaseDir=/path/to/OpenSG2/install/location command line argument when
+invoking scons. This path should point to a directory that has a
+bin/osg2-config below it.
+
+The first few of the examples here are numbered and are moving from the very
+simple slowly to more advanced topics. If you are new to OpenSG you might want
+to follow these examples in order, or perhaps better yet, check out the
+contents of Examples/Tutorial (and the README there) where the code is
+accompanied by an introductory text on the online wiki.
+The un-numbered programs each demonstrate a specific feature and have generally
+no specific order in which they should be studied.
+
+A number of the examples can load models from disc by passing a file name as
+argument on the command line. If you don't have a suitable model, you can find
+some in Examples/Tutorial/Data (look for .wrl files).
+
+For questions, ideas or contributions you can contact the opensg-users mailing
+list opensg-users@lists.sourceforge.net.
+
+    Enjoy,
+        The OpenSG Team

@@ -1,4 +1,4 @@
-// OpenSG GLSL shader example: 26GeometryShader.cpp
+// OpenSG GLSL shader example: Geometry Shader
 //
 // Demonstrates the use of the SHLChunk
 // Implements a geometry shader which creates for each triangle an
