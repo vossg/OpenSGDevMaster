@@ -355,7 +355,7 @@ inline
 Int32  putenv(Char8 *string);
 #else
 inline
-Char8 *getenv(Char8* string);
+Char8 *getenv(const Char8 *string);
 #endif
 
 inline
