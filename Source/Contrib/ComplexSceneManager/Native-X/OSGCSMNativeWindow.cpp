@@ -49,6 +49,8 @@
 #include "OSGDrawer.h"
 #include "OSGComplexSceneManager.h"
 
+#include <X11/keysym.h>
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
