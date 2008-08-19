@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="MultiSwitch"
+	parent="Group"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+MultiSwitch allows the selective inclusion of zero or more of its children from
+traversal. It supports three different modes (selected by _sfSwitchMode), to
+include either ALL, NONE or CHOICES of its children.
+	<Field
+		name="choices"
+		type="UInt32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+    Indices of children to be included in CHOICES mode. The indices are kept
+    sorted and any duplicates are removed.
+	</Field>
+	<Field
+		name="switchMode"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1"
+		access="public"
+	>
+    Mode of operation.
+	</Field>
+</FieldContainer>
