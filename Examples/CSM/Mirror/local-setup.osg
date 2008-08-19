@@ -8,9 +8,9 @@ ContainerCollection
     {
        backTexture TextureObjChunk
        {
-         wrapS 0x812F
-         wrapT 0x812F
-         wrapR 0x812F
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
 
          image ImageFile
          {
@@ -20,9 +20,9 @@ ContainerCollection
 
        frontTexture TextureObjChunk
        {
-         wrapS 0x812F
-         wrapT 0x812F
-         wrapR 0x812F
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
 
          image ImageFile
          {
@@ -32,9 +32,9 @@ ContainerCollection
 
        leftTexture TextureObjChunk
        {
-         wrapS 0x812F
-         wrapT 0x812F
-         wrapR 0x812F
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
 
          image ImageFile
          {
@@ -44,9 +44,9 @@ ContainerCollection
 
        rightTexture TextureObjChunk
        {
-         wrapS 0x812F
-         wrapT 0x812F
-         wrapR 0x812F
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
 
          image ImageFile
          {
@@ -56,9 +56,9 @@ ContainerCollection
 
        topTexture  TextureObjChunk
        {
-         wrapS 0x812F
-         wrapT 0x812F
-         wrapR 0x812F
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
 
          image ImageFile
          {
@@ -68,9 +68,9 @@ ContainerCollection
 
        bottomTexture TextureObjChunk
        {
-         wrapS 0x812F
-         wrapT 0x812F
-         wrapR 0x812F
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
 
          image ImageFile
          {

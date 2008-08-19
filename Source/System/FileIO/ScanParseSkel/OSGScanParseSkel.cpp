@@ -352,6 +352,11 @@ void ScanParseSkel::exportElement(const Char8 *szNodeName,
 /*-------------------------------------------------------------------------*/
 /*                               Helper                                    */
 
+void ScanParseSkel::addBufferAsStringValue(void)
+{
+    addStringValue(_pLexer->YYText());
+}
+
 void ScanParseSkel::addFieldValue(const Char8 *)
 {
 }

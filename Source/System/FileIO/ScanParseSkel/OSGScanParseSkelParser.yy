@@ -746,6 +746,10 @@ sfstringValue:
     | TOK_Id
     { /* Not VRML conformant */
         SKEL->addStringValue($1);
+    }
+    | TOK_hex
+    { /* Not VRML conformant */
+        SKEL->addBufferAsStringValue();
     };
 
 sftimeValue:

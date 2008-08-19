@@ -51,6 +51,7 @@
 #include "OSGBoxVolume.h"
 #include "OSGPlane.h"
 #include "OSGGL.h"
+#include "OSGGLDefineMapper.h"
 
 #include <iomanip>
 
@@ -673,12 +674,17 @@ struct FieldTraits<GLenum, 1> : public FieldTraitsPODTemplateBase<GLenum, 1>
     static void putToStream(const GLenum    &val,
                                   OutStream &str)
     {
-        str << std::setbase(16);
+        const std::string &oVal = GLDefineMapper::the()->toString(val);
 
-        str << "0x";
-        TypeTraits<GLenum>::putToStream(val, str);
+        str << "GL_" << oVal;
+    }
 
-        str << std::setbase(10);
+    static bool getFromCString(      GLenum   &outVal,
+                               const Char8   *&inVal )
+    {
+        outVal = GLDefineMapper::the()->fromString(inVal);
+
+        return true;
     }
 };
 

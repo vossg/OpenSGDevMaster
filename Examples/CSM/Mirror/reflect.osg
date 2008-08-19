@@ -6,7 +6,7 @@ Node
   {
     textureSize   512 512
     texUnit       3
-    textureFormat 0x8815
+    textureFormat GL_RGB32F_ARB
     root Node
     {
       core VisitSubTree

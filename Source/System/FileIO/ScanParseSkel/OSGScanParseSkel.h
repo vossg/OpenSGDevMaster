@@ -260,6 +260,8 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     /*! \name                     Misc                                     */
     /*! \{                                                                 */
 
+    virtual void addBufferAsStringValue(void);
+
     virtual void addFieldValue(const Char8 *szFieldVal);
 
     virtual void addBoolValue(bool b);

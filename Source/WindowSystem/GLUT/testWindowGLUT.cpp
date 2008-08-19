@@ -431,7 +431,7 @@ int init(int argc, char **argv)
     file->updateVolume();
 
 #if 0
-    char *outFileName = "/tmp/foo1.osg";
+    const char *outFileName = "/tmp/foo1.osg";
 
     OSG::IndentFileOutStream outFileStream(outFileName);
 
