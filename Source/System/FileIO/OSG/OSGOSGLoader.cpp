@@ -309,7 +309,7 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
             pAMapHandle->add(pNewNode, 0);
         }
     }
-    ;}
+}
 
 /*-------------------------------------------------------------------------*\
  -  public                                                                 -
@@ -465,7 +465,6 @@ void OSGLoader::beginNode(const Char8 *szNodeTypename,
     }
 
     // assign nodepointer to current sf|mf field
-    setFieldContainerValue(pNewNode);
 
     _pCurrentFC = pNewNode;
 
@@ -545,6 +544,8 @@ void OSGLoader::endNode(void)
             (_endNodeFunctors[uiFunctorIndex])(_pCurrentFC);
         }
     }
+
+    setFieldContainerValue(_pCurrentFC);
 
     _fcStack.pop();
 

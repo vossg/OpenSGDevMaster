@@ -158,7 +158,7 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
           Resolver                              _fResolver;
     const std::vector<Functor>                 &_endNodeFunctors;
 
-          std::stack<      FieldContainer       *>  _fcStack;
+          std::stack<      FieldContainerUnrecPtr>  _fcStack;
           std::stack<      EditFieldHandlePtr    >  _fStack;
           std::stack<const FieldDescriptionBase *>  _fdStack;
     
