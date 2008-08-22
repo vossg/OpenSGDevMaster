@@ -1007,11 +1007,13 @@ void PolygonForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PolygonForegroundBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    PolygonForeground *pThis = static_cast<PolygonForeground *>(this);
+
+    pThis->execSync(static_cast<PolygonForeground *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

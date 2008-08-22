@@ -356,11 +356,13 @@ void VRMLAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<VRMLAttachmentBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    VRMLAttachment *pThis = static_cast<VRMLAttachment *>(this);
+
+    pThis->execSync(static_cast<VRMLAttachment *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

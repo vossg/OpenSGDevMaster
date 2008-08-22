@@ -452,11 +452,13 @@ void MultiPassMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MultiPassMaterialBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    MultiPassMaterial *pThis = static_cast<MultiPassMaterial *>(this);
+
+    pThis->execSync(static_cast<MultiPassMaterial *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

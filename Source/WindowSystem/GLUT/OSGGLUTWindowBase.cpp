@@ -358,11 +358,13 @@ void GLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GLUTWindowBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    GLUTWindow *pThis = static_cast<GLUTWindow *>(this);
+
+    pThis->execSync(static_cast<GLUTWindow *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

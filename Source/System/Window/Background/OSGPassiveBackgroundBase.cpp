@@ -275,11 +275,13 @@ void PassiveBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PassiveBackgroundBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    PassiveBackground *pThis = static_cast<PassiveBackground *>(this);
+
+    pThis->execSync(static_cast<PassiveBackground *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

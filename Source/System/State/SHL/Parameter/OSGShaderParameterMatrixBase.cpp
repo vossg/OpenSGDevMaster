@@ -358,11 +358,13 @@ void ShaderParameterMatrixBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterMatrixBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ShaderParameterMatrix *pThis = static_cast<ShaderParameterMatrix *>(this);
+
+    pThis->execSync(static_cast<ShaderParameterMatrix *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

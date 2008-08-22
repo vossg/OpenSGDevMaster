@@ -446,11 +446,13 @@ void PerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PerspectiveCameraBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    PerspectiveCamera *pThis = static_cast<PerspectiveCamera *>(this);
+
+    pThis->execSync(static_cast<PerspectiveCamera *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

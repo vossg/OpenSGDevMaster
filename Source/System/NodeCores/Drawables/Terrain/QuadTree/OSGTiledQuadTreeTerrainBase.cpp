@@ -1506,11 +1506,13 @@ void TiledQuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TiledQuadTreeTerrainBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    TiledQuadTreeTerrain *pThis = static_cast<TiledQuadTreeTerrain *>(this);
+
+    pThis->execSync(static_cast<TiledQuadTreeTerrain *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

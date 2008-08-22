@@ -664,11 +664,13 @@ void ShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShadowMapEngineBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ShadowMapEngine *pThis = static_cast<ShadowMapEngine *>(this);
+
+    pThis->execSync(static_cast<ShadowMapEngine *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

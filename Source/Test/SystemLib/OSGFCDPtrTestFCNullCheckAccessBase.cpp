@@ -3500,11 +3500,13 @@ void FCDPtrTestFCNullCheckAccessBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FCDPtrTestFCNullCheckAccessBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    FCDPtrTestFCNullCheckAccess *pThis = static_cast<FCDPtrTestFCNullCheckAccess *>(this);
+
+    pThis->execSync(static_cast<FCDPtrTestFCNullCheckAccess *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

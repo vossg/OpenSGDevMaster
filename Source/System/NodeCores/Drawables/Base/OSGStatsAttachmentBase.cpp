@@ -186,11 +186,13 @@ void StatsAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StatsAttachmentBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    StatsAttachment *pThis = static_cast<StatsAttachment *>(this);
+
+    pThis->execSync(static_cast<StatsAttachment *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

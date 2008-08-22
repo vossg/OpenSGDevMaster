@@ -737,11 +737,13 @@ void SimpleTexturedMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleTexturedMaterialBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    SimpleTexturedMaterial *pThis = static_cast<SimpleTexturedMaterial *>(this);
+
+    pThis->execSync(static_cast<SimpleTexturedMaterial *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

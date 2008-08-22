@@ -1817,11 +1817,13 @@ void SkyBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SkyBackgroundBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    SkyBackground *pThis = static_cast<SkyBackground *>(this);
+
+    pThis->execSync(static_cast<SkyBackground *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -373,11 +373,13 @@ void SHLParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SHLParameterChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    SHLParameterChunk *pThis = static_cast<SHLParameterChunk *>(this);
+
+    pThis->execSync(static_cast<SHLParameterChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

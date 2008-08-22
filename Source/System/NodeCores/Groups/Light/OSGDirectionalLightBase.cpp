@@ -360,11 +360,13 @@ void DirectionalLightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DirectionalLightBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    DirectionalLight *pThis = static_cast<DirectionalLight *>(this);
+
+    pThis->execSync(static_cast<DirectionalLight *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

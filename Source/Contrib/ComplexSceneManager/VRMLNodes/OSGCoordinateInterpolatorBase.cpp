@@ -590,11 +590,13 @@ void CoordinateInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CoordinateInterpolatorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CoordinateInterpolator *pThis = static_cast<CoordinateInterpolator *>(this);
+
+    pThis->execSync(static_cast<CoordinateInterpolator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

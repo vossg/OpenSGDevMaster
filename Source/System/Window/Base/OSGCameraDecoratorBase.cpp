@@ -450,11 +450,13 @@ void CameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CameraDecoratorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CameraDecorator *pThis = static_cast<CameraDecorator *>(this);
+
+    pThis->execSync(static_cast<CameraDecorator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

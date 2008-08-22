@@ -277,11 +277,13 @@ void DepthClearBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DepthClearBackgroundBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    DepthClearBackground *pThis = static_cast<DepthClearBackground *>(this);
+
+    pThis->execSync(static_cast<DepthClearBackground *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

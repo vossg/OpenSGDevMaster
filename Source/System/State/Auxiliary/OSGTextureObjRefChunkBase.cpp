@@ -359,11 +359,13 @@ void TextureObjRefChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureObjRefChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    TextureObjRefChunk *pThis = static_cast<TextureObjRefChunk *>(this);
+
+    pThis->execSync(static_cast<TextureObjRefChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

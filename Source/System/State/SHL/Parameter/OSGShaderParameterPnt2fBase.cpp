@@ -358,11 +358,13 @@ void ShaderParameterPnt2fBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterPnt2fBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ShaderParameterPnt2f *pThis = static_cast<ShaderParameterPnt2f *>(this);
+
+    pThis->execSync(static_cast<ShaderParameterPnt2f *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

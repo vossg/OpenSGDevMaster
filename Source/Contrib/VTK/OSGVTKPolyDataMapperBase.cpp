@@ -1748,11 +1748,13 @@ void VTKPolyDataMapperBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<VTKPolyDataMapperBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    VTKPolyDataMapper *pThis = static_cast<VTKPolyDataMapper *>(this);
+
+    pThis->execSync(static_cast<VTKPolyDataMapper *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

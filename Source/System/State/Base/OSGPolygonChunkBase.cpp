@@ -1178,11 +1178,13 @@ void PolygonChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PolygonChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    PolygonChunk *pThis = static_cast<PolygonChunk *>(this);
+
+    pThis->execSync(static_cast<PolygonChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

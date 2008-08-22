@@ -375,11 +375,13 @@ void TextureTransformChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureTransformChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    TextureTransformChunk *pThis = static_cast<TextureTransformChunk *>(this);
+
+    pThis->execSync(static_cast<TextureTransformChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

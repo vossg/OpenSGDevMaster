@@ -2121,11 +2121,13 @@ void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<QuadTreeTerrainBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    QuadTreeTerrain *pThis = static_cast<QuadTreeTerrain *>(this);
+
+    pThis->execSync(static_cast<QuadTreeTerrain *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

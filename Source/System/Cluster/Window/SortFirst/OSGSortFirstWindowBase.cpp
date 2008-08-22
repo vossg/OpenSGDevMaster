@@ -659,11 +659,13 @@ void SortFirstWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SortFirstWindowBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    SortFirstWindow *pThis = static_cast<SortFirstWindow *>(this);
+
+    pThis->execSync(static_cast<SortFirstWindow *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

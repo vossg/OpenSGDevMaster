@@ -701,11 +701,13 @@ void FCDTestFCBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FCDTestFCBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    FCDTestFC *pThis = static_cast<FCDTestFC *>(this);
+
+    pThis->execSync(static_cast<FCDTestFC *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

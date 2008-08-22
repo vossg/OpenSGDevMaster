@@ -523,11 +523,13 @@ void MatrixCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MatrixCameraBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    MatrixCamera *pThis = static_cast<MatrixCamera *>(this);
+
+    pThis->execSync(static_cast<MatrixCamera *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

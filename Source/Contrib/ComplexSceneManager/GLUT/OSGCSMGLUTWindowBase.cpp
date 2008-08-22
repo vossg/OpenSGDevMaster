@@ -247,11 +247,13 @@ void CSMGLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CSMGLUTWindowBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CSMGLUTWindow *pThis = static_cast<CSMGLUTWindow *>(this);
+
+    pThis->execSync(static_cast<CSMGLUTWindow *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

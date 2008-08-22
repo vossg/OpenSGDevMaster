@@ -662,11 +662,13 @@ void MultiDisplayWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MultiDisplayWindowBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    MultiDisplayWindow *pThis = static_cast<MultiDisplayWindow *>(this);
+
+    pThis->execSync(static_cast<MultiDisplayWindow *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -646,11 +646,13 @@ void CSMSceneParameterBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CSMSceneParameterBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CSMSceneParameter *pThis = static_cast<CSMSceneParameter *>(this);
+
+    pThis->execSync(static_cast<CSMSceneParameter *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

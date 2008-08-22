@@ -835,11 +835,13 @@ void SimpleShadowMapEngineDataBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleShadowMapEngineDataBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    SimpleShadowMapEngineData *pThis = static_cast<SimpleShadowMapEngineData *>(this);
+
+    pThis->execSync(static_cast<SimpleShadowMapEngineData *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

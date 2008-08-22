@@ -491,11 +491,13 @@ void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ChunkMaterialBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ChunkMaterial *pThis = static_cast<ChunkMaterial *>(this);
+
+    pThis->execSync(static_cast<ChunkMaterial *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

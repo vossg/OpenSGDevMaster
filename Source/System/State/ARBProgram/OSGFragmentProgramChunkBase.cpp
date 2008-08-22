@@ -286,11 +286,13 @@ void FragmentProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FragmentProgramChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    FragmentProgramChunk *pThis = static_cast<FragmentProgramChunk *>(this);
+
+    pThis->execSync(static_cast<FragmentProgramChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

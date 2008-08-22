@@ -195,11 +195,13 @@ void GeoIntegralPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoIntegralPropertyBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    GeoIntegralProperty *pThis = static_cast<GeoIntegralProperty *>(this);
+
+    pThis->execSync(static_cast<GeoIntegralProperty *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

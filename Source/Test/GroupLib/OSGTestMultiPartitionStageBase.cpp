@@ -582,11 +582,13 @@ void TestMultiPartitionStageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TestMultiPartitionStageBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    TestMultiPartitionStage *pThis = static_cast<TestMultiPartitionStage *>(this);
+
+    pThis->execSync(static_cast<TestMultiPartitionStage *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

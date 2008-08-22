@@ -524,11 +524,13 @@ void SwitchMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SwitchMaterialBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    SwitchMaterial *pThis = static_cast<SwitchMaterial *>(this);
+
+    pThis->execSync(static_cast<SwitchMaterial *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

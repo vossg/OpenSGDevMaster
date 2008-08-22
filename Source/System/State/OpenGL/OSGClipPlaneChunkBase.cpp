@@ -553,11 +553,13 @@ void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ClipPlaneChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ClipPlaneChunk *pThis = static_cast<ClipPlaneChunk *>(this);
+
+    pThis->execSync(static_cast<ClipPlaneChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

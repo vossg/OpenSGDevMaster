@@ -559,11 +559,13 @@ void CSMSortFirstWinOptionsBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CSMSortFirstWinOptionsBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CSMSortFirstWinOptions *pThis = static_cast<CSMSortFirstWinOptions *>(this);
+
+    pThis->execSync(static_cast<CSMSortFirstWinOptions *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

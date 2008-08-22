@@ -362,11 +362,13 @@ void StereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StereoCameraDecoratorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    StereoCameraDecorator *pThis = static_cast<StereoCameraDecorator *>(this);
+
+    pThis->execSync(static_cast<StereoCameraDecorator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

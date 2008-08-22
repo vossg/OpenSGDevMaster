@@ -195,11 +195,13 @@ void GeoVectorPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoVectorPropertyBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    GeoVectorProperty *pThis = static_cast<GeoVectorProperty *>(this);
+
+    pThis->execSync(static_cast<GeoVectorProperty *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

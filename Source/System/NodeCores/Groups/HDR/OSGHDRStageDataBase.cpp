@@ -1012,11 +1012,13 @@ void HDRStageDataBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<HDRStageDataBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    HDRStageData *pThis = static_cast<HDRStageData *>(this);
+
+    pThis->execSync(static_cast<HDRStageData *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

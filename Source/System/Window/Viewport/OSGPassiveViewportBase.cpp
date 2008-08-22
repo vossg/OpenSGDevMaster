@@ -272,11 +272,13 @@ void PassiveViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PassiveViewportBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    PassiveViewport *pThis = static_cast<PassiveViewport *>(this);
+
+    pThis->execSync(static_cast<PassiveViewport *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

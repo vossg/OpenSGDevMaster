@@ -920,11 +920,13 @@ void FrameBufferObjectBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FrameBufferObjectBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    FrameBufferObject *pThis = static_cast<FrameBufferObject *>(this);
+
+    pThis->execSync(static_cast<FrameBufferObject *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -1209,11 +1209,13 @@ void ProxyGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ProxyGroupBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ProxyGroup *pThis = static_cast<ProxyGroup *>(this);
+
+    pThis->execSync(static_cast<ProxyGroup *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

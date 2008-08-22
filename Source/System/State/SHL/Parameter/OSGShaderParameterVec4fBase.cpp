@@ -358,11 +358,13 @@ void ShaderParameterVec4fBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterVec4fBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ShaderParameterVec4f *pThis = static_cast<ShaderParameterVec4f *>(this);
+
+    pThis->execSync(static_cast<ShaderParameterVec4f *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

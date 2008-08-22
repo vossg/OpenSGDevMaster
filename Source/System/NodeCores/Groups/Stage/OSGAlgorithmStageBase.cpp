@@ -599,11 +599,13 @@ void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<AlgorithmStageBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    AlgorithmStage *pThis = static_cast<AlgorithmStage *>(this);
+
+    pThis->execSync(static_cast<AlgorithmStage *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

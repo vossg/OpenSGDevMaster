@@ -613,11 +613,13 @@ void TextureGrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureGrabForegroundBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    TextureGrabForeground *pThis = static_cast<TextureGrabForeground *>(this);
+
+    pThis->execSync(static_cast<TextureGrabForeground *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

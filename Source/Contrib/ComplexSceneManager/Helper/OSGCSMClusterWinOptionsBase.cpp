@@ -396,11 +396,13 @@ void CSMClusterWinOptionsBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CSMClusterWinOptionsBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CSMClusterWinOptions *pThis = static_cast<CSMClusterWinOptions *>(this);
+
+    pThis->execSync(static_cast<CSMClusterWinOptions *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -780,11 +780,13 @@ void MatrixCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MatrixCameraDecoratorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    MatrixCameraDecorator *pThis = static_cast<MatrixCameraDecorator *>(this);
+
+    pThis->execSync(static_cast<MatrixCameraDecorator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

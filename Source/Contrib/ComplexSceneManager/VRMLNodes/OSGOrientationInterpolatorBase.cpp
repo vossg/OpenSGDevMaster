@@ -590,11 +590,13 @@ void OrientationInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<OrientationInterpolatorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    OrientationInterpolator *pThis = static_cast<OrientationInterpolator *>(this);
+
+    pThis->execSync(static_cast<OrientationInterpolator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

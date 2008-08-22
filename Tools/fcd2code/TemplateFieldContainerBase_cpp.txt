@@ -1014,11 +1014,13 @@ void @!Classname!@Base::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<@!Classname!@Base *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    @!Classname!@ *pThis = static_cast<@!Classname!@ *>(this);
+
+    pThis->execSync(static_cast<@!Classname!@ *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

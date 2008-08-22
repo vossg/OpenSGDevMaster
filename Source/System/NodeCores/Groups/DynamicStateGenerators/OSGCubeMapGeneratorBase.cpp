@@ -1302,11 +1302,13 @@ void CubeMapGeneratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CubeMapGeneratorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CubeMapGenerator *pThis = static_cast<CubeMapGenerator *>(this);
+
+    pThis->execSync(static_cast<CubeMapGenerator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

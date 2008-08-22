@@ -518,11 +518,13 @@ void ContainerCollectionBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ContainerCollectionBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ContainerCollection *pThis = static_cast<ContainerCollection *>(this);
+
+    pThis->execSync(static_cast<ContainerCollection *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

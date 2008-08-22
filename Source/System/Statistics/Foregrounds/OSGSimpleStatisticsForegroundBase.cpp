@@ -1250,11 +1250,13 @@ void SimpleStatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleStatisticsForegroundBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    SimpleStatisticsForeground *pThis = static_cast<SimpleStatisticsForeground *>(this);
+
+    pThis->execSync(static_cast<SimpleStatisticsForeground *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

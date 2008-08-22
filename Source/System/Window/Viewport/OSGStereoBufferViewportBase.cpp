@@ -453,11 +453,13 @@ void StereoBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StereoBufferViewportBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    StereoBufferViewport *pThis = static_cast<StereoBufferViewport *>(this);
+
+    pThis->execSync(static_cast<StereoBufferViewport *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

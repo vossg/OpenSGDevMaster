@@ -724,11 +724,13 @@ void CubeTextureObjChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CubeTextureObjChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CubeTextureObjChunk *pThis = static_cast<CubeTextureObjChunk *>(this);
+
+    pThis->execSync(static_cast<CubeTextureObjChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

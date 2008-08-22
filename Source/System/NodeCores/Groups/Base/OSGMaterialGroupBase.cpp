@@ -382,11 +382,13 @@ void MaterialGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MaterialGroupBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    MaterialGroup *pThis = static_cast<MaterialGroup *>(this);
+
+    pThis->execSync(static_cast<MaterialGroup *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

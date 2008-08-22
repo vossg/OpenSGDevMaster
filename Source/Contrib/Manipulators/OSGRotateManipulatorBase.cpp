@@ -273,11 +273,13 @@ void RotateManipulatorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<RotateManipulatorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    RotateManipulator *pThis = static_cast<RotateManipulator *>(this);
+
+    pThis->execSync(static_cast<RotateManipulator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

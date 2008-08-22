@@ -420,11 +420,13 @@ void FCDSParTestFCBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FCDSParTestFCBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    FCDSParTestFC *pThis = static_cast<FCDSParTestFC *>(this);
+
+    pThis->execSync(static_cast<FCDSParTestFC *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

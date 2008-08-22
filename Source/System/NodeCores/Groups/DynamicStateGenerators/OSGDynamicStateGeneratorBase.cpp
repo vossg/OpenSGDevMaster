@@ -379,11 +379,13 @@ void DynamicStateGeneratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DynamicStateGeneratorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    DynamicStateGenerator *pThis = static_cast<DynamicStateGenerator *>(this);
+
+    pThis->execSync(static_cast<DynamicStateGenerator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

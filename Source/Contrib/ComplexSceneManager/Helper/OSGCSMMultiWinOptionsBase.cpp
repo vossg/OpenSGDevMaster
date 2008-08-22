@@ -707,11 +707,13 @@ void CSMMultiWinOptionsBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CSMMultiWinOptionsBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CSMMultiWinOptions *pThis = static_cast<CSMMultiWinOptions *>(this);
+
+    pThis->execSync(static_cast<CSMMultiWinOptions *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

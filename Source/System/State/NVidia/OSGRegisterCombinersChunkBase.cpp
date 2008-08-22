@@ -2669,11 +2669,13 @@ void RegisterCombinersChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<RegisterCombinersChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    RegisterCombinersChunk *pThis = static_cast<RegisterCombinersChunk *>(this);
+
+    pThis->execSync(static_cast<RegisterCombinersChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

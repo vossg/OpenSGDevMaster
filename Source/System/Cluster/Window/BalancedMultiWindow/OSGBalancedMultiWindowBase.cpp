@@ -662,11 +662,13 @@ void BalancedMultiWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<BalancedMultiWindowBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    BalancedMultiWindow *pThis = static_cast<BalancedMultiWindow *>(this);
+
+    pThis->execSync(static_cast<BalancedMultiWindow *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -338,11 +338,13 @@ void CallbackAlgorithmBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CallbackAlgorithmBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CallbackAlgorithm *pThis = static_cast<CallbackAlgorithm *>(this);
+
+    pThis->execSync(static_cast<CallbackAlgorithm *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

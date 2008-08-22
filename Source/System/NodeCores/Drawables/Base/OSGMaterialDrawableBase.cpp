@@ -286,11 +286,13 @@ void MaterialDrawableBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MaterialDrawableBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    MaterialDrawable *pThis = static_cast<MaterialDrawable *>(this);
+
+    pThis->execSync(static_cast<MaterialDrawable *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

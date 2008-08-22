@@ -383,11 +383,13 @@ void ChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ChunkOverrideGroupBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ChunkOverrideGroup *pThis = static_cast<ChunkOverrideGroup *>(this);
+
+    pThis->execSync(static_cast<ChunkOverrideGroup *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -862,11 +862,13 @@ void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ProjectionCameraDecoratorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ProjectionCameraDecorator *pThis = static_cast<ProjectionCameraDecorator *>(this);
+
+    pThis->execSync(static_cast<ProjectionCameraDecorator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

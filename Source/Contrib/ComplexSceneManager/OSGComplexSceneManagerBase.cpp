@@ -1264,11 +1264,13 @@ void ComplexSceneManagerBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ComplexSceneManagerBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ComplexSceneManager *pThis = static_cast<ComplexSceneManager *>(this);
+
+    pThis->execSync(static_cast<ComplexSceneManager *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

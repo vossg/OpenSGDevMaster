@@ -247,11 +247,13 @@ void ConnectorAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ConnectorAttachmentBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ConnectorAttachment *pThis = static_cast<ConnectorAttachment *>(this);
+
+    pThis->execSync(static_cast<ConnectorAttachment *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

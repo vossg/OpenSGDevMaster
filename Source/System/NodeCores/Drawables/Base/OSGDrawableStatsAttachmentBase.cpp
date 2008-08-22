@@ -845,11 +845,13 @@ void DrawableStatsAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DrawableStatsAttachmentBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    DrawableStatsAttachment *pThis = static_cast<DrawableStatsAttachment *>(this);
+
+    pThis->execSync(static_cast<DrawableStatsAttachment *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

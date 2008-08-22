@@ -357,11 +357,13 @@ void OffCenterPerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<OffCenterPerspectiveCameraBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    OffCenterPerspectiveCamera *pThis = static_cast<OffCenterPerspectiveCamera *>(this);
+
+    pThis->execSync(static_cast<OffCenterPerspectiveCamera *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -431,11 +431,13 @@ void OrthographicCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<OrthographicCameraBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    OrthographicCamera *pThis = static_cast<OrthographicCamera *>(this);
+
+    pThis->execSync(static_cast<OrthographicCamera *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

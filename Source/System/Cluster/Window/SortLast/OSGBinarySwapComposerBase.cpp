@@ -508,11 +508,13 @@ void BinarySwapComposerBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<BinarySwapComposerBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    BinarySwapComposer *pThis = static_cast<BinarySwapComposer *>(this);
+
+    pThis->execSync(static_cast<BinarySwapComposer *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

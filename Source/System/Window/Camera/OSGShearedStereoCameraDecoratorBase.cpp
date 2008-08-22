@@ -444,11 +444,13 @@ void ShearedStereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShearedStereoCameraDecoratorBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ShearedStereoCameraDecorator *pThis = static_cast<ShearedStereoCameraDecorator *>(this);
+
+    pThis->execSync(static_cast<ShearedStereoCameraDecorator *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

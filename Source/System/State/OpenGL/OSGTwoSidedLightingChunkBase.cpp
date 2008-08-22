@@ -272,11 +272,13 @@ void TwoSidedLightingChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TwoSidedLightingChunkBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    TwoSidedLightingChunk *pThis = static_cast<TwoSidedLightingChunk *>(this);
+
+    pThis->execSync(static_cast<TwoSidedLightingChunk *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

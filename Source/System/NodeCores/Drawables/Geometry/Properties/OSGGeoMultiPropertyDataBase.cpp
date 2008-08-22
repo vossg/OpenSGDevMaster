@@ -434,11 +434,13 @@ void GeoMultiPropertyDataBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoMultiPropertyDataBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    GeoMultiPropertyData *pThis = static_cast<GeoMultiPropertyData *>(this);
+
+    pThis->execSync(static_cast<GeoMultiPropertyData *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

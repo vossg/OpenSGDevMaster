@@ -438,11 +438,13 @@ void StringAttributeMapBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StringAttributeMapBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    StringAttributeMap *pThis = static_cast<StringAttributeMap *>(this);
+
+    pThis->execSync(static_cast<StringAttributeMap *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

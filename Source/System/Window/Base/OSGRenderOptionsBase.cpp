@@ -2309,11 +2309,13 @@ void RenderOptionsBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<RenderOptionsBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    RenderOptions *pThis = static_cast<RenderOptions *>(this);
+
+    pThis->execSync(static_cast<RenderOptions *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

@@ -2476,11 +2476,13 @@ void FCDPtrTestFCCustomAccessBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FCDPtrTestFCCustomAccessBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    FCDPtrTestFCCustomAccess *pThis = static_cast<FCDPtrTestFCCustomAccess *>(this);
+
+    pThis->execSync(static_cast<FCDPtrTestFCCustomAccess *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

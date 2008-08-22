@@ -647,11 +647,13 @@ void ComponentTransformBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ComponentTransformBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    ComponentTransform *pThis = static_cast<ComponentTransform *>(this);
+
+    pThis->execSync(static_cast<ComponentTransform *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 
