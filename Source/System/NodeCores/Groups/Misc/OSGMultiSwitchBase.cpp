@@ -443,11 +443,13 @@ void MultiSwitchBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MultiSwitchBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    MultiSwitch *pThis = static_cast<MultiSwitch *>(this);
+
+    pThis->execSync(static_cast<MultiSwitch *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 
