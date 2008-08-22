@@ -376,7 +376,7 @@ void SHLChunk::onCreate(const SHLChunk *source)
         Window::registerGLObject(
             boost::bind(&SHLChunk::handleGL, 
                         SHLChunkMTPtr(this), 
-                        _1, _2, _3),
+                        _1, _2, _3, _4),
             &SHLChunk::handleDestroyGL));
 
     _uiChunkId = _uiChunkCounter++;
@@ -456,9 +456,11 @@ void SHLChunk::dump(      UInt32    ,
 /*! GL object handler
     create the program
 */
-void SHLChunk::handleGL(DrawEnv                 *pEnv, 
-                               UInt32                   osgid, 
-                               Window::GLObjectStatusE  mode)
+
+UInt32 SHLChunk::handleGL(DrawEnv                 *pEnv, 
+                          UInt32                   osgid, 
+                          Window::GLObjectStatusE  mode,
+                          UInt32                   uiOptions)
 {
     Window *win = pEnv->getWindow();
 
@@ -469,7 +471,7 @@ void SHLChunk::handleGL(DrawEnv                 *pEnv,
 
         win->setGLObjectId(getGLId(), 0);
 
-        return;
+        return 0;
     }
 
     // BUG this is not called for every window!
@@ -497,6 +499,8 @@ void SHLChunk::handleGL(DrawEnv                 *pEnv,
                  << osgid
                  << std::endl;
     }
+
+    return 0;
 }
 
 /*! GL object handler

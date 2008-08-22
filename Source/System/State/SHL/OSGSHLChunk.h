@@ -308,14 +308,16 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    static void initMethod(InitPhase ePhase);
+    static void   initMethod     (InitPhase                ePhase);
 
-           void handleGL       (DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
-    static void handleDestroyGL(DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
+           UInt32 handleGL       (DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode,
+                                  UInt32                   uiOptions);
+
+    static void   handleDestroyGL(DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode     );
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SHLChunk &source);
