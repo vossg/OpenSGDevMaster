@@ -157,13 +157,13 @@ void Geometry::onCreate(const Geometry *)
     setClassicGLId(               
         Window::registerGLObject(
             boost::bind(&Geometry::handleClassicGL, GeometryMTPtr(this), 
-                            _1, _2, _3),
+                        _1, _2, _3, _4),
             &Geometry::handleClassicDestroyGL));
 
     setAttGLId(               
         Window::registerGLObject(
             boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
-                            _1, _2, _3),
+                        _1, _2, _3, _4),
             &Geometry::handleAttDestroyGL));
 }
 
@@ -212,9 +212,11 @@ void Geometry::adjustVolume(Volume & volume)
 
 /*! OpenGL object handler. Used for DisplayList caching.
 */
-void Geometry::handleClassicGL(DrawEnv                 *pEnv, 
-                               UInt32                   id, 
-                               Window::GLObjectStatusE  mode)
+
+UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv, 
+                                 UInt32                   id, 
+                                 Window::GLObjectStatusE  mode,
+                                 UInt32                   uiOptions)
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
@@ -265,11 +267,12 @@ void Geometry::handleClassicGL(DrawEnv                 *pEnv,
                  << mode << " for id " << id << std::endl;
     }
 
+    return 0;
 }
 
 void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv, 
-                        UInt32                   id, 
-                        Window::GLObjectStatusE  mode)
+                                      UInt32                   id, 
+                                      Window::GLObjectStatusE  mode)
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
@@ -292,9 +295,10 @@ void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv,
 
 }
 
-void Geometry::handleAttGL(DrawEnv                 *pEnv, 
-                           UInt32                   id, 
-                           Window::GLObjectStatusE  mode)
+UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv, 
+                             UInt32                   id, 
+                             Window::GLObjectStatusE  mode,
+                             UInt32                   uiOptions)
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
@@ -342,6 +346,7 @@ void Geometry::handleAttGL(DrawEnv                 *pEnv,
                  << mode << " for id " << id << std::endl;
     }
 
+    return 0;
 }
 
 void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv, 
@@ -520,7 +525,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
                 Window::registerGLObject(
                     boost::bind(&Geometry::handleClassicGL, 
                                 GeometryMTPtr(this), 
-                                _1, _2, _3),
+                                _1, _2, _3, _4),
                     &Geometry::handleClassicDestroyGL));
         }
         if(getAttGLId() == 0)
@@ -528,7 +533,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
             setAttGLId(               
                 Window::registerGLObject(
                     boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
-                                _1, _2, _3),
+                                _1, _2, _3, _4),
                     &Geometry::handleAttDestroyGL));
         }
 

@@ -302,7 +302,7 @@ void TextureObjChunk::onCreate(const TextureObjChunk *source)
     setGLId(Window::registerGLObject(
                 boost::bind(&TextureObjChunk::handleGL, 
                             TextureObjChunkMTPtr(this), 
-                            _1, _2, _3),
+                            _1, _2, _3, _4),
                 &TextureObjChunk::handleDestroyGL));
 }
 
@@ -1470,9 +1470,10 @@ void TextureObjChunk::handleTexture(Window                  *win,
 /*! GL object handler
     create the texture and destroy it
 */
-void TextureObjChunk::handleGL(DrawEnv                 *pEnv, 
-                               UInt32                   osgid, 
-                               Window::GLObjectStatusE  mode)
+UInt32 TextureObjChunk::handleGL(DrawEnv                 *pEnv, 
+                                 UInt32                   osgid, 
+                                 Window::GLObjectStatusE  mode,
+                                 UInt32                   uiOptions)
 {
     Window *win = pEnv->getWindow();
     GLuint  id  = win->getGLObjectId(osgid);
@@ -1509,7 +1510,7 @@ void TextureObjChunk::handleGL(DrawEnv                 *pEnv,
                             FWARNING(
                                 ("TextureObjChunk::initialize: 3D textures not "
                                  "supported for this window!\n"));
-                            return;
+                            return 0;
                         }
                     }
                     else if(img->getHeight() > 1)
@@ -1568,6 +1569,7 @@ void TextureObjChunk::handleGL(DrawEnv                 *pEnv,
              << mode << " for id " << id << std::endl;
     }
 
+    return 0;
 }
 
 /*! GL object handler

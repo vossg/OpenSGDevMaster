@@ -569,9 +569,9 @@ void OSG::Window::subPort(UInt32  portIndex)
     concept. 
 */
 
-UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, 
-                                     GLObjectFunctor destroy, 
-                                     UInt32          num)
+UInt32 OSG::Window::registerGLObject(GLObjectFunctor        functor, 
+                                     GLObjectDestroyFunctor destroy, 
+                                     UInt32                 num)
 {
     UInt32    osgId, i; 
     GLObject *pGLObject;
@@ -677,12 +677,16 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor,
     See \ref PageSystemOGLObjects for a description of the OpenGL object
     concept. 
 */
-void OSG::Window::validateGLObject(UInt32 osgId, DrawEnv *pEnv)
+UInt32 OSG::Window::validateGLObject(UInt32   osgId, 
+                                     DrawEnv *pEnv, 
+                                     UInt32   uiOptions)
 {
+    UInt32 returnValue = 0;
+    
     if ( osgId == 0 )
     {
         SWARNING << "Window::validateGLObject: id is 0!" << std::endl;
-        return;
+        return returnValue;
     }
     
     GLObject *obj = _glObjects[osgId];
@@ -691,7 +695,7 @@ void OSG::Window::validateGLObject(UInt32 osgId, DrawEnv *pEnv)
     {
         SWARNING << "Window::validateGLObject: obj with id " << osgId 
                  <<" is NULL!" << std::endl;
-        return;
+        return returnValue;
     }
 
     if(osgId >= _lastValidate.size()) // can happen if multi-threading
@@ -733,20 +737,22 @@ void OSG::Window::validateGLObject(UInt32 osgId, DrawEnv *pEnv)
                    _mfGlObjectLastReinitialize     );
 
         obj->incRefCounter();
-        obj->getFunctor()(pEnv, osgId, initialize);
+        returnValue = obj->getFunctor()(pEnv, osgId, initialize, uiOptions);
         _mfGlObjectLastReinitialize[osgId] = 1;
         _lastValidate[osgId] = getGlObjectEventCounter();
     }
     else if(_mfGlObjectLastReinitialize[osgId] > _lastValidate[osgId])
     {
-        obj->getFunctor()(pEnv, osgId, reinitialize);
+        returnValue = obj->getFunctor()(pEnv, osgId, reinitialize, uiOptions);
         _lastValidate[osgId] = getGlObjectEventCounter();
     }
     else if(_mfGlObjectLastRefresh[osgId] > _lastValidate[osgId])
     {
-        obj->getFunctor()(pEnv, osgId, needrefresh);
+        returnValue = obj->getFunctor()(pEnv, osgId, needrefresh, uiOptions);
         _lastValidate[osgId] = getGlObjectEventCounter();
     }
+
+    return returnValue;
 }
 
 /*! Validate all existing GL objects. Use with care, and only if the correct

@@ -196,7 +196,7 @@ void GeoProperty::onCreate(const GeoProperty *source)
         Window::registerGLObject(
             boost::bind(&GeoProperty::handleGL, 
                         GeoPropertyMTPtr(this), 
-                        _1, _2, _3),
+                        _1, _2, _3, _4),
             &GeoProperty::handleDestroyGL));
 }
 
@@ -244,9 +244,11 @@ void GeoProperty::dump(      UInt32    ,
 /*! GL object handler
     create the VBO and destroy it
 */
-void GeoProperty::handleGL(DrawEnv                 *pEnv, 
-                               UInt32                   id, 
-                               Window::GLObjectStatusE  mode)
+
+UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv, 
+                             UInt32                   id, 
+                             Window::GLObjectStatusE  mode,
+                             UInt32                   uiOptions)
 {
 #ifndef OSG_WINCE
     GLuint glid;
@@ -295,6 +297,8 @@ void GeoProperty::handleGL(DrawEnv                 *pEnv,
              << mode << " for id " << id << std::endl;
     }
 #endif
+
+    return 0;
 }
 
 void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv, 

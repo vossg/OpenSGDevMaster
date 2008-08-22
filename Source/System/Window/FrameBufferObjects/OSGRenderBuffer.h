@@ -120,13 +120,14 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
     static UInt32 _uiFuncBindRenderbuffer;
     static UInt32 _uiFuncRenderbufferStorage;
 
-           void handleGL       (DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
+           UInt32 handleGL       (DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode,
+                                  UInt32                   uiOptions);
 
-    static void handleDestroyGL(DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
+    static void   handleDestroyGL(DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -158,12 +158,13 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunk :
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-           void handleGL       (DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
-    static void handleDestroyGL(DrawEnv                 *pEnv, 
-                                UInt32                   id, 
-                                Window::GLObjectStatusE  mode);
+           UInt32 handleGL       (DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode,
+                                  UInt32                   uiOptions);
+    static void   handleDestroyGL(DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode     );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

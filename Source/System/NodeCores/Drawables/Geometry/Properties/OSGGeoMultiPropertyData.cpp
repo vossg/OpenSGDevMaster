@@ -132,7 +132,7 @@ void GeoMultiPropertyData::onCreate(const GeoMultiPropertyData *)
         Window::registerGLObject(
             boost::bind(&GeoMultiPropertyData::handleGL, 
                         GeoMultiPropertyDataMTPtr(this), 
-                        _1, _2, _3),
+                        _1, _2, _3, _4),
             &GeoMultiPropertyData::handleDestroyGL));
 }
 
@@ -168,9 +168,11 @@ void GeoMultiPropertyData::changed(ConstFieldMaskArg whichField,
 /*! GL object handler
     create the VBO and destroy it
 */
-void GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv, 
-                               UInt32                   id, 
-                               Window::GLObjectStatusE  mode)
+
+UInt32 GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv, 
+                                      UInt32                   id, 
+                                      Window::GLObjectStatusE  mode,
+                                      UInt32                   uiOptions)
 {
     Window *win = pEnv->getWindow();
 
@@ -207,6 +209,7 @@ void GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv,
              << mode << " for id " << id << std::endl;
     }
 
+    return 0;
 }
 
 

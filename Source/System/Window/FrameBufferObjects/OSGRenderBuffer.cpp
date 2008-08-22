@@ -190,7 +190,7 @@ void RenderBuffer::onCreate(const RenderBuffer *source)
         Window::registerGLObject(
             boost::bind(&RenderBuffer::handleGL, 
                         RenderBufferMTPtr(this), 
-                        _1, _2, _3),
+                        _1, _2, _3, _4),
             &RenderBuffer::handleDestroyGL));
 }
 
@@ -212,9 +212,10 @@ void RenderBuffer::dump(      UInt32    ,
     SLOG << "Dump RenderBuffer NI" << std::endl;
 }
 
-void RenderBuffer::handleGL(DrawEnv                 *pEnv, 
-                            UInt32                   osgid, 
-                            Window::GLObjectStatusE  mode)
+UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv, 
+                              UInt32                   osgid, 
+                              Window::GLObjectStatusE  mode,
+                              UInt32                        )
 {
     Window *pWindow = pEnv->getWindow();
     
@@ -255,6 +256,8 @@ void RenderBuffer::handleGL(DrawEnv                 *pEnv,
                                      getWidth(), 
                                      getHeight());
     }
+
+    return 0;
 }
  
 

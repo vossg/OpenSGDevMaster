@@ -106,8 +106,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                       Typedefs                               */
     /*! \{                                                                 */
 
-    typedef boost::function<void (DrawEnv *, UInt32, GLObjectStatusE)> 
-                                                        GLObjectFunctor;
+    typedef boost::function<UInt32 (DrawEnv *, 
+                                    UInt32, 
+                                    GLObjectStatusE,
+                                    UInt32         )> GLObjectFunctor;
+    typedef boost::function<void   (DrawEnv *, 
+                                    UInt32, 
+                                    GLObjectStatusE)> GLObjectDestroyFunctor;
 
     typedef void (*GLExtensionFunction)(void);
 
@@ -187,17 +192,18 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name             GL object registration                           */
     /*! \{                                                                 */
 
-    static UInt32 registerGLObject(GLObjectFunctor functor,
-                                   GLObjectFunctor destroyFunctor,
-                                   UInt32          num = 1);
+    static UInt32 registerGLObject(GLObjectFunctor        functor,
+                                   GLObjectDestroyFunctor destroyFunctor,
+                                   UInt32                 num = 1);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               GL object handling                             */
     /*! \{                                                                 */
 
-           void            validateGLObject    (UInt32           osgId,
-                                                DrawEnv         *pEnv    );
+           UInt32          validateGLObject    (UInt32           osgId,
+                                                DrawEnv         *pEnv,
+                                                UInt32           uiOptions = 0);
            void            validateAllGLObjects(DrawEnv         *pEnv    );
 
            //GLObjectStatusE getGLObjectStatus   (UInt32           osgId   );
@@ -338,13 +344,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     {
       public:
 
-        GLObject(GLObjectFunctor funct, GLObjectFunctor destroy);
+        GLObject(GLObjectFunctor funct, GLObjectDestroyFunctor destroy);
 
         GLObjectFunctor& getFunctor(void                 );
         void             setFunctor(GLObjectFunctor funct);
 
-        GLObjectFunctor& getDestroyFunctor(void                 );
-        void             setDestroyFunctor(GLObjectFunctor funct);
+        GLObjectDestroyFunctor& getDestroyFunctor(void                        );
+        void                    setDestroyFunctor(GLObjectDestroyFunctor funct);
 
         UInt32 getLastValidate(void      );
         void   setLastValidate(UInt32 val);
@@ -355,10 +361,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
       protected:
 
-        GLObjectFunctor _functor;
-        GLObjectFunctor _destroy;
-        volatile UInt32 _refCounter;
-                 UInt32 _lastValidate;
+                 GLObjectFunctor        _functor;
+                 GLObjectDestroyFunctor _destroy;
+        volatile UInt32                 _refCounter;
+                 UInt32                 _lastValidate;
     };
 
     /*! \}                                                                 */

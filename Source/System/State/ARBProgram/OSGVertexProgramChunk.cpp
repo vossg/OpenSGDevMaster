@@ -118,7 +118,7 @@ void VertexProgramChunk::onCreate(const VertexProgramChunk *chunk)
     setGLId(Window::registerGLObject(
                     boost::bind(&VertexProgramChunk::handleGL, 
                                 VertexProgramChunkMTPtr(this), 
-                                _1, _2, _3),
+                                _1, _2, _3, _4),
                     &VertexProgramChunk::handleDestroyGL));
 }
 
@@ -163,15 +163,18 @@ const char *VertexProgramChunk::getTargetName(void) const
 }
 
 
-void VertexProgramChunk::handleGL(DrawEnv                 *pEnv, 
-                                  UInt32                   osgid, 
-                                  Window::GLObjectStatusE  mode)
+UInt32 VertexProgramChunk::handleGL(DrawEnv                 *pEnv, 
+                                    UInt32                   osgid, 
+                                    Window::GLObjectStatusE  mode,
+                                    UInt32                   uiOptions)
 {
     Inherited::handleGL(pEnv, 
                         osgid,
                         mode, 
                         GL_VERTEX_PROGRAM_ARB, 
                         _arbVertexProgram);
+
+    return 0;
 }
 
 void VertexProgramChunk::handleDestroyGL(DrawEnv                 *pEnv, 

@@ -253,7 +253,7 @@ void FrameBufferObject::onCreate(const FrameBufferObject *source)
         Window::registerGLObject(
             boost::bind(&FrameBufferObject::handleGL, 
                         FrameBufferObjectMTPtr(this), 
-                        _1, _2, _3),
+                        _1, _2, _3, _4),
             &FrameBufferObject::handleDestroyGL));
 }
 
@@ -406,9 +406,10 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
     }
 }
 
-void FrameBufferObject::handleGL(DrawEnv                 *pEnv, 
-                                 UInt32                   osgid, 
-                                 Window::GLObjectStatusE  mode) const
+UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv, 
+                                   UInt32                   osgid, 
+                                   Window::GLObjectStatusE  mode,
+                                   UInt32                        ) const
 {
     Window *win     = pEnv->getWindow();
     GLuint  uiFBOId = 0;
@@ -550,6 +551,8 @@ void FrameBufferObject::handleGL(DrawEnv                 *pEnv,
             _sfStencilAttachment.getValue()->validate(pEnv);
         }
     }
+
+    return 0;
 }
 
 void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv, 
