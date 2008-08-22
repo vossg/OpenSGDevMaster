@@ -440,6 +440,19 @@ typename MField<ValueT,
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, 
+            iNamespace, 
+            AllocT    >::erase(size_type index)
+{
+    iterator pos = _values.begin();
+
+    pos += index;
+
+    _values.erase(pos);
+}
+
+
+template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 
                 iNamespace, 
                 AllocT    >::iterator MField<ValueT, 

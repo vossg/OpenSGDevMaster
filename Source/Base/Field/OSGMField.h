@@ -92,6 +92,9 @@ class MField : public Field
     typedef typename StorageType::reference             reference;
     typedef typename StorageType::const_reference       const_reference;
 
+    typedef typename StorageType::size_type             size_type;
+    typedef typename StorageType::value_type            value_type;
+
     typedef          FieldTraits      <ValueT, 
                                        iNamespace>      MFieldTraits;
  
@@ -219,6 +222,7 @@ class MField : public Field
                                      InputIterator last                );
  
     iterator               erase    (iterator     pos                  );
+    void                   erase    (size_type    index                );
     
     iterator               find     (ArgumentType value                );
     const_iterator         find     (ArgumentType value                ) const;
