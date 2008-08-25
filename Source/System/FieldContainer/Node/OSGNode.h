@@ -506,7 +506,11 @@ NodeTransitPtr deepCloneTree(
               std::vector<UInt16>()                                       );
 
 template <class Core> inline
-NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr *coreP = NULL);
+NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr   *pCore);
+
+template <class Core> inline
+NodeTransitPtr makeCoredNode(typename Core::ObjUnrecPtr *pCore = NULL);
+
 
 template <class CorePtr> inline
 NodeTransitPtr makeNodeFor(CorePtr core);

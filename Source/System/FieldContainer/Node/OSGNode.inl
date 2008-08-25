@@ -223,6 +223,20 @@ NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr *pCore)
     return n;
 }
 
+template <class Core> inline
+NodeTransitPtr makeCoredNode(typename Core::ObjUnrecPtr *pCore)
+{
+             NodeTransitPtr    n = Node::create();
+    typename Core::ObjUnrecPtr c = Core::create();
+
+    n->setCore(c);
+
+    if(pCore != NULL)
+        *pCore = c;
+
+    return n;
+}
+
 template <class CorePtr> inline
 NodeTransitPtr makeNodeFor(CorePtr c)
 {
