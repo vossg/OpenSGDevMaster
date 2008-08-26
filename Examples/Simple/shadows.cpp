@@ -206,12 +206,12 @@ int main(int argc, char **argv)
         globals->point1_core->setLightEngine(ssme1);
 //        globals->point2_core->setLightEngine(ssme2);
         
-        ssme1->setWidth (512);
-        ssme1->setHeight(512);
+        ssme1->setWidth (1024);
+        ssme1->setHeight(1024);
         ssme1->setShadowColor(Color4f(0.1, 0.1, 0.1, 1.0));
         
-        ssme2->setWidth (512);
-        ssme2->setHeight(512);
+        ssme2->setWidth (1024);
+        ssme2->setHeight(1024);
         
         Vec3f min,max;
         globals->rootNode->updateVolume();

@@ -281,8 +281,8 @@ void SimpleShadowMapEngine::setupCamera(Light         *pLight,
         MatrixPerspective( proMatrix,
                            2.f * angle,
                            1,
-                           1,
-                           1000);
+                           pAction->getActivePartition()->getNear(),
+                           pAction->getActivePartition()->getFar ());
         
         
         pCam->setProjectionMatrix(proMatrix  );
@@ -478,6 +478,8 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
 
 //    lightRenderEnter(pLight, pAction);
 
+    pAction->useNodeList(false);
+
     pAction->recurceNoNodeCallbacks(pActNode);
 
     pAction->popState();
@@ -519,6 +521,8 @@ void SimpleShadowMapEngine::doAmbientPass(Light         *pLight,
                  << " skipping light sources!"
                  << std::endl;
     }
+
+    pAction->useNodeList(false);
     
     pAction->recurceNoNodeCallbacks(pAction->getActNode());
 
@@ -603,15 +607,8 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
         
         pEngineData->setTexGenChunk(pTexGen);
         
-#if 0
-        NodeUnrec *dummy = makeCoredNode<Group>();
-        
-        pTexGen->setSBeacon(dummy);
-        pTexGen->setTBeacon(dummy);
-        pTexGen->setRBeacon(dummy);
-        pTexGen->setQBeacon(dummy);
-#endif
-        
+        pTexGen->setEyeModelViewMode(TexGenChunk::EyeModelViewCamera);
+
         pTexGen->setGenFuncS(GL_EYE_LINEAR);
         pTexGen->setGenFuncT(GL_EYE_LINEAR);
         pTexGen->setGenFuncR(GL_EYE_LINEAR);
@@ -684,6 +681,8 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
     pAction->addOverride(uiTexGenSlot, pTexGen  );
     
     lightRenderEnter(pLight, pAction);
+
+    pAction->useNodeList(false);
 
     pAction->recurceNoNodeCallbacks(pAction->getActNode());
  

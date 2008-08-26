@@ -55,6 +55,11 @@ class OSG_STATE_DLLMAPPING TexGenChunk : public TexGenChunkBase
     /*==========================  PUBLIC  =================================*/
 
   public:
+    
+    static const UInt32 EyeModelViewNone     = 0x0000;
+    static const UInt32 EyeModelViewIdentity = 0x0001;
+    static const UInt32 EyeModelViewStored   = 0x0002;
+    static const UInt32 EyeModelViewCamera   = 0x0003;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */

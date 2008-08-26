@@ -137,4 +137,23 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 		access="public"
 	>
 	</Field>
+
+	<Field
+		name="eyeModelViewMatrix"
+		type="Matrix"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+	   name="eyeModelViewMode"
+	   type="UInt32"
+	   cardinality="single"
+	   visibility="external"
+	   access="public"
+       defaultValue="0x0001"
+	>
+	</Field>
+
 </FieldContainer>

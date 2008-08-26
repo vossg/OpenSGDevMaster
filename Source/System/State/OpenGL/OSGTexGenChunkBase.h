@@ -77,6 +77,8 @@
 #include "OSGNodeFields.h" // TBeacon type
 #include "OSGNodeFields.h" // RBeacon type
 #include "OSGNodeFields.h" // QBeacon type
+#include "OSGMatrixFields.h" // EyeModelViewMatrix type
+#include "OSGUInt32Fields.h" // EyeModelViewMode type
 
 #include "OSGTexGenChunkFields.h"
 
@@ -116,7 +118,9 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
         TBeaconFieldId = SBeaconFieldId + 1,
         RBeaconFieldId = TBeaconFieldId + 1,
         QBeaconFieldId = RBeaconFieldId + 1,
-        NextFieldId = QBeaconFieldId + 1
+        EyeModelViewMatrixFieldId = QBeaconFieldId + 1,
+        EyeModelViewModeFieldId = EyeModelViewMatrixFieldId + 1,
+        NextFieldId = EyeModelViewModeFieldId + 1
     };
 
     static const OSG::BitVector GenFuncSFieldMask =
@@ -143,6 +147,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << RBeaconFieldId);
     static const OSG::BitVector QBeaconFieldMask =
         (TypeTraits<BitVector>::One << QBeaconFieldId);
+    static const OSG::BitVector EyeModelViewMatrixFieldMask =
+        (TypeTraits<BitVector>::One << EyeModelViewMatrixFieldId);
+    static const OSG::BitVector EyeModelViewModeFieldMask =
+        (TypeTraits<BitVector>::One << EyeModelViewModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -158,6 +166,8 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     typedef SFWeakNodePtr     SFTBeaconType;
     typedef SFWeakNodePtr     SFRBeaconType;
     typedef SFWeakNodePtr     SFQBeaconType;
+    typedef SFMatrix          SFEyeModelViewMatrixType;
+    typedef SFUInt32          SFEyeModelViewModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -215,6 +225,12 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
             const SFWeakNodePtr       *getSFQBeacon        (void) const;
                   SFWeakNodePtr       *editSFQBeacon        (void);
 
+                  SFMatrix            *editSFEyeModelViewMatrix(void);
+            const SFMatrix            *getSFEyeModelViewMatrix (void) const;
+
+                  SFUInt32            *editSFEyeModelViewMode(void);
+            const SFUInt32            *getSFEyeModelViewMode (void) const;
+
 
                   GLenum              &editGenFuncS       (void);
             const GLenum              &getGenFuncS        (void) const;
@@ -248,6 +264,12 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
 
                   Node * getQBeacon        (void) const;
 
+                  Matrix              &editEyeModelViewMatrix(void);
+            const Matrix              &getEyeModelViewMatrix (void) const;
+
+                  UInt32              &editEyeModelViewMode(void);
+                  UInt32               getEyeModelViewMode (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -265,6 +287,8 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
             void setTBeacon        (Node * const value);
             void setRBeacon        (Node * const value);
             void setQBeacon        (Node * const value);
+            void setEyeModelViewMatrix(const Matrix &value);
+            void setEyeModelViewMode(const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -337,6 +361,8 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     SFWeakNodePtr     _sfTBeacon;
     SFWeakNodePtr     _sfRBeacon;
     SFWeakNodePtr     _sfQBeacon;
+    SFMatrix          _sfEyeModelViewMatrix;
+    SFUInt32          _sfEyeModelViewMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -389,6 +415,10 @@ class OSG_STATE_DLLMAPPING TexGenChunkBase : public StateChunk
     EditFieldHandlePtr editHandleRBeacon        (void);
     GetFieldHandlePtr  getHandleQBeacon         (void) const;
     EditFieldHandlePtr editHandleQBeacon        (void);
+    GetFieldHandlePtr  getHandleEyeModelViewMatrix (void) const;
+    EditFieldHandlePtr editHandleEyeModelViewMatrix(void);
+    GetFieldHandlePtr  getHandleEyeModelViewMode (void) const;
+    EditFieldHandlePtr editHandleEyeModelViewMode(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

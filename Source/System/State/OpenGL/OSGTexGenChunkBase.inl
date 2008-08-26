@@ -337,6 +337,56 @@ void TexGenChunkBase::setQBeacon(Node * const value)
 
     _sfQBeacon.setValue(value);
 }
+//! Get the value of the TexGenChunk::_sfEyeModelViewMatrix field.
+
+inline
+Matrix &TexGenChunkBase::editEyeModelViewMatrix(void)
+{
+    editSField(EyeModelViewMatrixFieldMask);
+
+    return _sfEyeModelViewMatrix.getValue();
+}
+
+//! Get the value of the TexGenChunk::_sfEyeModelViewMatrix field.
+inline
+const Matrix &TexGenChunkBase::getEyeModelViewMatrix(void) const
+{
+    return _sfEyeModelViewMatrix.getValue();
+}
+
+//! Set the value of the TexGenChunk::_sfEyeModelViewMatrix field.
+inline
+void TexGenChunkBase::setEyeModelViewMatrix(const Matrix &value)
+{
+    editSField(EyeModelViewMatrixFieldMask);
+
+    _sfEyeModelViewMatrix.setValue(value);
+}
+//! Get the value of the TexGenChunk::_sfEyeModelViewMode field.
+
+inline
+UInt32 &TexGenChunkBase::editEyeModelViewMode(void)
+{
+    editSField(EyeModelViewModeFieldMask);
+
+    return _sfEyeModelViewMode.getValue();
+}
+
+//! Get the value of the TexGenChunk::_sfEyeModelViewMode field.
+inline
+      UInt32  TexGenChunkBase::getEyeModelViewMode(void) const
+{
+    return _sfEyeModelViewMode.getValue();
+}
+
+//! Set the value of the TexGenChunk::_sfEyeModelViewMode field.
+inline
+void TexGenChunkBase::setEyeModelViewMode(const UInt32 value)
+{
+    editSField(EyeModelViewModeFieldMask);
+
+    _sfEyeModelViewMode.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -384,6 +434,12 @@ void TexGenChunkBase::execSync (      TexGenChunkBase *pFrom,
 
     if(FieldBits::NoField != (QBeaconFieldMask & whichField))
         _sfQBeacon.syncWith(pFrom->_sfQBeacon);
+
+    if(FieldBits::NoField != (EyeModelViewMatrixFieldMask & whichField))
+        _sfEyeModelViewMatrix.syncWith(pFrom->_sfEyeModelViewMatrix);
+
+    if(FieldBits::NoField != (EyeModelViewModeFieldMask & whichField))
+        _sfEyeModelViewMode.syncWith(pFrom->_sfEyeModelViewMode);
 }
 #endif
 

@@ -151,6 +151,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Matrix          TexGenChunkBase::_sfEyeModelViewMatrix
+    
+*/
+
+/*! \var UInt32          TexGenChunkBase::_sfEyeModelViewMode
+    
+*/
+
 
 void TexGenChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -298,6 +306,30 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleQBeacon),
         static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleQBeacon));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFMatrix::Description(
+        SFMatrix::getClassType(),
+        "eyeModelViewMatrix",
+        "",
+        EyeModelViewMatrixFieldId, EyeModelViewMatrixFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleEyeModelViewMatrix),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleEyeModelViewMatrix));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "eyeModelViewMode",
+        "",
+        EyeModelViewModeFieldId, EyeModelViewModeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&TexGenChunk::editHandleEyeModelViewMode),
+        static_cast<FieldGetMethodSig >(&TexGenChunk::getHandleEyeModelViewMode));
 
     oType.addInitialDesc(pDesc);
 }
@@ -453,6 +485,25 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "\n"
+    "\t<Field\n"
+    "\t\tname=\"eyeModelViewMatrix\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"eyeModelViewMode\"\n"
+    "\t   type=\"UInt32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"external\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"0x0001\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
     "\n"
@@ -646,6 +697,32 @@ SFWeakNodePtr       *TexGenChunkBase::editSFQBeacon        (void)
     return &_sfQBeacon;
 }
 
+SFMatrix *TexGenChunkBase::editSFEyeModelViewMatrix(void)
+{
+    editSField(EyeModelViewMatrixFieldMask);
+
+    return &_sfEyeModelViewMatrix;
+}
+
+const SFMatrix *TexGenChunkBase::getSFEyeModelViewMatrix(void) const
+{
+    return &_sfEyeModelViewMatrix;
+}
+
+
+SFUInt32 *TexGenChunkBase::editSFEyeModelViewMode(void)
+{
+    editSField(EyeModelViewModeFieldMask);
+
+    return &_sfEyeModelViewMode;
+}
+
+const SFUInt32 *TexGenChunkBase::getSFEyeModelViewMode(void) const
+{
+    return &_sfEyeModelViewMode;
+}
+
+
 
 
 
@@ -704,6 +781,14 @@ UInt32 TexGenChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfQBeacon.getBinSize();
     }
+    if(FieldBits::NoField != (EyeModelViewMatrixFieldMask & whichField))
+    {
+        returnValue += _sfEyeModelViewMatrix.getBinSize();
+    }
+    if(FieldBits::NoField != (EyeModelViewModeFieldMask & whichField))
+    {
+        returnValue += _sfEyeModelViewMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -761,6 +846,14 @@ void TexGenChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfQBeacon.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (EyeModelViewMatrixFieldMask & whichField))
+    {
+        _sfEyeModelViewMatrix.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EyeModelViewModeFieldMask & whichField))
+    {
+        _sfEyeModelViewMode.copyToBin(pMem);
+    }
 }
 
 void TexGenChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -815,6 +908,14 @@ void TexGenChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (QBeaconFieldMask & whichField))
     {
         _sfQBeacon.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EyeModelViewMatrixFieldMask & whichField))
+    {
+        _sfEyeModelViewMatrix.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EyeModelViewModeFieldMask & whichField))
+    {
+        _sfEyeModelViewMode.copyFromBin(pMem);
     }
 }
 
@@ -922,7 +1023,9 @@ TexGenChunkBase::TexGenChunkBase(void) :
     _sfSBeacon                (NULL),
     _sfTBeacon                (NULL),
     _sfRBeacon                (NULL),
-    _sfQBeacon                (NULL)
+    _sfQBeacon                (NULL),
+    _sfEyeModelViewMatrix     (),
+    _sfEyeModelViewMode       (UInt32(0x0001))
 {
 }
 
@@ -939,7 +1042,9 @@ TexGenChunkBase::TexGenChunkBase(const TexGenChunkBase &source) :
     _sfSBeacon                (NULL),
     _sfTBeacon                (NULL),
     _sfRBeacon                (NULL),
-    _sfQBeacon                (NULL)
+    _sfQBeacon                (NULL),
+    _sfEyeModelViewMatrix     (source._sfEyeModelViewMatrix     ),
+    _sfEyeModelViewMode       (source._sfEyeModelViewMode       )
 {
 }
 
@@ -1252,6 +1357,52 @@ EditFieldHandlePtr TexGenChunkBase::editHandleQBeacon        (void)
                     static_cast<TexGenChunk *>(this), _1));
 
     editSField(QBeaconFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr TexGenChunkBase::getHandleEyeModelViewMatrix (void) const
+{
+    SFMatrix::GetHandlePtr returnValue(
+        new  SFMatrix::GetHandle(
+             &_sfEyeModelViewMatrix,
+             this->getType().getFieldDesc(EyeModelViewMatrixFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr TexGenChunkBase::editHandleEyeModelViewMatrix(void)
+{
+    SFMatrix::EditHandlePtr returnValue(
+        new  SFMatrix::EditHandle(
+             &_sfEyeModelViewMatrix,
+             this->getType().getFieldDesc(EyeModelViewMatrixFieldId)));
+
+
+    editSField(EyeModelViewMatrixFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr TexGenChunkBase::getHandleEyeModelViewMode (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfEyeModelViewMode,
+             this->getType().getFieldDesc(EyeModelViewModeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr TexGenChunkBase::editHandleEyeModelViewMode(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfEyeModelViewMode,
+             this->getType().getFieldDesc(EyeModelViewModeFieldId)));
+
+
+    editSField(EyeModelViewModeFieldMask);
 
     return returnValue;
 }
