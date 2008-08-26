@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,62 +36,56 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCUBETEXTURECHUNK_H_
-#define _OSGCUBETEXTURECHUNK_H_
+#ifndef _OSGLIGHTMODELCHUNK_H_
+#define _OSGLIGHTMODELCHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCubeTextureChunkBase.h"
-#include "OSGWindow.h"
+#include <OSGConfig.h>
+
+#include <OSGLightModelChunkBase.h>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for cubic textures. See \ref PageSystemCubeTextureChunk 
-    for a description.
+/*! \brief LightModelChunk class. See \ref 
+           PageSystemLightModelChunk for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING CubeTextureChunk : public CubeTextureChunkBase
+class OSG_STATE_DLLMAPPING LightModelChunk : public LightModelChunkBase
 {
+  private:
+
+    typedef LightModelChunkBase Inherited;
+
     /*==========================  PUBLIC  =================================*/
-
   public:
-
-    typedef CubeTextureChunkBase Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
     /*! \{                                                                 */
 
-    virtual const StateChunkClass *getClass(void) const;
+    virtual const StateChunkClass * getClass(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name              Static Chunk Class Access                       */
     /*! \{                                                                 */
 
-    static       UInt32            getStaticClassId(void);
-    static const StateChunkClass * getStaticClass  (void);
+    inline static        UInt32            getStaticClassId (void);
+    inline static  const StateChunkClass * getStaticClass   (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual bool isCubeTexture(void);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField,
+    virtual void changed(ConstFieldMaskArg whichField, 
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/ 
-    /*! \name                     Output                                   */ 
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
     virtual void dump(      UInt32     uiIndent = 0, 
@@ -99,7 +93,7 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunk : public CubeTextureChunkBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       State                                  */
+    /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
     virtual void activate  (DrawEnv    *pEnv, 
@@ -117,7 +111,7 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunk : public CubeTextureChunkBase
     /*! \name                   Comparison                                 */
     /*! \{                                                                 */
 
-    virtual Real32 switchCost(StateChunk *chunk);
+    virtual Real32 switchCost  ( StateChunk * chunk );
 
     virtual bool   operator <  (const StateChunk &other) const;
 
@@ -126,72 +120,50 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunk : public CubeTextureChunkBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
   protected:
 
-    // Variables should all be in CubeTextureChunkBase.
+    // Variables should all be in LightModelChunkBase.
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    void onCreate(const CubeTextureChunk *source = NULL);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CubeTextureChunk(void);
-    CubeTextureChunk(const CubeTextureChunk &source);
+    LightModelChunk(void);
+    LightModelChunk(const LightModelChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CubeTextureChunk(void); 
+    virtual ~LightModelChunk(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
     /*! \{                                                                 */
-
+    
     static void initMethod(InitPhase ePhase);
-
+    
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
 
     friend class FieldContainer;
-    friend class CubeTextureChunkBase;
+    friend class LightModelChunkBase;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
-    /*! \{                                                                 */
-
-           UInt32 handleGL       (DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode,
-                                  UInt32                   uiOptions);
-
-    static void   handleDestroyGL(DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode     );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
+    static StateChunkClass _class;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CubeTextureChunk &source);
+
+    void operator =(const LightModelChunk &source);
 };
 
-typedef CubeTextureChunk *CubeTextureChunkP;
+typedef LightModelChunk *LightModelChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCubeTextureChunkBase.inl"
-#include "OSGCubeTextureChunk.inl"
+#include <OSGLightModelChunkBase.inl>
+#include <OSGLightModelChunk.inl>
 
-#endif /* _OSGCUBETEXTURECHUNK_H_ */
+#endif /* _OSGLIGHTMODELCHUNK_H_ */

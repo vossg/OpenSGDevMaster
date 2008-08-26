@@ -122,7 +122,7 @@ void CubeTextureChunk::onCreate(const CubeTextureChunk *)
         Window::registerGLObject(
             boost::bind(&CubeTextureChunk::handleGL, 
                         CubeTextureChunkMTPtr(this), 
-                        _1, _2, _3),
+                        _1, _2, _3, _4),
             &CubeTextureChunk::handleDestroyGL));
 }
 
@@ -137,9 +137,10 @@ void CubeTextureChunk::dump(      UInt32    ,
 
 /*-------------------------------- GL ------------------------------------*/
 
-void CubeTextureChunk::handleGL(DrawEnv                 *pEnv, 
-                               UInt32                   osgid, 
-                               Window::GLObjectStatusE  mode)
+UInt32 CubeTextureChunk::handleGL(DrawEnv                 *pEnv,
+                                  UInt32                   osgid,
+                                  Window::GLObjectStatusE  mode,
+                                  UInt32                         )
 {
     GLuint  id;
 
@@ -147,7 +148,7 @@ void CubeTextureChunk::handleGL(DrawEnv                 *pEnv,
 
     // does the window support cubemaps?
     if(win->hasExtension(_arbCubeTex) == false)
-        return;
+        return 0;
 
     id = win->getGLObjectId(osgid);
 
@@ -230,6 +231,8 @@ void CubeTextureChunk::handleGL(DrawEnv                 *pEnv,
                  << "::handleGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
+    
+    return 0;
 }
 
 
