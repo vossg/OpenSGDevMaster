@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------*\
- *                                OpenSG                                     *
+ *                                Opensg                                     *
  *                                                                           *
  *                                                                           *
  *                       Copyright 2007 by OpenSG Forum                      *
@@ -62,78 +62,78 @@ TEST(ChildLinkingCleanup)
     
     // create objects
 
-    OSG::NodeRecPtr  nrp0(OSG::Node ::create());
-    OSG::NodeRecPtr  nrp1(OSG::Node ::create());
-    OSG::NodeRecPtr  nrp2(OSG::Node ::create());
-    OSG::NodeRecPtr  nrp3(OSG::Node ::create());
-    OSG::GroupRecPtr grp0(OSG::Group::create());
-    OSG::GroupRecPtr grp1(OSG::Group::create());
-    OSG::GroupRecPtr grp2(OSG::Group::create());
-    OSG::LightRecPtr lrp0(OSG::DirectionalLight::create());
+    OSG::NodeRecPtr  nrcp0(OSG::Node ::create());
+    OSG::NodeRecPtr  nrcp1(OSG::Node ::create());
+    OSG::NodeRecPtr  nrcp2(OSG::Node ::create());
+    OSG::NodeRecPtr  nrcp3(OSG::Node ::create());
+    OSG::GroupRecPtr grcp0(OSG::Group::create());
+    OSG::GroupRecPtr grcp1(OSG::Group::create());
+    OSG::GroupRecPtr grcp2(OSG::Group::create());
+    OSG::LightRecPtr lrcp0(OSG::DirectionalLight::create());
     
-    OSG::Node  *np0 = nrp0;
-    OSG::Node  *np1 = nrp1;
-    OSG::Node  *np2 = nrp2;
-    OSG::Node  *np3 = nrp3;
-    OSG::Group *gp0 = grp0;
-    OSG::Group *gp1 = grp1;
-    OSG::Group *gp2 = grp2;
-    OSG::Light *lp0 = lrp0;
+    OSG::Node  *np0 = nrcp0;
+    OSG::Node  *np1 = nrcp1;
+    OSG::Node  *np2 = nrcp2;
+    OSG::Node  *np3 = nrcp3;
+    OSG::Group *gp0 = grcp0;
+    OSG::Group *gp1 = grcp1;
+    OSG::Group *gp2 = grcp2;
+    OSG::Light *lp0 = lrcp0;
     
-    OSG::UInt32 ni0 = nrp0->getId();
-    OSG::UInt32 ni1 = nrp1->getId();
-    OSG::UInt32 ni2 = nrp2->getId();
-    OSG::UInt32 ni3 = nrp3->getId();
-    OSG::UInt32 gi0 = grp0->getId();
-    OSG::UInt32 gi1 = grp1->getId();
-    OSG::UInt32 gi2 = grp2->getId();
-    OSG::UInt32 li0 = lrp0->getId();
+    OSG::UInt32 ni0 = nrcp0->getId();
+    OSG::UInt32 ni1 = nrcp1->getId();
+    OSG::UInt32 ni2 = nrcp2->getId();
+    OSG::UInt32 ni3 = nrcp3->getId();
+    OSG::UInt32 gi0 = grcp0->getId();
+    OSG::UInt32 gi1 = grcp1->getId();
+    OSG::UInt32 gi2 = grcp2->getId();
+    OSG::UInt32 li0 = lrcp0->getId();
     
-    nrp0->addChild(nrp1);
-    nrp0->addChild(nrp2);
-    nrp1->addChild(nrp3);
+    nrcp0->addChild(nrcp1);
+    nrcp0->addChild(nrcp2);
+    nrcp1->addChild(nrcp3);
     
-    nrp0->setCore(grp0);
-    nrp1->setCore(grp1);
-    nrp2->setCore(grp2);
-    nrp3->setCore(lrp0);
+    nrcp0->setCore(grcp0);
+    nrcp1->setCore(grcp1);
+    nrcp2->setCore(grcp2);
+    nrcp3->setCore(lrcp0);
     
-    lrp0->setBeacon(nrp0);
+    lrcp0->setBeacon(nrcp0);
     
-    CHECK_EQUAL(1, nrp0->getRefCount()    );
-    CHECK_EQUAL(1, nrp0->getWeakRefCount());
+    CHECK_EQUAL(1, nrcp0->getRefCount()    );
+    CHECK_EQUAL(1, nrcp0->getWeakRefCount());
     
-    CHECK_EQUAL(2, nrp1->getRefCount()    );
-    CHECK_EQUAL(0, nrp1->getWeakRefCount());
+    CHECK_EQUAL(2, nrcp1->getRefCount()    );
+    CHECK_EQUAL(0, nrcp1->getWeakRefCount());
     
-    CHECK_EQUAL(2, nrp2->getRefCount()    );
-    CHECK_EQUAL(0, nrp2->getWeakRefCount());
+    CHECK_EQUAL(2, nrcp2->getRefCount()    );
+    CHECK_EQUAL(0, nrcp2->getWeakRefCount());
     
-    CHECK_EQUAL(2, grp0->getRefCount()    );
-    CHECK_EQUAL(0, grp0->getWeakRefCount());
+    CHECK_EQUAL(2, grcp0->getRefCount()    );
+    CHECK_EQUAL(0, grcp0->getWeakRefCount());
     
-    CHECK_EQUAL(2, grp1->getRefCount()    );
-    CHECK_EQUAL(0, grp1->getWeakRefCount());
+    CHECK_EQUAL(2, grcp1->getRefCount()    );
+    CHECK_EQUAL(0, grcp1->getWeakRefCount());
     
-    CHECK_EQUAL(2, grp2->getRefCount()    );
-    CHECK_EQUAL(0, grp2->getWeakRefCount());
+    CHECK_EQUAL(2, grcp2->getRefCount()    );
+    CHECK_EQUAL(0, grcp2->getWeakRefCount());
     
-    CHECK_EQUAL(2, lrp0->getRefCount()    );
-    CHECK_EQUAL(0, lrp0->getWeakRefCount());
+    CHECK_EQUAL(2, lrcp0->getRefCount()    );
+    CHECK_EQUAL(0, lrcp0->getWeakRefCount());
     
     // remove all ref pointers (i.e. all external refs)
     
-    nrp1 = NULL;
-    nrp2 = NULL;
-    nrp3 = NULL;
-    grp0 = NULL;
-    grp1 = NULL;
-    grp2 = NULL;
-    lrp0 = NULL;
+    nrcp1 = NULL;
+    nrcp2 = NULL;
+    nrcp3 = NULL;
+    grcp0 = NULL;
+    grcp1 = NULL;
+    grcp2 = NULL;
+    lrcp0 = NULL;
     
     OSG::commitChanges();
     
-    // only nrp0 is still here, check everything is still alive and has
+    // only nrcp0 is still here, check everything is still alive and has
     // the expected ref counts
     
     CHECK_EQUAL(np0, OSG::FieldContainerFactory::the()->getContainer(ni0));
@@ -157,9 +157,9 @@ TEST(ChildLinkingCleanup)
     CHECK_EQUAL(1, np3->getRefCount()    );
     CHECK_EQUAL(0, np3->getWeakRefCount());
     
-    // remove nrp0 as well, everything should clean up
+    // remove nrcp0 as well, everything should clean up
     
-    nrp0 = NULL;
+    nrcp0 = NULL;
     
     OSG::commitChanges();
     

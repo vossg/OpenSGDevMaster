@@ -54,60 +54,60 @@ TEST(BasicStructure)
 
     // create objects
 
-    OSG::NodeRecPtr  nrp0(OSG::Node ::create());
-    OSG::NodeRecPtr  nrp1(OSG::Node ::create());
-    OSG::GroupRecPtr grp0(OSG::Group::create());
-    OSG::GroupRecPtr grp1(OSG::Group::create());
+    OSG::NodeRecPtr  nrcp0(OSG::Node ::create());
+    OSG::NodeRecPtr  nrcp1(OSG::Node ::create());
+    OSG::GroupRecPtr grcp0(OSG::Group::create());
+    OSG::GroupRecPtr grcp1(OSG::Group::create());
 
-    OSG::Node  *np0 = nrp0.get();
-    OSG::Node  *np1 = nrp1.get();
-    OSG::Group *gp0 = grp0.get();
-    OSG::Group *gp1 = grp1.get();
+    OSG::Node  *np0 = nrcp0.get();
+    OSG::Node  *np1 = nrcp1.get();
+    OSG::Group *gp0 = grcp0.get();
+    OSG::Group *gp1 = grcp1.get();
 
-    OSG::UInt32 ni0 = nrp0->getId();
-    OSG::UInt32 ni1 = nrp1->getId();
-    OSG::UInt32 gi0 = grp0->getId();
-    OSG::UInt32 gi1 = grp1->getId();
+    OSG::UInt32 ni0 = nrcp0->getId();
+    OSG::UInt32 ni1 = nrcp1->getId();
+    OSG::UInt32 gi0 = grcp0->getId();
+    OSG::UInt32 gi1 = grcp1->getId();
     
-    CHECK_EQUAL(1, nrp0->getRefCount()    );
-    CHECK_EQUAL(0, nrp0->getWeakRefCount());
+    CHECK_EQUAL(1, nrcp0->getRefCount()    );
+    CHECK_EQUAL(0, nrcp0->getWeakRefCount());
     
-    CHECK_EQUAL(1, nrp1->getRefCount()    );
-    CHECK_EQUAL(0, nrp1->getWeakRefCount());
+    CHECK_EQUAL(1, nrcp1->getRefCount()    );
+    CHECK_EQUAL(0, nrcp1->getWeakRefCount());
     
-    CHECK_EQUAL(1, grp0->getRefCount()    );
-    CHECK_EQUAL(0, grp0->getWeakRefCount());
+    CHECK_EQUAL(1, grcp0->getRefCount()    );
+    CHECK_EQUAL(0, grcp0->getWeakRefCount());
     
-    CHECK_EQUAL(1, grp1->getRefCount()    );
-    CHECK_EQUAL(0, grp1->getWeakRefCount());
+    CHECK_EQUAL(1, grcp1->getRefCount()    );
+    CHECK_EQUAL(0, grcp1->getWeakRefCount());
     
     OSG::commitChanges();
     
     // link nodes
     
-    nrp0->addChild(nrp1);
-    nrp0->setCore(grp0);
-    nrp1->setCore(grp1);
+    nrcp0->addChild(nrcp1);
+    nrcp0->setCore(grcp0);
+    nrcp1->setCore(grcp1);
     
-    CHECK_EQUAL(1, nrp0->getRefCount());
-    CHECK_EQUAL(2, nrp1->getRefCount());
-    CHECK_EQUAL(2, grp0->getRefCount());
-    CHECK_EQUAL(2, grp1->getRefCount());
+    CHECK_EQUAL(1, nrcp0->getRefCount());
+    CHECK_EQUAL(2, nrcp1->getRefCount());
+    CHECK_EQUAL(2, grcp0->getRefCount());
+    CHECK_EQUAL(2, grcp1->getRefCount());
 
-    CHECK_EQUAL(nrp0, nrp1->getParent()           );
-    CHECK_EQUAL(nrp1, nrp0->getMFChildren()->at(0));
+    CHECK_EQUAL(nrcp0, nrcp1->getParent()           );
+    CHECK_EQUAL(nrcp1, nrcp0->getMFChildren()->at(0));
     
-    CHECK_EQUAL(grp0, nrp0->getCore()            );
-    CHECK_EQUAL(grp1, nrp1->getCore()            );
-    CHECK_EQUAL(nrp0, grp0->getMFParents()->at(0));
-    CHECK_EQUAL(nrp1, grp1->getMFParents()->at(0));
+    CHECK_EQUAL(grcp0, nrcp0->getCore()            );
+    CHECK_EQUAL(grcp1, nrcp1->getCore()            );
+    CHECK_EQUAL(nrcp0, grcp0->getMFParents()->at(0));
+    CHECK_EQUAL(nrcp1, grcp1->getMFParents()->at(0));
     
     // remove all ref pointers (i.e. all external refs)
     
-    nrp0 = NULL;
-    nrp1 = NULL;
-    grp0 = NULL;
-    grp1 = NULL;
+    nrcp0 = NULL;
+    nrcp1 = NULL;
+    grcp0 = NULL;
+    grcp1 = NULL;
     
     // all containers must be gone
     CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), OSG::FieldContainerFactory::the()->getContainer(gi0));
@@ -125,30 +125,30 @@ TEST(RecPtrReuse)
     //   +-----------+
     //  np1[gp0]    np2[gp0]
     
-    OSG::NodeRecPtr     nrp0 = OSG::Node ::create();
-    OSG::NodeRecPtr     nrp1 = OSG::Node ::create();
-    OSG::NodeCoreRecPtr grp  = OSG::Group::create();
+    OSG::NodeRecPtr     nrcp0 = OSG::Node ::create();
+    OSG::NodeRecPtr     nrcp1 = OSG::Node ::create();
+    OSG::NodeCoreRecPtr grcp  = OSG::Group::create();
     
-    OSG::Node     *np0 = nrp0.get();
-    OSG::Node     *np1 = nrp1.get();
-    OSG::NodeCore *gp0 = grp .get();
+    OSG::Node     *np0 = nrcp0.get();
+    OSG::Node     *np1 = nrcp1.get();
+    OSG::NodeCore *gp0 = grcp .get();
     
-    OSG::UInt32 ni0 = nrp0->getId();
-    OSG::UInt32 ni1 = nrp1->getId();
-    OSG::UInt32 gi0 = grp ->getId();
+    OSG::UInt32 ni0 = nrcp0->getId();
+    OSG::UInt32 ni1 = nrcp1->getId();
+    OSG::UInt32 gi0 = grcp ->getId();
     
-    nrp0->setCore (grp );
-    nrp0->addChild(nrp1);
+    nrcp0->setCore (grcp );
+    nrcp0->addChild(nrcp1);
     
-    nrp1->setCore(grp);
+    nrcp1->setCore(grcp);
     
-    nrp1 = OSG::Node::create();
+    nrcp1 = OSG::Node::create();
     
-    OSG::Node   *np2 = nrp1.get();
-    OSG::UInt32  ni2 = nrp1->getId();
+    OSG::Node   *np2 = nrcp1.get();
+    OSG::UInt32  ni2 = nrcp1->getId();
     
-    nrp0->addChild(nrp1);
-    nrp1->setCore (grp );
+    nrcp0->addChild(nrcp1);
+    nrcp1->setCore (grcp );
     
     CHECK_EQUAL(1, np0->getRefCount());
     CHECK_EQUAL(1, np1->getRefCount());
@@ -157,8 +157,8 @@ TEST(RecPtrReuse)
     
     // remove all ref pointers (i.e. all external refs)
     
-    nrp1 = NULL;
-    grp  = NULL;
+    nrcp1 = NULL;
+    grcp  = NULL;
     
     // all containers must still exist
     CHECK_EQUAL(gp0, OSG::FieldContainerFactory::the()->getContainer(gi0));
@@ -166,7 +166,7 @@ TEST(RecPtrReuse)
     CHECK_EQUAL(np1, OSG::FieldContainerFactory::the()->getContainer(ni1));
     CHECK_EQUAL(np2, OSG::FieldContainerFactory::the()->getContainer(ni2));
     
-    nrp0 = NULL;
+    nrcp0 = NULL;
     
     // all containers must be gone
     CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), OSG::FieldContainerFactory::the()->getContainer(gi0));
@@ -186,29 +186,29 @@ TEST(SharedCore)
     
     // create objects
     
-    OSG::NodeRecPtr  nrp0(OSG::Node ::create());
-    OSG::NodeRecPtr  nrp1(OSG::Node ::create());
-    OSG::GroupRecPtr grp0(OSG::Group::create());
+    OSG::NodeRecPtr  nrcp0(OSG::Node ::create());
+    OSG::NodeRecPtr  nrcp1(OSG::Node ::create());
+    OSG::GroupRecPtr grcp0(OSG::Group::create());
 
-    OSG::Node  *np0 = nrp0.get();
-    OSG::Node  *np1 = nrp1.get();
-    OSG::Group *gp0 = grp0.get();
+    OSG::Node  *np0 = nrcp0.get();
+    OSG::Node  *np1 = nrcp1.get();
+    OSG::Group *gp0 = grcp0.get();
 
-    OSG::UInt32 ni0 = nrp0->getId();
-    OSG::UInt32 ni1 = nrp1->getId();
-    OSG::UInt32 gi0 = grp0->getId();
+    OSG::UInt32 ni0 = nrcp0->getId();
+    OSG::UInt32 ni1 = nrcp1->getId();
+    OSG::UInt32 gi0 = grcp0->getId();
         
-    CHECK_EQUAL(1, nrp0->getRefCount());
-    CHECK_EQUAL(1, nrp1->getRefCount());
+    CHECK_EQUAL(1, nrcp0->getRefCount());
+    CHECK_EQUAL(1, nrcp1->getRefCount());
     
-    CHECK_EQUAL(1, grp0->getRefCount()    );
-    CHECK_EQUAL(0, grp0->getWeakRefCount());
+    CHECK_EQUAL(1, grcp0->getRefCount()    );
+    CHECK_EQUAL(0, grcp0->getWeakRefCount());
     
     OSG::commitChanges();
     
     // link nodes
     
-    nrp0->addChild(nrp1);
+    nrcp0->addChild(nrcp1);
     
     CHECK_EQUAL(1, np0->getRefCount());
     CHECK_EQUAL(2, np1->getRefCount());
@@ -220,7 +220,7 @@ TEST(SharedCore)
     
     // add core to np0
     
-    nrp0->setCore(gp0);
+    nrcp0->setCore(gp0);
     
     CHECK_EQUAL(1, np0->getRefCount());
     CHECK_EQUAL(2, gp0->getRefCount());
@@ -232,7 +232,7 @@ TEST(SharedCore)
     
     // add core to np1
     
-    nrp1->setCore(gp0);
+    nrcp1->setCore(gp0);
     
     CHECK_EQUAL(2, np1->getRefCount());
     CHECK_EQUAL(3, gp0->getRefCount());
@@ -244,7 +244,7 @@ TEST(SharedCore)
     
     // remove all ref pointers (i.e. all external refs)
     
-    grp0 = NULL;
+    grcp0 = NULL;
     
     // all containers must still exist
     CHECK_EQUAL(gp0, OSG::FieldContainerFactory::the()->getContainer(gi0));
@@ -253,7 +253,7 @@ TEST(SharedCore)
     CHECK_EQUAL(2, gp0->getRefCount()    );
 //     CHECK_EQUAL(0, gp0->getWeakRefCount());
     
-    nrp1 = NULL;
+    nrcp1 = NULL;
     
     // all containers must still exist
     CHECK_EQUAL(gp0, OSG::FieldContainerFactory::the()->getContainer(gi0));
@@ -262,7 +262,7 @@ TEST(SharedCore)
     CHECK_EQUAL(2, gp0->getRefCount());
     CHECK_EQUAL(1, np1->getRefCount());
     
-    nrp0 = NULL;
+    nrcp0 = NULL;
     
     // all containers must be gone
     CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), OSG::FieldContainerFactory::the()->getContainer(gi0));
@@ -283,54 +283,54 @@ TEST(MultipleChildrenSharedCores)
     
     // create objects
 
-    OSG::NodeRecPtr  nrp0 = OSG::Node ::create();
-    OSG::NodeRecPtr  nrp1 = OSG::Node ::create();
-    OSG::NodeRecPtr  nrp2 = OSG::Node ::create();
-    OSG::NodeRecPtr  nrp3 = OSG::Node ::create();
-    OSG::GroupRecPtr grp0 = OSG::Group::create();
-    OSG::GroupRecPtr grp1 = OSG::Group::create();
+    OSG::NodeRecPtr  nrcp0 = OSG::Node ::create();
+    OSG::NodeRecPtr  nrcp1 = OSG::Node ::create();
+    OSG::NodeRecPtr  nrcp2 = OSG::Node ::create();
+    OSG::NodeRecPtr  nrcp3 = OSG::Node ::create();
+    OSG::GroupRecPtr grcp0 = OSG::Group::create();
+    OSG::GroupRecPtr grcp1 = OSG::Group::create();
 
-    OSG::Node  *np0 = nrp0.get();
-    OSG::Node  *np1 = nrp1.get();
-    OSG::Node  *np2 = nrp2.get();
-    OSG::Node  *np3 = nrp3.get();
-    OSG::Group *gp0 = grp0.get();
-    OSG::Group *gp1 = grp1.get();
+    OSG::Node  *np0 = nrcp0.get();
+    OSG::Node  *np1 = nrcp1.get();
+    OSG::Node  *np2 = nrcp2.get();
+    OSG::Node  *np3 = nrcp3.get();
+    OSG::Group *gp0 = grcp0.get();
+    OSG::Group *gp1 = grcp1.get();
 
-    OSG::UInt32 ni0 = nrp0->getId();
-    OSG::UInt32 ni1 = nrp1->getId();
-    OSG::UInt32 ni2 = nrp2->getId();
-    OSG::UInt32 ni3 = nrp3->getId();
-    OSG::UInt32 gi0 = grp0->getId();
-    OSG::UInt32 gi1 = grp1->getId();
+    OSG::UInt32 ni0 = nrcp0->getId();
+    OSG::UInt32 ni1 = nrcp1->getId();
+    OSG::UInt32 ni2 = nrcp2->getId();
+    OSG::UInt32 ni3 = nrcp3->getId();
+    OSG::UInt32 gi0 = grcp0->getId();
+    OSG::UInt32 gi1 = grcp1->getId();
         
     // link nodes    
     
-    nrp0->addChild(nrp1);
-    nrp0->addChild(nrp2);
-    nrp1->addChild(nrp3);
+    nrcp0->addChild(nrcp1);
+    nrcp0->addChild(nrcp2);
+    nrcp1->addChild(nrcp3);
     
-    nrp0->setCore(grp0);
-    nrp1->setCore(grp1);
-    nrp2->setCore(grp1);
-    nrp3->setCore(grp0);
+    nrcp0->setCore(grcp0);
+    nrcp1->setCore(grcp1);
+    nrcp2->setCore(grcp1);
+    nrcp3->setCore(grcp0);
     
-    CHECK_EQUAL(1, nrp0->getRefCount());
-    CHECK_EQUAL(2, nrp1->getRefCount());
-    CHECK_EQUAL(2, nrp2->getRefCount());
-    CHECK_EQUAL(2, nrp3->getRefCount());
-    CHECK_EQUAL(3, grp0->getRefCount());
-    CHECK_EQUAL(3, grp1->getRefCount());
+    CHECK_EQUAL(1, nrcp0->getRefCount());
+    CHECK_EQUAL(2, nrcp1->getRefCount());
+    CHECK_EQUAL(2, nrcp2->getRefCount());
+    CHECK_EQUAL(2, nrcp3->getRefCount());
+    CHECK_EQUAL(3, grcp0->getRefCount());
+    CHECK_EQUAL(3, grcp1->getRefCount());
     
     // remove all ref pointers (i.e. all external refs)
     
-    nrp0 = NULL;
-    nrp1 = NULL;
-    nrp2 = NULL;
-    nrp3 = NULL;
+    nrcp0 = NULL;
+    nrcp1 = NULL;
+    nrcp2 = NULL;
+    nrcp3 = NULL;
     
-    grp0 = NULL;
-    grp1 = NULL;
+    grcp0 = NULL;
+    grcp1 = NULL;
     
     // all containers must be gone
     CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), OSG::FieldContainerFactory::the()->getContainer(gi0));
@@ -346,48 +346,48 @@ TEST(Remove)
 {
     // Test removal of objects
     
-    OSG::NodeRecPtr  nrp0 = OSG::Node::create();
-    OSG::NodeRecPtr  nrp1 = OSG::Node::create();
+    OSG::NodeRecPtr  nrcp0 = OSG::Node::create();
+    OSG::NodeRecPtr  nrcp1 = OSG::Node::create();
     
-    OSG::GroupRecPtr grp0 = OSG::Group::create();
+    OSG::GroupRecPtr grcp0 = OSG::Group::create();
     
     // add child and core
-    nrp0->addChild(nrp1);
-    nrp0->setCore (grp0);
+    nrcp0->addChild(nrcp1);
+    nrcp0->setCore (grcp0);
     
-    CHECK_EQUAL(1,    nrp0->getNChildren()       );
-    CHECK_EQUAL(grp0, nrp0->getCore()            );
-    CHECK_EQUAL(nrp0, grp0->getMFParents()->at(0));
+    CHECK_EQUAL(1,    nrcp0->getNChildren()       );
+    CHECK_EQUAL(grcp0, nrcp0->getCore()            );
+    CHECK_EQUAL(nrcp0, grcp0->getMFParents()->at(0));
     
     // remove child
-    nrp0->subChild(OSG::UInt32(0));
+    nrcp0->subChild(OSG::UInt32(0));
     
-    CHECK_EQUAL(0, nrp0->getNChildren());
-    CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), nrp1->getParent());
+    CHECK_EQUAL(0, nrcp0->getNChildren());
+    CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), nrcp1->getParent());
     
     // remove core
-    nrp0->setCore(NULL);
+    nrcp0->setCore(NULL);
     
-    CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), nrp0->getCore());
-    CHECK_EQUAL(0, grp0->getMFParents()->size());
+    CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), nrcp0->getCore());
+    CHECK_EQUAL(0, grcp0->getMFParents()->size());
     
     
     // share the core
-    nrp0->setCore(grp0);
-    nrp1->setCore(grp0);
+    nrcp0->setCore(grcp0);
+    nrcp1->setCore(grcp0);
     
-    CHECK_EQUAL(2,    grp0->getMFParents()->size());
-    CHECK_EQUAL(nrp0, grp0->getMFParents()->at(0) );
-    CHECK_EQUAL(nrp1, grp0->getMFParents()->at(1) );
+    CHECK_EQUAL(2,    grcp0->getMFParents()->size());
+    CHECK_EQUAL(nrcp0, grcp0->getMFParents()->at(0) );
+    CHECK_EQUAL(nrcp1, grcp0->getMFParents()->at(1) );
 
     // remove core from one node
-    nrp0->setCore(NULL);
+    nrcp0->setCore(NULL);
     
-    CHECK_EQUAL(1,    grp0->getMFParents()->size());
-    CHECK_EQUAL(nrp1, grp0->getMFParents()->at(0) );
+    CHECK_EQUAL(1,    grcp0->getMFParents()->size());
+    CHECK_EQUAL(nrcp1, grcp0->getMFParents()->at(0) );
     
-    CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), nrp0->getCore());
-    CHECK_EQUAL(grp0, nrp1->getCore());
+    CHECK_EQUAL(static_cast<OSG::FieldContainer *>(NULL), nrcp0->getCore());
+    CHECK_EQUAL(grcp0, nrcp1->getCore());
     
 } // Remove
 
@@ -396,28 +396,28 @@ TEST(MoveChild)
 {
     // Test moving a child from one parent to another
 
-    OSG::NodeRecPtr nrp0 = OSG::Node::create();
-    OSG::NodeRecPtr nrp1 = OSG::Node::create();
-    OSG::NodeRecPtr nrp2 = OSG::Node::create();
+    OSG::NodeRecPtr nrcp0 = OSG::Node::create();
+    OSG::NodeRecPtr nrcp1 = OSG::Node::create();
+    OSG::NodeRecPtr nrcp2 = OSG::Node::create();
     
     // add child to one node
-    nrp0->addChild(nrp1);
+    nrcp0->addChild(nrcp1);
     
-    CHECK_EQUAL(1,    nrp0->getNChildren()        );
-    CHECK_EQUAL(nrp1, nrp0->getMFChildren()->at(0));
-    CHECK_EQUAL(nrp0, nrp1->getParent()           );
+    CHECK_EQUAL(1,    nrcp0->getNChildren()        );
+    CHECK_EQUAL(nrcp1, nrcp0->getMFChildren()->at(0));
+    CHECK_EQUAL(nrcp0, nrcp1->getParent()           );
     
     // add same child to different node
-    nrp2->addChild(nrp1);
+    nrcp2->addChild(nrcp1);
     
-    CHECK_EQUAL(1,    nrp2->getNChildren()        );
-    CHECK_EQUAL(nrp1, nrp2->getMFChildren()->at(0));
-    CHECK_EQUAL(nrp2, nrp1->getParent()           );
+    CHECK_EQUAL(1,    nrcp2->getNChildren()        );
+    CHECK_EQUAL(nrcp1, nrcp2->getMFChildren()->at(0));
+    CHECK_EQUAL(nrcp2, nrcp1->getParent()           );
    
     OSG::commitChanges();
      
     // make sure it is removed from former parent
-    CHECK_EQUAL(0, nrp0->getNChildren());
+    CHECK_EQUAL(0, nrcp0->getNChildren());
     
 } // MoveChild
 
