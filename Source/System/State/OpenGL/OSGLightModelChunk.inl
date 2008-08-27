@@ -45,7 +45,7 @@ OSG_BEGIN_NAMESPACE
 inline
 UInt32 LightModelChunk::getStaticClassId(void)
 {
-    getStaticClass()->getId();
+    return getStaticClass()->getId();
 }
 
 inline

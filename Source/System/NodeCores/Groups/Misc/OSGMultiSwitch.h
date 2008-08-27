@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemMultiSwitch for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING MultiSwitch : public MultiSwitchBase
+class OSG_GROUP_DLLMAPPING MultiSwitch : public MultiSwitchBase
 {
   protected:
 

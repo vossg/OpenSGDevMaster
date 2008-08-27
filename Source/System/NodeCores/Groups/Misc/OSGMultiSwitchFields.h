@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGGroupDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -94,7 +94,7 @@ struct FieldTraits<MultiSwitch *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);

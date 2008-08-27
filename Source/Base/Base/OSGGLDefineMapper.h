@@ -44,6 +44,7 @@
 
 #include "OSGBaseDef.h"
 #include "OSGSingletonHolder.h"
+#include "OSGGLEXT.h"
 
 #include "map"
 #include "string"
@@ -120,8 +121,8 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase
 
 #if defined(WIN32)
 #    if !defined(OSG_COMPILE_GLDEFINEMAPPER)
-OSG_SYSTEM_EXPIMP_TMPL 
-template class OSG_BASE_DLLMAPPING SingletonHolder<GLDefineMapperBase>;
+//OSG_BASE_EXPIMP_TMPL 
+//template class OSG_BASE_DLLMAPPING SingletonHolder<GLDefineMapperBase>;
 #    endif
 #endif
 

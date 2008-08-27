@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGGroupDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class MultiSwitch;
 
 //! \brief MultiSwitch Base Class.
 
-class OSG_SYSTEM_DLLMAPPING MultiSwitchBase : public Group
+class OSG_GROUP_DLLMAPPING MultiSwitchBase : public Group
 {
   public:
 

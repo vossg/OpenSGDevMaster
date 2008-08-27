@@ -333,8 +333,8 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
 
 #if defined(WIN32)
 #    if !defined(OSG_COMPILE_SCENEFILEHANDLER)
-OSG_SYSTEM_EXPIMP_TMPL 
-template class OSG_SYSTEM_DLLMAPPING SingletonHolder<SceneFileHandlerBase>;
+//OSG_SYSTEM_EXPIMP_TMPL 
+//template class OSG_SYSTEM_DLLMAPPING SingletonHolder<SceneFileHandlerBase>;
 #    endif
 #endif
 

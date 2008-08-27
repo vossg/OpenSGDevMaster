@@ -3,7 +3,7 @@
 <FieldContainer
 	name="MultiSwitch"
 	parent="Group"
-	library="System"
+	library="Group"
 	pointerfieldtypes="both"
 	structure="concrete"
 	systemcomponent="true"
