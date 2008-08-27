@@ -586,6 +586,9 @@ feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
 feature_options["enable_testcontainer"] = sca_opts.BoolOption(
     "enable_testcontainer", "Enable container used for testing (from Source/Test)", False)
 
+feature_options["enable_gldefinemapper"] = sca_opts.BoolOption(
+    "enable_gldefinemapper", "Enable GLDefinemapper so gl constants are read/written as GL_XXX", False)
+
 feature_options["docs_mode"] = sca_opts.EnumOption(
     "docs_mode", "Select the mode for documentation generation",
     "NONE", ["NONE", "STANDALONE", "TRAC", "DEVELOPER"])
@@ -815,6 +818,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_WITH_VTK"                : optional_libs_options["vtk"].isAvailable(),
                 "OSG_WITH_COLLADA"            : optional_libs_options["collada"].isAvailable(),
                 "OSG_GV_BETA"                 : common_env["enable_gv_beta"],
+                "OSG_GL_DEFMAPPER"            : common_env["enable_gldefinemapper"],
                 "OSG_PREBUILD_SCANPARSE"      : not common_env["enable_scanparse_in_builddir"]
                }
    if "win32" == platform:   # Win32 specific defines

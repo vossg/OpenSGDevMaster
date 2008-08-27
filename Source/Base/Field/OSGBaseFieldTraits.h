@@ -674,11 +674,21 @@ struct FieldTraits<GLenum, 1> : public FieldTraitsPODTemplateBase<GLenum, 1>
     static void putToStream(const GLenum    &val,
                                   OutStream &str)
     {
+#ifdef OSG_GL_DEFMAPPER
         const std::string &oVal = GLDefineMapper::the()->toString(val);
 
         str << "GL_" << oVal;
+#else
+        str << std::setbase(16);
+
+        str << "0x";
+        TypeTraits<GLenum>::putToStream(val, str);
+
+        str << std::setbase(10);
+#endif
     }
 
+#ifdef OSG_GL_DEFMAPPER
     static bool getFromCString(      GLenum   &outVal,
                                const Char8   *&inVal )
     {
@@ -686,6 +696,7 @@ struct FieldTraits<GLenum, 1> : public FieldTraitsPODTemplateBase<GLenum, 1>
 
         return true;
     }
+#endif
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

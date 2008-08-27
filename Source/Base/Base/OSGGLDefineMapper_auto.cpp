@@ -11,6 +11,7 @@ OSG_BEGIN_NAMESPACE
 
 void GLDefineMapperBase::initMaps(void)
 {
+#ifdef OSG_GL_DEFMAPPER
     addToEnumPair  ("VERTEX_PROGRAM_TWO_SIDE", 0x8643);
     addFromEnumPair(0x8643, "VERTEX_PROGRAM_TWO_SIDE");
     addToEnumPair  ("FLOAT_MAT4x3", 0x8B6A);
@@ -5216,6 +5217,7 @@ void GLDefineMapperBase::initMaps(void)
     addToEnumPair  ("TEXTURE15_ARB", 0x84CF);
     addToEnumPair  ("FOG_COORDINATE", 0x8451);
     addToEnumPair  ("MAX_COLOR_MATRIX_STACK_DEPTH_SGI", 0x80B3);
+#endif
 }
 
 OSG_END_NAMESPACE
