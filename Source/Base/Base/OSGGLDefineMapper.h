@@ -57,10 +57,14 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase
 
   public:
 
-    /*=========================  PROTECTED  ===============================*/
-
     const std::string &toString  (const GLenum  eval) const;
           GLenum       fromString(const Char8  *sval) const;
+
+
+    void addToEnumPair  (const std::string &sval, const      GLenum  eval);
+    void addFromEnumPair(const      GLenum  eval, const std::string &sval);
+
+    /*=========================  PROTECTED  ===============================*/
 
   protected:
 
@@ -104,9 +108,6 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
-
-    void addToEnumPair  (const std::string &sval, const      GLenum  eval);
-    void addFromEnumPair(const      GLenum  eval, const std::string &sval);
 
     void initMaps(void);
 

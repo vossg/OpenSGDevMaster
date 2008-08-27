@@ -359,29 +359,69 @@ print OUT "//#################################################\n\n\n";
 
 print OUT "#include <OSGGLDefineMapper.h>\n\n\n";
 print OUT "OSG_BEGIN_NAMESPACE\n\n";
-print OUT "void GLDefineMapperBase::initMaps(void)\n";
+
+my $nfuncs = 1;
+my $defsperfunc = 100;
+my $currentdef = $defsperfunc;
+
+print OUT "#ifdef OSG_GL_DEFMAPPER\n\n";
+print OUT "// Break up long function into pieces to relieve compiler optimizer\n\n";
+print OUT "static void initMapsHelper_0(GLDefineMapperBase* mapper)\n";
 print OUT "{\n";
-print OUT "#ifdef OSG_GL_DEFMAPPER\n";
+
 
 foreach my $define (keys %gl_define_list_two)
 {
+    if($currentdef == 0)
+    {
+        print OUT "}\n\n";
+        print OUT "static void initMapsHelper_$nfuncs(GLDefineMapperBase* mapper)\n";
+        print OUT "{\n";
+        $currentdef = $defsperfunc;
+        $nfuncs++;
+    }
+    $currentdef--;
+    
     my $d = $define;
 
     $d =~ s/^GL_//;
 
-    print OUT "    addToEnumPair  (\"$d\", $gl_define_list_two{$define});\n";
-    print OUT "    addFromEnumPair($gl_define_list_two{$define}, \"$d\");\n";
+    print OUT "    mapper->addToEnumPair  (\"$d\", $gl_define_list_two{$define});\n";
+    print OUT "    mapper->addFromEnumPair($gl_define_list_two{$define}, \"$d\");\n";
 }
 
 print OUT "\n\n";
 
 foreach my $define (keys %gl_define_list_one)
 {
+    if($currentdef == 0)
+    {
+        print OUT "}\n\n";
+        print OUT "static void initMapsHelper_$nfuncs(GLDefineMapperBase* mapper)\n";
+        print OUT "{\n";
+        $currentdef = $defsperfunc;
+        $nfuncs++;
+    }
+    $currentdef--;
+
     my $d = $define;
 
     $d =~ s/^GL_//;
 
-    print OUT "    addToEnumPair  (\"$d\", $gl_define_list_one{$define});\n";
+    print OUT "    mapper->addToEnumPair  (\"$d\", $gl_define_list_one{$define});\n";
+}
+
+print OUT "}\n\n";
+print OUT "#endif\n\n";
+
+
+print OUT "void GLDefineMapperBase::initMaps(void)\n";
+print OUT "{\n";
+print OUT "#ifdef OSG_GL_DEFMAPPER\n";
+
+for (my $c = 0; $c < $nfuncs; $c++)
+{
+    print OUT "    initMapsHelper_$c(this);\n";
 }
 
 print OUT "#endif\n";

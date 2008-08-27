@@ -587,7 +587,7 @@ feature_options["enable_testcontainer"] = sca_opts.BoolOption(
     "enable_testcontainer", "Enable container used for testing (from Source/Test)", False)
 
 feature_options["enable_gldefinemapper"] = sca_opts.BoolOption(
-    "enable_gldefinemapper", "Enable GLDefinemapper so gl constants are read/written as GL_XXX", False)
+    "enable_gldefinemapper", "Enable GLDefinemapper so gl constants are read/written as GL_XXX", True)
 
 feature_options["docs_mode"] = sca_opts.EnumOption(
     "docs_mode", "Select the mode for documentation generation",
