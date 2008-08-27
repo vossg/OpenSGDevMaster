@@ -361,6 +361,7 @@ print OUT "#include <OSGGLDefineMapper.h>\n\n\n";
 print OUT "OSG_BEGIN_NAMESPACE\n\n";
 print OUT "void GLDefineMapperBase::initMaps(void)\n";
 print OUT "{\n";
+print OUT "#ifdef OSG_GL_DEFMAPPER\n";
 
 foreach my $define (keys %gl_define_list_two)
 {
@@ -383,6 +384,7 @@ foreach my $define (keys %gl_define_list_one)
     print OUT "    addToEnumPair  (\"$d\", $gl_define_list_one{$define});\n";
 }
 
+print OUT "#endif\n";
 print OUT "}\n\n";
 print OUT "OSG_END_NAMESPACE\n\n";
 
