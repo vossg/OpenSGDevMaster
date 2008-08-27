@@ -336,7 +336,7 @@ if GetPlatform() == "win32":
                                 toolpath = '.')
    else:
       common_env = Environment(tools = ['default', 'doxygen'], toolpath = '.')
-if GetPlatform() == "darwin":
+elif GetPlatform() == "darwin":
    common_env = Environment(ENV = os.environ, 
                             toolpath = ['.', 'Tools/scons-build/OpenSG/Tools'],
                             tools = ['g++', 'gcc', 'applelink', 'osg_yacc',
