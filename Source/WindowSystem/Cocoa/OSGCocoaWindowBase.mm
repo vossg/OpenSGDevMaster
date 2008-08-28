@@ -50,9 +50,6 @@
  *****************************************************************************
 \*****************************************************************************/
 
-
-#define OSG_COMPILECOCOAWINDOWINST
-
 #include <cstdlib>
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
@@ -66,6 +63,10 @@
 #include "OSGCocoaWindow.h"
 
 #include "boost/bind.hpp"
+
+#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable:4355)
+#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -97,9 +98,9 @@ void CocoaWindowBase::classDescInserter(TypeObject &oType)
         "",
         ContextFieldId, ContextFieldMask,
         true,
-        Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&CocoaWindowBase::editHandleContext),
-        static_cast<FieldGetMethodSig >(&CocoaWindowBase::getHandleContext));
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CocoaWindow::editHandleContext),
+        static_cast<FieldGetMethodSig >(&CocoaWindow::getHandleContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -110,9 +111,10 @@ CocoaWindowBase::TypeObject CocoaWindowBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    (PrototypeCreateF) &CocoaWindowBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&CocoaWindowBase::createEmptyLocal),
     CocoaWindow::initMethod,
-    (InitalInsertDescFunc) &CocoaWindowBase::classDescInserter,
+    CocoaWindow::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&CocoaWindowBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -173,12 +175,6 @@ const SFNSOpenGLContextP *CocoaWindowBase::getSFContext(void) const
     return &_sfContext;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFNSOpenGLContextP  *CocoaWindowBase::getSFContext        (void)
-{
-    return this->editSFContext        ();
-}
-#endif
 
 
 
@@ -221,37 +217,91 @@ void CocoaWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-CocoaWindowPtr CocoaWindowBase::create(void)
+CocoaWindowTransitPtr CocoaWindowBase::createLocal(BitVector bFlags)
 {
-    CocoaWindowPtr fc;
+    CocoaWindowTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
-        fc = dynamic_cast<CocoaWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<CocoaWindow>(tmpPtr);
     }
 
     return fc;
 }
 
+//! create a new instance of the class
+CocoaWindowTransitPtr CocoaWindowBase::create(void)
+{
+    CocoaWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<CocoaWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
+CocoaWindow *CocoaWindowBase::createEmptyLocal(BitVector bFlags)
+{
+    CocoaWindow *returnValue;
+
+    newPtr<CocoaWindow>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
 //! create an empty new instance of the class, do not copy the prototype
-CocoaWindowPtr CocoaWindowBase::createEmpty(void)
+CocoaWindow *CocoaWindowBase::createEmpty(void)
 {
-    CocoaWindowPtr returnValue;
+    CocoaWindow *returnValue;
 
-    newPtr<CocoaWindow>(returnValue);
+    newPtr<CocoaWindow>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
 
-FieldContainerPtr CocoaWindowBase::shallowCopy(void) const
-{
-    CocoaWindowPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const CocoaWindow *>(this));
+FieldContainerTransitPtr CocoaWindowBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    CocoaWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CocoaWindow *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
+
+FieldContainerTransitPtr CocoaWindowBase::shallowCopy(void) const
+{
+    CocoaWindow *tmpPtr;
+
+    newPtr(tmpPtr,
+           dynamic_cast<const CocoaWindow *>(this),
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
 
 
 
@@ -281,7 +331,7 @@ GetFieldHandlePtr CocoaWindowBase::getHandleContext         (void) const
 {
     SFNSOpenGLContextP::GetHandlePtr returnValue(
         new  SFNSOpenGLContextP::GetHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
 
     return returnValue;
@@ -291,8 +341,9 @@ EditFieldHandlePtr CocoaWindowBase::editHandleContext        (void)
 {
     SFNSOpenGLContextP::EditHandlePtr returnValue(
         new  SFNSOpenGLContextP::EditHandle(
-             &_sfContext, 
+             &_sfContext,
              this->getType().getFieldDesc(ContextFieldId)));
+
 
     editSField(ContextFieldMask);
 
@@ -307,19 +358,21 @@ void CocoaWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CocoaWindowBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    CocoaWindow *pThis = static_cast<CocoaWindow *>(this);
+
+    pThis->execSync(static_cast<CocoaWindow *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr CocoaWindowBase::createAspectCopy(void) const
+FieldContainer *CocoaWindowBase::createAspectCopy(void) const
 {
-    CocoaWindowPtr returnValue;
+    CocoaWindow *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const CocoaWindow *>(this));
@@ -336,20 +389,18 @@ void CocoaWindowBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CocoaWindowPtr>::_type("CocoaWindowPtr", "WindowPtr");
+DataType FieldTraits<CocoaWindow *>::_type("CocoaWindowPtr", "WindowPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CocoaWindowPtr)
+OSG_FIELDTRAITS_GETTYPE(CocoaWindow *)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, CocoaWindowPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, CocoaWindowPtr, MFFieldContainerPtr);
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CocoaWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CocoaWindow *,
+                           0);
 
 OSG_END_NAMESPACE

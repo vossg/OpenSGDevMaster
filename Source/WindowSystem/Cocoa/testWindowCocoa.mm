@@ -37,14 +37,15 @@
 
 using namespace OSG;
 
-CocoaWindowPtr    win;
+CocoaWindowUnrecPtr    win;
 
 RenderAction    *ract;
-NodePtr           root;
-NodePtr           file;
-ViewportPtr   vp;
-TransformPtr  cam_trans;
+NodeRecPtr           root;
+NodeRecPtr           file;
+ViewportRecPtr   vp;
+TransformRecPtr  cam_trans;
 Trackball     tball;
+PerspectiveCameraRecPtr cam;
 
 bool          stopIt = false;
 int           lastx=0, lasty=0;
@@ -407,13 +408,13 @@ int main(int argc, char *argv[])
     // create the graph
 
     // beacon for camera and light
-    NodePtr b1n = Node::create();
-    GroupPtr b1 = Group::create();
+    NodeUnrecPtr b1n = Node::create();
+    GroupUnrecPtr b1 = Group::create();
     b1n->setCore( b1 );
 
     // transformation
-    NodePtr t1n = Node::create();
-    TransformPtr t1 = Transform::create();
+    NodeUnrecPtr t1n = Node::create();
+    TransformUnrecPtr t1 = Transform::create();
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
@@ -421,8 +422,8 @@ int main(int argc, char *argv[])
 
     // light
 
-    NodePtr dlight = Node::create();
-    DirectionalLightPtr dl = DirectionalLight::create();
+    NodeUnrecPtr dlight = Node::create();
+    DirectionalLightUnrecPtr dl = DirectionalLight::create();
 
     dlight->setCore( dl );
 
@@ -433,7 +434,7 @@ int main(int argc, char *argv[])
 
     // root
     root = Node::create();
-    GroupPtr gr1 = Group::create();
+    GroupUnrecPtr gr1 = Group::create();
 
     root->setCore( gr1 );
     root->addChild( t1n );
@@ -441,12 +442,12 @@ int main(int argc, char *argv[])
 
     // Load the file
 
-    NodePtr file = NullFC;
+    NodeUnrecPtr file = NULL;
 
     if ( argc > 1 )
         file = SceneFileHandler::the()->read(argv[1]);
 
-    if ( file == NullFC )
+    if ( file == NULL )
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
         file = makeTorus( .5, 2, 16, 16 );
@@ -466,7 +467,7 @@ int main(int argc, char *argv[])
     //root->dump();
 
     // Camera
-    PerspectiveCameraPtr cam = PerspectiveCamera::create();
+    cam = PerspectiveCamera::create();
 
     cam->setBeacon( b1n );
     cam->setFov( osgDegree2Rad( 90 ) );
@@ -474,7 +475,7 @@ int main(int argc, char *argv[])
     cam->setFar( 100000 );
 
     // Background
-    SolidBackgroundPtr bkgnd = SolidBackground::create();
+    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
 
     bkgnd->setColor(Color3f(0,0,1));
 
