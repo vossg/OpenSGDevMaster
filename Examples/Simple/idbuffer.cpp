@@ -201,10 +201,22 @@ private:
     Color4ub create_new_color()
     {
         // With this, we are ready for 255^3 objects.
-        if(ci>1)        {ci--;}
-        else if(cj>1)    {cj--;}
-        else if(ck>1)    {ck--;}
-        else {
+        if(ci > 1)
+        {
+            ci--;
+        }
+        else if(cj > 1)
+        {
+            cj--;
+            ci = 255;
+        }
+        else if(ck > 1)
+        {
+            ck--;
+            ci = cj = 255;
+        }
+        else
+        {
             cerr << "Cdrawing::create_new_color()  NO MORE COLOR FREE !!!! TOO MANY OBJECTS ... Gloups " << endl;
             // Note that we can extend to 255^4 objects with the alpha channel
         }
