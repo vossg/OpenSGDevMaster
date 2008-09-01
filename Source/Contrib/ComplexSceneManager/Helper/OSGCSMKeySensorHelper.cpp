@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,102 +36,86 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGCSMVRMLNodeHelper.h>
-#include <OSGTimeSensor.h>
-#include <OSGOrientationInterpolator.h>
-#include <OSGPositionInterpolator.h>
-#include <OSGCoordinateInterpolator.h>
-#include <OSGScalarInterpolator.h>
+#include "OSGCSMKeySensorHelper.h"
 
-#include <OSGCounters.h>
-#include <OSGLimitedCounters.h>
-
-#include <OSGGroup.h>
+#include "algorithm"
 
 OSG_BEGIN_NAMESPACE
 
-//---------------------------------------------------------------------------
-//  Generic Helper with 1:1 mapping
-//---------------------------------------------------------------------------
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<TimeSensor>::_regHelper(
-        &VRMLGenericHelper<TimeSensor>::create,
-        "TimeSensor");
-
-template class VRMLGenericHelper<TimeSensor>;
+CSMKeySensorHelper::CSMKeySensorHelper(void) :
+    _oKeyMap(256)
+{
+}
 
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<OrientationInterpolator>::_regHelper(
-        &VRMLGenericHelper<OrientationInterpolator>::create,
-        "OrientationInterpolator");
+CSMKeySensorHelper::~CSMKeySensorHelper(void)
+{
+}
 
-template class VRMLGenericHelper<OrientationInterpolator>;
+void CSMKeySensorHelper::update(Int32      x,
+                                Int32      y,
+                                Int32      iState,
+                                Char8      cKey   )
+{
+    KeyStoreIt kIt  = _oKeyMap[cKey].begin();
+    KeyStoreIt kEnd = _oKeyMap[cKey].end  ();
 
+    for(; kIt != kEnd; ++kIt)
+    {
+        (*kIt)->update(x, y, iState);
+    }
+    
+    commitChanges();
+}
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<PositionInterpolator>::_regHelper(
-        &VRMLGenericHelper<PositionInterpolator>::create,
-        "PositionInterpolator");
+void CSMKeySensorHelper::updateSensors(KeySensor *pSensor)
+{
+    if(pSensor == NULL || pSensor->getKey() == '\0')
+        return;
 
-template class VRMLGenericHelper<PositionInterpolator>;
+    bool bFound = false;
 
+    for(UInt32 i = 0; i < _oKeyMap.size(); ++i)
+    {
+        KeyStoreIt kIt = std::find(_oKeyMap[i].begin(),
+                                   _oKeyMap[i].end  (),
+                                    pSensor           );
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<CoordinateInterpolator>::_regHelper(
-        &VRMLGenericHelper<CoordinateInterpolator>::create,
-        "CoordinateInterpolator");
+        if(kIt != _oKeyMap[i].end())
+        {
+            if(pSensor->getKey() != i)
+            {
+                _oKeyMap[i].erase(kIt);
 
-template class VRMLGenericHelper<CoordinateInterpolator>;
+                break;
+            }
+            else
+            {
+                bFound = true;
+                break;
+            }
+        }
+    }
 
+    if(bFound == false)
+    {
+        _oKeyMap[pSensor->getKey()].push_back(pSensor);
+    }
+}
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<ScalarInterpolator>::_regHelper(
-        &VRMLGenericHelper<ScalarInterpolator>::create,
-        "ScalarInterpolator");
+void CSMKeySensorHelper::removeSensor (KeySensor *pSensor)
+{
+    if(pSensor == NULL || pSensor->getKey() == '\0')
+        return;
 
-template class VRMLGenericHelper<ScalarInterpolator>;
+    KeyStoreIt kIt = std::find(_oKeyMap[pSensor->getKey()].begin(),
+                               _oKeyMap[pSensor->getKey()].end  (),
+                                pSensor                           );
 
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Real32Counter>::_regHelper(
-        &VRMLGenericHelper<Real32Counter>::create,
-        "Real32Counter");
-
-template class VRMLGenericHelper<Real32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Int32Counter>::_regHelper(
-        &VRMLGenericHelper<Int32Counter>::create,
-        "Int32Counter");
-
-template class VRMLGenericHelper<Int32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedReal32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedReal32Counter>::create,
-        "LimitedReal32Counter");
-
-template class VRMLGenericHelper<LimitedReal32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedInt32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedInt32Counter>::create,
-        "LimitedInt32Counter");
-
-template class VRMLGenericHelper<LimitedInt32Counter>;
+    if(kIt != _oKeyMap[pSensor->getKey()].end())
+    {
+        _oKeyMap[pSensor->getKey()].erase(kIt);
+    }
+}
 
 OSG_END_NAMESPACE

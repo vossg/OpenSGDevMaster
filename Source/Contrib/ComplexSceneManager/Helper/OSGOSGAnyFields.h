@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,102 +36,106 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGCSMVRMLNodeHelper.h>
-#include <OSGTimeSensor.h>
-#include <OSGOrientationInterpolator.h>
-#include <OSGPositionInterpolator.h>
-#include <OSGCoordinateInterpolator.h>
-#include <OSGScalarInterpolator.h>
+#ifndef _OSGANYFIELDS_H_
+#define _OSGANYFIELDS_H_
 
-#include <OSGCounters.h>
-#include <OSGLimitedCounters.h>
-
-#include <OSGGroup.h>
+#include "OSGContribCSMDef.h"
+#include "OSGBaseTypes.h"
+#include "OSGFieldTraits.h"
+#include "OSGSField.h"
+#include "OSGMField.h"
 
 OSG_BEGIN_NAMESPACE
 
-//---------------------------------------------------------------------------
-//  Generic Helper with 1:1 mapping
-//---------------------------------------------------------------------------
+class Window;
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<TimeSensor>::_regHelper(
-        &VRMLGenericHelper<TimeSensor>::create,
-        "TimeSensor");
-
-template class VRMLGenericHelper<TimeSensor>;
+struct OSGAny
+{
+    bool operator ==(const OSGAny &) const
+    {
+        return true;
+    }
+};
 
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<OrientationInterpolator>::_regHelper(
-        &VRMLGenericHelper<OrientationInterpolator>::create,
-        "OrientationInterpolator");
+template <>
+struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
+{
+  private:
 
-template class VRMLGenericHelper<OrientationInterpolator>;
+    static  DataType                 _type;
 
+  public:
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<PositionInterpolator>::_regHelper(
-        &VRMLGenericHelper<PositionInterpolator>::create,
-        "PositionInterpolator");
+    typedef FieldTraits<OSGAny>  Self;
 
-template class VRMLGenericHelper<PositionInterpolator>;
+    enum             { Convertible = Self::NotConvertible  };
 
+    static OSG_CONTRIBCSM_DLLMAPPING
+                 DataType   &getType      (void);
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<CoordinateInterpolator>::_regHelper(
-        &VRMLGenericHelper<CoordinateInterpolator>::create,
-        "CoordinateInterpolator");
+    static const Char8      *getSName     (void) { return "SFAny";    }
 
-template class VRMLGenericHelper<CoordinateInterpolator>;
+    static const Char8      *getMName     (void) { return "MFAny";    }
+
+    static       OSGAny      getDefault   (void) { return OSGAny(); }
 
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<ScalarInterpolator>::_regHelper(
-        &VRMLGenericHelper<ScalarInterpolator>::create,
-        "ScalarInterpolator");
+    static       UInt32    getBinSize (const OSGAny &oObject)
+    {
+        return 0; //oObject.length() + 1 + sizeof(UInt32);
+    }
 
-template class VRMLGenericHelper<ScalarInterpolator>;
+    static       UInt32    getBinSize (const OSGAny *pObjectStore,
+                                             UInt32  uiNumObjects)
+    {
+        UInt32 size=0;
 
+        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        {
+            size += getBinSize(pObjectStore[i]);
+        }
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Real32Counter>::_regHelper(
-        &VRMLGenericHelper<Real32Counter>::create,
-        "Real32Counter");
-
-template class VRMLGenericHelper<Real32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Int32Counter>::_regHelper(
-        &VRMLGenericHelper<Int32Counter>::create,
-        "Int32Counter");
-
-template class VRMLGenericHelper<Int32Counter>;
+        return size;
+    }
 
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedReal32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedReal32Counter>::create,
-        "LimitedReal32Counter");
+    static void copyToBin(      BinaryDataHandler &pMem, 
+                          const OSGAny            &oObject)
+    {
+    	//pMem.putValue(oObject);
+    }
 
-template class VRMLGenericHelper<LimitedReal32Counter>;
+    static void copyToBin(      BinaryDataHandler &pMem, 
+                          const OSGAny            *pObjectStore,
+                                UInt32             uiNumObjects)
+    {
+        for(UInt32 i=0; i < uiNumObjects; ++i)
+        {
+            copyToBin(pMem, pObjectStore[i]);
+        }
+    }
 
+    static void copyFromBin(BinaryDataHandler &pMem, 
+                            OSGAny            &oObject)
+    {
+        //pMem.getValue(oObject);
+    }
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedInt32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedInt32Counter>::create,
-        "LimitedInt32Counter");
+    static void copyFromBin(BinaryDataHandler &pMem, 
+                            OSGAny            *pObjectStore,
+                            UInt32             uiNumObjects)
+    {
+        for(UInt32 i = 0; i < uiNumObjects; ++i)
+        {
+            copyFromBin(pMem, pObjectStore[i]);
+        }
+    }
+};
 
-template class VRMLGenericHelper<LimitedInt32Counter>;
+typedef SField<OSGAny> SFOSGAny;
+typedef MField<OSGAny> MFOSGAny;
 
 OSG_END_NAMESPACE
+
+#endif

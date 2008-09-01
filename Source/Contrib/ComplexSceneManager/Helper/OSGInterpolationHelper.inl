@@ -212,6 +212,42 @@ void InterpolationHelper<MFReal32,
 }
 
 
+// Scalar
+
+template<> inline
+void InterpolationHelper<MFReal32, 
+                         MFReal32, 
+                         SFReal32>::lerp( 
+                             const UInt32    uiStopIndex,
+                             const UInt32    uiStartIndex,
+                             const Real32    rFraction,
+                             const MFReal32 &mfKeys,
+                             const MFReal32 &mfKeyValues,
+                                   SFReal32 &fValue  )
+{
+    if(osgAbs(mfKeys[uiStopIndex] - mfKeys[uiStartIndex]) < Eps)
+    {
+        return;
+    }
+    else
+    {
+        Real32 vResult;
+
+        Real32 t =
+            (rFraction           - mfKeys[uiStartIndex]) /
+            (mfKeys[uiStopIndex] - mfKeys[uiStartIndex]);
+        
+        vResult  = mfKeyValues[uiStopIndex ];
+        vResult -= mfKeyValues[uiStartIndex];
+        vResult *= t;
+
+        vResult += mfKeyValues[uiStartIndex];
+
+        fValue.setValue(vResult);
+    }
+}
+
+
 // Interpolate
 
 template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT> inline

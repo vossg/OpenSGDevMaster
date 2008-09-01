@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,102 +36,17 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGCSMVRMLNodeHelper.h>
-#include <OSGTimeSensor.h>
-#include <OSGOrientationInterpolator.h>
-#include <OSGPositionInterpolator.h>
-#include <OSGCoordinateInterpolator.h>
-#include <OSGScalarInterpolator.h>
+#include "OSGOSGAnyFields.h"
 
-#include <OSGCounters.h>
-#include <OSGLimitedCounters.h>
-
-#include <OSGGroup.h>
+#include <OSGSField.ins>
+#include <OSGMField.ins>
 
 OSG_BEGIN_NAMESPACE
 
-//---------------------------------------------------------------------------
-//  Generic Helper with 1:1 mapping
-//---------------------------------------------------------------------------
+DataType FieldTraits<OSGAny>::_type("OSGAny",        "BaseType"    );
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<TimeSensor>::_regHelper(
-        &VRMLGenericHelper<TimeSensor>::create,
-        "TimeSensor");
-
-template class VRMLGenericHelper<TimeSensor>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<OrientationInterpolator>::_regHelper(
-        &VRMLGenericHelper<OrientationInterpolator>::create,
-        "OrientationInterpolator");
-
-template class VRMLGenericHelper<OrientationInterpolator>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<PositionInterpolator>::_regHelper(
-        &VRMLGenericHelper<PositionInterpolator>::create,
-        "PositionInterpolator");
-
-template class VRMLGenericHelper<PositionInterpolator>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<CoordinateInterpolator>::_regHelper(
-        &VRMLGenericHelper<CoordinateInterpolator>::create,
-        "CoordinateInterpolator");
-
-template class VRMLGenericHelper<CoordinateInterpolator>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<ScalarInterpolator>::_regHelper(
-        &VRMLGenericHelper<ScalarInterpolator>::create,
-        "ScalarInterpolator");
-
-template class VRMLGenericHelper<ScalarInterpolator>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Real32Counter>::_regHelper(
-        &VRMLGenericHelper<Real32Counter>::create,
-        "Real32Counter");
-
-template class VRMLGenericHelper<Real32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Int32Counter>::_regHelper(
-        &VRMLGenericHelper<Int32Counter>::create,
-        "Int32Counter");
-
-template class VRMLGenericHelper<Int32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedReal32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedReal32Counter>::create,
-        "LimitedReal32Counter");
-
-template class VRMLGenericHelper<LimitedReal32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedInt32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedInt32Counter>::create,
-        "LimitedInt32Counter");
-
-template class VRMLGenericHelper<LimitedInt32Counter>;
+OSG_FIELDTRAITS_GETTYPE (        OSGAny    )
+OSG_FIELD_DLLEXPORT_DEF1(SField, OSGAny    )
+OSG_FIELD_DLLEXPORT_DEF1(MField, OSGAny    )
 
 OSG_END_NAMESPACE

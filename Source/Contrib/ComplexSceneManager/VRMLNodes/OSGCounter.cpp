@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,102 +36,79 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGCSMVRMLNodeHelper.h>
-#include <OSGTimeSensor.h>
-#include <OSGOrientationInterpolator.h>
-#include <OSGPositionInterpolator.h>
-#include <OSGCoordinateInterpolator.h>
-#include <OSGScalarInterpolator.h>
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
-#include <OSGCounters.h>
-#include <OSGLimitedCounters.h>
+#include <cstdlib>
+#include <cstdio>
 
-#include <OSGGroup.h>
+#include <OSGConfig.h>
+
+#include "OSGCounter.h"
 
 OSG_BEGIN_NAMESPACE
 
-//---------------------------------------------------------------------------
-//  Generic Helper with 1:1 mapping
-//---------------------------------------------------------------------------
+// Documentation for this class is emitted in the
+// OSGCounterBase.cpp file.
+// To modify it, please change the .fcd file (OSGCounter.fcd) and
+// regenerate the base file.
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<TimeSensor>::_regHelper(
-        &VRMLGenericHelper<TimeSensor>::create,
-        "TimeSensor");
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
 
-template class VRMLGenericHelper<TimeSensor>;
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
 
+void Counter::initMethod(InitPhase ePhase)
+{
+    Inherited::initMethod(ePhase);
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<OrientationInterpolator>::_regHelper(
-        &VRMLGenericHelper<OrientationInterpolator>::create,
-        "OrientationInterpolator");
-
-template class VRMLGenericHelper<OrientationInterpolator>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<PositionInterpolator>::_regHelper(
-        &VRMLGenericHelper<PositionInterpolator>::create,
-        "PositionInterpolator");
-
-template class VRMLGenericHelper<PositionInterpolator>;
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
+}
 
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<CoordinateInterpolator>::_regHelper(
-        &VRMLGenericHelper<CoordinateInterpolator>::create,
-        "CoordinateInterpolator");
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
 
-template class VRMLGenericHelper<CoordinateInterpolator>;
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
 
+/*----------------------- constructors & destructors ----------------------*/
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<ScalarInterpolator>::_regHelper(
-        &VRMLGenericHelper<ScalarInterpolator>::create,
-        "ScalarInterpolator");
+Counter::Counter(void) :
+    Inherited()
+{
+}
 
-template class VRMLGenericHelper<ScalarInterpolator>;
+Counter::Counter(const Counter &source) :
+    Inherited(source)
+{
+}
 
+Counter::~Counter(void)
+{
+}
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Real32Counter>::_regHelper(
-        &VRMLGenericHelper<Real32Counter>::create,
-        "Real32Counter");
+/*----------------------------- class specific ----------------------------*/
 
-template class VRMLGenericHelper<Real32Counter>;
+void Counter::changed(ConstFieldMaskArg whichField, 
+                      UInt32            origin,
+                      BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
 
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Int32Counter>::_regHelper(
-        &VRMLGenericHelper<Int32Counter>::create,
-        "Int32Counter");
-
-template class VRMLGenericHelper<Int32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedReal32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedReal32Counter>::create,
-        "LimitedReal32Counter");
-
-template class VRMLGenericHelper<LimitedReal32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedInt32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedInt32Counter>::create,
-        "LimitedInt32Counter");
-
-template class VRMLGenericHelper<LimitedInt32Counter>;
+void Counter::dump(      UInt32    ,
+                   const BitVector ) const
+{
+    SLOG << "Dump Counter NI" << std::endl;
+}
 
 OSG_END_NAMESPACE

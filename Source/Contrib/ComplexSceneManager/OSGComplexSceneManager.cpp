@@ -393,14 +393,16 @@ void ComplexSceneManager::startFrom(const std::string &szParamFilename)
 /*----------------------- constructors & destructors ----------------------*/
 
 ComplexSceneManager::ComplexSceneManager(void) :
-     Inherited(),
-    _fMainloop()
+     Inherited (),
+    _fMainloop (),
+    _oKeyHelper()
 {
 }
 
 ComplexSceneManager::ComplexSceneManager(const ComplexSceneManager &source) :
-     Inherited(source),
-    _fMainloop(      )
+     Inherited (source),
+    _fMainloop (      ),
+    _oKeyHelper(      )
     
 {
 }
@@ -846,6 +848,17 @@ void ComplexSceneManager::key(Int32 x,
                               Int32 iState,
                               Char8 cKey  )
 {
+    _oKeyHelper.update(x, y, iState, cKey);
+}
+
+void ComplexSceneManager::updateKeySensor(KeySensor *pSensor)
+{
+    _oKeyHelper.updateSensors(pSensor);
+}
+
+void ComplexSceneManager::removeKeySensor(KeySensor *pSensor)
+{
+    _oKeyHelper.removeSensor(pSensor);
 }
 
 OSG_END_NAMESPACE

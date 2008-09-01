@@ -36,57 +36,126 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOMPLEXSCENEMANAGER_H_
-#define _OSGCOMPLEXSCENEMANAGER_H_
+#ifndef _OSGCOUNTERS_H_
+#define _OSGCOUNTERS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include <boost/function.hpp>
 
-#include "OSGComplexSceneManagerBase.h"
-#include "OSGDrawManager.h"
-#include "OSGPathHandler.h"
-#include "OSGSceneFileType.h"
-#include "OSGSensorTask.h"
-#include "OSGCSMKeySensorHelper.h"
+#include "OSGConfig.h"
+#include "OSGContribCSMDef.h"
+
+#include "OSGBaseTypes.h"
+
+#include "OSGCounter.h" // Parent
+
+#include "OSGReal32Fields.h" // Step type
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ComplexSceneManager class. See \ref
-           PageContribCSMComplexSceneManager for a description.
-*/
+//! \brief Real32Counter Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager : 
-    public ComplexSceneManagerBase
+template<class Desc>
+class CounterImpl : public Counter
 {
-  protected:
+  public:
+
+    typedef Counter     Inherited;
+    typedef Counter     ParentContainer;
+    typedef CounterImpl Self;
+
+    typedef Inherited::TypeObject TypeObject;
+    typedef TypeObject::InitPhase InitPhase;
+
+    OSG_GEN_INTERNALPTR(Self);
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ComplexSceneManagerBase Inherited;
-    typedef ComplexSceneManager     Self;
+    enum
+    {
+        StepFieldId       = Inherited::NextFieldId,
+        ResetValueFieldId = StepFieldId + 1,
+        ValueFieldId      = ResetValueFieldId + 1,
+        NextFieldId       = ValueFieldId + 1
+    };
 
-    typedef boost::function<void (void)> MainLoopFuncF;
+    static const OSG::BitVector StepFieldMask =
+        (TypeTraits<BitVector>::One << StepFieldId);
+
+    static const OSG::BitVector ResetValueFieldMask =
+        (TypeTraits<BitVector>::One << ResetValueFieldId);
+
+    static const OSG::BitVector ValueFieldMask =
+        (TypeTraits<BitVector>::One << ValueFieldId);
+
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef typename Desc::SFValueType       SFValueType;
+    typedef          SFValueType             SFStepType;
+    typedef          SFValueType             SFResetValueType;
+
+    typedef typename SFValueType::StoredType ValueType;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static ComplexSceneManager *the(void);
+    static       FieldContainerType &getClassType   (void);
+    static       UInt32              getClassTypeId (void);
+    static       UInt16              getClassGroupId(void);
+    static const Char8              *getClassname   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    static void startFrom(const std::string &szParamFilename);
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
+
+    virtual       UInt32              getContainerSize(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFValueType          *editSFStep           (void);
+            const SFValueType          *getSFStep            (void) const;
+
+                  SFValueType         *editSFResetValue     (void);
+            const SFValueType         *getSFResetValue      (void) const;
+
+                  SFValueType         *editSFValue          (void);
+            const SFValueType         *getSFValue           (void) const;
+
+
+                  ValueType       &editStep           (void);
+                  ValueType        getStep            (void) const;
+
+                  ValueType      &editResetValue     (void);
+                  ValueType       getResetValue      (void) const;
+
+                  ValueType           &editValue          (void);
+                  ValueType            getValue           (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setStep           (const ValueType  value);
+            void setResetValue     (const ValueType  value);
+            void setValue          (const ValueType  value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
@@ -95,143 +164,132 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    bool init     (int argc, char **argv);
-    void terminate(void                 );
+    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    void setMainloop(MainLoopFuncF fMainloop);
+    static  ObjTransitPtr  create          (void);
+    static  Self           *createEmpty     (void);
+
+    static  ObjTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
+
+    static  Self            *createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    void run  (void);
-    void frame(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    void key(Int32 x,
-             Int32 y,
-             Int32 iState,
-             Char8 cKey  );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef SceneFileType::Resolver             Resolver;
+    static TypeObject _type;
 
-    // Variables should all be in ComplexSceneManagerBase.
-
-    static Time                                 SystemTime;
-    static ComplexSceneManagerUnrecPtr         _the;
-    static PathHandler                         _oPathHandler;
-    static std::vector<FieldContainerUnrecPtr> _vStaticGlobals;
-
-           MainLoopFuncF                       _fMainloop;
-           CSMKeySensorHelper                  _oKeyHelper;
+    static       void   classDescInserter(TypeObject &oType);
 
     /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
+    /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    ComplexSceneManager(void);
-    ComplexSceneManager(const ComplexSceneManager &source);
+    SFValueType          _sfStep;
+    SFValueType          _sfResetValue;
+    SFValueType          _sfValue;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    CounterImpl(void);
+    CounterImpl(const CounterImpl &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ComplexSceneManager(void);
+    virtual ~CounterImpl(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    FieldContainer *resolve(const Char8 *szName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    void onCreate(const ComplexSceneManager *source = NULL);
+    GetFieldHandlePtr  getHandleStep            (void) const;
+    EditFieldHandlePtr editHandleStep           (void);
+    GetFieldHandlePtr  getHandleResetValue      (void) const;
+    EditFieldHandlePtr editHandleResetValue     (void);
+    GetFieldHandlePtr  getHandleValue           (void) const;
+    EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-    void  addGlobals(const std::string &filename);
-    void  addData   (const std::string &filename);
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual void execSyncV(      FieldContainer    &oFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
 
-    Node *findNode  (const std::string &filename) const;
+            void execSync (      Self              *pFrom,
+                                 ConstFieldMaskArg  whichField,
+                                 AspectOffsetStore &oOffsets,
+                                 ConstFieldMaskArg  syncMode  ,
+                           const UInt32             uiSyncInfo);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
-
-    bool init    (const std::vector<std::string> &vParams);
-    void shutdown(      void                             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
-    void updateKeySensor(KeySensor *pSensor);
-    void removeKeySensor(KeySensor *pSensor);
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(void) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
-
-    static FieldContainer           *resolveStatic(const Char8       *szName  );
-    static FieldContainerTransitPtr  readOSGFile  (const std::string &filename,
-                                                         Resolver     resolver);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-    static void addStaticGlobals(const Char8                    *szFilename);
-
-    static void scanParamFile   (const Char8                    *szFilename,
-                                       std::vector<std::string> &vParams   );
-
-    static void scanPreSystem(         std::vector<std::string> &vParams   );
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -246,18 +304,39 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
   private:
 
     friend class FieldContainer;
-    friend class ComplexSceneManagerBase;
-    friend class KeySensor;
+
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ComplexSceneManager &source);
+    void operator =(const CounterImpl &source);
 };
 
-typedef ComplexSceneManager *ComplexSceneManagerP;
+struct Int32CounterDesc
+{
+    typedef SFInt32 SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "Int32Counter";
+    }
+};
+
+struct Real32CounterDesc
+{
+    typedef SFReal32 SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "Real32Counter";
+    }
+};
+
+typedef CounterImpl<Int32CounterDesc > Int32Counter;
+typedef CounterImpl<Real32CounterDesc> Real32Counter;
 
 OSG_END_NAMESPACE
 
-#include "OSGComplexSceneManagerBase.inl"
-#include "OSGComplexSceneManager.inl"
+#include "OSGCounters.inl"
 
-#endif /* _OSGCOMPLEXSCENEMANAGER_H_ */
+
+#endif /* _OSGCOUNTERS_H_ */

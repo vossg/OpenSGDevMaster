@@ -154,6 +154,26 @@ void CSMNativeWindow::xMainLoop(void)
                         }
                         break;
 
+                    case KeyRelease:           
+                        
+                        XLookupString(&event.xkey, buffer, 30, &keysym, NULL);
+                        
+                        //fprintf(stderr, "%x\n", keysym);
+
+                        if(keysym == XK_Escape) 
+                        {
+                        }
+                        else if((XK_space      <= keysym) && 
+                                (XK_asciitilde >= keysym))
+                        {
+                            ComplexSceneManager::the()->key(
+                                event.xkey.x,
+                                event.xkey.y,
+                                CSMKeyData::ButtonUp,
+                                Char8(keysym));
+                        }
+                        break;
+
 
                     case ButtonPress:
                         
@@ -340,6 +360,7 @@ bool CSMNativeWindow::init(void)
         ButtonPressMask    | 
         ButtonReleaseMask  |
         KeyPressMask       |
+        KeyReleaseMask     |
         Button1MotionMask  |
         Button2MotionMask  |
         Button3MotionMask  | 
