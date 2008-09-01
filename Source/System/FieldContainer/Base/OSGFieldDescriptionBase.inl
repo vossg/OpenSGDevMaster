@@ -416,7 +416,9 @@ BasicFieldConnector *FieldDescription<
 
     if(pSrcDesc->getFieldType() != pDstDesc->getFieldType())
     {
-        fprintf(stderr, "typemismatch failed \n");
+        fprintf(stderr, "typemismatch failed (%s | %s)\n",
+                pSrcDesc->getFieldType().getCName(),
+                pDstDesc->getFieldType().getCName());
 
         return returnValue;
     }
