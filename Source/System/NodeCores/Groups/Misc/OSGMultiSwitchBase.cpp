@@ -142,7 +142,7 @@ MultiSwitchBase::TypeObject MultiSwitchBase::_type(
     "<FieldContainer\n"
     "\tname=\"MultiSwitch\"\n"
     "\tparent=\"Group\"\n"
-    "\tlibrary=\"System\"\n"
+    "\tlibrary=\"Group\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"

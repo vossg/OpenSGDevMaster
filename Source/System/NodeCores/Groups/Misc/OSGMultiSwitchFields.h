@@ -74,7 +74,7 @@ OSG_GEN_CONTAINERPTR(MultiSwitch);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpGroupFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -164,7 +164,7 @@ const Char8 *FieldTraits<MultiSwitch *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpGroupFieldSingle */
 
 typedef PointerSField<MultiSwitch *,
                       RecordedRefCountPolicy  > SFRecMultiSwitchPtr;
@@ -178,7 +178,7 @@ typedef PointerSField<MultiSwitch *,
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpGroupFieldMulti */
 
 typedef PointerMField<MultiSwitch *,
                       RecordedRefCountPolicy  > MFRecMultiSwitchPtr;
