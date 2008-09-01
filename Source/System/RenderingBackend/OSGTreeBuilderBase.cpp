@@ -101,7 +101,9 @@ void TreeBuilderBase::draw(DrawEnv &denv, RenderPartition *part)
     drawNode(_pRoot, denv, part);
 }
 
-void TreeBuilderBase::drawNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part)
+void TreeBuilderBase::drawNode(RenderTreeNode  *pNode, 
+                               DrawEnv         &denv, 
+                               RenderPartition *part)
 {
     while (pNode != NULL)
     {
@@ -147,10 +149,14 @@ void TreeBuilderBase::drawNode(RenderTreeNode *pNode, DrawEnv &denv, RenderParti
         State         *pNewState         = pNode->getState();
         StateOverride *pNewStateOverride = pNode->getStateOverride();
 
+        denv.setLightState(pNode->getLightState());
+
         denv.activateState(pNewState, pNewStateOverride);
 
         if(pNode->hasFunctor() == true)
+        {
             pNode->getFunctor()(&denv);
+        }
 
         if(pNode->getFirstChild() != NULL)
         {

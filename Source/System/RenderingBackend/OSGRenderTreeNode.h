@@ -107,8 +107,8 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
     void            setResultNum    (UInt32             uiResNum      );
     UInt32          getResultNum    (void                             );
 
-    void            setLightsState  (UInt64             state         );
-    UInt64          getLightsState  (void                             );
+    void            setLightState   (UInt32             state         );
+    UInt32          getLightState   (void                             );
     
     void            setNode         (Node              *pNode         );
     Node           *getNode         (void                             );
@@ -146,7 +146,7 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
 
     UInt32          _resultNum;
 
-    UInt64          _lightsState;
+    UInt32          _lightState;
     
     Node           *_node;
 

@@ -414,6 +414,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     // State
 
     Int32               _iNextLightIndex;
+    UInt32              _uiLightState;
+
     UInt32              _uiKeyGen;
     
     // Material Override

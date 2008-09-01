@@ -200,6 +200,14 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    void   setLightState(UInt32 uiState);
+    UInt32 getLightState(void          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
     DrawEnv(void);
 
     /*! \}                                                                 */
@@ -246,6 +254,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     Int32          _iPixelTop;
 
     bool           _bFull;
+
+    UInt32         _uiLightState;
 
     Window        *_pWindow;
 

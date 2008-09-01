@@ -1669,90 +1669,95 @@ void SHLChunk::updateOSGParameters(DrawEnv *pEnv,
 void SHLChunk::updateWorldMatrix(ShaderParameter * const parameter,
                                  DrawEnv *pEnv, GLuint program)
 {
-#ifdef CHECK_OSG_PARRAM
     // this parameter needs to be updated for each object because it
     // is dependend from the object transformation!
-    if(action->getCamera() == NULL || action->getViewport() == NULL)
+#if 0
+    if(pEnv->getCamera() == NULL || pEnv->getViewport() == NULL)
     {
         FWARNING(("SHLChunk::updateWorldMatrix : Can't update OSGWorldMatrix"
                   "parameter, camera or viewport is NULL!\n"));
         return;
     }
+#endif
 
-    Matrix m;
-    RenderAction *ra = dynamic_cast<RenderAction *>(action);
-    if(ra != NULL)
-        m = ra->top_matrix();
+    Matrix m = pEnv->getObjectToWorld();
 
     // get "glUniformMatrix4fvARB" function pointer
     OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = 
         reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
-            action->getWindow()->getFunction(_funcUniformMatrix4fv));
+            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniformMatrix4fv(parameter->getLocation(), 1, GL_FALSE, m.getValues());
-#endif
+    {
+        uniformMatrix4fv(parameter->getLocation(), 
+                         1, 
+                         GL_FALSE, 
+                         m.getValues());
+    }
 }
 
 void SHLChunk::updateInvWorldMatrix(ShaderParameter * const parameter,
                                     DrawEnv *pEnv, GLuint program)
 {
-#ifdef CHECK_OSG_PARRAM
     // this parameter needs to be updated for each object because it
     // is dependend from the object transformation!
+#if 0
     if(action->getCamera() == NULL || action->getViewport() == NULL)
     {
         FWARNING(("SHLChunk::updateInvWorldMatrix : Can't update OSGInvWorldMatrix"
                   "parameter, camera or viewport is NULL!\n"));
         return;
     }
+#endif
 
-    Matrix m;
-    RenderAction *ra = dynamic_cast<RenderAction *>(action);
-    if(ra != NULL)
-        m = ra->top_matrix();
+    Matrix m = pEnv->getObjectToWorld();
+
     m.invert();
 
     // get "glUniformMatrix4fvARB" function pointer
     OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
-        action->getWindow()->getFunction(_funcUniformMatrix4fv);
+        pEnv->getWindow()->getFunction(_funcUniformMatrix4fv);
+
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
+    {
         uniformMatrix4fv(parameter->getLocation(), 1, GL_FALSE, m.getValues());
-#endif
+    }
 }
 
 void SHLChunk::updateTransInvWorldMatrix(ShaderParameter * const parameter,
                                          DrawEnv *pEnv, GLuint program)
 {
-#ifdef CHECK_OSG_PARRAM
     // this parameter needs to be updated for each object because it
     // is dependend from the object transformation!
+#if 0
     if(action->getCamera() == NULL || action->getViewport() == NULL)
     {
         FWARNING(("SHLChunk::updateTransInvWorldMatrix : Can't update OSGTransInvWorldMatrix"
                   "parameter, camera or viewport is NULL!\n"));
         return;
     }
+#endif
 
-    Matrix m;
-    RenderAction *ra = dynamic_cast<RenderAction *>(action);
-    if(ra != NULL)
-        m = ra->top_matrix();
+    Matrix m = pEnv->getObjectToWorld();
+
     m.invert();
     m.transpose();
 
     // get "glUniformMatrix4fvARB" function pointer
     OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
-        action->getWindow()->getFunction(_funcUniformMatrix4fv);
+        pEnv->getWindow()->getFunction(_funcUniformMatrix4fv);
+
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
         uniformMatrix4fv(parameter->getLocation(), 1, GL_FALSE, m.getValues());
-#endif
 }
 
 void SHLChunk::updateCameraOrientation(
@@ -1920,19 +1925,17 @@ void SHLChunk::updateActiveLightsMask(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask()));
-#endif
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState()));
 }
 
 void SHLChunk::updateLight0Active(
@@ -1940,19 +1943,19 @@ void SHLChunk::updateLight0Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 1));
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0001));
+    }
 }
 
 void SHLChunk::updateLight1Active(
@@ -1960,19 +1963,19 @@ void SHLChunk::updateLight1Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 2));
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0002));
+    }
 }
 
 void SHLChunk::updateLight2Active(
@@ -1980,19 +1983,19 @@ void SHLChunk::updateLight2Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 4));
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0004));
+    }
 }
 
 void SHLChunk::updateLight3Active(
@@ -2000,19 +2003,19 @@ void SHLChunk::updateLight3Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 8));
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0008));
+    }
 }
 
 void SHLChunk::updateLight4Active(
@@ -2020,19 +2023,19 @@ void SHLChunk::updateLight4Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 16));
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0010));
+    }
 }
 
 void SHLChunk::updateLight5Active(
@@ -2040,19 +2043,19 @@ void SHLChunk::updateLight5Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), GLint(ract->getActiveLightsMask() & 32));
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0020));
+    }
 }
 
 void SHLChunk::updateLight6Active(
@@ -2060,19 +2063,19 @@ void SHLChunk::updateLight6Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 64);
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0040));
+    }
 }
 
 void SHLChunk::updateLight7Active(
@@ -2080,19 +2083,19 @@ void SHLChunk::updateLight7Active(
     DrawEnv                 *pEnv,
     GLuint                   program)
 {
-#ifdef CHECK_OSG_PARRAM
-    RenderAction *ract = (RenderAction *) action;
-
     // get "glUniform1iARB" function pointer
     OSGGLUNIFORM1IARBPROC uniform1i = 
         reinterpret_cast<OSGGLUNIFORM1IARBPROC>(
-            action->getWindow()->getFunction(_funcUniform1i));
+            pEnv->getWindow()->getFunction(_funcUniform1i));
 
     if(parameter->getLocation() == -1)
-        updateParameterLocation(action->getWindow(), program, parameter);
+        updateParameterLocation(pEnv->getWindow(), program, parameter);
+
     if(parameter->getLocation() != -1)
-        uniform1i(parameter->getLocation(), (GLint) ract->getActiveLightsMask() & 128);
-#endif
+    {
+        uniform1i(parameter->getLocation(), 
+                  GLint(pEnv->getLightState() & 0x0080));
+    }
 }
 
 /*------------------------------ State ------------------------------------*/

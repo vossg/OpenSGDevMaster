@@ -641,7 +641,10 @@ void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode *pNode, DrawEnv &denv,
     State         *pNewState         = pNode->getState();
     StateOverride *pNewStateOverride = pNode->getStateOverride();
 
+    denv.setLightState(pNode->getLightState());
+
     denv.activateState(pNewState, pNewStateOverride);
+
     pNode->setIsRendered(true);
 
     if(_rt->getOcclusionCullingDebug() && pNode->getNode())

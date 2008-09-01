@@ -81,6 +81,8 @@ DrawEnv::DrawEnv(void) :
     _iPixelTop              (    1),
     _bFull                  ( true),
 
+    _uiLightState           (    0),
+
     _pWindow                (NULL ),
     _pActiveState           (NULL ),
     _pActiveStateOverride   (NULL ),

@@ -166,6 +166,7 @@ RenderPartition::RenderPartition(Mode eMode) :
     _pTreeBuilderPool        (     NULL),
  
     _iNextLightIndex         (        0),
+    _uiLightState            (        0),
     _uiKeyGen                (        0),
 
     _pMaterial               (     NULL),
@@ -257,7 +258,7 @@ void RenderPartition::reset(Mode eMode)
         
         
         _iNextLightIndex = 0;
-        
+        _uiLightState    = 0;
         
         _pMaterial        = NULL;
         _pMaterialNode    = NULL;
@@ -588,12 +589,13 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
         _currMatrix.second.mult(objPos, objPos);
         
-        pNewElem->setNode       (&*actNode);
-        pNewElem->setFunctor    ( func      );
-        pNewElem->setMatrixStore(_currMatrix);
-        pNewElem->setState      ( pState    );
-        pNewElem->setScalar     ( objPos[2] );
-        
+        pNewElem->setNode        (&*actNode  );
+        pNewElem->setFunctor     ( func      );
+        pNewElem->setMatrixStore (_currMatrix);
+        pNewElem->setState       ( pState    );
+        pNewElem->setScalar      ( objPos[2] );
+        pNewElem->setLightState  (_uiLightState);
+
         if(_sStateOverrides.top()->empty() == false && 
             bIgnoreOverrides               == false  )
         {
@@ -669,12 +671,13 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
         //std::cout << objPos[2] << std::endl;
 
-        pNewElem->setVol        ( objVol                   );
-        pNewElem->setNode       (&*actNode                 );
+        pNewElem->setVol        ( objVol      );
+        pNewElem->setNode       (&*actNode    );
 
-        pNewElem->setFunctor    ( func                     );
-        pNewElem->setMatrixStore(_currMatrix               );
-        pNewElem->setState      ( pState                   );
+        pNewElem->setFunctor    ( func        );
+        pNewElem->setMatrixStore(_currMatrix  );
+        pNewElem->setState      ( pState      );
+        pNewElem->setLightState (_uiLightState);
 
         // Normalize scalar to 0..1 for bucket sorting
         pNewElem->setScalar     ( (-objPos[2] - getNear()) / 
@@ -721,6 +724,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         pNewElem->setNode       (&* actNode   );
         pNewElem->setFunctor    (   func      );
         pNewElem->setMatrixStore(  _currMatrix);
+        pNewElem->setLightState (_uiLightState);
                
         if(_sStateOverrides.top()->empty() == false &&
             bIgnoreOverrides               == false  )
@@ -770,6 +774,8 @@ Int32 RenderPartition::allocateLightIndex(void)
     }
     else
     {
+        _uiLightState |= 1 << returnValue;
+
         return returnValue;
     }
 }
@@ -777,6 +783,8 @@ Int32 RenderPartition::allocateLightIndex(void)
 void RenderPartition::releaseLightIndex(void)
 {
     --_iNextLightIndex;
+
+    _uiLightState &= 1 << _iNextLightIndex;
 }
 
 // test a single node

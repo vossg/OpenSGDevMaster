@@ -303,6 +303,8 @@ void DrawEnv::clearState(void)
     _iPixelTop               = 1;
 
     _bFull                   = true;
+
+    _uiLightState            = 0;
 }
 
 inline
@@ -397,5 +399,18 @@ bool DrawEnv::getFull(void)
 {
     return _bFull;
 }
+
+inline
+void DrawEnv::setLightState(UInt32 uiState)
+{
+    _uiLightState = uiState;
+}
+
+inline
+UInt32 DrawEnv::getLightState(void)
+{
+    return _uiLightState;
+}
+
 
 OSG_END_NAMESPACE

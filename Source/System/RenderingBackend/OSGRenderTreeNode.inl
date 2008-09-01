@@ -231,15 +231,15 @@ bool RenderTreeNode::getIsRendered(void)
 
 
 inline
-void RenderTreeNode::setLightsState(UInt64 state)
+void RenderTreeNode::setLightState(UInt32 state)
 {
-    _lightsState = state;
+    _lightState = state;
 }
 
 inline
-UInt64 RenderTreeNode::getLightsState(void)
+UInt32 RenderTreeNode::getLightState(void)
 {
-    return _lightsState;
+    return _lightState;
 }
 
 inline
@@ -269,7 +269,7 @@ void RenderTreeNode::reset(void)
 
     _rScalarVal  = 0.f;
 
-    _lightsState = 0;
+    _lightState  = 0;
 }
 
 OSG_END_NAMESPACE
