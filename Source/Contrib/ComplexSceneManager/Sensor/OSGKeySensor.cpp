@@ -105,7 +105,8 @@ void KeySensor::changed(ConstFieldMaskArg whichField,
 {
     if(0x0000 != (whichField & KeyFieldMask))
     {
-        ComplexSceneManager::the()->updateKeySensor(this);
+        if(ComplexSceneManager::the() != NULL)
+            ComplexSceneManager::the()->updateKeySensor(this);
     }
 
     Inherited::changed(whichField, origin, details);
@@ -119,7 +120,7 @@ void KeySensor::dump(      UInt32    ,
 
 void KeySensor::onDestroy(UInt32 uiContainerId)
 {
-    if(GlobalSystemState != Shutdown)
+    if(GlobalSystemState != Shutdown && ComplexSceneManager::the() != NULL)
     {
         ComplexSceneManager::the()->removeKeySensor(this);
     }

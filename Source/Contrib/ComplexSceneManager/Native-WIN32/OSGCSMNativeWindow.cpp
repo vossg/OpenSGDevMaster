@@ -418,7 +418,11 @@ bool CSMNativeWindow::init(void)
     ShowWindow(_pHWND, SW_SHOWNORMAL);
     SetActiveWindow(_pHWND);
 
-    ComplexSceneManager::the()->setMainloop(&CSMNativeWindow::win32MainLoop);
+    if(ComplexSceneManager::the() != NULL)
+    {
+        ComplexSceneManager::the()->setMainloop(
+            &CSMNativeWindow::win32MainLoop);
+    }
 
     _bRun = true;
 

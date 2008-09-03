@@ -233,7 +233,8 @@ bool CSMGLUTWindow::init(void)
                             Int32(this->getYSize()));
     }
 
-    ComplexSceneManager::the()->setMainloop(glutMainLoop);
+    if(ComplexSceneManager::the() != NULL)
+        ComplexSceneManager::the()->setMainloop(glutMainLoop);
 //    vscSetMainLoop(static_cast<MainLoopFuncF>(glutMainLoop));
 
 #if 0

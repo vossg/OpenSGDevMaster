@@ -502,7 +502,8 @@ bool CSMNativeWindow::init(void)
                            uiHeight);
     _pXWindow->deactivate(         );
 
-    ComplexSceneManager::the()->setMainloop(&CSMNativeWindow::xMainLoop);
+    if(ComplexSceneManager::the() != NULL)
+        ComplexSceneManager::the()->setMainloop(&CSMNativeWindow::xMainLoop);
     
     _pWindow = _pXWindow;
 

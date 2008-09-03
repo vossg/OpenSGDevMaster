@@ -117,7 +117,7 @@ void Sensor::onCreate (const Sensor *source)
     Inherited::onCreate(source);
 
     // Don't add the prototype instances to the list
-    if(GlobalSystemState != Running)
+    if(GlobalSystemState != Running || ComplexSceneManager::the() == NULL)
         return;
 
     SensorTask *pSensorTask = ComplexSceneManager::the()->getSensorTask();
@@ -134,7 +134,7 @@ void Sensor::onCreate (const Sensor *source)
 void Sensor::onDestroy(UInt32 uiContainerId)
 {
     // Don't add the prototype instances to the list
-    if(GlobalSystemState != Shutdown)
+    if(GlobalSystemState != Shutdown && ComplexSceneManager::the() != NULL)
     {
         SensorTask *pSensorTask = ComplexSceneManager::the()->getSensorTask();
 
