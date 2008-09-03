@@ -11,6 +11,7 @@
 #include <OSGGLUTWindow.h>
 #include <OSGSimpleSceneManager.h>
 #include <OSGAction.h>
+#include <OSGSFSysTypes.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGBaseFunctions.h>
 
@@ -24,6 +25,8 @@
 #include <OSGMaterialChunk.h>
 #include <OSGTextureChunk.h>
 #include <OSGSHLChunk.h>
+
+#ifdef OSG_1_COMPAT
 
 // vertex shader program for bump mapping in surface local coordinates
 static std::string _vp_program =
@@ -149,10 +152,8 @@ static NodeRecPtr       _scene;
 static PointLightRecPtr _point1_core;
 static PointLightRecPtr _point2_core;
 static PointLightRecPtr _point3_core;
+static SHLChunkUnrecPtr shl;
 
-NodeUnrecPtr point1_beacon;
-NodeUnrecPtr point2_beacon;
-NodeUnrecPtr point3_beacon;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -229,17 +230,17 @@ int doMain(int argc, char **argv)
     matc->setShininess(100);
     matc->setLit(true);
 
-    SHLChunkUnrecPtr shl = SHLChunk::create();
+    shl = SHLChunk::create();
 
     shl->setVertexProgram(_vp_program);
     shl->setFragmentProgram(_fp_program);
-    shl->addUniformVariable("OSGLight0Active", 0);
-    shl->addUniformVariable("OSGLight1Active", 0);
-    shl->addUniformVariable("OSGLight2Active", 0);
-    shl->addUniformVariable("OSGViewMatrix", 0);
+    shl->setUniformParameter("OSGLight0Active", 0);
+    shl->setUniformParameter("OSGLight1Active", 0);
+    shl->setUniformParameter("OSGLight2Active", 0);
+    shl->setUniformParameter("OSGViewMatrix", 0);
     // The OSGSpecialParameter is not used in the shader just shows
     // how to add your own parameter callbacks!
-//    shl->addParameterCallback("OSGSpecialParameter", updateSpecialParameter);
+    shl->addParameterCallback("OSGSpecialParameter", updateSpecialParameter);
 
     cmat->addChunk(matc);
     cmat->addChunk(shl);
@@ -252,7 +253,9 @@ int doMain(int argc, char **argv)
     TransformUnrecPtr point1_trans;
 
     NodeUnrecPtr point1        = makeCoredNode<PointLight>(&_point1_core);
-    point1_beacon = makeCoredNode<Transform >(&point1_trans);
+    NodeUnrecPtr point1_beacon = makeCoredNode<Transform >(&point1_trans);
+
+    _scene->addChild(point1_beacon);
 
     point1_trans->editMatrix().setTranslate(-10.0, 5.0, 5.0);
 
@@ -266,7 +269,9 @@ int doMain(int argc, char **argv)
     TransformUnrecPtr point2_trans;
 
     NodeUnrecPtr point2        = makeCoredNode<PointLight>(&_point2_core);
-    point2_beacon = makeCoredNode<Transform >(&point2_trans);
+    NodeUnrecPtr point2_beacon = makeCoredNode<Transform >(&point2_trans);
+
+    _scene->addChild(point2_beacon);
 
     point2_trans->editMatrix().setTranslate(10.0, 5.0, 5.0);
 
@@ -281,8 +286,9 @@ int doMain(int argc, char **argv)
     TransformUnrecPtr point3_trans;
 
     NodeUnrecPtr point3        = makeCoredNode<PointLight>(&_point3_core);
-    
-    point3_beacon = makeCoredNode<Transform >(&point3_trans);
+    NodeUnrecPtr point3_beacon = makeCoredNode<Transform >(&point3_trans);
+
+    _scene->addChild(point3_beacon);
 
     point3_trans->editMatrix().setTranslate(0.0, -12.0, 5.0);
 
@@ -389,9 +395,7 @@ void keyboard(unsigned char k, int x, int y)
             _point2_core = NULL;
             _point3_core = NULL;
 
-            point1_beacon = NULL;
-            point2_beacon = NULL;
-            point3_beacon = NULL;
+            shl          = NULL;
 
             delete _mgr;
 
@@ -427,6 +431,25 @@ void keyboard(unsigned char k, int x, int y)
                 _point3_core->setOn(false);
             break;
         }
+
+        case 'i':
+            shl->subUniformParameter("OSGLight0Active");
+            break;
+        case 'I':
+            shl->setUniformParameter("OSGLight0Active", 0);
+            break;
+        case 'o':
+            shl->subUniformParameter("OSGLight1Active");
+            break;
+        case 'O':
+            shl->setUniformParameter("OSGLight1Active", 0);
+            break;
+        case 'p':
+            shl->subUniformParameter("OSGLight2Active");
+            break;
+        case 'P':
+            shl->setUniformParameter("OSGLight2Active", 0);
+            break;
     }
 
     glutPostRedisplay();
@@ -449,4 +472,11 @@ int setupGLUT(int *argc, char *argv[])
     return winid;
 }
 
+#else
 
+int main(int argc, char **argv)
+{
+    return 0;
+}
+
+#endif

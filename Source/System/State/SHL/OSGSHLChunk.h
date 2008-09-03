@@ -53,6 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 class Window;
 class DrawActionBase;
+class SHLParameterChunk;
 
 /*! \brief SHLChunk class.
 */
@@ -120,6 +121,10 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                       Paramerters                            */
     /*! \{                                                                 */
 
+#ifndef OSG_1_COMPAT
+  protected:
+#endif
+
     void updateParameters(      
               Window                         *win,
         const MFUnrecChildShaderParameterPtr &parameters,
@@ -138,12 +143,18 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
               Window                         *win,
         const MFUnrecChildShaderParameterPtr &parameters);
 
+#ifndef OSG_1_COMPAT
+  public:
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       State                                  */
     /*! \{                                                                 */
 
+#ifdef OSG_1_COMPAT
     virtual void update    (DrawEnv    *pEnv     );
+#endif
 
     virtual void activate  (DrawEnv    *pEnv,
                             UInt32      index = 0);
@@ -172,7 +183,9 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                    Cluster                                   */
     /*! \{                                                                 */
 
+#ifdef OSG_1_COMPAT
     static void setClusterId(Int32 id);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -182,18 +195,32 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     void addParameterCallback(const char *name, parametercbfp    fp);
     void addParameterCallback(const char *name, osgparametercbfp fp);
 
+#ifdef OSG_1_COMPAT
     static void setParameterCallback(parametercbfp fp);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Program Parameter                         */
     /*! \{                                                                 */
 
+#ifdef OSG_1_COMPAT
+  protected:
+#endif
+
     void addProgramParameter(GLenum name, UInt32 value);
     void subProgramParameter(GLenum name);
+
+#ifdef OSG_1_COMPAT
+  public:
+#endif
+
     void setProgramParameter(GLenum name, UInt32 value);
     UInt32 getProgramParameter(GLenum name);
+#ifdef OSG_1_COMPAT
     std::vector<std::pair<GLenum, UInt32> > getProgramParameters(void);
+#endif
+
     void clearProgramParameters(void);
 
     /*! \}                                                                 */
@@ -201,6 +228,7 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                    Parameter funcs                           */
     /*! \{                                                                 */
 
+#ifdef OSG_1_COMPAT
     static UInt32 getFuncUniform1i       (void);
     static UInt32 getFuncUniform1iv      (void);
     static UInt32 getFuncUniform2iv      (void);
@@ -217,6 +245,24 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     static UInt32 getFuncGetUniformiv    (void);
     static UInt32 getFuncGetUniformfv    (void);
+#endif
+
+    static UInt32 getFuncIdUniform1i       (void);
+    static UInt32 getFuncIdUniform1iv      (void);
+    static UInt32 getFuncIdUniform2iv      (void);
+    static UInt32 getFuncIdUniform3iv      (void);
+    static UInt32 getFuncIdUniform4iv      (void);
+
+    static UInt32 getFuncIdUniform1f       (void);
+    static UInt32 getFuncIdUniform1fv      (void);
+    static UInt32 getFuncIdUniform2fv      (void);
+    static UInt32 getFuncIdUniform3fv      (void);
+    static UInt32 getFuncIdUniform4fv      (void);
+
+    static UInt32 getFuncIdUniformMatrix4fv(void);
+
+    static UInt32 getFuncIdGetUniformiv    (void);
+    static UInt32 getFuncIdGetUniformfv    (void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -254,6 +300,7 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     friend class FieldContainer;
     friend class SHLChunkBase;
+    friend class SHLParameterChunk;
 
     // class. Used for indexing in State
     static StateChunkClass _class;

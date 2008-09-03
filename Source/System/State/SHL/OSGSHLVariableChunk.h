@@ -4,6 +4,8 @@
  *                                                                           *
  *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
  *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
@@ -34,180 +36,17 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGSHLVARIABLECHUNK_H_
+#define _OSGSHLVARIABLECHUNK_H_
+
+#include "OSGSHLParameterChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_1_COMPAT
-inline
-UInt32 SHLChunk::getFuncUniform1i(void)
-{
-    return _funcUniform1i;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform1iv(void)
-{
-    return _funcUniform1iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform2iv(void)
-{
-    return _funcUniform2iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform3iv(void)
-{
-    return _funcUniform3iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform4iv(void)
-{
-    return _funcUniform4iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform1f(void)
-{
-    return _funcUniform1f;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform1fv(void)
-{
-    return _funcUniform1fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform2fv(void)
-{
-    return _funcUniform2fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform3fv(void)
-{
-    return _funcUniform3fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniform4fv(void)
-{
-    return _funcUniform4fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncUniformMatrix4fv(void)
-{
-    return _funcUniformMatrix4fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncGetUniformiv(void)
-{
-    return _funcGetUniformiv;
-}
-
-inline
-UInt32 SHLChunk::getFuncGetUniformfv(void)
-{
-    return _funcGetUniformfv;
-}
-#endif
-
-inline
-UInt32 SHLChunk::getFuncIdUniform1i(void)
-{
-    return _funcUniform1i;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform1iv(void)
-{
-    return _funcUniform1iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform2iv(void)
-{
-    return _funcUniform2iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform3iv(void)
-{
-    return _funcUniform3iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform4iv(void)
-{
-    return _funcUniform4iv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform1f(void)
-{
-    return _funcUniform1f;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform1fv(void)
-{
-    return _funcUniform1fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform2fv(void)
-{
-    return _funcUniform2fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform3fv(void)
-{
-    return _funcUniform3fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniform4fv(void)
-{
-    return _funcUniform4fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdUniformMatrix4fv(void)
-{
-    return _funcUniformMatrix4fv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdGetUniformiv(void)
-{
-    return _funcGetUniformiv;
-}
-
-inline
-UInt32 SHLChunk::getFuncIdGetUniformfv(void)
-{
-    return _funcGetUniformfv;
-}
-
-inline
-const StateChunkClass *SHLChunk::getStaticClass(void)
-{
-    return &SHLChunk::_class;
-}
-
-inline
-UInt32 SHLChunk::getStaticClassId(void)
-{
-    return getStaticClass()->getId();
-}
+typedef SHLParameterChunk         SHLVariableChunk;
+typedef SHLParameterChunkRecPtr   SHLVariableChunkRecPtr;
+typedef SHLParameterChunkUnrecPtr SHLVariableChunkUnrecPtr;
 
 OSG_END_NAMESPACE
+
+#endif

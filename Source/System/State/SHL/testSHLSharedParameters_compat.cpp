@@ -11,6 +11,7 @@
 #include <OSGGLUTWindow.h>
 #include <OSGSimpleSceneManager.h>
 #include <OSGAction.h>
+#include <OSGSFSysTypes.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGBaseFunctions.h>
 
@@ -26,7 +27,9 @@
 #include <OSGMaterialChunk.h>
 #include <OSGTextureChunk.h>
 #include <OSGSHLChunk.h>
-#include <OSGSHLVariableChunk.h>
+#include <OSGSHLParameterChunk.h>
+
+#ifdef OSG_1_COMPAT
 
 // vertex shader program for 
 static std::string _vp_program =
@@ -91,12 +94,12 @@ OSG_USING_NAMESPACE
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static SimpleSceneManager     *_mgr;
+static SimpleSceneManager      *_mgr;
 // The scene
-static NodeRecPtr              _scene;
+static NodeRecPtr               _scene;
 
-static Int32                   _animation    = 1;
-static SHLVariableChunkRecPtr  _shlparameter = NULL;
+static Int32                    _animation    = 1;
+static SHLParameterChunkRecPtr  _shlparameter = NULL;
 
 
 // forward declaration so we can have the interesting stuff upfront
@@ -130,8 +133,8 @@ int doMain(int argc, char **argv)
     shl->setFragmentProgram(_fp_program);
     // These parameters are the same for all geometries so we
     // keep them in here.
-    shl->addUniformVariable("Scale", Vec2f(20.0f, 20.0f));
-    shl->addUniformVariable("Threshold", Vec2f(0.7f, 0.7f));
+    shl->setUniformParameter("Scale", Vec2f(20.0f, 20.0f));
+    shl->setUniformParameter("Threshold", Vec2f(0.7f, 0.7f));
 
     Int32 size = 4;
     
@@ -160,10 +163,10 @@ int doMain(int argc, char **argv)
 
         // ok use one SHLChunk and n SHLParameterChunks
         // Assing a different "SurfaceColor" parameter to each geometry.
-        SHLVariableChunkUnrecPtr shlparameter = SHLVariableChunk::create();
+        SHLParameterChunkUnrecPtr shlparameter = SHLParameterChunk::create();
 
         shlparameter->setSHLChunk(shl);
-        shlparameter->addUniformVariable("SurfaceColor", color);
+        shlparameter->setUniformParameter("SurfaceColor", color);
 
         _shlparameter = shlparameter;
 
@@ -235,6 +238,7 @@ int doMain(int argc, char **argv)
     for(int i=0;i<win->getMFPort()->size();++i)
     {
         Viewport *vp = win->getPort(i);
+
         vp->setBackground(gback);
     }
         
@@ -321,8 +325,8 @@ void keyboard(unsigned char k, int x, int y)
         case 'c':
             if(_shlparameter != NULL)
             {
-                _shlparameter->updateUniformVariable("SurfaceColor", 
-                                                     Vec3f(1.0f, 1.0f, 1.0f));
+                _shlparameter->setUniformParameter("SurfaceColor", 
+                                                   Vec3f(1.0f, 1.0f, 1.0f));
             }
         break;
     }
@@ -350,3 +354,11 @@ int setupGLUT(int *argc, char *argv[])
 }
 
 
+#else
+
+int main(int argc, char **argv)
+{
+    return 0;
+}
+
+#endif

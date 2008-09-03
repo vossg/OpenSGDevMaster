@@ -1526,7 +1526,7 @@ void SHLChunk::addParameterCallback(const char *name, parametercbfp fp)
 
     osgparametercbfp nullfp = NULL;
 
-    setUniformParameter(name, 0);
+    addUniformVariable(name, 0);
 
     _userParameterCallbacks.insert(
         UserParameterCallbacksMap::value_type(name, 
@@ -1542,17 +1542,19 @@ void SHLChunk::addParameterCallback(const char *name, osgparametercbfp fp)
 
     parametercbfp nullfp = NULL;
 
-    setUniformParameter(name, 0);
+    addUniformVariable(name, 0);
 
     _userParameterCallbacks.insert(
         UserParameterCallbacksMap::value_type(name, 
                                               std::make_pair(nullfp, fp)));
 }
 
+#ifdef OSG_1_COMPAT
 void SHLChunk::setParameterCallback(parametercbfp fp)
 {
     _userParametersCallback = fp;
 }
+#endif
 
 void SHLChunk::addProgramParameter(GLenum name, UInt32 value)
 {
@@ -1602,6 +1604,7 @@ UInt32 SHLChunk::getProgramParameter(GLenum name)
     return 0;
 }
 
+#ifdef OSG_1_COMPAT
 std::vector<std::pair<GLenum, UInt32> > SHLChunk::getProgramParameters(void)
 {
     std::vector<std::pair<GLenum, UInt32> > parameters;
@@ -1620,6 +1623,7 @@ std::vector<std::pair<GLenum, UInt32> > SHLChunk::getProgramParameters(void)
 
     return parameters;
 }
+#endif
 
 void SHLChunk::clearProgramParameters(void)
 {
@@ -1896,10 +1900,12 @@ void SHLChunk::updateStereoLeftEye(
 #endif
 }
 
+#ifdef OSG_1_COMPAT
 void SHLChunk::setClusterId(Int32 id)
 {
     _clusterId = id;
 }
+#endif
 
 void SHLChunk::updateClusterId(
     ShaderParameter * const  parameter,
@@ -2100,6 +2106,7 @@ void SHLChunk::updateLight7Active(
 
 /*------------------------------ State ------------------------------------*/
 
+#ifdef OSG_1_COMPAT
 void SHLChunk::update(DrawEnv *pEnv)
 {
     pEnv->getWindow()->validateGLObject(getGLId(), pEnv);
@@ -2110,6 +2117,7 @@ void SHLChunk::update(DrawEnv *pEnv)
 
     updateOSGParameters(pEnv, program, true);
 }
+#endif
 
 void SHLChunk::activate(DrawEnv *pEnv, UInt32 /*idx*/)
 {

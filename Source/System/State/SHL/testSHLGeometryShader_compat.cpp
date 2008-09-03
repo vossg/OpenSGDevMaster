@@ -11,6 +11,7 @@
 #include <OSGGLUTWindow.h>
 #include <OSGSimpleSceneManager.h>
 #include <OSGAction.h>
+#include <OSGSFSysTypes.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGBaseFunctions.h>
 

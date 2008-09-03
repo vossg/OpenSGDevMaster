@@ -472,27 +472,27 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    SHLParameterChunkUnrecPtr shlp = SHLParameterChunk::create();
 
    shlp->setSHLChunk(s_shlChunk);
-   shlp->setUniformParameter("texSampler",  0);
-   shlp->setUniformParameter("nmapSampler", 1);
+   shlp->addUniformVariable("texSampler",  0);
+   shlp->addUniformVariable("nmapSampler", 1);
    // the following spares a second set of texture coordinates
-   shlp->setUniformParameter("offsetS",    -getOriginTexX()/getTexSpacing());
-   shlp->setUniformParameter("scaleS",     1.0f/getTexSpacing());
+   shlp->addUniformVariable("offsetS",    -getOriginTexX()/getTexSpacing());
+   shlp->addUniformVariable("scaleS",     1.0f/getTexSpacing());
 
    if(getTexYSpacing() != 1.0f) 
    {
-       shlp->setUniformParameter("offsetT", -getOriginTexY()/getTexYSpacing());
-       shlp->setUniformParameter("scaleT",   1.0f/getTexYSpacing());
+       shlp->addUniformVariable("offsetT", -getOriginTexY()/getTexYSpacing());
+       shlp->addUniformVariable("scaleT",   1.0f/getTexYSpacing());
    } 
    else
    {
-       shlp->setUniformParameter("offsetT", -getOriginTexY()/getTexSpacing());
-       shlp->setUniformParameter("scaleT",   1.0f/getTexSpacing());
+       shlp->addUniformVariable("offsetT", -getOriginTexY()/getTexSpacing());
+       shlp->addUniformVariable("scaleT",   1.0f/getTexSpacing());
    }
 
-   shlp->setUniformParameter("diffuseFactor",    1.0f);
-   shlp->setUniformParameter("specularFactor",   0.2f);
-   shlp->setUniformParameter("specularExponent", 6.0f);
-   shlp->setUniformParameter("basecolor",        Vec3f(1.0, 1.0, 1.0));
+   shlp->addUniformVariable("diffuseFactor",    1.0f);
+   shlp->addUniformVariable("specularFactor",   0.2f);
+   shlp->addUniformVariable("specularExponent", 6.0f);
+   shlp->addUniformVariable("basecolor",        Vec3f(1.0, 1.0, 1.0));
 
 #else
 

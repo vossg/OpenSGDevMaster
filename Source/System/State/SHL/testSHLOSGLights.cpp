@@ -233,10 +233,10 @@ int doMain(int argc, char **argv)
 
     shl->setVertexProgram(_vp_program);
     shl->setFragmentProgram(_fp_program);
-    shl->addUniformVariable("OSGLight0Active", 0);
-    shl->addUniformVariable("OSGLight1Active", 0);
-    shl->addUniformVariable("OSGLight2Active", 0);
-    shl->addUniformVariable("OSGViewMatrix", 0);
+    shl->addOSGVariable("OSGLight0Active");
+    shl->addOSGVariable("OSGLight1Active");
+    shl->addOSGVariable("OSGLight2Active");
+//    shl->setUniformVariable("OSGViewMatrix", 0);
     // The OSGSpecialParameter is not used in the shader just shows
     // how to add your own parameter callbacks!
 //    shl->addParameterCallback("OSGSpecialParameter", updateSpecialParameter);

@@ -513,12 +513,12 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
 
     SHLChunkUnrecPtr pTonemapShader = generateHDRFragmentProgram();
     
-    pTonemapShader->setUniformParameter("sceneTex",     0);
-    pTonemapShader->setUniformParameter("blurTex",      1);
-    pTonemapShader->setUniformParameter("blurAmount",   getBlurAmount  ());
-    pTonemapShader->setUniformParameter("exposure",     getExposure    ());
-    pTonemapShader->setUniformParameter("effectAmount", getEffectAmount());
-    pTonemapShader->setUniformParameter("gamma",        getGamma       ());
+    pTonemapShader->addUniformVariable("sceneTex",     0);
+    pTonemapShader->addUniformVariable("blurTex",      1);
+    pTonemapShader->addUniformVariable("blurAmount",   getBlurAmount  ());
+    pTonemapShader->addUniformVariable("exposure",     getExposure    ());
+    pTonemapShader->addUniformVariable("effectAmount", getEffectAmount());
+    pTonemapShader->addUniformVariable("gamma",        getGamma       ());
     
     pTonemapMat->addChunk(pTonemapShader, 0);
     
@@ -538,7 +538,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
 
     SHLChunkUnrecPtr pShrinkShader = generate2DShrinkHalfFilterFP();
         
-    pShrinkShader->setUniformParameter("inputTex", 0);
+    pShrinkShader->addUniformVariable("inputTex", 0);
     
     pShrinkMat->addChunk(pShrinkShader, 0);
     
@@ -574,7 +574,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
                                       iPixelHeight / 2);
     
    
-    pHBlurShader->setUniformParameter("inputTex", 0);
+    pHBlurShader->addUniformVariable("inputTex", 0);
 
     returnValue->setHBlurShader(pHBlurShader);
 
@@ -590,7 +590,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
                                       iPixelWidth  / 2, 
                                       iPixelHeight / 2);
     
-    pVBlurShader->setUniformParameter("inputTex", 1);
+    pVBlurShader->addUniformVariable("inputTex", 1);
     
     returnValue->setVBlurShader(pVBlurShader);
 

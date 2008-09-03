@@ -91,6 +91,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
     /*! \name                 ShaderParameterChunk Access                  */
     /*! \{                                                                 */
 
+#ifdef OSG_1_COMPAT
     bool setUniformParameter   (const Char8 *name,       bool      value);
     bool setUniformParameter   (const Char8 *name,       Int32     value);
     bool setUniformParameter   (const Char8 *name,       Real32    value);
@@ -132,7 +133,71 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
     bool subUniformParameter   (const Char8 *name);
 
     void clearUniformParameters(      void       );
+#endif
+
+    bool addUniformVariable   (const Char8 *name,       bool      value);
+    bool addUniformVariable   (const Char8 *name,       Int32     value);
+    bool addUniformVariable   (const Char8 *name,       Real32    value);
+    bool addUniformVariable   (const Char8 *name, const Vec2f    &value);
+    bool addUniformVariable   (const Char8 *name, const Vec3f    &value);
+    bool addUniformVariable   (const Char8 *name, const Vec4f    &value);
+    bool addUniformVariable   (const Char8 *name, const Matrix   &value);
+    bool addUniformVariable   (const Char8 *name, const Pnt2f    &value);
+    bool addUniformVariable   (const Char8 *name, const Pnt3f    &value);
     
+    bool addUniformVariable   (const Char8 *name, const MFInt32  &value);
+    bool addUniformVariable   (const Char8 *name, const MFReal32 &value);
+    bool addUniformVariable   (const Char8 *name, const MFVec2f  &value);
+    bool addUniformVariable   (const Char8 *name, const MFVec3f  &value);
+    bool addUniformVariable   (const Char8 *name, const MFVec4f  &value);
+    bool addUniformVariable   (const Char8 *name, const MFMatrix &value);
+    bool addUniformVariable   (const Char8 *name, const MFPnt2f  &value);
+    bool addUniformVariable   (const Char8 *name, const MFPnt3f  &value);
+
+    bool updateUniformVariable(const Char8 *name,       bool      value);
+    bool updateUniformVariable(const Char8 *name,       Int32     value);
+    bool updateUniformVariable(const Char8 *name,       Real32    value);
+    bool updateUniformVariable(const Char8 *name, const Vec2f    &value);
+    bool updateUniformVariable(const Char8 *name, const Vec3f    &value);
+    bool updateUniformVariable(const Char8 *name, const Vec4f    &value);
+    bool updateUniformVariable(const Char8 *name, const Matrix   &value);
+    bool updateUniformVariable(const Char8 *name, const Pnt2f    &value);
+    bool updateUniformVariable(const Char8 *name, const Pnt3f    &value);
+    
+    bool updateUniformVariable(const Char8 *name, const MFInt32  &value);
+    bool updateUniformVariable(const Char8 *name, const MFReal32 &value);
+    bool updateUniformVariable(const Char8 *name, const MFVec2f  &value);
+    bool updateUniformVariable(const Char8 *name, const MFVec3f  &value);
+    bool updateUniformVariable(const Char8 *name, const MFVec4f  &value);
+    bool updateUniformVariable(const Char8 *name, const MFMatrix &value);
+    bool updateUniformVariable(const Char8 *name, const MFPnt2f  &value);
+    bool updateUniformVariable(const Char8 *name, const MFPnt3f  &value);
+
+    bool getUniformVariable   (const Char8 *name,       bool     &value);
+    bool getUniformVariable   (const Char8 *name,       Int32    &value);
+    bool getUniformVariable   (const Char8 *name,       Real32   &value);
+    bool getUniformVariable   (const Char8 *name,       Vec2f    &value);
+    bool getUniformVariable   (const Char8 *name,       Vec3f    &value);
+    bool getUniformVariable   (const Char8 *name,       Vec4f    &value);
+    bool getUniformVariable   (const Char8 *name,       Matrix   &value);
+    bool getUniformVariable   (const Char8 *name,       Pnt2f    &value);
+    bool getUniformVariable   (const Char8 *name,       Pnt3f    &value);
+
+    bool getUniformVariable   (const Char8 *name,       MFInt32  &value);
+    bool getUniformVariable   (const Char8 *name,       MFReal32 &value);
+    bool getUniformVariable   (const Char8 *name,       MFVec2f  &value);
+    bool getUniformVariable   (const Char8 *name,       MFVec3f  &value);
+    bool getUniformVariable   (const Char8 *name,       MFVec4f  &value);
+    bool getUniformVariable   (const Char8 *name,       MFMatrix &value);
+    bool getUniformVariable   (const Char8 *name,       MFPnt2f  &value);
+    bool getUniformVariable   (const Char8 *name,       MFPnt3f  &value);
+
+    bool addOSGVariable       (const Char8 *name                       );
+    
+    bool subUniformVariable   (const Char8 *name);
+
+    void clearUniformVariables(      void       );
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

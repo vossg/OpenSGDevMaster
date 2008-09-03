@@ -3,6 +3,7 @@
 // Demonstrates the use of the SHLChunk
 // Implements a simple bumpmapping via vertex and fragment shader.
 
+
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>
@@ -25,11 +26,13 @@
 #include <OSGTextureChunk.h>
 #include <OSGSHLChunk.h>
 
+#ifdef OSG_1_COMPAT
+
 // vertex shader program for bump mapping in surface local coordinates
 static std::string _vp_program =
-"uniform bool OSGLight0Active;\n"
-"uniform bool OSGLight1Active;\n"
-"uniform bool OSGLight2Active;\n"
+"uniform bool Light0Active;\n"
+"uniform bool Light1Active;\n"
+"uniform bool Light2Active;\n"
 "vec4 Ambient;\n"
 "vec4 Diffuse;\n"
 "vec4 Specular;\n"
@@ -94,13 +97,13 @@ static std::string _vp_program =
 "        Diffuse  = vec4 (0.0);\n"
 "        Specular = vec4 (0.0);\n"
 "\n"
-"       if(OSGLight0Active)\n"
+"       if(Light0Active)\n"
 "           pointLight(0, normal, eye, ecPosition3);\n"
 "\n"
-"       if(OSGLight1Active)\n"
+"       if(Light1Active)\n"
 "           pointLight(1, normal, eye, ecPosition3);\n"
 "\n"
-"       if(OSGLight2Active)\n"
+"       if(Light2Active)\n"
 "           pointLight(2, normal, eye, ecPosition3);\n"
 "\n"
 "        color = gl_FrontLightModelProduct.sceneColor +\n"
@@ -159,45 +162,57 @@ int setupGLUT( int *argc, char *argv[] );
 
 // Shows how to add your own parameter callbacks.
 
-typedef void (OSG_APIENTRY *OSGGLUNIFORMMATRIXFVARBPROC)(GLint location, 
-                                                         GLsizei count, 
-                                                         GLboolean transpose, 
-                                                         GLfloat *value);
+typedef void (APIENTRYP OSGglUniform1iProc) (GLint location, GLint   v0);
 
-static 
-void updateSpecialParameter(SHLChunk::GetUniformLocProc  getUniformLocation,
-                            DrawEnv                     *action, 
-                            GLuint                       program           )
+static void light0Active(SHLChunk::GetUniformLocProc  fULoc,
+                         DrawEnv                     *pEnv, 
+                         GLuint                       uiProg)
 {
-#if 0
-    if(action->getCamera() == NULL || action->getViewport() == NULL)
+    GLint iLoc = fULoc(uiProg, "Light0Active");
+
+    if(iLoc != -1)
     {
-        FWARNING(("updateSpecialParameter : Can't update OSGSpecialParameter"
-                  "parameter, camera or viewport is NULL!\n"));
-        return;
+        OSGglUniform1iProc osgGlUniform1i = 
+            reinterpret_cast<OSGglUniform1iProc>(
+                pEnv->getWindow()->getFunction(SHLChunk::getFuncUniform1i()));
+
+        osgGlUniform1i(iLoc, 
+                       GLint(pEnv->getLightState() & 0x0001));
     }
+}
 
-    // uploads the camera orientation.
-    Matrix m;
-    action->getCamera()->getViewing(m,
-                                action->getViewport()->getPixelWidth(),
-                                action->getViewport()->getPixelHeight());
-    m.invert();
-    m[3].setValues(0, 0, 0, 1);
+static void light1Active(SHLChunk::GetUniformLocProc  fULoc,
+                         DrawEnv                     *pEnv, 
+                         GLuint                       uiProg)
+{
+    GLint iLoc = fULoc(uiProg, "Light1Active");
 
-    //std::cout << "uploading matrix " << m << std::endl;
+    if(iLoc != -1)
+    {
+        OSGglUniform1iProc osgGlUniform1i = 
+            reinterpret_cast<OSGglUniform1iProc>(
+                pEnv->getWindow()->getFunction(SHLChunk::getFuncUniform1i()));
 
-    // get "glUniformMatrix4fvARB" function pointer
-    OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = 
-        reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
-            action->getWindow()->getFunction(
-                SHLChunk::getFuncUniformMatrix4fv()));
+        osgGlUniform1i(iLoc, 
+                       GLint(pEnv->getLightState() & 0x0002));
+    }
+}
 
-    GLint location = getUniformLocation(program, "OSGSpecialParameter");
+static void light2Active(SHLChunk::GetUniformLocProc  fULoc,
+                         DrawEnv                     *pEnv, 
+                         GLuint                       uiProg)
+{
+    GLint iLoc = fULoc(uiProg, "Light2Active");
 
-    if(location != -1)
-        uniformMatrix4fv(location, 1, GL_FALSE, m.getValues());
-#endif
+    if(iLoc != -1)
+    {
+        OSGglUniform1iProc osgGlUniform1i = 
+            reinterpret_cast<OSGglUniform1iProc>(
+                pEnv->getWindow()->getFunction(SHLChunk::getFuncUniform1i()));
+
+        osgGlUniform1i(iLoc, 
+                       GLint(pEnv->getLightState() & 0x0004));
+    }
 }
 
 // Initialize GLUT & OpenSG and set up the scene
@@ -233,13 +248,9 @@ int doMain(int argc, char **argv)
 
     shl->setVertexProgram(_vp_program);
     shl->setFragmentProgram(_fp_program);
-    shl->addUniformVariable("OSGLight0Active", 0);
-    shl->addUniformVariable("OSGLight1Active", 0);
-    shl->addUniformVariable("OSGLight2Active", 0);
-    shl->addUniformVariable("OSGViewMatrix", 0);
-    // The OSGSpecialParameter is not used in the shader just shows
-    // how to add your own parameter callbacks!
-//    shl->addParameterCallback("OSGSpecialParameter", updateSpecialParameter);
+    shl->addParameterCallback("Light0Active", &light0Active);
+    shl->addParameterCallback("Light1Active", &light1Active);
+    shl->addParameterCallback("Light2Active", &light2Active);
 
     cmat->addChunk(matc);
     cmat->addChunk(shl);
@@ -449,4 +460,11 @@ int setupGLUT(int *argc, char *argv[])
     return winid;
 }
 
+#else
 
+int main(int argc, char **argv)
+{
+    return 0;
+}
+
+#endif
