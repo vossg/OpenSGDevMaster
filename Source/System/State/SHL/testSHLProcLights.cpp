@@ -160,8 +160,8 @@ int setupGLUT( int *argc, char *argv[] );
 
 // Shows how to add your own parameter callbacks.
 
-typedef void (APIENTRYP OSGglUniform1iProc) (GLint location, GLint   v0);
-typedef void (APIENTRYP OSGglUniform1fProc) (GLint location, GLfloat v0);
+typedef void (OSG_APIENTRY * OSGglUniform1iProc) (GLint location, GLint   v0);
+typedef void (OSG_APIENTRY * OSGglUniform1fProc) (GLint location, GLfloat v0);
 
 static void light0Active(SHLChunk::GetUniformLocProc  fULoc,
                          DrawEnv                     *pEnv, 
@@ -173,7 +173,8 @@ static void light0Active(SHLChunk::GetUniformLocProc  fULoc,
     {
         OSGglUniform1iProc osgGlUniform1i = 
             reinterpret_cast<OSGglUniform1iProc>(
-                pEnv->getWindow()->getFunction(SHLChunk::getFuncIdUniform1i()));
+                pEnv->getWindow()->getFunction(
+                    SHLChunk::getFuncIdUniform1i()));
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0001));
@@ -190,7 +191,8 @@ static void light1Active(SHLChunk::GetUniformLocProc  fULoc,
     {
         OSGglUniform1iProc osgGlUniform1i = 
             reinterpret_cast<OSGglUniform1iProc>(
-                pEnv->getWindow()->getFunction(SHLChunk::getFuncIdUniform1i()));
+                pEnv->getWindow()->getFunction(
+                    SHLChunk::getFuncIdUniform1i()));
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0002));
@@ -207,7 +209,8 @@ static void light2Active(SHLChunk::GetUniformLocProc  fULoc,
     {
         OSGglUniform1iProc osgGlUniform1i = 
             reinterpret_cast<OSGglUniform1iProc>(
-                pEnv->getWindow()->getFunction(SHLChunk::getFuncIdUniform1i()));
+                pEnv->getWindow()->getFunction(
+                    SHLChunk::getFuncIdUniform1i()));
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0004));
