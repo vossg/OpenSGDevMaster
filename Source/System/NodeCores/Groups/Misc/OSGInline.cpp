@@ -115,7 +115,6 @@ void Inline::initMethod(InitPhase ePhase)
     }
 }
  
-
 void Inline::postOSGLoading(void)
 {
     UInt32 i = 0;
@@ -138,9 +137,17 @@ void Inline::postOSGLoading(void)
         SceneFileHandler::the()->getPathHandler()->setBaseFile(
             szFilenameResolved.c_str());
 
-        NodeUnrecPtr pFile = SceneFileHandler::the()->read(
-            _mfUrl[i].c_str());
+        std::string szFName = 
+            SceneFileHandler::the()->getPathHandler()->extractFilename(
+                _mfUrl[i].c_str());
 
+        NodeUnrecPtr pFile = SceneFileHandler::the()->read(
+            szFName.c_str());
+
+        if(pFile == NULL)
+        {
+            pFile = SceneFileHandler::the()->read(_mfUrl[i].c_str());
+        }
 
         if(pFile != NULL)
         {

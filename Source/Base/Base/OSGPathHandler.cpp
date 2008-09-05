@@ -426,6 +426,26 @@ std::string PathHandler::extractPath(const Char8 *szFilename)
     return returnValue;
 }
 
+std::string PathHandler::extractFilename(const std::string &szPath) const
+{
+    std::string            returnValue;
+
+    std::string::size_type pos = szPath.find_last_of("\\/");
+
+    if(pos != std::string::npos)
+    {
+        if(pos != returnValue.length() - 1)
+        {
+            returnValue.append(szPath, 
+                               pos + 1,
+                               returnValue.length() - (pos + 1));
+                               
+        }
+    }
+
+    return returnValue;
+}
+
 PathHandler::PathType PathHandler::analysePathList(const Char8 *pathList)
 {
           PathType  returnValue = UnixPath;

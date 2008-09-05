@@ -88,11 +88,13 @@ class OSG_BASE_DLLMAPPING PathHandler
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-          std::string  findFile   (const Char8 *fileName  );
+          std::string  findFile      (const Char8 *fileName        );
 
-    const std::string &getBaseFile(      void             ) const;
+    const std::string &getBaseFile   (      void                   ) const;
 
-          std::string  extractPath(const Char8 *szFilename);
+          std::string  extractPath   (const Char8       *szFilename);
+
+          std::string extractFilename(const std::string &szPath    ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
