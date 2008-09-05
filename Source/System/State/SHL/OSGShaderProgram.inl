@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -40,96 +40,82 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_1_COMPAT
 inline
-UInt32 SHLChunk::getFuncUniform1i(void)
+UInt32 ShaderProgram::getFuncIdUniform1i(void)
 {
-    return _funcUniform1i;
+    return SHLChunk::getFuncUniform1i();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform1iv(void)
+UInt32 ShaderProgram::getFuncIdUniform1f(void)
 {
-    return _funcUniform1iv;
+    return SHLChunk::getFuncUniform1f();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform2iv(void)
+UInt32 ShaderProgram::getFuncIdUniform1iv(void)
 {
-    return _funcUniform2iv;
+    return SHLChunk::getFuncUniform1iv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform3iv(void)
+UInt32 ShaderProgram::getFuncIdUniform2iv(void)
 {
-    return _funcUniform3iv;
+    return SHLChunk::getFuncUniform2iv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform4iv(void)
+UInt32 ShaderProgram::getFuncIdUniform3iv(void)
 {
-    return _funcUniform4iv;
+    return SHLChunk::getFuncUniform3iv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform1f(void)
+UInt32 ShaderProgram::getFuncIdUniform4iv(void)
 {
-    return _funcUniform1f;
+    return SHLChunk::getFuncUniform4iv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform1fv(void)
+UInt32 ShaderProgram::getFuncIdUniform1fv(void)
 {
-    return _funcUniform1fv;
+    return SHLChunk::getFuncUniform1fv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform2fv(void)
+UInt32 ShaderProgram::getFuncIdUniform2fv(void)
 {
-    return _funcUniform2fv;
+    return SHLChunk::getFuncUniform2fv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform3fv(void)
+UInt32 ShaderProgram::getFuncIdUniform3fv(void)
 {
-    return _funcUniform3fv;
+    return SHLChunk::getFuncUniform3fv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniform4fv(void)
+UInt32 ShaderProgram::getFuncIdUniform4fv(void)
 {
-    return _funcUniform4fv;
+    return SHLChunk::getFuncUniform4fv();
 }
 
 inline
-UInt32 SHLChunk::getFuncUniformMatrix4fv(void)
+UInt32 ShaderProgram::getFuncIdUniformMatrix4fv(void)
 {
-    return _funcUniformMatrix4fv;
+    return SHLChunk::getFuncUniformMatrix4fv();
 }
 
 inline
-UInt32 SHLChunk::getFuncGetUniformiv(void)
+UInt32 ShaderProgram::getFuncIdGetUniformiv(void)
 {
-    return _funcGetUniformiv;
+    return SHLChunk::getFuncGetUniformiv();
 }
 
 inline
-UInt32 SHLChunk::getFuncGetUniformfv(void)
+UInt32 ShaderProgram::getFuncIdGetUniformfv(void)
 {
-    return _funcGetUniformfv;
-}
-#endif
-
-inline
-const StateChunkClass *SHLChunk::getStaticClass(void)
-{
-    return &SHLChunk::_class;
-}
-
-inline
-UInt32 SHLChunk::getStaticClassId(void)
-{
-    return getStaticClass()->getId();
+    return SHLChunk::getFuncGetUniformfv();
 }
 
 OSG_END_NAMESPACE

@@ -228,7 +228,10 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                    Parameter funcs                           */
     /*! \{                                                                 */
 
-#ifdef OSG_1_COMPAT
+#ifndef OSG_1_COMPAT
+  protected:
+#endif
+
     static UInt32 getFuncUniform1i       (void);
     static UInt32 getFuncUniform1iv      (void);
     static UInt32 getFuncUniform2iv      (void);
@@ -245,24 +248,6 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     static UInt32 getFuncGetUniformiv    (void);
     static UInt32 getFuncGetUniformfv    (void);
-#endif
-
-    static UInt32 getFuncIdUniform1i       (void);
-    static UInt32 getFuncIdUniform1iv      (void);
-    static UInt32 getFuncIdUniform2iv      (void);
-    static UInt32 getFuncIdUniform3iv      (void);
-    static UInt32 getFuncIdUniform4iv      (void);
-
-    static UInt32 getFuncIdUniform1f       (void);
-    static UInt32 getFuncIdUniform1fv      (void);
-    static UInt32 getFuncIdUniform2fv      (void);
-    static UInt32 getFuncIdUniform3fv      (void);
-    static UInt32 getFuncIdUniform4fv      (void);
-
-    static UInt32 getFuncIdUniformMatrix4fv(void);
-
-    static UInt32 getFuncIdGetUniformiv    (void);
-    static UInt32 getFuncIdGetUniformfv    (void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

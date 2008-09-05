@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,102 +36,66 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGSHADERPROGRAM_H_
+#define _OSGSHADERPROGRAM_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGSHLChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_1_COMPAT
-inline
-UInt32 SHLChunk::getFuncUniform1i(void)
-{
-    return _funcUniform1i;
-}
+/*! \brief ShaderProgram class. See \ref
+           PageSystemShaderProgram for a description.
+*/
 
-inline
-UInt32 SHLChunk::getFuncUniform1iv(void)
+class OSG_STATE_DLLMAPPING ShaderProgram
 {
-    return _funcUniform1iv;
-}
+  protected:
 
-inline
-UInt32 SHLChunk::getFuncUniform2iv(void)
-{
-    return _funcUniform2iv;
-}
+    /*==========================  PUBLIC  =================================*/
 
-inline
-UInt32 SHLChunk::getFuncUniform3iv(void)
-{
-    return _funcUniform3iv;
-}
+  public:
 
-inline
-UInt32 SHLChunk::getFuncUniform4iv(void)
-{
-    return _funcUniform4iv;
-}
+    typedef ShaderProgram     Self;
 
-inline
-UInt32 SHLChunk::getFuncUniform1f(void)
-{
-    return _funcUniform1f;
-}
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
 
-inline
-UInt32 SHLChunk::getFuncUniform1fv(void)
-{
-    return _funcUniform1fv;
-}
+    static UInt32 getFuncIdUniform1i         (void);
 
-inline
-UInt32 SHLChunk::getFuncUniform2fv(void)
-{
-    return _funcUniform2fv;
-}
+    static UInt32 getFuncIdUniform1f         (void);
 
-inline
-UInt32 SHLChunk::getFuncUniform3fv(void)
-{
-    return _funcUniform3fv;
-}
+    static UInt32 getFuncIdUniform1iv        (void);
+    static UInt32 getFuncIdUniform2iv        (void);
+    static UInt32 getFuncIdUniform3iv        (void);
+    static UInt32 getFuncIdUniform4iv        (void);
 
-inline
-UInt32 SHLChunk::getFuncUniform4fv(void)
-{
-    return _funcUniform4fv;
-}
+    static UInt32 getFuncIdUniform1fv        (void);
+    static UInt32 getFuncIdUniform2fv        (void);
+    static UInt32 getFuncIdUniform3fv        (void);
+    static UInt32 getFuncIdUniform4fv        (void);
 
-inline
-UInt32 SHLChunk::getFuncUniformMatrix4fv(void)
-{
-    return _funcUniformMatrix4fv;
-}
+    static UInt32 getFuncIdUniformMatrix4fv  (void);
 
-inline
-UInt32 SHLChunk::getFuncGetUniformiv(void)
-{
-    return _funcGetUniformiv;
-}
+    static UInt32 getFuncIdGetUniformiv      (void);
+    static UInt32 getFuncIdGetUniformfv      (void);
 
-inline
-UInt32 SHLChunk::getFuncGetUniformfv(void)
-{
-    return _funcGetUniformfv;
-}
-#endif
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
 
-inline
-const StateChunkClass *SHLChunk::getStaticClass(void)
-{
-    return &SHLChunk::_class;
-}
+  protected:
 
-inline
-UInt32 SHLChunk::getStaticClassId(void)
-{
-    return getStaticClass()->getId();
-}
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+};
+
 
 OSG_END_NAMESPACE
+
+#include "OSGShaderProgram.inl"
+
+#endif /* _OSGSHADERPROGRAM_H_ */

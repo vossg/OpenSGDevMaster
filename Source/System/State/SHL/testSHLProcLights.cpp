@@ -25,6 +25,7 @@
 #include <OSGMaterialChunk.h>
 #include <OSGTextureChunk.h>
 #include <OSGSHLChunk.h>
+#include <OSGShaderProgram.h>
 
 // vertex shader program for bump mapping in surface local coordinates
 static std::string _vp_program =
@@ -174,7 +175,7 @@ static void light0Active(SHLChunk::GetUniformLocProc  fULoc,
         OSGglUniform1iProc osgGlUniform1i = 
             reinterpret_cast<OSGglUniform1iProc>(
                 pEnv->getWindow()->getFunction(
-                    SHLChunk::getFuncIdUniform1i()));
+                    ShaderProgram::getFuncIdUniform1i()));
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0001));
@@ -192,7 +193,7 @@ static void light1Active(SHLChunk::GetUniformLocProc  fULoc,
         OSGglUniform1iProc osgGlUniform1i = 
             reinterpret_cast<OSGglUniform1iProc>(
                 pEnv->getWindow()->getFunction(
-                    SHLChunk::getFuncIdUniform1i()));
+                    ShaderProgram::getFuncIdUniform1i()));
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0002));
@@ -210,7 +211,7 @@ static void light2Active(SHLChunk::GetUniformLocProc  fULoc,
         OSGglUniform1iProc osgGlUniform1i = 
             reinterpret_cast<OSGglUniform1iProc>(
                 pEnv->getWindow()->getFunction(
-                    SHLChunk::getFuncIdUniform1i()));
+                    ShaderProgram::getFuncIdUniform1i()));
 
         osgGlUniform1i(iLoc, 
                        GLint(pEnv->getLightState() & 0x0004));
