@@ -37,48 +37,15 @@
 OSG_BEGIN_NAMESPACE
 
 template<class Desc> inline
-UInt32 CounterImpl<Desc>::getContainerSize(void) const
+UInt32 SValueEmitter<Desc>::getContainerSize(void) const
 {
     return sizeof(Self);
 }
 
-/*------------------------------ get -----------------------------------*/
 
 template<class Desc> inline
-typename CounterImpl<Desc>::SFValueType *CounterImpl<Desc>::editSFStep(void)
-{
-    editSField(StepFieldMask);
-
-    return &_sfStep;
-}
-
-template<class Desc> inline
-const typename CounterImpl<Desc>::SFValueType *
-    CounterImpl<Desc>::getSFStep(void) const
-{
-    return &_sfStep;
-}
-
-
-template<class Desc> inline
-typename CounterImpl<Desc>::SFValueType * 
-    CounterImpl<Desc>::editSFResetValue(void)
-{
-    editSField(ResetValueFieldMask);
-
-    return &_sfResetValue;
-}
-
-template<class Desc> inline
-const typename CounterImpl<Desc>::SFValueType *
-    CounterImpl<Desc>::getSFResetValue(void) const
-{
-    return &_sfResetValue;
-}
-
-
-template<class Desc> inline
-typename CounterImpl<Desc>::SFValueType *CounterImpl<Desc>::editSFValue(void)
+typename SValueEmitter<Desc>::SFValueType *
+    SValueEmitter<Desc>::editSFValue(void)
 {
     editSField(ValueFieldMask);
 
@@ -86,67 +53,16 @@ typename CounterImpl<Desc>::SFValueType *CounterImpl<Desc>::editSFValue(void)
 }
 
 template<class Desc> inline
-const typename CounterImpl<Desc>::SFValueType *
-    CounterImpl<Desc>::getSFValue(void) const
+const typename SValueEmitter<Desc>::SFValueType *
+    SValueEmitter<Desc>::getSFValue(void) const
 {
     return &_sfValue;
 }
 
-//! Get the value of the Real32Counter::_sfStep field.
-
-template<class Desc> inline
-typename CounterImpl<Desc>::ValueType &CounterImpl<Desc>::editStep(void)
-{
-    editSField(StepFieldMask);
-
-    return _sfStep.getValue();
-}
-
-//! Get the value of the Real32Counter::_sfStep field.
-template<class Desc> inline
-typename CounterImpl<Desc>::ValueType CounterImpl<Desc>::getStep(void) const
-{
-    return _sfStep.getValue();
-}
-
-//! Set the value of the Real32Counter::_sfStep field.
-template<class Desc> inline
-void CounterImpl<Desc>::setStep(const ValueType value)
-{
-    editSField(StepFieldMask);
-
-    _sfStep.setValue(value);
-}
-//! Get the value of the Real32Counter::_sfResetValue field.
-
-template<class Desc> inline
-typename CounterImpl<Desc>::ValueType &CounterImpl<Desc>::editResetValue(void)
-{
-    editSField(ResetValueFieldMask);
-
-    return _sfResetValue.getValue();
-}
-
-//! Get the value of the Real32Counter::_sfResetValue field.
-template<class Desc> inline
-typename CounterImpl<Desc>::ValueType 
-    CounterImpl<Desc>::getResetValue(void) const
-{
-    return _sfResetValue.getValue();
-}
-
-//! Set the value of the Real32Counter::_sfResetValue field.
-template<class Desc> inline
-void CounterImpl<Desc>::setResetValue(const ValueType value)
-{
-    editSField(ResetValueFieldMask);
-
-    _sfResetValue.setValue(value);
-}
 //! Get the value of the Real32Counter::_sfValue field.
 
 template<class Desc> inline
-typename CounterImpl<Desc>::ValueType &CounterImpl<Desc>::editValue(void)
+typename SValueEmitter<Desc>::ValueType &SValueEmitter<Desc>::editValue(void)
 {
     editSField(ValueFieldMask);
 
@@ -155,14 +71,15 @@ typename CounterImpl<Desc>::ValueType &CounterImpl<Desc>::editValue(void)
 
 //! Get the value of the Real32Counter::_sfValue field.
 template<class Desc> inline
-typename CounterImpl<Desc>::ValueType CounterImpl<Desc>::getValue(void) const
+typename SValueEmitter<Desc>::ValueType 
+    SValueEmitter<Desc>::getValue(void) const
 {
     return _sfValue.getValue();
 }
 
 //! Set the value of the Real32Counter::_sfValue field.
 template<class Desc> inline
-void CounterImpl<Desc>::setValue(const ValueType value)
+void SValueEmitter<Desc>::setValue(const ValueType value)
 {
     editSField(ValueFieldMask);
 
@@ -172,23 +89,13 @@ void CounterImpl<Desc>::setValue(const ValueType value)
 /*----------------------------- class specific ----------------------------*/
 
 template<class Desc> inline
-void CounterImpl<Desc>::changed(ConstFieldMaskArg whichField, 
-                                UInt32            origin,
-                                BitVector         details)
+void SValueEmitter<Desc>::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
-    if((IncTriggerFieldMask | DecTriggerFieldMask) !=
-       (whichField & (IncTriggerFieldMask | DecTriggerFieldMask)))
+    if(0x0000 != (whichField & TriggerFieldMask))
     {
-
-        if(0x0000 != (whichField & IncTriggerFieldMask))
-        {
-            setValue(getValue() + getStep());
-        }
-        
-        if(0x0000 != (whichField & DecTriggerFieldMask))
-        {
-            setValue(getValue() - getStep());
-        }
+        editSField(ValueFieldMask);
     }
 
     Inherited::changed(whichField, origin, details);
@@ -197,18 +104,10 @@ void CounterImpl<Desc>::changed(ConstFieldMaskArg whichField,
 /*------------------------------ access -----------------------------------*/
 
 template<class Desc> inline
-UInt32 CounterImpl<Desc>::getBinSize(ConstFieldMaskArg whichField)
+UInt32 SValueEmitter<Desc>::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (StepFieldMask & whichField))
-    {
-        returnValue += _sfStep.getBinSize();
-    }
-    if(FieldBits::NoField != (ResetValueFieldMask & whichField))
-    {
-        returnValue += _sfResetValue.getBinSize();
-    }
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {
         returnValue += _sfValue.getBinSize();
@@ -218,19 +117,11 @@ UInt32 CounterImpl<Desc>::getBinSize(ConstFieldMaskArg whichField)
 }
 
 template<class Desc> inline
-void CounterImpl<Desc>::copyToBin(BinaryDataHandler &pMem,
-                                  ConstFieldMaskArg  whichField)
+void SValueEmitter<Desc>::copyToBin(BinaryDataHandler &pMem,
+                                    ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (StepFieldMask & whichField))
-    {
-        _sfStep.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ResetValueFieldMask & whichField))
-    {
-        _sfResetValue.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {
         _sfValue.copyToBin(pMem);
@@ -238,30 +129,21 @@ void CounterImpl<Desc>::copyToBin(BinaryDataHandler &pMem,
 }
 
 template<class Desc> inline
-void CounterImpl<Desc>::copyFromBin(BinaryDataHandler &pMem,
-                                    ConstFieldMaskArg  whichField)
+void SValueEmitter<Desc>::copyFromBin(BinaryDataHandler &pMem,
+                                      ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (StepFieldMask & whichField))
-    {
-        _sfStep.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ResetValueFieldMask & whichField))
-    {
-        _sfResetValue.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (ValueFieldMask & whichField))
     {
         _sfValue.copyFromBin(pMem);
     }
 }
 
-
 //! create a new instance of the class
 template<class Desc> inline
-typename CounterImpl<Desc>::ObjTransitPtr 
-    CounterImpl<Desc>::createLocal(BitVector bFlags)
+typename SValueEmitter<Desc>::ObjTransitPtr 
+    SValueEmitter<Desc>::createLocal(BitVector bFlags)
 {
     ObjTransitPtr fc;
 
@@ -278,7 +160,7 @@ typename CounterImpl<Desc>::ObjTransitPtr
 
 //! create a new instance of the class
 template<class Desc> inline
-typename CounterImpl<Desc>::ObjTransitPtr CounterImpl<Desc>::create(void)
+typename SValueEmitter<Desc>::ObjTransitPtr SValueEmitter<Desc>::create(void)
 {
     ObjTransitPtr fc;
 
@@ -294,8 +176,8 @@ typename CounterImpl<Desc>::ObjTransitPtr CounterImpl<Desc>::create(void)
 }
 
 template<class Desc> inline
-typename CounterImpl<Desc>::Self *
-    CounterImpl<Desc>::createEmptyLocal(BitVector bFlags)
+typename SValueEmitter<Desc>::Self *
+    SValueEmitter<Desc>::createEmptyLocal(BitVector bFlags)
 {
     Self *returnValue;
 
@@ -308,7 +190,7 @@ typename CounterImpl<Desc>::Self *
 
 //! create an empty new instance of the class, do not copy the prototype
 template<class Desc> inline
-typename CounterImpl<Desc>::Self *CounterImpl<Desc>::createEmpty(void)
+typename SValueEmitter<Desc>::Self *SValueEmitter<Desc>::createEmpty(void)
 {
     Self *returnValue;
 
@@ -323,7 +205,7 @@ typename CounterImpl<Desc>::Self *CounterImpl<Desc>::createEmpty(void)
 
 template<class Desc> inline
 FieldContainerTransitPtr 
-    CounterImpl<Desc>::shallowCopyLocal(BitVector bFlags) const
+    SValueEmitter<Desc>::shallowCopyLocal(BitVector bFlags) const
 {
     Self *tmpPtr;
 
@@ -337,7 +219,7 @@ FieldContainerTransitPtr
 }
 
 template<class Desc> inline
-FieldContainerTransitPtr CounterImpl<Desc>::shallowCopy(void) const
+FieldContainerTransitPtr SValueEmitter<Desc>::shallowCopy(void) const
 {
     Self *tmpPtr;
 
@@ -354,7 +236,7 @@ FieldContainerTransitPtr CounterImpl<Desc>::shallowCopy(void) const
 
 
 template<class Desc> inline
-const Char8 *CounterImpl<Desc>::getClassname(void)
+const Char8 *SValueEmitter<Desc>::getClassname(void)
 {
     return Desc::getClassname();
 }
@@ -362,20 +244,16 @@ const Char8 *CounterImpl<Desc>::getClassname(void)
 /*------------------------- constructors ----------------------------------*/
 
 template<class Desc> inline
-CounterImpl<Desc>::CounterImpl(void) :
-    Inherited(),
-    _sfStep                   (TypeTraits<ValueType>::getOneElement ()),
-    _sfResetValue             (TypeTraits<ValueType>::getZeroElement()),
-    _sfValue                  (TypeTraits<ValueType>::getZeroElement())
+SValueEmitter<Desc>::SValueEmitter(void) :
+     Inherited(                  ),
+    _sfValue  (Desc::getDefault())
 {
 }
 
 template<class Desc> inline
-CounterImpl<Desc>::CounterImpl(const CounterImpl &source) :
-    Inherited(source),
-    _sfStep                   (source._sfStep                   ),
-    _sfResetValue             (source._sfResetValue             ),
-    _sfValue                  (source._sfValue                  )
+SValueEmitter<Desc>::SValueEmitter(const SValueEmitter &source) :
+     Inherited(source         ),
+    _sfValue  (source._sfValue)
 {
 }
 
@@ -383,62 +261,12 @@ CounterImpl<Desc>::CounterImpl(const CounterImpl &source) :
 /*-------------------------- destructors ----------------------------------*/
 
 template<class Desc> inline
-CounterImpl<Desc>::~CounterImpl(void)
+SValueEmitter<Desc>::~SValueEmitter(void)
 {
 }
 
 template<class Desc> inline
-GetFieldHandlePtr CounterImpl<Desc>::getHandleStep            (void) const
-{
-    typename SFValueType::GetHandlePtr returnValue(
-        new typename SFValueType::GetHandle(
-             &_sfStep,
-             this->getType().getFieldDesc(StepFieldId)));
-
-    return returnValue;
-}
-
-template<class Desc> inline
-EditFieldHandlePtr CounterImpl<Desc>::editHandleStep           (void)
-{
-    typename SFValueType::EditHandlePtr returnValue(
-        new typename SFValueType::EditHandle(
-             &_sfStep,
-             this->getType().getFieldDesc(StepFieldId)));
-
-
-    editSField(StepFieldMask);
-
-    return returnValue;
-}
-
-template<class Desc> inline
-GetFieldHandlePtr CounterImpl<Desc>::getHandleResetValue      (void) const
-{
-    typename SFValueType::GetHandlePtr returnValue(
-        new typename SFValueType::GetHandle(
-             &_sfResetValue,
-             this->getType().getFieldDesc(ResetValueFieldId)));
-
-    return returnValue;
-}
-
-template<class Desc> inline
-EditFieldHandlePtr CounterImpl<Desc>::editHandleResetValue     (void)
-{
-    typename SFValueType::EditHandlePtr returnValue(
-        new typename SFValueType::EditHandle(
-             &_sfResetValue,
-             this->getType().getFieldDesc(ResetValueFieldId)));
-
-
-    editSField(ResetValueFieldMask);
-
-    return returnValue;
-}
-
-template<class Desc> inline
-GetFieldHandlePtr CounterImpl<Desc>::getHandleValue           (void) const
+GetFieldHandlePtr SValueEmitter<Desc>::getHandleValue(void) const
 {
     typename SFValueType::GetHandlePtr returnValue(
         new typename SFValueType::GetHandle(
@@ -449,7 +277,7 @@ GetFieldHandlePtr CounterImpl<Desc>::getHandleValue           (void) const
 }
 
 template<class Desc> inline
-EditFieldHandlePtr CounterImpl<Desc>::editHandleValue          (void)
+EditFieldHandlePtr SValueEmitter<Desc>::editHandleValue(void)
 {
     typename SFValueType::EditHandlePtr returnValue(
         new typename SFValueType::EditHandle(
@@ -464,30 +292,24 @@ EditFieldHandlePtr CounterImpl<Desc>::editHandleValue          (void)
 
 #ifdef OSG_MT_CPTR_ASPECT
 template<class Desc> inline
-void CounterImpl<Desc>::execSync (  Self              *pFrom,
-                                    ConstFieldMaskArg  whichField,
-                                    AspectOffsetStore &oOffsets,
-                                    ConstFieldMaskArg  syncMode,
-                              const UInt32             uiSyncInfo)
+void SValueEmitter<Desc>::execSync (      Self              *pFrom,
+                                          ConstFieldMaskArg  whichField,
+                                          AspectOffsetStore &oOffsets,
+                                          ConstFieldMaskArg  syncMode,
+                                    const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (StepFieldMask & whichField))
-        _sfStep.syncWith(pFrom->_sfStep);
-
-    if(FieldBits::NoField != (ResetValueFieldMask & whichField))
-        _sfResetValue.syncWith(pFrom->_sfResetValue);
 
     if(FieldBits::NoField != (ValueFieldMask & whichField))
         _sfValue.syncWith(pFrom->_sfValue);
 }
 
 template<class Desc> inline
-void CounterImpl<Desc>::execSyncV(  FieldContainer    &oFrom,
-                                    ConstFieldMaskArg  whichField,
-                                    AspectOffsetStore &oOffsets,
-                                    ConstFieldMaskArg  syncMode,
-                              const UInt32             uiSyncInfo)
+void SValueEmitter<Desc>::execSyncV(      FieldContainer    &oFrom,
+                                          ConstFieldMaskArg  whichField,
+                                          AspectOffsetStore &oOffsets,
+                                          ConstFieldMaskArg  syncMode,
+                                    const UInt32             uiSyncInfo)
 {
     Self *pThis = static_cast<Self *>(this);
 
@@ -500,7 +322,7 @@ void CounterImpl<Desc>::execSyncV(  FieldContainer    &oFrom,
 
 
 template<class Desc> inline
-FieldContainer *CounterImpl<Desc>::createAspectCopy(void) const
+FieldContainer *SValueEmitter<Desc>::createAspectCopy(void) const
 {
     Self *returnValue;
 
@@ -513,7 +335,7 @@ FieldContainer *CounterImpl<Desc>::createAspectCopy(void) const
 #endif
 
 template<class Desc> inline
-void CounterImpl<Desc>::resolveLinks(void)
+void SValueEmitter<Desc>::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
@@ -521,7 +343,7 @@ void CounterImpl<Desc>::resolveLinks(void)
 }
 
 template<class Desc> inline
-void CounterImpl<Desc>::initMethod(InitPhase ePhase)
+void SValueEmitter<Desc>::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -529,7 +351,6 @@ void CounterImpl<Desc>::initMethod(InitPhase ePhase)
     {
     }
 }
-
 
 OSG_END_NAMESPACE
 
