@@ -509,6 +509,7 @@ def _get_msvc8_default_paths(env, version, suite, use_mfc_dirs):
         platform_include_path = os.path.join( PlatformSdkDir, 'Include' )
         include_paths.append( platform_include_path )
         lib_paths.append( os.path.join( PlatformSdkDir, 'Lib' ) )
+        exe_paths.append( os.path.join( PlatformSdkDir, 'bin' ) )
         if use_mfc_dirs:
             if paths.has_key('PLATFORMSDKDIR'):
                 include_paths.append( os.path.join( platform_include_path, 'mfc' ) )

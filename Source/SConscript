@@ -50,7 +50,7 @@ for (lib_name, library) in lib_map.iteritems():
 #   lib_env.Append(LINKFLAGS=['-Wl,--no-undefined'])
 
    # Define OSG_DEBUG if needed 
-   if combo["type"] in ["debug","hybrid"]: 
+   if combo["type"] in ["debugrt","debug"]: 
       lib_env.Append(CPPDEFINES=["OSG_DEBUG",])
 
    # XXX: Apply custom options
@@ -66,7 +66,7 @@ for (lib_name, library) in lib_map.iteritems():
       lib_env.Append(CPPDEFINES=['_WIN32_WINNT=0x0400',
                                  'WINVER=0x0400']);
 
-      if "debug" == combo["type"] or "hybrid" == combo["type"]: 
+      if "debugrt" == combo["type"]: 
          lib_env["DEBUG_CHAR"]='D'
       else:
          lib_env["DEBUG_CHAR"]=''
@@ -116,7 +116,7 @@ for (lib_name, library) in lib_map.iteritems():
         test_env.Append(CPPDEFINES=['_WIN32_WINNT=0x0400',
                                     'WINVER=0x0400']);
 
-        if "debug" == combo["type"] or "hybrid" == combo["type"]: 
+        if "debugrt" == combo["type"]:
             test_env["DEBUG_CHAR"]='D'
         else:
             test_env["DEBUG_CHAR"]=''
@@ -140,7 +140,7 @@ for (lib_name, library) in lib_map.iteritems():
             unittest_env.Append(CPPDEFINES=['_WIN32_WINNT=0x0400',
                                             'WINVER=0x0400']);
 
-            if "debug" == combo["type"] or "hybrid" == combo["type"]: 
+            if "debugrt" == combo["type"]:
                 unittest_env["DEBUG_CHAR"]='D'
                 unittest_env["UTDBGDIR"]='dbg'
             else:

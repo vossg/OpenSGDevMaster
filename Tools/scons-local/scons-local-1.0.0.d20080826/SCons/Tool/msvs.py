@@ -1451,7 +1451,14 @@ def get_msvs_install_dirs(version = None, vs8suite = None):
         (rv['PLATFORMSDKDIR'], t) = SCons.Util.RegGetValue(SCons.Util.HKEY_LOCAL_MACHINE,
             r'Software\Microsoft\MicrosoftSDK\Directories\Install Dir')
     except SCons.Util.RegError:
-        pass
+        if version_num > 8.0:
+            try:
+                (rv['PLATFORMSDKDIR'], t) = SCons.Util.RegGetValue(SCons.Util.HKEY_LOCAL_MACHINE,
+                    r'Software\Microsoft\Microsoft SDKs\Windows\CurrentInstallFolder')
+            except SCons.Util.RegError:
+                pass
+        else:
+           pass
 
     if rv.has_key('PLATFORMSDKDIR'):
         # if we have a platform SDK, try and get some info on it.
