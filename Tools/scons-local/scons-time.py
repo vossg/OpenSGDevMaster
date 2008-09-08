@@ -9,7 +9,7 @@
 #
 
 #
-# Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007 The SCons Foundation
+# Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008 The SCons Foundation
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -31,17 +31,53 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-__revision__ = "/home/scons/scons/branch.0/branch.96/baseline/src/script/scons-time.py 0.96.95.D001 2007/02/12 21:41:50 knight"
+from __future__ import nested_scopes
+
+__revision__ = "src/script/scons-time.py 3315 2008/08/26 11:30:08 scons"
 
 import getopt
 import glob
 import os
+import os.path
 import re
 import shutil
 import string
 import sys
 import tempfile
 import time
+
+try:
+    False
+except NameError:
+    # Pre-2.2 Python has no False keyword.
+    import __builtin__
+    __builtin__.False = not 1
+
+try:
+    True
+except NameError:
+    # Pre-2.2 Python has no True keyword.
+    import __builtin__
+    __builtin__.True = not 0
+
+def make_temp_file(**kw):
+    try:
+        result = tempfile.mktemp(**kw)
+        try:
+            result = os.path.realpath(result)
+        except AttributeError:
+            # Python 2.1 has no os.path.realpath() method.
+            pass
+    except TypeError:
+        try:
+            save_template = tempfile.template
+            prefix = kw['prefix']
+            del kw['prefix']
+            tempfile.template = prefix
+            result = tempfile.mktemp(**kw)
+        finally:
+            tempfile.template = save_template
+    return result
 
 class Plotter:
     def increment_size(self, largest):
@@ -92,7 +128,12 @@ class Line:
         if self.comment:
             print '# %s' % self.comment
         for x, y in self.points:
-            print fmt % (x, y)
+            # If y is None, it usually represents some kind of break
+            # in the line's index number.  We might want to represent
+            # this some way rather than just drawing the line straight
+            # between the two points on either side.
+            if not y is None:
+                print fmt % (x, y)
         print 'e'
 
     def get_x_values(self):
@@ -118,47 +159,59 @@ class Gnuplotter(Plotter):
 
     def vertical_bar(self, x, type, label, comment):
         if self.get_min_x() <= x and x <= self.get_max_x():
-            points = [(x, 0), (x, self.get_max_x())]
+            points = [(x, 0), (x, self.max_graph_value(self.get_max_y()))]
             self.line(points, type, label, comment)
 
     def get_all_x_values(self):
         result = []
         for line in self.lines:
             result.extend(line.get_x_values())
-        return result
+        return filter(None, result)
 
     def get_all_y_values(self):
         result = []
         for line in self.lines:
             result.extend(line.get_y_values())
-        return result
+        return filter(None, result)
 
     def get_min_x(self):
         try:
             return self.min_x
         except AttributeError:
-            self.min_x = min(self.get_all_x_values())
+            try:
+                self.min_x = min(self.get_all_x_values())
+            except ValueError:
+                self.min_x = 0
             return self.min_x
 
     def get_max_x(self):
         try:
             return self.max_x
         except AttributeError:
-            self.max_x = max(self.get_all_x_values())
+            try:
+                self.max_x = max(self.get_all_x_values())
+            except ValueError:
+                self.max_x = 0
             return self.max_x
 
     def get_min_y(self):
         try:
             return self.min_y
         except AttributeError:
-            self.min_y = min(self.get_all_y_values())
+            try:
+                self.min_y = min(self.get_all_y_values())
+            except ValueError:
+                self.min_y = 0
             return self.min_y
 
     def get_max_y(self):
         try:
             return self.max_y
         except AttributeError:
-            self.max_y = max(self.get_all_y_values())
+            try:
+                self.max_y = max(self.get_all_y_values())
+            except ValueError:
+                self.max_y = 0
             return self.max_y
 
     def draw(self):
@@ -170,10 +223,17 @@ class Gnuplotter(Plotter):
             print 'set title "%s"' % self.title
         print 'set key %s' % self.key_location
 
+        min_y = self.get_min_y()
+        max_y = self.max_graph_value(self.get_max_y())
+        range = max_y - min_y
+        incr = range / 10.0
+        start = min_y + (max_y / 2.0) + (2.0 * incr)
+        position = [ start - (i * incr) for i in xrange(5) ]
+
         inx = 1
-        max_y = self.max_graph_value(self.get_max_y())/2
         for line in self.lines:
-            line.print_label(inx, line.points[0][0]-1, max_y)
+            line.print_label(inx, line.points[0][0]-1,
+                             position[(inx-1) % len(position)])
             inx += 1
 
         plot_strings = [ self.plot_string(l) for l in self.lines ]
@@ -455,6 +515,8 @@ class SConsTimer:
 
         for file in files:
             t = line_function(file, *args, **kw)
+            if t is None:
+                t = []
             diff = len(columns) - len(t)
             if diff > 0:
                 t += [''] * diff
@@ -534,7 +596,7 @@ class SConsTimer:
             except ValueError:
                 x, type, label = bar_tuple
                 comment = label
-            gp.vertical_bar(x, type, None, label, comment)
+            gp.vertical_bar(x, type, label, comment)
 
         gp.draw()
 
@@ -583,10 +645,17 @@ class SConsTimer:
         else:
             search_string = time_string
         contents = open(file).read()
+        if not contents:
+            sys.stderr.write('file %s has no contents!\n' % repr(file))
+            return None
         result = re.findall(r'%s: ([\d\.]*)' % search_string, contents)[-4:]
         result = [ float(r) for r in result ]
         if not time_string is None:
-            result = result[0]
+            try:
+                result = result[0]
+            except IndexError:
+                sys.stderr.write('file %s has no results!\n' % repr(file))
+                return None
         return result
 
     def get_function_profile(self, file, function):
@@ -751,13 +820,13 @@ class SConsTimer:
             elif o in ('-?', '-h', '--help'):
                 self.do_help(['help', 'func'])
                 sys.exit(0)
-            elif o in ('--max'):
+            elif o in ('--max',):
                 max_time = int(a)
             elif o in ('-p', '--prefix'):
                 self.prefix = a
             elif o in ('-t', '--tail'):
                 tail = int(a)
-            elif o in ('--title'):
+            elif o in ('--title',):
                 self.title = a
 
         if self.config_file:
@@ -870,14 +939,14 @@ class SConsTimer:
                 sys.exit(0)
             elif o in ('-p', '--prefix'):
                 self.prefix = a
-            elif o in ('--stage'):
+            elif o in ('--stage',):
                 if not a in self.stages:
                     sys.stderr.write('%s: mem: Unrecognized stage "%s".\n' % (self.name, a))
                     sys.exit(1)
                 stage = a
             elif o in ('-t', '--tail'):
                 tail = int(a)
-            elif o in ('--title'):
+            elif o in ('--title',):
                 self.title = a
 
         if self.config_file:
@@ -982,7 +1051,7 @@ class SConsTimer:
                 sys.exit(0)
             elif o in ('-p', '--prefix'):
                 self.prefix = a
-            elif o in ('--stage'):
+            elif o in ('--stage',):
                 if not a in self.stages:
                     sys.stderr.write('%s: obj: Unrecognized stage "%s".\n' % (self.name, a))
                     sys.stderr.write('%s       Type "%s help obj" for help.\n' % (self.name_spaces, self.name))
@@ -990,7 +1059,7 @@ class SConsTimer:
                 stage = a
             elif o in ('-t', '--tail'):
                 tail = int(a)
-            elif o in ('--title'):
+            elif o in ('--title',):
                 self.title = a
 
         if not args:
@@ -1103,7 +1172,7 @@ class SConsTimer:
         opts, args = getopt.getopt(argv[1:], short_opts, long_opts)
 
         for o, a in opts:
-            if o in ('--aegis'):
+            if o in ('--aegis',):
                 self.aegis_project = a
             elif o in ('-f', '--file'):
                 self.config_file = a
@@ -1112,19 +1181,19 @@ class SConsTimer:
                 sys.exit(0)
             elif o in ('-n', '--no-exec'):
                 self.execute = self._do_not_execute
-            elif o in ('--number'):
+            elif o in ('--number',):
                 run_number_list = self.split_run_numbers(a)
-            elif o in ('--outdir'):
+            elif o in ('--outdir',):
                 self.outdir = a
             elif o in ('-p', '--prefix'):
                 self.prefix = a
-            elif o in ('--python'):
+            elif o in ('--python',):
                 self.python = a
             elif o in ('-q', '--quiet'):
                 self.display = self._do_not_display
             elif o in ('-s', '--subdir'):
                 self.subdir = a
-            elif o in ('--scons'):
+            elif o in ('--scons',):
                 self.scons = a
             elif o in ('--svn', '--subversion'):
                 self.subversion_url = a
@@ -1179,7 +1248,7 @@ class SConsTimer:
         return os.path.join(dir, 'src', 'engine')
 
     def prep_aegis_run(self, commands, removals):
-        self.aegis_tmpdir = tempfile.mktemp(prefix = self.name + '-aegis-')
+        self.aegis_tmpdir = make_temp_file(prefix = self.name + '-aegis-')
         removals.append((shutil.rmtree, 'rm -rf %%s', self.aegis_tmpdir))
 
         self.aegis_parent_project = os.path.splitext(self.aegis_project)[0]
@@ -1194,7 +1263,7 @@ class SConsTimer:
         ])
 
     def prep_subversion_run(self, commands, removals):
-        self.svn_tmpdir = tempfile.mktemp(prefix = self.name + '-svn-')
+        self.svn_tmpdir = make_temp_file(prefix = self.name + '-svn-')
         removals.append((shutil.rmtree, 'rm -rf %%s', self.svn_tmpdir))
 
         self.scons = self.scons_path(self.svn_tmpdir)
@@ -1248,7 +1317,7 @@ class SConsTimer:
         if self.targets2 is None:
             self.targets2 = self.targets
 
-        self.tmpdir = tempfile.mktemp(prefix = self.name + '-')
+        self.tmpdir = make_temp_file(prefix = self.name + '-')
 
         commands.extend([
             'mkdir %(tmpdir)s',
@@ -1264,7 +1333,12 @@ class SConsTimer:
                 commands.append((shutil.copytree, 'cp -r %%s %%s', archive, dest))
             else:
                 suffix = self.archive_splitext(archive)[1]
-                commands.append(self.unpack_map[suffix] + (archive,))
+                unpack_command = self.unpack_map.get(suffix)
+                if not unpack_command:
+                    dest = os.path.split(archive)[1]
+                    commands.append((shutil.copyfile, 'cp %%s %%s', archive, dest))
+                else:
+                    commands.append(unpack_command + (archive,))
 
         commands.extend([
             (os.chdir, 'cd %%s', self.subdir),
@@ -1364,9 +1438,9 @@ class SConsTimer:
                 self.prefix = a
             elif o in ('-t', '--tail'):
                 tail = int(a)
-            elif o in ('--title'):
+            elif o in ('--title',):
                 self.title = a
-            elif o in ('--which'):
+            elif o in ('--which',):
                 if not a in self.time_strings.keys():
                     sys.stderr.write('%s: time: Unrecognized timer "%s".\n' % (self.name, a))
                     sys.stderr.write('%s  Type "%s help time" for help.\n' % (self.name_spaces, self.name))
