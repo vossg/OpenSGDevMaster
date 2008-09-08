@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemShaderProgram for a description.
 */
 
-class OSG_STATE_DLLMAPPING ShaderProgram
+class ShaderProgram
 {
   protected:
 
