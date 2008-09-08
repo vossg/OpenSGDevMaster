@@ -406,8 +406,8 @@ OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 /*! \brief Backwards Compatibility Typedefs
 */
 
-//typedef GeoIntegralPropertyPtr GeoPTypesPtr;
-//typedef GeoIntegralPropertyPtr GeoPLengthsPtr;
+typedef GeoIntegralPropertyRecPtr GeoPTypesPtr;
+typedef GeoIntegralPropertyRecPtr GeoPLengthsPtr;
 
 //typedef GeoIntegralPropertyPtr         GeoIndicesPtr;
 //typedef ConstGeoIntegralPropertyPtr    ConstGeoIndicesPtr;

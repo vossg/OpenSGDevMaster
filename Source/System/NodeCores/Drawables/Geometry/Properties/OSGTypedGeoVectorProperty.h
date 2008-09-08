@@ -689,9 +689,10 @@ typedef GeoPnt3sProperty    GeoPositions3s;
 typedef GeoPnt4sProperty    GeoPositions4s;
 
 #ifndef OSG_WINCE
-typedef GeoPnt2fProperty    GeoPositions2f;
-typedef GeoPnt3fProperty    GeoPositions3f;
-typedef GeoPnt4fProperty    GeoPositions4f;
+typedef GeoPnt2fProperty           GeoPositions2f;
+typedef GeoPnt3fProperty           GeoPositions3f;
+typedef GeoPnt3fPropertyRecPtr     GeoPositions3fPtr;
+typedef GeoPnt4fProperty           GeoPositions4f;
 
 typedef GeoPnt2dProperty    GeoPositions2d;
 typedef GeoPnt3dProperty    GeoPositions3d;
@@ -709,8 +710,9 @@ typedef GeoVec3bProperty    GeoNormals3b;
 // Colors
 
 #ifndef OSG_WINCE
-typedef GeoColor3fProperty     GeoColors3f;
-typedef GeoColor4fProperty     GeoColors4f;
+typedef GeoColor3fProperty         GeoColors3f;
+typedef GeoColor3fPropertyRecPtr   GeoColors3fPtr;
+typedef GeoColor4fProperty         GeoColors4f;
 #endif
 typedef GeoColor3ubProperty    GeoColors3ub;
 typedef GeoColor4ubProperty    GeoColors4ub;
