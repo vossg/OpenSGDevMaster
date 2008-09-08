@@ -40,7 +40,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_1_COMPAT
 inline
 UInt32 SHLChunk::getFuncUniform1i(void)
 {
@@ -118,7 +117,6 @@ UInt32 SHLChunk::getFuncGetUniformfv(void)
 {
     return _funcGetUniformfv;
 }
-#endif
 
 inline
 const StateChunkClass *SHLChunk::getStaticClass(void)

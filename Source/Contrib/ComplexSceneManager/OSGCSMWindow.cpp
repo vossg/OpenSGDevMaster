@@ -201,7 +201,7 @@ bool CSMWindow::init(void)
         }
     }
     
-    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
+    //OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
 
     return returnValue;
 }

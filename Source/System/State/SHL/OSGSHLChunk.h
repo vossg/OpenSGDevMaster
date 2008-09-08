@@ -54,6 +54,7 @@ OSG_BEGIN_NAMESPACE
 class Window;
 class DrawActionBase;
 class SHLParameterChunk;
+class ShaderProgram;
 
 /*! \brief SHLChunk class.
 */
@@ -286,6 +287,7 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     friend class FieldContainer;
     friend class SHLChunkBase;
     friend class SHLParameterChunk;
+    friend class ShaderProgram;
 
     // class. Used for indexing in State
     static StateChunkClass _class;
