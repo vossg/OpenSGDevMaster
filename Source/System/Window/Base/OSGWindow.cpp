@@ -1899,6 +1899,27 @@ void OSG::Window::resizeGL( void )
     }
 }
 
+void OSG::Window::requestStageRun(Int32 iStageId)
+{
+    if(iStageId < 0)
+    {
+        SWARNING << "Window::requestStageRun: id is < 0!" << std::endl;
+        return;
+    }
+
+    std::vector<Window *>::iterator winIt;
+
+    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
+    {
+        Window *pWin = convertToCurrentAspect(*winIt);
+
+        if(pWin == NULL)
+            continue;
+
+        pWin->_pStageValidator->requestRun(iStageId);
+    }
+}
+
 /*-------------------------- assignment -----------------------------------*/
 
 #if 0 // This is wrong, the vp parents are not setup correctly

@@ -64,6 +64,8 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
         Run      = 0x0001,
         Running  = 0x0002,
 
+        Inactive = 0x0100,
+
         Finished = 0x1000
     };
 
@@ -91,12 +93,15 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    ValidationStatus validate(Int32 iStageId);
+    ValidationStatus validate       (Int32 iStageId);
+    ValidationStatus checkRunRequest(Int32 iStageId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
+
+    void requestRun(Int32 iStageId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

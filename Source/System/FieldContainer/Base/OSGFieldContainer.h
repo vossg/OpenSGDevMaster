@@ -376,10 +376,14 @@ class FieldContainer : public ReflexiveContainer
     OSG_SYSTEM_DLLMAPPING
     virtual void            registerChangedContainerV(void);
 
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy         (void) const = 0;
-#endif
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(const FieldContainer *) const = 0;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -412,6 +416,7 @@ class FieldContainer : public ReflexiveContainer
 #ifdef OSG_MT_CPTR_ASPECT
     template <class ObjectT>
     static void newAspectCopy(      typename ObjectT::ObjCPtr &result,
+                              const          ObjectT          *pRefAspect,
                               const          ObjectT          *prototypeP);
 #endif
 

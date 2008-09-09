@@ -322,11 +322,13 @@ void SValueEmitter<Desc>::execSyncV(      FieldContainer    &oFrom,
 
 
 template<class Desc> inline
-FieldContainer *SValueEmitter<Desc>::createAspectCopy(void) const
+FieldContainer *SValueEmitter<Desc>::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Self *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Self *>(pRefAspect),
                   dynamic_cast<const Self *>(this));
 
     return returnValue;

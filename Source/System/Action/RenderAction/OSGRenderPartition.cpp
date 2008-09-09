@@ -63,7 +63,7 @@
 
 #include "OSGDrawableStatsAttachment.h"
 
-#ifdef OSG_DEBUGX
+#ifdef OSG_DEBUG
 #define OSG_TRACE_PARTITION
 #endif
 

@@ -415,7 +415,8 @@ void ChangeList::doApply(bool bClear)
         {
             if(0x0000 == ((*ccIt)->whichField & FCLocal::MTMask))
             {
-                pDst = pSrc->getType().createAspectCopy((*ccIt)->uiContainerId);
+                pDst = pSrc->getType().createAspectCopy(pSrc,
+                                                        (*ccIt)->uiContainerId);
 
 #ifndef SILENT_CPTR
                 fprintf(stderr, "Setup store for %d %p \n",
@@ -480,7 +481,8 @@ void ChangeList::doApply(bool bClear)
             if((pSrc->getFieldFlags()->_bNamespaceMask & FCLocal::MTMask) != 
                TypeTraits<BitVector>::BitsClear             )
             {
-                pDst = pSrc->getType().createAspectCopy((*cIt)->uiContainerId);
+                pDst = pSrc->getType().createAspectCopy(pSrc,
+                                                        (*cIt)->uiContainerId);
             
                 if(pDst != NULL) 
                     pDst->setupAspectStore(pHandler);

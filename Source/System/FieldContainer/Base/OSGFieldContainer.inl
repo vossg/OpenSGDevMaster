@@ -769,12 +769,13 @@ void FieldContainer::newPtr(typename ObjectT::ObjCPtr &result,
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class ObjectT> inline
-void FieldContainer::newAspectCopy(      typename ObjectT::ObjCPtr &result, 
-                                   const          ObjectT          *pPrototype)
+void FieldContainer::newAspectCopy(typename ObjectT::ObjCPtr &result, 
+                                   const    ObjectT          *pRefAspect,
+                                   const    ObjectT          *pPrototype)
 {
     result = new ObjectT(*pPrototype);
 
-    result->onCreateAspect(result, pPrototype);
+    result->onCreateAspect(pRefAspect, pPrototype);
 }
 #endif
 

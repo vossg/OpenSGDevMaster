@@ -83,13 +83,13 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
 
     static       UInt32    getBinSize (const OSGAny &oObject)
     {
-        return 0; //oObject.length() + 1 + sizeof(UInt32);
+        return sizeof(UInt8);
     }
 
     static       UInt32    getBinSize (const OSGAny *pObjectStore,
                                              UInt32  uiNumObjects)
     {
-        UInt32 size=0;
+        UInt32 size = 0;
 
         for(UInt32 i = 0; i < uiNumObjects; ++i)
         {
@@ -103,7 +103,9 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const OSGAny            &oObject)
     {
-    	//pMem.putValue(oObject);
+        UInt8 uiTmp = 0;
+
+    	pMem.putValue(uiTmp);
     }
 
     static void copyToBin(      BinaryDataHandler &pMem, 
@@ -119,7 +121,9 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
     static void copyFromBin(BinaryDataHandler &pMem, 
                             OSGAny            &oObject)
     {
-        //pMem.getValue(oObject);
+        UInt8 uiTmp = 0;
+
+        pMem.getValue(uiTmp);
     }
 
     static void copyFromBin(BinaryDataHandler &pMem, 

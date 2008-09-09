@@ -46,8 +46,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_CLEANED_RENDERACTION
-
 #include "OSGRenderAction.h"
 
 #include "OSGMaterialDrawable.h"
@@ -61,15 +59,15 @@
 OSG_BEGIN_NAMESPACE
 
 
-ActionBase::ResultE TestStageRenderEnter(const NodeCorePtr &pCore,
-                                               Action      *action)
+ActionBase::ResultE TestStageRenderEnter(NodeCore * const pCore,
+                                         Action   *       action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Enter TestStage %p\n", &(*pCore)));
 #endif
 
-    RenderAction *a      = dynamic_cast<RenderlAction *>(action);
-    TestStagePtr  pStage = dynamic_cast<TestStagePtr   >(pCore);
+    RenderAction *a      = dynamic_cast<RenderAction *>(action);
+    TestStage    *pStage = dynamic_cast<TestStage    *>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -107,15 +105,15 @@ ActionBase::ResultE TestStageRenderEnter(const NodeCorePtr &pCore,
     return ActionBase::Continue;
 }
 
-ActionBase::ResultE TestStageRenderLeave(const NodeCorePtr &pCore,
-                                               Action      *action)
+ActionBase::ResultE TestStageRenderLeave(NodeCore * const pCore,
+                                         Action   *       action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Leave TestStage %p\n", &(*pCore)));
 #endif
 
     RenderAction *a      = dynamic_cast<RenderAction *>(action);
-    TestStagePtr  pStage = dynamic_cast<TestStagePtr  >(pCore);
+    TestStage    *pStage = dynamic_cast<TestStage    *>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -146,8 +144,8 @@ ActionBase::ResultE TestStageRenderLeave(const NodeCorePtr &pCore,
 }
 
 
-ActionBase::ResultE TestMultiPartStageRenderEnter(const NodeCorePtr &pCore,
-                                                        Action      *action)
+ActionBase::ResultE TestMultiPartStageRenderEnter(NodeCore * const pCore,
+                                                  Action   *       action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Enter TestMultiPartStage %p\n", &(*pCore)));
@@ -155,8 +153,8 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(const NodeCorePtr &pCore,
 
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
-    TestMultiPartitionStagePtr pStage = 
-        dynamic_cast<TestMultiPartitionStagePtr>(pCore);
+    TestMultiPartitionStage *pStage = 
+        dynamic_cast<TestMultiPartitionStage *>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -229,8 +227,8 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(const NodeCorePtr &pCore,
     return ActionBase::Continue;
 }
 
-ActionBase::ResultE TestMultiPartStageRenderLeave(const NodeCorePtr &pCore,
-                                                        Action      *action)
+ActionBase::ResultE TestMultiPartStageRenderLeave(NodeCore * const pCore,
+                                                  Action   *       action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
     FDEBUG_GV(("Leave TestMultiPartStage %p\n", &(*pCore)));
@@ -239,8 +237,8 @@ ActionBase::ResultE TestMultiPartStageRenderLeave(const NodeCorePtr &pCore,
     RenderAction      *a      = 
         dynamic_cast<RenderAction *>(action);
 
-    TestMultiPartitionStagePtr  pStage = 
-        dynamic_cast<TestMultiPartitionStagePtr>(pCore);
+    TestMultiPartitionStage *pStage = 
+        dynamic_cast<TestMultiPartitionStage *>(pCore);
 
 #ifdef OSG_DEBUGX
     if(pStage != NullFC && pStage->getMessage().size() != 0)
@@ -310,5 +308,3 @@ OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */
-
-#endif

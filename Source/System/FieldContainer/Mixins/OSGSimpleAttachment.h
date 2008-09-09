@@ -236,7 +236,7 @@ class SimpleAttachment : public Attachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjCPtr createAspectCopy(void) const;
+    virtual ObjCPtr createAspectCopy(const FieldContainer *pRefAspect) const;
 #endif
     
 

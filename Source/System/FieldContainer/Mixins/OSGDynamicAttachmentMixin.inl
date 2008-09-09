@@ -352,11 +352,13 @@ DynFieldAttachment<AttachmentDescT>::~DynFieldAttachment(void)
 #ifdef OSG_MT_CPTR_ASPECT
 template <class AttachmentDescT> inline
 typename DynFieldAttachment<AttachmentDescT>::ObjCPtr 
-    DynFieldAttachment<AttachmentDescT>::createAspectCopy(void) const
+    DynFieldAttachment<AttachmentDescT>::createAspectCopy(
+        const FieldContainer *pRefAspect) const
 {
     ObjCPtr returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Self *>(pRefAspect),
                   dynamic_cast<const Self *>(this));
 
     return returnValue;

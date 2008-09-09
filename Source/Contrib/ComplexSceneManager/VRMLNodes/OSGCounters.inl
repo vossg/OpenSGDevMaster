@@ -500,11 +500,13 @@ void CounterImpl<Desc>::execSyncV(  FieldContainer    &oFrom,
 
 
 template<class Desc> inline
-FieldContainer *CounterImpl<Desc>::createAspectCopy(void) const
+FieldContainer *CounterImpl<Desc>::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Self *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Self *>(pRefAspect),
                   dynamic_cast<const Self *>(this));
 
     return returnValue;

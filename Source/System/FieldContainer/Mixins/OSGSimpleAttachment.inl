@@ -239,11 +239,13 @@ template <class AttachmentDescT> inline
 #ifdef OSG_MT_CPTR_ASPECT
 template <class AttachmentDescT> inline
 typename SimpleAttachment<AttachmentDescT>::ObjCPtr 
-    SimpleAttachment<AttachmentDescT>::createAspectCopy(void) const
+    SimpleAttachment<AttachmentDescT>::createAspectCopy(
+        const FieldContainer *pRefAspect) const
 {
     ObjCPtr returnValue; 
 
     newAspectCopy(returnValue, 
+                  dynamic_cast<const Self *>(pRefAspect),
                   dynamic_cast<const Self *>(this)); 
 
     return returnValue; 

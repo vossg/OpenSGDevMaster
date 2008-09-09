@@ -136,13 +136,14 @@ FieldContainerTransitPtr FieldContainerType::createContainer(void) const
 
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainer *FieldContainerType::createAspectCopy(
-    UInt32 uiContainerId) const
+    const FieldContainer *pRefAspect,
+          UInt32          uiContainerId) const
 {
     FieldContainer *fc = NULL;
 
     if(isAbstract() == false)
     {
-        fc = _pPrototype->createAspectCopy();       
+        fc = _pPrototype->createAspectCopy(pRefAspect);       
     }
 
     if(fc != NULL)

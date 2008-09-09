@@ -228,7 +228,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjCPtr createAspectCopy(void) const;
+    virtual ObjCPtr createAspectCopy(const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

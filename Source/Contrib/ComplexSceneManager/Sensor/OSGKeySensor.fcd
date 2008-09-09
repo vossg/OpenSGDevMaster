@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="KeySensor"
-    parent="NodeCore"
+    parent="AttachmentContainer"
     library="ContribCSM"
     pointerfieldtypes="none"
     structure="concrete"
@@ -11,7 +11,7 @@
     decoratable="false"
     useLocalIncludes="false"
     isNodeCore="false"
-    isBundle="false"
+    isBundle="true"
     parentFields="none"
 >
 	<Field

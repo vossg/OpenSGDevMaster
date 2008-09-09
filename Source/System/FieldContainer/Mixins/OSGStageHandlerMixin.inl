@@ -56,6 +56,39 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Self::getHandleUpdateMode ));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFDesc(
+        SFOSGAny::getClassType(),
+        "requestRun",
+        "",
+        OSG_RC_FIELD_DESC(Self::RequestRun),
+        true,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&Self::invalidEditField   ),
+        static_cast<FieldGetMethodSig >(&Self::getHandleRequestRun));
+
+    oType.addInitialDesc(pDesc);
+}
+
+template <class ParentT> inline
+bool StageHandlerMixin<ParentT>::requestRun(void)
+{
+    Self::editSField(RequestRunFieldMask);
+
+    return true;
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField, 
+                                         UInt32            origin,
+                                         BitVector         details)
+{
+    if(0x0000 != (whichField & RequestRunFieldMask))
+    {
+        Window::requestStageRun(_iStageId);
+    }
+
+    Inherited::changed(whichField, origin, details);
 }
 
 template <class ParentT> inline
@@ -67,7 +100,7 @@ typename StageHandlerMixin<ParentT>::ValidationStatus
 
     if(_sfUpdateMode.getValue() == Self::PerWindow)
     {
-        OSG::Window *pWin = pAction->getWindow();
+        Window *pWin = pAction->getWindow();
 
         pVal = pWin->getStageValidator();
     }
@@ -80,6 +113,14 @@ typename StageHandlerMixin<ParentT>::ValidationStatus
     else if(_sfUpdateMode.getValue() == Self::PerTraversal)
     {
         pVal = pAction->getStageValidator();
+    }
+    else if(_sfUpdateMode.getValue() == Self::OnRequest)
+    {
+        Window *pWin = pAction->getWindow();
+
+        pVal = pWin->getStageValidator();
+
+        return pVal->checkRunRequest(_iStageId);
     }
     else
     {
@@ -298,6 +339,10 @@ UInt32 StageHandlerMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfUpdateMode.getBinSize();
     }
+    if(FieldBits::NoField != (RequestRunFieldMask & whichField))
+    {
+        returnValue += _sfRequestRun.getBinSize();
+    }
 
     return returnValue;
 }
@@ -312,6 +357,10 @@ void StageHandlerMixin<ParentT>::copyToBin(
     {
         _sfUpdateMode.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RequestRunFieldMask & whichField))
+    {
+        _sfRequestRun.copyToBin(pMem);
+    }
 }
 
 template <class ParentT> inline
@@ -323,6 +372,10 @@ void StageHandlerMixin<ParentT>::copyFromBin(
     if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
     {
         _sfUpdateMode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RequestRunFieldMask & whichField))
+    {
+        _sfRequestRun.copyFromBin(pMem);
     }
 }
 
@@ -338,7 +391,8 @@ StageHandlerMixin<ParentT>::StageHandlerMixin(void) :
      Inherited   (            ),
     _iDataSlotId (-1          ),
     _iStageId    (-1          ),
-    _sfUpdateMode(PerTraversal)
+    _sfUpdateMode(PerTraversal),
+    _sfRequestRun(            )
 {
     _tmpStatus = StageValidator::Finished;
 }
@@ -350,7 +404,8 @@ StageHandlerMixin<ParentT>::StageHandlerMixin(
      Inherited   (source              ),
     _iStageId    (-1                  ),
     _iDataSlotId (-1                  ),
-    _sfUpdateMode(source._sfUpdateMode)
+    _sfUpdateMode(source._sfUpdateMode),
+    _sfRequestRun(source._sfRequestRun)
 {
     _tmpStatus = StageValidator::Finished;
 }
@@ -391,6 +446,18 @@ GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleUpdateMode(
     return returnValue;
 }
 
+template <class ParentT> inline
+GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleRequestRun(
+    void) const
+{
+    SFOSGAny::GetHandlePtr returnValue(
+        new  SFOSGAny::GetHandle(
+             &_sfRequestRun, 
+             this->getType().getFieldDesc(RequestRunFieldId)));
+
+    return returnValue;
+}
+
 
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
@@ -410,6 +477,10 @@ void StageHandlerMixin<ParentT>::execSync(
     if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
     {
         _sfUpdateMode.syncWith(pFrom->_sfUpdateMode);
+    }
+    if(FieldBits::NoField != (RequestRunFieldMask & whichField))
+    {
+        _sfRequestRun.syncWith(pFrom->_sfRequestRun);
     }
 }
 #endif
@@ -438,10 +509,6 @@ void StageHandlerMixin<ParentT>::onCreate(const Self *source)
     {
         _iDataSlotId = ActionDataSlotPool::the()->create();
         _iStageId    = StageIdPool       ::the()->create();
-
-        fprintf(stderr, "Got data slot %d and stage id %d\n", 
-                _iDataSlotId,
-                _iStageId);
     }
 }
 

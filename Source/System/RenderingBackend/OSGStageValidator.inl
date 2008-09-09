@@ -87,4 +87,65 @@ StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId)
     return returnValue;
 }
 
+inline
+StageValidator::ValidationStatus StageValidator::checkRunRequest(Int32 iStageId)
+{
+    if(iStageId < 0)
+        return Self::Unknown;
+
+    if(_vStatusStore.size() <= static_cast<UInt32>(iStageId))
+    {
+        StageStatus tmpStat;
+        
+        tmpStat._uiLastEvent = 0;
+        tmpStat._eStatus     = Self::Unknown;
+
+        _vStatusStore.resize(iStageId + 1, tmpStat);
+    }
+
+    StageStatus            &oStat       = _vStatusStore[iStageId];
+    Self::ValidationStatus  returnValue = Self::Inactive;
+
+    if(oStat._uiLastEvent == 0)
+    {
+        oStat._uiLastEvent = _uiEventCounter;
+        oStat._eStatus     = Self::Running;
+
+        returnValue = Self::Run;
+    }
+    else
+    {
+        if(oStat._uiLastEvent == _uiEventCounter)
+        {
+            if(oStat._eStatus == StageValidator::Running)
+            {
+                oStat._eStatus = StageValidator::Finished;
+                
+                returnValue = Self::Run;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+inline
+void StageValidator::requestRun(Int32 iStageId)
+{
+    if(iStageId < 0)
+        return;
+
+    if(_vStatusStore.size() <= static_cast<UInt32>(iStageId))
+    {
+        StageStatus tmpStat;
+        
+        tmpStat._uiLastEvent = 0;
+        tmpStat._eStatus     = Self::Unknown;
+
+        _vStatusStore.resize(iStageId + 1, tmpStat);
+    }
+
+    _vStatusStore[iStageId]._uiLastEvent = 0;
+}
+
 OSG_END_NAMESPACE

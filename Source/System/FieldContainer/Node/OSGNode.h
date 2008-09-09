@@ -335,7 +335,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual Node *createAspectCopy(void) const;
+    virtual Node *createAspectCopy(const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

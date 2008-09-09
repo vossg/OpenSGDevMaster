@@ -828,11 +828,12 @@ const MFUnrecChildNodePtr *Node::getMFChildren(void) const
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-Node *Node::createAspectCopy(void) const
+Node *Node::createAspectCopy(const FieldContainer *pRefAspect) const
 {
     Node *returnValue = NULL;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Node *>(pRefAspect),
                   dynamic_cast<const Node *>(this));
 
     return returnValue;

@@ -268,7 +268,9 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    StageValidator *getStageValidator(void);
+           StageValidator *getStageValidator(void          );
+    
+    static void            requestStageRun  (Int32 iStageId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

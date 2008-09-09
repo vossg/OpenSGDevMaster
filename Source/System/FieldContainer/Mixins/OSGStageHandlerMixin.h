@@ -48,6 +48,7 @@
 #include "OSGViewport.h"
 #include "OSGStageValidator.h"
 #include "OSGStageData.h"
+#include "OSGOSGAnyFields.h"
 
 #include "OSGRenderActionBase.h"
 
@@ -83,7 +84,9 @@ class StageHandlerMixin  : public ParentT
         PerViewport  = 0x0002,
         PerTraversal = 0x0003,
 
-        PerVisit     = 0x0004
+        PerVisit     = 0x0004,
+
+        OnRequest    = 0x0005
     };
 
     enum GroupMode 
@@ -97,9 +100,11 @@ class StageHandlerMixin  : public ParentT
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    OSG_RC_FIRST_FIELD_DECL(UpdateMode);
+    OSG_RC_FIRST_FIELD_DECL(UpdateMode            );
 
-    OSG_RC_LAST_FIELD_DECL (UpdateMode);
+    OSG_RC_FIELD_DECL      (RequestRun, UpdateMode);
+
+    OSG_RC_LAST_FIELD_DECL (RequestRun            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -116,10 +121,16 @@ class StageHandlerMixin  : public ParentT
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
+    bool requestRun(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
+
+    void changed(ConstFieldMaskArg whichField, 
+                 UInt32            origin,
+                 BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -223,6 +234,7 @@ class StageHandlerMixin  : public ParentT
     /*! \{                                                                 */
 
     SFUInt32 _sfUpdateMode;
+    SFOSGAny _sfRequestRun;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -261,6 +273,8 @@ class StageHandlerMixin  : public ParentT
 
     EditFieldHandlePtr editHandleUpdateMode(void);
     GetFieldHandlePtr  getHandleUpdateMode (void) const;
+
+    GetFieldHandlePtr  getHandleRequestRun (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

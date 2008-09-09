@@ -283,6 +283,8 @@ bool ReflexiveContainerType::initParentFields(void)
                               pReflexParent->_vDescVec.begin(),
                               pReflexParent->_vDescVec.end  ());
 #endif
+
+            _bvUnmarkedOnCreate &= pReflexParent->getUnmarkedOnCreate();
         }
         else
         {

@@ -1027,11 +1027,13 @@ void @!Classname!@Base::execSyncV(      FieldContainer    &oFrom,
 
 @@if !isAbstract
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *@!Classname!@Base::createAspectCopy(void) const
+FieldContainer *@!Classname!@Base::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     @!Classname!@ *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const @!Classname!@ *>(pRefAspect),
                   dynamic_cast<const @!Classname!@ *>(this));
 
     return returnValue;
