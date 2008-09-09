@@ -46,7 +46,8 @@ void StageValidator::incEventCounter(void)
 }
 
 inline
-StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId)
+StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId,
+                                                          UInt16 uiCurrentTrav)
 {
     if(iStageId < 0)
         return Self::Unknown;
@@ -55,8 +56,9 @@ StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId)
     {
         StageStatus tmpStat;
         
-        tmpStat._uiLastEvent = 0;
-        tmpStat._eStatus     = Self::Unknown;
+        tmpStat._uiLastEvent      = 0;
+        tmpStat._eStatus          = Self::Unknown;
+        tmpStat._uiFinishedInTrav = 0;
 
         _vStatusStore.resize(iStageId + 1, tmpStat);
     }
@@ -77,9 +79,17 @@ StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId)
         {
             if(oStat._eStatus == StageValidator::Running)
             {
-                oStat._eStatus = StageValidator::Finished;
-                
+                oStat._eStatus          = StageValidator::Finished;
+                oStat._uiFinishedInTrav = uiCurrentTrav;
+
                 returnValue = Self::Run;
+            }
+            else if(oStat._eStatus == StageValidator::Finished)
+            {
+                if(oStat._uiFinishedInTrav != uiCurrentTrav)
+                {
+                    returnValue = StageValidator::Inactive;
+                }
             }
         }
     }

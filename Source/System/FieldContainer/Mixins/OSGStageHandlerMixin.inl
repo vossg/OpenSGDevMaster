@@ -127,7 +127,7 @@ typename StageHandlerMixin<ParentT>::ValidationStatus
         return StageValidator::Run;
     }
 
-    return pVal->validate(_iStageId);
+    return pVal->validate(_iStageId, pAction->getFrameTravCount());
 }
 
 template <class ParentT> inline

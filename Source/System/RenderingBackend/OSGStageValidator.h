@@ -93,8 +93,9 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    ValidationStatus validate       (Int32 iStageId);
-    ValidationStatus checkRunRequest(Int32 iStageId);
+    ValidationStatus validate       (Int32 iStageId,
+                                     UInt16 uiCurrentTrav);
+    ValidationStatus checkRunRequest(Int32 iStageId      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -134,6 +135,7 @@ class OSG_SYSTEM_DLLMAPPING StageValidator
     {
         UInt32           _uiLastEvent;
         ValidationStatus _eStatus;
+        UInt16           _uiFinishedInTrav;
     };
 
     typedef std::vector<StageStatus> StatusStore;

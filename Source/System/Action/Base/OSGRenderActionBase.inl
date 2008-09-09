@@ -139,6 +139,12 @@ StageValidator *RenderActionBase::getStageValidator(void)
     return _pStageValidator;
 }
 
+inline
+UInt16 RenderActionBase::getFrameTravCount(void)
+{
+    return _uiFrameTravCount;
+}
+
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/

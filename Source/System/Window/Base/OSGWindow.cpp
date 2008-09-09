@@ -1776,54 +1776,6 @@ void OSG::Window::setupGL( void )
 
 /*-------------------------- your_category---------------------------------*/
     
-#ifdef OSG_OLD_RENDER_ACTION
-
-/*! Render the Window using the given RenderAction. 
-
-    It takes care of all initialisation and cleanup functions and contains just
-    5 lines of code. If you know that the correct context is active or you want
-    to delay swaps you can just copy and manipulate it.
- */   
-void OSG::Window::render(DrawActionBase *action)
-{
-    activate ();
-    frameInit();    // query recently registered GL extensions
-    
-    renderAllViewports(action);
-
-    swap     ();
-    frameExit();    // after frame cleanup: delete GL objects, if needed
-}
-    
-
-/*! Render all the Viewports of the Window using the given RenderAction. 
-
-    A simple convenience function that loops all Viewports and call their draw
-    method.
- */   
-
-void OSG::Window::renderAllViewports(DrawActionBase *action)
-{
-    MFViewportPtr::const_iterator portIt  = _mfPort.begin();
-    MFViewportPtr::const_iterator portEnd = _mfPort.end();
-
-    if(action != NULL)
-    {
-        action->setWindow(this);
-        
-        while(portIt != portEnd)
-        {
-            (*portIt)->render(action);
-            ++portIt;
-        }
-    }
-    else
-    {
-        SWARNING << "Window::renderAllViewports: no action!" << std::endl;
-    }
-}
-#endif
-
 /*! Render the Window using the given RenderAction. 
 
     It takes care of all initialisation and cleanup functions and contains just
@@ -1857,6 +1809,8 @@ void OSG::Window::renderAllViewports(RenderActionBase *action)
     {
         action->setWindow(this);
         
+        action->frameInit();
+
         while(portIt != portEnd)
         {
             (*portIt)->render(action);

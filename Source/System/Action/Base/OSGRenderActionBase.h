@@ -149,8 +149,10 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name                   Lights                                     */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE start(void                   );
-    virtual ActionBase::ResultE stop (ActionBase::ResultE res);
+    virtual ActionBase::ResultE start    (void                   );
+    virtual ActionBase::ResultE stop     (ActionBase::ResultE res);
+
+    virtual void                frameInit(void                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -158,6 +160,7 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \{                                                                 */
 
     StageValidator *getStageValidator(void);
+    UInt16          getFrameTravCount(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -219,6 +222,8 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     bool          _bVolumeDrawing;
     bool          _bAutoFrustum;
     FrustumVolume _oFrustum;
+
+    UInt16        _uiFrameTravCount;
 
     /*==========================  PRIVATE  ================================*/
 

@@ -75,35 +75,37 @@ StatElemDesc<StatIntElem>
 /*                            Constructors                                 */
 
 RenderActionBase::RenderActionBase(void) :
-     Inherited      (     ),
-    _pCamera        (NULL ),
-    _pBackground    (NULL ),
-    _pWindow        (NULL ),
-    _pViewport      (NULL ),
-    _pStatistics    (NULL ),
-    _pStageValidator(NULL ),
+     Inherited       (     ),
+    _pCamera         (NULL ),
+    _pBackground     (NULL ),
+    _pWindow         (NULL ),
+    _pViewport       (NULL ),
+    _pStatistics     (NULL ),
+    _pStageValidator (NULL ),
 
-    _bFrustumCulling(true ),
-    _bVolumeDrawing (false),
-    _bAutoFrustum   (true ),
-    _oFrustum       (     )
+    _bFrustumCulling (true ),
+    _bVolumeDrawing  (false),
+    _bAutoFrustum    (true ),
+    _oFrustum        (     ),
+    _uiFrameTravCount(0    )
 {
     _pStageValidator = new StageValidator();
 }
 
 RenderActionBase::RenderActionBase(const RenderActionBase &source) :
 
-     Inherited      (source                 ),
-    _pCamera        (source._pCamera        ),
-    _pBackground    (source._pBackground    ),
-    _pWindow        (source._pWindow        ),
-    _pViewport      (source._pViewport      ),
-    _pStageValidator(NULL                   ),
-    _pStatistics    (NULL                   ),
-    _bFrustumCulling(source._bFrustumCulling),
-    _bVolumeDrawing (source._bVolumeDrawing ),
-    _bAutoFrustum   (source._bAutoFrustum   ),
-    _oFrustum       (source._oFrustum       )
+     Inherited       (source                  ),
+    _pCamera         (source._pCamera         ),
+    _pBackground     (source._pBackground     ),
+    _pWindow         (source._pWindow         ),
+    _pViewport       (source._pViewport       ),
+    _pStageValidator (NULL                    ),
+    _pStatistics     (NULL                    ),
+    _bFrustumCulling (source._bFrustumCulling ),
+    _bVolumeDrawing  (source._bVolumeDrawing  ),
+    _bAutoFrustum    (source._bAutoFrustum    ),
+    _oFrustum        (source._oFrustum        ),
+    _uiFrameTravCount(source._uiFrameTravCount)
 {
     OSG::setRefd(_pStatistics, source._pStatistics);
 
@@ -164,7 +166,14 @@ ActionBase::ResultE RenderActionBase::stop(ActionBase::ResultE res)
         _pStatistics->getElem(statTravTime)->stop();
     }
 
+    ++_uiFrameTravCount;
+
     return res;
+}
+
+void RenderActionBase::frameInit(void)
+{
+    _uiFrameTravCount = 0;
 }
 
 void RenderActionBase::setViewport(Viewport *pViewport)
