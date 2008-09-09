@@ -496,11 +496,13 @@ void StageDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *StageDataBase::createAspectCopy(void) const
+FieldContainer *StageDataBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     StageData *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const StageData *>(pRefAspect),
                   dynamic_cast<const StageData *>(this));
 
     return returnValue;

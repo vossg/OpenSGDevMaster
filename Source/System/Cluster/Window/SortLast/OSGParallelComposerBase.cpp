@@ -520,11 +520,13 @@ void ParallelComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ParallelComposerBase::createAspectCopy(void) const
+FieldContainer *ParallelComposerBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ParallelComposer *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ParallelComposer *>(pRefAspect),
                   dynamic_cast<const ParallelComposer *>(this));
 
     return returnValue;

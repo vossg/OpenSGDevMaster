@@ -285,11 +285,13 @@ void ScaleManipulatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ScaleManipulatorBase::createAspectCopy(void) const
+FieldContainer *ScaleManipulatorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ScaleManipulator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ScaleManipulator *>(pRefAspect),
                   dynamic_cast<const ScaleManipulator *>(this));
 
     return returnValue;

@@ -370,11 +370,13 @@ void GLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *GLUTWindowBase::createAspectCopy(void) const
+FieldContainer *GLUTWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     GLUTWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const GLUTWindow *>(pRefAspect),
                   dynamic_cast<const GLUTWindow *>(this));
 
     return returnValue;

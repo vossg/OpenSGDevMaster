@@ -350,11 +350,13 @@ void CallbackAlgorithmBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CallbackAlgorithmBase::createAspectCopy(void) const
+FieldContainer *CallbackAlgorithmBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CallbackAlgorithm *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CallbackAlgorithm *>(pRefAspect),
                   dynamic_cast<const CallbackAlgorithm *>(this));
 
     return returnValue;

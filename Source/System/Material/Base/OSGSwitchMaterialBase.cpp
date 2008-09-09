@@ -536,11 +536,13 @@ void SwitchMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SwitchMaterialBase::createAspectCopy(void) const
+FieldContainer *SwitchMaterialBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SwitchMaterial *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SwitchMaterial *>(pRefAspect),
                   dynamic_cast<const SwitchMaterial *>(this));
 
     return returnValue;

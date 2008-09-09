@@ -456,11 +456,13 @@ void RenderBufferBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *RenderBufferBase::createAspectCopy(void) const
+FieldContainer *RenderBufferBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     RenderBuffer *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const RenderBuffer *>(pRefAspect),
                   dynamic_cast<const RenderBuffer *>(this));
 
     return returnValue;

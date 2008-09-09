@@ -658,11 +658,13 @@ void CSMSceneParameterBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMSceneParameterBase::createAspectCopy(void) const
+FieldContainer *CSMSceneParameterBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMSceneParameter *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMSceneParameter *>(pRefAspect),
                   dynamic_cast<const CSMSceneParameter *>(this));
 
     return returnValue;

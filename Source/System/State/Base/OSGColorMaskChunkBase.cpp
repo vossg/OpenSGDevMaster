@@ -600,11 +600,13 @@ void ColorMaskChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ColorMaskChunkBase::createAspectCopy(void) const
+FieldContainer *ColorMaskChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ColorMaskChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ColorMaskChunk *>(pRefAspect),
                   dynamic_cast<const ColorMaskChunk *>(this));
 
     return returnValue;

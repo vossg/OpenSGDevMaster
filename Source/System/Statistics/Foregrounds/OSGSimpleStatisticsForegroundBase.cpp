@@ -1262,11 +1262,13 @@ void SimpleStatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SimpleStatisticsForegroundBase::createAspectCopy(void) const
+FieldContainer *SimpleStatisticsForegroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SimpleStatisticsForeground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleStatisticsForeground *>(pRefAspect),
                   dynamic_cast<const SimpleStatisticsForeground *>(this));
 
     return returnValue;

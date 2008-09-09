@@ -844,11 +844,13 @@ void TextureBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TextureBackgroundBase::createAspectCopy(void) const
+FieldContainer *TextureBackgroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TextureBackground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TextureBackground *>(pRefAspect),
                   dynamic_cast<const TextureBackground *>(this));
 
     return returnValue;

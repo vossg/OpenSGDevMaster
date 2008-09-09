@@ -857,11 +857,13 @@ void DrawableStatsAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DrawableStatsAttachmentBase::createAspectCopy(void) const
+FieldContainer *DrawableStatsAttachmentBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DrawableStatsAttachment *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DrawableStatsAttachment *>(pRefAspect),
                   dynamic_cast<const DrawableStatsAttachment *>(this));
 
     return returnValue;

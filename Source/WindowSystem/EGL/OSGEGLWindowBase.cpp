@@ -522,11 +522,13 @@ void EGLWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *EGLWindowBase::createAspectCopy(void) const
+FieldContainer *EGLWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     EGLWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const EGLWindow *>(pRefAspect),
                   dynamic_cast<const EGLWindow *>(this));
 
     return returnValue;

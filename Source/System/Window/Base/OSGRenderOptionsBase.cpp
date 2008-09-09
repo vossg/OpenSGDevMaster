@@ -2321,11 +2321,13 @@ void RenderOptionsBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *RenderOptionsBase::createAspectCopy(void) const
+FieldContainer *RenderOptionsBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     RenderOptions *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const RenderOptions *>(pRefAspect),
                   dynamic_cast<const RenderOptions *>(this));
 
     return returnValue;

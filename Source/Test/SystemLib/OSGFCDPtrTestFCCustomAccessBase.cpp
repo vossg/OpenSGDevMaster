@@ -2488,11 +2488,13 @@ void FCDPtrTestFCCustomAccessBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *FCDPtrTestFCCustomAccessBase::createAspectCopy(void) const
+FieldContainer *FCDPtrTestFCCustomAccessBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     FCDPtrTestFCCustomAccess *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const FCDPtrTestFCCustomAccess *>(pRefAspect),
                   dynamic_cast<const FCDPtrTestFCCustomAccess *>(this));
 
     return returnValue;

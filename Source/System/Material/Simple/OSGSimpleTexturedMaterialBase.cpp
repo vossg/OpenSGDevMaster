@@ -749,11 +749,13 @@ void SimpleTexturedMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SimpleTexturedMaterialBase::createAspectCopy(void) const
+FieldContainer *SimpleTexturedMaterialBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SimpleTexturedMaterial *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleTexturedMaterial *>(pRefAspect),
                   dynamic_cast<const SimpleTexturedMaterial *>(this));
 
     return returnValue;

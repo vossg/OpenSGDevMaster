@@ -526,11 +526,13 @@ void LightModelChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *LightModelChunkBase::createAspectCopy(void) const
+FieldContainer *LightModelChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     LightModelChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const LightModelChunk *>(pRefAspect),
                   dynamic_cast<const LightModelChunk *>(this));
 
     return returnValue;

@@ -595,11 +595,13 @@ void PipelineComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PipelineComposerBase::createAspectCopy(void) const
+FieldContainer *PipelineComposerBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PipelineComposer *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PipelineComposer *>(pRefAspect),
                   dynamic_cast<const PipelineComposer *>(this));
 
     return returnValue;

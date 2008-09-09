@@ -372,11 +372,13 @@ void DirectionalLightBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DirectionalLightBase::createAspectCopy(void) const
+FieldContainer *DirectionalLightBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DirectionalLight *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DirectionalLight *>(pRefAspect),
                   dynamic_cast<const DirectionalLight *>(this));
 
     return returnValue;

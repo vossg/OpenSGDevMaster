@@ -540,11 +540,13 @@ void SpotLightBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SpotLightBase::createAspectCopy(void) const
+FieldContainer *SpotLightBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SpotLight *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SpotLight *>(pRefAspect),
                   dynamic_cast<const SpotLight *>(this));
 
     return returnValue;

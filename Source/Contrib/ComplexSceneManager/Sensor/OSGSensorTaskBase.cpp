@@ -433,11 +433,13 @@ void SensorTaskBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SensorTaskBase::createAspectCopy(void) const
+FieldContainer *SensorTaskBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SensorTask *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SensorTask *>(pRefAspect),
                   dynamic_cast<const SensorTask *>(this));
 
     return returnValue;

@@ -259,11 +259,13 @@ void ConnectorAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ConnectorAttachmentBase::createAspectCopy(void) const
+FieldContainer *ConnectorAttachmentBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ConnectorAttachment *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ConnectorAttachment *>(pRefAspect),
                   dynamic_cast<const ConnectorAttachment *>(this));
 
     return returnValue;

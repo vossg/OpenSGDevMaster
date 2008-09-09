@@ -1068,11 +1068,13 @@ void PolygonBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PolygonBackgroundBase::createAspectCopy(void) const
+FieldContainer *PolygonBackgroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PolygonBackground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PolygonBackground *>(pRefAspect),
                   dynamic_cast<const PolygonBackground *>(this));
 
     return returnValue;

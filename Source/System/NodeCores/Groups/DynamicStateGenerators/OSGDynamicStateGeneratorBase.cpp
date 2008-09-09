@@ -391,11 +391,13 @@ void DynamicStateGeneratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DynamicStateGeneratorBase::createAspectCopy(void) const
+FieldContainer *DynamicStateGeneratorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DynamicStateGenerator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DynamicStateGenerator *>(pRefAspect),
                   dynamic_cast<const DynamicStateGenerator *>(this));
 
     return returnValue;

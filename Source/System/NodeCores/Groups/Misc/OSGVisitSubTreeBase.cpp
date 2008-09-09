@@ -398,11 +398,13 @@ void VisitSubTreeBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *VisitSubTreeBase::createAspectCopy(void) const
+FieldContainer *VisitSubTreeBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     VisitSubTree *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const VisitSubTree *>(pRefAspect),
                   dynamic_cast<const VisitSubTree *>(this));
 
     return returnValue;

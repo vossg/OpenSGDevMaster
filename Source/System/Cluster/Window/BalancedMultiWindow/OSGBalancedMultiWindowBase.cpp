@@ -674,11 +674,13 @@ void BalancedMultiWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *BalancedMultiWindowBase::createAspectCopy(void) const
+FieldContainer *BalancedMultiWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     BalancedMultiWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const BalancedMultiWindow *>(pRefAspect),
                   dynamic_cast<const BalancedMultiWindow *>(this));
 
     return returnValue;

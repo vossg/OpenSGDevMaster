@@ -530,11 +530,13 @@ void ContainerCollectionBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ContainerCollectionBase::createAspectCopy(void) const
+FieldContainer *ContainerCollectionBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ContainerCollection *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ContainerCollection *>(pRefAspect),
                   dynamic_cast<const ContainerCollection *>(this));
 
     return returnValue;

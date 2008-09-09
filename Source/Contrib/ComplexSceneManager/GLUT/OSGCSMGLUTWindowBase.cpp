@@ -259,11 +259,13 @@ void CSMGLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMGLUTWindowBase::createAspectCopy(void) const
+FieldContainer *CSMGLUTWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMGLUTWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMGLUTWindow *>(pRefAspect),
                   dynamic_cast<const CSMGLUTWindow *>(this));
 
     return returnValue;

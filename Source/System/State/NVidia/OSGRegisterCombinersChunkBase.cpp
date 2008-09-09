@@ -2681,11 +2681,13 @@ void RegisterCombinersChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *RegisterCombinersChunkBase::createAspectCopy(void) const
+FieldContainer *RegisterCombinersChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     RegisterCombinersChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const RegisterCombinersChunk *>(pRefAspect),
                   dynamic_cast<const RegisterCombinersChunk *>(this));
 
     return returnValue;

@@ -1427,11 +1427,13 @@ void TexGenChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TexGenChunkBase::createAspectCopy(void) const
+FieldContainer *TexGenChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TexGenChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TexGenChunk *>(pRefAspect),
                   dynamic_cast<const TexGenChunk *>(this));
 
     return returnValue;

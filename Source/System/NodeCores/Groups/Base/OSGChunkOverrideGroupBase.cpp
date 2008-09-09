@@ -395,11 +395,13 @@ void ChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ChunkOverrideGroupBase::createAspectCopy(void) const
+FieldContainer *ChunkOverrideGroupBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ChunkOverrideGroup *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ChunkOverrideGroup *>(pRefAspect),
                   dynamic_cast<const ChunkOverrideGroup *>(this));
 
     return returnValue;

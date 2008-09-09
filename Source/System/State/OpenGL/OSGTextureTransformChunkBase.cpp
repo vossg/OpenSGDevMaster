@@ -387,11 +387,13 @@ void TextureTransformChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TextureTransformChunkBase::createAspectCopy(void) const
+FieldContainer *TextureTransformChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TextureTransformChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TextureTransformChunk *>(pRefAspect),
                   dynamic_cast<const TextureTransformChunk *>(this));
 
     return returnValue;

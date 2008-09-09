@@ -713,11 +713,13 @@ void FCDTestFCBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *FCDTestFCBase::createAspectCopy(void) const
+FieldContainer *FCDTestFCBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     FCDTestFC *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const FCDTestFC *>(pRefAspect),
                   dynamic_cast<const FCDTestFC *>(this));
 
     return returnValue;

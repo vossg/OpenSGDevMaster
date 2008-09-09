@@ -937,11 +937,13 @@ void CSMTrackballBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMTrackballBase::createAspectCopy(void) const
+FieldContainer *CSMTrackballBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMTrackball *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMTrackball *>(pRefAspect),
                   dynamic_cast<const CSMTrackball *>(this));
 
     return returnValue;

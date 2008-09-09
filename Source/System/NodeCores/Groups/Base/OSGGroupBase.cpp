@@ -291,11 +291,13 @@ void GroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *GroupBase::createAspectCopy(void) const
+FieldContainer *GroupBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Group *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Group *>(pRefAspect),
                   dynamic_cast<const Group *>(this));
 
     return returnValue;

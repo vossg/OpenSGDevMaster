@@ -674,11 +674,13 @@ void MultiDisplayWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MultiDisplayWindowBase::createAspectCopy(void) const
+FieldContainer *MultiDisplayWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MultiDisplayWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MultiDisplayWindow *>(pRefAspect),
                   dynamic_cast<const MultiDisplayWindow *>(this));
 
     return returnValue;

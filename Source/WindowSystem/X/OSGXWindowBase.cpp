@@ -522,11 +522,13 @@ void XWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *XWindowBase::createAspectCopy(void) const
+FieldContainer *XWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     XWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const XWindow *>(pRefAspect),
                   dynamic_cast<const XWindow *>(this));
 
     return returnValue;

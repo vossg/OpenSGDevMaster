@@ -550,11 +550,13 @@ void DistanceLODBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DistanceLODBase::createAspectCopy(void) const
+FieldContainer *DistanceLODBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DistanceLOD *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DistanceLOD *>(pRefAspect),
                   dynamic_cast<const DistanceLOD *>(this));
 
     return returnValue;

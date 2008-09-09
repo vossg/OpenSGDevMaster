@@ -1175,11 +1175,13 @@ void LightChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *LightChunkBase::createAspectCopy(void) const
+FieldContainer *LightChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     LightChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const LightChunk *>(pRefAspect),
                   dynamic_cast<const LightChunk *>(this));
 
     return returnValue;

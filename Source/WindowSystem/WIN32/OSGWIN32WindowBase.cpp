@@ -522,11 +522,13 @@ void WIN32WindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *WIN32WindowBase::createAspectCopy(void) const
+FieldContainer *WIN32WindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     WIN32Window *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const WIN32Window *>(pRefAspect),
                   dynamic_cast<const WIN32Window *>(this));
 
     return returnValue;

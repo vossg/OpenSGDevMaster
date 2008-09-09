@@ -1221,11 +1221,13 @@ void ProxyGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ProxyGroupBase::createAspectCopy(void) const
+FieldContainer *ProxyGroupBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ProxyGroup *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ProxyGroup *>(pRefAspect),
                   dynamic_cast<const ProxyGroup *>(this));
 
     return returnValue;

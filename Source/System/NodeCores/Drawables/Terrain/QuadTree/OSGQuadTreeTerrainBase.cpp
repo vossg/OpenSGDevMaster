@@ -2133,11 +2133,13 @@ void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *QuadTreeTerrainBase::createAspectCopy(void) const
+FieldContainer *QuadTreeTerrainBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     QuadTreeTerrain *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const QuadTreeTerrain *>(pRefAspect),
                   dynamic_cast<const QuadTreeTerrain *>(this));
 
     return returnValue;

@@ -842,11 +842,13 @@ void SHLChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SHLChunkBase::createAspectCopy(void) const
+FieldContainer *SHLChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SHLChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SHLChunk *>(pRefAspect),
                   dynamic_cast<const SHLChunk *>(this));
 
     return returnValue;

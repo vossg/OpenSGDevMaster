@@ -625,11 +625,13 @@ void TextureGrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TextureGrabForegroundBase::createAspectCopy(void) const
+FieldContainer *TextureGrabForegroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TextureGrabForeground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TextureGrabForeground *>(pRefAspect),
                   dynamic_cast<const TextureGrabForeground *>(this));
 
     return returnValue;

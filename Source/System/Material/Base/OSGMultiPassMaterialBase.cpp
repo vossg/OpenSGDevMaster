@@ -464,11 +464,13 @@ void MultiPassMaterialBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MultiPassMaterialBase::createAspectCopy(void) const
+FieldContainer *MultiPassMaterialBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MultiPassMaterial *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MultiPassMaterial *>(pRefAspect),
                   dynamic_cast<const MultiPassMaterial *>(this));
 
     return returnValue;

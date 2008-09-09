@@ -261,7 +261,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

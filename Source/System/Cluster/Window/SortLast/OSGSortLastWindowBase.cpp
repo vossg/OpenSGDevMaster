@@ -605,11 +605,13 @@ void SortLastWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SortLastWindowBase::createAspectCopy(void) const
+FieldContainer *SortLastWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SortLastWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SortLastWindow *>(pRefAspect),
                   dynamic_cast<const SortLastWindow *>(this));
 
     return returnValue;

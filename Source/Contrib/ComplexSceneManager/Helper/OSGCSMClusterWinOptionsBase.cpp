@@ -408,11 +408,13 @@ void CSMClusterWinOptionsBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMClusterWinOptionsBase::createAspectCopy(void) const
+FieldContainer *CSMClusterWinOptionsBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMClusterWinOptions *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMClusterWinOptions *>(pRefAspect),
                   dynamic_cast<const CSMClusterWinOptions *>(this));
 
     return returnValue;

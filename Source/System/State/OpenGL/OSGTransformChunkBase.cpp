@@ -379,11 +379,13 @@ void TransformChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TransformChunkBase::createAspectCopy(void) const
+FieldContainer *TransformChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TransformChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TransformChunk *>(pRefAspect),
                   dynamic_cast<const TransformChunk *>(this));
 
     return returnValue;

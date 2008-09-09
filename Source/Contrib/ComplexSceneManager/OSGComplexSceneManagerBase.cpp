@@ -1276,11 +1276,13 @@ void ComplexSceneManagerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ComplexSceneManagerBase::createAspectCopy(void) const
+FieldContainer *ComplexSceneManagerBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ComplexSceneManager *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ComplexSceneManager *>(pRefAspect),
                   dynamic_cast<const ComplexSceneManager *>(this));
 
     return returnValue;

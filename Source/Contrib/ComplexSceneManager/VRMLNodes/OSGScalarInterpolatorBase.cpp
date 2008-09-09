@@ -602,11 +602,13 @@ void ScalarInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ScalarInterpolatorBase::createAspectCopy(void) const
+FieldContainer *ScalarInterpolatorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ScalarInterpolator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ScalarInterpolator *>(pRefAspect),
                   dynamic_cast<const ScalarInterpolator *>(this));
 
     return returnValue;

@@ -284,11 +284,13 @@ void TwoSidedLightingChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TwoSidedLightingChunkBase::createAspectCopy(void) const
+FieldContainer *TwoSidedLightingChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TwoSidedLightingChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TwoSidedLightingChunk *>(pRefAspect),
                   dynamic_cast<const TwoSidedLightingChunk *>(this));
 
     return returnValue;

@@ -535,11 +535,13 @@ void MatrixCameraBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MatrixCameraBase::createAspectCopy(void) const
+FieldContainer *MatrixCameraBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MatrixCamera *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MatrixCamera *>(pRefAspect),
                   dynamic_cast<const MatrixCamera *>(this));
 
     return returnValue;

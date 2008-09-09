@@ -455,11 +455,13 @@ void MultiSwitchBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MultiSwitchBase::createAspectCopy(void) const
+FieldContainer *MultiSwitchBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MultiSwitch *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MultiSwitch *>(pRefAspect),
                   dynamic_cast<const MultiSwitch *>(this));
 
     return returnValue;

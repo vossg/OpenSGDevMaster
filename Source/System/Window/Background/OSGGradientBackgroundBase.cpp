@@ -466,11 +466,13 @@ void GradientBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *GradientBackgroundBase::createAspectCopy(void) const
+FieldContainer *GradientBackgroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     GradientBackground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const GradientBackground *>(pRefAspect),
                   dynamic_cast<const GradientBackground *>(this));
 
     return returnValue;

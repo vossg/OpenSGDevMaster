@@ -526,11 +526,13 @@ void CounterBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CounterBase::createAspectCopy(void) const
+FieldContainer *CounterBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Counter *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Counter *>(pRefAspect),
                   dynamic_cast<const Counter *>(this));
 
     return returnValue;

@@ -611,11 +611,13 @@ void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *AlgorithmStageBase::createAspectCopy(void) const
+FieldContainer *AlgorithmStageBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     AlgorithmStage *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const AlgorithmStage *>(pRefAspect),
                   dynamic_cast<const AlgorithmStage *>(this));
 
     return returnValue;

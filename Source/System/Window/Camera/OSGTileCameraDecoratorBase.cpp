@@ -774,11 +774,13 @@ void TileCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TileCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *TileCameraDecoratorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TileCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TileCameraDecorator *>(pRefAspect),
                   dynamic_cast<const TileCameraDecorator *>(this));
 
     return returnValue;

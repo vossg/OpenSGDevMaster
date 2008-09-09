@@ -285,11 +285,13 @@ void InverseTransformBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *InverseTransformBase::createAspectCopy(void) const
+FieldContainer *InverseTransformBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     InverseTransform *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const InverseTransform *>(pRefAspect),
                   dynamic_cast<const InverseTransform *>(this));
 
     return returnValue;

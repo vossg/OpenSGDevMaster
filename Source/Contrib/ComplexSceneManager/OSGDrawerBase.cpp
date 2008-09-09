@@ -625,11 +625,13 @@ void DrawerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DrawerBase::createAspectCopy(void) const
+FieldContainer *DrawerBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Drawer *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Drawer *>(pRefAspect),
                   dynamic_cast<const Drawer *>(this));
 
     return returnValue;

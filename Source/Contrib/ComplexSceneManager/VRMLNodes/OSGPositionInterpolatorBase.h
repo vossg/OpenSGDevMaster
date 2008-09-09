@@ -300,7 +300,8 @@ class OSG_CONTRIBCSM_DLLMAPPING PositionInterpolatorBase : public NodeCore
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

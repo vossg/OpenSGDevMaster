@@ -284,11 +284,13 @@ void SepiaComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SepiaComposerBase::createAspectCopy(void) const
+FieldContainer *SepiaComposerBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SepiaComposer *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SepiaComposer *>(pRefAspect),
                   dynamic_cast<const SepiaComposer *>(this));
 
     return returnValue;

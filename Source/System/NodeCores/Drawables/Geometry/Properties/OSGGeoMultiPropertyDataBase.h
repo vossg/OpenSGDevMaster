@@ -271,7 +271,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

@@ -370,11 +370,13 @@ void ShaderParameterPnt2fBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ShaderParameterPnt2fBase::createAspectCopy(void) const
+FieldContainer *ShaderParameterPnt2fBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ShaderParameterPnt2f *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ShaderParameterPnt2f *>(pRefAspect),
                   dynamic_cast<const ShaderParameterPnt2f *>(this));
 
     return returnValue;

@@ -284,11 +284,13 @@ void PassiveViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PassiveViewportBase::createAspectCopy(void) const
+FieldContainer *PassiveViewportBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PassiveViewport *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PassiveViewport *>(pRefAspect),
                   dynamic_cast<const PassiveViewport *>(this));
 
     return returnValue;

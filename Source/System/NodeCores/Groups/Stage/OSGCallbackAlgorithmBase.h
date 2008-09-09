@@ -232,7 +232,8 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

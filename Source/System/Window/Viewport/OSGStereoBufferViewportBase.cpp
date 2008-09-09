@@ -465,11 +465,13 @@ void StereoBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *StereoBufferViewportBase::createAspectCopy(void) const
+FieldContainer *StereoBufferViewportBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     StereoBufferViewport *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const StereoBufferViewport *>(pRefAspect),
                   dynamic_cast<const StereoBufferViewport *>(this));
 
     return returnValue;

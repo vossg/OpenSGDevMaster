@@ -394,11 +394,13 @@ void MaterialGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MaterialGroupBase::createAspectCopy(void) const
+FieldContainer *MaterialGroupBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MaterialGroup *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MaterialGroup *>(pRefAspect),
                   dynamic_cast<const MaterialGroup *>(this));
 
     return returnValue;

@@ -391,11 +391,13 @@ void ScreenLODBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ScreenLODBase::createAspectCopy(void) const
+FieldContainer *ScreenLODBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ScreenLOD *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ScreenLOD *>(pRefAspect),
                   dynamic_cast<const ScreenLOD *>(this));
 
     return returnValue;

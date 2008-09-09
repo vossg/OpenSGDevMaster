@@ -381,11 +381,13 @@ void PointLightBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PointLightBase::createAspectCopy(void) const
+FieldContainer *PointLightBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PointLight *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PointLight *>(pRefAspect),
                   dynamic_cast<const PointLight *>(this));
 
     return returnValue;

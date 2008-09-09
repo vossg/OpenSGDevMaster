@@ -1492,11 +1492,13 @@ void ParticlesBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ParticlesBase::createAspectCopy(void) const
+FieldContainer *ParticlesBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Particles *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Particles *>(pRefAspect),
                   dynamic_cast<const Particles *>(this));
 
     return returnValue;

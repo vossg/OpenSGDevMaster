@@ -450,11 +450,13 @@ void StringAttributeMapBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *StringAttributeMapBase::createAspectCopy(void) const
+FieldContainer *StringAttributeMapBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     StringAttributeMap *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const StringAttributeMap *>(pRefAspect),
                   dynamic_cast<const StringAttributeMap *>(this));
 
     return returnValue;

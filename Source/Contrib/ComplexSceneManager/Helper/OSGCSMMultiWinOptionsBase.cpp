@@ -719,11 +719,13 @@ void CSMMultiWinOptionsBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMMultiWinOptionsBase::createAspectCopy(void) const
+FieldContainer *CSMMultiWinOptionsBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMMultiWinOptions *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMMultiWinOptions *>(pRefAspect),
                   dynamic_cast<const CSMMultiWinOptions *>(this));
 
     return returnValue;

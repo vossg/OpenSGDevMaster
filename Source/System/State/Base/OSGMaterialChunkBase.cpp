@@ -1371,11 +1371,13 @@ void MaterialChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MaterialChunkBase::createAspectCopy(void) const
+FieldContainer *MaterialChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MaterialChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MaterialChunk *>(pRefAspect),
                   dynamic_cast<const MaterialChunk *>(this));
 
     return returnValue;

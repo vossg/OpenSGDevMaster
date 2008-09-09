@@ -508,11 +508,13 @@ void MultiCoreBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MultiCoreBase::createAspectCopy(void) const
+FieldContainer *MultiCoreBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MultiCore *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MultiCore *>(pRefAspect),
                   dynamic_cast<const MultiCore *>(this));
 
     return returnValue;

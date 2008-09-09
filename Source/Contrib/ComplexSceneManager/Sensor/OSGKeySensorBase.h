@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGNodeCore.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGStringFields.h" // Key type
 #include "OSGBoolFields.h" // StateRaw type
@@ -79,12 +79,12 @@ class KeySensor;
 
 //! \brief KeySensor Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING KeySensorBase : public NodeCore
+class OSG_CONTRIBCSM_DLLMAPPING KeySensorBase : public AttachmentContainer
 {
   public:
 
-    typedef NodeCore Inherited;
-    typedef NodeCore ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -335,7 +335,8 @@ class OSG_CONTRIBCSM_DLLMAPPING KeySensorBase : public NodeCore
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

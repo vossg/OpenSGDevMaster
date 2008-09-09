@@ -1160,11 +1160,13 @@ void GeometryBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *GeometryBase::createAspectCopy(void) const
+FieldContainer *GeometryBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Geometry *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Geometry *>(pRefAspect),
                   dynamic_cast<const Geometry *>(this));
 
     return returnValue;

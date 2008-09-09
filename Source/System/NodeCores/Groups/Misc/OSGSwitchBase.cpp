@@ -374,11 +374,13 @@ void SwitchBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SwitchBase::createAspectCopy(void) const
+FieldContainer *SwitchBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Switch *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Switch *>(pRefAspect),
                   dynamic_cast<const Switch *>(this));
 
     return returnValue;

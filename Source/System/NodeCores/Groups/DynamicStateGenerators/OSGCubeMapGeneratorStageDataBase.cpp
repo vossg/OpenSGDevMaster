@@ -442,11 +442,13 @@ void CubeMapGeneratorStageDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CubeMapGeneratorStageDataBase::createAspectCopy(void) const
+FieldContainer *CubeMapGeneratorStageDataBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CubeMapGeneratorStageData *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CubeMapGeneratorStageData *>(pRefAspect),
                   dynamic_cast<const CubeMapGeneratorStageData *>(this));
 
     return returnValue;

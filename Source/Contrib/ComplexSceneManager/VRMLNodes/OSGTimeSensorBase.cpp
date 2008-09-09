@@ -982,11 +982,13 @@ void TimeSensorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TimeSensorBase::createAspectCopy(void) const
+FieldContainer *TimeSensorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TimeSensor *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TimeSensor *>(pRefAspect),
                   dynamic_cast<const TimeSensor *>(this));
 
     return returnValue;

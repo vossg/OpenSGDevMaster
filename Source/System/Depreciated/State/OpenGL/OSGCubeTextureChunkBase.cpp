@@ -742,11 +742,13 @@ void CubeTextureChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CubeTextureChunkBase::createAspectCopy(void) const
+FieldContainer *CubeTextureChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CubeTextureChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CubeTextureChunk *>(pRefAspect),
                   dynamic_cast<const CubeTextureChunk *>(this));
 
     return returnValue;

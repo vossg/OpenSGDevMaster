@@ -602,11 +602,13 @@ void CoordinateInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CoordinateInterpolatorBase::createAspectCopy(void) const
+FieldContainer *CoordinateInterpolatorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CoordinateInterpolator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CoordinateInterpolator *>(pRefAspect),
                   dynamic_cast<const CoordinateInterpolator *>(this));
 
     return returnValue;

@@ -287,11 +287,13 @@ void PassiveBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PassiveBackgroundBase::createAspectCopy(void) const
+FieldContainer *PassiveBackgroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PassiveBackground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PassiveBackground *>(pRefAspect),
                   dynamic_cast<const PassiveBackground *>(this));
 
     return returnValue;

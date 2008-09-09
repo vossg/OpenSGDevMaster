@@ -905,11 +905,13 @@ void SimpleStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SimpleStageBase::createAspectCopy(void) const
+FieldContainer *SimpleStageBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SimpleStage *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleStage *>(pRefAspect),
                   dynamic_cast<const SimpleStage *>(this));
 
     return returnValue;

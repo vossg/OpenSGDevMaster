@@ -371,11 +371,13 @@ void TestStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TestStageBase::createAspectCopy(void) const
+FieldContainer *TestStageBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TestStage *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TestStage *>(pRefAspect),
                   dynamic_cast<const TestStage *>(this));
 
     return returnValue;

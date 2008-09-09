@@ -444,11 +444,13 @@ void DynamicStateGeneratorStageDataBase::execSyncV(      FieldContainer    &oFro
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DynamicStateGeneratorStageDataBase::createAspectCopy(void) const
+FieldContainer *DynamicStateGeneratorStageDataBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DynamicStateGeneratorStageData *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DynamicStateGeneratorStageData *>(pRefAspect),
                   dynamic_cast<const DynamicStateGeneratorStageData *>(this));
 
     return returnValue;

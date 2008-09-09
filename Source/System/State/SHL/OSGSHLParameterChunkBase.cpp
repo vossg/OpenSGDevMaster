@@ -385,11 +385,13 @@ void SHLParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SHLParameterChunkBase::createAspectCopy(void) const
+FieldContainer *SHLParameterChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SHLParameterChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SHLParameterChunk *>(pRefAspect),
                   dynamic_cast<const SHLParameterChunk *>(this));
 
     return returnValue;

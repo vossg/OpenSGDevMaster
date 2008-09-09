@@ -285,11 +285,13 @@ void LightEnvBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *LightEnvBase::createAspectCopy(void) const
+FieldContainer *LightEnvBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     LightEnv *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const LightEnv *>(pRefAspect),
                   dynamic_cast<const LightEnv *>(this));
 
     return returnValue;

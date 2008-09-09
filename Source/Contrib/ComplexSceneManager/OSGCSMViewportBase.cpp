@@ -827,11 +827,13 @@ void CSMViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMViewportBase::createAspectCopy(void) const
+FieldContainer *CSMViewportBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMViewport *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMViewport *>(pRefAspect),
                   dynamic_cast<const CSMViewport *>(this));
 
     return returnValue;

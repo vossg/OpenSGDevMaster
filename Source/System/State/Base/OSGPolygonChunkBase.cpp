@@ -1190,11 +1190,13 @@ void PolygonChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PolygonChunkBase::createAspectCopy(void) const
+FieldContainer *PolygonChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PolygonChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PolygonChunk *>(pRefAspect),
                   dynamic_cast<const PolygonChunk *>(this));
 
     return returnValue;

@@ -391,11 +391,13 @@ void FBOViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *FBOViewportBase::createAspectCopy(void) const
+FieldContainer *FBOViewportBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     FBOViewport *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const FBOViewport *>(pRefAspect),
                   dynamic_cast<const FBOViewport *>(this));
 
     return returnValue;

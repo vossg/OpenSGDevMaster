@@ -520,11 +520,13 @@ void BinarySwapComposerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *BinarySwapComposerBase::createAspectCopy(void) const
+FieldContainer *BinarySwapComposerBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     BinarySwapComposer *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const BinarySwapComposer *>(pRefAspect),
                   dynamic_cast<const BinarySwapComposer *>(this));
 
     return returnValue;

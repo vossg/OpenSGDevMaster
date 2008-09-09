@@ -443,11 +443,13 @@ void OrthographicCameraBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *OrthographicCameraBase::createAspectCopy(void) const
+FieldContainer *OrthographicCameraBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     OrthographicCamera *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const OrthographicCamera *>(pRefAspect),
                   dynamic_cast<const OrthographicCamera *>(this));
 
     return returnValue;

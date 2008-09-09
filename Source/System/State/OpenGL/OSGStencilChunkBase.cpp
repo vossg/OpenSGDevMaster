@@ -930,11 +930,13 @@ void StencilChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *StencilChunkBase::createAspectCopy(void) const
+FieldContainer *StencilChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     StencilChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const StencilChunk *>(pRefAspect),
                   dynamic_cast<const StencilChunk *>(this));
 
     return returnValue;

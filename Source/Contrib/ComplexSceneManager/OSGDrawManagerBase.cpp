@@ -656,11 +656,13 @@ void DrawManagerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DrawManagerBase::createAspectCopy(void) const
+FieldContainer *DrawManagerBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DrawManager *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DrawManager *>(pRefAspect),
                   dynamic_cast<const DrawManager *>(this));
 
     return returnValue;

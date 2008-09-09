@@ -298,11 +298,13 @@ void FragmentProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *FragmentProgramChunkBase::createAspectCopy(void) const
+FieldContainer *FragmentProgramChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     FragmentProgramChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const FragmentProgramChunk *>(pRefAspect),
                   dynamic_cast<const FragmentProgramChunk *>(this));
 
     return returnValue;

@@ -446,11 +446,13 @@ void GeoMultiPropertyDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *GeoMultiPropertyDataBase::createAspectCopy(void) const
+FieldContainer *GeoMultiPropertyDataBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     GeoMultiPropertyData *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const GeoMultiPropertyData *>(pRefAspect),
                   dynamic_cast<const GeoMultiPropertyData *>(this));
 
     return returnValue;

@@ -471,11 +471,13 @@ void GrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *GrabForegroundBase::createAspectCopy(void) const
+FieldContainer *GrabForegroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     GrabForeground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const GrabForeground *>(pRefAspect),
                   dynamic_cast<const GrabForeground *>(this));
 
     return returnValue;

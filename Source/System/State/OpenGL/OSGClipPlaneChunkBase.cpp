@@ -565,11 +565,13 @@ void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ClipPlaneChunkBase::createAspectCopy(void) const
+FieldContainer *ClipPlaneChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ClipPlaneChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ClipPlaneChunk *>(pRefAspect),
                   dynamic_cast<const ClipPlaneChunk *>(this));
 
     return returnValue;

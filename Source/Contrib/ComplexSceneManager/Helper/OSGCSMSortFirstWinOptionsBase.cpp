@@ -571,11 +571,13 @@ void CSMSortFirstWinOptionsBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMSortFirstWinOptionsBase::createAspectCopy(void) const
+FieldContainer *CSMSortFirstWinOptionsBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMSortFirstWinOptions *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMSortFirstWinOptions *>(pRefAspect),
                   dynamic_cast<const CSMSortFirstWinOptions *>(this));
 
     return returnValue;

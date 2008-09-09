@@ -456,11 +456,13 @@ void ShearedStereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ShearedStereoCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *ShearedStereoCameraDecoratorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ShearedStereoCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ShearedStereoCameraDecorator *>(pRefAspect),
                   dynamic_cast<const ShearedStereoCameraDecorator *>(this));
 
     return returnValue;

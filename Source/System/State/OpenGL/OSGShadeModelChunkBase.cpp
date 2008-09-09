@@ -375,11 +375,13 @@ void ShadeModelChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ShadeModelChunkBase::createAspectCopy(void) const
+FieldContainer *ShadeModelChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ShadeModelChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ShadeModelChunk *>(pRefAspect),
                   dynamic_cast<const ShadeModelChunk *>(this));
 
     return returnValue;

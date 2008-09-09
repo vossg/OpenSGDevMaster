@@ -602,11 +602,13 @@ void OrientationInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *OrientationInterpolatorBase::createAspectCopy(void) const
+FieldContainer *OrientationInterpolatorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     OrientationInterpolator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const OrientationInterpolator *>(pRefAspect),
                   dynamic_cast<const OrientationInterpolator *>(this));
 
     return returnValue;

@@ -1760,11 +1760,13 @@ void VTKPolyDataMapperBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *VTKPolyDataMapperBase::createAspectCopy(void) const
+FieldContainer *VTKPolyDataMapperBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     VTKPolyDataMapper *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const VTKPolyDataMapper *>(pRefAspect),
                   dynamic_cast<const VTKPolyDataMapper *>(this));
 
     return returnValue;

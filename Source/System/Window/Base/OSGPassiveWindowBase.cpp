@@ -289,11 +289,13 @@ void PassiveWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PassiveWindowBase::createAspectCopy(void) const
+FieldContainer *PassiveWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PassiveWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PassiveWindow *>(pRefAspect),
                   dynamic_cast<const PassiveWindow *>(this));
 
     return returnValue;

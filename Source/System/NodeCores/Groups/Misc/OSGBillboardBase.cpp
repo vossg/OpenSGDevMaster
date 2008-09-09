@@ -669,11 +669,13 @@ void BillboardBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *BillboardBase::createAspectCopy(void) const
+FieldContainer *BillboardBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Billboard *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Billboard *>(pRefAspect),
                   dynamic_cast<const Billboard *>(this));
 
     return returnValue;

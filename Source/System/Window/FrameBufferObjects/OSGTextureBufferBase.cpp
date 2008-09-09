@@ -622,11 +622,13 @@ void TextureBufferBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TextureBufferBase::createAspectCopy(void) const
+FieldContainer *TextureBufferBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TextureBuffer *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TextureBuffer *>(pRefAspect),
                   dynamic_cast<const TextureBuffer *>(this));
 
     return returnValue;

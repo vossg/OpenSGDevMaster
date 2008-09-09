@@ -259,11 +259,13 @@ void CSMNativeWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMNativeWindowBase::createAspectCopy(void) const
+FieldContainer *CSMNativeWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CSMNativeWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CSMNativeWindow *>(pRefAspect),
                   dynamic_cast<const CSMNativeWindow *>(this));
 
     return returnValue;

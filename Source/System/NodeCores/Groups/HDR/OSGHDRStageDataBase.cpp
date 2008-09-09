@@ -1024,11 +1024,13 @@ void HDRStageDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *HDRStageDataBase::createAspectCopy(void) const
+FieldContainer *HDRStageDataBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     HDRStageData *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const HDRStageData *>(pRefAspect),
                   dynamic_cast<const HDRStageData *>(this));
 
     return returnValue;

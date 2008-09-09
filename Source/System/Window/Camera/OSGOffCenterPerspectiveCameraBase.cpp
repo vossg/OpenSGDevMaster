@@ -369,11 +369,13 @@ void OffCenterPerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *OffCenterPerspectiveCameraBase::createAspectCopy(void) const
+FieldContainer *OffCenterPerspectiveCameraBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     OffCenterPerspectiveCamera *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const OffCenterPerspectiveCamera *>(pRefAspect),
                   dynamic_cast<const OffCenterPerspectiveCamera *>(this));
 
     return returnValue;

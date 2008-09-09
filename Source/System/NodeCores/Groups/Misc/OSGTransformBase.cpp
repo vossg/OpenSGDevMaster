@@ -372,11 +372,13 @@ void TransformBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TransformBase::createAspectCopy(void) const
+FieldContainer *TransformBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Transform *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Transform *>(pRefAspect),
                   dynamic_cast<const Transform *>(this));
 
     return returnValue;

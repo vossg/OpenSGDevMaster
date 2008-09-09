@@ -3512,11 +3512,13 @@ void FCDPtrTestFCNullCheckAccessBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *FCDPtrTestFCNullCheckAccessBase::createAspectCopy(void) const
+FieldContainer *FCDPtrTestFCNullCheckAccessBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     FCDPtrTestFCNullCheckAccess *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const FCDPtrTestFCNullCheckAccess *>(pRefAspect),
                   dynamic_cast<const FCDPtrTestFCNullCheckAccess *>(this));
 
     return returnValue;

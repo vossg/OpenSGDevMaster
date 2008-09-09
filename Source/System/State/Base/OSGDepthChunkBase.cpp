@@ -693,11 +693,13 @@ void DepthChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DepthChunkBase::createAspectCopy(void) const
+FieldContainer *DepthChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DepthChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DepthChunk *>(pRefAspect),
                   dynamic_cast<const DepthChunk *>(this));
 
     return returnValue;

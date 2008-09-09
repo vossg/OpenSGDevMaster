@@ -1093,11 +1093,13 @@ void PointChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *PointChunkBase::createAspectCopy(void) const
+FieldContainer *PointChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     PointChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const PointChunk *>(pRefAspect),
                   dynamic_cast<const PointChunk *>(this));
 
     return returnValue;

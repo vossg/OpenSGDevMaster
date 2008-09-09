@@ -256,7 +256,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMVec4fBase : public ShaderParameter
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */

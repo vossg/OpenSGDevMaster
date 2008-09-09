@@ -630,11 +630,13 @@ void LineChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *LineChunkBase::createAspectCopy(void) const
+FieldContainer *LineChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     LineChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const LineChunk *>(pRefAspect),
                   dynamic_cast<const LineChunk *>(this));
 
     return returnValue;

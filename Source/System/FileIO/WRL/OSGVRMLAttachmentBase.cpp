@@ -368,11 +368,13 @@ void VRMLAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *VRMLAttachmentBase::createAspectCopy(void) const
+FieldContainer *VRMLAttachmentBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     VRMLAttachment *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const VRMLAttachment *>(pRefAspect),
                   dynamic_cast<const VRMLAttachment *>(this));
 
     return returnValue;

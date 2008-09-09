@@ -617,11 +617,13 @@ void ColorBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ColorBufferViewportBase::createAspectCopy(void) const
+FieldContainer *ColorBufferViewportBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ColorBufferViewport *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ColorBufferViewport *>(pRefAspect),
                   dynamic_cast<const ColorBufferViewport *>(this));
 
     return returnValue;

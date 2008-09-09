@@ -370,11 +370,13 @@ void CarbonWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CarbonWindowBase::createAspectCopy(void) const
+FieldContainer *CarbonWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CarbonWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CarbonWindow *>(pRefAspect),
                   dynamic_cast<const CarbonWindow *>(this));
 
     return returnValue;

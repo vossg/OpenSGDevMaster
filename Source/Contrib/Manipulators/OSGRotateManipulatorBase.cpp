@@ -285,11 +285,13 @@ void RotateManipulatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *RotateManipulatorBase::createAspectCopy(void) const
+FieldContainer *RotateManipulatorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     RotateManipulator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const RotateManipulator *>(pRefAspect),
                   dynamic_cast<const RotateManipulator *>(this));
 
     return returnValue;

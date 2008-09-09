@@ -932,11 +932,13 @@ void FrameBufferObjectBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *FrameBufferObjectBase::createAspectCopy(void) const
+FieldContainer *FrameBufferObjectBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     FrameBufferObject *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const FrameBufferObject *>(pRefAspect),
                   dynamic_cast<const FrameBufferObject *>(this));
 
     return returnValue;

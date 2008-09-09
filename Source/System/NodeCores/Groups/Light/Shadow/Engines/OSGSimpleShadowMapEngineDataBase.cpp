@@ -847,11 +847,13 @@ void SimpleShadowMapEngineDataBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SimpleShadowMapEngineDataBase::createAspectCopy(void) const
+FieldContainer *SimpleShadowMapEngineDataBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SimpleShadowMapEngineData *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleShadowMapEngineData *>(pRefAspect),
                   dynamic_cast<const SimpleShadowMapEngineData *>(this));
 
     return returnValue;

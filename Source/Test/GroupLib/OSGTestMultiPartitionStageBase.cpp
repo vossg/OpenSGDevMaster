@@ -594,11 +594,13 @@ void TestMultiPartitionStageBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TestMultiPartitionStageBase::createAspectCopy(void) const
+FieldContainer *TestMultiPartitionStageBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TestMultiPartitionStage *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TestMultiPartitionStage *>(pRefAspect),
                   dynamic_cast<const TestMultiPartitionStage *>(this));
 
     return returnValue;

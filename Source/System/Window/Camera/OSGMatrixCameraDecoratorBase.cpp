@@ -792,11 +792,13 @@ void MatrixCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *MatrixCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *MatrixCameraDecoratorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     MatrixCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const MatrixCameraDecorator *>(pRefAspect),
                   dynamic_cast<const MatrixCameraDecorator *>(this));
 
     return returnValue;

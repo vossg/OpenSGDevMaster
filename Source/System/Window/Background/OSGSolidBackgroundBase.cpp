@@ -459,11 +459,13 @@ void SolidBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SolidBackgroundBase::createAspectCopy(void) const
+FieldContainer *SolidBackgroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SolidBackground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SolidBackground *>(pRefAspect),
                   dynamic_cast<const SolidBackground *>(this));
 
     return returnValue;

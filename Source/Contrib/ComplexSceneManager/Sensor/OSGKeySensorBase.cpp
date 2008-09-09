@@ -185,7 +185,7 @@ KeySensorBase::TypeObject KeySensorBase::_type(
     "\n"
     "<FieldContainer\n"
     "    name=\"KeySensor\"\n"
-    "    parent=\"NodeCore\"\n"
+    "    parent=\"AttachmentContainer\"\n"
     "    library=\"ContribCSM\"\n"
     "    pointerfieldtypes=\"none\"\n"
     "    structure=\"concrete\"\n"
@@ -194,7 +194,7 @@ KeySensorBase::TypeObject KeySensorBase::_type(
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
-    "    isBundle=\"false\"\n"
+    "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
     ">\n"
     "\t<Field\n"
@@ -441,17 +441,7 @@ KeySensorTransitPtr KeySensorBase::createLocal(BitVector bFlags)
 //! create a new instance of the class
 KeySensorTransitPtr KeySensorBase::create(void)
 {
-    KeySensorTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<KeySensor>(tmpPtr);
-    }
-
-    return fc;
+    return createLocal();
 }
 
 KeySensor *KeySensorBase::createEmptyLocal(BitVector bFlags)
@@ -468,14 +458,7 @@ KeySensor *KeySensorBase::createEmptyLocal(BitVector bFlags)
 //! create an empty new instance of the class, do not copy the prototype
 KeySensor *KeySensorBase::createEmpty(void)
 {
-    KeySensor *returnValue;
-
-    newPtr<KeySensor>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &=
-        ~Thread::getCurrentLocalFlags();
-
-    return returnValue;
+    return createEmptyLocal();
 }
 
 
@@ -495,17 +478,7 @@ FieldContainerTransitPtr KeySensorBase::shallowCopyLocal(
 
 FieldContainerTransitPtr KeySensorBase::shallowCopy(void) const
 {
-    KeySensor *tmpPtr;
-
-    newPtr(tmpPtr,
-           dynamic_cast<const KeySensor *>(this),
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return shallowCopyLocal();
 }
 
 
@@ -676,11 +649,13 @@ void KeySensorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *KeySensorBase::createAspectCopy(void) const
+FieldContainer *KeySensorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     KeySensor *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const KeySensor *>(pRefAspect),
                   dynamic_cast<const KeySensor *>(this));
 
     return returnValue;
@@ -696,7 +671,7 @@ void KeySensorBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<KeySensor *>::_type("KeySensorPtr", "NodeCorePtr");
+DataType FieldTraits<KeySensor *>::_type("KeySensorPtr", "AttachmentContainerPtr");
 #endif
 
 

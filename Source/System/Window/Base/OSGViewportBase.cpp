@@ -1381,11 +1381,13 @@ void ViewportBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ViewportBase::createAspectCopy(void) const
+FieldContainer *ViewportBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     Viewport *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const Viewport *>(pRefAspect),
                   dynamic_cast<const Viewport *>(this));
 
     return returnValue;

@@ -1518,11 +1518,13 @@ void TiledQuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TiledQuadTreeTerrainBase::createAspectCopy(void) const
+FieldContainer *TiledQuadTreeTerrainBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TiledQuadTreeTerrain *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TiledQuadTreeTerrain *>(pRefAspect),
                   dynamic_cast<const TiledQuadTreeTerrain *>(this));
 
     return returnValue;

@@ -372,11 +372,13 @@ void ImageFileBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ImageFileBase::createAspectCopy(void) const
+FieldContainer *ImageFileBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ImageFile *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ImageFile *>(pRefAspect),
                   dynamic_cast<const ImageFile *>(this));
 
     return returnValue;

@@ -1829,11 +1829,13 @@ void SkyBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *SkyBackgroundBase::createAspectCopy(void) const
+FieldContainer *SkyBackgroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     SkyBackground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const SkyBackground *>(pRefAspect),
                   dynamic_cast<const SkyBackground *>(this));
 
     return returnValue;

@@ -365,11 +365,13 @@ void StateBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *StateBase::createAspectCopy(void) const
+FieldContainer *StateBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     State *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const State *>(pRefAspect),
                   dynamic_cast<const State *>(this));
 
     return returnValue;

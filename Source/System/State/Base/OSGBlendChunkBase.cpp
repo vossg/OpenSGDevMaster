@@ -958,11 +958,13 @@ void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *BlendChunkBase::createAspectCopy(void) const
+FieldContainer *BlendChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     BlendChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const BlendChunk *>(pRefAspect),
                   dynamic_cast<const BlendChunk *>(this));
 
     return returnValue;

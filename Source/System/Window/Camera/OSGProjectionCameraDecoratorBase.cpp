@@ -874,11 +874,13 @@ void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ProjectionCameraDecoratorBase::createAspectCopy(void) const
+FieldContainer *ProjectionCameraDecoratorBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     ProjectionCameraDecorator *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const ProjectionCameraDecorator *>(pRefAspect),
                   dynamic_cast<const ProjectionCameraDecorator *>(this));
 
     return returnValue;

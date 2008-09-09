@@ -306,11 +306,13 @@ void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *VertexProgramChunkBase::createAspectCopy(void) const
+FieldContainer *VertexProgramChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     VertexProgramChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const VertexProgramChunk *>(pRefAspect),
                   dynamic_cast<const VertexProgramChunk *>(this));
 
     return returnValue;

@@ -4716,11 +4716,13 @@ void TextureChunkBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TextureChunkBase::createAspectCopy(void) const
+FieldContainer *TextureChunkBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     TextureChunk *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const TextureChunk *>(pRefAspect),
                   dynamic_cast<const TextureChunk *>(this));
 
     return returnValue;

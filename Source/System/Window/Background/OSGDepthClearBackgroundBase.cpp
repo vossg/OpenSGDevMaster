@@ -289,11 +289,13 @@ void DepthClearBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DepthClearBackgroundBase::createAspectCopy(void) const
+FieldContainer *DepthClearBackgroundBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     DepthClearBackground *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const DepthClearBackground *>(pRefAspect),
                   dynamic_cast<const DepthClearBackground *>(this));
 
     return returnValue;

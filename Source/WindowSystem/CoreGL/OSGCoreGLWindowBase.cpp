@@ -370,11 +370,13 @@ void CoreGLWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CoreGLWindowBase::createAspectCopy(void) const
+FieldContainer *CoreGLWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CoreGLWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CoreGLWindow *>(pRefAspect),
                   dynamic_cast<const CoreGLWindow *>(this));
 
     return returnValue;
