@@ -60,6 +60,7 @@ class Camera;
 class Background;
 class Window;
 class StatCollector;
+class Material;
 class StageValidator;
 
 struct RenderDataSlotDesc
@@ -96,20 +97,23 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name               Rendering Environment                          */
     /*! \{                                                                 */
 
-          Viewport      *getViewport     (void                      ) const;
-          void           setViewport     (Viewport      *pViewport  );
+          Viewport      *getViewport      (void                      ) const;
+          void           setViewport      (Viewport      *pViewport  );
     
-          Camera        *getCamera       (void                      ) const;
-          void           setCamera       (Camera        *pCamera    );
+          Camera        *getCamera        (void                      ) const;
+          void           setCamera        (Camera        *pCamera    );
 
-          Background    *getBackground   (void                      ) const;
-          void           setBackground   (Background    *pBackground);
+          Background    *getBackground    (void                      ) const;
+          void           setBackground    (Background    *pBackground);
     
-          Window        *getWindow       (void                      ) const;
-          void           setWindow       (Window        *pWindow    );
+          Window        *getWindow        (void                      ) const;
+          void           setWindow        (Window        *pWindow    );
     
-          StatCollector *getStatCollector(void                      ) const;
-          void           setStatCollector(StatCollector *pStat      );
+          StatCollector *getStatCollector (void                      ) const;
+          void           setStatCollector (StatCollector *pStat      );
+
+          Material      *getGlobalOverride(void                      ) const;
+          void           setGlobalOverride(Material      *pMat       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -212,6 +216,7 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     Background     *_pBackground;
     Window         *_pWindow;
     Viewport       *_pViewport;
+    Material       *_pGlobalOverride;
 
     StatCollector  *_pStatistics;
     StageValidator *_pStageValidator;

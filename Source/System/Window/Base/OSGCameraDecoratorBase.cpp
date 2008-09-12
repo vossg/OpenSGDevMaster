@@ -464,6 +464,8 @@ void CameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 
 void CameraDecoratorBase::resolveLinks(void)
 {
+    static_cast<CameraDecorator *>(this)->setDecoratee(NULL);    
+
     Inherited::resolveLinks();
 
     static_cast<CameraDecorator *>(this)->setBeacon(NULL);

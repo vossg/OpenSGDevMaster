@@ -53,6 +53,8 @@
 #include "OSGCamera.h"
 #include "OSGBackground.h"
 #include "OSGTileCameraDecorator.h"
+#include "OSGDrawEnv.h"
+#include "OSGRenderActionBase.h"
 
 OSG_USING_NAMESPACE
 
@@ -179,7 +181,7 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 	UInt32 width  = pPort->getPixelWidth(),
 		   height = pPort->getPixelHeight();
     
-    Camera              *cP  = pPort->getCamera();
+    Camera              *cP  = pEnv->getAction()->getCamera();
     TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
 	
 	while (cdP != NULL)
@@ -191,7 +193,7 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 		cdP = dynamic_cast<TileCameraDecorator*>(cP);
 	}
 	
-	cP  = pPort->getCamera();
+	cP  = pEnv->getAction()->getCamera();
 	cdP = dynamic_cast<TileCameraDecorator*>(cP);
 
 

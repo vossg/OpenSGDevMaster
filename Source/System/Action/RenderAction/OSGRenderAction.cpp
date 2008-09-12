@@ -544,6 +544,11 @@ Action::ResultE RenderAction::start(void)
 
     _pActivePartition->init();
 
+    if(_pGlobalOverride != NULL)
+    {
+        _pActivePartition->overrideMaterial(_pGlobalOverride,
+                                             NULL           );
+    }
 #ifdef OSG_DEBUGX
     _pActivePartition->setDebugString("DefaultPartition");
 #endif

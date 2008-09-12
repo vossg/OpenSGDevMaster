@@ -404,6 +404,7 @@ void Viewport::render(RenderActionBase *action)
     DrawEnv oEnv;
 
     oEnv.setWindow(action->getWindow());
+    oEnv.setAction(action);
 
     for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
         getForegrounds(i)->draw(&oEnv, this);

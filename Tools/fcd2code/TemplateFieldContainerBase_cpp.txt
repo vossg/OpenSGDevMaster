@@ -1043,6 +1043,10 @@ FieldContainer *@!Classname!@Base::createAspectCopy(
 
 void @!Classname!@Base::resolveLinks(void)
 {
+@@if isDecorator
+    static_cast<@!Classname!@ *>(this)->setDecoratee(NULL);    
+
+@@endif
     Inherited::resolveLinks();
 @@BeginFieldLoop@@
     @@if field.isPtrField

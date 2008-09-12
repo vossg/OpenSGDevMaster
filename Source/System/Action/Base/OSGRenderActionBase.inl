@@ -134,6 +134,12 @@ StatCollector* RenderActionBase::getStatCollector(void) const
 }
 
 inline
+Material *RenderActionBase::getGlobalOverride(void) const
+{
+    return _pGlobalOverride;
+}
+
+inline
 StageValidator *RenderActionBase::getStageValidator(void)
 {
     return _pStageValidator;

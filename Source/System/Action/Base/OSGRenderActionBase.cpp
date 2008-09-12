@@ -80,6 +80,7 @@ RenderActionBase::RenderActionBase(void) :
     _pBackground     (NULL ),
     _pWindow         (NULL ),
     _pViewport       (NULL ),
+    _pGlobalOverride (NULL ),
     _pStatistics     (NULL ),
     _pStageValidator (NULL ),
 
@@ -99,6 +100,7 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _pBackground     (source._pBackground     ),
     _pWindow         (source._pWindow         ),
     _pViewport       (source._pViewport       ),
+    _pGlobalOverride (source._pGlobalOverride ),
     _pStageValidator (NULL                    ),
     _pStatistics     (NULL                    ),
     _bFrustumCulling (source._bFrustumCulling ),
@@ -199,6 +201,11 @@ void RenderActionBase::setWindow(Window *pWindow)
 void RenderActionBase::setStatCollector(StatCollector *pStatistics)
 {
     OSG::setRefd(_pStatistics, pStatistics);
+}
+
+void RenderActionBase::setGlobalOverride(Material *pMat)
+{
+    _pGlobalOverride = pMat;
 }
 
 
