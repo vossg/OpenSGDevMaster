@@ -70,7 +70,7 @@ ActionBase::ResultE TestStageRenderEnter(NodeCore * const pCore,
     TestStage    *pStage = dynamic_cast<TestStage    *>(pCore);
 
 #ifdef OSG_DEBUGX
-    if(pStage != NullFC && pStage->getMessage().size() != 0)
+    if(pStage != NULL && pStage->getMessage().size() != 0)
     {
         fprintf(stderr, "StartEnter TS %s\n",
                 pStage->getMessage().c_str());
@@ -86,7 +86,7 @@ ActionBase::ResultE TestStageRenderEnter(NodeCore * const pCore,
             RenderPartition *pPart  = a->getActivePartition();
 
 #ifdef OSG_DEBUG
-            if(pStage != NullFC && pStage->getMessage().size() != 0)
+            if(pStage != NULL && pStage->getMessage().size() != 0)
             {
                 pPart->setDebugString(pStage->getMessage());
             }
@@ -95,7 +95,7 @@ ActionBase::ResultE TestStageRenderEnter(NodeCore * const pCore,
     }
 
 #ifdef OSG_DEBUGX
-    if(pStage != NullFC && pStage->getMessage().size() != 0)
+    if(pStage != NULL && pStage->getMessage().size() != 0)
     {
         fprintf(stderr, "FinishedEnter TS %s\n",
                 pStage->getMessage().c_str());
@@ -116,7 +116,7 @@ ActionBase::ResultE TestStageRenderLeave(NodeCore * const pCore,
     TestStage    *pStage = dynamic_cast<TestStage    *>(pCore);
 
 #ifdef OSG_DEBUGX
-    if(pStage != NullFC && pStage->getMessage().size() != 0)
+    if(pStage != NULL && pStage->getMessage().size() != 0)
     {
         fprintf(stderr, "StartLeave TS %s\n",
                 pStage->getMessage().c_str());
@@ -131,7 +131,7 @@ ActionBase::ResultE TestStageRenderLeave(NodeCore * const pCore,
     }
 
 #ifdef OSG_DEBUGX
-    if(pStage != NullFC && pStage->getMessage().size() != 0)
+    if(pStage != NULL && pStage->getMessage().size() != 0)
     {
         fprintf(stderr, "FinishedLeave TS %s\n",
                 pStage->getMessage().c_str());
@@ -157,7 +157,7 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(NodeCore * const pCore,
         dynamic_cast<TestMultiPartitionStage *>(pCore);
 
 #ifdef OSG_DEBUGX
-    if(pStage != NullFC && pStage->getMessage().size() != 0)
+    if(pStage != NULL && pStage->getMessage().size() != 0)
     {
         fprintf(stderr, "StartEnter MPTS %s\n",
                 pStage->getMessage().c_str());
@@ -184,7 +184,7 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(NodeCore * const pCore,
                 RenderPartition *pPart  = a->getActivePartition();
             
 #ifdef OSG_DEBUG
-                if(pStage != NullFC && pStage->getMessage().size() != 0)
+                if(pStage != NULL && pStage->getMessage().size() != 0)
                 {
                     char szNum[16];
                     
@@ -199,7 +199,7 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(NodeCore * const pCore,
                 }
 #endif
                 
-                NodePtr pActNode = a->getActNode();
+                Node *pActNode = a->getActNode();
                 
                 a->recurceNoNodeCallbacks(pActNode);
             }
@@ -217,7 +217,7 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(NodeCore * const pCore,
     }
 
 #ifdef OSG_DEBUGX
-    if(pStage != NullFC && pStage->getMessage().size() != 0)
+    if(pStage != NULL && pStage->getMessage().size() != 0)
     {
         fprintf(stderr, "FinishedEnter MPTS %s\n",
                 pStage->getMessage().c_str());
@@ -241,7 +241,7 @@ ActionBase::ResultE TestMultiPartStageRenderLeave(NodeCore * const pCore,
         dynamic_cast<TestMultiPartitionStage *>(pCore);
 
 #ifdef OSG_DEBUGX
-    if(pStage != NullFC && pStage->getMessage().size() != 0)
+    if(pStage != NULL && pStage->getMessage().size() != 0)
     {
         fprintf(stderr, "StartLeave MPTS %s\n",
                 pStage->getMessage().c_str());
