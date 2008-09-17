@@ -23,7 +23,6 @@
 #include <OSGImage.h>
 #include <OSGChunkMaterial.h>
 #include <OSGMaterialChunk.h>
-#include <OSGTextureChunk.h>
 #include <OSGSHLChunk.h>
 
 #ifdef OSG_1_COMPAT
