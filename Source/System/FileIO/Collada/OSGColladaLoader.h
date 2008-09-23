@@ -36,7 +36,7 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOlLADALOADER_H_
+#ifndef _OSGCOLLADALOADER_H_
 #define _OSGCOLLADALOADER_H_
 #ifdef __sgi
 #pragma once

@@ -522,13 +522,8 @@ if "win32" == platform:
     collada_lib_prefix = "lib"
 optional_libs_options["collada"] = OpenSG.ColladaOption.ColladaOption(
     "collada", "Location of the collada dom library", library =
-    ["%scollada_dae" % collada_lib_prefix,
-     "%scollada_LIBXMLPlugin" % collada_lib_prefix,
-     "%scollada_STLDatabase" % collada_lib_prefix,
-     "%scollada_dom" % collada_lib_prefix,
-     "%scollada_stdErrPlugin" % collada_lib_prefix,
-     "%scollada_dae" % collada_lib_prefix],
-    header = "dae/daeIntegrationObject.h", required = False)
+    ["%scollada14dom" % collada_lib_prefix ],
+    header = "dae/daeElement.h", required = False)
 
 xml2_lib = ["xml2"]
 if "win32" == platform:
