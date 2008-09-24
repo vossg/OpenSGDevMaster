@@ -61,7 +61,7 @@ int main(int argc, char **argv)
             /*
                 All scene file loading is handled via the SceneFileHandler.
             */
-            scene = SceneFileHandler::the()->read(argv[1], NULL);
+            scene = SceneFileHandler::the()->read(argv[1]);
         }
     
         //scene->dump();

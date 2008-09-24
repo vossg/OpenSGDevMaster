@@ -2692,9 +2692,9 @@ Int32 createSharedIndex(Geometry *geoPtr)
             masterMem.second = 
                 masterProp->getFormatSize() * masterProp->getDimension();
 
-            for(i = 0; i < iN; i++)
+            for(UInt32 j = 0; j < iN; ++j)
             {
-                index = indexPtr->getValue(i);
+                index = indexPtr->getValue(j);
 
                 if(indexRemap[index] >= 0)
                 {
@@ -2704,7 +2704,7 @@ Int32 createSharedIndex(Geometry *geoPtr)
                     }
                     else
                     {
-                        indexPtr->setValue(indexRemap[index], i);
+                        indexPtr->setValue(indexRemap[index], j);
                         indexRemapCount++;
                     }
                 }
@@ -2737,7 +2737,7 @@ Int32 createSharedIndex(Geometry *geoPtr)
                         if(si == sN)
                         {
                             // no or valid slave data; remap the index
-                            indexPtr->setValue(mmI->second, i);
+                            indexPtr->setValue(mmI->second, j);
 
                             indexRemap[index] = mmI->second;
                             dataRemapCount++;
