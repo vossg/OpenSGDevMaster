@@ -113,7 +113,7 @@ void display(void)
     static Real32 t = glutGet(GLUT_ELAPSED_TIME);
 
     Real32 td = (glutGet(GLUT_ELAPSED_TIME) - t) / 100.0f;
-    _shl->setUniformParameter("time", td);
+    _shl->updateUniformVariable("time", td);
 
     _mgr->redraw();
 }
@@ -191,13 +191,13 @@ int main(int argc, char **argv)
         _shl = SHLChunk::create();
         _shl->setVertexProgram  (_vp_program);
         _shl->setFragmentProgram(_fp_program);
-        _shl->setUniformParameter("groundHeight", 1.0f);
-        _shl->setUniformParameter("bounceMin", -0.1f);
-        _shl->setUniformParameter("bounceHeight", 75.0f);
-        _shl->setUniformParameter("bounceSpeed", 0.05f);
-        _shl->setUniformParameter("time", 0.0f);
-        _shl->setUniformParameter("squeezeHeight", 1.0f);
-        _shl->setUniformParameter("ballColor", Vec3f(1.0f, 0.0f, 0.0f));
+        _shl->addUniformVariable("groundHeight", 1.0f);
+        _shl->addUniformVariable("bounceMin", -0.1f);
+        _shl->addUniformVariable("bounceHeight", 75.0f);
+        _shl->addUniformVariable("bounceSpeed", 0.05f);
+        _shl->addUniformVariable("time", 0.0f);
+        _shl->addUniformVariable("squeezeHeight", 1.0f);
+        _shl->addUniformVariable("ballColor", Vec3f(1.0f, 0.0f, 0.0f));
     
         cmat->addChunk(_shl);
     

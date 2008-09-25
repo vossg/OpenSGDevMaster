@@ -147,13 +147,13 @@ NodeTransitPtr createScene(void)
     if(!_shl->readFragmentProgram("Earth.fp"))
         fprintf(stderr, "Couldn't read fragment program 'Earth.fp'\n");
 
-    _shl->setUniformParameter("EarthDay", 0);
-    _shl->setUniformParameter("EarthNight", 1);
-    _shl->setUniformParameter("EarthCloudGloss", 2);
-    _shl->setUniformParameter("season", 0.0f);
-    _shl->setUniformParameter("cos_time_0_2PI", -0.406652f);
-    _shl->setUniformParameter("sin_time_0_2PI", -0.913583f);
-    _shl->setUniformParameter("foo", -0.913583f);
+    _shl->addUniformVariable("EarthDay", 0);
+    _shl->addUniformVariable("EarthNight", 1);
+    _shl->addUniformVariable("EarthCloudGloss", 2);
+    _shl->addUniformVariable("season", 0.0f);
+    _shl->addUniformVariable("cos_time_0_2PI", -0.406652f);
+    _shl->addUniformVariable("sin_time_0_2PI", -0.913583f);
+    _shl->addUniformVariable("foo", -0.913583f);
     
     cmat->addChunk(_shl);
     cmat->addChunk(tex_earth);
@@ -310,8 +310,8 @@ void display(void)
     {
         t2 = (2 * OSG::Pi / speed) * td;
 
-        _shl->setUniformParameter("cos_time_0_2PI", osgCos(t2));
-        _shl->setUniformParameter("sin_time_0_2PI", osgSin(t2));
+        _shl->updateUniformVariable("cos_time_0_2PI", osgCos(t2));
+        _shl->updateUniformVariable("sin_time_0_2PI", osgSin(t2));
     }
 
     Thread::getCurrentChangeList()->commitChanges();
@@ -367,14 +367,14 @@ void keyboard(unsigned char k, int x, int y)
             if(season < 0.435)
                 season += 0.01;
 
-            _shl->setUniformParameter("season", season);
+            _shl->updateUniformVariable("season", season);
 
         break;
         case 'S':
             if(season > -0.435)
                 season -= 0.01;
 
-            _shl->setUniformParameter("season", season);
+            _shl->updateUniformVariable("season", season);
         break;
         case 'a':
             _animation = 1 - _animation;
