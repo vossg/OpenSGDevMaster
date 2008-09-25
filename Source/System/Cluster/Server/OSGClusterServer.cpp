@@ -113,7 +113,6 @@ ClusterServer::ClusterServer(           Window *window,
     _serverId(0),
     _interface("")
 {
-    //addRefX(_window);
     char localhost[256];
 
     // default is hostname

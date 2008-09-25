@@ -320,7 +320,6 @@ Action::ResultE SplitGraphOp::traverseLeave(Node * const node, Action::ResultE r
     
     for ( ; vsit != vsen; ++vsit )
     {
-//        OSG::addRefX(*vit);
         node->subChild(*vsit);
     }
     return res;

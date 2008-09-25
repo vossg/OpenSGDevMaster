@@ -71,12 +71,8 @@ void testSharing(void)
         dumpAspect(pTestFC, i);
     }
 
-//    OSG::addRefX(pTestFC);
-//    OSG::addRefX(pTestFC);
-
     OSG::Thread::getCurrentChangeList()->dump();
 
-//    OSG::beginEdit(pTestFC, OSG::TestFC::Field1FieldMask);
     {
         pTestFC->editMFField1()->reserve  (32);
         pTestFC->editMFField1()->push_back( 0);
@@ -84,21 +80,16 @@ void testSharing(void)
         pTestFC->editMFField1()->push_back( 2);
         pTestFC->editMFField1()->push_back( 3);
     }
-//    OSG::endEdit  (pTestFC, OSG::TestFC::Field1FieldMask);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
-//    OSG::beginEdit(pTestFC, OSG::TestFC::Field2FieldMask);
     {
         pTestFC->editSFField2()->setValue(4);
     }
-//    OSG::endEdit  (pTestFC, OSG::TestFC::Field2FieldMask);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
     OSG::Thread::getCurrentChangeList()->commitChanges();
-
-//    OSG::subRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -164,9 +155,6 @@ void testSharing1(void)
         dumpAspect(pTestFC, i);
     }
 
-//    OSG::addRefX(pTestFC);
-//    OSG::addRefX(pTestFC);
-
     OSG::Thread::getCurrentChangeList()->dump();
 
     pTestFC->editMFField1()->reserve  (1024);
@@ -179,8 +167,6 @@ void testSharing1(void)
     OSG::Thread::getCurrentChangeList()->dump();
 
     OSG::Thread::getCurrentChangeList()->commitChanges();
-
-//    OSG::subRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -224,9 +210,6 @@ void testSharing2(void)
         dumpAspect(pTestFC, i);
     }
 
-//    OSG::addRefX(pTestFC);
-//    OSG::addRefX(pTestFC);
-
     OSG::Thread::getCurrentChangeList()->dump();
 
     pTestFC->editMFField1()->reserve  (1024);
@@ -239,8 +222,6 @@ void testSharing2(void)
     OSG::Thread::getCurrentChangeList()->dump();
 
     OSG::Thread::getCurrentChangeList()->commitChanges();
-
-//    OSG::subRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 
@@ -309,10 +290,6 @@ void testNode(void)
 
     OSG::FieldContainerPtr pNodeClone = deepClone(pNode);
 
-    OSG::subRefX(pNode);
-    OSG::subRefX(pNode1);
-    OSG::subRefX(pNodeClone);
-
     OSG::FieldContainerPtr pFC = 
         OSG::FieldContainerFactory::the()->createContainer("Billboard");
 
@@ -348,8 +325,6 @@ void testRefCount(void)
     pNode1.dump();
 #endif
 
-    OSG::addRefX(pNode);
-
     fprintf(stderr, "3\n");
 
 //XX
@@ -369,8 +344,6 @@ void testRefCount(void)
     pNode1.dump();
 #endif
     
-    OSG::subRefX(pNode);
-
     fprintf(stderr, "5\n");
 
 //XX
@@ -410,8 +383,6 @@ void testChangeList(void)
 
         dumpAspect(pTestFC, i);
     }
-
-//    OSG::addRefX(pTestFC);
 
     OSG::Thread::getCurrentChangeList()->dump();
 

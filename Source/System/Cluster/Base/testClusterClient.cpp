@@ -201,7 +201,6 @@ void prepareSceneGraph(Node * const node)
     if(!prepared)
     {
         polygonChunk = PolygonChunk::create();
-//        addRefX(polygonChunk);
         prepared = true;
     }
 
@@ -673,7 +672,6 @@ void init(std::vector<std::string> &filenames)
     t1n->addChild( b1n );
 
     cam_trans = t1;
-//    addRefX(t1n);
 
     // light
 
@@ -689,7 +687,6 @@ void init(std::vector<std::string> &filenames)
 
     // root
     root = OSG::Node::create();
-//    addRefX(root);
 
     OSG::GroupUnrecPtr gr1 = OSG::Group::create();
 
@@ -699,7 +696,6 @@ void init(std::vector<std::string> &filenames)
 
     // Load the file
     OSG::NodeUnrecPtr scene = OSG::Node::create();
-//    addRefX(scene);
     scene->setCore(OSG::Group::create());
 
     NodeUnrecPtr file;

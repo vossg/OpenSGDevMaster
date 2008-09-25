@@ -83,15 +83,12 @@ class TextLayoutResult;
  * #include "OSGTextLayoutResult.h"
  *
  * // Try to create a new %TextTXFFace object. The create
- * // method returns 0 in case of an error
- * TextTXFFace *face = TextTXFFace::create("SANS");
+ * // method returns 0 in case of an error.
+ * // Make sure to use a RefPtr for the face as they are cached and there may
+ * // be more than one user.
+ * TextTXFFaceRefPtr face = TextTXFFace::create("SANS");
  * if (face == 0)
  *   ; // error handling
- *
- * // Increment the reference counter of the face object.
- * // Faces are cached, and we might not be the only one
- * // using the face object
- * addRefP(face);
  *
  * // Lay out a single line of text. There are lots of parameters
  * // you can set in the layoutParam object, but for now we are
@@ -104,15 +101,15 @@ class TextLayoutResult;
  * // Create the geometry using the layout information returned
  * // from the previous call to the layout method.
  * Real32 scale = 2.f;  // This is the height of the glyphs
- * Geometry *geo = face->makeGeo(layoutResult, scale);
+ * GeometryRefPtr geo = face->makeGeo(layoutResult, scale);
  *
  * // Get the texture. You have to map this texture onto the
  * // geometry we created above.
- * Image *img = face->getTexture();
+ * ImageRefPtr img = face->getTexture();
  *
- * // We do not need the TXF face anymore, so decrement
- * // the reference counter. Do not use the face object anymore!
- * subRefP(face);
+ * // We do not need the TXF face anymore, so clear the pointer or let it go
+ * // out of scope.
+ * face = NULL;
  * @endcode
  *
  * @author Patrick D&auml;hne

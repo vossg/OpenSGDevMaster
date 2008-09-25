@@ -935,7 +935,6 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
 
         port.serverPort = pTmpPort;
 
-        //addRefX(port.serverPort);
         deco = TileCameraDecorator::create();
         port.serverPort->setCamera(deco);
     }
@@ -2050,15 +2049,14 @@ void BalancedMultiWindow::preloadCache(Window         *window,
 
         // create camera
         PerspectiveCameraPtr cam = PerspectiveCamera::create();
-        //addRefX(cam);
         cam->setBeacon( cartN );
         cam->setFov   ( osgDegree2Rad( 60 ) );
+
         // background
         SolidBackgroundPtr bkgnd = SolidBackground::create();
-        //addRefX(bkgnd);
+
         // create viewport
         ViewportPtr vp = Viewport::create();
-        //addRefX(vp);
         vp->setCamera( cam );
         vp->setBackground( bkgnd );
         vp->setRoot( root );

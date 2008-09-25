@@ -300,7 +300,6 @@ int main(int argc, char **argv)
     // add the statistics forground
 
     statfg = SimpleStatisticsForeground::create();
-//    addRefX(statfg);
 
     statfg->setSize(25);
     statfg->setColor(Color4f(0,1,0,0.7));

@@ -302,7 +302,6 @@ FieldContainer *SharePtrGraphOp::compareFCs(FieldContainer * const fc)
                     
                     sfPtrEditHandle->set(nffc);
 #if 0
-                    addRef(nffc);
                     ((SFFieldContainerPtr *) fc_field)->setValue(nffc);
                     // for attachments we need to update the parents field!
                     AttachmentPtr attachment = AttachmentPtr::dcast(nffc);
@@ -341,7 +340,6 @@ FieldContainer *SharePtrGraphOp::compareFCs(FieldContainer * const fc)
                         mfPtrEditHandle->replace(j, nffc);
 
 #if 0
-                        addRef(nffc);
                         (*(((MFFieldContainerPtr *)fc_field)))[j] = nffc;
                         // for attachments we need to update the parents field!
                         AttachmentPtr attachment = AttachmentPtr::dcast(nffc);

@@ -365,8 +365,6 @@ VertexProgramChunkTransitPtr QuadTreeTerrain::createVPChunk () const
 
    // parameter come here
 
-   //addRefX(vp);
-
    return vp;
 }
 
@@ -458,8 +456,6 @@ FragmentProgramChunkTransitPtr QuadTreeTerrain::createFPChunk () const
    fp->addParameter("specularExponent", 7, Vec4f(6.0f, 6.0f, 6.0f, 6.0f));
    fp->addParameter("specularFactor",   8, Vec4f(0.2f, 0.2f, 0.2f, 0.2f));
    fp->addParameter("basecolor",        0, Vec4f(1.0f, 1.0f, 1.0f, 1.0f));
-
-//   addRefX(fp);
 
    return fp;
 }
@@ -1937,16 +1933,6 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField,
 
             GeoPnt3fPropertyUnrecPtr vert = 
                 dynamic_pointer_cast<GeoPnt3fProperty>(pos->clone());
-
-#if 0
-            addRefX(vert);
-
-            if(getHeightVertices() != NULL) 
-            {
-                subRefX(getHeightVertices());
-            }
-#endif
-	 
 
             // geometry fields
             setPositions(pos);

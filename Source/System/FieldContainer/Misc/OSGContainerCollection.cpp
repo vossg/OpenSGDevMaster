@@ -116,19 +116,14 @@ void ContainerCollection::dump(      UInt32    ,
 */
 void ContainerCollection::addContainer(FieldContainer *container)
 {
-   /*
-   editMField(ContainersFieldMask, _mfContainers);
-   _mfContainers.push_back(container);
-   addRef(container);
-   */
-   pushToContainers(container);
+    pushToContainers(container);
 }
 
 /*! Remove a container if it is found.
 */
 void ContainerCollection::subContainer(FieldContainer *container)
 {
-   removeObjFromContainers(container);
+    removeObjFromContainers(container);
 }
 
 /*! Return the number of containers. */

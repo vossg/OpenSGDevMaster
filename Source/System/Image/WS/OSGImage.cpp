@@ -705,7 +705,6 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
     if(destination == NULL)
     {
         dest = Image::create();
-//        addRefX(dest);
     }
 
     FINFO(("Try to reformat image from pixelDepth %d to %d\n",
@@ -2153,8 +2152,6 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
     dest = Image::create();
 
-//    addRefX(dest);
-
     dest->set(getPixelFormat(),
               getWidth      (),
               getHeight     (),
@@ -2834,8 +2831,6 @@ bool Image::subImage(Int32  offX,
     if(destination == NULL)
     {
         destImage = Image::create();
-
-//        addRefX(destImage);
     }
 
     destImage->set(PixelFormat(getPixelFormat()),
@@ -3111,8 +3106,6 @@ bool Image::createMipmap(Int32 level, Image *destination)
     if(destImage == NULL)
     {
         destImage = Image::create();
-
-//        addRefX(destImage);
     }
 
     Real32 valueFloat;

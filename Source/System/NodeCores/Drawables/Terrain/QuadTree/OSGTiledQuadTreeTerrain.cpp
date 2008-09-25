@@ -182,8 +182,6 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
                     terrain->setPerPixelLighting(getPerPixelLighting());
 
                     NodeUnrecPtr node = Node::create();
-                    
-//                    addRefX(node);
 
                     node->setCore(terrain);
                     // activate the roi*roi tiles for current point

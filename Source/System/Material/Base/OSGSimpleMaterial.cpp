@@ -162,8 +162,6 @@ void SimpleMaterial::rebuildState(void)
         _pState = State::createLocal();
 
         _pState->setDefaultSortKey(this->getId());
-
-//        addRefX(_pState);
     }
 
     prepareLocalChunks();

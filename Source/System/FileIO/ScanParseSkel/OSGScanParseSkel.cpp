@@ -599,8 +599,6 @@ void ScanParseSkel::beginImage(Int32 width, Int32 height, Int32 components)
     if (_image == NULL)
     {
         _image = Image::create();
-
-//        addRefX(_image);
     }
     UInt32 pixelFormat;
     switch (components)

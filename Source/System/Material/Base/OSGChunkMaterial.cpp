@@ -223,8 +223,6 @@ bool ChunkMaterial::addChunk(StateChunk *chunk, Int32 slot)
         _mfSlots.push_back(slot);
     }
    
-    //addRef(chunk);
-
     return true;
 }
 
@@ -367,7 +365,6 @@ void ChunkMaterial::rebuildState(void)
 
         _pState->setDefaultSortKey(this->getId());
 
-//        addRefX(_pState);
     }
 
     addChunks(_pState);

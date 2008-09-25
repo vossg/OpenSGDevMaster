@@ -863,7 +863,6 @@ void TextTXFFace::prepareTexture(const TextTXFParam &param)
 
     // Create the texture
     _texture = Image::create();
-//    OSG::addRefX(_texture);
 
     _texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     _texture->clear();
