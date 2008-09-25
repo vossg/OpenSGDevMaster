@@ -453,8 +453,6 @@ int init(int argc, char **argv)
 #endif    
 
 
-//    subRefCP(file);
-
 //    return 0;
 
 

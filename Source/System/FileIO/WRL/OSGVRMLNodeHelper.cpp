@@ -259,10 +259,6 @@ VRMLNodeHelper::VRMLNodeHelper(void) :
 
 VRMLNodeHelper::~VRMLNodeHelper(void)
 {
-//    subRefX(_pNodeProto    );
-//    subRefX(_pNodeCoreProto);
-//    subRefX(_pGenAttProto  );
-    
     _pNodeProto     = NULL;
     _pNodeCoreProto = NULL;
     _pGenAttProto   = NULL;
@@ -1058,7 +1054,6 @@ VRMLMaterialHelper::VRMLMaterialHelper(void) :
 
 VRMLMaterialHelper::~VRMLMaterialHelper(void)
 {
-    //subRefX(_pDefMat);
     _pDefMat = NULL;
 }
 

@@ -89,11 +89,8 @@ struct ClearSlot : public std::unary_function<MFUnrecStateChunkPtr::iterator &,
     {
     }
 
-    void operator() (MFUnrecStateChunkPtr::iterator &slotIt) 
-    { 
-//        subRef(slotPtr);
-        
-//        slotPtr = NULL;
+    void operator() (MFUnrecStateChunkPtr::iterator &slotIt)
+    {
         _mfChunks.replace(slotIt, NULL);
     }
 };

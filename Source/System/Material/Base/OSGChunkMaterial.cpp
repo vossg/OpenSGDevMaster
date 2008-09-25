@@ -244,8 +244,6 @@ bool ChunkMaterial::subChunk(StateChunk *chunk, Int32 slot)
         {
             editMField(ChunksFieldMask, _mfChunks);
 
-            //subRef(chunk);
-
             _mfChunks.erase(i);
 
             if(i < _mfSlots.size())

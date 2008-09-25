@@ -142,7 +142,6 @@ void ShadowMapEngine::exitMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-//        OSG::subRefX(_pLightPassMat);       
         _pLightPassMat = NULL;
     }
 }

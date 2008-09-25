@@ -641,7 +641,5 @@ void ScanParseSkel::endImage()
 
     addImageValue(_image);
 
-//    subRefX(_image);
-
     _image = NULL;
 }

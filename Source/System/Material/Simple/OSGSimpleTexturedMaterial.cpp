@@ -101,10 +101,6 @@ void SimpleTexturedMaterial::resolveLinks(void)
     _textureChunk = NULL;
     _texGenChunk  = NULL;
     _texEnvChunk  = NULL;
-
-//    subRefLocalVarX(_textureChunk);
-//    subRefLocalVarX(_texGenChunk );
-//    subRefLocalVarX(_texEnvChunk );
 }
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)

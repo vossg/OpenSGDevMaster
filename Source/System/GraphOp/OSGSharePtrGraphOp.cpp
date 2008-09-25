@@ -315,7 +315,6 @@ FieldContainer *SharePtrGraphOp::compareFCs(FieldContainer * const fc)
                         attachment->addParent(fc);
                         //attachment->getParents().clear();
                     }
-                    subRef(ffc);
 #endif
                 }
             }
@@ -352,7 +351,6 @@ FieldContainer *SharePtrGraphOp::compareFCs(FieldContainer * const fc)
                             fcb.setParentFieldPos(fdesc->getFieldId());
                             attachment->addParent(fc);
                         }
-                        subRef(ffc);
 #endif
                     }
                 }

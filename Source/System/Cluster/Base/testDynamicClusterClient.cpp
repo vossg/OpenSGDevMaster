@@ -169,8 +169,6 @@ static void disconnectCluster(void)
     if(_cluster_win == NULL)
         return;
 
-    //subRefX(_cluster_win);
-
     _cluster_win = NULL;
 }
 
@@ -200,8 +198,6 @@ void display(void)
     {
         //printf("error: '%s'\n", e.what());
         printf("ClusterServer was killed!\n");
-
-//        subRefX(_cluster_win);
 
         _cluster_win = NULL;
     } 

@@ -212,8 +212,6 @@ void ClusterViewBuffer::recv(GroupConnection &connection)
                 ImageFileType::restore(*pImage, (UChar8 *) &data[0], dataSize);
                 glDrawPixels(tw, th, glformat, GL_UNSIGNED_BYTE,
                                              pImage->getData());
-
-                subRefP(pImage);
 #endif
             }
             else
@@ -348,8 +346,6 @@ void ClusterViewBuffer::send(PointConnection &connection,
                     connection.putValue(dataSize);
                     connection.put(&data[0], dataSize);
                     imgtranssize += dataSize;
-
-                    subRefP(pImage);
 #endif
                 }
                 else

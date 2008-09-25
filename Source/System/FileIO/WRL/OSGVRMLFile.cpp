@@ -167,8 +167,6 @@ void VRMLFile::handleError(const Char8 *szErrorText)
 #if 0
     if(_pSceneRootNode != NULL)
     {
-        subRef(_pSceneRootNode);
-
         _pSceneRootNode = NULL;
     }
 #endif

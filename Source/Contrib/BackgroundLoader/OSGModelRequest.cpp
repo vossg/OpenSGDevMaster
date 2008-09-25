@@ -27,12 +27,11 @@ void ModelRequest::execute()
    mModel = OSG::NodeRefPtr(OSG::SceneFileHandler::the()->read(mFilename.c_str()));
 
 #if 1
-   VerifyGraphOp* vop = new VerifyGraphOp;
+   VerifyGraphOpRefPtr vop = new VerifyGraphOp;
    vop->setRepair(true);
    vop->setVerbose(true);
    Node *node(mModel);
    vop->traverse(node);
-   subRef(vop);
 #endif
 }
 

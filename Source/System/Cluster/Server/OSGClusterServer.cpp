@@ -137,7 +137,6 @@ ClusterServer::ClusterServer(           Window *window,
 
 ClusterServer::~ClusterServer(void)
 {
-    //OSG::subRefX(_window);
     _window = NULL;
 
     try

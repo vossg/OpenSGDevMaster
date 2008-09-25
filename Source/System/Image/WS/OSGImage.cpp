@@ -2051,7 +2051,6 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
             if(destination == NULL)
             {
                 this->set(dest);
-//                subRefX(dest);
             }
         }
     }
@@ -2445,8 +2444,6 @@ bool Image::convertDataTypeTo(Int32 destDataType)
     if(dest->getData() != NULL)
     {
         this->set(dest);
-
-//        subRefX(dest);
     }
 
     return (getData() ? true : false);
@@ -2888,8 +2885,6 @@ bool Image::subImage(Int32  offX,
     if(destination == NULL)
     {
         this->set(destImage);
-
-//        subRefX(destImage);
     }
 
     return retCode;
@@ -3022,8 +3017,6 @@ bool Image::slice(Int32  offX,
     if(destination == NULL)
     {
         this->set(destImage);
-
-//        subRefX(destImage);
     }
 
     return retCode;
@@ -3497,8 +3490,6 @@ bool Image::createMipmap(Int32 level, Image *destination)
     if(destination == NULL)
     {
         this->set(destImage);
-
-//        subRefX(destImage);
     }
 
     return true;

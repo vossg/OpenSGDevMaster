@@ -112,7 +112,6 @@ FieldContainerPtr NFIOImage::readFC(const std::string &/*typeName*/)
         // read texture
         //beginEditCP(img);
             //img->read(img->getName().c_str());
-            subRefX(img);
             img = ImageFileHandler::the()->read(img->getName().c_str());
         //endEditCP(img);
     }

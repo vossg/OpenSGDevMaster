@@ -2087,10 +2087,6 @@ void BalancedMultiWindow::preloadCache(Window         *window,
         vp->render(action);
         // remove port
         window->subPort(vp);
-        // remove all
-        //subRefX(bkgnd);
-        //subRefX(vp);
-        //subRefX(cam);
         root->subChild(cartN);
     }
 }

@@ -274,9 +274,7 @@ void MultiDisplayWindow::serverRender(WindowPtr         serverWindow,
                        clientPort->getType())
                 {
                     // there is a viewport with the wrong type
-                    //subRef(serverWindow->getPort()[sv]);
-
-                    serverPort = 
+                    serverPort =
                         dynamic_cast<ViewportPtr>(clientPort->shallowCopy());
 
                     serverWindow->replacePort(sv, 
@@ -427,8 +425,6 @@ void MultiDisplayWindow::serverRender(Window           *window,
             if(window->getPort(sv)->getType() != clientPort->getType())
             {
                 // there is a viewport with the wrong type
-                //subRef(window->getPort()[sv]);
-
                 serverPort =
                     dynamic_pointer_cast<Viewport>(clientPort->shallowCopy());
 
@@ -567,8 +563,6 @@ void MultiDisplayWindow::clientInit(void)
             vp = getClientWindow()->getPort(0);
 
             getClientWindow()->subPort(0U);
-
-            subRef(vp);
         }
 #endif
 

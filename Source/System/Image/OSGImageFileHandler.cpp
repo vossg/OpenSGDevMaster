@@ -506,7 +506,6 @@ ImageTransitPtr ImageFileHandlerBase::read(      std::istream &is,
 
     if (read(image, is, mimeType) == false)
     {
-        //subRefX(image);
         image = NULL;
     }
 

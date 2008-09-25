@@ -295,7 +295,6 @@ void testNode(void)
 
     fprintf(stderr, "### FOO %p\n", getCPtr(pFC));
 
-    OSG::subRefX(pFC);
 #endif
 }
 
