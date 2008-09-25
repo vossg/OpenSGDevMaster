@@ -54,6 +54,8 @@ struct GlobalObjects
 
 GlobalObjects *globals = NULL;
 
+const UInt32 SM_RESOLUTION = 1024;
+
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
@@ -88,7 +90,7 @@ int main(int argc, char **argv)
         NodeRefPtr point1        = makeCoredNode<PointLight>(&globals->point1_core);
         NodeRefPtr point1_beacon = makeCoredNode<Transform >(&point1_trans);
         
-        point1_trans->editMatrix().setTranslate(0.0, 0.0, 25.0);
+        point1_trans->editMatrix().setTranslate(0.0, 0.0, 15.0);
         
         globals->point1_core->setAmbient(0.15,0.15,0.15,1);
         globals->point1_core->setDiffuse(0.4,0.4,0.4,1);
@@ -100,7 +102,7 @@ int main(int argc, char **argv)
         NodeRefPtr point2        = makeCoredNode<PointLight>(&globals->point2_core);
         NodeRefPtr point2_beacon = makeCoredNode<Transform >(&point2_trans);
         
-        point2_trans->editMatrix().setTranslate(5.0, 5.0, 20.0);
+        point2_trans->editMatrix().setTranslate(2.5, 2.5, 15.0);
         
         globals->point2_core->setAmbient(0.15,0.15,0.15,1);
         globals->point2_core->setDiffuse(0.4,0.4,0.4,1);
@@ -204,14 +206,14 @@ int main(int argc, char **argv)
         
         // add them to the light sources
         globals->point1_core->setLightEngine(ssme1);
-//        globals->point2_core->setLightEngine(ssme2);
+        globals->point2_core->setLightEngine(ssme2);
         
-        ssme1->setWidth (1024);
-        ssme1->setHeight(1024);
+        ssme1->setWidth (SM_RESOLUTION);
+        ssme1->setHeight(SM_RESOLUTION);
         ssme1->setShadowColor(Color4f(0.1, 0.1, 0.1, 1.0));
         
-        ssme2->setWidth (1024);
-        ssme2->setHeight(1024);
+        ssme2->setWidth (SM_RESOLUTION);
+        ssme2->setHeight(SM_RESOLUTION);
         
         Vec3f min,max;
         globals->rootNode->updateVolume();
