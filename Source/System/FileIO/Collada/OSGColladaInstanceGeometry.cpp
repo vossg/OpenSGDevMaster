@@ -46,6 +46,7 @@
 #include <OSGChunkMaterial.h>
 #include <OSGGroup.h>
 #include <OSGMaterialGroup.h>
+#include <OSGNameAttachment.h>
 
 #include <1.4/dom/domEffect.h>
 #include <1.4/dom/domMaterial.h>
@@ -78,6 +79,9 @@ void ColladaInstanceGeometry::read(void)
     
     _node = Node::create();
     _node->setCore(Group::create());
+    
+    if(geo->getName() != NULL)
+        setName(_node, geo->getName());
     
     const domBind_materialRef matBindings = instGeo->getBind_material();
 

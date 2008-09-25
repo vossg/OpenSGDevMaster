@@ -43,6 +43,7 @@
 
 #include <OSGColladaInstanceNode.h>
 #include <OSGColladaInstanceGeometry.h>
+#include <OSGNameAttachment.h>
 
 #include <1.4/dom/domLookat.h>
 #include <1.4/dom/domMatrix.h>
@@ -64,6 +65,9 @@ void ColladaNode::read(void)
     domNodeRef node = getDOMElementAs<domNode>();
     
     _transNode = Node::create();
+    
+    if(node->getName() != NULL)
+        setName(_transNode, node->getName());
     
     const daeElementRefArray &contents = node->getContents();
     for(UInt32 i = 0, contentCount = contents.getCount();
