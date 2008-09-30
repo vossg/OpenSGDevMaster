@@ -2913,8 +2913,6 @@ bool Image::slice(Int32  offX,
     if(destination == NULL)
     {
         destImage = Image::create();
-
-//        addRefX(destImage);
     }
 
     FDEBUG(("Image::slice (%d %d %d)\n",
