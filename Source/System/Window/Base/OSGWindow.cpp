@@ -429,7 +429,9 @@ void OSG::Window::staticAcquire(void)
 #ifndef OSG_WINCE
     if(_staticWindowLock == NULL)
     {
-        _staticWindowLock = ThreadManager::the()->getLock(NULL);
+        _staticWindowLock =
+            ThreadManager::the()->getLock("OSG::Window::_staticWindowLock");
+        OSG::addRef(_staticWindowLock);
 
         addPostFactoryExitFunction(&Window::terminate);
     }

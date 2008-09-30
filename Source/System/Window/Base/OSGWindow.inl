@@ -299,7 +299,9 @@ UInt32 Window::GLObject::incRefCounter(void)
 #ifndef OSG_WINCE
     if(! _GLObjectLock)
     {
-        _GLObjectLock = ThreadManager::the()->getLock(NULL);
+        _GLObjectLock =
+            ThreadManager::the()->getLock("OSG::Window::_GLObjectLock");
+        OSG::addRef(_GLObjectLock);
     }
 
     _GLObjectLock->acquire();
