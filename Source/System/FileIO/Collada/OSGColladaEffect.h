@@ -58,6 +58,7 @@
 
 #include <1.4/dom/domCommon_color_or_texture_type.h>
 #include <1.4/dom/domCommon_float_or_param_type.h>
+#include <1.4/dom/domCommon_transparent_type.h>
 
 // forward declarations
 class domEffect;
@@ -105,7 +106,9 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaElement
     void handleGLSLProfile  (domProfile_GLSL   *profGLSL  );
     void handleCGProfile    (domProfile_CG     *profCG    );
     
-    inline void setTexCoordMapping(UInt32 texCoord, const std::string &mappedTC);
+    inline void   setTexCoordMapping(      UInt32       texCoord,
+                                     const std::string &mappedTC );
+    inline Real32 computeLuminance  (Real32 colR, Real32 colG, Real32 colB);
     
     template <class TechTypeT>
     void setupSimpleColorAndTex    (TechTypeT   tech,
@@ -116,17 +119,22 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaElement
     template <class TechTypeT>
     void setupSimpleSpecColorAndTex(TechTypeT   tech               );
     
-    MaterialChunkTransitPtr handleSimpleColor(DomColor *diffuse,
-                                              DomColor *ambient,
-                                              DomColor *specular,
-                                              DomColor *emission,
-                                              Real32    shininess,
-                                              Real32    transparency);
-    void fillElements(
+    MaterialChunkTransitPtr handleSimpleColor(DomColor          *diffuse,
+                                              DomColor          *ambient,
+                                              DomColor          *specular,
+                                              DomColor          *emission,
+                                              DomColor          *transparent,
+                                              domFx_opaque_enum  opaqueMode,
+                                              Real32             shininess,
+                                              Real32             transparency);
+    inline void fillElements(
         domCommon_color_or_texture_type                *colTexIn,
         domCommon_color_or_texture_type::domColorRef   &colOut,
         domCommon_color_or_texture_type::domTextureRef &texOut   );
-    
+    inline void fillElements(
+        domCommon_transparent_type                     *colTexIn,
+        domCommon_color_or_texture_type::domColorRef   &colOut,
+        domCommon_color_or_texture_type::domTextureRef &texOut   );
     ChunkMaterialUnrecPtr    _material;
     std::vector<std::string> _texCoordMapping;
     SurfaceMap               _surfaceMap;

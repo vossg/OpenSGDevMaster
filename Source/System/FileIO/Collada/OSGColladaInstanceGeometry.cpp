@@ -108,6 +108,7 @@ void ColladaInstanceGeometry::read(void)
             }
         }
         
+        // process <technique_common> element
         if(!matHandled)
         {
             domBind_material::domTechnique_commonRef technique =
@@ -166,12 +167,11 @@ void ColladaInstanceGeometry::read(void)
 
                 _matMap[effectKey] = colEffect->getMaterial();
 
-                OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
-                                 "[%u] bindings\n",
-                                  instMats[i]->getBind_array().getCount()));
-
                 const domInstance_material::domBind_Array &binds =
                     instMats[i]->getBind_array();
+                
+                OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
+                                 "[%u] bindings\n", binds.getCount()));
                 
                 for(UInt32 j = 0; j < binds.getCount(); ++j)
                 {
@@ -195,7 +195,8 @@ void ColladaInstanceGeometry::read(void)
                 const domInstance_material::domBind_vertex_input_Array &vertBinds =
                     instMats[i]->getBind_vertex_input_array();
                 
-                OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: [%u] vertex bindings\n", vertBinds.getCount()));
+                OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: [%u] vertex bindings\n",
+                                 vertBinds.getCount()));
 
                 for(UInt32 j = 0; j < vertBinds.getCount(); ++j)
                 {
@@ -279,6 +280,8 @@ ColladaInstanceGeometry::~ColladaInstanceGeometry(void)
 void ColladaInstanceGeometry::updateGeoTexBindings(
     ColladaGeometry::GeometryInfo *geoInfo)
 {
+    OSG_COLLADA_LOG(("ColladaInstanceGeometry::updateGeoTexBindings:\n"));
+    
     TexBindingsMap::iterator texIt  = _texBindingsMap.begin();
     TexBindingsMap::iterator texEnd = _texBindingsMap.end  ();
 

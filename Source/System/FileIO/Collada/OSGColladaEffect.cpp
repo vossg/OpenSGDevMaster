@@ -46,6 +46,7 @@
 #include <OSGColladaSampler2D.h>
 
 #include <OSGImage.h>
+#include <OSGBlendChunk.h>
 #include <OSGMaterialChunk.h>
 #include <OSGTextureEnvChunk.h>
 #include <OSGTextureObjChunk.h>
@@ -76,7 +77,7 @@ void ColladaEffect::read(void)
 
     for(UInt32 i = 0; i < numProfiles; ++i)
     {
-        OSG_COLLADA_LOG(("ColladaEffect::read: profile [%u] [%d]\n",
+        OSG_COLLADA_LOG(("ColladaEffect::read: profile [%u] [%s]\n",
                          i, effect->getFx_profile_abstract_array()[i]->getTypeName()));
 
         domProfile_COMMONRef profCommon =
@@ -290,24 +291,28 @@ void ColladaEffect::setupSimpleColorAndTex(
     if(tech == NULL)
         return;
 
-    domCommon_color_or_texture_type::domColorRef   diffuseCol = NULL;
-    domCommon_color_or_texture_type::domTextureRef diffuseTex = NULL;
+    domCommon_color_or_texture_type::domColorRef   diffuseCol  = NULL;
+    domCommon_color_or_texture_type::domTextureRef diffuseTex  = NULL;
     
-    domCommon_color_or_texture_type::domColorRef   ambientCol = NULL;
-    domCommon_color_or_texture_type::domTextureRef ambientTex = NULL;
+    domCommon_color_or_texture_type::domColorRef   ambientCol  = NULL;
+    domCommon_color_or_texture_type::domTextureRef ambientTex  = NULL;
        
     domCommon_color_or_texture_type::domColorRef   emissionCol = NULL;
     domCommon_color_or_texture_type::domTextureRef emissionTex = NULL;
 
-    fillElements(tech->getDiffuse (), diffuseCol,  diffuseTex );
-    fillElements(tech->getAmbient (), ambientCol,  ambientTex );
-    fillElements(tech->getEmission(), emissionCol, emissionTex);
+    domCommon_color_or_texture_type::domColorRef   transCol    = NULL;
+    domCommon_color_or_texture_type::domTextureRef transTex    = NULL;
+    
+    fillElements(tech->getDiffuse    (), diffuseCol,  diffuseTex );
+    fillElements(tech->getAmbient    (), ambientCol,  ambientTex );
+    fillElements(tech->getEmission   (), emissionCol, emissionTex);
+    fillElements(tech->getTransparent(), transCol,    transTex   );
 
     domCommon_float_or_param_typeRef transparency =
         tech->getTransparency();
 
     Real32 shininessVal    = 10.f;
-    Real32 transparencyVal = 1.f;
+    Real32 transparencyVal =  1.f;
     
     if(shininess != NULL && shininess->getFloat() != NULL)
         shininessVal = shininess->getFloat()->getValue();
@@ -320,6 +325,8 @@ void ColladaEffect::setupSimpleColorAndTex(
             ambientCol,
             specularCol,
             emissionCol,
+            transCol,
+            tech->getTransparent()->getOpaque(),
             shininessVal,
             transparencyVal);
 
@@ -556,21 +563,76 @@ void ColladaEffect::setupSimpleSpecColorAndTex(TechTypeT tech)
 }
 
 MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
-    DomColor *diffuse,
-    DomColor *ambient,
-    DomColor *specular,
-    DomColor *emission,
-    Real32    shininess,
-    Real32    transparency)
+    DomColor          *diffuse,
+    DomColor          *ambient,
+    DomColor          *specular,
+    DomColor          *emission,
+    DomColor          *transparent,
+    domFx_opaque_enum  opaqueMode,
+    Real32             shininess,
+    Real32             transparency)
 {
     OSG_COLLADA_LOG(("ColladaEffect::handleSimpleColor:\n"));
     
-    MaterialChunkUnrecPtr matChunk = MaterialChunk::create();
-
-    Color4f colVal;
-
-//    colVal[3] = 1.f - fTransparency;
-
+    MaterialChunkUnrecPtr matChunk      = MaterialChunk::create();
+    bool                  useBlendChunk = false;
+    Color4f               colVal;
+    
+    if(transparent != NULL || transparency < (1.0 - Eps))
+    {
+        OSG_COLLADA_LOG(("ColladaEffect::handleSimpleColor: setting transparent color\n"));
+        
+        Color4r          blendColor(1.0, 1.0, 1.0, 1.0);
+        BlendChunkRefPtr blendChunk;
+        
+        if(opaqueMode == FX_OPAQUE_ENUM_A_ONE)
+        {
+            if(transparent->getValue()[3] * transparency < (1.0 - Eps))
+            {
+                blendColor[0] = 0.0;
+                blendColor[1] = 0.0;
+                blendColor[2] = 0.0;
+                blendColor[3] = transparent->getValue()[3] * transparency;
+                
+                blendChunk = BlendChunk::create();
+                blendChunk->setSrcFactor (GL_CONSTANT_ALPHA_EXT          );
+                blendChunk->setDestFactor(GL_ONE_MINUS_CONSTANT_ALPHA_EXT);
+                blendChunk->setColor     (blendColor                     );
+                
+                useBlendChunk = true;
+            }
+        }
+        else if(opaqueMode == FX_OPAQUE_ENUM_RGB_ZERO)
+        {
+            if(transparent->getValue()[0] * transparency > Eps ||
+               transparent->getValue()[1] * transparency > Eps ||
+               transparent->getValue()[2] * transparency > Eps   )
+            {
+                blendColor[0] = transparent->getValue()[0] * transparency;
+                blendColor[1] = transparent->getValue()[1] * transparency;
+                blendColor[2] = transparent->getValue()[2] * transparency;
+                blendColor[3] = computeLuminance(blendColor[0],
+                                                 blendColor[1],
+                                                 blendColor[2] );
+                
+                blendChunk = BlendChunk::create();
+                blendChunk->setSrcFactor (GL_ONE_MINUS_CONSTANT_COLOR_EXT);
+                blendChunk->setDestFactor(GL_CONSTANT_COLOR_EXT          );
+                blendChunk->setColor     (blendColor                     );
+                
+                useBlendChunk = true;
+            }
+        }
+        else
+        {
+            FWARNING(("ColladaEffect::handleSimpleColor: Unknown opaque value [%d]\n",
+                      opaqueMode));
+        }
+        
+        if(blendChunk != NULL)
+            _material->addChunk(blendChunk);
+    }
+    
     if(diffuse != NULL)
     {
         OSG_COLLADA_LOG(("ColladaEffect::handleSimpleColor: setting diffuse color\n"));
@@ -580,7 +642,7 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
         colVal[0] = color[0];
         colVal[1] = color[1];
         colVal[2] = color[2];
-        colVal[3] = color[3];
+        colVal[3] = useBlendChunk ? color[3] : 1.0;
 
         matChunk->setDiffuse(colVal);
     }
@@ -594,7 +656,7 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
         colVal[0] = color[0];
         colVal[1] = color[1];
         colVal[2] = color[2];
-        colVal[3] = color[3];
+        colVal[3] = useBlendChunk ? color[3] : 1.0;
 
         matChunk->setAmbient(colVal);
     }
@@ -608,20 +670,21 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
         colVal[0] = color[0];
         colVal[1] = color[1];
         colVal[2] = color[2];
-        colVal[3] = color[3];
+        colVal[3] = useBlendChunk ? color[3] : 1.0;
 
         matChunk->setSpecular(colVal);
     }
 
     if(emission != NULL)
     {
-        OSG_COLLADA_LOG(("ColladaEffect::handleSimpleColor: settign emissive color\n"));
+        OSG_COLLADA_LOG(("ColladaEffect::handleSimpleColor: setting emissive color\n"));
         
         const domFx_color_common &color = emission->getValue();
     
         colVal[0] = color[0];
         colVal[1] = color[1];
         colVal[2] = color[2];
+        colVal[3] = useBlendChunk ? color[3] : 1.0;
     
         matChunk->setEmission(colVal);
     }
@@ -633,18 +696,6 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
     _material->addChunk(matChunk);
 
     return MaterialChunkTransitPtr(matChunk);
-}
-
-void ColladaEffect::fillElements(
-    domCommon_color_or_texture_type                *colTexIn,
-    domCommon_color_or_texture_type::domColorRef   &colOut,
-    domCommon_color_or_texture_type::domTextureRef &texOut   )
-{
-    if(colTexIn != NULL)
-    {
-        colOut = colTexIn->getColor  ();
-        texOut = colTexIn->getTexture();
-    }
 }
 
 OSG_END_NAMESPACE

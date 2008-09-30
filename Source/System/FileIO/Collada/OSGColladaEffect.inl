@@ -60,4 +60,37 @@ inline void ColladaEffect::setTexCoordMapping(
     _texCoordMapping[texCoord] = mappedTC;
 }
 
+/*! Computes a luminance value from the red, green and blue component of a
+    color per the Collada Spec.
+ */
+inline Real32 ColladaEffect::computeLuminance(
+    Real32 colR, Real32 colG, Real32 colB)
+{
+    return colR * 0.212671 + colG * 0.71516 + colB * 0.072169;
+}
+
+inline void ColladaEffect::fillElements(
+    domCommon_color_or_texture_type                *colTexIn,
+    domCommon_color_or_texture_type::domColorRef   &colOut,
+    domCommon_color_or_texture_type::domTextureRef &texOut   )
+{
+    if(colTexIn != NULL)
+    {
+        colOut = colTexIn->getColor  ();
+        texOut = colTexIn->getTexture();
+    }
+}
+
+inline void ColladaEffect::fillElements(
+    domCommon_transparent_type                     *colTexIn,
+    domCommon_color_or_texture_type::domColorRef   &colOut,
+    domCommon_color_or_texture_type::domTextureRef &texOut   )
+{
+    if(colTexIn != NULL)
+    {
+        colOut = colTexIn->getColor  ();
+        texOut = colTexIn->getTexture();
+    }
+}
+
 OSG_END_NAMESPACE

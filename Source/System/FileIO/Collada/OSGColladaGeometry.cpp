@@ -171,8 +171,8 @@ void ColladaGeometry::setupGeometry(
         geoRef += sourceURI.getID();
     }
 
-    OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: geoRef [%s]\n",
-                     geoRef.c_str()));
+    OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: geoRef [%s] matRef [%s]\n",
+                     geoRef.c_str(), matRef.c_str()));
 
     GeoMapIt      currGeoIt = _geosMap.find(geoRef);
     GeometryInfo *geoInfo   = NULL;
@@ -714,14 +714,20 @@ GeoVectorProperty *ColladaGeometry::fillVecProp(
 
         if(propIdx == Geometry::NormalsIndex)
         {
+            OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: reading as Vec3f\n"));
+            
             returnValue = colSource->getAsVec3fProp();
         }
         else if(propIdx == Geometry::PositionsIndex)
         {
+            OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: reading as Pnt3f\n"));
+            
             returnValue = colSource->getAsPnt3fProp();
         }
         else if(propIdx == Geometry::TexCoordsIndex)
         {
+            OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: reading as Vec2f\n"));
+            
             returnValue = colSource->getAsVec2fProp();
         }
     }
