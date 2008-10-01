@@ -182,7 +182,7 @@ void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
         if(pTexObj == NULL)
             return;
         
-        ImagePtr pTexImg = pTexObj->getImage();
+        Image *pTexImg = pTexObj->getImage();
                     
         if(pTexImg->getData() == NULL)
         {
