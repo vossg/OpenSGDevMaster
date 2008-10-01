@@ -88,6 +88,14 @@ class OSG_SYSTEM_DLLMAPPING TextureBuffer :
     virtual void validate(DrawEnv *pEnv                  );
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
+    void processPreDeactivate (DrawEnv *pEnv, UInt32 index);
+    void processPostDeactivate(DrawEnv *pEnv);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -118,6 +126,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBuffer :
     static UInt32 _uiFuncFramebufferTexture1D;
     static UInt32 _uiFuncFramebufferTexture2D;
     static UInt32 _uiFuncFramebufferTexture3D;
+    static UInt32 _uiFuncGenerateMipmap;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

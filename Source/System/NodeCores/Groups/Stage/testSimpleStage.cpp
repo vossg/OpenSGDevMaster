@@ -1,4 +1,3 @@
-#if 0
 #include <OSGConfig.h>
 
 #include <iostream>
@@ -43,23 +42,26 @@ using namespace OSG;
 
 //#define USE_DEPTH_TEXTURE 1
 
-SimpleSceneManager    *mgr(NULL);
+SimpleSceneManager      *mgr(NULL);
 
-GroupNodePtr  planeRoot;
-GroupNodePtr  animRoot;
+GroupNodeRefPtr          planeRoot;
+GroupNodeRefPtr          animRoot;
 
-Vec3f            sceneTrans;
-TransformNodePtr cam_transScene;    // Transofrmation of cam/light/stage
-TransformNodePtr sceneXform;        // Rotation of model we are viewing
+Vec3f                     sceneTrans;
+TransformNodeRefPtr       cam_transScene;  // Transofrmation of cam/light/stage
+TransformNodeRefPtr       sceneXform;      // Rotation of model we are viewing
 
-TextureObjChunkPtr tx1o;       // Texture object to shared
-TextureEnvChunkPtr tx1e;       // Texture environment to share
+TextureObjChunkUnrecPtr   tx1o;       // Texture object to shared
+TextureEnvChunkUnrecPtr   tx1e;       // Texture environment to share
 
 #ifdef USE_DEPTH_TEXTURE
-TextureObjChunkPtr txDepth;    // Depth texture
+TextureObjChunkUnrecPtr   txDepth;    // Depth texture
 #endif
 
-FrameBufferObjectPtr pFBO;
+FrameBufferObjectUnrecPtr pFBO;
+TextureBufferUnrecPtr     pTexBuffer;
+
+bool                      bReadBack = false;
 
 // ----- Scene structure --- //
 /*
@@ -118,6 +120,13 @@ void display(void)
 
     // all done, swap
     glutSwapBuffers();
+
+    if(bReadBack == true)
+    {
+        Image *pImg = tx1o->getImage();
+        
+        pImg->write("/tmp/foo.png");
+    }
 }
 
 void reshape(int w, int h)
@@ -157,6 +166,24 @@ void key(unsigned char key, int x, int y)
     switch(key)
     {
         case 27:
+
+            planeRoot      = static_cast<Node *>(NULL);
+            animRoot       = static_cast<Node *>(NULL);
+
+            cam_transScene = static_cast<Node *>(NULL);
+            sceneXform     = static_cast<Node *>(NULL);
+
+            tx1o           = NULL;
+            tx1e           = NULL;
+
+#ifdef USE_DEPTH_TEXTURE
+            txDepth        = NULL;
+#endif
+
+            pFBO           = NULL;
+
+            delete mgr;
+
             osgExit();
             exit(0);
 
@@ -212,6 +239,26 @@ void key(unsigned char key, int x, int y)
             pFBO->setSize(256, 256);
         }
         break;
+        
+        case 'r':
+        {
+            fprintf(stderr, "enable readback\n");
+
+            bReadBack = true;
+
+            pFBO->setPostProcessOnDeactivate(true);
+        }
+        break;
+
+        case 'R':
+        {
+            fprintf(stderr, "disable readback\n");
+
+            bReadBack = false;
+
+            pFBO->setPostProcessOnDeactivate(false);
+        }
+
     }
 }
 
@@ -222,14 +269,14 @@ void key(unsigned char key, int x, int y)
 void initAnimSetup(int argc, char **argv)
 {
     // beacon for light and stage camera
-    GroupNodePtr beacon = GroupNodePtr::create();
+    GroupNodeRefPtr beacon = GroupNodeRefPtr::create();
 
     // transformation for beacon
-    cam_transScene   = TransformNodePtr::create();
+    cam_transScene   = TransformNodeRefPtr::create();
     cam_transScene.node()->addChild(beacon);
 
     // light
-    DirectionalLightNodePtr dlight = DirectionalLightNodePtr::create();
+    DirectionalLightNodeRefPtr dlight = DirectionalLightNodeRefPtr::create();
 
     dlight->setAmbient  (.3, .3, .3, 1);
     dlight->setDiffuse  ( 1,  1,  1, 1);
@@ -237,12 +284,12 @@ void initAnimSetup(int argc, char **argv)
     dlight->setBeacon   (beacon       );
 
     // animRoot
-    animRoot = GroupNodePtr::create();
+    animRoot = GroupNodeRefPtr::create();
     animRoot.node()->addChild(cam_transScene   );
 
     // Load the file and put it in the graph
     // under the sceneXform node.
-    NodePtr file = NullFC;
+    NodeUnrecPtr file = NullFC;
 
     if(argc > 1)
     { file = SceneFileHandler::the()->read(argv[1]); }
@@ -265,7 +312,7 @@ void initAnimSetup(int argc, char **argv)
                          max[2] + ( max[2] - min[2]) * 4.5 );
 
 
-    sceneXform = TransformNodePtr::create();
+    sceneXform = TransformNodeRefPtr::create();
     sceneXform.node()->addChild(file);
     dlight.node()->addChild(sceneXform);
 
@@ -273,7 +320,7 @@ void initAnimSetup(int argc, char **argv)
     // ---- STAGE RENDERING SETUP --- //
     // Camera: setup camera to point from beacon (light pos)
     //   with a 90deg FOV to render the scene
-    PerspectiveCameraPtr stage_cam = PerspectiveCamera::create();
+    PerspectiveCameraUnrecPtr stage_cam = PerspectiveCamera::create();
 
     stage_cam->setBeacon(beacon);
     stage_cam->setFov   (osgDegree2Rad(90));
@@ -282,33 +329,34 @@ void initAnimSetup(int argc, char **argv)
 
 
     // Background
-    SolidBackgroundPtr bkgnd = SolidBackground::create();
+    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
     bkgnd->setColor(Color3f(0,1,0));
 
     // FBO setup
-                         pFBO         = FrameBufferObject::create();
-    TextureBufferPtr     pTexBuffer   = TextureBuffer::create();
+    pFBO         = FrameBufferObject::create();
+    pTexBuffer   = TextureBuffer::create();
 
 #ifdef USE_DEPTH_TEXTURE
-    TextureBufferPtr     pDepthBuffer = TextureBuffer::create();
+    TextureBufferUnrecPtr     pDepthBuffer = TextureBuffer::create();
     pDepthBuffer->setTexture(txDepth);
 #else
-    RenderBufferPtr      pDepthBuffer = RenderBuffer ::create();
+    RenderBufferUnrecPtr      pDepthBuffer = RenderBuffer ::create();
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 #endif
 
-
-    pTexBuffer->setTexture(tx1o);
+    
+    pTexBuffer->setTexture (tx1o);
+    pTexBuffer->setReadBack(true);
 
     pFBO->setSize(512, 512);
     pFBO->setColorAttachment(pTexBuffer, 0);
     pFBO->setDepthAttachment(pDepthBuffer );
 
-    pFBO->clearDrawBuffers();
-    pFBO->pushToDrawBuffers(GL_COLOR_ATTACHMENT0_EXT);
+    pFBO->editMFDrawBuffers()->clear();
+    pFBO->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
 
     // Stage core setup
-    SimpleStageNodePtr pStage    = SimpleStageNodePtr::create();
+    SimpleStageNodeRefPtr pStage    = SimpleStageNodeRefPtr::create();
     pStage->setRenderTarget(pFBO );
     pStage->setCamera      (stage_cam  );
     pStage->setBackground  (bkgnd);
@@ -318,7 +366,7 @@ void initAnimSetup(int argc, char **argv)
 
     // Setup sub-tree visitor
     // - This will setup a graph that will render a subtree during traversal
-    VisitSubTreeNodePtr pVisit     = VisitSubTreeNodePtr::create();
+    VisitSubTreeNodeRefPtr pVisit     = VisitSubTreeNodeRefPtr::create();
     pVisit->setSubTreeRoot(dlight);
 
     pStage.node()->addChild(pVisit);
@@ -330,14 +378,14 @@ void initAnimSetup(int argc, char **argv)
 void initPlaneSetup(void)
 {
     // beacon for camera and light
-    GroupNodePtr  beacon = GroupNodePtr::create();
+    GroupNodeRefPtr  beacon = GroupNodeRefPtr::create();
 
     // transformation
-    TransformNodePtr cam_transPlane = TransformNodePtr::create();
+    TransformNodeRefPtr cam_transPlane = TransformNodeRefPtr::create();
     cam_transPlane.node()->addChild(beacon);
 
     // light
-    DirectionalLightNodePtr dl = DirectionalLightNodePtr::create();
+    DirectionalLightNodeRefPtr dl = DirectionalLightNodeRefPtr::create();
 
     dl->setAmbient  (.3, .3, .3, 1);
     dl->setDiffuse  ( 1,  1,  1, 1);
@@ -345,18 +393,18 @@ void initPlaneSetup(void)
     dl->setBeacon   (beacon          );
 
     // planeRoot
-    planeRoot = GroupNodePtr::create();
+    planeRoot = GroupNodeRefPtr::create();
 
     planeRoot.node()->addChild(cam_transPlane);
     planeRoot.node()->addChild(animRoot);
     planeRoot.node()->addChild(dl);
 
     // Create plane to project the staged render
-    NodePtr plane_node = makePlane(10, 10, 5, 5);
+    NodeUnrecPtr plane_node = makePlane(10, 10, 5, 5);
 
     // Setup the shared texture and texture environment
     // - Create an empty image so texture can allocate size and memory
-    ImagePtr pImg = Image::create();
+    ImageUnrecPtr pImg = Image::create();
     pImg->set(Image::OSG_RGB_PF, 512, 512);
 
     tx1o->setImage    (pImg      );
@@ -368,7 +416,7 @@ void initPlaneSetup(void)
     tx1e->setEnvMode (GL_REPLACE);
 
 #ifdef USE_DEPTH_TEXTURE
-    ImagePtr dImg = Image::create();
+    ImageUnrecPtr dImg = Image::create();
     dImg->set(Image::OSG_L_PF, 512, 512);
 
     txDepth->setImage (dImg);
@@ -384,7 +432,7 @@ void initPlaneSetup(void)
     // Material for plane
     // - Create a material that will reference the texture and render
     //     it on the plane
-    SimpleMaterialPtr mat = SimpleMaterial::create();
+    SimpleMaterialUnrecPtr mat = SimpleMaterial::create();
 
     mat->setDiffuse(Color3f(1,1,1));
     mat->setLit    (false         );
@@ -395,18 +443,18 @@ void initPlaneSetup(void)
 #endif
     mat->addChunk  (tx1e          );
 
-    GeometryPtr pGeo = dynamic_cast<GeometryPtr>(plane_node->getCore());
+    GeometryUnrecPtr pGeo = dynamic_cast<Geometry *>(plane_node->getCore());
     pGeo->setMaterial(mat);
 
     // Finish connecting graph
-    TransformNodePtr scene_trans = TransformNodePtr::create();
+    TransformNodeRefPtr scene_trans = TransformNodeRefPtr::create();
     scene_trans.node()->addChild(plane_node );
 
     dl.node()->addChild(scene_trans);
 
 }
 
-int main (int argc, char **argv)
+int doMain (int argc, char **argv)
 {
     osgInit(argc,argv);
 
@@ -440,7 +488,7 @@ int main (int argc, char **argv)
     initAnimSetup(argc, argv);
     initPlaneSetup();
 
-    PassiveWindowPtr pwin(PassiveWindow::create());
+    PassiveWindowUnrecPtr pwin(PassiveWindow::create());
     pwin->init();
 
     // create the SimpleSceneManager helper
@@ -458,14 +506,13 @@ int main (int argc, char **argv)
 
     mgr->setUseTraversalAction(true);
 
+    return 0;
+}
+int main (int argc, char **argv)
+{
+    doMain(argc, argv);
+
     glutMainLoop();
 
     return 0;
 }
-
-#else
-int main(void)
-{
-    return 0;
-}
-#endif

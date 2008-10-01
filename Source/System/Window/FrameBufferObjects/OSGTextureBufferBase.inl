@@ -164,6 +164,31 @@ void TextureBufferBase::setZoffset(const UInt32 value)
 
     _sfZoffset.setValue(value);
 }
+//! Get the value of the TextureBuffer::_sfReadBack field.
+
+inline
+bool &TextureBufferBase::editReadBack(void)
+{
+    editSField(ReadBackFieldMask);
+
+    return _sfReadBack.getValue();
+}
+
+//! Get the value of the TextureBuffer::_sfReadBack field.
+inline
+      bool  TextureBufferBase::getReadBack(void) const
+{
+    return _sfReadBack.getValue();
+}
+
+//! Set the value of the TextureBuffer::_sfReadBack field.
+inline
+void TextureBufferBase::setReadBack(const bool value)
+{
+    editSField(ReadBackFieldMask);
+
+    _sfReadBack.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -187,6 +212,9 @@ void TextureBufferBase::execSync (      TextureBufferBase *pFrom,
 
     if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
         _sfZoffset.syncWith(pFrom->_sfZoffset);
+
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+        _sfReadBack.syncWith(pFrom->_sfReadBack);
 }
 #endif
 

@@ -53,4 +53,16 @@ See FramebufferTexture1/2/3DEXT.
         >
         UNUSED.
         </Field>
+
+        <Field
+                name="readBack"
+                type="bool"
+                cardinality="single"
+                visibility="external"
+                access="public"
+                defaultValue="false"
+        >
+        read back the render result into the texture image obj on 
+        framebuffer object deactivate
+        </Field>
 </FieldContainer>

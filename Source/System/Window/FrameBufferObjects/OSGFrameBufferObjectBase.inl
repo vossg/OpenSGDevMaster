@@ -180,6 +180,31 @@ void FrameBufferObjectBase::setHeight(const UInt16 value)
 
     _sfHeight.setValue(value);
 }
+//! Get the value of the FrameBufferObject::_sfPostProcessOnDeactivate field.
+
+inline
+bool &FrameBufferObjectBase::editPostProcessOnDeactivate(void)
+{
+    editSField(PostProcessOnDeactivateFieldMask);
+
+    return _sfPostProcessOnDeactivate.getValue();
+}
+
+//! Get the value of the FrameBufferObject::_sfPostProcessOnDeactivate field.
+inline
+      bool  FrameBufferObjectBase::getPostProcessOnDeactivate(void) const
+{
+    return _sfPostProcessOnDeactivate.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfPostProcessOnDeactivate field.
+inline
+void FrameBufferObjectBase::setPostProcessOnDeactivate(const bool value)
+{
+    editSField(PostProcessOnDeactivateFieldMask);
+
+    _sfPostProcessOnDeactivate.setValue(value);
+}
 
 //! Get the value of the \a index element the FrameBufferObject::_mfColorAttachments field.
 inline
@@ -241,6 +266,9 @@ void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
 
     if(FieldBits::NoField != (HeightFieldMask & whichField))
         _sfHeight.syncWith(pFrom->_sfHeight);
+
+    if(FieldBits::NoField != (PostProcessOnDeactivateFieldMask & whichField))
+        _sfPostProcessOnDeactivate.syncWith(pFrom->_sfPostProcessOnDeactivate);
 }
 #endif
 

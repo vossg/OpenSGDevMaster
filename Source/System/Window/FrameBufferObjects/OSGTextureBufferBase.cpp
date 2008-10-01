@@ -102,6 +102,11 @@ OSG_BEGIN_NAMESPACE
     UNUSED.
 */
 
+/*! \var bool            TextureBufferBase::_sfReadBack
+    read back the render result into the texture image obj on 
+    framebuffer object deactivate
+*/
+
 
 void TextureBufferBase::classDescInserter(TypeObject &oType)
 {
@@ -154,6 +159,19 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleZoffset),
         static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleZoffset));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "readBack",
+        "read back the render result into the texture image obj on \n"
+        "framebuffer object deactivate\n",
+        ReadBackFieldId, ReadBackFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleReadBack),
+        static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleReadBack));
 
     oType.addInitialDesc(pDesc);
 }
@@ -224,6 +242,18 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     "                defaultValue=\"0\"\n"
     "        >\n"
     "        UNUSED.\n"
+    "        </Field>\n"
+    "\n"
+    "        <Field\n"
+    "                name=\"readBack\"\n"
+    "                type=\"bool\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"false\"\n"
+    "        >\n"
+    "        read back the render result into the texture image obj on \n"
+    "        framebuffer object deactivate\n"
     "        </Field>\n"
     "</FieldContainer>\n",
     "Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
@@ -303,6 +333,19 @@ const SFUInt32 *TextureBufferBase::getSFZoffset(void) const
 }
 
 
+SFBool *TextureBufferBase::editSFReadBack(void)
+{
+    editSField(ReadBackFieldMask);
+
+    return &_sfReadBack;
+}
+
+const SFBool *TextureBufferBase::getSFReadBack(void) const
+{
+    return &_sfReadBack;
+}
+
+
 
 
 
@@ -329,6 +372,10 @@ UInt32 TextureBufferBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfZoffset.getBinSize();
     }
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+    {
+        returnValue += _sfReadBack.getBinSize();
+    }
 
     return returnValue;
 }
@@ -354,6 +401,10 @@ void TextureBufferBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfZoffset.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+    {
+        _sfReadBack.copyToBin(pMem);
+    }
 }
 
 void TextureBufferBase::copyFromBin(BinaryDataHandler &pMem,
@@ -376,6 +427,10 @@ void TextureBufferBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
     {
         _sfZoffset.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+    {
+        _sfReadBack.copyFromBin(pMem);
     }
 }
 
@@ -475,7 +530,8 @@ TextureBufferBase::TextureBufferBase(void) :
     _sfTexture                (NULL),
     _sfTexTarget              (GLenum(GL_NONE)),
     _sfLevel                  (UInt32(0)),
-    _sfZoffset                (UInt32(0))
+    _sfZoffset                (UInt32(0)),
+    _sfReadBack               (bool(false))
 {
 }
 
@@ -484,7 +540,8 @@ TextureBufferBase::TextureBufferBase(const TextureBufferBase &source) :
     _sfTexture                (NULL),
     _sfTexTarget              (source._sfTexTarget              ),
     _sfLevel                  (source._sfLevel                  ),
-    _sfZoffset                (source._sfZoffset                )
+    _sfZoffset                (source._sfZoffset                ),
+    _sfReadBack               (source._sfReadBack               )
 {
 }
 
@@ -598,6 +655,29 @@ EditFieldHandlePtr TextureBufferBase::editHandleZoffset        (void)
 
 
     editSField(ZoffsetFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr TextureBufferBase::getHandleReadBack        (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfReadBack,
+             this->getType().getFieldDesc(ReadBackFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr TextureBufferBase::editHandleReadBack       (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfReadBack,
+             this->getType().getFieldDesc(ReadBackFieldId)));
+
+
+    editSField(ReadBackFieldMask);
 
     return returnValue;
 }

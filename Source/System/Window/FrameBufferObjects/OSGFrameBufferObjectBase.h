@@ -72,6 +72,7 @@
 #include "OSGFrameBufferAttachmentFields.h" // StencilAttachment type
 #include "OSGUInt16Fields.h" // Width type
 #include "OSGUInt16Fields.h" // Height type
+#include "OSGBoolFields.h" // PostProcessOnDeactivate type
 
 #include "OSGFrameBufferObjectFields.h"
 
@@ -106,7 +107,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
         StencilAttachmentFieldId = DepthAttachmentFieldId + 1,
         WidthFieldId = StencilAttachmentFieldId + 1,
         HeightFieldId = WidthFieldId + 1,
-        NextFieldId = HeightFieldId + 1
+        PostProcessOnDeactivateFieldId = HeightFieldId + 1,
+        NextFieldId = PostProcessOnDeactivateFieldId + 1
     };
 
     static const OSG::BitVector GLIdFieldMask =
@@ -123,6 +125,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << WidthFieldId);
     static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
+    static const OSG::BitVector PostProcessOnDeactivateFieldMask =
+        (TypeTraits<BitVector>::One << PostProcessOnDeactivateFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -133,6 +137,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     typedef SFUnrecFrameBufferAttachmentPtr SFStencilAttachmentType;
     typedef SFUInt16          SFWidthType;
     typedef SFUInt16          SFHeightType;
+    typedef SFBool            SFPostProcessOnDeactivateType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -176,6 +181,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   SFUInt16            *editSFHeight         (void);
             const SFUInt16            *getSFHeight          (void) const;
 
+                  SFBool              *editSFPostProcessOnDeactivate(void);
+            const SFBool              *getSFPostProcessOnDeactivate (void) const;
+
 
                   GLenum              &editGLId           (void);
             const GLenum              &getGLId            (void) const;
@@ -195,6 +203,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   UInt16              &editHeight         (void);
                   UInt16               getHeight          (void) const;
 
+                  bool                &editPostProcessOnDeactivate(void);
+                  bool                 getPostProcessOnDeactivate (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -205,6 +216,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
             void setStencilAttachment(FrameBufferAttachment * const value);
             void setWidth          (const UInt16 value);
             void setHeight         (const UInt16 value);
+            void setPostProcessOnDeactivate(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -278,6 +290,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     SFUnrecFrameBufferAttachmentPtr _sfStencilAttachment;
     SFUInt16          _sfWidth;
     SFUInt16          _sfHeight;
+    SFBool            _sfPostProcessOnDeactivate;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -320,6 +333,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     EditFieldHandlePtr editHandleWidth          (void);
     GetFieldHandlePtr  getHandleHeight          (void) const;
     EditFieldHandlePtr editHandleHeight         (void);
+    GetFieldHandlePtr  getHandlePostProcessOnDeactivate (void) const;
+    EditFieldHandlePtr editHandlePostProcessOnDeactivate(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

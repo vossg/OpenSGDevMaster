@@ -61,6 +61,7 @@ UInt32 TextureBuffer::_uiFramebuffer_object_extension =
 UInt32 TextureBuffer::_uiFuncFramebufferTexture1D =  Window::invalidFunctionID;
 UInt32 TextureBuffer::_uiFuncFramebufferTexture2D =  Window::invalidFunctionID;
 UInt32 TextureBuffer::_uiFuncFramebufferTexture3D =  Window::invalidFunctionID;
+UInt32 TextureBuffer::_uiFuncGenerateMipmap       =  Window::invalidFunctionID;
 
 
 typedef void (OSG_APIENTRY *GLFramebufferTexture1DEXTProcT)(
@@ -84,6 +85,8 @@ typedef void (OSG_APIENTRY *GLFramebufferTexture3DEXTProcT)(
     GLuint texture, 
     GLint level, 
     GLint zoffset);
+
+typedef void   (OSG_APIENTRY *GLGenerateMipmapEXTProcT)(GLenum target);
 
 // Documentation for this class is emited in the
 // OSGTextureBufferBase.cpp file.
@@ -119,12 +122,13 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                     reinterpret_cast<GLFramebufferTexture1DEXTProcT>(
                         pWindow->getFunction(_uiFuncFramebufferTexture1D));
 
-                glFramebufferTexture1DEXTProc(GL_FRAMEBUFFER_EXT, 
-                                              index,
-                                              target,
-                                              pWindow->getGLObjectId(
-                                                    _sfTexture.getValue()->getGLId()),
-                                              getLevel());
+                glFramebufferTexture1DEXTProc(
+                    GL_FRAMEBUFFER_EXT, 
+                    index,
+                    target,
+                    pWindow->getGLObjectId(
+                        _sfTexture.getValue()->getGLId()),
+                    getLevel());
              }
             break;
                 
@@ -143,12 +147,13 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                     reinterpret_cast<GLFramebufferTexture2DEXTProcT>(
                         pWindow->getFunction(_uiFuncFramebufferTexture2D));
 
-                glFramebufferTexture2DEXTProc(GL_FRAMEBUFFER_EXT, 
-                                              index,
-                                              target,
-                                              pWindow->getGLObjectId(
-                                                    _sfTexture.getValue()->getGLId()),
-                                              getLevel());
+                glFramebufferTexture2DEXTProc(
+                    GL_FRAMEBUFFER_EXT, 
+                    index,
+                    target,
+                    pWindow->getGLObjectId(
+                        _sfTexture.getValue()->getGLId()),
+                    getLevel());
             }
             break;
                 
@@ -165,6 +170,69 @@ void TextureBuffer::validate(DrawEnv *pEnv)
     if(_sfTexture.getValue() != NULL)
     {
         pWindow->validateGLObject(_sfTexture.getValue()->getGLId(), pEnv);
+    }
+}
+
+void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
+{
+    if(_sfReadBack.getValue() == true)
+    {
+        TextureObjChunk *pTexObj = this->getTexture();
+        
+        if(pTexObj == NULL)
+            return;
+        
+        ImagePtr pTexImg = pTexObj->getImage();
+                    
+        if(pTexImg->getData() == NULL)
+        {
+            SINFO << "TextureBuffer::render: (Re)Allocating image "
+                  << "for read-back."
+                  << endLog;
+            
+            pTexImg->set(pTexImg->getPixelFormat(),
+                         pTexImg->getWidth      (),
+                         pTexImg->getHeight     ());
+        }
+        
+        // select GL_COLORATTACHMENTn and read data into image
+        glReadBuffer(index);
+        glReadPixels(0, 0, 
+                     pTexImg->getWidth      (), 
+                     pTexImg->getHeight     (),
+                     pTexImg->getPixelFormat(), 
+                     pTexImg->getDataType   (),
+                     pTexImg->editData      ());
+
+        glReadBuffer(GL_NONE);
+    }
+}
+
+void TextureBuffer::processPostDeactivate(DrawEnv *pEnv)
+{
+    Window *win = pEnv->getWindow();
+
+    // If there are TextureBuffers with mipmap filters attached,
+    // the mipmaps need to be regenerated
+    GLGenerateMipmapEXTProcT glGenerateMipmapExtProc =
+        reinterpret_cast<GLGenerateMipmapEXTProcT>(
+            win->getFunction(_uiFuncGenerateMipmap));
+
+    TextureObjChunk *pTexObj = this->getTexture();
+        
+    if(pTexObj == NULL)
+        return;
+        
+    GLenum target = pTexObj->determineTextureTarget(win);
+    
+    if(target                  == GL_TEXTURE_2D                 &&
+       (pTexObj->getMinFilter() == GL_NEAREST_MIPMAP_NEAREST ||
+        pTexObj->getMinFilter() == GL_LINEAR_MIPMAP_NEAREST  ||
+        pTexObj->getMinFilter() == GL_NEAREST_MIPMAP_LINEAR  ||
+        pTexObj->getMinFilter() == GL_LINEAR_MIPMAP_LINEAR     )   )
+    {
+        glBindTexture(target, win->getGLObjectId(pTexObj->getGLId()));
+        glGenerateMipmapExtProc(target);
     }
 }
 
@@ -208,6 +276,11 @@ void TextureBuffer::initMethod(InitPhase ePhase)
         _uiFuncFramebufferTexture3D =
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture3DEXT", 
+                _uiFramebuffer_object_extension);
+
+        _uiFuncGenerateMipmap =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
                 _uiFramebuffer_object_extension);
     }
 

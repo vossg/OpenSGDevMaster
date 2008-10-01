@@ -117,6 +117,11 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            FrameBufferObjectBase::_sfPostProcessOnDeactivate
+    Enable to check and generate mipmap level or copy the texture buffer
+    result back to the image
+*/
+
 
 void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 {
@@ -209,6 +214,19 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "postProcessOnDeactivate",
+        "Enable to check and generate mipmap level or copy the texture buffer\n"
+        "result back to the image\n",
+        PostProcessOnDeactivateFieldId, PostProcessOnDeactivateFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandlePostProcessOnDeactivate),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandlePostProcessOnDeactivate));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -294,6 +312,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "                cardinality=\"single\"\n"
     "                visibility=\"external\"\n"
     "                access=\"public\"\n"
+    "                defaultValue=\"0\"\n"
     "        >\n"
     "        </Field>\n"
     "        <Field\n"
@@ -302,7 +321,20 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "                cardinality=\"single\"\n"
     "                visibility=\"external\"\n"
     "                access=\"public\"\n"
+    "                defaultValue=\"0\"\n"
     "        >\n"
+    "        </Field>\n"
+    "\n"
+    "        <Field\n"
+    "                name=\"postProcessOnDeactivate\"\n"
+    "                type=\"bool\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"false\"\n"
+    "        >\n"
+    "        Enable to check and generate mipmap level or copy the texture buffer\n"
+    "        result back to the image\n"
     "        </Field>\n"
     "</FieldContainer>\n",
     "Framebuffer object. Encapsulates FBOs as defined by the EXT_framebuffer_object\n"
@@ -420,6 +452,19 @@ const SFUInt16 *FrameBufferObjectBase::getSFHeight(void) const
 }
 
 
+SFBool *FrameBufferObjectBase::editSFPostProcessOnDeactivate(void)
+{
+    editSField(PostProcessOnDeactivateFieldMask);
+
+    return &_sfPostProcessOnDeactivate;
+}
+
+const SFBool *FrameBufferObjectBase::getSFPostProcessOnDeactivate(void) const
+{
+    return &_sfPostProcessOnDeactivate;
+}
+
+
 
 
 void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachment * const value)
@@ -511,6 +556,10 @@ UInt32 FrameBufferObjectBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfHeight.getBinSize();
     }
+    if(FieldBits::NoField != (PostProcessOnDeactivateFieldMask & whichField))
+    {
+        returnValue += _sfPostProcessOnDeactivate.getBinSize();
+    }
 
     return returnValue;
 }
@@ -548,6 +597,10 @@ void FrameBufferObjectBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfHeight.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PostProcessOnDeactivateFieldMask & whichField))
+    {
+        _sfPostProcessOnDeactivate.copyToBin(pMem);
+    }
 }
 
 void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
@@ -582,6 +635,10 @@ void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (HeightFieldMask & whichField))
     {
         _sfHeight.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PostProcessOnDeactivateFieldMask & whichField))
+    {
+        _sfPostProcessOnDeactivate.copyFromBin(pMem);
     }
 }
 
@@ -683,8 +740,9 @@ FrameBufferObjectBase::FrameBufferObjectBase(void) :
     _mfDrawBuffers            (GLenum(0)),
     _sfDepthAttachment        (NULL),
     _sfStencilAttachment      (NULL),
-    _sfWidth                  (),
-    _sfHeight                 ()
+    _sfWidth                  (UInt16(0)),
+    _sfHeight                 (UInt16(0)),
+    _sfPostProcessOnDeactivate(bool(false))
 {
 }
 
@@ -696,7 +754,8 @@ FrameBufferObjectBase::FrameBufferObjectBase(const FrameBufferObjectBase &source
     _sfDepthAttachment        (NULL),
     _sfStencilAttachment      (NULL),
     _sfWidth                  (source._sfWidth                  ),
-    _sfHeight                 (source._sfHeight                 )
+    _sfHeight                 (source._sfHeight                 ),
+    _sfPostProcessOnDeactivate(source._sfPostProcessOnDeactivate)
 {
 }
 
@@ -908,6 +967,29 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleHeight         (void)
 
 
     editSField(HeightFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandlePostProcessOnDeactivate (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfPostProcessOnDeactivate,
+             this->getType().getFieldDesc(PostProcessOnDeactivateFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandlePostProcessOnDeactivate(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfPostProcessOnDeactivate,
+             this->getType().getFieldDesc(PostProcessOnDeactivateFieldId)));
+
+
+    editSField(PostProcessOnDeactivateFieldMask);
 
     return returnValue;
 }

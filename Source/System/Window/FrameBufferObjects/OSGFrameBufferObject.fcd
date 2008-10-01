@@ -69,6 +69,7 @@ OpenGL extension.
                 cardinality="single"
                 visibility="external"
                 access="public"
+                defaultValue="0"
         >
         </Field>
         <Field
@@ -77,6 +78,19 @@ OpenGL extension.
                 cardinality="single"
                 visibility="external"
                 access="public"
+                defaultValue="0"
         >
+        </Field>
+
+        <Field
+                name="postProcessOnDeactivate"
+                type="bool"
+                cardinality="single"
+                visibility="external"
+                access="public"
+                defaultValue="false"
+        >
+        Enable to check and generate mipmap level or copy the texture buffer
+        result back to the image
         </Field>
 </FieldContainer>
