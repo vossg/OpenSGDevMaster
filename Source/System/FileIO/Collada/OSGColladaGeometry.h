@@ -101,10 +101,6 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaElement
   protected:
     friend class ColladaInstanceGeometry;
     
-    
-             ColladaGeometry(domGeometry *geo, ColladaGlobal *global);
-    virtual ~ColladaGeometry(void                                   );
-    
     typedef std::pair<GeoVectorPropertyUnrecPtr,
                       GeoIntegralPropertyUnrecPtr> PropIndexPair;
     typedef std::map <std::string, PropIndexPair > PropIndexMap;
@@ -126,9 +122,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaElement
     typedef std::map   <std::string, GeoStore      > MatGeoMap;
     typedef MatGeoMap::iterator                      MatGeoMapIt;
     
-    
-    GeoMap    _geosMap;
-    MatGeoMap _geosByMat;
+             ColladaGeometry(domGeometry *geo, ColladaGlobal *global);
+    virtual ~ColladaGeometry(void                                   );
     
     inline MatGeoMapIt beginGeo(void);
     inline MatGeoMapIt endGeo  (void);
@@ -160,6 +155,9 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaElement
                                 domTristrips        *tristrips  );
     
     GeoVectorProperty *fillVecProp(UInt32 propIdx, daeURI sourceURI);
+    
+    GeoMap    _geosMap;
+    MatGeoMap _geosByMat;
 };
 
 typedef ColladaGeometry::ObjRefPtr     ColladaGeometryRefPtr;

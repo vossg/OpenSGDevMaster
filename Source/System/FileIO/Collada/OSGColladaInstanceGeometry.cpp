@@ -186,10 +186,14 @@ void ColladaInstanceGeometry::read(void)
                     UInt32 texIdx =
                         colEffect->getTexBinding(binds[j]->getSemantic());
 
-                    _texBindingsMap[target].push_back(texIdx);
+                    if(texIdx != 0xFFFF)
+                    {
+                        _texBindingsMap[target].push_back(texIdx);
 
-                    OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: Bound: [%s] -> [%u]\n",
-                                     target.c_str(), texIdx));
+                        OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
+                                "Bound: [%s] -> [%u]\n",
+                                target.c_str(), texIdx));
+                    }
                 }
 
                 const domInstance_material::domBind_vertex_input_Array &vertBinds =
@@ -212,10 +216,13 @@ void ColladaInstanceGeometry::read(void)
                         colEffect->getTexBinding(vertBinds[j]->getSemantic());
 
                     if(texIdx != 0xFFFF)
+                    {
                         _texBindingsMap[target].push_back(texIdx);
 
-                    OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: Bound: [%s] -> [%u]\n",
-                                     target.c_str(), texIdx));
+                        OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
+                                         "Bound: [%s] -> [%u]\n",
+                                         target.c_str(), texIdx));
+                    }
                 }
             }
         }
