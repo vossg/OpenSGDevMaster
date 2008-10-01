@@ -79,6 +79,12 @@ OSG_BEGIN_NAMESPACE
  -  public                                                                 -
 \*-------------------------------------------------------------------------*/
 
+inline
+DrawEnv &RenderPartition::getDrawEnv(void)
+{
+    return _oDrawEnv;
+}
+
 /*------------- constructors & destructors --------------------------------*/
 
 /*------------------------------ access -----------------------------------*/

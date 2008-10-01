@@ -190,6 +190,8 @@ RenderPartition::RenderPartition(Mode eMode) :
    ,_szDebugString           (         )
 #endif
 {
+    _currMatrix.first = 1;
+    _currMatrix.second.setIdentity();
 }
 
 RenderPartition::~RenderPartition(void)

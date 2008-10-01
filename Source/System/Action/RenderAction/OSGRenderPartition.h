@@ -212,6 +212,10 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*------------------------- your_operators ------------------------------*/
 
+    DrawEnv &getDrawEnv(void);
+
+    /*------------------------- your_operators ------------------------------*/
+
     void   setNear(Real32 camNear);
     void   setFar (Real32 camFar );
 
