@@ -214,7 +214,7 @@ void key(unsigned char key, int x, int y)
 
         case 'B':
         {
-            ImagePtr pImg = tx1o->getImage();
+            ImageRefPtr pImg = tx1o->getImage();
 
             pImg->set(Image::OSG_RGB_PF, 512, 512);
 
@@ -228,7 +228,7 @@ void key(unsigned char key, int x, int y)
 
         case 'S':
         {
-            ImagePtr pImg = tx1o->getImage();
+            ImageRefPtr pImg = tx1o->getImage();
             
             pImg->set(Image::OSG_RGB_PF, 256, 256);
 
@@ -289,12 +289,12 @@ void initAnimSetup(int argc, char **argv)
 
     // Load the file and put it in the graph
     // under the sceneXform node.
-    NodeUnrecPtr file = NullFC;
+    NodeUnrecPtr file = NULL;
 
     if(argc > 1)
     { file = SceneFileHandler::the()->read(argv[1]); }
 
-    if(file == NullFC)
+    if(file == NULL)
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
         file = makeTorus(.5, 2, 16, 16);
