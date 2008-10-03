@@ -931,11 +931,11 @@ if not SConsAddons.Util.hasHelpFlag():
          if "x64" == combo["arch"]:
             inst_paths['lib'] = inst_paths['lib'] + '64'
          inst_paths["lib_inst_combo"] = inst_paths["lib"]
-         if GetPlatform() != "win32":
-            if "debug" == combo["type"]:
-               inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debug")
-            else:
-               inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"opt")
+
+         if "debug" == combo["type"]:
+            inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debug")
+         else:
+            inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"opt")
       
          Export('build_env', 'inst_paths', 'opts', 'variant_pass', 'combo',
                 'lib_map', 'shared_lib_suffix', 'static_lib_suffix',
