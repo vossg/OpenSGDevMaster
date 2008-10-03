@@ -400,6 +400,15 @@ void RenderPartition::setupExecution(void)
 
         glMatrixMode(GL_MODELVIEW);
     }
+
+    RenderCallbackStore::const_iterator cbIt  = _vPreRenderCallbacks.begin();
+    RenderCallbackStore::const_iterator cbEnd = _vPreRenderCallbacks.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        (*cbIt)(&_oDrawEnv);
+        ++cbIt;
+    }
     
     if(0x0000 != (_eSetupMode & BackgroundSetup))
     {
@@ -423,15 +432,6 @@ void RenderPartition::doExecution   (void)
                 _szDebugString.c_str());
     }
 #endif
-
-    RenderCallbackStore::const_iterator cbIt  = _vPreRenderCallbacks.begin();
-    RenderCallbackStore::const_iterator cbEnd = _vPreRenderCallbacks.end  ();
-
-    while(cbIt != cbEnd)
-    {
-        (*cbIt)(&_oDrawEnv);
-        ++cbIt;
-    }
 
     if(_eMode == SimpleCallback)
     {
@@ -479,8 +479,8 @@ void RenderPartition::doExecution   (void)
         }
     }
 
-    cbIt  = _vPostRenderCallbacks.begin();
-    cbEnd = _vPostRenderCallbacks.end  ();
+    RenderCallbackStore::const_iterator cbIt  = _vPostRenderCallbacks.begin();
+    RenderCallbackStore::const_iterator cbEnd = _vPostRenderCallbacks.end  ();
 
     while(cbIt != cbEnd)
     {
