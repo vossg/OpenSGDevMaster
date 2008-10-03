@@ -226,9 +226,10 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
         }
         a->popPartition();
         
-        a->pushPartition(0, RenderPartition::SimpleCallback);
+        a->pushPartition((RenderPartition::CopyWindow      |
+                          RenderPartition::CopyViewportSize),
+                         RenderPartition::SimpleCallback);
         {
-            Viewport        *pPort  = a->getViewport();
             RenderPartition *pPart  = a->getActivePartition();
 
 #ifdef OSG_DEBUGX
@@ -236,37 +237,23 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
             pPart->setDebugString(szMessage          );
 #endif
            
-            if(pPort != NULL)
-            {
-//                pPart->setViewport(pPort         );
-                pPart->setWindow  (a->getWindow());
+            Matrix m, t;
                 
-                pPart->calcViewportDimension(pPort->getLeft  (),
-                                             pPort->getBottom(),
-                                             pPort->getRight (),
-                                             pPort->getTop   (),
-                                             
-                                             a->getWindow()->getWidth (),
-                                             a->getWindow()->getHeight());
+            m.setIdentity();
+            t.setIdentity();
                 
-                Matrix m, t;
+            MatrixOrthogonal( m,
+                              0.f, 1.f,
+                              0.f, 1.f,
+                             -1.f, 1.f);
+            
+            pPart->setupProjection(m, t);
                 
-                m.setIdentity();
-                t.setIdentity();
+            RenderPartition::SimpleDrawCallback f;
                 
-                MatrixOrthogonal( m,
-                                  0.f, 1.f,
-                                  0.f, 1.f,
-                                  -1.f, 1.f);
+            f = boost::bind(&HDRStage::postProcess, this, _1);
                 
-                pPart->setupProjection(m, t);
-                
-                RenderPartition::SimpleDrawCallback f;
-                
-                f = boost::bind(&HDRStage::postProcess, this, _1);
-                
-                pPart->dropFunctor(f);
-            }
+            pPart->dropFunctor(f);
         }
         a->popPartition();
     }

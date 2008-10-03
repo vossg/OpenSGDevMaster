@@ -160,6 +160,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     "\t\ttype=\"Color3r\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"0.f, 0.f, 0.f\"\n"
     "\t>\n"
     "\tThe background color.\n"
     "\t</Field>\n"
@@ -373,7 +374,7 @@ FieldContainerTransitPtr SolidBackgroundBase::shallowCopy(void) const
 
 SolidBackgroundBase::SolidBackgroundBase(void) :
     Inherited(),
-    _sfColor                  (),
+    _sfColor                  (Color3r(0.f, 0.f, 0.f)),
     _sfAlpha                  (Real32(1.f))
 {
 }
