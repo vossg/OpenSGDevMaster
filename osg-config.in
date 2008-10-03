@@ -115,15 +115,20 @@ def main():
       options.lib_ext = ""
       options.libpath_prefix = ""
 
+   if options.dbg:
+      inst_lib_path_spez = pj(inst_lib_path, "debug");
+   else:
+      inst_lib_path_spez = pj(inst_lib_path, "opt");
+
    # Create a configuration adapter for the required library
    default_lib_settings = LibraryInfo()
-   default_lib_settings.libpath.insert(0, inst_lib_path) 
+   default_lib_settings.libpath.insert(0, inst_lib_path_spez) 
    default_lib_settings.cpppath.insert(0, inst_inc_path)
 
    lib_suffix = ""
 
    if options.dbg and sys.platform == "win32":
-       lib_suffix = "_d"
+       lib_suffix = ""
    elif "win32" == sys.platform and options.hybrid:
        lib_suffix = "_h"
 
