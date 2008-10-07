@@ -106,4 +106,26 @@ the position in the graph defines the objects that are lit.
 		access="public"
 	>
 	</Field>
+
+
+	<Field
+		name="shadowIntensity"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="shadowMode"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	</Field>
+
+
 </FieldContainer>

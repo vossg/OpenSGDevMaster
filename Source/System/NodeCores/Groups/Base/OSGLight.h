@@ -61,6 +61,13 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
 
   public:
 
+    enum
+    {
+        CAST_SHADOW_AUTO    = 0,
+        CAST_SHADOW_ON      = 1,
+        CAST_SHADOW_OFF     = 2
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                       Set                                    */
     /*! \{                                                                 */

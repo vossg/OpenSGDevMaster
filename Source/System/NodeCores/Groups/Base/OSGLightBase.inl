@@ -280,6 +280,56 @@ void LightBase::setLightEngine(LightEngine * const value)
 
     _sfLightEngine.setValue(value);
 }
+//! Get the value of the Light::_sfShadowIntensity field.
+
+inline
+Real32 &LightBase::editShadowIntensity(void)
+{
+    editSField(ShadowIntensityFieldMask);
+
+    return _sfShadowIntensity.getValue();
+}
+
+//! Get the value of the Light::_sfShadowIntensity field.
+inline
+      Real32  LightBase::getShadowIntensity(void) const
+{
+    return _sfShadowIntensity.getValue();
+}
+
+//! Set the value of the Light::_sfShadowIntensity field.
+inline
+void LightBase::setShadowIntensity(const Real32 value)
+{
+    editSField(ShadowIntensityFieldMask);
+
+    _sfShadowIntensity.setValue(value);
+}
+//! Get the value of the Light::_sfShadowMode field.
+
+inline
+UInt32 &LightBase::editShadowMode(void)
+{
+    editSField(ShadowModeFieldMask);
+
+    return _sfShadowMode.getValue();
+}
+
+//! Get the value of the Light::_sfShadowMode field.
+inline
+      UInt32  LightBase::getShadowMode(void) const
+{
+    return _sfShadowMode.getValue();
+}
+
+//! Set the value of the Light::_sfShadowMode field.
+inline
+void LightBase::setShadowMode(const UInt32 value)
+{
+    editSField(ShadowModeFieldMask);
+
+    _sfShadowMode.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -318,6 +368,12 @@ void LightBase::execSync (      LightBase *pFrom,
 
     if(FieldBits::NoField != (LightEngineFieldMask & whichField))
         _sfLightEngine.syncWith(pFrom->_sfLightEngine);
+
+    if(FieldBits::NoField != (ShadowIntensityFieldMask & whichField))
+        _sfShadowIntensity.syncWith(pFrom->_sfShadowIntensity);
+
+    if(FieldBits::NoField != (ShadowModeFieldMask & whichField))
+        _sfShadowMode.syncWith(pFrom->_sfShadowMode);
 }
 #endif
 

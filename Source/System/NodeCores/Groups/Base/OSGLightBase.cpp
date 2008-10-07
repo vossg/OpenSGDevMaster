@@ -126,6 +126,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Real32          LightBase::_sfShadowIntensity
+    
+*/
+
+/*! \var UInt32          LightBase::_sfShadowMode
+    
+*/
+
 
 void LightBase::classDescInserter(TypeObject &oType)
 {
@@ -237,6 +245,30 @@ void LightBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Light::editHandleLightEngine),
         static_cast<FieldGetMethodSig >(&Light::getHandleLightEngine));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "shadowIntensity",
+        "",
+        ShadowIntensityFieldId, ShadowIntensityFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Light::editHandleShadowIntensity),
+        static_cast<FieldGetMethodSig >(&Light::getHandleShadowIntensity));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "shadowMode",
+        "",
+        ShadowModeFieldId, ShadowModeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Light::editHandleShadowMode),
+        static_cast<FieldGetMethodSig >(&Light::getHandleShadowMode));
 
     oType.addInitialDesc(pDesc);
 }
@@ -361,6 +393,28 @@ LightBase::TypeObject LightBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "\n"
+    "\n"
+    "\t<Field\n"
+    "\t\tname=\"shadowIntensity\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shadowMode\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
+    "\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemNodeCoresLights\n"
     "\n"
@@ -508,6 +562,32 @@ SFUnrecLightEnginePtr *LightBase::editSFLightEngine    (void)
     return &_sfLightEngine;
 }
 
+SFReal32 *LightBase::editSFShadowIntensity(void)
+{
+    editSField(ShadowIntensityFieldMask);
+
+    return &_sfShadowIntensity;
+}
+
+const SFReal32 *LightBase::getSFShadowIntensity(void) const
+{
+    return &_sfShadowIntensity;
+}
+
+
+SFUInt32 *LightBase::editSFShadowMode(void)
+{
+    editSField(ShadowModeFieldMask);
+
+    return &_sfShadowMode;
+}
+
+const SFUInt32 *LightBase::getSFShadowMode(void) const
+{
+    return &_sfShadowMode;
+}
+
+
 
 
 
@@ -554,6 +634,14 @@ UInt32 LightBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfLightEngine.getBinSize();
     }
+    if(FieldBits::NoField != (ShadowIntensityFieldMask & whichField))
+    {
+        returnValue += _sfShadowIntensity.getBinSize();
+    }
+    if(FieldBits::NoField != (ShadowModeFieldMask & whichField))
+    {
+        returnValue += _sfShadowMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -599,6 +687,14 @@ void LightBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfLightEngine.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ShadowIntensityFieldMask & whichField))
+    {
+        _sfShadowIntensity.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ShadowModeFieldMask & whichField))
+    {
+        _sfShadowMode.copyToBin(pMem);
+    }
 }
 
 void LightBase::copyFromBin(BinaryDataHandler &pMem,
@@ -642,6 +738,14 @@ void LightBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfLightEngine.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ShadowIntensityFieldMask & whichField))
+    {
+        _sfShadowIntensity.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ShadowModeFieldMask & whichField))
+    {
+        _sfShadowMode.copyFromBin(pMem);
+    }
 }
 
 
@@ -659,7 +763,9 @@ LightBase::LightBase(void) :
     _sfConstantAttenuation    (Real(1.f)),
     _sfLinearAttenuation      (Real(0.f)),
     _sfQuadraticAttenuation   (Real(0.f)),
-    _sfLightEngine            (NULL)
+    _sfLightEngine            (NULL),
+    _sfShadowIntensity        (Real32(0.f)),
+    _sfShadowMode             (UInt32(0))
 {
 }
 
@@ -673,7 +779,9 @@ LightBase::LightBase(const LightBase &source) :
     _sfConstantAttenuation    (source._sfConstantAttenuation    ),
     _sfLinearAttenuation      (source._sfLinearAttenuation      ),
     _sfQuadraticAttenuation   (source._sfQuadraticAttenuation   ),
-    _sfLightEngine            (NULL)
+    _sfLightEngine            (NULL),
+    _sfShadowIntensity        (source._sfShadowIntensity        ),
+    _sfShadowMode             (source._sfShadowMode             )
 {
 }
 
@@ -907,6 +1015,52 @@ EditFieldHandlePtr LightBase::editHandleLightEngine    (void)
                     static_cast<Light *>(this), _1));
 
     editSField(LightEngineFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr LightBase::getHandleShadowIntensity (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfShadowIntensity,
+             this->getType().getFieldDesc(ShadowIntensityFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr LightBase::editHandleShadowIntensity(void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfShadowIntensity,
+             this->getType().getFieldDesc(ShadowIntensityFieldId)));
+
+
+    editSField(ShadowIntensityFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr LightBase::getHandleShadowMode      (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfShadowMode,
+             this->getType().getFieldDesc(ShadowModeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr LightBase::editHandleShadowMode     (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfShadowMode,
+             this->getType().getFieldDesc(ShadowModeFieldId)));
+
+
+    editSField(ShadowModeFieldMask);
 
     return returnValue;
 }

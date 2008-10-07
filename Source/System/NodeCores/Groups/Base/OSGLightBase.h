@@ -74,6 +74,8 @@
 #include "OSGRealFields.h" // LinearAttenuation type
 #include "OSGRealFields.h" // QuadraticAttenuation type
 #include "OSGLightEngineFields.h" // LightEngine type
+#include "OSGReal32Fields.h" // ShadowIntensity type
+#include "OSGUInt32Fields.h" // ShadowMode type
 
 #include "OSGLightFields.h"
 
@@ -110,7 +112,9 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
         LinearAttenuationFieldId = ConstantAttenuationFieldId + 1,
         QuadraticAttenuationFieldId = LinearAttenuationFieldId + 1,
         LightEngineFieldId = QuadraticAttenuationFieldId + 1,
-        NextFieldId = LightEngineFieldId + 1
+        ShadowIntensityFieldId = LightEngineFieldId + 1,
+        ShadowModeFieldId = ShadowIntensityFieldId + 1,
+        NextFieldId = ShadowModeFieldId + 1
     };
 
     static const OSG::BitVector AmbientFieldMask =
@@ -131,6 +135,10 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
         (TypeTraits<BitVector>::One << QuadraticAttenuationFieldId);
     static const OSG::BitVector LightEngineFieldMask =
         (TypeTraits<BitVector>::One << LightEngineFieldId);
+    static const OSG::BitVector ShadowIntensityFieldMask =
+        (TypeTraits<BitVector>::One << ShadowIntensityFieldId);
+    static const OSG::BitVector ShadowModeFieldMask =
+        (TypeTraits<BitVector>::One << ShadowModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -143,6 +151,8 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     typedef SFReal            SFLinearAttenuationType;
     typedef SFReal            SFQuadraticAttenuationType;
     typedef SFUnrecLightEnginePtr SFLightEngineType;
+    typedef SFReal32          SFShadowIntensityType;
+    typedef SFUInt32          SFShadowModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -193,6 +203,12 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
             const SFUnrecLightEnginePtr *getSFLightEngine    (void) const;
                   SFUnrecLightEnginePtr *editSFLightEngine    (void);
 
+                  SFReal32            *editSFShadowIntensity(void);
+            const SFReal32            *getSFShadowIntensity (void) const;
+
+                  SFUInt32            *editSFShadowMode     (void);
+            const SFUInt32            *getSFShadowMode      (void) const;
+
 
                   Color4r             &editAmbient        (void);
             const Color4r             &getAmbient         (void) const;
@@ -219,6 +235,12 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
 
                   LightEngine * getLightEngine    (void) const;
 
+                  Real32              &editShadowIntensity(void);
+                  Real32               getShadowIntensity (void) const;
+
+                  UInt32              &editShadowMode     (void);
+                  UInt32               getShadowMode      (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -233,6 +255,8 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
             void setLinearAttenuation(const Real &value);
             void setQuadraticAttenuation(const Real &value);
             void setLightEngine    (LightEngine * const value);
+            void setShadowIntensity(const Real32 value);
+            void setShadowMode     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -279,6 +303,8 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     SFReal            _sfLinearAttenuation;
     SFReal            _sfQuadraticAttenuation;
     SFUnrecLightEnginePtr _sfLightEngine;
+    SFReal32          _sfShadowIntensity;
+    SFUInt32          _sfShadowMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -325,6 +351,10 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     EditFieldHandlePtr editHandleQuadraticAttenuation(void);
     GetFieldHandlePtr  getHandleLightEngine     (void) const;
     EditFieldHandlePtr editHandleLightEngine    (void);
+    GetFieldHandlePtr  getHandleShadowIntensity (void) const;
+    EditFieldHandlePtr editHandleShadowIntensity(void);
+    GetFieldHandlePtr  getHandleShadowMode      (void) const;
+    EditFieldHandlePtr editHandleShadowMode     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
