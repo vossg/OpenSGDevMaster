@@ -993,7 +993,7 @@ void PointerMField<PtrTypeT,
                                            InputIteratorT first, 
                                            InputIteratorT last)
 {
-    this->ptrStoreInsert(pos.base(), first, last);
+    this->ptrStoreInsert(pos, first, last);
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 

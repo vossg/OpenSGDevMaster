@@ -230,7 +230,7 @@ void PointerMFieldCommon<AccessHandlerT,
     for(; iI != iE; ++iI)
         AccessHandler::onAdd(this, *iI);
 
-    this->editRawStore().insert(pos, first, last);
+    this->editRawStore().insert(pos, first.base(), last.base());
 }
 
 /*-------------------------------------------------------------------------*/

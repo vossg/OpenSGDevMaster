@@ -962,7 +962,7 @@ void ChildPointerMField<PtrTypeT,
                                               InputIteratorT first, 
                                               InputIteratorT last)
 {
-    return this->ptrStoreInsert(pos.base(), first, last);
+    return this->ptrStoreInsert(pos, first, last);
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline

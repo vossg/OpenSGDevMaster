@@ -76,6 +76,9 @@ class ChildMFieldIterator :
                                  RefCountPolicy, 
                                  iNamespace   >::PtrStoreItType
 {
+    template <class AccessHandlerT, Int32 NamespaceI>
+    friend class PointerMFieldCommon;
+
     template <class PT, typename RC, Int32 NI>
     friend class ChildPointerMField;
 
@@ -215,6 +218,9 @@ class ChildMFieldConstIterator :
                                  RefCountPolicy, 
                                  iNamespace    >::PtrStoreConstItType
 {
+    template <class AccessHandlerT, Int32 NamespaceI>
+    friend class PointerMFieldCommon;
+
     template <class PT, typename RC, Int32 NI>
     friend class ChildPointerMField;
 

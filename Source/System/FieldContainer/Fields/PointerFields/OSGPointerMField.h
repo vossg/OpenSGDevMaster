@@ -84,14 +84,13 @@ class PointerMFieldIterator :
 {
     /*==========================  PUBLIC  =================================*/
 
-    template <class    PT, 
-              typename RC, 
-              Int32    NI>
+    template <class AccessHandlerT, Int32 NI>
+    friend class PointerMFieldCommon;
+
+    template <class PT, typename RC, Int32 NI>
     friend class PointerMFieldConstIterator;
 
-    template <class    PT, 
-              typename RC,
-              Int32    NI>
+    template <class PT, typename RC, Int32 NI>
     friend class PointerMField;    
 
   public:
@@ -230,14 +229,13 @@ class PointerMFieldConstIterator :
                             RefCountPolicy,  
                             NamespaceI    >::PtrStoreConstItType
 {
-    template <class    PT, 
-              typename RC, 
-              Int32    NI>
+    template <class AccessHandlerT, Int32 NI>
+    friend class PointerMFieldCommon;
+
+    template <class PT, typename RC, Int32 NI>
     friend class PointerMFieldIterator;
 
-    template <class    PT, 
-              typename RC,
-              Int32    NI>
+    template <class PT, typename RC, Int32 NI>
     friend class PointerMField;    
 
     /*==========================  PUBLIC  =================================*/
