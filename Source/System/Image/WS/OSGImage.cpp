@@ -2626,7 +2626,6 @@ bool Image::scale(Int32  width,
     Int32          oldWidth =getWidth();
     Int32          oldHeight=getHeight();
     Int32          oldDepth =getDepth();
-    const MFUInt8 *srcPixel;
 
     if ( (oldWidth  == width ) &&
          (oldHeight == height) &&
@@ -2653,7 +2652,9 @@ bool Image::scale(Int32  width,
     }
 
     // get pixel
-    srcPixel = getMFPixel();
+    // !!!!!!!!        WARNING WARNING        !!!!!!!!!!!
+    // !!!!!!!! Obscure copy of the old Image !!!!!!!!!!!
+    const MFUInt8 srcPixel = *getMFPixel();
 
     // set image data
 
@@ -2678,7 +2679,7 @@ bool Image::scale(Int32  width,
             for(mipmap = 0; mipmap < getMipMapCount(); mipmap++)
             {
                 // get the memory pointer
-                src = (&((*srcPixel)[0])) +
+                src = (&(srcPixel[0])) +
                     (side  * getSideSize ()) +
                     (frame * getFrameSize()) ;
 
@@ -2739,7 +2740,9 @@ bool Image::mirror(bool   horizontal,
     }
 
     // Get pixels.
-    const MFUInt8* srcPixel = getMFPixel();
+    // !!!!!!!!        WARNING WARNING        !!!!!!!!!!!
+    // !!!!!!!! Obscure copy of the old Image !!!!!!!!!!!
+    const MFUInt8 srcPixel = (*getMFPixel());
 
     UInt32 width = getWidth();
     UInt32 height = getHeight();
@@ -2769,7 +2772,7 @@ bool Image::mirror(bool   horizontal,
             for(mipmap = 0; mipmap < getMipMapCount(); mipmap++)
             {
                 // get the memory pointer
-                src = (&((*srcPixel)[0])) +
+                src = (&(srcPixel[0])) +
                       (side  * getSideSize ()) +
                       (frame * getFrameSize());
 
