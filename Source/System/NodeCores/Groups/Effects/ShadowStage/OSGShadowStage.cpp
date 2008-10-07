@@ -180,9 +180,9 @@ ShadowStage::~ShadowStage(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void ShadowStage::changed(BitVector whichField, 
-                          UInt32    origin,
-                          BitVector details)
+void ShadowStage::changed(ConstFieldMaskArg whichField, 
+                          UInt32            origin,
+                          BitVector         details   )
 {
     if(whichField & LightNodesFieldMask)
     {
@@ -1326,8 +1326,8 @@ void ShadowStage::initializeLights(RenderActionBase *action,
                 _vTexChunks[i].pTexO->setExternalFormat(GL_DEPTH_COMPONENT_ARB);
                 _vTexChunks[i].pTexO->setMinFilter(GL_LINEAR);
                 _vTexChunks[i].pTexO->setMagFilter(GL_LINEAR);
-                _vTexChunks[i].pTexO->setWrapS(GL_CLAMP_TO_BORDER_ARB);
-                _vTexChunks[i].pTexO->setWrapT(GL_CLAMP_TO_BORDER_ARB);
+                _vTexChunks[i].pTexO->setWrapS(GL_CLAMP_TO_BORDER);
+                _vTexChunks[i].pTexO->setWrapT(GL_CLAMP_TO_BORDER);
                 _vTexChunks[i].pTexE->setEnvMode(GL_MODULATE);
                 _vTexChunks[i].pTexO->setTarget(GL_TEXTURE_2D);
             }

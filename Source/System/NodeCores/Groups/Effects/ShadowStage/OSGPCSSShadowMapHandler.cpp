@@ -527,8 +527,8 @@ void PCSSShadowMapHandler::configureShadowMaps(void)
             }
             else
             {
-                vShadowMaps[i].pTexO->setWrapS(GL_CLAMP_TO_BORDER_ARB);
-                vShadowMaps[i].pTexO->setWrapT(GL_CLAMP_TO_BORDER_ARB);
+                vShadowMaps[i].pTexO->setWrapS(GL_CLAMP_TO_BORDER);
+                vShadowMaps[i].pTexO->setWrapT(GL_CLAMP_TO_BORDER);
             }
 
             vShadowMaps[i].pTexO->setAnisotropy(1.0);

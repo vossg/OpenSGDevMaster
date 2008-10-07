@@ -75,9 +75,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStage : public ShadowStageBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(BitVector  whichField, 
-                         UInt32     origin,
-                         BitVector  details);
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
