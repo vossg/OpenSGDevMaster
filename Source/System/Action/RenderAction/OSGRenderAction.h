@@ -134,7 +134,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- your_category -------------------------------*/
 
-    ResultE recurceNoNodeCallbacks(Node * const node);
+    ResultE recurseNoNodeCallbacks(Node * const node);
 
     /*------------------------- your_operators ------------------------------*/
 

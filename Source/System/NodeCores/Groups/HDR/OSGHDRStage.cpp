@@ -222,7 +222,7 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
             
             Node *pActNode = a->getActNode();
             
-            a->recurceNoNodeCallbacks(pActNode);
+            a->recurseNoNodeCallbacks(pActNode);
         }
         a->popPartition();
         

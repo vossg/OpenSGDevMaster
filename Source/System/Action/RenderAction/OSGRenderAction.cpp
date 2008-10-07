@@ -454,7 +454,7 @@ UInt32 RenderAction::getCurrentBuffer(void)
 
 /*-------------------------- your_category---------------------------------*/
 
-ActionBase::ResultE RenderAction::recurceNoNodeCallbacks(Node * const node)
+ActionBase::ResultE RenderAction::recurseNoNodeCallbacks(Node * const node)
 {
     if(node == NULL)
         return Continue;

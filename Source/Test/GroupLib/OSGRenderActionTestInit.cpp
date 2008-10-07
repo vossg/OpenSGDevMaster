@@ -201,7 +201,7 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(NodeCore * const pCore,
                 
                 Node *pActNode = a->getActNode();
                 
-                a->recurceNoNodeCallbacks(pActNode);
+                a->recurseNoNodeCallbacks(pActNode);
             }
             pStage->popPartition(a);
         }
