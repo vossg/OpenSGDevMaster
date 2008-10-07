@@ -1,0 +1,17 @@
+#!python
+#
+if option_pass:
+   print "Processing option pass"
+else:
+   library = "OSGEffectGroups"
+   osg_dep_libs = ['OSGBase', 
+                   'OSGSystem', 
+                   'OSGGroup', 
+                   'OSGWindow', 
+                   'OSGDrawable']
+
+   # Tests' dependencies
+
+   osg_test_libs = ['OSGWindowGLUT', 'OSGUtil', 'OSGFileIO', 'OSGImageFileIO' ]
+   test_cpppath = []
+   test_libpath = []
