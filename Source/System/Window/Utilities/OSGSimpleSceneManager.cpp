@@ -444,7 +444,8 @@ void SimpleSceneManager::setCamera(Camera *camera)
     if(camera == NULL)
         return;
 
-    camera->setBeacon(_camera->getBeacon());
+    if(_camera != NULL)
+        camera->setBeacon(_camera->getBeacon());
 
     PerspectiveCamera *oldPer  = 
         dynamic_pointer_cast<PerspectiveCamera>(_camera);
@@ -469,8 +470,11 @@ void SimpleSceneManager::setCamera(Camera *camera)
                   " different or unsupported camera types!\n"));
     }
 
-    camera->setNear(_camera->getNear());
-    camera->setFar (_camera->getFar());
+    if(_camera != NULL)
+    {
+        camera->setNear(_camera->getNear());
+        camera->setFar (_camera->getFar());
+    }
 
 
     for(UInt32 i=0;i<_win->getMFPort()->size();++i)
