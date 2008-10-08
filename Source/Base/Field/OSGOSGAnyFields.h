@@ -39,7 +39,7 @@
 #ifndef _OSGANYFIELDS_H_
 #define _OSGANYFIELDS_H_
 
-#include "OSGContribCSMDef.h"
+#include "OSGBaseDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGFieldTraits.h"
 #include "OSGSField.h"
@@ -71,7 +71,7 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
 
     enum             { Convertible = Self::NotConvertible  };
 
-    static OSG_CONTRIBCSM_DLLMAPPING
+    static OSG_BASE_DLLMAPPING
                  DataType   &getType      (void);
 
     static const Char8      *getSName     (void) { return "SFAny";    }
