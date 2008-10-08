@@ -223,6 +223,8 @@ class MField : public Field
  
     iterator               erase    (iterator     pos                  );
     void                   erase    (size_type    index                );
+    iterator               erase    (iterator     first,
+                                     iterator     last                 );
     
     iterator               find     (ArgumentType value                );
     const_iterator         find     (ArgumentType value                ) const;

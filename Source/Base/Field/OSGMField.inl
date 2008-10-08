@@ -451,6 +451,17 @@ void MField<ValueT,
     _values.erase(pos);
 }
 
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+typename MField<ValueT,
+                iNamespace,
+                AllocT    >::iterator MField<ValueT,
+                                             iNamespace,
+                                             AllocT    >::erase(iterator first,
+                                                                iterator last )
+{
+    return _values.erase(first, last);
+}
+
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
 typename MField<ValueT, 

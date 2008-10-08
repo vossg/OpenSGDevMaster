@@ -468,6 +468,8 @@ class ParentPointerMField :
 
 #ifndef OSG_CLEAN_FCFIELDS
     iterator               erase    (iterator     pos           );
+    iterator               erase    (iterator     first,
+                                     iterator     last          );
 #endif
 
     void                   erase    (size_type    pos           );

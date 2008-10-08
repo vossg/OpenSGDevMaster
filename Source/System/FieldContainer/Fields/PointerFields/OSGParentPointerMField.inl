@@ -790,6 +790,23 @@ typename ParentPointerMField<PtrTypeT,
 
     return iterator(ptrIt, posIt);
 }
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+typename ParentPointerMField<PtrTypeT,
+                             RefCountPolicy,
+                             NamespaceI     >::iterator
+    ParentPointerMField<PtrTypeT,
+                        RefCountPolicy,
+                        NamespaceI     >::erase(iterator first, iterator last)
+{
+    PtrStoreItType ptrIt;
+    IdStoreItType  posIt;
+
+    ptrIt = this->ptrStoreErase(first.ptrBase(), last.ptrBase());
+    posIt = _vParentPos.erase  (first.idBase (), last.idBase ());
+
+    return iterator(ptrIt, posIt);
+}
 #endif
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 

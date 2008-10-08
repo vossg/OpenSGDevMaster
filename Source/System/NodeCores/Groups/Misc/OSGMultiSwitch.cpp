@@ -76,11 +76,11 @@ void MultiSwitch::initMethod(InitPhase ePhase)
         RenderAction::registerEnterDefault(
             MultiSwitch::getClassType(),
             reinterpret_cast<Action::Callback>(&MultiSwitch::renderEnter));
-    
+
         RenderAction::registerLeaveDefault(
             MultiSwitch::getClassType(),
             reinterpret_cast<Action::Callback>(&MultiSwitch::renderLeave));
-        
+
 #ifndef OSG_WINCE
         IntersectAction::registerEnterDefault(
             MultiSwitch::getClassType(),
@@ -101,12 +101,12 @@ void MultiSwitch::initMethod(InitPhase ePhase)
 void MultiSwitch::setBitfield(const BitVector childMask)
 {
     _mfChoices.clear();
-    
+
     BitVector anchor = 1;
     for(UInt32 idx = 0; idx < 64; ++idx)
     {
         BitVector mask = anchor << idx;
-        
+
         if(childMask & mask)
             _mfChoices.push_back(idx);
     }
@@ -138,7 +138,7 @@ Action::ResultE MultiSwitch::renderEnter(Action *action)
 {
     Action::ResultE  returnValue = Action::Continue;
     RenderAction    *ra          = dynamic_cast<RenderAction*>(action);
-    
+
     if(ra->pushVisibility() == true)
     {
         switch(getSwitchMode())
@@ -155,7 +155,7 @@ Action::ResultE MultiSwitch::renderEnter(Action *action)
             else
             {
                 ra->useNodeList();
-        
+
                 //
                 // Assumption: _mfChoices is sorted; see function changed
                 //
@@ -194,9 +194,9 @@ Action::ResultE MultiSwitch::renderEnter(Action *action)
 Action::ResultE MultiSwitch::renderLeave(Action *action)
 {
     RenderAction *ra = dynamic_cast<RenderAction*>(action);
-    
+
     ra->popVisibility();
-    
+
     return Action::Continue;
 }
 
@@ -204,7 +204,7 @@ Action::ResultE MultiSwitch::intersectEnter(Action *action)
 {
     Action::ResultE  returnValue = Action::Continue;
     IntersectAction *ia          = dynamic_cast<IntersectAction *>(action);
-    
+
     switch(getSwitchMode())
     {
     default:
@@ -250,22 +250,21 @@ Action::ResultE MultiSwitch::intersectEnter(Action *action)
     return returnValue;
 }
 
-void MultiSwitch::changed(ConstFieldMaskArg whichField, 
+void MultiSwitch::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
-    
+
     if(whichField & ChoicesFieldMask)
     {
         // sort _mfChoices and remove duplicates
-        
+
         std::sort(_mfChoices.begin(), _mfChoices.end());
-        
-        _mfChoices.resize(
-            std::distance(_mfChoices.begin(),
-                          std::unique(_mfChoices.begin(),
-                                      _mfChoices.end  () )));
+
+        _mfChoices.erase(std::unique(_mfChoices.begin(),
+                                     _mfChoices.end  () ),
+                         _mfChoices.end()                 );
     }
 }
 
