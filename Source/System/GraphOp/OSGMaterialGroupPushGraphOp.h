@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGConfig.h"
+#include "OSGUtilDef.h"
 #include "OSGGraphOp.h"
 #include "OSGMaterialGroup.h"
 

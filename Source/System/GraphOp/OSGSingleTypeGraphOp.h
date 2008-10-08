@@ -44,6 +44,7 @@
 #endif
 
 #include "OSGGraphOp.h"
+#include "OSGUtilDef.h"
 
 OSG_BEGIN_NAMESPACE
 

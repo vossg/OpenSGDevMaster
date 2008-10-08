@@ -47,6 +47,7 @@
 #include <map>
 
 #include "OSGGraphOp.h"
+#include "OSGUtilDef.h"
 #include "OSGAction.h"
 #include "OSGMaterialDrawable.h"
 #include "OSGMaterialGroup.h"

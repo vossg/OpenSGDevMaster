@@ -43,13 +43,14 @@
 #endif
 
 #include "OSGConfig.h"
+#include "OSGUtilDef.h"
 #include "OSGGraphOp.h"
 #include "OSGGeometry.h"
 #include "OSGTransform.h"
 
 OSG_BEGIN_NAMESPACE
 
-class TransformPushGraphOp : public GraphOp
+class OSG_UTIL_DLLMAPPING TransformPushGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
   public:
