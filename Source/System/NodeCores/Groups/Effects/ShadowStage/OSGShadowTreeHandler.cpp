@@ -519,9 +519,9 @@ void ShadowTreeHandler::configureShadowMaps(void)
 
     for(UInt32 i = 0; i < uiSHMSize; ++i)
     {
-        vShadowMaps[i].pTexO->setCompareMode(GL_COMPARE_R_TO_TEXTURE_ARB);
-        vShadowMaps[i].pTexO->setCompareFunc(GL_LEQUAL                  );
-        vShadowMaps[i].pTexO->setDepthMode  (GL_LUMINANCE               );
+        vShadowMaps[i].pTexO->setCompareMode(GL_COMPARE_R_TO_TEXTURE);
+        vShadowMaps[i].pTexO->setCompareFunc(GL_LEQUAL              );
+        vShadowMaps[i].pTexO->setDepthMode  (GL_LUMINANCE           );
 
         vShadowMaps[i].pTexO->setMinFilter  (GL_LINEAR);
         vShadowMaps[i].pTexO->setMagFilter  (GL_LINEAR);

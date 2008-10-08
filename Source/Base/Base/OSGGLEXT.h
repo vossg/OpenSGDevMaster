@@ -53,12 +53,15 @@
 #include "OSGGL.h"
 #endif
 
+
 // Defines needed to support some OpenGL extensions
 // There's no way to get these from OpenGL. 
 // The system just has to make sure they 
 // are only used when the extensions are supported.
 
 // All these are taken verbatim from the nVidia Linux glext.h
+
+typedef char GLchar;
 
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_secondary_color                                       */
