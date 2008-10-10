@@ -101,15 +101,22 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaElement
   protected:
     friend class ColladaInstanceGeometry;
     
+    typedef std::pair<std::string,
+                      UInt32                        > SemanticSetPair;
     typedef std::pair<GeoVectorPropertyUnrecPtr,
-                      GeoIntegralPropertyUnrecPtr> PropIndexPair;
-    typedef std::map <std::string, PropIndexPair > PropIndexMap;
-    typedef PropIndexMap::iterator                 PropIndexMapIt;
+                      GeoIntegralPropertyUnrecPtr   > PropIndexPair;
+                      
+    typedef std::map <SemanticSetPair, PropIndexPair> SemanticPropIndexMap;
+    typedef SemanticPropIndexMap::iterator            SemanticPropIndexMapIt;
+    
+    typedef std::map <std::string,     PropIndexPair> SourcePropIndexMap;
+    typedef SourcePropIndexMap::iterator              SourcePropIndexMapIt;
     
     struct GeometryInfo
     {
-        GeometryUnrecPtr geo;
-        PropIndexMap     propIndexMap;
+        GeometryUnrecPtr     geo;
+        SemanticPropIndexMap semanticPropIndexMap;
+        SourcePropIndexMap   sourcePropIndexMap;
     };
     
     typedef std::map   <std::string, GeometryInfo *> GeoMap;

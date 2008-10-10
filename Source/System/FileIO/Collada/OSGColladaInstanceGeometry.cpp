@@ -188,7 +188,7 @@ void ColladaInstanceGeometry::read(void)
 
                     if(texIdx != 0xFFFF)
                     {
-                        _texBindingsMap[target].push_back(texIdx);
+                        _texBindingsMap[SemanticSetPair(target, 0)].push_back(texIdx);
 
                         OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
                                 "Bound: [%s] -> [%u]\n",
@@ -205,23 +205,24 @@ void ColladaInstanceGeometry::read(void)
                 for(UInt32 j = 0; j < vertBinds.getCount(); ++j)
                 {
                     std::string target = vertBinds[j]->getInput_semantic();
+                    UInt32      set    = vertBinds[j]->getInput_set     ();
 
                     if(target[0] == '#')
                         target.erase(0, 1);
 
-                    OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: Bind: [%s] [%s]\n",
-                                     vertBinds[j]->getSemantic(), target.c_str()));
+                    OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: Bind: [%s] [%s] [%u]\n",
+                                     vertBinds[j]->getSemantic(), target.c_str(), set));
 
                     UInt32 texIdx =
                         colEffect->getTexBinding(vertBinds[j]->getSemantic());
 
                     if(texIdx != 0xFFFF)
                     {
-                        _texBindingsMap[target].push_back(texIdx);
+                        _texBindingsMap[SemanticSetPair(target, set)].push_back(texIdx);
 
                         OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
-                                         "Bound: [%s] -> [%u]\n",
-                                         target.c_str(), texIdx));
+                                         "Bound: [%s] [%u] -> [%u]\n",
+                                         target.c_str(), set, texIdx));
                     }
                 }
             }
@@ -297,23 +298,27 @@ void ColladaInstanceGeometry::updateGeoTexBindings(
         for(UInt32 i = 0; i < texIt->second.size(); ++i)
         {
             OSG_COLLADA_LOG(("ColladaInstanceGeometry::updateGeoTexBindings: "
-                             "Bind [%s] -> [%d]\n",
-                             texIt->first.c_str(), texIt->second[i]));
+                             "Bind [%s] [%u] -> [%d]\n",
+                             texIt->first.first.c_str(),
+                             texIt->first.second,
+                             texIt->second[i]));
             
             ColladaGeometry::PropIndexPair  propIdxPair(NULL, NULL);
             
-            ColladaGeometry::PropIndexMapIt propIt =
-                geoInfo->propIndexMap.find(texIt->first);
+            ColladaGeometry::SemanticPropIndexMapIt propIt =
+                geoInfo->semanticPropIndexMap.find(texIt->first);
 
-            if(propIt != geoInfo->propIndexMap.end())
+            if(propIt != geoInfo->semanticPropIndexMap.end())
                 propIdxPair = propIt->second;
             
             if(propIdxPair.first != NULL && propIdxPair.second != NULL)
             {
                 OSG_COLLADA_LOG(("ColladaInstanceGeometry::updateGeoTexBindings: "
-                                 "Idx: [%s] Val: [%s]\n",
+                                 "Idx: [%s %p] Val: [%s %p]\n",
                                  propIdxPair.second->getType().getCName(),
-                                 propIdxPair.first ->getType().getCName() ));
+                                 propIdxPair.second.get(),
+                                 propIdxPair.first ->getType().getCName(),
+                                 propIdxPair.first.get()                  ));
                 
                 geoInfo->geo->setProperty(
                     propIdxPair.first,

@@ -86,8 +86,9 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     typedef std::map<std::string, ChunkMaterial *> MaterialMap;
     typedef MaterialMap::iterator                  MaterialMapIt;
 
-    typedef std::map<std::string,
-                     std::vector<UInt32>         > TexBindingsMap;
+    typedef ColladaGeometry::SemanticSetPair       SemanticSetPair;
+    typedef std::map <SemanticSetPair,
+                      std::vector<UInt32>        > TexBindingsMap;
       
       
              ColladaInstanceGeometry(domInstance_geometry *instGeo,

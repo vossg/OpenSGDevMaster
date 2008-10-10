@@ -222,10 +222,10 @@ void ColladaGeometry::setupGeometry(
                 // handle <input semantic=TEXCOORD ...> and
                 //        <input semantic=??? ...>
 
-                PropIndexMapIt propIt = geoInfo->propIndexMap.find(
+                SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
                     inputs[i]->getSource().getID());
 
-                if(propIt == geoInfo->propIndexMap.end())
+                if(propIt == geoInfo->sourcePropIndexMap.end())
                 {
                     vProp = fillVecProp(propIdx, inputs[i]->getSource());
                 }
@@ -247,27 +247,29 @@ void ColladaGeometry::setupGeometry(
             }
             
             // store the property/propIndex pair in the map
-            PropIndexMapIt propIt = geoInfo->propIndexMap.find(
+            SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
                 inputs[i]->getSource().getID());
             
-            if(propIt == geoInfo->propIndexMap.end () &&
-               iProp  != NULL                         &&
-               vProp  != NULL                           )
+            if(propIt == geoInfo->sourcePropIndexMap.end () &&
+               iProp  != NULL                               &&
+               vProp  != NULL                                 )
             {
                 PropIndexPair newPair;
                 newPair.first  = vProp;
                 newPair.second = iProp;
                 
-                geoInfo->propIndexMap[
-                    inputs[i]->getSource().getID()] = newPair;
-                geoInfo->propIndexMap[
-                    inputs[i]->getSemantic()      ] = newPair;
+                geoInfo->sourcePropIndexMap[
+                    inputs[i]->getSource().getID()            ] = newPair;
+                geoInfo->semanticPropIndexMap[
+                    SemanticSetPair(inputs[i]->getSemantic(),
+                                    inputs[i]->getSet     () )] = newPair;
                 
                 OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
-                                 "Store prop/index [%s] [%s]:\n"
+                                 "Store prop/index [%s] [%u] [%s]:\n"
                                  "  [%p] : [%s]\n"
                                  "  [%p] : [%s]\n",
                                  inputs[i]->getSemantic(),
+                                 inputs[i]->getSet     (),
                                  inputs[i]->getSource  ().getID(),
                                  newPair.first.get(),
                                  newPair.first->getType().getCName(),
@@ -311,10 +313,10 @@ void ColladaGeometry::setupGeometry(
         }
         else
         {
-            PropIndexMapIt propIt = geoInfo->propIndexMap.find(
+            SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
                 inputs[i]->getSource().getID());
 
-            if(propIt != geoInfo->propIndexMap.end())
+            if(propIt != geoInfo->sourcePropIndexMap.end())
             {
                 indexVecOut[inputs[i]->getOffset()] =
                     static_pointer_cast<GeoUInt32Property>(
@@ -323,10 +325,10 @@ void ColladaGeometry::setupGeometry(
         }
         
         // store all inputs in an attachment to the geometry
-        PropIndexMapIt propIt = geoInfo->propIndexMap.find(
+        SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
             inputs[i]->getSource().getID());
         
-        if(propIt != geoInfo->propIndexMap.end())
+        if(propIt != geoInfo->sourcePropIndexMap.end())
         {
             OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
                              "inputAtt [%s] [%d] [%p] [%p]\n",
