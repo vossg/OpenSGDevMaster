@@ -144,6 +144,7 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     "\t\tvisibility=\"external\"\n"
     "        access=\"protected\"\n"
     "        ptrFieldAccess = \"custom\"\n"
+    "        pushToFieldAs=\"pushToChunks\"\n"
     "    >\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -369,6 +370,9 @@ EditFieldHandlePtr ChunkOverrideGroupBase::editHandleChunks         (void)
              &_mfChunks,
              this->getType().getFieldDesc(ChunksFieldId)));
 
+    returnValue->setAddMethod(
+        boost::bind(&ChunkOverrideGroup::pushToChunks,
+                    static_cast<ChunkOverrideGroup *>(this), _1));
 
     editMField(ChunksFieldMask, _mfChunks);
 

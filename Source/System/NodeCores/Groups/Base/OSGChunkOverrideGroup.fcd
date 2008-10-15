@@ -21,6 +21,7 @@ the material group). This might change in future
 		visibility="external"
         access="protected"
         ptrFieldAccess = "custom"
+        pushToFieldAs="pushToChunks"
     >
 	</Field>
 </FieldContainer>
