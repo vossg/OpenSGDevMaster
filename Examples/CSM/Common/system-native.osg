@@ -19,17 +19,14 @@ ComplexSceneManager
           ]
         },
 
-        DEF EffectRoot Node
+        DEF GlobalEffectRoot Node
         {
-#          core Group {}
-#          core USE SceneEffect1
-
           core MultiCore
           {
             cores
             [
               Group {}
-              USE SceneEffect1
+              USE GlobalEffect1
             ]
           }
 
@@ -37,7 +34,14 @@ ComplexSceneManager
           [
             DEF SceneRoot Node 
             {
-              core Group {}
+              core MultiCore
+              {
+                cores
+                [
+                  Group {}
+                  USE SceneEffect1
+                ]
+              }
 
               children
               [

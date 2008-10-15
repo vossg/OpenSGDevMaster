@@ -11,7 +11,7 @@ Node
     {
       core VisitSubTree
       {
-        subTreeRoot USE RootNode
+        subTreeRoot USE SceneRoot
       }
     }
   }
