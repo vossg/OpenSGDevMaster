@@ -57,7 +57,7 @@ class ColorDisplayFilter;
            PageGroupDisplayFilterStageData for a description.
 */
 
-class OSG_GROUP_DLLMAPPING DisplayFilterStageData : 
+class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageData : 
     public DisplayFilterStageDataBase
 {
   protected:

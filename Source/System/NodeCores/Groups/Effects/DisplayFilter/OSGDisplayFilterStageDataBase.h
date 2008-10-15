@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGEffectGroupsDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -80,7 +80,7 @@ class DisplayFilterStageData;
 
 //! \brief DisplayFilterStageData Base Class.
 
-class OSG_GROUP_DLLMAPPING DisplayFilterStageDataBase : public StageData
+class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageDataBase : public StageData
 {
   public:
 

@@ -182,10 +182,10 @@ void ColorDisplayFilter::onCreate(const ColorDisplayFilter *source)
 
     SHLChunkUnrecPtr pShader = SHLChunk::createLocal(FCLocal::Cluster);
             
-    pShader->setVertexProgram   (vp_program         );
-    pShader->setFragmentProgram (fp_program         );
-    pShader->setUniformParameter("grabTexture",    0);
-    pShader->setUniformParameter("shadingTexture", 1);
+    pShader->setVertexProgram  (vp_program         );
+    pShader->setFragmentProgram(fp_program         );
+    pShader->addUniformVariable("grabTexture",    0);
+    pShader->addUniformVariable("shadingTexture", 1);
 
     this->setFilterShader(pShader);
 }
@@ -265,9 +265,9 @@ void ColorDisplayFilter::changed(ConstFieldMaskArg whichField,
 
         if(pShader != NULL)
         {
-            pShader->setUniformParameter("shadingWidth",  Int32(uiWidth));
-            pShader->setUniformParameter("shadingHeight", Int32(uiHeight));
-            pShader->setUniformParameter("shadingDepth",  Int32(uiDepth));
+            pShader->addUniformVariable("shadingWidth",  Int32(uiWidth));
+            pShader->addUniformVariable("shadingHeight", Int32(uiHeight));
+            pShader->addUniformVariable("shadingDepth",  Int32(uiDepth));
         }
     }
   
@@ -277,7 +277,7 @@ void ColorDisplayFilter::changed(ConstFieldMaskArg whichField,
 
         if(pShader != NULL)
         {
-            pShader->setUniformParameter("colorMatrix", getMatrix());
+            pShader->addUniformVariable("colorMatrix", getMatrix());
         }
     }
 
@@ -287,7 +287,7 @@ void ColorDisplayFilter::changed(ConstFieldMaskArg whichField,
 
         if(pShader != NULL)
         {
-            pShader->setUniformParameter("gamma", getGamma());
+            pShader->addUniformVariable("gamma", getGamma());
         }
     }
 }
