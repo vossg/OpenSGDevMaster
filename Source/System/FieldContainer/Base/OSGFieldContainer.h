@@ -136,8 +136,9 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual ObjTransitPtr shallowCopy     (void             ) const = 0;
-    virtual ObjTransitPtr shallowCopyLocal(BitVector uiFlags) const = 0;
+    virtual ObjTransitPtr shallowCopy         (void             ) const = 0;
+    virtual ObjTransitPtr shallowCopyLocal    (BitVector uiFlags) const = 0;
+    virtual ObjTransitPtr shallowCopyDependent(BitVector uiFlags) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

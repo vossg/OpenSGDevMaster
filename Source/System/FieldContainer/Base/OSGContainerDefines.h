@@ -180,8 +180,9 @@
 /*---------------------------- create decl ----------------------------------*/
 
 #define OSG_RC_CREATE_DECL                                                    \
-    static ObjTransitPtr create(void);                                        \
-    static ObjTransitPtr createLocal(BitVector bFlags = FCLocal::All)
+    static ObjTransitPtr create         (void);                               \
+    static ObjTransitPtr createLocal    (BitVector bFlags = FCLocal::All);    \
+    static ObjTransitPtr createDependent(BitVector bFlags)
 
 #define OSG_RC_CREATE_EMPTY_DECL                                              \
     static ObjCPtr createEmpty(void);                                         \
@@ -190,7 +191,9 @@
 #define OSG_FC_SHALLOWCOPY_DECL                                               \
     virtual OSG::FieldContainerTransitPtr shallowCopy(void) const;            \
     virtual OSG::FieldContainerTransitPtr shallowCopyLocal(                   \
-                                        BitVector uiFlags = FCLocal::All) const
+                                    BitVector uiFlags = FCLocal::All) const;  \
+        virtual OSG::FieldContainerTransitPtr shallowCopyDependent(           \
+                                                   BitVector uiFlags) const
 
 #define OSG_FB_SHALLOWCOPY_DECL                                               \
     virtual OSG::FieldBundleP shallowCopy(void) const
@@ -232,6 +235,20 @@
         FieldContainerTransitPtr returnValue(tmpPtr);                         \
                                                                               \
         tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bvFlags;                    \
+                                                                              \
+        return returnValue;                                                   \
+    }                                                                         \
+                                                                              \
+    OSG::FieldContainerTransitPtr                                             \
+        OSG_CLASS::shallowCopyDependent(BitVector bvFlags) const              \
+    {                                                                         \
+        ObjCPtr    tmpPtr;                                                    \
+                                                                              \
+        newPtr<Self>(tmpPtr, this, ~bvFlags);                                 \
+                                                                              \
+        FieldContainerTransitPtr returnValue(tmpPtr);                         \
+                                                                              \
+        tmpPtr->_pFieldFlags->_bNamespaceMask = bvFlags;                      \
                                                                               \
         return returnValue;                                                   \
     } 
@@ -278,7 +295,24 @@
         tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bvFlags;                    \
                                                                               \
         return returnValue;                                                   \
+    }                                                                         \
+                                                                              \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
+    OSG::FieldContainerTransitPtr                                             \
+        OSG_CLASS< OSG_TMPL_PARAM >::shallowCopyDependent(                    \
+            BitVector bvFlags) const                                          \
+    {                                                                         \
+        ObjCPtr    tmpPtr;                                                    \
+                                                                              \
+        Self::template newPtr<Self>(tmpPtr, this, ~bvFlags);                  \
+                                                                              \
+        FieldContainerTransitPtr returnValue(tmpPtr);                         \
+                                                                              \
+        tmpPtr->_pFieldFlags->_bNamespaceMask = bvFlags;                      \
+                                                                              \
+        return returnValue;                                                   \
     }
+
 
 #define OSG_FB_SHALLOWCOPY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)        \
     template < class OSG_TMPL_PARAM > INLINE                                  \
@@ -336,6 +370,22 @@
         }                                                                     \
                                                                               \
         return fc;                                                            \
+    }                                                                         \
+                                                                              \
+    inline                                                                    \
+    OSG_CLASS::ObjTransitPtr OSG_CLASS::createDependent(BitVector bFlags)     \
+    {                                                                         \
+        ObjTransitPtr fc;                                                     \
+                                                                              \
+        if(getClassType().getPrototype() != NULL)                             \
+        {                                                                     \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
+             getClassType().getPrototype()->shallowCopyDependent(bFlags);     \
+                                                                              \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
+        }                                                                     \
+                                                                              \
+        return fc;                                                            \
     }
 
 #define OSG_FC_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)             \
@@ -371,7 +421,25 @@
         }                                                                     \
                                                                               \
         return fc;                                                            \
+    }                                                                         \
+                                                                              \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
+    typename OSG_CLASS < OSG_TMPL_PARAM >::ObjTransitPtr                      \
+        OSG_CLASS< OSG_TMPL_PARAM >::createDependent(BitVector bFlags)        \
+    {                                                                         \
+        ObjTransitPtr fc;                                                     \
+                                                                              \
+        if(getClassType().getPrototype() != NULL)                             \
+        {                                                                     \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
+             getClassType().getPrototype()->shallowCopyDependent(bFlags);     \
+                                                                              \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
+        }                                                                     \
+                                                                              \
+        return fc;                                                            \
     }
+
 
 #define OSG_FB_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)             \
     template < class OSG_TMPL_PARAM > INLINE                                  \
@@ -430,6 +498,23 @@
         {                                                                     \
          OSG::FieldContainerTransitPtr temp_ptr =                             \
              getClassType().getPrototype()->shallowCopyLocal(bFlags);         \
+                                                                              \
+         fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
+        }                                                                     \
+                                                                              \
+        return fc;                                                            \
+    }                                                                         \
+                                                                              \
+    template <> OSG_DLL_EXPORT                                                \
+    OSG_CLASS < OSG_TMPL_PARAM >::ObjTransitPtr                               \
+        OSG_CLASS< OSG_TMPL_PARAM >::createDependent(BitVector bFlags)        \
+    {                                                                         \
+        ObjTransitPtr fc;                                                     \
+                                                                              \
+        if(getClassType().getPrototype() != NULL)                             \
+        {                                                                     \
+         OSG::FieldContainerTransitPtr temp_ptr =                             \
+             getClassType().getPrototype()->shallowCopyDependent(bFlags);     \
                                                                               \
          fc = dynamic_pointer_cast<Self>(temp_ptr);                           \
         }                                                                     \

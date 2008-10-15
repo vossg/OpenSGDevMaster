@@ -325,6 +325,8 @@ class @!Classname!@Base : public @!Parent!@
     static  @!Classname!@            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  @!Classname!@TransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -333,6 +335,8 @@ class @!Classname!@Base : public @!Parent!@
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
 @@endif // !isAbstract
