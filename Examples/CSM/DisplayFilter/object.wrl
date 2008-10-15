@@ -1,0 +1,36 @@
+#VRML V2.0 utf8
+
+Transform
+{
+  rotation 1 0 0 -1.570796
+  translation -0.217 -1.575 0
+
+  children
+  [
+    Shape 
+    {
+      appearance Appearance 
+      {
+        material Material 
+        { 
+          diffuseColor 1.0 0.5 0.5 
+          shininess    0.4
+          transparency 0
+        }
+      }
+    
+      geometry Teapot
+      {
+        scale 1.0
+        depth 10
+      }
+
+#  geometry Sphere
+#  {
+#    radius     2.0
+#    resolution 40
+#  }
+    }
+  ]
+}
+

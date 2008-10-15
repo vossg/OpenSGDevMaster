@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="DisplayFilter"
+   parent="AttachmentContainer"
+   library="EffectGroups"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   >   
+  <Field
+	 name="enabled"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+     defaultValue="true"
+	 >
+  </Field>
+</FieldContainer>

@@ -1,0 +1,180 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF GlobalEffect1 DisplayFilterStage
+    {
+ 
+      filterGroups
+      [
+        DisplayFilterGroup
+        {
+          drawerId      0
+          drawableId   -1
+
+          resolutionFilter DEF ResFilterD1 ResolutionDisplayFilter
+          {
+            enabled FALSE
+            downScale 0.5
+          }
+
+          colorFilter DEF ColFilterD1 ColorDisplayFilter
+          {
+            enabled FALSE
+            gamma 1.0
+            matrix 0 1 0 0
+                   1 0 0 0
+                   0 0 1 0
+                   0 0 0 1      
+          }
+
+          distortionFilter DEF DistFilterD1 DistortionDisplayFilter
+          {
+            enabled FALSE
+            rows    3
+            columns 3
+
+            positions [ 0.0 0.0, 
+                        0.5 0.05
+                        1.0 0.1, 
+
+                        0.0 0.5
+                        0.5 0.5 
+                        1.0 0.5
+
+                        0.0 1.0, 
+                        0.5 0.95
+                        1.0 0.9 
+                      ]
+          }
+        }
+
+        DisplayFilterGroup
+        {
+          drawerId     1
+          drawableId  -1
+
+          resolutionFilter DEF ResFilterD2 ResolutionDisplayFilter
+          {
+            enabled FALSE
+            downScale 0.5
+          }
+
+          colorFilter DEF ColFilterD2 ColorDisplayFilter
+          {
+            enabled FALSE
+            gamma 1.0
+            matrix 0 0 1 0
+                   0 1 0 0
+                   1 0 0 0
+                   0 0 0 1      
+          }
+
+          distortionFilter DEF DistFilterD2 DistortionDisplayFilter
+          {
+            enabled FALSE
+            rows    3
+            columns 3
+
+            positions [ 0.0 0.1, 
+                        0.5 0.05
+                        1.0 0.0, 
+
+                        0.0 0.5
+                        0.5 0.5 
+                        1.0 0.5
+
+                        0.0 0.9, 
+                        0.5 0.95
+                        1.0 1.0 
+                      ]
+          }
+        }
+      ]
+    }
+
+    DEF KeyR KeySensor
+    {
+      key "r"
+      stateFlipFlop FALSE
+    }
+    DEF KeyC KeySensor
+    {
+      key "c"
+      stateFlipFlop FALSE
+    }
+    DEF KeyD KeySensor
+    {
+      key "d"
+      stateFlipFlop FALSE
+    }
+
+    DEF CGUp KeySensor
+    {
+      key "G"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CGDown KeySensor
+    {
+      key "g"
+      stateFlipFlop TRUE
+    }       
+
+    DEF GammaCounter LimitedReal32Counter
+    {
+      value 1.0
+      step  0.01
+
+      upperLimit 10.00
+      lowerLimit  0.01
+    }
+
+    DEF CSUp KeySensor
+    {
+      key "S"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CSDown KeySensor
+    {
+      key "s"
+      stateFlipFlop TRUE
+    }       
+
+    DEF ScaleCounter LimitedReal32Counter
+    {
+      value 0.5
+      step  0.01
+
+      upperLimit  1.0
+      lowerLimit  0.1
+    }
+  ]
+}
+
+ROUTE KeyR.stateFlipFlop TO ResFilterD1 .enabled
+ROUTE KeyR.stateFlipFlop TO ResFilterD2 .enabled
+
+ROUTE KeyD.stateFlipFlop TO DistFilterD1.enabled
+ROUTE KeyD.stateFlipFlop TO DistFilterD2.enabled
+
+ROUTE KeyC.stateFlipFlop TO ColFilterD1 .enabled
+ROUTE KeyC.stateFlipFlop TO ColFilterD2 .enabled
+
+
+ROUTE CGUp  .signalPressed  TO GammaCounter.incTrigger
+ROUTE CGDown.signalPressed  TO GammaCounter.decTrigger
+
+ROUTE GammaCounter.value    TO ColFilterD1.gamma
+ROUTE GammaCounter.value    TO ColFilterD2.gamma
+
+
+ROUTE CSUp  .signalPressed  TO ScaleCounter.incTrigger
+ROUTE CSDown.signalPressed  TO ScaleCounter.decTrigger
+
+ROUTE ScaleCounter.value    TO ResFilterD1.downScale
+ROUTE ScaleCounter.value    TO ResFilterD2.downScale
+
