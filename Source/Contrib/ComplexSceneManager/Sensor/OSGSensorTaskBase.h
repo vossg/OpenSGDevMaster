@@ -181,6 +181,8 @@ class OSG_CONTRIBCSM_DLLMAPPING SensorTaskBase : public AttachmentContainer
     static  SensorTask            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SensorTaskTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -189,6 +191,8 @@ class OSG_CONTRIBCSM_DLLMAPPING SensorTaskBase : public AttachmentContainer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

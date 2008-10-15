@@ -200,6 +200,8 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     static  ClipPlaneChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ClipPlaneChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -208,6 +210,8 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

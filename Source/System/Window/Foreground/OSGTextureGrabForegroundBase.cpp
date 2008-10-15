@@ -398,6 +398,22 @@ TextureGrabForegroundTransitPtr TextureGrabForegroundBase::createLocal(BitVector
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+TextureGrabForegroundTransitPtr TextureGrabForegroundBase::createDependent(BitVector bFlags)
+{
+    TextureGrabForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<TextureGrabForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 TextureGrabForegroundTransitPtr TextureGrabForegroundBase::create(void)
 {
@@ -449,6 +465,20 @@ FieldContainerTransitPtr TextureGrabForegroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TextureGrabForegroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    TextureGrabForeground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TextureGrabForeground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

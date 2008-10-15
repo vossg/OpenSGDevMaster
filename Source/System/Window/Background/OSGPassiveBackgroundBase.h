@@ -135,6 +135,8 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     static  PassiveBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  PassiveBackgroundTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

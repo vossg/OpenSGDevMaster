@@ -253,6 +253,22 @@ ScreenLODTransitPtr ScreenLODBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ScreenLODTransitPtr ScreenLODBase::createDependent(BitVector bFlags)
+{
+    ScreenLODTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ScreenLOD>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ScreenLODTransitPtr ScreenLODBase::create(void)
 {
@@ -304,6 +320,20 @@ FieldContainerTransitPtr ScreenLODBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ScreenLODBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ScreenLOD *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ScreenLOD *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

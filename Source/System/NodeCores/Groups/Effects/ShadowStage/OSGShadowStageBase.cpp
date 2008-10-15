@@ -1208,6 +1208,22 @@ ShadowStageTransitPtr ShadowStageBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ShadowStageTransitPtr ShadowStageBase::createDependent(BitVector bFlags)
+{
+    ShadowStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ShadowStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ShadowStageTransitPtr ShadowStageBase::create(void)
 {
@@ -1259,6 +1275,20 @@ FieldContainerTransitPtr ShadowStageBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ShadowStageBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ShadowStage *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ShadowStage *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

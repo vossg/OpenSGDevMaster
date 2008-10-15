@@ -282,6 +282,22 @@ DynamicStateGeneratorStageDataTransitPtr DynamicStateGeneratorStageDataBase::cre
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DynamicStateGeneratorStageDataTransitPtr DynamicStateGeneratorStageDataBase::createDependent(BitVector bFlags)
+{
+    DynamicStateGeneratorStageDataTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<DynamicStateGeneratorStageData>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DynamicStateGeneratorStageDataTransitPtr DynamicStateGeneratorStageDataBase::create(void)
 {
@@ -316,6 +332,20 @@ FieldContainerTransitPtr DynamicStateGeneratorStageDataBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DynamicStateGeneratorStageDataBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    DynamicStateGeneratorStageData *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DynamicStateGeneratorStageData *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -95,11 +95,11 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var GeoVectorProperty * ColladaGeoInputAttachmentBase::_mfProperties
-    Properties corresponding to the inputs.
+    Properties corresponding to the inputs, in the order they are present in the Collada Geometry.
 */
 
 /*! \var GeoIntegralProperty * ColladaGeoInputAttachmentBase::_mfPropIndices
-    Indices for the properties.
+    Indices corresponding to the inputs, in the order they are present in the Collada Geometry.
 */
 
 
@@ -135,7 +135,7 @@ void ColladaGeoInputAttachmentBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUnrecChildGeoVectorPropertyPtr::Description(
         MFUnrecChildGeoVectorPropertyPtr::getClassType(),
         "properties",
-        "Properties corresponding to the inputs.\n",
+        "Properties corresponding to the inputs, in the order they are present in the Collada Geometry.\n",
         PropertiesFieldId, PropertiesFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
@@ -147,7 +147,7 @@ void ColladaGeoInputAttachmentBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUnrecChildGeoIntegralPropertyPtr::Description(
         MFUnrecChildGeoIntegralPropertyPtr::getClassType(),
         "propIndices",
-        "Indices for the properties.\n",
+        "Indices corresponding to the inputs, in the order they are present in the Collada Geometry.\n",
         PropIndicesFieldId, PropIndicesFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
@@ -213,7 +213,7 @@ ColladaGeoInputAttachmentBase::TypeObject ColladaGeoInputAttachmentBase::_type(
     "        childParentType=\"FieldContainer\"\n"
     "        linkParentField=\"Parents\"\n"
     "    >\n"
-    "    Properties corresponding to the inputs.\n"
+    "    Properties corresponding to the inputs, in the order they are present in the Collada Geometry.\n"
     "    </Field>\n"
     "    <Field\n"
     "        name=\"propIndices\"\n"
@@ -225,7 +225,7 @@ ColladaGeoInputAttachmentBase::TypeObject ColladaGeoInputAttachmentBase::_type(
     "        childParentType=\"FieldContainer\"\n"
     "        linkParentField=\"Parents\"\n"
     "    >\n"
-    "    Indices for the properties.\n"
+    "    Indices corresponding to the inputs, in the order they are present in the Collada Geometry.\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     "Attachment that stores information about the inputs of a Collada geometry. This\n"
@@ -503,6 +503,22 @@ ColladaGeoInputAttachmentTransitPtr ColladaGeoInputAttachmentBase::createLocal(B
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ColladaGeoInputAttachmentTransitPtr ColladaGeoInputAttachmentBase::createDependent(BitVector bFlags)
+{
+    ColladaGeoInputAttachmentTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ColladaGeoInputAttachment>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ColladaGeoInputAttachmentTransitPtr ColladaGeoInputAttachmentBase::create(void)
 {
@@ -554,6 +570,20 @@ FieldContainerTransitPtr ColladaGeoInputAttachmentBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ColladaGeoInputAttachmentBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ColladaGeoInputAttachment *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ColladaGeoInputAttachment *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

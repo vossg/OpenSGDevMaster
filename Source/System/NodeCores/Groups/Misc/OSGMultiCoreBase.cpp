@@ -295,6 +295,22 @@ MultiCoreTransitPtr MultiCoreBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+MultiCoreTransitPtr MultiCoreBase::createDependent(BitVector bFlags)
+{
+    MultiCoreTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<MultiCore>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 MultiCoreTransitPtr MultiCoreBase::create(void)
 {
@@ -346,6 +362,20 @@ FieldContainerTransitPtr MultiCoreBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr MultiCoreBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    MultiCore *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const MultiCore *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

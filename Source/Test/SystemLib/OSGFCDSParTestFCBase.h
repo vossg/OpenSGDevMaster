@@ -148,6 +148,8 @@ class OSG_SYSTEM_DLLMAPPING FCDSParTestFCBase : public AttachmentContainer
     static  FCDSParTestFC            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  FCDSParTestFCTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -156,6 +158,8 @@ class OSG_SYSTEM_DLLMAPPING FCDSParTestFCBase : public AttachmentContainer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -221,6 +221,8 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     static  Billboard            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  BillboardTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -229,6 +231,8 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

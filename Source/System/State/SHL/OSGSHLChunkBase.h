@@ -231,6 +231,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     static  SHLChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SHLChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -239,6 +241,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

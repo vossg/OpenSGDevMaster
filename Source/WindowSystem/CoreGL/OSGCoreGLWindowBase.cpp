@@ -232,6 +232,22 @@ CoreGLWindowTransitPtr CoreGLWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CoreGLWindowTransitPtr CoreGLWindowBase::createDependent(BitVector bFlags)
+{
+    CoreGLWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CoreGLWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CoreGLWindowTransitPtr CoreGLWindowBase::create(void)
 {
@@ -283,6 +299,20 @@ FieldContainerTransitPtr CoreGLWindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CoreGLWindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CoreGLWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CoreGLWindow *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

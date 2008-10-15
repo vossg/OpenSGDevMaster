@@ -381,6 +381,22 @@ TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::createLocal(BitVe
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::createDependent(BitVector bFlags)
+{
+    TestMultiPartitionStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<TestMultiPartitionStage>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 TestMultiPartitionStageTransitPtr TestMultiPartitionStageBase::create(void)
 {
@@ -432,6 +448,20 @@ FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TestMultiPartitionStageBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    TestMultiPartitionStage *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TestMultiPartitionStage *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -173,6 +173,8 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     static  PointLight            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  PointLightTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

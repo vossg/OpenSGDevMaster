@@ -221,6 +221,8 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
     static  DepthChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  DepthChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -229,6 +231,8 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

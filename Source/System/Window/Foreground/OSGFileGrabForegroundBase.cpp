@@ -362,6 +362,22 @@ FileGrabForegroundTransitPtr FileGrabForegroundBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+FileGrabForegroundTransitPtr FileGrabForegroundBase::createDependent(BitVector bFlags)
+{
+    FileGrabForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<FileGrabForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 FileGrabForegroundTransitPtr FileGrabForegroundBase::create(void)
 {
@@ -413,6 +429,20 @@ FieldContainerTransitPtr FileGrabForegroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr FileGrabForegroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    FileGrabForeground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const FileGrabForeground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

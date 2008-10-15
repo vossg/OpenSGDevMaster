@@ -389,6 +389,22 @@ OrientationInterpolatorTransitPtr OrientationInterpolatorBase::createLocal(BitVe
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+OrientationInterpolatorTransitPtr OrientationInterpolatorBase::createDependent(BitVector bFlags)
+{
+    OrientationInterpolatorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<OrientationInterpolator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 OrientationInterpolatorTransitPtr OrientationInterpolatorBase::create(void)
 {
@@ -440,6 +456,20 @@ FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    OrientationInterpolator *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const OrientationInterpolator *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -135,6 +135,8 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     static  PassiveWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  PassiveWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

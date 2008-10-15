@@ -172,6 +172,8 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     static  ScreenLOD            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ScreenLODTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -180,6 +182,8 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -297,6 +297,22 @@ SolidBackgroundTransitPtr SolidBackgroundBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SolidBackgroundTransitPtr SolidBackgroundBase::createDependent(BitVector bFlags)
+{
+    SolidBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SolidBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SolidBackgroundTransitPtr SolidBackgroundBase::create(void)
 {
@@ -348,6 +364,20 @@ FieldContainerTransitPtr SolidBackgroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SolidBackgroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SolidBackground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SolidBackground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

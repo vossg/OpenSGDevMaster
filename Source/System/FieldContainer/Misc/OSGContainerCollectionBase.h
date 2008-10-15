@@ -193,6 +193,8 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     static  ContainerCollection            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ContainerCollectionTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -201,6 +203,8 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

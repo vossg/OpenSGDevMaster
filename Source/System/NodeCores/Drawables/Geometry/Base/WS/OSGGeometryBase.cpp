@@ -674,6 +674,22 @@ GeometryTransitPtr GeometryBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+GeometryTransitPtr GeometryBase::createDependent(BitVector bFlags)
+{
+    GeometryTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Geometry>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 GeometryTransitPtr GeometryBase::create(void)
 {
@@ -725,6 +741,20 @@ FieldContainerTransitPtr GeometryBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GeometryBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Geometry *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Geometry *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

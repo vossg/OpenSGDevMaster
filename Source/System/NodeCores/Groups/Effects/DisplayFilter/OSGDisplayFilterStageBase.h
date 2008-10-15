@@ -211,6 +211,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     static  DisplayFilterStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  DisplayFilterStageTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -219,6 +221,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

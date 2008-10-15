@@ -363,6 +363,22 @@ ClipPlaneChunkTransitPtr ClipPlaneChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ClipPlaneChunkTransitPtr ClipPlaneChunkBase::createDependent(BitVector bFlags)
+{
+    ClipPlaneChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ClipPlaneChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ClipPlaneChunkTransitPtr ClipPlaneChunkBase::create(void)
 {
@@ -414,6 +430,20 @@ FieldContainerTransitPtr ClipPlaneChunkBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ClipPlaneChunkBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ClipPlaneChunk *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ClipPlaneChunk *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

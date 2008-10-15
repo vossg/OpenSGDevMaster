@@ -262,6 +262,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     static  CSMTrackball            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CSMTrackballTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -270,6 +272,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -436,6 +436,22 @@ BalancedMultiWindowTransitPtr BalancedMultiWindowBase::createLocal(BitVector bFl
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+BalancedMultiWindowTransitPtr BalancedMultiWindowBase::createDependent(BitVector bFlags)
+{
+    BalancedMultiWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<BalancedMultiWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 BalancedMultiWindowTransitPtr BalancedMultiWindowBase::create(void)
 {
@@ -487,6 +503,20 @@ FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    BalancedMultiWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const BalancedMultiWindow *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

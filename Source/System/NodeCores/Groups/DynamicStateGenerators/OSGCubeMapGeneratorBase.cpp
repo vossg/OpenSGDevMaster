@@ -843,6 +843,22 @@ CubeMapGeneratorTransitPtr CubeMapGeneratorBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CubeMapGeneratorTransitPtr CubeMapGeneratorBase::createDependent(BitVector bFlags)
+{
+    CubeMapGeneratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CubeMapGenerator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CubeMapGeneratorTransitPtr CubeMapGeneratorBase::create(void)
 {
@@ -894,6 +910,20 @@ FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CubeMapGeneratorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CubeMapGenerator *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CubeMapGenerator *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

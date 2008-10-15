@@ -382,6 +382,22 @@ PipelineComposerTransitPtr PipelineComposerBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+PipelineComposerTransitPtr PipelineComposerBase::createDependent(BitVector bFlags)
+{
+    PipelineComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<PipelineComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 PipelineComposerTransitPtr PipelineComposerBase::create(void)
 {
@@ -433,6 +449,20 @@ FieldContainerTransitPtr PipelineComposerBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PipelineComposerBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    PipelineComposer *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PipelineComposer *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -212,6 +212,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     static  AlgorithmStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  AlgorithmStageTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -220,6 +222,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

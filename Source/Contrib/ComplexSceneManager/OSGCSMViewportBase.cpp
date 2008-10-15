@@ -543,6 +543,22 @@ CSMViewportTransitPtr CSMViewportBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CSMViewportTransitPtr CSMViewportBase::createDependent(BitVector bFlags)
+{
+    CSMViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CSMViewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CSMViewportTransitPtr CSMViewportBase::create(void)
 {
@@ -577,6 +593,20 @@ FieldContainerTransitPtr CSMViewportBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CSMViewportBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CSMViewport *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CSMViewport *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

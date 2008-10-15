@@ -207,6 +207,8 @@ class OSG_CONTRIBCSM_DLLMAPPING OrientationInterpolatorBase : public NodeCore
     static  OrientationInterpolator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  OrientationInterpolatorTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -215,6 +217,8 @@ class OSG_CONTRIBCSM_DLLMAPPING OrientationInterpolatorBase : public NodeCore
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

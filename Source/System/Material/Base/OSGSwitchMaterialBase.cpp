@@ -340,6 +340,22 @@ SwitchMaterialTransitPtr SwitchMaterialBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SwitchMaterialTransitPtr SwitchMaterialBase::createDependent(BitVector bFlags)
+{
+    SwitchMaterialTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SwitchMaterial>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SwitchMaterialTransitPtr SwitchMaterialBase::create(void)
 {
@@ -391,6 +407,20 @@ FieldContainerTransitPtr SwitchMaterialBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SwitchMaterialBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SwitchMaterial *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SwitchMaterial *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

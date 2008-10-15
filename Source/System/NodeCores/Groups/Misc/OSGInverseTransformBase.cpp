@@ -172,6 +172,22 @@ InverseTransformTransitPtr InverseTransformBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+InverseTransformTransitPtr InverseTransformBase::createDependent(BitVector bFlags)
+{
+    InverseTransformTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<InverseTransform>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 InverseTransformTransitPtr InverseTransformBase::create(void)
 {
@@ -223,6 +239,20 @@ FieldContainerTransitPtr InverseTransformBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr InverseTransformBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    InverseTransform *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const InverseTransform *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

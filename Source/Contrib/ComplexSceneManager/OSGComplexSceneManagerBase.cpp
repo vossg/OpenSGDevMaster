@@ -847,6 +847,22 @@ ComplexSceneManagerTransitPtr ComplexSceneManagerBase::createLocal(BitVector bFl
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ComplexSceneManagerTransitPtr ComplexSceneManagerBase::createDependent(BitVector bFlags)
+{
+    ComplexSceneManagerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ComplexSceneManager>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ComplexSceneManagerTransitPtr ComplexSceneManagerBase::create(void)
 {
@@ -881,6 +897,20 @@ FieldContainerTransitPtr ComplexSceneManagerBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ComplexSceneManagerBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ComplexSceneManager *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ComplexSceneManager *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

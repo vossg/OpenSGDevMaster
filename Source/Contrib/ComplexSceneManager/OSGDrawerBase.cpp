@@ -389,6 +389,22 @@ DrawerTransitPtr DrawerBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DrawerTransitPtr DrawerBase::createDependent(BitVector bFlags)
+{
+    DrawerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Drawer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DrawerTransitPtr DrawerBase::create(void)
 {
@@ -423,6 +439,20 @@ FieldContainerTransitPtr DrawerBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DrawerBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Drawer *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Drawer *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

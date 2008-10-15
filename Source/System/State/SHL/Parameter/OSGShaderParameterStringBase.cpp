@@ -232,6 +232,22 @@ ShaderParameterStringTransitPtr ShaderParameterStringBase::createLocal(BitVector
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ShaderParameterStringTransitPtr ShaderParameterStringBase::createDependent(BitVector bFlags)
+{
+    ShaderParameterStringTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ShaderParameterString>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ShaderParameterStringTransitPtr ShaderParameterStringBase::create(void)
 {
@@ -283,6 +299,20 @@ FieldContainerTransitPtr ShaderParameterStringBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ShaderParameterStringBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ShaderParameterString *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ShaderParameterString *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

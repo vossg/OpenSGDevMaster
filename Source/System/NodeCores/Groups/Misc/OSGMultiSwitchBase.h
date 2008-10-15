@@ -184,6 +184,8 @@ class OSG_GROUP_DLLMAPPING MultiSwitchBase : public Group
     static  MultiSwitch            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  MultiSwitchTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -192,6 +194,8 @@ class OSG_GROUP_DLLMAPPING MultiSwitchBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

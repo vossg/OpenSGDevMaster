@@ -206,6 +206,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CoordinateInterpolatorBase : public NodeCore
     static  CoordinateInterpolator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CoordinateInterpolatorTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -214,6 +216,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CoordinateInterpolatorBase : public NodeCore
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

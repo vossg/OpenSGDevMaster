@@ -173,6 +173,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ResolutionDisplayFilterBase : public DisplayFi
     static  ResolutionDisplayFilter            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ResolutionDisplayFilterTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ResolutionDisplayFilterBase : public DisplayFi
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

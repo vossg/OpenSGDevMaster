@@ -311,6 +311,8 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     static  VTKPolyDataMapper            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  VTKPolyDataMapperTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -319,6 +321,8 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

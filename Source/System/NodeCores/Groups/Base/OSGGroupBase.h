@@ -135,6 +135,8 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     static  Group            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  GroupTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

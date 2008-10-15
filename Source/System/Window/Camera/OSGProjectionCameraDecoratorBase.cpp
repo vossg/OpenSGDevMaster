@@ -572,6 +572,22 @@ ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::createLocal(B
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::createDependent(BitVector bFlags)
+{
+    ProjectionCameraDecoratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ProjectionCameraDecorator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ProjectionCameraDecoratorTransitPtr ProjectionCameraDecoratorBase::create(void)
 {
@@ -623,6 +639,20 @@ FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ProjectionCameraDecoratorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ProjectionCameraDecorator *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ProjectionCameraDecorator *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

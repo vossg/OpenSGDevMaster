@@ -209,6 +209,8 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
     static  ColorMaskChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ColorMaskChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -217,6 +219,8 @@ class OSG_SYSTEM_DLLMAPPING ColorMaskChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -181,6 +181,8 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     static  MultiCore            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  MultiCoreTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -189,6 +191,8 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -173,6 +173,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     static  SimpleShadowMapEngine            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SimpleShadowMapEngineTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

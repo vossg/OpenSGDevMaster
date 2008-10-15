@@ -173,6 +173,8 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
     static  CocoaWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CocoaWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindowBase : public Window
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -289,6 +289,22 @@ SensorTaskTransitPtr SensorTaskBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SensorTaskTransitPtr SensorTaskBase::createDependent(BitVector bFlags)
+{
+    SensorTaskTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SensorTask>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SensorTaskTransitPtr SensorTaskBase::create(void)
 {
@@ -323,6 +339,20 @@ FieldContainerTransitPtr SensorTaskBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SensorTaskBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SensorTask *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SensorTask *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

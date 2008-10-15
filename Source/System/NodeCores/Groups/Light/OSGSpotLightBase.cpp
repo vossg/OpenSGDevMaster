@@ -352,6 +352,22 @@ SpotLightTransitPtr SpotLightBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SpotLightTransitPtr SpotLightBase::createDependent(BitVector bFlags)
+{
+    SpotLightTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SpotLight>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SpotLightTransitPtr SpotLightBase::create(void)
 {
@@ -403,6 +419,20 @@ FieldContainerTransitPtr SpotLightBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SpotLightBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SpotLight *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SpotLight *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

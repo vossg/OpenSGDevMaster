@@ -244,6 +244,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     static  SimpleStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SimpleStageTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -252,6 +254,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

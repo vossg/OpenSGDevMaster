@@ -283,7 +283,6 @@ void LimitedCounterImpl<Desc>::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-
 template<class Desc> inline
 typename LimitedCounterImpl<Desc>::ObjTransitPtr
     LimitedCounterImpl<Desc>::createLocal(BitVector bFlags)
@@ -294,6 +293,24 @@ typename LimitedCounterImpl<Desc>::ObjTransitPtr
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<Self>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class
+template<class Desc> inline
+typename LimitedCounterImpl<Desc>::ObjTransitPtr
+    LimitedCounterImpl<Desc>::createDependent(BitVector bFlags)
+{
+    ObjTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
         fc = dynamic_pointer_cast<Self>(tmpPtr);
     }
@@ -341,6 +358,21 @@ FieldContainerTransitPtr LimitedCounterImpl<Desc>::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+template<class Desc> inline
+FieldContainerTransitPtr LimitedCounterImpl<Desc>::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Self *tmpPtr;
+
+    Self::newPtr(tmpPtr, dynamic_cast<const Self *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

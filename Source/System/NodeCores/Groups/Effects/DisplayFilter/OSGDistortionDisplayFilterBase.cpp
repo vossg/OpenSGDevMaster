@@ -329,6 +329,22 @@ DistortionDisplayFilterTransitPtr DistortionDisplayFilterBase::createLocal(BitVe
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DistortionDisplayFilterTransitPtr DistortionDisplayFilterBase::createDependent(BitVector bFlags)
+{
+    DistortionDisplayFilterTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<DistortionDisplayFilter>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DistortionDisplayFilterTransitPtr DistortionDisplayFilterBase::create(void)
 {
@@ -380,6 +396,20 @@ FieldContainerTransitPtr DistortionDisplayFilterBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DistortionDisplayFilterBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    DistortionDisplayFilter *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DistortionDisplayFilter *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

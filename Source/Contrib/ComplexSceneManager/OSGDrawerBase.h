@@ -205,6 +205,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     static  Drawer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  DrawerTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -213,6 +215,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

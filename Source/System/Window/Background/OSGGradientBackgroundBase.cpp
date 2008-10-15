@@ -303,6 +303,22 @@ GradientBackgroundTransitPtr GradientBackgroundBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+GradientBackgroundTransitPtr GradientBackgroundBase::createDependent(BitVector bFlags)
+{
+    GradientBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<GradientBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 GradientBackgroundTransitPtr GradientBackgroundBase::create(void)
 {
@@ -354,6 +370,20 @@ FieldContainerTransitPtr GradientBackgroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GradientBackgroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    GradientBackground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GradientBackground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

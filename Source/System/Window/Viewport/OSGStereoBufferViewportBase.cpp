@@ -302,6 +302,22 @@ StereoBufferViewportTransitPtr StereoBufferViewportBase::createLocal(BitVector b
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+StereoBufferViewportTransitPtr StereoBufferViewportBase::createDependent(BitVector bFlags)
+{
+    StereoBufferViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<StereoBufferViewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 StereoBufferViewportTransitPtr StereoBufferViewportBase::create(void)
 {
@@ -353,6 +369,20 @@ FieldContainerTransitPtr StereoBufferViewportBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StereoBufferViewportBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    StereoBufferViewport *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const StereoBufferViewport *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

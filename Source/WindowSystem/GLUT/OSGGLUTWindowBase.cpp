@@ -232,6 +232,22 @@ GLUTWindowTransitPtr GLUTWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+GLUTWindowTransitPtr GLUTWindowBase::createDependent(BitVector bFlags)
+{
+    GLUTWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<GLUTWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 GLUTWindowTransitPtr GLUTWindowBase::create(void)
 {
@@ -283,6 +299,20 @@ FieldContainerTransitPtr GLUTWindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GLUTWindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    GLUTWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GLUTWindow *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

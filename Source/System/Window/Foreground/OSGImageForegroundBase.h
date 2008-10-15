@@ -192,6 +192,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     static  ImageForeground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ImageForegroundTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -200,6 +202,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

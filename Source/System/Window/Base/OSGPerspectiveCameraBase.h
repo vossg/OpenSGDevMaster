@@ -185,6 +185,8 @@ class OSG_SYSTEM_DLLMAPPING PerspectiveCameraBase : public Camera
     static  PerspectiveCamera            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  PerspectiveCameraTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -193,6 +195,8 @@ class OSG_SYSTEM_DLLMAPPING PerspectiveCameraBase : public Camera
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -181,6 +181,8 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     static  MultiPassMaterial            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  MultiPassMaterialTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -189,6 +191,8 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

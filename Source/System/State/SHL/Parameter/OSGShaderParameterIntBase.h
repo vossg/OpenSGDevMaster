@@ -173,6 +173,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
     static  ShaderParameterInt            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ShaderParameterIntTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

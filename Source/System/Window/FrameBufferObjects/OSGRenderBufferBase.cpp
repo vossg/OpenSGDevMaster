@@ -293,6 +293,22 @@ RenderBufferTransitPtr RenderBufferBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+RenderBufferTransitPtr RenderBufferBase::createDependent(BitVector bFlags)
+{
+    RenderBufferTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<RenderBuffer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 RenderBufferTransitPtr RenderBufferBase::create(void)
 {
@@ -344,6 +360,20 @@ FieldContainerTransitPtr RenderBufferBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RenderBufferBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    RenderBuffer *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RenderBuffer *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

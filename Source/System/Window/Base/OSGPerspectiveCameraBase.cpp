@@ -295,6 +295,22 @@ PerspectiveCameraTransitPtr PerspectiveCameraBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+PerspectiveCameraTransitPtr PerspectiveCameraBase::createDependent(BitVector bFlags)
+{
+    PerspectiveCameraTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<PerspectiveCamera>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 PerspectiveCameraTransitPtr PerspectiveCameraBase::create(void)
 {
@@ -346,6 +362,20 @@ FieldContainerTransitPtr PerspectiveCameraBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PerspectiveCameraBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    PerspectiveCamera *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PerspectiveCamera *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

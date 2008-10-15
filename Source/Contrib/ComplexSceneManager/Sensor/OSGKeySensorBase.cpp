@@ -438,6 +438,22 @@ KeySensorTransitPtr KeySensorBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+KeySensorTransitPtr KeySensorBase::createDependent(BitVector bFlags)
+{
+    KeySensorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<KeySensor>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 KeySensorTransitPtr KeySensorBase::create(void)
 {
@@ -472,6 +488,20 @@ FieldContainerTransitPtr KeySensorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr KeySensorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    KeySensor *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const KeySensor *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

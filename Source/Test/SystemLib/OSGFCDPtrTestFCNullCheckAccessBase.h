@@ -366,6 +366,8 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     static  FCDPtrTestFCNullCheckAccess            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  FCDPtrTestFCNullCheckAccessTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -374,6 +376,8 @@ class OSG_SYSTEM_DLLMAPPING FCDPtrTestFCNullCheckAccessBase : public NodeCore
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

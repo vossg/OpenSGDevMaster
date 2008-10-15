@@ -455,6 +455,22 @@ DepthChunkTransitPtr DepthChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DepthChunkTransitPtr DepthChunkBase::createDependent(BitVector bFlags)
+{
+    DepthChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<DepthChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DepthChunkTransitPtr DepthChunkBase::create(void)
 {
@@ -506,6 +522,20 @@ FieldContainerTransitPtr DepthChunkBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DepthChunkBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    DepthChunk *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DepthChunk *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

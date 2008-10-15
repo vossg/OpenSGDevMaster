@@ -173,6 +173,8 @@ class OSG_FILEIO_DLLMAPPING VRMLAttachmentBase : public Attachment
     static  VRMLAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  VRMLAttachmentTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_FILEIO_DLLMAPPING VRMLAttachmentBase : public Attachment
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

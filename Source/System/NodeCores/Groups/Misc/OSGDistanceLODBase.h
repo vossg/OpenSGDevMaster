@@ -184,6 +184,8 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     static  DistanceLOD            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  DistanceLODTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -192,6 +194,8 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -172,6 +172,22 @@ RotateManipulatorTransitPtr RotateManipulatorBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+RotateManipulatorTransitPtr RotateManipulatorBase::createDependent(BitVector bFlags)
+{
+    RotateManipulatorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<RotateManipulator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 RotateManipulatorTransitPtr RotateManipulatorBase::create(void)
 {
@@ -223,6 +239,20 @@ FieldContainerTransitPtr RotateManipulatorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RotateManipulatorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    RotateManipulator *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RotateManipulator *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -1167,6 +1167,22 @@ VTKPolyDataMapperTransitPtr VTKPolyDataMapperBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+VTKPolyDataMapperTransitPtr VTKPolyDataMapperBase::createDependent(BitVector bFlags)
+{
+    VTKPolyDataMapperTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<VTKPolyDataMapper>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 VTKPolyDataMapperTransitPtr VTKPolyDataMapperBase::create(void)
 {
@@ -1218,6 +1234,20 @@ FieldContainerTransitPtr VTKPolyDataMapperBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr VTKPolyDataMapperBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    VTKPolyDataMapper *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const VTKPolyDataMapper *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

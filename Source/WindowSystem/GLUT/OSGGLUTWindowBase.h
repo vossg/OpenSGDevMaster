@@ -173,6 +173,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     static  GLUTWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  GLUTWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

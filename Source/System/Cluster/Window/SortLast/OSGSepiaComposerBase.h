@@ -135,6 +135,8 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposerBase : public ImageComposer
     static  SepiaComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SepiaComposerTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_CLUSTER_DLLMAPPING SepiaComposerBase : public ImageComposer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

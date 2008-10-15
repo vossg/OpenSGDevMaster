@@ -849,6 +849,22 @@ SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::createLocal
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::createDependent(BitVector bFlags)
+{
+    SimpleStatisticsForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SimpleStatisticsForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SimpleStatisticsForegroundTransitPtr SimpleStatisticsForegroundBase::create(void)
 {
@@ -900,6 +916,20 @@ FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SimpleStatisticsForegroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SimpleStatisticsForeground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SimpleStatisticsForeground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

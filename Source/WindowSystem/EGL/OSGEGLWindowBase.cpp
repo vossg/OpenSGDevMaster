@@ -334,6 +334,22 @@ EGLWindowTransitPtr EGLWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+EGLWindowTransitPtr EGLWindowBase::createDependent(BitVector bFlags)
+{
+    EGLWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<EGLWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 EGLWindowTransitPtr EGLWindowBase::create(void)
 {
@@ -385,6 +401,20 @@ FieldContainerTransitPtr EGLWindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr EGLWindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    EGLWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const EGLWindow *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

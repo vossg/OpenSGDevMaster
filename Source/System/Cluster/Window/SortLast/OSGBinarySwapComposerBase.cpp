@@ -332,6 +332,22 @@ BinarySwapComposerTransitPtr BinarySwapComposerBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+BinarySwapComposerTransitPtr BinarySwapComposerBase::createDependent(BitVector bFlags)
+{
+    BinarySwapComposerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<BinarySwapComposer>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 BinarySwapComposerTransitPtr BinarySwapComposerBase::create(void)
 {
@@ -383,6 +399,20 @@ FieldContainerTransitPtr BinarySwapComposerBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BinarySwapComposerBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    BinarySwapComposer *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const BinarySwapComposer *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

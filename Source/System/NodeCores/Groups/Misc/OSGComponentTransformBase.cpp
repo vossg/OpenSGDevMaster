@@ -421,6 +421,22 @@ ComponentTransformTransitPtr ComponentTransformBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ComponentTransformTransitPtr ComponentTransformBase::createDependent(BitVector bFlags)
+{
+    ComponentTransformTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ComponentTransform>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ComponentTransformTransitPtr ComponentTransformBase::create(void)
 {
@@ -472,6 +488,20 @@ FieldContainerTransitPtr ComponentTransformBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ComponentTransformBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ComponentTransform *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ComponentTransform *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

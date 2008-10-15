@@ -183,13 +183,12 @@ class LimitedCounterImpl : public CounterImpl<typename Desc::BaseCounterDesc>
     /*! \{                                                                 */
 
     static  ObjTransitPtr  create          (void);
-    static  Self           *createEmpty     (void);
+    static  Self          *createEmpty     (void);
 
-    static  ObjTransitPtr  createLocal     (
-                                               BitVector bFlags = FCLocal::All);
+    static  ObjTransitPtr  createLocal     (BitVector bFlags = FCLocal::All);
+    static  ObjTransitPtr  createDependent (BitVector bFlags               );
 
-    static  Self            *createEmptyLocal(
-                                              BitVector bFlags = FCLocal::All);
+    static  Self          *createEmptyLocal(BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,6 +198,8 @@ class LimitedCounterImpl : public CounterImpl<typename Desc::BaseCounterDesc>
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                       BitVector bFlags               ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

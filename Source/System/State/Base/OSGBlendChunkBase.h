@@ -257,6 +257,8 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     static  BlendChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  BlendChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -265,6 +267,8 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

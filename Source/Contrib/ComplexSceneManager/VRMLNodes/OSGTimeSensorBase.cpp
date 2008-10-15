@@ -644,6 +644,22 @@ TimeSensorTransitPtr TimeSensorBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+TimeSensorTransitPtr TimeSensorBase::createDependent(BitVector bFlags)
+{
+    TimeSensorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<TimeSensor>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 TimeSensorTransitPtr TimeSensorBase::create(void)
 {
@@ -695,6 +711,20 @@ FieldContainerTransitPtr TimeSensorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TimeSensorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    TimeSensor *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TimeSensor *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

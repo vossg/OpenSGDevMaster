@@ -239,6 +239,22 @@ FBOViewportTransitPtr FBOViewportBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+FBOViewportTransitPtr FBOViewportBase::createDependent(BitVector bFlags)
+{
+    FBOViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<FBOViewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 FBOViewportTransitPtr FBOViewportBase::create(void)
 {
@@ -290,6 +306,20 @@ FieldContainerTransitPtr FBOViewportBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr FBOViewportBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    FBOViewport *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const FBOViewport *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

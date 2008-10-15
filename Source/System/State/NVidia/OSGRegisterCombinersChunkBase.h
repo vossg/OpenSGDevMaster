@@ -506,6 +506,8 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
     static  RegisterCombinersChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  RegisterCombinersChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -514,6 +516,8 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -221,6 +221,8 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     static  ComponentTransform            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ComponentTransformTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -229,6 +231,8 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

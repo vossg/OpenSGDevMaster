@@ -433,6 +433,22 @@ CSMSceneParameterTransitPtr CSMSceneParameterBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CSMSceneParameterTransitPtr CSMSceneParameterBase::createDependent(BitVector bFlags)
+{
+    CSMSceneParameterTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CSMSceneParameter>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CSMSceneParameterTransitPtr CSMSceneParameterBase::create(void)
 {
@@ -467,6 +483,20 @@ FieldContainerTransitPtr CSMSceneParameterBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CSMSceneParameterBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CSMSceneParameter *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CSMSceneParameter *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

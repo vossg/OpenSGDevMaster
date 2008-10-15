@@ -389,6 +389,22 @@ CoordinateInterpolatorTransitPtr CoordinateInterpolatorBase::createLocal(BitVect
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CoordinateInterpolatorTransitPtr CoordinateInterpolatorBase::createDependent(BitVector bFlags)
+{
+    CoordinateInterpolatorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CoordinateInterpolator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CoordinateInterpolatorTransitPtr CoordinateInterpolatorBase::create(void)
 {
@@ -440,6 +456,20 @@ FieldContainerTransitPtr CoordinateInterpolatorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CoordinateInterpolatorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CoordinateInterpolator *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CoordinateInterpolator *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

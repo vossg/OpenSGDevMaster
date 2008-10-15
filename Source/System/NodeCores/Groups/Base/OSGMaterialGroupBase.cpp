@@ -242,6 +242,22 @@ MaterialGroupTransitPtr MaterialGroupBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+MaterialGroupTransitPtr MaterialGroupBase::createDependent(BitVector bFlags)
+{
+    MaterialGroupTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<MaterialGroup>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 MaterialGroupTransitPtr MaterialGroupBase::create(void)
 {
@@ -293,6 +309,20 @@ FieldContainerTransitPtr MaterialGroupBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr MaterialGroupBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    MaterialGroup *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const MaterialGroup *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

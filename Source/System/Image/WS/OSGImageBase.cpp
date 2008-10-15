@@ -1407,6 +1407,22 @@ ImageTransitPtr ImageBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ImageTransitPtr ImageBase::createDependent(BitVector bFlags)
+{
+    ImageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Image>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ImageTransitPtr ImageBase::create(void)
 {
@@ -1458,6 +1474,20 @@ FieldContainerTransitPtr ImageBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ImageBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Image *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Image *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

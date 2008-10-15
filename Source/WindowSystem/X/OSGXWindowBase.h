@@ -197,6 +197,8 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     static  XWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  XWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -205,6 +207,8 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

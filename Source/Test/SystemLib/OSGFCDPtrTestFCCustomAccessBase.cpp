@@ -1331,6 +1331,22 @@ FCDPtrTestFCCustomAccessTransitPtr FCDPtrTestFCCustomAccessBase::createLocal(Bit
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+FCDPtrTestFCCustomAccessTransitPtr FCDPtrTestFCCustomAccessBase::createDependent(BitVector bFlags)
+{
+    FCDPtrTestFCCustomAccessTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<FCDPtrTestFCCustomAccess>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 FCDPtrTestFCCustomAccessTransitPtr FCDPtrTestFCCustomAccessBase::create(void)
 {
@@ -1382,6 +1398,20 @@ FieldContainerTransitPtr FCDPtrTestFCCustomAccessBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr FCDPtrTestFCCustomAccessBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    FCDPtrTestFCCustomAccess *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const FCDPtrTestFCCustomAccess *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

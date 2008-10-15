@@ -227,6 +227,22 @@ StateTransitPtr StateBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+StateTransitPtr StateBase::createDependent(BitVector bFlags)
+{
+    StateTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<State>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 StateTransitPtr StateBase::create(void)
 {
@@ -278,6 +294,20 @@ FieldContainerTransitPtr StateBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StateBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    State *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const State *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

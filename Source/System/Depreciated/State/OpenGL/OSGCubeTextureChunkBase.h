@@ -216,6 +216,8 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     static  CubeTextureChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CubeTextureChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -224,6 +226,8 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

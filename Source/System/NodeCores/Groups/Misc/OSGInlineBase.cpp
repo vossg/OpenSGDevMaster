@@ -331,6 +331,22 @@ InlineTransitPtr InlineBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+InlineTransitPtr InlineBase::createDependent(BitVector bFlags)
+{
+    InlineTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Inline>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 InlineTransitPtr InlineBase::create(void)
 {
@@ -382,6 +398,20 @@ FieldContainerTransitPtr InlineBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr InlineBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Inline *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Inline *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

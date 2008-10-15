@@ -292,6 +292,22 @@ MultiSwitchTransitPtr MultiSwitchBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+MultiSwitchTransitPtr MultiSwitchBase::createDependent(BitVector bFlags)
+{
+    MultiSwitchTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<MultiSwitch>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 MultiSwitchTransitPtr MultiSwitchBase::create(void)
 {
@@ -343,6 +359,20 @@ FieldContainerTransitPtr MultiSwitchBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr MultiSwitchBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    MultiSwitch *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const MultiSwitch *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

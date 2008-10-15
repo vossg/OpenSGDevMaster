@@ -135,6 +135,8 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
     static  RotateManipulator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  RotateManipulatorTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_CONTRIBGUI_DLLMAPPING RotateManipulatorBase : public Manipulator
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

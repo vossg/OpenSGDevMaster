@@ -200,6 +200,8 @@ class OSG_CONTRIBCSM_DLLMAPPING KeySensorBase : public AttachmentContainer
     static  KeySensor            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  KeySensorTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -208,6 +210,8 @@ class OSG_CONTRIBCSM_DLLMAPPING KeySensorBase : public AttachmentContainer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -224,6 +224,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     static  CSMSceneParameter            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CSMSceneParameterTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -232,6 +234,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -287,6 +287,22 @@ StringAttributeMapTransitPtr StringAttributeMapBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+StringAttributeMapTransitPtr StringAttributeMapBase::createDependent(BitVector bFlags)
+{
+    StringAttributeMapTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<StringAttributeMap>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 StringAttributeMapTransitPtr StringAttributeMapBase::create(void)
 {
@@ -338,6 +354,20 @@ FieldContainerTransitPtr StringAttributeMapBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr StringAttributeMapBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    StringAttributeMap *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const StringAttributeMap *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

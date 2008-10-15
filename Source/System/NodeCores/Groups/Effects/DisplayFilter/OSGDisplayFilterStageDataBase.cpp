@@ -546,6 +546,22 @@ DisplayFilterStageDataTransitPtr DisplayFilterStageDataBase::createLocal(BitVect
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DisplayFilterStageDataTransitPtr DisplayFilterStageDataBase::createDependent(BitVector bFlags)
+{
+    DisplayFilterStageDataTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<DisplayFilterStageData>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DisplayFilterStageDataTransitPtr DisplayFilterStageDataBase::create(void)
 {
@@ -597,6 +613,20 @@ FieldContainerTransitPtr DisplayFilterStageDataBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DisplayFilterStageDataBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    DisplayFilterStageData *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DisplayFilterStageData *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

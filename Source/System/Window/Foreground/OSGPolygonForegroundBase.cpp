@@ -667,6 +667,22 @@ PolygonForegroundTransitPtr PolygonForegroundBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+PolygonForegroundTransitPtr PolygonForegroundBase::createDependent(BitVector bFlags)
+{
+    PolygonForegroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<PolygonForeground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 PolygonForegroundTransitPtr PolygonForegroundBase::create(void)
 {
@@ -718,6 +734,20 @@ FieldContainerTransitPtr PolygonForegroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PolygonForegroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    PolygonForeground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PolygonForeground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

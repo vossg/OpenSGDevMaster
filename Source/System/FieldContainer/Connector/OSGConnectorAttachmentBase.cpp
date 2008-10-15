@@ -173,6 +173,22 @@ ConnectorAttachmentTransitPtr ConnectorAttachmentBase::createLocal(BitVector bFl
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ConnectorAttachmentTransitPtr ConnectorAttachmentBase::createDependent(BitVector bFlags)
+{
+    ConnectorAttachmentTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ConnectorAttachment>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ConnectorAttachmentTransitPtr ConnectorAttachmentBase::create(void)
 {
@@ -207,6 +223,20 @@ FieldContainerTransitPtr ConnectorAttachmentBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ConnectorAttachmentBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ConnectorAttachment *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ConnectorAttachment *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

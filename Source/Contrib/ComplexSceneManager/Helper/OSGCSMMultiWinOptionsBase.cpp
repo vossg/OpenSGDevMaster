@@ -483,6 +483,22 @@ CSMMultiWinOptionsTransitPtr CSMMultiWinOptionsBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CSMMultiWinOptionsTransitPtr CSMMultiWinOptionsBase::createDependent(BitVector bFlags)
+{
+    CSMMultiWinOptionsTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CSMMultiWinOptions>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CSMMultiWinOptionsTransitPtr CSMMultiWinOptionsBase::create(void)
 {
@@ -517,6 +533,20 @@ FieldContainerTransitPtr CSMMultiWinOptionsBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CSMMultiWinOptionsBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CSMMultiWinOptions *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CSMMultiWinOptions *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

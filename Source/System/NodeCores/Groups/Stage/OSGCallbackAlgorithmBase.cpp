@@ -221,6 +221,22 @@ CallbackAlgorithmTransitPtr CallbackAlgorithmBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CallbackAlgorithmTransitPtr CallbackAlgorithmBase::createDependent(BitVector bFlags)
+{
+    CallbackAlgorithmTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CallbackAlgorithm>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CallbackAlgorithmTransitPtr CallbackAlgorithmBase::create(void)
 {
@@ -272,6 +288,20 @@ FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CallbackAlgorithm *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CallbackAlgorithm *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -334,6 +334,22 @@ WIN32WindowTransitPtr WIN32WindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+WIN32WindowTransitPtr WIN32WindowBase::createDependent(BitVector bFlags)
+{
+    WIN32WindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<WIN32Window>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 WIN32WindowTransitPtr WIN32WindowBase::create(void)
 {
@@ -385,6 +401,20 @@ FieldContainerTransitPtr WIN32WindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr WIN32WindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    WIN32Window *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const WIN32Window *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

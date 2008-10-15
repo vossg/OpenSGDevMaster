@@ -1793,6 +1793,22 @@ RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::createLocal(BitVect
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::createDependent(BitVector bFlags)
+{
+    RegisterCombinersChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<RegisterCombinersChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 RegisterCombinersChunkTransitPtr RegisterCombinersChunkBase::create(void)
 {
@@ -1844,6 +1860,20 @@ FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RegisterCombinersChunkBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    RegisterCombinersChunk *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RegisterCombinersChunk *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

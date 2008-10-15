@@ -640,6 +640,22 @@ CSMClusterWindowTransitPtr CSMClusterWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CSMClusterWindowTransitPtr CSMClusterWindowBase::createDependent(BitVector bFlags)
+{
+    CSMClusterWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CSMClusterWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CSMClusterWindowTransitPtr CSMClusterWindowBase::create(void)
 {
@@ -674,6 +690,20 @@ FieldContainerTransitPtr CSMClusterWindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CSMClusterWindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CSMClusterWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CSMClusterWindow *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -497,6 +497,22 @@ SimpleTexturedMaterialTransitPtr SimpleTexturedMaterialBase::createLocal(BitVect
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SimpleTexturedMaterialTransitPtr SimpleTexturedMaterialBase::createDependent(BitVector bFlags)
+{
+    SimpleTexturedMaterialTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SimpleTexturedMaterial>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SimpleTexturedMaterialTransitPtr SimpleTexturedMaterialBase::create(void)
 {
@@ -548,6 +564,20 @@ FieldContainerTransitPtr SimpleTexturedMaterialBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SimpleTexturedMaterialBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SimpleTexturedMaterial *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SimpleTexturedMaterial *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

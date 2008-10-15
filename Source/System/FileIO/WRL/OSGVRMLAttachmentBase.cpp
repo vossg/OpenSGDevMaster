@@ -230,6 +230,22 @@ VRMLAttachmentTransitPtr VRMLAttachmentBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+VRMLAttachmentTransitPtr VRMLAttachmentBase::createDependent(BitVector bFlags)
+{
+    VRMLAttachmentTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<VRMLAttachment>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 VRMLAttachmentTransitPtr VRMLAttachmentBase::create(void)
 {
@@ -281,6 +297,20 @@ FieldContainerTransitPtr VRMLAttachmentBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr VRMLAttachmentBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    VRMLAttachment *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const VRMLAttachment *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

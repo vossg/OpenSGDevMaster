@@ -231,6 +231,22 @@ ResolutionDisplayFilterTransitPtr ResolutionDisplayFilterBase::createLocal(BitVe
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ResolutionDisplayFilterTransitPtr ResolutionDisplayFilterBase::createDependent(BitVector bFlags)
+{
+    ResolutionDisplayFilterTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ResolutionDisplayFilter>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ResolutionDisplayFilterTransitPtr ResolutionDisplayFilterBase::create(void)
 {
@@ -282,6 +298,20 @@ FieldContainerTransitPtr ResolutionDisplayFilterBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ResolutionDisplayFilterBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ResolutionDisplayFilter *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ResolutionDisplayFilter *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -73,7 +73,8 @@ bool ShaderParameterAccess::setSParameter(const Char8     *name,
     }
     else
     {
-        ParamUnrecPtr p = ParameterType::create();
+        ParamUnrecPtr p = ParameterType::createDependent(
+            _parameters.getFieldFlags()->_bNamespaceMask);
 
         if(p != NULL)
         {
@@ -125,7 +126,8 @@ bool ShaderParameterAccess::setMParameter(const char      *name,
     }
     else
     {
-        ParamUnrecPtr p = ParameterType::create();
+        ParamUnrecPtr p = ParameterType::createDependent(
+            _parameters.getFieldFlags()->_bNamespaceMask);
 
         if(p != NULL)
         {

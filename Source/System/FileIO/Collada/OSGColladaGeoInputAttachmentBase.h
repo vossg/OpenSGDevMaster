@@ -218,6 +218,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeoInputAttachmentBase : public Attachment
     static  ColladaGeoInputAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ColladaGeoInputAttachmentTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -226,6 +228,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeoInputAttachmentBase : public Attachment
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

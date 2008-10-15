@@ -148,6 +148,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     static  ChunkOverrideGroup            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ChunkOverrideGroupTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -156,6 +158,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

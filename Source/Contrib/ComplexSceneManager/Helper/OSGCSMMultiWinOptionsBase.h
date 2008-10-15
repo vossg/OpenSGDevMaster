@@ -233,6 +233,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMMultiWinOptionsBase : public CSMClusterWinOpt
     static  CSMMultiWinOptions            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CSMMultiWinOptionsTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -241,6 +243,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMMultiWinOptionsBase : public CSMClusterWinOpt
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

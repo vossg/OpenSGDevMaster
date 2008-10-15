@@ -148,6 +148,8 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     static  CallbackAlgorithm            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CallbackAlgorithmTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -156,6 +158,8 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

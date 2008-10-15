@@ -173,6 +173,8 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     static  TestStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  TestStageTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

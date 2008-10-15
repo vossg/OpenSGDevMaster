@@ -172,6 +172,22 @@ LightEnvTransitPtr LightEnvBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+LightEnvTransitPtr LightEnvBase::createDependent(BitVector bFlags)
+{
+    LightEnvTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<LightEnv>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 LightEnvTransitPtr LightEnvBase::create(void)
 {
@@ -223,6 +239,20 @@ FieldContainerTransitPtr LightEnvBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr LightEnvBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    LightEnv *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const LightEnv *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -150,6 +150,8 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     static  DynamicStateGenerator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  DynamicStateGeneratorTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -158,6 +160,8 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

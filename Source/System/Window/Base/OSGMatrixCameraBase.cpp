@@ -347,6 +347,22 @@ MatrixCameraTransitPtr MatrixCameraBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+MatrixCameraTransitPtr MatrixCameraBase::createDependent(BitVector bFlags)
+{
+    MatrixCameraTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<MatrixCamera>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 MatrixCameraTransitPtr MatrixCameraBase::create(void)
 {
@@ -398,6 +414,20 @@ FieldContainerTransitPtr MatrixCameraBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr MatrixCameraBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    MatrixCamera *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const MatrixCamera *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -327,6 +327,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     static  ClusterWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ClusterWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -335,6 +337,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

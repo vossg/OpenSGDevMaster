@@ -304,6 +304,8 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     static  Particles            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ParticlesTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -312,6 +314,8 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

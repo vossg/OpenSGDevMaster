@@ -437,6 +437,22 @@ DrawManagerTransitPtr DrawManagerBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DrawManagerTransitPtr DrawManagerBase::createDependent(BitVector bFlags)
+{
+    DrawManagerTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<DrawManager>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DrawManagerTransitPtr DrawManagerBase::create(void)
 {
@@ -471,6 +487,20 @@ FieldContainerTransitPtr DrawManagerBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DrawManagerBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    DrawManager *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DrawManager *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

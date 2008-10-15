@@ -135,6 +135,8 @@ class OSG_STATE_DLLMAPPING TwoSidedLightingChunkBase : public StateChunk
     static  TwoSidedLightingChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  TwoSidedLightingChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_STATE_DLLMAPPING TwoSidedLightingChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

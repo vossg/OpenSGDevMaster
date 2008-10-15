@@ -186,6 +186,8 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public DynamicStateGe
     static  CubeMapGeneratorStageData            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CubeMapGeneratorStageDataTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -194,6 +196,8 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public DynamicStateGe
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

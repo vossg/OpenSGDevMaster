@@ -1533,6 +1533,22 @@ RenderOptionsTransitPtr RenderOptionsBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+RenderOptionsTransitPtr RenderOptionsBase::createDependent(BitVector bFlags)
+{
+    RenderOptionsTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<RenderOptions>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 RenderOptionsTransitPtr RenderOptionsBase::create(void)
 {
@@ -1584,6 +1600,20 @@ FieldContainerTransitPtr RenderOptionsBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RenderOptionsBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    RenderOptions *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RenderOptions *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

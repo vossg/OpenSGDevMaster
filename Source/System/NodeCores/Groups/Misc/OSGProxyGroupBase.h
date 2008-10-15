@@ -300,6 +300,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     static  ProxyGroup            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ProxyGroupTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -308,6 +310,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

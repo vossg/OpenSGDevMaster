@@ -387,6 +387,22 @@ ColorMaskChunkTransitPtr ColorMaskChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ColorMaskChunkTransitPtr ColorMaskChunkBase::createDependent(BitVector bFlags)
+{
+    ColorMaskChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ColorMaskChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ColorMaskChunkTransitPtr ColorMaskChunkBase::create(void)
 {
@@ -438,6 +454,20 @@ FieldContainerTransitPtr ColorMaskChunkBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ColorMaskChunkBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ColorMaskChunk *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ColorMaskChunk *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

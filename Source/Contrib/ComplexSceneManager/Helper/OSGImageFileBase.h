@@ -173,6 +173,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFileBase : public Image
     static  ImageFile            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ImageFileTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFileBase : public Image
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

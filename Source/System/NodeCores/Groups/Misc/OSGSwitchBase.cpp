@@ -236,6 +236,22 @@ SwitchTransitPtr SwitchBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SwitchTransitPtr SwitchBase::createDependent(BitVector bFlags)
+{
+    SwitchTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Switch>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SwitchTransitPtr SwitchBase::create(void)
 {
@@ -287,6 +303,20 @@ FieldContainerTransitPtr SwitchBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SwitchBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Switch *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Switch *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

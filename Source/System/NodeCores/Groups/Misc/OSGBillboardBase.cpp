@@ -431,6 +431,22 @@ BillboardTransitPtr BillboardBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+BillboardTransitPtr BillboardBase::createDependent(BitVector bFlags)
+{
+    BillboardTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Billboard>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 BillboardTransitPtr BillboardBase::create(void)
 {
@@ -482,6 +498,20 @@ FieldContainerTransitPtr BillboardBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BillboardBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Billboard *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Billboard *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

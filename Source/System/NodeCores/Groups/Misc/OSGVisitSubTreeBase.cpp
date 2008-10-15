@@ -246,6 +246,22 @@ VisitSubTreeTransitPtr VisitSubTreeBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+VisitSubTreeTransitPtr VisitSubTreeBase::createDependent(BitVector bFlags)
+{
+    VisitSubTreeTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<VisitSubTree>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 VisitSubTreeTransitPtr VisitSubTreeBase::create(void)
 {
@@ -297,6 +313,20 @@ FieldContainerTransitPtr VisitSubTreeBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr VisitSubTreeBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    VisitSubTree *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const VisitSubTree *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

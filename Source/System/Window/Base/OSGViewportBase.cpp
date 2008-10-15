@@ -934,6 +934,22 @@ ViewportTransitPtr ViewportBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ViewportTransitPtr ViewportBase::createDependent(BitVector bFlags)
+{
+    ViewportTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Viewport>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ViewportTransitPtr ViewportBase::create(void)
 {
@@ -985,6 +1001,20 @@ FieldContainerTransitPtr ViewportBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ViewportBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Viewport *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Viewport *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

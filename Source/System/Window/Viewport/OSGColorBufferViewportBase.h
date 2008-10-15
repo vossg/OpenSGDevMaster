@@ -209,6 +209,8 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     static  ColorBufferViewport            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ColorBufferViewportTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -217,6 +219,8 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

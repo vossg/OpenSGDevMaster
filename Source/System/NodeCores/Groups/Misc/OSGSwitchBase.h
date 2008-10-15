@@ -173,6 +173,8 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     static  Switch            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SwitchTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

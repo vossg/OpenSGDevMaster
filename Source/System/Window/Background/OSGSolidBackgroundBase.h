@@ -185,6 +185,8 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     static  SolidBackground            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SolidBackgroundTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -193,6 +195,8 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

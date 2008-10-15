@@ -220,6 +220,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     static  DisplayFilterGroup            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  DisplayFilterGroupTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -228,6 +230,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

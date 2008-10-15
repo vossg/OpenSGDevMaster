@@ -243,6 +243,22 @@ PointLightTransitPtr PointLightBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+PointLightTransitPtr PointLightBase::createDependent(BitVector bFlags)
+{
+    PointLightTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<PointLight>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 PointLightTransitPtr PointLightBase::create(void)
 {
@@ -294,6 +310,20 @@ FieldContainerTransitPtr PointLightBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr PointLightBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    PointLight *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const PointLight *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

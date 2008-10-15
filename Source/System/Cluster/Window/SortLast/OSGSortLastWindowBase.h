@@ -158,6 +158,8 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     static  SortLastWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SortLastWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -166,6 +168,8 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

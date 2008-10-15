@@ -197,6 +197,8 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     static  ParallelComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ParallelComposerTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -205,6 +207,8 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

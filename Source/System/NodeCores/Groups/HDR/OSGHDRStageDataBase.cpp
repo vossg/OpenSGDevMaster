@@ -642,6 +642,22 @@ HDRStageDataTransitPtr HDRStageDataBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+HDRStageDataTransitPtr HDRStageDataBase::createDependent(BitVector bFlags)
+{
+    HDRStageDataTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<HDRStageData>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 HDRStageDataTransitPtr HDRStageDataBase::create(void)
 {
@@ -693,6 +709,20 @@ FieldContainerTransitPtr HDRStageDataBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr HDRStageDataBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    HDRStageData *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const HDRStageData *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

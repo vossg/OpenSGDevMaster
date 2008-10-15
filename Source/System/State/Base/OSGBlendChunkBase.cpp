@@ -645,6 +645,22 @@ BlendChunkTransitPtr BlendChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+BlendChunkTransitPtr BlendChunkBase::createDependent(BitVector bFlags)
+{
+    BlendChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<BlendChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 BlendChunkTransitPtr BlendChunkBase::create(void)
 {
@@ -696,6 +712,20 @@ FieldContainerTransitPtr BlendChunkBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr BlendChunkBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    BlendChunk *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const BlendChunk *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

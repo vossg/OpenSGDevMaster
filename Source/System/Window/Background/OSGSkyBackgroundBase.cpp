@@ -1197,6 +1197,22 @@ SkyBackgroundTransitPtr SkyBackgroundBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SkyBackgroundTransitPtr SkyBackgroundBase::createDependent(BitVector bFlags)
+{
+    SkyBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SkyBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SkyBackgroundTransitPtr SkyBackgroundBase::create(void)
 {
@@ -1248,6 +1264,20 @@ FieldContainerTransitPtr SkyBackgroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SkyBackgroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SkyBackground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SkyBackground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

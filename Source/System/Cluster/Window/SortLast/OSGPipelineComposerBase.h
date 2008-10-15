@@ -209,6 +209,8 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     static  PipelineComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  PipelineComposerTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -217,6 +219,8 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

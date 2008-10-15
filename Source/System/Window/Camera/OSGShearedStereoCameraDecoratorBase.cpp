@@ -293,6 +293,22 @@ ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::createL
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::createDependent(BitVector bFlags)
+{
+    ShearedStereoCameraDecoratorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ShearedStereoCameraDecorator>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ShearedStereoCameraDecoratorTransitPtr ShearedStereoCameraDecoratorBase::create(void)
 {
@@ -344,6 +360,20 @@ FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ShearedStereoCameraDecoratorBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ShearedStereoCameraDecorator *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ShearedStereoCameraDecorator *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

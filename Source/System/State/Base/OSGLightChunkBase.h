@@ -296,6 +296,8 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     static  LightChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  LightChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -304,6 +306,8 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

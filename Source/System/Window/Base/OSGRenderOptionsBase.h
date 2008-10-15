@@ -485,6 +485,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     static  RenderOptions            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  RenderOptionsTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -493,6 +495,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

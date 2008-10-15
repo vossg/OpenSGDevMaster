@@ -307,6 +307,22 @@ ChunkMaterialTransitPtr ChunkMaterialBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+ChunkMaterialTransitPtr ChunkMaterialBase::createDependent(BitVector bFlags)
+{
+    ChunkMaterialTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<ChunkMaterial>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 ChunkMaterialTransitPtr ChunkMaterialBase::create(void)
 {
@@ -358,6 +374,20 @@ FieldContainerTransitPtr ChunkMaterialBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr ChunkMaterialBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    ChunkMaterial *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const ChunkMaterial *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

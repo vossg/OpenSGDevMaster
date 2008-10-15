@@ -292,6 +292,8 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     static  PolygonChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  PolygonChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -300,6 +302,8 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

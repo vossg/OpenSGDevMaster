@@ -385,6 +385,22 @@ CSMSortFirstWinOptionsTransitPtr CSMSortFirstWinOptionsBase::createLocal(BitVect
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CSMSortFirstWinOptionsTransitPtr CSMSortFirstWinOptionsBase::createDependent(BitVector bFlags)
+{
+    CSMSortFirstWinOptionsTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CSMSortFirstWinOptions>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CSMSortFirstWinOptionsTransitPtr CSMSortFirstWinOptionsBase::create(void)
 {
@@ -419,6 +435,20 @@ FieldContainerTransitPtr CSMSortFirstWinOptionsBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CSMSortFirstWinOptionsBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CSMSortFirstWinOptions *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CSMSortFirstWinOptions *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

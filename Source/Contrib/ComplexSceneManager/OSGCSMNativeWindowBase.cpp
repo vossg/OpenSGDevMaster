@@ -173,6 +173,22 @@ CSMNativeWindowTransitPtr CSMNativeWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CSMNativeWindowTransitPtr CSMNativeWindowBase::createDependent(BitVector bFlags)
+{
+    CSMNativeWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CSMNativeWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CSMNativeWindowTransitPtr CSMNativeWindowBase::create(void)
 {
@@ -207,6 +223,20 @@ FieldContainerTransitPtr CSMNativeWindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CSMNativeWindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CSMNativeWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CSMNativeWindow *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

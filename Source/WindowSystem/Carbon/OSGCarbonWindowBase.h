@@ -173,6 +173,8 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     static  CarbonWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CarbonWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_WINDOWCARBON_DLLMAPPING CarbonWindowBase : public Window
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

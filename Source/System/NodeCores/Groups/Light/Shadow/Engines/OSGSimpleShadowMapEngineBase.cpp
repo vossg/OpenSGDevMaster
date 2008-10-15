@@ -231,6 +231,22 @@ SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::createLocal(BitVector
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::createDependent(BitVector bFlags)
+{
+    SimpleShadowMapEngineTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SimpleShadowMapEngine>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SimpleShadowMapEngineTransitPtr SimpleShadowMapEngineBase::create(void)
 {
@@ -282,6 +298,20 @@ FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SimpleShadowMapEngine *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SimpleShadowMapEngine *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

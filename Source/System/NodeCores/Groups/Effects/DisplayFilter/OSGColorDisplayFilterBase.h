@@ -247,6 +247,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
     static  ColorDisplayFilter            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ColorDisplayFilterTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -255,6 +257,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

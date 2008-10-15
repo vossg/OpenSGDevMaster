@@ -135,6 +135,8 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     static  LightEnv            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  LightEnvTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

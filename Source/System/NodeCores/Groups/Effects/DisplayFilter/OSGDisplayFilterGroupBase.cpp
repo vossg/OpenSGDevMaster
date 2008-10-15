@@ -438,6 +438,22 @@ DisplayFilterGroupTransitPtr DisplayFilterGroupBase::createLocal(BitVector bFlag
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DisplayFilterGroupTransitPtr DisplayFilterGroupBase::createDependent(BitVector bFlags)
+{
+    DisplayFilterGroupTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<DisplayFilterGroup>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DisplayFilterGroupTransitPtr DisplayFilterGroupBase::create(void)
 {
@@ -489,6 +505,20 @@ FieldContainerTransitPtr DisplayFilterGroupBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DisplayFilterGroupBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    DisplayFilterGroup *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DisplayFilterGroup *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

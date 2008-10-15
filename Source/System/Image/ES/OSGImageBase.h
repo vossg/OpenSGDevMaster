@@ -403,6 +403,8 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     static  Image            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ImageTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -411,6 +413,8 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

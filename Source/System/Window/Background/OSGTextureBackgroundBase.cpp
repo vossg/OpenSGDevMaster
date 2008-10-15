@@ -542,6 +542,22 @@ TextureBackgroundTransitPtr TextureBackgroundBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+TextureBackgroundTransitPtr TextureBackgroundBase::createDependent(BitVector bFlags)
+{
+    TextureBackgroundTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<TextureBackground>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 TextureBackgroundTransitPtr TextureBackgroundBase::create(void)
 {
@@ -593,6 +609,20 @@ FieldContainerTransitPtr TextureBackgroundBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr TextureBackgroundBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    TextureBackground *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const TextureBackground *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

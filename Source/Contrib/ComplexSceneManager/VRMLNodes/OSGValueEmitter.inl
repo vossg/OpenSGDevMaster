@@ -160,6 +160,24 @@ typename SValueEmitter<Desc>::ObjTransitPtr
 
 //! create a new instance of the class
 template<class Desc> inline
+typename SValueEmitter<Desc>::ObjTransitPtr 
+    SValueEmitter<Desc>::createDependent(BitVector bFlags)
+{
+    ObjTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Self>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class
+template<class Desc> inline
 typename SValueEmitter<Desc>::ObjTransitPtr SValueEmitter<Desc>::create(void)
 {
     return createLocal();
@@ -197,6 +215,21 @@ FieldContainerTransitPtr
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+template<class Desc> inline
+FieldContainerTransitPtr 
+    SValueEmitter<Desc>::shallowCopyDependent(BitVector bFlags) const
+{
+    Self *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Self *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

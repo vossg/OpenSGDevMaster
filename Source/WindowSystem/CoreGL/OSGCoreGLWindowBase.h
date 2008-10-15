@@ -173,6 +173,8 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     static  CoreGLWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  CoreGLWindowTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -181,6 +183,8 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindowBase : public Window
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

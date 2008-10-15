@@ -185,6 +185,8 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     static  StereoBufferViewport            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  StereoBufferViewportTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -193,6 +195,8 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

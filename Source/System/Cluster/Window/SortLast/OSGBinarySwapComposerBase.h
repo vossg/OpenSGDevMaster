@@ -197,6 +197,8 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     static  BinarySwapComposer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  BinarySwapComposerTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -205,6 +207,8 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

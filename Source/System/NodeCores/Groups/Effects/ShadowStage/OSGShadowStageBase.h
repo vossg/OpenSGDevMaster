@@ -388,6 +388,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     static  ShadowStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ShadowStageTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -396,6 +398,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

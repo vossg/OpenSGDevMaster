@@ -338,6 +338,22 @@ CounterTransitPtr CounterBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CounterTransitPtr CounterBase::createDependent(BitVector bFlags)
+{
+    CounterTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Counter>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CounterTransitPtr CounterBase::create(void)
 {
@@ -389,6 +405,20 @@ FieldContainerTransitPtr CounterBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CounterBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Counter *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Counter *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -387,6 +387,22 @@ DistanceLODTransitPtr DistanceLODBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+DistanceLODTransitPtr DistanceLODBase::createDependent(BitVector bFlags)
+{
+    DistanceLODTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<DistanceLOD>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 DistanceLODTransitPtr DistanceLODBase::create(void)
 {
@@ -438,6 +454,20 @@ FieldContainerTransitPtr DistanceLODBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr DistanceLODBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    DistanceLOD *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const DistanceLOD *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

@@ -135,6 +135,8 @@ class OSG_SYSTEM_DLLMAPPING ConnectorAttachmentBase : public Attachment
     static  ConnectorAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  ConnectorAttachmentTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_SYSTEM_DLLMAPPING ConnectorAttachmentBase : public Attachment
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

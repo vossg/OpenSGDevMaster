@@ -233,6 +233,8 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     static  HDRStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  HDRStageTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -241,6 +243,8 @@ class OSG_GROUP_DLLMAPPING HDRStageBase : public Stage
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

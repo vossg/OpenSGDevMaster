@@ -148,6 +148,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     static  VisitSubTree            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  VisitSubTreeTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -156,6 +158,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
