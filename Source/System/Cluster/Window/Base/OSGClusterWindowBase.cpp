@@ -88,6 +88,10 @@ OSG_BEGIN_NAMESPACE
     List of all symbolic server names
 */
 
+/*! \var UInt32          ClusterWindowBase::_mfServerIds
+    
+*/
+
 /*! \var std::string     ClusterWindowBase::_sfConnectionType
     How to connect to the servers
 */
@@ -151,6 +155,18 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleServers),
         static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleServers));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUInt32::Description(
+        MFUInt32::getClassType(),
+        "serverIds",
+        "",
+        ServerIdsFieldId, ServerIdsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ClusterWindow::editHandleServerIds),
+        static_cast<FieldGetMethodSig >(&ClusterWindow::getHandleServerIds));
 
     oType.addInitialDesc(pDesc);
 
@@ -335,6 +351,14 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     "\tList of all symbolic server names\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"serverIds\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"connectionType\"\n"
     "\t\ttype=\"std::string\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -508,6 +532,19 @@ const MFString *ClusterWindowBase::getMFServers(void) const
 }
 
 
+MFUInt32 *ClusterWindowBase::editMFServerIds(void)
+{
+    editMField(ServerIdsFieldMask, _mfServerIds);
+
+    return &_mfServerIds;
+}
+
+const MFUInt32 *ClusterWindowBase::getMFServerIds(void) const
+{
+    return &_mfServerIds;
+}
+
+
 SFString *ClusterWindowBase::editSFConnectionType(void)
 {
     editSField(ConnectionTypeFieldMask);
@@ -678,6 +715,10 @@ UInt32 ClusterWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfServers.getBinSize();
     }
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+    {
+        returnValue += _mfServerIds.getBinSize();
+    }
     if(FieldBits::NoField != (ConnectionTypeFieldMask & whichField))
     {
         returnValue += _sfConnectionType.getBinSize();
@@ -739,6 +780,10 @@ void ClusterWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfServers.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+    {
+        _mfServerIds.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ConnectionTypeFieldMask & whichField))
     {
         _sfConnectionType.copyToBin(pMem);
@@ -797,6 +842,10 @@ void ClusterWindowBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ServersFieldMask & whichField))
     {
         _mfServers.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+    {
+        _mfServerIds.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ConnectionTypeFieldMask & whichField))
     {
@@ -942,6 +991,7 @@ FieldContainerTransitPtr ClusterWindowBase::shallowCopy(void) const
 ClusterWindowBase::ClusterWindowBase(void) :
     Inherited(),
     _mfServers                (),
+    _mfServerIds              (),
     _sfConnectionType         (),
     _sfConnectionInterface    (),
     _sfConnectionDestination  (),
@@ -960,6 +1010,7 @@ ClusterWindowBase::ClusterWindowBase(void) :
 ClusterWindowBase::ClusterWindowBase(const ClusterWindowBase &source) :
     Inherited(source),
     _mfServers                (source._mfServers                ),
+    _mfServerIds              (source._mfServerIds              ),
     _sfConnectionType         (source._sfConnectionType         ),
     _sfConnectionInterface    (source._sfConnectionInterface    ),
     _sfConnectionDestination  (source._sfConnectionDestination  ),
@@ -1015,6 +1066,29 @@ EditFieldHandlePtr ClusterWindowBase::editHandleServers        (void)
 
 
     editMField(ServersFieldMask, _mfServers);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ClusterWindowBase::getHandleServerIds       (void) const
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfServerIds,
+             this->getType().getFieldDesc(ServerIdsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ClusterWindowBase::editHandleServerIds      (void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfServerIds,
+             this->getType().getFieldDesc(ServerIdsFieldId)));
+
+
+    editMField(ServerIdsFieldMask, _mfServerIds);
 
     return returnValue;
 }
@@ -1350,6 +1424,10 @@ void ClusterWindowBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfServers.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfServerIds.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT

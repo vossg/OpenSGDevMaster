@@ -10,7 +10,7 @@ else:
    # Tests' dependencies
 
    osg_test_libs = ['OSGState', 'OSGUtil', 'OSGWindowGLUT', 
-                    'OSGGroup', 'OSGText', 'OSGFileIO']
+                    'OSGGroup', 'OSGText', 'OSGFileIO', 'OSGEffectGroups']
 
    vtk_option = opts.GetOption("vtk")
 

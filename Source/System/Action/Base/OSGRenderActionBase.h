@@ -163,8 +163,14 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name                   Lights                                     */
     /*! \{                                                                 */
 
-    StageValidator *getStageValidator(void);
-    UInt16          getFrameTravCount(void);
+    StageValidator *getStageValidator(void     );
+    UInt16          getFrameTravCount(void     );
+
+    void            setDrawerId      (Int32 iId);
+    Int32           getDrawerId      (void     );
+
+    void            setDrawableId    (Int32 iId);
+    Int32           getDrawableId    (void     );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -229,6 +235,9 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     FrustumVolume _oFrustum;
 
     UInt16        _uiFrameTravCount;
+
+    Int32         _iDrawerId;
+    Int32         _iDrawableId;
 
     /*==========================  PRIVATE  ================================*/
 

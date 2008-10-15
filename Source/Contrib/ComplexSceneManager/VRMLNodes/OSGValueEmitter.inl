@@ -162,17 +162,7 @@ typename SValueEmitter<Desc>::ObjTransitPtr
 template<class Desc> inline
 typename SValueEmitter<Desc>::ObjTransitPtr SValueEmitter<Desc>::create(void)
 {
-    ObjTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Self>(tmpPtr);
-    }
-
-    return fc;
+    return createLocal();
 }
 
 template<class Desc> inline
@@ -192,14 +182,7 @@ typename SValueEmitter<Desc>::Self *
 template<class Desc> inline
 typename SValueEmitter<Desc>::Self *SValueEmitter<Desc>::createEmpty(void)
 {
-    Self *returnValue;
-
-    newPtr<Self>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &=
-        ~Thread::getCurrentLocalFlags();
-
-    return returnValue;
+    return createEmptyLocal();
 }
 
 
@@ -221,17 +204,7 @@ FieldContainerTransitPtr
 template<class Desc> inline
 FieldContainerTransitPtr SValueEmitter<Desc>::shallowCopy(void) const
 {
-    Self *tmpPtr;
-
-    newPtr(tmpPtr,
-           dynamic_cast<const Self *>(this),
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return shallowCopyLocal();
 }
 
 

@@ -97,10 +97,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     virtual void  deactivate        (void                           );
     virtual bool  swap              (void                           );
     virtual void  init              (void                           );
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void  render            (DrawActionBase *action = NULL);
-    virtual void  renderAllViewports(DrawActionBase *action = NULL);
-#endif
 
     virtual void  render            (RenderActionBase *action);
     virtual void  renderAllViewports(RenderActionBase *action);
@@ -148,14 +144,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \name                   Calibration                                */
     /*! \{                                                                 */
 
-#if 0
-    bool loadCalibration(std::istream &in);
-    bool saveCalibration(std::ostream &out);
-
-    bool loadFilter(std::istream &in);
-    bool updateFilter(WindowPtr window, UInt32 id, RenderActionBase *action);
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Exceptions                                 */
@@ -178,9 +166,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
 
     virtual void clientInit   (void                    );
     virtual void clientPreSync(void                    );
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void clientRender (DrawActionBase   *action);
-#endif
 
     virtual void clientRender (RenderActionBase *action);
     virtual void clientSwap   (void                    );
@@ -192,12 +177,6 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
 
     virtual void serverInit  (Window         *window,
                               UInt32          id    );
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void serverRender(Window         *window,
-                              UInt32          id,
-                              DrawActionBase *action);
-#endif
-
     virtual void serverRender(Window           *window,
                               UInt32            id,
                               RenderActionBase *action);

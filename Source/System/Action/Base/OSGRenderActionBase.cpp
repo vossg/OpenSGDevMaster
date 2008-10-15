@@ -48,12 +48,11 @@
 #include "OSGRenderActionBase.h"
 //#include "OSGRenderTraversalAction.h"
 
-#include "OSGCamera.h"
 #include "OSGStatCollector.h"
 #include "OSGDrawable.h"
-#include "OSGViewport.h"
 #include "OSGVolumeDraw.h"
 #include "OSGStageValidator.h"
+#include "OSGWindow.h"
 
 OSG_USING_NAMESPACE
 
@@ -88,7 +87,9 @@ RenderActionBase::RenderActionBase(void) :
     _bVolumeDrawing  (false),
     _bAutoFrustum    (true ),
     _oFrustum        (     ),
-    _uiFrameTravCount(0    )
+    _uiFrameTravCount(0    ),
+    _iDrawerId       (-1   ),
+    _iDrawableId     (-1   )
 {
     _pStageValidator = new StageValidator();
 }
@@ -107,7 +108,9 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _bVolumeDrawing  (source._bVolumeDrawing  ),
     _bAutoFrustum    (source._bAutoFrustum    ),
     _oFrustum        (source._oFrustum        ),
-    _uiFrameTravCount(source._uiFrameTravCount)
+    _uiFrameTravCount(source._uiFrameTravCount),
+    _iDrawerId       (source._iDrawerId       ),
+    _iDrawableId     (source._iDrawableId     )
 {
     OSG::setRefd(_pStatistics, source._pStatistics);
 
@@ -157,6 +160,9 @@ ActionBase::ResultE RenderActionBase::start(void)
     }
 
     _pStageValidator->incEventCounter();
+
+//    _iDrawerId   = (_pWindow   != NULL) ? _pWindow  ->getDrawerId  () : 0;
+//    _iDrawableId = (_pViewport != NULL) ? _pViewport->getDrawableId() : 0;
 
     return Action::Continue;
 }

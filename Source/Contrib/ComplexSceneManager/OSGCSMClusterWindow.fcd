@@ -42,6 +42,14 @@
 		access="public"
 	>
 	</Field>
+	<Field
+		name="serverIds"
+		type="UInt32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	</Field>
     <Field
        name="serverRows"
        type="UInt32"

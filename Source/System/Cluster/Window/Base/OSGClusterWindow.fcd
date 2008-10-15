@@ -22,6 +22,14 @@ The base class for all windows.
 	List of all symbolic server names
 	</Field>
 	<Field
+		name="serverIds"
+		type="UInt32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
 		name="connectionType"
 		type="std::string"
 		cardinality="single"

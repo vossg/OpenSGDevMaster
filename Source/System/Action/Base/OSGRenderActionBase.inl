@@ -151,6 +151,30 @@ UInt16 RenderActionBase::getFrameTravCount(void)
     return _uiFrameTravCount;
 }
 
+inline
+void RenderActionBase::setDrawerId(Int32 iId)
+{
+    _iDrawerId = iId;
+}
+
+inline
+Int32 RenderActionBase::getDrawerId(void)
+{
+    return _iDrawerId;
+}
+
+inline
+void RenderActionBase::setDrawableId(Int32 iId)
+{
+    _iDrawableId = iId;
+}
+
+inline
+Int32 RenderActionBase::getDrawableId(void)
+{
+    return _iDrawableId;
+}
+
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/

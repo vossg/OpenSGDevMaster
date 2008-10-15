@@ -194,7 +194,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 std::vector<OSG::Window *> OSG::Window::_allWindows;
-UInt32                     OSG::Window::_currentWindowId = 0;
+Int32                      OSG::Window::_currentWindowId = 0;
 
 // GLobject handling
 
@@ -296,7 +296,7 @@ bool OSG::Window::terminate(void)
 
 OSG::Window::Window(void) :
      Inherited      (    ),
-    _windowId       (   0),
+    _windowId       (  -1),
     _pStageValidator(NULL)
 {
     // only called for prototypes, no need to init them
@@ -315,7 +315,7 @@ OSG::Window::Window(const Window &source) :
     _extFunctions       (                              ),
     _availConstants     (                              ),
     _numAvailConstants  (                             0),
-    _windowId           (                             0),
+    _windowId           (                            -1),
     _pStageValidator    (NULL                          )
 {       
 }
@@ -352,7 +352,7 @@ void OSG::Window::onCreate(const Window *source)
 
     _allWindows.push_back(this); 
 
-    _windowId = ++_currentWindowId;
+    _windowId = _currentWindowId++;
 }
 
 void OSG::Window::onCreateAspect(const Window *createAspect, 
@@ -364,7 +364,8 @@ void OSG::Window::onCreateAspect(const Window *createAspect,
     if(GlobalSystemState != Running)
         return;
 
-    _windowId = _currentWindowId;
+    if(createAspect != NULL)
+        _windowId = createAspect->_windowId;
 
     _pStageValidator = new StageValidator;
 }
@@ -1806,17 +1807,35 @@ void OSG::Window::renderAllViewports(RenderActionBase *action)
 {
     MFUnrecChildViewportPtr::const_iterator portIt  = getMFPort()->begin();
     MFUnrecChildViewportPtr::const_iterator portEnd = getMFPort()->end();
+    Int32                                   iVPId   = 0;
 
     if(action != NULL)
     {
         action->setWindow(this);
         
+        if(this->getDrawerId() < 0)
+        {
+            action->setDrawerId(this->_windowId);
+        }
+        else
+        {
+            action->setDrawerId(this->getDrawerId());
+        }
+
         action->frameInit();
 
-        while(portIt != portEnd)
+        for(; portIt != portEnd; ++portIt, ++iVPId)
         {
+            if((*portIt)->getDrawableId() < 0)
+            {
+                action->setDrawableId(iVPId);
+            }
+            else
+            {
+                action->setDrawableId((*portIt)->getDrawableId());
+            }
+
             (*portIt)->render(action);
-            ++portIt;
         }
     }
     else

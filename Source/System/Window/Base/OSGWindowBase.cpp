@@ -122,7 +122,7 @@ OSG_BEGIN_NAMESPACE
     Indicates the last reinit for the GL object.
 */
 
-/*! \var UInt32          WindowBase::_sfDrawerId
+/*! \var Int32           WindowBase::_sfDrawerId
     DrawerId to select window dependent elements (e.g. Distortion filter).
     For cluster window this values equals the clusterId (shl chunk)
 */
@@ -218,8 +218,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
         "drawerId",
         "DrawerId to select window dependent elements (e.g. Distortion filter).\n"
         "For cluster window this values equals the clusterId (shl chunk)\n",
@@ -342,12 +342,13 @@ WindowBase::TypeObject WindowBase::_type(
     "\tIndicates the last reinit for the GL object.\n"
     "\t</Field>\n"
     "\t<Field\n"
-    "\t\tname=\"drawerId\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
+    "\t   name=\"drawerId\"\n"
+    "\t   type=\"Int32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"FClusterLocal\"\n"
+    "       defaultValue=\"-1\"\n"
     "\t>\n"
     "    DrawerId to select window dependent elements (e.g. Distortion filter).\n"
     "    For cluster window this values equals the clusterId (shl chunk)\n"
@@ -470,14 +471,14 @@ const MFUInt32 *WindowBase::getMFGlObjectLastReinitialize(void) const
 }
 
 
-SFUInt32 *WindowBase::editSFDrawerId(void)
+SFInt32 *WindowBase::editSFDrawerId(void)
 {
     editSField(DrawerIdFieldMask);
 
     return &_sfDrawerId;
 }
 
-const SFUInt32 *WindowBase::getSFDrawerId(void) const
+const SFInt32 *WindowBase::getSFDrawerId(void) const
 {
     return &_sfDrawerId;
 }
@@ -724,7 +725,7 @@ WindowBase::WindowBase(void) :
     _sfGlObjectEventCounter   (UInt32(1)),
     _mfGlObjectLastRefresh    (),
     _mfGlObjectLastReinitialize(),
-    _sfDrawerId               ()
+    _sfDrawerId               (Int32(-1))
 {
 }
 
@@ -994,8 +995,8 @@ EditFieldHandlePtr WindowBase::editHandleGlObjectLastReinitialize(void)
 
 GetFieldHandlePtr WindowBase::getHandleDrawerId        (void) const
 {
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
              &_sfDrawerId,
              this->getType().getFieldDesc(DrawerIdFieldId)));
 
@@ -1004,8 +1005,8 @@ GetFieldHandlePtr WindowBase::getHandleDrawerId        (void) const
 
 EditFieldHandlePtr WindowBase::editHandleDrawerId       (void)
 {
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
              &_sfDrawerId,
              this->getType().getFieldDesc(DrawerIdFieldId)));
 

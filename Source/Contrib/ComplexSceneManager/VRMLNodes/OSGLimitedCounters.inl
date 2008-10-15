@@ -306,17 +306,7 @@ template<class Desc> inline
 typename LimitedCounterImpl<Desc>::ObjTransitPtr
     LimitedCounterImpl<Desc>::create(void)
 {
-    ObjTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<Self>(tmpPtr);
-    }
-
-    return fc;
+    return createLocal();
 }
 
 template<class Desc> inline
@@ -337,14 +327,7 @@ template<class Desc> inline
 typename LimitedCounterImpl<Desc>::Self *
     LimitedCounterImpl<Desc>::createEmpty(void)
 {
-    Self *returnValue;
-
-    Counter::newPtr<Self>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &=
-        ~Thread::getCurrentLocalFlags();
-
-    return returnValue;
+    return createEmptyLocal();
 }
 
 template<class Desc> inline
@@ -365,17 +348,7 @@ FieldContainerTransitPtr LimitedCounterImpl<Desc>::shallowCopyLocal(
 template<class Desc> inline
 FieldContainerTransitPtr LimitedCounterImpl<Desc>::shallowCopy(void) const
 {
-    Self *tmpPtr;
-
-    Self::newPtr(tmpPtr,
-           dynamic_cast<const Self *>(this),
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return shallowCopyLocal();
 }
 
 

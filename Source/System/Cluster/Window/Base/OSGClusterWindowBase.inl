@@ -347,6 +347,22 @@ std::string &ClusterWindowBase::editServers(const UInt32 index)
 }
 
 
+//! Get the value of the \a index element the ClusterWindow::_mfServerIds field.
+inline
+      UInt32  ClusterWindowBase::getServerIds(const UInt32 index) const
+{
+    return _mfServerIds[index];
+}
+
+inline
+UInt32 &ClusterWindowBase::editServerIds(const UInt32 index)
+{
+    editMField(ServerIdsFieldMask, _mfServerIds);
+
+    return _mfServerIds[index];
+}
+
+
 //! Get the value of the \a index element the ClusterWindow::_mfAutostart field.
 inline
 const std::string &ClusterWindowBase::getAutostart(const UInt32 index) const
@@ -376,6 +392,12 @@ void ClusterWindowBase::execSync (      ClusterWindowBase *pFrom,
 
     if(FieldBits::NoField != (ServersFieldMask & whichField))
         _mfServers.syncWith(pFrom->_mfServers,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+        _mfServerIds.syncWith(pFrom->_mfServerIds,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

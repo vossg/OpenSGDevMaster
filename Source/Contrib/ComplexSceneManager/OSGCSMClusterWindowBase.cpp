@@ -97,6 +97,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          CSMClusterWindowBase::_mfServerIds
+    
+*/
+
 /*! \var UInt32          CSMClusterWindowBase::_sfServerRows
     
 */
@@ -156,6 +160,18 @@ void CSMClusterWindowBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMClusterWindow::editHandleServers),
         static_cast<FieldGetMethodSig >(&CSMClusterWindow::getHandleServers));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUInt32::Description(
+        MFUInt32::getClassType(),
+        "serverIds",
+        "",
+        ServerIdsFieldId, ServerIdsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMClusterWindow::editHandleServerIds),
+        static_cast<FieldGetMethodSig >(&CSMClusterWindow::getHandleServerIds));
 
     oType.addInitialDesc(pDesc);
 
@@ -276,6 +292,14 @@ CSMClusterWindowBase::TypeObject CSMClusterWindowBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"serverIds\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "    <Field\n"
     "       name=\"serverRows\"\n"
     "       type=\"UInt32\"\n"
@@ -386,6 +410,19 @@ const MFString *CSMClusterWindowBase::getMFServers(void) const
 }
 
 
+MFUInt32 *CSMClusterWindowBase::editMFServerIds(void)
+{
+    editMField(ServerIdsFieldMask, _mfServerIds);
+
+    return &_mfServerIds;
+}
+
+const MFUInt32 *CSMClusterWindowBase::getMFServerIds(void) const
+{
+    return &_mfServerIds;
+}
+
+
 SFUInt32 *CSMClusterWindowBase::editSFServerRows(void)
 {
     editSField(ServerRowsFieldMask);
@@ -473,6 +510,10 @@ UInt32 CSMClusterWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfServers.getBinSize();
     }
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+    {
+        returnValue += _mfServerIds.getBinSize();
+    }
     if(FieldBits::NoField != (ServerRowsFieldMask & whichField))
     {
         returnValue += _sfServerRows.getBinSize();
@@ -514,6 +555,10 @@ void CSMClusterWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfServers.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+    {
+        _mfServerIds.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ServerRowsFieldMask & whichField))
     {
         _sfServerRows.copyToBin(pMem);
@@ -552,6 +597,10 @@ void CSMClusterWindowBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ServersFieldMask & whichField))
     {
         _mfServers.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+    {
+        _mfServerIds.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ServerRowsFieldMask & whichField))
     {
@@ -646,6 +695,7 @@ CSMClusterWindowBase::CSMClusterWindowBase(void) :
                           CSMWindow::ParentFieldId),
     _sfRenderClient           (),
     _mfServers                (),
+    _mfServerIds              (),
     _sfServerRows             (),
     _sfConnectionType         (),
     _sfClusterMode            (),
@@ -663,6 +713,7 @@ CSMClusterWindowBase::CSMClusterWindowBase(const CSMClusterWindowBase &source) :
                           CSMWindow::ParentFieldId),
     _sfRenderClient           (source._sfRenderClient           ),
     _mfServers                (source._mfServers                ),
+    _mfServerIds              (source._mfServerIds              ),
     _sfServerRows             (source._sfServerRows             ),
     _sfConnectionType         (source._sfConnectionType         ),
     _sfClusterMode            (source._sfClusterMode            ),
@@ -825,6 +876,29 @@ EditFieldHandlePtr CSMClusterWindowBase::editHandleServers        (void)
 
 
     editMField(ServersFieldMask, _mfServers);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMClusterWindowBase::getHandleServerIds       (void) const
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfServerIds,
+             this->getType().getFieldDesc(ServerIdsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMClusterWindowBase::editHandleServerIds      (void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfServerIds,
+             this->getType().getFieldDesc(ServerIdsFieldId)));
+
+
+    editMField(ServerIdsFieldMask, _mfServerIds);
 
     return returnValue;
 }
@@ -1001,6 +1075,10 @@ void CSMClusterWindowBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfServers.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfServerIds.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

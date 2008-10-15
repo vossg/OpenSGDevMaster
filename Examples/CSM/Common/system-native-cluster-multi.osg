@@ -19,34 +19,55 @@ ComplexSceneManager
           ]
         },
 
-
-        Node 
+        DEF GlobalEffectRoot Node
         {
-          core Group {}
+          core MultiCore
+          {
+            cores
+            [
+              Group {}
+              USE GlobalEffect1
+            ]
+          }
 
           children
           [
-            DEF ZLight Node
+            DEF SceneRoot Node 
             {
-              core DirectionalLight
+              core MultiCore
               {
-                ambient    0.24 0.24 0.24 1.0
-                diffuse    0.80 0.80 0.80 1.0
-                direction  0.0 0.0 1.0
-                on         TRUE
-                beacon     USE CameraRoot
+                cores
+                [
+                  Group {}
+                  USE SceneEffect1
+                ]
               }
+
               children
               [
-                DEF ModelRoot Node
+                DEF ZLight Node
                 {
-                  core Group {}
+                  core DirectionalLight
+                  {
+                    ambient    0.24 0.24 0.24 1.0
+                    diffuse    0.80 0.80 0.80 1.0
+                    direction  0.0 0.0 1.0
+                    on         TRUE
+                    beacon     USE CameraRoot
+                  }
+                  children
+                  [
+                    DEF ModelRoot Node
+                    {
+                      core Group {}
+                    }
+                  ]
                 }
               ]
             }
-          ]
+          ] 
         }
-      ] 
+      ]
     }
 
     DEF PerspCamGL PerspectiveCamera
@@ -78,6 +99,8 @@ ComplexSceneManager
              }
 
              servers    ["tile-0-0", "tile-1-0"]
+             serverIds  [1         , 0         ]
+
              serverRows 1
 
              connectionType "Multicast"

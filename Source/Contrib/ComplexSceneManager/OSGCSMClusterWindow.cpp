@@ -167,6 +167,8 @@ bool CSMClusterWindow::init(void)
         ++serverIt;
     }
 
+    _pClusterWindow->editMFServerIds()->setValues(*(this->getMFServerIds()));
+
     _pClusterWindow->setSize(UInt16(this->getXSize()), 
                              UInt16(this->getYSize()));
 

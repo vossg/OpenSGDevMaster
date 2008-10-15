@@ -72,7 +72,7 @@
 #include "OSGUInt32Fields.h" // GlObjectEventCounter type
 #include "OSGUInt32Fields.h" // GlObjectLastRefresh type
 #include "OSGUInt32Fields.h" // GlObjectLastReinitialize type
-#include "OSGUInt32Fields.h" // DrawerId type
+#include "OSGInt32Fields.h" // DrawerId type
 
 #include "OSGWindowFields.h"
 
@@ -137,7 +137,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     typedef SFUInt32          SFGlObjectEventCounterType;
     typedef MFUInt32          MFGlObjectLastRefreshType;
     typedef MFUInt32          MFGlObjectLastReinitializeType;
-    typedef SFUInt32          SFDrawerIdType;
+    typedef SFInt32           SFDrawerIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -173,8 +173,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   SFBool              *editSFResizePending  (void);
             const SFBool              *getSFResizePending   (void) const;
 
-                  SFUInt32            *editSFDrawerId       (void);
-            const SFUInt32            *getSFDrawerId        (void) const;
+                  SFInt32             *editSFDrawerId       (void);
+            const SFInt32             *getSFDrawerId        (void) const;
 
 
                   UInt16              &editWidth          (void);
@@ -188,8 +188,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   bool                &editResizePending  (void);
                   bool                 getResizePending   (void) const;
 
-                  UInt32              &editDrawerId       (void);
-                  UInt32               getDrawerId        (void) const;
+                  Int32               &editDrawerId       (void);
+                  Int32                getDrawerId        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,7 +199,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             void setWidth          (const UInt16 value);
             void setHeight         (const UInt16 value);
             void setResizePending  (const bool value);
-            void setDrawerId       (const UInt32 value);
+            void setDrawerId       (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -256,7 +256,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     SFUInt32          _sfGlObjectEventCounter;
     MFUInt32          _mfGlObjectLastRefresh;
     MFUInt32          _mfGlObjectLastReinitialize;
-    SFUInt32          _sfDrawerId;
+    SFInt32           _sfDrawerId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

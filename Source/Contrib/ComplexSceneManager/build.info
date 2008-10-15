@@ -7,7 +7,7 @@ else:
 
    library = "OSGContribCSM"
    osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGDrawable', 'OSGGroup', 
-                   'OSGCluster', 'OSGFileIO', 'OSGUtil']
+                   'OSGCluster', 'OSGFileIO', 'OSGUtil', 'OSGEffectGroups']
 
    # Tests' dependencies
    osg_test_libs = ['OSGBase', 'OSGSystem', 'OSGGroup', 'OSGDrawable',

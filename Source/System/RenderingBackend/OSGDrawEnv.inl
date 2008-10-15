@@ -311,6 +311,9 @@ inline
 void DrawEnv::deactivateState(void)
 {
     deactivate(_pActiveState, _pActiveStateOverride);
+
+    _pActiveState         = NULL;
+    _pActiveStateOverride = NULL;
 }
 
 inline

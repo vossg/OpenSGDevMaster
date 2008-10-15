@@ -271,6 +271,31 @@ void ViewportBase::setDrawTime(const Real32 value)
 
     _sfDrawTime.setValue(value);
 }
+//! Get the value of the Viewport::_sfDrawableId field.
+
+inline
+Int32 &ViewportBase::editDrawableId(void)
+{
+    editSField(DrawableIdFieldMask);
+
+    return _sfDrawableId.getValue();
+}
+
+//! Get the value of the Viewport::_sfDrawableId field.
+inline
+      Int32  ViewportBase::getDrawableId(void) const
+{
+    return _sfDrawableId.getValue();
+}
+
+//! Set the value of the Viewport::_sfDrawableId field.
+inline
+void ViewportBase::setDrawableId(const Int32 value)
+{
+    editSField(DrawableIdFieldMask);
+
+    _sfDrawableId.setValue(value);
+}
 
 //! Get the value of the \a index element the Viewport::_mfForegrounds field.
 inline
@@ -325,6 +350,9 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
 
     if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
         _sfDrawTime.syncWith(pFrom->_sfDrawTime);
+
+    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
+        _sfDrawableId.syncWith(pFrom->_sfDrawableId);
 }
 #endif
 

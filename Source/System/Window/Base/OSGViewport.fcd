@@ -153,4 +153,14 @@ all the different ClusterWindows!
 	>
 	Drawtime of the last frame using this viewport.
 	</Field>
+	<Field
+	   name="drawableId"
+	   type="Int32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       defaultValue="-1"
+	>
+    DrawableId to select viewport dependent elements (e.g. Distortion filter).
+	</Field>
 </FieldContainer>

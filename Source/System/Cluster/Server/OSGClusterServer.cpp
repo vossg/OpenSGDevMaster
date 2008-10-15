@@ -411,14 +411,36 @@ bool ClusterServer::windowChanged(FieldContainer * const fcp,
 
     if(window->getMFServers()->size())
     {
-        if(window->getMFServers()->find(_serviceName) == 
-           window->getMFServers()->end())
+        MFString::const_iterator sIt = 
+            window->getMFServers()->find(_serviceName);
+
+        if(sIt == window->getMFServers()->end())
         {
             SWARNING << "wrong window" << std::endl;
         }
         else
         {
             _clusterWindow = window;
+
+            if(_window != NULL)
+            {
+                fprintf(stderr, "%p %d %d\n",
+                        &(*_window),
+                        window->getMFServers()->size(),
+                        sIt - window->getMFServers()->begin());
+
+                const MFUInt32 &vIds = *(window->getMFServerIds());
+
+                if(window->getMFServers()->size() <= vIds.size())
+                {
+                    _window->setDrawerId(vIds[sIt - 
+                                              window->getMFServers()->begin()]);
+                }
+                else
+                {
+                    _window->setDrawerId(sIt - window->getMFServers()->begin());
+                }
+            }
         }
     }
 

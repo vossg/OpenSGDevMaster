@@ -68,6 +68,7 @@
 #include "OSGCSMWindowFields.h" // ClientWindow type
 #include "OSGBoolFields.h" // RenderClient type
 #include "OSGStringFields.h" // Servers type
+#include "OSGUInt32Fields.h" // ServerIds type
 #include "OSGUInt32Fields.h" // ServerRows type
 #include "OSGStringFields.h" // ConnectionType type
 #include "OSGStringFields.h" // ClusterMode type
@@ -103,7 +104,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
         ClientWindowFieldId = Inherited::NextFieldId,
         RenderClientFieldId = ClientWindowFieldId + 1,
         ServersFieldId = RenderClientFieldId + 1,
-        ServerRowsFieldId = ServersFieldId + 1,
+        ServerIdsFieldId = ServersFieldId + 1,
+        ServerRowsFieldId = ServerIdsFieldId + 1,
         ConnectionTypeFieldId = ServerRowsFieldId + 1,
         ClusterModeFieldId = ConnectionTypeFieldId + 1,
         ComposerFieldId = ClusterModeFieldId + 1,
@@ -117,6 +119,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
         (TypeTraits<BitVector>::One << RenderClientFieldId);
     static const OSG::BitVector ServersFieldMask =
         (TypeTraits<BitVector>::One << ServersFieldId);
+    static const OSG::BitVector ServerIdsFieldMask =
+        (TypeTraits<BitVector>::One << ServerIdsFieldId);
     static const OSG::BitVector ServerRowsFieldMask =
         (TypeTraits<BitVector>::One << ServerRowsFieldId);
     static const OSG::BitVector ConnectionTypeFieldMask =
@@ -133,6 +137,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
     typedef SFUnrecChildCSMWindowPtr SFClientWindowType;
     typedef SFBool            SFRenderClientType;
     typedef MFString          MFServersType;
+    typedef MFUInt32          MFServerIdsType;
     typedef SFUInt32          SFServerRowsType;
     typedef SFString          SFConnectionTypeType;
     typedef SFString          SFClusterModeType;
@@ -171,6 +176,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
                   MFString            *editMFServers        (void);
             const MFString            *getMFServers         (void) const;
 
+                  MFUInt32            *editMFServerIds      (void);
+            const MFUInt32            *getMFServerIds       (void) const;
+
                   SFUInt32            *editSFServerRows     (void);
             const SFUInt32            *getSFServerRows      (void) const;
 
@@ -192,6 +200,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
 
                   std::string         &editServers        (const UInt32 index);
             const std::string         &getServers         (const UInt32 index) const;
+
+                  UInt32              &editServerIds      (const UInt32 index);
+                  UInt32               getServerIds       (const UInt32 index) const;
 
                   UInt32              &editServerRows     (void);
                   UInt32               getServerRows      (void) const;
@@ -281,6 +292,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
     SFUnrecChildCSMWindowPtr _sfClientWindow;
     SFBool            _sfRenderClient;
     MFString          _mfServers;
+    MFUInt32          _mfServerIds;
     SFUInt32          _sfServerRows;
     SFString          _sfConnectionType;
     SFString          _sfClusterMode;
@@ -328,6 +340,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
     EditFieldHandlePtr editHandleRenderClient   (void);
     GetFieldHandlePtr  getHandleServers         (void) const;
     EditFieldHandlePtr editHandleServers        (void);
+    GetFieldHandlePtr  getHandleServerIds       (void) const;
+    EditFieldHandlePtr editHandleServerIds      (void);
     GetFieldHandlePtr  getHandleServerRows      (void) const;
     EditFieldHandlePtr editHandleServerRows     (void);
     GetFieldHandlePtr  getHandleConnectionType  (void) const;

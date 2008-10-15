@@ -66,6 +66,7 @@
 #include "OSGWindow.h" // Parent
 
 #include "OSGStringFields.h" // Servers type
+#include "OSGUInt32Fields.h" // ServerIds type
 #include "OSGStringFields.h" // ConnectionType type
 #include "OSGStringFields.h" // ConnectionInterface type
 #include "OSGStringFields.h" // ConnectionDestination type
@@ -106,7 +107,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     enum
     {
         ServersFieldId = Inherited::NextFieldId,
-        ConnectionTypeFieldId = ServersFieldId + 1,
+        ServerIdsFieldId = ServersFieldId + 1,
+        ConnectionTypeFieldId = ServerIdsFieldId + 1,
         ConnectionInterfaceFieldId = ConnectionTypeFieldId + 1,
         ConnectionDestinationFieldId = ConnectionInterfaceFieldId + 1,
         ConnectionParamsFieldId = ConnectionDestinationFieldId + 1,
@@ -123,6 +125,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 
     static const OSG::BitVector ServersFieldMask =
         (TypeTraits<BitVector>::One << ServersFieldId);
+    static const OSG::BitVector ServerIdsFieldMask =
+        (TypeTraits<BitVector>::One << ServerIdsFieldId);
     static const OSG::BitVector ConnectionTypeFieldMask =
         (TypeTraits<BitVector>::One << ConnectionTypeFieldId);
     static const OSG::BitVector ConnectionInterfaceFieldMask =
@@ -151,6 +155,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFString          MFServersType;
+    typedef MFUInt32          MFServerIdsType;
     typedef SFString          SFConnectionTypeType;
     typedef SFString          SFConnectionInterfaceType;
     typedef SFString          SFConnectionDestinationType;
@@ -191,6 +196,9 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
                   MFString            *editMFServers        (void);
             const MFString            *getMFServers         (void) const;
 
+                  MFUInt32            *editMFServerIds      (void);
+            const MFUInt32            *getMFServerIds       (void) const;
+
                   SFString            *editSFConnectionType (void);
             const SFString            *getSFConnectionType  (void) const;
 
@@ -228,6 +236,9 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 
                   std::string         &editServers        (const UInt32 index);
             const std::string         &getServers         (const UInt32 index) const;
+
+                  UInt32              &editServerIds      (const UInt32 index);
+                  UInt32               getServerIds       (const UInt32 index) const;
 
                   std::string         &editConnectionType (void);
             const std::string         &getConnectionType  (void) const;
@@ -340,6 +351,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \{                                                                 */
 
     MFString          _mfServers;
+    MFUInt32          _mfServerIds;
     SFString          _sfConnectionType;
     SFString          _sfConnectionInterface;
     SFString          _sfConnectionDestination;
@@ -382,6 +394,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 
     GetFieldHandlePtr  getHandleServers         (void) const;
     EditFieldHandlePtr editHandleServers        (void);
+    GetFieldHandlePtr  getHandleServerIds       (void) const;
+    EditFieldHandlePtr editHandleServerIds      (void);
     GetFieldHandlePtr  getHandleConnectionType  (void) const;
     EditFieldHandlePtr editHandleConnectionType (void);
     GetFieldHandlePtr  getHandleConnectionInterface (void) const;

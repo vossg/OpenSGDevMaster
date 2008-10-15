@@ -413,7 +413,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     friend class WindowBase;
 
     static std::vector<Window *> _allWindows;
-    static UInt32                _currentWindowId;
+    static Int32                 _currentWindowId;
 
     /*---------------------------------------------------------------------*/
     /*! \name   Static GL Object / Extension variables                     */
@@ -456,7 +456,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     ConstHash                         _availConstants;
     UInt32                            _numAvailConstants;
 
-    UInt32                            _windowId;
+    Int32                             _windowId;
     StageValidator                   *_pStageValidator;
 
     /*! \}                                                                 */

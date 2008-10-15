@@ -496,12 +496,25 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
     {
         fcPtr = fcFactory->getContainer((*changedI)->uiContainerId);
 
+#if 0
+        if(fcPtr != NULL)
+        {
+            fprintf(stderr, "try syncing %s\n",
+                    fcPtr->getType().getCName());
+        }
+#endif
+
         if((fcPtr  == NULL                                      ) || 
            (0x0000 == (fcPtr->getFieldFlags()->_bNamespaceMask & 
                        FCLocal::Cluster                         ))  )
         {
             continue;
         }
+
+#if 0
+        fprintf(stderr, "    really syncing %s\n",
+                    fcPtr->getType().getCName());
+#endif
 
         if((*changedI)->uiEntryDesc == ContainerChangeEntry::Change)
         {

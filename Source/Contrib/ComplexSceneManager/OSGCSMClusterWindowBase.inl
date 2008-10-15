@@ -238,6 +238,22 @@ std::string &CSMClusterWindowBase::editServers(const UInt32 index)
 }
 
 
+//! Get the value of the \a index element the CSMClusterWindow::_mfServerIds field.
+inline
+      UInt32  CSMClusterWindowBase::getServerIds(const UInt32 index) const
+{
+    return _mfServerIds[index];
+}
+
+inline
+UInt32 &CSMClusterWindowBase::editServerIds(const UInt32 index)
+{
+    editMField(ServerIdsFieldMask, _mfServerIds);
+
+    return _mfServerIds[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -257,6 +273,12 @@ void CSMClusterWindowBase::execSync (      CSMClusterWindowBase *pFrom,
 
     if(FieldBits::NoField != (ServersFieldMask & whichField))
         _mfServers.syncWith(pFrom->_mfServers,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ServerIdsFieldMask & whichField))
+        _mfServerIds.syncWith(pFrom->_mfServerIds,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

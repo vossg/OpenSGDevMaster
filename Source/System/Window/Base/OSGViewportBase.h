@@ -76,6 +76,7 @@
 #include "OSGForegroundFields.h" // Foregrounds type
 #include "OSGUInt32Fields.h" // TravMask type
 #include "OSGReal32Fields.h" // DrawTime type
+#include "OSGInt32Fields.h" // DrawableId type
 
 #include "OSGViewportFields.h"
 
@@ -114,7 +115,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         ForegroundsFieldId = BackgroundFieldId + 1,
         TravMaskFieldId = ForegroundsFieldId + 1,
         DrawTimeFieldId = TravMaskFieldId + 1,
-        NextFieldId = DrawTimeFieldId + 1
+        DrawableIdFieldId = DrawTimeFieldId + 1,
+        NextFieldId = DrawableIdFieldId + 1
     };
 
     static const OSG::BitVector LeftFieldMask =
@@ -139,6 +141,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << TravMaskFieldId);
     static const OSG::BitVector DrawTimeFieldMask =
         (TypeTraits<BitVector>::One << DrawTimeFieldId);
+    static const OSG::BitVector DrawableIdFieldMask =
+        (TypeTraits<BitVector>::One << DrawableIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -153,6 +157,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     typedef MFUnrecForegroundPtr MFForegroundsType;
     typedef SFUInt32          SFTravMaskType;
     typedef SFReal32          SFDrawTimeType;
+    typedef SFInt32           SFDrawableIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -204,6 +209,9 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   SFReal32            *editSFDrawTime       (void);
             const SFReal32            *getSFDrawTime        (void) const;
 
+                  SFInt32             *editSFDrawableId     (void);
+            const SFInt32             *getSFDrawableId      (void) const;
+
 
                   Real32              &editLeft           (void);
                   Real32               getLeft            (void) const;
@@ -231,6 +239,9 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   Real32              &editDrawTime       (void);
                   Real32               getDrawTime        (void) const;
 
+                  Int32               &editDrawableId     (void);
+                  Int32                getDrawableId      (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -245,6 +256,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
             void setBackground     (Background * const value);
             void setTravMask       (const UInt32 value);
             void setDrawTime       (const Real32 value);
+            void setDrawableId     (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -322,6 +334,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     MFUnrecForegroundPtr _mfForegrounds;
     SFUInt32          _sfTravMask;
     SFReal32          _sfDrawTime;
+    SFInt32           _sfDrawableId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -383,6 +396,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     EditFieldHandlePtr editHandleTravMask       (void);
     GetFieldHandlePtr  getHandleDrawTime        (void) const;
     EditFieldHandlePtr editHandleDrawTime       (void);
+    GetFieldHandlePtr  getHandleDrawableId      (void) const;
+    EditFieldHandlePtr editHandleDrawableId     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

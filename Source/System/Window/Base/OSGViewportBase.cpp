@@ -162,6 +162,10 @@ OSG_BEGIN_NAMESPACE
     Drawtime of the last frame using this viewport.
 */
 
+/*! \var Int32           ViewportBase::_sfDrawableId
+    DrawableId to select viewport dependent elements (e.g. Distortion filter).
+*/
+
 
 void ViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -305,6 +309,18 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Viewport::editHandleDrawTime),
         static_cast<FieldGetMethodSig >(&Viewport::getHandleDrawTime));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "drawableId",
+        "DrawableId to select viewport dependent elements (e.g. Distortion filter).\n",
+        DrawableIdFieldId, DrawableIdFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleDrawableId),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleDrawableId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -475,6 +491,16 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDrawtime of the last frame using this viewport.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"drawableId\"\n"
+    "\t   type=\"Int32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"-1\"\n"
+    "\t>\n"
+    "    DrawableId to select viewport dependent elements (e.g. Distortion filter).\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowsViewports\n"
@@ -654,6 +680,19 @@ const SFReal32 *ViewportBase::getSFDrawTime(void) const
 }
 
 
+SFInt32 *ViewportBase::editSFDrawableId(void)
+{
+    editSField(DrawableIdFieldMask);
+
+    return &_sfDrawableId;
+}
+
+const SFInt32 *ViewportBase::getSFDrawableId(void) const
+{
+    return &_sfDrawableId;
+}
+
+
 
 
 void ViewportBase::addForeground(Foreground * const value)
@@ -761,6 +800,10 @@ UInt32 ViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDrawTime.getBinSize();
     }
+    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
+    {
+        returnValue += _sfDrawableId.getBinSize();
+    }
 
     return returnValue;
 }
@@ -814,6 +857,10 @@ void ViewportBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDrawTime.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
+    {
+        _sfDrawableId.copyToBin(pMem);
+    }
 }
 
 void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
@@ -864,6 +911,10 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
     {
         _sfDrawTime.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
+    {
+        _sfDrawableId.copyFromBin(pMem);
     }
 }
 
@@ -970,7 +1021,8 @@ ViewportBase::ViewportBase(void) :
     _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
-    _sfDrawTime               (Real32(0.0f))
+    _sfDrawTime               (Real32(0.0f)),
+    _sfDrawableId             (Int32(-1))
 {
 }
 
@@ -986,7 +1038,8 @@ ViewportBase::ViewportBase(const ViewportBase &source) :
     _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfTravMask               (source._sfTravMask               ),
-    _sfDrawTime               (source._sfDrawTime               )
+    _sfDrawTime               (source._sfDrawTime               ),
+    _sfDrawableId             (source._sfDrawableId             )
 {
 }
 
@@ -1357,6 +1410,29 @@ EditFieldHandlePtr ViewportBase::editHandleDrawTime       (void)
 
 
     editSField(DrawTimeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ViewportBase::getHandleDrawableId      (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfDrawableId,
+             this->getType().getFieldDesc(DrawableIdFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleDrawableId     (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfDrawableId,
+             this->getType().getFieldDesc(DrawableIdFieldId)));
+
+
+    editSField(DrawableIdFieldMask);
 
     return returnValue;
 }

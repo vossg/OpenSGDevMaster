@@ -176,7 +176,7 @@ void WindowBase::setGlObjectEventCounter(const UInt32 value)
 //! Get the value of the Window::_sfDrawerId field.
 
 inline
-UInt32 &WindowBase::editDrawerId(void)
+Int32 &WindowBase::editDrawerId(void)
 {
     editSField(DrawerIdFieldMask);
 
@@ -185,14 +185,14 @@ UInt32 &WindowBase::editDrawerId(void)
 
 //! Get the value of the Window::_sfDrawerId field.
 inline
-      UInt32  WindowBase::getDrawerId(void) const
+      Int32  WindowBase::getDrawerId(void) const
 {
     return _sfDrawerId.getValue();
 }
 
 //! Set the value of the Window::_sfDrawerId field.
 inline
-void WindowBase::setDrawerId(const UInt32 value)
+void WindowBase::setDrawerId(const Int32 value)
 {
     editSField(DrawerIdFieldMask);
 
