@@ -427,9 +427,11 @@ void Surface::tessellate(void)
         if(err)
             return;
         buildSurface(tris, gverts, norms, texturecoords);
-
     }
 
+    // invalidate the volume cache -- strictly speaking this is only needed
+    // for rational surfaces
+    _volumeCache.setEmpty();
 
 //        std::cerr<<"Surface::tessellate:   texcoords ptr: " << getTexCoords() << std::endl;
 //        std::cerr<<"Surface::tessellate:   texcoords1 ptr: " << getTexCoords1() << std::endl;
@@ -478,6 +480,10 @@ void Surface::reTessellate(void)
         buildSurface(tris, gverts, norms, texturecoords);
 
     }
+
+    // invalidate the volume cache -- strictly speaking this is only needed
+    // for rational surfaces
+    _volumeCache.setEmpty();
 
 //        std::cerr<<"Surface::reTessellate:   texcoords ptr: " << getTexCoords() << std::endl;
 //        std::cerr<<"Surface::reTessellate:   texcoords1 ptr: " << getTexCoords1() << std::endl;
@@ -1902,11 +1908,19 @@ void Surface::handleDestroyGL(DrawEnv                *pEnv,
 // FIXME: redo the calculation...
 void Surface::adjustVolume(Volume & volume)
 {
+    if(!_volumeCache.isEmpty())
+    {
+        // use cached volume.
+        volume.setValid();
+        volume.extendBy(_volumeCache);
+
+        return;
+    }
+
     GeoVectorProperty *pos             = getControlPoints();
     bool               has_zeroweights = false;
 
-    volume.setValid();
-    volume.setEmpty();
+    _volumeCache.setValid();
 
     GeoPnt3fProperty *pPos    = dynamic_cast<GeoPnt3fProperty *>(pos);
     GeoPnt4fProperty *pRatPos = dynamic_cast<GeoPnt4fProperty *>(pos);
@@ -1918,7 +1932,7 @@ void Surface::adjustVolume(Volume & volume)
     {
         for(UInt32 i = 0; i < pPos->size(); ++i)
         {
-            volume.extendBy(pPos->getValue(i));
+            _volumeCache.extendBy(pPos->getValue(i));
         }
     }
     else if(pRatPos != NULL)
@@ -1932,7 +1946,7 @@ void Surface::adjustVolume(Volume & volume)
                 pnt[0] = pRatPos->getField()[i][0] / pRatPos->getField()[i][3];
                 pnt[1] = pRatPos->getField()[i][1] / pRatPos->getField()[i][3];
                 pnt[2] = pRatPos->getField()[i][2] / pRatPos->getField()[i][3];
-                volume.extendBy(pnt);
+                _volumeCache.extendBy(pnt);
             }
             else
             {
@@ -1940,6 +1954,7 @@ void Surface::adjustVolume(Volume & volume)
             }
         }
     }
+
     if(has_zeroweights)
     {
         GeoVectorProperty *points = getPositions();
@@ -1947,7 +1962,7 @@ void Surface::adjustVolume(Volume & volume)
         {
             for(UInt32 i = 0; i < points->size(); ++i)
             {
-                volume.extendBy(points->getValue<Pnt3r>(i));
+                _volumeCache.extendBy(points->getValue<Pnt3r>(i));
             }
         }
         // FIXME: a warning should be printed here since the calculated
@@ -1958,6 +1973,8 @@ void Surface::adjustVolume(Volume & volume)
         // FIXME: e.g. when the SSM::showall() method is called).
         // FIXME: Better suggestions are welcome.
     }
+
+    volume.extendBy(_volumeCache);
 }
 
 void Surface::forceTessellate(void)

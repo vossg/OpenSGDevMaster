@@ -560,11 +560,11 @@ void Geometry::changed(ConstFieldMaskArg whichField,
     {
         for(UInt32 i = 0; i < _mfParents.size(); i++)
         {
-            _volumeCache.setValid();
-            _volumeCache.setEmpty();
-
             _mfParents[i]->invalidateVolume();
         }
+
+        _volumeCache.setValid();
+        _volumeCache.setEmpty();
     }
 
     Inherited::changed(whichField, origin, details);
