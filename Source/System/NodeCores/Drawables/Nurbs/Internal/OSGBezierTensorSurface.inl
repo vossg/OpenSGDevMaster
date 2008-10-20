@@ -35,61 +35,37 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
-#ifndef _OSG_BSPLINEBASISFUNCTION_H_
-#define _OSG_BSPLINEBASISFUNCTION_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
-
-
-#include "OSGdctptypes.h"
-#include <fstream>
-#include <string>
-#include <iomanip>
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_DRAWABLE_DLLMAPPING BSplineBasisFunction
+inline BezierTensorSurface::BezierTensorSurface(void) :
+    control_points()
 {
+    // nothing to do
+}
 
-  public:
-    inline  BSplineBasisFunction(void); //sets invalid knots, you must set them later
-    inline ~BSplineBasisFunction(void);
+inline BezierTensorSurface::BezierTensorSurface(const DCTPVec4dmatrix &cps) :
+    control_points(cps)
+{
+    // nothing to do
+}
 
-    //setup methods
-    int setKnotVector(const DCTPdvector &k); //sets knot vector, preventing its increasing feature
+inline BezierTensorSurface::BezierTensorSurface(
+    const BezierTensorSurface &bts) :
 
-    //query methods
-    inline DCTPdvector& getKnotVector(void);
+    control_points(bts.control_points)
+{
+    // nothing to do
+}
 
-    void getParameterInterval(double &minpar, double &maxpar); //returns minimal and maximal parameter value
+inline BezierTensorSurface::~BezierTensorSurface(void)
+{
+    // nothing to do
+}
 
-    //I/O support - FIXME: read( char *fname ) outta be supported , etc
-    int read(std::istream &infile);
-    int write(std::ostream &outfile);
-
-    //some REAL funcionality
-    //returns < 0 on error, otherwise the (original) span index into which the knot is inserted
-    int    insertKnot(double k); //insert a new knot vector at it's correct point
-    double compute(double u, int i, int p); //returns value at u
-    int    computeAllNonzero(double u, int p, double *&rpd_n); // computes all nonzero basis functions at u
-    int    computeDersBasisFuns(double dU, int iP, double **&rppdDers, int iDepth); // computes all nonzero derivates at u
-
-  protected:
-    int CheckKnotPoints(const DCTPdvector &k);
-    int findSpan(double &u); //gives the knotspan u is in
-    DCTPdvector knots; //the knot vector, see dctptypes.h
-//file format constants
-    static const char ff_const_1[];
-    static const char ff_const_2[];
-    static const char ff_const_3[];
-};
+inline DCTPVec4dmatrix &BezierTensorSurface::getControlPointMatrix(void)
+{
+    return control_points;
+}
 
 OSG_END_NAMESPACE
-
-#include <OSGBSplineBasisFunction.inl>
-
-#endif /* _OSG_BSPLINEBASISFUNCTION_H_ */

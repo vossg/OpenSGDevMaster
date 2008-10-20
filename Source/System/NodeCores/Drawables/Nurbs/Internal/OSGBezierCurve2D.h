@@ -82,21 +82,15 @@ class OSG_DRAWABLE_DLLMAPPING BezierCurve2D
     void   AddNthHermitePoints(Vec3d d0, Vec3d d1);
 
   public:
-    BezierCurve2D();
-    ~BezierCurve2D() {}
-    BezierCurve2D(BezierCurve2D const & b)
-    {
-        control_points = b.control_points;
-    }
+    inline  BezierCurve2D(void                  );
+    inline  BezierCurve2D(const BezierCurve2D &b);
+    inline ~BezierCurve2D(void                  );
 
     //setup functions
     int setControlPointVector(const DCTPVec3dvector& cps); //ok, acts like its name says
 
     //query functions
-    DCTPVec3dvector& getControlPointVector(void)
-    {
-        return control_points;
-    }                                                                       //guess what!
+    inline DCTPVec3dvector& getControlPointVector(void);
 
     //some REAL functionality
     Vec2d computewdeCasteljau(double t, int &error); //compute curve at parameter value t
@@ -113,16 +107,11 @@ class OSG_DRAWABLE_DLLMAPPING BezierCurve2D
     // computing degree of a nonrational curve with eps. error
     unsigned int computeNonratApproximationDegree(double eps) const;
 
-    inline void optimizeDegree()
-    {
-//	  std::cerr << "reduce degree (2d): " << control_points.size( ) - 1;
-        while(reduceDegree() )
-        {
-        }
-//	  std::cerr << " -> " << control_points.size( ) - 1 << std::endl;
-    }
+    inline void optimizeDegree(void);
 };
 
 OSG_END_NAMESPACE
+
+#include <OSGBezierCurve2D.inl>
 
 #endif //BezierCurve2D.h

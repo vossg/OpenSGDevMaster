@@ -206,7 +206,7 @@ class OSG_DRAWABLE_DLLMAPPING Surface : public SurfaceBase
     // FIXME: this is UGLY, having 3 variables for almost the same thing
     // OK, it's just two now, but still...
     BSplineTrimmedSurface *_trimmedSurface;     // internal representation
-    CNurbsPatchSurface *_surfacePatch;          // encompassing class 
+    CNurbsPatchSurface    *_surfacePatch;       // encompassing class 
                                                 // (tessellator class)
     Pnt3d   _min;                               // trimming curves BB
     Pnt3d   _max;

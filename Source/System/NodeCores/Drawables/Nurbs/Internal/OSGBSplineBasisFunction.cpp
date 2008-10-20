@@ -54,10 +54,6 @@ const char BSplineBasisFunction::ff_const_1[] = "BEGINBSPLINEBASISFUNCTION";
 const char BSplineBasisFunction::ff_const_2[] = "NUMBEROFKNOTS";
 const char BSplineBasisFunction::ff_const_3[] = "KNOTS";
 
-BSplineBasisFunction::BSplineBasisFunction()
-{
-    knots.resize(0);
-}
 
 //setup methods
 int BSplineBasisFunction::setKnotVector(const DCTPdvector &k)

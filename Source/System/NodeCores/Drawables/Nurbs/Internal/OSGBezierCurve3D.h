@@ -68,7 +68,7 @@ class OSG_DRAWABLE_DLLMAPPING BezierCurve3D
 
     DCTPVec4dvector control_points; //control points of the curve
 
-    static std::vector<std::vector<std::vector<double> > > m_svvvdCreateMatrix;
+//     static std::vector<std::vector<std::vector<double> > > m_svvvdCreateMatrix;
     Vec4d computewdeCasteljau4D(double t, int &error); //compute curve at parameter value t
 
   public:
@@ -79,17 +79,14 @@ class OSG_DRAWABLE_DLLMAPPING BezierCurve3D
     static const unsigned char DISTANCE       = 2;
     static const unsigned char POINT_DISTANCE = 0;
     static const unsigned char LINE_DISTANCE  = 2;
-    BezierCurve3D();
-    ~BezierCurve3D() {}
+    inline  BezierCurve3D(void);
+    inline ~BezierCurve3D(void);
 
     //setup functions
     int setControlPointVector(const DCTPVec4dvector& cps); //ok, acts like its name says
 
     //query functions
-    DCTPVec4dvector& getControlPointVector(void)
-    {
-        return control_points;
-    }                                                                       //guess what!
+    inline DCTPVec4dvector& getControlPointVector(void);
 
     //some REAL functionality
     Vec3d computewdeCasteljau(double t, int &error); //compute curve at parameter value t
@@ -102,16 +99,11 @@ class OSG_DRAWABLE_DLLMAPPING BezierCurve3D
     int   createCurve(DCTPVec4dvector &points); // generate a (rational) bezier curve through these points
     bool  reduceDegree(double tol = DCTP_EPS);
 
-    inline void optimizeDegree()
-    {
-//	  std::cerr << "reduce degree (3d): " << control_points.size( ) - 1;
-        while(reduceDegree(0.001) )
-        {
-        }
-//	  std::cerr << " -> " << control_points.size( ) - 1 << std::endl;
-    }
+    inline void optimizeDegree(void);
 };
 
 OSG_END_NAMESPACE
+
+#include <OSGBezierCurve3D.inl>
 
 #endif //BezierCurve3D.h

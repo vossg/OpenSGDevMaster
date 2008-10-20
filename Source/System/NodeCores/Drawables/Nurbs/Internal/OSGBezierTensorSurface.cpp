@@ -50,12 +50,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-//construction (& destruction, but not here :)
-BezierTensorSurface::BezierTensorSurface()
-{
-    control_points.resize(0);
-}
-
 //setup functions
 int BezierTensorSurface::setControlPointMatrix(const DCTPVec4dmatrix& cps)
 {

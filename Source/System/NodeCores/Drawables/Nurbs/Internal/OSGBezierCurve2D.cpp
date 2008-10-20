@@ -51,12 +51,6 @@ static char THIS_FILE[] = __FILE__;
  #endif
 #endif
 
-//construction (& destruction, but not here :)
-BezierCurve2D::BezierCurve2D(void)
-{
-    control_points.resize(0);
-}
-
 //setup functions
 int BezierCurve2D::setControlPointVector(const DCTPVec3dvector& cps)
 {

@@ -67,25 +67,16 @@ class OSG_DRAWABLE_DLLMAPPING BezierTensorSurface
     DCTPVec4dmatrix control_points; //control points of the surface
 
   public:
-    BezierTensorSurface();
-    BezierTensorSurface(const DCTPVec4dmatrix &cps)
-    {
-        control_points = cps;
-    }
-    BezierTensorSurface(const BezierTensorSurface &bts)
-    {
-        control_points = bts.control_points;
-    }
-    ~BezierTensorSurface() {}
+    inline  BezierTensorSurface(void                          );
+    inline  BezierTensorSurface(const DCTPVec4dmatrix     &cps);
+    inline  BezierTensorSurface(const BezierTensorSurface &bts);
+    inline ~BezierTensorSurface(void                          );
 
     //setup functions
     int setControlPointMatrix(const DCTPVec4dmatrix& cps); //ok, acts like its name says
 
     //query functions
-    DCTPVec4dmatrix& getControlPointMatrix(void)
-    {
-        return control_points;
-    }                                                                       //guess what!
+    inline DCTPVec4dmatrix& getControlPointMatrix(void);
 
     //some REAL functionality
     Vec3d computewdeCasteljau(Vec2d uv, int &error); //compute curve at parameter value t
@@ -97,5 +88,7 @@ class OSG_DRAWABLE_DLLMAPPING BezierTensorSurface
 };
 
 OSG_END_NAMESPACE
+
+#include <OSGBezierTensorSurface.inl>
 
 #endif //BezierTensorSurface.h
