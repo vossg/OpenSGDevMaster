@@ -296,6 +296,8 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
     static  Surface            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  SurfaceTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -304,6 +306,8 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

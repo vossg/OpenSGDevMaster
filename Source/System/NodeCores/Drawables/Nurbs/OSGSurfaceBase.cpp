@@ -1013,6 +1013,22 @@ SurfaceTransitPtr SurfaceBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+SurfaceTransitPtr SurfaceBase::createDependent(BitVector bFlags)
+{
+    SurfaceTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<Surface>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 SurfaceTransitPtr SurfaceBase::create(void)
 {
@@ -1064,6 +1080,20 @@ FieldContainerTransitPtr SurfaceBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SurfaceBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    Surface *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const Surface *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

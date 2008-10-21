@@ -206,7 +206,7 @@ DisplayFilterStageDataBase::TypeObject DisplayFilterStageDataBase::_type(
     "<FieldContainer\n"
     "    name=\"DisplayFilterStageData\"\n"
     "    parent=\"StageData\"\n"
-    "    library=\"Group\"\n"
+    "    library=\"EffectGroups\"\n"
     "    pointerfieldtypes=\"none\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"

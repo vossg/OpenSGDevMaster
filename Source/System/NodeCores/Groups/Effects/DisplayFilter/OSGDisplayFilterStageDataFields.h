@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGEffectGroupsDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -74,7 +74,7 @@ OSG_GEN_CONTAINERPTR(DisplayFilterStageData);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpEffectGroupsFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */

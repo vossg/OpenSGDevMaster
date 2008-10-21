@@ -135,6 +135,8 @@ class OSG_DRAWABLE_DLLMAPPING FatBorderChunkBase : public VertexProgramChunk
     static  FatBorderChunk            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  FatBorderChunkTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -143,6 +145,8 @@ class OSG_DRAWABLE_DLLMAPPING FatBorderChunkBase : public VertexProgramChunk
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -1873,6 +1873,8 @@ UInt32 Surface::handleGL(DrawEnv                *pEnv,
             editDirtyMask() &= ~(TESSELLATE | RETESSELLATE);
         }
     }
+
+    return 0;
 }
 
 void Surface::handleDestroyGL(DrawEnv                *pEnv,

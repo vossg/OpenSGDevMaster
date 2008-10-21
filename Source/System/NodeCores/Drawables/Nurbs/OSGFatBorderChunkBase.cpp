@@ -170,6 +170,22 @@ FatBorderChunkTransitPtr FatBorderChunkBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+FatBorderChunkTransitPtr FatBorderChunkBase::createDependent(BitVector bFlags)
+{
+    FatBorderChunkTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<FatBorderChunk>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 FatBorderChunkTransitPtr FatBorderChunkBase::create(void)
 {
@@ -221,6 +237,20 @@ FieldContainerTransitPtr FatBorderChunkBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr FatBorderChunkBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    FatBorderChunk *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const FatBorderChunk *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }
