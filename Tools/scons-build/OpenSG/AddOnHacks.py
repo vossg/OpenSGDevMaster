@@ -627,7 +627,7 @@ def VariantsHelperFillDefaultVariants(self, varKeys):
       if "type" in varKeys:
          self.variants["type"] = [["debug","optimized"], True]
          if sca_util.GetPlatform() == "win32":
-            self.variants["type"][0].append("hybrid")
+            self.variants["type"][0].append("debugrt")
       
       if "libtype" in varKeys:
          self.variants["libtype"] = [["shared","static"], False]

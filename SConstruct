@@ -934,6 +934,8 @@ if not SConsAddons.Util.hasHelpFlag():
 
          if "debug" == combo["type"]:
             inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debug")
+         elif "debugrt" == combo["type"]:
+            inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debugrt")
          else:
             inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"opt")
       
