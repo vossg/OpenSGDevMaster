@@ -65,29 +65,20 @@ class DCTPEdge;
 class OSG_DRAWABLE_DLLMAPPING TrimSegment
 {
   public:
-    TrimSegment()
-    {
-        start = end = NULL;
-    }
-    TrimSegment(const TrimSegment &ts)
-    {
-        trimbeziers = ts.trimbeziers;
-        start       = ts.start;
-        end         = ts.end;
-    }
-    ~TrimSegment() {}
-    bezier2dvector trimbeziers;
-    DCTPVertex    *start;
-    DCTPVertex    *end;
+    inline  TrimSegment(void                 );
+    inline  TrimSegment(const TrimSegment &ts);
+    inline ~TrimSegment(void                 );
+
+    bezier2dvector  trimbeziers;
+    DCTPVertex     *start;
+    DCTPVertex     *end;
 };
 
 class OSG_DRAWABLE_DLLMAPPING DCTPFace
 {
   public:
-    DCTPFace()
-    {
-    }
-    ~DCTPFace() {}
+    inline  DCTPFace(void);
+    inline ~DCTPFace(void);
 
     std::vector<DCTPVertex*> vertices;
     std::vector<DCTPEdge*>   edges;
@@ -102,88 +93,21 @@ class OSG_DRAWABLE_DLLMAPPING DCTPFace
     unsigned long            id;
     std::vector<TrimSegment> trimseg;
     void                    *faceinfo;
-    void AddVertex(DCTPVertex *v)
-    {
-        //FIXME: check for adding existing vertex?
-        vertices.push_back(v);
-    }
-    void RemoveVertex(DCTPVertex *v)
-    {
-        std::vector<DCTPVertex*> ::iterator ve      = vertices.end();
-        bool                                removed = false;
 
-        for(std::vector<DCTPVertex*>::iterator i = vertices.begin(); i != ve; ++i)
-            if(*i == v)
-            {
-                removed = true;
-                vertices.erase(i);
-                break;
-            }
+    inline void AddVertex    (DCTPVertex *v                     );
+    inline void RemoveVertex (DCTPVertex *v                     );
+    inline void ReplaceVertex(DCTPVertex *oldv, DCTPVertex *newv);
 
-        if(!removed)
-            std::cerr << "DCTPFace::RemoveVertex: trying to remove nonexistant vertex..." << std::endl;
-    }
-    //to keep the order of the vertices
-    void ReplaceVertex(DCTPVertex *oldv, DCTPVertex *newv)
-    {
-        std::vector<DCTPVertex*> ::iterator ve       = vertices.end();
-        bool                                replaced = false;
+    inline void AddEdge   (DCTPEdge *e);
+    inline void RemoveEdge(DCTPEdge *e);
 
-        for(std::vector<DCTPVertex*>::iterator i = vertices.begin(); i != ve; ++i)
-            if(*i == oldv)
-            {
-                replaced = true;
-                *i       = newv;
-                break;
-            }
-
-        if(!replaced)
-            std::cerr << "DCTPFace::ReplaceVertex: trying to replace nonexistant vertex..." << std::endl;
-    }
-    void AddEdge(DCTPEdge *e)
-    {
-        //FIXME: check for adding existing edge?
-        edges.push_back(e);
-    }
-    void RemoveEdge(DCTPEdge *e)
-    {
-        std::vector<DCTPEdge*> ::iterator ee      = edges.end();
-        bool                              removed = false;
-
-        for(std::vector<DCTPEdge*>::iterator i = edges.begin(); i != ee; ++i)
-            if(*i == e)
-            {
-                removed = true;
-                edges.erase(i);
-                break;
-            }
-
-        if(!removed)
-        {
-            std::cerr << "DCTPFace::RemoveEdge: trying to remove nonexistant edge..." << std::endl;
-        }
-    }
-    void dump_triangle(void)
-    {
-#ifdef OSG_UNION_TRI_QUAD
-//FIXME: operator<< deprecated
-//      std::cerr << orig_face[ 0 ]->coords << ' ' << orig_face[ 1 ]->coords << ' ' << orig_face[ 2 ]->coords;
-//	  if( orig_face[ 3 ] ) std::cerr << ' ' << orig_face[ 3 ]->coords;
-        std::cerr << std::endl;
-#else
-        if(orig_triangle[0])
-//        std::cerr << orig_triangle[ 0 ]->coords << ' ' << orig_triangle[ 1 ]->coords
-//             << ' ' << orig_triangle[ 2 ]->coords << std::endl;
-            else
-//		  std::cerr << orig_quad[ 0 ]->coords << " " << orig_quad[ 1 ]->coords << " "
-//			   << orig_quad[ 2 ]->coords << " " << orig_quad[ 3 ]->coords << std::endl;
-#endif
-    }
-
+    inline void dump_triangle(void);
 };
 
 typedef std::vector<DCTPFace*> dctpfacevector;
 
 OSG_END_NAMESPACE
+
+#include <OSGDCTPFace.inl>
 
 #endif // DCTPFace.h

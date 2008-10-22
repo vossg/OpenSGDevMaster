@@ -76,8 +76,8 @@ class OSG_DRAWABLE_DLLMAPPING BSplineTensorSurface
     void RatSurfaceDerivs(DCTPVec4dmatrix &rclHomDerivs, DCTPVec3dmatrix &rclEuclidDerivs);
 
   public:
-    BSplineTensorSurface();
-    ~BSplineTensorSurface() {}
+    inline  BSplineTensorSurface(void);
+    inline ~BSplineTensorSurface(void);
 
     //setup functions
     // FIXME: the setup interface is very rigid, maybe it should allow knot & dimension setting alone, eg. to resize dimension, etc
@@ -86,30 +86,17 @@ class OSG_DRAWABLE_DLLMAPPING BSplineTensorSurface
     void setControlPointMatrix(const DCTPVec4dmatrix &cps); //set control point vector
 
     //query functions
-    DCTPdvector& getKnotVector_U(void); //return knot points of basisfunction_u
-    DCTPdvector& getKnotVector_V(void); //return knot points of basisfunction_u
-    DCTPVec4dmatrix& getControlPointMatrix(void)
-    {
-        return control_points;
-    }                                                                       //guess what!
-    int getDimension_U(void)
-    {
-        return dimension_u;
-    }                                                //returns dimension
-    int getDimension_V(void)
-    {
-        return dimension_v;
-    }                                                //returns dimension
+    inline DCTPdvector      &getKnotVector_U      (void);
+    inline DCTPdvector      &getKnotVector_V      (void);
+    inline DCTPVec4dmatrix  &getControlPointMatrix(void);
+    inline int               getDimension_U       (void);
+    inline int               getDimension_V       (void);
+
     void getParameterInterval_U(double &minpar, double &maxpar); //returns minimal and maximal parameter value
     void getParameterInterval_V(double &minpar, double &maxpar); //returns minimal and maximal parameter value
-    BSplineBasisFunction& getBasisFunctionU()
-    {
-        return basis_function_u;
-    }
-    BSplineBasisFunction& getBasisFunctionV()
-    {
-        return basis_function_v;
-    }
+
+    inline BSplineBasisFunction &getBasisFunctionU(void);
+    inline BSplineBasisFunction &getBasisFunctionV(void);
 
     //I/O support - FIXME: read( char *fname ) outta be supported , etc
     int read(std::istream &infile);
@@ -164,4 +151,7 @@ class OSG_DRAWABLE_DLLMAPPING BSplineTensorSurface
 };
 
 OSG_END_NAMESPACE
+
+#include <OSGBSplineTensorSurface.inl>
+
 #endif //BSplineTensorSurface.h

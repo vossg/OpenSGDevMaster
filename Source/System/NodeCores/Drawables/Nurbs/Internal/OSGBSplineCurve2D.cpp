@@ -54,14 +54,6 @@ const char BSplineCurve2D::ff_const_2[] = "DIMENSION";
 const char BSplineCurve2D::ff_const_3[] = "NUMBEROFCONTROLPOINTS";
 const char BSplineCurve2D::ff_const_4[] = "BEGINRATIONALBSPLINECURVE2D";
 
-//construction (& destruction, but not here :)
-BSplineCurve2D::BSplineCurve2D()
-{
-    dimension = -1; //sets invalid value
-    control_points.resize(0);
-}
-
-
 int BSplineCurve2D::CheckKnotPoints(const DCTPdvector& knots, int dim)
 {
     //now check knotvector whether it has
@@ -136,11 +128,6 @@ void BSplineCurve2D::setControlPointVector(const DCTPVec3dvector &cps)
 }
 
 //query functions
-DCTPdvector& BSplineCurve2D::getKnotVector(void)
-{
-    return basis_function.getKnotVector();
-}
-
 void BSplineCurve2D::getParameterInterval(double &minpar, double &maxpar)
 {
     basis_function.getParameterInterval(minpar, maxpar);

@@ -63,32 +63,18 @@ class OSG_DRAWABLE_DLLMAPPING BSplineTrimmedSurface
 
 // FIXME: proper support for getting/setting stuph
   public:
-    BSplineTrimmedSurface()
-    {
-    }
-    ~BSplineTrimmedSurface() {}
+    inline  BSplineTrimmedSurface(void);
+    inline ~BSplineTrimmedSurface(void);
 
     // I/O support - FIXME: read( char *fname ) outta be supported , etc
     int  read(std::istream &infile);
     int  write(std::ostream &outfile);
     void normalize(void);
 
-    BSplineTensorSurface& getSurface(void)
-    {
-        return surf;
-    }
-    trimmingloop& getTrimmingLoops(void)
-    {
-        return trimming;
-    }
-    int setSurface(BSplineTensorSurface &ts)
-    {
-        surf = ts; return 0;
-    }
-    int setTrimmingLoops(trimmingloop &t)
-    {
-        trimming = t; return 0;
-    }
+    inline BSplineTensorSurface &getSurface      (void                    );
+    inline trimmingloop         &getTrimmingLoops(void                    );
+    inline int                   setSurface      (BSplineTensorSurface &ts);
+    inline int                   setTrimmingLoops(trimmingloop         &t );
 
     //! flips the surface
     void flip(void);
@@ -105,5 +91,7 @@ class OSG_DRAWABLE_DLLMAPPING BSplineTrimmedSurface
 };
 
 OSG_END_NAMESPACE
+
+#include <OSGBSplineTrimmedSurface.inl>
 
 #endif /* _OSG_BSPLINETRIMMEDSURFACE_H_ */

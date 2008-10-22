@@ -72,8 +72,8 @@ class OSG_DRAWABLE_DLLMAPPING BSplineCurve2D
 
 
   public:
-    BSplineCurve2D();
-    ~BSplineCurve2D() {}
+    inline  BSplineCurve2D(void);
+    inline ~BSplineCurve2D(void);
 
     //setup functions
     // FIXME: the setup interface is very rigid, maybe it should allow knot & dimension setting alone, eg. to resize dimension, etc
@@ -81,15 +81,10 @@ class OSG_DRAWABLE_DLLMAPPING BSplineCurve2D
     void setControlPointVector(const DCTPVec3dvector &cps); //set control point vector
 
     //query functions
-    DCTPdvector& getKnotVector(void); //return knot points of basis functions
-    DCTPVec3dvector& getControlPointVector(void)
-    {
-        return control_points;
-    }                                                                       //guess what!
-    int getDimension(void)
-    {
-        return dimension;
-    }                                            //returns dimension
+    inline DCTPdvector&     getKnotVector        (void); //return knot points of basis functions
+    inline DCTPVec3dvector& getControlPointVector(void);
+    inline int              getDimension         (void);
+
     void getParameterInterval(double &minpar, double &maxpar); //returns minimal and maximal parameter value
 
     //I/O support - FIXME: read( char *fname ) outta be supported , etc
@@ -105,5 +100,7 @@ class OSG_DRAWABLE_DLLMAPPING BSplineCurve2D
 };
 
 OSG_END_NAMESPACE
+
+#include <OSGBSplineCurve2D.inl>
 
 #endif //BSplineCurve2D.h

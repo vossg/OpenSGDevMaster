@@ -60,13 +60,6 @@ const char BSplineTensorSurface::ff_const_3[] = "DIMENSIONV";
 const char BSplineTensorSurface::ff_const_4[] = "NUMBEROFCONTROLPOINTS";
 const char BSplineTensorSurface::ff_const_5[] = "BEGINRATIONALBSPLINETENSORSURFACE";
 
-//construction (& destruction, but not here :)
-BSplineTensorSurface::BSplineTensorSurface()
-{
-    dimension_u = dimension_v = -1; //sets invalid value
-    control_points.resize(0);
-}
-
 
 int BSplineTensorSurface::CheckKnotPoints(const DCTPdvector& knots, int dim)
 {
@@ -183,17 +176,6 @@ void BSplineTensorSurface::setControlPointMatrix(const DCTPVec4dmatrix &cps)
 {
     // FIXME: check that this is really a matrix
     control_points = cps;
-}
-
-//query functions
-DCTPdvector& BSplineTensorSurface::getKnotVector_U(void)
-{
-    return basis_function_u.getKnotVector();
-}
-
-DCTPdvector& BSplineTensorSurface::getKnotVector_V(void)
-{
-    return basis_function_v.getKnotVector();
 }
 
 void BSplineTensorSurface::getParameterInterval_U(double &minpar, double &maxpar)
