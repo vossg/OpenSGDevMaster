@@ -167,7 +167,6 @@ typedef boost::function<void (DrawEnv *)> RenderFunctor;
 struct ChangedFunctorCallback
 {
     ChangedFunctor _func;
-    UInt32         _uiId;
     std::string    _createSymbol;
 
     typedef std::allocator<void> Alloc;

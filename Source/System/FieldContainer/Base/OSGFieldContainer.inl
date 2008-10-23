@@ -75,12 +75,10 @@ void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
     MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
     MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
 
-    while(cfIt != cfEnd)
+    for(; cfIt != cfEnd; ++cfIt)
     {
         if(cfIt->_func)
             (cfIt->_func)(this, whichField);
-
-        ++cfIt;
     }
 }
 
@@ -424,18 +422,15 @@ FieldContainer::~FieldContainer(void)
 }
 
 inline
-UInt32 FieldContainer::addChangedFunctor(ChangedFunctor func,
-                                         std::string    createSymbol)
+void FieldContainer::addChangedFunctor(ChangedFunctor func,
+                                       std::string    createSymbol)
 {
     ChangedFunctorCallback oTmp;
 
     oTmp._func         = func;
-    oTmp._uiId         = _mfChangedFunctors.size();
     oTmp._createSymbol = createSymbol;
 
     _mfChangedFunctors.push_back(oTmp);
-
-    return oTmp._uiId;
 }
 
 template<class FunctorT> inline
@@ -444,34 +439,35 @@ void FieldContainer::subChangedFunctor(FunctorT func)
     MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
     MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
 
-    while(cfIt != cfEnd)
+    for(; cfIt != cfEnd; ++cfIt)
     {
         if(cfIt->_func == func)
             break;
-
-        ++cfIt;
     }
 
     if(cfIt != cfEnd)
         _mfChangedFunctors.erase(cfIt);
 }
 
-inline
-void FieldContainer::subChangedFunctor(UInt32 uiId)
+template<class FunctorT> inline
+bool FieldContainer::hasChangedFunctor(FunctorT func)
 {
+    bool returnValue = false;
+
     MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
     MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
 
-    while(cfIt != cfEnd)
+
+    for(; cfIt != cfEnd; ++cfIt)
     {
-        if(cfIt->_uiId == uiId)
+        if(cfIt->_func == func)
+        {
+            returnValue = true;
             break;
-
-        ++cfIt;
+        }
     }
-
-    if(cfIt != cfEnd)
-        _mfChangedFunctors.erase(cfIt);
+    
+    return returnValue;
 }
 
 inline 

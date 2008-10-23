@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,108 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHANGEDFUNCTORFIELDTRAITS_H_
-#define _OSGCHANGEDFUNCTORFIELDTRAITS_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGFieldTraits.h"
-#include "OSGDataType.h"
-
-#include "OSGContainerForwards.h"
-
-OSG_BEGIN_NAMESPACE
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file 
-    \ingroup 
-    \ingroup 
+/* 
+   This is a dummy header to allow automatic inference from the type to the 
+   field type header. 
 */
-#endif
 
-/*! \ingroup 
- */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
-template <>
-struct FieldTraits<ChangedFunctorCallback> : 
-    public FieldTraitsTemplateBase<ChangedFunctorCallback>
-{
-  private:
-
-    static  DataType                            _type;
-
-  public:
-
-    typedef FieldTraits<ChangedFunctorCallback>  Self;
-
-
-    enum             { Convertible = Self::NotConvertible                  };
-
-    static OSG_SYSTEM_DLLMAPPING
-                 DataType &getType      (void);
-
-    static const Char8    *getSName     (void) 
-    {
-        return "SFChangedFunctorCallback";   
-    }
-
-    static const Char8    *getMName     (void)
-    { 
-        return "MFChangedFunctorCallback";   
-    }
-
-
-    static UInt32 getBinSize(const ChangedFunctorCallback &)
-    {
-        return 0; //sizeof(ValueT);
-    }
-
-    static UInt32 getBinSize(const ChangedFunctorCallback *,
-                                   UInt32                  uiNumObjects)
-    {
-        return 0; //sizeof(ValueT) * uiNumObjects;
-    }
-
-    static void copyToBin(      BinaryDataHandler      &pMem,
-                          const ChangedFunctorCallback &oObject)
-    {
-//        pMem.putValue(oObject);
-    }
-
-    static void copyToBin(      BinaryDataHandler      &pMem,
-                          const ChangedFunctorCallback *pObjectStore,
-                                UInt32                  uiNumObjects)
-    {
-//        pMem.putValues(&(pObjectStore[0]), uiNumObjects);
-    }
-
-    static void copyFromBin(BinaryDataHandler      &pMem,
-                            ChangedFunctorCallback &oObject)
-    {
-//        pMem.getValue(oObject);
-    }
-
-    static void copyFromBin(BinaryDataHandler      &pMem,
-                            ChangedFunctorCallback *pObjectStore,
-                            UInt32                  uiNumObjects)
-    {
-//        pMem.getValues(&(pObjectStore[0]), uiNumObjects);
-    }
-};
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<NodeCorePtr> */
-/*! \hideinhierarchy                         */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-OSG_END_NAMESPACE
-
-#endif /* _OSGCHANGEDFUNCTORFIELDTRAITS_H_ */
+#include "OSGChangedFunctorMFields.h"
+#include "OSGChangedFunctorSFields.h"

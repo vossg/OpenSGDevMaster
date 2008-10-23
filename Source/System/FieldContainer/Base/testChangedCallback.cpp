@@ -42,16 +42,16 @@ int main (int argc, char **argv)
    
 
 
-    OSG::UInt32 uiId = pNode->addChangedFunctor(testCB, "");
+    pNode->addChangedFunctor(testCB, "");
 
     pNode->setTravMask(1);
 
-    fprintf(stderr, "Test 2 %d\n", uiId);
+    fprintf(stderr, "Test 2 \n");
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
 
 
-    pNode->subChangedFunctor(uiId);
+    pNode->subChangedFunctor(testCB);
 
     pNode->setTravMask(1);
 
@@ -59,11 +59,11 @@ int main (int argc, char **argv)
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
     
-    uiId = pNode->addChangedFunctor(testCB, "");
+    pNode->addChangedFunctor(testCB, "");
 
     pNode->setTravMask(1);
 
-    fprintf(stderr, "Test 4 %d\n", uiId);
+    fprintf(stderr, "Test 4 \n");
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
 

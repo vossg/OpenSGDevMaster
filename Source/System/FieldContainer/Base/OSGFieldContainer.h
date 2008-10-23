@@ -161,13 +161,14 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-    UInt32 addChangedFunctor   (ChangedFunctor func,
+    void   addChangedFunctor   (ChangedFunctor func,
                                 std::string    createSymbol);
 
     template<class FunctorT>
     void   subChangedFunctor   (FunctorT       func        );
 
-    void   subChangedFunctor   (UInt32         uiId        );
+    template<class FunctorT>
+    bool   hasChangedFunctor   (FunctorT       func        );
 
     void   clearChangedFunctors(void                       );
 
