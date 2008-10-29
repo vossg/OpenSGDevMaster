@@ -173,7 +173,7 @@ void RangeLODBase::execSync (      RangeLODBase *pFrom,
 
 
 inline
-Char8 *RangeLODBase::getClassname(void)
+const Char8 *RangeLODBase::getClassname(void)
 {
     return "RangeLOD";
 }
