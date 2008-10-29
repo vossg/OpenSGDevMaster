@@ -41,7 +41,7 @@
 OSG_BEGIN_NAMESPACE
 
 template<class ValueT> inline
-void swapImageByteOrder(ImagePtrConstArg pImage)
+void swapImageByteOrder(const ImagePtr pImage)
 {
     if(pImage == NULL)
         return;
@@ -57,7 +57,7 @@ void swapImageByteOrder(ImagePtrConstArg pImage)
 }
 
 template<class ValueT, ValueT (*ConvF)(ValueT)> inline
-void swapAndConvertImageByteOrder(ImagePtrConstArg pImage)
+void swapAndConvertImageByteOrder(const ImagePtr pImage)
 {
     if(pImage == NULL)
         return;
